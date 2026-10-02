@@ -33,6 +33,28 @@ def verify_response(
     options: list[dict[str, Any]] | None = None,
 ) -> bool:
     """Return whether `response` matches the authored answer. Ignores any client flag."""
+    from app.observe.otel import span
+
+    with span("verifier", component="verifier"):
+        return _verify_response(
+            response,
+            answer_sympy=answer_sympy,
+            accept=accept,
+            item_type=item_type,
+            verify=verify,
+            options=options,
+        )
+
+
+def _verify_response(
+    response: str,
+    *,
+    answer_sympy: str,
+    accept: list[str] | None = None,
+    item_type: str = "expression",
+    verify: str | dict[str, Any] | None = None,
+    options: list[dict[str, Any]] | None = None,
+) -> bool:
     text = normalize(response)
     expected = normalize(answer_sympy)
     accepted = [normalize(a) for a in (accept or [])]

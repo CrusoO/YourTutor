@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from app.content.loader import LoadError, load_path
+from app.content.review import export_sheet, import_sheet
 from app.content.validator import format_report, validate_path
 
 
@@ -16,6 +17,14 @@ def main(argv: list[str] | None = None) -> int:
     load = sub.add_parser("load")
     load.add_argument("root", type=Path)
     load.add_argument("--database-url", default=None)
+    export = sub.add_parser("export-review")
+    export.add_argument("root", type=Path)
+    export.add_argument("--csv", type=Path, required=True)
+    export.add_argument("--html", type=Path, required=True)
+    imported = sub.add_parser("import-review")
+    imported.add_argument("csv", type=Path)
+    imported.add_argument("root", type=Path)
+    imported.add_argument("--reviewer", required=True)
     args = parser.parse_args(argv)
 
     if args.command == "validate":
@@ -33,6 +42,15 @@ def main(argv: list[str] | None = None) -> int:
             f"OK: {len(bundle.skills)} skills, {len(bundle.items)} items, "
             f"{len(bundle.misconceptions)} misconceptions, {len(bundle.overlays)} overlays"
         )
+        return 0
+
+    if args.command == "export-review":
+        count = export_sheet(args.root, args.csv, args.html)
+        print(f"Exported {count} items")
+        return 0
+    if args.command == "import-review":
+        approved = import_sheet(args.csv, args.root, args.reviewer)
+        print("Approved: " + ", ".join(approved))
         return 0
 
     try:

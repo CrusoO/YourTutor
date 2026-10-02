@@ -461,6 +461,9 @@ def post_session_event(
             event_type=event_type,
             payload=payload,
             created_at=now_utc(),
+            state_before=payload.get("state_before"),
+            state_after=payload.get("state_after"),
+            rule_id=payload.get("rule_id"),
         )
     )
     row.last_active_at = now_utc()

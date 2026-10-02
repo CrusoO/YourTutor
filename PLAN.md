@@ -208,9 +208,27 @@ After each milestone:
 
 ---
 
+## M4.5 — Content / policy / observability / review quality pass
+
+- [x] Item-specific hints 1–2; validator warns at >25% reuse and fails below 3 distinct hint-1 strings per skill with ≥5 practice items
+- [x] Stem structure signatures; ≥3 distinct practice structures per skill; `1x` banned
+- [x] Practice coverage by skill/tier; nearest-tier fallback documented and tested
+- [x] SIMILAR_ITEM / selection: nearest tier, then `content_gap` (skill, tier, item ids seen)
+- [x] Hypothesis scripted-student simulations on seed content
+- [x] Transition table → Mermaid markers in ARCHITECTURE.md; CI fails on drift
+- [x] Actions carry `state_before`, `state_after`, `rule_id`; persisted on events
+- [x] Admin `GET /admin/sessions/{id}/replay` (pseudonymous) + replay verification
+- [x] Optional OpenTelemetry spans behind an off-by-default compose profile; no PII
+- [x] Teacher review CSV/HTML export and allowlisted import with content hash
+
+**Accept:** Postgres validate/load/tests green. **Met 2026-10-02:** seed 126 items (60/36/30), 0 hint-leak errors, ≥3 practice structures and all three tiers per skill, 174 pytest green on Postgres (`yourtutor_test`); `content_gap` + nearest-tier fallback; hypothesis scripted students; review CLI hash reset; transition Mermaid drift test. **Note for M5:** placement diagnostic should use about one item per skill (12 items), with a second item only on borderline results.
+
+---
+
 ## M5 — Diagnostic & checkpoint
 
 - [ ] Placement diagnostic (10–15 min); on completion, seed mastery per skill
+- [ ] **Placement size:** about **one item per skill (12 items)**; a second item only on borderline results
 - [ ] `checkpoint_forms` A and B (matched `match_map`); hard min 10 items/form; **warning below 15**; trials target 15–20
 - [ ] Scoring writes `checkpoint_results` only — **never** mastery/FSRS
 - [ ] `study_participants` (`tutor` \| `comparison`) with `consent_ref`, `assigned_at`, `assignment_method` (record **random** assignment)

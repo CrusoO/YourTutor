@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from app.content.validator import item_tier
 from app.learner.mastery_service import apply_event
 from app.learner.types import LearnerEvent, LearnerState
+from app.orchestrator.transitions import rule_id_for
 from app.orchestrator.types import (
     HARD_ACTIVE_MS,
     IDLE_END_MS,
@@ -27,31 +28,63 @@ from app.verifier.check import leak_check, verify_response
 
 
 def policy(learner: LearnerState, session: SessionState, last_event: Event | None) -> Action:
+    from app.observe.otel import span
+
+    before = session.phase
     session.last_event = last_event
+    with span("policy", component="policy", action_type=last_event.type if last_event else "start"):
+        return _policy(learner, session, last_event, before)
+
+
+def _policy(
+    learner: LearnerState, session: SessionState, last_event: Event | None, before: str
+) -> Action:
     if last_event and last_event.latency_ms is not None:
         session.active_ms += min(last_event.latency_ms, LATENCY_CAP_MS)
         session.last_active_at = session.now
+    finishing = last_event and last_event.type == "show_solution" and session.hint_level_shown >= 2
+    if last_event and last_event.type not in {"answer", "resume"} and not finishing:
+        if _hard_cap(session) or _soft_cap(session):
+            reason = "hard_cap" if _hard_cap(session) else "soft_cap"
+            return _annotate(_end(session, reason, resumable=False), session, before, last_event)
     if session.consent_revoked or (last_event and last_event.type == "consent_revoked"):
-        return _end(session, "consent_revoked", resumable=False)
+        return _annotate(_end(session, "consent_revoked", resumable=False), session, before, last_event)
     if last_event and last_event.type == "resume":
         session.phase = "practice" if session.current_item_id else "start"
         session.ended_reason = None
         if session.last_action and session.last_action.type != "end_session":
-            return session.last_action
-        return Action(type="show_item", item_id=session.current_item_id)
+            return _annotate(session.last_action, session, before, last_event)
+        return _annotate(
+            Action(type="show_item", item_id=session.current_item_id),
+            session,
+            before,
+            last_event,
+        )
     if _idle_expired(session, last_event):
-        return _end(session, "idle", resumable=True)
+        return _annotate(_end(session, "idle", resumable=True), session, before, last_event)
     if session.phase == "ended":
-        return Action(type="end_session", ended_reason=session.ended_reason, resumable=True)
+        return _annotate(
+            Action(type="end_session", ended_reason=session.ended_reason, resumable=True),
+            session,
+            before,
+            last_event,
+        )
 
     if last_event and last_event.type == "idle_nudge":
-        return _keep(session, Action(type="nudge", item_id=session.current_item_id))
+        return _annotate(
+            _keep(session, Action(type="nudge", item_id=session.current_item_id)),
+            session,
+            before,
+            last_event,
+        )
 
     if session.session_type == "diagnostic":
-        return _diagnostic(learner, session, last_event)
-    if session.session_type == "checkpoint":
-        return _checkpoint(session, last_event)
-    return _practice(learner, session, last_event)
+        action = _diagnostic(learner, session, last_event)
+    elif session.session_type == "checkpoint":
+        action = _checkpoint(session, last_event)
+    else:
+        action = _practice(learner, session, last_event)
+    return _annotate(action, session, before, last_event)
 
 
 def _practice(learner: LearnerState, session: SessionState, event: Event | None) -> Action:
@@ -263,14 +296,16 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
     source = session.item(session.similar_from_item_id) or session.item()
     if source is None:
         return _select_skill_or_item(learner, session)
+    wanted = item_tier(source.difficulty)
     nxt = _pick_item(
         session,
         source.primary_skill,
-        p_known=_p_known(learner, source.primary_skill, session),
+        p_known=source.difficulty,
         exclude={source.id},
+        prefer_tier=wanted,
     )
     if nxt is None:
-        return _select_skill_or_item(learner, session)
+        return _content_gap(learner, session, source.primary_skill, wanted)
     session.current_item_id = nxt.id
     session.current_skill = nxt.primary_skill
     session.hint_level_shown = 0
@@ -315,9 +350,10 @@ def _show_practice(
 ) -> Action:
     if skill is None:
         return _end(session, "chapter_complete", resumable=False)
+    wanted = item_tier(_p_known(learner, skill, session))
     item = _pick_item(session, skill, p_known=_p_known(learner, skill, session))
     if item is None:
-        return _end(session, "no_item", resumable=False)
+        return _content_gap(learner, session, skill, wanted)
     session.introduced_skills.add(skill)
     session.current_skill = skill
     session.current_item_id = item.id
@@ -414,6 +450,8 @@ def _checkpoint(session: SessionState, event: Event | None) -> Action:
 def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     target = None
     for skill_id in session.overlay_skill_ids:
+        if skill_id in session.blocked_skills:
+            continue
         if _p_known(learner, skill_id, session) < MASTERY_P:
             target = skill_id
             break
@@ -429,15 +467,37 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     return target
 
 
+def _content_gap(
+    learner: LearnerState, session: SessionState, skill: str, tier: str
+) -> Action:
+    seen = [item_id for item_id in session.shown_item_ids]
+    gap = {"skill": skill, "tier": tier, "item_ids_seen": seen}
+    session.content_gaps.append(gap)
+    session.blocked_skills.add(skill)
+    session.phase = "start"
+    action = Action(
+        type="content_gap",
+        skill_id=skill,
+        extras=gap,
+    )
+    session.last_action = action
+    follow = _select_skill_or_item(learner, session)
+    follow.extras = {**follow.extras, "content_gap": gap}
+    if follow.type == "end_session" and not session.overlay_skill_ids:
+        return follow
+    return follow
+
+
 def _pick_item(
     session: SessionState,
     skill: str,
     *,
     p_known: float,
     exclude: set[str] | None = None,
+    prefer_tier: str | None = None,
 ) -> CatalogItem | None:
     skip = exclude or set()
-    wanted = item_tier(p_known)
+    wanted = prefer_tier or item_tier(p_known)
     eligible = [
         row
         for row in session.catalog
@@ -614,4 +674,15 @@ def _flag(session: SessionState, flag: str) -> Action:
 def _keep(session: SessionState, action: Action) -> Action:
     session.last_action = action
     session.llm_called = session.llm_called or action.llm_called
+    return action
+
+
+def _annotate(
+    action: Action, session: SessionState, before: str, event: Event | None
+) -> Action:
+    ev = event.type if event else "start"
+    action.state_before = before
+    action.state_after = session.phase
+    action.rule_id = action.rule_id or rule_id_for(before, ev, action.type)
+    session.last_action = action
     return action

@@ -1,11 +1,11 @@
 id: ITEM.LIN1.C.A.0004
 skill_ids:
 - MATH.ALG.LIN1.SOLVE_ONE_STEP
-difficulty: 0.28
+difficulty: 0.55
 type: expression
 pool: checkpoint
 stem:
-  en: 'Solve for x: x + 10 = 18'
+  en: 'Solve for x: x - 10 = -2'
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 answer:
@@ -14,10 +14,7 @@ answer:
   - '8'
   - x=8
 solution_steps:
-- en: We want x alone. Subtract 10 from both sides.
-  ne: <Nepali — to be filled by reviewer>
-  as: <Assamese — to be filled by reviewer>
-- en: x + 10 - 10 = 18 - 10
+- en: Add 10 to both sides.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - en: x = 8
@@ -25,15 +22,15 @@ solution_steps:
   as: <Assamese — to be filled by reviewer>
 hints:
 - level: 1
-  en: What is being done to x? How can you undo that operation?
+  en: x has 10 subtracted from it. What puts x back alone?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 2
-  en: Do the same thing to both sides so the equation stays balanced.
+  en: Undo -10 on both sides of -2.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 3
-  en: Subtract 10 on both sides, then simplify.
+  en: Add 10 on both sides, then simplify.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 prediction_prompt:
@@ -43,6 +40,6 @@ prediction_prompt:
 misconception_rules:
 - id: MC.ALG.INVERSE_OP_WRONG_SIDE
   when_answer_equals:
-  - '28'
+  - '-12'
 reviewed_by: null
 status: draft

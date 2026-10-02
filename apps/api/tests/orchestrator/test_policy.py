@@ -41,6 +41,15 @@ def test_policy_is_pure_and_has_required_signature() -> None:
     assert "requests" not in source
 
 
+def test_actions_carry_transition_metadata() -> None:
+    session = make_session()
+    learner = make_learner()
+    first = policy(learner, session, None)
+    assert first.state_before == "start"
+    assert first.state_after == "predict"
+    assert first.rule_id == "R01"
+
+
 def test_events_include_predict_response_and_continue() -> None:
     session = make_session()
     learner = make_learner()

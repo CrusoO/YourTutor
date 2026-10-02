@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from app.content.math_parse import ParseError, normalize, parse_math
+from app.content.leak import hint_leaks_answer
 from app.content.validator import (
     LIVE_MIN_CHECKPOINT,
     last_step_matches_answer,
@@ -63,6 +64,14 @@ def test_solution_step_mismatch(content_root: Path) -> None:
 def test_last_step_matches_answer() -> None:
     assert last_step_matches_answer("x = 5", "5")
     assert not last_step_matches_answer("x = 19", "5")
+
+
+def test_hint_leak_uses_tokens_not_substrings() -> None:
+    assert hint_leaks_answer("The answer is 5", "5")
+    assert not hint_leaks_answer("Add 10 to both sides.", "0")
+    assert not hint_leaks_answer("Add 10 to both sides.", "1")
+    assert not hint_leaks_answer("Do both sides become the same?", "one")
+    assert hint_leaks_answer("Undo the 8 on both sides.", "8")
 
 
 def test_hint_leak(content_root: Path) -> None:
@@ -260,6 +269,51 @@ def test_substitution_and_solution_count_verify(content_root: Path) -> None:
     assert report.ok, report.errors
     assert "ITEM.CHECK.YES" not in report.needs_teacher_check
     assert "ITEM.ID.EVERY" not in report.needs_teacher_check
+
+
+def test_one_x_banned(content_root: Path) -> None:
+    write_yaml(
+        content_root / "items" / "onex.yaml",
+        minimal_item("ITEM.ONEX", stem="Solve for x: 1x + 4 = 10"),
+    )
+    report = validate_path(content_root)
+    assert any("1x" in e for e in report.errors)
+
+
+def test_hint1_diversity_and_reuse(content_root: Path) -> None:
+    for index in range(5):
+        data = minimal_item(f"ITEM.P{index}", pool="practice", stem=_stem(index))
+        data["hints"][0]["en"] = "Same first hint for every practice item."
+        data["hints"][1]["en"] = "Same second hint for every practice item."
+        write_yaml(content_root / "items" / f"p{index}.yaml", data)
+    report = validate_path(content_root)
+    assert any("distinct hint-1" in e for e in report.errors)
+    assert any("hint reused" in w for w in report.warnings)
+
+
+def test_practice_structure_minimum(content_root: Path) -> None:
+    for index in range(5):
+        write_yaml(
+            content_root / "items" / f"p{index}.yaml",
+            minimal_item(
+                f"ITEM.P{index}",
+                pool="practice",
+                stem=f"Solve for x: x + {7 + index} = {12 + index}",
+            ),
+        )
+    report = validate_path(content_root)
+    assert any("stem structures" in e for e in report.errors)
+
+
+def _stem(index: int) -> str:
+    templates = (
+        "Solve for x: x + {n} = {m}",
+        "Find x if x - {n} = {m}",
+        "What number plus {n} is {m}?",
+        "x + {n} equals {m}. Solve.",
+        "Compute x in x - {n} = {m}.",
+    )
+    return templates[index].format(n=7 + index, m=12 + index)
 
 
 def test_malicious_strings_rejected() -> None:

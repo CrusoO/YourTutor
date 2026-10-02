@@ -59,6 +59,7 @@ class ItemRow(Base):
     misconception_rules: Mapped[list] = mapped_column(JSONType)
     status: Mapped[str] = mapped_column(String, index=True)
     reviewed_by: Mapped[str | None] = mapped_column(String, nullable=True)
+    content_hash: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
 class MisconceptionRow(Base):
@@ -246,6 +247,9 @@ class EventRow(Base):
     hint_level: Mapped[int | None] = mapped_column(Integer, nullable=True)
     latency_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    state_before: Mapped[str | None] = mapped_column(String, nullable=True)
+    state_after: Mapped[str | None] = mapped_column(String, nullable=True)
+    rule_id: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
 class CheckpointTokenRow(Base):

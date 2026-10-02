@@ -55,8 +55,8 @@ def minimal_item(
         "answer": {"sympy": answer, "accept": [answer]},
         "solution_steps": [loc("Subtract 7."), loc(last_step or f"x = {answer}")],
         "hints": [
-            {"level": 1, **loc(hint1)},
-            {"level": 2, **loc("Do the same to both sides.")},
+            {"level": 1, **loc(f"{hint1} ({item_id})")},
+            {"level": 2, **loc(f"Do the same to both sides for {item_id}.")},
             {"level": 3, **loc("Subtract 7 from both sides.")},
         ],
         "prediction_prompt": loc("Will x be smaller than 12?"),
@@ -66,13 +66,23 @@ def minimal_item(
     }
 
 
+_PRACTICE_STEMS = (
+    "Solve for x: x + {n} = {m}",
+    "Find x if x - {n} = {m}",
+    "What number plus {n} is {m}?",
+    "x + {n} equals {m}. Solve.",
+    "Compute x in x - {n} = {m}.",
+)
+
+
 @pytest.fixture
 def content_root(tmp_path: Path) -> Path:
     write_yaml(tmp_path / "skills" / "s1.yaml", minimal_skill())
     for index in range(5):
+        stem = _PRACTICE_STEMS[index].format(n=7 + index, m=12 + index)
         write_yaml(
             tmp_path / "items" / f"p{index}.yaml",
-            minimal_item(f"ITEM.P{index}", pool="practice"),
+            minimal_item(f"ITEM.P{index}", pool="practice", stem=stem),
         )
     for index in range(3):
         write_yaml(

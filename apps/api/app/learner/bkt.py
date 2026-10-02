@@ -28,6 +28,10 @@ def posterior(p_known: float, *, correct: bool, params: BktParams) -> float:
     else:
         posterior_l = numer / denom
     learned = posterior_l + (1.0 - posterior_l) * params.p_learn
+    from app.observe.otel import span
+
+    with span("bkt", component="bkt"):
+        pass
     return clamp01(learned)
 
 

@@ -32,6 +32,7 @@ services:
     environment:
       POSTGRES_HOST: postgres
       REDIS_URL: redis://redis:6379/0
+      OTEL_ENABLED: ${OTEL_ENABLED:-false}
     ports:
       - "8000:8000"
     depends_on:
@@ -72,6 +73,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 15
+
+  otel-collector:
+    profiles: [otel]
+    image: otel/opentelemetry-collector-contrib:0.115.1
+    command: ["--config=/etc/otelcol/config.yaml"]
+    environment:
+      OTEL_ENABLED: "true"
+    volumes:
+      - ./infra/otel/config.yaml:/etc/otelcol/config.yaml:ro
 
 volumes:
   postgres_data:

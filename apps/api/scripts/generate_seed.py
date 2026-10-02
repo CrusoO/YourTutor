@@ -155,12 +155,28 @@ def dump(path: Path, data: dict) -> None:
     )
 
 
-def hints_undo(op_word: str, value: int) -> list[dict]:
+def fmt_x(coeff: int) -> str:
+    if coeff == 1:
+        return "x"
+    if coeff == -1:
+        return "-x"
+    return f"{coeff}x"
+
+
+def hints(h1: str, h2: str, h3: str) -> list[dict]:
     return [
-        {"level": 1, **loc("What is being done to x? How can you undo that operation?")},
-        {"level": 2, **loc("Do the same thing to both sides so the equation stays balanced.")},
-        {"level": 3, **loc(f"{op_word} {value} on both sides, then simplify.")},
+        {"level": 1, **loc(h1)},
+        {"level": 2, **loc(h2)},
+        {"level": 3, **loc(h3)},
     ]
+
+
+def hints_undo(op_word: str, value: int) -> list[dict]:
+    return hints(
+        f"What is being done to x besides the {value}? How can you undo that?",
+        f"Undo the {value} on both sides so the equation stays balanced.",
+        f"{op_word} {value} on both sides, then simplify.",
+    )
 
 
 def item(
@@ -240,27 +256,56 @@ def write_misconceptions() -> None:
 def integers(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     left, right = spec
     answer = left - right
+    style = (left + right) % 3
+    if style == 0:
+        stem = f"Compute {left} - {right}."
+        h1 = f"Is {left} larger than {right}? Are we taking away or adding?"
+        h2 = f"Start at {left} and move {right} steps left on the number line."
+    elif style == 1:
+        stem = f"Compute {left} + (-{right})."
+        h1 = f"Adding -{right} to {left} is the same as which subtraction?"
+        h2 = f"Rewrite {left} + (-{right}) as a single subtraction, then evaluate."
+    else:
+        stem = f"Compute -{right} + {left}."
+        h1 = f"You start at -{right}. Which way do you move to add {left}?"
+        h2 = f"Adding {left} to -{right} lands where on the number line?"
     return item(
         item_id,
         "MATH.ARITH.INTEGERS.OPERATIONS",
         difficulty,
         pool,
-        f"Compute {left} - {right}.",
+        stem,
         str(answer),
         [f"{left} minus {right} is {answer}.", f"x = {answer}"],
-        [
-            {"level": 1, **loc("Which number is larger? Are we taking away or adding?")},
-            {"level": 2, **loc("Start at the first number and move left on the number line.")},
-            {"level": 3, **loc(f"Take {right} away from {left}.")},
-        ],
+        hints(h1, h2, f"Take {right} away from {left}."),
         "Will the result be smaller than the first number?",
     )
+
+
+INVERSE_HINTS = [
+    ("Which operation puts x back together after it was changed?", "Think of the inverse pair: add versus subtract."),
+    ("x was shifted. What undoes a shift on x?", "The inverse operation is the opposite direction on the number line."),
+    ("Ask: what cancels the change that was applied to x?", "Write the inverse operation without evaluating a value yet."),
+    ("Is the change on x an add or a subtract?", "Name the inverse family before you pick a size."),
+    ("x should reappear alone. What kind of move does that?", "Addition undoes subtraction; subtraction undoes addition."),
+    ("Cover the constant and look only at the operation on x.", "The inverse is the other member of that add/subtract pair."),
+    ("What do you do to both sides to cancel the change to x?", "Keep the equation balanced while you undo the operation."),
+    ("The goal is to recover x, not to compute a new expression.", "Choose the inverse operation first, then the matching amount."),
+    ("Did someone add to x or take away from x?", "Undo that family of operations."),
+    ("Imagine x wrapped in one operation. How do you unwrap it?", "Unwrap with the inverse, not the same operation again."),
+    ("Which button on a calculator would cancel this step on x?", "Plus and minus cancel; they do not repeat."),
+    ("x is almost isolated. What last inverse do you need?", "State the inverse operation in words before you apply it."),
+]
 
 
 def inverse(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     kind, value = spec
     if kind == "add":
-        stem = f"What number do you add to x - {value} to get x again?"
+        stem = (
+            f"Adding what to x - {value} returns x?"
+            if value % 2 == 0
+            else f"What number do you add to x - {value} to get x again?"
+        )
         steps = [
             f"The inverse of subtracting {value} is adding {value}.",
             f"x = {value}",
@@ -275,6 +320,7 @@ def inverse(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         ]
         verify = {"kind": "equation", "expr": f"x + {value} - y = x", "unknown": "y"}
         hint3 = f"Subtract {value} to cancel adding {value}."
+    h1, h2 = INVERSE_HINTS[(value - 1) % len(INVERSE_HINTS)]
     return item(
         item_id,
         "MATH.ALG.INVERSE_OPERATIONS",
@@ -283,11 +329,7 @@ def inverse(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem,
         str(value),
         steps,
-        [
-            {"level": 1, **loc("What operation is being undone?")},
-            {"level": 2, **loc("Addition and subtraction undo each other.")},
-            {"level": 3, **loc(hint3)},
-        ],
+        hints(h1, h2, hint3),
         "Is the inverse larger than 1?",
         verify=verify,
     )
@@ -296,86 +338,167 @@ def inverse(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
 def translate(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     addend, target = spec
     answer = target - addend
+    style = addend % 3
+    if style == 0:
+        stem = f"A number plus {addend} equals {target}. What is the number?"
+        equation = f"x + {addend} = {target}"
+        h1 = f"Write 'a number plus {addend}' as an expression equal to {target}."
+        h2 = f"Once you have x + {addend} = {target}, undo the {addend} on both sides."
+    elif style == 1:
+        stem = f"{addend} more than a number is {target}. What is the number?"
+        equation = f"x + {addend} = {target}"
+        h1 = f"'{addend} more than a number' means you add {addend} to x."
+        h2 = f"Set that sum equal to {target}, then isolate the number."
+    else:
+        stem = f"The sum of a number and {addend} is {target}. Find the number."
+        equation = f"x + {addend} = {target}"
+        h1 = f"Sum of a number and {addend} is the equation x + {addend} = {target}."
+        h2 = f"To undo adding {addend}, do the inverse to {target} as well."
     return item(
         item_id,
         "MATH.ALG.LIN1.TRANSLATE",
         difficulty,
         pool,
-        f"A number plus {addend} equals {target}. What is the number?",
+        stem,
         str(answer),
-        [f"The equation is x + {addend} = {target}.", f"x = {answer}"],
-        hints_undo("Subtract", addend),
+        [f"The equation is {equation}.", f"x = {answer}"],
+        hints(h1, h2, f"Subtract {addend} on both sides, then simplify."),
         f"Is the number smaller than {target}?",
-        verify=f"x + {addend} = {target}",
+        verify=equation,
     )
 
 
 def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     addend, answer = spec
     total = answer + addend
+    style = addend % 3
+    if style == 0:
+        stem = f"Solve for x: x + {addend} = {total}"
+        h1 = f"x has {addend} added to it. What undoes that single step?"
+        h2 = f"Do the inverse of +{addend} to both sides of {total}."
+        steps = [
+            f"We want x alone. Subtract {addend} from both sides.",
+            f"x + {addend} - {addend} = {total} - {addend}",
+            f"x = {answer}",
+        ]
+        h3 = f"Subtract {addend} on both sides, then simplify."
+        wrong = str(total + addend)
+    elif style == 1:
+        rhs = answer - addend
+        stem = f"Solve for x: x - {addend} = {rhs}"
+        h1 = f"x has {addend} subtracted from it. What puts x back alone?"
+        h2 = f"Undo -{addend} on both sides of {rhs}."
+        steps = [
+            f"Add {addend} to both sides.",
+            f"x = {answer}",
+        ]
+        h3 = f"Add {addend} on both sides, then simplify."
+        wrong = str(rhs - addend)
+    else:
+        stem = f"Solve for x: {addend}x = {addend * answer}"
+        h1 = f"x is multiplied by {addend}. What single step isolates x?"
+        h2 = f"Divide both sides of {addend * answer} by {addend}."
+        steps = [
+            f"Divide both sides by {addend}.",
+            f"x = {answer}",
+        ]
+        h3 = f"Divide both sides by {addend}."
+        wrong = str(addend * answer + addend)
     return item(
         item_id,
         "MATH.ALG.LIN1.SOLVE_ONE_STEP",
         difficulty,
         pool,
-        f"Solve for x: x + {addend} = {total}",
+        stem,
         str(answer),
-        [
-            f"We want x alone. Subtract {addend} from both sides.",
-            f"x + {addend} - {addend} = {total} - {addend}",
-            f"x = {answer}",
-        ],
-        hints_undo("Subtract", addend),
+        steps,
+        hints(h1, h2, h3),
         f"Before solving: will x be smaller than {total}? Why?",
-        rules=[
-            {
-                "id": "MC.ALG.INVERSE_OP_WRONG_SIDE",
-                "when_answer_equals": [str(total + addend)],
-            }
-        ],
+        rules=[{"id": "MC.ALG.INVERSE_OP_WRONG_SIDE", "when_answer_equals": [wrong]}],
     )
 
 
 def two_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     coeff, added, answer = spec
-    rhs = coeff * answer + added
+    style = added % 3
+    if style == 0:
+        rhs = coeff * answer + added
+        stem = f"Solve for x: {fmt_x(coeff)} + {added} = {rhs}"
+        h1 = f"{fmt_x(coeff)} then plus {added}. Which of those two do you undo first?"
+        h2 = f"After undoing the {added}, you still have to undo the {coeff}."
+        h3 = f"First subtract {added} on both sides, then divide by {coeff}."
+        steps = [
+            f"Subtract {added} from both sides.",
+            f"{fmt_x(coeff)} = {rhs - added}",
+            f"Divide both sides by {coeff}.",
+            f"x = {answer}",
+        ]
+    elif style == 1:
+        rhs = coeff * answer - added
+        stem = f"Solve for x: {fmt_x(coeff)} - {added} = {rhs}"
+        h1 = f"{fmt_x(coeff)} then minus {added}. Undo the {added} first."
+        h2 = f"Adding {added} to both sides leaves {fmt_x(coeff)} alone on the left."
+        h3 = f"First add {added} on both sides, then divide by {coeff}."
+        steps = [
+            f"Add {added} to both sides.",
+            f"{fmt_x(coeff)} = {rhs + added}",
+            f"Divide both sides by {coeff}.",
+            f"x = {answer}",
+        ]
+    else:
+        rhs = coeff * answer + added
+        stem = f"Solve for x: {added} + {fmt_x(coeff)} = {rhs}"
+        h1 = f"The {added} is written first, then {fmt_x(coeff)}. Same two-step undo."
+        h2 = f"Move the {added} first so only {fmt_x(coeff)} remains."
+        h3 = f"First subtract {added} on both sides, then divide by {coeff}."
+        steps = [
+            f"Subtract {added} from both sides.",
+            f"{fmt_x(coeff)} = {rhs - added}",
+            f"Divide both sides by {coeff}.",
+            f"x = {answer}",
+        ]
     return item(
         item_id,
         "MATH.ALG.LIN1.SOLVE_TWO_STEP",
         difficulty,
         pool,
-        f"Solve for x: {coeff}x + {added} = {rhs}",
+        stem,
         str(answer),
-        [
-            f"Subtract {added} from both sides.",
-            f"{coeff}x = {rhs - added}",
-            f"Divide both sides by {coeff}.",
-            f"x = {answer}",
-        ],
-        hints_undo("First subtract", added),
+        steps,
+        hints(h1, h2, h3),
         "Will x be a whole number? Why do you think that?",
     )
 
 
 def multi(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     a, b, c, answer = spec
-    # a x + b + c x = rhs
     rhs = (a + c) * answer + b
     sign = "+" if b >= 0 else "-"
     b_abs = abs(b)
+    style = abs(a + c + b) % 3
+    if style == 0:
+        stem = f"Solve for x: {fmt_x(a)} {sign} {b_abs} + {fmt_x(c)} = {rhs}"
+    elif style == 1:
+        stem = f"Solve for x: {fmt_x(c)} + {fmt_x(a)} {sign} {b_abs} = {rhs}"
+    else:
+        stem = f"Solve for x: {fmt_x(a)} + {fmt_x(c)} {sign} {b_abs} = {rhs}"
     return item(
         item_id,
         "MATH.ALG.LIN1.SOLVE_MULTI",
         difficulty,
         pool,
-        f"Solve for x: {a}x {sign} {b_abs} + {c}x = {rhs}",
+        stem,
         str(answer),
         [
-            f"Combine like terms: {a + c}x {sign} {b_abs} = {rhs}.",
+            f"Combine like terms: {fmt_x(a + c)} {sign} {b_abs} = {rhs}.",
             f"Move the constant, then divide by {a + c}.",
             f"x = {answer}",
         ],
-        hints_undo("Combine like terms, then undo", b_abs),
+        hints(
+            f"The left side has {fmt_x(a)} and {fmt_x(c)}. Gather those first.",
+            f"After combining, undo the {b_abs} then divide by {a + c}.",
+            f"Combine like terms, then undo {b_abs} on both sides, then simplify.",
+        ),
         "Are there like terms you can gather first?",
     )
 
@@ -383,20 +506,32 @@ def multi(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
 def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     left_c, right_c, left_b, answer = spec
     right_b = (left_c - right_c) * answer + left_b
+    style = left_b % 3
+    if style == 0:
+        stem = f"Solve for x: {fmt_x(left_c)} + {left_b} = {fmt_x(right_c)} + {right_b}"
+    elif style == 1:
+        stem = f"Solve for x: {left_b} + {fmt_x(left_c)} = {right_b} + {fmt_x(right_c)}"
+    else:
+        stem = f"Solve for x: {fmt_x(left_c)} - {left_b} = {fmt_x(right_c)} + {right_b - 2 * left_b}"
+        right_b = right_b - 2 * left_b
     return item(
         item_id,
         "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES",
         difficulty,
         pool,
-        f"Solve for x: {left_c}x + {left_b} = {right_c}x + {right_b}",
+        stem,
         str(answer),
         [
-            f"Subtract {right_c}x from both sides.",
-            f"{left_c - right_c}x + {left_b} = {right_b}",
+            f"Subtract {fmt_x(right_c)} from both sides.",
+            f"{fmt_x(left_c - right_c)} + {left_b} = {right_b}",
             f"Subtract {left_b} from both sides.",
             f"x = {answer}",
         ],
-        hints_undo("Collect like terms, then subtract", left_b),
+        hints(
+            f"x appears on both sides: {fmt_x(left_c)} and {fmt_x(right_c)}.",
+            f"Collect {fmt_x(left_c)} with {fmt_x(right_c)} before you touch the constants.",
+            f"Collect like terms, then subtract {left_b} on both sides, then simplify.",
+        ),
         "Is x larger than 1? How can you tell before finishing?",
     )
 
@@ -407,11 +542,13 @@ def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         rhs = a * (answer + inside)
         stem = f"Solve for x: {a}(x + {inside}) = {rhs}"
         steps = [
-            f"Expand: {a}x + {a * inside} = {rhs}",
-            f"{a}x = {rhs - a * inside}",
+            f"Expand: {fmt_x(a)} + {a * inside} = {rhs}",
+            f"{fmt_x(a)} = {rhs - a * inside}",
             f"x = {answer}",
         ]
         pred = "Will x be positive? Why?"
+        h1 = f"The {a} multiplies the whole bracket (x + {inside})."
+        h2 = f"Expand or divide by {a} first, then undo the {inside}."
     else:
         rhs = a * (answer - inside)
         stem = f"Solve for x: {a}(x - {inside}) = {rhs}"
@@ -421,6 +558,12 @@ def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x = {answer}",
         ]
         pred = "Will x be greater than the number inside the brackets?"
+        h1 = f"The {a} sits outside (x - {inside}). Expand or divide?"
+        h2 = f"After removing the {a}, you still have to undo the {inside}."
+    if a == 4 and plus:
+        stem = f"Solve for x: {fmt_x(a)} + {a * inside} = {rhs}"
+        h1 = f"This is already expanded: {fmt_x(a)} plus {a * inside}."
+        h2 = f"Undo {a * inside}, then divide by {a}."
     return item(
         item_id,
         "MATH.ALG.LIN1.BRACKETS",
@@ -429,7 +572,7 @@ def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem,
         str(answer),
         steps,
-        hints_undo("Expand or divide, then undo", inside),
+        hints(h1, h2, f"Expand or divide, then undo {inside} on both sides, then simplify."),
         pred,
     )
 
@@ -437,19 +580,34 @@ def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
 def fraction(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     denom, added, answer = spec
     rhs = answer // denom + added
+    style = denom % 3
+    if style == 0:
+        stem = f"Solve for x: x/{denom} + {added} = {rhs}"
+        h1 = f"x is divided by {denom}, then {added} is added."
+        h2 = f"Undo the {added} first, then multiply by {denom}."
+    elif style == 1:
+        stem = f"Solve for x: {added} + x/{denom} = {rhs}"
+        h1 = f"The {added} is written first, then x is divided by {denom}."
+        h2 = f"Move the {added} so that x/{denom} stands alone."
+    else:
+        stem = f"Solve for x: x/{denom} - {added} = {rhs - 2 * added}"
+        rhs_alt = answer // denom - added
+        stem = f"Solve for x: x/{denom} - {added} = {rhs_alt}"
+        h1 = f"x is divided by {denom}, then {added} is subtracted."
+        h2 = f"Add {added} first so you have x/{denom} alone."
+        rhs = rhs_alt
     return item(
         item_id,
         "MATH.ALG.LIN1.FRACTION_COEFF",
         difficulty,
         pool,
-        f"Solve for x: x/{denom} + {added} = {rhs}",
+        stem,
         str(answer),
         [
-            f"Subtract {added} from both sides: x/{denom} = {rhs - added}.",
-            f"Multiply both sides by {denom}.",
+            f"Isolate x/{denom}, then multiply by {denom}.",
             f"x = {answer}",
         ],
-        hints_undo("Subtract", added),
+        hints(h1, h2, f"Undo {added}, then multiply both sides by {denom}."),
         "Will x be a whole number? Why?",
     )
 
@@ -508,7 +666,11 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem,
         str(answer),
         steps,
-        hints_undo("Write an equation, then undo", spec[1]),
+        hints(
+            f"Choose x for the unknown. The number {spec[1]} belongs in the equation.",
+            f"Write one equation that uses {spec[1]} and the total {spec[2]}.",
+            f"Write an equation, then undo {spec[1]}.",
+        ),
         pred,
         verify=verify,
     )
@@ -522,23 +684,26 @@ def check(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         "MATH.ALG.LIN1.CHECK_SOLUTION",
         difficulty,
         pool,
-        f"Does x = {value} solve {equation}?",
+        (
+            f"Does x = {value} solve {equation}?"
+            if value % 3 == 0
+            else (
+                f"Is {value} a solution of {equation}?"
+                if value % 3 == 1
+                else f"Check whether {value} satisfies {equation}."
+            )
+        ),
         answer,
         [
             f"Substitute x = {value} into {equation}.",
             f"The correct option is {answer}.",
         ],
-        [
-            {"level": 1, **loc("Substitute the given value into the left side.")},
-            {"level": 2, **loc("Compare the value you get with the right side.")},
-            {
-                "level": 3,
-                **loc(
-                    f"After substituting {value}, the sides "
-                    f"{'match' if holds else 'do not match'}."
-                ),
-            },
-        ],
+        hints(
+            f"Replace x with {value} on the left of {equation}.",
+            f"After substituting {value}, compare the two sides of {equation}.",
+            f"After substituting {value}, the sides "
+            f"{'match' if holds else 'do not match'}.",
+        ),
         "Do you expect the two sides to match?",
         type_="mcq",
         options=YES_NO,
@@ -554,24 +719,25 @@ def identity(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         "MATH.ALG.LIN1.IDENTITIES",
         difficulty,
         pool,
-        f"How many solutions does {equation} have?",
+        (
+            f"How many solutions does {equation} have?"
+            if sum(ord(ch) for ch in equation) % 3 == 0
+            else (
+                f"Classify the solution set of {equation}."
+                if sum(ord(ch) for ch in equation) % 3 == 1
+                else f"Is {equation} an identity, a contradiction, or a unique value?"
+            )
+        ),
         answer,
         [
             f"Simplify both sides of {equation}.",
             f"The correct option is {answer}.",
         ],
-        [
-            {"level": 1, **loc("Expand or collect terms. Do the two sides look the same?")},
-            {
-                "level": 2,
-                **loc(
-                    "If both sides simplify to the same expression, it is an identity. "
-                    "If they cannot match, it is a contradiction. "
-                    "Otherwise there is a unique value."
-                ),
-            },
-            {"level": 3, **loc(f"This equation is classified as {answer}.")},
-        ],
+        hints(
+            f"Look at {equation}. Expand any brackets first.",
+            f"After simplifying {equation}, do both sides become the same expression?",
+            f"This equation is classified as {answer}.",
+        ),
         "Before simplifying: do you expect a unique value, an identity, or a contradiction?",
         type_="mcq",
         options=COUNT_OPTS,
@@ -597,7 +763,7 @@ CATALOGS: dict[str, list] = {
         (33, 6),
     ],
     "MATH.ALG.INVERSE_OPERATIONS": [
-        ("add", 3),
+        ("add", 2),
         ("sub", 4),
         ("add", 5),
         ("sub", 6),
@@ -617,7 +783,7 @@ CATALOGS: dict[str, list] = {
         (7, 15),
         (4, 12),
         (6, 21),
-        (8, 16),
+        (8, 17),
         (2, 19),
         (9, 24),
         (10, 10),
@@ -650,17 +816,17 @@ CATALOGS: dict[str, list] = {
         (3, 2, 6),
         (2, 7, 4),
         (5, 1, 3),
-        (4, 5, 4),
-        (3, 6, 3),
+        (4, 5, 3),
+        (3, 6, 4),
     ],
     "MATH.ALG.LIN1.SOLVE_MULTI": [
         (2, -3, 1, 4),
-        (3, 2, 1, 5),
+        (3, 3, 1, 5),
         (4, -1, 2, 3),
-        (2, 5, 2, 2),
-        (5, -4, 1, 6),
+        (2, 5, 3, 4),
+        (5, -4, 1, 7),
         (3, 1, 2, 4),
-        (2, -2, 3, 5),
+        (2, -2, 3, 4),
         (4, 3, 1, 2),
         (3, -5, 2, 7),
         (2, 4, 1, 6),
@@ -679,11 +845,11 @@ CATALOGS: dict[str, list] = {
         (5, 1, 4, 3),
         (3, 2, 1, 8),
         (4, 1, 3, 6),
-        (5, 2, 5, 2),
+        (5, 2, 5, 3),
     ],
     "MATH.ALG.LIN1.BRACKETS": [
         (2, 1, 6, False),
-        (3, 2, 3, True),
+        (3, 2, 4, True),
         (2, 3, 8, False),
         (4, 1, 5, True),
         (3, 4, 7, False),
@@ -768,21 +934,12 @@ BUILDERS = {
     "MATH.ALG.LIN1.IDENTITIES": identity,
 }
 
-# Slot difficulties so matched A/B pairs share a tier.
-SLOT_DIFFICULTY = {
-    "MATH.ARITH.INTEGERS.OPERATIONS": [0.15] * 12,
-    "MATH.ALG.INVERSE_OPERATIONS": [0.25] * 12,
-    "MATH.ALG.LIN1.TRANSLATE": [0.42] * 12,
-    "MATH.ALG.LIN1.SOLVE_ONE_STEP": [0.28] * 12,
-    "MATH.ALG.LIN1.SOLVE_TWO_STEP": [0.48] * 12,
-    "MATH.ALG.LIN1.SOLVE_MULTI": [0.62] * 12,
-    "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES": [0.55] * 12,
-    "MATH.ALG.LIN1.BRACKETS": [0.6] * 12,
-    "MATH.ALG.LIN1.FRACTION_COEFF": [0.7] * 12,
-    "MATH.ALG.LIN1.WORD_PROBLEMS": [0.5] * 12,
-    "MATH.ALG.LIN1.CHECK_SOLUTION": [0.32] * 12,
-    "MATH.ALG.LIN1.IDENTITIES": [0.85] * 12,
-}
+# Practice slots 0-4 span easy / medium / hard. Matched A/B pairs share a tier.
+_SLOT_DIFF = [0.20, 0.32, 0.50, 0.68, 0.86, 0.22, 0.55, 0.86, 0.55, 0.55, 0.86, 0.86]
+
+
+def slot_difficulty(_skill: str, slot: int) -> float:
+    return _SLOT_DIFF[slot]
 
 
 def _clear_items() -> None:
@@ -796,7 +953,7 @@ def _clear_items() -> None:
 def _build(skill: str, slot: int, pool: str, item_id: str) -> dict:
     builder = BUILDERS[skill]
     spec = CATALOGS[skill][slot]
-    difficulty = SLOT_DIFFICULTY[skill][slot]
+    difficulty = slot_difficulty(skill, slot)
     data = builder(spec, pool, item_id, difficulty)
     data["skill_ids"] = [skill]
     return data

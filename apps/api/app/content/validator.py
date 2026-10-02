@@ -19,6 +19,7 @@ from app.content.schema import (
     Overlay,
     Skill,
 )
+from app.content.signatures import has_one_x, item_content_hash, structure_signature
 from app.content.stem_solve import check_item_stem_answer
 
 LIVE_MIN_PRACTICE = 5
@@ -30,6 +31,9 @@ STEM_MIN_DIAGNOSTIC = 3
 WORD_ANSWER_MIN = 1
 WORD_ANSWER_MAX = 80
 MCQ_IMBALANCE = 0.7
+HINT_SHARE = 0.25
+MIN_HINT1_PRACTICE = 3
+MIN_STRUCTURES_PRACTICE = 3
 
 
 def item_tier(difficulty: float) -> str:
@@ -123,6 +127,10 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _stem_uniqueness(bundle, report)
     _bkt_params(bundle, report)
     _mcq_and_word_warnings(bundle, report)
+    _hint_diversity(bundle, report)
+    _structure_and_tiers(bundle, report)
+    _one_x_ban(bundle, report)
+    _approval_hashes(bundle, report)
     _live_chapter(bundle, report)
     _build_report(bundle, report)
     return report
@@ -135,7 +143,31 @@ def validate_path(root: Path) -> ValidationReport:
         report = ValidationReport()
         report.errors.append(str(exc))
         return report
-    return validate_bundle(bundle)
+    report = validate_bundle(bundle)
+    _persist_hash_resets(root, report)
+    return report
+
+
+def _persist_hash_resets(root: Path, report: ValidationReport) -> None:
+    if report.bundle is None:
+        return
+    reset_ids = {
+        warning.split(" ", 1)[0]
+        for warning in report.warnings
+        if "reset to draft" in warning
+    }
+    if not reset_ids:
+        return
+    for path in (root / "items").rglob("*.yaml"):
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict) or data.get("id") not in reset_ids:
+            continue
+        data["status"] = "draft"
+        data["reviewed_by"] = None
+        path.write_text(
+            yaml.safe_dump(data, sort_keys=False, allow_unicode=True),
+            encoding="utf-8",
+        )
 
 
 def _unique_ids(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -314,6 +346,87 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
             )
 
 
+def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
+    by_skill: dict[str, list[Item]] = defaultdict(list)
+    practice: dict[str, list[Item]] = defaultdict(list)
+    for item in bundle.items:
+        by_skill[item.primary_skill].append(item)
+        if item.pool == ItemPool.practice:
+            practice[item.primary_skill].append(item)
+    for skill_id, items in by_skill.items():
+        counts: dict[str, int] = defaultdict(int)
+        for item in items:
+            for hint in item.hints:
+                if hint.level <= 2:
+                    counts[normalize(hint.en)] += 1
+        for text, n in counts.items():
+            if n / len(items) > HINT_SHARE:
+                report.warnings.append(
+                    f"{skill_id} hint reused on {n}/{len(items)} items (>25%): {text[:60]}"
+                )
+    for skill_id, items in practice.items():
+        if len(items) < 5:
+            continue
+        distinct = {next(h.en for h in item.hints if h.level == 1) for item in items}
+        if len(distinct) < MIN_HINT1_PRACTICE:
+            report.errors.append(
+                f"{skill_id} has {len(distinct)} distinct hint-1 strings; "
+                f"minimum is {MIN_HINT1_PRACTICE}"
+            )
+
+
+def _structure_and_tiers(bundle: ContentBundle, report: ValidationReport) -> None:
+    structs: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    tiers: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for item in bundle.items:
+        structs[item.primary_skill][item.pool.value].add(structure_signature(item.stem.en))
+        if item.pool == ItemPool.practice:
+            tiers[item.primary_skill][item_tier(item.difficulty)] += 1
+    report.stats.setdefault("structures_by_skill_pool", {})
+    report.stats["structures_by_skill_pool"] = {
+        skill: {pool: len(sigs) for pool, sigs in sorted(pools.items())}
+        for skill, pools in sorted(structs.items())
+    }
+    report.stats["practice_by_skill_tier"] = {
+        skill: dict(sorted(counts.items())) for skill, counts in sorted(tiers.items())
+    }
+    missing: list[str] = []
+    for skill_id, counts in tiers.items():
+        if sum(counts.values()) < 5:
+            continue
+        n_struct = len(structs[skill_id].get("practice", set()))
+        if n_struct < MIN_STRUCTURES_PRACTICE:
+            report.errors.append(
+                f"{skill_id} practice has {n_struct} stem structures; "
+                f"minimum is {MIN_STRUCTURES_PRACTICE}"
+            )
+        for tier in ("easy", "medium", "hard"):
+            if counts.get(tier, 0) == 0:
+                missing.append(f"{skill_id} missing practice {tier}")
+    report.stats["tier_gaps"] = missing
+    for row in missing:
+        report.warnings.append(row + " (selection falls back to nearest tier)")
+
+
+def _one_x_ban(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        if has_one_x(item.stem.en):
+            report.errors.append(f"{item.id} stem uses '1x'; write 'x'")
+
+
+def _approval_hashes(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        if item.status.value != "approved":
+            continue
+        digest = item_content_hash(item)
+        if item.content_hash != digest:
+            item.status = type(item.status)("draft")
+            item.reviewed_by = None
+            report.warnings.append(
+                f"{item.id} approved content changed; reset to draft (hash mismatch)"
+            )
+
+
 def _stem_answers(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         result = check_item_stem_answer(item)
@@ -454,6 +567,9 @@ def _build_report(bundle: ContentBundle, report: ValidationReport) -> None:
             for warning in report.warnings
             if "MCQ answers" in warning or "word-problem answer" in warning
         ],
+        "structures_by_skill_pool": report.stats.get("structures_by_skill_pool", {}),
+        "practice_by_skill_tier": report.stats.get("practice_by_skill_tier", {}),
+        "tier_gaps": report.stats.get("tier_gaps", []),
     }
     report.no_misconception_rules = no_rules
     items = {i.id: i for i in bundle.items}
@@ -490,6 +606,18 @@ def format_report(report: ValidationReport) -> str:
     for skill, pools in (report.stats.get("distinct_stems_by_skill") or {}).items():
         parts = ", ".join(f"{pool} {n}" for pool, n in pools.items())
         lines.append(f"    {skill}: {parts}")
+    lines.append("  distinct structures by skill/pool:")
+    for skill, pools in (report.stats.get("structures_by_skill_pool") or {}).items():
+        parts = ", ".join(f"{pool} {n}" for pool, n in pools.items())
+        lines.append(f"    {skill}: {parts}")
+    lines.append("  practice items by skill/tier:")
+    for skill, tiers in (report.stats.get("practice_by_skill_tier") or {}).items():
+        parts = ", ".join(f"{tier} {n}" for tier, n in tiers.items())
+        lines.append(f"    {skill}: {parts}")
+    gaps = report.stats.get("tier_gaps") or []
+    lines.append(f"  practice tier gaps: {len(gaps)}")
+    for row in gaps:
+        lines.append(f"    {row}")
     lines.append(f"  no misconception_rules: {len(report.no_misconception_rules)}")
     for item_id in report.no_misconception_rules:
         lines.append(f"    {item_id}")

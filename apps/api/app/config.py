@@ -29,6 +29,8 @@ class Settings(BaseSettings):
     session_ttl_seconds: int = 86_400
     token_pepper: str = "dev-only-change-me"
     test_database_url: str = ""
+    reviewer_allowlist: str = ""
+    otel_enabled: bool = False
 
 
 settings = Settings()

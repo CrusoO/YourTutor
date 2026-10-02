@@ -146,6 +146,34 @@ stateDiagram-v2
   ScoreCheckpoint --> END_SESSION
 ```
 
+<!-- ORCH_TRANSITIONS:START -->
+```mermaid
+stateDiagram-v2
+  start --> predict: start/predict (R01)
+  start --> practice: start/show_item (R02)
+  start --> warmup: start/warmup_item (R03)
+  predict --> worked_example: predict_response/worked_example (R04)
+  worked_example --> practice: continue/show_item (R05)
+  practice --> practice: request_hint/hint (R06)
+  practice --> practice: answer/hint (R07)
+  practice --> explain_back: answer/explain_back_prompt (R08)
+  practice --> reveal: answer/reveal_solution (R09)
+  practice --> reveal: show_solution/reveal_solution (R10)
+  reveal --> practice: continue/similar_item (R11)
+  reveal --> start: continue/content_gap (R12)
+  explain_back --> practice: continue/show_item (R13)
+  explain_back --> select_skill: explain_back/explain_back_result (R14)
+  practice --> practice: idle_nudge/nudge (R15)
+  any --> ended: consent_revoked/end_session (R16)
+  any --> ended: idle/end_session (R17)
+  start --> ended: start/end_session (R18)
+  diagnostic --> diagnostic: answer/show_item (R19)
+  diagnostic --> ended: answer/end_session (R20)
+  checkpoint --> ended: answer/checkpoint_score (R21)
+  practice --> practice: show_solution/show_item (R22)
+```
+<!-- ORCH_TRANSITIONS:END -->
+
 ### 6.1 Practice transitions (normative)
 
 1. **HINT → PRACTICE (retry)** after hint **level 1 or 2**. Student retries the **same item**. Hint **level 3 is never a retry hint**; it is the lead-in sentence of `reveal_solution` (then the authored solution steps).
@@ -157,7 +185,7 @@ stateDiagram-v2
 7. **Unmatched wrong answers** use the generic authored hint ladder **levels 1–2**. Matched `when_answer_equals` attaches `misconception_id`.
 8. **IDLE_NUDGE** (90 s on the current item) does not change pedagogy. After **10 min** idle the session auto-ends (resumable).
 9. **Reveal** after hint 2 is shown and the student retries: if that attempt is also wrong, or they send `show_solution` after 2 hints. `reveal_solution` text = hint 3 (lead-in) + full worked solution. Then `continue` → `SIMILAR_ITEM`. Levels 1–2 never leak the answer.
-10. **`SIMILAR_ITEM`** is a **different** approved `pool: practice` item with the **same primary skill and the same difficulty tier**. Never reuse the item that was just revealed. If no other item exists in-tier, use the nearest populated tier; if still none, end the item loop and `SELECT_SKILL`.
+10. **`SIMILAR_ITEM`** is a **different** approved `pool: practice` item with the **same primary skill and the same difficulty tier**. Never reuse the item that was just revealed. If no other item exists in-tier, use the nearest populated tier on that skill. If still none, log a `content_gap` event (skill, tier, item ids seen), stop work on that skill for the session, and `SELECT_SKILL`.
 11. **Consent revoked mid-session:** on the **next** `POST /sessions/{id}/events` (or sync), end the session (`ended_reason=consent_revoked`). Do **not** apply further pedagogy and make **no further LLM calls**.
 
 A skill is **new** if the student has never been shown an item for it in any practice session. Warm-up review items are not "new."

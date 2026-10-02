@@ -72,6 +72,7 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                 misconception_rules=[r.model_dump() for r in item.misconception_rules],
                 status=item.status.value,
                 reviewed_by=item.reviewed_by,
+                content_hash=item.content_hash,
             )
         )
     for mc in bundle.misconceptions:

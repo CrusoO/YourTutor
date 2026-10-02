@@ -108,6 +108,7 @@ class Item(BaseModel):
     prediction_prompt: LocalizedText
     misconception_rules: list[MisconceptionRule] = []
     reviewed_by: str | None = None
+    content_hash: str | None = None
     status: ContentStatus = ContentStatus.draft
 
     @property

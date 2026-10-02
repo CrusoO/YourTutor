@@ -76,6 +76,9 @@ class Action:
     resumable: bool = False
     guardrail_flag: str | None = None
     rejected: bool = False
+    state_before: str | None = None
+    state_after: str | None = None
+    rule_id: str | None = None
     extras: dict[str, Any] = field(default_factory=dict)
 
 
@@ -116,6 +119,8 @@ class SessionState:
     stored_explain_text: str | None = None
     similar_from_item_id: str | None = None
     last_wrong_response: str | None = None
+    blocked_skills: set[str] = field(default_factory=set)
+    content_gaps: list[dict[str, Any]] = field(default_factory=list)
     bkt_memory: dict = field(default_factory=lambda: {
         "bkt_done": set(),
         "hinted": set(),
