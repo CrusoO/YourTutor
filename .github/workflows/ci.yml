@@ -23,6 +23,8 @@ jobs:
         run: mypy app
       - name: Pytest
         run: pytest
+      - name: Validate seed content
+        run: python -m app.content.validate ../../content
 
   web:
     runs-on: ubuntu-latest

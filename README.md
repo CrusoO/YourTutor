@@ -47,4 +47,9 @@ npm test
 
 ## Milestone status
 
-**M0** scaffold is in this repo. Do not expect sessions, content, or auth yet — those start at M1.
+**M0** scaffold and **M1** content pipeline are in this repo. Auth and sessions start at M2.
+
+```
+cd apps/api
+python -m app.content.validate ../../content
+```

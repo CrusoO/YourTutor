@@ -116,17 +116,17 @@ After each milestone:
 
 ## M1 — Content pipeline
 
-- [ ] Pydantic v2 schemas for skills, items, misconceptions, overlays, glossary
-- [ ] CLI: `python -m app.content.validate content/` and `python -m app.content.load content/`
-- [ ] Validator: unique IDs, refs resolve, no prerequisite cycles, **primary skill** required, **3 hint levels** (1–2 leak-checked; 3 = reveal lead-in), solution steps, checkpoint items not in practice, allowlist-parseable answers
-- [ ] Validator: each item's **final solution step is equivalent to its stated answer**
-- [ ] **Live-chapter threshold:** every skill has ≥5 approved practice and ≥2 approved diagnostic items; forms A and B exist with ≥10 checkpoint items each (warn &lt; 15) and a complete `match_map`
-- [ ] Content gate: runtime serves `status=approved` only, unless `ALLOW_DRAFT_CONTENT=true`; non-live chapters not targetable in production
-- [ ] Locale fallback: missing `ne`/`as` → English
-- [ ] Seed: one Class 9 linear-equations chapter — ~12 skills, ~8 misconceptions, ~120 items (60 practice / 30 diagnostic / 30 checkpoint), English, `status: draft`. Nepali/Assamese reviewer placeholders. **Do not machine-translate or mark approved.**
-- [ ] Glossary stubs and overlays (`bhutan_class9.yaml`, `seba_class9.yaml`)
+- [x] Pydantic v2 schemas for skills, items, misconceptions, overlays, glossary
+- [x] CLI: `python -m app.content.validate content/` and `python -m app.content.load content/`
+- [x] Validator: unique IDs, refs resolve, no prerequisite cycles, **primary skill** required, **3 hint levels** (1–2 leak-checked; 3 = reveal lead-in), solution steps, checkpoint items not in practice, allowlist-parseable answers
+- [x] Validator: each item's **final solution step is equivalent to its stated answer**
+- [x] **Live-chapter threshold:** every skill has ≥5 approved practice and ≥2 approved diagnostic items; forms A and B exist with ≥10 checkpoint items each (warn &lt; 15) and a complete `match_map`
+- [x] Content gate: runtime serves `status=approved` only, unless `ALLOW_DRAFT_CONTENT=true`; non-live chapters not targetable in production
+- [x] Locale fallback: missing `ne`/`as` → English
+- [x] Seed: one Class 9 linear-equations chapter — ~12 skills, ~8 misconceptions, ~120 items (60 practice / 30 diagnostic / 30 checkpoint), English, `status: draft`. Nepali/Assamese reviewer placeholders. **Do not machine-translate or mark approved.**
+- [x] Glossary stubs and overlays (`bhutan_class9.yaml`, `seba_class9.yaml`)
 
-**Accept:** validator catches broken refs, cycles, missing hints, checkpoint leakage, solution/answer mismatch, leak in hint 1–2, and failed live-chapter counts; seed loads; drafts hidden unless the env flag is set.
+**Accept:** validator catches broken refs, cycles, missing hints, checkpoint leakage, solution/answer mismatch, leak in hint 1–2, and failed live-chapter counts; seed loads; drafts hidden unless the env flag is set. **Met 2026-10-02:** 23 pytest passed; seed validates (12 skills, 8 misconceptions, 120 items = 60/30/30, forms A/B 15 each); SQLite load succeeded; overlays warn not-live because every item is draft.
 
 ---
 
