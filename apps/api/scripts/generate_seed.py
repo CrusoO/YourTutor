@@ -419,7 +419,11 @@ def fraction(n: int, pool: str, prefix: str) -> dict:
         pool,
         f"Solve for x: x/2 + 3 = {rhs}",
         str(answer),
-        [f"Subtract 3 from both sides: x/2 = {rhs - 3}.", f"Multiply both sides by 2.", f"x = {answer}"],
+        [
+            f"Subtract 3 from both sides: x/2 = {rhs - 3}.",
+            "Multiply both sides by 2.",
+            f"x = {answer}",
+        ],
         hints_undo("Subtract", 3),
         "Will x be even? Why?",
     )
@@ -433,7 +437,11 @@ def word(n: int, pool: str, prefix: str) -> dict:
         "MATH.ALG.LIN1.WORD_PROBLEMS",
         0.5,
         pool,
-        f"A student is {older} years older than her sister. Together they are {age + (age - older)} years old. How old is the sister?",
+        (
+            f"A student is {older} years older than her sister. "
+            f"Together they are {age + (age - older)} years old. "
+            "How old is the sister?"
+        ),
         str(age - older),
         [
             f"Let the sister be x. Then the student is x + {older}.",
@@ -478,7 +486,13 @@ def identity(n: int, pool: str, prefix: str) -> dict:
         ["Expand: 2x + 6 = 2x + 6.", "The two sides are the same for every x.", "x = 1"],
         [
             {"level": 1, **loc("Expand the brackets. Do the two sides look the same?")},
-            {"level": 2, **loc("If both sides simplify to the same expression, every value works.")},
+            {
+                "level": 2,
+                **loc(
+                    "If both sides simplify to the same expression, "
+                    "every value works."
+                ),
+            },
             {"level": 3, **loc("2x + 6 equals 2x + 6, so the equation is an identity.")},
         ],
         "Before expanding: do you expect one solution or many?",
