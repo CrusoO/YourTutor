@@ -1,0 +1,58 @@
+id: TPL.ID.NONE
+skill_id: MATH.ALG.LIN1.IDENTITIES
+structure: Classify the solution set of Nx + N = Nx + N.
+parameters:
+  a:
+    min: 2
+    max: 6
+  b:
+    min: 1
+    max: 5
+  c:
+    min: 6
+    max: 11
+derived: {}
+constraints:
+  nonzero:
+  - a
+  no_one_x: true
+answer_expr: none
+stem: Classify the solution set of {a}x + {b} = {a}x + {c}.
+verify:
+  kind: solution_count
+  equation: '{a}x + {b} = {a}x + {c}'
+type: mcq
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+steps:
+- Simplify both sides of {a}x + {b} = {a}x + {c}.
+- The correct option is none.
+hints:
+  '1': Look at {a}x + {b} = {a}x + {c}. Expand any brackets first.
+  '2': After simplifying, do both sides become the same expression?
+  '3': After you simplify, this is classified as none.
+misconceptions:
+- id: MC.ALG.SWAP_EQUALS
+  formula: every
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_coeff: 4
+- tier: hard
+  difficulty: 0.86
+status: draft

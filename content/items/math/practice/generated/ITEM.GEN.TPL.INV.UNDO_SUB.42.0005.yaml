@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.INV.UNDO_SUB.42.0005
+skill_ids:
+- MATH.ALG.INVERSE_OPERATIONS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: Adding what to x - 6 returns x?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: equation
+  expr: x - 6 + y = x
+  unknown: y
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: The inverse of subtracting 6 is adding 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Which operation puts x back together after it was changed?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: 'Think of the inverse pair: add versus subtract.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Add 6 to cancel subtracting 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the inverse larger than 1?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '-6'
+status: draft
+template_id: TPL.INV.UNDO_SUB
+generator_version: '1'
+template_hash: ead626cfcf9c6f5b2b53676c4687295d65ece686227b6b45d90a491cbb343748

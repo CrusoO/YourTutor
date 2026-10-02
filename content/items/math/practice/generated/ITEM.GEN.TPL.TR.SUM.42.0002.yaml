@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.TR.SUM.42.0002
+skill_ids:
+- MATH.ALG.LIN1.TRANSLATE
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: The sum of a number and 4 is 10. Find the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 4 = 10
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: The sentence becomes x + 4 = 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Sum of a number and 4 is x + 4 = 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: To undo adding 4, do the inverse to 10 as well.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 4 away from 10 to leave the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the number smaller than 10?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '14'
+status: draft
+template_id: TPL.TR.SUM
+generator_version: '1'
+template_hash: 02ad83aa6e3ab6613bdf8c98cd78145b6ec3cec0d05f3a9f3a470e2dbc1d9ed5

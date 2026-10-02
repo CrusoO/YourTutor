@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BR.TIMES.42.0014
+skill_ids:
+- MATH.ALG.LIN1.BRACKETS
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 4 × (x + 2) = 32'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 4(x + 2) = 32
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: 'Divide both sides by 4: x + 2 = 8.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Subtract 2.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The 4 multiplies the whole bracket (x + 2).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Divide both sides by 4 first. You get x + 2 = 8.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Then subtract 2 to isolate x.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be positive?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  when_answer_equals:
+  - '28'
+status: draft
+template_id: TPL.BR.TIMES
+generator_version: '1'
+template_hash: 4167ac85b92cad6c7a2a2627155b461259e2ba89994c59a1c83c48c0f003ed78

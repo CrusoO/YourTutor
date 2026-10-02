@@ -1,0 +1,56 @@
+id: TPL.CHECK.YES
+skill_id: MATH.ALG.LIN1.CHECK_SOLUTION
+structure: Does x = N solve Nx + N = N?
+parameters:
+  a:
+    min: 2
+    max: 5
+  b:
+    min: 1
+    max: 6
+  x:
+    min: 2
+    max: 9
+derived:
+  rhs: a * x + b
+constraints:
+  nonzero:
+  - a
+  no_one_x: true
+answer_expr: 'yes'
+stem: Does x = {x} solve {a}x + {b} = {rhs}?
+verify:
+  kind: substitution
+  equation: '{a}x + {b} = {rhs}'
+  value: '{x}'
+type: mcq
+options:
+- id: 'yes'
+  en: 'Yes'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction: Do you expect the two sides to match?
+steps:
+- Substitute x = {x} into {a}x + {b} = {rhs}.
+- The correct option is yes.
+hints:
+  '1': Replace x with {x} on the left of {a}x + {b} = {rhs}.
+  '2': After substituting {x}, compare the two sides of {a}x + {b} = {rhs}.
+  '3': 'Plug in {x}: the left becomes a number. Does that number equal the right-hand
+    side?'
+misconceptions: []
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 99
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_coeff: 4
+- tier: hard
+  difficulty: 0.86
+status: draft

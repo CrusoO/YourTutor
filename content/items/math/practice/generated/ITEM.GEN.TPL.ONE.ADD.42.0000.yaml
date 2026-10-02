@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.ONE.ADD.42.0000
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_ONE_STEP
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: x + 12 = 29'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 12 = 29
+options: []
+answer:
+  sympy: '17'
+  accept:
+  - '17'
+solution_steps:
+- en: Subtract 12 from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 29 - 12
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 17
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: x has 12 added to it. What undoes that single step?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Do the inverse of +12 to both sides of 29.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Rewrite as x = 29 - 12, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be smaller than 29?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '41'
+status: draft
+template_id: TPL.ONE.ADD
+generator_version: '1'
+template_hash: eae6030b83ad7fb0348531d8fdf02e69a5a22493b3cd2bdff5047ceb94277920

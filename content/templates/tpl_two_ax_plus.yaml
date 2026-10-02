@@ -1,0 +1,52 @@
+id: TPL.TWO.AX_PLUS
+skill_id: MATH.ALG.LIN1.SOLVE_TWO_STEP
+structure: 'Solve for x: Nx + N = N'
+parameters:
+  a:
+    min: 2
+    max: 6
+  b:
+    min: 1
+    max: 9
+  x:
+    min: 2
+    max: 16
+derived:
+  c: a * x + b
+constraints:
+  nonzero:
+  - a
+  - b
+  answer_min: 2
+  answer_max: 16
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: 'Solve for x: {a}x + {b} = {c}'
+verify: '{a}x + {b} = {c}'
+type: expression
+options: []
+prediction: Will x be a whole number?
+steps:
+- Subtract {b} from both sides.
+- '{a}x = {c} - {b}'
+- Divide both sides by {a}.
+- x = {x}
+hints:
+  '1': '{a}x then plus {b}. Which of those two do you undo first?'
+  '2': After undoing the {b}, you still have to undo the {a}.
+  '3': First subtract {b} on both sides, then divide by {a}.
+misconceptions:
+- id: MC.ALG.FORGET_BOTH_SIDES
+  formula: c - b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

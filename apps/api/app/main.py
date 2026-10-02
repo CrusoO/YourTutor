@@ -1,12 +1,30 @@
-from fastapi import FastAPI
+from __future__ import annotations
+
+import logging
+
+from fastapi import FastAPI, Request
 
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import settings
 
+logger = logging.getLogger("yourtutor.access")
+
 app = FastAPI(title="YourTutor API", version="0.2.0")
 app.include_router(auth_router)
 app.include_router(admin_router)
+
+
+def access_log_line(method: str, path: str, status: int) -> str:
+    """Path only — query strings are never logged."""
+    return f"{method} {path} {status}"
+
+
+@app.middleware("http")
+async def access_log_no_query(request: Request, call_next):  # type: ignore[no-untyped-def]
+    response = await call_next(request)
+    logger.info(access_log_line(request.method, request.url.path, response.status_code))
+    return response
 
 
 @app.get("/health")

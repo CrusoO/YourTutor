@@ -1,0 +1,62 @@
+id: ITEM.GEN.TPL.ID.ONE.42.0014
+skill_ids:
+- MATH.ALG.LIN1.IDENTITIES
+difficulty: 0.86
+type: mcq
+pool: practice
+stem:
+  en: Is 5x + 1 = 41 an identity, a contradiction, or a unique value?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: solution_count
+  equation: 5x + 1 = 41
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: one
+  accept:
+  - one
+solution_steps:
+- en: Simplify both sides of 5x + 1 = 41.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is one.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Look at 5x + 1 = 41. Expand any brackets first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After simplifying, do both sides become the same expression?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After you simplify, this is classified as one.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.SWAP_EQUALS
+  when_answer_equals:
+  - every
+status: draft
+template_id: TPL.ID.ONE
+generator_version: '1'
+template_hash: 83b8b703145f94bb1d718e4f5853ec6a6a61ab5f33e7d4cca290bb6987ac0527

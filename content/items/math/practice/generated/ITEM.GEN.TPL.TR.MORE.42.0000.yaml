@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.TR.MORE.42.0000
+skill_ids:
+- MATH.ALG.LIN1.TRANSLATE
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: 8 more than a number is 10. What is the number?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 8 = 10
+options: []
+answer:
+  sympy: '2'
+  accept:
+  - '2'
+solution_steps:
+- en: The sentence becomes x + 8 = 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 2
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: '''8 more than a number'' means you add 8 to x.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Set that sum equal to 10, then isolate the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 8 away from 10 to leave the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the number smaller than 10?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '18'
+status: draft
+template_id: TPL.TR.MORE
+generator_version: '1'
+template_hash: 11ec30d5474ef9333e0f7c7f916abab931c77498392eef1fd6baa6a6bba11209

@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BR.MINUS.42.0000
+skill_ids:
+- MATH.ALG.LIN1.BRACKETS
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 5(x - 6) = 30'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 5(x - 6) = 30
+options: []
+answer:
+  sympy: '12'
+  accept:
+  - '12'
+solution_steps:
+- en: 'Divide both sides by 5: x - 6 = 6.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Add 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 12
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The 5 sits outside (x - 6). Divide first to unwrap the bracket.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Divide both sides by 5 first. You get x - 6 = 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Then add 6 to isolate x.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be greater than the number inside the brackets?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  when_answer_equals:
+  - '35'
+status: draft
+template_id: TPL.BR.MINUS
+generator_version: '1'
+template_hash: 97bb5d6363bda567d667e82488800e9214c6147cfc967d1bbdaf03bbc6a94280

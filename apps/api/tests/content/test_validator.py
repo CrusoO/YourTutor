@@ -271,6 +271,39 @@ def test_substitution_and_solution_count_verify(content_root: Path) -> None:
     assert "ITEM.ID.EVERY" not in report.needs_teacher_check
 
 
+def test_no_equals_stem_rejects_equation_wording(content_root: Path) -> None:
+    data = minimal_item("ITEM.NOEQ", stem="What undoes subtracting 4 from x?")
+    data["hints"][0]["en"] = "Undo it on both sides of the equation."
+    write_yaml(content_root / "items" / "noeq.yaml", data)
+    report = validate_path(content_root)
+    assert any("both sides" in e or "equation" in e for e in report.errors)
+
+
+def test_word_problem_hint1_must_define_unknown(content_root: Path) -> None:
+    write_yaml(content_root / "skills" / "word.yaml", minimal_skill("MATH.ALG.LIN1.WORD_PROBLEMS"))
+    data = minimal_item(
+        "ITEM.WORD.H1",
+        skill="MATH.ALG.LIN1.WORD_PROBLEMS",
+        stem="A student is 7 years older than her sister. Together they are 33.",
+        answer="13",
+        last_step="x = 13",
+    )
+    data["hints"][0]["en"] = "Pick a letter for the unknown."
+    data["verify"] = "x + (x + 7) = 33"
+    write_yaml(content_root / "items" / "word_h1.yaml", data)
+    report = validate_path(content_root)
+    assert any("define the unknown" in e for e in report.errors)
+
+
+def test_hint3_overlap_warns(content_root: Path) -> None:
+    data = minimal_item("ITEM.OVLP", stem="Solve for x: x + 4 = 10")
+    data["hints"][1]["en"] = "Subtract 4 on both sides then simplify the left."
+    data["hints"][2]["en"] = "Subtract 4 on both sides then simplify the left now."
+    write_yaml(content_root / "items" / "ovlp.yaml", data)
+    report = validate_path(content_root)
+    assert any("overlaps hint 2" in w for w in report.warnings)
+
+
 def test_one_x_banned(content_root: Path) -> None:
     write_yaml(
         content_root / "items" / "onex.yaml",

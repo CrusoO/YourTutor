@@ -73,6 +73,9 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                 status=item.status.value,
                 reviewed_by=item.reviewed_by,
                 content_hash=item.content_hash,
+                template_id=item.template_id,
+                generator_version=item.generator_version,
+                template_hash=item.template_hash,
             )
         )
     for mc in bundle.misconceptions:

@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BR.PLUS.42.0040
+skill_ids:
+- MATH.ALG.LIN1.BRACKETS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 3(x + 8) = 39'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 3(x + 8) = 39
+options: []
+answer:
+  sympy: '5'
+  accept:
+  - '5'
+solution_steps:
+- en: 'Divide both sides by 3: x + 8 = 13.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Subtract 8.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 5
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The 3 multiplies the whole bracket (x + 8).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Divide both sides by 3 first. You get x + 8 = 13.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Then subtract 8 to isolate x.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be positive?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  when_answer_equals:
+  - '36'
+status: draft
+template_id: TPL.BR.PLUS
+generator_version: '1'
+template_hash: 8e10bd6758df16adbb80ded0eb5e9614f3dcd57cd933cd5e05171bc07ed47912

@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.ONE.ADD.42.0009
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_ONE_STEP
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: x + 8 = 17'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 8 = 17
+options: []
+answer:
+  sympy: '9'
+  accept:
+  - '9'
+solution_steps:
+- en: Subtract 8 from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 17 - 8
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 9
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: x has 8 added to it. What undoes that single step?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Do the inverse of +8 to both sides of 17.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Rewrite as x = 17 - 8, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be smaller than 17?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '25'
+status: draft
+template_id: TPL.ONE.ADD
+generator_version: '1'
+template_hash: eae6030b83ad7fb0348531d8fdf02e69a5a22493b3cd2bdff5047ceb94277920

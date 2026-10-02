@@ -1,0 +1,62 @@
+id: ITEM.GEN.TPL.ID.NONE.42.0013
+skill_ids:
+- MATH.ALG.LIN1.IDENTITIES
+difficulty: 0.55
+type: mcq
+pool: practice
+stem:
+  en: Classify the solution set of 4x + 1 = 4x + 9.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: solution_count
+  equation: 4x + 1 = 4x + 9
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: none
+  accept:
+  - none
+solution_steps:
+- en: Simplify both sides of 4x + 1 = 4x + 9.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is none.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Look at 4x + 1 = 4x + 9. Expand any brackets first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After simplifying, do both sides become the same expression?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After you simplify, this is classified as none.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.SWAP_EQUALS
+  when_answer_equals:
+  - every
+status: draft
+template_id: TPL.ID.NONE
+generator_version: '1'
+template_hash: 9ae8d6c3484ef448c641d17805b9f23ea45c6f7040293e7a9604c1f265e35777

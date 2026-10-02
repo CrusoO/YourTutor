@@ -1,0 +1,57 @@
+id: TPL.BOTH.AX_B_CX_D
+skill_id: MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+structure: 'Solve for x: Nx + N = Nx + N'
+parameters:
+  a:
+    min: 3
+    max: 6
+  c:
+    min: 1
+    max: 2
+  b:
+    min: 1
+    max: 8
+  x:
+    min: 2
+    max: 14
+derived:
+  d: (a - c) * x + b
+constraints:
+  nonzero:
+  - a
+  - c
+  - b
+  answer_min: 2
+  answer_max: 14
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: 'Solve for x: {a}x + {b} = {c}x + {d}'
+verify: '{a}x + {b} = {c}x + {d}'
+type: expression
+options: []
+prediction: Is x larger than 1?
+steps:
+- Subtract {c}x from both sides.
+- '{a}x - {c}x + {b} = {d}'
+- Subtract {b} from both sides.
+- x = {x}
+hints:
+  '1': 'x appears on both sides: {a}x and {c}x.'
+  '2': Collect {a}x with {c}x before you touch the constants.
+  '3': After the x terms sit on one side, subtract {b} and divide by the remaining
+    coefficient.
+misconceptions:
+- id: MC.ALG.MOVE_TERM_WITHOUT_SIGN
+  formula: d + b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

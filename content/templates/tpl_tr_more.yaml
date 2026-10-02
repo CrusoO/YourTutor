@@ -1,0 +1,45 @@
+id: TPL.TR.MORE
+skill_id: MATH.ALG.LIN1.TRANSLATE
+structure: N more than a number is N. What is the number?
+parameters:
+  b:
+    min: 3
+    max: 11
+  x:
+    min: 2
+    max: 16
+derived:
+  c: x + b
+constraints:
+  answer_min: 1
+  answer_max: 40
+  nonzero_answer: true
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: '{b} more than a number is {c}. What is the number?'
+verify: x + {b} = {c}
+type: expression
+options: []
+prediction: Is the number smaller than {c}?
+steps:
+- The sentence becomes x + {b} = {c}.
+- x = {x}
+hints:
+  '1': '''{b} more than a number'' means you add {b} to x.'
+  '2': Set that sum equal to {c}, then isolate the number.
+  '3': Take {b} away from {c} to leave the number.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: c + b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

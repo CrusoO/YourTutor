@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.TR.SUM.42.0026
+skill_ids:
+- MATH.ALG.LIN1.TRANSLATE
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: The sum of a number and 5 is 21. Find the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 5 = 21
+options: []
+answer:
+  sympy: '16'
+  accept:
+  - '16'
+solution_steps:
+- en: The sentence becomes x + 5 = 21.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 16
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Sum of a number and 5 is x + 5 = 21.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: To undo adding 5, do the inverse to 21 as well.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 5 away from 21 to leave the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the number smaller than 21?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '26'
+status: draft
+template_id: TPL.TR.SUM
+generator_version: '1'
+template_hash: 02ad83aa6e3ab6613bdf8c98cd78145b6ec3cec0d05f3a9f3a470e2dbc1d9ed5

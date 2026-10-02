@@ -1,0 +1,44 @@
+id: TPL.INV.UNDO_ADD
+skill_id: MATH.ALG.INVERSE_OPERATIONS
+structure: What number do you subtract from x + N to get x again?
+parameters:
+  n:
+    min: 3
+    max: 18
+derived: {}
+constraints:
+  nonzero:
+  - n
+  answer_min: 3
+  answer_max: 18
+  no_one_x: true
+  no_trivial: true
+answer_expr: n
+stem: What number do you subtract from x + {n} to get x again?
+verify:
+  kind: equation
+  expr: x + {n} - y = x
+  unknown: y
+type: expression
+options: []
+prediction: Is the inverse larger than 1?
+steps:
+- The inverse of adding {n} is subtracting {n}.
+- x = {n}
+hints:
+  '1': x was shifted. What undoes a shift on x?
+  '2': The inverse operation is the opposite direction on the number line.
+  '3': Subtract {n} to cancel adding {n}.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: -n
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 11
+- tier: hard
+  difficulty: 0.86
+status: draft

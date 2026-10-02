@@ -13,6 +13,9 @@ HARD_ACTIVE_MS = 20 * 60 * 1000
 IDLE_END_MS = 10 * 60 * 1000
 LATENCY_CAP_MS = 5 * 60 * 1000
 SOFT_ITEM_CAP = 12
+DIAG_ITEM_CAP = 16
+DIAG_ACTIVE_MS = 15 * 60 * 1000
+LOW_PRIOR = 0.05
 MAX_WARMUP = 3
 PREREQ_BELOW = 0.6
 MASTERY_P = 0.95
@@ -114,7 +117,11 @@ class SessionState:
     diagnostic_ids: list[str] = field(default_factory=list)
     checkpoint_ids: list[str] = field(default_factory=list)
     sequence_index: int = 0
-    diagnostic_results: list[tuple[str, str, bool]] = field(default_factory=list)
+    diagnostic_results: list[dict] = field(default_factory=list)
+    skipped_skills: set[str] = field(default_factory=set)
+    skills_not_tested: list[str] = field(default_factory=list)
+    checkpoint_answers: list[dict] = field(default_factory=list)
+    checkpoint_result: dict | None = None
     last_event: Event | None = None
     stored_explain_text: str | None = None
     similar_from_item_id: str | None = None

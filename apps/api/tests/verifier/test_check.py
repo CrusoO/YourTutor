@@ -20,6 +20,11 @@ def test_normalises_digits_and_equation_form() -> None:
     assert verify_response("−3", answer_sympy="-3")
 
 
+def test_dont_know_is_incorrect() -> None:
+    assert verify_response("I don't know", answer_sympy="5") is False
+    assert verify_response("idk", answer_sympy="yes") is False
+
+
 def test_leak_check_levels() -> None:
     assert leak_check("The answer is 5", "5", level=1)
     assert leak_check("The answer is 5", "5", level=2)

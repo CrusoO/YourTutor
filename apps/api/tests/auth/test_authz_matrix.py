@@ -172,7 +172,11 @@ def test_matrix_issue_checkpoint_token(
         "POST",
         "/checkpoints/cp1/tokens",
         _roles(world)[role],
-        {"form": "B", "consent_id": world.consent_share_id},
+        {
+            "participant_id": world.comparison_participant_id,
+            "form": world.comparison_form,
+            "consent_id": world.consent_share_id,
+        },
     )
     assert (status == 200) is allowed, (role, status)
 
@@ -191,13 +195,17 @@ def test_matrix_take_checkpoint_via_token(
     client: TestClient, world: World, role: str, allowed: bool
 ) -> None:
     status = _status(
-        client, "GET", "/checkpoints/cp1/forms/A", _roles(world)[role]
+        client,
+        "GET",
+        f"/checkpoints/cp1/forms/{world.comparison_form}",
+        _roles(world)[role],
     )
     assert (status == 200) is allowed, (role, status)
 
 
 def test_comparison_token_wrong_form_forbidden(client: TestClient, world: World) -> None:
-    status = _status(client, "GET", "/checkpoints/cp1/forms/B", world.comparison_token)
+    other = "B" if world.comparison_form == "A" else "A"
+    status = _status(client, "GET", f"/checkpoints/cp1/forms/{other}", world.comparison_token)
     assert status == 403
 
 
@@ -305,13 +313,15 @@ def test_matrix_analytics_csv(client: TestClient, world: World, role: str, allow
     status = _status(client, "GET", "/analytics/export", _roles(world)[role])
     assert (status == 200) is allowed, (role, status)
     if allowed:
-        rows = client.get(
+        body = client.get(
             "/analytics/export", headers=auth_header(world.admin_token)
-        ).json()["students"]
-        ids = {row["student_id"] for row in rows}
-        assert world.student_share_id in ids
-        assert world.student_noshare_id not in ids
+        ).json()
+        rows = body["rows"]
+        assert "pseudonym,group,site,form,occasion,score" in body["csv"]
+        assert rows
         assert "display_name" not in rows[0]
+        assert "student_id" not in rows[0]
+        assert rows[0]["site"] == "site-thimphu"
 
 
 @pytest.mark.parametrize(

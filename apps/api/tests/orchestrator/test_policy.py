@@ -267,15 +267,13 @@ def test_soft_and_hard_caps() -> None:
 
 def test_diagnostic_no_hints_no_reveal_seeds_mastery() -> None:
     d1 = catalog_item("ITEM.D1", pool="diagnostic")
-    d2 = catalog_item("ITEM.D2", pool="diagnostic", answer="4")
-    session = make_session(d1, d2, session_type="diagnostic")
+    session = make_session(d1, session_type="diagnostic")
     learner = make_learner()
     first = policy(learner, session, None)
     assert first.type == "show_item"
     blocked = policy(learner, session, Event(type="request_hint"))
     assert blocked.rejected is True
-    policy(learner, session, Event(type="answer", response="5", item_id="ITEM.D1"))
-    done = policy(learner, session, Event(type="answer", response="4", item_id="ITEM.D2"))
+    done = policy(learner, session, Event(type="answer", response="5", item_id="ITEM.D1"))
     assert done.type == "end_session"
     assert "MATH.S1" in learner.mastery
     assert learner.mastery["MATH.S1"].attempts >= 1

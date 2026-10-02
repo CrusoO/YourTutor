@@ -110,6 +110,9 @@ class Item(BaseModel):
     reviewed_by: str | None = None
     content_hash: str | None = None
     status: ContentStatus = ContentStatus.draft
+    template_id: str | None = None
+    generator_version: str | None = None
+    template_hash: str | None = None
 
     @property
     def primary_skill(self) -> str:
@@ -168,6 +171,28 @@ class GlossaryFile(BaseModel):
     terms: dict[str, str]
 
 
+class ItemTemplate(BaseModel):
+    id: str
+    skill_id: str
+    structure: str
+    parameters: dict[str, Any]
+    derived: dict[str, str] = {}
+    constraints: dict[str, Any] = {}
+    answer_expr: str
+    stem: str
+    verify: str | dict[str, Any] | None = None
+    type: ItemType = ItemType.expression
+    options: list[McqOption] = []
+    prediction: str
+    steps: list[str]
+    hints: dict[int, str] | dict[str, str]
+    misconceptions: list[dict[str, str]] = []
+    tier_rules: list[dict[str, Any]]
+    status: ContentStatus = ContentStatus.draft
+    reviewed_by: str | None = None
+    content_hash: str | None = None
+
+
 class ContentBundle(BaseModel):
     skills: list[Skill]
     items: list[Item]
@@ -175,3 +200,4 @@ class ContentBundle(BaseModel):
     overlays: list[Overlay]
     glossaries: list[GlossaryFile]
     checkpoint_forms: list[CheckpointForms]
+    templates: list[ItemTemplate] = []

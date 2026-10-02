@@ -1,0 +1,62 @@
+id: ITEM.GEN.TPL.ID.EVERY.42.0006
+skill_ids:
+- MATH.ALG.LIN1.IDENTITIES
+difficulty: 0.86
+type: mcq
+pool: practice
+stem:
+  en: How many solutions does 5(x + 6) = 5x + 30 have?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: solution_count
+  equation: 5(x + 6) = 5x + 30
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: every
+  accept:
+  - every
+solution_steps:
+- en: Simplify both sides of 5(x + 6) = 5x + 30.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is every.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Look at 5(x + 6) = 5x + 30. Expand any brackets first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After simplifying, do both sides become the same expression?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After you simplify, this is classified as every.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.SWAP_EQUALS
+  when_answer_equals:
+  - one
+status: draft
+template_id: TPL.ID.EVERY
+generator_version: '1'
+template_hash: 3794948faf8ebcf67bdeee8cebef7cf6245547ab7e352333fd2497bde3c6e7f4

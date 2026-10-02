@@ -56,6 +56,10 @@ def _verify_response(
     options: list[dict[str, Any]] | None = None,
 ) -> bool:
     text = normalize(response)
+    from app.orchestrator.diagnostic import is_dont_know
+
+    if is_dont_know(response):
+        return False
     expected = normalize(answer_sympy)
     accepted = [normalize(a) for a in (accept or [])]
     if text == expected or text in accepted:

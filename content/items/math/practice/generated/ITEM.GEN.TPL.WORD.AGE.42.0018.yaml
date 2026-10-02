@@ -1,0 +1,55 @@
+id: ITEM.GEN.TPL.WORD.AGE.42.0018
+skill_ids:
+- MATH.ALG.LIN1.WORD_PROBLEMS
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: A student is 8 years older than her sister. Together they are 22 years old.
+    How old is the sister?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + (x + 8) = 22
+options: []
+answer:
+  sympy: '7'
+  accept:
+  - '7'
+solution_steps:
+- en: Let the sister be x. Then the student is x + 8.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x + (x + 8) = 22.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 7
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Let x be the sister's age. How old is the student, in terms of x, if she is
+    8 years older than her sister?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: The two ages add to 22. Write the student as x plus 8, then add that to x —
+    do not finish the arithmetic yet.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Let x be the sister. The student is x + 8. Then x + (x + 8) = 22. Combine, subtract
+    8, and divide by 2.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the sister younger than the student?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '30'
+status: draft
+template_id: TPL.WORD.AGE
+generator_version: '1'
+template_hash: 2508bebba7c257fbafd42a3593a847be1cceb33f97a24575feb078a5a41aad99

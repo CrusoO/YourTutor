@@ -60,6 +60,9 @@ class ItemRow(Base):
     status: Mapped[str] = mapped_column(String, index=True)
     reviewed_by: Mapped[str | None] = mapped_column(String, nullable=True)
     content_hash: Mapped[str | None] = mapped_column(String, nullable=True)
+    template_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    generator_version: Mapped[str | None] = mapped_column(String, nullable=True)
+    template_hash: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
 class MisconceptionRow(Base):
@@ -252,6 +255,45 @@ class EventRow(Base):
     rule_id: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
+class StudyParticipantRow(Base):
+    __tablename__ = "study_participants"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("students.id", ondelete="SET NULL"), nullable=True
+    )
+    site_id: Mapped[str] = mapped_column(String, index=True)
+    pseudonymous_code: Mapped[str] = mapped_column(String, unique=True)
+    group: Mapped[str] = mapped_column(String)
+    consent_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("consents.id", ondelete="SET NULL"), nullable=True
+    )
+    assigned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    assignment_method: Mapped[str] = mapped_column(String, default="random")
+    assignment_seed: Mapped[str] = mapped_column(String)
+    pretest_form: Mapped[str] = mapped_column(String)
+    posttest_form: Mapped[str | None] = mapped_column(String, nullable=True)
+    household_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+
+
+class CheckpointResultRow(Base):
+    __tablename__ = "checkpoint_results"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("students.id", ondelete="SET NULL"), nullable=True
+    )
+    participant_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("study_participants.id", ondelete="SET NULL"), nullable=True
+    )
+    checkpoint_id: Mapped[str] = mapped_column(String, index=True)
+    form: Mapped[str] = mapped_column(String)
+    score: Mapped[float] = mapped_column(Float)
+    per_skill: Mapped[dict] = mapped_column(JSONType)
+    occasion: Mapped[str] = mapped_column(String)
+    taken_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class CheckpointTokenRow(Base):
     __tablename__ = "checkpoint_tokens"
 
@@ -262,8 +304,30 @@ class CheckpointTokenRow(Base):
     consent_id: Mapped[uuid.UUID | None] = mapped_column(
         ForeignKey("consents.id", ondelete="SET NULL"), nullable=True
     )
+    participant_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("study_participants.id", ondelete="SET NULL"), nullable=True
+    )
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     issued_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    occasion: Mapped[str | None] = mapped_column(String, nullable=True)
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class PaperEntryRow(Base):
+    __tablename__ = "paper_entries"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    participant_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("study_participants.id", ondelete="CASCADE")
+    )
+    checkpoint_id: Mapped[str] = mapped_column(String)
+    form: Mapped[str] = mapped_column(String)
+    occasion: Mapped[str] = mapped_column(String)
+    entry_pass: Mapped[int] = mapped_column(Integer)
+    answers: Mapped[list] = mapped_column(JSONType)
+    mismatches: Mapped[list] = mapped_column(JSONType, default=list)
+    score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class MasteryRow(Base):

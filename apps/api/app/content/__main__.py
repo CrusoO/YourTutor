@@ -4,6 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from app.content.generate import generate_from_templates
 from app.content.loader import LoadError, load_path
 from app.content.review import export_sheet, import_sheet
 from app.content.validator import format_report, validate_path
@@ -25,6 +26,9 @@ def main(argv: list[str] | None = None) -> int:
     imported.add_argument("csv", type=Path)
     imported.add_argument("root", type=Path)
     imported.add_argument("--reviewer", required=True)
+    generate = sub.add_parser("generate-from-templates")
+    generate.add_argument("root", type=Path)
+    generate.add_argument("--seed", type=int, default=42)
     args = parser.parse_args(argv)
 
     if args.command == "validate":
@@ -44,6 +48,16 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
 
+    if args.command == "generate-from-templates":
+        items = generate_from_templates(args.root, seed=args.seed)
+        print(f"Generated {len(items)} practice instances (seed={args.seed})")
+        report = validate_path(args.root)
+        print(format_report(report))
+        if report.errors:
+            for error in report.errors:
+                print(f"ERROR: {error}", file=sys.stderr)
+            return 1
+        return 0
     if args.command == "export-review":
         count = export_sheet(args.root, args.csv, args.html)
         print(f"Exported {count} items")

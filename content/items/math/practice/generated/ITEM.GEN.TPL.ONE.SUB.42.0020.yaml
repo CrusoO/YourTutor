@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.ONE.SUB.42.0020
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_ONE_STEP
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: x - 9 = -5'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x - 9 = -5
+options: []
+answer:
+  sympy: '4'
+  accept:
+  - '4'
+solution_steps:
+- en: Add 9 to both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = -5 + 9
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 4
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: x has 9 subtracted from it. What puts x back alone?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Undo -9 on both sides of -5.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Rewrite as x = -5 + 9, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be larger than -5?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '-14'
+status: draft
+template_id: TPL.ONE.SUB
+generator_version: '1'
+template_hash: 6b477120326b19a80d4471199be93e79c864dd75396d5c59a0915e290c0db04f

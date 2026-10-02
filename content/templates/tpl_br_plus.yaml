@@ -1,0 +1,52 @@
+id: TPL.BR.PLUS
+skill_id: MATH.ALG.LIN1.BRACKETS
+structure: 'Solve for x: N(x + N) = N'
+parameters:
+  a:
+    min: 2
+    max: 6
+  n:
+    min: 1
+    max: 8
+  x:
+    min: 2
+    max: 16
+derived:
+  inner: x + n
+  rhs: a * (x + n)
+constraints:
+  nonzero:
+  - a
+  - n
+  answer_min: 2
+  answer_max: 16
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: 'Solve for x: {a}(x + {n}) = {rhs}'
+verify: '{a}(x + {n}) = {rhs}'
+type: expression
+options: []
+prediction: Will x be positive?
+steps:
+- 'Divide both sides by {a}: x + {n} = {inner}.'
+- Subtract {n}.
+- x = {x}
+hints:
+  '1': The {a} multiplies the whole bracket (x + {n}).
+  '2': Divide both sides by {a} first. You get x + {n} = {inner}.
+  '3': Then subtract {n} to isolate x.
+misconceptions:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  formula: rhs - a
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

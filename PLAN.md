@@ -227,16 +227,40 @@ After each milestone:
 
 ## M5 — Diagnostic & checkpoint
 
-- [ ] Placement diagnostic (10–15 min); on completion, seed mastery per skill
-- [ ] **Placement size:** about **one item per skill (12 items)**; a second item only on borderline results
-- [ ] `checkpoint_forms` A and B (matched `match_map`); hard min 10 items/form; **warning below 15**; trials target 15–20
-- [ ] Scoring writes `checkpoint_results` only — **never** mastery/FSRS
-- [ ] `study_participants` (`tutor` \| `comparison`) with `consent_ref`, `assigned_at`, `assignment_method` (record **random** assignment)
-- [ ] Comparison tokens: single-form, expiring, no PII; **refuse issue** unless a parental consent row exists
-- [ ] Comparison-group `GET /checkpoints/{id}/forms/{A|B}` (token + printable)
-- [ ] `GET /analytics/export` CSV, pseudonymised, `research_pseudonymised` only
+- [x] Placement diagnostic (10–15 min); on completion, seed mastery per skill
+- [x] **Placement size:** about **one item per skill (12 items)**; a second item only on borderline results
+- [x] `checkpoint_forms` A and B (matched `match_map`); hard min 10 items/form; **warning below 15**; trials target 15–20
+- [x] Scoring writes `checkpoint_results` only — **never** mastery/FSRS
+- [x] `study_participants` (`tutor` \| `comparison`) with `consent_ref`, `assigned_at`, `assignment_method` (record **random** assignment)
+- [x] Comparison tokens: single-form, expiring, no PII; **refuse issue** unless a parental consent row exists
+- [x] Comparison-group `GET /checkpoints/{id}/forms/{A|B}` (token + printable)
+- [x] `GET /analytics/export` CSV, pseudonymised, `research_pseudonymised` only
 
-**Accept:** checkpoint items never in practice; diagnostic seeds mastery; checkpoint score does not; token cannot be issued without consent; comparison path works without a tutor session.
+**Accept:** checkpoint items never in practice; diagnostic seeds mastery; checkpoint score does not; token cannot be issued without consent; comparison path works without a tutor session. **Met 2026-10-02:** one-per-skill placement, second item only if first wrong and prereq correct; fail-twice skips dependents (low prior); I-don't-know is incorrect with p_guess=0; cap 15 min / 16 items; `checkpoint_results` only; within-site random tutor A/B counterbalance; comparison token requires consent; analytics CSV is research-scoped and PII-free.
+
+**M5 fixes (2026-10-02):**
+- [x] Bracket items (including ITEM.LIN1.D.0022) use one divide-first method in hints 2–3
+- [x] Price and distance word problems define their own unknown
+- [x] Both arms: random pretest A/B balanced within site; other form is posttest; comparison gets pre+post tokens
+- [x] `household_id` — all household members share a group
+- [x] Admin paper-entry screen/API; optional second-entry mismatch flag; same scorer; never mastery/FSRS
+- [x] Token → HttpOnly cookie + redirect (no token in URL); `Referrer-Policy: no-referrer`; query strings not logged; one submission per token
+- [x] Export adds grade, board, diagnostic baseline, consent_version, tutor active minutes/days
+- [x] Skill with no prerequisites counts as prerequisite-correct for the second-item rule
+
+---
+
+## M5.5 — Content templates
+
+- [x] `content/templates/*.yaml`: id, skill, structure, parameter ranges/constraints, stem, SymPy answer, steps, hint 1–3, misconception formulas
+- [x] Tier assigned from template parameter rules
+- [x] Deterministic generator CLI (`python -m app.content generate-from-templates`); stable ids; stem dedupe; full validator
+- [x] ≥20 practice instances/skill and ≥5/tier for the seed chapter; templates feed practice only
+- [x] Diagnostic and checkpoint stay hand-authored; each form adds 2 transfer items whose structures are absent from practice
+- [x] Teachers approve a template (hash of template + generator version) from 10 sample instances; instances inherit until the hash/version changes
+- [x] Tests: determinism, constraints, misconception formulas, no checkpoint/practice stem collision, approval inheritance and reset
+
+**Accept:** generated practice passes the validator; approval inheritance resets on edit. **Met 2026-10-02.**
 
 ---
 

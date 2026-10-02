@@ -56,8 +56,8 @@ def minimal_item(
         "solution_steps": [loc("Subtract 7."), loc(last_step or f"x = {answer}")],
         "hints": [
             {"level": 1, **loc(f"{hint1} ({item_id})")},
-            {"level": 2, **loc(f"Do the same to both sides for {item_id}.")},
-            {"level": 3, **loc("Subtract 7 from both sides.")},
+            {"level": 2, **loc(f"Undo the added number on {item_id}.")},
+            {"level": 3, **loc("Subtract 7, then read x.")},
         ],
         "prediction_prompt": loc("Will x be smaller than 12?"),
         "misconception_rules": [],
@@ -69,8 +69,8 @@ def minimal_item(
 _PRACTICE_STEMS = (
     "Solve for x: x + {n} = {m}",
     "Find x if x - {n} = {m}",
-    "What number plus {n} is {m}?",
-    "x + {n} equals {m}. Solve.",
+    "Solve: x + {n} = {m}",
+    "x + {n} = {m}. Solve for x.",
     "Compute x in x - {n} = {m}.",
 )
 

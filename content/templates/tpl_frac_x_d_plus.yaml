@@ -1,0 +1,51 @@
+id: TPL.FRAC.X_D_PLUS
+skill_id: MATH.ALG.LIN1.FRACTION_COEFF
+structure: 'Solve for x: x/N + N = N'
+parameters:
+  d:
+    min: 2
+    max: 5
+  b:
+    min: 1
+    max: 6
+  k:
+    min: 2
+    max: 8
+derived:
+  x: d * k
+  rhs: k + b
+constraints:
+  nonzero:
+  - d
+  - b
+  answer_min: 4
+  answer_max: 40
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: 'Solve for x: x/{d} + {b} = {rhs}'
+verify: x/{d} + {b} = {rhs}
+type: expression
+options: []
+prediction: Will x be a whole number?
+steps:
+- Isolate x/{d}, then multiply by {d}.
+- x = {x}
+hints:
+  '1': x is divided by {d}, then {b} is added.
+  '2': Undo the {b} first, then multiply by {d}.
+  '3': When x/{d} stands alone, multiply by {d} to finish.
+misconceptions:
+- id: MC.ALG.DIVIDE_ONE_TERM
+  formula: rhs * d
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

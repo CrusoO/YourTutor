@@ -137,6 +137,8 @@ class World:
     class_id: str
     admin_token: str
     comparison_token: str
+    comparison_form: str
+    comparison_participant_id: str
     consent_share_id: str
 
 
@@ -210,9 +212,24 @@ def world(client: TestClient, sender: MemoryOtpSender, db: Session) -> World:
         json={"student_id": noshare_id},
         headers=auth_header(teacher_token),
     )
+    enrolled = client.post(
+        "/study/participants",
+        json={
+            "site_id": "site-thimphu",
+            "group": "comparison",
+            "consent_id": consent.json()["id"],
+        },
+        headers=auth_header(admin_token),
+    )
+    assert enrolled.status_code == 200, enrolled.text
+    comparison_form = enrolled.json()["pretest_form"]
     token = client.post(
         "/checkpoints/cp1/tokens",
-        json={"form": "A", "consent_id": consent.json()["id"]},
+        json={
+            "participant_id": enrolled.json()["id"],
+            "form": comparison_form,
+            "consent_id": consent.json()["id"],
+        },
         headers=auth_header(admin_token),
     )
     assert token.status_code == 200, token.text
@@ -228,5 +245,7 @@ def world(client: TestClient, sender: MemoryOtpSender, db: Session) -> World:
         class_id=class_id,
         admin_token=admin_token,
         comparison_token=redeemed.json()["access_token"],
+        comparison_form=comparison_form,
+        comparison_participant_id=enrolled.json()["id"],
         consent_share_id=consent.json()["id"],
     )

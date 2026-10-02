@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 from datetime import datetime, timedelta
 
 from app.content.validator import item_tier
@@ -24,6 +23,13 @@ from app.orchestrator.types import (
     SessionState,
     default_params,
 )
+from app.orchestrator.diagnostic import (
+    is_dont_know,
+    next_diagnostic_item,
+    record_answer,
+    seed_placement,
+)
+from app.checkpoint.score import score_answers
 from app.verifier.check import leak_check, verify_response
 
 
@@ -208,11 +214,19 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     if session.session_type != "diagnostic":
         _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
     if session.session_type == "diagnostic":
-        session.diagnostic_results.append((item.id, item.primary_skill, correct))
-        session.items_completed += 1
-        session.sequence_index += 1
+        record_answer(
+            session, item, correct=correct, dont_know=is_dont_know(event.response)
+        )
         return _diagnostic(learner, session, None)
     if session.session_type == "checkpoint":
+        session.checkpoint_answers.append(
+            {
+                "item_id": item.id,
+                "skill_id": item.primary_skill,
+                "correct": correct,
+                "response": event.response,
+            }
+        )
         session.items_completed += 1
         session.sequence_index += 1
         return _checkpoint(session, None)
@@ -385,25 +399,29 @@ def _diagnostic(learner: LearnerState, session: SessionState, event: Event | Non
     blocked = {"request_hint", "show_solution", "explain_back", "predict_response"}
     if event and event.type in blocked:
         return _flag(session, "no_hint_in_assessment")
-    ids = session.diagnostic_ids or [
-        row.id for row in session.catalog if row.pool == "diagnostic"
-    ]
     if event and event.type == "answer":
         return _on_answer(learner, session, event)
-    if session.sequence_index >= len(ids):
-        _seed_diagnostic(learner, session)
-        return _end(session, "diagnostic_complete", resumable=False)
-    item = session.item(ids[session.sequence_index])
-    session.current_item_id = item.id if item else None
-    session.current_skill = item.primary_skill if item else None
+    item = next_diagnostic_item(session)
+    if item is None:
+        seed_placement(learner, session)
+        action = _end(session, "diagnostic_complete", resumable=False)
+        action.extras = {
+            "skills_not_tested": list(session.skills_not_tested),
+            "skipped_skills": sorted(session.skipped_skills),
+        }
+        return action
+    session.current_item_id = item.id
+    session.current_skill = item.primary_skill
     session.phase = "diagnostic"
+    session.shown_item_ids.append(item.id)
+    extras: dict = {"assessment": True, "dont_know_option": True}
     return _keep(
         session,
         Action(
             type="show_item",
-            item_id=session.current_item_id,
-            skill_id=session.current_skill,
-            extras={"assessment": True},
+            item_id=item.id,
+            skill_id=item.primary_skill,
+            extras=extras,
         ),
     )
 
@@ -429,9 +447,15 @@ def _checkpoint(session: SessionState, event: Event | None) -> Action:
     if session.sequence_index >= len(ids):
         session.phase = "ended"
         session.ended_reason = "checkpoint_complete"
+        result = score_answers(session.checkpoint_answers)
+        session.checkpoint_result = result
         return _keep(
             session,
-            Action(type="checkpoint_score", ended_reason="checkpoint_complete"),
+            Action(
+                type="checkpoint_score",
+                ended_reason="checkpoint_complete",
+                extras=result,
+            ),
         )
     item = session.item(ids[session.sequence_index])
     session.current_item_id = item.id if item else None
@@ -590,30 +614,7 @@ def _maybe_bkt(
 
 
 def _seed_diagnostic(learner: LearnerState, session: SessionState) -> None:
-    params = {
-        sid: session.bkt_params.get(sid, default_params()) for sid in session.overlay_skill_ids
-    }
-    memory: dict = {
-        "bkt_done": set(),
-        "hinted": set(),
-        "first_wrong": set(),
-        "session_unhinted": defaultdict(lambda: defaultdict(lambda: [0, 0])),
-        "warmup_skills": set(),
-    }
-    for item_id, skill_id, correct in session.diagnostic_results:
-        apply_event(
-            learner,
-            LearnerEvent(
-                item_id=item_id,
-                skill_id=skill_id,
-                event_type="answer",
-                correct=correct,
-                pool="diagnostic",
-                session_id=str(id(session)),
-            ),
-            params,
-            memory=memory,
-        )
+    seed_placement(learner, session)
 
 
 def _match_misconception(item: CatalogItem, response: str) -> str | None:

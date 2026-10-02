@@ -1,0 +1,61 @@
+id: TPL.WORD.DIST
+skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
+structure: A walker covers first for x km then second for N km.
+parameters:
+  extra:
+    min: 3
+    max: 12
+  x:
+    min: 5
+    max: 20
+  first:
+    choices:
+    - walks
+    - cycles
+    - hikes
+  second:
+    choices:
+    - cycles
+    - walks
+    - rides a bus
+derived:
+  total: x + extra
+constraints:
+  nonzero:
+  - extra
+  answer_min: 5
+  answer_max: 20
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: A walker covers {first} for x km and then {second} for {extra} km. The whole
+  trip is {total} km. How many kilometres was the first part?
+verify: x + {extra} = {total}
+type: expression
+options: []
+prediction: Is the first part shorter than the whole trip?
+steps:
+- The two parts add to {total} km.
+- x + {extra} = {total}.
+- x = {x}
+hints:
+  '1': Let x be the kilometres walked in the first part ({first}), not the whole trip.
+    What is still left to account for?
+  '2': The whole trip is {total} km and the second stretch is {extra} km. Write how
+    x and {extra} make {total} — do not evaluate yet.
+  '3': Let x be the first part. Then x + {extra} = {total}. Subtract {extra} to isolate
+    x.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: total + extra
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

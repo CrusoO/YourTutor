@@ -1,0 +1,51 @@
+id: TPL.WORD.AGE
+skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
+structure: A student is N years older than her sister. Together they are N.
+parameters:
+  older:
+    min: 3
+    max: 9
+  x:
+    min: 5
+    max: 18
+derived:
+  total: 2 * x + older
+constraints:
+  nonzero:
+  - older
+  answer_min: 5
+  answer_max: 18
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: A student is {older} years older than her sister. Together they are {total}
+  years old. How old is the sister?
+verify: x + (x + {older}) = {total}
+type: expression
+options: []
+prediction: Is the sister younger than the student?
+steps:
+- Let the sister be x. Then the student is x + {older}.
+- x + (x + {older}) = {total}.
+- x = {x}
+hints:
+  '1': Let x be the sister's age. How old is the student, in terms of x, if she is
+    {older} years older than her sister?
+  '2': The two ages add to {total}. Write the student as x plus {older}, then add
+    that to x — do not finish the arithmetic yet.
+  '3': Let x be the sister. The student is x + {older}. Then x + (x + {older}) = {total}.
+    Combine, subtract {older}, and divide by 2.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: total + older
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

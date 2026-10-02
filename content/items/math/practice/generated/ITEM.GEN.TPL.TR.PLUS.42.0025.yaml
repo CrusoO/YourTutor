@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.TR.PLUS.42.0025
+skill_ids:
+- MATH.ALG.LIN1.TRANSLATE
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: A number plus 10 equals 26. What is the number?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 10 = 26
+options: []
+answer:
+  sympy: '16'
+  accept:
+  - '16'
+solution_steps:
+- en: The sentence becomes x + 10 = 26.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 16
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Write 'a number plus 10' as an expression equal to 26.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Once you write x + 10 = 26, undo the 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 10 away from 26 to leave the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the number smaller than 26?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '36'
+status: draft
+template_id: TPL.TR.PLUS
+generator_version: '1'
+template_hash: ea4c005ee5c29f507861f48b0b9452baf7a852952b388a5216df11ba14e48e94

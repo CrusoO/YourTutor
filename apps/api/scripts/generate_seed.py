@@ -141,6 +141,15 @@ COUNT_OPTS = [
     {"id": "one", "en": "One solution", "ne": NE, "as": AS},
     {"id": "every", "en": "Every x works", "ne": NE, "as": AS},
 ]
+IDK_OPT = {"id": "idk", "en": "I don't know", "ne": NE, "as": AS}
+
+
+def with_idk(options: list[dict], pool: str) -> list[dict]:
+    if pool != "diagnostic":
+        return options
+    if any(row["id"] == "idk" for row in options):
+        return options
+    return [*options, IDK_OPT]
 
 
 def loc(en: str) -> dict[str, str]:
@@ -289,7 +298,7 @@ INVERSE_HINTS = [
     ("Is the change on x an add or a subtract?", "Name the inverse family before you pick a size."),
     ("x should reappear alone. What kind of move does that?", "Addition undoes subtraction; subtraction undoes addition."),
     ("Cover the constant and look only at the operation on x.", "The inverse is the other member of that add/subtract pair."),
-    ("What do you do to both sides to cancel the change to x?", "Keep the equation balanced while you undo the operation."),
+    ("What happened to x? What single change brings it back to x?", "Name the opposite of the change you see, then apply that opposite."),
     ("The goal is to recover x, not to compute a new expression.", "Choose the inverse operation first, then the matching amount."),
     ("Did someone add to x or take away from x?", "Undo that family of operations."),
     ("Imagine x wrapped in one operation. How do you unwrap it?", "Unwrap with the inverse, not the same operation again."),
@@ -343,7 +352,7 @@ def translate(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem = f"A number plus {addend} equals {target}. What is the number?"
         equation = f"x + {addend} = {target}"
         h1 = f"Write 'a number plus {addend}' as an expression equal to {target}."
-        h2 = f"Once you have x + {addend} = {target}, undo the {addend} on both sides."
+        h2 = f"Once you write x + {addend} = {target}, undo the {addend}."
     elif style == 1:
         stem = f"{addend} more than a number is {target}. What is the number?"
         equation = f"x + {addend} = {target}"
@@ -352,7 +361,7 @@ def translate(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     else:
         stem = f"The sum of a number and {addend} is {target}. Find the number."
         equation = f"x + {addend} = {target}"
-        h1 = f"Sum of a number and {addend} is the equation x + {addend} = {target}."
+        h1 = f"Sum of a number and {addend} is x + {addend} = {target}."
         h2 = f"To undo adding {addend}, do the inverse to {target} as well."
     return item(
         item_id,
@@ -361,8 +370,8 @@ def translate(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         pool,
         stem,
         str(answer),
-        [f"The equation is {equation}.", f"x = {answer}"],
-        hints(h1, h2, f"Subtract {addend} on both sides, then simplify."),
+        [f"The sentence becomes {equation}.", f"x = {answer}"],
+        hints(h1, h2, f"Take {addend} away from {target} to leave the number."),
         f"Is the number smaller than {target}?",
         verify=equation,
     )
@@ -381,7 +390,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x + {addend} - {addend} = {total} - {addend}",
             f"x = {answer}",
         ]
-        h3 = f"Subtract {addend} on both sides, then simplify."
+        h3 = f"Rewrite as x = {total} - {addend}, then evaluate."
         wrong = str(total + addend)
     elif style == 1:
         rhs = answer - addend
@@ -392,7 +401,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"Add {addend} to both sides.",
             f"x = {answer}",
         ]
-        h3 = f"Add {addend} on both sides, then simplify."
+        h3 = f"Rewrite as x = {rhs} + {addend}, then evaluate."
         wrong = str(rhs - addend)
     else:
         stem = f"Solve for x: {addend}x = {addend * answer}"
@@ -402,7 +411,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"Divide both sides by {addend}.",
             f"x = {answer}",
         ]
-        h3 = f"Divide both sides by {addend}."
+        h3 = f"{addend * answer} divided by {addend} is the value of x."
         wrong = str(addend * answer + addend)
     return item(
         item_id,
@@ -497,7 +506,7 @@ def multi(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"The left side has {fmt_x(a)} and {fmt_x(c)}. Gather those first.",
             f"After combining, undo the {b_abs} then divide by {a + c}.",
-            f"Combine like terms, then undo {b_abs} on both sides, then simplify.",
+            f"Rewrite as {fmt_x(a + c)} {sign} {b_abs} = {rhs}. Move {b_abs}, then divide by {a + c}.",
         ),
         "Are there like terms you can gather first?",
     )
@@ -530,7 +539,7 @@ def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"x appears on both sides: {fmt_x(left_c)} and {fmt_x(right_c)}.",
             f"Collect {fmt_x(left_c)} with {fmt_x(right_c)} before you touch the constants.",
-            f"Collect like terms, then subtract {left_b} on both sides, then simplify.",
+            f"After the x terms sit on one side, subtract {left_b} and divide by {left_c - right_c}.",
         ),
         "Is x larger than 1? How can you tell before finishing?",
     )
@@ -538,32 +547,43 @@ def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
 
 def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     a, inside, answer, plus = spec
+    style = (a + inside + answer) % 3
     if plus:
         rhs = a * (answer + inside)
-        stem = f"Solve for x: {a}(x + {inside}) = {rhs}"
+        inner = rhs // a
+        if style == 0:
+            stem = f"Solve for x: {a}(x + {inside}) = {rhs}"
+        elif style == 1:
+            stem = f"Solve for x: {a} × (x + {inside}) = {rhs}"
+        else:
+            stem = f"What x satisfies {a}(x + {inside}) = {rhs}?"
         steps = [
-            f"Expand: {fmt_x(a)} + {a * inside} = {rhs}",
-            f"{fmt_x(a)} = {rhs - a * inside}",
+            f"Divide both sides by {a}: x + {inside} = {inner}.",
+            f"Subtract {inside}.",
             f"x = {answer}",
         ]
         pred = "Will x be positive? Why?"
         h1 = f"The {a} multiplies the whole bracket (x + {inside})."
-        h2 = f"Expand or divide by {a} first, then undo the {inside}."
+        h2 = f"Divide both sides by {a} first. You get x + {inside} = {inner}."
+        h3 = f"Then subtract {inside} to isolate x."
     else:
         rhs = a * (answer - inside)
-        stem = f"Solve for x: {a}(x - {inside}) = {rhs}"
+        inner = rhs // a
+        if style == 0:
+            stem = f"Solve for x: {a}(x - {inside}) = {rhs}"
+        elif style == 1:
+            stem = f"Solve for x: {a} × (x - {inside}) = {rhs}"
+        else:
+            stem = f"What x satisfies {a}(x - {inside}) = {rhs}?"
         steps = [
-            f"Divide both sides by {a} (or expand the brackets first).",
-            f"x - {inside} = {rhs // a}",
+            f"Divide both sides by {a}: x - {inside} = {inner}.",
+            f"Add {inside}.",
             f"x = {answer}",
         ]
         pred = "Will x be greater than the number inside the brackets?"
-        h1 = f"The {a} sits outside (x - {inside}). Expand or divide?"
-        h2 = f"After removing the {a}, you still have to undo the {inside}."
-    if a == 4 and plus:
-        stem = f"Solve for x: {fmt_x(a)} + {a * inside} = {rhs}"
-        h1 = f"This is already expanded: {fmt_x(a)} plus {a * inside}."
-        h2 = f"Undo {a * inside}, then divide by {a}."
+        h1 = f"The {a} sits outside (x - {inside}). Divide first to unwrap the bracket."
+        h2 = f"Divide both sides by {a} first. You get x - {inside} = {inner}."
+        h3 = f"Then add {inside} to isolate x."
     return item(
         item_id,
         "MATH.ALG.LIN1.BRACKETS",
@@ -572,7 +592,7 @@ def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem,
         str(answer),
         steps,
-        hints(h1, h2, f"Expand or divide, then undo {inside} on both sides, then simplify."),
+        hints(h1, h2, h3),
         pred,
     )
 
@@ -607,7 +627,11 @@ def fraction(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"Isolate x/{denom}, then multiply by {denom}.",
             f"x = {answer}",
         ],
-        hints(h1, h2, f"Undo {added}, then multiply both sides by {denom}."),
+        hints(
+            h1,
+            h2,
+            f"When x/{denom} stands alone, multiply by {denom} to finish.",
+        ),
         "Will x be a whole number? Why?",
     )
 
@@ -628,6 +652,19 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x = {answer}",
         ]
         pred = "Is the sister younger than the student?"
+        h1 = (
+            f"Let x be the sister's age. How old is the student, in terms of x, "
+            f"if she is {older} years older than her sister?"
+        )
+        h2 = (
+            f"The two ages add to {total}. Write the student as x plus {older}, "
+            f"then add that to x — do not finish the arithmetic yet."
+        )
+        h3 = (
+            f"Let x be the sister. The student is x + {older}. "
+            f"Then x + (x + {older}) = {total}. Combine to 2x + {older} = {total}, "
+            f"subtract {older}, and divide by 2."
+        )
     elif kind == "price":
         extra, total = spec[1], spec[2]
         answer = (total - extra) // 2
@@ -643,6 +680,18 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x = {answer}",
         ]
         pred = f"Is the {item_a} cheaper than the {item_b}?"
+        h1 = (
+            f"Let x be the cost of the {item_a} in rupees. "
+            f"How much is the {item_b}, in terms of x?"
+        )
+        h2 = (
+            f"The two prices add to {total}. Write the {item_b} as x plus {extra}, "
+            f"then add the two prices — stop before you solve."
+        )
+        h3 = (
+            f"Let x be the {item_a}. Then x + (x + {extra}) = {total}. "
+            f"Combine to 2x + {extra} = {total}, subtract {extra}, and divide by 2."
+        )
     else:
         extra, total = spec[1], spec[2]
         answer = total - extra
@@ -658,6 +707,18 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x = {answer}",
         ]
         pred = "Is the first part shorter than the whole trip?"
+        h1 = (
+            f"Let x be the kilometres walked in the first part ({first}), "
+            f"not the whole trip. What is still left to account for?"
+        )
+        h2 = (
+            f"The whole trip is {total} km and the second stretch is {extra} km. "
+            f"Write how x and {extra} make {total} — do not evaluate yet."
+        )
+        h3 = (
+            f"Let x be the first part. Then x + {extra} = {total}. "
+            f"Subtract {extra} to isolate x."
+        )
     return item(
         item_id,
         "MATH.ALG.LIN1.WORD_PROBLEMS",
@@ -666,11 +727,7 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         stem,
         str(answer),
         steps,
-        hints(
-            f"Choose x for the unknown. The number {spec[1]} belongs in the equation.",
-            f"Write one equation that uses {spec[1]} and the total {spec[2]}.",
-            f"Write an equation, then undo {spec[1]}.",
-        ),
+        hints(h1, h2, h3),
         pred,
         verify=verify,
     )
@@ -701,12 +758,12 @@ def check(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"Replace x with {value} on the left of {equation}.",
             f"After substituting {value}, compare the two sides of {equation}.",
-            f"After substituting {value}, the sides "
-            f"{'match' if holds else 'do not match'}.",
+            f"Plug in {value}: the left becomes a number. "
+            f"Does that number equal the right-hand side? The answer is {answer}.",
         ),
         "Do you expect the two sides to match?",
         type_="mcq",
-        options=YES_NO,
+        options=with_idk(YES_NO, pool),
         accept=[answer],
         verify={"kind": "substitution", "equation": equation, "value": str(value)},
     )
@@ -736,11 +793,11 @@ def identity(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"Look at {equation}. Expand any brackets first.",
             f"After simplifying {equation}, do both sides become the same expression?",
-            f"This equation is classified as {answer}.",
+            f"After you simplify, this is classified as {answer}.",
         ),
         "Before simplifying: do you expect a unique value, an identity, or a contradiction?",
         type_="mcq",
-        options=COUNT_OPTS,
+        options=with_idk(COUNT_OPTS, pool),
         accept=[answer],
         verify={"kind": "solution_count", "equation": equation},
     )
@@ -947,6 +1004,8 @@ def _clear_items() -> None:
     if not items_root.exists():
         return
     for path in items_root.rglob("*.yaml"):
+        if "generated" in path.parts:
+            continue
         path.unlink()
 
 
@@ -957,6 +1016,97 @@ def _build(skill: str, slot: int, pool: str, item_id: str) -> dict:
     data = builder(spec, pool, item_id, difficulty)
     data["skill_ids"] = [skill]
     return data
+
+
+def _transfer_items() -> tuple[list[str], list[str], dict[str, str]]:
+    """Two hand-authored transfer items per form; structures must not appear in practice."""
+    a1 = item(
+        "ITEM.LIN1.C.A.0016",
+        "MATH.ALG.LIN1.SOLVE_TWO_STEP",
+        0.55,
+        "checkpoint",
+        "Find x given that 11 equals 2x plus 3.",
+        "4",
+        [
+            "Treat 11 as 2x plus 3.",
+            "Take 3 from 11, then divide by 2.",
+            "x = 4",
+        ],
+        hints(
+            "The constant sits on the left of a two-step undo.",
+            "Move the added number first, then undo the coefficient of x.",
+            "Take 3 from 11, then divide the result by 2.",
+        ),
+        "Will x be a whole number?",
+        verify="2x + 3 = 11",
+    )
+    b1 = item(
+        "ITEM.LIN1.C.B.0016",
+        "MATH.ALG.LIN1.SOLVE_TWO_STEP",
+        0.55,
+        "checkpoint",
+        "Find x given that 15 equals 3x plus 3.",
+        "4",
+        [
+            "Treat 15 as 3x plus 3.",
+            "Take 3 from 15, then divide by 3.",
+            "x = 4",
+        ],
+        hints(
+            "The constant sits on the left of a two-step undo.",
+            "Move the added number first, then undo the coefficient of x.",
+            "Take 3 from 15, then divide the result by 3.",
+        ),
+        "Will x be a whole number?",
+        verify="3x + 3 = 15",
+    )
+    a2 = item(
+        "ITEM.LIN1.C.A.0017",
+        "MATH.ALG.LIN1.FRACTION_COEFF",
+        0.55,
+        "checkpoint",
+        "Rearrange: 2 equals (x plus 4) over 3. What is x?",
+        "2",
+        [
+            "Unwrap the fraction, then undo the added 4.",
+            "x + 4 = 6",
+            "x = 2",
+        ],
+        hints(
+            "x sits inside a bracket that is then divided.",
+            "Multiply to unwrap the fraction first, then undo the added number.",
+            "Multiply 2 by 3 to get x + 4, then take 4 away.",
+        ),
+        "Will x be smaller than 4?",
+        verify="(x + 4)/3 = 2",
+    )
+    b2 = item(
+        "ITEM.LIN1.C.B.0017",
+        "MATH.ALG.LIN1.FRACTION_COEFF",
+        0.55,
+        "checkpoint",
+        "Rearrange: 3 equals (x plus 6) over 3. What is x?",
+        "3",
+        [
+            "Unwrap the fraction, then undo the added 6.",
+            "x + 6 = 9",
+            "x = 3",
+        ],
+        hints(
+            "x sits inside a bracket that is then divided.",
+            "Multiply to unwrap the fraction first, then undo the added number.",
+            "Multiply 3 by 3 to get x + 6, then take 6 away.",
+        ),
+        "Will x be smaller than 6?",
+        verify="(x + 6)/3 = 3",
+    )
+    for row in (a1, b1, a2, b2):
+        dump(ROOT / "items" / "math" / "checkpoint" / f"{row['id']}.yaml", row)
+    return (
+        [a1["id"], a2["id"]],
+        [b1["id"], b2["id"]],
+        {a1["id"]: b1["id"], a2["id"]: b2["id"]},
+    )
 
 
 def write_items(skill_ids: list[str]) -> None:
@@ -987,6 +1137,10 @@ def write_items(skill_ids: list[str]) -> None:
         dump(ROOT / "items" / "math" / "checkpoint" / f"{b['id']}.yaml", b)
         form_a.append(a["id"])
         form_b.append(b["id"])
+
+    transfer_a, transfer_b, transfer_map = _transfer_items()
+    form_a.extend(transfer_a)
+    form_b.extend(transfer_b)
 
     dump(
         ROOT / "checkpoints" / "lin1_class9.yaml",

@@ -1,0 +1,63 @@
+id: TPL.WORD.PRICE
+skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
+structure: A item costs N more than another. Together they cost N.
+parameters:
+  extra:
+    min: 8
+    max: 24
+  x:
+    min: 6
+    max: 30
+  item_a:
+    choices:
+    - pen
+    - book
+    - ticket
+    - mango
+  item_b:
+    choices:
+    - notebook
+    - bag
+    - snack
+    - lamp
+derived:
+  total: 2 * x + extra
+constraints:
+  nonzero:
+  - extra
+  answer_min: 6
+  answer_max: 30
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: A {item_b} costs {extra} rupees more than a {item_a}. Together they cost {total}
+  rupees. How many rupees is the {item_a}?
+verify: x + (x + {extra}) = {total}
+type: expression
+options: []
+prediction: Is the {item_a} cheaper than the {item_b}?
+steps:
+- Let the {item_a} cost x rupees. Then the {item_b} costs x + {extra}.
+- x + (x + {extra}) = {total}.
+- x = {x}
+hints:
+  '1': Let x be the cost of the {item_a} in rupees. How much is the {item_b}, in terms
+    of x?
+  '2': The two prices add to {total}. Write the {item_b} as x plus {extra}, then add
+    the two prices — stop before you solve.
+  '3': Let x be the {item_a}. Then x + (x + {extra}) = {total}. Combine, subtract
+    {extra}, and divide by 2.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: total + extra
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

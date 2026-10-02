@@ -538,6 +538,9 @@ Each checkpoint has **two matched forms**. Hard minimum **10** items per form (`
 | consent_ref | fk consents | **required** before any token |
 | assigned_at | timestamptz | |
 | assignment_method | text | `random` (default; must be recorded) \| `stratified` \| other documented method |
+| site_id | text | within-site randomisation; seed stored on the row |
+| assignment_seed | text | recorded RNG seed |
+| pretest_form / posttest_form | `A`/`B` | tutor arm: opposite forms; comparison: one assigned form |
 
 ### 12.24 `checkpoint_tokens`
 

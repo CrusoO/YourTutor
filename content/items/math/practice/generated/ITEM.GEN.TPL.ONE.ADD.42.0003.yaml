@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.ONE.ADD.42.0003
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_ONE_STEP
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: x + 9 = 22'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + 9 = 22
+options: []
+answer:
+  sympy: '13'
+  accept:
+  - '13'
+solution_steps:
+- en: Subtract 9 from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 22 - 9
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 13
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: x has 9 added to it. What undoes that single step?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Do the inverse of +9 to both sides of 22.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Rewrite as x = 22 - 9, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be smaller than 22?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '31'
+status: draft
+template_id: TPL.ONE.ADD
+generator_version: '1'
+template_hash: eae6030b83ad7fb0348531d8fdf02e69a5a22493b3cd2bdff5047ceb94277920

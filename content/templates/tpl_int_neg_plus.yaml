@@ -1,0 +1,45 @@
+id: TPL.INT.NEG_PLUS
+skill_id: MATH.ARITH.INTEGERS.OPERATIONS
+structure: Compute -N + N.
+parameters:
+  a:
+    min: 10
+    max: 38
+  b:
+    min: 2
+    max: 10
+derived: {}
+constraints:
+  nonzero:
+  - b
+  answer_min: 1
+  answer_max: 40
+  no_one_x: true
+  no_trivial: true
+answer_expr: a - b
+stem: Compute -{b} + {a}.
+verify: -{b} + {a}
+type: expression
+options: []
+prediction: Which way do you move from -{b}?
+steps:
+- -{b} plus {a} is {answer}.
+- x = {answer}
+hints:
+  '1': You start at -{b}. Which way do you move to add {a}?
+  '2': Adding {a} to -{b} lands where on the number line?
+  '3': Take {b} away from {a}.
+misconceptions:
+- id: MC.ALG.ADD_INSTEAD_SUBTRACT
+  formula: a + b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

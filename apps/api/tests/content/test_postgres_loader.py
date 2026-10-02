@@ -54,5 +54,5 @@ def test_load_seed_postgres() -> None:
         skills = session.scalars(select(SkillRow)).all()
         items = session.scalars(select(ItemRow)).all()
         assert len(skills) == 12
-        assert len(items) == 126
+        assert len(items) == 370
     engine.dispose()

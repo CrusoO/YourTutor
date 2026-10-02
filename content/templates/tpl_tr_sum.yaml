@@ -1,0 +1,45 @@
+id: TPL.TR.SUM
+skill_id: MATH.ALG.LIN1.TRANSLATE
+structure: The sum of a number and N is N. Find the number.
+parameters:
+  b:
+    min: 4
+    max: 13
+  x:
+    min: 4
+    max: 17
+derived:
+  c: x + b
+constraints:
+  answer_min: 1
+  answer_max: 40
+  nonzero_answer: true
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: The sum of a number and {b} is {c}. Find the number.
+verify: x + {b} = {c}
+type: expression
+options: []
+prediction: Is the number smaller than {c}?
+steps:
+- The sentence becomes x + {b} = {c}.
+- x = {x}
+hints:
+  '1': Sum of a number and {b} is x + {b} = {c}.
+  '2': To undo adding {b}, do the inverse to {c} as well.
+  '3': Take {b} away from {c} to leave the number.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: c + b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.INT.ADD_NEG.42.0012
+skill_ids:
+- MATH.ARITH.INTEGERS.OPERATIONS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: Compute 10 + (-4).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 10 + (-4)
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: Adding -4 to 10 is 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Adding -4 to 10 is the same as which subtraction?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Rewrite 10 + (-4) as a single subtraction, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 4 away from 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is this the same as a subtraction?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.ADD_INSTEAD_SUBTRACT
+  when_answer_equals:
+  - '14'
+status: draft
+template_id: TPL.INT.ADD_NEG
+generator_version: '1'
+template_hash: 4e6b814c9a7ae94d31a91756da5c150f2a55899b9d31c44a350034f0aa20fcc6

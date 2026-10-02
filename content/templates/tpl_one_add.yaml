@@ -1,0 +1,46 @@
+id: TPL.ONE.ADD
+skill_id: MATH.ALG.LIN1.SOLVE_ONE_STEP
+structure: 'Solve for x: x + N = N'
+parameters:
+  b:
+    min: 2
+    max: 12
+  x:
+    min: 2
+    max: 18
+derived:
+  c: x + b
+constraints:
+  answer_min: 1
+  answer_max: 40
+  nonzero_answer: true
+  no_one_x: true
+  no_trivial: true
+answer_expr: x
+stem: 'Solve for x: x + {b} = {c}'
+verify: x + {b} = {c}
+type: expression
+options: []
+prediction: Will x be smaller than {c}?
+steps:
+- Subtract {b} from both sides.
+- x = {c} - {b}
+- x = {x}
+hints:
+  '1': x has {b} added to it. What undoes that single step?
+  '2': Do the inverse of +{b} to both sides of {c}.
+  '3': Rewrite as x = {c} - {b}, then evaluate.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: c + b
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

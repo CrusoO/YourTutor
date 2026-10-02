@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -19,6 +20,7 @@ from app.content.schema import (
     Overlay,
     Skill,
 )
+from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
 from app.content.signatures import has_one_x, item_content_hash, structure_signature
 from app.content.stem_solve import check_item_stem_answer
 
@@ -34,6 +36,9 @@ MCQ_IMBALANCE = 0.7
 HINT_SHARE = 0.25
 MIN_HINT1_PRACTICE = 3
 MIN_STRUCTURES_PRACTICE = 3
+HINT3_OVERLAP = 0.70
+_HINT_TOKEN = re.compile(r"[a-z0-9]+")
+_LET_X = re.compile(r"\blet\s+x\b", re.IGNORECASE)
 
 
 def item_tier(difficulty: float) -> str:
@@ -93,6 +98,7 @@ def load_bundle(root: Path) -> ContentBundle:
         overlays=overlays,
         glossaries=glossaries,
         checkpoint_forms=forms,
+        templates=load_templates(root),
     )
 
 
@@ -130,7 +136,10 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _hint_diversity(bundle, report)
     _structure_and_tiers(bundle, report)
     _one_x_ban(bundle, report)
+    _hint_language(bundle, report)
     _approval_hashes(bundle, report)
+    _template_approval(bundle, report)
+    _checkpoint_practice_stems(bundle, report)
     _live_chapter(bundle, report)
     _build_report(bundle, report)
     return report
@@ -158,16 +167,20 @@ def _persist_hash_resets(root: Path, report: ValidationReport) -> None:
     }
     if not reset_ids:
         return
-    for path in (root / "items").rglob("*.yaml"):
-        data = yaml.safe_load(path.read_text(encoding="utf-8"))
-        if not isinstance(data, dict) or data.get("id") not in reset_ids:
-            continue
-        data["status"] = "draft"
-        data["reviewed_by"] = None
-        path.write_text(
-            yaml.safe_dump(data, sort_keys=False, allow_unicode=True),
-            encoding="utf-8",
-        )
+    folders = [root / "items"]
+    if (root / "templates").exists():
+        folders.append(root / "templates")
+    for folder in folders:
+        for path in folder.rglob("*.yaml"):
+            data = yaml.safe_load(path.read_text(encoding="utf-8"))
+            if not isinstance(data, dict) or data.get("id") not in reset_ids:
+                continue
+            data["status"] = "draft"
+            data["reviewed_by"] = None
+            path.write_text(
+                yaml.safe_dump(data, sort_keys=False, allow_unicode=True),
+                encoding="utf-8",
+            )
 
 
 def _unique_ids(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -178,6 +191,7 @@ def _unique_ids(bundle: ContentBundle, report: ValidationReport) -> None:
         ("misconception", bundle.misconceptions),
         ("overlay", bundle.overlays),
         ("checkpoint_forms", bundle.checkpoint_forms),
+        ("template", bundle.templates),
     ):
         for obj in objs:
             key = obj.id
@@ -408,6 +422,46 @@ def _structure_and_tiers(bundle: ContentBundle, report: ValidationReport) -> Non
         report.warnings.append(row + " (selection falls back to nearest tier)")
 
 
+def _hint_tokens(text: str) -> set[str]:
+    return set(_HINT_TOKEN.findall(normalize(text).lower()))
+
+
+def hint3_overlap_ratio(hint2: str, hint3: str) -> float:
+    left = _hint_tokens(hint3)
+    right = _hint_tokens(hint2)
+    if not left:
+        return 0.0
+    return len(left & right) / len(left)
+
+
+def _hint_language(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        stem = item.stem.en
+        has_equals = "=" in stem
+        hints = {h.level: h.en for h in item.hints}
+        if not has_equals:
+            for hint in item.hints:
+                lower = hint.en.lower()
+                if "equation" in lower or "both sides" in lower:
+                    report.errors.append(
+                        f"{item.id} hint {hint.level} uses 'equation' or 'both sides' "
+                        f"but the stem has no '='"
+                    )
+        if "WORD_PROBLEMS" in item.primary_skill:
+            h1 = hints.get(1, "")
+            if not _LET_X.search(h1):
+                report.errors.append(
+                    f"{item.id} word-problem hint 1 must define the unknown (Let x ...)"
+                )
+        h2, h3 = hints.get(2, ""), hints.get(3, "")
+        if h2 and h3:
+            overlap = hint3_overlap_ratio(h2, h3)
+            if overlap > HINT3_OVERLAP:
+                report.warnings.append(
+                    f"{item.id} hint 3 overlaps hint 2 by {overlap:.0%} (>70%)"
+                )
+
+
 def _one_x_ban(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         if has_one_x(item.stem.en):
@@ -419,12 +473,52 @@ def _approval_hashes(bundle: ContentBundle, report: ValidationReport) -> None:
         if item.status.value != "approved":
             continue
         digest = item_content_hash(item)
-        if item.content_hash != digest:
+        if item.content_hash != digest and item.template_id is None:
             item.status = type(item.status)("draft")
             item.reviewed_by = None
             report.warnings.append(
                 f"{item.id} approved content changed; reset to draft (hash mismatch)"
             )
+
+
+def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
+    for tpl in bundle.templates:
+        digest = template_hash(tpl)
+        if tpl.status.value == "approved" and tpl.content_hash and tpl.content_hash != digest:
+            tpl.status = type(tpl.status)("draft")
+            tpl.reviewed_by = None
+            report.warnings.append(
+                f"{tpl.id} approved template changed; reset to draft"
+            )
+    templates = {tpl.id: tpl for tpl in bundle.templates}
+    for item in bundle.items:
+        if not item.template_id:
+            continue
+        tpl = templates.get(item.template_id)
+        if tpl is None:
+            report.errors.append(f"{item.id} references unknown template {item.template_id}")
+            continue
+        digest = template_hash(tpl)
+        stale = item.template_hash != digest or item.generator_version != GENERATOR_VERSION
+        if stale:
+            if item.status.value == "approved":
+                item.status = type(item.status)("draft")
+                item.reviewed_by = None
+                report.warnings.append(
+                    f"{item.id} template hash or generator changed; reset to draft"
+                )
+        elif tpl.status.value == "approved":
+            item.status = type(item.status)("approved")
+            item.reviewed_by = tpl.reviewed_by
+            if not item.content_hash:
+                item.content_hash = item_content_hash(item)
+
+
+def _checkpoint_practice_stems(bundle: ContentBundle, report: ValidationReport) -> None:
+    practice = {_stem_text(item) for item in bundle.items if item.pool == ItemPool.practice}
+    for item in bundle.items:
+        if item.pool == ItemPool.checkpoint and _stem_text(item) in practice:
+            report.errors.append(f"{item.id} checkpoint stem collides with a practice stem")
 
 
 def _stem_answers(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -570,6 +664,8 @@ def _build_report(bundle: ContentBundle, report: ValidationReport) -> None:
         "structures_by_skill_pool": report.stats.get("structures_by_skill_pool", {}),
         "practice_by_skill_tier": report.stats.get("practice_by_skill_tier", {}),
         "tier_gaps": report.stats.get("tier_gaps", []),
+        "templates_per_skill": _templates_per_skill(bundle),
+        "instances_by_skill_tier": _instances_by_skill_tier(bundle),
     }
     report.no_misconception_rules = no_rules
     items = {i.id: i for i in bundle.items}
@@ -587,6 +683,22 @@ def _build_report(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"!= {dst} ({b.primary_skill}/{item_tier(b.difficulty)})"
                 )
     report.ab_mismatches = mismatches
+
+
+def _templates_per_skill(bundle: ContentBundle) -> dict[str, int]:
+    counts: dict[str, int] = defaultdict(int)
+    for template in bundle.templates:
+        counts[template.skill_id] += 1
+    return dict(sorted(counts.items()))
+
+
+def _instances_by_skill_tier(bundle: ContentBundle) -> dict[str, dict[str, int]]:
+    counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for item in bundle.items:
+        if not item.template_id or item.pool != ItemPool.practice:
+            continue
+        counts[item.primary_skill][item_tier(item.difficulty)] += 1
+    return {skill: dict(sorted(tiers.items())) for skill, tiers in sorted(counts.items())}
 
 
 def format_report(report: ValidationReport) -> str:
@@ -614,6 +726,13 @@ def format_report(report: ValidationReport) -> str:
     for skill, tiers in (report.stats.get("practice_by_skill_tier") or {}).items():
         parts = ", ".join(f"{tier} {n}" for tier, n in tiers.items())
         lines.append(f"    {skill}: {parts}")
+    lines.append("  generated instances by skill/tier:")
+    for skill, tiers in (report.stats.get("instances_by_skill_tier") or {}).items():
+        parts = ", ".join(f"{tier} {n}" for tier, n in tiers.items())
+        lines.append(f"    {skill}: {parts}")
+    lines.append("  templates per skill:")
+    for skill, count in (report.stats.get("templates_per_skill") or {}).items():
+        lines.append(f"    {skill}: {count}")
     gaps = report.stats.get("tier_gaps") or []
     lines.append(f"  practice tier gaps: {len(gaps)}")
     for row in gaps:

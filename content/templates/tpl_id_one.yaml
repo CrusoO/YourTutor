@@ -1,0 +1,60 @@
+id: TPL.ID.ONE
+skill_id: MATH.ALG.LIN1.IDENTITIES
+structure: Is Nx + N = N an identity, a contradiction, or a unique value?
+parameters:
+  a:
+    min: 2
+    max: 6
+  b:
+    min: 1
+    max: 7
+  x:
+    min: 2
+    max: 9
+derived:
+  rhs: a * x + b
+constraints:
+  nonzero:
+  - a
+  - b
+  no_one_x: true
+answer_expr: one
+stem: Is {a}x + {b} = {rhs} an identity, a contradiction, or a unique value?
+verify:
+  kind: solution_count
+  equation: '{a}x + {b} = {rhs}'
+type: mcq
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+steps:
+- Simplify both sides of {a}x + {b} = {rhs}.
+- The correct option is one.
+hints:
+  '1': Look at {a}x + {b} = {rhs}. Expand any brackets first.
+  '2': After simplifying, do both sides become the same expression?
+  '3': After you simplify, this is classified as one.
+misconceptions:
+- id: MC.ALG.SWAP_EQUALS
+  formula: every
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_coeff: 4
+- tier: hard
+  difficulty: 0.86
+status: draft
