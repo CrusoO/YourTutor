@@ -1,46 +1,58 @@
 id: ITEM.LIN1.P.0059
 skill_ids:
 - MATH.ALG.LIN1.IDENTITIES
-difficulty: 0.8
-type: expression
+difficulty: 0.85
+type: mcq
 pool: practice
 stem:
-  en: How many solutions does 2(x + 3) = 2x + 6 have? Write 1 if every x works, 0
-    if none work.
+  en: How many solutions does 3x + 1 = 3x + 1 have?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 answer:
-  sympy: '1'
+  sympy: every
   accept:
-  - '1'
-  - x=1
+  - every
 solution_steps:
-- en: 'Expand: 2x + 6 = 2x + 6.'
+- en: Simplify both sides of 3x + 1 = 3x + 1.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: The two sides are the same for every x.
-  ne: <Nepali — to be filled by reviewer>
-  as: <Assamese — to be filled by reviewer>
-- en: x = 1
+- en: The correct option is every.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 hints:
 - level: 1
-  en: Expand the brackets. Do the two sides look the same?
+  en: Expand or collect terms. Do the two sides look the same?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 2
-  en: If both sides simplify to the same expression, every value works.
+  en: If both sides simplify to the same expression, it is an identity. If they cannot
+    match, it is a contradiction. Otherwise there is a unique value.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 3
-  en: 2x + 6 equals 2x + 6, so the equation is an identity.
+  en: This equation is classified as every.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 prediction_prompt:
-  en: 'Before expanding: do you expect one solution or many?'
+  en: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 misconception_rules: []
 reviewed_by: null
 status: draft
+verify:
+  kind: solution_count
+  equation: 3x + 1 = 3x + 1
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>

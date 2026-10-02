@@ -42,14 +42,16 @@ def minimal_item(
     last_step: str | None = None,
     hint1: str = "What undoes the operation?",
     status: str = "draft",
+    stem: str | None = None,
 ) -> dict:
+    stem_en = stem or f"[{item_id}] Solve for x: x + 7 = 12"
     return {
         "id": item_id,
         "skill_ids": [skill],
         "difficulty": 0.3,
         "type": "expression",
         "pool": pool,
-        "stem": loc("Solve x + 7 = 12"),
+        "stem": loc(stem_en),
         "answer": {"sympy": answer, "accept": [answer]},
         "solution_steps": [loc("Subtract 7."), loc(last_step or f"x = {answer}")],
         "hints": [
@@ -67,7 +69,16 @@ def minimal_item(
 @pytest.fixture
 def content_root(tmp_path: Path) -> Path:
     write_yaml(tmp_path / "skills" / "s1.yaml", minimal_skill())
-    write_yaml(tmp_path / "items" / "i1.yaml", minimal_item())
+    for index in range(5):
+        write_yaml(
+            tmp_path / "items" / f"p{index}.yaml",
+            minimal_item(f"ITEM.P{index}", pool="practice"),
+        )
+    for index in range(3):
+        write_yaml(
+            tmp_path / "items" / f"d{index}.yaml",
+            minimal_item(f"ITEM.D{index}", pool="diagnostic"),
+        )
     write_yaml(
         tmp_path / "misconceptions" / "m1.yaml",
         {

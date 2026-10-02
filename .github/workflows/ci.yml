@@ -26,6 +26,46 @@ jobs:
       - name: Validate seed content
         run: python -m app.content.validate ../../content
 
+  api-postgres:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: tutor
+          POSTGRES_PASSWORD: tutor
+          POSTGRES_DB: yourtutor
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tutor -d yourtutor"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: tutor
+      POSTGRES_PASSWORD: tutor
+      POSTGRES_DB: yourtutor
+      TOKEN_PEPPER: ci-test-pepper
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -r requirements-dev.txt
+      - name: Alembic migrate
+        run: alembic upgrade head
+      - name: Pytest against Postgres
+        run: pytest
+      - name: Load seed into Postgres
+        run: python -m app.content.load ../../content --database-url "$TEST_DATABASE_URL"
+
   web:
     runs-on: ubuntu-latest
     defaults:

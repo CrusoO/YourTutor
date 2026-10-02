@@ -71,6 +71,23 @@ class Answer(BaseModel):
     accept: list[str] = []
 
 
+class McqOption(BaseModel):
+    id: str
+    en: str
+    ne: str | None = None
+    as_: str | None = Field(default=None, alias="as")
+
+    model_config = {"populate_by_name": True}
+
+
+class VerifySpec(BaseModel):
+    kind: str = "equation"
+    expr: str | None = None
+    equation: str | None = None
+    value: str | None = None
+    unknown: str | None = None
+
+
 class MisconceptionRule(BaseModel):
     id: str
     when_answer_equals: list[str]
@@ -83,6 +100,8 @@ class Item(BaseModel):
     type: ItemType
     pool: ItemPool
     stem: LocalizedText
+    verify: str | VerifySpec | None = None
+    options: list[McqOption] = []
     answer: Answer
     solution_steps: list[LocalizedText]
     hints: list[Hint]
@@ -102,6 +121,12 @@ class Item(BaseModel):
             raise ValueError(f"{self.id} must have hint levels 1, 2, and 3")
         if not self.solution_steps:
             raise ValueError(f"{self.id} must have solution_steps")
+        if self.type == ItemType.mcq:
+            ids = [o.id for o in self.options]
+            if len(ids) < 2:
+                raise ValueError(f"{self.id} mcq must have at least two options")
+            if self.answer.sympy not in ids:
+                raise ValueError(f"{self.id} answer is not an option id")
         return self
 
 

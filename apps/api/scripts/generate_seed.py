@@ -132,6 +132,16 @@ MISCONCEPTIONS = [
     ),
 ]
 
+YES_NO = [
+    {"id": "yes", "en": "Yes", "ne": NE, "as": AS},
+    {"id": "no", "en": "No", "ne": NE, "as": AS},
+]
+COUNT_OPTS = [
+    {"id": "none", "en": "No solution", "ne": NE, "as": AS},
+    {"id": "one", "en": "One solution", "ne": NE, "as": AS},
+    {"id": "every", "en": "Every x works", "ne": NE, "as": AS},
+]
+
 
 def loc(en: str) -> dict[str, str]:
     return {"en": en, "ne": NE, "as": AS}
@@ -163,14 +173,18 @@ def item(
     steps: list[str],
     hint_rows: list[dict],
     prediction: str,
+    *,
     accept: list[str] | None = None,
     rules: list[dict] | None = None,
+    verify: str | dict | None = None,
+    type_: str = "expression",
+    options: list[dict] | None = None,
 ) -> dict:
-    return {
+    data = {
         "id": item_id,
         "skill_ids": [skill],
         "difficulty": difficulty,
-        "type": "expression",
+        "type": type_,
         "pool": pool,
         "stem": loc(stem),
         "answer": {"sympy": str(answer), "accept": accept or [str(answer), f"x={answer}"]},
@@ -181,6 +195,11 @@ def item(
         "reviewed_by": None,
         "status": "draft",
     }
+    if verify is not None:
+        data["verify"] = verify
+    if options:
+        data["options"] = options
+    return data
 
 
 def write_skills() -> list[str]:
@@ -218,18 +237,86 @@ def write_misconceptions() -> None:
         )
 
 
-def one_step(n: int, pool: str, prefix: str) -> dict:
-    addend = 4 + (n % 6)  # 4..9
-    answer = 2 + (n % 5)  # 2..6, never equals addend (>=4 vs <=6 wait 4,5,6 overlap)
-    # force inequality
-    if answer == addend:
-        answer = addend - 3
-    total = answer + addend
-    skill = "MATH.ALG.LIN1.SOLVE_ONE_STEP"
+def integers(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    left, right = spec
+    answer = left - right
     return item(
-        f"{prefix}{n:04d}",
-        skill,
-        0.25 + 0.05 * (n % 3),
+        item_id,
+        "MATH.ARITH.INTEGERS.OPERATIONS",
+        difficulty,
+        pool,
+        f"Compute {left} - {right}.",
+        str(answer),
+        [f"{left} minus {right} is {answer}.", f"x = {answer}"],
+        [
+            {"level": 1, **loc("Which number is larger? Are we taking away or adding?")},
+            {"level": 2, **loc("Start at the first number and move left on the number line.")},
+            {"level": 3, **loc(f"Take {right} away from {left}.")},
+        ],
+        "Will the result be smaller than the first number?",
+    )
+
+
+def inverse(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    kind, value = spec
+    if kind == "add":
+        stem = f"What number do you add to x - {value} to get x again?"
+        steps = [
+            f"The inverse of subtracting {value} is adding {value}.",
+            f"x = {value}",
+        ]
+        verify = {"kind": "equation", "expr": f"x - {value} + y = x", "unknown": "y"}
+        hint3 = f"Add {value} to cancel subtracting {value}."
+    else:
+        stem = f"What number do you subtract from x + {value} to get x again?"
+        steps = [
+            f"The inverse of adding {value} is subtracting {value}.",
+            f"x = {value}",
+        ]
+        verify = {"kind": "equation", "expr": f"x + {value} - y = x", "unknown": "y"}
+        hint3 = f"Subtract {value} to cancel adding {value}."
+    return item(
+        item_id,
+        "MATH.ALG.INVERSE_OPERATIONS",
+        difficulty,
+        pool,
+        stem,
+        str(value),
+        steps,
+        [
+            {"level": 1, **loc("What operation is being undone?")},
+            {"level": 2, **loc("Addition and subtraction undo each other.")},
+            {"level": 3, **loc(hint3)},
+        ],
+        "Is the inverse larger than 1?",
+        verify=verify,
+    )
+
+
+def translate(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    addend, target = spec
+    answer = target - addend
+    return item(
+        item_id,
+        "MATH.ALG.LIN1.TRANSLATE",
+        difficulty,
+        pool,
+        f"A number plus {addend} equals {target}. What is the number?",
+        str(answer),
+        [f"The equation is x + {addend} = {target}.", f"x = {answer}"],
+        hints_undo("Subtract", addend),
+        f"Is the number smaller than {target}?",
+        verify=f"x + {addend} = {target}",
+    )
+
+
+def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    addend, answer = spec
+    total = answer + addend
+    return item(
+        item_id,
+        "MATH.ALG.LIN1.SOLVE_ONE_STEP",
+        difficulty,
         pool,
         f"Solve for x: x + {addend} = {total}",
         str(answer),
@@ -249,17 +336,13 @@ def one_step(n: int, pool: str, prefix: str) -> dict:
     )
 
 
-def two_step(n: int, pool: str, prefix: str) -> dict:
-    coeff = 2 + (n % 3)  # 2,3,4
-    added = 1 + (n % 4)  # 1..4
-    answer = 3 + (n % 4)  # 3..6
-    if answer in {coeff, added}:
-        answer += 2
+def two_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    coeff, added, answer = spec
     rhs = coeff * answer + added
     return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.SOLVE_TWO_STEP",
-        0.45,
+        difficulty,
         pool,
         f"Solve for x: {coeff}x + {added} = {rhs}",
         str(answer),
@@ -274,16 +357,36 @@ def two_step(n: int, pool: str, prefix: str) -> dict:
     )
 
 
-def both_sides(n: int, pool: str, prefix: str) -> dict:
-    left_c = 3
-    right_c = 1
-    left_b = 2 + n % 3
-    answer = 4 + n % 3
+def multi(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    a, b, c, answer = spec
+    # a x + b + c x = rhs
+    rhs = (a + c) * answer + b
+    sign = "+" if b >= 0 else "-"
+    b_abs = abs(b)
+    return item(
+        item_id,
+        "MATH.ALG.LIN1.SOLVE_MULTI",
+        difficulty,
+        pool,
+        f"Solve for x: {a}x {sign} {b_abs} + {c}x = {rhs}",
+        str(answer),
+        [
+            f"Combine like terms: {a + c}x {sign} {b_abs} = {rhs}.",
+            f"Move the constant, then divide by {a + c}.",
+            f"x = {answer}",
+        ],
+        hints_undo("Combine like terms, then undo", b_abs),
+        "Are there like terms you can gather first?",
+    )
+
+
+def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    left_c, right_c, left_b, answer = spec
     right_b = (left_c - right_c) * answer + left_b
     return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES",
-        0.55,
+        difficulty,
         pool,
         f"Solve for x: {left_c}x + {left_b} = {right_c}x + {right_b}",
         str(answer),
@@ -298,22 +401,10 @@ def both_sides(n: int, pool: str, prefix: str) -> dict:
     )
 
 
-def brackets(n: int, pool: str, prefix: str) -> dict:
-    a = 2 + n % 3
-    inside = 1 + n % 4
-    answer = 3 + n % 3
-    if answer == a:
-        answer += 1
-    rhs = a * (answer - inside) if n % 2 == 0 else a * (answer + inside)
-    if n % 2 == 0:
-        stem = f"Solve for x: {a}(x - {inside}) = {rhs}"
-        steps = [
-            f"Divide both sides by {a} (or expand the brackets first).",
-            f"x - {inside} = {rhs // a}",
-            f"x = {answer}",
-        ]
-        pred = "Will x be greater than the number inside the brackets?"
-    else:
+def brackets(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    a, inside, answer, plus = spec
+    if plus:
+        rhs = a * (answer + inside)
         stem = f"Solve for x: {a}(x + {inside}) = {rhs}"
         steps = [
             f"Expand: {a}x + {a * inside} = {rhs}",
@@ -321,10 +412,19 @@ def brackets(n: int, pool: str, prefix: str) -> dict:
             f"x = {answer}",
         ]
         pred = "Will x be positive? Why?"
+    else:
+        rhs = a * (answer - inside)
+        stem = f"Solve for x: {a}(x - {inside}) = {rhs}"
+        steps = [
+            f"Divide both sides by {a} (or expand the brackets first).",
+            f"x - {inside} = {rhs // a}",
+            f"x = {answer}",
+        ]
+        pred = "Will x be greater than the number inside the brackets?"
     return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.BRACKETS",
-        0.6,
+        difficulty,
         pool,
         stem,
         str(answer),
@@ -334,170 +434,324 @@ def brackets(n: int, pool: str, prefix: str) -> dict:
     )
 
 
-def integers(n: int, pool: str, prefix: str) -> dict:
-    a = 8 + n
-    b = 3
-    answer = a - b
+def fraction(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    denom, added, answer = spec
+    rhs = answer // denom + added
     return item(
-        f"{prefix}{n:04d}",
-        "MATH.ARITH.INTEGERS.OPERATIONS",
-        0.2,
-        pool,
-        f"Compute {a} - {b}.",
-        str(answer),
-        [f"{a} minus {b} is {answer}.", f"x = {answer}"],
-        [
-            {"level": 1, **loc("Which number is larger? Are we taking away or adding?")},
-            {"level": 2, **loc("Start at the first number and move left on the number line.")},
-            {"level": 3, **loc(f"Take {b} away from {a}.")},
-        ],
-        "Will the result be smaller than the first number?",
-    )
-
-
-def inverse(n: int, pool: str, prefix: str) -> dict:
-    a = 6 + n % 4
-    return item(
-        f"{prefix}{n:04d}",
-        "MATH.ALG.INVERSE_OPERATIONS",
-        0.3,
-        pool,
-        f"What number do you add to x - {a} to get x again?",
-        str(a),
-        [f"The inverse of subtracting {a} is adding {a}.", f"x = {a}"],
-        [
-            {"level": 1, **loc("What operation is being undone?")},
-            {"level": 2, **loc("Addition and subtraction undo each other.")},
-            {"level": 3, **loc(f"Add {a} to cancel subtract {a}.")},
-        ],
-        "Is the inverse larger than 1?",
-    )
-
-
-def translate(n: int, pool: str, prefix: str) -> dict:
-    k = 5 + n
-    return item(
-        f"{prefix}{n:04d}",
-        "MATH.ALG.LIN1.TRANSLATE",
-        0.4,
-        pool,
-        f"A number plus {k} equals 20. What is the number?",
-        str(20 - k),
-        [f"The equation is x + {k} = 20.", f"x = {20 - k}"],
-        hints_undo("Subtract", k),
-        "Is the number smaller than 20?",
-    )
-
-
-def multi(n: int, pool: str, prefix: str) -> dict:
-    answer = 2 + n % 4
-    return item(
-        f"{prefix}{n:04d}",
-        "MATH.ALG.LIN1.SOLVE_MULTI",
-        0.65,
-        pool,
-        f"Solve for x: 2x - 3 + x = {3 * answer - 3}",
-        str(answer),
-        ["Combine like terms: 3x - 3 = RHS.", "Add 3 to both sides.", f"x = {answer}"],
-        hints_undo("Combine like terms, then add", 3),
-        "Are there like terms you can gather first?",
-    )
-
-
-def fraction(n: int, pool: str, prefix: str) -> dict:
-    answer = 4 + n % 5
-    if answer == 2:
-        answer = 8
-    rhs = answer // 2 + 3 if answer % 2 == 0 else None
-    # use x/2 + 3 = rhs with even answer
-    answer = 2 * (3 + n % 4)  # 6,8,10,12
-    rhs = answer // 2 + 3
-    return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.FRACTION_COEFF",
-        0.7,
+        difficulty,
         pool,
-        f"Solve for x: x/2 + 3 = {rhs}",
+        f"Solve for x: x/{denom} + {added} = {rhs}",
         str(answer),
         [
-            f"Subtract 3 from both sides: x/2 = {rhs - 3}.",
-            "Multiply both sides by 2.",
+            f"Subtract {added} from both sides: x/{denom} = {rhs - added}.",
+            f"Multiply both sides by {denom}.",
             f"x = {answer}",
         ],
-        hints_undo("Subtract", 3),
-        "Will x be even? Why?",
+        hints_undo("Subtract", added),
+        "Will x be a whole number? Why?",
     )
 
 
-def word(n: int, pool: str, prefix: str) -> dict:
-    age = 12 + n
-    older = 7
-    return item(
-        f"{prefix}{n:04d}",
-        "MATH.ALG.LIN1.WORD_PROBLEMS",
-        0.5,
-        pool,
-        (
+def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    kind = spec[0]
+    if kind == "age":
+        older, total = spec[1], spec[2]
+        answer = (total - older) // 2
+        stem = (
             f"A student is {older} years older than her sister. "
-            f"Together they are {age + (age - older)} years old. "
-            "How old is the sister?"
-        ),
-        str(age - older),
-        [
+            f"Together they are {total} years old. How old is the sister?"
+        )
+        verify = f"x + (x + {older}) = {total}"
+        steps = [
             f"Let the sister be x. Then the student is x + {older}.",
-            f"x + (x + {older}) = {2 * age - older}.",
-            f"x = {age - older}",
-        ],
-        hints_undo("Write an equation, then subtract", older),
-        "Is the sister younger than the student?",
+            f"x + (x + {older}) = {total}.",
+            f"x = {answer}",
+        ]
+        pred = "Is the sister younger than the student?"
+    elif kind == "price":
+        extra, total = spec[1], spec[2]
+        answer = (total - extra) // 2
+        item_a, item_b = spec[3], spec[4]
+        stem = (
+            f"A {item_b} costs {extra} rupees more than a {item_a}. "
+            f"Together they cost {total} rupees. How many rupees is the {item_a}?"
+        )
+        verify = f"x + (x + {extra}) = {total}"
+        steps = [
+            f"Let the {item_a} cost x rupees. Then the {item_b} costs x + {extra}.",
+            f"x + (x + {extra}) = {total}.",
+            f"x = {answer}",
+        ]
+        pred = f"Is the {item_a} cheaper than the {item_b}?"
+    else:
+        extra, total = spec[1], spec[2]
+        answer = total - extra
+        first, second = spec[3], spec[4]
+        stem = (
+            f"A walker covers {first} for x km and then {second} for {extra} km. "
+            f"The whole trip is {total} km. How many kilometres was the first part?"
+        )
+        verify = f"x + {extra} = {total}"
+        steps = [
+            f"The two parts add to {total} km.",
+            f"x + {extra} = {total}.",
+            f"x = {answer}",
+        ]
+        pred = "Is the first part shorter than the whole trip?"
+    return item(
+        item_id,
+        "MATH.ALG.LIN1.WORD_PROBLEMS",
+        difficulty,
+        pool,
+        stem,
+        str(answer),
+        steps,
+        hints_undo("Write an equation, then undo", spec[1]),
+        pred,
+        verify=verify,
     )
 
 
-def check(n: int, pool: str, prefix: str) -> dict:
-    # answer 1 means yes, 0 means no — use 1/0
-    xval = 4 + n % 3
-    rhs = 2 * xval + 1
+def check(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    equation, value, holds = spec
+    answer = "yes" if holds else "no"
     return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.CHECK_SOLUTION",
-        0.35,
+        difficulty,
         pool,
-        f"Does x = {xval} solve 2x + 1 = {rhs}? Write 1 for yes or 0 for no.",
-        "1",
-        [f"2*{xval} + 1 = {2 * xval + 1}, which equals {rhs}.", "x = 1"],
+        f"Does x = {value} solve {equation}?",
+        answer,
         [
-            {"level": 1, **loc("Substitute the given x into the left side.")},
+            f"Substitute x = {value} into {equation}.",
+            f"The correct option is {answer}.",
+        ],
+        [
+            {"level": 1, **loc("Substitute the given value into the left side.")},
             {"level": 2, **loc("Compare the value you get with the right side.")},
-            {"level": 3, **loc(f"Compute 2 × {xval} + 1 and compare with {rhs}.")},
+            {
+                "level": 3,
+                **loc(
+                    f"After substituting {value}, the sides "
+                    f"{'match' if holds else 'do not match'}."
+                ),
+            },
         ],
         "Do you expect the two sides to match?",
+        type_="mcq",
+        options=YES_NO,
+        accept=[answer],
+        verify={"kind": "substitution", "equation": equation, "value": str(value)},
     )
 
 
-def identity(n: int, pool: str, prefix: str) -> dict:
-    # 1 = infinitely many, 0 = none — use 1 for identity
+def identity(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
+    equation, answer = spec
     return item(
-        f"{prefix}{n:04d}",
+        item_id,
         "MATH.ALG.LIN1.IDENTITIES",
-        0.8,
+        difficulty,
         pool,
-        "How many solutions does 2(x + 3) = 2x + 6 have? Write 1 if every x works, 0 if none work.",
-        "1",
-        ["Expand: 2x + 6 = 2x + 6.", "The two sides are the same for every x.", "x = 1"],
+        f"How many solutions does {equation} have?",
+        answer,
         [
-            {"level": 1, **loc("Expand the brackets. Do the two sides look the same?")},
+            f"Simplify both sides of {equation}.",
+            f"The correct option is {answer}.",
+        ],
+        [
+            {"level": 1, **loc("Expand or collect terms. Do the two sides look the same?")},
             {
                 "level": 2,
                 **loc(
-                    "If both sides simplify to the same expression, "
-                    "every value works."
+                    "If both sides simplify to the same expression, it is an identity. "
+                    "If they cannot match, it is a contradiction. "
+                    "Otherwise there is a unique value."
                 ),
             },
-            {"level": 3, **loc("2x + 6 equals 2x + 6, so the equation is an identity.")},
+            {"level": 3, **loc(f"This equation is classified as {answer}.")},
         ],
-        "Before expanding: do you expect one solution or many?",
+        "Before simplifying: do you expect a unique value, an identity, or a contradiction?",
+        type_="mcq",
+        options=COUNT_OPTS,
+        accept=[answer],
+        verify={"kind": "solution_count", "equation": equation},
     )
 
+
+# 12 unique slots per skill: practice 0-4, diagnostic 5-7, A/B 8-9, extra A/B 10-11.
+CATALOGS: dict[str, list] = {
+    "MATH.ARITH.INTEGERS.OPERATIONS": [
+        (15, 3),
+        (21, 4),
+        (18, 5),
+        (30, 8),
+        (16, 9),
+        (25, 6),
+        (14, 2),
+        (40, 11),
+        (19, 7),
+        (28, 9),
+        (22, 5),
+        (33, 6),
+    ],
+    "MATH.ALG.INVERSE_OPERATIONS": [
+        ("add", 3),
+        ("sub", 4),
+        ("add", 5),
+        ("sub", 6),
+        ("add", 7),
+        ("sub", 8),
+        ("add", 9),
+        ("sub", 10),
+        ("add", 11),
+        ("sub", 12),
+        ("add", 13),
+        ("sub", 14),
+    ],
+    # (addend, target) — mostly positive answers; slot 8 is 0; slot 10 is -3.
+    "MATH.ALG.LIN1.TRANSLATE": [
+        (3, 20),
+        (5, 18),
+        (7, 15),
+        (4, 12),
+        (6, 21),
+        (8, 16),
+        (2, 19),
+        (9, 24),
+        (10, 10),
+        (11, 14),
+        (12, 9),
+        (5, 25),
+    ],
+    "MATH.ALG.LIN1.SOLVE_ONE_STEP": [
+        (4, 7),
+        (5, 8),
+        (6, 4),
+        (7, 8),
+        (8, 4),
+        (3, 11),
+        (9, 7),
+        (2, 15),
+        (10, 8),
+        (5, 4),
+        (4, 15),
+        (6, 9),
+    ],
+    "MATH.ALG.LIN1.SOLVE_TWO_STEP": [
+        (2, 3, 5),
+        (3, 1, 4),
+        (2, 5, 6),
+        (4, 2, 3),
+        (3, 4, 5),
+        (2, 1, 8),
+        (4, 3, 2),
+        (3, 2, 6),
+        (2, 7, 4),
+        (5, 1, 3),
+        (4, 5, 4),
+        (3, 6, 3),
+    ],
+    "MATH.ALG.LIN1.SOLVE_MULTI": [
+        (2, -3, 1, 4),
+        (3, 2, 1, 5),
+        (4, -1, 2, 3),
+        (2, 5, 2, 2),
+        (5, -4, 1, 6),
+        (3, 1, 2, 4),
+        (2, -2, 3, 5),
+        (4, 3, 1, 2),
+        (3, -5, 2, 7),
+        (2, 4, 1, 6),
+        (5, -2, 1, 3),
+        (3, 6, 1, 2),
+    ],
+    "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES": [
+        (3, 1, 2, 4),
+        (4, 2, 1, 5),
+        (5, 1, 3, 2),
+        (3, 2, 4, 6),
+        (4, 1, 5, 3),
+        (5, 2, 2, 4),
+        (3, 1, 6, 5),
+        (4, 3, 2, 7),
+        (5, 1, 4, 3),
+        (3, 2, 1, 8),
+        (4, 1, 3, 6),
+        (5, 2, 5, 2),
+    ],
+    "MATH.ALG.LIN1.BRACKETS": [
+        (2, 1, 6, False),
+        (3, 2, 3, True),
+        (2, 3, 8, False),
+        (4, 1, 5, True),
+        (3, 4, 7, False),
+        (2, 5, 4, True),
+        (5, 1, 3, False),
+        (3, 1, 6, True),
+        (2, 4, 9, False),
+        (4, 2, 3, True),
+        (3, 5, 8, False),
+        (2, 2, 7, True),
+    ],
+    "MATH.ALG.LIN1.FRACTION_COEFF": [
+        (2, 3, 10),
+        (3, 1, 12),
+        (2, 5, 8),
+        (4, 2, 16),
+        (2, 1, 14),
+        (3, 4, 9),
+        (2, 6, 12),
+        (5, 1, 20),
+        (2, 4, 18),
+        (3, 2, 15),
+        (4, 1, 12),
+        (2, 7, 6),
+    ],
+    "MATH.ALG.LIN1.WORD_PROBLEMS": [
+        ("age", 7, 33),
+        ("price", 20, 70, "pen", "notebook"),
+        ("dist", 4, 15, "walks", "cycles"),
+        ("age", 8, 40),
+        ("price", 15, 47, "book", "pen"),
+        ("dist", 9, 28, "rides a bus", "walks"),
+        ("age", 5, 27),
+        ("price", 12, 56, "mango", "bag of oranges"),
+        ("dist", 3, 18, "cycles", "walks"),
+        ("age", 9, 35),
+        ("price", 24, 80, "ticket", "snack"),
+        ("dist", 7, 22, "hikes", "rests after"),
+    ],
+    "MATH.ALG.LIN1.CHECK_SOLUTION": [
+        ("2x + 1 = 9", 4, True),
+        ("2x + 1 = 9", 3, False),
+        ("x + 4 = 9", 5, True),
+        ("3x = 12", 5, False),
+        ("x - 2 = 6", 8, True),
+        ("2x + 3 = 11", 3, False),
+        ("4x = 20", 5, True),
+        ("x + 7 = 10", 2, False),
+        ("3x + 1 = 10", 3, True),
+        ("x - 5 = 4", 8, False),
+        ("5x = 15", 3, True),
+        ("2x - 1 = 7", 5, False),
+    ],
+    "MATH.ALG.LIN1.IDENTITIES": [
+        ("2(x + 3) = 2x + 6", "every"),
+        ("2x + 3 = 2x + 7", "none"),
+        ("x + 4 = 10", "one"),
+        ("3x + 1 = 3x + 1", "every"),
+        ("x + 1 = x + 4", "none"),
+        ("2x = 8", "one"),
+        ("4(x - 1) = 4x - 4", "every"),
+        ("5x = 5x + 2", "none"),
+        ("3x - 1 = 8", "one"),
+        ("x + 5 = x + 5", "every"),
+        ("3(x + 1) = 3x", "none"),
+        ("x - 5 = 2", "one"),
+    ],
+}
 
 BUILDERS = {
     "MATH.ARITH.INTEGERS.OPERATIONS": integers,
@@ -506,52 +760,72 @@ BUILDERS = {
     "MATH.ALG.LIN1.SOLVE_ONE_STEP": one_step,
     "MATH.ALG.LIN1.SOLVE_TWO_STEP": two_step,
     "MATH.ALG.LIN1.SOLVE_MULTI": multi,
-    "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES": both_sides,
     "MATH.ALG.LIN1.BRACKETS": brackets,
+    "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES": both_sides,
     "MATH.ALG.LIN1.FRACTION_COEFF": fraction,
     "MATH.ALG.LIN1.WORD_PROBLEMS": word,
     "MATH.ALG.LIN1.CHECK_SOLUTION": check,
     "MATH.ALG.LIN1.IDENTITIES": identity,
 }
 
+# Slot difficulties so matched A/B pairs share a tier.
+SLOT_DIFFICULTY = {
+    "MATH.ARITH.INTEGERS.OPERATIONS": [0.15] * 12,
+    "MATH.ALG.INVERSE_OPERATIONS": [0.25] * 12,
+    "MATH.ALG.LIN1.TRANSLATE": [0.42] * 12,
+    "MATH.ALG.LIN1.SOLVE_ONE_STEP": [0.28] * 12,
+    "MATH.ALG.LIN1.SOLVE_TWO_STEP": [0.48] * 12,
+    "MATH.ALG.LIN1.SOLVE_MULTI": [0.62] * 12,
+    "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES": [0.55] * 12,
+    "MATH.ALG.LIN1.BRACKETS": [0.6] * 12,
+    "MATH.ALG.LIN1.FRACTION_COEFF": [0.7] * 12,
+    "MATH.ALG.LIN1.WORD_PROBLEMS": [0.5] * 12,
+    "MATH.ALG.LIN1.CHECK_SOLUTION": [0.32] * 12,
+    "MATH.ALG.LIN1.IDENTITIES": [0.85] * 12,
+}
 
-def write_items(skill_ids: list[str]) -> tuple[list[str], list[str]]:
+
+def _clear_items() -> None:
+    items_root = ROOT / "items"
+    if not items_root.exists():
+        return
+    for path in items_root.rglob("*.yaml"):
+        path.unlink()
+
+
+def _build(skill: str, slot: int, pool: str, item_id: str) -> dict:
+    builder = BUILDERS[skill]
+    spec = CATALOGS[skill][slot]
+    difficulty = SLOT_DIFFICULTY[skill][slot]
+    data = builder(spec, pool, item_id, difficulty)
+    data["skill_ids"] = [skill]
+    return data
+
+
+def write_items(skill_ids: list[str]) -> None:
+    _clear_items()
     practice_n = 0
     diag_n = 0
-    form_a: list[str] = []
-    form_b: list[str] = []
-
-    # 5 practice per skill = 60
     for skill in skill_ids:
-        builder = BUILDERS[skill]
-        for i in range(5):
+        for slot in range(5):
             practice_n += 1
-            data = builder(practice_n, "practice", "ITEM.LIN1.P.")
-            data["skill_ids"] = [skill]
+            data = _build(skill, slot, "practice", f"ITEM.LIN1.P.{practice_n:04d}")
             dump(ROOT / "items" / "math" / "practice" / f"{data['id']}.yaml", data)
-
-    # 30 diagnostic: 3 for first 6 skills, 2 for last 6
-    for idx, skill in enumerate(skill_ids):
-        count = 3 if idx < 6 else 2
-        builder = BUILDERS[skill]
-        for _ in range(count):
+        for slot in range(5, 8):
             diag_n += 1
-            data = builder(100 + diag_n, "diagnostic", "ITEM.LIN1.D.")
-            data["skill_ids"] = [skill]
+            data = _build(skill, slot, "diagnostic", f"ITEM.LIN1.D.{diag_n:04d}")
             dump(ROOT / "items" / "math" / "diagnostic" / f"{data['id']}.yaml", data)
 
-    # 15 + 15 matched checkpoint
-    for i, skill in enumerate(skill_ids[:12]):
-        if len(form_a) >= 15:
-            break
-    # use first 12 skills + repeat 3 core skills = 15
-    cp_skills = skill_ids + skill_ids[:3]
-    for i, skill in enumerate(cp_skills[:15], start=1):
-        builder = BUILDERS[skill]
-        a = builder(200 + i, "checkpoint", "ITEM.LIN1.C.A.")
-        a["skill_ids"] = [skill]
-        b = builder(300 + i, "checkpoint", "ITEM.LIN1.C.B.")
-        b["skill_ids"] = [skill]
+    form_a: list[str] = []
+    form_b: list[str] = []
+    cp_index = 0
+    pairs = [(skill, 8, 9) for skill in skill_ids]
+    for skill in skill_ids[:3]:
+        pairs.append((skill, 10, 11))
+    for skill, slot_a, slot_b in pairs:
+        cp_index += 1
+        a = _build(skill, slot_a, "checkpoint", f"ITEM.LIN1.C.A.{cp_index:04d}")
+        b = _build(skill, slot_b, "checkpoint", f"ITEM.LIN1.C.B.{cp_index:04d}")
         dump(ROOT / "items" / "math" / "checkpoint" / f"{a['id']}.yaml", a)
         dump(ROOT / "items" / "math" / "checkpoint" / f"{b['id']}.yaml", b)
         form_a.append(a["id"])
@@ -567,7 +841,6 @@ def write_items(skill_ids: list[str]) -> tuple[list[str], list[str]]:
             "match_map": dict(zip(form_a, form_b, strict=True)),
         },
     )
-    return form_a, form_b
 
 
 def write_overlays(skill_ids: list[str]) -> None:

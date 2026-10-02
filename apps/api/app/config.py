@@ -13,6 +13,22 @@ class Settings(BaseSettings):
     allow_draft_content: bool = False
     api_host: str = "0.0.0.0"
     api_port: int = 8000
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_user: str = ""
+    smtp_password: str = ""
+    otp_from_email: str = "noreply@localhost"
+    otp_ttl_seconds: int = 600
+    otp_request_limit_email: int = 3
+    otp_request_limit_ip: int = 10
+    otp_verify_limit_email: int = 5
+    rate_window_seconds: int = 900
+    pin_max_attempts: int = 5
+    pin_lockout_seconds: int = 900
+    pin_hash_iterations: int = 80_000
+    session_ttl_seconds: int = 86_400
+    token_pepper: str = "dev-only-change-me"
+    test_database_url: str = ""
 
 
 settings = Settings()

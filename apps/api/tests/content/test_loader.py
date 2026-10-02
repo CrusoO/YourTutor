@@ -17,4 +17,5 @@ def test_load_sqlite(content_root: Path, tmp_path: Path) -> None:
         skills = session.scalars(select(SkillRow)).all()
         items = session.scalars(select(ItemRow)).all()
         assert len(skills) == 1
-        assert items[0].primary_skill == "MATH.S1"
+        assert items
+        assert all(row.primary_skill == "MATH.S1" for row in items)

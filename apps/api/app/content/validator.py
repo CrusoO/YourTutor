@@ -7,28 +7,49 @@ from pathlib import Path
 import yaml  # type: ignore[import-untyped]
 
 from app.content.leak import hint_leaks_answer
-from app.content.math_parse import ParseError, expressions_equivalent, parse_math
+from app.content.math_parse import ParseError, expressions_equivalent, normalize, parse_math
 from app.content.schema import (
     CheckpointForms,
     ContentBundle,
     GlossaryFile,
     Item,
     ItemPool,
+    ItemType,
     Misconception,
     Overlay,
     Skill,
 )
+from app.content.stem_solve import check_item_stem_answer
 
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2
 LIVE_MIN_CHECKPOINT = 10
 LIVE_WARN_CHECKPOINT = 15
+STEM_MIN_PRACTICE = 5
+STEM_MIN_DIAGNOSTIC = 3
+WORD_ANSWER_MIN = 1
+WORD_ANSWER_MAX = 80
+MCQ_IMBALANCE = 0.7
+
+
+def item_tier(difficulty: float) -> str:
+    if difficulty < 0.4:
+        return "easy"
+    if difficulty <= 0.8:
+        return "medium"
+    return "hard"
 
 
 @dataclass
 class ValidationReport:
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    manual_review: list[str] = field(default_factory=list)
+    manual_review_rows: list[tuple[str, str, str]] = field(default_factory=list)
+    needs_teacher_check: list[str] = field(default_factory=list)
+    stats: dict = field(default_factory=dict)
+    no_misconception_rules: list[str] = field(default_factory=list)
+    ab_mismatches: list[str] = field(default_factory=list)
     bundle: ContentBundle | None = None
 
     @property
@@ -75,7 +96,13 @@ def _model(cls, path: Path):  # type: ignore[no-untyped-def]
     return cls.model_validate(_read_yaml(path))
 
 
-def last_step_matches_answer(step_en: str, answer_sympy: str) -> bool:
+def last_step_matches_answer(
+    step_en: str, answer_sympy: str, *, item_type: ItemType | None = None
+) -> bool:
+    if item_type == ItemType.mcq:
+        return normalize(answer_sympy) in normalize(step_en) or normalize(step_en) == normalize(
+            answer_sympy
+        )
     if expressions_equivalent(step_en, answer_sympy):
         return True
     if "=" in step_en:
@@ -92,7 +119,12 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _items(bundle, report)
     _checkpoint_isolation(bundle, report)
     _checkpoint_forms(bundle, report)
+    _stem_answers(bundle, report)
+    _stem_uniqueness(bundle, report)
+    _bkt_params(bundle, report)
+    _mcq_and_word_warnings(bundle, report)
     _live_chapter(bundle, report)
+    _build_report(bundle, report)
     return report
 
 
@@ -175,13 +207,14 @@ def _items(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         if not item.skill_ids:
             report.errors.append(f"{item.id} must have a primary skill (skill_ids[0])")
-        try:
-            parse_math(item.answer.sympy)
-        except ParseError as exc:
-            report.errors.append(f"{item.id} answer.sympy failed allowlist parse: {exc}")
-            continue
+        if item.type != ItemType.mcq:
+            try:
+                parse_math(item.answer.sympy)
+            except ParseError as exc:
+                report.errors.append(f"{item.id} answer.sympy failed allowlist parse: {exc}")
+                continue
         last = item.solution_steps[-1].en
-        if not last_step_matches_answer(last, item.answer.sympy):
+        if not last_step_matches_answer(last, item.answer.sympy, item_type=item.type):
             report.errors.append(
                 f"{item.id} final solution step is not equivalent to answer {item.answer.sympy!r}"
             )
@@ -256,6 +289,13 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                 missing.append(f"{skill_id} practice {practice}/{LIVE_MIN_PRACTICE}")
             if diagnostic < LIVE_MIN_DIAGNOSTIC:
                 missing.append(f"{skill_id} diagnostic {diagnostic}/{LIVE_MIN_DIAGNOSTIC}")
+        unchecked = [
+            item.id
+            for item in bundle.items
+            if item.id in report.needs_teacher_check
+            and item.status.value != "approved"
+            and item.primary_skill in overlay.skill_ids
+        ]
         if overlay.live:
             if missing:
                 report.errors.append(
@@ -263,7 +303,206 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                 )
             if not bundle.checkpoint_forms:
                 report.errors.append(f"{overlay.id} is live but missing matched checkpoint forms")
+            if unchecked:
+                report.errors.append(
+                    f"{overlay.id} is live but has needs_teacher_check "
+                    f"unapproved items: {', '.join(unchecked)}"
+                )
         elif missing:
             report.warnings.append(
                 f"{overlay.id} is not live (approved counts below threshold)"
             )
+
+
+def _stem_answers(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        result = check_item_stem_answer(item)
+        if result is None:
+            continue
+        if result in {"manual", "teacher"}:
+            report.manual_review.append(item.id)
+            report.manual_review_rows.append((item.id, item.primary_skill, item.stem.en))
+            if result == "teacher":
+                report.needs_teacher_check.append(item.id)
+        else:
+            report.errors.append(result)
+
+
+def _stem_text(item: Item) -> str:
+    return normalize(item.stem.en)
+
+
+def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
+    by_pool: dict[str, dict[str, list[str]]] = defaultdict(lambda: defaultdict(list))
+    by_skill_pool: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for item in bundle.items:
+        key = _stem_text(item)
+        by_pool[item.pool.value][key].append(item.id)
+        by_skill_pool[(item.primary_skill, item.pool.value)].add(key)
+    for pool, stems in by_pool.items():
+        for _stem, ids in stems.items():
+            if len(ids) > 1:
+                report.errors.append(
+                    f"duplicate stem in {pool} pool: {', '.join(sorted(ids))}"
+                )
+    items = {i.id: i for i in bundle.items}
+    for forms in bundle.checkpoint_forms:
+        for src, dst in forms.match_map.items():
+            left, right = items.get(src), items.get(dst)
+            if left is None or right is None:
+                continue
+            if _stem_text(left) == _stem_text(right):
+                report.errors.append(
+                    f"{forms.id} matched A/B items {src} and {dst} have identical stems"
+                )
+    practice_skills = {i.primary_skill for i in bundle.items if i.pool == ItemPool.practice}
+    diagnostic_skills = {
+        i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic
+    }
+    for skill_id in sorted(practice_skills):
+        count = len(by_skill_pool[(skill_id, ItemPool.practice.value)])
+        if count < STEM_MIN_PRACTICE:
+            report.errors.append(
+                f"{skill_id} practice has {count} distinct stems; "
+                f"minimum is {STEM_MIN_PRACTICE}"
+            )
+    for skill_id in sorted(diagnostic_skills):
+        count = len(by_skill_pool[(skill_id, ItemPool.diagnostic.value)])
+        if count < STEM_MIN_DIAGNOSTIC:
+            report.errors.append(
+                f"{skill_id} diagnostic has {count} distinct stems; "
+                f"minimum is {STEM_MIN_DIAGNOSTIC}"
+            )
+
+
+def _bkt_params(bundle: ContentBundle, report: ValidationReport) -> None:
+    for skill in bundle.skills:
+        params = skill.bkt
+        for name, value in (
+            ("p_init", params.p_init),
+            ("p_learn", params.p_learn),
+            ("p_slip", params.p_slip),
+            ("p_guess", params.p_guess),
+        ):
+            if not 0 < value < 1:
+                report.errors.append(f"{skill.id} BKT {name}={value} must be in (0, 1)")
+        if params.p_slip + params.p_guess >= 1:
+            report.errors.append(f"{skill.id} BKT p_slip + p_guess must be < 1")
+
+
+def _mcq_and_word_warnings(bundle: ContentBundle, report: ValidationReport) -> None:
+    by_skill: dict[str, list[str]] = defaultdict(list)
+    for item in bundle.items:
+        if item.type == ItemType.mcq:
+            by_skill[item.primary_skill].append(item.answer.sympy)
+        if "WORD_PROBLEMS" not in item.primary_skill:
+            continue
+        try:
+            value = float(normalize(item.answer.sympy))
+        except ValueError:
+            continue
+        if value < WORD_ANSWER_MIN or value > WORD_ANSWER_MAX:
+            report.warnings.append(
+                f"{item.id} word-problem answer {value} outside plausible range "
+                f"[{WORD_ANSWER_MIN}, {WORD_ANSWER_MAX}]"
+            )
+    for skill_id, answers in by_skill.items():
+        if len(answers) < 2:
+            continue
+        counts: dict[str, int] = defaultdict(int)
+        for answer in answers:
+            counts[answer] += 1
+        top, n = max(counts.items(), key=lambda row: row[1])
+        if n / len(answers) > MCQ_IMBALANCE:
+            report.warnings.append(
+                f"{skill_id} MCQ answers more than {int(MCQ_IMBALANCE * 100)}% "
+                f"{top!r} ({n}/{len(answers)})"
+            )
+
+
+def _build_report(bundle: ContentBundle, report: ValidationReport) -> None:
+    by_pool: dict[str, int] = defaultdict(int)
+    by_tier: dict[str, int] = defaultdict(int)
+    by_skill: dict[str, int] = defaultdict(int)
+    stems_by_pool: dict[str, set[str]] = defaultdict(set)
+    stems_by_skill: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    no_rules: list[str] = []
+    for item in bundle.items:
+        by_pool[item.pool.value] += 1
+        by_tier[item_tier(item.difficulty)] += 1
+        by_skill[item.primary_skill] += 1
+        key = _stem_text(item)
+        stems_by_pool[item.pool.value].add(key)
+        stems_by_skill[item.primary_skill][item.pool.value].add(key)
+        if not item.misconception_rules:
+            no_rules.append(item.id)
+    report.stats = {
+        "by_pool": dict(by_pool),
+        "by_tier": dict(by_tier),
+        "by_skill": dict(sorted(by_skill.items())),
+        "item_count": len(bundle.items),
+        "distinct_stems_by_pool": {
+            pool: len(stems) for pool, stems in sorted(stems_by_pool.items())
+        },
+        "distinct_stems_by_skill": {
+            skill_id: {pool: len(stems) for pool, stems in sorted(pools.items())}
+            for skill_id, pools in sorted(stems_by_skill.items())
+        },
+        "needs_teacher_check_count": len(report.needs_teacher_check),
+        "imbalance_warnings": [
+            warning
+            for warning in report.warnings
+            if "MCQ answers" in warning or "word-problem answer" in warning
+        ],
+    }
+    report.no_misconception_rules = no_rules
+    items = {i.id: i for i in bundle.items}
+    mismatches: list[str] = []
+    for forms in bundle.checkpoint_forms:
+        for src, dst in forms.match_map.items():
+            a, b = items.get(src), items.get(dst)
+            if a is None or b is None:
+                continue
+            if a.primary_skill != b.primary_skill or item_tier(a.difficulty) != item_tier(
+                b.difficulty
+            ):
+                mismatches.append(
+                    f"{src} ({a.primary_skill}/{item_tier(a.difficulty)}) "
+                    f"!= {dst} ({b.primary_skill}/{item_tier(b.difficulty)})"
+                )
+    report.ab_mismatches = mismatches
+
+
+def format_report(report: ValidationReport) -> str:
+    lines = [
+        "Validator report",
+        f"  items: {report.stats.get('item_count', 0)}",
+        f"  by pool: {report.stats.get('by_pool', {})}",
+        f"  by tier: {report.stats.get('by_tier', {})}",
+        "  by skill:",
+    ]
+    for skill, count in (report.stats.get("by_skill") or {}).items():
+        lines.append(f"    {skill}: {count}")
+    lines.append("  distinct stems by pool:")
+    for pool, count in (report.stats.get("distinct_stems_by_pool") or {}).items():
+        lines.append(f"    {pool}: {count}")
+    lines.append("  distinct stems by skill:")
+    for skill, pools in (report.stats.get("distinct_stems_by_skill") or {}).items():
+        parts = ", ".join(f"{pool} {n}" for pool, n in pools.items())
+        lines.append(f"    {skill}: {parts}")
+    lines.append(f"  no misconception_rules: {len(report.no_misconception_rules)}")
+    for item_id in report.no_misconception_rules:
+        lines.append(f"    {item_id}")
+    lines.append(f"  A/B skill-or-tier mismatches: {len(report.ab_mismatches)}")
+    for row in report.ab_mismatches:
+        lines.append(f"    {row}")
+    lines.append(f"  needs_teacher_check: {report.stats.get('needs_teacher_check_count', 0)}")
+    for item_id in report.needs_teacher_check:
+        lines.append(f"    {item_id}")
+    lines.append(f"  imbalance warnings: {len(report.stats.get('imbalance_warnings') or [])}")
+    for warning in report.stats.get("imbalance_warnings") or []:
+        lines.append(f"    {warning}")
+    lines.append(f"  manual review (stem not machine-solvable): {len(report.manual_review)}")
+    for item_id, skill, stem in report.manual_review_rows:
+        lines.append(f"    {item_id}  {skill}  {stem}")
+    return "\n".join(lines)

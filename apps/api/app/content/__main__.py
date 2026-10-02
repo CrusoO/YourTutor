@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 from app.content.loader import LoadError, load_path
-from app.content.validator import validate_path
+from app.content.validator import format_report, validate_path
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -28,6 +28,7 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         bundle = report.bundle
         assert bundle is not None
+        print(format_report(report))
         print(
             f"OK: {len(bundle.skills)} skills, {len(bundle.items)} items, "
             f"{len(bundle.misconceptions)} misconceptions, {len(bundle.overlays)} overlays"

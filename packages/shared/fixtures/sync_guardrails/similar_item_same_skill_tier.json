@@ -1,0 +1,42 @@
+{
+  "id": "similar_item_same_skill_tier",
+  "session_type": "practice",
+  "items": [
+    {
+      "id": "ITEM.SYNC.A",
+      "skill_ids": ["MATH.S1"],
+      "difficulty": 0.25,
+      "pool": "practice",
+      "status": "approved",
+      "type": "expression",
+      "answer_sympy": "5",
+      "accept": ["5"],
+      "hints": [[1, "What undoes the operation?"], [2, "Do the same to both sides."], [3, "Subtract 7 from both sides."]],
+      "solution_steps": ["x = 5"]
+    },
+    {
+      "id": "ITEM.SYNC.B",
+      "skill_ids": ["MATH.S1"],
+      "difficulty": 0.28,
+      "pool": "practice",
+      "status": "approved",
+      "type": "expression",
+      "answer_sympy": "4",
+      "accept": ["4"],
+      "hints": [[1, "What undoes the operation?"], [2, "Do the same to both sides."], [3, "Subtract 8 from both sides."]],
+      "solution_steps": ["x = 4"]
+    }
+  ],
+  "events": [
+    {"type": "request_hint"},
+    {"type": "request_hint"},
+    {"type": "show_solution"},
+    {"type": "continue"}
+  ],
+  "expect": {
+    "action_type": "similar_item",
+    "same_skill": "MATH.S1",
+    "same_tier": "easy",
+    "different_item": true
+  }
+}

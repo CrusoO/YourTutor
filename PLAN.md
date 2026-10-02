@@ -132,79 +132,79 @@ After each milestone:
 
 ## M2 — Accounts & consent
 
-- [ ] `users` (parent / teacher / admin), email OTP via `OtpSender`
-- [ ] OTP **rate limits** (request + verify)
-- [ ] `students` with PIN hash, board, languages, timezone, `current_chapter_id`
-- [ ] PIN **lockout after 5 failed attempts**
-- [ ] Consent `scopes`: `tutoring`, `teacher_share`, `research_pseudonymised`, `ai_processing`
-- [ ] Parent **data export** and **delete**
-- [ ] Classes + memberships; teacher queries filter `teacher_share`
-- [ ] Role/authorization matrix enforced (ARCHITECTURE.md §17.1)
-- [ ] No session without active `tutoring` consent
+- [x] `users` (parent / teacher / admin), email OTP via `OtpSender`
+- [x] OTP **rate limits** (request + verify)
+- [x] `students` with PIN hash, board, languages, timezone, `current_chapter_id`
+- [x] PIN **lockout after 5 failed attempts**
+- [x] Consent `scopes`: `tutoring`, `teacher_share`, `research_pseudonymised`, `ai_processing`
+- [x] Parent **data export** and **delete**
+- [x] Classes + memberships; teacher queries filter `teacher_share`
+- [x] Role/authorization matrix enforced (ARCHITECTURE.md §17.1)
+- [x] No session without active `tutoring` consent
 
-**Accept:** no session without `tutoring`; teachers cannot see students without `teacher_share`; PIN locks after 5 failures; OTP rate-limited; parent export/delete works.
+**Accept:** no session without `tutoring`; teachers cannot see students without `teacher_share`; PIN locks after 5 failures; OTP rate-limited; parent export/delete works. **Met 2026-10-02:** 106 pytest passed on docker-compose Postgres (105 + loader on SQLite; postgres loader included when `TEST_DATABASE_URL` is set). Alembic `0001_m2` applies on Postgres (`scopes text[]`). OTP logs to console when SMTP is unset. Mid-session consent revoke ends the session with `ended_reason=consent_revoked` and `llm_called=false`.
 
 ---
 
 ## M3 — Learner model
 
-- [ ] BKT (`bkt.py`) with skill-level `p_init`, `p_learn`, `p_slip`, `p_guess`
-- [ ] **Exactly one BKT update per item**, at first `answer` or first `request_hint`
-- [ ] Later hinted-correct increments `mastery.hinted_correct` only (no second BKT write)
-- [ ] Mastered: `p_known ≥ 0.95` **and** ≥ 3 correct **unhinted** answers
-- [ ] FSRS (`scheduler_fsrs.py`); explain-back and checkpoints do not update FSRS
-- [ ] `mastery_service.py` interface; **recompute from event log** (used on sync)
+- [x] BKT (`bkt.py`) with skill-level `p_init`, `p_learn`, `p_slip`, `p_guess`
+- [x] **Exactly one BKT update per item**, at first `answer` or first `request_hint`
+- [x] Later hinted-correct increments `mastery.hinted_correct` only (no second BKT write)
+- [x] Mastered: `p_known ≥ 0.95` **and** ≥ 3 correct **unhinted** answers
+- [x] FSRS (`scheduler_fsrs.py`); explain-back and checkpoints do not update FSRS
+- [x] `mastery_service.py` interface; **recompute from event log** (used on sync)
 
 **M3 acceptance tests (required):**
 
-- [ ] First unhinted correct → one BKT correct update
-- [ ] First wrong answer → one BKT incorrect update; later hinted-correct → `hinted_correct += 1`, `p_known` unchanged by that event
-- [ ] First event is `request_hint` → one BKT incorrect update; later correct answer → `hinted_correct` only
-- [ ] Two answers on the same item never apply two BKT updates
-- [ ] Deterministic FSRS due dates; checkpoint/explain-back fixtures do not move `due_at`
-- [ ] Warm-up outcomes update that skill's FSRS card immediately; other skills get one rating at session end from unhinted-correct rate
+- [x] First unhinted correct → one BKT correct update
+- [x] First wrong answer → one BKT incorrect update; later hinted-correct → `hinted_correct += 1`, `p_known` unchanged by that event
+- [x] First event is `request_hint` → one BKT incorrect update; later correct answer → `hinted_correct` only
+- [x] Two answers on the same item never apply two BKT updates
+- [x] Deterministic FSRS due dates; checkpoint/explain-back fixtures do not move `due_at`
+- [x] Warm-up outcomes update that skill's FSRS card immediately; other skills get one rating at session end from unhinted-correct rate
 
-**Accept:** all tests above green.
+**Accept:** all tests above green. **Met 2026-10-02.**
 
 ---
 
 ## M4 — Orchestrator + verifier (no LLM)
 
-- [ ] Pure policy: `(learner_state, session_state, last_event) → next_action`
-- [ ] Events include `predict_response` and `continue`
-- [ ] Verifier: allowlist parser (no raw `sympify`), normalisation, leak check on hints 1–2
-- [ ] Hint 3 used only as `reveal_solution` lead-in
-- [ ] Misconception match; unmatched → generic hint 1–2
-- [ ] Active-time caps, 10 min idle auto-end, resume
-- [ ] Shared fixtures + Python contract tests (TS in M7)
+- [x] Pure policy: `(learner_state, session_state, last_event) → next_action`
+- [x] Events include `predict_response` and `continue`
+- [x] Verifier: allowlist parser (no raw `sympify`), normalisation, leak check on hints 1–2
+- [x] Hint 3 used only as `reveal_solution` lead-in
+- [x] Misconception match; unmatched → generic hint 1–2
+- [x] Active-time caps, 10 min idle auto-end, resume
+- [x] Shared fixtures + Python contract tests (TS in M7)
 
 **M4 acceptance tests (required):**
 
-- [ ] No reveal when delivering hint 1 or 2; leak check rejects leaking 1–2
-- [ ] Hint 3 is never returned as a retry `hint` action
-- [ ] Reveal only after the **attempt following hint 2** is also wrong, or `show_solution` after 2 hints; reveal text starts with hint 3
-- [ ] After hint 1 or 2, next action is retry `PRACTICE`
-- [ ] First `request_hint` or first `answer` triggers the single BKT update; later hinted-correct does not
-- [ ] `EXPLAIN_BACK` once per skill after first unhinted correct or on mastery; `continue` skips; LLM grade (if any) does not change mastery
-- [ ] Explain-back without `ai_processing` or API key: store student text, show authored model explanation, **no grade**
-- [ ] `predict_response` advances PREDICT → WORKED_EXAMPLE; `continue` advances WORKED_EXAMPLE → PRACTICE
-- [ ] `PREDICT` + `WORKED_EXAMPLE` only when the skill is new
-- [ ] `WARMUP_REVIEW` skipped when no FSRS cards are due; when due, at most 3
-- [ ] Prerequisite of T with mastery &lt; 0.6 scheduled before T; T defined as in §6.2
-- [ ] Item **tiers**: `p_known < 0.4` easy, `0.4–0.8` medium, `> 0.8` hard; pick **least-recently-shown** eligible item in the tier; authored difficulty is ordering only
-- [ ] `active_ms = sum(min(latency_ms, 5 min))` (no heartbeats); idle 10 min ends; resume restores last action
-- [ ] Diagnostic and checkpoint: no hints, no reveal, no LLM
-- [ ] Diagnostic completion seeds `p_known`; checkpoint score does **not** update mastery or FSRS
-- [ ] Unmatched wrong answers use generic hint 1–2
-- [ ] `idle_nudge` does not change pedagogy
-- [ ] Checkpoint items never appear in practice selection
-- [ ] Allowlist rejects malicious strings (`__import__`, overlong input, etc.); Devanagari/Bengali digits and `x = 5` normalise correctly
-- [ ] Sync contract: server re-verifies answers from stored `response` and **ignores client `correct`**
-- [ ] Sync contract: illegal sequences (reveal before the attempt after hint 2) are rejected or flagged
-- [ ] `SIMILAR_ITEM` is a different approved practice item on the same primary skill and tier
-- [ ] Consent revoked mid-session: next event ends the session; no further LLM calls
+- [x] No reveal when delivering hint 1 or 2; leak check rejects leaking 1–2
+- [x] Hint 3 is never returned as a retry `hint` action
+- [x] Reveal only after the **attempt following hint 2** is also wrong, or `show_solution` after 2 hints; reveal text starts with hint 3
+- [x] After hint 1 or 2, next action is retry `PRACTICE`
+- [x] First `request_hint` or first `answer` triggers the single BKT update; later hinted-correct does not
+- [x] `EXPLAIN_BACK` once per skill after first unhinted correct or on mastery; `continue` skips; LLM grade (if any) does not change mastery
+- [x] Explain-back without `ai_processing` or API key: store student text, show authored model explanation, **no grade**
+- [x] `predict_response` advances PREDICT → WORKED_EXAMPLE; `continue` advances WORKED_EXAMPLE → PRACTICE
+- [x] `PREDICT` + `WORKED_EXAMPLE` only when the skill is new
+- [x] `WARMUP_REVIEW` skipped when no FSRS cards are due; when due, at most 3
+- [x] Prerequisite of T with mastery &lt; 0.6 scheduled before T; T defined as in §6.2
+- [x] Item **tiers**: `p_known < 0.4` easy, `0.4–0.8` medium, `> 0.8` hard; pick **least-recently-shown** eligible item in the tier; authored difficulty is ordering only
+- [x] `active_ms = sum(min(latency_ms, 5 min))` (no heartbeats); idle 10 min ends; resume restores last action
+- [x] Diagnostic and checkpoint: no hints, no reveal, no LLM
+- [x] Diagnostic completion seeds `p_known`; checkpoint score does **not** update mastery or FSRS
+- [x] Unmatched wrong answers use generic hint 1–2
+- [x] `idle_nudge` does not change pedagogy
+- [x] Checkpoint items never appear in practice selection
+- [x] Allowlist rejects malicious strings (`__import__`, overlong input, etc.); Devanagari/Bengali digits and `x = 5` normalise correctly
+- [x] Sync contract: server re-verifies answers from stored `response` and **ignores client `correct`**
+- [x] Sync contract: illegal sequences (reveal before the attempt after hint 2) are rejected or flagged
+- [x] `SIMILAR_ITEM` is a different approved practice item on the same primary skill and tier
+- [x] Consent revoked mid-session: next event ends the session; no further LLM calls
 
-**Accept:** all tests above green with authored content only (no LLM).
+**Accept:** all tests above green with authored content only (no LLM). **Met 2026-10-02:** seed 126 items (60/36/30), 0 needs_teacher_check, validator + loader + 162 pytest green on Postgres; pure `policy()` + allowlist verifier; sync_guardrails fixtures cover ignore-client-correct, illegal reveal, hint-3-not-retry, SIMILAR_ITEM.
 
 ---
 

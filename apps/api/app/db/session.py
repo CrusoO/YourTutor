@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Generator
 
+from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -31,8 +32,15 @@ def get_session(url: str | None = None) -> Generator[Session, None, None]:
     try:
         yield session
         session.commit()
+    except HTTPException:
+        session.commit()
+        raise
     except Exception:
         session.rollback()
         raise
     finally:
         session.close()
+
+
+def get_db() -> Generator[Session, None, None]:
+    yield from get_session()

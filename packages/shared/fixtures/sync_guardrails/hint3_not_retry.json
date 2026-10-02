@@ -1,0 +1,24 @@
+{
+  "id": "hint3_not_retry",
+  "session_type": "practice",
+  "item": {
+    "id": "ITEM.SYNC.1",
+    "skill_ids": ["MATH.S1"],
+    "difficulty": 0.3,
+    "pool": "practice",
+    "status": "approved",
+    "type": "expression",
+    "answer_sympy": "5",
+    "accept": ["5"],
+    "hints": [[1, "What undoes the operation?"], [2, "Do the same to both sides."], [3, "Subtract 7."]],
+    "solution_steps": ["x = 5"]
+  },
+  "events": [
+    {"type": "request_hint"},
+    {"type": "request_hint"},
+    {"type": "request_hint"}
+  ],
+  "expect": {
+    "no_hint_level_3": true
+  }
+}

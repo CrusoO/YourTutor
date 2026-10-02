@@ -1,0 +1,46 @@
+id: ITEM.LIN1.D.0006
+skill_ids:
+- MATH.ALG.INVERSE_OPERATIONS
+difficulty: 0.25
+type: expression
+pool: diagnostic
+stem:
+  en: What number do you subtract from x + 10 to get x again?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: '10'
+  accept:
+  - '10'
+  - x=10
+solution_steps:
+- en: The inverse of adding 10 is subtracting 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 10
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: What operation is being undone?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Addition and subtraction undo each other.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Subtract 10 to cancel adding 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the inverse larger than 1?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+verify:
+  kind: equation
+  expr: x + 10 - y = x
+  unknown: y

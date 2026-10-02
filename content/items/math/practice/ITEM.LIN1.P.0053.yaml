@@ -1,28 +1,27 @@
 id: ITEM.LIN1.P.0053
 skill_ids:
 - MATH.ALG.LIN1.CHECK_SOLUTION
-difficulty: 0.35
-type: expression
+difficulty: 0.32
+type: mcq
 pool: practice
 stem:
-  en: Does x = 6 solve 2x + 1 = 13? Write 1 for yes or 0 for no.
+  en: Does x = 5 solve x + 4 = 9?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 answer:
-  sympy: '1'
+  sympy: 'yes'
   accept:
-  - '1'
-  - x=1
+  - 'yes'
 solution_steps:
-- en: 2*6 + 1 = 13, which equals 13.
+- en: Substitute x = 5 into x + 4 = 9.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: x = 1
+- en: The correct option is yes.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 hints:
 - level: 1
-  en: Substitute the given x into the left side.
+  en: Substitute the given value into the left side.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 2
@@ -30,7 +29,7 @@ hints:
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 3
-  en: Compute 2 × 6 + 1 and compare with 13.
+  en: After substituting 5, the sides match.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 prediction_prompt:
@@ -40,3 +39,16 @@ prediction_prompt:
 misconception_rules: []
 reviewed_by: null
 status: draft
+verify:
+  kind: substitution
+  equation: x + 4 = 9
+  value: '5'
+options:
+- id: 'yes'
+  en: 'Yes'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>

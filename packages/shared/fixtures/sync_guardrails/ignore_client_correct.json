@@ -1,0 +1,25 @@
+{
+  "id": "ignore_client_correct",
+  "session_type": "practice",
+  "item": {
+    "id": "ITEM.SYNC.1",
+    "skill_ids": ["MATH.S1"],
+    "difficulty": 0.3,
+    "pool": "practice",
+    "status": "approved",
+    "type": "expression",
+    "answer_sympy": "5",
+    "accept": ["5", "x=5"],
+    "hints": [[1, "What undoes the operation?"], [2, "Do the same to both sides."], [3, "Subtract 7."]],
+    "solution_steps": ["x = 5"],
+    "verify": "x + 7 = 12"
+  },
+  "events": [
+    {"type": "answer", "item_id": "ITEM.SYNC.1", "response": "19", "client_correct": true}
+  ],
+  "expect": {
+    "verified_correct": false,
+    "client_correct_ignored": true,
+    "action_type_not": "end_session"
+  }
+}

@@ -8,7 +8,7 @@ from app.content.validator import (
     last_step_matches_answer,
     validate_path,
 )
-from tests.content.conftest import minimal_item, minimal_skill, write_yaml
+from tests.content.conftest import loc, minimal_item, minimal_skill, write_yaml
 
 
 def test_valid_bundle_ok(content_root: Path) -> None:
@@ -85,7 +85,7 @@ def test_bad_sympy_answer(content_root: Path) -> None:
 def test_checkpoint_item_cannot_be_practice_id(content_root: Path) -> None:
     write_yaml(
         content_root / "items" / "cp.yaml",
-        minimal_item("ITEM.1", pool="checkpoint"),
+        minimal_item("ITEM.P0", pool="checkpoint"),
     )
     report = validate_path(content_root)
     assert any("checkpoint" in e.lower() for e in report.errors)
@@ -132,6 +132,134 @@ def test_normalize_digits_and_signs() -> None:
     assert normalize("x = 5") == "x = 5"
     assert int(parse_math("x = 5")) == 5
     assert int(parse_math("−3")) == -3
+
+
+def test_stem_answer_mismatch_is_error(content_root: Path) -> None:
+    write_yaml(
+        content_root / "items" / "wrongpair.yaml",
+        minimal_item("ITEM.WRONG", answer="19", last_step="x = 19"),
+    )
+    report = validate_path(content_root)
+    assert any("does not match answer.sympy" in e for e in report.errors)
+
+
+def test_unsolvable_stem_is_manual_review(content_root: Path) -> None:
+    data = minimal_item("ITEM.WORD")
+    data["stem"] = {
+        "en": "A number plus seven is twelve. What is the number?",
+        "ne": "<Nepali — to be filled by reviewer>",
+        "as": "<Assamese — to be filled by reviewer>",
+    }
+    write_yaml(content_root / "items" / "word.yaml", data)
+    report = validate_path(content_root)
+    assert report.ok, report.errors
+    assert "ITEM.WORD" in report.manual_review
+    assert "ITEM.WORD" in report.needs_teacher_check
+
+
+def test_verify_equation_matches_answer(content_root: Path) -> None:
+    data = minimal_item("ITEM.WORD.OK")
+    data["stem"] = {
+        "en": "A number plus seven is twelve. What is the number?",
+        "ne": "<Nepali — to be filled by reviewer>",
+        "as": "<Assamese — to be filled by reviewer>",
+    }
+    data["verify"] = "x + 7 = 12"
+    write_yaml(content_root / "items" / "word_ok.yaml", data)
+    report = validate_path(content_root)
+    assert report.ok, report.errors
+    assert "ITEM.WORD.OK" not in report.manual_review
+    assert "ITEM.WORD.OK" not in report.needs_teacher_check
+
+
+def test_verify_mismatch_is_error(content_root: Path) -> None:
+    data = minimal_item("ITEM.WORD.BAD", answer="19", last_step="x = 19")
+    data["stem"] = {
+        "en": "A number plus seven is twelve. What is the number?",
+        "ne": "<Nepali — to be filled by reviewer>",
+        "as": "<Assamese — to be filled by reviewer>",
+    }
+    data["verify"] = "x + 7 = 12"
+    write_yaml(content_root / "items" / "word_bad.yaml", data)
+    report = validate_path(content_root)
+    assert any("verify solves to" in e for e in report.errors)
+
+
+def test_live_blocked_by_unapproved_needs_teacher_check(content_root: Path) -> None:
+    write_yaml(
+        content_root / "overlays" / "live.yaml",
+        {
+            "id": "live_ch",
+            "board": "bhutan",
+            "grade": 9,
+            "chapter": "lin",
+            "skill_ids": ["MATH.S1"],
+            "live": True,
+        },
+    )
+    data = minimal_item("ITEM.WORD.LIVE")
+    data["stem"] = {
+        "en": "How old is the sister?",
+        "ne": "<Nepali — to be filled by reviewer>",
+        "as": "<Assamese — to be filled by reviewer>",
+    }
+    write_yaml(content_root / "items" / "word_live.yaml", data)
+    report = validate_path(content_root)
+    assert any("needs_teacher_check" in e and "live_ch" in e for e in report.errors)
+
+
+def test_validator_report_counts(content_root: Path) -> None:
+    report = validate_path(content_root)
+    assert report.stats["by_pool"]["practice"] >= 1
+    assert "MATH.S1" in report.stats["by_skill"]
+    assert report.stats["distinct_stems_by_pool"]["practice"] >= 5
+    assert report.stats["needs_teacher_check_count"] == len(report.needs_teacher_check)
+
+
+def test_duplicate_stem_in_pool_fails(content_root: Path) -> None:
+    shared = "Two pens cost the same amount in this shared stem."
+    write_yaml(content_root / "items" / "dup_a.yaml", minimal_item("ITEM.DUPA", stem=shared))
+    write_yaml(content_root / "items" / "dup_b.yaml", minimal_item("ITEM.DUPB", stem=shared))
+    report = validate_path(content_root)
+    assert any("duplicate stem" in e for e in report.errors)
+
+
+def test_bkt_params_must_be_open_unit_interval(content_root: Path) -> None:
+    data = minimal_skill("MATH.S2")
+    data["bkt"] = {"p_init": 0.2, "p_learn": 0.15, "p_slip": 0.6, "p_guess": 0.5}
+    write_yaml(content_root / "skills" / "s2.yaml", data)
+    report = validate_path(content_root)
+    assert any("p_slip + p_guess" in e for e in report.errors)
+
+
+def test_substitution_and_solution_count_verify(content_root: Path) -> None:
+    yes = minimal_item("ITEM.CHECK.YES", answer="yes", last_step="The correct option is yes.")
+    yes["type"] = "mcq"
+    yes["options"] = [
+        {"id": "yes", "en": "Yes"},
+        {"id": "no", "en": "No"},
+    ]
+    yes["stem"] = loc("Does x = 4 solve 2x + 1 = 9?")
+    yes["verify"] = {"kind": "substitution", "equation": "2x + 1 = 9", "value": "4"}
+    yes["answer"] = {"sympy": "yes", "accept": ["yes"]}
+    write_yaml(content_root / "items" / "check_yes.yaml", yes)
+
+    count = minimal_item("ITEM.ID.EVERY", answer="every", last_step="The correct option is every.")
+    count["type"] = "mcq"
+    count["options"] = [
+        {"id": "none", "en": "No solution"},
+        {"id": "one", "en": "One solution"},
+        {"id": "every", "en": "Every x works"},
+    ]
+    count["stem"] = loc("How many solutions does 2(x + 3) = 2x + 6 have?")
+    count["verify"] = {"kind": "solution_count", "equation": "2(x + 3) = 2x + 6"}
+    count["answer"] = {"sympy": "every", "accept": ["every"]}
+    write_yaml(content_root / "items" / "id_every.yaml", count)
+
+    report = validate_path(content_root)
+    assert report.ok, report.errors
+    assert "ITEM.CHECK.YES" not in report.needs_teacher_check
+    assert "ITEM.ID.EVERY" not in report.needs_teacher_check
 
 
 def test_malicious_strings_rejected() -> None:

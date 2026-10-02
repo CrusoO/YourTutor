@@ -1,0 +1,46 @@
+id: ITEM.LIN1.C.A.0002
+skill_ids:
+- MATH.ALG.INVERSE_OPERATIONS
+difficulty: 0.25
+type: expression
+pool: checkpoint
+stem:
+  en: What number do you add to x - 11 to get x again?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: '11'
+  accept:
+  - '11'
+  - x=11
+solution_steps:
+- en: The inverse of subtracting 11 is adding 11.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 11
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: What operation is being undone?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Addition and subtraction undo each other.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Add 11 to cancel subtracting 11.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the inverse larger than 1?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+verify:
+  kind: equation
+  expr: x - 11 + y = x
+  unknown: y

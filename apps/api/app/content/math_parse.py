@@ -44,6 +44,9 @@ def _safe_parse(expr: str) -> sympy.Expr:
     body = body.replace("^", "**")
     if not _ALLOWED.match(body.replace("**", "^")) and "**" not in body:
         raise ParseError("expression failed allowlist")
+    # Implicit multiplication on allowlisted text only (2x → 2*x, 2(x-1) → 2*(x-1)).
+    body = re.sub(r"(\d)([A-Za-z(])", r"\1*\2", body)
+    body = re.sub(r"([A-Za-z)])(\()", r"\1*\2", body)
     allowed_names = {
         "Integer": sympy.Integer,
         "Float": sympy.Float,
@@ -53,16 +56,28 @@ def _safe_parse(expr: str) -> sympy.Expr:
         "Mul": sympy.Mul,
         "Pow": sympy.Pow,
     }
+    letters = {ch: sympy.Symbol(ch) for ch in re.findall(r"[A-Za-z]", body)}
     try:
-        return parse_expr(
+        parsed = parse_expr(
             body,
             evaluate=True,
-            local_dict={},
+            local_dict=letters,
             global_dict=allowed_names,
             transformations=(),
         )
     except Exception as exc:  # noqa: BLE001 — convert parser failures
         raise ParseError(f"could not parse expression: {exc}") from exc
+    return _to_expr(parsed)
+
+
+def _to_expr(value: object) -> sympy.Expr:
+    if isinstance(value, sympy.Expr):
+        return value
+    if isinstance(value, int) and not isinstance(value, bool):
+        return sympy.Integer(value)
+    if isinstance(value, float):
+        return sympy.Float(value)
+    raise ParseError("parser returned non-expression")
 
 
 def parse_math(text: str) -> sympy.Expr:
