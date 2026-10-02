@@ -1,0 +1,19 @@
+---
+description: Pedagogy-first AI tutor — hard product and engineering rules
+alwaysApply: true
+---
+
+- The orchestrator decides pedagogy; the LLM only phrases. Never let LLM output decide correctness, next skill, or answer reveal.
+- Retry hints are levels 1–2 only and must pass the leak check. Hint 3 is the reveal_solution lead-in, never a retry hint.
+- Reveal only after the attempt following hint 2 is also wrong, or show_solution after 2 hints. Offline must enforce the same rules.
+- Exactly one BKT update per item, at the first answer or first hint request. Later hinted-correct only increments mastery.hinted_correct.
+- Correctness comes from the allowlist verifier, never the LLM. Never call sympify on raw student input. On sync, re-verify from stored response and ignore any client correct flag.
+- Explain-back grades are formative only. Without ai_processing or an API key: store the student's text, show the authored explanation, give no grade. Never change mastery or FSRS.
+- Checkpoint scoring never updates mastery or FSRS. Checkpoint items are never used for teaching or practice.
+- Item selection uses p_known tiers (easy / medium / hard) and least-recently-shown; authored difficulty is ordering only.
+- No PII in LLM prompts or logs. Consent is scoped. Teachers only see students with teacher_share. Comparison tokens are issued only after a parental consent record.
+- Quiet hours 21:00–07:00 in the student's local timezone. No dark patterns.
+- System must work end-to-end with no LLM key (authored content fallback).
+- Do not machine-translate content and mark it approved; translations need a human reviewer.
+- Keep functions pure and tested in orchestrator/, learner/, verifier/.
+- Prefer simple, explicit code over clever abstractions; monolith first.
