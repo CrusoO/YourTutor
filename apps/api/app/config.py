@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     test_database_url: str = ""
     reviewer_allowlist: str = ""
     otel_enabled: bool = False
+    pilot_onboarding: bool = False
+    pilot_key: str = "dev-pilot"
+    e2e_mini_content: bool = False
 
 
 settings = Settings()

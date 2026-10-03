@@ -7,6 +7,7 @@ from pathlib import Path
 
 import yaml  # type: ignore[import-untyped]
 
+from app.content.language import lint_item_texts
 from app.content.leak import hint_leaks_answer
 from app.content.math_parse import ParseError, expressions_equivalent, normalize, parse_math
 from app.content.schema import (
@@ -32,6 +33,14 @@ STEM_MIN_PRACTICE = 5
 STEM_MIN_DIAGNOSTIC = 3
 WORD_ANSWER_MIN = 1
 WORD_ANSWER_MAX = 80
+
+
+def _is_e2e_mini_skill(skill_id: str) -> bool:
+    return skill_id.startswith("MATH.E2E.")
+
+
+def _is_e2e_mini_checkpoint_forms(forms: CheckpointForms) -> bool:
+    return forms.checkpoint_id.startswith("CP.E2E.") or forms.id.startswith("CP.E2E.")
 MCQ_IMBALANCE = 0.7
 HINT_SHARE = 0.25
 MIN_HINT1_PRACTICE = 3
@@ -137,6 +146,7 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _structure_and_tiers(bundle, report)
     _one_x_ban(bundle, report)
     _hint_language(bundle, report)
+    _language_quality(bundle, report)
     _approval_hashes(bundle, report)
     _template_approval(bundle, report)
     _checkpoint_practice_stems(bundle, report)
@@ -147,7 +157,9 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
 
 def validate_path(root: Path) -> ValidationReport:
     try:
-        bundle = load_bundle(root)
+        from app.content.bundle_merge import load_content_bundle
+
+        bundle = load_content_bundle(root)
     except Exception as exc:  # noqa: BLE001
         report = ValidationReport()
         report.errors.append(str(exc))
@@ -292,7 +304,10 @@ def _checkpoint_forms(bundle: ContentBundle, report: ValidationReport) -> None:
     items = {i.id: i for i in bundle.items}
     checkpoint_ids = {i.id for i in bundle.items if i.pool == ItemPool.checkpoint}
     for forms in bundle.checkpoint_forms:
+        relax_checkpoint = _is_e2e_mini_checkpoint_forms(forms)
         for label, ids in (("A", forms.form_a), ("B", forms.form_b)):
+            if relax_checkpoint:
+                continue
             if len(ids) < LIVE_MIN_CHECKPOINT:
                 report.errors.append(
                     f"{forms.id} form {label} has {len(ids)} items; "
@@ -462,6 +477,19 @@ def _hint_language(bundle: ContentBundle, report: ValidationReport) -> None:
                 )
 
 
+def _language_quality(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        errors, warnings = lint_item_texts(
+            stem=item.stem.en,
+            hints=[hint.en for hint in item.hints],
+            extras=[item.prediction_prompt.en],
+        )
+        for error in errors:
+            report.errors.append(f"{item.id} {error}")
+        for warning in warnings:
+            report.warnings.append(f"{item.id} {warning}")
+
+
 def _one_x_ban(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         if has_one_x(item.stem.en):
@@ -567,6 +595,8 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
         i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic
     }
     for skill_id in sorted(practice_skills):
+        if _is_e2e_mini_skill(skill_id):
+            continue
         count = len(by_skill_pool[(skill_id, ItemPool.practice.value)])
         if count < STEM_MIN_PRACTICE:
             report.errors.append(
@@ -574,6 +604,8 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
                 f"minimum is {STEM_MIN_PRACTICE}"
             )
     for skill_id in sorted(diagnostic_skills):
+        if _is_e2e_mini_skill(skill_id):
+            continue
         count = len(by_skill_pool[(skill_id, ItemPool.diagnostic.value)])
         if count < STEM_MIN_DIAGNOSTIC:
             report.errors.append(

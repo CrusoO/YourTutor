@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import secrets
+import string
 import uuid
 from typing import Any
 
@@ -213,6 +215,7 @@ def create_student(
     exam_language: str,
     parent_id: uuid.UUID | None = None,
     current_chapter_id: str | None = None,
+    family_code: str | None = None,
 ) -> StudentRow:
     if actor.role in {"student", "teacher", "comparison"}:
         raise HTTPException(status_code=403, detail="forbidden")
@@ -230,6 +233,7 @@ def create_student(
         raise HTTPException(status_code=400, detail="parent not found")
     if board not in DEFAULT_TIMEZONE:
         raise HTTPException(status_code=400, detail="invalid board")
+    code = family_code or _family_code_for_parent(session, owner)
     student = StudentRow(
         id=uuid.uuid4(),
         parent_id=owner,
@@ -240,6 +244,7 @@ def create_student(
         exam_language=exam_language,
         current_chapter_id=current_chapter_id,
         timezone=DEFAULT_TIMEZONE[board],
+        family_code=code,
         pin_failed_attempts=0,
         created_at=now_utc(),
     )
@@ -255,6 +260,7 @@ def grant_consent(
     *,
     version: str,
     scopes: list[str],
+    paper_ref: str | None = None,
 ) -> ConsentRow:
     student = student_or_404(session, student_id)
     require(can_manage_student(actor, student))
@@ -271,6 +277,7 @@ def grant_consent(
         version=version,
         scopes=list(scopes),
         granted_at=now_utc(),
+        paper_ref=paper_ref,
     )
     session.add(row)
     session.flush()
@@ -309,6 +316,51 @@ def verify_student_pin(session: Session, student_id: uuid.UUID, pin: str) -> str
     student.pin_failed_attempts = 0
     student.pin_locked_until = None
     return issue_auth_token(session, role="student", student_id=student.id)
+
+
+_FAMILY_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+
+def new_family_code() -> str:
+    return "".join(secrets.choice(_FAMILY_ALPHABET) for _ in range(6))
+
+
+def new_student_pin() -> str:
+    return "".join(secrets.choice(string.digits) for _ in range(4))
+
+
+def _family_code_for_parent(session: Session, parent_id: uuid.UUID) -> str:
+    sibling = session.scalar(select(StudentRow).where(StudentRow.parent_id == parent_id))
+    if sibling and sibling.family_code:
+        return sibling.family_code
+    return new_family_code()
+
+
+def verify_family_pin(session: Session, family_code: str, pin: str) -> str:
+    code = family_code.strip().upper()
+    students = session.scalars(select(StudentRow).where(StudentRow.family_code == code)).all()
+    if not students:
+        raise HTTPException(status_code=401, detail="invalid login")
+    matched: StudentRow | None = None
+    locked = False
+    for student in students:
+        if student.pin_locked_until and as_utc(student.pin_locked_until) > now_utc():
+            locked = True
+            continue
+        if student.pin_hash and verify_pin(pin, student.pin_hash):
+            matched = student
+            break
+    if matched is None:
+        if locked:
+            raise LOCKED
+        for student in students:
+            student.pin_failed_attempts += 1
+            if student.pin_failed_attempts >= settings.pin_max_attempts:
+                student.pin_locked_until = expires_after(settings.pin_lockout_seconds)
+        raise HTTPException(status_code=401, detail="invalid login")
+    matched.pin_failed_attempts = 0
+    matched.pin_locked_until = None
+    return issue_auth_token(session, role="student", student_id=matched.id)
 
 
 def get_student(session: Session, actor: Actor, student_id: uuid.UUID) -> StudentRow:
@@ -416,6 +468,13 @@ def start_session(
         idle.ended_reason = None
         idle.resumable = False
         idle.last_active_at = now_utc()
+        plan = dict(idle.plan or {})
+        last = plan.get("last_action") or {}
+        if last.get("type") == "end_session":
+            plan["last_action"] = None
+            plan["ended_reason"] = None
+            plan["phase"] = "practice" if plan.get("current_item_id") else "start"
+            idle.plan = plan
         return idle
     row = SessionRow(
         id=uuid.uuid4(),
@@ -456,37 +515,17 @@ def post_session_event(
             "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
             "llm_called": False,
         }
-    prior = session.scalar(select(EventRow).where(EventRow.client_event_id == client_event_id))
-    if prior:
-        return {
-            "session_id": str(row.id),
-            "duplicate": True,
-            "action": {"type": "show_item", "item_id": prior.item_id},
-            "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": True},
-            "llm_called": row.llm_called,
-        }
-    session.add(
-        EventRow(
-            id=uuid.uuid4(),
-            client_event_id=client_event_id,
-            session_id=row.id,
-            item_id=item_id,
-            event_type=event_type,
-            payload=payload,
-            created_at=now_utc(),
-            state_before=payload.get("state_before"),
-            state_after=payload.get("state_after"),
-            rule_id=payload.get("rule_id"),
-        )
+    from app.player.runtime import apply_player_event
+
+    return apply_player_event(
+        session,
+        actor,
+        row,
+        client_event_id=client_event_id,
+        event_type=event_type,
+        item_id=item_id,
+        payload=payload,
     )
-    row.last_active_at = now_utc()
-    return {
-        "session_id": str(row.id),
-        "duplicate": False,
-        "action": {"type": "show_item", "item_id": item_id},
-        "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": True},
-        "llm_called": False,
-    }
 
 
 def create_class(session: Session, actor: Actor, *, name: str, board: str) -> ClassRow:
@@ -729,3 +768,128 @@ def enter_paper_checkpoint(
         entry_pass=entry_pass,
         checkpoint_id=checkpoint_id,
     )
+
+
+def student_today(session: Session, actor: Actor) -> dict[str, Any]:
+    if actor.student_id is None:
+        raise HTTPException(status_code=403, detail="forbidden")
+    student = student_or_404(session, actor.student_id)
+    require(can_start_session(actor, student) or actor.is_admin)
+    from app.player.runtime import today_payload
+
+    return today_payload(session, student)
+
+
+def require_pilot() -> None:
+    if not settings.pilot_onboarding:
+        raise HTTPException(status_code=403, detail="pilot onboarding disabled")
+
+
+def enrol_pilot_family(
+    session: Session,
+    actor: Actor,
+    *,
+    first_name: str,
+    grade: int,
+    board: str,
+    scopes: list[str],
+    paper_ref: str,
+    parent_email: str | None = None,
+    family_code: str | None = None,
+    home_language: str = "en",
+) -> dict[str, Any]:
+    require_pilot()
+    require(actor.is_admin)
+    if not first_name.strip() or " " in first_name.strip():
+        # first name only — no extra PII on the card
+        name = first_name.strip().split()[0]
+    else:
+        name = first_name.strip()
+    if not paper_ref.strip():
+        raise HTTPException(status_code=400, detail="paper_ref required")
+    unknown = set(scopes) - CONSENT_SCOPES
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    if "tutoring" not in scopes:
+        scopes = ["tutoring", *scopes]
+    code = (family_code or new_family_code()).strip().upper()
+    email = (parent_email or f"pilot.{code.lower()}@onboarding.local").strip().lower()
+    parent = session.scalar(select(UserRow).where(UserRow.email == email))
+    if parent is None:
+        parent = UserRow(
+            id=uuid.uuid4(),
+            role="parent",
+            email=email,
+            locale=home_language,
+            created_at=now_utc(),
+        )
+        session.add(parent)
+        session.flush()
+    elif parent.role != "parent":
+        raise HTTPException(status_code=400, detail="email is not a parent")
+    existing = session.scalar(select(StudentRow).where(StudentRow.parent_id == parent.id))
+    if existing and existing.family_code:
+        code = existing.family_code
+    pin = new_student_pin()
+    student = create_student(
+        session,
+        actor,
+        display_name=name,
+        grade=grade,
+        board=board,
+        home_language=home_language,
+        exam_language=home_language,
+        parent_id=parent.id,
+        family_code=code,
+        current_chapter_id=(
+            "OV.E2E.MINI"
+            if settings.e2e_mini_content
+            else ("bhutan_class9" if board == "bhutan" else "seba_class9")
+        ),
+    )
+    student.pin_hash = hash_pin(pin)
+    student.pin_failed_attempts = 0
+    student.pin_locked_until = None
+    consent = grant_consent(
+        session,
+        actor,
+        student.id,
+        version="pilot-paper-v1",
+        scopes=scopes,
+        paper_ref=paper_ref.strip(),
+    )
+    session.flush()
+    return {
+        "student_id": str(student.id),
+        "parent_id": str(parent.id),
+        "family_code": code,
+        "pin": pin,
+        "first_name": name,
+        "consent_id": str(consent.id),
+        "paper_ref": consent.paper_ref,
+        "scopes": list(consent.scopes),
+        "parent_email": parent.email,
+        "otp_optional": True,
+    }
+
+
+def login_card_html(first_name: str, family_code: str, pin: str) -> str:
+    safe_name = first_name.replace("<", "")
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Student login card</title>
+<style>
+  body {{ font-family: system-ui, sans-serif; margin: 24px; }}
+  .card {{ width: 320px; border: 2px solid #111; padding: 20px; }}
+  h1 {{ font-size: 22px; margin: 0 0 12px; }}
+  .row {{ font-size: 20px; margin: 8px 0; }}
+  .muted {{ color: #444; font-size: 14px; }}
+</style></head><body>
+<div class="card">
+  <h1>YourTutor</h1>
+  <div class="row">{safe_name}</div>
+  <div class="row">Family code: <strong>{family_code}</strong></div>
+  <div class="row">PIN: <strong>{pin}</strong></div>
+  <p class="muted">Keep this card. Do not write a surname or address on it.</p>
+</div>
+</body></html>"""
+
