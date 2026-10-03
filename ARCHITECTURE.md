@@ -77,11 +77,14 @@ flowchart LR
 ├─ apps/
 │  ├─ api/          FastAPI, orchestrator, verifier, learner, LLM gateway
 │  └─ web/          Next.js App Router, PWA, parent/student/teacher
-├─ content/         YAML skills, items, misconceptions, overlays, glossary
-└─ packages/shared/ Generated OpenAPI TS types + contract fixtures
+├─ config/          Locale registry, grade bands, jurisdiction profiles (quiet hours, notation)
+├─ content/         YAML skills, items, misconceptions, overlays, glossary, curricula/
+└─ packages/shared/ Generated OpenAPI TS types, locale registry JSON, contract fixtures
 ```
 
-Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis + RQ, Next.js + TypeScript + Tailwind, next-intl, LiteLLM, SymPy, `fsrs` / `ts-fsrs`.
+Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis + RQ, Next.js + TypeScript + Tailwind, LiteLLM, SymPy, `fsrs` / `ts-fsrs`.
+
+**Web i18n (G0):** UI copy lives in `apps/web/lib/messages.ts`. Supported locale codes and fallback chains come from `config/locales.yaml`, emitted to `packages/shared/generated/locales.json` at build/CI. No `next-intl` in the MVP stack.
 
 ---
 

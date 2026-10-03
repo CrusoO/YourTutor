@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04):** `apps/api` pytest **222 passed, 0 failed** (**222 collected**, Postgres loader included). `apps/web` vitest **33 passed.** `apps/web` `tsc --noEmit` **ok.** Playwright not run for this audit. *(Prior baseline: 216 passed — content retirement + prune guards.)*
+**Test baseline (2026-10-04):** `apps/api` pytest **231 passed, 0 failed** (**231 collected**, Postgres loader included). `apps/web` vitest **33 passed** *(prior)*. `apps/web` `tsc --noEmit` **ok** *(prior)*. Playwright not run for this audit. *(Prior baseline: 222 passed — G0 registries.)*
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 
@@ -41,7 +41,7 @@
 
 | Milestone | Status | Evidence |
 |-----------|--------|----------|
-| **G0** Registries | **Not started** | No `config/`; students still `board`; no `RESEARCH_MODULE` gate; no context-key object |
+| **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0010; `context_key`; locale FKs; `RESEARCH_MODULE`; quiet hours via jurisdiction profile |
 | **G1** Ladder | **Not started** | Mastery is BKT/p_known only (`learner/`); no `item.role`; no ladder compute |
 | **G2** Diagnosis + R30–R40 | **Not started** | v1 `policy.py` only; no `diagnosis/`; no stuck-point / wheel-spinning / R40 |
 | **G3** Lessons/scenes/widgets | **Not started** | No `lessons/`, scenes, widget registry; player is single `session/[id]/page.tsx` |

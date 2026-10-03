@@ -138,8 +138,11 @@ def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerSta
 
 
 def _overlay_skills(session: Session, student: StudentRow) -> tuple[str, ...]:
-    if student.current_chapter_id:
-        row = session.get(OverlayRow, student.current_chapter_id)
+    chapter_id = student.current_chapter_id
+    if student.context_key and isinstance(student.context_key, dict):
+        chapter_id = student.context_key.get("chapter_id") or chapter_id
+    if chapter_id:
+        row = session.get(OverlayRow, chapter_id)
         if row:
             return tuple(row.skill_ids or ())
     first = session.scalars(select(OverlayRow)).first()
@@ -576,7 +579,16 @@ def apply_player_event(
 
 
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
-    tz = ZoneInfo(student.timezone or "Asia/Thimphu")
+    from app.db.models import CurriculumRow
+    from app.registries.loaders import load_jurisdiction_profile
+    from app.registries.quiet_hours import in_quiet_hours
+
+    curriculum = session.get(CurriculumRow, student.curriculum_id)
+    default_tz = curriculum.default_timezone if curriculum else "UTC"
+    tz = ZoneInfo(student.timezone or default_tz)
+    profile = load_jurisdiction_profile(
+        curriculum.jurisdiction_profile if curriculum else "default_strict"
+    )
     start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
@@ -610,5 +622,9 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
             if resume
             else None
         ),
-        "quiet_hours": {"start": "21:00", "end": "07:00"},
+        "quiet_hours": {
+            "start": profile.quiet_hours.start,
+            "end": profile.quiet_hours.end,
+            "active": in_quiet_hours(now_utc(), tz, profile),
+        },
     }

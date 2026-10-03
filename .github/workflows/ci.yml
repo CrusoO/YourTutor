@@ -17,6 +17,10 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -r requirements-dev.txt
+      - name: Region literal guard
+        run: python scripts/check_region_literals.py
+      - name: Generate web locale registry
+        run: python scripts/generate_web_locales.py
       - name: Ruff
         run: ruff check .
       - name: Mypy

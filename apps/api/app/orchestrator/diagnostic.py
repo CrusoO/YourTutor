@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from app.content.math_parse import normalize
+from app.content.math_parse import ParseError, normalize
 from app.learner.bkt import BktParams
 from app.learner.mastery_service import apply_event
 from app.learner.types import LearnerEvent, LearnerState, Mastery
@@ -26,7 +26,11 @@ DONT_KNOW = frozenset(
 def is_dont_know(response: str | None) -> bool:
     if not response:
         return False
-    return normalize(response).lower() in DONT_KNOW
+    try:
+        text = normalize(response)
+    except ParseError:
+        text = response.strip()
+    return text.lower() in DONT_KNOW
 
 
 def dependents_of(skill_id: str, prerequisites: dict[str, tuple[str, ...]]) -> set[str]:

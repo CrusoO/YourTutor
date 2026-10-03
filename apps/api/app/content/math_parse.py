@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 
 import sympy
 from sympy.parsing.sympy_parser import parse_expr
 
-_DEVANAGARI = str.maketrans("०१२३४५६७८९", "0123456789")
-_BENGALI = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
-_ALLOWED = re.compile(r"^([A-Za-z]\s*=\s*)?[0-9A-Za-z+\-*/^(). ]+$")
+_ALLOWED = re.compile(r"^([A-Za-z]\s*=\s*)?[0-9A-Za-z+\-*/^()., ]+$")
 _MAX_LEN = 64
 _MAX_PARENS = 8
 
@@ -19,10 +18,35 @@ class ParseError(ValueError):
     pass
 
 
-def normalize(text: str) -> str:
-    s = text.strip().translate(_DEVANAGARI).translate(_BENGALI)
+def _ascii_digits(text: str) -> str:
+    out: list[str] = []
+    for ch in text:
+        if ch.isdecimal():
+            out.append(str(unicodedata.digit(ch)))
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
+def normalize(text: str, *, notation_profile: str = "default_ascii") -> str:
+    from app.registries.loaders import load_notation_profiles
+
+    profiles = load_notation_profiles()
+    profile = profiles.get(notation_profile) or profiles["default_ascii"]
+    s = _ascii_digits(text.strip())
     s = s.replace("−", "-").replace("–", "-").replace("—", "-")
-    s = s.replace("×", "*").replace("·", "*")
+    for sym in profile.multiply_symbols:
+        if sym != "*":
+            s = s.replace(sym, "*")
+    for sym in profile.divide_symbols:
+        if sym != "/":
+            s = s.replace(sym, "/")
+    if profile.decimal_separator == ",":
+        s = re.sub(r"(\d),(\d)", r"\1.\2", s)
+    elif "," in s:
+        # Decimal comma profile not active — reject comma decimals.
+        if re.search(r"\d,\d", s):
+            raise ParseError("decimal comma not allowed for this notation profile")
     return re.sub(r"\s+", " ", s).strip()
 
 

@@ -50,6 +50,9 @@ def _add_student(db_url: str) -> uuid.UUID:
         )
         session.add(user)
         student_id = uuid.uuid4()
+        from app.registries.seed_db import seed_g0_registry
+
+        seed_g0_registry(session)
         session.add(
             StudentRow(
                 id=student_id,
@@ -57,6 +60,13 @@ def _add_student(db_url: str) -> uuid.UUID:
                 display_name="Test",
                 grade=9,
                 board="bhutan",
+                curriculum_id="bhutan",
+                book_id="bhutan_class9",
+                context_key={
+                    "curriculum_id": "bhutan",
+                    "book_id": "bhutan_class9",
+                    "chapter_id": "bhutan_class9",
+                },
                 home_language="en",
                 exam_language="en",
                 timezone="Asia/Thimphu",

@@ -36,6 +36,13 @@ This file is the working milestone list. After each milestone: run tests, tick c
 | Similar item | After reveal, `SIMILAR_ITEM` is a **different** approved practice item on the **same primary skill and tier**. Never the same item. |
 | Consent revoke | If consent is revoked mid-session, the session **ends on the next event** and **no further LLM calls** are made. |
 | Removed content | Removed content is retired, not deleted; hard prune is dev-only or guarded. |
+| Hint API naming (`request_help`) | Defer to **G2**; keep `request_hint` / `can_request_hint` until alias pass. |
+| Mastery target T | Defer to **G1** (ladder level); keep `p_known` thresholds until then. |
+| Quiet hours | **G0:** read start/end from jurisdiction profile (`default_strict` = 21:00–07:00); behaviour unchanged. |
+| Web i18n | **G0:** keep `lib/messages.ts`; locale list + fallbacks from `config/locales.yaml` → generated JSON. No `next-intl`. |
+| Research routes | **G0:** `RESEARCH_MODULE` off → study/checkpoint/analytics (and admin paper entry) return **404**. |
+| Context picker UI | **G5**; **G0** data migration sets each student’s `context_key` so implicit chapter still works. |
+| Curricula seed | **G0:** one registry entry per legacy board under `content/curricula/`; `sample_board` stays generic; no merge into sample. |
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
 
@@ -112,6 +119,21 @@ After each milestone:
 - [x] README: Docker Desktop + WSL2 instructions
 
 **Accept:** `docker compose up` runs api + web + db + redis; CI skeleton green. **Met 2026-10-02:** compose stack healthy; `/health` and `/api/health` return ok; local ruff/mypy/pytest and tsc/vitest passed.
+
+---
+
+## G0 — Registries & region-neutral foundations (v2)
+
+- [x] `config/locales.yaml`, `grade_bands.yaml`, `jurisdictions/default_strict.yaml`, `notation_profiles.yaml` + pure loaders
+- [x] `content/curricula/{bhutan,seba,sample_board}/` (separate entries; no merge into sample)
+- [x] Alembic **0009–0010** (after 0008): locales, curricula/books/chapters; student `curriculum_id`, `book_id`, `context_key`; locale FKs on students/users
+- [x] Student TZ: override → curriculum `default_timezone` → device → UTC; quiet hours from jurisdiction profile only
+- [x] Verifier: Unicode decimal digits via `unicodedata`; decimal-comma notation profile + tests
+- [x] `RESEARCH_MODULE` gate on research routes; session plan stores `context_key`
+- [x] CI region-literal guard + model enum introspection test; generate `packages/shared/generated/locales.json`
+- [x] Read-only `board` compat on student API responses
+
+**Accept:** registry loaders tested; Postgres migrations apply; full suite green; no new region literals in app code. **Met 2026-10-04:** API pytest **231 passed** on Postgres (`TEST_DATABASE_URL`); region-literal script clean; web vitest/tsc not re-run this pass.
 
 ---
 

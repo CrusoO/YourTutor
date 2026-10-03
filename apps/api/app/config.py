@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     pilot_onboarding: bool = False
     pilot_key: str = "dev-pilot"
     e2e_mini_content: bool = False
+    research_module: bool = False  # env: RESEARCH_MODULE=true
 
 
 settings = Settings()

@@ -31,6 +31,7 @@ def verify_response(
     item_type: str = "expression",
     verify: str | dict[str, Any] | None = None,
     options: list[dict[str, Any]] | None = None,
+    notation_profile: str = "default_ascii",
 ) -> bool:
     """Return whether `response` matches the authored answer. Ignores any client flag."""
     from app.observe.otel import span
@@ -43,6 +44,7 @@ def verify_response(
             item_type=item_type,
             verify=verify,
             options=options,
+            notation_profile=notation_profile,
         )
 
 
@@ -54,14 +56,18 @@ def _verify_response(
     item_type: str = "expression",
     verify: str | dict[str, Any] | None = None,
     options: list[dict[str, Any]] | None = None,
+    notation_profile: str = "default_ascii",
 ) -> bool:
-    text = normalize(response)
     from app.orchestrator.diagnostic import is_dont_know
 
     if is_dont_know(response):
         return False
-    expected = normalize(answer_sympy)
-    accepted = [normalize(a) for a in (accept or [])]
+    try:
+        text = normalize(response, notation_profile=notation_profile)
+    except Exception:
+        return False
+    expected = normalize(answer_sympy, notation_profile=notation_profile)
+    accepted = [normalize(a, notation_profile=notation_profile) for a in (accept or [])]
     if text == expected or text in accepted:
         return True
     if item_type == "mcq":

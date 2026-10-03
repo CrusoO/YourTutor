@@ -109,6 +109,40 @@ class GlossaryTermRow(Base):
     translation: Mapped[str] = mapped_column(String)
 
 
+class LocaleRow(Base):
+    __tablename__ = "locales"
+
+    code: Mapped[str] = mapped_column(String, primary_key=True)
+    fallback_chain: Mapped[list] = mapped_column(JSONType)
+
+
+class CurriculumRow(Base):
+    __tablename__ = "curricula"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    default_timezone: Mapped[str] = mapped_column(String)
+    jurisdiction_profile: Mapped[str] = mapped_column(String)
+    legacy_board: Mapped[str | None] = mapped_column(String, nullable=True)
+
+
+class BookRow(Base):
+    __tablename__ = "books"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    curriculum_id: Mapped[str] = mapped_column(ForeignKey("curricula.id"))
+    grade: Mapped[int] = mapped_column(Integer)
+    default_chapter_id: Mapped[str] = mapped_column(String)
+
+
+class ChapterRow(Base):
+    __tablename__ = "chapters"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    book_id: Mapped[str] = mapped_column(ForeignKey("books.id"))
+    overlay_id: Mapped[str] = mapped_column(String)
+    chapter_key: Mapped[str] = mapped_column(String)
+
+
 class CheckpointFormRow(Base):
     __tablename__ = "checkpoint_forms"
 
@@ -125,7 +159,7 @@ class UserRow(Base):
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     role: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String, unique=True)
-    locale: Mapped[str] = mapped_column(String, default="en")
+    locale: Mapped[str] = mapped_column(String, ForeignKey("locales.code"), default="en")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     students: Mapped[list[StudentRow]] = relationship(back_populates="parent")
@@ -140,8 +174,11 @@ class StudentRow(Base):
     display_name: Mapped[str] = mapped_column(String)
     grade: Mapped[int] = mapped_column(Integer)
     board: Mapped[str] = mapped_column(String)
-    home_language: Mapped[str] = mapped_column(String)
-    exam_language: Mapped[str] = mapped_column(String)
+    curriculum_id: Mapped[str] = mapped_column(ForeignKey("curricula.id"))
+    book_id: Mapped[str] = mapped_column(ForeignKey("books.id"))
+    context_key: Mapped[dict | None] = mapped_column(JSONType, nullable=True)
+    home_language: Mapped[str] = mapped_column(String, ForeignKey("locales.code"))
+    exam_language: Mapped[str] = mapped_column(String, ForeignKey("locales.code"))
     exam_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     current_chapter_id: Mapped[str | None] = mapped_column(String, nullable=True)
     pin_hash: Mapped[str | None] = mapped_column(String, nullable=True)

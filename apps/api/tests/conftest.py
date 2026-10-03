@@ -21,6 +21,7 @@ from app.db.session import get_db
 from app.main import app
 
 settings.pin_hash_iterations = 1_000
+settings.research_module = True
 
 
 def _sqlite_url() -> str:
@@ -52,6 +53,12 @@ def engine(database_url: str) -> Generator[Engine, None, None]:
             conn.commit()
     Base.metadata.drop_all(eng)
     Base.metadata.create_all(eng)
+    from app.registries.seed_db import seed_g0_registry
+
+    factory = sessionmaker(bind=eng, autoflush=False, autocommit=False, future=True)
+    with factory() as session:
+        seed_g0_registry(session)
+        session.commit()
     yield eng
     Base.metadata.drop_all(eng)
     eng.dispose()

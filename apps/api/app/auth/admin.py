@@ -4,18 +4,32 @@ import uuid
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 from app.auth import service
+from app.auth.actor import Actor
 from app.auth.authz import require
-from app.auth.deps import ActorDep, DbSession
+from app.auth.deps import ActorDep, DbSession, OptionalActorDep
+from app.config import settings
 from app.checkpoint.study import REFERRER_POLICY, paper_entry_html
 from app.db.models import EventRow, SessionRow
 from app.orchestrator.replay import pseudonymous_session_id
+from app.research.deps import require_research_module
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+class PilotEnrolIn(BaseModel):
+    first_name: str
+    grade: int = 9
+    board: str
+    paper_ref: str
+    scopes: list[str] = ["tutoring", "research_pseudonymised"]
+    parent_email: str | None = None
+    family_code: str | None = None
+    home_language: str = "en"
 
 
 class PaperIn(BaseModel):
@@ -27,13 +41,44 @@ class PaperIn(BaseModel):
     checkpoint_id: str = "CP.LIN1.CLASS9"
 
 
+def _pilot_admin(actor: Actor | None, request: Request) -> Actor:
+    if (
+        settings.pilot_onboarding
+        and settings.pilot_key
+        and request.headers.get("x-pilot-key") == settings.pilot_key
+    ):
+        return Actor(role="admin")
+    if actor is None:
+        raise HTTPException(status_code=401, detail="authentication required")
+    return actor
+
+
+@router.post("/pilot/enrol")
+def pilot_enrol(
+    body: PilotEnrolIn, request: Request, db: DbSession, actor: OptionalActorDep
+) -> dict[str, Any]:
+    resolved = _pilot_admin(actor, request)
+    return service.enrol_pilot_family(
+        db,
+        resolved,
+        first_name=body.first_name,
+        grade=body.grade,
+        board=body.board,
+        scopes=body.scopes,
+        paper_ref=body.paper_ref,
+        parent_email=body.parent_email,
+        family_code=body.family_code,
+        home_language=body.home_language,
+    )
+
+
 @router.get("/paper-entry")
 def paper_entry_screen(actor: ActorDep) -> HTMLResponse:
     require(actor.is_admin)
     return HTMLResponse(paper_entry_html(), headers={"Referrer-Policy": REFERRER_POLICY})
 
 
-@router.post("/checkpoints/paper")
+@router.post("/checkpoints/paper", dependencies=[Depends(require_research_module)])
 def paper_entry(body: PaperIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.enter_paper_checkpoint(
         db,

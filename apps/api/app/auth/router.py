@@ -37,6 +37,12 @@ class StudentIn(BaseModel):
 class ConsentIn(BaseModel):
     version: str
     scopes: list[str]
+    paper_ref: str | None = None
+
+
+class FamilyLoginIn(BaseModel):
+    family_code: str
+    pin: str = Field(min_length=4, max_length=6)
 
 
 class PinIn(BaseModel):
@@ -129,7 +135,7 @@ def create_student(body: StudentIn, db: DbSession, actor: ActorDep) -> dict[str,
         parent_id=body.parent_id,
         current_chapter_id=body.current_chapter_id,
     )
-    return {"id": str(student.id)}
+    return {"id": str(student.id), "family_code": student.family_code or ""}
 
 
 @router.get("/students/{student_id}")
@@ -147,8 +153,10 @@ def get_student(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[s
 def grant_consent(
     student_id: uuid.UUID, body: ConsentIn, db: DbSession, actor: ActorDep
 ) -> dict[str, Any]:
-    row = service.grant_consent(db, actor, student_id, version=body.version, scopes=body.scopes)
-    return {"id": str(row.id), "scopes": list(row.scopes)}
+    row = service.grant_consent(
+        db, actor, student_id, version=body.version, scopes=body.scopes, paper_ref=body.paper_ref
+    )
+    return {"id": str(row.id), "scopes": list(row.scopes), "paper_ref": row.paper_ref}
 
 
 @router.post("/students/{student_id}/consent/revoke")
@@ -167,6 +175,17 @@ def set_pin(student_id: uuid.UUID, body: PinIn, db: DbSession, actor: ActorDep) 
 def verify_pin(student_id: uuid.UUID, body: PinIn, db: DbSession) -> dict[str, str]:
     token = service.verify_student_pin(db, student_id, body.pin)
     return _token_body(token)
+
+
+@router.post("/auth/student-login")
+def student_login(body: FamilyLoginIn, db: DbSession) -> dict[str, str]:
+    token = service.verify_family_pin(db, body.family_code, body.pin)
+    return _token_body(token)
+
+
+@router.get("/students/me/today")
+def today(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.student_today(db, actor)
 
 
 @router.get("/students/{student_id}/progress")
@@ -206,8 +225,22 @@ def delete_parent(parent_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[
 
 @router.post("/sessions")
 def start_session(body: SessionIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    from app.player.runtime import session_view
+
     row = service.start_session(db, actor, body.student_id, body.type)
-    return {"id": str(row.id), "type": row.type, "student_id": str(row.student_id)}
+    view = session_view(db, actor, row)
+    return view
+
+
+@router.get("/sessions/{session_id}")
+def get_session(session_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    from app.player.runtime import session_view
+    from app.db.models import SessionRow
+
+    row = db.get(SessionRow, session_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="session not found")
+    return session_view(db, actor, row)
 
 
 @router.post("/sessions/{session_id}/events")
@@ -254,102 +287,3 @@ def review_queue(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.review_queue(db, actor)
 
 
-@router.get("/analytics/export")
-def analytics(db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    return service.analytics_export(db, actor)
-
-
-@router.post("/study/participants")
-def enrol_participant(body: StudyIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    row = service.enrol_study_participant(
-        db,
-        actor,
-        site_id=body.site_id,
-        group=body.group,
-        consent_id=body.consent_id,
-        student_id=body.student_id,
-        household_id=body.household_id,
-    )
-    return {
-        "id": str(row.id),
-        "group": row.group,
-        "site_id": row.site_id,
-        "household_id": row.household_id,
-        "pretest_form": row.pretest_form,
-        "posttest_form": row.posttest_form,
-        "assignment_method": row.assignment_method,
-        "assignment_seed": row.assignment_seed,
-        "pseudonym": row.pseudonymous_code,
-    }
-
-
-@router.post("/checkpoints/{checkpoint_id}/tokens")
-def issue_token(
-    checkpoint_id: str, body: TokenIn, db: DbSession, actor: ActorDep
-) -> dict[str, Any]:
-    return service.issue_checkpoint_token(
-        db,
-        actor,
-        checkpoint_id=checkpoint_id,
-        participant_id=body.participant_id,
-        form=body.form,
-        consent_id=body.consent_id,
-    )
-
-
-@router.post("/checkpoints/redeem")
-def redeem(body: RedeemIn, db: DbSession) -> dict[str, str]:
-    return _token_body(service.redeem_checkpoint_token(db, body.token))
-
-
-@router.get("/checkpoints/{checkpoint_id}/forms/{form}")
-def load_form(
-    checkpoint_id: str,
-    form: str,
-    request: Request,
-    db: DbSession,
-    actor: OptionalActorDep,
-    token: str | None = Query(default=None),
-) -> Any:
-    if token:
-        service.lookup_checkpoint_token(db, token)
-        redirect = RedirectResponse(url=str(request.url.replace(query="")), status_code=302)
-        redirect.set_cookie(
-            COOKIE_NAME,
-            token,
-            httponly=True,
-            max_age=settings.session_ttl_seconds,
-            samesite="lax",
-            path="/",
-        )
-        redirect.headers["Referrer-Policy"] = REFERRER_POLICY
-        return redirect
-    resolved = actor or service.actor_from_checkpoint_cookie(db, request.cookies.get(COOKIE_NAME))
-    if resolved is None:
-        raise HTTPException(status_code=401, detail="authentication required")
-    payload = service.load_checkpoint_form(db, resolved, checkpoint_id, form)
-    return JSONResponse(payload, headers={"Referrer-Policy": REFERRER_POLICY})
-
-
-@router.post("/checkpoints/{checkpoint_id}/forms/{form}/submit")
-def submit_form(
-    checkpoint_id: str,
-    form: str,
-    body: CheckpointAnswersIn,
-    request: Request,
-    actor: OptionalActorDep,
-    db: DbSession,
-) -> dict[str, Any]:
-    raw = request.cookies.get(COOKIE_NAME)
-    resolved = actor or service.actor_from_checkpoint_cookie(db, raw)
-    if resolved is None:
-        raise HTTPException(status_code=401, detail="authentication required")
-    return service.submit_checkpoint_form(
-        db,
-        resolved,
-        checkpoint_id=checkpoint_id,
-        form=form,
-        answers=body.answers,
-        occasion=body.occasion,
-        raw_token=raw,
-    )

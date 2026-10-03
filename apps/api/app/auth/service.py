@@ -21,7 +21,8 @@ from app.auth.authz import (
     teacher_visible_student_ids,
 )
 from app.auth.consent import active_consent, has_scope
-from app.auth.scopes import CONSENT_SCOPES, DEFAULT_TIMEZONE
+from app.auth.scopes import CONSENT_SCOPES
+from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 from app.auth.security import (
     as_utc,
     codes_match,
@@ -231,8 +232,9 @@ def create_student(
     parent = session.get(UserRow, owner)
     if parent is None or parent.role != "parent":
         raise HTTPException(status_code=400, detail="parent not found")
-    if board not in DEFAULT_TIMEZONE:
-        raise HTTPException(status_code=400, detail="invalid board")
+    curriculum_id = resolve_curriculum_id(board)
+    home_language = ensure_locale(session, home_language)
+    exam_language = ensure_locale(session, exam_language)
     code = family_code or _family_code_for_parent(session, owner)
     student = StudentRow(
         id=uuid.uuid4(),
@@ -240,13 +242,22 @@ def create_student(
         display_name=display_name,
         grade=grade,
         board=board,
+        curriculum_id=curriculum_id,
+        book_id=f"{curriculum_id}_class9",
         home_language=home_language,
         exam_language=exam_language,
         current_chapter_id=current_chapter_id,
-        timezone=DEFAULT_TIMEZONE[board],
+        timezone="UTC",
         family_code=code,
         pin_failed_attempts=0,
         created_at=now_utc(),
+    )
+    apply_student_context(
+        student,
+        session,
+        curriculum_id=curriculum_id,
+        grade=grade,
+        current_chapter_id=current_chapter_id,
     )
     session.add(student)
     session.flush()
@@ -482,7 +493,7 @@ def start_session(
         started_at=now_utc(),
         type=session_type,
         last_active_at=now_utc(),
-        plan={},
+        plan={"context_key": student.context_key or {}},
     )
     session.add(row)
     session.flush()
@@ -841,11 +852,7 @@ def enrol_pilot_family(
         exam_language=home_language,
         parent_id=parent.id,
         family_code=code,
-        current_chapter_id=(
-            "OV.E2E.MINI"
-            if settings.e2e_mini_content
-            else ("bhutan_class9" if board == "bhutan" else "seba_class9")
-        ),
+        current_chapter_id="OV.E2E.MINI" if settings.e2e_mini_content else None,
     )
     student.pin_hash = hash_pin(pin)
     student.pin_failed_attempts = 0
