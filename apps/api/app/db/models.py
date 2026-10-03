@@ -75,6 +75,20 @@ class MisconceptionRow(Base):
     status: Mapped[str] = mapped_column(String)
 
 
+class MisconceptionHitRow(Base):
+    __tablename__ = "misconception_hits"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    misconception_id: Mapped[str] = mapped_column(
+        ForeignKey("misconceptions.id", ondelete="RESTRICT")
+    )
+    item_id: Mapped[str] = mapped_column(ForeignKey("items.id", ondelete="RESTRICT"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class OverlayRow(Base):
     __tablename__ = "overlays"
 
@@ -136,6 +150,7 @@ class StudentRow(Base):
         DateTime(timezone=True), nullable=True
     )
     timezone: Mapped[str] = mapped_column(String)
+    family_code: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     parent: Mapped[UserRow] = relationship(back_populates="students")
@@ -152,6 +167,7 @@ class ConsentRow(Base):
     scopes: Mapped[list[str]] = mapped_column(TextArray)
     granted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    paper_ref: Mapped[str | None] = mapped_column(String, nullable=True)
 
     student: Mapped[StudentRow] = relationship(back_populates="consents")
 

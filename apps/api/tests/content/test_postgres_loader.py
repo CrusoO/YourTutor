@@ -39,6 +39,8 @@ def test_load_seed_postgres() -> None:
         pytest.skip("Postgres is not available")
     engine = create_engine(url, future=True)
     with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
         conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
         conn.commit()
     cfg = Config(str(API_ROOT / "alembic.ini"))

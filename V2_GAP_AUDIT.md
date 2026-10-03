@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04):** `apps/api` pytest **216 passed, 0 failed** (**216 collected**, Postgres loader included). `apps/web` vitest **33 passed.** `apps/web` `tsc --noEmit` **ok.** Playwright not run for this audit. *(Prior baseline: 215 passed, 1 failed — stale skills in DB after optional e2e mini load.)*
+**Test baseline (2026-10-04):** `apps/api` pytest **222 passed, 0 failed** (**222 collected**, Postgres loader included). `apps/web` vitest **33 passed.** `apps/web` `tsc --noEmit` **ok.** Playwright not run for this audit. *(Prior baseline: 216 passed — content retirement + prune guards.)*
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 

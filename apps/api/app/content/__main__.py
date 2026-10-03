@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 from app.content.generate import generate_from_templates
-from app.content.loader import LoadError, load_path
+from app.content.loader import LoadError, PruneBlockedError, load_path
 from app.content.review import export_sheet, import_sheet
 from app.content.validator import format_report, validate_path
 
@@ -18,6 +18,11 @@ def main(argv: list[str] | None = None) -> int:
     load = sub.add_parser("load")
     load.add_argument("root", type=Path)
     load.add_argument("--database-url", default=None)
+    load.add_argument(
+        "--prune",
+        action="store_true",
+        help="Hard-delete skills/items absent from the bundle (refuses if learner data references them).",
+    )
     export = sub.add_parser("export-review")
     export.add_argument("root", type=Path)
     export.add_argument("--csv", type=Path, required=True)
@@ -74,7 +79,12 @@ def main(argv: list[str] | None = None) -> int:
             args.root,
             database_url=args.database_url,
             include_e2e_mini=e2e_mini_enabled(),
+            prune=args.prune,
         )
+    except PruneBlockedError as exc:
+        for reason in exc.reasons:
+            print(f"ERROR: {reason}", file=sys.stderr)
+        return 1
     except LoadError as exc:
         print(str(exc), file=sys.stderr)
         return 1

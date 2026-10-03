@@ -68,6 +68,7 @@ def replay_session(session_id: uuid.UUID, actor: ActorDep, db: DbSession) -> dic
             {
                 "event_type": ev.event_type,
                 "item_id": ev.item_id,
+                "item": _replay_item(db, ev.item_id),
                 "rule_id": ev.rule_id,
                 "state_before": ev.state_before,
                 "state_after": ev.state_after,
@@ -76,3 +77,15 @@ def replay_session(session_id: uuid.UUID, actor: ActorDep, db: DbSession) -> dic
             for ev in events
         ],
     }
+
+
+def _replay_item(db: DbSession, item_id: str | None) -> dict[str, str] | None:
+    if not item_id:
+        return None
+    from app.db.models import ItemRow
+
+    row = db.get(ItemRow, item_id)
+    if row is None:
+        return None
+    stem = row.stem if isinstance(row.stem, dict) else {}
+    return {"id": row.id, "status": row.status, "stem_en": stem.get("en") or ""}

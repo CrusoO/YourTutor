@@ -2,17 +2,24 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.content.gate import RETIRED_STATUS
 from app.content.schema import ContentBundle
 from app.content.validator import ValidationReport, load_bundle, validate_bundle, _persist_hash_resets
+from app.config import settings
 from app.db.models import (
     Base,
     CheckpointFormRow,
+    EventRow,
     GlossaryTermRow,
     ItemRow,
+    MasteryRow,
+    MisconceptionHitRow,
     MisconceptionRow,
     OverlayRow,
+    ReviewCardRow,
     SkillRow,
 )
 from app.db.session import make_engine, session_factory
@@ -22,11 +29,18 @@ class LoadError(RuntimeError):
     pass
 
 
+class PruneBlockedError(LoadError):
+    def __init__(self, reasons: list[str]) -> None:
+        self.reasons = reasons
+        super().__init__("prune blocked: " + "; ".join(reasons))
+
+
 def load_path(
     root: Path,
     *,
     database_url: str | None = None,
     include_e2e_mini: bool = False,
+    prune: bool = False,
 ) -> ValidationReport:
     from app.content.bundle_merge import load_content_bundle
     try:
@@ -41,12 +55,16 @@ def load_path(
     Base.metadata.create_all(engine)
     factory = session_factory(database_url)
     with factory() as session:
-        _upsert(session, report.bundle)
-        session.commit()
+        try:
+            _upsert(session, report.bundle, prune=prune)
+            session.commit()
+        except PruneBlockedError:
+            session.rollback()
+            raise
     return report
 
 
-def _upsert(session: Session, bundle: ContentBundle) -> None:
+def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
     session.query(GlossaryTermRow).delete()
     keep_skills = {skill.id for skill in bundle.skills}
     for skill in bundle.skills:
@@ -64,10 +82,6 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
             )
         )
     keep_items = {item.id for item in bundle.items}
-    if keep_items:
-        session.query(ItemRow).filter(~ItemRow.id.in_(keep_items)).delete(synchronize_session=False)
-    else:
-        session.query(ItemRow).delete()
     for item in bundle.items:
         session.merge(
             ItemRow(
@@ -94,10 +108,6 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                 generator_version=item.generator_version,
                 template_hash=item.template_hash,
             )
-        )
-    if keep_skills:
-        session.query(SkillRow).filter(~SkillRow.id.in_(keep_skills)).delete(
-            synchronize_session=False
         )
     for mc in bundle.misconceptions:
         session.merge(
@@ -139,3 +149,84 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                     translation=translation,
                 )
             )
+
+    orphan_skill_ids = _orphan_skill_ids(session, keep_skills)
+    orphan_item_ids = _orphan_item_ids(session, keep_items)
+    hard_delete = settings.allow_draft_content or prune
+    if hard_delete:
+        if prune:
+            reasons = _prune_block_reasons(session, orphan_skill_ids, orphan_item_ids)
+            if reasons:
+                raise PruneBlockedError(reasons)
+        _hard_delete_orphans(session, orphan_skill_ids, orphan_item_ids)
+    else:
+        _retire_orphans(session, orphan_skill_ids, orphan_item_ids)
+
+
+def _orphan_skill_ids(session: Session, keep_skills: set[str]) -> set[str]:
+    rows = session.scalars(select(SkillRow.id)).all()
+    if not keep_skills:
+        return set(rows)
+    return {sid for sid in rows if sid not in keep_skills}
+
+
+def _orphan_item_ids(session: Session, keep_items: set[str]) -> set[str]:
+    rows = session.scalars(select(ItemRow.id)).all()
+    if not keep_items:
+        return set(rows)
+    return {iid for iid in rows if iid not in keep_items}
+
+
+def _retire_orphans(session: Session, skill_ids: set[str], item_ids: set[str]) -> None:
+    if item_ids:
+        session.query(ItemRow).filter(ItemRow.id.in_(item_ids)).update(
+            {ItemRow.status: RETIRED_STATUS},
+            synchronize_session=False,
+        )
+    if skill_ids:
+        session.query(SkillRow).filter(SkillRow.id.in_(skill_ids)).update(
+            {SkillRow.status: RETIRED_STATUS},
+            synchronize_session=False,
+        )
+
+
+def _hard_delete_orphans(session: Session, skill_ids: set[str], item_ids: set[str]) -> None:
+    if item_ids:
+        session.query(ItemRow).filter(ItemRow.id.in_(item_ids)).delete(synchronize_session=False)
+    if skill_ids:
+        session.query(SkillRow).filter(SkillRow.id.in_(skill_ids)).delete(synchronize_session=False)
+
+
+def _prune_block_reasons(
+    session: Session,
+    skill_ids: set[str],
+    item_ids: set[str],
+) -> list[str]:
+    reasons: list[str] = []
+    if skill_ids:
+        mastery = session.scalar(
+            select(func.count()).select_from(MasteryRow).where(MasteryRow.skill_id.in_(skill_ids))
+        )
+        if mastery:
+            reasons.append(f"mastery references {mastery} retired skill(s)")
+        cards = session.scalar(
+            select(func.count())
+            .select_from(ReviewCardRow)
+            .where(ReviewCardRow.skill_id.in_(skill_ids))
+        )
+        if cards:
+            reasons.append(f"review_cards references {cards} retired skill(s)")
+    if item_ids:
+        events = session.scalar(
+            select(func.count()).select_from(EventRow).where(EventRow.item_id.in_(item_ids))
+        )
+        if events:
+            reasons.append(f"events references {events} retired item(s)")
+        hits = session.scalar(
+            select(func.count())
+            .select_from(MisconceptionHitRow)
+            .where(MisconceptionHitRow.item_id.in_(item_ids))
+        )
+        if hits:
+            reasons.append(f"misconception_hits references {hits} retired item(s)")
+    return reasons

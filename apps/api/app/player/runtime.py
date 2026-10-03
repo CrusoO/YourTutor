@@ -82,10 +82,12 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
 
 
 def load_catalog(session: Session, *, allow_draft: bool) -> tuple[CatalogItem, ...]:
+    from app.content.gate import content_status_is_servable
+
     rows = session.scalars(select(ItemRow)).all()
     out = []
     for row in rows:
-        if row.status != "approved" and not allow_draft:
+        if not content_status_is_servable(row.status, allow_draft=allow_draft):
             continue
         out.append(_item_to_catalog(row))
     return tuple(out)

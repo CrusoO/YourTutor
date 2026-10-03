@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 class ContentStatus(StrEnum):
     draft = "draft"
     approved = "approved"
+    retired = "retired"
 
 
 class ItemType(StrEnum):

@@ -528,6 +528,7 @@ def _pick_item(
         if row.pool == "practice"
         and row.primary_skill == skill
         and row.id not in skip
+        and row.status != "retired"
         and (row.status == "approved" or session.allow_draft)
     ]
     leftover = [row for row in eligible if row.id not in session.shown_item_ids]
