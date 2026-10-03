@@ -1,19 +1,48 @@
 ---
-description: Pedagogy-first AI tutor — hard product and engineering rules
+description: Pedagogy-first AI tutor (v2) — hard product and engineering rules
 alwaysApply: true
 ---
 
-- The orchestrator decides pedagogy; the LLM only phrases. Never let LLM output decide correctness, next skill, or answer reveal.
-- Retry hints are levels 1–2 only and must pass the leak check. Hint 3 is the reveal_solution lead-in, never a retry hint.
-- Reveal only after the attempt following hint 2 is also wrong, or show_solution after 2 hints. Offline must enforce the same rules.
-- Exactly one BKT update per item, at the first answer or first hint request. Later hinted-correct only increments mastery.hinted_correct.
-- Correctness comes from the allowlist verifier, never the LLM. Never call sympify on raw student input. On sync, re-verify from stored response and ignore any client correct flag.
-- Explain-back grades are formative only. Without ai_processing or an API key: store the student's text, show the authored explanation, give no grade. Never change mastery or FSRS.
-- Checkpoint scoring never updates mastery or FSRS. Checkpoint items are never used for teaching or practice.
-- Item selection uses p_known tiers (easy / medium / hard) and least-recently-shown; authored difficulty is ordering only.
-- No PII in LLM prompts or logs. Consent is scoped. Teachers only see students with teacher_share. Comparison tokens are issued only after a parental consent record.
-- Quiet hours 21:00–07:00 in the student's local timezone. No dark patterns.
+Tutor behaviour (ask-before-tell, diagnosis, tone, escalation): **`docs/TUTOR_CONSTITUTION.md`** is the source of truth; orchestrator and LLM prompts must align with it.
+
+## Pedagogy and orchestrator
+
+- The orchestrator decides pedagogy; the LLM only phrases. Never let LLM output decide correctness, next skill, mastery, or answer reveal.
+- Every wrong answer passes `diagnosis.classify()` before a response is chosen (v2). No hint, check-your-work, or reveal without that path.
+- Help escalates one level at a time: stuck-point (when implemented) → hint levels 1–2 (leak-checked, including step hints) → hint 3 is only the `reveal_solution` lead-in, never a retry hint.
+- Reveal only after the attempt following hint 2 is wrong, or `show_solution` after two hints; then a different similar item. Offline must enforce the same rules.
+- Never end a session immediately on a failure when caps allow one more success item (R40, v2).
+- Item selection uses mastery/ladder and p_known tiers where applicable; authored difficulty is ordering only.
+- Lesson beats, explain-back grades, and checkpoint scores never update BKT or FSRS. Checkpoint items are never used for teaching or practice.
+- Exactly one BKT update per item, at the first answer or first help request. Later hinted-correct only increments `mastery.hinted_correct`.
+- Mastery ladder levels require their evidence (v2); hinted correct does not reach “independent” levels; widget/interactive results are never trusted from the client — server re-checks predicates.
+
+## Verifier and correctness
+
+- Correctness comes from the allowlist verifier (and widget goal predicates when used), never the LLM or client. Never call `sympify` on raw student input.
+- On sync, re-verify from stored response and ignore any client `correct` flag.
+
+## LLM, grounding, and content
+
+- No PII in LLM prompts or logs. Consent scopes gate features (`ai_processing`, `free_text`, `teacher_share`, `research_pseudonymised`, etc.).
+- Explain-back grades are formative only. Without `ai_processing` or an API key: store the student’s text, show the authored explanation, give no grade. Never change mastery or FSRS.
+- Study Mode / Ask (v2): factual statements cite approved passages or say out of scope; no web fallback. Unknown-licence content is never indexed.
 - System must work end-to-end with no LLM key (authored content fallback).
 - Do not machine-translate content and mark it approved; translations need a human reviewer.
-- Keep functions pure and tested in orchestrator/, learner/, verifier/.
+- Production serves `status=approved` only unless `ALLOW_DRAFT_CONTENT=true`. Draft LLM output is never runtime content.
+
+## Region-neutral (v2)
+
+- No country, board, language, script, or time-zone literals in application code except in `config/`, `content/`, and tests. Use curriculum/locale/jurisdiction registries and profiles.
+- Quiet hours and retention come from the jurisdiction profile, not hard-coded zones.
+
+## Privacy, teachers, and research
+
+- Teachers only see students with `teacher_share`. Comparison/checkpoint research machinery lives behind `RESEARCH_MODULE` when on.
+- No dark patterns, ranks, or streak threats.
+
+## Engineering
+
+- Keep `policy`, `diagnosis`, `ladder`, and verifier/widget predicates pure and tested under `orchestrator/`, `learner/`, `verifier/`, and shared fixtures in `packages/shared/fixtures/`.
+- Session actions expose orchestrator-owned flags (e.g. `can_request_hint`, `can_show_solution`); the client must not infer pedagogy from counters alone.
 - Prefer simple, explicit code over clever abstractions; monolith first.

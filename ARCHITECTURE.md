@@ -4,6 +4,21 @@ The orchestrator decides pedagogy. The LLM only phrases. Correctness, next skill
 
 ---
 
+## 0. Design sources
+
+| Decides | Source of truth | Section |
+|---------|-----------------|---------|
+| How the tutor behaves (tone, escalation, ask-before-tell) | **`docs/TUTOR_CONSTITUTION.md`** | — |
+| WHAT is taught | Approved content + curriculum context | §17 |
+| HOW it is taught (transitions, guardrails) | Deterministic `policy()` + rule ids | §8–§10 |
+| HOW it is personalised | Learner model (BKT, FSRS, mastery) | §11 |
+| HOW it is worded | LLM gateway + grade-band style | §14 |
+| WHETHER it is correct | Verifier | §13 |
+
+If code and the constitution disagree, track the gap in PLAN.md until fixed.
+
+---
+
 ## 1. Principles
 
 1. **Deterministic teaching engine.** `policy(learner, session, last_event) → action` is pure and unit-tested.
