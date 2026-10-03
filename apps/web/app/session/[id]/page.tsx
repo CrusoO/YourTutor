@@ -24,7 +24,7 @@ export default function SessionPage() {
     if (hintTimer.current) window.clearTimeout(hintTimer.current);
     setNudge(false);
     idle.current = window.setTimeout(() => setNudge(true), idleNudgeMs);
-    if (next.type === "show_item" && next.allow_hint) {
+    if (next.type === "show_item" && (next.can_request_hint ?? next.allow_hint)) {
       setHintReady(wrongOnce);
       hintTimer.current = window.setTimeout(() => setHintReady(true), hintDelayMs);
     }
@@ -151,7 +151,7 @@ export default function SessionPage() {
               onSubmit={() => send("answer", { response: answer, latency_ms: 500 })}
             />
           )}
-          {(action.hint_level || action.hint_level_shown || 0) >= 2 ? (
+          {action.can_show_solution ? (
             <button type="button" className="ghost" onClick={() => send("show_solution")}>
               {copy.reveal}
             </button>
@@ -198,12 +198,12 @@ export default function SessionPage() {
               {copy.dontKnow}
             </button>
           ) : null}
-          {action.allow_hint && hintReady ? (
+          {(action.can_request_hint ?? action.allow_hint) && hintReady ? (
             <button type="button" className="secondary" onClick={() => send("request_hint")}>
               {copy.hint}
             </button>
           ) : null}
-          {action.allow_hint && (action.hint_level_shown || 0) >= 2 ? (
+          {action.can_show_solution ? (
             <button type="button" className="ghost" onClick={() => send("show_solution")}>
               {copy.reveal}
             </button>

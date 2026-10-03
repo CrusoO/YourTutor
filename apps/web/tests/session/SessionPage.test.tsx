@@ -187,7 +187,7 @@ describe("SessionPage action rendering", () => {
   });
 
   it("hint show_solution when hint level is 2", async () => {
-    mockSession({ ...actionFixtures.hint, hint_level: 2 });
+    mockSession({ ...actionFixtures.hint, hint_level: 2, can_show_solution: true });
     render(<SessionPage />);
     await waitFor(() => expect(getSession).toHaveBeenCalled());
     await userEvent.click(screen.getByRole("button", { name: /show the solution/i }));

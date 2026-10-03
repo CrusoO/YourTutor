@@ -741,7 +741,26 @@ Download pack (offline-verifiable items only) → local policy + BKT + ts-fsrs �
 | GET | `/checkpoints/{id}/forms/{form}` |
 | GET | `/analytics/export` |
 
-OpenAPI → generated TS types in `packages/shared`.
+OpenAPI → generated TS types in `packages/shared` (`packages/shared/openapi.yaml`).
+
+### 15.1 Session action payload (web player)
+
+Every `GET /sessions/{id}` and `POST /sessions/{id}/events` response includes an enriched `action` object for the student UI.
+
+| Field | Meaning |
+|---|---|
+| `can_request_hint` | Orchestrator will accept `request_hint` on this action (practice only; not diagnostic/checkpoint). |
+| `can_show_solution` | Orchestrator will accept `show_solution` (after two hint levels have been shown). |
+| `allow_hint` | Deprecated alias of `can_request_hint`. |
+| `hint_level_shown` | Hint levels already delivered this item (0–2). |
+| `dont_know_option` | Show “I don’t know” (diagnostic-style items). |
+
+Action `type` values include: `warmup_item`, `predict`, `worked_example`, `show_item`, `feedback`, `hint`, `reveal_solution`, `similar_item`, `explain_back_prompt`, `explain_back_result`, `nudge`, `content_gap`, `end_session`, `checkpoint_score`.
+
+- **`content_gap`:** No teachable items remain for the current chapter; client should return to Today (not an error).
+- **`explain_back_result`:** Formative explain-back complete; shows authored feedback text (and optional LLM grade only when `ai_processing` is consented). Does not change mastery or FSRS.
+
+The web client must not infer hint or reveal availability from `hint_level_shown` alone; use `can_request_hint` and `can_show_solution`. Optional hint delay timers are presentation-only.
 
 ---
 

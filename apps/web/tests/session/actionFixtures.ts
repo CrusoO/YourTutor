@@ -19,6 +19,8 @@ export function actionFixture(type: ActionPayload["type"], extra: Partial<Action
     item_id: sampleItem.id,
     session_type: "practice",
     allow_hint: false,
+    can_request_hint: false,
+    can_show_solution: false,
     dont_know_option: false,
     hint_level_shown: 0,
     item: sampleItem,
@@ -27,10 +29,17 @@ export function actionFixture(type: ActionPayload["type"], extra: Partial<Action
 }
 
 export const actionFixtures: Record<string, ActionPayload> = {
-  warmup_item: actionFixture("warmup_item", { allow_hint: true }),
+  warmup_item: actionFixture("warmup_item", {
+    allow_hint: true,
+    can_request_hint: true,
+  }),
   predict: actionFixture("predict", { item: { ...sampleItem, stem: "" }, text: sampleItem.prediction }),
   worked_example: actionFixture("worked_example"),
-  show_item: actionFixture("show_item", { allow_hint: true, dont_know_option: true }),
+  show_item: actionFixture("show_item", {
+    allow_hint: true,
+    can_request_hint: true,
+    dont_know_option: true,
+  }),
   feedback: actionFixture("feedback", { correct: false }),
   hint: actionFixture("hint", { text: "Try undoing the + 4.", hint_level: 1 }),
   reveal_solution: actionFixture("reveal_solution"),

@@ -30,6 +30,7 @@ from app.db.models import (
 from app.learner.bkt import BktParams
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.orchestrator.policy import policy
+from app.player.action_flags import hint_solution_flags
 from app.orchestrator.types import (
     SOFT_ACTIVE_MS,
     Action,
@@ -431,6 +432,9 @@ def enrich_action(
     steps = action.type in {"worked_example", "reveal_solution", "explain_back_prompt", "explain_back_result"}
     extras = dict(action.extras or {})
     assessment = bool(extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"})
+    can_request_hint, can_show_solution = hint_solution_flags(
+        state, action, assessment=assessment
+    )
     payload = {
         "type": action.type,
         "item_id": action.item_id or state.current_item_id,
@@ -450,7 +454,9 @@ def enrich_action(
         "session_type": state.session_type,
         "phase": state.phase,
         "hint_level_shown": state.hint_level_shown,
-        "allow_hint": state.session_type == "practice" and not assessment,
+        "allow_hint": can_request_hint,
+        "can_request_hint": can_request_hint,
+        "can_show_solution": can_show_solution,
         "dont_know_option": bool(extras.get("dont_know_option")),
         "item": _item_payload(item_row, locale, reveal=reveal, steps=steps),
     }

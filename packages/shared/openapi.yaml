@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: YourTutor API
+  version: 0.1.0
+paths: {}
+components:
+  schemas:
+    SessionAction:
+      type: object
+      required:
+        - type
+        - can_request_hint
+        - can_show_solution
+      properties:
+        type:
+          type: string
+          enum:
+            - warmup_item
+            - predict
+            - worked_example
+            - show_item
+            - feedback
+            - hint
+            - reveal_solution
+            - similar_item
+            - explain_back_prompt
+            - explain_back_result
+            - nudge
+            - content_gap
+            - end_session
+            - checkpoint_score
+        item_id:
+          type: string
+          nullable: true
+        skill_id:
+          type: string
+          nullable: true
+        hint_level:
+          type: integer
+          nullable: true
+        hint_level_shown:
+          type: integer
+        can_request_hint:
+          type: boolean
+          description: Orchestrator allows request_hint on this action.
+        can_show_solution:
+          type: boolean
+          description: Orchestrator allows show_solution on this action.
+        allow_hint:
+          type: boolean
+          deprecated: true
+          description: Alias of can_request_hint for older clients.
+        dont_know_option:
+          type: boolean
+        session_type:
+          type: string
+        text:
+          type: string
+          nullable: true
+        correct:
+          type: boolean
+          nullable: true
+        ended_reason:
+          type: string
+          nullable: true
+        extras:
+          type: object
+          additionalProperties: true
