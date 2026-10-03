@@ -157,9 +157,7 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
 
 def validate_path(root: Path) -> ValidationReport:
     try:
-        from app.content.bundle_merge import load_content_bundle
-
-        bundle = load_content_bundle(root)
+        bundle = load_bundle(root)
     except Exception as exc:  # noqa: BLE001
         report = ValidationReport()
         report.errors.append(str(exc))

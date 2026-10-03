@@ -5,7 +5,7 @@ from pathlib import Path
 from sqlalchemy.orm import Session
 
 from app.content.schema import ContentBundle
-from app.content.validator import ValidationReport, validate_path
+from app.content.validator import ValidationReport, load_bundle, validate_bundle, _persist_hash_resets
 from app.db.models import (
     Base,
     CheckpointFormRow,
@@ -22,8 +22,19 @@ class LoadError(RuntimeError):
     pass
 
 
-def load_path(root: Path, *, database_url: str | None = None) -> ValidationReport:
-    report = validate_path(root)
+def load_path(
+    root: Path,
+    *,
+    database_url: str | None = None,
+    include_e2e_mini: bool = False,
+) -> ValidationReport:
+    from app.content.bundle_merge import load_content_bundle
+    try:
+        bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
+    except Exception as exc:
+        raise LoadError(str(exc)) from exc
+    report = validate_bundle(bundle)
+    _persist_hash_resets(root, report)
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
     engine = make_engine(database_url)
@@ -37,6 +48,7 @@ def load_path(root: Path, *, database_url: str | None = None) -> ValidationRepor
 
 def _upsert(session: Session, bundle: ContentBundle) -> None:
     session.query(GlossaryTermRow).delete()
+    keep_skills = {skill.id for skill in bundle.skills}
     for skill in bundle.skills:
         session.merge(
             SkillRow(
@@ -51,6 +63,11 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                 status=skill.status.value,
             )
         )
+    keep_items = {item.id for item in bundle.items}
+    if keep_items:
+        session.query(ItemRow).filter(~ItemRow.id.in_(keep_items)).delete(synchronize_session=False)
+    else:
+        session.query(ItemRow).delete()
     for item in bundle.items:
         session.merge(
             ItemRow(
@@ -77,6 +94,10 @@ def _upsert(session: Session, bundle: ContentBundle) -> None:
                 generator_version=item.generator_version,
                 template_hash=item.template_hash,
             )
+        )
+    if keep_skills:
+        session.query(SkillRow).filter(~SkillRow.id.in_(keep_skills)).delete(
+            synchronize_session=False
         )
     for mc in bundle.misconceptions:
         session.merge(

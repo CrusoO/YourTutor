@@ -68,7 +68,13 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     try:
-        report = load_path(args.root, database_url=args.database_url)
+        from app.content.bundle_merge import e2e_mini_enabled
+
+        report = load_path(
+            args.root,
+            database_url=args.database_url,
+            include_e2e_mini=e2e_mini_enabled(),
+        )
     except LoadError as exc:
         print(str(exc), file=sys.stderr)
         return 1
