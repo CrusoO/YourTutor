@@ -35,6 +35,7 @@ This file is the working milestone list. After each milestone: run tests, tick c
 | FSRS timing | Warm-up item outcomes update that skill's card **immediately**. Other skills: **one** FSRS rating at **session end**, from that session's unhinted-correct rate on the skill. |
 | Similar item | After reveal, `SIMILAR_ITEM` is a **different** approved practice item on the **same primary skill and tier**. Never the same item. |
 | Consent revoke | If consent is revoked mid-session, the session **ends on the next event** and **no further LLM calls** are made. |
+| Removed content | Removed content is retired, not deleted; hard prune is dev-only or guarded. |
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
 
