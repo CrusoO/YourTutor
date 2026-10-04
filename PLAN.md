@@ -42,6 +42,7 @@ This file is the working milestone list. After each milestone: run tests, tick c
 | Web i18n | **G0:** keep `lib/messages.ts`; locale list + fallbacks from `config/locales.yaml` → generated JSON. No `next-intl`. |
 | Research routes | **G0:** `RESEARCH_MODULE` off → study/checkpoint/analytics (and admin paper entry) return **404**. |
 | Context picker UI | **G5**; **G0** data migration sets each student’s `context_key` so implicit chapter still works. |
+| Overlay/class `board` | Deferred from G0 to **G5** (context picker owns the API change; G1 is ladder-only and does not touch board). |
 | Curricula seed | **G0:** one registry entry per legacy board under `content/curricula/`; `sample_board` stays generic; no merge into sample. |
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -134,6 +135,11 @@ After each milestone:
 - [x] Read-only `board` compat on student API responses
 
 **Accept:** registry loaders tested; Postgres migrations apply; full suite green; no new region literals in app code. **Met 2026-10-04:** API pytest **231 passed** on Postgres (`TEST_DATABASE_URL`); region-literal script clean; web vitest/tsc not re-run this pass.
+
+**Deferred from G0** (not done; pick up in the named milestone):
+
+- [ ] **G5** (recommended; G1 only if the ladder needs it earlier): overlay YAML `board:` field and `classes.board` replaced by `curriculum_id`/`context_key`; then drop the read-only `board` compat on student responses
+- [ ] **G5:** `device_timezone` sent by the client (student TZ chain: override → curriculum `default_timezone` → device → UTC; today the device step has no client input)
 
 ---
 
