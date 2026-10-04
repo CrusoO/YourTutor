@@ -10,8 +10,10 @@ from app.registries.loaders import load_all_curricula, load_locales_config
 
 def seed_g0_registry(session: Session) -> None:
     _, locales = load_locales_config()
-    for spec in locales.values():
-        session.merge(LocaleRow(code=spec.code, fallback_chain=list(spec.fallback_chain)))
+    for locale_spec in locales.values():
+        session.merge(
+            LocaleRow(code=locale_spec.code, fallback_chain=list(locale_spec.fallback_chain))
+        )
     session.flush()
     for spec in load_all_curricula().values():
         session.merge(

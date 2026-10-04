@@ -44,6 +44,7 @@ def test_review_export_import_and_hash_reset(content_root: Path, tmp_path: Path)
     yaml_path.write_text(text.replace(item.stem.en, item.stem.en + " edited"), encoding="utf-8")
     report = validate_path(content_root)
     assert any("reset to draft" in w for w in report.warnings)
+    assert report.bundle is not None
     changed = next(row for row in report.bundle.items if row.id == target)
     assert changed.status.value == "draft"
     assert changed.reviewed_by is None

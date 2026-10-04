@@ -514,11 +514,11 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         if not item.template_id:
             continue
-        tpl = templates.get(item.template_id)
-        if tpl is None:
+        linked = templates.get(item.template_id)
+        if linked is None:
             report.errors.append(f"{item.id} references unknown template {item.template_id}")
             continue
-        digest = template_hash(tpl)
+        digest = template_hash(linked)
         stale = item.template_hash != digest or item.generator_version != GENERATOR_VERSION
         if stale:
             if item.status.value == "approved":
@@ -527,9 +527,9 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
                 report.warnings.append(
                     f"{item.id} template hash or generator changed; reset to draft"
                 )
-        elif tpl.status.value == "approved":
+        elif linked.status.value == "approved":
             item.status = type(item.status)("approved")
-            item.reviewed_by = tpl.reviewed_by
+            item.reviewed_by = linked.reviewed_by
             if not item.content_hash:
                 item.content_hash = item_content_hash(item)
 

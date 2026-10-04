@@ -75,12 +75,12 @@ def _render(text: str, params: dict[str, Any]) -> str:
 
 
 def _tier_for(template: ItemTemplate, params: dict[str, Any]) -> tuple[str, float] | None:
-    answer = params.get("answer")
+    answer: Any = params.get("answer")
     try:
         abs_answer = abs(int(answer))
     except (TypeError, ValueError):
         abs_answer = 0
-    raw_coeff = params.get("coeff", params.get("a"))
+    raw_coeff: Any = params.get("coeff", params.get("a"))
     try:
         parsed_coeff = abs(int(raw_coeff))
     except (TypeError, ValueError):
@@ -102,7 +102,7 @@ def _tier_for(template: ItemTemplate, params: dict[str, Any]) -> tuple[str, floa
 
 def _constraints_ok(template: ItemTemplate, params: dict[str, Any], stem: str) -> bool:
     cons = template.constraints or {}
-    answer = params.get("answer")
+    answer: Any = params.get("answer")
     try:
         ans_i = int(answer)
     except (TypeError, ValueError):
@@ -164,7 +164,7 @@ def instantiate(
     if not _constraints_ok(template, values, stem):
         raise ValueError("template constraints failed")
     steps = [_render(step, values) for step in template.steps]
-    raw_hints = template.hints
+    raw_hints: dict[Any, str] = template.hints
     hints = []
     for level in (1, 2, 3):
         text = raw_hints.get(level) or raw_hints.get(str(level))

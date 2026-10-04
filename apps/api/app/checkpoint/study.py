@@ -6,6 +6,7 @@ import random
 import secrets
 import uuid
 from datetime import UTC, datetime
+from typing import Any
 
 from fastapi import HTTPException
 from sqlalchemy import select
@@ -484,9 +485,11 @@ def enter_paper_answers(
         )
         if first is None:
             raise HTTPException(status_code=400, detail="first entry required")
-        first_map = {row.get("item_id"): row.get("response") for row in (first.answers or [])}
-        second_map = {row.get("item_id"): row.get("response") for row in answers}
-        keys = set(first_map) | set(second_map)
+        first_map: dict[Any, Any] = {
+            row.get("item_id"): row.get("response") for row in (first.answers or [])
+        }
+        second_map: dict[Any, Any] = {row.get("item_id"): row.get("response") for row in answers}
+        keys: set[Any] = set(first_map) | set(second_map)
         mismatches = [key for key in sorted(keys) if first_map.get(key) != second_map.get(key)]
     result = None
     if not mismatches:

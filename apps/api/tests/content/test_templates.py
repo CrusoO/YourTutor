@@ -99,6 +99,7 @@ def test_approval_inheritance_and_reset(tmp_path: Path) -> None:
         item.model_dump(mode="json", by_alias=True, exclude_none=True),
     )
     report = validate_path(tmp_path)
+    assert report.bundle is not None
     inherited = next(row for row in report.bundle.items if row.id == item.id)
     assert inherited.status.value == "approved"
     assert inherited.generator_version == GENERATOR_VERSION
@@ -108,6 +109,7 @@ def test_approval_inheritance_and_reset(tmp_path: Path) -> None:
     data["stem"] = "Solve for x: x + {b} = {c} now"
     path.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
     reset = validate_path(tmp_path)
+    assert reset.bundle is not None
     changed = next(row for row in reset.bundle.items if row.id == item.id)
     assert changed.status.value == "draft"
     assert any("reset to draft" in warning for warning in reset.warnings)

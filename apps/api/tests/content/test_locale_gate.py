@@ -14,7 +14,7 @@ def test_locale_falls_back_to_english() -> None:
 
 
 def test_locale_never_empty() -> None:
-    text = LocalizedText(en="Hello", ne="", as_="")
+    text = LocalizedText.model_validate({"en": "Hello", "ne": "", "as": ""})
     assert resolve_text(text, "ne") == "Hello"
 
 

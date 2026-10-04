@@ -105,13 +105,13 @@ def load_learner(session: Session, student_id: uuid.UUID) -> LearnerState:
             unhinted_correct=row.unhinted_correct,
             hinted_correct=row.hinted_correct,
         )
-    for row in session.scalars(
+    for card_row in session.scalars(
         select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)
     ).all():
-        state.cards[row.skill_id] = ReviewCard(
-            skill_id=row.skill_id,
-            due_at=as_utc(row.due_at),
-            fsrs_state=row.fsrs_state or {},
+        state.cards[card_row.skill_id] = ReviewCard(
+            skill_id=card_row.skill_id,
+            due_at=as_utc(card_row.due_at),
+            fsrs_state=card_row.fsrs_state or {},
         )
     return state
 
@@ -409,7 +409,7 @@ def _item_payload(
 ) -> dict[str, Any] | None:
     if row is None:
         return None
-    payload = {
+    payload: dict[str, Any] = {
         "id": row.id,
         "type": row.type,
         "skill_ids": row.skill_ids,
