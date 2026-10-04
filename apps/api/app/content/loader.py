@@ -100,6 +100,7 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 difficulty=item.difficulty,
                 type=item.type.value,
                 pool=item.pool.value,
+                role=item.role.value,
                 stem=item.stem.as_dict(),
                 verify=item.verify
                 if isinstance(item.verify, str)

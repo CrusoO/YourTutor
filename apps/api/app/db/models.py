@@ -49,6 +49,7 @@ class ItemRow(Base):
     difficulty: Mapped[float] = mapped_column(Float)
     type: Mapped[str] = mapped_column(String)
     pool: Mapped[str] = mapped_column(String, index=True)
+    role: Mapped[str] = mapped_column(String, default="procedure")
     stem: Mapped[dict] = mapped_column(JSONType)
     verify: Mapped[dict | str | None] = mapped_column(JSONType, nullable=True)
     options: Mapped[list] = mapped_column(JSONType, default=list)

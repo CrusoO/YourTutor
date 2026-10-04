@@ -204,6 +204,7 @@ def item(
     verify: str | dict | None = None,
     type_: str = "expression",
     options: list[dict] | None = None,
+    role: str = "procedure",
 ) -> dict:
     data = {
         "id": item_id,
@@ -211,6 +212,7 @@ def item(
         "difficulty": difficulty,
         "type": type_,
         "pool": pool,
+        "role": role,
         "stem": loc(stem),
         "answer": {"sympy": str(answer), "accept": accept or [str(answer), f"x={answer}"]},
         "solution_steps": [loc(s) for s in steps],
@@ -1045,6 +1047,8 @@ def _build(skill: str, slot: int, pool: str, item_id: str) -> dict:
     difficulty = slot_difficulty(skill, slot)
     data = builder(spec, pool, item_id, difficulty)
     data["skill_ids"] = [skill]
+    if skill == "MATH.ALG.LIN1.WORD_PROBLEMS":
+        data["role"] = "apply"
     return data
 
 

@@ -45,6 +45,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.INT.SUB",
                 "skill_id": "MATH.ARITH.INTEGERS.OPERATIONS",
+                "role": "procedure",
                 "structure": "Compute N - N.",
                 "parameters": {"a": {"min": 8, "max": 40}, "b": {"min": 2, "max": 12}},
                 "derived": {},
@@ -73,6 +74,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.INT.ADD_NEG",
                 "skill_id": "MATH.ARITH.INTEGERS.OPERATIONS",
+                "role": "procedure",
                 "structure": "Compute N + (-N).",
                 "parameters": {"a": {"min": 9, "max": 36}, "b": {"min": 2, "max": 11}},
                 "answer_expr": "a - b",
@@ -100,6 +102,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.INT.NEG_PLUS",
                 "skill_id": "MATH.ARITH.INTEGERS.OPERATIONS",
+                "role": "procedure",
                 "structure": "Compute -N + N.",
                 "parameters": {"a": {"min": 10, "max": 38}, "b": {"min": 2, "max": 10}},
                 "answer_expr": "a - b",
@@ -127,6 +130,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.INV.UNDO_SUB",
                 "skill_id": "MATH.ALG.INVERSE_OPERATIONS",
+                "role": "procedure",
                 "structure": "Adding what to x - N returns x?",
                 "parameters": {"n": {"min": 2, "max": 18}},
                 "answer_expr": "n",
@@ -158,6 +162,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.INV.UNDO_ADD",
                 "skill_id": "MATH.ALG.INVERSE_OPERATIONS",
+                "role": "procedure",
                 "structure": "What number do you subtract from x + N to get x again?",
                 "parameters": {"n": {"min": 3, "max": 18}},
                 "answer_expr": "n",
@@ -189,6 +194,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TR.PLUS",
                 "skill_id": "MATH.ALG.LIN1.TRANSLATE",
+                "role": "procedure",
                 "structure": "A number plus N equals N. What is the number?",
                 "parameters": {"b": {"min": 2, "max": 12}, "x": {"min": 3, "max": 18}},
                 "derived": {"c": "x + b"},
@@ -209,6 +215,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TR.MORE",
                 "skill_id": "MATH.ALG.LIN1.TRANSLATE",
+                "role": "procedure",
                 "structure": "N more than a number is N. What is the number?",
                 "parameters": {"b": {"min": 3, "max": 11}, "x": {"min": 2, "max": 16}},
                 "derived": {"c": "x + b"},
@@ -229,6 +236,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TR.SUM",
                 "skill_id": "MATH.ALG.LIN1.TRANSLATE",
+                "role": "procedure",
                 "structure": "The sum of a number and N is N. Find the number.",
                 "parameters": {"b": {"min": 4, "max": 13}, "x": {"min": 4, "max": 17}},
                 "derived": {"c": "x + b"},
@@ -249,6 +257,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ONE.ADD",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_ONE_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: x + N = N",
                 "parameters": {"b": {"min": 2, "max": 12}, "x": {"min": 2, "max": 18}},
                 "derived": {"c": "x + b"},
@@ -269,6 +278,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ONE.SUB",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_ONE_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: x - N = N",
                 "parameters": {"b": {"min": 2, "max": 10}, "x": {"min": 4, "max": 18}},
                 "derived": {"c": "x - b"},
@@ -289,6 +299,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ONE.MUL",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_ONE_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: Nx = N",
                 "parameters": {"a": {"min": 2, "max": 8}, "x": {"min": 2, "max": 12}},
                 "derived": {"c": "a * x"},
@@ -316,6 +327,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TWO.AX_PLUS",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_TWO_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: Nx + N = N",
                 "parameters": {
                     "a": {"min": 2, "max": 6},
@@ -353,6 +365,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TWO.AX_MINUS",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_TWO_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: Nx - N = N",
                 "parameters": {
                     "a": {"min": 2, "max": 6},
@@ -390,6 +403,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.TWO.B_PLUS_AX",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_TWO_STEP",
+                "role": "procedure",
                 "structure": "Solve for x: N + Nx = N",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -427,6 +441,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.MULTI.AX_B_CX",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_MULTI",
+                "role": "procedure",
                 "structure": "Solve for x: Nx + N + Nx = N",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -464,6 +479,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.MULTI.CX_AX_B",
                 "skill_id": "MATH.ALG.LIN1.SOLVE_MULTI",
+                "role": "procedure",
                 "structure": "Solve for x: Nx + Nx + N = N",
                 "parameters": {
                     "a": {"min": 1, "max": 4},
@@ -501,6 +517,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.BOTH.AX_B_CX_D",
                 "skill_id": "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES",
+                "role": "procedure",
                 "structure": "Solve for x: Nx + N = Nx + N",
                 "parameters": {
                     "a": {"min": 3, "max": 6},
@@ -542,6 +559,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.BOTH.B_AX",
                 "skill_id": "MATH.ALG.LIN1.VARIABLES_BOTH_SIDES",
+                "role": "procedure",
                 "structure": "Solve for x: N + Nx = N + Nx",
                 "parameters": {
                     "a": {"min": 4, "max": 7},
@@ -575,6 +593,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.BR.PLUS",
                 "skill_id": "MATH.ALG.LIN1.BRACKETS",
+                "role": "procedure",
                 "structure": "Solve for x: N(x + N) = N",
                 "parameters": {
                     "a": {"min": 2, "max": 6},
@@ -611,6 +630,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.BR.MINUS",
                 "skill_id": "MATH.ALG.LIN1.BRACKETS",
+                "role": "procedure",
                 "structure": "Solve for x: N(x - N) = N",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -643,6 +663,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.BR.TIMES",
                 "skill_id": "MATH.ALG.LIN1.BRACKETS",
+                "role": "procedure",
                 "structure": "Solve for x: N × (x + N) = N",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -679,6 +700,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.FRAC.X_D_PLUS",
                 "skill_id": "MATH.ALG.LIN1.FRACTION_COEFF",
+                "role": "procedure",
                 "structure": "Solve for x: x/N + N = N",
                 "parameters": {
                     "d": {"min": 2, "max": 5},
@@ -711,6 +733,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.FRAC.PLUS_X_D",
                 "skill_id": "MATH.ALG.LIN1.FRACTION_COEFF",
+                "role": "procedure",
                 "structure": "Solve for x: N + x/N = N",
                 "parameters": {
                     "d": {"min": 2, "max": 4},
@@ -743,6 +766,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.WORD.AGE",
                 "skill_id": "MATH.ALG.LIN1.WORD_PROBLEMS",
+                "role": "apply",
                 "structure": "A student is N years older than her sister. Together they are N.",
                 "parameters": {"older": {"min": 3, "max": 9}, "x": {"min": 5, "max": 18}},
                 "derived": {"total": "2 * x + older"},
@@ -789,6 +813,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.WORD.PRICE",
                 "skill_id": "MATH.ALG.LIN1.WORD_PROBLEMS",
+                "role": "apply",
                 "structure": (
                     "A notebook costs N rupees more than a pen. Together they cost N rupees."
                 ),
@@ -840,6 +865,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.WORD.DIST",
                 "skill_id": "MATH.ALG.LIN1.WORD_PROBLEMS",
+                "role": "apply",
                 "structure": (
                     "A traveller walks some distance and then cycles N km. The whole trip is N km."
                 ),
@@ -884,6 +910,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.CHECK.YES",
                 "skill_id": "MATH.ALG.LIN1.CHECK_SOLUTION",
+                "role": "procedure",
                 "structure": "Does x = N solve Nx + N = N?",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -926,6 +953,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.CHECK.NO",
                 "skill_id": "MATH.ALG.LIN1.CHECK_SOLUTION",
+                "role": "procedure",
                 "structure": "Is N a solution of Nx + N = N?",
                 "parameters": {
                     "a": {"min": 2, "max": 5},
@@ -965,6 +993,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ID.EVERY",
                 "skill_id": "MATH.ALG.LIN1.IDENTITIES",
+                "role": "procedure",
                 "structure": "How many solutions does N(x + N) = Nx + N have?",
                 "parameters": {"a": {"min": 2, "max": 5}, "b": {"min": 2, "max": 6}},
                 "derived": {"prod": "a * b"},
@@ -999,6 +1028,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ID.NONE",
                 "skill_id": "MATH.ALG.LIN1.IDENTITIES",
+                "role": "procedure",
                 "structure": "Classify the solution set of Nx + N = Nx + N.",
                 "parameters": {
                     "a": {"min": 2, "max": 6},
@@ -1036,6 +1066,7 @@ def builtin_templates() -> list[ItemTemplate]:
             {
                 "id": "TPL.ID.ONE",
                 "skill_id": "MATH.ALG.LIN1.IDENTITIES",
+                "role": "procedure",
                 "structure": "Is Nx + N = N an identity, a contradiction, or a unique value?",
                 "parameters": {
                     "a": {"min": 2, "max": 6},

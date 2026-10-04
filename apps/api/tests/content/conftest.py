@@ -51,6 +51,7 @@ def minimal_item(
         "difficulty": 0.3,
         "type": "expression",
         "pool": pool,
+        "role": "procedure",
         "stem": loc(stem_en),
         "answer": {"sympy": answer, "accept": [answer]},
         "solution_steps": [loc("Subtract 7."), loc(last_step or f"x = {answer}")],

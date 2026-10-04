@@ -19,6 +19,16 @@ class ItemType(StrEnum):
     short_text = "short_text"
 
 
+class ItemRole(StrEnum):
+    """What evidence an item can give the mastery ladder (ARCHITECTURE §9.5)."""
+
+    recall = "recall"
+    explain = "explain"
+    procedure = "procedure"
+    apply = "apply"
+    transfer = "transfer"
+
+
 class ItemPool(StrEnum):
     practice = "practice"
     diagnostic = "diagnostic"
@@ -100,6 +110,7 @@ class Item(BaseModel):
     difficulty: float = Field(ge=0, le=1)
     type: ItemType
     pool: ItemPool
+    role: ItemRole
     stem: LocalizedText
     verify: str | VerifySpec | None = None
     options: list[McqOption] = []
@@ -176,6 +187,7 @@ class GlossaryFile(BaseModel):
 class ItemTemplate(BaseModel):
     id: str
     skill_id: str
+    role: ItemRole
     structure: str
     parameters: dict[str, Any]
     derived: dict[str, str] = {}

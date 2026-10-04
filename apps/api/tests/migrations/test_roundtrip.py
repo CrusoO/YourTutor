@@ -129,6 +129,15 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
             )
         }
         assert {"curriculum_id", "book_id", "context_key"}.isdisjoint(cols)
+        item_cols = {
+            row[0]
+            for row in conn.execute(
+                text(
+                    "SELECT column_name FROM information_schema.columns WHERE table_name = 'items'"
+                )
+            )
+        }
+        assert "role" not in item_cols
         names = {
             row[0] for row in conn.execute(text("SELECT display_name FROM students ORDER BY 1"))
         }
@@ -140,6 +149,15 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
     assert registry <= _tables(engine)
     with engine.connect() as conn:
         assert conn.execute(text("SELECT count(*) FROM sections")).scalar_one() >= 9
+        assert (
+            conn.execute(
+                text(
+                    "SELECT column_name FROM information_schema.columns "
+                    "WHERE table_name = 'items' AND column_name = 'role'"
+                )
+            ).scalar_one()
+            == "role"
+        )
         locales = {
             r.code: (r.name, r.script, r.status)
             for r in conn.execute(text("SELECT code, name, script, status FROM locales"))

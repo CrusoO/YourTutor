@@ -28,6 +28,7 @@ class CatalogItem:
     difficulty: float
     pool: str
     status: str
+    role: str = "procedure"
     type: str = "expression"
     answer_sympy: str = "0"
     accept: tuple[str, ...] = ()

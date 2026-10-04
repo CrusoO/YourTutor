@@ -196,6 +196,7 @@ def instantiate(
         "difficulty": difficulty,
         "type": template.type.value if hasattr(template.type, "value") else template.type,
         "pool": "practice",
+        "role": template.role.value,
         "stem": loc(stem),
         "answer": {"sympy": str(answer), "accept": [str(answer)]},
         "solution_steps": [loc(step) for step in steps],

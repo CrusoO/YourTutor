@@ -70,6 +70,7 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
         difficulty=float(row.difficulty),
         pool=row.pool,
         status=row.status,
+        role=row.role or "procedure",
         type=row.type,
         answer_sympy=str(answer.get("sympy") or "0"),
         accept=tuple(str(v) for v in answer.get("accept") or []),
