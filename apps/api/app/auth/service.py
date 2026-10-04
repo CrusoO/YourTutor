@@ -397,9 +397,7 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
     if user is None:
         raise HTTPException(status_code=404, detail="user not found")
     students = session.scalars(select(StudentRow).where(StudentRow.parent_id == parent_id)).all()
-    consents = session.scalars(
-        select(ConsentRow).where(ConsentRow.parent_id == parent_id)
-    ).all()
+    consents = session.scalars(select(ConsentRow).where(ConsentRow.parent_id == parent_id)).all()
     return {
         "user": {"id": str(user.id), "email": user.email, "role": user.role, "locale": user.locale},
         "students": [
@@ -690,9 +688,7 @@ def actor_from_checkpoint_cookie(session: Session, raw: str | None) -> Actor | N
     )
 
 
-def load_checkpoint_form(
-    session: Session, actor: Actor, checkpoint_id: str, form: str
-) -> dict:
+def load_checkpoint_form(session: Session, actor: Actor, checkpoint_id: str, form: str) -> dict:
     if actor.is_comparison:
         require(actor.checkpoint_id == checkpoint_id and actor.checkpoint_form == form)
         payload = form_payload(session, checkpoint_id, form)
@@ -898,4 +894,3 @@ def login_card_html(first_name: str, family_code: str, pin: str) -> str:
   <p class="muted">Keep this card. Do not write a surname or address on it.</p>
 </div>
 </body></html>"""
-

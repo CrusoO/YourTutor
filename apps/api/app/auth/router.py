@@ -282,5 +282,3 @@ def stuck(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]
 @router.get("/teacher/review-queue")
 def review_queue(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.review_queue(db, actor)
-
-

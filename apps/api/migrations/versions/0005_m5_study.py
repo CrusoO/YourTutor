@@ -25,11 +25,21 @@ def upgrade() -> None:
         op.create_table(
             "study_participants",
             sa.Column("id", sa.Uuid(), primary_key=True),
-            sa.Column("student_id", sa.Uuid(), sa.ForeignKey("students.id", ondelete="SET NULL"), nullable=True),
+            sa.Column(
+                "student_id",
+                sa.Uuid(),
+                sa.ForeignKey("students.id", ondelete="SET NULL"),
+                nullable=True,
+            ),
             sa.Column("site_id", sa.String(), nullable=False),
             sa.Column("pseudonymous_code", sa.String(), nullable=False, unique=True),
             sa.Column("group", sa.String(), nullable=False),
-            sa.Column("consent_id", sa.Uuid(), sa.ForeignKey("consents.id", ondelete="SET NULL"), nullable=True),
+            sa.Column(
+                "consent_id",
+                sa.Uuid(),
+                sa.ForeignKey("consents.id", ondelete="SET NULL"),
+                nullable=True,
+            ),
             sa.Column("assigned_at", sa.DateTime(timezone=True), nullable=False),
             sa.Column("assignment_method", sa.String(), nullable=False),
             sa.Column("assignment_seed", sa.String(), nullable=False),
@@ -40,7 +50,12 @@ def upgrade() -> None:
         op.create_table(
             "checkpoint_results",
             sa.Column("id", sa.Uuid(), primary_key=True),
-            sa.Column("student_id", sa.Uuid(), sa.ForeignKey("students.id", ondelete="SET NULL"), nullable=True),
+            sa.Column(
+                "student_id",
+                sa.Uuid(),
+                sa.ForeignKey("students.id", ondelete="SET NULL"),
+                nullable=True,
+            ),
             sa.Column(
                 "participant_id",
                 sa.Uuid(),

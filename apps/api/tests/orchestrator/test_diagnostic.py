@@ -140,7 +140,9 @@ def test_diagnostic_caps_at_sixteen_items() -> None:
     policy(learner, session, None)
     steps = 0
     while session.phase != "ended" and steps < 30:
-        policy(learner, session, Event(type="answer", response="99", item_id=session.current_item_id))
+        policy(
+            learner, session, Event(type="answer", response="99", item_id=session.current_item_id)
+        )
         steps += 1
     assert session.items_completed <= 16
     assert session.ended_reason == "diagnostic_complete"

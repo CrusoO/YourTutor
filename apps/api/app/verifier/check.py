@@ -125,6 +125,4 @@ def _verify_spec(text: str, expected: str, verify: str | dict[str, Any]) -> bool
     if not expr:
         return False
     solved = solve_extracted(str(expr), unknown=verify.get("unknown"))
-    return expressions_equivalent(str(solved), expected) and expressions_equivalent(
-        text, expected
-    )
+    return expressions_equivalent(str(solved), expected) and expressions_equivalent(text, expected)

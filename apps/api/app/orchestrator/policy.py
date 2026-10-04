@@ -54,7 +54,9 @@ def _policy(
             reason = "hard_cap" if _hard_cap(session) else "soft_cap"
             return _annotate(_end(session, reason, resumable=False), session, before, last_event)
     if session.consent_revoked or (last_event and last_event.type == "consent_revoked"):
-        return _annotate(_end(session, "consent_revoked", resumable=False), session, before, last_event)
+        return _annotate(
+            _end(session, "consent_revoked", resumable=False), session, before, last_event
+        )
     if last_event and last_event.type == "resume":
         session.phase = "practice" if session.current_item_id else "start"
         session.ended_reason = None
@@ -214,9 +216,7 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     if session.session_type != "diagnostic":
         _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
     if session.session_type == "diagnostic":
-        record_answer(
-            session, item, correct=correct, dont_know=is_dont_know(event.response)
-        )
+        record_answer(session, item, correct=correct, dont_know=is_dont_know(event.response))
         return _diagnostic(learner, session, None)
     if session.session_type == "checkpoint":
         session.checkpoint_answers.append(
@@ -491,9 +491,7 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     return target
 
 
-def _content_gap(
-    learner: LearnerState, session: SessionState, skill: str, tier: str
-) -> Action:
+def _content_gap(learner: LearnerState, session: SessionState, skill: str, tier: str) -> Action:
     seen = [item_id for item_id in session.shown_item_ids]
     gap = {"skill": skill, "tier": tier, "item_ids_seen": seen}
     session.content_gaps.append(gap)
@@ -679,9 +677,7 @@ def _keep(session: SessionState, action: Action) -> Action:
     return action
 
 
-def _annotate(
-    action: Action, session: SessionState, before: str, event: Event | None
-) -> Action:
+def _annotate(action: Action, session: SessionState, before: str, event: Event | None) -> Action:
     ev = event.type if event else "start"
     action.state_before = before
     action.state_after = session.phase

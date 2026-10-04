@@ -31,9 +31,9 @@ def seed_catalog() -> tuple[CatalogItem, ...]:
                 ),
                 prediction_prompt=item.prediction_prompt.en,
                 authored_explanation=item.solution_steps[0].en if item.solution_steps else "",
-                verify=item.verify if isinstance(item.verify, str) else (
-                    item.verify.model_dump() if item.verify else None
-                ),
+                verify=item.verify
+                if isinstance(item.verify, str)
+                else (item.verify.model_dump() if item.verify else None),
                 options=tuple(o.model_dump(by_alias=True) for o in item.options),
             )
         )

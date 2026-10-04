@@ -31,9 +31,7 @@ def test_no_session_without_tutoring(client: TestClient, world: World) -> None:
     assert "tutoring" in response.json()["detail"]
 
 
-def test_consent_revoked_mid_session(
-    client: TestClient, world: World, db: Session
-) -> None:
+def test_consent_revoked_mid_session(client: TestClient, world: World, db: Session) -> None:
     started = client.post(
         "/sessions",
         json={"student_id": world.student_share_id, "type": "practice"},

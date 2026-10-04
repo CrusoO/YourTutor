@@ -6,7 +6,6 @@ from pathlib import Path
 from app.content.review import export_sheet, import_sheet
 from app.content.signatures import item_content_hash
 from app.content.validator import load_bundle, validate_path
-from tests.content.conftest import content_root  # noqa: F401
 
 
 def test_review_export_import_and_hash_reset(content_root: Path, tmp_path: Path) -> None:

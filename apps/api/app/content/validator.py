@@ -41,6 +41,8 @@ def _is_e2e_mini_skill(skill_id: str) -> bool:
 
 def _is_e2e_mini_checkpoint_forms(forms: CheckpointForms) -> bool:
     return forms.checkpoint_id.startswith("CP.E2E.") or forms.id.startswith("CP.E2E.")
+
+
 MCQ_IMBALANCE = 0.7
 HINT_SHARE = 0.25
 MIN_HINT1_PRACTICE = 3
@@ -171,9 +173,7 @@ def _persist_hash_resets(root: Path, report: ValidationReport) -> None:
     if report.bundle is None:
         return
     reset_ids = {
-        warning.split(" ", 1)[0]
-        for warning in report.warnings
-        if "reset to draft" in warning
+        warning.split(" ", 1)[0] for warning in report.warnings if "reset to draft" in warning
     }
     if not reset_ids:
         return
@@ -368,9 +368,7 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"unapproved items: {', '.join(unchecked)}"
                 )
         elif missing:
-            report.warnings.append(
-                f"{overlay.id} is not live (approved counts below threshold)"
-            )
+            report.warnings.append(f"{overlay.id} is not live (approved counts below threshold)")
 
 
 def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -470,9 +468,7 @@ def _hint_language(bundle: ContentBundle, report: ValidationReport) -> None:
         if h2 and h3:
             overlap = hint3_overlap_ratio(h2, h3)
             if overlap > HINT3_OVERLAP:
-                report.warnings.append(
-                    f"{item.id} hint 3 overlaps hint 2 by {overlap:.0%} (>70%)"
-                )
+                report.warnings.append(f"{item.id} hint 3 overlaps hint 2 by {overlap:.0%} (>70%)")
 
 
 def _language_quality(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -513,9 +509,7 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
         if tpl.status.value == "approved" and tpl.content_hash and tpl.content_hash != digest:
             tpl.status = type(tpl.status)("draft")
             tpl.reviewed_by = None
-            report.warnings.append(
-                f"{tpl.id} approved template changed; reset to draft"
-            )
+            report.warnings.append(f"{tpl.id} approved template changed; reset to draft")
     templates = {tpl.id: tpl for tpl in bundle.templates}
     for item in bundle.items:
         if not item.template_id:
@@ -575,9 +569,7 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
     for pool, stems in by_pool.items():
         for _stem, ids in stems.items():
             if len(ids) > 1:
-                report.errors.append(
-                    f"duplicate stem in {pool} pool: {', '.join(sorted(ids))}"
-                )
+                report.errors.append(f"duplicate stem in {pool} pool: {', '.join(sorted(ids))}")
     items = {i.id: i for i in bundle.items}
     for forms in bundle.checkpoint_forms:
         for src, dst in forms.match_map.items():
@@ -589,17 +581,14 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"{forms.id} matched A/B items {src} and {dst} have identical stems"
                 )
     practice_skills = {i.primary_skill for i in bundle.items if i.pool == ItemPool.practice}
-    diagnostic_skills = {
-        i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic
-    }
+    diagnostic_skills = {i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic}
     for skill_id in sorted(practice_skills):
         if _is_e2e_mini_skill(skill_id):
             continue
         count = len(by_skill_pool[(skill_id, ItemPool.practice.value)])
         if count < STEM_MIN_PRACTICE:
             report.errors.append(
-                f"{skill_id} practice has {count} distinct stems; "
-                f"minimum is {STEM_MIN_PRACTICE}"
+                f"{skill_id} practice has {count} distinct stems; minimum is {STEM_MIN_PRACTICE}"
             )
     for skill_id in sorted(diagnostic_skills):
         if _is_e2e_mini_skill(skill_id):

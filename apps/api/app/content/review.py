@@ -32,9 +32,7 @@ def export_sheet(root: Path, csv_path: Path, html_path: Path) -> int:
     rows = [_row(item) for item in report.bundle.items]
     for template in report.bundle.templates:
         samples = sample_instances(template, seed=1, n=10)
-        sample_text = " || ".join(
-            f"{item.stem.en} → {item.answer.sympy}" for item in samples
-        )
+        sample_text = " || ".join(f"{item.stem.en} → {item.answer.sympy}" for item in samples)
         rows.append(
             {
                 "item_id": template.id,

@@ -107,7 +107,9 @@ def test_reload_without_skill_retires_and_keeps_mastery(content_root: Path, tmp_
         assert mastery.p_known == 0.4
 
 
-def test_retired_items_excluded_from_selection_and_similar(content_root: Path, tmp_path: Path) -> None:
+def test_retired_items_excluded_from_selection_and_similar(
+    content_root: Path, tmp_path: Path
+) -> None:
     url = f"sqlite:///{tmp_path / 'sel.db'}"
     load_path(content_root, database_url=url)
     factory = session_factory(url)

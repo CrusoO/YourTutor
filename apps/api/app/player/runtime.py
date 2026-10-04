@@ -61,7 +61,9 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
     steps = tuple(str((step or {}).get("en") or "") for step in (row.solution_steps or []))
     rules = []
     for rule in row.misconception_rules or []:
-        rules.append((str(rule.get("id")), tuple(str(v) for v in rule.get("when_answer_equals") or [])))
+        rules.append(
+            (str(rule.get("id")), tuple(str(v) for v in rule.get("when_answer_equals") or []))
+        )
     return CatalogItem(
         id=row.id,
         skill_ids=tuple(row.skill_ids or []),
@@ -103,7 +105,9 @@ def load_learner(session: Session, student_id: uuid.UUID) -> LearnerState:
             unhinted_correct=row.unhinted_correct,
             hinted_correct=row.hinted_correct,
         )
-    for row in session.scalars(select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)).all():
+    for row in session.scalars(
+        select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)
+    ).all():
         state.cards[row.skill_id] = ReviewCard(
             skill_id=row.skill_id,
             due_at=as_utc(row.due_at),
@@ -149,7 +153,9 @@ def _overlay_skills(session: Session, student: StudentRow) -> tuple[str, ...]:
     return tuple(first.skill_ids or ()) if first else ()
 
 
-def _bkt_and_prereqs(session: Session, skill_ids: tuple[str, ...]) -> tuple[dict[str, BktParams], dict[str, tuple[str, ...]]]:
+def _bkt_and_prereqs(
+    session: Session, skill_ids: tuple[str, ...]
+) -> tuple[dict[str, BktParams], dict[str, tuple[str, ...]]]:
     params: dict[str, BktParams] = {}
     prereqs: dict[str, tuple[str, ...]] = {}
     rows = session.scalars(select(SkillRow)).all()
@@ -347,7 +353,9 @@ def load_state(
     )
 
 
-def _build_state(session: Session, row: SessionRow, student: StudentRow) -> tuple[SessionState, LearnerState]:
+def _build_state(
+    session: Session, row: SessionRow, student: StudentRow
+) -> tuple[SessionState, LearnerState]:
     scopes = active_scopes(session, student.id)
     skills = _overlay_skills(session, student)
     params, prereqs = _bkt_and_prereqs(session, skills)
@@ -396,7 +404,9 @@ def _persist_state(row: SessionRow, state: SessionState) -> None:
         row.resumable = False
 
 
-def _item_payload(row: ItemRow | None, locale: str, *, reveal: bool, steps: bool) -> dict[str, Any] | None:
+def _item_payload(
+    row: ItemRow | None, locale: str, *, reveal: bool, steps: bool
+) -> dict[str, Any] | None:
     if row is None:
         return None
     payload = {
@@ -434,12 +444,17 @@ def enrich_action(
     if item_row is None and state.current_item_id:
         item_row = session.get(ItemRow, state.current_item_id)
     reveal = action.type in {"reveal_solution", "explain_back_result"}
-    steps = action.type in {"worked_example", "reveal_solution", "explain_back_prompt", "explain_back_result"}
+    steps = action.type in {
+        "worked_example",
+        "reveal_solution",
+        "explain_back_prompt",
+        "explain_back_result",
+    }
     extras = dict(action.extras or {})
-    assessment = bool(extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"})
-    can_request_hint, can_show_solution = hint_solution_flags(
-        state, action, assessment=assessment
+    assessment = bool(
+        extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"}
     )
+    can_request_hint, can_show_solution = hint_solution_flags(state, action, assessment=assessment)
     payload = {
         "type": action.type,
         "item_id": action.item_id or state.current_item_id,
@@ -523,7 +538,11 @@ def apply_player_event(
         return {
             "session_id": str(row.id),
             "duplicate": False,
-            "action": {"type": "end_session", "reason": "consent_revoked", "ended_reason": "consent_revoked"},
+            "action": {
+                "type": "end_session",
+                "reason": "consent_revoked",
+                "ended_reason": "consent_revoked",
+            },
             "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
             "llm_called": False,
         }
@@ -592,7 +611,9 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
-        select(SessionRow).where(SessionRow.student_id == student.id, SessionRow.started_at >= start_utc)
+        select(SessionRow).where(
+            SessionRow.student_id == student.id, SessionRow.started_at >= start_utc
+        )
     ).all()
     used = sum(row.active_ms for row in rows)
     remaining = max(0, int((GOAL_MS - used) / 60000))

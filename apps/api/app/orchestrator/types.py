@@ -128,13 +128,15 @@ class SessionState:
     last_wrong_response: str | None = None
     blocked_skills: set[str] = field(default_factory=set)
     content_gaps: list[dict[str, Any]] = field(default_factory=list)
-    bkt_memory: dict = field(default_factory=lambda: {
-        "bkt_done": set(),
-        "hinted": set(),
-        "first_wrong": set(),
-        "session_unhinted": defaultdict(lambda: defaultdict(lambda: [0, 0])),
-        "warmup_skills": set(),
-    })
+    bkt_memory: dict = field(
+        default_factory=lambda: {
+            "bkt_done": set(),
+            "hinted": set(),
+            "first_wrong": set(),
+            "session_unhinted": defaultdict(lambda: defaultdict(lambda: [0, 0])),
+            "warmup_skills": set(),
+        }
+    )
 
     def item(self, item_id: str | None = None) -> CatalogItem | None:
         target = item_id or self.current_item_id

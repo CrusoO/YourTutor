@@ -352,7 +352,10 @@ def _stem(index: int) -> str:
 
 def test_language_helpers() -> None:
     errors, _ = lint_item_texts(
-        stem="A traveller walks some distance and then cycles 9 km. The whole trip is 16. How many kilometres did they walk?",
+        stem=(
+            "A traveller walks some distance and then cycles 9 km. The whole trip is 16. How many "
+            "kilometres did they walk?"
+        ),
         hints=["Let x be the kilometres walked."],
     )
     assert any("unit is missing" in e for e in errors)
@@ -382,7 +385,10 @@ def test_word_total_requires_unit(content_root: Path) -> None:
     data = minimal_item(
         "ITEM.WORD.UNIT",
         skill="MATH.ALG.LIN1.WORD_PROBLEMS",
-        stem="A notebook costs 8 rupees more than a pen. Together they cost 30. How many rupees is the pen?",
+        stem=(
+            "A notebook costs 8 rupees more than a pen. Together they cost 30. How many rupees is "
+            "the pen?"
+        ),
         answer="11",
         last_step="x = 11",
         hint1="Let x be the cost of the pen in rupees.",

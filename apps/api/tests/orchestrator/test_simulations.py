@@ -34,7 +34,9 @@ def _event(persona: str, action, session, rng: random.Random, step: int) -> Even
         return Event(type="predict_response", text="guess", latency_ms=latency)
     if action.type in {"worked_example", "reveal_solution", "explain_back_prompt", "similar_item"}:
         if action.type == "similar_item":
-            return Event(type="answer", response=_next_answer(persona, session, rng), latency_ms=latency)
+            return Event(
+                type="answer", response=_next_answer(persona, session, rng), latency_ms=latency
+            )
         return Event(type="continue", latency_ms=latency)
     if persona == "hint_spam":
         return Event(type="request_hint", latency_ms=latency)
@@ -96,7 +98,9 @@ def test_scripted_students_on_seed(persona: str, seed: int) -> None:
             shown2 = True
         if shown2 and event.type == "answer":
             hint2_attempt = True
-        if action.type == "reveal_solution" and not (shown2 and (hint2_attempt or event.type == "show_solution")):
+        if action.type == "reveal_solution" and not (
+            shown2 and (hint2_attempt or event.type == "show_solution")
+        ):
             if event.type == "show_solution" and shown2:
                 continue
             if event.type == "answer" and shown2:

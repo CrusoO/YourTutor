@@ -28,9 +28,9 @@ def item_content_hash(item: Item) -> str:
         "answer": item.answer.sympy,
         "hints": [(h.level, h.en) for h in item.hints],
         "steps": [s.en for s in item.solution_steps],
-        "verify": item.verify if isinstance(item.verify, str) else (
-            item.verify.model_dump() if item.verify else None
-        ),
+        "verify": item.verify
+        if isinstance(item.verify, str)
+        else (item.verify.model_dump() if item.verify else None),
         "options": [o.id for o in item.options],
     }
     blob = json.dumps(payload, sort_keys=True, default=str)

@@ -48,6 +48,7 @@ def load_path(
     prune: bool = False,
 ) -> ValidationReport:
     from app.content.bundle_merge import load_content_bundle
+
     try:
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
@@ -97,9 +98,9 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 type=item.type.value,
                 pool=item.pool.value,
                 stem=item.stem.as_dict(),
-                verify=item.verify if isinstance(item.verify, str) else (
-                    item.verify.model_dump() if item.verify else None
-                ),
+                verify=item.verify
+                if isinstance(item.verify, str)
+                else (item.verify.model_dump() if item.verify else None),
                 options=[o.model_dump(by_alias=True) for o in item.options],
                 answer=item.answer.model_dump(),
                 solution_steps=[s.as_dict() for s in item.solution_steps],

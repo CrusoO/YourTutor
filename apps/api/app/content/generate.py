@@ -26,6 +26,7 @@ AS = "<Assamese — to be filled by reviewer>"
 def loc(en: str) -> dict[str, str]:
     return {"en": en, "ne": NE, "as": AS}
 
+
 _IDENT = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\b")
 PRACTICE_PER_SKILL = 20
 MIN_PER_TIER = 5
@@ -284,11 +285,14 @@ def generate_instances(
                 need_tier = counts[tier] < TIER_TARGETS[tier]
                 remaining = per_skill - sum(counts.values())
                 missing_hard = [
-                    name
-                    for name, want in TIER_TARGETS.items()
-                    if counts[name] < MIN_PER_TIER
+                    name for name, want in TIER_TARGETS.items() if counts[name] < MIN_PER_TIER
                 ]
-                if not need_tier and missing_hard and tier not in missing_hard and remaining <= len(missing_hard):
+                if (
+                    not need_tier
+                    and missing_hard
+                    and tier not in missing_hard
+                    and remaining <= len(missing_hard)
+                ):
                     index += 1
                     continue
                 item = instantiate(template, params, seed=seed, index=index)
@@ -299,9 +303,10 @@ def generate_instances(
             if key in seen:
                 index += 1
                 continue
-            if counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)] and sum(
-                counts.values()
-            ) < per_skill:
+            if (
+                counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)]
+                and sum(counts.values()) < per_skill
+            ):
                 if all(counts[name] >= MIN_PER_TIER for name in TIER_TARGETS):
                     pass
                 elif counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)]:
