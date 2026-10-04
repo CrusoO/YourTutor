@@ -1,34 +1,41 @@
-# ARCHITECTURE — Pedagogy-First AI Tutor
+# ARCHITECTURE — Pedagogy-First AI Tutor (v2)
 
-The orchestrator decides pedagogy. The LLM only phrases. Correctness, next skill, and answer reveal are never delegated to a model.
+The orchestrator decides pedagogy. The textbook decides content. The LLM only phrases. Correctness, next skill, mastery, and answer reveal are never delegated to a model.
+
+v2 is region-neutral: curricula, languages, time zones, legal rules and hosting region are configuration, not code. v1 behaviour that is already built (M0–M5.5) is preserved unless a section says otherwise; changes are marked **[v2]**.
 
 ---
 
 ## 0. Design sources
 
-| Decides | Source of truth | Section |
-|---------|-----------------|---------|
-| How the tutor behaves (tone, escalation, ask-before-tell) | **`docs/TUTOR_CONSTITUTION.md`** | — |
-| WHAT is taught | Approved content + curriculum context | §17 |
-| HOW it is taught (transitions, guardrails) | Deterministic `policy()` + rule ids | §8–§10 |
-| HOW it is personalised | Learner model (BKT, FSRS, mastery) | §11 |
-| HOW it is worded | LLM gateway + grade-band style | §14 |
-| WHETHER it is correct | Verifier | §13 |
 
-If code and the constitution disagree, track the gap in PLAN.md until fixed.
+| Decides                | Source of truth                                                                   | Section |
+| ---------------------- | --------------------------------------------------------------------------------- | ------- |
+| WHAT is taught         | Curriculum registry + approved content (skills, items, lessons, passages)         | §6, §17 |
+| HOW it is taught       | Deterministic policy built from learning-science rules (tutor constitution)       | §8–§10  |
+| HOW it is personalised | Student model: mastery ladder, misconceptions, prerequisite gaps, review schedule | §11     |
+| HOW it is worded       | LLM phrasing layer, constrained by an instruction object and post-checks          | §14     |
+| WHETHER it is correct  | Verifier (allowlist parser + SymPy / exact / MCQ / widget goal predicates)        | §13     |
+| How the tutor behaves (tone, escalation, ask-before-tell) | **`docs/TUTOR_CONSTITUTION.md`** | §8–§10, §14 |
+
 
 ---
 
 ## 1. Principles
 
-1. **Deterministic teaching engine.** `policy(learner, session, last_event) → action` is pure and unit-tested.
-2. **LLM is a phrasing layer.** It receives a narrow instruction object (purpose, item, hint level, language, forbidden answer, authored steps). It never chooses the next skill or scores an answer.
-3. **Verified truth only.** The allowlist parser + SymPy / exact match / MCQ decide correctness. LLM explanations are grounded in authored solution steps. Explain-back grades are **formative only**.
-4. **Same guardrails online and offline.** Shared JSON fixtures in `packages/shared/fixtures/` are contract tests for the Python orchestrator and the TypeScript offline player.
-5. **Children's data.** Parent consent required (scoped). No PII in LLM prompts or `llm_calls`. Pseudonymised analytics. Parent export and delete are first-class APIs.
-6. **Works without an API key.** Authored hints, solutions, and encouragement copy are always sufficient.
-7. **Approved content in production.** Runtime serves `status=approved` only, unless `ALLOW_DRAFT_CONTENT=true` (dev/demo). A chapter cannot go live unless every skill meets the item thresholds in §16.
-8. **Locale fallback.** Missing or placeholder translations fall back to English. Never show empty fields or unreviewed machine translations.
+1. **Deterministic teaching engine.** `policy(learner, session, last_event) → action` is pure and unit-tested. No I/O inside it.
+2. **LLM is a phrasing layer.** It receives a narrow instruction object. It never chooses the next skill, scores an answer, or decides when to reveal.
+3. **Verified truth only.** Correctness comes from the verifier. Explanations are grounded in authored steps or cited passages. Explain-back grades are formative only.
+4. **Ask before telling. [v2]** The default response to a wrong or stuck student is a diagnostic move (a structured "where are you stuck?" choice or a targeted question), not an explanation.
+5. **Smallest sufficient help. [v2]** Help escalates one level at a time: orient → strategy → step → worked parallel example → reveal + similar item.
+6. **Correct ≠ mastered. [v2]** Mastery is a ladder (§11.2). A skill only reaches *Solid* after delayed recall.
+7. **Grounded or silent. [v2]** In Study Mode every factual statement cites a passage in the selected book/section, or the tutor says it is outside the material.
+8. **Same guardrails online and offline.** Shared JSON fixtures are contract tests for the Python orchestrator and the TypeScript offline player.
+9. **Children's data minimal by default.** No PII in LLM prompts or `llm_calls`. Legal requirements come from a jurisdiction profile (§19), not hard-coded rules.
+10. **Works without an API key.** Authored hints, solutions, lesson scenes and encouragement copy are always sufficient.
+11. **Approved content only in production.** Runtime serves `status=approved` unless `ALLOW_DRAFT_CONTENT=true`. A chapter goes live only when §17.4 thresholds pass.
+12. **Locale fallback.** Missing or placeholder translations fall back along the locale's fallback chain to the default locale. Never show empty fields or unreviewed machine translation.
+13. **Region-neutral. [v2]** No country, board, language or time zone appears in code as an enum or constant. All are registry data.
 
 ---
 
@@ -37,31 +44,46 @@ If code and the constitution disagree, track the gap in PLAN.md until fixed.
 ```mermaid
 flowchart LR
   subgraph clients [Clients]
-    PWA[Next.js_PWA]
+    PWA[Next.js PWA]
+    OFF[Offline player TS]
   end
   subgraph api [apps/api]
-    Auth[auth]
-    Orch[orchestrator]
+    Auth[auth + accounts]
+    Cur[curriculum registry]
+    Orch[orchestrator policy]
+    Diag[diagnosis engine]
     Ver[verifier]
-    Learn[learner_BKT_FSRS]
-    LLM[llm_gateway]
-    Content[content_loader]
-    Jobs[RQ_workers]
+    Learn[learner model]
+    Ground[grounding / study mode]
+    LLM[llm gateway]
+    Content[content pipeline]
+    Res[research module - optional]
+    Jobs[RQ workers]
   end
   PWA --> Auth
   PWA --> Orch
+  OFF -. sync .-> Orch
+  Orch --> Diag
   Orch --> Ver
   Orch --> Learn
+  Orch --> Ground
   Orch --> LLM
+  Ground --> LLM
   LLM --> Ver
-  Content --> PG[(PostgreSQL)]
+  Content --> PG[(PostgreSQL + pgvector)]
+  Cur --> PG
   Orch --> PG
   Learn --> PG
+  Ground --> PG
   Jobs --> Redis[(Redis)]
   Jobs --> PG
+  Res --> PG
+
 ```
 
-**Hosting later:** AWS or GCP Mumbai (Indian data residency). Not part of MVP.
+
+
+Hosting region is a deployment setting chosen by the jurisdiction profile's data-residency rule (§19). Not part of MVP.
 
 ---
 
@@ -75,52 +97,129 @@ flowchart LR
 ├─ .env.example
 ├─ .gitattributes
 ├─ apps/
-│  ├─ api/          FastAPI, orchestrator, verifier, learner, LLM gateway
-│  └─ web/          Next.js App Router, PWA, parent/student/teacher
-├─ config/          Locale registry, grade bands, jurisdiction profiles (quiet hours, notation)
-├─ content/         YAML skills, items, misconceptions, overlays, glossary, curricula/
-└─ packages/shared/ Generated OpenAPI TS types, locale registry JSON, contract fixtures
+│  ├─ api/            FastAPI: orchestrator, diagnosis, verifier, learner, grounding, LLM gateway
+│  └─ web/            Next.js App Router PWA: student, parent, teacher, admin
+├─ config/            [v2] locales.yaml, grade_bands.yaml, notation_profiles.yaml, jurisdictions/*.yaml (G0)
+├─ content/
+│  ├─ curricula/      [v2] <curriculum_id>/curriculum.yaml → books → chapters (G0; sections later)
+│  ├─ skills/  items/  misconceptions/  glossary/  templates/
+│  ├─ lessons/        [v2] lesson beats, whiteboard scene scripts, widget specs
+│  └─ passages/       [v2] grounded source text with provenance + licence
+├─ evals/             LLM, grounding, pedagogy and language eval suites
+└─ packages/shared/   OpenAPI TS types, contract fixtures, widget + scene schemas, generated/locales.json (G0)
+
 ```
 
-Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis + RQ, Next.js + TypeScript + Tailwind, LiteLLM, SymPy, `fsrs` / `ts-fsrs`.
+Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis + RQ, Next.js + TypeScript + Tailwind, `lib/messages.ts` for UI strings (no next-intl; see below), LiteLLM, SymPy, fsrs / ts-fsrs.
 
-**Web i18n (G0):** UI copy lives in `apps/web/lib/messages.ts`. Supported locale codes and fallback chains come from `config/locales.yaml`, emitted to `packages/shared/generated/locales.json` at build/CI. No `next-intl` in the MVP stack.
+
+### 3.1 As built in G0 **[v2]**
+
+- **Config loaders** live in `apps/api/app/registries/` (`loaders.py`, `locale_resolve.py`, `timezone.py`, `quiet_hours.py`, `context.py`, `student_setup.py`, `seed_db.py`). Loaders are pure functions over `config/` and `content/curricula/`; policy code never does I/O.
+- **Web i18n:** the web app keeps `apps/web/lib/messages.ts`. The locale list and fallback chains come from `config/locales.yaml`, exported by `apps/api/scripts/generate_web_locales.py` to `packages/shared/generated/locales.json`. Missing or placeholder strings fall back along the chain, ending at English; empty strings are never shown. `next-intl` is **not** used; revisit in G5.
+- **Curricula** are one registry entry per curriculum under `content/curricula/<id>/curriculum.yaml` (`id`, `default_timezone`, `jurisdiction_profile`, optional `legacy_board`, `books[]` → `chapters[]` with `overlay_id` and `chapter_key`). `sample_board` is generic; the two pilot curricula are separate entries and are not merged into it.
+- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters) and `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys). Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
+- **Region guard:** `apps/api/scripts/check_region_literals.py` fails CI on curriculum, board or time-zone literals outside `config/`, `content/`, `migrations/` and `tests/`.
 
 ---
 
 ## 4. Components
 
-| Component | Responsibility |
-|---|---|
-| `auth/` | OTP via `OtpSender` interface (email now; phone/WhatsApp later); PIN lockout; consent scopes; parent export/delete |
-| `content/` | YAML schema, validator, loader, approved-only + live-chapter gate, locale fallback |
-| `learner/` | BKT (one update per item), FSRS, mastery service; server recomputes from events on sync |
-| `orchestrator/` | States, policy, guardrails, engine (pure) |
-| `verifier/` | Allowlist parser (never raw `sympify`), math check, hint leak check (levels 1–2) |
-| `llm/` | LiteLLM gateway, versioned prompts, safety, PII strip |
-| `sessions/` | Start/resume/event/end; active-time clock; idle auto-end |
-| `diagnostics/` | Placement diagnostic; seeds mastery on completion |
-| `checkpoints/` | Matched forms A/B; score never updates mastery/FSRS; comparison-group link/print |
-| `reports/` | Weekly parent job; email sender; WhatsApp stub |
-| `teacher/` | Heatmap, stuck-now, review queue (only `teacher_share` students) |
-| `analytics/` | Pseudonymised CSV export (requires `research_pseudonymised`) |
-| Web offline store | IndexedDB packs (offline-verifiable items only), TS BKT + ts-fsrs, event queue |
+
+| Component                             | Responsibility                                                                                                                     |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `auth/`                               | OTP via `OtpSender`; PIN lockout; account modes (guest / family / school); consent scopes per jurisdiction profile; export/delete  |
+| `curriculum/` **[v2]**                | Registry of curricula, grades, subjects, books (edition, medium, licence), chapters, sections, page ranges; context key resolution |
+| `content/`                            | YAML schemas, validator, loader, approval gate, live-chapter gate, locale fallback, templates generator                            |
+| `learner/`                            | BKT (one update per item), FSRS, mastery ladder, misconception history, prerequisite gaps; recompute from events                   |
+| `diagnosis/` **[v2]**                 | Classifies each failure: slip, misconception, prerequisite gap, incomplete procedure, misread, disengagement, wheel-spinning       |
+| `orchestrator/`                       | States, pure policy, guardrails, engine, transition table with rule ids                                                            |
+| `verifier/`                           | Allowlist parser (never raw `sympify`), math check, MCQ/accept lists, widget goal predicates, hint-leak check                      |
+| `lessons/` **[v2]**                   | Lesson beats, whiteboard scene scripts, interactive widget specs; server-side re-check of widget results                           |
+| `grounding/` **[v2]**                 | Passage store, scoped retrieval, relevance gate, citation verification, out-of-scope handling, `content_gap` logging               |
+| `llm/`                                | LiteLLM gateway, versioned prompts, style profile per grade band, safety, PII strip, post-checks                                   |
+| `sessions/`                           | Start/resume/event/end; active-time clock; idle auto-end                                                                           |
+| `diagnostics/`                        | Placement warm-up (optional, never forced); seeds mastery                                                                          |
+| `reports/`                            | Weekly guardian report; channel senders                                                                                            |
+| `teacher/`                            | Heatmap, stuck-now, wheel-spinning alerts, review queue (consented students only)                                                  |
+| `research/` **[v2: optional module]** | Checkpoint forms, study participants, comparison tokens, pseudonymised export. Disabled unless `RESEARCH_MODULE=on`                |
+| Web offline store                     | IndexedDB packs (offline-verifiable items, lessons, widgets), TS policy + BKT + ts-fsrs, event queue                               |
+
 
 ---
 
-## 5. Session modes
+## 5. Product surfaces (student)
 
-| Mode | Hints | Reveal | LLM | Mastery / FSRS | Item pool |
-|---|---|---|---|---|---|
-| `practice` | Levels 1–2 after wrong or 60 s | After the attempt **following hint 2** is wrong, or `show_solution` after 2 hints. Hint 3 is the `reveal_solution` lead-in only | Phrasing only (if `ai_processing`) | One BKT update per item (first answer or first hint request) | `practice` only |
-| `diagnostic` | No | No | No | **On completion**, seed initial `p_known` per skill from results | `diagnostic` only |
-| `checkpoint` | No | No | No | **Never** — scoring does not update mastery or FSRS | form A or B from `checkpoint_forms` |
+```
+Welcome (no data entry beyond context)
+   → Pick context: curriculum → grade → subject → (book/medium if the curriculum has several)
+   → First run: "Quick warm-up to find where to start" | "Start from the beginning"  (nothing automatic)
+   → Subject → Chapter map → Chapter page (skill path) → Study session → Done + progress
 
-Checkpoint items are never in teaching, practice selection, or offline packs. Diagnostic and checkpoint are **separate session types** (see §6.3).
+```
+
+- **Chapter map.** Status per chapter derived from mastery (§11.3): Not started, Learning, Can do it, Solid, Review due. Exactly one chapter is *recommended*. Non-live chapters show *Coming soon* and cannot start (server-enforced). No hard locks between live chapters.
+- **Chapter page.** Skill path with per-skill status. Skills unlock visually when the previous one reaches *Can do it*; **Skip ahead** is always available and logged (§9.7).
+- **Study session.** 10–20 minutes of: warm-up retrieval → lesson beats for new skills → practice → explain-back → done.
+- **Ask (Study Mode).** **[v2]** A scoped question box tied to the current chapter/section, behind a feature flag and consent scope (§12).
 
 ---
 
-## 6. Orchestrator state machine
+## 6. Curriculum registry and context key **[v2]**
+
+Replaces the v1 `board` enum. Every session, item lookup, retrieval and LLM call is scoped by a **context key**:
+
+```json
+{
+  "curriculum_id": "sample_board",
+  "grade": 9,
+  "subject": "maths",
+  "book_id": "sample_board.maths.9.2026",
+  "medium": "en",
+  "chapter_id": "sample_board.maths.9.ch4",
+  "section_id": "sample_board.maths.9.ch4.s2"
+}
+
+```
+
+
+| Entity      | Key fields                                                                                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `curricula` | id, display names (locale map), default locale, grading conventions, notation profile (decimal separator, multiplication sign) |
+| `books`     | id, curriculum_id, grade, subject, medium, edition_year, licence_status, source_ref                                            |
+| `chapters`  | id, book_id, order, titles, live                                                                                               |
+| `sections`  | id, chapter_id, order, titles, page_start, page_end                                                                            |
+| `overlays`  | chapter_id → ordered skill_ids; section → skill mapping                                                                        |
+
+
+Rules:
+
+- A school selection is optional and only matters if it changes the book or medium. Schools are a curated list with an "Other / not listed" option; no free-text school names.
+- The overlay order defines **T**, the current chapter target (§9.4).
+- Notation profile drives rendering and the verifier's normaliser (e.g. accepting `,` as a decimal separator where the curriculum uses it).
+
+**As built in G0:** the context key is an ids-only dataclass (`curriculum_id`, `book_id`, `chapter_id`) in `app/registries/context.py`, stored on `students.context_key` and copied into the session plan; policy receives ids, never registry objects. `grade`, `subject`, `medium` and `section_id` are not in the key yet (no `sections` table or overlay `section_map` until later). Notation profiles are defined in `config/notation_profiles.yaml` (`default_ascii`, `decimal_comma`) and selected through the verifier's `notation_profile` argument.
+
+**Time zone resolution (G0):** student override → curriculum `default_timezone` → device time zone (client-sent; not yet supplied by clients, G5) → `UTC`. Implemented in `app/registries/timezone.py`; no time zone is hard-coded in code.
+
+---
+
+## 7. Session modes
+
+
+| Mode                                                        | Hints                                     | Reveal                                                                      | LLM                                | Mastery / FSRS                                                   | Pool              |
+| ----------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------- | ----------------- |
+| `practice`                                                  | Ladder levels 1–2 (+ stuck-point routing) | After the retry following hint 2 is wrong, or `show_solution` after 2 hints | Phrasing only (if `ai_processing`) | One BKT update per item; ladder evidence                         | practice          |
+| `lesson` **[v2]** (sub-mode inside practice for new skills) | Scene/widget prompts only                 | Worked example is shown by design                                           | Phrasing only                      | No BKT on lesson beats; check item counts as first practice item | lesson + practice |
+| `diagnostic`                                                | No                                        | No                                                                          | No                                 | Seeds initial `p_known` on completion                            | diagnostic        |
+| `checkpoint` (research module)                              | No                                        | No                                                                          | No                                 | Never                                                            | checkpoint forms  |
+
+
+Diagnostic is offered, never forced. Practice is never blocked behind it.
+
+---
+
+## 8. Orchestrator state machine
 
 Input: learner state + session state + last event. Output: next action. No I/O inside `policy()`.
 
@@ -128,7 +227,6 @@ Input: learner state + session state + last event. Output: next action. No I/O i
 stateDiagram-v2
   [*] --> ModeSelect
   ModeSelect --> DiagnosticItem: diagnostic
-  ModeSelect --> CheckpointItem: checkpoint
   ModeSelect --> WarmupOrSelect: practice
 
   WarmupOrSelect --> WARMUP_REVIEW: fsrs_due
@@ -136,755 +234,579 @@ stateDiagram-v2
   WARMUP_REVIEW --> SELECT_SKILL
 
   SELECT_SKILL --> END_SESSION: cap_or_idle
-  SELECT_SKILL --> PREDICT: skill_new
+  SELECT_SKILL --> LESSON: skill_new
+  SELECT_SKILL --> PREREQ_PROBE: wheel_spinning_flag
   SELECT_SKILL --> PRACTICE: skill_introduced_or_review
+  SELECT_SKILL --> CHALLENGE: skip_ahead_or_easy_streak
 
-  PREDICT --> WORKED_EXAMPLE: predict_response
+  LESSON --> PREDICT
+  PREDICT --> EXPLORE: prereqs_independent
+  PREDICT --> WORKED_EXAMPLE: novice
+  EXPLORE --> EXPLAIN_SCENE: interactive_result
+  EXPLAIN_SCENE --> WORKED_EXAMPLE: continue
   WORKED_EXAMPLE --> PRACTICE: continue
 
   PRACTICE --> UPDATE: correct
-  PRACTICE --> DIAGNOSE_MISCONCEPTION: wrong
+  PRACTICE --> DIAGNOSE: wrong
+  PRACTICE --> STUCK_POINT: request_help
   PRACTICE --> IDLE_NUDGE: idle_90s
   IDLE_NUDGE --> PRACTICE
 
-  UPDATE --> EXPLAIN_BACK: first_unhinted_or_mastery
-  UPDATE --> SELECT_SKILL: otherwise
-  EXPLAIN_BACK --> SELECT_SKILL: explain_back_or_continue
-
-  DIAGNOSE_MISCONCEPTION --> HINT
+  DIAGNOSE --> CHECK_YOUR_WORK: slip
+  DIAGNOSE --> HINT: misconception_or_generic
+  DIAGNOSE --> PREREQ_PROBE: prerequisite_gap
+  DIAGNOSE --> BREAK_OR_SWITCH: disengagement
+  CHECK_YOUR_WORK --> PRACTICE
+  STUCK_POINT --> HINT: stuck_point_choice
   HINT --> PRACTICE: retry_same_item
   PRACTICE --> REVEAL_SOLUTION: wrong_after_hint2_or_show_solution
   REVEAL_SOLUTION --> SIMILAR_ITEM: continue
   SIMILAR_ITEM --> PRACTICE
 
-  DiagnosticItem --> DiagnosticItem: next_or_continue
+  PREREQ_PROBE --> PRACTICE: prereq_ok
+  PREREQ_PROBE --> SELECT_SKILL: prereq_gap_scheduled
+
+  UPDATE --> EXPLAIN_BACK: ladder_needs_explain
+  UPDATE --> CHALLENGE: easy_streak
+  UPDATE --> SELECT_SKILL: otherwise
+  EXPLAIN_BACK --> SELECT_SKILL
+  CHALLENGE --> SELECT_SKILL
+  BREAK_OR_SWITCH --> SELECT_SKILL
+  BREAK_OR_SWITCH --> END_SESSION
+
+  DiagnosticItem --> DiagnosticItem: next
   DiagnosticItem --> END_SESSION: done_or_cap
-  CheckpointItem --> CheckpointItem: next_or_continue
-  CheckpointItem --> ScoreCheckpoint: submitted
-  ScoreCheckpoint --> END_SESSION
-```
-
-<!-- ORCH_TRANSITIONS:START -->
-```mermaid
-stateDiagram-v2
-  start --> predict: start/predict (R01)
-  start --> practice: start/show_item (R02)
-  start --> warmup: start/warmup_item (R03)
-  predict --> worked_example: predict_response/worked_example (R04)
-  worked_example --> practice: continue/show_item (R05)
-  practice --> practice: request_hint/hint (R06)
-  practice --> practice: answer/hint (R07)
-  practice --> explain_back: answer/explain_back_prompt (R08)
-  practice --> reveal: answer/reveal_solution (R09)
-  practice --> reveal: show_solution/reveal_solution (R10)
-  reveal --> practice: continue/similar_item (R11)
-  reveal --> start: continue/content_gap (R12)
-  explain_back --> practice: continue/show_item (R13)
-  explain_back --> select_skill: explain_back/explain_back_result (R14)
-  practice --> practice: idle_nudge/nudge (R15)
-  any --> ended: consent_revoked/end_session (R16)
-  any --> ended: idle/end_session (R17)
-  start --> ended: start/end_session (R18)
-  diagnostic --> diagnostic: answer/show_item (R19)
-  diagnostic --> ended: answer/end_session (R20)
-  checkpoint --> ended: answer/checkpoint_score (R21)
-  practice --> practice: show_solution/show_item (R22)
-```
-<!-- ORCH_TRANSITIONS:END -->
-
-### 6.1 Practice transitions (normative)
-
-1. **HINT → PRACTICE (retry)** after hint **level 1 or 2**. Student retries the **same item**. Hint **level 3 is never a retry hint**; it is the lead-in sentence of `reveal_solution` (then the authored solution steps).
-2. **Exactly one BKT update per item**, at the **first answer or first `request_hint`**, whichever comes first (see §8). A later hinted-correct only increments `mastery.hinted_correct`.
-3. **EXPLAIN_BACK is conditional, once per skill:** after the first **unhinted** correct on that skill, **or** when the skill reaches mastery on this update. Otherwise `UPDATE → SELECT_SKILL`. The LLM grade is formative and **does not** change mastery or FSRS. `continue` skips the text box.
-4. **PREDICT and WORKED_EXAMPLE only if the skill is new.** Client sends `predict_response` to leave PREDICT, then `continue` to leave WORKED_EXAMPLE. Introduced/review skills: `SELECT_SKILL → PRACTICE`.
-5. **Skip WARMUP_REVIEW** when no FSRS card has `due_at ≤ now`. When due, at most 3 review items, then `SELECT_SKILL`.
-6. **Session caps after every completed item** (see §7). Clock is **active time only**. Soft: 15 min active or 12 items. Hard: 20 min active — finish the current item, then `END_SESSION`. **10 min idle → auto-end**; session is **resumable**.
-7. **Unmatched wrong answers** use the generic authored hint ladder **levels 1–2**. Matched `when_answer_equals` attaches `misconception_id`.
-8. **IDLE_NUDGE** (90 s on the current item) does not change pedagogy. After **10 min** idle the session auto-ends (resumable).
-9. **Reveal** after hint 2 is shown and the student retries: if that attempt is also wrong, or they send `show_solution` after 2 hints. `reveal_solution` text = hint 3 (lead-in) + full worked solution. Then `continue` → `SIMILAR_ITEM`. Levels 1–2 never leak the answer.
-10. **`SIMILAR_ITEM`** is a **different** approved `pool: practice` item with the **same primary skill and the same difficulty tier**. Never reuse the item that was just revealed. If no other item exists in-tier, use the nearest populated tier on that skill. If still none, log a `content_gap` event (skill, tier, item ids seen), stop work on that skill for the session, and `SELECT_SKILL`.
-11. **Consent revoked mid-session:** on the **next** `POST /sessions/{id}/events` (or sync), end the session (`ended_reason=consent_revoked`). Do **not** apply further pedagogy and make **no further LLM calls**.
-
-A skill is **new** if the student has never been shown an item for it in any practice session. Warm-up review items are not "new."
-
-### 6.2 Skill selection (practice, v1 rules)
-
-**Current chapter target**
-
-- The student (or session plan) has a `chapter_id` that maps to one overlay chapter (board + grade + ordered `skill_ids`).
-- Let **T** (the current chapter target skill) be the **first skill in that overlay order** with `p_known < 0.95`. If every skill in the chapter is mastered, the session ends or the parent/teacher assigns the next chapter — do not invent a new chapter.
-- Prerequisite checks and "next skill" are relative to **T** and that same ordered list.
-
-**Policy order**
-
-1. Due FSRS reviews first (max 3, session start only — the warm-up).
-2. Else the **lowest-mastery prerequisite of T** with `p_known < 0.6`.
-3. Else **T** itself if `p_known < 0.95` (which it is, by definition of T).
-4. Never pick `pool: checkpoint` or `pool: diagnostic` in practice.
-
-**Item selection (tiers)**
-
-Authored `difficulty` is an **ordinal only** (which band an item sits in, and order within that band). It is not a probability and is not used in a predicted-success formula.
-
-1. Choose a **tier from the student's `p_known`** on the skill being practised:
-   - `p_known < 0.4` → **easy**
-   - `0.4 ≤ p_known ≤ 0.8` → **medium**
-   - `p_known > 0.8` → **hard**
-2. Map items to the same three bands using authored difficulty: `[0, 0.4)` easy, `[0.4, 0.8]` medium, `(0.8, 1]` hard.
-3. Among **eligible** items in that tier (approved, `pool: practice`, correct skill, not yet shown this session if others remain), pick the **least-recently-shown** for this student (never shown → first).
-4. If the tier is empty, fall back to the nearest populated tier (prefer the easier neighbour).
-
-**Post-pilot (do not build now):** recalibrate authored difficulty from empirical unhinted correct rates so band boundaries match observed success. Track as a PLAN.md later task.
-
-### 6.3 Diagnostic and checkpoint loops
-
-- Linear item sequence. No hint, no reveal, no LLM. Client uses `answer` and `continue`.
-- **Diagnostic:** record answers. On **completion**, seed initial `mastery.p_known` per skill (BKT batch from those first attempts).
-- **Checkpoint:** serve form A or B from `checkpoint_forms`. Score into `checkpoint_results` only. **Never** update mastery or FSRS.
-- **Comparison group:** a participant must exist in `study_participants` with `group=comparison`, a logged parental `consent_ref`, and `assignment_method` recorded (random assignment is the default and must be stored). Then a **single-form, expiring, PII-free** token may be issued. `GET /checkpoints/{id}/forms/{A|B}` with that token (or a printable view) — no tutor session, no hints, no student account. Tokens cannot be issued without the consent row.
-
----
-
-## 7. Session length
-
-The clock counts **active time only**:
 
 ```
-active_ms = sum(min(event.latency_ms, 5 * 60 * 1000))
+
+
+
+The transition table (rule ids R01…Rnn) remains the normative spec; the Mermaid markers are generated from it and CI fails on drift (v1 mechanism kept). New v2 rules are numbered from R30.
+
+### 8.1 Practice transitions (normative)
+
+Kept from v1 unchanged:
+
+- Hint levels 1–2 are retry hints and are leak-checked. Hint 3 is only the lead-in of `reveal_solution`.
+- Reveal only after the attempt following hint 2 is wrong, or `show_solution` after 2 hints. Then `continue` → `SIMILAR_ITEM` (different approved item, same primary skill and tier; nearest tier fallback; else `content_gap`).
+- Exactly one BKT update per item, at the first answer or first help request, whichever comes first.
+- Session caps checked after every completed item; idle nudge at 90 s; auto-end after 10 min idle; resumable.
+- Consent revoked mid-session ends the session on the next event; no further LLM calls.
+
+Added in v2:
+
+- **R30 Diagnose before hint.** Every wrong answer passes through `diagnosis.classify()` (§10) before an action is chosen.
+- **R31 Slip path.** If the classification is `slip`, return `check_your_work` (points to the step to recheck, no hint level consumed). A second wrong answer on the same item proceeds to the hint ladder.
+- **R32 Stuck point.** `request_help` with no prior answer returns `ask_stuck_point` (structured choice, §9.2). The student's choice selects the hint content. This counts as the item's first help request for BKT.
+- **R33 Prerequisite probe.** When diagnosis returns `prerequisite_gap` or the skill is flagged `wheel_spinning`, serve one diagnostic-style item on the lowest-mastery prerequisite. Wrong → schedule that prerequisite next (session plan), return to T later. Right → change representation for T (lesson scene or worked example) and continue.
+- **R34 Wheel-spinning stop.** No more than 3 consecutive wrong first-attempts on one skill, and no more than 10 items on a skill in a session without reaching ladder level 4. Either condition sets `wheel_spinning`, triggers R33, and raises a teacher alert (if `teacher_share`).
+- **R35 Disengagement.** Three consecutive answers faster than the item's `min_plausible_ms`, or hints opened without any attempt three times, return `break_or_switch` (offer a different activity or a short break). Never accusatory copy.
+- **R36 Frustration de-escalation.** After 2 reveals in one session, or 3 consecutive wrong items across skills, step the tier down one level for the next 2 items and prefer an item likely to succeed (a "win") before returning to the previous tier.
+- **R37 Challenge.** Three consecutive unhinted correct first attempts at the current tier → step the tier up; at the hard tier → serve a `transfer` or interleaved item (`challenge`).
+- **R38 Lesson path.** New skill → `LESSON`. If every prerequisite of the skill is at ladder ≥ 4, use problem-first order (PREDICT → EXPLORE → EXPLAIN_SCENE → WORKED_EXAMPLE). Otherwise worked-example-first (PREDICT → WORKED_EXAMPLE). Faded examples follow (§16.1).
+- **R39 Explain-back by ladder need.** Explain-back is offered when the skill lacks level-2 evidence, once per skill per session, skippable. Its LLM grade stays formative.
+- **R40 Never end on a failure.** If a cap triggers after a reveal or wrong answer, serve one short item likely to succeed before `end_session` (does not extend the hard cap by more than one item).
+
+### 8.2 What counts as "new"
+
+A skill is new if the student has never been shown a lesson beat or practice item for it. Warm-up review items are never "new".
+
+---
+
+## 9. Help, feedback and challenge design
+
+### 9.1 Hint ladder
+
+
+| Level        | Purpose                                                         | Authored field                | Leak-checked |
+| ------------ | --------------------------------------------------------------- | ----------------------------- | ------------ |
+| 1            | Orient: what is the question asking, what operation is involved | `hints[0]`                    | Yes          |
+| 2            | Strategy / next step without the result                         | `hints[1]`                    | Yes          |
+| 3            | Reveal lead-in, followed by full solution steps                 | `hints[2]` + `solution_steps` | No           |
+| After reveal | Similar item to solve independently                             | —                             | —            |
+
+
+Misconception-matched answers replace levels 1–2 with the misconception's targeted hints. Unmatched answers use the item's levels 1–2.
+
+### 9.2 Stuck-point picker **[v2]**
+
+"Ask before telling", implemented deterministically. Options shown when the student asks for help before answering:
+
+
+| Option                             | Routed to                                                                                                          |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| "I don't know how to start"        | Hint level 1                                                                                                       |
+| "I'm stuck at a step"              | Show the item's authored step list; the student taps the step → step-specific hint (`step_hints[i]`, leak-checked) |
+| "I don't understand the question"  | `hint_restate` (authored paraphrase of the stem; plain words; key terms from glossary)                             |
+| "I think my answer might be right" | Prompt to submit; if already submitted wrong, `check_your_work`                                                    |
+
+
+### 9.3 Feedback rules (enforced in copy, prompts and evals)
+
+- Feedback targets the task or process, never the person.
+- Credit correct reasoning before naming an error (`feedback.partial_credit_text` where authored).
+- Every feedback message ends with a next action.
+- Praise only after a correct answer on a hard tier or after a previous failure on the same skill; never after easy items. Praise names the strategy ("checking by substituting back"), never ability.
+- Critical feedback uses the "high standards + belief" framing in authored copy.
+
+### 9.4 Skill selection (practice)
+
+Kept from v1: T = first skill in overlay order whose ladder level < 4 (v1 used `p_known < 0.95`; v2 uses ladder level 4, which includes that condition).
+
+Policy order:
+
+1. Due FSRS reviews (max 3, session start only).
+2. Prerequisite scheduled by R33 in this session.
+3. Lowest-mastery prerequisite of T with `p_known < 0.6`.
+4. T.
+5. **[v2]** If T is at level 4–6 and nothing else qualifies: interleaved mixed item from T and earlier chapter skills (transfer evidence).
+
+Item tiers from `p_known`: < 0.4 easy, 0.4–0.8 medium, > 0.8 hard; modified by R36/R37. Authored difficulty is an ordinal band only. Least-recently-shown eligible item; nearest populated tier fallback; then `content_gap`.
+
+### 9.5 Item roles **[v2]**
+
+Each practice item declares `role` so the ladder can collect the right evidence with deterministic grading:
+
+
+| Role        | Example                                                                   | Grading                 |
+| ----------- | ------------------------------------------------------------------------- | ----------------------- |
+| `recall`    | "What do we do to both sides to keep balance?"                            | MCQ / accept list       |
+| `explain`   | "Why is step 2 valid?" (choose the reason) or "Which line has the error?" | MCQ / exact             |
+| `procedure` | Solve 3x + 2 = 14                                                         | Allowlist + SymPy       |
+| `apply`     | Word problem / competency-style item                                      | Allowlist + SymPy / MCQ |
+| `transfer`  | Unfamiliar context or mixed with another skill                            | Allowlist + SymPy / MCQ |
+
+
+### 9.6 Encouragement and tone
+
+`encourage` purpose fires only on rule triggers (hard success, recovery after failure, session end), never as filler. Authored fallback copy exists for each trigger.
+
+### 9.7 Skip ahead
+
+Always available on the skill path. Starts a short test-out: 2 unhinted correct items at hard tier including one `apply` or `transfer` → skill moves to level 4 with `evidence=test_out`. Failure returns to the normal path without penalty copy. Logged.
+
+---
+
+## 10. Diagnosis engine **[v2]**
+
+`diagnosis.classify(item, response, verifier_result, learner, session) → Diagnosis` is pure.
+
+
+| Class                  | Deterministic rule (first match wins)                                                                                                                                                        | Policy response                             |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `misconception`        | `misconception_rules` match (answer equals formula output)                                                                                                                                   | Targeted hints; record `misconception_hits` |
+| `slip`                 | Skill at ladder ≥ 4 AND first attempt on item AND (answer within an authored `slip_patterns` set, e.g. sign flip, single arithmetic error on a correct expression, or numeric distance rule) | `check_your_work` (R31)                     |
+| `prerequisite_gap`     | Answer matches a misconception whose `remedial_skill` is a prerequisite, OR the item's `prereq_signatures` match                                                                             | Prerequisite probe (R33)                    |
+| `incomplete_procedure` | Response equals an authored intermediate step value                                                                                                                                          | Hint targeting the next step                |
+| `disengagement`        | R35 conditions                                                                                                                                                                               | `break_or_switch`                           |
+| `generic`              | None of the above                                                                                                                                                                            | Standard ladder                             |
+
+
+Session-level flags computed after every item: `wheel_spinning(skill)`, `frustration_risk`, `easy_streak(skill)`.
+
+Diagnosis results are stored on the event (`payload.diagnosis`) and feed the student model (§11) and teacher views.
+
+---
+
+## 11. Learner model
+
+### 11.1 BKT and FSRS (kept)
+
+- BKT per skill (`p_init`, `p_learn`, `p_slip`, `p_guess`), primary skill only, exactly one update per item at first answer or first help request. Later hinted-correct increments `hinted_correct` only.
+- FSRS: one card per (student, skill). Warm-up outcomes update immediately; other practised skills get one rating at session end from the session's unhinted-correct rate.
+- Explain-back grades, lesson beats and checkpoint scores never update BKT or FSRS.
+- `MasteryModel` interface kept for a learned model later. Server recomputes from the canonical event log on sync.
+
+### 11.2 Mastery ladder **[v2]**
+
+
+| Level | Name                 | Evidence required (all deterministic)                                                                                     |
+| ----- | -------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| 0     | Not started          | —                                                                                                                         |
+| 1     | Understood           | Lesson completed (predict + explore/worked example) and lesson check item answered correctly (hints allowed)              |
+| 2     | Explained            | One unhinted correct `explain`-role item                                                                                  |
+| 3     | Solves with support  | Any correct `procedure` item (hinted allowed)                                                                             |
+| 4     | Solves independently | `p_known ≥ 0.95` AND 3 consecutive unhinted correct first attempts across ≥ 2 distinct stem structures (or test-out §9.7) |
+| 5     | Applies              | One unhinted correct `apply` item after level 4                                                                           |
+| 6     | Transfers            | One unhinted correct `transfer` or interleaved item after level 5                                                         |
+| 7     | Retains              | FSRS review correct with ≥ 7 days since last practice, and a second with ≥ 21 days                                        |
+
+
+Levels are monotonic except retention decay (§11.3). Levels are stored with their evidence event ids so they are auditable and recomputable.
+
+### 11.3 Student-facing status
+
+
+| Status      | Ladder                                                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Not started | 0                                                                                                                               |
+| Learning    | 1–3                                                                                                                             |
+| Can do it   | 4–6                                                                                                                             |
+| Solid       | 7                                                                                                                               |
+| Review due  | FSRS card overdue; displayed instead of Can do it / Solid until the next correct recall. An incorrect recall drops level 7 → 6. |
+
+
+Chapter status = the minimum skill status in the chapter (with *Review due* shown if any skill is due). Recommended chapter = first chapter in book order not at *Solid*. No manual completion flags exist.
+
+### 11.4 What the student model stores
+
+
+| Stored                                                    | Used for                                                              |
+| --------------------------------------------------------- | --------------------------------------------------------------------- |
+| Ladder level + evidence per skill                         | Selection, status, reports                                            |
+| `p_known`, attempts, unhinted/hinted counts               | BKT, tiers                                                            |
+| Misconception hits (id, item, time)                       | Targeted hints; one misconception addressed per session; teacher view |
+| Prerequisite gaps (from R33)                              | Session plan, warm-ups                                                |
+| FSRS state + due date                                     | Warm-up retrieval                                                     |
+| Diagnosis counts per skill (slip vs misconception vs gap) | Avoid re-teaching slips; teacher insight                              |
+| Language + reading preferences                            | Locale, read-aloud default                                            |
+| Goal / exam date (optional)                               | Pacing                                                                |
+
+
+Not stored: free-text personal details, inferred personality or "learning style". Representations that worked are logged per skill as data, not as a fixed style label.
+
+---
+
+## 12. Grounding and Study Mode **[v2]**
+
+### 12.1 Layers
+
+
+| Layer                   | What it does                                                                                                                                        | Phase                |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| A. Structured lookup    | Context key + skill/section id → approved explanation, worked example, glossary, misconception text, scene script. No search.                       | MVP (default)        |
+| B. Scoped hybrid search | Keyword + embedding search over approved passages, always filtered by the context key (book, chapter, section, medium)                              | Ask feature          |
+| C. Relevance gate       | Strong match → answer; ambiguous → clarify with choices; weak/none → `out_of_scope` + `content_gap` log. No web fallback.                           | Ask feature          |
+| D. Verification         | Numbers via verifier; each sentence must cite ≥ 1 retrieved passage id; claims without support are removed or the authored passage is shown instead | All LLM explanations |
+
+
+### 12.2 Passages
+
+`passages`: id, book_id, section_id, page, locale, text, embedding, source_type (`authored_notes` | `licensed_textbook`), licence_status, reviewer, content_hash, edition_year, status.
+
+Loader rule: content with `licence_status` not in {`owned`, `licensed`, `open_licence_compatible`} is refused. Default source is authored notes mapped to sections; textbook text is indexed only with written permission.
+
+### 12.3 Ask flow
+
+```
+student question
+ → input safety: PII strip, moderation, injection patterns; student text is data, never instructions
+ → current-item guard: if the question targets the item being practised
+       (numbers/expressions from the stem, or classifier says "solve this") → route to ask_stuck_point (hint ladder)
+ → Layer A hit? → answer from structured content
+ → else Layer B search within context key → Layer C gate
+ → answer | clarify(choices) | out_of_scope
+ → Layer D: generate with citations → verify → show with source chip
+
 ```
 
-Each event's `latency_ms` is capped at **5 minutes** before being added. Do not use heartbeats. Idle gaps (no events) are not added. Wall-clock since `last_active_at` ≥ **10 minutes** → auto-end (`ended_reason=idle`). The row stays **resumable**: `POST /sessions` with the same student + open/idle session id resumes at the last action.
+Responses always show the source: "Class 9 Maths, Ch. 4, §2, p. 62". Out-of-scope copy offers the nearest in-scope section or suggests asking a teacher.
 
-Checked **after every completed item**:
+Gated by: feature flag `ASK_ENABLED`, consent scope `ai_processing`, and jurisdiction profile (`free_text_input_allowed`). Guest mode default: off.
 
-| Cap | Rule |
-|---|---|
-| Soft | `active_ms ≥ 15 min` **or** 12 items completed → `END_SESSION` ("done for today") |
-| Hard | `active_ms ≥ 20 min` → finish the **current** item, then `END_SESSION` |
-| Idle | 10 min with no events → auto-end; student may resume |
+### 12.4 Meaning-preservation rules
 
-No endless feed. Today screen shows remaining active minutes. No ranks, no streak-loss threats.
-
----
-
-## 8. Learner model
-
-### BKT
-
-Per skill parameters from content (`p_init`, `p_learn`, `p_slip`, `p_guess`).
-
-BKT updates apply to the item's **primary skill only** (first entry of `skill_ids`). The validator requires every item to have at least one skill.
-
-**Exactly one BKT update per item**, at the first of:
-
-- first `answer`, or
-- first `request_hint`
-
-| First event on the item | Event log | BKT evidence | Later hinted-correct |
-|---|---|---|---|
-| Unhinted correct `answer` | `correct=true`, `outcome=unhinted` | Correct | n/a |
-| Wrong `answer` | `correct=false` | Incorrect | increment `mastery.hinted_correct` only — **no second BKT update** |
-| `request_hint` before any answer | `hint` | Incorrect | increment `mastery.hinted_correct` only — **no second BKT update** |
-
-Do not apply BKT again when the student later answers correctly after hints. Mastered: `p_known ≥ 0.95` **and** ≥ 3 unhinted corrects.
-
-Keep a `MasteryModel` interface so a learned model can replace BKT later.
-
-On **offline sync**, the server **recomputes** mastery (and FSRS) from the canonical event log. The client may run BKT/`ts-fsrs` locally for UX; the server log wins.
-
-### FSRS
-
-One `review_cards` row per `(student, skill)`.
-
-- **Warm-up items:** the outcome updates **that skill's** FSRS card **immediately** (Again / Hard / Good / Easy from correctness, hints used, latency).
-- **All other practised skills:** **one** FSRS rating at **session end**, derived from that session's **unhinted-correct rate** on the skill (e.g. 0 → Again, (0, 0.5] → Hard, (0.5, 0.85) → Good, ≥ 0.85 → Easy).
-- Explain-back grades and checkpoint scores do **not** update FSRS. `due_at` drives warm-up.
+- Definitions and theorem statements are quoted verbatim from the passage.
+- Simplification may shorten sentences and add labelled tutor examples ("an extra example, not from your book"), verified by code.
+- Rules, conditions, exceptions and signs may not change; an LLM meaning check compares key terms and numeric facts against the passage, and failures fall back to the passage text.
+- Apparent textbook errors are flagged to the review queue, never silently corrected.
 
 ---
 
-## 9. Verifier
+## 13. Verifier
 
-**Never call `sympify` (or equivalent) on raw student input.**
+Kept from v1: never call `sympify` on raw input; allowlist parser (digits, `.`, `+ - * / ^`, parentheses, allowed symbols); max 64 chars; 50 ms parse timeout; symbolic equivalence or numeric tolerance; MCQ exact id; accept lists; hint-leak check on levels 1–2 and step hints; malicious-input tests.
 
-1. **Normalise** (before parse): Devanagari digits `०–९` and Bengali/Assamese digits `০–৯` → ASCII `0–9`; Unicode minus (`−`, `–`) → `-`; multiplication (`×`, `·`) → `*`; collapse spaces; accept forms like `x = 5` / `x=5` as the RHS (or the whole equation vs authored `sympy`).
-2. **Allowlist parser:** only digits, `.`, `+`, `-`, `*`, `/`, `^`, parentheses, and a small set of symbols (`x`, `y`, `z` and authored variable names). Max length **64** characters after normalise. Parse timeout **50 ms**. Reject anything else (functions, `__`, letters outside the symbol set, commas as code, etc.).
-3. **Then** (on the parsed tree only) symbolic equivalence + numeric tolerance, or membership in `answer.accept`.
-4. **mcq:** exact option id.
-5. **short_text:** authored accept list. Explain-back uses an LLM rubric for **formative feedback only** — it does not decide item correctness and **never** changes mastery or FSRS.
-6. **hint_leak_check:** string match + equivalence on numbers/expressions in hint **levels 1–2** vs the forbidden answer. Level 3 is reveal lead-in and is not leak-checked as a hint. Generated leak → regenerate once → authored fallback.
-7. **Author-time:** validator requires the last `solution_steps` entry to be equivalent to `answer.sympy` (see §16).
+v2 changes:
 
-Tests must include malicious strings (`__import__`, `os.system`, very long input, nested parentheses bombs).
+- **Digit normalisation is Unicode-generic:** any character with a Unicode decimal value (`unicodedata.decimal`) maps to ASCII 0–9. No script-specific tables.
+- **Notation profile** from the curriculum (decimal comma, `×`/`·`, `÷`) is applied before parsing. Profiles live in `config/notation_profiles.yaml`; with `default_ascii` a decimal comma is a parse error, with `decimal_comma` `2,5` normalises to `2.5`.
+- **Widget goal predicates:** each widget type has a pure predicate (e.g. balance is level with one unknown isolated; graph point at x = 4). Client evaluates for UX; server re-evaluates on the submitted final state.
+- **Slip patterns** (sign flip, off-by-one operation) evaluated on the parsed tree for diagnosis, never for correctness.
 
-Offline TS verifier: **numeric, exact, and accept-list only** (same normaliser + allowlist). Items that need symbolic server-side checking are **excluded from offline packs**.
+Offline TS verifier: numeric, exact, accept-list, MCQ and widget predicates. Symbolic-only items are excluded from offline packs.
 
 ---
 
-## 10. LLM gateway
+## 14. LLM gateway
 
-One function per purpose: `personalise_hint`, `adapt_explanation`, `grade_explain_back`, `encourage`. Versioned templates in `llm/prompts/<purpose>/vN.md`. JSON-only parse, timeout, one retry, cache key `(purpose, item, misconception, level, language, prompt_version)`.
+Purposes (one function each, versioned prompts in `llm/prompts/<purpose>/vN.md`):
 
-Every call includes: authored solution steps, authored hint, misconception explanation (if any), glossary for the language, word limit, forbidden answer.
 
-Post-checks before the student sees text: schema → leak (hints 1–2) → length → moderation → language. Failure → regenerate once → authored fallback. Log to `llm_calls` (no raw PII). Sample into `review_queue` (100% first pilot week, then 20%, configurable).
+| Purpose                  | Input                                                                 | Output                                  | Notes                                                                                                       |
+| ------------------------ | --------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `personalise_hint`       | Authored hint, item, misconception, level, glossary, forbidden answer | Rephrased hint                          | Leak-checked                                                                                                |
+| `adapt_explanation`      | Authored steps or cited passages, grade band style                    | Simplified explanation with passage ids | Layer D checks                                                                                              |
+| `answer_doubt` **[v2]**  | Gated passages, question, context key                                 | Cited answer or abstain                 | Ask flow only                                                                                               |
+| `grade_explain_back`     | Student text, rubric, authored model explanation                      | Formative grade + feedback              | Never writes mastery/FSRS                                                                                   |
+| `encourage`              | Trigger type, grade band                                              | One sentence                            | Rule-triggered only                                                                                         |
+| `draft_content` **[v2]** | Section passages, skill spec                                          | Draft items / scenes for authors        | Authoring tool only; output is `status: draft` and goes through validator + teacher approval; never runtime |
 
-**`grade_explain_back` is formative only.** Persist the grade on the event payload for the teacher/parent view. It **must not** write `mastery` or `review_cards`.
 
-**Explain-back fallback** (no `ai_processing` scope, or no API key): store the student's text on the event, show the **authored model explanation**, and **give no grade**. Still no mastery/FSRS effect.
+Every runtime call includes: the core tutor rules (short constitution excerpt), grade-band style profile (§15), authored source material, glossary, word limit, forbidden answer.
 
-**No LLM calls** in diagnostic or checkpoint modes, when `ai_processing` is not granted, or when no API key is configured.
+Post-checks: schema → leak → citation/grounding → length → tone rules (no person-praise, no shaming phrases) → moderation → language. Failure → regenerate once → authored fallback. Logged to `llm_calls` (no PII). Sampled into the review queue (100% first pilot week, then configurable).
 
----
-
-## 11. Offline and contract tests
-
-Offline pack (`GET /content/packs/{overlay}/{chapter}`):
-
-- Skills + **offline-verifiable** practice items only: `type` in `numeric` | `mcq` | accept-list `short_text` (and numeric-like `expression` only if `answer.accept` is sufficient without SymPy).
-- Authored hints 1–2 and solutions.
-- **Excludes** checkpoint items, symbolic-only items, and drafts (unless `ALLOW_DRAFT_CONTENT`).
-
-The TypeScript offline player includes:
-
-- the same orchestrator policy
-- BKT (one update per item, same rules as §8)
-- `ts-fsrs` for local due dates
-
-Events queue in IndexedDB and sync via `POST /sync/events` (idempotent on `client_event_id`).
-
-**Server is the source of truth on sync:**
-
-1. Re-verify **every** `answer` from the stored `payload.response` using the allowlist verifier.
-2. **Ignore** any client-supplied `correct` flag (do not persist it; overwrite from the verifier).
-3. Recompute mastery and FSRS from the canonical event log.
-4. **Reject** (HTTP 422, nothing applied) or **flag** (`events.payload.guardrail_flag`) sequences that violate teaching guardrails — e.g. `reveal` / `show_solution` before the attempt following hint 2, hint 3 returned as a retry hint, checkpoint item in a practice session. Contract tests live in `packages/shared/fixtures/sync_guardrails/`.
-
-**Fixtures:** `packages/shared/fixtures/*.json` run in Python and TypeScript. A mismatch is a CI failure.
+No LLM calls in diagnostic/checkpoint modes, without `ai_processing`, or without an API key.
 
 ---
 
-## 12. Data model (PostgreSQL)
+## 15. Grade-band style profiles **[v2]**
 
-pgvector is enabled; not used heavily in MVP.
+`config/grade_bands.yaml` drives copy selection, LLM style instructions and session caps. Personalisation is by skill level; the band sets tone and format.
 
-### 12.1 `users`
 
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| role | enum | `parent` \| `teacher` \| `admin` |
-| email | text unique | |
-| locale | text | `en` \| `ne` \| `as` |
-| created_at | timestamptz | |
+| Setting                          | Band A (grades 1–5)           | Band B (6–8)                     | Band C (9–10)                            | Band D (11–12)         |
+| -------------------------------- | ----------------------------- | -------------------------------- | ---------------------------------------- | ---------------------- |
+| Max words per tutor message      | 25                            | 40                               | 60                                       | 80                     |
+| Sentence style                   | Very short, everyday words    | Short, terms with plain meaning  | Exact textbook terms + plain explanation | Precise, technical     |
+| Default first move for new skill | Worked example / manipulative | Worked example, explore if ready | R38 rule                                 | Problem-first if ready |
+| Session soft cap                 | 8 min / 8 items               | 12 min / 10 items                | 15 min / 12 items                        | 20 min / 15 items      |
+| Session hard cap                 | 12 min                        | 18 min                           | 20 min                                   | 30 min                 |
+| Read-aloud default               | On                            | Off                              | Off                                      | Off                    |
+| Choice offered                   | 2 options                     | Which skill first                | Goal setting                             | Plan editing           |
 
-### 12.2 `students`
 
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| parent_id | fk users | |
-| display_name | text | |
-| grade | int | |
-| board | enum | `bhutan` \| `seba` |
-| home_language | enum | `en` \| `ne` \| `as` |
-| exam_language | enum | `en` \| `ne` \| `as` |
-| exam_date | date nullable | |
-| current_chapter_id | text nullable | overlay chapter; defines T in §6.2 |
-| pin_hash | text | |
-| pin_failed_attempts | int | reset on success; lock at 5 |
-| pin_locked_until | timestamptz nullable | |
-| timezone | text | `Asia/Thimphu` or `Asia/Kolkata` |
-| created_at | timestamptz | |
-
-Defaults: Bhutan → `Asia/Thimphu`; SEBA → `Asia/Kolkata`. PIN lockout: 5 failures → `pin_locked_until` (15 minutes).
-
-### 12.3 `consents`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| student_id | fk students | |
-| parent_id | fk users | |
-| version | text | Plain-language consent version |
-| scopes | text[] | subset of `tutoring`, `teacher_share`, `research_pseudonymised`, `ai_processing` |
-| granted_at | timestamptz | |
-| revoked_at | timestamptz nullable | Active iff `revoked_at IS NULL` |
-
-`tutoring` is required to start a session. Teachers only see students whose active consent includes `teacher_share`. Analytics export requires `research_pseudonymised`. LLM phrasing requires `ai_processing`; otherwise authored fallback only.
-
-### 12.4 `classes`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| teacher_id | fk users | |
-| name | text | |
-| board | enum | |
-| created_at | timestamptz | |
-
-### 12.5 `class_memberships`
-
-| Column | Type | Notes |
-|---|---|---|
-| class_id | fk classes | composite pk |
-| student_id | fk students | composite pk |
-
-### 12.6 `skills`
-
-Mirrors YAML: id (text pk), titles JSON, grade_band, subject, bkt params, status.
-
-### 12.7 `skill_edges`
-
-| Column | Type | Notes |
-|---|---|---|
-| from_skill | fk skills | |
-| to_skill | fk skills | |
-| type | enum | `prereq` \| `related` |
-
-### 12.8 `misconceptions`
-
-id, titles JSON, explanation JSON, remedial_skill.
-
-### 12.9 `items`
-
-id, difficulty, type (`expression` \| `numeric` \| `mcq` \| `short_text`), pool (`practice` \| `diagnostic` \| `checkpoint`), stem JSON, answer JSON, solution_steps JSON, hints JSON (exactly 3 levels; 3 = reveal lead-in), prediction_prompt JSON, misconception_rules JSON, status, reviewed_by. `skill_ids` via `item_skills` (order preserved). **Primary skill** = first `skill_ids` entry; required; BKT updates that skill only.
-
-### 12.10 `item_skills`
-
-`(item_id, skill_id)` many-to-many.
-
-### 12.11 `glossary_terms`
-
-term key, language, translation. Used in every LLM prompt.
-
-### 12.12 `overlays`
-
-id, board, grade, chapter, ordered skill_ids JSON, `live` bool (set only if §16 thresholds pass).
-
-### 12.13 `mastery`
-
-| Column | Type | Notes |
-|---|---|---|
-| student_id | fk | composite pk |
-| skill_id | fk | composite pk |
-| p_known | float | |
-| attempts | int | items that triggered a BKT update |
-| unhinted_correct | int | |
-| hinted_correct | int | counter only; not a BKT update |
-| last_updated | timestamptz | |
-
-### 12.14 `review_cards`
-
-| Column | Type | Notes |
-|---|---|---|
-| student_id | fk | composite pk |
-| skill_id | fk | composite pk |
-| fsrs_state | jsonb | package state |
-| due_at | timestamptz | |
-
-### 12.15 `sessions`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| student_id | fk | |
-| started_at | timestamptz | |
-| ended_at | timestamptz nullable | |
-| ended_reason | text nullable | `soft_cap` \| `hard_cap` \| `idle` \| `complete` \| `user` |
-| resumable | bool | true after idle auto-end until a new session type starts |
-| type | enum | `practice` \| `diagnostic` \| `checkpoint` |
-| active_ms | int | active time only |
-| last_active_at | timestamptz | |
-| plan | jsonb | chapter_id, selected skills/items, caps |
-
-### 12.16 `events` (append-only)
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| client_event_id | uuid unique nullable | idempotency for sync |
-| session_id | fk | |
-| item_id | text nullable | |
-| event_type | text | see §13 |
-| payload | jsonb | see §13 |
-| correct | bool nullable | |
-| hint_level | int nullable | 1 or 2 for retry hints |
-| latency_ms | int nullable | counts toward `active_ms` |
-| created_at | timestamptz | |
-
-### 12.17 `misconception_hits`
-
-student_id, misconception_id, item_id, created_at.
-
-### 12.18 `llm_calls`
-
-id, purpose, prompt_version, model, input_tokens, output_tokens, latency_ms, cost_estimate, verification_status, leaked, fallback_used, created_at. **No raw PII or student names.**
-
-### 12.19 `review_queue`
-
-llm_call_id, status (`pending` \| `approved` \| `edited` \| `rejected`), reviewer_id, edited_text.
-
-### 12.20 `checkpoint_results`
-
-student_id, checkpoint_id, form (`A` \| `B`), score, per_skill JSON, taken_at. Scoring **does not** write mastery or FSRS.
-
-### 12.21 `reports`
-
-student_id, week_start, payload JSON, sent_via, sent_at.
-
-### 12.22 `checkpoint_forms`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid/text pk | |
-| checkpoint_id | text | chapter-level checkpoint |
-| form | enum | `A` \| `B` |
-| item_ids | jsonb | ordered held-out items |
-| match_map | jsonb | A-item id → matched B-item id (same skill, isomorphic) |
-
-Each checkpoint has **two matched forms**. Hard minimum **10** items per form (`match_map` complete). Validator **warns** below **15**. Trials should use **15–20** items per form.
-
-### 12.23 `study_participants`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| student_id | fk nullable | tutor-arm students only |
-| pseudonymous_code | text unique | no name, phone, or school |
-| group | enum | `tutor` \| `comparison` |
-| consent_ref | fk consents | **required** before any token |
-| assigned_at | timestamptz | |
-| assignment_method | text | `random` (default; must be recorded) \| `stratified` \| other documented method |
-| site_id | text | within-site randomisation; seed stored on the row |
-| assignment_seed | text | recorded RNG seed |
-| pretest_form / posttest_form | `A`/`B` | tutor arm: opposite forms; comparison: one assigned form |
-
-### 12.24 `checkpoint_tokens`
-
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid pk | |
-| participant_id | fk study_participants | `group=comparison` |
-| form | enum | `A` \| `B` — **one form only** |
-| token_hash | text | raw token never stored with PII |
-| expires_at | timestamptz | short-lived |
-| issued_at | timestamptz | |
-
-A token is issued only after `consent_ref` is logged. The token string contains no PII (random opaque id). Expired tokens cannot load a form.
+A student practising a skill far below grade gets band-appropriate tone (their age) with simpler steps (their level).
 
 ---
 
-## 13. Event API schema
+## 16. Lessons, scenes and interactives **[v2]**
 
-`POST /sessions/{id}/events`
+### 16.1 Lesson beats
 
-Requires active consent with `tutoring`. Diagnostic/checkpoint reject `request_hint`, `explain_back`, `show_solution`, and any reveal.
+Each skill has one approved lesson:
 
-### 13.1 Request
 
-```json
-{
-  "client_event_id": "550e8400-e29b-41d4-a716-446655440000",
-  "event_type": "answer",
-  "item_id": "ITEM.LIN1.0001",
-  "payload": {}
-}
+| Beat             | Content                                                         | Graded?                             |
+| ---------------- | --------------------------------------------------------------- | ----------------------------------- |
+| `predict`        | Prompt + choices or free numeric; no right/wrong shown          | No                                  |
+| `explore`        | Widget instance with a goal predicate (problem-first path only) | Predicate (formative)               |
+| `explain_scene`  | Whiteboard scene script with ≥ 1 `pause_and_ask`                | MCQ (formative)                     |
+| `worked_example` | Authored steps, revealed one at a time                          | No                                  |
+| `faded_example`  | Same structure with the last 1–2 steps left to the student      | Verifier (formative)                |
+| `check`          | One practice item                                               | Counts as first practice item (BKT) |
+
+
+### 16.2 Whiteboard scene script
+
+JSON schema in `packages/shared/schemas/scene.json`:
+
+- Canvas: logical size (e.g. 340 × 290), theme tokens.
+- Actions: `write_text`, `draw_shape`, `draw_arrow`, `highlight`, `move`, `clear_region`, `pause_and_ask`.
+- Every scene carries `skill_id` and `source_ref` (passage id or authored note id). Text comes only from approved content; numbers only from verified expressions.
+- Per-locale caption strings; optional per-locale audio track (recorded or reviewed TTS). Captions always on.
+- Size budget: ≤ 50 KB per minute excluding audio. Rendered by a small SVG/JS player, offline-cacheable.
+
+### 16.3 Widget registry
+
+`packages/shared/widgets/<type>/` holds: param schema, state schema, goal predicate (TS + Python mirror), accessibility description template, contract fixtures.
+
+Initial types: `balance_scale`, `number_line`, `function_graph`, `area_model`, `fraction_bar`. Widget events: `interactive_result { widget_id, final_state, actions_count, latency_ms }`. Server re-checks the predicate; client results are never trusted.
+
+---
+
+## 17. Content pipeline
+
+`content/` YAML → `python -m app.content.validate` → `python -m app.content.load`.
+
+### 17.1 Authoring paths
+
+1. Hand-authored YAML (diagnostic, checkpoint, misconceptions, lessons).
+2. Templates → deterministic generator (practice instances; v1 M5.5 kept).
+3. **[v2]** LLM-assisted drafts (`draft_content`) from section passages → validator → machine checks → teacher approval. Drafts can never be served in production.
+
+### 17.2 Validator (v1 rules kept, v2 additions marked)
+
+Unique ids; refs resolve; no prerequisite cycles; primary skill required; 3 hint levels; leak check on hints 1–2 and step hints; solution steps end equivalent to answer; checkpoint items not in practice; allowlist-parseable answers; hint reuse and structure diversity checks (M4.5).
+
+v2 additions: every item has `role`; every live skill has ≥ 1 `explain`, ≥ 1 `apply` and ≥ 1 `transfer` item; every lesson validates against the scene/widget schemas and references approved sources; every passage has an allowed licence; every item and scene can cite a section; curriculum references resolve.
+
+### 17.3 Provenance
+
+Every content object stores: source_type, source_ref, licence_status, author, reviewer, approved_at, content_hash, generator_version (if generated). Approval is invalidated when the hash or generator version changes.
+
+### 17.4 Live-chapter threshold
+
+
+| Rule                                          | Minimum                                                                                       |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Approved practice items per skill             | 5 (≥ 3 distinct structures, all three tiers)                                                  |
+| Item roles per skill **[v2]**                 | ≥ 1 explain, ≥ 1 apply, ≥ 1 transfer                                                          |
+| Approved lesson per skill **[v2]**            | 1                                                                                             |
+| Approved diagnostic items per skill           | 2                                                                                             |
+| Checkpoint forms (only if research module on) | A and B, ≥ 10 items each (warn < 15)                                                          |
+| Locale coverage                               | All learner-facing strings present in the medium locale (fallback allowed for UI chrome only) |
+
+
+---
+
+## 18. Accounts and modes **[v2]**
+
+
+| Mode     | Who sets it up               | Data stored                                                                        | Features                                                                                                                                                                                          |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `guest`  | Student alone                | Random id, context key, learning events. No name, email, phone, free text.         | Practice, lessons, chapter map. Ask off by default. No teacher, no research. Server data deleted after inactivity period from the jurisdiction profile (default 90 days), or device-only storage. |
+| `family` | Guardian (OTP)               | Guardian contact, student display name (nickname allowed), context, consent record | All guest features + reports, export/delete, optional Ask                                                                                                                                         |
+| `school` | Teacher/admin with site code | As family, plus class membership via `site_id`                                     | Teacher dashboards for consented students                                                                                                                                                         |
+
+
+Upgrade path: guest → family links the existing guest learner record after consent; nothing is lost.
+
+Student record fields: display_name (optional), grade, curriculum context, home_locale, medium_locale, exam_date (optional), timezone (IANA string; resolved student override → curriculum default → device → UTC, see §6), current_chapter_id, PIN hash (family/school). No school name, surname, phone or address on student records.
+
+Consent scopes (availability set by jurisdiction profile): `tutoring`, `teacher_share`, `ai_processing`, `free_text`, `research_pseudonymised`.
+
+---
+
+## 19. Jurisdiction profiles **[v2]**
+
+`config/jurisdictions/<id>.yaml` replaces hard-coded legal behaviour.
+
+```yaml
+id: default_strict
+child_age_threshold: 18
+guardian_consent_required_for: [tutoring_server_storage, ai_processing, free_text, teacher_share, research_pseudonymised]
+guest_mode_allowed: true
+guest_retention_days: 90
+free_text_input_allowed: guardian_consent
+data_residency_region: null        # deployment setting, e.g. a specific cloud region
+quiet_hours: { start: "21:00", end: "07:00" }
+report_channels: [email]
+
 ```
 
-| Field | Type | Required | Notes |
-|---|---|---|---|
-| client_event_id | uuid | yes | Idempotent replay (offline sync) |
-| event_type | enum | yes | `answer` \| `request_hint` \| `explain_back` \| `idle_nudge` \| `show_solution` \| `predict_response` \| `continue` |
-| item_id | string | yes except session-level | Must match the current item when applicable |
-| payload | object | yes | Discriminated by `event_type` |
-
-**`answer` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| response | string | Student input (normalised server-side; never raw `sympify`) |
-| latency_ms | int | Added as `min(latency_ms, 5 min)` to `active_ms` |
-
-**`request_hint` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| latency_ms | int | |
-| after_wrong | bool | Hint button: after a wrong answer or 60 s |
-
-Server assigns hint level **1 or 2** only. First `request_hint` on an item with no prior answer triggers the item's **one** BKT update (incorrect). Reject in diagnostic/checkpoint.
-
-**`explain_back` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| text | string | Short "why does this work?" |
-| language | string | Student's home language |
-
-Grade is formative only.
-
-**`idle_nudge` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| idle_ms | int | Client timer; fire at ≥ 90000 |
-
-**`show_solution` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| latency_ms | int | Reject unless ≥2 retry hints already given |
-
-**`predict_response` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| text | string | Prediction; not scored for mastery |
-| latency_ms | int | Advances PREDICT → WORKED_EXAMPLE |
-
-**`continue` payload**
-
-| Field | Type | Notes |
-|---|---|---|
-| latency_ms | int | Advances WORKED_EXAMPLE → PRACTICE, REVEAL → SIMILAR_ITEM, EXPLAIN_BACK skip, diagnostic/checkpoint next |
-
-### 13.2 Response
-
-```json
-{
-  "session_id": "…",
-  "duplicate": false,
-  "action": {
-    "type": "hint",
-    "item_id": "ITEM.LIN1.0001",
-    "hint_level": 1,
-    "misconception_id": "MC.ALG.INVERSE_OP_WRONG_SIDE",
-    "text": "What operation is being done to x?",
-    "source": "authored",
-    "language": "en"
-  },
-  "progress": {
-    "items_completed": 4,
-    "active_ms": 540000,
-    "soft_end": false,
-    "hard_end": false,
-    "resumable": false
-  }
-}
-```
-
-**`action.type` values**
-
-| type | When |
-|---|---|
-| `warmup_item` | Due review item |
-| `predict` | New skill prediction prompt; wait for `predict_response` |
-| `worked_example` | After `predict_response`; wait for `continue` |
-| `show_item` | Practice / diagnostic / checkpoint item |
-| `feedback` | Immediate correct/wrong feedback (always on wrong) |
-| `hint` | Level 1 or 2; then retry same item |
-| `reveal_solution` | Hint 3 lead-in + full solution; wait for `continue` |
-| `similar_item` | After reveal `continue` |
-| `explain_back_prompt` | Conditional, once per skill; `explain_back` or `continue` |
-| `nudge` | After `idle_nudge` |
-| `end_session` | Soft/hard cap, idle, or mode complete |
-| `checkpoint_score` | After checkpoint submit (no mastery write) |
-
-If `client_event_id` already exists, return the original response with `duplicate: true`.
-
-### 13.3 Server-written events
-
-The engine also appends `shown`, `hint`, `reveal`, `nudge` as it acts.
+The deployment selects a profile; the strictest profile (`default_strict`) is used when none is set. **As built in G0:** a curriculum names its profile (`jurisdiction_profile` in `curriculum.yaml`, defaulting to `default_strict`); there is no `JURISDICTION_PROFILE` environment variable yet. Quiet hours start/end are read from the profile (`default_strict` = 21:00–07:00) and evaluated in the student's resolved time zone (`app/registries/quiet_hours.py`); behaviour is unchanged from v1. Legal review is required before enabling any profile (see PLAN open questions).
 
 ---
 
-## 14. Request flows
+## 20. Session length
 
-### 14.1 Practice turn (online)
-
-```mermaid
-sequenceDiagram
-  participant Web
-  participant Sessions
-  participant Policy
-  participant Verifier
-  participant Learner
-  participant Gateway
-  Web->>Sessions: POST_events_answer
-  Sessions->>Verifier: allowlist_then_check
-  Verifier-->>Sessions: correct_or_wrong
-  Sessions->>Learner: bkt_once_per_item
-  Sessions->>Policy: learner_session_event
-  Policy-->>Sessions: next_action
-  alt action_needs_phrasing
-    Sessions->>Gateway: narrow_instruction
-    Gateway->>Verifier: leak_and_moderation
-    Gateway-->>Sessions: text_or_authored_fallback
-  end
-  Sessions-->>Web: action_plus_progress
-```
-
-### 14.2 Session start and resume
-
-`POST /sessions` `{ type, student_id }` → refuse if no active `tutoring` consent → if a resumable session of that type exists, resume it → else create session → policy initial action.
-
-### 14.3 Offline sync
-
-Download pack (offline-verifiable items only) → local policy + BKT + ts-fsrs → queue events → `POST /sync/events`. Server **re-verifies every answer** from `payload.response`, **ignores client `correct`**, rejects or flags illegal sequences, recomputes mastery/FSRS from the log, returns canonical learner state.
+Active time only: `active_ms = Σ min(event.latency_ms, 5 min)`. No heartbeats. Caps come from the grade-band profile (§15) and are checked after every completed item. Idle ≥ 10 min wall clock → auto-end (`ended_reason=idle`), resumable. Soft cap → done-for-today screen. Hard cap → finish current item (plus R40 if applicable), then end. No endless feed, no ranks, no streak-loss threats.
 
 ---
 
-## 15. HTTP API (minimum)
+## 21. Offline and sync
 
-| Method | Path |
-|---|---|
-| POST | `/auth/request-otp` |
-| POST | `/auth/verify-otp` |
-| POST | `/students` |
-| GET | `/students/{id}` |
-| POST | `/students/{id}/consent` |
-| GET | `/parents/me/export` |
-| DELETE | `/parents/me` |
-| POST | `/sessions` |
-| POST | `/sessions/{id}/events` |
-| POST | `/sessions/{id}/end` |
-| GET | `/students/{id}/progress` |
-| GET | `/content/packs/{overlay}/{chapter}` |
-| POST | `/sync/events` |
-| GET | `/teacher/classes/{id}/heatmap` |
-| GET | `/teacher/classes/{id}/stuck` |
-| GET | `/teacher/review-queue` |
-| POST | `/teacher/review-queue/{id}` |
-| GET | `/checkpoints/{id}/forms/{form}` |
-| GET | `/analytics/export` |
+Kept from v1: packs contain offline-verifiable items only; the TS player runs the same policy, BKT and ts-fsrs; events queue in IndexedDB; `POST /sync/events` is idempotent on `client_event_id`; the server re-verifies every answer, ignores client `correct`, recomputes mastery and FSRS from the event log, and rejects or flags illegal sequences.
 
-OpenAPI → generated TS types in `packages/shared` (`packages/shared/openapi.yaml`).
-
-### 15.1 Session action payload (web player)
-
-Every `GET /sessions/{id}` and `POST /sessions/{id}/events` response includes an enriched `action` object for the student UI.
-
-| Field | Meaning |
-|---|---|
-| `can_request_hint` | Orchestrator will accept `request_hint` on this action (practice only; not diagnostic/checkpoint). |
-| `can_show_solution` | Orchestrator will accept `show_solution` (after two hint levels have been shown). |
-| `allow_hint` | Deprecated alias of `can_request_hint`. |
-| `hint_level_shown` | Hint levels already delivered this item (0–2). |
-| `dont_know_option` | Show “I don’t know” (diagnostic-style items). |
-
-Action `type` values include: `warmup_item`, `predict`, `worked_example`, `show_item`, `feedback`, `hint`, `reveal_solution`, `similar_item`, `explain_back_prompt`, `explain_back_result`, `nudge`, `content_gap`, `end_session`, `checkpoint_score`.
-
-- **`content_gap`:** No teachable items remain for the current chapter; client should return to Today (not an error).
-- **`explain_back_result`:** Formative explain-back complete; shows authored feedback text (and optional LLM grade only when `ai_processing` is consented). Does not change mastery or FSRS.
-
-The web client must not infer hint or reveal availability from `hint_level_shown` alone; use `can_request_hint` and `can_show_solution`. Optional hint delay timers are presentation-only.
+v2: packs include approved lessons, scene scripts and widget specs for the chapter; the diagnosis engine and ladder computation are mirrored in TS with shared fixtures; Ask is online-only.
 
 ---
 
-## 16. Content pipeline
+## 22. Data model (PostgreSQL)
 
-YAML in `content/` → `python -m app.content.validate` → `python -m app.content.load`.
+v1 tables kept unless noted: `users`, `students`, `consents`, `classes`, `class_memberships`, `skills`, `skill_edges`, `misconceptions`, `items`, `item_skills`, `glossary_terms`, `overlays`, `mastery`, `review_cards`, `sessions`, `events`, `misconception_hits`, `llm_calls`, `review_queue`, `reports`, research tables.
 
-Validator: unique IDs, refs resolve, no prerequisite cycles, every practice item has **3 hint levels** (1–2 = retry, 3 = reveal lead-in) and solution steps, checkpoint items not referenced by any practice set, answers parse through the **allowlist**, final solution step equivalent to stated answer, leak check on hint levels 1–2.
 
-**Content gate (runtime):** serve `status=approved` only, unless `ALLOW_DRAFT_CONTENT=true` (dev/demo).
+| Change                                             | Detail                                                                                                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `students.board` enum → `curriculum_id` text FK    | Plus `book_id`, `medium_locale`, `home_locale`; locale columns are text FKs to `locales`                                                   |
+| `students.account_mode`                            | `guest` | `family` | `school`; `parent_id` nullable for guest                                                                              |
+| `students.site_id`                                 | Nullable; assigned by staff                                                                                                                |
+| `locales` (new)                                    | code, name, script, fallback_chain, digit_normalise (bool), status                                                                         |
+| `curricula`, `books`, `chapters`, `sections` (new) | §6                                                                                                                                         |
+| `overlays`                                         | Add `section_map` (section → skill_ids)                                                                                                    |
+| `items`                                            | Add `role`, `min_plausible_ms`, `slip_patterns`, `step_hints`, `hint_restate`, `prereq_signatures`, `section_id`, provenance columns       |
+| `lessons` (new)                                    | id, skill_id, beats JSON, status, provenance                                                                                               |
+| `scenes` (new)                                     | id, lesson_id, script JSON, locale captions, audio refs, status, provenance                                                                |
+| `widgets` (new)                                    | id, type, params JSON, goal JSON, status                                                                                                   |
+| `passages` (new)                                   | §12.2 (pgvector embedding column)                                                                                                          |
+| `mastery`                                          | Add `ladder_level`, `ladder_evidence` JSON (level → event ids), `flags` JSON (wheel_spinning, frustration_risk)                            |
+| `events.payload`                                   | Adds `diagnosis`, `stuck_point`, `interactive_result`, `rule_id`, `state_before`, `state_after` (rule fields already persisted since M4.5) |
+| `content_gaps` (new)                               | context key, question hash (no raw text unless `free_text` consent), skill, tier, reason, created_at                                       |
+| `teacher_alerts` (new)                             | student_id, skill_id, type (wheel_spinning, repeated_misconception), created_at, resolved_at                                               |
+| Research tables                                    | Unchanged, but only created/used when `RESEARCH_MODULE=on` (routes return 404 when off; tables always exist)                                                                                 |
 
-**Live-chapter threshold** (all must hold for `overlays.live = true`):
 
-| Rule | Minimum |
-|---|---|
-| Approved **practice** items per skill in the chapter | **5** |
-| Approved **diagnostic** items per skill | **2** |
-| Matched checkpoint forms A and B | both present |
-| Approved checkpoint items per form | Hard min **10** (fail below). **Warn** below **15**. Trials: **15–20**. `match_map` complete. |
-
-A chapter that fails this stays not-live. Practice sessions cannot target it in production. Seed content ships `draft` until Track B approval plus these counts.
-
-**Locale fallback:** `requested locale → en`. Empty strings and reviewer placeholders count as missing.
-
----
-
-## 17. Auth, consent, quiet hours
-
-OTP delivery is behind `OtpSender.send(destination, code)`. MVP: `EmailOtpSender` (log-to-console when SMTP unset). Later: `WhatsAppOtpSender` / `SmsOtpSender` without changing routes.
-
-Rate-limit `request-otp` and `verify-otp` per destination and per IP. Student PIN: lockout after 5 failures.
-
-No session without active consent that includes `tutoring`. Quiet hours **21:00–07:00** in `students.timezone`.
-
-Parent export/delete as before.
-
-### 17.1 Role / authorization matrix
-
-| Action | Parent | Student (PIN) | Teacher | Admin | Comparison token |
-|---|---|---|---|---|---|
-| Request/verify OTP | own email | — | own email | own email | — |
-| Create student, consent, PIN | own children | — | — | yes | — |
-| Start/resume practice or diagnostic | — | self, `tutoring` | — | yes | — |
-| Take checkpoint in tutor | — | self, `tutoring` | — | yes | — |
-| Take checkpoint via link/print | — | — | — | issue token | that form only |
-| See progress / reports | own children | self | class + `teacher_share` | yes | — |
-| Export / delete family data | self + children | — | — | yes | — |
-| Heatmap / stuck / review queue | — | — | class + `teacher_share` | yes | — |
-| Analytics CSV | — | — | — | `research_pseudonymised` students | — |
-| LLM phrasing | — | if `ai_processing` | — | if granted | never |
-| Load draft content | if `ALLOW_DRAFT_CONTENT` | same | same | same | no |
-
-Teachers **never** see a student whose parent did not grant `teacher_share`, even if the student is in the class roster.
+**As built in G0 (Alembic 0009–0010):** `locales` holds `code` and `fallback_chain` only (name, script, `digit_normalise`, status not added); `curricula` holds `id`, `default_timezone`, `jurisdiction_profile`, `legacy_board`; `books` and `chapters` as in §6; no `sections` table or overlay `section_map` yet. `students` gained `curriculum_id`, `book_id`, `context_key`, and text FKs to `locales` for `home_language` / `exam_language` (and `users.locale`). `students.board` and `classes.board` remain as read-only compatibility until G1 (overlay `board:`) and G6 (`classes.board`).
 
 ---
 
-## 18. Child safety
+## 23. Event API
 
-- Strip names, phone, email, school before any LLM call (`llm/pii.py`).
-- Moderation on input and output.
-- No open-ended chat outside the current item.
-- Distress keywords → authored gentle script + flag for parent/teacher. The model does not counsel.
+`POST /sessions/{id}/events` — requires active `tutoring` consent (or guest mode). Idempotent on `client_event_id`.
+
+Event types: `answer`, `request_help` **[v2, replaces** `request_hint`**; old name accepted as alias]**, `stuck_point` **[v2]**, `explain_back`, `idle_nudge`, `show_solution`, `predict_response`, `interactive_result` **[v2]**, `scene_answer` **[v2]** (pause_and_ask), `skip_ahead` **[v2]**, `ask` **[v2]**, `continue`.
+
+Action types: `warmup_item`, `lesson_predict`, `lesson_explore`, `lesson_scene`, `worked_example`, `faded_example`, `show_item`, `feedback`, `check_your_work`, `ask_stuck_point`, `hint`, `reveal_solution`, `similar_item`, `prereq_probe`, `challenge`, `explain_back_prompt`, `explain_back_result`, `break_or_switch`, `grounded_answer`, `clarify`, `out_of_scope`, `nudge`, `content_gap`, `end_session`, `checkpoint_score` (research only).
+
+Every action carries: `rule_id`, `can_request_help`, `can_show_solution`, `hint_level_shown`, `source_ref` (when content is shown), `style_band`.
+
+The client never infers availability from counters; it uses the `can_*` flags.
+
+---
+
+## 24. HTTP API (minimum)
+
+
+| Method            | Path                                                                       |
+| ----------------- | -------------------------------------------------------------------------- |
+| POST              | /auth/request-otp, /auth/verify-otp                                        |
+| POST              | /guest/start **[v2]**                                                      |
+| POST              | /guest/{id}/upgrade **[v2]**                                               |
+| GET               | /curricula, /curricula/{id}/books, /books/{id}/chapters **[v2]**           |
+| POST/GET          | /students, /students/{id}                                                  |
+| POST              | /students/{id}/consent                                                     |
+| GET               | /students/{id}/chapters **[v2]** (statuses, recommended, live/coming soon) |
+| GET               | /students/{id}/chapters/{chapter_id}/skills **[v2]** (skill path)          |
+| POST              | /sessions, /sessions/{id}/events, /sessions/{id}/end                       |
+| GET               | /students/{id}/progress                                                    |
+| GET               | /content/packs/{book}/{chapter}                                            |
+| POST              | /sync/events                                                               |
+| GET               | /parents/me/export; DELETE /parents/me                                     |
+| GET               | /teacher/classes/{id}/heatmap, /stuck, /alerts **[v2]**, /review-queue     |
+| POST              | /teacher/review-queue/{id}                                                 |
+| GET               | /admin/sessions/{id}/replay                                                |
+| (research module) | /checkpoints/{id}/forms/{form}, /analytics/export                          |
+
+
+OpenAPI → generated TS types in `packages/shared`.
+
+---
+
+## 25. Child safety
+
+- PII stripped before any LLM call; moderation on input and output.
+- No open-ended chat. The only free text is explain-back and (if enabled) Ask, both scoped to the current chapter.
+- Distress keywords → authored gentle script, pause tutoring, flag to guardian/teacher per profile. The model does not counsel.
 - Human review queue samples AI messages.
+- Guest mode cannot enable free text unless the jurisdiction profile allows it without guardian consent.
 
 ---
 
-## 19. Frontend surfaces
+## 26. Evaluation and observability
 
-- **Parent:** OTP, add student, scoped consent, weekly progress, data export/delete, `en`/`ne`/`as` with English fallback.
-- **Student:** PIN, Today, session player (`predict_response`, `continue`, hint 1–2, reveal with hint-3 lead-in), done-for-today, resume after idle. Hint button after wrong or 60 s. Idle nudge at 90 s.
-- **Teacher:** heatmap / stuck / review queue for `teacher_share` students only.
-- **Comparison checkpoint:** plain page or printable form A/B, no tutor chrome.
-- Mobile-first PWA, 360 px Android, large tap targets, low data.
 
----
+| Suite                                            | Measures                                                                                                                                                                                        | Gate                               |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| Policy simulation (hypothesis scripted students) | Hint escalation monotonic; no reveal before conditions; R31–R40 fire correctly; wheel-spinning caught by 10 items; never ends on failure                                                        | CI, 100% pass                      |
+| LLM phrasing evals                               | Leak rate, length, language, tone rules (no person-praise), schema validity                                                                                                                     | Leak 0%; tone violations 0%        |
+| Grounding evals                                  | Unsupported-claim rate, citation accuracy, correct abstention on out-of-scope, current-item guard, injection resistance                                                                         | Unsupported < 1%; abstention ≥ 95% |
+| Language evals                                   | Native-reviewer sets per medium locale (terminology, fluency)                                                                                                                                   | Reviewer sign-off per locale       |
+| Learning metrics (pilot)                         | % mistakes followed by intervention in the same response (≥ 90%), unhinted-correct rate, ladder progression, retention (level 7 reach), weekly active days, checkpoint change (research module) | Reported                           |
 
-## 20. Observability
 
-Structured JSON logs. Every LLM call → `llm_calls`. Pilot metrics in PLAN.md.
-
----
-
-## 21. Extension points (do not build now)
-
-| Later | Hook |
-|---|---|
-| Flutter / WhatsApp / voice | Session event API is channel-agnostic |
-| Phone / WhatsApp OTP | New `OtpSender` implementation |
-| Learned policy | Replace `policy()`; keep the action schema |
-| Learned mastery | `MasteryModel` interface |
-| Dzongkha | Another locale + glossary file |
-| Payments / extra boards | New overlay YAML + billing service |
-| pgvector | Already enabled for future retrieval |
+Structured JSON logs; every LLM call in `llm_calls`; optional OpenTelemetry behind an off-by-default profile; admin replay verifies rule ids.
 
 ---
 
-## 22. Local infrastructure
+## 27. Extension points (do not build now)
 
-`docker-compose`: `postgres` (16, pgvector), `redis`, `api`, `web`.
 
-Windows: Docker Desktop + WSL2; repository on the WSL filesystem. See README / PLAN.md. `.gitattributes` forces LF.
+| Later                               | Hook                                                                  |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| Notes / notebook photo explanations | New input type through Ask flow + OCR; delete images after extraction |
+| Voice / chat channels               | Session event API is channel-agnostic                                 |
+| Learned policy                      | Replace `policy()`; keep action schema and guardrail fixtures         |
+| Learned mastery                     | `MasteryModel` interface                                              |
+| More subjects                       | New skill graphs, widget types, verifier modes                        |
+| New curricula / languages           | Registry YAML + locale entry + glossary; no code change               |
+| Payments                            | Separate billing service                                              |
 
-`.env.example` sets `ALLOW_DRAFT_CONTENT=true` for local compose. Production must leave it unset/false.
 
 ---
 
-## 23. Track B (non-code)
+## 28. Local infrastructure
 
-See PLAN.md. Teachers approve seed YAML; a parallel manual WhatsApp pilot (30–50 families) supplies real mistakes that replace placeholder misconceptions and items. Engineering only lands those as validated YAML — never as unreviewed machine translation marked `approved`. Live-chapter thresholds still apply after approval.
+docker-compose: postgres (16, pgvector), redis, api, web. Windows: Docker Desktop + WSL2, repo on the WSL filesystem. `.gitattributes` forces LF. `.env.example` sets `ALLOW_DRAFT_CONTENT=true`, `RESEARCH_MODULE=off`, `ASK_ENABLED=false`, `JURISDICTION_PROFILE=default_strict`. Production leaves draft content off.
