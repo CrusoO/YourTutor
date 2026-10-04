@@ -21,9 +21,9 @@ from app.content.schema import (
     Overlay,
     Skill,
 )
-from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
 from app.content.signatures import has_one_x, item_content_hash, structure_signature
 from app.content.stem_solve import check_item_stem_answer
+from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
 
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2

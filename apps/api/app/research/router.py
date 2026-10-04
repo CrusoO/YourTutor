@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import uuid
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, RedirectResponse
-from pydantic import BaseModel
 
 from app.auth import service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep

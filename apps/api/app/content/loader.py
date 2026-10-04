@@ -5,10 +5,15 @@ from pathlib import Path
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.content.gate import RETIRED_STATUS
 from app.content.schema import ContentBundle
-from app.content.validator import ValidationReport, load_bundle, validate_bundle, _persist_hash_resets
-from app.config import settings
+from app.content.validator import (
+    ValidationReport,
+    _persist_hash_resets,
+    load_bundle,
+    validate_bundle,
+)
 from app.db.models import (
     Base,
     CheckpointFormRow,

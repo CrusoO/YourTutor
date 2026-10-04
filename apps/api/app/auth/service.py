@@ -22,7 +22,6 @@ from app.auth.authz import (
 )
 from app.auth.consent import active_consent, has_scope
 from app.auth.scopes import CONSENT_SCOPES
-from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 from app.auth.security import (
     as_utc,
     codes_match,
@@ -35,7 +34,6 @@ from app.auth.security import (
     verify_pin,
 )
 from app.auth.sender import OtpSender
-from app.config import settings
 from app.checkpoint.study import (
     analytics_csv_rows,
     assign_participant,
@@ -47,6 +45,7 @@ from app.checkpoint.study import (
     persist_checkpoint_result,
     score_submitted_answers,
 )
+from app.config import settings
 from app.db.models import (
     AuthSessionRow,
     CheckpointTokenRow,
@@ -54,7 +53,6 @@ from app.db.models import (
     ClassRow,
     ConsentRow,
     EventRow,
-    ItemRow,
     OtpChallengeRow,
     RateEventRow,
     ReviewQueueRow,
@@ -63,6 +61,7 @@ from app.db.models import (
     StudyParticipantRow,
     UserRow,
 )
+from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 
 TOO_MANY = HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="rate limited")
 LOCKED = HTTPException(status_code=status.HTTP_423_LOCKED, detail="pin locked")

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import uuid
 from collections import defaultdict
-from datetime import datetime, time, timedelta
+from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -30,7 +30,6 @@ from app.db.models import (
 from app.learner.bkt import BktParams
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.orchestrator.policy import policy
-from app.player.action_flags import hint_solution_flags
 from app.orchestrator.types import (
     SOFT_ACTIVE_MS,
     Action,
@@ -39,6 +38,7 @@ from app.orchestrator.types import (
     SessionState,
     default_params,
 )
+from app.player.action_flags import hint_solution_flags
 
 GOAL_MS = SOFT_ACTIVE_MS
 

@@ -8,12 +8,12 @@ from pathlib import Path
 
 import yaml
 
+from app.config import settings
 from app.content.generate import sample_instances
 from app.content.schema import Item
 from app.content.signatures import item_content_hash
 from app.content.templates import GENERATOR_VERSION, template_hash
 from app.content.validator import validate_bundle, validate_path
-from app.config import settings
 
 DEFAULT_REVIEWERS = ("curriculum.lead", "teacher.demo")
 

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from app.content.math_parse import ParseError, normalize, parse_math
-from app.content.leak import hint_leaks_answer
 from app.content.language import hint_role_collision, lint_item_texts
+from app.content.leak import hint_leaks_answer
+from app.content.math_parse import ParseError, normalize, parse_math
 from app.content.validator import (
     LIVE_MIN_CHECKPOINT,
     last_step_matches_answer,

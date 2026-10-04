@@ -5,10 +5,10 @@ import random
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
+from app.learner.types import LearnerState
 from app.orchestrator.policy import policy
 from app.orchestrator.replay import verify_replay
-from app.orchestrator.types import Event, SOFT_ITEM_CAP
-from app.learner.types import LearnerState
+from app.orchestrator.types import SOFT_ITEM_CAP, Event
 from tests.orchestrator.catalog import seed_catalog, seed_session
 
 PERSONAS = (

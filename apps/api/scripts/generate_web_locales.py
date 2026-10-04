@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from app.registries.loaders import load_locales_config
 from app.registries.paths import repo_root

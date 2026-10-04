@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import uuid
-
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -12,8 +11,8 @@ from app.auth import service
 from app.auth.actor import Actor
 from app.auth.authz import require
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep
-from app.config import settings
 from app.checkpoint.study import REFERRER_POLICY, paper_entry_html
+from app.config import settings
 from app.db.models import EventRow, SessionRow
 from app.orchestrator.replay import pseudonymous_session_id
 from app.research.deps import require_research_module

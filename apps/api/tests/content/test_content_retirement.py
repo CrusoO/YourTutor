@@ -5,14 +5,15 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+
 from app.auth.security import now_utc
 from app.content.gate import RETIRED_STATUS
 from app.content.loader import PruneBlockedError, load_path
 from app.content.packs import item_row_offline_pack_eligible
 from app.db.models import ItemRow, MasteryRow, SkillRow, StudentRow
+from app.db.session import session_factory
 from app.orchestrator.policy import _pick_item, _similar_item
 from app.player.runtime import load_catalog
-from app.db.session import session_factory
 from tests.conftest import World, auth_header
 from tests.content.conftest import _PRACTICE_STEMS, minimal_item, minimal_skill, write_yaml
 from tests.orchestrator.conftest import catalog_item, make_learner, make_session

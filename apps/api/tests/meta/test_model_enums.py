@@ -4,7 +4,6 @@ import enum
 import inspect
 
 import pydantic
-import sqlalchemy
 
 from app.db import models
 

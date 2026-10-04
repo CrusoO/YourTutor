@@ -8,7 +8,7 @@ from app.content.generate import eval_formula, generate_instances, instantiate, 
 from app.content.signatures import structure_signature
 from app.content.template_catalog import builtin_templates
 from app.content.templates import GENERATOR_VERSION, template_hash, write_template
-from app.content.validator import load_bundle, validate_path
+from app.content.validator import validate_path
 from tests.content.conftest import loc, minimal_item, minimal_skill, write_yaml
 
 

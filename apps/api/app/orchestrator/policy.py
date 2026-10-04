@@ -4,9 +4,16 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
+from app.checkpoint.score import score_answers
 from app.content.validator import item_tier
 from app.learner.mastery_service import apply_event
 from app.learner.types import LearnerEvent, LearnerState
+from app.orchestrator.diagnostic import (
+    is_dont_know,
+    next_diagnostic_item,
+    record_answer,
+    seed_placement,
+)
 from app.orchestrator.transitions import rule_id_for
 from app.orchestrator.types import (
     HARD_ACTIVE_MS,
@@ -23,13 +30,6 @@ from app.orchestrator.types import (
     SessionState,
     default_params,
 )
-from app.orchestrator.diagnostic import (
-    is_dont_know,
-    next_diagnostic_item,
-    record_answer,
-    seed_placement,
-)
-from app.checkpoint.score import score_answers
 from app.verifier.check import leak_check, verify_response
 
 

@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from contextlib import contextmanager, nullcontext
-from typing import Iterator
+from collections.abc import Iterator
+from contextlib import contextmanager
 
 from app.config import settings
 
