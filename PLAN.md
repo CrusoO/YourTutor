@@ -92,6 +92,7 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | v1 current-chapter target | v1: first overlay skill with `p_known < 0.95`, item tiers from `p_known`. Kept until G1 switches T to ladder level < 4. |
 | `board` deprecation | G0 keeps `students.board` / `classes.board` and the read-only `board` field in API responses. Overlay YAML `board:` → `curriculum_id` in **G1**; `classes.board` → `curriculum_id` in **G6**; client `device_timezone` in **G5**. |
 | Test isolation | Tests that mutate the global `settings` are undone by an autouse snapshot/restore fixture in `tests/conftest.py`; `pytest-randomly` is a dev dependency and the suite must pass in random order. |
+| Sections | Section id = `{chapter_id}.{key}`; `overlays.section_map` is keyed by the local `key` (an overlay can serve several chapters). Validator fails on unresolved keys/skills. Seed sections are draft placeholders; the content loader also syncs registry rows from YAML. |
 | Alembic target | `migrations/env.py` honours `cfg.attributes["database_url"]` (else app settings) and keeps existing loggers alive (`disable_existing_loggers=False`). |
 | Lint and types | `ruff` line length **100** (already set in `apps/api/pyproject.toml`), `ruff format` for wrapping, long strings split with implicit concatenation; `types-PyYAML` in `requirements-dev.txt`; mypy fixed without `# type: ignore` where possible. Lint/type cleanups must not change behaviour (AST-checked). |
 

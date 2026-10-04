@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from app.db.models import BookRow, ChapterRow, CurriculumRow, LocaleRow
+from app.db.models import BookRow, ChapterRow, CurriculumRow, LocaleRow, SectionRow
 from app.registries.loaders import load_all_curricula, load_locales_config
 
 
@@ -47,4 +47,19 @@ def seed_g0_registry(session: Session) -> None:
                         chapter_key=chapter.chapter_key,
                     )
                 )
+    session.flush()
+    for spec in load_all_curricula().values():
+        for book in spec.books:
+            for chapter in book.chapters:
+                for section in chapter.sections:
+                    session.merge(
+                        SectionRow(
+                            id=section.id,
+                            chapter_id=chapter.id,
+                            order=section.order,
+                            titles=section.titles,
+                            page_start=section.page_start,
+                            page_end=section.page_end,
+                        )
+                    )
     session.flush()

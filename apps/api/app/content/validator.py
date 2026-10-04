@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -24,6 +25,8 @@ from app.content.schema import (
 from app.content.signatures import has_one_x, item_content_hash, structure_signature
 from app.content.stem_solve import check_item_stem_answer
 from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
+from app.registries.loaders import CurriculumSpec, load_all_curricula
+from app.registries.sections import section_map_errors
 
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2
@@ -133,7 +136,9 @@ def last_step_matches_answer(
     return False
 
 
-def validate_bundle(bundle: ContentBundle) -> ValidationReport:
+def validate_bundle(
+    bundle: ContentBundle, curricula: Mapping[str, CurriculumSpec] | None = None
+) -> ValidationReport:
     report = ValidationReport(bundle=bundle)
     _unique_ids(bundle, report)
     _refs_and_cycles(bundle, report)
@@ -153,8 +158,16 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _template_approval(bundle, report)
     _checkpoint_practice_stems(bundle, report)
     _live_chapter(bundle, report)
+    if curricula is not None:
+        report.errors.extend(section_map_errors(bundle.overlays, curricula))
     _build_report(bundle, report)
     return report
+
+
+def curricula_for(root: Path) -> dict[str, CurriculumSpec] | None:
+    """Registry entries shipped next to the content (`<root>/curricula`), if any."""
+    folder = root / "curricula"
+    return load_all_curricula(folder) if folder.is_dir() else None
 
 
 def validate_path(root: Path) -> ValidationReport:
@@ -164,7 +177,7 @@ def validate_path(root: Path) -> ValidationReport:
         report = ValidationReport()
         report.errors.append(str(exc))
         return report
-    report = validate_bundle(bundle)
+    report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     return report
 

@@ -98,6 +98,8 @@ class OverlayRow(Base):
     chapter: Mapped[str] = mapped_column(String)
     skill_ids: Mapped[list] = mapped_column(JSONType)
     live: Mapped[bool] = mapped_column(Boolean, default=False)
+    # section key -> skill ids (keys resolve against `sections` of every chapter using this overlay)
+    section_map: Mapped[dict] = mapped_column(JSONType, default=dict)
 
 
 class GlossaryTermRow(Base):
@@ -132,6 +134,17 @@ class BookRow(Base):
     curriculum_id: Mapped[str] = mapped_column(ForeignKey("curricula.id"))
     grade: Mapped[int] = mapped_column(Integer)
     default_chapter_id: Mapped[str] = mapped_column(String)
+
+
+class SectionRow(Base):
+    __tablename__ = "sections"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    chapter_id: Mapped[str] = mapped_column(ForeignKey("chapters.id"))
+    order: Mapped[int] = mapped_column(Integer)
+    titles: Mapped[dict] = mapped_column(JSONType)
+    page_start: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    page_end: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class ChapterRow(Base):

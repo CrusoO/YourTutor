@@ -65,8 +65,8 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         conn.commit()
     cfg = _config(url)
     command.upgrade(cfg, "head")
-    g0_tables = {"locales", "curricula", "books", "chapters"} & _tables(engine)
-    assert g0_tables == {"locales", "curricula", "books", "chapters"}
+    registry = {"locales", "curricula", "books", "chapters", "sections"}
+    assert registry <= _tables(engine)
 
     parent_id = uuid.uuid4()
     ids = {"bhutan": uuid.uuid4(), "seba": uuid.uuid4()}
@@ -137,8 +137,10 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         assert conn.execute(text("SELECT count(*) FROM users")).scalar_one() == 1
 
     command.upgrade(cfg, "head")
-    assert {"locales", "curricula", "books", "chapters"} <= _tables(engine)
+    assert registry <= _tables(engine)
     with engine.connect() as conn:
+        assert conn.execute(text("SELECT count(*) FROM sections")).scalar_one() >= 9
+        assert conn.execute(text("SELECT section_map FROM overlays")).scalar_one() == {}
         rows = conn.execute(
             text("SELECT board, curriculum_id, book_id, context_key FROM students ORDER BY board")
         ).all()

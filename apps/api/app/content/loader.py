@@ -11,6 +11,7 @@ from app.content.schema import ContentBundle
 from app.content.validator import (
     ValidationReport,
     _persist_hash_resets,
+    curricula_for,
     load_bundle,
     validate_bundle,
 )
@@ -53,7 +54,7 @@ def load_path(
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
         raise LoadError(str(exc)) from exc
-    report = validate_bundle(bundle)
+    report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
@@ -134,6 +135,7 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 chapter=overlay.chapter,
                 skill_ids=overlay.skill_ids,
                 live=overlay.live,
+                section_map=overlay.section_map,
             )
         )
     for forms in bundle.checkpoint_forms:

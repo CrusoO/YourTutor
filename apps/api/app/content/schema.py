@@ -150,6 +150,7 @@ class Overlay(BaseModel):
     chapter: str
     skill_ids: list[str]
     live: bool = False
+    section_map: dict[str, list[str]] = Field(default_factory=dict)
 
 
 class CheckpointForms(BaseModel):
