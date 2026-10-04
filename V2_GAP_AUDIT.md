@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04, after lint/type cleanup):** `apps/api` pytest **232 passed, 0 failed** on Postgres (`-p no:randomly`; randomized seeds 1–3 were also green before the lint pass). `ruff check .` **0 errors**, `ruff format --check .` clean, `mypy .` **0 errors** (128 files). `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. Playwright not run.
+**Test baseline (2026-10-04, G0 closed):** `apps/api` pytest **256 passed, 0 failed** on Postgres (`-p no:randomly`; randomized seeds 1, 2, 3 each 256 passed). `ruff check .` **0 errors**, `ruff format --check .` clean, `mypy .` **0 errors** (135 files). `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. Playwright not run.
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 
@@ -43,7 +43,7 @@ The milestone definitions, checkboxes and Accept criteria live in **PLAN.md §8 
 
 | Milestone | Status | Evidence |
 |-----------|--------|----------|
-| **G0** Registries | **Core met (2026-10-04)**; some items open (PLAN.md §8 G0) | `config/` + `content/curricula/`; Alembic 0009–0010; `context_key`; locale FKs; `RESEARCH_MODULE`; quiet hours via jurisdiction profile. Open: locales table name/script/status, grade-band wiring, `JURISDICTION_PROFILE` env, `sections`/`section_map`, `board` removal (deferred to G1/G6), `device_timezone` (G5) |
+| **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0012 (registry, student context, sections + `section_map`, locale columns); `context_key`; `JURISDICTION_PROFILE`; `RESEARCH_MODULE`; quiet hours via jurisdiction profile. Carried out: overlay `board:` → G1; grade-band wiring → G2/G4/G5; `board` compat + `device_timezone` → G5; `classes.board` → G6 |
 | **G1** Ladder | **Not started** | Mastery is BKT/p_known only (`learner/`); no `item.role`; no ladder compute |
 | **G2** Diagnosis + R30–R40 | **Not started** | v1 `policy.py` only; no `diagnosis/`; no stuck-point / wheel-spinning / R40 |
 | **G3** Lessons/scenes/widgets | **Not started** | No `lessons/`, scenes, widget registry; player is single `session/[id]/page.tsx` |

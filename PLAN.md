@@ -233,7 +233,7 @@ Accept:
 - [x] Research routes return 404 when the flag is off; existing M5 tests pass with the flag on
 - [x] Locale fallback walks the chain; empty/placeholder strings count as missing
 
-**Status:** all G0 items done; final verification counts are recorded in the next commit.
+**Status:** **Met 2026-10-04.** API pytest **256 passed** on Postgres (`-p no:randomly`, and `pytest-randomly` seeds 1, 2, 3 all 256 passed); `ruff check` 0 errors, `ruff format --check` clean, `mypy` 0 errors (135 files); vitest 33 passed; `tsc` ok; region-literal check clean; locale generation no diff; content validates (12 skills, 370 items, 2 overlays) and loads; migration downgrade to `0008_retire` and upgrade to head tested with data. Playwright not run (no UI change).
 
 **Carried out of G0** (unchecked items in the target milestones): overlay `board:` → G1; grade-band wiring → G2 (session caps), G4 (LLM style), G5 (UI); `board` compat field removal and client `device_timezone` → G5; `classes.board` → G6.
 
