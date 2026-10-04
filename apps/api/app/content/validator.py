@@ -17,6 +17,7 @@ from app.content.schema import (
     GlossaryFile,
     Item,
     ItemPool,
+    ItemRole,
     ItemType,
     Misconception,
     Overlay,
@@ -31,6 +32,8 @@ from app.registries.sections import section_map_errors
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2
 LIVE_MIN_CHECKPOINT = 10
+LIVE_ROLES = (ItemRole.explain, ItemRole.apply, ItemRole.transfer)
+LIVE_MIN_PER_ROLE = 1
 LIVE_WARN_CHECKPOINT = 15
 STEM_MIN_PRACTICE = 5
 STEM_MIN_DIAGNOSTIC = 3
@@ -348,10 +351,13 @@ def _checkpoint_forms(bundle: ContentBundle, report: ValidationReport) -> None:
 
 def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
     by_skill_pool: dict[tuple[str, ItemPool], int] = defaultdict(int)
+    by_skill_role: dict[tuple[str, ItemRole], int] = defaultdict(int)
     for item in bundle.items:
         if item.status.value != "approved":
             continue
         by_skill_pool[(item.primary_skill, item.pool)] += 1
+        if item.pool == ItemPool.practice:
+            by_skill_role[(item.primary_skill, item.role)] += 1
     for overlay in bundle.overlays:
         missing: list[str] = []
         for skill_id in overlay.skill_ids:
@@ -361,6 +367,10 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                 missing.append(f"{skill_id} practice {practice}/{LIVE_MIN_PRACTICE}")
             if diagnostic < LIVE_MIN_DIAGNOSTIC:
                 missing.append(f"{skill_id} diagnostic {diagnostic}/{LIVE_MIN_DIAGNOSTIC}")
+            for role in LIVE_ROLES:
+                have = by_skill_role[(skill_id, role)]
+                if have < LIVE_MIN_PER_ROLE:
+                    missing.append(f"{skill_id} role {role.value} {have}/{LIVE_MIN_PER_ROLE}")
         unchecked = [
             item.id
             for item in bundle.items
