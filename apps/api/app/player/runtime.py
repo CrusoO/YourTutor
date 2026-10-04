@@ -599,15 +599,13 @@ def apply_player_event(
 
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.db.models import CurriculumRow
-    from app.registries.loaders import load_jurisdiction_profile
     from app.registries.quiet_hours import in_quiet_hours
+    from app.registries.startup import deployment_jurisdiction_profile
 
     curriculum = session.get(CurriculumRow, student.curriculum_id)
     default_tz = curriculum.default_timezone if curriculum else "UTC"
     tz = ZoneInfo(student.timezone or default_tz)
-    profile = load_jurisdiction_profile(
-        curriculum.jurisdiction_profile if curriculum else "default_strict"
-    )
+    profile = deployment_jurisdiction_profile()
     start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(

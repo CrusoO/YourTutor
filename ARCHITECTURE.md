@@ -708,7 +708,7 @@ report_channels: [email]
 
 ```
 
-The deployment selects a profile; the strictest profile (`default_strict`) is used when none is set. **As built in G0:** a curriculum names its profile (`jurisdiction_profile` in `curriculum.yaml`, defaulting to `default_strict`); there is no `JURISDICTION_PROFILE` environment variable yet. Quiet hours start/end are read from the profile (`default_strict` = 21:00–07:00) and evaluated in the student's resolved time zone (`app/registries/quiet_hours.py`); behaviour is unchanged from v1. Legal review is required before enabling any profile (see PLAN open questions).
+The deployment selects a profile; the strictest profile (`default_strict`) is used when none is set. **As built in G0:** each curriculum still declares `jurisdiction_profile` in `curriculum.yaml`; the **deployment** selects the active profile with the `JURISDICTION_PROFILE` environment variable (default `default_strict`; an unknown id stops API startup, as does a curriculum naming an unknown profile). The per-curriculum field is validated but no longer drives behaviour. Containers set `CONFIG_DIR` and `CONTENT_DIR` (compose mounts `./config` and `./content`). Quiet hours start/end are read from the active profile (`default_strict` = 21:00–07:00) and evaluated in the student's resolved time zone (`app/registries/quiet_hours.py`); behaviour is unchanged from v1. Legal review is required before enabling any profile (see PLAN open questions).
 
 ---
 
