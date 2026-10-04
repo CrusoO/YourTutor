@@ -1,0 +1,58 @@
+id: ITEM.LIN1.R.0016
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_MULTI
+difficulty: 0.45
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student says that x = 3 solves 5x + 2x - 4 = 17. Is the student right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'yes'
+  accept:
+  - 'yes'
+solution_steps:
+- en: Put x = 3 into 5x + 2x - 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 5x + 2x - 4 gives 17, and the right side is 17.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is yes.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Replace every x with the claimed value before combining anything.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Work out both x terms, add them, then take away the number.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 5 times 3 plus 2 times 3, then subtract 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will the left side reach 17?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: with x = 3 the left side is 17, matching the right side.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 3 the left side is not 17.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: 5x + 2x - 4 = 17
+  value: '3'

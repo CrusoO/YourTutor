@@ -95,9 +95,18 @@ def test_loader_persists_role(tmp_path: Path) -> None:
     url = f"sqlite:///{tmp_path / 'roles.db'}"
     load_path(CONTENT, database_url=url)
     with session_factory(url)() as session:
-        rows = session.query(ItemRow).filter(ItemRow.primary_skill == WORD_SKILL).all()
-        assert rows
-        assert {row.role for row in rows} == {"apply"}
-        procedure = session.query(ItemRow).filter(ItemRow.primary_skill != WORD_SKILL).first()
-        assert procedure is not None
-        assert procedure.role in {"procedure", "recall", "explain", "apply", "transfer"}
+        legacy_words = (
+            session.query(ItemRow)
+            .filter(ItemRow.primary_skill == WORD_SKILL, ~ItemRow.id.like("ITEM.LIN1.R.%"))
+            .all()
+        )
+        assert legacy_words
+        assert {row.role for row in legacy_words} == {"apply"}
+        all_words = session.query(ItemRow).filter(ItemRow.primary_skill == WORD_SKILL).all()
+        assert {row.role for row in all_words} == {"apply", "explain", "transfer"}
+        legacy_other = (
+            session.query(ItemRow)
+            .filter(ItemRow.primary_skill != WORD_SKILL, ~ItemRow.id.like("ITEM.LIN1.R.%"))
+            .all()
+        )
+        assert {row.role for row in legacy_other} == {"procedure"}

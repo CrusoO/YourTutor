@@ -1,0 +1,58 @@
+id: ITEM.LIN1.R.0019
+skill_ids:
+- MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+difficulty: 0.45
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student says that x = 1 solves 5x - 4 = 2x + 3. Is the student right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'no'
+  accept:
+  - 'no'
+solution_steps:
+- en: Put x = 1 into 5x - 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 5x - 4 gives 1, and the right side is 2x + 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is no.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Replace x with the claimed value on both sides and compare.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Work out each side separately before comparing.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Left is 5 times 1 minus 4; right is 2 times 1 plus 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will the two sides match?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: with x = 1 both sides are equal.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 1 the two sides are not equal.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: 5x - 4 = 2x + 3
+  value: '1'

@@ -1,0 +1,58 @@
+id: ITEM.LIN1.R.0013
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_TWO_STEP
+difficulty: 0.45
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student says that x = 6 solves 4x - 3 = 17. Is the student right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'no'
+  accept:
+  - 'no'
+solution_steps:
+- en: Put x = 6 into 4x - 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 4x - 3 gives 21, and the right side is 17.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is no.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Replace x with the claimed value, multiply first, then subtract.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Compare the result with the right side.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 4 times 6, then take away 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will the left side reach 17?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: with x = 6 the left side is 17, matching the right side.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 6 the left side is not 17.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: 4x - 3 = 17
+  value: '6'

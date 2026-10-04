@@ -1,0 +1,58 @@
+id: ITEM.LIN1.R.0025
+skill_ids:
+- MATH.ALG.LIN1.FRACTION_COEFF
+difficulty: 0.45
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student says that x = 5 solves x/3 + 1 = 4. Is the student right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'no'
+  accept:
+  - 'no'
+solution_steps:
+- en: Put x = 5 into x/3 + 1.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x/3 + 1 gives 8/3, and the right side is 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is no.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Replace x with the claimed value and divide first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Add the 1 to what you got, then compare with the right side.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 5 divided by 3, then add 1.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Does dividing by 3 give a whole number here?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: with x = 5 the left side is 4, matching the right side.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 5 the left side is not 4.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: x/3 + 1 = 4
+  value: '5'
