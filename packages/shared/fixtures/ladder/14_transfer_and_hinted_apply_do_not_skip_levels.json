@@ -1,0 +1,96 @@
+{
+  "name": "14_transfer_and_hinted_apply_do_not_skip_levels",
+  "description": "Transfer before level 5 and hinted apply do not advance past level 4.",
+  "params": {
+    "S1": {
+      "p_init": 0.2,
+      "p_learn": 0.5,
+      "p_slip": 0.05,
+      "p_guess": 0.1
+    }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    {
+      "event_id": "e1",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:01:00+00:00",
+      "item_id": "i1",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-a"
+    },
+    {
+      "event_id": "e2",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:02:00+00:00",
+      "item_id": "i2",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-b"
+    },
+    {
+      "event_id": "e3",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:03:00+00:00",
+      "item_id": "i3",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-c"
+    },
+    {
+      "event_id": "e4",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:04:00+00:00",
+      "item_id": "t0",
+      "correct": true,
+      "pool": "practice",
+      "role": "transfer",
+      "structure": "s-t0"
+    },
+    {
+      "event_id": "e5",
+      "skill_id": "S1",
+      "kind": "request_hint",
+      "at": "2026-01-01T09:05:00+00:00",
+      "item_id": "a1",
+      "correct": null,
+      "pool": "practice",
+      "role": "apply",
+      "structure": "s-w"
+    },
+    {
+      "event_id": "e6",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:06:00+00:00",
+      "item_id": "a1",
+      "correct": true,
+      "pool": "practice",
+      "role": "apply",
+      "structure": "s-w"
+    }
+  ],
+  "expect": {
+    "S1": {
+      "level": 4,
+      "evidence": {
+        "3": [
+          "e1"
+        ],
+        "4": [
+          "e1",
+          "e2",
+          "e3"
+        ]
+      }
+    }
+  }
+}
