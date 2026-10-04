@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04, confirmed):** `apps/api` pytest **232 passed, 0 failed** on Postgres (`TEST_DATABASE_URL`), both `-p no:randomly` and `pytest-randomly` seeds 1, 2, 3. `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. `ruff check .` **156 errors** (122 E501, 16 F401, 11 I001, 5 F811, 2 UP) and `mypy .` **51 errors** (mostly missing `types-PyYAML` stubs) — pre-existing, none in files touched by the G0 verification pass; not fixed here. Playwright not run. *(Prior: 231 passed; G0 registries 222.)*
+**Test baseline (2026-10-04, after lint/type cleanup):** `apps/api` pytest **232 passed, 0 failed** on Postgres (`-p no:randomly`; randomized seeds 1–3 were also green before the lint pass). `ruff check .` **0 errors**, `ruff format --check .` clean, `mypy .` **0 errors** (128 files). `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. Playwright not run.
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 
@@ -39,9 +39,11 @@
 
 ## b) Milestones G0–G12 (vs repo)
 
+The milestone definitions, checkboxes and Accept criteria live in **PLAN.md §8 (v2 milestones, G0–G12)**; this table is the code-vs-plan status only. PLAN.md is the source of truth if the two differ.
+
 | Milestone | Status | Evidence |
 |-----------|--------|----------|
-| **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0010; `context_key`; locale FKs; `RESEARCH_MODULE`; quiet hours via jurisdiction profile |
+| **G0** Registries | **Core met (2026-10-04)**; some items open (PLAN.md §8 G0) | `config/` + `content/curricula/`; Alembic 0009–0010; `context_key`; locale FKs; `RESEARCH_MODULE`; quiet hours via jurisdiction profile. Open: locales table name/script/status, grade-band wiring, `JURISDICTION_PROFILE` env, `sections`/`section_map`, `board` removal (deferred to G1/G6), `device_timezone` (G5) |
 | **G1** Ladder | **Not started** | Mastery is BKT/p_known only (`learner/`); no `item.role`; no ladder compute |
 | **G2** Diagnosis + R30–R40 | **Not started** | v1 `policy.py` only; no `diagnosis/`; no stuck-point / wheel-spinning / R40 |
 | **G3** Lessons/scenes/widgets | **Not started** | No `lessons/`, scenes, widget registry; player is single `session/[id]/page.tsx` |
