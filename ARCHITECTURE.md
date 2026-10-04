@@ -285,6 +285,36 @@ The transition table (rule ids R01…Rnn) remains the normative spec; the Mermai
 
 ### 8.1 Practice transitions (normative)
 
+Generated from the code transition table (v1 rules R01–R22, as implemented today; the v2 rules R30+ below are not in the table yet). CI fails if this block drifts.
+
+<!-- ORCH_TRANSITIONS:START -->
+```mermaid
+stateDiagram-v2
+  start --> predict: start/predict (R01)
+  start --> practice: start/show_item (R02)
+  start --> warmup: start/warmup_item (R03)
+  predict --> worked_example: predict_response/worked_example (R04)
+  worked_example --> practice: continue/show_item (R05)
+  practice --> practice: request_hint/hint (R06)
+  practice --> practice: answer/hint (R07)
+  practice --> explain_back: answer/explain_back_prompt (R08)
+  practice --> reveal: answer/reveal_solution (R09)
+  practice --> reveal: show_solution/reveal_solution (R10)
+  reveal --> practice: continue/similar_item (R11)
+  reveal --> start: continue/content_gap (R12)
+  explain_back --> practice: continue/show_item (R13)
+  explain_back --> select_skill: explain_back/explain_back_result (R14)
+  practice --> practice: idle_nudge/nudge (R15)
+  any --> ended: consent_revoked/end_session (R16)
+  any --> ended: idle/end_session (R17)
+  start --> ended: start/end_session (R18)
+  diagnostic --> diagnostic: answer/show_item (R19)
+  diagnostic --> ended: answer/end_session (R20)
+  checkpoint --> ended: answer/checkpoint_score (R21)
+  practice --> practice: show_solution/show_item (R22)
+```
+<!-- ORCH_TRANSITIONS:END -->
+
 Kept from v1 unchanged:
 
 - Hint levels 1–2 are retry hints and are leak-checked. Hint 3 is only the lead-in of `reveal_solution`.
