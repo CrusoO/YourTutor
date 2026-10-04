@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04):** `apps/api` pytest **231 passed, 0 failed** (**231 collected**, Postgres loader included). `apps/web` vitest **33 passed** *(prior)*. `apps/web` `tsc --noEmit` **ok** *(prior)*. Playwright not run for this audit. *(Prior baseline: 222 passed — G0 registries.)*
+**Test baseline (2026-10-04, confirmed):** `apps/api` pytest **232 passed, 0 failed** on Postgres (`TEST_DATABASE_URL`), both `-p no:randomly` and `pytest-randomly` seeds 1, 2, 3. `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. `ruff check .` **156 errors** (122 E501, 16 F401, 11 I001, 5 F811, 2 UP) and `mypy .` **51 errors** (mostly missing `types-PyYAML` stubs) — pre-existing, none in files touched by the G0 verification pass; not fixed here. Playwright not run. *(Prior: 231 passed; G0 registries 222.)*
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 
