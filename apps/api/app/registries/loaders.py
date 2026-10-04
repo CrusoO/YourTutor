@@ -13,10 +13,16 @@ class RegistryLoadError(ValueError):
     pass
 
 
+LOCALE_STATUSES = ("active", "draft")
+
+
 @dataclass(frozen=True)
 class LocaleSpec:
     code: str
     fallback_chain: tuple[str, ...]
+    name: str = ""
+    script: str = ""
+    status: str = "draft"
 
 
 @dataclass(frozen=True)
@@ -98,7 +104,18 @@ def load_locales_config(root: Path | None = None) -> tuple[str, dict[str, Locale
     for row in raw:
         code = str(row["code"])
         chain = tuple(str(x) for x in (row.get("fallback_chain") or []))
-        out[code] = LocaleSpec(code=code, fallback_chain=chain)
+        missing = [field for field in ("name", "script", "status") if not row.get(field)]
+        if missing:
+            raise RegistryLoadError(f"locale {code!r} is missing {', '.join(missing)}")
+        if row["status"] not in LOCALE_STATUSES:
+            raise RegistryLoadError(f"locale {code!r} has unknown status {row['status']!r}")
+        out[code] = LocaleSpec(
+            code=code,
+            fallback_chain=chain,
+            name=str(row["name"]),
+            script=str(row["script"]),
+            status=str(row["status"]),
+        )
     if default not in out:
         raise RegistryLoadError(f"default locale {default!r} not defined")
     return default, out

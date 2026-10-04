@@ -29,6 +29,7 @@ from app.db.models import (
     SkillRow,
 )
 from app.db.session import make_engine, session_factory
+from app.registries.seed_db import seed_g0_registry
 
 
 class LoadError(RuntimeError):
@@ -64,6 +65,7 @@ def load_path(
     with factory() as session:
         try:
             _upsert(session, report.bundle, prune=prune)
+            seed_g0_registry(session)  # registry YAML is the source of truth
             session.commit()
         except PruneBlockedError:
             session.rollback()

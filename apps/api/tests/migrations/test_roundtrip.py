@@ -140,6 +140,12 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
     assert registry <= _tables(engine)
     with engine.connect() as conn:
         assert conn.execute(text("SELECT count(*) FROM sections")).scalar_one() >= 9
+        locales = {
+            r.code: (r.name, r.script, r.status)
+            for r in conn.execute(text("SELECT code, name, script, status FROM locales"))
+        }
+        assert locales["en"] == ("English", "Latn", "active")
+        assert locales["ne"] == ("Nepali", "Deva", "draft")
         assert conn.execute(text("SELECT section_map FROM overlays")).scalar_one() == {}
         rows = conn.execute(
             text("SELECT board, curriculum_id, book_id, context_key FROM students ORDER BY board")

@@ -115,6 +115,9 @@ class LocaleRow(Base):
     __tablename__ = "locales"
 
     code: Mapped[str] = mapped_column(String, primary_key=True)
+    name: Mapped[str] = mapped_column(String)
+    script: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
     fallback_chain: Mapped[list] = mapped_column(JSONType)
 
 

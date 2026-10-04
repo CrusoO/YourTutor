@@ -12,7 +12,13 @@ def seed_g0_registry(session: Session) -> None:
     _, locales = load_locales_config()
     for locale_spec in locales.values():
         session.merge(
-            LocaleRow(code=locale_spec.code, fallback_chain=list(locale_spec.fallback_chain))
+            LocaleRow(
+                code=locale_spec.code,
+                name=locale_spec.name,
+                script=locale_spec.script,
+                status=locale_spec.status,
+                fallback_chain=list(locale_spec.fallback_chain),
+            )
         )
     session.flush()
     for spec in load_all_curricula().values():
