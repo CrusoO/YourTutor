@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.MULTI.AX_B_CX.42.0030
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_MULTI
+difficulty: 0.86
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 3x + 4 + 3x = 76'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 3x + 4 + 3x = 76
+options: []
+answer:
+  sympy: '12'
+  accept:
+  - '12'
+solution_steps:
+- en: 'Combine like terms: 6x + 4 = 76.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Move the constant, then divide by 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 12
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The left side has 3x and 3x. Gather those first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After combining, undo the + 4 then divide by the new coefficient.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Rewrite as 6x + 4 = 76. Move 4, then divide by 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Are there like terms you can gather first?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.SIGN_ERROR
+  when_answer_equals:
+  - '80'
+status: draft
+template_id: TPL.MULTI.AX_B_CX
+generator_version: '1'
+template_hash: 8648b3182095a71f03292679770c34e9589b2460a9d50a1119e94b52c78844ae

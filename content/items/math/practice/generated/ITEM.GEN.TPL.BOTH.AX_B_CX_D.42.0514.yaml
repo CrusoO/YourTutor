@@ -1,0 +1,54 @@
+id: ITEM.GEN.TPL.BOTH.AX_B_CX_D.42.0514
+skill_ids:
+- MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 3x + 5 = 2x + 11'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 3x + 5 = 2x + 11
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: Subtract 2x from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 3x - 2x + 5 = 11
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Subtract 5 from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: 'x appears on both sides: 3x and 2x.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Collect the x terms before you touch the + 5.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After the x terms sit on one side, subtract 5 and divide by the remaining coefficient.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is x larger than 1?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.MOVE_TERM_WITHOUT_SIGN
+  when_answer_equals:
+  - '16'
+status: draft
+template_id: TPL.BOTH.AX_B_CX_D
+generator_version: '1'
+template_hash: d5517831a36f3142d7fc5afa052dc899b9038f439c5711b40966e052a461c2b7

@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BOTH.B_AX.42.0029
+skill_ids:
+- MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 4 + 7x = 49 + 2x'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 4 + 7x = 49 + 2x
+options: []
+answer:
+  sympy: '9'
+  accept:
+  - '9'
+solution_steps:
+- en: Subtract 2x from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Collect x, then undo 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 9
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: 'x appears on both sides: 7x and 2x.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Collect the x terms before you touch the + 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After the x terms sit on one side, subtract 4 and divide.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is x larger than 1?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.MOVE_TERM_WITHOUT_SIGN
+  when_answer_equals:
+  - '53'
+status: draft
+template_id: TPL.BOTH.B_AX
+generator_version: '1'
+template_hash: 453f65f85e9b80e83e4a99a0e217085bb627ab901399b87578b7c9919b1b568b

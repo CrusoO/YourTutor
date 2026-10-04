@@ -1,0 +1,48 @@
+id: ITEM.GEN.TPL.INT.ADD_NEG.42.0060
+skill_ids:
+- MATH.ARITH.INTEGERS.OPERATIONS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: Compute 10 + (-7).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 10 + (-7)
+options: []
+answer:
+  sympy: '3'
+  accept:
+  - '3'
+solution_steps:
+- en: Adding -7 to 10 is 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 3
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Adding -7 to 10 is the same as which subtraction?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Rewrite 10 + (-7) as a single subtraction, then evaluate.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Take 7 away from 10.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is this the same as a subtraction?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.ADD_INSTEAD_SUBTRACT
+  when_answer_equals:
+  - '17'
+status: draft
+template_id: TPL.INT.ADD_NEG
+generator_version: '1'
+template_hash: 28050d9717cad40bf91c4a2b07c8f3a8ff0fbf2bfafe1852c6399b1067b4bdb4

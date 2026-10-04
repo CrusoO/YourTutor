@@ -25,6 +25,9 @@ constraints:
   answer_max: 14
   no_one_x: true
   no_trivial: true
+  distinct:
+  - a
+  - b
 answer_expr: x
 stem: 'Solve for x: {a}x + {b} = {c}x + {d}'
 verify: '{a}x + {b} = {c}x + {d}'
@@ -38,7 +41,7 @@ steps:
 - x = {x}
 hints:
   '1': 'x appears on both sides: {a}x and {c}x.'
-  '2': Collect {a}x with {c}x before you touch the constants.
+  '2': Collect the x terms before you touch the + {b}.
   '3': After the x terms sit on one side, subtract {b} and divide by the remaining
     coefficient.
 misconceptions:

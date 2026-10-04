@@ -1,0 +1,55 @@
+id: ITEM.GEN.TPL.WORD.AGE.42.0045
+skill_ids:
+- MATH.ALG.LIN1.WORD_PROBLEMS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: A student is 4 years older than her sister. Together they are 16 years old.
+    How old is the sister?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: x + (x + 4) = 16
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: Let the sister be x. Then the student is x + 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x + (x + 4) = 16.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Let x be the sister's age. How old is the student, in terms of x, if she is
+    4 years older than her sister?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: The two ages add to 16 years. Write the student as x plus 4, then add that to
+    x — do not finish the arithmetic yet.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Let x be the sister. The student is x + 4. Then x + (x + 4) = 16. Combine, subtract
+    4, and divide by 2.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Is the sister younger than the student?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  when_answer_equals:
+  - '20'
+status: draft
+template_id: TPL.WORD.AGE
+generator_version: '1'
+template_hash: b4fd0f2443859af8dc873c9d750ae311cc60f462f9044f5db3fbc9411a3e0d47

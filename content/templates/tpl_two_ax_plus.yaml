@@ -21,6 +21,9 @@ constraints:
   answer_max: 16
   no_one_x: true
   no_trivial: true
+  distinct:
+  - a
+  - b
 answer_expr: x
 stem: 'Solve for x: {a}x + {b} = {c}'
 verify: '{a}x + {b} = {c}'
@@ -34,7 +37,7 @@ steps:
 - x = {x}
 hints:
   '1': '{a}x then plus {b}. Which of those two do you undo first?'
-  '2': After undoing the {b}, you still have to undo the {a}.
+  '2': After undoing the + {b}, you still have to undo the × {a}.
   '3': First subtract {b} on both sides, then divide by {a}.
 misconceptions:
 - id: MC.ALG.FORGET_BOTH_SIDES

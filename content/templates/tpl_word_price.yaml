@@ -1,6 +1,6 @@
 id: TPL.WORD.PRICE
 skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
-structure: A item costs N more than another. Together they cost N.
+structure: A notebook costs N rupees more than a pen. Together they cost N rupees.
 parameters:
   extra:
     min: 8
@@ -8,18 +8,6 @@ parameters:
   x:
     min: 6
     max: 30
-  item_a:
-    choices:
-    - pen
-    - book
-    - ticket
-    - mango
-  item_b:
-    choices:
-    - notebook
-    - bag
-    - snack
-    - lamp
 derived:
   total: 2 * x + extra
 constraints:
@@ -29,24 +17,27 @@ constraints:
   answer_max: 30
   no_one_x: true
   no_trivial: true
+  distinct:
+  - extra
+  - x
 answer_expr: x
-stem: A {item_b} costs {extra} rupees more than a {item_a}. Together they cost {total}
-  rupees. How many rupees is the {item_a}?
+stem: A notebook costs {extra} rupees more than a pen. Together they cost {total}
+  rupees. How many rupees is the pen?
 verify: x + (x + {extra}) = {total}
 type: expression
 options: []
-prediction: Is the {item_a} cheaper than the {item_b}?
+prediction: Is the pen cheaper than the notebook?
 steps:
-- Let the {item_a} cost x rupees. Then the {item_b} costs x + {extra}.
+- Let the pen cost x rupees. Then the notebook costs x + {extra}.
 - x + (x + {extra}) = {total}.
 - x = {x}
 hints:
-  '1': Let x be the cost of the {item_a} in rupees. How much is the {item_b}, in terms
+  '1': Let x be the cost of the pen in rupees. How much is the notebook, in terms
     of x?
-  '2': The two prices add to {total}. Write the {item_b} as x plus {extra}, then add
-    the two prices — stop before you solve.
-  '3': Let x be the {item_a}. Then x + (x + {extra}) = {total}. Combine, subtract
-    {extra}, and divide by 2.
+  '2': The two prices add to {total} rupees. Write the notebook as x plus {extra},
+    then add the two prices — stop before you solve.
+  '3': Let x be the pen. Then x + (x + {extra}) = {total}. Combine, subtract {extra},
+    and divide by 2.
 misconceptions:
 - id: MC.ALG.INVERSE_OP_WRONG_SIDE
   formula: total + extra

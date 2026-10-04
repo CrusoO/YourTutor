@@ -1,11 +1,125 @@
 :root {
   color-scheme: light;
   font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  line-height: 1.45;
+  --tap: 48px;
+  --ink: #122;
+  --bg: #f6f3ec;
+  --card: #fff;
+  --accent: #0b5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
 }
 
 body {
-  margin: 0;
-  padding: 1.5rem;
-  max-width: 40rem;
+  min-height: 100dvh;
+}
+
+.phone {
+  width: 360px;
+  max-width: 100%;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16px;
+  background: var(--card);
+}
+
+h1,
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.35rem;
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+.stem {
+  font-size: 1.2rem;
+  margin: 12px 0 16px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input,
+textarea,
+select,
+button {
+  min-height: var(--tap);
+  font-size: 1.05rem;
+  border-radius: 10px;
+  border: 1px solid #bbc;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+button.secondary {
+  background: #234;
+}
+
+button.ghost {
+  background: #eef;
+  color: var(--ink);
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.muted {
+  color: #456;
+  font-size: 0.95rem;
+}
+
+.banner {
+  background: #ffd;
+  border: 1px solid #cc8;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.math {
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.steps li {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.lang {
+  display: flex;
+  gap: 8px;
+}
+
+.lang button {
+  flex: 1;
 }

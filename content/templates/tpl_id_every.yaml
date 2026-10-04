@@ -6,7 +6,7 @@ parameters:
     min: 2
     max: 5
   b:
-    min: 1
+    min: 2
     max: 6
 derived:
   prod: a * b
@@ -15,6 +15,9 @@ constraints:
   - a
   - b
   no_one_x: true
+  distinct:
+  - a
+  - b
 answer_expr: every
 stem: How many solutions does {a}(x + {b}) = {a}x + {prod} have?
 verify:

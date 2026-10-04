@@ -21,6 +21,9 @@ constraints:
   answer_max: 16
   no_one_x: true
   no_trivial: true
+  distinct:
+  - a
+  - b
 answer_expr: x
 stem: 'Solve for x: {b} + {a}x = {c}'
 verify: '{b} + {a}x = {c}'
@@ -33,8 +36,8 @@ steps:
 - Divide both sides by {a}.
 - x = {x}
 hints:
-  '1': The {b} is written first, then {a}x. Same two-step undo.
-  '2': Move the {b} first so only {a}x remains.
+  '1': The + {b} is written first, then {a}x. Same two-step undo.
+  '2': After undoing the + {b}, you still have to undo the × {a}.
   '3': First subtract {b} on both sides, then divide by {a}.
 misconceptions:
 - id: MC.ALG.FORGET_BOTH_SIDES

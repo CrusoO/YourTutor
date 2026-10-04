@@ -1,0 +1,62 @@
+id: ITEM.GEN.TPL.ID.NONE.42.0019
+skill_ids:
+- MATH.ALG.LIN1.IDENTITIES
+difficulty: 0.25
+type: mcq
+pool: practice
+stem:
+  en: Classify the solution set of 2x + 3 = 2x + 8.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: solution_count
+  equation: 2x + 3 = 2x + 8
+options:
+- id: none
+  en: No solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: one
+  en: One solution
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: every
+  en: Every x works
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: none
+  accept:
+  - none
+solution_steps:
+- en: Simplify both sides of 2x + 3 = 2x + 8.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is none.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Look at 2x + 3 = 2x + 8. Expand any brackets first.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After simplifying, do both sides become the same expression?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: After you simplify, this is classified as none.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: 'Before simplifying: do you expect a unique value, an identity, or a contradiction?'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.SWAP_EQUALS
+  when_answer_equals:
+  - every
+status: draft
+template_id: TPL.ID.NONE
+generator_version: '1'
+template_hash: 094315f4b88660e2d6f736de2679909037b01ecf60bc8e4e6cf8928a0292528d

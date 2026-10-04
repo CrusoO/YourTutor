@@ -22,6 +22,9 @@ constraints:
   answer_max: 36
   no_one_x: true
   no_trivial: true
+  distinct:
+  - d
+  - b
 answer_expr: x
 stem: 'Solve for x: {b} + x/{d} = {rhs}'
 verify: '{b} + x/{d} = {rhs}'
@@ -33,7 +36,7 @@ steps:
 - x = {x}
 hints:
   '1': The {b} is written first, then x is divided by {d}.
-  '2': Move the {b} so that x/{d} stands alone.
+  '2': Move the + {b} so that x/{d} stands alone.
   '3': When x/{d} stands alone, multiply by {d} to finish.
 misconceptions:
 - id: MC.ALG.DIVIDE_ONE_TERM

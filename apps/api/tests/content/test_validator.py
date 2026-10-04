@@ -4,6 +4,7 @@ from pathlib import Path
 
 from app.content.math_parse import ParseError, normalize, parse_math
 from app.content.leak import hint_leaks_answer
+from app.content.language import hint_role_collision, lint_item_texts
 from app.content.validator import (
     LIVE_MIN_CHECKPOINT,
     last_step_matches_answer,
@@ -347,6 +348,49 @@ def _stem(index: int) -> str:
         "Compute x in x - {n} = {m}.",
     )
     return templates[index].format(n=7 + index, m=12 + index)
+
+
+def test_language_helpers() -> None:
+    errors, _ = lint_item_texts(
+        stem="A traveller walks some distance and then cycles 9 km. The whole trip is 16. How many kilometres did they walk?",
+        hints=["Let x be the kilometres walked."],
+    )
+    assert any("unit is missing" in e for e in errors)
+    assert hint_role_collision("Solve for x: 5x + 5 = 20", ["Undo the + 5 then the × 5."]) == "5"
+
+
+def test_language_lint_rejects_placeholders_and_leftovers(content_root: Path) -> None:
+    data = minimal_item("ITEM.LINT", stem="Solve for x: {b} + x = 12")
+    data["hints"][0]["en"] = "Let x be the first part (walks)."
+    write_yaml(content_root / "items" / "lint.yaml", data)
+    report = validate_path(content_root)
+    assert any("unresolved placeholder" in e for e in report.errors)
+    assert any("parenthesised leftover" in e for e in report.errors)
+
+
+def test_hint_role_collision_rejected(content_root: Path) -> None:
+    data = minimal_item("ITEM.ROLE", stem="Solve for x: 5x + 5 = 20", answer="3", last_step="x = 3")
+    data["hints"][0]["en"] = "Undo the + 5, then undo the x 5."
+    data["hints"][1]["en"] = "After undoing the + 5, undo the x 5."
+    write_yaml(content_root / "items" / "role.yaml", data)
+    report = validate_path(content_root)
+    assert any("more than one stem role" in e for e in report.errors)
+
+
+def test_word_total_requires_unit(content_root: Path) -> None:
+    write_yaml(content_root / "skills" / "word.yaml", minimal_skill("MATH.ALG.LIN1.WORD_PROBLEMS"))
+    data = minimal_item(
+        "ITEM.WORD.UNIT",
+        skill="MATH.ALG.LIN1.WORD_PROBLEMS",
+        stem="A notebook costs 8 rupees more than a pen. Together they cost 30. How many rupees is the pen?",
+        answer="11",
+        last_step="x = 11",
+        hint1="Let x be the cost of the pen in rupees.",
+    )
+    data["verify"] = "x + (x + 8) = 30"
+    write_yaml(content_root / "items" / "word_unit.yaml", data)
+    report = validate_path(content_root)
+    assert any("unit is missing" in e for e in report.errors)
 
 
 def test_malicious_strings_rejected() -> None:

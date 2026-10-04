@@ -17,6 +17,9 @@ constraints:
   answer_max: 18
   no_one_x: true
   no_trivial: true
+  distinct:
+  - older
+  - x
 answer_expr: x
 stem: A student is {older} years older than her sister. Together they are {total}
   years old. How old is the sister?
@@ -31,8 +34,8 @@ steps:
 hints:
   '1': Let x be the sister's age. How old is the student, in terms of x, if she is
     {older} years older than her sister?
-  '2': The two ages add to {total}. Write the student as x plus {older}, then add
-    that to x — do not finish the arithmetic yet.
+  '2': The two ages add to {total} years. Write the student as x plus {older}, then
+    add that to x — do not finish the arithmetic yet.
   '3': Let x be the sister. The student is x + {older}. Then x + (x + {older}) = {total}.
     Combine, subtract {older}, and divide by 2.
 misconceptions:

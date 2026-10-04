@@ -1,54 +1,53 @@
 id: ITEM.GEN.TPL.WORD.DIST.42.0010
 skill_ids:
 - MATH.ALG.LIN1.WORD_PROBLEMS
-difficulty: 0.55
+difficulty: 0.25
 type: expression
 pool: practice
 stem:
-  en: A walker covers hikes for x km and then cycles for 9 km. The whole trip is 17
-    km. How many kilometres was the first part?
+  en: A traveller walks some distance and then cycles 3 km. The whole trip is 8 km.
+    How many kilometres did they walk?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-verify: x + 9 = 17
+verify: x + 3 = 8
 options: []
 answer:
-  sympy: '8'
+  sympy: '5'
   accept:
-  - '8'
+  - '5'
 solution_steps:
-- en: The two parts add to 17 km.
+- en: The two parts add to 8 km.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: x + 9 = 17.
+- en: x + 3 = 8.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: x = 8
+- en: x = 5
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 hints:
 - level: 1
-  en: Let x be the kilometres walked in the first part (hikes), not the whole trip.
-    What is still left to account for?
+  en: Let x be the kilometres walked.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 2
-  en: The whole trip is 17 km and the second stretch is 9 km. Write how x and 9 make
-    17 — do not evaluate yet.
+  en: The whole trip is 8 km and the cycling stretch is 3 km. Write how x and 3 make
+    8 — do not evaluate yet.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 3
-  en: Let x be the first part. Then x + 9 = 17. Subtract 9 to isolate x.
+  en: Let x be the kilometres walked. Then x + 3 = 8. Subtract 3 to isolate x.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 prediction_prompt:
-  en: Is the first part shorter than the whole trip?
+  en: Is the walking part shorter than the whole trip?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 misconception_rules:
 - id: MC.ALG.INVERSE_OP_WRONG_SIDE
   when_answer_equals:
-  - '26'
+  - '11'
 status: draft
 template_id: TPL.WORD.DIST
 generator_version: '1'
-template_hash: d5dd9865b091dac37bfb3648fb84cfe3cd42d65bf014d681669af0e8da020e4d
+template_hash: 4208676ddde285a8c176d3b2aea67325cefc4cb69abbc4277b3855f917ec514a

@@ -1,0 +1,54 @@
+id: ITEM.GEN.TPL.TWO.AX_PLUS.42.0016
+skill_ids:
+- MATH.ALG.LIN1.SOLVE_TWO_STEP
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 6x + 9 = 69'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 6x + 9 = 69
+options: []
+answer:
+  sympy: '10'
+  accept:
+  - '10'
+solution_steps:
+- en: Subtract 9 from both sides.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 6x = 69 - 9
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Divide both sides by 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 10
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: 6x then plus 9. Which of those two do you undo first?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: After undoing the + 9, you still have to undo the × 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: First subtract 9 on both sides, then divide by 6.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be a whole number?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.FORGET_BOTH_SIDES
+  when_answer_equals:
+  - '60'
+status: draft
+template_id: TPL.TWO.AX_PLUS
+generator_version: '1'
+template_hash: f4ffcf18ee41c25fddf26954ec7c039f73e2349a7cc13f8f5c3048814875e5e0

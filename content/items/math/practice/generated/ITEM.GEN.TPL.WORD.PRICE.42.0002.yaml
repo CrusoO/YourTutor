@@ -1,54 +1,55 @@
 id: ITEM.GEN.TPL.WORD.PRICE.42.0002
 skill_ids:
 - MATH.ALG.LIN1.WORD_PROBLEMS
-difficulty: 0.86
+difficulty: 0.55
 type: expression
 pool: practice
 stem:
-  en: A bag costs 21 rupees more than a pen. Together they cost 73 rupees. How many
-    rupees is the pen?
+  en: A notebook costs 14 rupees more than a pen. Together they cost 30 rupees. How
+    many rupees is the pen?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-verify: x + (x + 21) = 73
+verify: x + (x + 14) = 30
 options: []
 answer:
-  sympy: '26'
+  sympy: '8'
   accept:
-  - '26'
+  - '8'
 solution_steps:
-- en: Let the pen cost x rupees. Then the bag costs x + 21.
+- en: Let the pen cost x rupees. Then the notebook costs x + 14.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: x + (x + 21) = 73.
+- en: x + (x + 14) = 30.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
-- en: x = 26
+- en: x = 8
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 hints:
 - level: 1
-  en: Let x be the cost of the pen in rupees. How much is the bag, in terms of x?
+  en: Let x be the cost of the pen in rupees. How much is the notebook, in terms of
+    x?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 2
-  en: The two prices add to 73. Write the bag as x plus 21, then add the two prices
-    — stop before you solve.
+  en: The two prices add to 30 rupees. Write the notebook as x plus 14, then add the
+    two prices — stop before you solve.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 - level: 3
-  en: Let x be the pen. Then x + (x + 21) = 73. Combine, subtract 21, and divide by
+  en: Let x be the pen. Then x + (x + 14) = 30. Combine, subtract 14, and divide by
     2.
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 prediction_prompt:
-  en: Is the pen cheaper than the bag?
+  en: Is the pen cheaper than the notebook?
   ne: <Nepali — to be filled by reviewer>
   as: <Assamese — to be filled by reviewer>
 misconception_rules:
 - id: MC.ALG.INVERSE_OP_WRONG_SIDE
   when_answer_equals:
-  - '94'
+  - '44'
 status: draft
 template_id: TPL.WORD.PRICE
 generator_version: '1'
-template_hash: 729d54af008a7b1110b5b114b16a1740d10dc93ec7a00e80b6d616e5570c5fac
+template_hash: fdc7f0e8bb270ca54dd093c995f8fbc95b1e51c8c57f5f35813d4d90232b68a2

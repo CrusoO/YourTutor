@@ -26,6 +26,9 @@ constraints:
   answer_max: 14
   no_one_x: true
   no_trivial: true
+  distinct:
+  - b
+  - s
 answer_expr: x
 stem: 'Solve for x: {a}x + {b} + {c}x = {rhs}'
 verify: '{a}x + {b} + {c}x = {rhs}'
@@ -38,7 +41,7 @@ steps:
 - x = {x}
 hints:
   '1': The left side has {a}x and {c}x. Gather those first.
-  '2': After combining, undo the {b} then divide by {s}.
+  '2': After combining, undo the + {b} then divide by the new coefficient.
   '3': Rewrite as {s}x + {b} = {rhs}. Move {b}, then divide by {s}.
 misconceptions:
 - id: MC.ALG.SIGN_ERROR

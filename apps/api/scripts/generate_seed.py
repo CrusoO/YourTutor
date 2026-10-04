@@ -384,7 +384,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     if style == 0:
         stem = f"Solve for x: x + {addend} = {total}"
         h1 = f"x has {addend} added to it. What undoes that single step?"
-        h2 = f"Do the inverse of +{addend} to both sides of {total}."
+        h2 = f"Subtract {addend} from both sides."
         steps = [
             f"We want x alone. Subtract {addend} from both sides.",
             f"x + {addend} - {addend} = {total} - {addend}",
@@ -396,7 +396,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         rhs = answer - addend
         stem = f"Solve for x: x - {addend} = {rhs}"
         h1 = f"x has {addend} subtracted from it. What puts x back alone?"
-        h2 = f"Undo -{addend} on both sides of {rhs}."
+        h2 = f"Add {addend} to both sides."
         steps = [
             f"Add {addend} to both sides.",
             f"x = {answer}",
@@ -406,7 +406,7 @@ def one_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     else:
         stem = f"Solve for x: {addend}x = {addend * answer}"
         h1 = f"x is multiplied by {addend}. What single step isolates x?"
-        h2 = f"Divide both sides of {addend * answer} by {addend}."
+        h2 = f"Divide both sides by {addend}."
         steps = [
             f"Divide both sides by {addend}.",
             f"x = {answer}",
@@ -434,7 +434,7 @@ def two_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         rhs = coeff * answer + added
         stem = f"Solve for x: {fmt_x(coeff)} + {added} = {rhs}"
         h1 = f"{fmt_x(coeff)} then plus {added}. Which of those two do you undo first?"
-        h2 = f"After undoing the {added}, you still have to undo the {coeff}."
+        h2 = f"After undoing the + {added}, you still have to undo the × {coeff}."
         h3 = f"First subtract {added} on both sides, then divide by {coeff}."
         steps = [
             f"Subtract {added} from both sides.",
@@ -445,8 +445,8 @@ def two_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     elif style == 1:
         rhs = coeff * answer - added
         stem = f"Solve for x: {fmt_x(coeff)} - {added} = {rhs}"
-        h1 = f"{fmt_x(coeff)} then minus {added}. Undo the {added} first."
-        h2 = f"Adding {added} to both sides leaves {fmt_x(coeff)} alone on the left."
+        h1 = f"{fmt_x(coeff)} then minus {added}. Undo the − {added} first."
+        h2 = f"After undoing the − {added}, you still have to undo the × {coeff}."
         h3 = f"First add {added} on both sides, then divide by {coeff}."
         steps = [
             f"Add {added} to both sides.",
@@ -457,8 +457,8 @@ def two_step(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     else:
         rhs = coeff * answer + added
         stem = f"Solve for x: {added} + {fmt_x(coeff)} = {rhs}"
-        h1 = f"The {added} is written first, then {fmt_x(coeff)}. Same two-step undo."
-        h2 = f"Move the {added} first so only {fmt_x(coeff)} remains."
+        h1 = f"The + {added} is written first, then {fmt_x(coeff)}. Same two-step undo."
+        h2 = f"After undoing the + {added}, you still have to undo the × {coeff}."
         h3 = f"First subtract {added} on both sides, then divide by {coeff}."
         steps = [
             f"Subtract {added} from both sides.",
@@ -657,7 +657,7 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"if she is {older} years older than her sister?"
         )
         h2 = (
-            f"The two ages add to {total}. Write the student as x plus {older}, "
+            f"The two ages add to {total} years. Write the student as x plus {older}, "
             f"then add that to x — do not finish the arithmetic yet."
         )
         h3 = (
@@ -668,37 +668,32 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     elif kind == "price":
         extra, total = spec[1], spec[2]
         answer = (total - extra) // 2
-        item_a, item_b = spec[3], spec[4]
         stem = (
-            f"A {item_b} costs {extra} rupees more than a {item_a}. "
-            f"Together they cost {total} rupees. How many rupees is the {item_a}?"
+            f"A notebook costs {extra} rupees more than a pen. "
+            f"Together they cost {total} rupees. How many rupees is the pen?"
         )
         verify = f"x + (x + {extra}) = {total}"
         steps = [
-            f"Let the {item_a} cost x rupees. Then the {item_b} costs x + {extra}.",
+            f"Let the pen cost x rupees. Then the notebook costs x + {extra}.",
             f"x + (x + {extra}) = {total}.",
             f"x = {answer}",
         ]
-        pred = f"Is the {item_a} cheaper than the {item_b}?"
-        h1 = (
-            f"Let x be the cost of the {item_a} in rupees. "
-            f"How much is the {item_b}, in terms of x?"
-        )
+        pred = "Is the pen cheaper than the notebook?"
+        h1 = "Let x be the cost of the pen in rupees. How much is the notebook, in terms of x?"
         h2 = (
-            f"The two prices add to {total}. Write the {item_b} as x plus {extra}, "
+            f"The two prices add to {total} rupees. Write the notebook as x plus {extra}, "
             f"then add the two prices — stop before you solve."
         )
         h3 = (
-            f"Let x be the {item_a}. Then x + (x + {extra}) = {total}. "
+            f"Let x be the pen. Then x + (x + {extra}) = {total}. "
             f"Combine to 2x + {extra} = {total}, subtract {extra}, and divide by 2."
         )
     else:
         extra, total = spec[1], spec[2]
         answer = total - extra
-        first, second = spec[3], spec[4]
         stem = (
-            f"A walker covers {first} for x km and then {second} for {extra} km. "
-            f"The whole trip is {total} km. How many kilometres was the first part?"
+            f"A traveller walks some distance and then cycles {extra} km. "
+            f"The whole trip is {total} km. How many kilometres did they walk?"
         )
         verify = f"x + {extra} = {total}"
         steps = [
@@ -706,17 +701,14 @@ def word(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
             f"x + {extra} = {total}.",
             f"x = {answer}",
         ]
-        pred = "Is the first part shorter than the whole trip?"
-        h1 = (
-            f"Let x be the kilometres walked in the first part ({first}), "
-            f"not the whole trip. What is still left to account for?"
-        )
+        pred = "Is the walking part shorter than the whole trip?"
+        h1 = "Let x be the kilometres walked."
         h2 = (
-            f"The whole trip is {total} km and the second stretch is {extra} km. "
+            f"The whole trip is {total} km and the cycling stretch is {extra} km. "
             f"Write how x and {extra} make {total} — do not evaluate yet."
         )
         h3 = (
-            f"Let x be the first part. Then x + {extra} = {total}. "
+            f"Let x be the kilometres walked. Then x + {extra} = {total}. "
             f"Subtract {extra} to isolate x."
         )
     return item(

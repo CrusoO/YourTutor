@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
@@ -37,7 +38,14 @@ export default function SessionPage() {
   }
 
   useEffect(() => {
-    load().catch(() => router.push("/login"));
+    load().catch(async () => {
+      if (skipLogin()) {
+        await ensureDevStudent();
+        await load();
+        return;
+      }
+      router.push("/login");
+    });
     return () => {
       if (idle.current) window.clearTimeout(idle.current);
       if (hintTimer.current) window.clearTimeout(hintTimer.current);

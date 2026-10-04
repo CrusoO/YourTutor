@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BR.TIMES.42.0020
+skill_ids:
+- MATH.ALG.LIN1.BRACKETS
+difficulty: 0.55
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 4 × (x + 3) = 52'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 4(x + 3) = 52
+options: []
+answer:
+  sympy: '10'
+  accept:
+  - '10'
+solution_steps:
+- en: 'Divide both sides by 4: x + 3 = 13.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Subtract 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 10
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The 4 multiplies the whole bracket (x + 3).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Divide both sides by 4 first. You get x + 3 = 13.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Then subtract 3 to isolate x.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be positive?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  when_answer_equals:
+  - '48'
+status: draft
+template_id: TPL.BR.TIMES
+generator_version: '1'
+template_hash: 4631fd0deda697a6ebd66f2d6eae0819f75887476c71152aba1b8d2c501b9572

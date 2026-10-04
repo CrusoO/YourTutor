@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml
 
+from app.content.language import lint_item_texts
 from app.content.leak import hint_leaks_answer
 from app.content.math_parse import ParseError, parse_math
 from app.content.schema import Item, ItemTemplate
@@ -130,6 +131,16 @@ def _constraints_ok(template: ItemTemplate, params: dict[str, Any], stem: str) -
                     return False
             except (TypeError, ValueError):
                 continue
+    distinct = cons.get("distinct") or []
+    if distinct:
+        seen: list[str] = []
+        for name in distinct:
+            try:
+                seen.append(str(int(params[name])))
+            except (KeyError, TypeError, ValueError):
+                return False
+        if len(set(seen)) != len(seen):
+            return False
     return True
 
 
@@ -201,6 +212,13 @@ def instantiate(
     if template.options:
         payload["options"] = [opt.model_dump(by_alias=True) for opt in template.options]
     item = Item.model_validate(payload)
+    errors, _warnings = lint_item_texts(
+        stem=item.stem.en,
+        hints=[hint.en for hint in item.hints],
+        extras=[item.prediction_prompt.en, *[step.en for step in item.solution_steps]],
+    )
+    if errors:
+        raise ValueError("; ".join(errors))
     _assert_instance(item, rules)
     return item
 
@@ -315,13 +333,15 @@ def write_instances(root: Path, items: list[Item]) -> None:
 def generate_from_templates(root: Path, *, seed: int) -> list[Item]:
     from app.content.template_catalog import builtin_templates
 
+    for template in builtin_templates():
+        write_template(root, template)
     existing = load_templates(root)
-    if not existing:
-        for template in builtin_templates():
-            write_template(root, template)
-        existing = load_templates(root)
     bundle = load_bundle(root)
-    stems = {re.sub(r"\s+", " ", item.stem.en.strip()).lower() for item in bundle.items}
+    stems = {
+        re.sub(r"\s+", " ", item.stem.en.strip()).lower()
+        for item in bundle.items
+        if not item.template_id
+    }
     items = generate_instances(existing, seed=seed, existing_stems=stems)
     approved = {tpl.id: tpl for tpl in existing if tpl.status.value == "approved"}
     for item in items:

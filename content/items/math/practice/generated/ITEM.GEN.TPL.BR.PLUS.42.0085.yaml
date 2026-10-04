@@ -1,0 +1,51 @@
+id: ITEM.GEN.TPL.BR.PLUS.42.0085
+skill_ids:
+- MATH.ALG.LIN1.BRACKETS
+difficulty: 0.25
+type: expression
+pool: practice
+stem:
+  en: 'Solve for x: 2(x + 3) = 18'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify: 2(x + 3) = 18
+options: []
+answer:
+  sympy: '6'
+  accept:
+  - '6'
+solution_steps:
+- en: 'Divide both sides by 2: x + 3 = 9.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: Subtract 3.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x = 6
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: The 2 multiplies the whole bracket (x + 3).
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Divide both sides by 2 first. You get x + 3 = 9.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Then subtract 3 to isolate x.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will x be positive?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules:
+- id: MC.ALG.DISTRIBUTE_WRONG
+  when_answer_equals:
+  - '16'
+status: draft
+template_id: TPL.BR.PLUS
+generator_version: '1'
+template_hash: 895b5e723e299a0f3068a0c94f4b4942fb027e1cd9397f72a929947a40ac549c
