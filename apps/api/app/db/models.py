@@ -412,6 +412,10 @@ class MasteryRow(Base):
     unhinted_correct: Mapped[int] = mapped_column(Integer, default=0)
     hinted_correct: Mapped[int] = mapped_column(Integer, default=0)
     last_updated: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    ladder_level: Mapped[int] = mapped_column(Integer, default=0)
+    ladder_evidence: Mapped[dict] = mapped_column(JSONType, default=dict)  # level -> event ids
+    flags: Mapped[dict] = mapped_column(JSONType, default=dict)
+    ladder_memory: Mapped[dict] = mapped_column(JSONType, default=dict)  # incremental state
 
 
 class ReviewCardRow(Base):

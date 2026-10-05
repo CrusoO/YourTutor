@@ -29,6 +29,7 @@ from app.db.models import (
     StudentRow,
 )
 from app.learner.bkt import BktParams
+from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.orchestrator.policy import policy
 from app.orchestrator.types import (
@@ -108,6 +109,7 @@ def load_learner(session: Session, student_id: uuid.UUID) -> LearnerState:
             unhinted_correct=row.unhinted_correct,
             hinted_correct=row.hinted_correct,
         )
+        state.ladders[row.skill_id] = _ladder_from_row(row)
     for card_row in session.scalars(
         select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)
     ).all():
@@ -119,9 +121,22 @@ def load_learner(session: Session, student_id: uuid.UUID) -> LearnerState:
     return state
 
 
+def _ladder_from_row(row: MasteryRow) -> SkillLadder:
+    memory = row.ladder_memory or {}
+    if memory.get("skill_id") == row.skill_id:
+        return SkillLadder.from_json(memory)
+    evidence = {int(k): list(v) for k, v in (row.ladder_evidence or {}).items()}
+    achieved = sorted(evidence) or ([row.ladder_level] if row.ladder_level else [])
+    return SkillLadder(
+        skill_id=row.skill_id, achieved=achieved, evidence=evidence, flags=dict(row.flags or {})
+    )
+
+
 def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerState) -> None:
     now = now_utc()
     for skill_id, mastery in learner.mastery.items():
+        ladder = learner.ladders.get(skill_id)
+        summary = ladder.summary() if ladder else {"level": 0, "evidence": {}, "flags": {}}
         session.merge(
             MasteryRow(
                 student_id=student_id,
@@ -131,6 +146,10 @@ def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerSta
                 unhinted_correct=mastery.unhinted_correct,
                 hinted_correct=mastery.hinted_correct,
                 last_updated=now,
+                ladder_level=summary["level"],
+                ladder_evidence=summary["evidence"],
+                flags=summary["flags"],
+                ladder_memory=ladder.to_json() if ladder else {},
             )
         )
     for skill_id, card in learner.cards.items():
@@ -521,6 +540,9 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
     }
 
 
+from app.player.ladder_log import recompute_ladders  # noqa: E402,F401
+
+
 def apply_player_event(
     session: Session,
     actor: Actor,
@@ -564,6 +586,7 @@ def apply_player_event(
         item_id=item_id,
         idle_ms=payload.get("idle_ms"),
         text=payload.get("text"),
+        event_id=str(client_event_id),
     )
     action = policy(learner, state, event)
     persist_learner(session, student.id, learner)
@@ -576,10 +599,10 @@ def apply_player_event(
             item_id=item_id or action.item_id,
             event_type=event_type,
             payload=payload,
-            correct=action.correct,
+            correct=state.last_correct if event_type == "answer" else action.correct,
             hint_level=action.hint_level,
             latency_ms=payload.get("latency_ms"),
-            created_at=now_utc(),
+            created_at=state.now,
             state_before=action.state_before,
             state_after=action.state_after,
             rule_id=action.rule_id,

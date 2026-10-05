@@ -15,7 +15,7 @@ from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import sessionmaker
 
 from app.auth.security import now_utc
-from app.db.models import OverlayRow, StudentRow, UserRow
+from app.db.models import MasteryRow, OverlayRow, SkillRow, StudentRow, UserRow
 
 API_ROOT = Path(__file__).resolve().parents[2]
 PRE_G0_REVISION = "0008_retire"
@@ -113,6 +113,32 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
                 live=False,
             )
         )
+        session.add(
+            SkillRow(
+                id="MATH.X",
+                title={"en": "x"},
+                grade_band=[9],
+                subject="math",
+                prerequisites=[],
+                related=[],
+                misconceptions=[],
+                bkt={"p_init": 0.2, "p_learn": 0.15, "p_slip": 0.1, "p_guess": 0.2},
+                status="approved",
+            )
+        )
+        session.flush()
+        session.add(
+            MasteryRow(
+                student_id=ids["bhutan"],
+                skill_id="MATH.X",
+                p_known=0.91,
+                last_updated=now_utc(),
+                ladder_level=4,
+                ladder_evidence={"4": ["e1", "e2", "e3"]},
+                flags={"retention_stage": 1},
+                ladder_memory={"skill_id": "MATH.X"},
+            )
+        )
         session.commit()
 
     command.downgrade(cfg, PRE_G0_REVISION)
@@ -144,10 +170,29 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         assert names == {"Kid bhutan", "Kid seba"}
         assert conn.execute(text("SELECT count(*) FROM overlays")).scalar_one() == 1
         assert conn.execute(text("SELECT count(*) FROM users")).scalar_one() == 1
+        mastery_cols = {
+            row[0]
+            for row in conn.execute(
+                text(
+                    "SELECT column_name FROM information_schema.columns "
+                    "WHERE table_name = 'mastery'"
+                )
+            )
+        }
+        assert {"ladder_level", "ladder_evidence", "flags", "ladder_memory"}.isdisjoint(
+            mastery_cols
+        )
+        assert conn.execute(text("SELECT p_known FROM mastery")).scalar_one() == 0.91
 
     command.upgrade(cfg, "head")
     assert registry <= _tables(engine)
     with engine.connect() as conn:
+        ladder = conn.execute(
+            text("SELECT p_known, ladder_level, ladder_evidence, flags FROM mastery")
+        ).one()
+        assert ladder.p_known == 0.91  # data survives the round trip
+        assert ladder.ladder_level == 0  # ladder columns come back at their defaults
+        assert ladder.ladder_evidence == {} and ladder.flags == {}
         assert conn.execute(text("SELECT count(*) FROM sections")).scalar_one() >= 9
         assert (
             conn.execute(
