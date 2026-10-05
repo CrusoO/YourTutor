@@ -26,13 +26,17 @@ TRANSITIONS: tuple[Transition, ...] = (
     Transition("R05", "worked_example", "continue", "practice", "show_item", "begin practice"),
     Transition("R06", "practice", "request_hint", "practice", "hint", "hint 1 or 2"),
     Transition("R07", "practice", "answer", "practice", "hint", "wrong before hint 2"),
-    Transition("R08", "practice", "answer", "explain_back", "explain_back_prompt", "first unhinted"),
+    Transition(
+        "R08", "practice", "answer", "explain_back", "explain_back_prompt", "first unhinted"
+    ),
     Transition("R09", "practice", "answer", "reveal", "reveal_solution", "wrong after hint 2"),
     Transition("R10", "practice", "show_solution", "reveal", "reveal_solution", "after two hints"),
     Transition("R11", "reveal", "continue", "practice", "similar_item", "same skill and tier"),
     Transition("R12", "reveal", "continue", "start", "content_gap", "no other item"),
     Transition("R13", "explain_back", "continue", "practice", "show_item", "skip explain"),
-    Transition("R14", "explain_back", "explain_back", "select_skill", "explain_back_result", "store text"),
+    Transition(
+        "R14", "explain_back", "explain_back", "select_skill", "explain_back_result", "store text"
+    ),
     Transition("R15", "practice", "idle_nudge", "practice", "nudge", "no pedagogy change"),
     Transition("R16", "any", "consent_revoked", "ended", "end_session", "consent revoked"),
     Transition("R17", "any", "idle", "ended", "end_session", "10 min idle"),
@@ -48,8 +52,7 @@ def mermaid_from_table() -> str:
     lines = ["```mermaid", "stateDiagram-v2"]
     for row in TRANSITIONS:
         lines.append(
-            f"  {row.state_before} --> {row.state_after}: "
-            f"{row.event}/{row.action} ({row.rule_id})"
+            f"  {row.state_before} --> {row.state_after}: {row.event}/{row.action} ({row.rule_id})"
         )
     lines.append("```")
     return "\n".join(lines)
@@ -57,7 +60,11 @@ def mermaid_from_table() -> str:
 
 def rule_id_for(state_before: str, event: str, action: str) -> str:
     for row in TRANSITIONS:
-        if row.state_before in {state_before, "any"} and row.event == event and row.action == action:
+        if (
+            row.state_before in {state_before, "any"}
+            and row.event == event
+            and row.action == action
+        ):
             return row.rule_id
     return f"{state_before}:{event}->{action}"
 

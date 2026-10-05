@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from app.orchestrator.diagnostic import LOW_PRIOR, is_dont_know
 from app.orchestrator.policy import policy
-from app.orchestrator.types import Event
+from app.orchestrator.types import CatalogItem, Event
 from tests.orchestrator.conftest import catalog_item, make_learner, make_session
 
 
-def _diag(item_id: str, skill: str, answer: str = "5") -> object:
+def _diag(item_id: str, skill: str, answer: str = "5") -> CatalogItem:
     return catalog_item(item_id, skill=skill, pool="diagnostic", answer=answer)
 
 
@@ -140,7 +140,9 @@ def test_diagnostic_caps_at_sixteen_items() -> None:
     policy(learner, session, None)
     steps = 0
     while session.phase != "ended" and steps < 30:
-        policy(learner, session, Event(type="answer", response="99", item_id=session.current_item_id))
+        policy(
+            learner, session, Event(type="answer", response="99", item_id=session.current_item_id)
+        )
         steps += 1
     assert session.items_completed <= 16
     assert session.ended_reason == "diagnostic_complete"

@@ -43,11 +43,11 @@ def upgrade() -> None:
         )
     )
     conn.execute(
-        sa.text(
-            "UPDATE users SET locale = 'en' WHERE locale NOT IN (SELECT code FROM locales)"
-        )
+        sa.text("UPDATE users SET locale = 'en' WHERE locale NOT IN (SELECT code FROM locales)")
     )
-    rows = conn.execute(sa.text("SELECT id, board, grade, current_chapter_id, timezone FROM students")).all()
+    rows = conn.execute(
+        sa.text("SELECT id, board, grade, current_chapter_id, timezone FROM students")
+    ).all()
     for row in rows:
         board = row.board or "bhutan"
         curriculum_id = board if board in {"bhutan", "seba"} else board
@@ -80,7 +80,9 @@ def upgrade() -> None:
 
     op.alter_column("students", "curriculum_id", nullable=False)
     op.alter_column("students", "book_id", nullable=False)
-    op.create_foreign_key("fk_students_curriculum", "students", "curricula", ["curriculum_id"], ["id"])
+    op.create_foreign_key(
+        "fk_students_curriculum", "students", "curricula", ["curriculum_id"], ["id"]
+    )
     op.create_foreign_key("fk_students_book", "students", "books", ["book_id"], ["id"])
     op.create_foreign_key(
         "fk_students_home_language", "students", "locales", ["home_language"], ["code"]

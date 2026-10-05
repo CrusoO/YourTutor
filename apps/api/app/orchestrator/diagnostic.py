@@ -137,11 +137,7 @@ def seed_placement(learner: LearnerState, session: SessionState) -> None:
     tested: dict[str, list[dict]] = {}
     for row in session.diagnostic_results:
         tested.setdefault(row["skill_id"], []).append(row)
-    session.skills_not_tested = [
-        sid
-        for sid in session.overlay_skill_ids
-        if sid not in tested
-    ]
+    session.skills_not_tested = [sid for sid in session.overlay_skill_ids if sid not in tested]
     params_all = {
         sid: session.bkt_params.get(sid, BktParams(0.2, 0.15, 0.1, 0.2))
         for sid in session.overlay_skill_ids

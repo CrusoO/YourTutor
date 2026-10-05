@@ -14,7 +14,7 @@ def test_locale_falls_back_to_english() -> None:
 
 
 def test_locale_never_empty() -> None:
-    text = LocalizedText(en="Hello", ne="", as_="")
+    text = LocalizedText.model_validate({"en": "Hello", "ne": "", "as": ""})
     assert resolve_text(text, "ne") == "Hello"
 
 
@@ -33,7 +33,7 @@ def test_approved_always_servable() -> None:
 def test_non_live_overlay_not_targetable_in_prod() -> None:
     overlay = Overlay(
         id="ov",
-        board="bhutan",
+        curriculum_id="bhutan",
         grade=9,
         chapter="linear_equations",
         skill_ids=["MATH.S1"],

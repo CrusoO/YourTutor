@@ -21,7 +21,10 @@ def main(argv: list[str] | None = None) -> int:
     load.add_argument(
         "--prune",
         action="store_true",
-        help="Hard-delete skills/items absent from the bundle (refuses if learner data references them).",
+        help=(
+            "Hard-delete skills/items absent from the bundle (refuses if learner data references "
+            "them)."
+        ),
     )
     export = sub.add_parser("export-review")
     export.add_argument("root", type=Path)

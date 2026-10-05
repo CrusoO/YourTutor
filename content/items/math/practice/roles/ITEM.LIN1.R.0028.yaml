@@ -1,0 +1,58 @@
+id: ITEM.LIN1.R.0028
+skill_ids:
+- MATH.ALG.LIN1.WORD_PROBLEMS
+difficulty: 0.45
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student says that x = 12 solves x + x + 7 = 31. Is the student right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'yes'
+  accept:
+  - 'yes'
+solution_steps:
+- en: Put x = 12 into x + x + 7.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: x + x + 7 gives 31, and the right side is 31.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is yes.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Let x be the smaller number and put 12 in its place on both x terms.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Add the two numbers and the extra 7, then compare with the total.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 12 + 12 + 7.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Do the two numbers and the extra 7 reach the total?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: two numbers where one is 7 more, with x = 12, add to 31.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 12 the two numbers do not add to 31.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: x + x + 7 = 31
+  value: '12'

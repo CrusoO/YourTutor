@@ -46,6 +46,7 @@ def test_load_seed_postgres() -> None:
     cfg = Config(str(API_ROOT / "alembic.ini"))
     cfg.set_main_option("script_location", str(API_ROOT / "migrations"))
     cfg.set_main_option("sqlalchemy.url", url)
+    cfg.attributes["database_url"] = url
     command.upgrade(cfg, "head")
     from app.db.models import Base
 
@@ -56,5 +57,5 @@ def test_load_seed_postgres() -> None:
         skills = session.scalars(select(SkillRow)).all()
         items = session.scalars(select(ItemRow)).all()
         assert len(skills) == 12
-        assert len(items) == 370
+        assert len(items) == 406
     engine.dispose()

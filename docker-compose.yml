@@ -31,11 +31,15 @@ services:
       context: ./apps/api
     volumes:
       - ./content:/content:ro
+      - ./config:/config:ro
     environment:
       POSTGRES_HOST: postgres
       REDIS_URL: redis://redis:6379/0
       OTEL_ENABLED: ${OTEL_ENABLED:-false}
       ALLOW_DRAFT_CONTENT: ${ALLOW_DRAFT_CONTENT:-true}
+      JURISDICTION_PROFILE: ${JURISDICTION_PROFILE:-default_strict}
+      CONFIG_DIR: /config
+      CONTENT_DIR: /content
       E2E_MINI_CONTENT: ${E2E_MINI_CONTENT:-false}
       PILOT_ONBOARDING: ${PILOT_ONBOARDING:-true}
       PILOT_KEY: ${PILOT_KEY:-dev-pilot}

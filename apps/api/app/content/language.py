@@ -159,7 +159,9 @@ def lint_texts(texts: list[str]) -> tuple[list[str], list[str]]:
     return errors, warnings
 
 
-def lint_item_texts(*, stem: str, hints: list[str], extras: list[str] | None = None) -> tuple[list[str], list[str]]:
+def lint_item_texts(
+    *, stem: str, hints: list[str], extras: list[str] | None = None
+) -> tuple[list[str], list[str]]:
     errors, warnings = lint_texts([stem, *hints, *(extras or [])])
     for hint in hints:
         if _BOTH_SIDES_OF_N.search(hint):

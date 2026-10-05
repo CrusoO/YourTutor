@@ -4,14 +4,22 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from app.db.models import BookRow, ChapterRow, CurriculumRow, LocaleRow
+from app.db.models import BookRow, ChapterRow, CurriculumRow, LocaleRow, SectionRow
 from app.registries.loaders import load_all_curricula, load_locales_config
 
 
 def seed_g0_registry(session: Session) -> None:
     _, locales = load_locales_config()
-    for spec in locales.values():
-        session.merge(LocaleRow(code=spec.code, fallback_chain=list(spec.fallback_chain)))
+    for locale_spec in locales.values():
+        session.merge(
+            LocaleRow(
+                code=locale_spec.code,
+                name=locale_spec.name,
+                script=locale_spec.script,
+                status=locale_spec.status,
+                fallback_chain=list(locale_spec.fallback_chain),
+            )
+        )
     session.flush()
     for spec in load_all_curricula().values():
         session.merge(
@@ -45,4 +53,19 @@ def seed_g0_registry(session: Session) -> None:
                         chapter_key=chapter.chapter_key,
                     )
                 )
+    session.flush()
+    for spec in load_all_curricula().values():
+        for book in spec.books:
+            for chapter in book.chapters:
+                for section in chapter.sections:
+                    session.merge(
+                        SectionRow(
+                            id=section.id,
+                            chapter_id=chapter.id,
+                            order=section.order,
+                            titles=section.titles,
+                            page_start=section.page_start,
+                            page_end=section.page_end,
+                        )
+                    )
     session.flush()

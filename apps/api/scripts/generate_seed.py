@@ -204,6 +204,7 @@ def item(
     verify: str | dict | None = None,
     type_: str = "expression",
     options: list[dict] | None = None,
+    role: str = "procedure",
 ) -> dict:
     data = {
         "id": item_id,
@@ -211,6 +212,7 @@ def item(
         "difficulty": difficulty,
         "type": type_,
         "pool": pool,
+        "role": role,
         "stem": loc(stem),
         "answer": {"sympy": str(answer), "accept": accept or [str(answer), f"x={answer}"]},
         "solution_steps": [loc(s) for s in steps],
@@ -292,18 +294,48 @@ def integers(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
 
 
 INVERSE_HINTS = [
-    ("Which operation puts x back together after it was changed?", "Think of the inverse pair: add versus subtract."),
-    ("x was shifted. What undoes a shift on x?", "The inverse operation is the opposite direction on the number line."),
-    ("Ask: what cancels the change that was applied to x?", "Write the inverse operation without evaluating a value yet."),
+    (
+        "Which operation puts x back together after it was changed?",
+        "Think of the inverse pair: add versus subtract.",
+    ),
+    (
+        "x was shifted. What undoes a shift on x?",
+        "The inverse operation is the opposite direction on the number line.",
+    ),
+    (
+        "Ask: what cancels the change that was applied to x?",
+        "Write the inverse operation without evaluating a value yet.",
+    ),
     ("Is the change on x an add or a subtract?", "Name the inverse family before you pick a size."),
-    ("x should reappear alone. What kind of move does that?", "Addition undoes subtraction; subtraction undoes addition."),
-    ("Cover the constant and look only at the operation on x.", "The inverse is the other member of that add/subtract pair."),
-    ("What happened to x? What single change brings it back to x?", "Name the opposite of the change you see, then apply that opposite."),
-    ("The goal is to recover x, not to compute a new expression.", "Choose the inverse operation first, then the matching amount."),
+    (
+        "x should reappear alone. What kind of move does that?",
+        "Addition undoes subtraction; subtraction undoes addition.",
+    ),
+    (
+        "Cover the constant and look only at the operation on x.",
+        "The inverse is the other member of that add/subtract pair.",
+    ),
+    (
+        "What happened to x? What single change brings it back to x?",
+        "Name the opposite of the change you see, then apply that opposite.",
+    ),
+    (
+        "The goal is to recover x, not to compute a new expression.",
+        "Choose the inverse operation first, then the matching amount.",
+    ),
     ("Did someone add to x or take away from x?", "Undo that family of operations."),
-    ("Imagine x wrapped in one operation. How do you unwrap it?", "Unwrap with the inverse, not the same operation again."),
-    ("Which button on a calculator would cancel this step on x?", "Plus and minus cancel; they do not repeat."),
-    ("x is almost isolated. What last inverse do you need?", "State the inverse operation in words before you apply it."),
+    (
+        "Imagine x wrapped in one operation. How do you unwrap it?",
+        "Unwrap with the inverse, not the same operation again.",
+    ),
+    (
+        "Which button on a calculator would cancel this step on x?",
+        "Plus and minus cancel; they do not repeat.",
+    ),
+    (
+        "x is almost isolated. What last inverse do you need?",
+        "State the inverse operation in words before you apply it.",
+    ),
 ]
 
 
@@ -506,7 +538,10 @@ def multi(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"The left side has {fmt_x(a)} and {fmt_x(c)}. Gather those first.",
             f"After combining, undo the {b_abs} then divide by {a + c}.",
-            f"Rewrite as {fmt_x(a + c)} {sign} {b_abs} = {rhs}. Move {b_abs}, then divide by {a + c}.",
+            (
+                f"Rewrite as {fmt_x(a + c)} {sign} {b_abs} = {rhs}. Move {b_abs}, then divide by "
+                f"{a + c}."
+            ),
         ),
         "Are there like terms you can gather first?",
     )
@@ -521,7 +556,9 @@ def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
     elif style == 1:
         stem = f"Solve for x: {left_b} + {fmt_x(left_c)} = {right_b} + {fmt_x(right_c)}"
     else:
-        stem = f"Solve for x: {fmt_x(left_c)} - {left_b} = {fmt_x(right_c)} + {right_b - 2 * left_b}"
+        stem = (
+            f"Solve for x: {fmt_x(left_c)} - {left_b} = {fmt_x(right_c)} + {right_b - 2 * left_b}"
+        )
         right_b = right_b - 2 * left_b
     return item(
         item_id,
@@ -539,7 +576,10 @@ def both_sides(spec: tuple, pool: str, item_id: str, difficulty: float) -> dict:
         hints(
             f"x appears on both sides: {fmt_x(left_c)} and {fmt_x(right_c)}.",
             f"Collect {fmt_x(left_c)} with {fmt_x(right_c)} before you touch the constants.",
-            f"After the x terms sit on one side, subtract {left_b} and divide by {left_c - right_c}.",
+            (
+                f"After the x terms sit on one side, subtract {left_b} and divide by "
+                f"{left_c - right_c}."
+            ),
         ),
         "Is x larger than 1? How can you tell before finishing?",
     )
@@ -1007,6 +1047,8 @@ def _build(skill: str, slot: int, pool: str, item_id: str) -> dict:
     difficulty = slot_difficulty(skill, slot)
     data = builder(spec, pool, item_id, difficulty)
     data["skill_ids"] = [skill]
+    if skill == "MATH.ALG.LIN1.WORD_PROBLEMS":
+        data["role"] = "apply"
     return data
 
 
@@ -1147,12 +1189,12 @@ def write_items(skill_ids: list[str]) -> None:
 
 
 def write_overlays(skill_ids: list[str]) -> None:
-    for oid, board in (("bhutan_class9", "bhutan"), ("seba_class9", "seba")):
+    for oid, curriculum in (("bhutan_class9", "bhutan"), ("seba_class9", "seba")):
         dump(
             ROOT / "overlays" / f"{oid}.yaml",
             {
                 "id": oid,
-                "board": board,
+                "curriculum_id": curriculum,
                 "grade": 9,
                 "chapter": "linear_equations",
                 "skill_ids": skill_ids,

@@ -49,6 +49,7 @@ class ItemRow(Base):
     difficulty: Mapped[float] = mapped_column(Float)
     type: Mapped[str] = mapped_column(String)
     pool: Mapped[str] = mapped_column(String, index=True)
+    role: Mapped[str] = mapped_column(String, default="procedure")
     stem: Mapped[dict] = mapped_column(JSONType)
     verify: Mapped[dict | str | None] = mapped_column(JSONType, nullable=True)
     options: Mapped[list] = mapped_column(JSONType, default=list)
@@ -93,11 +94,13 @@ class OverlayRow(Base):
     __tablename__ = "overlays"
 
     id: Mapped[str] = mapped_column(String, primary_key=True)
-    board: Mapped[str] = mapped_column(String)
+    curriculum_id: Mapped[str] = mapped_column(String)
     grade: Mapped[int] = mapped_column(Integer)
     chapter: Mapped[str] = mapped_column(String)
     skill_ids: Mapped[list] = mapped_column(JSONType)
     live: Mapped[bool] = mapped_column(Boolean, default=False)
+    # section key -> skill ids (keys resolve against `sections` of every chapter using this overlay)
+    section_map: Mapped[dict] = mapped_column(JSONType, default=dict)
 
 
 class GlossaryTermRow(Base):
@@ -113,6 +116,9 @@ class LocaleRow(Base):
     __tablename__ = "locales"
 
     code: Mapped[str] = mapped_column(String, primary_key=True)
+    name: Mapped[str] = mapped_column(String)
+    script: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
     fallback_chain: Mapped[list] = mapped_column(JSONType)
 
 
@@ -132,6 +138,17 @@ class BookRow(Base):
     curriculum_id: Mapped[str] = mapped_column(ForeignKey("curricula.id"))
     grade: Mapped[int] = mapped_column(Integer)
     default_chapter_id: Mapped[str] = mapped_column(String)
+
+
+class SectionRow(Base):
+    __tablename__ = "sections"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    chapter_id: Mapped[str] = mapped_column(ForeignKey("chapters.id"))
+    order: Mapped[int] = mapped_column(Integer)
+    titles: Mapped[dict] = mapped_column(JSONType)
+    page_start: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    page_end: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class ChapterRow(Base):
@@ -395,6 +412,10 @@ class MasteryRow(Base):
     unhinted_correct: Mapped[int] = mapped_column(Integer, default=0)
     hinted_correct: Mapped[int] = mapped_column(Integer, default=0)
     last_updated: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    ladder_level: Mapped[int] = mapped_column(Integer, default=0)
+    ladder_evidence: Mapped[dict] = mapped_column(JSONType, default=dict)  # level -> event ids
+    flags: Mapped[dict] = mapped_column(JSONType, default=dict)
+    ladder_memory: Mapped[dict] = mapped_column(JSONType, default=dict)  # incremental state
 
 
 class ReviewCardRow(Base):

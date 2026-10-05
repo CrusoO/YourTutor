@@ -11,9 +11,7 @@ from app.db.models import StudentRow, UserRow
 from tests.conftest import auth_header, signup
 
 
-def test_parent_export_and_delete(
-    client: TestClient, sender: MemoryOtpSender, db: Session
-) -> None:
+def test_parent_export_and_delete(client: TestClient, sender: MemoryOtpSender, db: Session) -> None:
     token = signup(client, sender, "export@example.com")
     created = client.post(
         "/students",

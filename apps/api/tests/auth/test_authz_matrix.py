@@ -48,9 +48,7 @@ def test_matrix_request_otp(client: TestClient, world: World, role: str, allowed
         "admin": "admin@example.com",
         "comparison": "cmp@example.com",
     }[role]
-    status = _status(
-        client, "POST", "/auth/request-otp", _roles(world)[role], {"email": email}
-    )
+    status = _status(client, "POST", "/auth/request-otp", _roles(world)[role], {"email": email})
     assert (status == 200) is allowed, (role, status)
 
 
@@ -64,9 +62,7 @@ def test_matrix_request_otp(client: TestClient, world: World, role: str, allowed
         ("comparison", False),
     ],
 )
-def test_matrix_create_student(
-    client: TestClient, world: World, role: str, allowed: bool
-) -> None:
+def test_matrix_create_student(client: TestClient, world: World, role: str, allowed: bool) -> None:
     payload = {
         "display_name": f"Kid {role}",
         "grade": 9,
@@ -87,9 +83,7 @@ def test_matrix_create_student(
         ("comparison", False),
     ],
 )
-def test_matrix_consent_and_pin(
-    client: TestClient, world: World, role: str, allowed: bool
-) -> None:
+def test_matrix_consent_and_pin(client: TestClient, world: World, role: str, allowed: bool) -> None:
     consent = _status(
         client,
         "POST",
@@ -228,9 +222,7 @@ def test_matrix_see_progress_share_student(
     assert (status == 200) is allowed, (role, status)
 
 
-def test_teacher_cannot_see_student_without_teacher_share(
-    client: TestClient, world: World
-) -> None:
+def test_teacher_cannot_see_student_without_teacher_share(client: TestClient, world: World) -> None:
     status = _status(
         client, "GET", f"/students/{world.student_noshare_id}/progress", world.teacher_token
     )
@@ -265,11 +257,7 @@ def test_other_parent_cannot_see_child(client: TestClient, world: World) -> None
     ],
 )
 def test_matrix_export_family(client: TestClient, world: World, role: str, allowed: bool) -> None:
-    path = (
-        "/parents/me/export"
-        if role == "parent"
-        else f"/parents/{world.parent_id}/export"
-    )
+    path = "/parents/me/export" if role == "parent" else f"/parents/{world.parent_id}/export"
     status = _status(client, "GET", path, _roles(world)[role])
     assert (status == 200) is allowed, (role, status)
 
@@ -287,12 +275,8 @@ def test_matrix_export_family(client: TestClient, world: World, role: str, allow
 def test_matrix_heatmap_stuck_review(
     client: TestClient, world: World, role: str, allowed: bool
 ) -> None:
-    heat = _status(
-        client, "GET", f"/teacher/classes/{world.class_id}/heatmap", _roles(world)[role]
-    )
-    stuck = _status(
-        client, "GET", f"/teacher/classes/{world.class_id}/stuck", _roles(world)[role]
-    )
+    heat = _status(client, "GET", f"/teacher/classes/{world.class_id}/heatmap", _roles(world)[role])
+    stuck = _status(client, "GET", f"/teacher/classes/{world.class_id}/stuck", _roles(world)[role])
     queue = _status(client, "GET", "/teacher/review-queue", _roles(world)[role])
     assert (heat == 200) is allowed, (role, heat)
     assert (stuck == 200) is allowed, (role, stuck)
@@ -313,9 +297,7 @@ def test_matrix_analytics_csv(client: TestClient, world: World, role: str, allow
     status = _status(client, "GET", "/analytics/export", _roles(world)[role])
     assert (status == 200) is allowed, (role, status)
     if allowed:
-        body = client.get(
-            "/analytics/export", headers=auth_header(world.admin_token)
-        ).json()
+        body = client.get("/analytics/export", headers=auth_header(world.admin_token)).json()
         rows = body["rows"]
         assert "pseudonym,group,site,form,occasion,score" in body["csv"]
         assert rows

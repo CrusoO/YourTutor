@@ -8,12 +8,12 @@ from pathlib import Path
 
 import yaml
 
+from app.config import settings
 from app.content.generate import sample_instances
 from app.content.schema import Item
 from app.content.signatures import item_content_hash
 from app.content.templates import GENERATOR_VERSION, template_hash
 from app.content.validator import validate_bundle, validate_path
-from app.config import settings
 
 DEFAULT_REVIEWERS = ("curriculum.lead", "teacher.demo")
 
@@ -32,9 +32,7 @@ def export_sheet(root: Path, csv_path: Path, html_path: Path) -> int:
     rows = [_row(item) for item in report.bundle.items]
     for template in report.bundle.templates:
         samples = sample_instances(template, seed=1, n=10)
-        sample_text = " || ".join(
-            f"{item.stem.en} → {item.answer.sympy}" for item in samples
-        )
+        sample_text = " || ".join(f"{item.stem.en} → {item.answer.sympy}" for item in samples)
         rows.append(
             {
                 "item_id": template.id,
@@ -98,20 +96,20 @@ def import_sheet(csv_path: Path, root: Path, reviewer_id: str) -> list[str]:
                         approved.append(item.id)
                 approved.append(template.id)
                 continue
-            item = items.get(row["item_id"])
-            if item is None:
+            target = items.get(row["item_id"])
+            if target is None:
                 continue
-            item.status = type(item.status)("approved")
-            item.reviewed_by = reviewer_id
-            item.content_hash = item_content_hash(item)
+            target.status = type(target.status)("approved")
+            target.reviewed_by = reviewer_id
+            target.content_hash = item_content_hash(target)
             check = validate_bundle(report.bundle)
             if not check.ok:
-                item.status = type(item.status)("draft")
-                item.reviewed_by = None
-                item.content_hash = None
+                target.status = type(target.status)("draft")
+                target.reviewed_by = None
+                target.content_hash = None
                 continue
-            _write_item(root, item)
-            approved.append(item.id)
+            _write_item(root, target)
+            approved.append(target.id)
     return approved
 
 

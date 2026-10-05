@@ -13,10 +13,16 @@ class RegistryLoadError(ValueError):
     pass
 
 
+LOCALE_STATUSES = ("active", "draft")
+
+
 @dataclass(frozen=True)
 class LocaleSpec:
     code: str
     fallback_chain: tuple[str, ...]
+    name: str = ""
+    script: str = ""
+    status: str = "draft"
 
 
 @dataclass(frozen=True)
@@ -47,10 +53,21 @@ class NotationProfile:
 
 
 @dataclass(frozen=True)
+class SectionSpec:
+    key: str
+    id: str  # f"{chapter_id}.{key}"; the overlay `section_map` is keyed by `key`
+    order: int
+    titles: dict[str, str]
+    page_start: int | None
+    page_end: int | None
+
+
+@dataclass(frozen=True)
 class ChapterSpec:
     id: str
     overlay_id: str
     chapter_key: str
+    sections: tuple[SectionSpec, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -87,7 +104,18 @@ def load_locales_config(root: Path | None = None) -> tuple[str, dict[str, Locale
     for row in raw:
         code = str(row["code"])
         chain = tuple(str(x) for x in (row.get("fallback_chain") or []))
-        out[code] = LocaleSpec(code=code, fallback_chain=chain)
+        missing = [field for field in ("name", "script", "status") if not row.get(field)]
+        if missing:
+            raise RegistryLoadError(f"locale {code!r} is missing {', '.join(missing)}")
+        if row["status"] not in LOCALE_STATUSES:
+            raise RegistryLoadError(f"locale {code!r} has unknown status {row['status']!r}")
+        out[code] = LocaleSpec(
+            code=code,
+            fallback_chain=chain,
+            name=str(row["name"]),
+            script=str(row["script"]),
+            status=str(row["status"]),
+        )
     if default not in out:
         raise RegistryLoadError(f"default locale {default!r} not defined")
     return default, out
@@ -133,6 +161,33 @@ def load_notation_profiles(root: Path | None = None) -> dict[str, NotationProfil
     return out
 
 
+def _load_chapter(ch: dict[str, Any], path: Path) -> ChapterSpec:
+    chapter_id = str(ch["id"])
+    sections: list[SectionSpec] = []
+    for row in ch.get("sections") or []:
+        key = str(row["key"])
+        titles = {str(k): str(v) for k, v in (row.get("titles") or {}).items()}
+        if "en" not in titles:
+            raise RegistryLoadError(f"section {chapter_id}.{key} needs an `en` title in {path}")
+        start, end = row.get("page_start"), row.get("page_end")
+        sections.append(
+            SectionSpec(
+                key=key,
+                id=f"{chapter_id}.{key}",
+                order=int(row["order"]),
+                titles=titles,
+                page_start=int(start) if start is not None else None,
+                page_end=int(end) if end is not None else None,
+            )
+        )
+    return ChapterSpec(
+        id=chapter_id,
+        overlay_id=str(ch["overlay_id"]),
+        chapter_key=str(ch["chapter_key"]),
+        sections=tuple(sections),
+    )
+
+
 def load_curriculum(curriculum_id: str, root: Path | None = None) -> CurriculumSpec:
     base = root or content_curricula_dir()
     path = base / curriculum_id / "curriculum.yaml"
@@ -141,14 +196,7 @@ def load_curriculum(curriculum_id: str, root: Path | None = None) -> CurriculumS
         raise RegistryLoadError(f"curriculum id mismatch in {path}")
     books: list[BookSpec] = []
     for book in data.get("books") or []:
-        chapters = tuple(
-            ChapterSpec(
-                id=str(ch["id"]),
-                overlay_id=str(ch["overlay_id"]),
-                chapter_key=str(ch["chapter_key"]),
-            )
-            for ch in book.get("chapters") or []
-        )
+        chapters = tuple(_load_chapter(ch, path) for ch in book.get("chapters") or [])
         books.append(
             BookSpec(
                 id=str(book["id"]),

@@ -3,14 +3,11 @@ from __future__ import annotations
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query, Request
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from app.auth import service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, client_ip
-from app.checkpoint.study import COOKIE_NAME, REFERRER_POLICY
-from app.config import settings
 
 router = APIRouter()
 
@@ -234,8 +231,8 @@ def start_session(body: SessionIn, db: DbSession, actor: ActorDep) -> dict[str, 
 
 @router.get("/sessions/{session_id}")
 def get_session(session_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    from app.player.runtime import session_view
     from app.db.models import SessionRow
+    from app.player.runtime import session_view
 
     row = db.get(SessionRow, session_id)
     if row is None:
@@ -285,5 +282,3 @@ def stuck(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]
 @router.get("/teacher/review-queue")
 def review_queue(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.review_queue(db, actor)
-
-

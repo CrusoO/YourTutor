@@ -4,15 +4,30 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
+from app.checkpoint.score import score_answers
 from app.content.validator import item_tier
+from app.learner.ladder import (
+    KIND_ANSWER,
+    KIND_HINT,
+    KIND_LESSON,
+    T_LEVEL,
+    LadderEvent,
+    apply_ladder_event,
+)
 from app.learner.mastery_service import apply_event
-from app.learner.types import LearnerEvent, LearnerState
+from app.learner.scheduler_fsrs import FixedClock
+from app.learner.types import LearnerEvent, LearnerState, Mastery
+from app.orchestrator.diagnostic import (
+    is_dont_know,
+    next_diagnostic_item,
+    record_answer,
+    seed_placement,
+)
 from app.orchestrator.transitions import rule_id_for
 from app.orchestrator.types import (
     HARD_ACTIVE_MS,
     IDLE_END_MS,
     LATENCY_CAP_MS,
-    MASTERY_P,
     MAX_WARMUP,
     PREREQ_BELOW,
     SOFT_ACTIVE_MS,
@@ -23,13 +38,6 @@ from app.orchestrator.types import (
     SessionState,
     default_params,
 )
-from app.orchestrator.diagnostic import (
-    is_dont_know,
-    next_diagnostic_item,
-    record_answer,
-    seed_placement,
-)
-from app.checkpoint.score import score_answers
 from app.verifier.check import leak_check, verify_response
 
 
@@ -38,8 +46,12 @@ def policy(learner: LearnerState, session: SessionState, last_event: Event | Non
 
     before = session.phase
     session.last_event = last_event
+    session.last_correct = None
     with span("policy", component="policy", action_type=last_event.type if last_event else "start"):
-        return _policy(learner, session, last_event, before)
+        action = _policy(learner, session, last_event, before)
+        if action.type == "end_session":
+            _rate_session(learner, session)
+        return action
 
 
 def _policy(
@@ -54,7 +66,9 @@ def _policy(
             reason = "hard_cap" if _hard_cap(session) else "soft_cap"
             return _annotate(_end(session, reason, resumable=False), session, before, last_event)
     if session.consent_revoked or (last_event and last_event.type == "consent_revoked"):
-        return _annotate(_end(session, "consent_revoked", resumable=False), session, before, last_event)
+        return _annotate(
+            _end(session, "consent_revoked", resumable=False), session, before, last_event
+        )
     if last_event and last_event.type == "resume":
         session.phase = "practice" if session.current_item_id else "start"
         session.ended_reason = None
@@ -138,6 +152,7 @@ def _enter_practice_loop(learner: LearnerState, session: SessionState) -> Action
 
 def _on_continue(learner: LearnerState, session: SessionState) -> Action:
     if session.phase == "worked_example":
+        _lesson_complete(learner, session)
         return _show_practice(learner, session, session.current_skill, new_skill=False)
     if session.phase == "reveal":
         return _similar_item(learner, session)
@@ -172,6 +187,8 @@ def _deliver_hint(learner: LearnerState, session: SessionState, item: CatalogIte
     if leak_check(text, item.answer_sympy, level=level):
         text = item.hint(level)
     _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
+    if session.last_event is not None and session.last_event.type == "request_hint":
+        _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
     session.hint_level_shown = level
     session.phase = "practice"
     misconception = _match_misconception(item, session.last_wrong_response or "")
@@ -211,12 +228,12 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     )
     if session.session_type == "practice" and item.pool != "practice":
         return _flag(session, "checkpoint_item_in_practice")
+    session.last_correct = correct
     if session.session_type != "diagnostic":
         _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
+        _maybe_ladder(learner, session, item, kind=KIND_ANSWER, correct=correct)
     if session.session_type == "diagnostic":
-        record_answer(
-            session, item, correct=correct, dont_know=is_dont_know(event.response)
-        )
+        record_answer(session, item, correct=correct, dont_know=is_dont_know(event.response))
         return _diagnostic(learner, session, None)
     if session.session_type == "checkpoint":
         session.checkpoint_answers.append(
@@ -317,6 +334,7 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
         p_known=source.difficulty,
         exclude={source.id},
         prefer_tier=wanted,
+        roles=(source.role,),
     )
     if nxt is None:
         return _content_gap(learner, session, source.primary_skill, wanted)
@@ -365,9 +383,12 @@ def _show_practice(
     if skill is None:
         return _end(session, "chapter_complete", resumable=False)
     wanted = item_tier(_p_known(learner, skill, session))
-    item = _pick_item(session, skill, p_known=_p_known(learner, skill, session))
+    roles, required = _roles_for(learner, session, skill)
+    item = _pick_item(session, skill, p_known=_p_known(learner, skill, session), roles=roles)
     if item is None:
         return _content_gap(learner, session, skill, wanted)
+    if required and item.role != roles[0]:
+        _log_role_gap(session, skill, roles[0], wanted)
     session.introduced_skills.add(skill)
     session.current_skill = skill
     session.current_item_id = item.id
@@ -380,7 +401,12 @@ def _show_practice(
 
 def _show_warmup(learner: LearnerState, session: SessionState, due: list[str]) -> Action:
     skill = due[0]
-    item = _pick_item(session, skill, p_known=_p_known(learner, skill, session))
+    item = _pick_item(
+        session,
+        skill,
+        p_known=_p_known(learner, skill, session),
+        roles=_warmup_roles(learner, skill),
+    )
     if item is None:
         session.warmup_left = 0
         return _select_skill_or_item(learner, session)
@@ -471,16 +497,26 @@ def _checkpoint(session: SessionState, event: Event | None) -> Action:
     )
 
 
+def _ladder_level(learner: LearnerState, skill_id: str) -> int:
+    row = learner.ladders.get(skill_id)
+    return row.level if row else 0
+
+
 def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
+    """T = first overlay skill below ladder level 4.
+
+    With no such skill: extension practice (level 4 -> apply, 5 -> transfer) on the first skill
+    that still has a role to earn, otherwise None (chapter complete).
+    """
     target = None
     for skill_id in session.overlay_skill_ids:
         if skill_id in session.blocked_skills:
             continue
-        if _p_known(learner, skill_id, session) < MASTERY_P:
+        if _ladder_level(learner, skill_id) < T_LEVEL:
             target = skill_id
             break
     if target is None:
-        return None
+        return _extension_skill(learner, session)
     weak = [
         sid
         for sid in session.prerequisites.get(target, ())
@@ -491,9 +527,75 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     return target
 
 
-def _content_gap(
-    learner: LearnerState, session: SessionState, skill: str, tier: str
-) -> Action:
+_EXTENSION_ROLE = {4: "apply", 5: "transfer"}
+
+
+def _extension_skill(learner: LearnerState, session: SessionState) -> str | None:
+    for skill_id in session.overlay_skill_ids:
+        if skill_id in session.blocked_skills:
+            continue
+        role = _EXTENSION_ROLE.get(_ladder_level(learner, skill_id))
+        if role is None:
+            continue
+        if any(row.role == role for row in _eligible_items(session, skill_id, set())):
+            session.introduced_skills.add(skill_id)  # already learned: no predict / worked example
+            return skill_id
+        _log_role_gap(session, skill_id, role, item_tier(_p_known(learner, skill_id, session)))
+    return None
+
+
+def _roles_for(
+    learner: LearnerState, session: SessionState, skill: str
+) -> tuple[tuple[str, ...], bool]:
+    """Preferred roles (first is the target) and whether a miss is a content gap.
+
+    Level 4 -> apply, level 5 -> transfer, otherwise procedure; until level 2 is reached a
+    recall / explain item is mixed in on every second and fourth item of the skill.
+    """
+    ladder = learner.ladders.get(skill)
+    level = ladder.level if ladder else 0
+    if level == 4:
+        return ("apply", "procedure"), True
+    if level == 5:
+        return ("transfer", "procedure"), True
+    if 2 not in (ladder.achieved if ladder else []) and level < T_LEVEL:
+        shown = sum(
+            1
+            for item_id in session.shown_item_ids
+            if (row := session.item(item_id)) is not None and row.primary_skill == skill
+        )
+        slot = shown % 4
+        if slot == 1:
+            return ("recall", "procedure"), False
+        if slot == 3:
+            return ("explain", "procedure"), False
+    return ("procedure",), True
+
+
+def _warmup_roles(learner: LearnerState, skill: str) -> tuple[str, ...]:
+    level = _ladder_level(learner, skill)
+    if level == 4:
+        return ("apply", "procedure")
+    if level == 5:
+        return ("transfer", "procedure")
+    return ("procedure",)
+
+
+def _log_role_gap(session: SessionState, skill: str, role: str, tier: str) -> None:
+    if any(g.get("skill") == skill and g.get("role") == role for g in session.content_gaps):
+        return
+    session.content_gaps.append(
+        {
+            "skill": skill,
+            "tier": tier,
+            "role": role,
+            "item_ids_seen": list(session.shown_item_ids),
+            "reason": "role_missing",
+        }
+    )
+
+
+def _content_gap(learner: LearnerState, session: SessionState, skill: str, tier: str) -> Action:
     seen = [item_id for item_id in session.shown_item_ids]
     gap = {"skill": skill, "tier": tier, "item_ids_seen": seen}
     session.content_gaps.append(gap)
@@ -512,17 +614,8 @@ def _content_gap(
     return follow
 
 
-def _pick_item(
-    session: SessionState,
-    skill: str,
-    *,
-    p_known: float,
-    exclude: set[str] | None = None,
-    prefer_tier: str | None = None,
-) -> CatalogItem | None:
-    skip = exclude or set()
-    wanted = prefer_tier or item_tier(p_known)
-    eligible = [
+def _eligible_items(session: SessionState, skill: str, skip: set[str]) -> list[CatalogItem]:
+    return [
         row
         for row in session.catalog
         if row.pool == "practice"
@@ -531,6 +624,24 @@ def _pick_item(
         and row.status != "retired"
         and (row.status == "approved" or session.allow_draft)
     ]
+
+
+def _pick_item(
+    session: SessionState,
+    skill: str,
+    *,
+    p_known: float,
+    exclude: set[str] | None = None,
+    prefer_tier: str | None = None,
+    roles: tuple[str, ...] = (),
+) -> CatalogItem | None:
+    wanted = prefer_tier or item_tier(p_known)
+    eligible = _eligible_items(session, skill, exclude or set())
+    for role in roles:  # first role with an eligible item; otherwise any eligible role
+        role_rows = [row for row in eligible if row.role == role]
+        if role_rows:
+            eligible = role_rows
+            break
     leftover = [row for row in eligible if row.id not in session.shown_item_ids]
     pool = leftover or eligible
     if not pool:
@@ -606,12 +717,93 @@ def _maybe_bkt(
             event_type=event_type,
             correct=correct,
             pool="warmup" if session.phase == "warmup" else session.session_type,
-            session_id=str(id(session)),
+            session_id=_session_key(session),
             is_warmup=session.phase == "warmup",
         ),
         params,
         memory=session.bkt_memory,
     )
+
+
+def _event_id(session: SessionState) -> str:
+    event = session.last_event
+    if event is not None and event.event_id:
+        return event.event_id
+    session.event_counter += 1
+    return f"auto-{session.event_counter}"
+
+
+def _maybe_ladder(
+    learner: LearnerState,
+    session: SessionState,
+    item: CatalogItem,
+    *,
+    kind: str,
+    correct: bool | None,
+) -> None:
+    """Ladder evidence comes only from practice sessions; diagnostic, checkpoint and explain-back
+    never reach it."""
+    if session.session_type != "practice":
+        return
+    skill = item.primary_skill
+    row = learner.mastery.get(skill)
+    p_known = row.p_known if row is not None else _p_known(learner, skill, session)
+    apply_ladder_event(
+        learner.ladders,
+        LadderEvent(
+            event_id=_event_id(session),
+            skill_id=skill,
+            kind=kind,
+            at=session.now,
+            item_id=item.id,
+            correct=correct,
+            pool="warmup" if session.phase == "warmup" else "practice",
+            role=item.role,
+            structure=item.structure,
+        ),
+        p_known,
+    )
+
+
+def _lesson_complete(learner: LearnerState, session: SessionState) -> None:
+    skill = session.current_skill
+    if skill is None or session.session_type != "practice":
+        return
+    params = session.bkt_params.get(skill, default_params())
+    learner.mastery.setdefault(skill, Mastery(skill_id=skill, p_known=params.p_init))
+    apply_ladder_event(
+        learner.ladders,
+        LadderEvent(
+            event_id=_event_id(session),
+            skill_id=skill,
+            kind=KIND_LESSON,
+            at=session.now,
+        ),
+        p_known=0.0,
+    )
+
+
+def _session_key(session: SessionState) -> str:
+    return session.session_key or str(id(session))
+
+
+def _rate_session(learner: LearnerState, session: SessionState) -> None:
+    """One FSRS rating per practised skill at session end, from the unhinted-correct rate.
+
+    Skills reviewed as warm-ups were already rated immediately. The per-session counts are
+    cleared afterwards, so a resumed session that ends again only rates its new answers.
+    """
+    if session.session_type != "practice" or session.ended_reason == "consent_revoked":
+        return
+    key = _session_key(session)
+    apply_event(
+        learner,
+        LearnerEvent(item_id="", skill_id="", event_type="session_end", session_id=key),
+        {},
+        clock=FixedClock(session.now),
+        memory=session.bkt_memory,
+    )
+    session.bkt_memory["session_unhinted"].pop(key, None)
 
 
 def _seed_diagnostic(learner: LearnerState, session: SessionState) -> None:
@@ -679,9 +871,7 @@ def _keep(session: SessionState, action: Action) -> Action:
     return action
 
 
-def _annotate(
-    action: Action, session: SessionState, before: str, event: Event | None
-) -> Action:
+def _annotate(action: Action, session: SessionState, before: str, event: Event | None) -> Action:
     ev = event.type if event else "start"
     action.state_before = before
     action.state_after = session.phase

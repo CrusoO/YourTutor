@@ -23,15 +23,18 @@ If these disagree with the code or each other, stop and report; don't guess.
 - Ambiguous but not blocking: pick the simplest option, add a PLAN.md Decisions row.
 - Don't push, don't rewrite git history, don't touch .env files.
 
-## Commands (run from WSL, repo on the WSL filesystem)
+## Commands (run from Git Bash on Windows; verified 2026-10-04)
 
-- Stack: `docker compose up -d db redis`
-- API tests: `cd apps/api && TEST_DATABASE_URL=postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor_test pytest -q`
-- API lint/types: `cd apps/api && ruff check . && mypy .`
+Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack running on the Windows side), Python 3.13 with packages installed for the user (no venv), Node from Windows. The repo lives on `/mnt/c`; WSL (Ubuntu) has no Docker integration or Python env, so do not run the checks there unless that is set up. Check the `docker compose ps` stack is healthy first.
+
+- Stack: `docker compose up -d postgres redis` (the compose service is `postgres`, not `db`)
+- API tests: `cd apps/api && TEST_DATABASE_URL=postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor_test python -m pytest -q` (slow: about 7 min on Postgres; the suite must pass with `-p no:randomly` and with `-p randomly --randomly-seed=N`)
+- API lint/types: `cd apps/api && ruff check . && ruff format --check . && python -m mypy .`
 - Web: `cd apps/web && npx vitest run && npx tsc --noEmit`
-- Region check: `python scripts/check_region_literals.py`
-- Locales: `python scripts/generate_web_locales.py`
-- Content: `python -m app.content validate content/` then `python -m app.content load content/`
+- Region check: `cd apps/api && python scripts/check_region_literals.py`
+- Locales: `cd apps/api && PYTHONPATH=. python scripts/generate_web_locales.py` (writes `packages/shared/generated/locales.json`; expect no git diff)
+- Content: `cd apps/api && python -m app.content validate ../../content/` then `python -m app.content load ../../content/`
+- Python edits on Windows: pass `encoding="utf-8"` to `open()` (or set `PYTHONUTF8=1`); the working tree may be CRLF while git stores LF.
 
 ## When a milestone is done
 

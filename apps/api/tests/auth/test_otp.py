@@ -61,9 +61,7 @@ def test_otp_stored_hashed_not_plaintext(
     client.post("/auth/request-otp", json={"email": email})
     code = sender.inbox[email]
     db.expire_all()
-    row = db.scalar(
-        select(OtpChallengeRow).where(OtpChallengeRow.email == email)
-    )
+    row = db.scalar(select(OtpChallengeRow).where(OtpChallengeRow.email == email))
     assert row is not None
     assert row.code_hash == hash_code(code)
     assert code not in row.code_hash

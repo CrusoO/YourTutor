@@ -24,6 +24,16 @@ settings.pin_hash_iterations = 1_000
 settings.research_module = True
 
 
+@pytest.fixture(autouse=True)
+def _restore_settings() -> Generator[None, None, None]:
+    """Tests mutate the global settings singleton; undo it so test order cannot matter."""
+    snapshot = settings.model_dump()
+    yield
+    for name, value in snapshot.items():
+        if getattr(settings, name) != value:
+            setattr(settings, name, value)
+
+
 def _sqlite_url() -> str:
     return "sqlite://"
 

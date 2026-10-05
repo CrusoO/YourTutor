@@ -52,13 +52,17 @@ def apply_event(
     """Incremental update. `memory` holds per-item flags across calls."""
     clock = clock or SystemClock()
     model = model or BktModel()
-    mem = memory if memory is not None else {
-        "bkt_done": set(),
-        "hinted": set(),
-        "first_wrong": set(),
-        "session_unhinted": defaultdict(lambda: defaultdict(lambda: [0, 0])),
-        "warmup_skills": set(),
-    }
+    mem = (
+        memory
+        if memory is not None
+        else {
+            "bkt_done": set(),
+            "hinted": set(),
+            "first_wrong": set(),
+            "session_unhinted": defaultdict(lambda: defaultdict(lambda: [0, 0])),
+            "warmup_skills": set(),
+        }
+    )
     _apply_one(state, event, params_by_skill, clock, model, mem)
     return state
 
@@ -126,9 +130,7 @@ def _apply_one(
     first = event.item_id not in bkt_done
     was_hinted = event.item_id in hinted
     if first:
-        mastery.p_known = model.update(
-            mastery.p_known, correct=bool(event.correct), params=params
-        )
+        mastery.p_known = model.update(mastery.p_known, correct=bool(event.correct), params=params)
         mastery.attempts += 1
         bkt_done.add(event.item_id)
         if event.correct and not was_hinted:

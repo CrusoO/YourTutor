@@ -1,0 +1,63 @@
+{
+  "name": "06_level4_streak_two_structures",
+  "description": "3 unhinted-correct first attempts over 3 structures and p_known >= 0.95.",
+  "params": {
+    "S1": {
+      "p_init": 0.2,
+      "p_learn": 0.5,
+      "p_slip": 0.05,
+      "p_guess": 0.1
+    }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    {
+      "event_id": "e1",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:01:00+00:00",
+      "item_id": "i1",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-a"
+    },
+    {
+      "event_id": "e2",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:02:00+00:00",
+      "item_id": "i2",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-b"
+    },
+    {
+      "event_id": "e3",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:03:00+00:00",
+      "item_id": "i3",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-c"
+    }
+  ],
+  "expect": {
+    "S1": {
+      "level": 4,
+      "evidence": {
+        "3": [
+          "e1"
+        ],
+        "4": [
+          "e1",
+          "e2",
+          "e3"
+        ]
+      }
+    }
+  }
+}

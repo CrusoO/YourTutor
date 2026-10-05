@@ -70,9 +70,7 @@ def test_tutor_counterbalance_and_site_seed(client: TestClient, world: World) ->
     assert second.json()["pretest_form"] != first.json()["pretest_form"]
 
 
-def test_checkpoint_submit_writes_results_not_mastery(
-    client: TestClient, world: World, db
-) -> None:
+def test_checkpoint_submit_writes_results_not_mastery(client: TestClient, world: World, db) -> None:
     before = db.query(MasteryRow).count()
     submitted = client.post(
         f"/checkpoints/cp1/forms/{world.comparison_form}/submit",
@@ -88,9 +86,7 @@ def test_checkpoint_submit_writes_results_not_mastery(
     assert row.form == world.comparison_form
 
 
-def test_export_omits_students_without_research_scope(
-    client: TestClient, world: World
-) -> None:
+def test_export_omits_students_without_research_scope(client: TestClient, world: World) -> None:
     body = client.get("/analytics/export", headers=auth_header(world.admin_token)).json()
     assert "group" in body["csv"]
     assert "site" in body["csv"]
@@ -230,9 +226,7 @@ def test_cookie_exchange_and_one_submission(client: TestClient, world: World) ->
     assert "token=" not in access_log_line("GET", "/checkpoints/cp1/forms/A", 302)
 
 
-def test_paper_entry_mismatch_and_no_mastery(
-    client: TestClient, world: World, db
-) -> None:
+def test_paper_entry_mismatch_and_no_mastery(client: TestClient, world: World, db) -> None:
     extra = client.post(
         "/study/participants",
         json={

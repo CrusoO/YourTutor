@@ -5,10 +5,16 @@ from pathlib import Path
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.content.gate import RETIRED_STATUS
 from app.content.schema import ContentBundle
-from app.content.validator import ValidationReport, load_bundle, validate_bundle, _persist_hash_resets
-from app.config import settings
+from app.content.validator import (
+    ValidationReport,
+    _persist_hash_resets,
+    curricula_for,
+    load_bundle,
+    validate_bundle,
+)
 from app.db.models import (
     Base,
     CheckpointFormRow,
@@ -23,6 +29,7 @@ from app.db.models import (
     SkillRow,
 )
 from app.db.session import make_engine, session_factory
+from app.registries.seed_db import seed_g0_registry
 
 
 class LoadError(RuntimeError):
@@ -43,11 +50,12 @@ def load_path(
     prune: bool = False,
 ) -> ValidationReport:
     from app.content.bundle_merge import load_content_bundle
+
     try:
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
         raise LoadError(str(exc)) from exc
-    report = validate_bundle(bundle)
+    report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
@@ -57,6 +65,7 @@ def load_path(
     with factory() as session:
         try:
             _upsert(session, report.bundle, prune=prune)
+            seed_g0_registry(session)  # registry YAML is the source of truth
             session.commit()
         except PruneBlockedError:
             session.rollback()
@@ -91,10 +100,11 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 difficulty=item.difficulty,
                 type=item.type.value,
                 pool=item.pool.value,
+                role=item.role.value,
                 stem=item.stem.as_dict(),
-                verify=item.verify if isinstance(item.verify, str) else (
-                    item.verify.model_dump() if item.verify else None
-                ),
+                verify=item.verify
+                if isinstance(item.verify, str)
+                else (item.verify.model_dump() if item.verify else None),
                 options=[o.model_dump(by_alias=True) for o in item.options],
                 answer=item.answer.model_dump(),
                 solution_steps=[s.as_dict() for s in item.solution_steps],
@@ -123,11 +133,12 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
         session.merge(
             OverlayRow(
                 id=overlay.id,
-                board=overlay.board,
+                curriculum_id=overlay.curriculum_id,
                 grade=overlay.grade,
                 chapter=overlay.chapter,
                 skill_ids=overlay.skill_ids,
                 live=overlay.live,
+                section_map=overlay.section_map,
             )
         )
     for forms in bundle.checkpoint_forms:

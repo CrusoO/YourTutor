@@ -6,7 +6,6 @@ from pathlib import Path
 from app.content.review import export_sheet, import_sheet
 from app.content.signatures import item_content_hash
 from app.content.validator import load_bundle, validate_path
-from tests.content.conftest import content_root  # noqa: F401
 
 
 def test_review_export_import_and_hash_reset(content_root: Path, tmp_path: Path) -> None:
@@ -45,6 +44,7 @@ def test_review_export_import_and_hash_reset(content_root: Path, tmp_path: Path)
     yaml_path.write_text(text.replace(item.stem.en, item.stem.en + " edited"), encoding="utf-8")
     report = validate_path(content_root)
     assert any("reset to draft" in w for w in report.warnings)
+    assert report.bundle is not None
     changed = next(row for row in report.bundle.items if row.id == target)
     assert changed.status.value == "draft"
     assert changed.reviewed_by is None

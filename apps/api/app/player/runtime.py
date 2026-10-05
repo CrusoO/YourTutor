@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import uuid
 from collections import defaultdict
-from datetime import datetime, time, timedelta
+from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -17,6 +17,7 @@ from app.auth.consent import active_scopes, has_scope
 from app.auth.security import as_utc, now_utc
 from app.config import settings
 from app.content.locale import is_missing_translation
+from app.content.signatures import structure_signature
 from app.db.models import (
     EventRow,
     ItemRow,
@@ -28,9 +29,9 @@ from app.db.models import (
     StudentRow,
 )
 from app.learner.bkt import BktParams
+from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.orchestrator.policy import policy
-from app.player.action_flags import hint_solution_flags
 from app.orchestrator.types import (
     SOFT_ACTIVE_MS,
     Action,
@@ -39,6 +40,7 @@ from app.orchestrator.types import (
     SessionState,
     default_params,
 )
+from app.player.action_flags import hint_solution_flags
 
 GOAL_MS = SOFT_ACTIVE_MS
 
@@ -61,13 +63,17 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
     steps = tuple(str((step or {}).get("en") or "") for step in (row.solution_steps or []))
     rules = []
     for rule in row.misconception_rules or []:
-        rules.append((str(rule.get("id")), tuple(str(v) for v in rule.get("when_answer_equals") or [])))
+        rules.append(
+            (str(rule.get("id")), tuple(str(v) for v in rule.get("when_answer_equals") or []))
+        )
     return CatalogItem(
         id=row.id,
         skill_ids=tuple(row.skill_ids or []),
         difficulty=float(row.difficulty),
         pool=row.pool,
         status=row.status,
+        role=row.role or "procedure",
+        structure=structure_signature(str((row.stem or {}).get("en") or "")),
         type=row.type,
         answer_sympy=str(answer.get("sympy") or "0"),
         accept=tuple(str(v) for v in answer.get("accept") or []),
@@ -103,18 +109,34 @@ def load_learner(session: Session, student_id: uuid.UUID) -> LearnerState:
             unhinted_correct=row.unhinted_correct,
             hinted_correct=row.hinted_correct,
         )
-    for row in session.scalars(select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)).all():
-        state.cards[row.skill_id] = ReviewCard(
-            skill_id=row.skill_id,
-            due_at=as_utc(row.due_at),
-            fsrs_state=row.fsrs_state or {},
+        state.ladders[row.skill_id] = _ladder_from_row(row)
+    for card_row in session.scalars(
+        select(ReviewCardRow).where(ReviewCardRow.student_id == student_id)
+    ).all():
+        state.cards[card_row.skill_id] = ReviewCard(
+            skill_id=card_row.skill_id,
+            due_at=as_utc(card_row.due_at),
+            fsrs_state=card_row.fsrs_state or {},
         )
     return state
+
+
+def _ladder_from_row(row: MasteryRow) -> SkillLadder:
+    memory = row.ladder_memory or {}
+    if memory.get("skill_id") == row.skill_id:
+        return SkillLadder.from_json(memory)
+    evidence = {int(k): list(v) for k, v in (row.ladder_evidence or {}).items()}
+    achieved = sorted(evidence) or ([row.ladder_level] if row.ladder_level else [])
+    return SkillLadder(
+        skill_id=row.skill_id, achieved=achieved, evidence=evidence, flags=dict(row.flags or {})
+    )
 
 
 def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerState) -> None:
     now = now_utc()
     for skill_id, mastery in learner.mastery.items():
+        ladder = learner.ladders.get(skill_id)
+        summary = ladder.summary() if ladder else {"level": 0, "evidence": {}, "flags": {}}
         session.merge(
             MasteryRow(
                 student_id=student_id,
@@ -124,6 +146,10 @@ def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerSta
                 unhinted_correct=mastery.unhinted_correct,
                 hinted_correct=mastery.hinted_correct,
                 last_updated=now,
+                ladder_level=summary["level"],
+                ladder_evidence=summary["evidence"],
+                flags=summary["flags"],
+                ladder_memory=ladder.to_json() if ladder else {},
             )
         )
     for skill_id, card in learner.cards.items():
@@ -149,7 +175,9 @@ def _overlay_skills(session: Session, student: StudentRow) -> tuple[str, ...]:
     return tuple(first.skill_ids or ()) if first else ()
 
 
-def _bkt_and_prereqs(session: Session, skill_ids: tuple[str, ...]) -> tuple[dict[str, BktParams], dict[str, tuple[str, ...]]]:
+def _bkt_and_prereqs(
+    session: Session, skill_ids: tuple[str, ...]
+) -> tuple[dict[str, BktParams], dict[str, tuple[str, ...]]]:
     params: dict[str, BktParams] = {}
     prereqs: dict[str, tuple[str, ...]] = {}
     rows = session.scalars(select(SkillRow)).all()
@@ -245,7 +273,7 @@ def _load_memory(data: dict | None) -> dict:
         "hinted": set(raw.get("hinted") or []),
         "first_wrong": set(raw.get("first_wrong") or []),
         "session_unhinted": unhinted,
-        "warmup_skills": set(raw.get("warmup_skills") or []),
+        "warmup_skills": {tuple(pair) for pair in raw.get("warmup_skills") or []},
     }
 
 
@@ -347,7 +375,9 @@ def load_state(
     )
 
 
-def _build_state(session: Session, row: SessionRow, student: StudentRow) -> tuple[SessionState, LearnerState]:
+def _build_state(
+    session: Session, row: SessionRow, student: StudentRow
+) -> tuple[SessionState, LearnerState]:
     scopes = active_scopes(session, student.id)
     skills = _overlay_skills(session, student)
     params, prereqs = _bkt_and_prereqs(session, skills)
@@ -361,6 +391,7 @@ def _build_state(session: Session, row: SessionRow, student: StudentRow) -> tupl
         bkt_params=params,
         prerequisites=prereqs,
     )
+    state.session_key = str(row.id)
     state.has_ai_processing = "ai_processing" in scopes
     state.allow_draft = settings.allow_draft_content
     state.active_ms = row.active_ms
@@ -396,10 +427,12 @@ def _persist_state(row: SessionRow, state: SessionState) -> None:
         row.resumable = False
 
 
-def _item_payload(row: ItemRow | None, locale: str, *, reveal: bool, steps: bool) -> dict[str, Any] | None:
+def _item_payload(
+    row: ItemRow | None, locale: str, *, reveal: bool, steps: bool
+) -> dict[str, Any] | None:
     if row is None:
         return None
-    payload = {
+    payload: dict[str, Any] = {
         "id": row.id,
         "type": row.type,
         "skill_ids": row.skill_ids,
@@ -434,12 +467,17 @@ def enrich_action(
     if item_row is None and state.current_item_id:
         item_row = session.get(ItemRow, state.current_item_id)
     reveal = action.type in {"reveal_solution", "explain_back_result"}
-    steps = action.type in {"worked_example", "reveal_solution", "explain_back_prompt", "explain_back_result"}
+    steps = action.type in {
+        "worked_example",
+        "reveal_solution",
+        "explain_back_prompt",
+        "explain_back_result",
+    }
     extras = dict(action.extras or {})
-    assessment = bool(extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"})
-    can_request_hint, can_show_solution = hint_solution_flags(
-        state, action, assessment=assessment
+    assessment = bool(
+        extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"}
     )
+    can_request_hint, can_show_solution = hint_solution_flags(state, action, assessment=assessment)
     payload = {
         "type": action.type,
         "item_id": action.item_id or state.current_item_id,
@@ -503,6 +541,9 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
     }
 
 
+from app.player.ladder_log import recompute_ladders  # noqa: E402,F401
+
+
 def apply_player_event(
     session: Session,
     actor: Actor,
@@ -523,7 +564,11 @@ def apply_player_event(
         return {
             "session_id": str(row.id),
             "duplicate": False,
-            "action": {"type": "end_session", "reason": "consent_revoked", "ended_reason": "consent_revoked"},
+            "action": {
+                "type": "end_session",
+                "reason": "consent_revoked",
+                "ended_reason": "consent_revoked",
+            },
             "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
             "llm_called": False,
         }
@@ -542,6 +587,7 @@ def apply_player_event(
         item_id=item_id,
         idle_ms=payload.get("idle_ms"),
         text=payload.get("text"),
+        event_id=str(client_event_id),
     )
     action = policy(learner, state, event)
     persist_learner(session, student.id, learner)
@@ -554,10 +600,10 @@ def apply_player_event(
             item_id=item_id or action.item_id,
             event_type=event_type,
             payload=payload,
-            correct=action.correct,
+            correct=state.last_correct if event_type == "answer" else action.correct,
             hint_level=action.hint_level,
             latency_ms=payload.get("latency_ms"),
-            created_at=now_utc(),
+            created_at=state.now,
             state_before=action.state_before,
             state_after=action.state_after,
             rule_id=action.rule_id,
@@ -580,19 +626,19 @@ def apply_player_event(
 
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.db.models import CurriculumRow
-    from app.registries.loaders import load_jurisdiction_profile
     from app.registries.quiet_hours import in_quiet_hours
+    from app.registries.startup import deployment_jurisdiction_profile
 
     curriculum = session.get(CurriculumRow, student.curriculum_id)
     default_tz = curriculum.default_timezone if curriculum else "UTC"
     tz = ZoneInfo(student.timezone or default_tz)
-    profile = load_jurisdiction_profile(
-        curriculum.jurisdiction_profile if curriculum else "default_strict"
-    )
+    profile = deployment_jurisdiction_profile()
     start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
-        select(SessionRow).where(SessionRow.student_id == student.id, SessionRow.started_at >= start_utc)
+        select(SessionRow).where(
+            SessionRow.student_id == student.id, SessionRow.started_at >= start_utc
+        )
     ).all()
     used = sum(row.active_ms for row in rows)
     remaining = max(0, int((GOAL_MS - used) / 60000))

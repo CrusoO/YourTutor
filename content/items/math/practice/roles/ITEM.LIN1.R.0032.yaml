@@ -1,0 +1,59 @@
+id: ITEM.LIN1.R.0032
+skill_ids:
+- MATH.ALG.LIN1.CHECK_SOLUTION
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A tailor says a cloth is 12 metres long if twice its length plus 5 gives 29.
+    Using substitution, is the tailor right?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'yes'
+  accept:
+  - 'yes'
+solution_steps:
+- en: 'Put 12 in place of the length: 2 times 12 plus 5.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 2*12 + 5 = 29
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is yes.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Replace the length by the tailor's value in 'twice the length plus 5'.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Work out the result and compare it with the number the tailor gave.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 2 times 12, then add 5.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will the sentence give 29?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: 2 times 12 plus 5 makes 29.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: 2 times 12 plus 5 does not make 29.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: 2x + 5 = 29
+  value: '12'

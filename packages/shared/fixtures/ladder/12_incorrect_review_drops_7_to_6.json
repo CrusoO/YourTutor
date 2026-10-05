@@ -1,0 +1,128 @@
+{
+  "name": "12_incorrect_review_drops_7_to_6",
+  "description": "An incorrect review drops level 7 to 6 and resets retention.",
+  "params": {
+    "S1": {
+      "p_init": 0.2,
+      "p_learn": 0.5,
+      "p_slip": 0.05,
+      "p_guess": 0.1
+    }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    {
+      "event_id": "e1",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:01:00+00:00",
+      "item_id": "i1",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-a"
+    },
+    {
+      "event_id": "e2",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:02:00+00:00",
+      "item_id": "i2",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-b"
+    },
+    {
+      "event_id": "e3",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:03:00+00:00",
+      "item_id": "i3",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-c"
+    },
+    {
+      "event_id": "e4",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:04:00+00:00",
+      "item_id": "a1",
+      "correct": true,
+      "pool": "practice",
+      "role": "apply",
+      "structure": "s-w"
+    },
+    {
+      "event_id": "e5",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:05:00+00:00",
+      "item_id": "t1",
+      "correct": true,
+      "pool": "practice",
+      "role": "transfer",
+      "structure": "s-t"
+    },
+    {
+      "event_id": "e6",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-09T09:05:00+00:00",
+      "item_id": "p9",
+      "correct": true,
+      "pool": "warmup",
+      "role": "procedure",
+      "structure": "s-r1"
+    },
+    {
+      "event_id": "e7",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-31T09:05:00+00:00",
+      "item_id": "p10",
+      "correct": true,
+      "pool": "warmup",
+      "role": "procedure",
+      "structure": "s-r2"
+    },
+    {
+      "event_id": "e8",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-03-02T09:05:00+00:00",
+      "item_id": "p11",
+      "correct": false,
+      "pool": "warmup",
+      "role": "procedure",
+      "structure": "s-r3"
+    }
+  ],
+  "expect": {
+    "S1": {
+      "level": 6,
+      "evidence": {
+        "3": [
+          "e1"
+        ],
+        "4": [
+          "e1",
+          "e2",
+          "e3"
+        ],
+        "5": [
+          "e4"
+        ],
+        "6": [
+          "e5"
+        ]
+      },
+      "flags": {
+        "retention_stage": 0,
+        "lapsed": true
+      }
+    }
+  }
+}

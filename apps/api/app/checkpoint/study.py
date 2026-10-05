@@ -5,7 +5,8 @@ from __future__ import annotations
 import random
 import secrets
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from typing import Any
 
 from fastapi import HTTPException
 from sqlalchemy import select
@@ -46,13 +47,11 @@ EXPORT_FIELDS = [
 
 def _as_utc(value: datetime) -> datetime:
     if value.tzinfo is None:
-        return value.replace(tzinfo=timezone.utc)
+        return value.replace(tzinfo=UTC)
     return value
 
 
-def assign_within_site(
-    existing_pretests: list[str], *, seed: int, group: str
-) -> tuple[str, str]:
+def assign_within_site(existing_pretests: list[str], *, seed: int, group: str) -> tuple[str, str]:
     """Counterbalance pretest A/B within a site+arm. Posttest is the other form."""
     del group
     rng = random.Random(seed)
@@ -299,7 +298,9 @@ def form_payload(session: Session, checkpoint_id: str, form: str) -> dict:
 def _printable_html(checkpoint_id: str, form: str, items: list[dict]) -> str:
     rows = []
     for index, item in enumerate(items, start=1):
-        opts = "".join(f"<li>{opt.get('en') or opt.get('id')}</li>" for opt in item.get("options") or [])
+        opts = "".join(
+            f"<li>{opt.get('en') or opt.get('id')}</li>" for opt in item.get("options") or []
+        )
         options = f"<ol type='a'>{opts}</ol>" if opts else "<p>Answer: ________</p>"
         rows.append(f"<section><h2>{index}. {item['stem']}</h2>{options}</section>")
     body = "\n".join(rows) or "<p>No items.</p>"
@@ -332,16 +333,17 @@ def _diagnostic_baseline(session: Session, student_id: uuid.UUID) -> str:
 
 
 def _tutor_activity(
-    session: Session, student_id: uuid.UUID, pretest_at: datetime | None, posttest_at: datetime | None
+    session: Session,
+    student_id: uuid.UUID,
+    pretest_at: datetime | None,
+    posttest_at: datetime | None,
 ) -> tuple[str, str]:
     if pretest_at is None or posttest_at is None:
         return "", ""
     start, end = _as_utc(pretest_at), _as_utc(posttest_at)
     if end < start:
         start, end = end, start
-    sessions = session.scalars(
-        select(SessionRow).where(SessionRow.student_id == student_id)
-    ).all()
+    sessions = session.scalars(select(SessionRow).where(SessionRow.student_id == student_id)).all()
     minutes = 0
     days: set[str] = set()
     for row in sessions:
@@ -367,7 +369,9 @@ def analytics_csv_rows(session: Session) -> list[dict[str, str]]:
             continue
         if not part.student_id:
             consent = session.get(ConsentRow, part.consent_id) if part.consent_id else None
-            if consent is None or not has_scope(session, consent.student_id, "research_pseudonymised"):
+            if consent is None or not has_scope(
+                session, consent.student_id, "research_pseudonymised"
+            ):
                 continue
         student = _student_for_participant(session, part)
         consent = session.get(ConsentRow, part.consent_id) if part.consent_id else None
@@ -380,7 +384,9 @@ def analytics_csv_rows(session: Session) -> list[dict[str, str]]:
         posttest_at = next((r.taken_at for r in taken if r.occasion == "posttest"), None)
         active_minutes, active_days = "", ""
         if part.group == "tutor" and student is not None:
-            active_minutes, active_days = _tutor_activity(session, student.id, pretest_at, posttest_at)
+            active_minutes, active_days = _tutor_activity(
+                session, student.id, pretest_at, posttest_at
+            )
         extras = {
             "grade": grade,
             "board": board,
@@ -479,12 +485,12 @@ def enter_paper_answers(
         )
         if first is None:
             raise HTTPException(status_code=400, detail="first entry required")
-        first_map = {row.get("item_id"): row.get("response") for row in (first.answers or [])}
-        second_map = {row.get("item_id"): row.get("response") for row in answers}
-        keys = set(first_map) | set(second_map)
-        mismatches = [
-            key for key in sorted(keys) if first_map.get(key) != second_map.get(key)
-        ]
+        first_map: dict[Any, Any] = {
+            row.get("item_id"): row.get("response") for row in (first.answers or [])
+        }
+        second_map: dict[Any, Any] = {row.get("item_id"): row.get("response") for row in answers}
+        keys: set[Any] = set(first_map) | set(second_map)
+        mismatches = [key for key in sorted(keys) if first_map.get(key) != second_map.get(key)]
     result = None
     if not mismatches:
         result, _ = score_submitted_answers(session, answers)

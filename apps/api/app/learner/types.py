@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 
+from app.learner.ladder import SkillLadder
+
 
 @dataclass
 class Mastery:
@@ -40,6 +42,7 @@ class LearnerEvent:
 class LearnerState:
     mastery: dict[str, Mastery] = field(default_factory=dict)
     cards: dict[str, ReviewCard] = field(default_factory=dict)
+    ladders: dict[str, SkillLadder] = field(default_factory=dict)
 
     def snapshot(self) -> dict:
         return {
@@ -57,4 +60,5 @@ class LearnerState:
                 sid: {"due_at": c.due_at.isoformat(), "fsrs_state": c.fsrs_state}
                 for sid, c in sorted(self.cards.items())
             },
+            "ladders": {sid: row.summary() for sid, row in sorted(self.ladders.items())},
         }

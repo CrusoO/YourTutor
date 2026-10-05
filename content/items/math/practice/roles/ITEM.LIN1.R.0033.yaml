@@ -1,0 +1,59 @@
+id: ITEM.LIN1.R.0033
+skill_ids:
+- MATH.ALG.LIN1.CHECK_SOLUTION
+difficulty: 0.85
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A student expands 4(x - 2) = 20 and reports x = 3. Using substitution in the
+    original equation, is x = 3 correct?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+answer:
+  sympy: 'no'
+  accept:
+  - 'no'
+solution_steps:
+- en: Put 3 in place of x in the original equation 4(x - 2) = 20.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: 4(3 - 2) = 4, which is not 20.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- en: The correct option is no.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+hints:
+- level: 1
+  en: Substitute the value into the original equation, not the expanded one.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 2
+  en: Work out the bracket first, then multiply, and compare with the right side.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- level: 3
+  en: Work out 3 - 2, then multiply by 4.
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+prediction_prompt:
+  en: Will the left side come to 20?
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+misconception_rules: []
+reviewed_by: null
+status: draft
+options:
+- id: 'yes'
+  en: 'Yes: with x = 3 the left side is 20.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+- id: 'no'
+  en: 'No: with x = 3 the left side is not 20.'
+  ne: <Nepali — to be filled by reviewer>
+  as: <Assamese — to be filled by reviewer>
+verify:
+  kind: substitution
+  equation: 4(x - 2) = 20
+  value: '3'

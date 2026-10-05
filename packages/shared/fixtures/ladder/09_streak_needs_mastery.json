@@ -1,0 +1,58 @@
+{
+  "name": "09_streak_needs_mastery",
+  "description": "Same streak with slow BKT parameters keeps p_known below 0.95.",
+  "params": {
+    "S1": {
+      "p_init": 0.1,
+      "p_learn": 0.01,
+      "p_slip": 0.1,
+      "p_guess": 0.4
+    }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    {
+      "event_id": "e1",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:01:00+00:00",
+      "item_id": "i1",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-a"
+    },
+    {
+      "event_id": "e2",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:02:00+00:00",
+      "item_id": "i2",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-b"
+    },
+    {
+      "event_id": "e3",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:03:00+00:00",
+      "item_id": "i3",
+      "correct": true,
+      "pool": "practice",
+      "role": "procedure",
+      "structure": "s-c"
+    }
+  ],
+  "expect": {
+    "S1": {
+      "level": 3,
+      "evidence": {
+        "3": [
+          "e1"
+        ]
+      }
+    }
+  }
+}

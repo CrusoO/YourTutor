@@ -69,7 +69,7 @@ def _seed_catalog(db: Session) -> None:
         db.add(
             OverlayRow(
                 id="OV.TEST",
-                board="bhutan",
+                curriculum_id="bhutan",
                 grade=9,
                 chapter="linear_equations",
                 skill_ids=["MATH.ALG.LIN1.SOLVE_ONE_STEP"],
@@ -87,7 +87,6 @@ def _seed_catalog(db: Session) -> None:
 
 
 def test_family_login_and_today(client: TestClient, world: World, db: Session) -> None:
-    from app.db.models import StudentRow
 
     student = db.get(StudentRow, uuid.UUID(world.student_share_id))
     assert student is not None
@@ -108,7 +107,6 @@ def test_family_login_and_today(client: TestClient, world: World, db: Session) -
 def test_practice_wrong_hint_reveal(client: TestClient, world: World, db: Session) -> None:
     settings.allow_draft_content = True
     _seed_catalog(db)
-    from app.db.models import StudentRow
 
     student = db.get(StudentRow, uuid.UUID(world.student_share_id))
     assert student is not None
@@ -126,7 +124,11 @@ def test_practice_wrong_hint_reveal(client: TestClient, world: World, db: Sessio
     if action["type"] == "predict":
         nxt = client.post(
             f"/sessions/{session_id}/events",
-            json={"client_event_id": str(uuid.uuid4()), "event_type": "predict_response", "payload": {"response": "yes"}},
+            json={
+                "client_event_id": str(uuid.uuid4()),
+                "event_type": "predict_response",
+                "payload": {"response": "yes"},
+            },
             headers=headers,
         )
         assert nxt.status_code == 200
@@ -165,16 +167,22 @@ def test_practice_wrong_hint_reveal(client: TestClient, world: World, db: Sessio
     assert retry.json()["action"]["type"] == "hint"
     reveal = client.post(
         f"/sessions/{session_id}/events",
-        json={"client_event_id": str(uuid.uuid4()), "event_type": "show_solution", "item_id": item_id, "payload": {}},
+        json={
+            "client_event_id": str(uuid.uuid4()),
+            "event_type": "show_solution",
+            "item_id": item_id,
+            "payload": {},
+        },
         headers=headers,
     )
     assert reveal.json()["action"]["type"] == "reveal_solution"
 
 
-def test_diagnostic_and_checkpoint_hide_hints(client: TestClient, world: World, db: Session) -> None:
+def test_diagnostic_and_checkpoint_hide_hints(
+    client: TestClient, world: World, db: Session
+) -> None:
     settings.allow_draft_content = True
     _seed_catalog(db)
-    from app.db.models import StudentRow
 
     student = db.get(StudentRow, uuid.UUID(world.student_share_id))
     assert student is not None

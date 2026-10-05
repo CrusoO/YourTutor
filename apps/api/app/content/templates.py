@@ -21,7 +21,10 @@ def canonical_template_payload(template: ItemTemplate) -> dict:
 
 
 def template_hash(template: ItemTemplate, *, generator_version: str = GENERATOR_VERSION) -> str:
-    payload = {"template": canonical_template_payload(template), "generator_version": generator_version}
+    payload = {
+        "template": canonical_template_payload(template),
+        "generator_version": generator_version,
+    }
     blob = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 

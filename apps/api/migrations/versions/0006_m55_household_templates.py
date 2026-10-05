@@ -29,7 +29,9 @@ def _add_column_if_missing(table: str, column: sa.Column) -> None:
 
 
 def upgrade() -> None:
-    _add_column_if_missing("study_participants", sa.Column("household_id", sa.String(), nullable=True))
+    _add_column_if_missing(
+        "study_participants", sa.Column("household_id", sa.String(), nullable=True)
+    )
     bind = op.get_bind()
     tables = set(sa.inspect(bind).get_table_names())
     if "study_participants" in tables:
@@ -37,7 +39,9 @@ def upgrade() -> None:
         if "household_id" in cols:
             existing = {i["name"] for i in sa.inspect(bind).get_indexes("study_participants")}
             if "ix_study_participants_household_id" not in existing:
-                op.create_index("ix_study_participants_household_id", "study_participants", ["household_id"])
+                op.create_index(
+                    "ix_study_participants_household_id", "study_participants", ["household_id"]
+                )
 
     _add_column_if_missing("checkpoint_tokens", sa.Column("occasion", sa.String(), nullable=True))
     _add_column_if_missing(

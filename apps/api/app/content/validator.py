@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -16,18 +17,23 @@ from app.content.schema import (
     GlossaryFile,
     Item,
     ItemPool,
+    ItemRole,
     ItemType,
     Misconception,
     Overlay,
     Skill,
 )
-from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
 from app.content.signatures import has_one_x, item_content_hash, structure_signature
 from app.content.stem_solve import check_item_stem_answer
+from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
+from app.registries.loaders import CurriculumSpec, load_all_curricula
+from app.registries.sections import overlay_curriculum_errors, section_map_errors
 
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2
 LIVE_MIN_CHECKPOINT = 10
+LIVE_ROLES = (ItemRole.explain, ItemRole.apply, ItemRole.transfer)
+LIVE_MIN_PER_ROLE = 1
 LIVE_WARN_CHECKPOINT = 15
 STEM_MIN_PRACTICE = 5
 STEM_MIN_DIAGNOSTIC = 3
@@ -41,6 +47,8 @@ def _is_e2e_mini_skill(skill_id: str) -> bool:
 
 def _is_e2e_mini_checkpoint_forms(forms: CheckpointForms) -> bool:
     return forms.checkpoint_id.startswith("CP.E2E.") or forms.id.startswith("CP.E2E.")
+
+
 MCQ_IMBALANCE = 0.7
 HINT_SHARE = 0.25
 MIN_HINT1_PRACTICE = 3
@@ -131,7 +139,9 @@ def last_step_matches_answer(
     return False
 
 
-def validate_bundle(bundle: ContentBundle) -> ValidationReport:
+def validate_bundle(
+    bundle: ContentBundle, curricula: Mapping[str, CurriculumSpec] | None = None
+) -> ValidationReport:
     report = ValidationReport(bundle=bundle)
     _unique_ids(bundle, report)
     _refs_and_cycles(bundle, report)
@@ -151,8 +161,17 @@ def validate_bundle(bundle: ContentBundle) -> ValidationReport:
     _template_approval(bundle, report)
     _checkpoint_practice_stems(bundle, report)
     _live_chapter(bundle, report)
+    if curricula is not None:
+        report.errors.extend(overlay_curriculum_errors(bundle.overlays, curricula))
+        report.errors.extend(section_map_errors(bundle.overlays, curricula))
     _build_report(bundle, report)
     return report
+
+
+def curricula_for(root: Path) -> dict[str, CurriculumSpec] | None:
+    """Registry entries shipped next to the content (`<root>/curricula`), if any."""
+    folder = root / "curricula"
+    return load_all_curricula(folder) if folder.is_dir() else None
 
 
 def validate_path(root: Path) -> ValidationReport:
@@ -162,7 +181,7 @@ def validate_path(root: Path) -> ValidationReport:
         report = ValidationReport()
         report.errors.append(str(exc))
         return report
-    report = validate_bundle(bundle)
+    report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     return report
 
@@ -171,9 +190,7 @@ def _persist_hash_resets(root: Path, report: ValidationReport) -> None:
     if report.bundle is None:
         return
     reset_ids = {
-        warning.split(" ", 1)[0]
-        for warning in report.warnings
-        if "reset to draft" in warning
+        warning.split(" ", 1)[0] for warning in report.warnings if "reset to draft" in warning
     }
     if not reset_ids:
         return
@@ -335,10 +352,13 @@ def _checkpoint_forms(bundle: ContentBundle, report: ValidationReport) -> None:
 
 def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
     by_skill_pool: dict[tuple[str, ItemPool], int] = defaultdict(int)
+    by_skill_role: dict[tuple[str, ItemRole], int] = defaultdict(int)
     for item in bundle.items:
         if item.status.value != "approved":
             continue
         by_skill_pool[(item.primary_skill, item.pool)] += 1
+        if item.pool == ItemPool.practice:
+            by_skill_role[(item.primary_skill, item.role)] += 1
     for overlay in bundle.overlays:
         missing: list[str] = []
         for skill_id in overlay.skill_ids:
@@ -348,6 +368,10 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                 missing.append(f"{skill_id} practice {practice}/{LIVE_MIN_PRACTICE}")
             if diagnostic < LIVE_MIN_DIAGNOSTIC:
                 missing.append(f"{skill_id} diagnostic {diagnostic}/{LIVE_MIN_DIAGNOSTIC}")
+            for role in LIVE_ROLES:
+                have = by_skill_role[(skill_id, role)]
+                if have < LIVE_MIN_PER_ROLE:
+                    missing.append(f"{skill_id} role {role.value} {have}/{LIVE_MIN_PER_ROLE}")
         unchecked = [
             item.id
             for item in bundle.items
@@ -368,9 +392,7 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"unapproved items: {', '.join(unchecked)}"
                 )
         elif missing:
-            report.warnings.append(
-                f"{overlay.id} is not live (approved counts below threshold)"
-            )
+            report.warnings.append(f"{overlay.id} is not live (approved counts below threshold)")
 
 
 def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -470,9 +492,7 @@ def _hint_language(bundle: ContentBundle, report: ValidationReport) -> None:
         if h2 and h3:
             overlap = hint3_overlap_ratio(h2, h3)
             if overlap > HINT3_OVERLAP:
-                report.warnings.append(
-                    f"{item.id} hint 3 overlaps hint 2 by {overlap:.0%} (>70%)"
-                )
+                report.warnings.append(f"{item.id} hint 3 overlaps hint 2 by {overlap:.0%} (>70%)")
 
 
 def _language_quality(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -513,18 +533,16 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
         if tpl.status.value == "approved" and tpl.content_hash and tpl.content_hash != digest:
             tpl.status = type(tpl.status)("draft")
             tpl.reviewed_by = None
-            report.warnings.append(
-                f"{tpl.id} approved template changed; reset to draft"
-            )
+            report.warnings.append(f"{tpl.id} approved template changed; reset to draft")
     templates = {tpl.id: tpl for tpl in bundle.templates}
     for item in bundle.items:
         if not item.template_id:
             continue
-        tpl = templates.get(item.template_id)
-        if tpl is None:
+        linked = templates.get(item.template_id)
+        if linked is None:
             report.errors.append(f"{item.id} references unknown template {item.template_id}")
             continue
-        digest = template_hash(tpl)
+        digest = template_hash(linked)
         stale = item.template_hash != digest or item.generator_version != GENERATOR_VERSION
         if stale:
             if item.status.value == "approved":
@@ -533,9 +551,9 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
                 report.warnings.append(
                     f"{item.id} template hash or generator changed; reset to draft"
                 )
-        elif tpl.status.value == "approved":
+        elif linked.status.value == "approved":
             item.status = type(item.status)("approved")
-            item.reviewed_by = tpl.reviewed_by
+            item.reviewed_by = linked.reviewed_by
             if not item.content_hash:
                 item.content_hash = item_content_hash(item)
 
@@ -575,9 +593,7 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
     for pool, stems in by_pool.items():
         for _stem, ids in stems.items():
             if len(ids) > 1:
-                report.errors.append(
-                    f"duplicate stem in {pool} pool: {', '.join(sorted(ids))}"
-                )
+                report.errors.append(f"duplicate stem in {pool} pool: {', '.join(sorted(ids))}")
     items = {i.id: i for i in bundle.items}
     for forms in bundle.checkpoint_forms:
         for src, dst in forms.match_map.items():
@@ -589,17 +605,14 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"{forms.id} matched A/B items {src} and {dst} have identical stems"
                 )
     practice_skills = {i.primary_skill for i in bundle.items if i.pool == ItemPool.practice}
-    diagnostic_skills = {
-        i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic
-    }
+    diagnostic_skills = {i.primary_skill for i in bundle.items if i.pool == ItemPool.diagnostic}
     for skill_id in sorted(practice_skills):
         if _is_e2e_mini_skill(skill_id):
             continue
         count = len(by_skill_pool[(skill_id, ItemPool.practice.value)])
         if count < STEM_MIN_PRACTICE:
             report.errors.append(
-                f"{skill_id} practice has {count} distinct stems; "
-                f"minimum is {STEM_MIN_PRACTICE}"
+                f"{skill_id} practice has {count} distinct stems; minimum is {STEM_MIN_PRACTICE}"
             )
     for skill_id in sorted(diagnostic_skills):
         if _is_e2e_mini_skill(skill_id):

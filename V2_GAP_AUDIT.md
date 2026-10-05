@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04):** `apps/api` pytest **231 passed, 0 failed** (**231 collected**, Postgres loader included). `apps/web` vitest **33 passed** *(prior)*. `apps/web` `tsc --noEmit` **ok** *(prior)*. Playwright not run for this audit. *(Prior baseline: 222 passed — G0 registries.)*
+**Test baseline (2026-10-05, G1 closed):** `apps/api` pytest **379 passed, 0 failed** (379 collected) on Postgres in one piece; randomized seeds 1 and 2 each 379 passed. `ruff check .` 0 errors, `ruff format --check .` clean, `mypy .` 0 errors (154 files). `apps/web` vitest **33 passed**; `tsc --noEmit` ok; region-literal check clean; locale generation no diff. Alembic head `0015_g1_overlay_curriculum`. Playwright not run.
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 
@@ -39,10 +39,12 @@
 
 ## b) Milestones G0–G12 (vs repo)
 
+The milestone definitions, checkboxes and Accept criteria live in **PLAN.md §8 (v2 milestones, G0–G12)**; this table is the code-vs-plan status only. PLAN.md is the source of truth if the two differ.
+
 | Milestone | Status | Evidence |
 |-----------|--------|----------|
-| **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0010; `context_key`; locale FKs; `RESEARCH_MODULE`; quiet hours via jurisdiction profile |
-| **G1** Ladder | **Not started** | Mastery is BKT/p_known only (`learner/`); no `item.role`; no ladder compute |
+| **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0012 (registry, student context, sections + `section_map`, locale columns); `context_key`; `JURISDICTION_PROFILE`; `RESEARCH_MODULE`; quiet hours via jurisdiction profile. Carried out: overlay `board:` → G1; grade-band wiring → G2/G4/G5; `board` compat + `device_timezone` → G5; `classes.board` → G6 |
+| **G1** Ladder | **Met (2026-10-05)** | `role` on items; 36 draft role items; pure `ladder.py` + shared fixtures; status mapping; policy uses ladder (T, role-aware selection, extension practice); `mastery.ladder_*` (Alembic 0014); recompute from the event log; session-end FSRS wired; overlay `curriculum_id` (0015). See PLAN.md §8 G1 |
 | **G2** Diagnosis + R30–R40 | **Not started** | v1 `policy.py` only; no `diagnosis/`; no stuck-point / wheel-spinning / R40 |
 | **G3** Lessons/scenes/widgets | **Not started** | No `lessons/`, scenes, widget registry; player is single `session/[id]/page.tsx` |
 | **G4** LLM gateway | **Not started** (was M6) | No `llm/` gateway; explain-back ungraded path partial in policy only |

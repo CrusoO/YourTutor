@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from app.content.signatures import structure_signature
 from app.content.validator import load_bundle
 from app.learner.bkt import BktParams
 from app.orchestrator.types import CatalogItem, SessionState, default_params
@@ -21,6 +22,8 @@ def seed_catalog() -> tuple[CatalogItem, ...]:
                 difficulty=item.difficulty,
                 pool=item.pool.value,
                 status=item.status.value,
+                role=item.role.value,
+                structure=structure_signature(item.stem.en),
                 type=item.type.value,
                 answer_sympy=item.answer.sympy,
                 accept=tuple(item.answer.accept),
@@ -31,9 +34,9 @@ def seed_catalog() -> tuple[CatalogItem, ...]:
                 ),
                 prediction_prompt=item.prediction_prompt.en,
                 authored_explanation=item.solution_steps[0].en if item.solution_steps else "",
-                verify=item.verify if isinstance(item.verify, str) else (
-                    item.verify.model_dump() if item.verify else None
-                ),
+                verify=item.verify
+                if isinstance(item.verify, str)
+                else (item.verify.model_dump() if item.verify else None),
                 options=tuple(o.model_dump(by_alias=True) for o in item.options),
             )
         )

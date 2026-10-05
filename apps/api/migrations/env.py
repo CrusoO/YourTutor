@@ -10,15 +10,18 @@ from app.db.session import database_url
 
 config = context.config
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    # Keep app loggers alive when Alembic runs in-process (tests, CLI).
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
-config.set_main_option("sqlalchemy.url", database_url())
+# Callers (tests) may pass an explicit target via cfg.attributes; default is the app settings.
+TARGET_URL = config.attributes.get("database_url") or database_url()
+config.set_main_option("sqlalchemy.url", TARGET_URL.replace("%", "%%"))
 
 
 def run_migrations_offline() -> None:
     context.configure(
-        url=database_url(),
+        url=TARGET_URL,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},

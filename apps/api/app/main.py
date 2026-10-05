@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,11 +10,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import settings
+from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
 
 logger = logging.getLogger("yourtutor.access")
 
-app = FastAPI(title="YourTutor API", version="0.2.0")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    validate_startup_config()  # unknown JURISDICTION_PROFILE etc. stops startup
+    yield
+
+
+app = FastAPI(title="YourTutor API", version="0.2.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

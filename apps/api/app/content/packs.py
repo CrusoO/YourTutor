@@ -11,7 +11,9 @@ if TYPE_CHECKING:
     from app.db.models import ItemRow
 
 
-def item_is_offline_verifiable(*, item_type: str, answer: dict | None, verify: str | dict | None) -> bool:
+def item_is_offline_verifiable(
+    *, item_type: str, answer: dict | None, verify: str | dict | None
+) -> bool:
     del verify
     if item_type in ("numeric", "mcq"):
         return True
@@ -40,7 +42,7 @@ def item_schema_offline_pack_eligible(item: Item, *, allow_draft: bool) -> bool:
     return item_is_offline_verifiable(
         item_type=item.type.value,
         answer=item.answer.model_dump(),
-        verify=item.verify if isinstance(item.verify, str) else (
-            item.verify.model_dump() if item.verify else None
-        ),
+        verify=item.verify
+        if isinstance(item.verify, str)
+        else (item.verify.model_dump() if item.verify else None),
     )

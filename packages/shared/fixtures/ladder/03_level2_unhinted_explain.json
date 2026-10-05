@@ -1,0 +1,36 @@
+{
+  "name": "03_level2_unhinted_explain",
+  "description": "Unhinted correct explain item gives level 2.",
+  "params": {
+    "S1": {
+      "p_init": 0.2,
+      "p_learn": 0.5,
+      "p_slip": 0.05,
+      "p_guess": 0.1
+    }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    {
+      "event_id": "e1",
+      "skill_id": "S1",
+      "kind": "answer",
+      "at": "2026-01-01T09:01:00+00:00",
+      "item_id": "x1",
+      "correct": true,
+      "pool": "practice",
+      "role": "explain",
+      "structure": "s-a"
+    }
+  ],
+  "expect": {
+    "S1": {
+      "level": 2,
+      "evidence": {
+        "2": [
+          "e1"
+        ]
+      }
+    }
+  }
+}

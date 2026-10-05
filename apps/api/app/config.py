@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     pilot_key: str = "dev-pilot"
     e2e_mini_content: bool = False
     research_module: bool = False  # env: RESEARCH_MODULE=true
+    jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
 
 
 settings = Settings()

@@ -26,6 +26,7 @@ AS = "<Assamese — to be filled by reviewer>"
 def loc(en: str) -> dict[str, str]:
     return {"en": en, "ne": NE, "as": AS}
 
+
 _IDENT = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\b")
 PRACTICE_PER_SKILL = 20
 MIN_PER_TIER = 5
@@ -74,12 +75,12 @@ def _render(text: str, params: dict[str, Any]) -> str:
 
 
 def _tier_for(template: ItemTemplate, params: dict[str, Any]) -> tuple[str, float] | None:
-    answer = params.get("answer")
+    answer: Any = params.get("answer")
     try:
         abs_answer = abs(int(answer))
     except (TypeError, ValueError):
         abs_answer = 0
-    raw_coeff = params.get("coeff", params.get("a"))
+    raw_coeff: Any = params.get("coeff", params.get("a"))
     try:
         parsed_coeff = abs(int(raw_coeff))
     except (TypeError, ValueError):
@@ -101,7 +102,7 @@ def _tier_for(template: ItemTemplate, params: dict[str, Any]) -> tuple[str, floa
 
 def _constraints_ok(template: ItemTemplate, params: dict[str, Any], stem: str) -> bool:
     cons = template.constraints or {}
-    answer = params.get("answer")
+    answer: Any = params.get("answer")
     try:
         ans_i = int(answer)
     except (TypeError, ValueError):
@@ -163,7 +164,7 @@ def instantiate(
     if not _constraints_ok(template, values, stem):
         raise ValueError("template constraints failed")
     steps = [_render(step, values) for step in template.steps]
-    raw_hints = template.hints
+    raw_hints: dict[Any, str] = template.hints
     hints = []
     for level in (1, 2, 3):
         text = raw_hints.get(level) or raw_hints.get(str(level))
@@ -195,6 +196,7 @@ def instantiate(
         "difficulty": difficulty,
         "type": template.type.value if hasattr(template.type, "value") else template.type,
         "pool": "practice",
+        "role": template.role.value,
         "stem": loc(stem),
         "answer": {"sympy": str(answer), "accept": [str(answer)]},
         "solution_steps": [loc(step) for step in steps],
@@ -284,11 +286,14 @@ def generate_instances(
                 need_tier = counts[tier] < TIER_TARGETS[tier]
                 remaining = per_skill - sum(counts.values())
                 missing_hard = [
-                    name
-                    for name, want in TIER_TARGETS.items()
-                    if counts[name] < MIN_PER_TIER
+                    name for name, want in TIER_TARGETS.items() if counts[name] < MIN_PER_TIER
                 ]
-                if not need_tier and missing_hard and tier not in missing_hard and remaining <= len(missing_hard):
+                if (
+                    not need_tier
+                    and missing_hard
+                    and tier not in missing_hard
+                    and remaining <= len(missing_hard)
+                ):
                     index += 1
                     continue
                 item = instantiate(template, params, seed=seed, index=index)
@@ -299,9 +304,10 @@ def generate_instances(
             if key in seen:
                 index += 1
                 continue
-            if counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)] and sum(
-                counts.values()
-            ) < per_skill:
+            if (
+                counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)]
+                and sum(counts.values()) < per_skill
+            ):
                 if all(counts[name] >= MIN_PER_TIER for name in TIER_TARGETS):
                     pass
                 elif counts[item_tier(item.difficulty)] >= TIER_TARGETS[item_tier(item.difficulty)]:

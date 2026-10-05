@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from app.registries.loaders import load_locales_config
 from app.registries.paths import repo_root
@@ -12,7 +11,13 @@ def main() -> None:
     payload = {
         "default": default,
         "locales": [
-            {"code": spec.code, "fallback_chain": list(spec.fallback_chain)}
+            {
+                "code": spec.code,
+                "name": spec.name,
+                "script": spec.script,
+                "status": spec.status,
+                "fallback_chain": list(spec.fallback_chain),
+            }
             for spec in locales.values()
         ],
     }
