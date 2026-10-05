@@ -1189,12 +1189,12 @@ def write_items(skill_ids: list[str]) -> None:
 
 
 def write_overlays(skill_ids: list[str]) -> None:
-    for oid, board in (("bhutan_class9", "bhutan"), ("seba_class9", "seba")):
+    for oid, curriculum in (("bhutan_class9", "bhutan"), ("seba_class9", "seba")):
         dump(
             ROOT / "overlays" / f"{oid}.yaml",
             {
                 "id": oid,
-                "board": board,
+                "curriculum_id": curriculum,
                 "grade": 9,
                 "chapter": "linear_equations",
                 "skill_ids": skill_ids,

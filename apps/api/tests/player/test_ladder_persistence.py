@@ -80,7 +80,7 @@ def _seed(db: Session, world: World) -> None:
     db.add(
         OverlayRow(
             id=OVERLAY,
-            board="bhutan",
+            curriculum_id="bhutan",
             grade=9,
             chapter="linear_equations",
             skill_ids=[SKILL],

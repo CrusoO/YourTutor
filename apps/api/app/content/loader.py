@@ -133,7 +133,7 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
         session.merge(
             OverlayRow(
                 id=overlay.id,
-                board=overlay.board,
+                curriculum_id=overlay.curriculum_id,
                 grade=overlay.grade,
                 chapter=overlay.chapter,
                 skill_ids=overlay.skill_ids,

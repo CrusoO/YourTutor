@@ -69,7 +69,7 @@ def _seed_catalog(db: Session) -> None:
         db.add(
             OverlayRow(
                 id="OV.TEST",
-                board="bhutan",
+                curriculum_id="bhutan",
                 grade=9,
                 chapter="linear_equations",
                 skill_ids=["MATH.ALG.LIN1.SOLVE_ONE_STEP"],

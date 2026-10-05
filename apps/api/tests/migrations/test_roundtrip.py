@@ -106,7 +106,7 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         session.add(
             OverlayRow(
                 id="OV.ROUNDTRIP",
-                board="bhutan",
+                curriculum_id="bhutan",
                 grade=9,
                 chapter="linear_equations",
                 skill_ids=["MATH.X"],
@@ -164,6 +164,17 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
             )
         }
         assert "role" not in item_cols
+        overlay_cols = {
+            row[0]
+            for row in conn.execute(
+                text(
+                    "SELECT column_name FROM information_schema.columns "
+                    "WHERE table_name = 'overlays'"
+                )
+            )
+        }
+        assert "board" in overlay_cols and "curriculum_id" not in overlay_cols
+        assert conn.execute(text("SELECT board FROM overlays")).scalar_one() == "bhutan"
         names = {
             row[0] for row in conn.execute(text("SELECT display_name FROM students ORDER BY 1"))
         }
@@ -193,6 +204,7 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         assert ladder.p_known == 0.91  # data survives the round trip
         assert ladder.ladder_level == 0  # ladder columns come back at their defaults
         assert ladder.ladder_evidence == {} and ladder.flags == {}
+        assert conn.execute(text("SELECT curriculum_id FROM overlays")).scalar_one() == "bhutan"
         assert conn.execute(text("SELECT count(*) FROM sections")).scalar_one() >= 9
         assert (
             conn.execute(

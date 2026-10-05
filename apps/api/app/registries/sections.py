@@ -10,8 +10,20 @@ from app.registries.loaders import CurriculumSpec
 
 class OverlayLike(Protocol):
     id: str
+    curriculum_id: str
     skill_ids: list[str]
     section_map: dict[str, list[str]]
+
+
+def overlay_curriculum_errors(
+    overlays: Iterable[OverlayLike],
+    curricula: Mapping[str, CurriculumSpec],
+) -> list[str]:
+    return [
+        f"overlay {overlay.id} names unknown curriculum {overlay.curriculum_id!r}"
+        for overlay in overlays
+        if overlay.curriculum_id not in curricula
+    ]
 
 
 def section_map_errors(

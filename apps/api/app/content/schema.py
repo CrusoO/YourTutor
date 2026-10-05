@@ -155,8 +155,10 @@ class Misconception(BaseModel):
 
 
 class Overlay(BaseModel):
+    model_config = {"extra": "forbid"}  # a leftover `board:` must fail loudly
+
     id: str
-    board: str
+    curriculum_id: str
     grade: int
     chapter: str
     skill_ids: list[str]

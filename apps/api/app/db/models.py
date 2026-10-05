@@ -94,7 +94,7 @@ class OverlayRow(Base):
     __tablename__ = "overlays"
 
     id: Mapped[str] = mapped_column(String, primary_key=True)
-    board: Mapped[str] = mapped_column(String)
+    curriculum_id: Mapped[str] = mapped_column(String)
     grade: Mapped[int] = mapped_column(Integer)
     chapter: Mapped[str] = mapped_column(String)
     skill_ids: Mapped[list] = mapped_column(JSONType)

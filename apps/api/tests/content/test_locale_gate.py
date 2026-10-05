@@ -33,7 +33,7 @@ def test_approved_always_servable() -> None:
 def test_non_live_overlay_not_targetable_in_prod() -> None:
     overlay = Overlay(
         id="ov",
-        board="bhutan",
+        curriculum_id="bhutan",
         grade=9,
         chapter="linear_equations",
         skill_ids=["MATH.S1"],

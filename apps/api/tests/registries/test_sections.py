@@ -23,6 +23,7 @@ class _Overlay:
     id: str
     skill_ids: list[str]
     section_map: dict[str, list[str]] = field(default_factory=dict)
+    curriculum_id: str = "C"
 
 
 def _curriculum(keys: tuple[str, ...], overlay_id: str = "OV") -> dict[str, CurriculumSpec]:

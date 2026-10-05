@@ -104,7 +104,7 @@ def content_root(tmp_path: Path) -> Path:
         tmp_path / "overlays" / "ov.yaml",
         {
             "id": "ov1",
-            "board": "bhutan",
+            "curriculum_id": "bhutan",
             "grade": 9,
             "chapter": "linear_equations",
             "skill_ids": ["MATH.S1"],

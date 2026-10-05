@@ -106,7 +106,7 @@ def test_live_chapter_errors_when_flagged_live(content_root: Path) -> None:
         content_root / "overlays" / "ov.yaml",
         {
             "id": "ov1",
-            "board": "bhutan",
+            "curriculum_id": "bhutan",
             "grade": 9,
             "chapter": "linear_equations",
             "skill_ids": ["MATH.S1"],
@@ -200,7 +200,7 @@ def test_live_blocked_by_unapproved_needs_teacher_check(content_root: Path) -> N
         content_root / "overlays" / "live.yaml",
         {
             "id": "live_ch",
-            "board": "bhutan",
+            "curriculum_id": "bhutan",
             "grade": 9,
             "chapter": "lin",
             "skill_ids": ["MATH.S1"],
