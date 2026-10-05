@@ -224,3 +224,66 @@ def test_reseeding_replaces_the_scenarios_without_duplicates(
         )
         assert parents == 5
         assert uuid.UUID(str(_student(db, "new_student").id))
+
+
+def _first_action(url: str, name: str) -> dict:
+    """Start a session the way the student's Start practice button does, without keeping it."""
+    from app.auth.actor import Actor
+    from app.player.runtime import session_view
+
+    settings.allow_draft_content = True  # the preview API runs with draft content on
+    with _db(url) as db:
+        student = _student(db, name)
+        admin = Actor(role="admin")
+        row = service.start_session(db, admin, student.id, "practice")
+        action = session_view(db, admin, row)["action"]
+        db.rollback()
+        return action
+
+
+def _open_sessions(url: str, name: str) -> int:
+    with _db(url) as db:
+        student = _student(db, name)
+        count = db.scalar(
+            select(func.count())
+            .select_from(SessionRow)
+            .where(
+                SessionRow.student_id == student.id,
+                (SessionRow.ended_at.is_(None)) | (SessionRow.resumable.is_(True)),
+            )
+        )
+        return int(count or 0)
+
+
+def test_review_due_opens_with_a_warmup_for_the_overdue_skill(
+    seeded: tuple[str, list[dict]],
+) -> None:
+    url, _ = seeded
+    assert _open_sessions(url, "review_due") == 0
+    action = _first_action(url, "review_due")
+    assert action["type"] == "warmup_item"
+    with _db(url) as db:
+        student = _student(db, "review_due")
+        assert action["skill_id"] == _overlay_skills(db, student)[0]
+
+
+def test_all_skills_level_4_starts_extension_practice_with_an_apply_item(
+    seeded: tuple[str, list[dict]],
+) -> None:
+    from app.db.models import ItemRow
+
+    url, _ = seeded
+    assert _open_sessions(url, "all_skills_level_4") == 0
+    action = _first_action(url, "all_skills_level_4")
+    assert action["type"] in {"show_item", "warmup_item"}
+    with _db(url) as db:
+        item = db.get(ItemRow, action["item_id"])
+        assert item is not None and item.role in {"apply", "procedure"}
+
+
+def test_skill_at_level_4_and_mid_chapter_keep_a_session_open_to_resume(
+    seeded: tuple[str, list[dict]],
+) -> None:
+    url, _ = seeded
+    assert _open_sessions(url, "skill_at_level_4") >= 1
+    assert _open_sessions(url, "mid_chapter") >= 1

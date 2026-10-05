@@ -20,7 +20,7 @@ from app.auth import service
 from app.auth.actor import Actor
 from app.auth.security import hash_pin
 from app.config import settings
-from app.db.models import ItemRow, OverlayRow, StudentRow, UserRow
+from app.db.models import ItemRow, OverlayRow, SessionRow, StudentRow, UserRow
 from app.db.session import session_factory
 from app.dev.clock import frozen
 from app.dev.readers import card_due, ladder_levels
@@ -43,6 +43,7 @@ class ScenarioSpec:
     family_code: str
     first_name: str
     days_ago: int = 1  # where the replayed history starts, relative to now
+    leave_open: bool = True  # keep the last (idle-ended) session resumable
 
 
 SCENARIOS: tuple[ScenarioSpec, ...] = (
@@ -74,6 +75,7 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "DEVRVW",
         "Rhea",
         days_ago=30,
+        leave_open=False,
     ),
     ScenarioSpec(
         "all_skills_level_4",
@@ -81,6 +83,7 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "Every skill in the chapter at level 4 (extension practice and chapter complete).",
         "DEVALL",
         "Alma",
+        leave_open=False,
     ),
 )
 
@@ -165,7 +168,12 @@ def _seed_one(
         db.commit()
     stop = _stop_for(spec.name)
     if stop is not None:
-        _Replay(db, student, admin).run(stop, start)
+        last = _Replay(db, student, admin).run(stop, start)
+        if not spec.leave_open:
+            # Stand-in for "yesterday's idle session has expired" (G2: resume until local midnight),
+            # so the next Start practice begins a fresh session instead of resuming this one.
+            last.resumable = False
+            db.commit()
     summary = _summary(db, student)
     if spec.name == "review_due":
         _require_overdue_card(db, student)
@@ -208,7 +216,7 @@ class _Replay:
 
     def run(
         self, stop: Stop, start: datetime, *, max_sessions: int = 20, max_events: int = 1500
-    ) -> None:
+    ) -> SessionRow:
         self.clock = start
         skills = list(_overlay_skills(self.db, self.student))
         events = 0
@@ -225,7 +233,7 @@ class _Replay:
                 levels, attempts = self._levels()
                 if stop(skills, levels, attempts):
                     self._end_idle(row)
-                    return
+                    return row
             self.clock += SESSION_GAP
         raise RuntimeError("scenario replay did not reach its target state")
 
