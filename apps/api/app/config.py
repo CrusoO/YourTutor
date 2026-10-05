@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     e2e_mini_content: bool = False
     research_module: bool = False  # env: RESEARCH_MODULE=true
     jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
+    dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
+    cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
 
 
 settings = Settings()
