@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-04, G0 closed):** `apps/api` pytest **256 passed, 0 failed** on Postgres (`-p no:randomly`; randomized seeds 1, 2, 3 each 256 passed). `ruff check .` **0 errors**, `ruff format --check .` clean, `mypy .` **0 errors** (135 files). `apps/web` vitest **33 passed**; `tsc --noEmit` **ok**; region-literal check **clean**; locale generation **no diff**. Playwright not run.
+**Test baseline (2026-10-05, G1 closed):** `apps/api` pytest **379 passed, 0 failed** (379 collected) on Postgres in one piece; randomized seeds 1 and 2 each 379 passed. `ruff check .` 0 errors, `ruff format --check .` clean, `mypy .` 0 errors (154 files). `apps/web` vitest **33 passed**; `tsc --noEmit` ok; region-literal check clean; locale generation no diff. Alembic head `0015_g1_overlay_curriculum`. Playwright not run.
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 

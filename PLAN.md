@@ -267,7 +267,7 @@ Accept:
 - [x] Review-due status appears when FSRS card is overdue and clears on correct recall (`tests/player/test_review_due_flow.py`, `tests/learner/test_status.py`)
 - [x] Existing BKT one-update-per-item tests unchanged and green (`tests/learner/test_bkt.py`, `test_fsrs.py`, `test_properties.py` untouched)
 
-**Status:** all G1 items are done; final verification counts are recorded in the next commit.
+**Status:** **Met 2026-10-05.** API pytest **379 passed (379 collected)** on Postgres in one piece (`-p no:randomly`), and `pytest-randomly` seeds 1 and 2 each 379 passed (up from 256 at G0); `ruff check` 0 errors, `ruff format --check` clean, `mypy` 0 errors (154 files); vitest 33 passed; `tsc` ok; region-literal check clean; locale generation no diff; content validates (12 skills, **406** items, 2 overlays) and loads; Alembic head `0015_g1_overlay_curriculum`, round-trip downgrade to `0008_retire` and upgrade to head tested with data. Playwright not run (no UI change). Process notes: the full suite was killed twice for low memory mid-milestone (see the G2 memory item); four reason-choice `explain` seed items still need teacher sign-off.
 
 ### G2 — Diagnosis engine + policy v2
 
