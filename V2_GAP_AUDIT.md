@@ -44,7 +44,7 @@ The milestone definitions, checkboxes and Accept criteria live in **PLAN.md §8 
 | Milestone | Status | Evidence |
 |-----------|--------|----------|
 | **G0** Registries | **Met (2026-10-04)** | `config/` + `content/curricula/`; Alembic 0009–0012 (registry, student context, sections + `section_map`, locale columns); `context_key`; `JURISDICTION_PROFILE`; `RESEARCH_MODULE`; quiet hours via jurisdiction profile. Carried out: overlay `board:` → G1; grade-band wiring → G2/G4/G5; `board` compat + `device_timezone` → G5; `classes.board` → G6 |
-| **G1** Ladder | **Not started** | Mastery is BKT/p_known only (`learner/`); no `item.role`; no ladder compute |
+| **G1** Ladder | **Met (2026-10-05)** | `role` on items; 36 draft role items; pure `ladder.py` + shared fixtures; status mapping; policy uses ladder (T, role-aware selection, extension practice); `mastery.ladder_*` (Alembic 0014); recompute from the event log; session-end FSRS wired; overlay `curriculum_id` (0015). See PLAN.md §8 G1 |
 | **G2** Diagnosis + R30–R40 | **Not started** | v1 `policy.py` only; no `diagnosis/`; no stuck-point / wheel-spinning / R40 |
 | **G3** Lessons/scenes/widgets | **Not started** | No `lessons/`, scenes, widget registry; player is single `session/[id]/page.tsx` |
 | **G4** LLM gateway | **Not started** (was M6) | No `llm/` gateway; explain-back ungraded path partial in policy only |

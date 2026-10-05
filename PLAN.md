@@ -96,6 +96,17 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Sections | Section id = `{chapter_id}.{key}`; `overlays.section_map` is keyed by the local `key` (an overlay can serve several chapters). Validator fails on unresolved keys/skills. Seed sections are draft placeholders; the content loader also syncs registry rows from YAML. |
 | Alembic target | `migrations/env.py` honours `cfg.attributes["database_url"]` (else app settings) and keeps existing loggers alive (`disable_existing_loggers=False`). |
 | Lint and types | `ruff` line length **100** (already set in `apps/api/pyproject.toml`), `ruff format` for wrapping, long strings split with implicit concatenation; `types-PyYAML` in `requirements-dev.txt`; mypy fixed without `# type: ignore` where possible. Lint/type cleanups must not change behaviour (AST-checked). |
+| Ladder levels 1–4 | Levels 1–4 are earned independently; 5–7 chain (5 after 4, 6 after 5, 7 needs 6). Level = highest achieved. Diagnostic, checkpoint and explain-back never reach the ladder; only practice and warm-up events do. Events dated after `now` are ignored. |
+| Level 1 evidence | Until lessons exist (G3): the PREDICT → WORKED_EXAMPLE flow completed for the skill **and** a correct answer (hints allowed) on the first practice item afterwards. One function, `lesson_level1_reached`, holds this rule; G3 swaps it for lesson completion. |
+| Level 2 evidence | Only an unhinted-correct first attempt on an `explain` item. Explain-back grades stay formative and never count. |
+| Level 4 evidence | `p_known ≥ 0.95` **and** 3 consecutive unhinted-correct first attempts spanning ≥ 2 distinct stem-structure signatures (M4.5 `structure_signature`). Only `procedure`, `apply` and `transfer` items count: `recall` / `explain` items neither extend nor break the streak. Hinted answers never count. |
+| Levels 5–7 evidence | 5: unhinted-correct first attempt on an `apply` item after level 4. 6: same for `transfer` after level 5. 7: a warm-up review answered correctly (unhinted, first attempt) ≥ 7 days after the last practice on the skill, then another ≥ 21 days after the last practice; an incorrect or hinted review resets retention and drops 7 → 6. Injectable clocks in tests. |
+| T and selection | T = first overlay skill with ladder level < 4 (replaces `p_known < 0.95`). Role-aware selection: level 4 → `apply`, level 5 → `transfer`, otherwise `procedure` with `recall` / `explain` mixed in (every 2nd and 4th item of the skill) until level 2; a missing role falls back to any eligible role and logs `content_gap` (`reason: role_missing`). Warm-ups use the same role by level; a similar item keeps the missed item's role. |
+| Extension practice | T is by definition below level 4, so levels 5–6 would never be earned. With no skill below level 4 the policy serves `apply` (level 4) then `transfer` (level 5) items on the first such skill before `chapter_complete`; with no item of that role it logs the gap and completes the chapter. |
+| Ladder storage | `mastery.ladder_level`, `ladder_evidence` (level → client event ids), `flags`, plus `ladder_memory` (incremental state; not in the original plan). Recompute from the event log uses practice-session events only, with the verified `correct` now stored on `events` and client event ids as evidence ids; `events.created_at` is the policy's own time. Diagnostic seeding of `p_known` is not an event, so it is outside the recompute. |
+| FSRS session end | Other practised skills get one FSRS rating when a practice session ends (not on consent revoke), from the session's unhinted-correct rate; per-session counts use the DB session id and are cleared after rating. This was specified in M3 but not wired, so no card existed in the live flow. |
+| Item roles in content | `role` is required on every item and template. Seed backfill: word problems `apply`, everything else `procedure`; 36 new draft items (one `explain`, `apply`, `transfer` per skill). Four reason-choice `explain` items need teacher sign-off (not machine-verifiable). The live threshold needs ≥ 1 approved item of each of those roles per skill. |
+| Overlay curriculum | Overlay YAML uses `curriculum_id`; the schema rejects a leftover `board:` and the validator rejects unknown curricula. `overlays.board` was renamed (migration 0015). Student and class `board` stay until G5 / G6. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -239,27 +250,28 @@ Accept:
 
 ### G1 — Student model v2 (mastery ladder)
 
-- [ ] Item `role` field (recall, explain, procedure, apply, transfer); validator requires it
-- [ ] Seed chapter: add ≥ 1 explain, ≥ 1 apply, ≥ 1 transfer item per skill (draft)
-- [ ] `mastery.ladder_level`, `ladder_evidence`, `flags`; pure `ladder.compute(events)` in Python + fixture-shared spec
-- [ ] Level 4 requires `p_known ≥ 0.95` + 3 consecutive unhinted correct first attempts across ≥ 2 structures
-- [ ] Level 7 requires FSRS recalls at ≥ 7 and ≥ 21 days; incorrect recall drops 7 → 6
-- [ ] Student status mapping (Not started / Learning / Can do it / Solid / Review due)
-- [ ] T = first overlay skill with ladder < 4
-- [ ] Live-chapter threshold adds role coverage
-- [ ] *Deferred from G0:* overlay YAML `board:` field replaced by `curriculum_id`
+- [x] Item `role` field (recall, explain, procedure, apply, transfer); validator requires it (`56a9c65`)
+- [x] Seed chapter: add ≥ 1 explain, ≥ 1 apply, ≥ 1 transfer item per skill (draft) (`d45b2fe`; 36 items)
+- [x] `mastery.ladder_level`, `ladder_evidence`, `flags`; pure `ladder.compute(events)` in Python + fixture-shared spec (`92c50f6`, `a900920`)
+- [x] Level 4 requires `p_known ≥ 0.95` + 3 consecutive unhinted correct first attempts across ≥ 2 structures (`92c50f6`)
+- [x] Level 7 requires FSRS recalls at ≥ 7 and ≥ 21 days; incorrect recall drops 7 → 6 (`92c50f6`; reviews need FSRS cards, wired in `8ad3fdf`)
+- [x] Student status mapping (Not started / Learning / Can do it / Solid / Review due) (`423f8bd`)
+- [x] T = first overlay skill with ladder < 4 (`c0511ed`)
+- [x] Live-chapter threshold adds role coverage (`5b8fac6`)
+- [x] *Deferred from G0:* overlay YAML `board:` field replaced by `curriculum_id` (`dc57a95`)
 
 Accept:
 
-- [ ] Ladder fixtures: each level reached only with its evidence; hinted correct never reaches 4; one-structure streak does not reach 4
-- [ ] Recompute from event log equals incremental result
-- [ ] Review-due status appears when FSRS card is overdue and clears on correct recall
-- [ ] Existing BKT one-update-per-item tests unchanged and green
+- [x] Ladder fixtures: each level reached only with its evidence; hinted correct never reaches 4; one-structure streak does not reach 4 (`packages/shared/fixtures/ladder/`, 14 fixtures)
+- [x] Recompute from event log equals incremental result (hypothesis on random logs; `recompute_ladders` vs stored in `tests/player/test_ladder_persistence.py`)
+- [x] Review-due status appears when FSRS card is overdue and clears on correct recall (`tests/player/test_review_due_flow.py`, `tests/learner/test_status.py`)
+- [x] Existing BKT one-update-per-item tests unchanged and green (`tests/learner/test_bkt.py`, `test_fsrs.py`, `test_properties.py` untouched)
 
-**G1 progress (2026-10-05):** steps 1–5 are done and verified (split run by directory, 338 collected = 338 passed). Step 1 item `role`: `56a9c65`. Step 2 36 draft role items: `d45b2fe`. Step 3 live-chapter role coverage: `5b8fac6`. Step 4 pure ladder + shared fixtures: `92c50f6`. Step 5 status mapping: `423f8bd`. Remaining: step 6 policy (T by ladder, role-aware selection, ladder updates), step 7 persistence (`mastery.ladder_*`, recompute from the event log), step 8 session-end FSRS wiring, step 9 overlay `board:` → `curriculum_id`, step 10 Decisions/docs/completion run. Checkboxes above are ticked at the end of the milestone.
+**Status:** all G1 items are done; final verification counts are recorded in the next commit.
 
 ### G2 — Diagnosis engine + policy v2
 
+- [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 the full suite was killed twice for low memory.*
 - [ ] `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
 - [ ] R30 diagnose before hint; R31 `check_your_work` for slips
 - [ ] R32 `request_help` → `ask_stuck_point`; choices route to hint 1, step hint, `hint_restate`, or recheck
@@ -271,6 +283,7 @@ Accept:
 - [ ] `request_hint` kept as an alias of `request_help`
 - [ ] Transition table + Mermaid markers updated; drift test
 - [ ] *Deferred from G0:* grade bands (`config/grade_bands.yaml`) drive session caps (soft/hard active-time caps per band, ARCH §20)
+- [ ] Session resume only until local midnight in the student's time zone; after that, start a new session (progress carries via the student model). Test with injected clocks. *Finding: `start_session` resumes any idle-ended session with no age limit (seen in G1 step 8).*
 
 Accept:
 

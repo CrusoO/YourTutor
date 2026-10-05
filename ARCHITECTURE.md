@@ -118,7 +118,7 @@ Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis +
 - **Config loaders** live in `apps/api/app/registries/` (`loaders.py`, `locale_resolve.py`, `timezone.py`, `quiet_hours.py`, `context.py`, `student_setup.py`, `seed_db.py`). Loaders are pure functions over `config/` and `content/curricula/`; policy code never does I/O.
 - **Web i18n:** the web app keeps `apps/web/lib/messages.ts`. The locale list and fallback chains come from `config/locales.yaml`, exported by `apps/api/scripts/generate_web_locales.py` to `packages/shared/generated/locales.json`. Missing or placeholder strings fall back along the chain, ending at English; empty strings are never shown. `next-intl` is **not** used; revisit in G5.
 - **Curricula** are one registry entry per curriculum under `content/curricula/<id>/curriculum.yaml` (`id`, `default_timezone`, `jurisdiction_profile`, optional `legacy_board`, `books[]` → `chapters[]` with `overlay_id` and `chapter_key`). `sample_board` is generic; the two pilot curricula are separate entries and are not merged into it.
-- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`. A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
+- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
 - **Region guard:** `apps/api/scripts/check_region_literals.py` fails CI on curriculum, board or time-zone literals outside `config/`, `content/`, `migrations/` and `tests/`.
 
 ---
@@ -409,6 +409,9 @@ Each practice item declares `role` so the ladder can collect the right evidence 
 | `transfer`  | Unfamiliar context or mixed with another skill                            | Allowlist + SymPy / MCQ |
 
 
+
+**As built in G1:** `role` is required on every item and template (`items.role`, Alembic 0013). The seed backfill marks word problems `apply` and everything else `procedure`; 36 draft items (`ITEM.LIN1.R.*`, one `explain`, `apply`, `transfer` per skill) were added. Four reason-choice `explain` items cannot be machine-verified and need teacher sign-off; the rest carry a `verify` spec. Selection (`policy._roles_for`): level 4 → `apply`, level 5 → `transfer`, otherwise `procedure` with `recall` / `explain` mixed in on every 2nd and 4th item of the skill until level 2 is earned. A missing target role falls back to any eligible role and appends a `content_gap` (`reason: role_missing`). With no skill below level 4 the policy serves extension practice (apply at level 4, transfer at level 5) before `chapter_complete`. Warm-ups use the same role by level; a similar item keeps the missed item's role.
+
 ### 9.6 Encouragement and tone
 
 `encourage` purpose fires only on rule triggers (hard success, recovery after failure, session end), never as filler. Authored fallback copy exists for each trigger.
@@ -464,6 +467,8 @@ Diagnosis results are stored on the event (`payload.diagnosis`) and feed the stu
 | 7     | Retains              | FSRS review correct with ≥ 7 days since last practice, and a second with ≥ 21 days                                        |
 
 
+**As built in G1 (`app/learner/ladder.py`, pure):** levels 1–4 are earned independently, 5–7 chain; the stored level is the highest achieved. Events are `answer`, `request_hint` and `lesson_complete` from practice and warm-up only; diagnostic, checkpoint and explain-back never reach the ladder, and events dated after `now` are ignored. Level 1 evidence sits behind one function, `lesson_level1_reached` (the PREDICT → WORKED_EXAMPLE flow plus a correct first practice item, hints allowed), for G3 to replace. Level 4 counts only `procedure`, `apply` and `transfer` items (recall / explain neither extend nor break the streak) and uses the M4.5 structure signature. Level 7 reviews are warm-up first attempts; a hinted or incorrect review counts as incorrect. State per skill is `mastery.ladder_level`, `ladder_evidence` (level → client event ids), `flags` (`retention_stage`, `lapsed`) and `ladder_memory` (incremental state), Alembic 0014. `compute` folds the same step function as the live policy, running BKT through the shared mastery service, so incremental and recompute cannot diverge (hypothesis-tested, shared fixtures in `packages/shared/fixtures/ladder/`). `app/player/ladder_log.py` rebuilds events from the log (practice sessions only, verified `correct` stored on `events`, `created_at` = the policy's time, client event ids as evidence ids). Session-end FSRS ratings are wired in the policy (`_rate_session`).
+
 Levels are monotonic except retention decay (§11.3). Levels are stored with their evidence event ids so they are auditable and recomputable.
 
 ### 11.3 Student-facing status
@@ -479,6 +484,8 @@ Levels are monotonic except retention decay (§11.3). Levels are stored with the
 
 
 Chapter status = the minimum skill status in the chapter (with *Review due* shown if any skill is due). Recommended chapter = first chapter in book order not at *Solid*. No manual completion flags exist.
+
+**As built in G1 (`app/learner/status.py`, pure):** `skill_status(level, review_overdue=...)` maps 0 → Not started, 1–3 → Learning, 4–6 → Can do it, 7 → Solid; an overdue FSRS card replaces only Can do it / Solid. `chapter_status` is the minimum, or Review due if any skill is due. No API exposes it yet (G5 chapter map).
 
 ### 11.4 What the student model stores
 
@@ -752,6 +759,8 @@ v1 tables kept unless noted: `users`, `students`, `consents`, `classes`, `class_
 
 
 **As built in G0 (Alembic 0009–0010):** `locales` holds `code`, `name`, `script`, `status` (`active` | `draft`) and `fallback_chain` (`digit_normalise` is not added: digit normalisation is Unicode-generic, §13), seeded from `config/locales.yaml` by `0012_g0_locale_columns` and re-synced by the content loader; `curricula` holds `id`, `default_timezone`, `jurisdiction_profile`, `legacy_board`; `books` and `chapters` as in §6; `sections` (`id`, `chapter_id`, `order`, `titles`, `page_start`, `page_end`) and `overlays.section_map` arrived in Alembic `0011_g0_sections`. `students` gained `curriculum_id`, `book_id`, `context_key`, and text FKs to `locales` for `home_language` / `exam_language` (and `users.locale`). `students.board` and `classes.board` remain as read-only compatibility until G1 (overlay `board:`) and G6 (`classes.board`).
+
+**As built in G1 (Alembic 0013–0015):** `items.role`; `mastery.ladder_level`, `ladder_evidence`, `flags`, `ladder_memory`; `overlays.curriculum_id` replaces `overlays.board` (the overlay schema rejects `board:` and the validator rejects unknown curricula). `students.board` and `classes.board` remain until G5 / G6. The Postgres round-trip test downgrades to `0008_retire` and upgrades to head with mastery, overlay and student data present.
 
 ---
 
