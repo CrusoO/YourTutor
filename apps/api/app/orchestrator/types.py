@@ -29,6 +29,7 @@ class CatalogItem:
     pool: str
     status: str
     role: str = "procedure"
+    structure: str = ""
     type: str = "expression"
     answer_sympy: str = "0"
     accept: tuple[str, ...] = ()
@@ -61,6 +62,7 @@ class Event:
     item_id: str | None = None
     idle_ms: int | None = None
     text: str | None = None
+    event_id: str | None = None
 
 
 @dataclass
@@ -124,6 +126,8 @@ class SessionState:
     checkpoint_answers: list[dict] = field(default_factory=list)
     checkpoint_result: dict | None = None
     last_event: Event | None = None
+    last_correct: bool | None = None
+    event_counter: int = 0
     stored_explain_text: str | None = None
     similar_from_item_id: str | None = None
     last_wrong_response: str | None = None

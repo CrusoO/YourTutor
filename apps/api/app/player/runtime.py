@@ -17,6 +17,7 @@ from app.auth.consent import active_scopes, has_scope
 from app.auth.security import as_utc, now_utc
 from app.config import settings
 from app.content.locale import is_missing_translation
+from app.content.signatures import structure_signature
 from app.db.models import (
     EventRow,
     ItemRow,
@@ -71,6 +72,7 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
         pool=row.pool,
         status=row.status,
         role=row.role or "procedure",
+        structure=structure_signature(str((row.stem or {}).get("en") or "")),
         type=row.type,
         answer_sympy=str(answer.get("sympy") or "0"),
         accept=tuple(str(v) for v in answer.get("accept") or []),

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.orchestrator.types import CatalogItem, SessionState, default_params
 
@@ -69,9 +70,13 @@ def make_session(
 
 
 def make_learner(*, p_known: dict[str, float] | None = None) -> LearnerState:
+    """v2: T follows the ladder, so a skill fixture with p_known >= 0.95 stands for a skill that
+    already reached level 4 (the v1 mastery threshold)."""
     state = LearnerState()
     for skill_id, value in (p_known or {}).items():
         state.mastery[skill_id] = Mastery(skill_id=skill_id, p_known=value)
+        if value >= 0.95:
+            state.ladders[skill_id] = SkillLadder(skill_id=skill_id, achieved=[3, 4])
     return state
 
 
