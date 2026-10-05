@@ -15,6 +15,7 @@ from app.learner.ladder import (
     apply_ladder_event,
 )
 from app.learner.mastery_service import apply_event
+from app.learner.scheduler_fsrs import FixedClock
 from app.learner.types import LearnerEvent, LearnerState, Mastery
 from app.orchestrator.diagnostic import (
     is_dont_know,
@@ -47,7 +48,10 @@ def policy(learner: LearnerState, session: SessionState, last_event: Event | Non
     session.last_event = last_event
     session.last_correct = None
     with span("policy", component="policy", action_type=last_event.type if last_event else "start"):
-        return _policy(learner, session, last_event, before)
+        action = _policy(learner, session, last_event, before)
+        if action.type == "end_session":
+            _rate_session(learner, session)
+        return action
 
 
 def _policy(
@@ -713,7 +717,7 @@ def _maybe_bkt(
             event_type=event_type,
             correct=correct,
             pool="warmup" if session.phase == "warmup" else session.session_type,
-            session_id=str(id(session)),
+            session_id=_session_key(session),
             is_warmup=session.phase == "warmup",
         ),
         params,
@@ -777,6 +781,29 @@ def _lesson_complete(learner: LearnerState, session: SessionState) -> None:
         ),
         p_known=0.0,
     )
+
+
+def _session_key(session: SessionState) -> str:
+    return session.session_key or str(id(session))
+
+
+def _rate_session(learner: LearnerState, session: SessionState) -> None:
+    """One FSRS rating per practised skill at session end, from the unhinted-correct rate.
+
+    Skills reviewed as warm-ups were already rated immediately. The per-session counts are
+    cleared afterwards, so a resumed session that ends again only rates its new answers.
+    """
+    if session.session_type != "practice" or session.ended_reason == "consent_revoked":
+        return
+    key = _session_key(session)
+    apply_event(
+        learner,
+        LearnerEvent(item_id="", skill_id="", event_type="session_end", session_id=key),
+        {},
+        clock=FixedClock(session.now),
+        memory=session.bkt_memory,
+    )
+    session.bkt_memory["session_unhinted"].pop(key, None)
 
 
 def _seed_diagnostic(learner: LearnerState, session: SessionState) -> None:

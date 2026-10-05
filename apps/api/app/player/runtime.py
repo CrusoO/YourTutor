@@ -273,7 +273,7 @@ def _load_memory(data: dict | None) -> dict:
         "hinted": set(raw.get("hinted") or []),
         "first_wrong": set(raw.get("first_wrong") or []),
         "session_unhinted": unhinted,
-        "warmup_skills": set(raw.get("warmup_skills") or []),
+        "warmup_skills": {tuple(pair) for pair in raw.get("warmup_skills") or []},
     }
 
 
@@ -391,6 +391,7 @@ def _build_state(
         bkt_params=params,
         prerequisites=prereqs,
     )
+    state.session_key = str(row.id)
     state.has_ai_processing = "ai_processing" in scopes
     state.allow_draft = settings.allow_draft_content
     state.active_ms = row.active_ms

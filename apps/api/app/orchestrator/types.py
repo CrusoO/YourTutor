@@ -128,6 +128,7 @@ class SessionState:
     last_event: Event | None = None
     last_correct: bool | None = None
     event_counter: int = 0
+    session_key: str = ""  # stable id (the DB session id) for per-session FSRS aggregates
     stored_explain_text: str | None = None
     similar_from_item_id: str | None = None
     last_wrong_response: str | None = None
