@@ -256,6 +256,8 @@ Accept:
 - [ ] Review-due status appears when FSRS card is overdue and clears on correct recall
 - [ ] Existing BKT one-update-per-item tests unchanged and green
 
+**G1 progress (2026-10-05):** steps 1–5 are done and verified (split run by directory, 338 collected = 338 passed). Step 1 item `role`: `56a9c65`. Step 2 36 draft role items: `d45b2fe`. Step 3 live-chapter role coverage: `5b8fac6`. Step 4 pure ladder + shared fixtures: `92c50f6`. Step 5 status mapping: `423f8bd`. Remaining: step 6 policy (T by ladder, role-aware selection, ladder updates), step 7 persistence (`mastery.ladder_*`, recompute from the event log), step 8 session-end FSRS wiring, step 9 overlay `board:` → `curriculum_id`, step 10 Decisions/docs/completion run. Checkboxes above are ticked at the end of the milestone.
+
 ### G2 — Diagnosis engine + policy v2
 
 - [ ] `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
