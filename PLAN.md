@@ -305,7 +305,7 @@ Accept: a student completes the path on a phone; a coming-soon chapter cannot be
 
 ### G2 — Diagnosis engine + policy v2
 
-- [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 the full suite was killed twice for low memory.*
+- [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 and P3 the suite was killed three times for low memory. Time is the other problem: the full suite takes 20 min to almost 2 hours. About 15 tests each validate or load the whole seed bundle at ~75 s apiece (e.g. `test_role_coverage`, `test_overlay_curriculum`, `test_loader_guard`, `test_sections`), and `test_templates::test_generation_is_deterministic` takes ~230 s and `test_simulations::test_scripted_students_on_seed` ~150 s. Share one validated bundle per session (fixture) and speed up validation.*
 - [ ] `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
 - [ ] R30 diagnose before hint; R31 `check_your_work` for slips
 - [ ] R32 `request_help` → `ask_stuck_point`; choices route to hint 1, step hint, `hint_restate`, or recheck
