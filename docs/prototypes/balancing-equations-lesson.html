@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Balancing equations: a lesson prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F6FB; --grid:#DFE6F3; --ink:#1D2B53; --muted:#5A6B8C; --card:#FFFFFF; --line:#C9D4E8;
+  --blue:#2F6FDE; --green:#13895A; --red:#CC3B33; --yellow:#F2B705; --hl:rgba(242,183,5,.38);
+  --green-bg:#E3F5EC; --red-bg:#FBE8E6; --tip-bg:#E8EFFC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111A2E; --grid:#1B2642; --ink:#E8EEFA; --muted:#9AA9C7; --card:#18223D; --line:#2C3A5E;
+    --blue:#7AA5FF; --green:#45CC90; --red:#FF7A70; --yellow:#FFC93C; --hl:rgba(255,201,60,.30);
+    --green-bg:#173A30; --red-bg:#3D1F27; --tip-bg:#1E2B4C; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111A2E; --grid:#1B2642; --ink:#E8EEFA; --muted:#9AA9C7; --card:#18223D; --line:#2C3A5E;
+  --blue:#7AA5FF; --green:#45CC90; --red:#FF7A70; --yellow:#FFC93C; --hl:rgba(255,201,60,.30);
+  --green-bg:#173A30; --red-bg:#3D1F27; --tip-bg:#1E2B4C; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; color:var(--ink); font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.5;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.wrap{max-width:440px; margin:0 auto; padding:0 16px 112px}
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible,h2:focus-visible{outline:3px solid var(--blue); outline-offset:2px; border-radius:8px}
+h2:focus{outline:none}
+
+.top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 0 8px}
+.subj{font-size:.8rem; color:var(--muted)}
+h1{margin:0; font-size:1.25rem; font-weight:600; letter-spacing:-.01em}
+.voice{border:1.5px solid var(--line); background:var(--card); border-radius:999px; padding:6px 12px; font-size:.82rem; white-space:nowrap}
+.voice[aria-pressed="true"]{border-color:var(--blue); color:var(--blue)}
+
+.path{display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin:8px 0 16px; position:relative}
+.path::before{content:""; position:absolute; top:14px; left:10%; right:10%; height:2px; background:var(--line)}
+.path button{position:relative; background:none; border:0; padding:0; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:.72rem; color:var(--muted)}
+.path button:disabled{cursor:default; opacity:.6}
+.path .n{width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--card); border:2px solid var(--line); font-weight:600; font-size:.8rem}
+.path button.seen .n{border-color:var(--blue); color:var(--blue)}
+.path button.on .n{background:var(--blue); border-color:var(--blue); color:#fff}
+.path button.on{color:var(--ink); font-weight:500}
+
+.step h2{font-size:1.45rem; font-weight:600; line-height:1.2; margin:4px 0 6px; letter-spacing:-.015em}
+.step > p{margin:0 0 12px; color:var(--muted); max-width:36ch}
+.panel{background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:8px; margin:8px 0 12px}
+.bal svg,.board svg,#gr{display:block; width:100%; height:auto}
+
+.q{font-weight:500; margin:14px 0 8px}
+.choices{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+.choice{background:var(--card); border:1.5px solid var(--line); border-radius:12px; padding:12px 0; font-weight:600; font-size:1rem}
+.choice[aria-pressed="true"]{border-color:var(--blue); background:var(--tip-bg); color:var(--blue)}
+.choice.wrong{border-color:var(--red); color:var(--red)}
+
+.fb{margin:12px 0 0; padding:0; border-radius:12px; font-size:.95rem; min-height:1px}
+.fb.good,.fb.bad,.fb.tip{padding:10px 12px}
+.fb.good{background:var(--green-bg); color:var(--green)}
+.fb.bad{background:var(--red-bg); color:var(--red)}
+.fb.tip{background:var(--tip-bg); color:var(--ink)}
+.fb ol{margin:6px 0 0; padding-left:20px}
+
+/* whiteboard */
+.board{position:relative; background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:4px 8px 10px; margin:8px 0 10px}
+.wbt{font-family:"Kalam","Comic Sans MS",cursive; fill:var(--ink); font-weight:700}
+.wbt.mut{fill:var(--muted); font-weight:400}
+.wbt.red{fill:var(--red)} .wbt.blu{fill:var(--blue)} .wbt.grn{fill:var(--green)}
+.hl{fill:var(--hl); transition:opacity .35s}
+.dots{display:flex; gap:6px; justify-content:center}
+.dots span{width:7px; height:7px; border-radius:50%; background:var(--line)}
+.dots span.on{background:var(--blue)}
+.caption{font-size:1.02rem; min-height:4.6em; margin:4px 0 8px}
+.ask{background:var(--tip-bg); border-radius:14px; padding:12px; margin:0 0 10px}
+.ask p{margin:0 0 8px; font-weight:500}
+.ask .choices{grid-template-columns:repeat(3,1fr)}
+.ask .choice{font-family:"Kalam",cursive; font-size:1.1rem}
+.ctrl{display:flex; gap:8px; flex-wrap:wrap}
+.btn{border:1.5px solid var(--line); background:var(--card); border-radius:12px; padding:10px 14px; font-weight:500; font-size:.92rem}
+.btn:disabled{opacity:.45; cursor:default}
+.btn.main{border-color:var(--blue); color:var(--blue)}
+.src{font-size:.74rem; color:var(--muted); margin:10px 0 0}
+
+/* balance */
+.stand{stroke:var(--muted); stroke-width:6; stroke-linecap:round}
+.standb{fill:var(--muted)}
+.beam{stroke:var(--ink); stroke-width:6; stroke-linecap:round}
+.pivot{fill:var(--card); stroke:var(--ink); stroke-width:3}
+.str{stroke:var(--muted); stroke-width:1.5}
+.panb{fill:var(--paper); stroke:var(--ink); stroke-width:2.5; stroke-linejoin:round}
+.box{fill:var(--yellow); stroke:var(--ink); stroke-width:2}
+.boxt{font-family:"Kalam",cursive; font-weight:700; font-size:16px; text-anchor:middle; fill:#3A2A00}
+.wc{fill:var(--blue)}
+.wtt{font-size:11px; font-weight:600; text-anchor:middle; fill:#fff; pointer-events:none}
+.wt.tap{cursor:pointer}
+.wt.tap:hover .wc,.wt.tap:focus .wc{stroke:var(--ink); stroke-width:2.5}
+.wt:focus{outline:none}
+
+.eqline{font-family:"Kalam",cursive; font-weight:700; font-size:2rem; text-align:center; display:flex; justify-content:center; gap:12px; line-height:1.2; margin:4px 0 0}
+.eqs{color:var(--green)} .neq{color:var(--red)}
+
+/* graph */
+.g{stroke:var(--grid); stroke-width:1}
+.gl{font-size:11px; fill:var(--muted); text-anchor:middle}
+.ln{stroke:var(--blue); stroke-width:3; stroke-linecap:round}
+.ll{font-family:"Kalam",cursive; font-weight:700; font-size:16px; fill:var(--blue); text-anchor:end}
+.target{stroke:var(--green); stroke-width:2; stroke-dasharray:6 5}
+.tl{font-size:11px; fill:var(--green); font-weight:500}
+.drop{stroke:var(--muted); stroke-width:1.5; stroke-dasharray:3 4}
+.pt{fill:var(--yellow); stroke:var(--ink); stroke-width:2.5}
+.pt.hit{fill:var(--green)}
+#gr{touch-action:none; cursor:ew-resize}
+.range{width:100%; accent-color:var(--blue); margin:4px 0 0}
+.read{font-weight:500; margin:8px 0 0}
+
+/* practice */
+.count{font-size:.85rem; color:var(--muted); margin:0}
+.pq{font-size:2.4rem; margin:14px 0}
+.answer{display:flex; align-items:center; gap:10px}
+.answer label{font-family:"Kalam",cursive; font-weight:700; font-size:1.6rem}
+.answer input{width:84px; font:inherit; font-size:1.4rem; font-weight:600; text-align:center; padding:8px; border-radius:12px; border:1.5px solid var(--line); background:var(--card); color:var(--ink)}
+
+/* done */
+.chip{display:inline-block; padding:6px 14px; border-radius:999px; font-weight:600; font-size:.95rem; margin:6px 0 10px}
+.chip.solid{background:var(--green-bg); color:var(--green)}
+.chip.prog{background:var(--tip-bg); color:var(--blue)}
+.done-list{background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:14px 16px; margin:8px 0 14px}
+.done-list p{margin:0 0 8px} .done-list p:last-child{margin:0}
+
+.bar{position:fixed; left:0; right:0; bottom:0; padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px)); background:linear-gradient(transparent,var(--paper) 30%)}
+.bar .primary{display:block; width:100%; max-width:408px; margin:0 auto; border:0; border-radius:14px; padding:15px; background:var(--blue); color:#fff; font-weight:600; font-size:1.02rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bar .primary{color:#0D1830}}
+:root[data-theme="dark"] .bar .primary{color:#0D1830}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div><div class="subj">Class 9 Maths</div><h1>Balancing equations</h1></div>
+    <button class="voice" id="voice" aria-pressed="false">🔈 Read aloud</button>
+  </header>
+
+  <nav class="path" aria-label="Lesson steps">
+    <button data-go="0"><span class="n">1</span>Guess</button>
+    <button data-go="1"><span class="n">2</span>Watch</button>
+    <button data-go="2"><span class="n">3</span>Try</button>
+    <button data-go="3"><span class="n">4</span>Graph</button>
+    <button data-go="4"><span class="n">5</span>Practise</button>
+  </nav>
+
+  <main>
+    <section class="step" data-step="0">
+      <h2 tabindex="-1">Guess first</h2>
+      <p>The balance is level. Each blue weight is 1 kg. Both yellow boxes weigh the same.</p>
+      <div class="panel bal" id="bal0"></div>
+      <p class="q">How heavy is one box?</p>
+      <div class="choices" id="guess">
+        <button class="choice" data-v="3">3 kg</button>
+        <button class="choice" data-v="4">4 kg</button>
+        <button class="choice" data-v="5">5 kg</button>
+        <button class="choice" data-v="7">7 kg</button>
+      </div>
+      <p class="fb" id="guessFb" aria-live="polite"></p>
+    </section>
+
+    <section class="step" data-step="1" hidden>
+      <h2 tabindex="-1">Watch it worked out</h2>
+      <div class="board">
+        <svg id="wb" viewBox="0 0 340 290" role="img" aria-label="Whiteboard showing 2x + 3 = 11 solved step by step">
+          <defs id="wbdefs"></defs><g id="wbg"></g>
+        </svg>
+        <div class="dots" id="wbdots" aria-hidden="true"></div>
+      </div>
+      <p class="caption" id="cap" aria-live="polite"></p>
+      <div class="ask" id="ask" hidden>
+        <p id="askQ"></p>
+        <div class="choices" id="askOpts"></div>
+        <p class="fb" id="askFb" aria-live="polite"></p>
+      </div>
+      <div class="ctrl">
+        <button class="btn main" id="wbPlay">Pause</button>
+        <button class="btn" id="wbReplay">Replay</button>
+      </div>
+      <p class="src">Source: Class 9 Maths, Linear equations, worked example. Demo content written for this prototype.</p>
+    </section>
+
+    <section class="step" data-step="2" hidden>
+      <h2 tabindex="-1">Try it on the balance</h2>
+      <p>Tap weights to take them off. Keep it level. Goal: one box alone on the left.</p>
+      <div class="eqline" id="eq" aria-live="polite"></div>
+      <div class="panel bal" id="bal1"></div>
+      <div class="ctrl">
+        <button class="btn main" id="half">Split both sides in half</button>
+        <button class="btn" id="undo">Undo</button>
+        <button class="btn" id="reset">Start over</button>
+      </div>
+      <p class="fb" id="exFb" aria-live="polite"></p>
+    </section>
+
+    <section class="step" data-step="3" hidden>
+      <h2 tabindex="-1">See it on a graph</h2>
+      <p>The line shows how heavy the left side is for any box weight x. Drag the yellow dot until the left side reaches 11.</p>
+      <div class="panel"><svg id="gr" viewBox="0 0 320 240" role="img" aria-label="Graph of y = 2x + 3 with a target line at 11"></svg></div>
+      <label class="subj" for="gx">Box weight x</label>
+      <input class="range" type="range" id="gx" min="0" max="8" step="0.1" value="1">
+      <p class="read" id="grRead"></p>
+      <p class="fb" id="grFb" aria-live="polite"></p>
+    </section>
+
+    <section class="step" data-step="4" hidden>
+      <h2 tabindex="-1">Practise</h2>
+      <p class="count" id="pc"></p>
+      <div class="eqline pq" id="pq"></div>
+      <div class="answer">
+        <label for="pa">x =</label>
+        <input id="pa" inputmode="numeric" autocomplete="off" enterkeyhint="done">
+        <button class="btn main" id="pcheck">Check</button>
+      </div>
+      <div class="fb" id="pfb" aria-live="polite"></div>
+      <div class="ctrl" style="margin-top:12px"><button class="btn main" id="pnext" hidden>Next question</button></div>
+    </section>
+
+    <section class="step" data-step="5" hidden>
+      <h2 tabindex="-1">Lesson done</h2>
+      <span class="chip" id="dChip"></span>
+      <div class="done-list">
+        <p id="dGuess"></p>
+        <p id="dScore"></p>
+        <p id="dNext"></p>
+      </div>
+      <div class="ctrl">
+        <button class="btn main" id="dWatch">Watch the explainer again</button>
+        <button class="btn" id="dRestart">Start over</button>
+      </div>
+      <p class="src">Prototype. Correct answers are checked by code, not by the AI.</p>
+    </section>
+  </main>
+</div>
+<div class="bar"><button class="primary" id="next">Continue</button></div>
+
+<script>
+const X = 4;
+const NS = 'http://www.w3.org/2000/svg';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function setFb(sel, m){ const el = $(sel); el.className = 'fb ' + (m ? m[0] : ''); if (m && m[2]) el.innerHTML = m[1]; else el.textContent = m ? m[1] : ''; }
+
+/* ---------- read aloud ---------- */
+let voiceOn = false;
+function speak(text){
+  if (!voiceOn || !('speechSynthesis' in window)) return Promise.resolve();
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/−/g,' minus ').replace(/÷/g,' divided by ').replace(/×/g,' times ').replace(/✓/g,''));
+    const v = speechSynthesis.getVoices().find(v => /en-IN/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^en/i.test(v.lang));
+    if (v) u.voice = v; u.rate = .95;
+    return new Promise(res => { u.onend = res; u.onerror = res; setTimeout(res, 15000); speechSynthesis.speak(u); });
+  }catch(e){ return Promise.resolve(); }
+}
+$('#voice').onclick = () => {
+  voiceOn = !voiceOn; $('#voice').setAttribute('aria-pressed', voiceOn);
+  $('#voice').textContent = voiceOn ? '🔊 Reading aloud' : '🔈 Read aloud';
+  if (!voiceOn && 'speechSynthesis' in window) speechSynthesis.cancel();
+};
+
+/* ---------- navigation ---------- */
+const steps = [...document.querySelectorAll('.step')];
+const pills = [...document.querySelectorAll('.path button')];
+let cur = 0, maxSeen = 0;
+function go(i){
+  cur = i; maxSeen = Math.max(maxSeen, i);
+  steps.forEach((s, k) => s.hidden = k !== i);
+  pills.forEach((p, k) => {
+    p.classList.toggle('on', k === i); p.classList.toggle('seen', k <= maxSeen); p.disabled = k > maxSeen;
+    k === i ? p.setAttribute('aria-current', 'step') : p.removeAttribute('aria-current');
+  });
+  $('.bar').hidden = i === 5;
+  $('#next').textContent = i === 4 ? 'Finish lesson' : 'Continue';
+  window.scrollTo(0, 0);
+  steps[i].querySelector('h2').focus({preventScroll:true});
+  if (i === 1) startBoard(); else pauseBoard();
+  if (i === 3) drawGraph();
+  if (i === 5) showDone();
+}
+pills.forEach(p => p.onclick = () => go(+p.dataset.go));
+$('#next').onclick = () => go(Math.min(cur + 1, 5));
+
+/* ---------- balance drawing ---------- */
+const mass = (b, w) => b * X + w;
+const tilt = s => clamp((mass(s.lb, s.lw) - mass(s.rb, s.rw)) * 2.2, -16, 16);
+function pan(ex, ey, b, w, side, tap){
+  const py = ey + 82;
+  let s = `<line x1="${ex}" y1="${ey}" x2="${ex-52}" y2="${py}" class="str"/><line x1="${ex}" y1="${ey}" x2="${ex+52}" y2="${py}" class="str"/>`;
+  s += `<path d="M${ex-58} ${py} L${ex+58} ${py} Q${ex} ${py+26} ${ex-58} ${py}Z" class="panb"/>`;
+  const items = [...Array(b).fill('b'), ...Array(w).fill('w')], per = 4;
+  items.forEach((it, i) => {
+    const row = Math.floor(i / per), col = i % per, n = Math.min(per, items.length - row * per);
+    const x = ex - n * 11 + 11 + col * 22, y = py - 12 - row * 22;
+    if (it === 'b') s += `<rect x="${x-10}" y="${y-10}" width="20" height="20" rx="4" class="box"/><text x="${x}" y="${y+5}" class="boxt">x</text>`;
+    else s += `<g class="wt${tap ? ' tap' : ''}" data-side="${side}"${tap ? ` role="button" tabindex="0" aria-label="Take one weight off the ${side === 'L' ? 'left' : 'right'}"` : ''}><circle cx="${x}" cy="${y}" r="13" fill="transparent"/><circle cx="${x}" cy="${y}" r="10" class="wc"/><text x="${x}" y="${y+4}" class="wtt">1</text></g>`;
+  });
+  return s;
+}
+function balSVG(st, deg, tap){
+  const t = deg * Math.PI / 180, L = 110, cx = 170, cy = 58;
+  const lx = cx - L * Math.cos(t), ly = cy + L * Math.sin(t), rx = cx + L * Math.cos(t), ry = cy - L * Math.sin(t);
+  const label = `Left pan: ${st.lb} boxes and ${st.lw} weights. Right pan: ${st.rb} boxes and ${st.rw} weights. ${deg === 0 ? 'Level.' : deg > 0 ? 'Left side down.' : 'Right side down.'}`;
+  return `<svg viewBox="0 0 340 246" role="img" aria-label="${label}">
+    <path d="M${cx} ${cy} L${cx} 228" class="stand"/><rect x="${cx-46}" y="226" width="92" height="12" rx="6" class="standb"/>
+    ${pan(lx, ly, st.lb, st.lw, 'L', tap)}${pan(rx, ry, st.rb, st.rw, 'R', tap)}
+    <line x1="${lx}" y1="${ly}" x2="${rx}" y2="${ry}" class="beam"/><circle cx="${cx}" cy="${cy}" r="7" class="pivot"/></svg>`;
+}
+const angles = new WeakMap();
+function renderBal(el, st, tap){
+  const to = tilt(st), from = angles.has(el) ? angles.get(el) : to; angles.set(el, to);
+  if (reduce || from === to){ el.innerHTML = balSVG(st, to, tap); return; }
+  const t0 = performance.now(), D = 450;
+  const f = now => { let k = Math.min(1, (now - t0) / D); k = 1 - Math.pow(1 - k, 3);
+    el.innerHTML = balSVG(st, from + (to - from) * k, tap); if (k < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+/* ---------- step 1: guess ---------- */
+let guess = null;
+renderBal($('#bal0'), {lb:2, lw:3, rb:0, rw:11}, false);
+document.querySelectorAll('#guess .choice').forEach(b => b.onclick = () => {
+  guess = +b.dataset.v;
+  document.querySelectorAll('#guess .choice').forEach(c => c.setAttribute('aria-pressed', c === b));
+  setFb('#guessFb', ['tip', `Got it: ${guess} kg. Hold on to that guess. Next, you'll see how to check it.`]);
+});
+
+/* ---------- step 2: whiteboard explainer ---------- */
+const SC = [
+  {cap:'The balance is level. Left: 2 boxes and 3 one-kilo weights. Right: 11 weights. In maths we write it as 2x + 3 = 11.',
+   items:[{k:'t',x:170,y:52,s:36,t:'2x + 3 = 11'},{k:'t',x:170,y:80,s:15,c:'mut',t:'x = weight of one box'}]},
+  {cap:'Take 3 weights off both sides. Same amount from each side, so it stays level.',
+   items:[{k:'t',x:152,y:112,s:22,c:'red',t:'− 3'},{k:'t',x:244,y:112,s:22,c:'red',t:'− 3'}]},
+  {ask:{q:'Your turn. After taking 3 off both sides, what is left?',opts:['2x = 8','2x = 14','x = 8'],ok:0,
+        why:['','We took 3 away, so 11 − 3 = 8, not 14.','The 2 boxes are still on the left, so it is 2x, not x.']},
+   cap:'Yes. 2 boxes now balance 8 weights: 2x = 8.',
+   items:[{k:'t',x:170,y:152,s:32,t:'2x = 8'}]},
+  {cap:'Two boxes weigh 8. Split both sides into 2 equal parts. One box weighs 4.',
+   items:[{k:'t',x:141,y:186,s:22,c:'blu',t:'÷ 2'},{k:'t',x:206,y:186,s:22,c:'blu',t:'÷ 2'},{k:'h',x:116,y:202,w:108,h:44},{k:'t',x:170,y:236,s:36,t:'x = 4'}]},
+  {cap:'Always check. Put 4 back in: 2 × 4 + 3 = 11. It balances, so x = 4 is right.',
+   items:[{k:'t',x:170,y:274,s:17,c:'grn',t:'check: 2 × 4 + 3 = 11 ✓'}]}
+];
+const wbg = $('#wbg'), wbdefs = $('#wbdefs');
+let wbRun = 0, wbPaused = true, wbStarted = false, wbDone = false, wbIdx = 0, clipN = 0;
+$('#wbdots').innerHTML = SC.map(() => '<span></span>').join('');
+function dots(){ [...$('#wbdots').children].forEach((d, k) => d.classList.toggle('on', k <= wbIdx)); }
+function setPlayBtn(){ $('#wbPlay').textContent = wbDone ? 'Play again' : wbPaused ? 'Play' : 'Pause'; }
+async function drawItem(it, run){
+  if (it.k === 'h'){
+    const r = document.createElementNS(NS, 'rect');
+    Object.entries({x:it.x, y:it.y, width:it.w, height:it.h, rx:10, class:'hl'}).forEach(([k, v]) => r.setAttribute(k, v));
+    r.style.opacity = reduce ? 1 : 0; wbg.appendChild(r);
+    if (!reduce){ requestAnimationFrame(() => r.style.opacity = 1); await wait(350); }
+    return;
+  }
+  const el = document.createElementNS(NS, 'text');
+  el.setAttribute('x', it.x); el.setAttribute('y', it.y); el.setAttribute('text-anchor', 'middle');
+  el.setAttribute('class', 'wbt ' + (it.c || '')); el.style.fontSize = it.s + 'px'; el.textContent = it.t;
+  wbg.appendChild(el);
+  if (reduce) return;
+  const bb = el.getBBox(), id = 'clip' + (clipN++);
+  const cp = document.createElementNS(NS, 'clipPath'); cp.id = id;
+  const r = document.createElementNS(NS, 'rect');
+  r.setAttribute('x', bb.x - 4); r.setAttribute('y', bb.y - 8); r.setAttribute('height', bb.height + 16); r.setAttribute('width', 0);
+  cp.appendChild(r); wbdefs.appendChild(cp); el.setAttribute('clip-path', `url(#${id})`);
+  const D = Math.min(1100, 250 + it.t.length * 55), W = bb.width + 8, t0 = performance.now();
+  await new Promise(res => {
+    const f = n => { const k = Math.min(1, (n - t0) / D); r.setAttribute('width', W * k);
+      if (k < 1 && run === wbRun) requestAnimationFrame(f); else { r.setAttribute('width', 1000); res(); } };
+    requestAnimationFrame(f);
+  });
+}
+function askQ(a, run){
+  return new Promise(res => {
+    $('#ask').hidden = false; $('#askQ').textContent = a.q; setFb('#askFb', null);
+    $('#askOpts').innerHTML = a.opts.map((o, i) => `<button class="choice" data-i="${i}">${o}</button>`).join('');
+    $('#askOpts').querySelectorAll('button').forEach(b => b.onclick = () => {
+      if (run !== wbRun) return;
+      const i = +b.dataset.i;
+      if (i === a.ok){ $('#ask').hidden = true; res(); }
+      else { b.classList.add('wrong'); setFb('#askFb', ['bad', a.why[i] + ' Try again.']); speak(a.why[i]); }
+    });
+  });
+}
+async function playFrom(k){
+  const run = ++wbRun; wbPaused = false; wbDone = false; setPlayBtn();
+  for (let s = k; s < SC.length; s++){
+    wbIdx = s; dots(); const sc = SC[s];
+    if (sc.ask){ $('#cap').textContent = ''; speak(sc.ask.q); await askQ(sc.ask, run); if (run !== wbRun) return; }
+    $('#cap').textContent = sc.cap; const sp = speak(sc.cap);
+    for (const it of sc.items){ await drawItem(it, run); if (run !== wbRun) return; }
+    await Promise.all([sp, wait(reduce ? 900 : Math.max(1600, sc.cap.length * 42))]);
+    while (wbPaused && run === wbRun) await wait(120);
+    if (run !== wbRun) return;
+  }
+  wbDone = true; wbPaused = true; setPlayBtn();
+  $('#cap').textContent = 'That is the whole method: do the same to both sides until the box is alone. Now try it yourself.';
+}
+function clearBoard(){ wbRun++; wbg.innerHTML = ''; wbdefs.innerHTML = ''; $('#ask').hidden = true; wbIdx = 0; dots(); }
+function startBoard(){ if (!wbStarted){ wbStarted = true; (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => playFrom(0)); } }
+function pauseBoard(){ if (wbStarted && !wbDone){ wbPaused = true; setPlayBtn(); } if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+$('#wbPlay').onclick = () => {
+  if (wbDone){ clearBoard(); playFrom(0); return; }
+  wbPaused = !wbPaused; setPlayBtn(); if (wbPaused && 'speechSynthesis' in window) speechSynthesis.cancel();
+};
+$('#wbReplay').onclick = () => { clearBoard(); playFrom(0); };
+
+/* ---------- step 3: interactive balance ---------- */
+let ex = {lb:2, lw:3, rb:0, rw:11}, hist = [];
+const isBal = s => mass(s.lb, s.lw) === mass(s.rb, s.rw);
+const sideStr = (b, w) => { const p = []; if (b) p.push(b === 1 ? 'x' : b + 'x'); if (w) p.push(String(w)); return p.join(' + ') || '0'; };
+function renderEx(){
+  const ok = isBal(ex);
+  $('#eq').innerHTML = `<span>${sideStr(ex.lb, ex.lw)}</span><span class="${ok ? 'eqs' : 'neq'}">${ok ? '=' : '≠'}</span><span>${sideStr(ex.rb, ex.rw)}</span>`;
+  renderBal($('#bal1'), ex, true);
+  $('#half').disabled = !(ok && ex.lb === 2 && ex.rb === 0 && ex.lw % 2 === 0 && ex.rw % 2 === 0);
+  $('#undo').disabled = !hist.length;
+  let m;
+  if (!ok) m = ['bad', 'Tilted. You took more off one side. Take the same off the other side, or tap Undo.'];
+  else if (ex.lb === 1 && ex.lw === 0 && ex.rw === X) m = ['good', 'One box balances 4 weights, so one box weighs 4 kg. Same answer as the whiteboard: x = 4.'];
+  else if (ex.lb === 2 && ex.lw === 0) m = ['tip', 'Only boxes on the left now. Split both sides in half to find what one box weighs.'];
+  else if (ex.lw < 3) m = ['tip', 'Still level. Keep going: clear the loose weights off the left, and take the same number off the right.'];
+  else m = ['tip', 'Tap a weight to take it off. Keep the balance level.'];
+  setFb('#exFb', m);
+}
+function tapWeight(e){
+  const g = e.target.closest('.wt.tap'); if (!g) return;
+  if (e.type === 'keydown'){ if (e.key !== 'Enter' && e.key !== ' ') return; e.preventDefault(); }
+  hist.push({...ex}); g.dataset.side === 'L' ? ex.lw-- : ex.rw--; renderEx();
+  const again = $(`#bal1 .wt.tap[data-side="${g.dataset.side}"]`); if (e.type === 'keydown' && again) again.focus();
+}
+$('#bal1').addEventListener('click', tapWeight);
+$('#bal1').addEventListener('keydown', tapWeight);
+$('#half').onclick = () => { hist.push({...ex}); ex = {lb:1, lw:ex.lw / 2, rb:0, rw:ex.rw / 2}; renderEx(); };
+$('#undo').onclick = () => { if (hist.length){ ex = hist.pop(); renderEx(); } };
+$('#reset').onclick = () => { ex = {lb:2, lw:3, rb:0, rw:11}; hist = []; renderEx(); };
+renderEx();
+
+/* ---------- step 4: graph ---------- */
+let gx = 1, dragging = false;
+const GL = 38, GR = 308, GT = 12, GB = 212, sx = x => GL + x * (GR - GL) / 8, sy = y => GB - y * (GB - GT) / 20;
+const fmt = n => String(Math.round(n * 10) / 10);
+function drawGraph(){
+  let s = '';
+  for (let i = 0; i <= 8; i++) s += `<line x1="${sx(i)}" y1="${GT}" x2="${sx(i)}" y2="${GB}" class="g"/><text x="${sx(i)}" y="${GB+16}" class="gl">${i}</text>`;
+  for (let j = 0; j <= 20; j += 4) s += `<line x1="${GL}" y1="${sy(j)}" x2="${GR}" y2="${sy(j)}" class="g"/><text x="${GL-8}" y="${sy(j)+4}" class="gl" style="text-anchor:end">${j}</text>`;
+  s += `<text x="${GR}" y="${GB+30}" class="gl" style="text-anchor:end">box weight x</text>`;
+  s += `<line x1="${GL}" y1="${sy(11)}" x2="${GR}" y2="${sy(11)}" class="target"/><text x="${GR}" y="${sy(11)+14}" class="tl" text-anchor="end">right side = 11</text>`;
+  s += `<line x1="${sx(0)}" y1="${sy(3)}" x2="${sx(8)}" y2="${sy(19)}" class="ln"/><text x="${sx(3.4)}" y="${sy(15)}" class="ll">y = 2x + 3</text>`;
+  const y = 2 * gx + 3, hit = gx === X;
+  s += `<line x1="${sx(gx)}" y1="${sy(y)}" x2="${sx(gx)}" y2="${GB}" class="drop"/><circle cx="${sx(gx)}" cy="${sy(y)}" r="11" class="pt${hit ? ' hit' : ''}"/>`;
+  $('#gr').innerHTML = s;
+  $('#gx').value = gx;
+  $('#grRead').textContent = `x = ${fmt(gx)}, so the left side is 2 × ${fmt(gx)} + 3 = ${fmt(y)}`;
+  if (hit) setFb('#grFb', ['good', 'The line reaches 11 exactly at x = 4. The balance, the whiteboard and the graph all give the same answer.']);
+  else if (y < 11) setFb('#grFb', ['tip', 'Left side is lighter than 11. Slide to the right.']);
+  else setFb('#grFb', ['tip', 'Left side is heavier than 11. Slide to the left.']);
+}
+function setGx(v){ v = Math.round(clamp(v, 0, 8) * 10) / 10; if (Math.abs(v - X) <= 0.2) v = X; gx = v; drawGraph(); }
+function fromPointer(e){
+  const svg = $('#gr'), pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+  const p = pt.matrixTransform(svg.getScreenCTM().inverse()); setGx((p.x - GL) / (GR - GL) * 8);
+}
+$('#gr').addEventListener('pointerdown', e => { dragging = true; $('#gr').setPointerCapture(e.pointerId); fromPointer(e); });
+$('#gr').addEventListener('pointermove', e => { if (dragging) fromPointer(e); });
+$('#gr').addEventListener('pointerup', () => dragging = false);
+$('#gr').addEventListener('pointercancel', () => dragging = false);
+$('#gx').addEventListener('input', e => setGx(+e.target.value));
+
+/* ---------- step 5: practice (answers verified in code) ---------- */
+const P = [{a:3, b:2, c:14}, {a:5, b:-4, c:21}, {a:2, b:9, c:15}];
+let pi = 0, tries = 0, firstTry = 0, solvedCount = 0;
+const bs = b => (b < 0 ? '− ' : '+ ') + Math.abs(b);
+const eqStr = p => `${p.a}x ${bs(p.b)} = ${p.c}`;
+function showP(){
+  const p = P[pi]; tries = 0;
+  $('#pc').textContent = `Question ${pi + 1} of ${P.length}`; $('#pq').textContent = eqStr(p);
+  $('#pa').value = ''; $('#pa').disabled = false; $('#pcheck').disabled = false; $('#pnext').hidden = true; setFb('#pfb', null);
+}
+function finishQ(){ $('#pa').disabled = true; $('#pcheck').disabled = true; $('#pnext').hidden = false; $('#pnext').textContent = pi < P.length - 1 ? 'Next question' : 'See how you did'; }
+function check(){
+  const p = P[pi], raw = $('#pa').value.trim().replace('−', '-');
+  if (!/^-?\d+$/.test(raw)){ setFb('#pfb', ['tip', 'Type a whole number, like 6.']); return; }
+  const v = +raw, mid = p.c - p.b;
+  const undo = p.b > 0 ? `take ${p.b} off` : `add ${-p.b} to`;
+  if (p.a * v + p.b === p.c){
+    if (tries === 0) firstTry++; solvedCount++;
+    setFb('#pfb', ['good', `Correct. Check: ${p.a} × ${v} ${bs(p.b)} = ${p.c}.`]); speak('Correct.'); finishQ(); return;
+  }
+  tries++;
+  let msg = null;
+  if (v === mid) msg = `You found ${p.a}x = ${mid}. One more step: split both sides into ${p.a} equal parts.`;
+  else if (p.a * v === p.c + p.b) msg = `Check your first step. To undo ${bs(p.b)}, ${undo} both sides.`;
+  if (tries >= 3){
+    setFb('#pfb', ['tip', `Here's how it goes:<ol><li>${eqStr(p)}</li><li>${undo[0].toUpperCase() + undo.slice(1)} both sides: ${p.a}x = ${mid}</li><li>Split into ${p.a} equal parts: x = ${mid / p.a}</li><li>Check: ${p.a} × ${mid / p.a} ${bs(p.b)} = ${p.c} ✓</li></ol>`, true]);
+    finishQ(); return;
+  }
+  const hint = tries === 1 ? `Hint: start by ${p.b > 0 ? 'taking ' + p.b + ' off' : 'adding ' + (-p.b) + ' to'} both sides.`
+                           : `Hint: after that step you have ${p.a}x = ${mid}. Now split both sides into ${p.a} equal parts.`;
+  setFb('#pfb', ['bad', msg || `Not quite. ${hint}`]);
+}
+$('#pcheck').onclick = check;
+$('#pa').addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+$('#pnext').onclick = () => { if (pi < P.length - 1){ pi++; showP(); $('#pa').focus(); } else go(5); };
+showP();
+
+/* ---------- done ---------- */
+function showDone(){
+  const solid = firstTry >= 2;
+  $('#dChip').className = 'chip ' + (solid ? 'solid' : 'prog');
+  $('#dChip').textContent = solid ? 'Looks solid' : 'In progress';
+  $('#dGuess').textContent = guess === null ? 'You skipped the guess. That is fine.'
+    : guess === X ? `Your first guess was ${guess} kg. Spot on, and now you can prove it.`
+    : `Your first guess was ${guess} kg. One box weighs 4 kg, and now you know how to prove it.`;
+  $('#dScore').textContent = `${firstTry} of ${P.length} practice questions right on the first try${solvedCount < P.length ? ` (${solvedCount} of ${P.length} finished)` : ''}.`;
+  $('#dNext').textContent = solid ? 'We will bring this back in a few days to keep it fresh.' : 'Next time you will get a few more of these, with hints ready.';
+}
+$('#dWatch').onclick = () => { go(1); clearBoard(); playFrom(0); };
+$('#dRestart').onclick = () => {
+  guess = null; document.querySelectorAll('#guess .choice').forEach(c => c.removeAttribute('aria-pressed')); setFb('#guessFb', null);
+  clearBoard(); wbStarted = false; wbDone = false;
+  ex = {lb:2, lw:3, rb:0, rw:11}; hist = []; renderEx();
+  gx = 1; pi = 0; firstTry = 0; solvedCount = 0; showP();
+  maxSeen = 0; go(0);
+};
+
+go(0);
+</script>
+</body>
+</html>
