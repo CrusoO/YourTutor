@@ -11,10 +11,6 @@ from app.lessons.schema import BalanceScaleWidget, FunctionGraphWidget
 GRAPH_TOLERANCE = 1e-6
 
 
-def _is_int(value: Any) -> bool:
-    return isinstance(value, int) and not isinstance(value, bool)
-
-
 def _is_number(value: Any) -> bool:
     return isinstance(value, int | float) and not isinstance(value, bool)
 
@@ -22,10 +18,13 @@ def _is_number(value: Any) -> bool:
 def _balance_state(state: Any) -> tuple[int, int, int, int] | None:
     if not isinstance(state, dict):
         return None
-    lb, lw, rb, rw = (state.get(key) for key in ("lb", "lw", "rb", "rw"))
-    if not all(_is_int(v) and v >= 0 for v in (lb, lw, rb, rw)):
-        return None
-    return int(lb), int(lw), int(rb), int(rw)
+    counts: list[int] = []
+    for key in ("lb", "lw", "rb", "rw"):
+        value = state.get(key)
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+            return None
+        counts.append(value)
+    return counts[0], counts[1], counts[2], counts[3]
 
 
 def _balance_goal(widget: BalanceScaleWidget, state: Any) -> bool:
