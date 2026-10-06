@@ -1,0 +1,25 @@
+{
+  "name": "balance_scale",
+  "note": "Goal: one box alone on the left, balanced. State is {lb, lw, rb, rw}; it must stay within the starting counts.",
+  "widget": {
+    "type": "balance_scale",
+    "widget_id": "W.BALANCE",
+    "prompt": { "en": "Tap weights to take them off." },
+    "success": { "en": "One box balances 4 weights." },
+    "params": { "left_boxes": 2, "left_weights": 3, "right_boxes": 0, "right_weights": 11, "box_weight": 4 }
+  },
+  "cases": [
+    { "name": "starting state is level but unsolved", "state": { "lb": 2, "lw": 3, "rb": 0, "rw": 11 }, "goal_met": false },
+    { "name": "weights removed from one side only (tilted)", "state": { "lb": 2, "lw": 0, "rb": 0, "rw": 11 }, "goal_met": false },
+    { "name": "2x = 8 is level but not solved", "state": { "lb": 2, "lw": 0, "rb": 0, "rw": 8 }, "goal_met": false },
+    { "name": "solved: one box = 4", "state": { "lb": 1, "lw": 0, "rb": 0, "rw": 4 }, "goal_met": true },
+    { "name": "forged: one box = 5 is not level", "state": { "lb": 1, "lw": 0, "rb": 0, "rw": 5 }, "goal_met": false },
+    { "name": "forged: more weights than the start", "state": { "lb": 1, "lw": 0, "rb": 0, "rw": 12 }, "goal_met": false },
+    { "name": "forged: more boxes than the start", "state": { "lb": 3, "lw": 0, "rb": 0, "rw": 12 }, "goal_met": false },
+    { "name": "negative count", "state": { "lb": 1, "lw": -1, "rb": 0, "rw": 3 }, "goal_met": false },
+    { "name": "number as a string", "state": { "lb": 1, "lw": 0, "rb": 0, "rw": "4" }, "goal_met": false },
+    { "name": "fractional count", "state": { "lb": 1, "lw": 0, "rb": 0, "rw": 4.5 }, "goal_met": false },
+    { "name": "missing keys", "state": {}, "goal_met": false },
+    { "name": "not an object", "state": null, "goal_met": false }
+  ]
+}
