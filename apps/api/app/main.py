@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import settings
+from app.dev.router import router as dev_router
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
 
@@ -22,15 +23,31 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     yield
 
 
+_LOCAL_ORIGINS = (
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+)
+
+
+def allowed_origins(extra: str) -> list[str]:
+    """Local origins plus explicit extras (e.g. a PC's LAN address for phone preview)."""
+    origins = list(_LOCAL_ORIGINS)
+    for raw in extra.split(","):
+        origin = raw.strip()
+        if not origin:
+            continue
+        if "*" in origin:
+            raise ValueError("CORS_EXTRA_ORIGINS: a wildcard origin is not allowed")
+        origins.append(origin)
+    return origins
+
+
 app = FastAPI(title="YourTutor API", version="0.2.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3001",
-    ],
+    allow_origins=allowed_origins(settings.cors_extra_origins),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -38,6 +55,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(research_router)
 app.include_router(admin_router)
+app.include_router(dev_router)
 
 
 def access_log_line(method: str, path: str, status: int) -> str:

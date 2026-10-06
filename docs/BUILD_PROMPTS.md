@@ -44,7 +44,7 @@ Never run two prompts in one go; each ends with a human review.
 | P0 | Housekeeping (docs, constitution, retire-on-load, test isolation, lint) | various | DONE |
 | P1 | G0 region-neutral registries (+ close-out) | g0-… | DONE |
 | P2 | G1 mastery ladder | g1-mastery-ladder | DONE (2026-10-05) |
-| P3 | Setup: merge G1, UI preview tools, plan reorder | ui-preview-setup | TODO |
+| P3 | Setup: merge G1, UI preview tools, plan reorder | ui-preview-setup | DONE (2026-10-06; pytest 409 passed (one piece, `-p no:randomly`; random seeds 1 and 2: 409 passed each), vitest 42, test:ui 6 specs / 11 screenshots) |
 | P4 | S1a playable lesson | s1a-lesson-player | TODO |
 | P5 | S1b student flow end to end | s1b-student-flow | TODO |
 | P6 | G2a diagnosis + stuck picker | g2a-diagnosis | TODO |
@@ -66,7 +66,7 @@ Human checkpoints (not prompts): after P5, run the S1 pilot check (curriculum le
 
 ---
 
-## P3 — Setup: merge G1, UI preview tools, plan reorder  [TODO]
+## P3 — Setup: merge G1, UI preview tools, plan reorder  [DONE 2026-10-06]
 
 Prerequisites: P2 DONE.
 

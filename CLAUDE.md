@@ -22,6 +22,8 @@ If these disagree with the code or each other, stop and report; don't guess.
 - No country/board/language/time-zone literals outside config/, content/, migrations/, tests/.
 - Ambiguous but not blocking: pick the simplest option, add a PLAN.md Decisions row.
 - Don't push, don't rewrite git history, don't touch .env files.
+- Every milestone report ends with a **"How to see it"** block: URL, which /dev scenario or login, exact clicks, what to expect, screenshot paths. If nothing is visible, say so explicitly.
+- Anything student-visible: run `python -m app.dev seed_scenarios` and `npm run test:ui`, view the screenshots, and list what changed on screen (see docs/UI_PREVIEW.md).
 
 ## Commands (run from Git Bash on Windows; verified 2026-10-04)
 
@@ -34,6 +36,7 @@ Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack r
 - Region check: `cd apps/api && python scripts/check_region_literals.py`
 - Locales: `cd apps/api && PYTHONPATH=. python scripts/generate_web_locales.py` (writes `packages/shared/generated/locales.json`; expect no git diff)
 - Content: `cd apps/api && python -m app.content validate ../../content/` then `python -m app.content load ../../content/`
+- UI preview: `cd apps/api && ALLOW_DRAFT_CONTENT=true python -m app.dev seed_scenarios` (needs a migrated, content-loaded database; the preview uses `POSTGRES_DB=yourtutor_preview`); `cd apps/web && npm run test:ui -- --workers=1` (API with `DEV_TOOLS=true`; screenshots in `apps/web/test-results/screens/`). Details: docs/UI_PREVIEW.md.
 - Python edits on Windows: pass `encoding="utf-8"` to `open()` (or set `PYTHONUTF8=1`); the working tree may be CRLF while git stores LF.
 
 ## When a milestone is done
@@ -41,5 +44,5 @@ Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack r
 1. Run all of the above (Playwright too if UI changed).
 2. Tick checkboxes in PLAN.md with "Met " and test counts; update V2_GAP_AUDIT.md baseline.
 3. Update ARCHITECTURE.md where details settled.
-4. Report: what changed, new Decisions, test counts before/after, deferred items. Then stop.
+4. Report: what changed, new Decisions, test counts before/after, deferred items, and the "How to see it" block. Then stop.
 

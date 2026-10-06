@@ -101,6 +101,25 @@ export async function today() {
   return req("/students/me/today");
 }
 
+export type DevScenario = {
+  name: string;
+  title: string;
+  description: string;
+  family_code: string;
+  pin: string;
+  seeded: boolean;
+};
+
+/** Dev only: re-create every scenario (takes up to a minute). */
+export async function seedDevScenarios(): Promise<{ ok: boolean; output: string }> {
+  return req("/dev/seed", { method: "POST" });
+}
+
+/** Dev only: the API answers 404 unless DEV_TOOLS and ALLOW_DRAFT_CONTENT are on. */
+export async function listDevScenarios(): Promise<{ scenarios: DevScenario[] }> {
+  return req("/dev/scenarios");
+}
+
 export async function startSession(type: string, sid: string): Promise<SessionView> {
   return req("/sessions", {
     method: "POST",

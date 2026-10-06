@@ -7,9 +7,21 @@ from datetime import UTC, datetime, timedelta
 
 from app.config import settings
 
+_now_override: datetime | None = None
+
 
 def now_utc() -> datetime:
-    return datetime.now(UTC)
+    return _now_override if _now_override is not None else datetime.now(UTC)
+
+
+def get_now_override() -> datetime | None:
+    return _now_override
+
+
+def set_now_override(value: datetime | None) -> None:
+    """Pin `now_utc()`; only `app.dev.clock.frozen` calls this (dev tooling, never in requests)."""
+    global _now_override
+    _now_override = value
 
 
 def as_utc(value: datetime) -> datetime:
