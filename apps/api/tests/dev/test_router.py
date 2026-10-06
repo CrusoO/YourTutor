@@ -61,3 +61,45 @@ def test_allowed_origins_include_localhost_and_configured_lan_origins() -> None:
 def test_wildcard_origin_is_rejected() -> None:
     with pytest.raises(ValueError, match="wildcard"):
         allowed_origins("*")
+
+
+def test_seed_endpoint_is_404_unless_dev_tools(client: TestClient) -> None:
+    assert client.post("/dev/seed").status_code == 404
+
+
+def test_seed_endpoint_runs_the_cli_in_a_subprocess(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import subprocess
+    import sys
+
+    calls: list[list[str]] = []
+
+    def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+        calls.append(cmd)
+        assert kwargs.get("cwd")
+        return subprocess.CompletedProcess(cmd, 0, stdout="seeded 5\n", stderr="")
+
+    monkeypatch.setattr("app.dev.router.subprocess.run", fake_run)
+    settings.dev_tools = True
+    settings.allow_draft_content = True
+    response = client.post("/dev/seed")
+    assert response.status_code == 200
+    assert response.json() == {"ok": True, "output": "seeded 5\n"}
+    assert calls == [[sys.executable, "-m", "app.dev", "seed_scenarios"]]
+
+
+def test_seed_endpoint_reports_a_failed_seed(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import subprocess
+
+    def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess(cmd, 1, stdout="", stderr="ERROR: no content")
+
+    monkeypatch.setattr("app.dev.router.subprocess.run", fake_run)
+    settings.dev_tools = True
+    settings.allow_draft_content = True
+    response = client.post("/dev/seed")
+    assert response.status_code == 500
+    assert "no content" in response.json()["detail"]

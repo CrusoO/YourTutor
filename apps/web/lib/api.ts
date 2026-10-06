@@ -110,6 +110,11 @@ export type DevScenario = {
   seeded: boolean;
 };
 
+/** Dev only: re-create every scenario (takes up to a minute). */
+export async function seedDevScenarios(): Promise<{ ok: boolean; output: string }> {
+  return req("/dev/seed", { method: "POST" });
+}
+
 /** Dev only: the API answers 404 unless DEV_TOOLS and ALLOW_DRAFT_CONTENT are on. */
 export async function listDevScenarios(): Promise<{ scenarios: DevScenario[] }> {
   return req("/dev/scenarios");

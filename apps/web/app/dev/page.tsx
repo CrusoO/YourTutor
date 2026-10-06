@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { listDevScenarios, setStudentId, studentLogin, today, type DevScenario } from "@/lib/api";
+import {
+  listDevScenarios,
+  seedDevScenarios,
+  setStudentId,
+  studentLogin,
+  today,
+  type DevScenario,
+} from "@/lib/api";
 import { devToolsEnabled } from "@/lib/dev";
 
 export default function DevPage() {
@@ -11,6 +18,7 @@ export default function DevPage() {
   const router = useRouter();
   const [scenarios, setScenarios] = useState<DevScenario[] | null>(null);
   const [error, setError] = useState("");
+  const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
     listDevScenarios()
@@ -19,6 +27,20 @@ export default function DevPage() {
         setError("Could not load scenarios. Start the API with DEV_TOOLS=true and ALLOW_DRAFT_CONTENT=true."),
       );
   }, []);
+
+  async function resetAll() {
+    setError("");
+    setResetting(true);
+    try {
+      await seedDevScenarios();
+      const body = await listDevScenarios();
+      setScenarios(body.scenarios);
+    } catch {
+      setError("Could not reset the scenarios. Check the API log.");
+    } finally {
+      setResetting(false);
+    }
+  }
 
   async function loginAs(scenario: DevScenario) {
     setError("");
@@ -39,6 +61,9 @@ export default function DevPage() {
       <p>
         <Link href="/dev/lessons">Lessons</Link>
       </p>
+      <button type="button" className="secondary" disabled={resetting} onClick={resetAll}>
+        {resetting ? "Resetting… (about a minute)" : "Reset scenarios"}
+      </button>
       {error ? <p className="banner">{error}</p> : null}
       {scenarios?.map((scenario) => (
         <section key={scenario.name} className="stack">

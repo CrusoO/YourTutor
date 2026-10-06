@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DevPage from "@/app/dev/page";
 import DevLessonsPage from "@/app/dev/lessons/page";
-import { listDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
+import { listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
 
 const push = vi.fn();
 const notFound = vi.fn(() => {
@@ -17,6 +17,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/lib/api", () => ({
   listDevScenarios: vi.fn(),
+  seedDevScenarios: vi.fn(),
   studentLogin: vi.fn(),
   today: vi.fn(),
   setStudentId: vi.fn(),
@@ -103,5 +104,20 @@ describe("/dev", () => {
   it("lessons page is a placeholder until S1a", () => {
     render(<DevLessonsPage />);
     expect(screen.getByText(/no lessons yet/i)).toBeInTheDocument();
+  });
+
+  it("resets the scenarios and reloads the list", async () => {
+    vi.mocked(seedDevScenarios).mockResolvedValue({ ok: true, output: "" });
+    render(<DevPage />);
+    await userEvent.click(await screen.findByRole("button", { name: /reset scenarios/i }));
+    await waitFor(() => expect(seedDevScenarios).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(listDevScenarios).toHaveBeenCalledTimes(2));
+  });
+
+  it("shows an error when the reset fails", async () => {
+    vi.mocked(seedDevScenarios).mockRejectedValue(new Error("boom"));
+    render(<DevPage />);
+    await userEvent.click(await screen.findByRole("button", { name: /reset scenarios/i }));
+    expect(await screen.findByText(/could not reset/i)).toBeInTheDocument();
   });
 });
