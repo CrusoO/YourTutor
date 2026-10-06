@@ -1,0 +1,250 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { pick, type Beat, type Lesson } from "@/lib/lessons/types";
+import { balanceStart } from "@/lib/lessons/widgets";
+import BalanceScale, { BalanceFigure } from "./BalanceScale";
+import FunctionGraph from "./FunctionGraph";
+import ScenePlayer, { type Delay, type SceneAskInfo } from "./ScenePlayer";
+
+// S1b moves these strings into the locale registry; until then English only.
+const COPY = {
+  continue: "Continue",
+  start: "Start practice",
+  nextStep: "Next step",
+  checking: "Checking with the server…",
+  verified: "Checked by the server ✓",
+  notVerified: "We could not verify that. Try it again.",
+  checkTitle: "Your turn",
+  previewNote: "In a real session this is the first practice item.",
+  steps: { predict: "Guess", explore: "Try", explain_scene: "Watch", worked_example: "Example", check: "Practise" },
+} as const;
+
+export type WidgetResult = { widget_id: string; final_state: unknown; actions_count: number };
+
+type Props = {
+  lesson: Lesson;
+  locale: string;
+  mode: "session" | "preview";
+  /** Beat to open on: 1 when the session is already past the predict step (resumed). */
+  startAt?: number;
+  onPredict?: (choice: string | null) => Promise<void> | void;
+  onSceneAsk?: (info: SceneAskInfo) => void;
+  /** Resolves true when the server accepted the widget result. */
+  onWidgetResult?: (result: WidgetResult) => Promise<boolean>;
+  onComplete?: (info: { latency_ms: number }) => Promise<void> | void;
+  reducedMotion?: boolean;
+  delay?: Delay;
+};
+
+function Beats({ beat, children }: { beat: Beat; children: React.ReactNode }) {
+  return <section className={`lp-step lp-${beat.kind}`}>{children}</section>;
+}
+
+export default function LessonPlayer({
+  lesson,
+  locale,
+  mode,
+  startAt = 0,
+  onPredict,
+  onSceneAsk,
+  onWidgetResult,
+  onComplete,
+  reducedMotion,
+  delay,
+}: Props) {
+  const [cur, setCur] = useState(startAt);
+  const [maxSeen, setMaxSeen] = useState(startAt);
+  const [guess, setGuess] = useState<string | null>(null);
+  const [predictSent, setPredictSent] = useState(startAt > 0);
+  const [stepsShown, setStepsShown] = useState(1);
+  const [verify, setVerify] = useState<Record<string, "pending" | "ok" | "bad">>({});
+  const [busy, setBusy] = useState(false);
+  const started = useRef(Date.now());
+  const beats = lesson.beats;
+  const beat = beats[cur];
+  const last = beats.length - 1;
+
+  function go(i: number) {
+    const next = Math.max(0, Math.min(last, i));
+    setCur(next);
+    setMaxSeen((m) => Math.max(m, next));
+    setStepsShown(1);
+    window.scrollTo?.(0, 0);
+  }
+
+  async function next() {
+    if (busy) return;
+    if (beat.kind === "predict" && !predictSent) {
+      setBusy(true);
+      try {
+        await onPredict?.(guess);
+        setPredictSent(true);
+      } finally {
+        setBusy(false);
+      }
+    }
+    if (beat.kind === "check") {
+      setBusy(true);
+      try {
+        await onComplete?.({ latency_ms: Date.now() - started.current });
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+    go(cur + 1);
+  }
+
+  async function widgetSolved(widgetId: string, finalState: unknown, actions: number) {
+    setVerify((v) => ({ ...v, [widgetId]: "pending" }));
+    try {
+      const ok = onWidgetResult
+        ? await onWidgetResult({ widget_id: widgetId, final_state: finalState, actions_count: actions })
+        : true;
+      setVerify((v) => ({ ...v, [widgetId]: ok ? "ok" : "bad" }));
+    } catch {
+      setVerify((v) => ({ ...v, [widgetId]: "bad" }));
+    }
+  }
+
+  const primary = beat.kind === "check" ? (mode === "session" ? COPY.start : null) : COPY.continue;
+
+  return (
+    <div className="lp">
+      <header className="lp-top">
+        <div>
+          <div className="lp-subj">{lesson.skill_id}</div>
+          <h1>{pick(lesson.title, locale)}</h1>
+        </div>
+      </header>
+
+      <nav className="lp-path" aria-label="Lesson steps" style={{ gridTemplateColumns: `repeat(${beats.length}, 1fr)` }}>
+        {beats.map((b, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`${i === cur ? "on" : ""}${i <= maxSeen ? " seen" : ""}`}
+            disabled={i > maxSeen}
+            aria-current={i === cur ? "step" : undefined}
+            onClick={() => go(i)}
+          >
+            <span className="n">{i + 1}</span>
+            {COPY.steps[b.kind]}
+          </button>
+        ))}
+      </nav>
+
+      <main>
+        {beat.kind === "predict" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{pick(beat.prompt, locale)}</h2>
+            {beat.figure ? (
+              <div className="lp-panel">
+                <BalanceFigure
+                  state={balanceStart(beat.figure)}
+                  boxWeight={beat.figure.box_weight}
+                  reducedMotion={reducedMotion}
+                />
+              </div>
+            ) : null}
+            <div className="lp-choices" role="group" aria-label={pick(beat.prompt, locale)}>
+              {beat.choices.map((c) => (
+                <button
+                  key={c.value}
+                  type="button"
+                  className="lp-choice"
+                  aria-pressed={guess === c.value}
+                  onClick={() => setGuess(c.value)}
+                >
+                  {pick(c.text, locale)}
+                </button>
+              ))}
+            </div>
+            {guess !== null && beat.reveal ? <p className="lp-fb tip">{pick(beat.reveal, locale)}</p> : null}
+          </Beats>
+        ) : null}
+
+        {beat.kind === "explore" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            {beat.intro ? <p className="lp-intro">{pick(beat.intro, locale)}</p> : null}
+            {beat.widget.type === "balance_scale" ? (
+              <BalanceScale
+                key={beat.widget.widget_id}
+                widget={beat.widget}
+                locale={locale}
+                reducedMotion={reducedMotion}
+                onSolved={(s, n) => widgetSolved(beat.widget.widget_id, s, n)}
+              />
+            ) : (
+              <FunctionGraph
+                key={beat.widget.widget_id}
+                widget={beat.widget}
+                locale={locale}
+                onSolved={(s, n) => widgetSolved(beat.widget.widget_id, s, n)}
+              />
+            )}
+            {verify[beat.widget.widget_id] ? (
+              <p className={`lp-verify ${verify[beat.widget.widget_id]}`} role="status">
+                {verify[beat.widget.widget_id] === "pending"
+                  ? COPY.checking
+                  : verify[beat.widget.widget_id] === "ok"
+                    ? COPY.verified
+                    : COPY.notVerified}
+              </p>
+            ) : null}
+          </Beats>
+        ) : null}
+
+        {beat.kind === "explain_scene" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            <ScenePlayer
+              key={beat.scene.id}
+              scene={beat.scene}
+              locale={locale}
+              finalCaption={beat.final_caption}
+              onAsk={onSceneAsk}
+              reducedMotion={reducedMotion}
+              delay={delay}
+            />
+          </Beats>
+        ) : null}
+
+        {beat.kind === "worked_example" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            <p className="lp-problem">{pick(beat.problem, locale)}</p>
+            <ol className="lp-steps">
+              {beat.steps.slice(0, stepsShown).map((s, i) => (
+                <li key={i}>{pick(s, locale)}</li>
+              ))}
+            </ol>
+            {stepsShown < beat.steps.length ? (
+              <button type="button" className="lp-btn" onClick={() => setStepsShown((n) => n + 1)}>
+                {COPY.nextStep}
+              </button>
+            ) : null}
+          </Beats>
+        ) : null}
+
+        {beat.kind === "check" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{COPY.checkTitle}</h2>
+            <p className="lp-problem">{pick(beat.prompt, locale)}</p>
+            {mode === "preview" ? <p className="lp-src">{COPY.previewNote}</p> : null}
+          </Beats>
+        ) : null}
+      </main>
+
+      {primary ? (
+        <div className="lp-bar">
+          <button type="button" className="lp-primary" disabled={busy} onClick={next}>
+            {primary}
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}

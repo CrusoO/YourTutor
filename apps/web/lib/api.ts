@@ -1,7 +1,11 @@
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+import type { Lesson } from "./lessons/types";
+
 export type ActionPayload = {
   type: string;
+  lesson?: Lesson;
+  rejected?: boolean;
   item_id?: string | null;
   skill_id?: string | null;
   hint_level?: number | null;
@@ -113,6 +117,35 @@ export type DevScenario = {
 /** Dev only: re-create every scenario (takes up to a minute). */
 export async function seedDevScenarios(): Promise<{ ok: boolean; output: string }> {
   return req("/dev/seed", { method: "POST" });
+}
+
+export type DevLessonRow = {
+  id: string;
+  skill_id: string;
+  title: string;
+  source_ref: string;
+  status: string;
+  beats: string[];
+};
+
+/** Dev only (no login): list lessons, fetch one, and let the server check a widget result. */
+export async function listDevLessons(): Promise<{ lessons: DevLessonRow[] }> {
+  return req("/dev/lessons");
+}
+
+export async function getDevLesson(id: string): Promise<Lesson> {
+  return req(`/dev/lessons/${encodeURIComponent(id)}`);
+}
+
+export async function verifyDevWidget(
+  lesson_id: string,
+  widget_id: string,
+  final_state: unknown,
+): Promise<{ ok: boolean; code: string | null }> {
+  return req("/dev/widgets/verify", {
+    method: "POST",
+    body: JSON.stringify({ lesson_id, widget_id, final_state }),
+  });
 }
 
 /** Dev only: the API answers 404 unless DEV_TOOLS and ALLOW_DRAFT_CONTENT are on. */

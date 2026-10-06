@@ -81,12 +81,12 @@ export function graphValue(g: FunctionGraphParams, x: number): number {
 }
 
 /** Snap a dragged x onto the step grid, and onto the solution when it is very close. */
-export function snapGraphX(g: FunctionGraphParams, raw: number): number {
+export function snapGraphX(g: FunctionGraphParams, raw: number, toSolution = true): number {
   const step = g.step ?? 0.1;
   const clamped = Math.max(g.x_min, Math.min(g.x_max, raw));
   let x = g.x_min + Math.round((clamped - g.x_min) / step) * step;
   x = Math.round(x * 1e6) / 1e6;
   const star = (g.target_y - g.intercept) / g.slope;
-  if (Math.abs(x - star) <= 2 * step) x = Math.round(star * 1e6) / 1e6;
+  if (toSolution && Math.abs(x - star) <= 2 * step) x = Math.round(star * 1e6) / 1e6;
   return x;
 }

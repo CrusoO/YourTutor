@@ -6,6 +6,7 @@ import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
+import LessonPlayer from "@/components/lessons/LessonPlayer";
 
 export default function SessionPage() {
   const params = useParams<{ id: string }>();
@@ -89,6 +90,37 @@ export default function SessionPage() {
           {copy.backToday}
         </button>
       </main>
+    );
+  }
+
+  if (action.lesson && (action.type === "predict" || action.type === "worked_example")) {
+    // A lesson exists for this skill: it replaces the plain predict / worked-example screens. The
+    // server re-checks every widget result; beats never write BKT or FSRS.
+    return (
+      <LessonPlayer
+        key={action.lesson.id}
+        lesson={action.lesson}
+        locale={locale()}
+        mode="session"
+        startAt={action.type === "worked_example" ? 1 : 0}
+        onPredict={(choice) => send("predict_response", { response: choice ?? "" })}
+        onSceneAsk={(info) => {
+          postEvent(params.id, "scene_answer", {
+            scene_id: info.sceneId,
+            step: info.step,
+            choice: info.choice,
+          }).catch(() => {});
+        }}
+        onWidgetResult={async (r) => {
+          const view = await postEvent(params.id, "interactive_result", {
+            widget_id: r.widget_id,
+            final_state: r.final_state,
+            actions_count: r.actions_count,
+          });
+          return !view.action.rejected;
+        }}
+        onComplete={({ latency_ms }) => send("continue", { latency_ms })}
+      />
     );
   }
 

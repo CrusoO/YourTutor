@@ -123,3 +123,487 @@ button:disabled {
 .lang button {
   flex: 1;
 }
+
+/* ------------------------------------------------------------------ lesson player (S1a) */
+/* Look and behaviour from docs/prototypes/balancing-equations-lesson.html, scoped under .lp. */
+.lp {
+  --paper: #f3f6fb;
+  --grid: #dfe6f3;
+  --ink: #1d2b53;
+  --muted: #5a6b8c;
+  --lp-card: #ffffff;
+  --line: #c9d4e8;
+  --blue: #2f6fde;
+  --green: #13895a;
+  --red: #cc3b33;
+  --yellow: #f2b705;
+  --hl: rgba(242, 183, 5, 0.38);
+  --green-bg: #e3f5ec;
+  --red-bg: #fbe8e6;
+  --tip-bg: #e8effc;
+  margin: -16px;
+  padding: 0 16px 96px;
+  min-height: 100dvh;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.lp button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.lp button:focus-visible,
+.lp input:focus-visible,
+.lp [tabindex]:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.lp h2:focus {
+  outline: none;
+}
+.lp-top {
+  padding: 16px 0 8px;
+}
+.lp-subj {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.lp h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.lp h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 4px 0 8px;
+}
+.lp-path {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 16px;
+  position: relative;
+}
+.lp-path::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: var(--line);
+}
+.lp-path button {
+  position: relative;
+  background: none;
+  border: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: var(--muted);
+  min-height: 0;
+}
+.lp-path button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.lp-path .n {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--lp-card);
+  border: 2px solid var(--line);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.lp-path button.seen .n {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.lp-path button.on .n {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+.lp-path button.on {
+  color: var(--ink);
+  font-weight: 500;
+}
+.lp-panel,
+.lp-board {
+  background: var(--lp-card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 8px;
+  margin: 8px 0 12px;
+}
+.lp-svg,
+.lp-board svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lp-intro,
+.lp-lead,
+.lp-problem {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+.lp-problem {
+  color: var(--ink);
+  font-weight: 500;
+}
+.lp-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 8px;
+}
+.lp-choice {
+  background: var(--lp-card);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 6px;
+  font-weight: 600;
+  min-height: 48px;
+  color: var(--ink);
+}
+.lp-choice[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: var(--tip-bg);
+  color: var(--blue);
+}
+.lp-choice.wrong {
+  border-color: var(--red);
+  color: var(--red);
+}
+.lp-fb {
+  margin: 12px 0 0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+.lp-fb.good,
+.lp-fb.bad,
+.lp-fb.tip {
+  padding: 10px 12px;
+}
+.lp-fb.good {
+  background: var(--green-bg);
+  color: var(--green);
+}
+.lp-fb.bad {
+  background: var(--red-bg);
+  color: var(--red);
+}
+.lp-fb.tip {
+  background: var(--tip-bg);
+  color: var(--ink);
+}
+.lp-verify {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.lp-verify.ok {
+  color: var(--green);
+}
+.lp-verify.bad {
+  color: var(--red);
+}
+.lp-ctrl {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.lp-btn {
+  border: 1.5px solid var(--line);
+  background: var(--lp-card);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  min-height: 44px;
+  color: var(--ink);
+}
+.lp-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.lp-btn.main {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.lp-src {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+.lp-steps {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.lp-steps li {
+  margin: 0 0 6px;
+}
+.lp-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(transparent, var(--paper) 30%);
+}
+.lp-primary {
+  display: block;
+  width: 100%;
+  max-width: 328px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  background: var(--blue);
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.02rem;
+  min-height: 52px;
+}
+.lp-primary:disabled {
+  opacity: 0.6;
+}
+/* whiteboard */
+.lp-wbt {
+  font-family: "Kalam", "Comic Sans MS", "Segoe Print", cursive;
+  fill: var(--ink);
+  font-weight: 700;
+}
+.lp-wbt.muted {
+  fill: var(--muted);
+  font-weight: 400;
+}
+.lp-wbt.red {
+  fill: var(--red);
+}
+.lp-wbt.blue {
+  fill: var(--blue);
+}
+.lp-wbt.green {
+  fill: var(--green);
+}
+.lp-shape {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.lp-shape.red {
+  stroke: var(--red);
+}
+.lp-shape.blue {
+  stroke: var(--blue);
+}
+.lp-shape.green {
+  stroke: var(--green);
+}
+.lp-shape.muted {
+  stroke: var(--muted);
+}
+.lp-arrowhead {
+  fill: context-stroke;
+}
+.lp-hl {
+  fill: var(--hl);
+}
+.lp-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.lp-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.lp-dots span.on {
+  background: var(--blue);
+}
+.lp-caption {
+  font-size: 1.02rem;
+  min-height: 4.6em;
+  margin: 4px 0 8px;
+}
+.lp-ask {
+  background: var(--tip-bg);
+  border-radius: 14px;
+  padding: 12px;
+  margin: 0 0 10px;
+}
+.lp-ask p {
+  margin: 0 0 8px;
+  font-weight: 500;
+}
+.lp-ask .lp-fb {
+  margin-top: 8px;
+}
+/* balance */
+.lp-stand {
+  stroke: var(--muted);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.lp-standb {
+  fill: var(--muted);
+}
+.lp-beam {
+  stroke: var(--ink);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.lp-pivot {
+  fill: var(--lp-card);
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+.lp-str {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+}
+.lp-panb {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.lp-box {
+  fill: var(--yellow);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+.lp-boxt {
+  font-family: "Kalam", "Comic Sans MS", cursive;
+  font-weight: 700;
+  font-size: 16px;
+  text-anchor: middle;
+  fill: #3a2a00;
+}
+.lp-wc {
+  fill: var(--blue);
+}
+.lp-wtt {
+  font-size: 11px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: #fff;
+  pointer-events: none;
+}
+.lp-wt.tap {
+  cursor: pointer;
+}
+.lp-wt.tap:hover .lp-wc,
+.lp-wt.tap:focus .lp-wc {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.lp-wt:focus {
+  outline: none;
+}
+.lp-eq {
+  font-family: "Kalam", "Comic Sans MS", cursive;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+.lp-eq .eqs {
+  color: var(--green);
+}
+.lp-eq .neq {
+  color: var(--red);
+}
+/* graph */
+.lp-g {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+.lp-gl {
+  font-size: 11px;
+  fill: var(--muted);
+  text-anchor: middle;
+}
+.lp-gl.end {
+  text-anchor: end;
+}
+.lp-ln {
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.lp-ll {
+  font-family: "Kalam", "Comic Sans MS", cursive;
+  font-weight: 700;
+  font-size: 16px;
+  fill: var(--blue);
+  text-anchor: middle;
+}
+.lp-target {
+  stroke: var(--green);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+.lp-tl {
+  font-size: 11px;
+  fill: var(--green);
+  font-weight: 500;
+  text-anchor: end;
+}
+.lp-drop {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+.lp-pt {
+  fill: var(--yellow);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.lp-pt.hit {
+  fill: var(--green);
+}
+.lp-graph {
+  touch-action: none;
+  cursor: ew-resize;
+}
+.lp-sublabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.lp-range {
+  width: 100%;
+  accent-color: var(--blue);
+  margin: 4px 0 0;
+}
+.lp-read {
+  font-weight: 500;
+  margin: 8px 0 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp * {
+    transition: none !important;
+  }
+}
