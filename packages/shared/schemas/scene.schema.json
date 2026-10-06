@@ -1,0 +1,528 @@
+{
+  "$defs": {
+    "AskOption": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "correct": {
+          "title": "Correct",
+          "type": "boolean"
+        },
+        "feedback": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "text",
+        "correct"
+      ],
+      "title": "AskOption",
+      "type": "object"
+    },
+    "Canvas": {
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "default": 340,
+          "exclusiveMinimum": 0,
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "default": 290,
+          "exclusiveMinimum": 0,
+          "title": "Height",
+          "type": "integer"
+        }
+      },
+      "title": "Canvas",
+      "type": "object"
+    },
+    "DrawArrow": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "draw_arrow",
+          "title": "Kind",
+          "type": "string"
+        },
+        "x1": {
+          "title": "X1",
+          "type": "number"
+        },
+        "y1": {
+          "title": "Y1",
+          "type": "number"
+        },
+        "x2": {
+          "title": "X2",
+          "type": "number"
+        },
+        "y2": {
+          "title": "Y2",
+          "type": "number"
+        },
+        "color": {
+          "anyOf": [
+            {
+              "enum": [
+                "ink",
+                "muted",
+                "red",
+                "blue",
+                "green"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color"
+        }
+      },
+      "required": [
+        "kind",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "title": "DrawArrow",
+      "type": "object"
+    },
+    "DrawShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "draw_shape",
+          "title": "Kind",
+          "type": "string"
+        },
+        "shape": {
+          "enum": [
+            "rect",
+            "circle",
+            "line"
+          ],
+          "title": "Shape",
+          "type": "string"
+        },
+        "x": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "X"
+        },
+        "y": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Y"
+        },
+        "w": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "W"
+        },
+        "h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "H"
+        },
+        "cx": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cx"
+        },
+        "cy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cy"
+        },
+        "r": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "R"
+        },
+        "x1": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "X1"
+        },
+        "y1": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Y1"
+        },
+        "x2": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "X2"
+        },
+        "y2": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Y2"
+        },
+        "color": {
+          "anyOf": [
+            {
+              "enum": [
+                "ink",
+                "muted",
+                "red",
+                "blue",
+                "green"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color"
+        }
+      },
+      "required": [
+        "kind",
+        "shape"
+      ],
+      "title": "DrawShape",
+      "type": "object"
+    },
+    "Highlight": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "highlight",
+          "title": "Kind",
+          "type": "string"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        },
+        "w": {
+          "exclusiveMinimum": 0,
+          "title": "W",
+          "type": "number"
+        },
+        "h": {
+          "exclusiveMinimum": 0,
+          "title": "H",
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind",
+        "x",
+        "y",
+        "w",
+        "h"
+      ],
+      "title": "Highlight",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "properties": {
+        "en": {
+          "title": "En",
+          "type": "string"
+        },
+        "ne": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ne"
+        },
+        "as": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As"
+        }
+      },
+      "required": [
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "PauseAndAsk": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "pause_and_ask",
+          "title": "Kind",
+          "type": "string"
+        },
+        "question": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/AskOption"
+          },
+          "minItems": 2,
+          "title": "Options",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "question",
+        "options"
+      ],
+      "title": "PauseAndAsk",
+      "type": "object"
+    },
+    "SceneStep": {
+      "additionalProperties": false,
+      "properties": {
+        "caption": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "actions": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "draw_arrow": "#/$defs/DrawArrow",
+                "draw_shape": "#/$defs/DrawShape",
+                "highlight": "#/$defs/Highlight",
+                "pause_and_ask": "#/$defs/PauseAndAsk",
+                "write_text": "#/$defs/WriteText"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/WriteText"
+              },
+              {
+                "$ref": "#/$defs/DrawShape"
+              },
+              {
+                "$ref": "#/$defs/DrawArrow"
+              },
+              {
+                "$ref": "#/$defs/Highlight"
+              },
+              {
+                "$ref": "#/$defs/PauseAndAsk"
+              }
+            ]
+          },
+          "minItems": 1,
+          "title": "Actions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "caption",
+        "actions"
+      ],
+      "title": "SceneStep",
+      "type": "object"
+    },
+    "WriteText": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "write_text",
+          "title": "Kind",
+          "type": "string"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        },
+        "size": {
+          "exclusiveMinimum": 0,
+          "title": "Size",
+          "type": "number"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "color": {
+          "anyOf": [
+            {
+              "enum": [
+                "ink",
+                "muted",
+                "red",
+                "blue",
+                "green"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color"
+        }
+      },
+      "required": [
+        "kind",
+        "x",
+        "y",
+        "size",
+        "text"
+      ],
+      "title": "WriteText",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "skill_id": {
+      "minLength": 1,
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    },
+    "canvas": {
+      "$ref": "#/$defs/Canvas"
+    },
+    "alt": {
+      "$ref": "#/$defs/LocalizedText"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/SceneStep"
+      },
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "skill_id",
+    "source_ref",
+    "alt",
+    "steps"
+  ],
+  "title": "Scene",
+  "type": "object"
+}
