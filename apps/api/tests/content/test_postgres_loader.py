@@ -21,7 +21,7 @@ CONTENT = Path(__file__).resolve().parents[4] / "content"
 def _postgres_url() -> str | None:
     if os.environ.get("TEST_DATABASE_URL", "").startswith("postgresql"):
         return os.environ["TEST_DATABASE_URL"]
-    candidate = "postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor_test"
+    candidate = "postgresql+psycopg://tutor:tutor@127.0.0.1:5432/yourtutor_test"
     try:
         engine = create_engine(candidate, future=True)
         with engine.connect() as conn:

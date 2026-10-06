@@ -25,7 +25,7 @@ def _postgres_url() -> str | None:
     url = os.environ.get("TEST_DATABASE_URL", "")
     if url.startswith("postgresql"):
         return url
-    candidate = "postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor_test"
+    candidate = "postgresql+psycopg://tutor:tutor@127.0.0.1:5432/yourtutor_test"
     try:
         engine = create_engine(candidate, future=True)
         with engine.connect() as conn:

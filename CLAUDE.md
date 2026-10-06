@@ -29,8 +29,9 @@ If these disagree with the code or each other, stop and report; don't guess.
 
 Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack running on the Windows side), Python 3.13 with packages installed for the user (no venv), Node from Windows. The repo lives on `/mnt/c`; WSL (Ubuntu) has no Docker integration or Python env, so do not run the checks there unless that is set up. Check the `docker compose ps` stack is healthy first.
 
+- Always use `127.0.0.1`, not `localhost`, for the local database: on this machine `localhost` resolves to `::1` first, Docker does not answer there, and every new connection stalls exactly 30 s (this alone made full test runs take up to 2 hours).
 - Stack: `docker compose up -d postgres redis` (the compose service is `postgres`, not `db`)
-- API tests: `cd apps/api && TEST_DATABASE_URL=postgresql+psycopg://tutor:tutor@localhost:5432/yourtutor_test python -m pytest -q` (slow: about 7 min on Postgres; the suite must pass with `-p no:randomly` and with `-p randomly --randomly-seed=N`)
+- API tests: `cd apps/api && TEST_DATABASE_URL=postgresql+psycopg://tutor:tutor@127.0.0.1:5432/yourtutor_test python -m pytest -q` (slow: about 7 min on Postgres; the suite must pass with `-p no:randomly` and with `-p randomly --randomly-seed=N`)
 - API lint/types: `cd apps/api && ruff check . && ruff format --check . && python -m mypy .`
 - Web: `cd apps/web && npx vitest run && npx tsc --noEmit`
 - Region check: `cd apps/api && python scripts/check_region_literals.py`

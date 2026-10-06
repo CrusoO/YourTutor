@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     postgres_user: str = "tutor"
     postgres_password: str = "tutor"
     postgres_db: str = "yourtutor"
-    postgres_host: str = "localhost"
+    postgres_host: str = "127.0.0.1"  # not "localhost": ::1 can stall 30 s per connection
     postgres_port: int = 5432
     redis_url: str = "redis://localhost:6379/0"
     allow_draft_content: bool = False
