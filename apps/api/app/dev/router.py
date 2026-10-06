@@ -8,12 +8,15 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 from sqlalchemy import select
 
 from app.auth.deps import DbSession
 from app.config import settings
 from app.db.models import StudentRow
 from app.dev.scenarios import PIN, SCENARIOS
+from app.lessons.loader import all_lessons, lesson_by_id
+from app.lessons.widgets import verify_widget_result
 
 API_ROOT = Path(__file__).resolve().parents[2]
 
@@ -40,6 +43,54 @@ def reseed() -> dict[str, Any]:
     if done.returncode != 0:
         raise HTTPException(status_code=500, detail=(done.stderr or done.stdout).strip())
     return {"ok": True, "output": done.stdout}
+
+
+class WidgetVerifyIn(BaseModel):
+    lesson_id: str
+    widget_id: str
+    final_state: Any = None
+
+
+@router.get("/lessons")
+def list_lessons() -> dict[str, Any]:
+    return {
+        "lessons": [
+            {
+                "id": lesson.id,
+                "skill_id": lesson.skill_id,
+                "title": lesson.title.en,
+                "source_ref": lesson.source_ref,
+                "status": lesson.status.value,
+                "beats": [beat.kind for beat in lesson.beats],
+            }
+            for lesson in all_lessons()
+        ]
+    }
+
+
+@router.get("/lessons/{lesson_id}")
+def get_lesson(lesson_id: str) -> dict[str, Any]:
+    lesson = lesson_by_id(lesson_id)
+    if lesson is None:
+        raise HTTPException(status_code=404, detail="lesson not found")
+    return lesson.model_dump(mode="json", by_alias=True, exclude_none=True)
+
+
+@router.post("/widgets/verify")
+def verify_widget(body: WidgetVerifyIn) -> dict[str, Any]:
+    """Stateless server check of a widget result, for the login-free lesson preview."""
+    lesson = lesson_by_id(body.lesson_id)
+    widget = (
+        next((w for w in lesson.widgets() if w.widget_id == body.widget_id), None)
+        if lesson
+        else None
+    )
+    if widget is None:
+        return {"ok": False, "code": "widget_unknown"}
+    ok, code = verify_widget_result(
+        widget, {"widget_id": body.widget_id, "final_state": body.final_state}
+    )
+    return {"ok": ok, "code": code}
 
 
 @router.get("/scenarios")
