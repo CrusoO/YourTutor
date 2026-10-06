@@ -107,6 +107,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | FSRS session end | Other practised skills get one FSRS rating when a practice session ends (not on consent revoke), from the session's unhinted-correct rate; per-session counts use the DB session id and are cleared after rating. This was specified in M3 but not wired, so no card existed in the live flow. |
 | Item roles in content | `role` is required on every item and template. Seed backfill: word problems `apply`, everything else `procedure`; 36 new draft items (one `explain`, `apply`, `transfer` per skill). Four reason-choice `explain` items need teacher sign-off (not machine-verifiable). The live threshold needs ≥ 1 approved item of each of those roles per skill. |
 | Overlay curriculum | Overlay YAML uses `curriculum_id`; the schema rejects a leftover `board:` and the validator rejects unknown curricula. `overlays.board` was renamed (migration 0015). Student and class `board` stay until G5 / G6. |
+| Vertical slice first | Build a visible vertical slice (S1) before G2, to get real feedback early. A human pilot check follows S1b, before G2. |
+| UI preview data | Preview students come from `python -m app.dev seed_scenarios`, which replays events through the real engine (never writes mastery rows) with the clock set in the past. It uses its own database (`yourtutor_preview`) so normal dev data is untouched. |
+| Dev tools gating | `/dev` web pages need `NEXT_PUBLIC_DEV_TOOLS=true`; API `/dev/*` routes are a 404 unless `DEV_TOOLS` **and** `ALLOW_DRAFT_CONTENT` are on. Only `app.dev.clock.frozen` may pin the clock, and it refuses unless `ALLOW_DRAFT_CONTENT=true`. LAN preview uses explicit `CORS_EXTRA_ORIGINS` / `NEXT_ALLOWED_DEV_ORIGINS` (wildcards refused). |
+| Content load safety | `python -m app.content load` refuses a missing or empty content root: an empty bundle would retire (or, in dev, hard-delete) everything already loaded. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -222,7 +226,7 @@ G0 (2026-10-04) is tracked under §8. Post-G0 verification: API pytest **232 pas
 
 ## 8. v2 milestones
 
-Order: generalise first (cheap now, expensive later), then the teaching core (G1–G3), then the LLM and UI on top of it, then grounding Ask, offline, and the adult views.
+Order: generalise first (cheap now, expensive later), then the ladder (G1), then **S1, a visible vertical slice, before G2** so real people can react early; then the rest of the teaching core (G2–G3), the LLM and UI on top of it, grounding Ask, offline, and the adult views.
 
 ### G0 — Region-neutral registries
 
@@ -269,6 +273,36 @@ Accept:
 
 **Status:** **Met 2026-10-05.** API pytest **379 passed (379 collected)** on Postgres in one piece (`-p no:randomly`), and `pytest-randomly` seeds 1 and 2 each 379 passed (up from 256 at G0); `ruff check` 0 errors, `ruff format --check` clean, `mypy` 0 errors (154 files); vitest 33 passed; `tsc` ok; region-literal check clean; locale generation no diff; content validates (12 skills, **406** items, 2 overlays) and loads; Alembic head `0015_g1_overlay_curriculum`, round-trip downgrade to `0008_retire` and upgrade to head tested with data. Playwright not run (no UI change). Process notes: the full suite was killed twice for low memory mid-milestone (see the G2 memory item); four reason-choice `explain` seed items still need teacher sign-off.
 
+### S1 — Vertical slice (runs before G2)
+
+A phone-sized path through the seed chapter that people can open and judge: login → subject → chapter map → chapter page → lesson → practice → done. Preview tools (scenarios, `/dev`, screenshots) are in `docs/UI_PREVIEW.md`.
+
+**S1a — playable lesson**
+
+- [ ] Schemas in `packages/shared/schemas/` for lesson (beats), scene script (`write_text`, `draw_shape`, `draw_arrow`, `highlight`, `pause_and_ask`) and widget params/state/goal; validated in Python and TS
+- [ ] Scene player (SVG, 360 px): progressive drawing, pause/replay, captions always on, `pause_and_ask` with feedback, reduced motion respected, no external libraries
+- [ ] Widgets `balance_scale` and `function_graph` with goal predicates in Python and TS (shared fixtures); the server re-checks the final state and rejects a forged result
+- [ ] Lesson runner for one skill: predict → explore (widget) → explain scene → worked example → check item; lesson beats never write BKT/FSRS, the check item does exactly once
+- [ ] Content: a draft lesson for the linear-equation skill ported from the approved prototype (`docs/prototypes/balancing-equations-lesson.html`) plus lessons for 3 more skills (draft, English, authored text; every scene has `skill_id` and `source_ref`)
+- [ ] `/dev/lessons` lists every lesson and opens each without login (dev only)
+- [ ] Playwright: the full lesson with a 360 px screenshot of each beat
+
+Accept: lesson beats never write BKT/FSRS; the check item writes once; a forged widget result is rejected; schemas validate; screenshots show each beat.
+
+**S1b — student flow end to end**
+
+- [ ] `GET /students/{id}/chapters`: id, title (locale + fallback), live, status (`not_started`, `learning`, `can_do_it`, `solid`, `review_due`), `recommended: true` on exactly one chapter; non-live chapters return `coming_soon` and cannot be started (server-enforced); no hard locks between live chapters
+- [ ] `GET /students/{id}/chapters/{chapter_id}/skills`: skill path with per-skill status; visual unlock when the previous skill reaches "Can do it"
+- [ ] Chapter map UI (status chips, one recommended chapter, "Coming soon" cards) and chapter page with the skill path and a logged "Skip ahead" test-out (2 unhinted-correct hard-tier items incl. one apply/transfer → level 4, `evidence=test_out`; failure returns without penalty copy)
+- [ ] Starting a skill: new skill → lesson then practice; known skill → practice. Done screen: what was learned, skill statuses, next recommendation, remaining active minutes; no streaks or ranks
+- [ ] Warm-up first when reviews are due, with plain-words copy (today a warm-up looks like any other question)
+- [ ] **Fix:** "Resume" on Today opens `/session/<id>` for an idle-ended session and shows "Done for now / idle / Back to Today"; Resume must reopen the session. Also replace the raw `practice` and `idle` labels with locale-registry copy
+- [ ] Playwright: login → map → chapter → lesson → practice (wrong → hint → retry) → done at 360 px; scenarios `new_student` and `mid_chapter` in the spec
+
+Accept: a student completes the path on a phone; a coming-soon chapter cannot be started via the API; exactly one recommended chapter; status-derivation tests for each state; lesson beats never write BKT/FSRS.
+
+**Done so far (P3, setup):** `python -m app.dev seed_scenarios` (5 scenarios by replaying events through the real engine), `/dev` page with one-click log in as, dev-only `GET/POST /dev/*`, phone preview docs, `npm run test:ui` with 360 px screenshots.
+
 ### G2 — Diagnosis engine + policy v2
 
 - [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 the full suite was killed twice for low memory.*
@@ -295,14 +329,14 @@ Accept:
 
 ### G3 — Lessons, scenes and widgets (backend + content)
 
-- [ ] Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal
-- [ ] Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph`
+- [ ] Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal *(covered by S1a)*
+- [ ] Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph` *(covered by S1a)*
 - [ ] `lessons`, `scenes`, `widgets` tables; loader + validator (schema, source refs, approved sources, size budget)
 - [ ] R38 lesson path (problem-first if prerequisites ≥ level 4, else worked-example-first); faded examples
 - [ ] Events `predict_response`, `interactive_result`, `scene_answer`; actions `lesson_*`, `worked_example`, `faded_example`
-- [ ] Server re-checks widget predicates; client result ignored
+- [ ] Server re-checks widget predicates; client result ignored *(covered by S1a)*
 - [ ] Every item/scene/lesson carries `section_id` / `source_ref` (Layer A grounding)
-- [ ] Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets)
+- [ ] Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets) *(S1a covers 4 skills; the rest stays here)*
 - [ ] Live-chapter threshold requires an approved lesson per skill
 
 Accept:
@@ -336,14 +370,14 @@ Accept:
 - [ ] Context picker: curriculum → grade → subject → (book/medium); curated optional school list with "Other"
 - [ ] Guest start (`POST /guest/start`): random id, no PII; retention per profile
 - [ ] First run: "Quick warm-up to find where to start" / "Start from the beginning"; no "test" wording, no marks; nothing automatic; warm-up re-offered after 2nd session with respected "not now"
-- [ ] Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks
-- [ ] Chapter page: skill path with statuses, visual unlocks, Skip ahead
-- [ ] Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done
-- [ ] Scene player: SVG/JS, captions, optional audio, offline-cacheable
+- [ ] Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks *(covered by S1b)*
+- [ ] Chapter page: skill path with statuses, visual unlocks, Skip ahead *(covered by S1b)*
+- [ ] Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done *(lesson beats and warm-up copy: S1a/S1b; the rest stays here)*
+- [ ] Scene player: SVG/JS, captions, optional audio, offline-cacheable *(covered by S1a; offline caching stays here)*
 - [ ] Source chips on explanations
-- [ ] Family/school login (family code + PIN) kept from M7a
-- [ ] Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data
-- [ ] UI strings via locale registry with fallback
+- [ ] Family/school login (family code + PIN) kept from M7a *(covered by S1b)*
+- [ ] Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data *(360 px layout covered by S1; the rest stays here)*
+- [ ] UI strings via locale registry with fallback *(covered by S1b for the slice)*
 - [ ] *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
 - [ ] *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
 - [ ] *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
@@ -477,6 +511,8 @@ Owners: curriculum lead + field coordinator. Engineering only lands outputs as v
 - **B2 Content review:** teachers approve skills, items (with roles), misconceptions, lessons and scenes; native reviewers fill medium-locale strings.
 - **B3 Field loop:** 30–50 families or one school class run a manual version of the pedagogy; log real wrong answers and stuck points; replace placeholder misconceptions, slip patterns and stuck-point copy.
 - **B4 Legal:** jurisdiction profile review; consent copy; retention.
+- [ ] **B5 S1 pilot check:** run the S1 vertical slice with the curriculum lead, one teacher and 2–3 students on a phone; log feedback as PLAN.md items before G2.
+- [ ] **B2 now:** teacher approval of `ITEM.LIN1.R.0001`, `0004`, `0007` and `0031` (reason-choice explain items the validator cannot machine-verify).
 
 Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconceptions use real data.
 
