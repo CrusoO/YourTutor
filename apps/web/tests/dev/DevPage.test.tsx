@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DevPage from "@/app/dev/page";
 import DevLessonsPage from "@/app/dev/lessons/page";
-import { listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
+import { listDevLessons, listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
 
 const push = vi.fn();
 const notFound = vi.fn(() => {
@@ -17,6 +17,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/lib/api", () => ({
   listDevScenarios: vi.fn(),
+  listDevLessons: vi.fn(),
   seedDevScenarios: vi.fn(),
   studentLogin: vi.fn(),
   today: vi.fn(),
@@ -101,9 +102,29 @@ describe("/dev", () => {
     expect(await screen.findByText(/DEV_TOOLS=true/)).toBeInTheDocument();
   });
 
-  it("lessons page is a placeholder until S1a", () => {
+  it("lessons page lists every lesson with a link to open it", async () => {
+    vi.mocked(listDevLessons).mockResolvedValue({
+      lessons: [
+        {
+          id: "LESSON.A",
+          skill_id: "SK.A",
+          title: "Lesson A",
+          source_ref: "ref A",
+          status: "draft",
+          beats: ["predict", "check"],
+        },
+      ],
+    });
     render(<DevLessonsPage />);
-    expect(screen.getByText(/no lessons yet/i)).toBeInTheDocument();
+    const link = await screen.findByRole("link", { name: "Lesson A" });
+    expect(link).toHaveAttribute("href", "/dev/lessons/LESSON.A");
+    expect(screen.getByText(/predict → check/)).toBeInTheDocument();
+  });
+
+  it("lessons page explains when the API is not reachable", async () => {
+    vi.mocked(listDevLessons).mockRejectedValue(new Error("404"));
+    render(<DevLessonsPage />);
+    expect(await screen.findByText(/DEV_TOOLS=true/)).toBeInTheDocument();
   });
 
   it("resets the scenarios and reloads the list", async () => {
