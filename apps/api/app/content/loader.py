@@ -51,10 +51,15 @@ def load_path(
 ) -> ValidationReport:
     from app.content.bundle_merge import load_content_bundle
 
+    if not root.is_dir():
+        raise LoadError(f"content root {root} does not exist or is not a folder")
     try:
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
         raise LoadError(str(exc)) from exc
+    if not bundle.skills or not bundle.items:
+        # An empty bundle would retire (or, in dev, hard-delete) everything already loaded.
+        raise LoadError(f"content root {root} has no skills or items; refusing to load")
     report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     if not report.ok or report.bundle is None:
