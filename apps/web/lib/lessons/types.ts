@@ -63,6 +63,9 @@ export type FunctionGraphParams = {
   x_min: number;
   x_max: number;
   step?: number;
+  label?: string | null;
+  x_label?: L10n | null;
+  target_label?: L10n | null;
 };
 type WidgetBase = { widget_id: string; prompt: L10n; success: L10n; hint?: L10n | null };
 export type BalanceScaleWidget = WidgetBase & { type: "balance_scale"; params: BalanceScaleParams };

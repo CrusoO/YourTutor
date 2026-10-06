@@ -1,0 +1,200 @@
+id: LESSON.TWO_STEP
+skill_id: MATH.ALG.LIN1.SOLVE_TWO_STEP
+title:
+  en: Balancing equations
+source_ref: NOTE.LIN1.TWO_STEP
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: How heavy is one box?
+  figure:
+    left_boxes: 2
+    left_weights: 3
+    right_boxes: 0
+    right_weights: 11
+    box_weight: 4
+  choices:
+  - value: '3'
+    text:
+      en: 3 kg
+  - value: '4'
+    text:
+      en: 4 kg
+  - value: '5'
+    text:
+      en: 5 kg
+  - value: '7'
+    text:
+      en: 7 kg
+  reveal:
+    en: Hold on to that guess. Next, you will see how to check it.
+- kind: explore
+  title:
+    en: Try it on the balance
+  intro:
+    en: The balance is level. Each blue weight is 1 kg. Both yellow boxes weigh the
+      same.
+  widget:
+    type: balance_scale
+    widget_id: W.TWO_STEP.BALANCE
+    prompt:
+      en: 'Tap weights to take them off. Keep it level. Goal: one box alone on the
+        left.'
+    success:
+      en: 'One box balances 4 weights, so one box weighs 4 kg. Same answer as the
+        whiteboard: x = 4.'
+    hint:
+      en: Take the same number off both sides, then split both sides in half.
+    params:
+      left_boxes: 2
+      left_weights: 3
+      right_boxes: 0
+      right_weights: 11
+      box_weight: 4
+- kind: explain_scene
+  title:
+    en: Watch it worked out
+  scene:
+    canvas:
+      width: 340
+      height: 290
+    steps:
+    - caption:
+        en: 'The balance is level. Left: 2 boxes and 3 one-kilo weights. Right: 11
+          weights. In maths we write it as 2x + 3 = 11.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 52
+        size: 36
+        text: 2x + 3 = 11
+      - kind: write_text
+        x: 170
+        y: 80
+        size: 15
+        text: x = weight of one box
+        color: muted
+    - caption:
+        en: Take 3 weights off both sides. Same amount from each side, so it stays
+          level.
+      actions:
+      - kind: write_text
+        x: 152
+        y: 112
+        size: 22
+        text: − 3
+        color: red
+      - kind: write_text
+        x: 244
+        y: 112
+        size: 22
+        text: − 3
+        color: red
+    - caption:
+        en: 'Yes. 2 boxes now balance 8 weights: 2x = 8.'
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: Your turn. After taking 3 off both sides, what is left?
+        options:
+        - text:
+            en: 2x = 8
+          correct: true
+        - text:
+            en: 2x = 14
+          correct: false
+          feedback:
+            en: We took 3 away, so 11 − 3 = 8, not 14.
+        - text:
+            en: x = 8
+          correct: false
+          feedback:
+            en: The 2 boxes are still on the left, so it is 2x, not x.
+      - kind: write_text
+        x: 170
+        y: 152
+        size: 32
+        text: 2x = 8
+    - caption:
+        en: Two boxes weigh 8. Split both sides into 2 equal parts. One box weighs
+          4.
+      actions:
+      - kind: write_text
+        x: 141
+        y: 186
+        size: 22
+        text: ÷ 2
+        color: blue
+      - kind: write_text
+        x: 206
+        y: 186
+        size: 22
+        text: ÷ 2
+        color: blue
+      - kind: highlight
+        x: 116
+        y: 202
+        w: 108
+        h: 44
+      - kind: write_text
+        x: 170
+        y: 236
+        size: 36
+        text: x = 4
+    - caption:
+        en: 'Always check. Put 4 back in: 2 × 4 + 3 = 11. It balances, so x = 4 is
+          right.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 274
+        size: 17
+        text: 'check: 2 × 4 + 3 = 11 ✓'
+        color: green
+    id: SCENE.TWO_STEP.EXPLAIN
+    skill_id: MATH.ALG.LIN1.SOLVE_TWO_STEP
+    source_ref: NOTE.LIN1.TWO_STEP
+    alt:
+      en: Whiteboard showing 2x + 3 = 11 solved step by step
+  final_caption:
+    en: 'That is the whole method: do the same to both sides until the box is alone.
+      Now try it yourself.'
+- kind: worked_example
+  title:
+    en: Another one, step by step
+  problem:
+    en: Solve 5x − 4 = 21.
+  steps:
+  - en: 'Add 4 to both sides to undo the − 4: 5x = 25.'
+  - en: 'Split both sides into 5 equal parts: x = 5.'
+  - en: 'Check: 5 × 5 − 4 = 21. It balances.'
+- kind: explore
+  title:
+    en: See it on a graph
+  widget:
+    type: function_graph
+    widget_id: W.TWO_STEP.GRAPH
+    prompt:
+      en: The line shows how heavy the left side is for any box weight x. Drag the
+        dot until the left side reaches 11.
+    success:
+      en: The line reaches 11 exactly at x = 4. The balance, the whiteboard and the
+        graph all give the same answer.
+    hint:
+      en: If the left side is lighter than 11, slide to the right.
+    params:
+      slope: 2
+      intercept: 3
+      target_y: 11
+      x_min: 0
+      x_max: 8
+      step: 0.1
+      label: y = 2x + 3
+      x_label:
+        en: box weight x
+      target_label:
+        en: right side = 11
+- kind: check
+  prompt:
+    en: Now solve one yourself.

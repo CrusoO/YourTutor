@@ -493,6 +493,40 @@
           "exclusiveMinimum": 0,
           "title": "Step",
           "type": "number"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "x_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "target_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [

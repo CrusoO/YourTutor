@@ -74,7 +74,8 @@ function widget(v: unknown): boolean {
     const p = v.params;
     return (
       isObj(p) && isNum(p.slope) && isNum(p.intercept) && isNum(p.target_y) && isNum(p.x_min) && isNum(p.x_max) &&
-      optional(p.step, (s) => isNum(s) && s > 0)
+      optional(p.step, (s) => isNum(s) && s > 0) && optional(p.label, isStr) &&
+      optional(p.x_label, l10n) && optional(p.target_label, l10n)
     );
   }
   return false;

@@ -121,6 +121,9 @@ class FunctionGraphParams(_Strict):
     x_min: float
     x_max: float
     step: float = Field(default=0.1, gt=0)
+    label: str | None = None  # drawn next to the line, e.g. "y = 2x + 3"
+    x_label: LocalizedText | None = None  # name of the horizontal axis
+    target_label: LocalizedText | None = None  # name of the dashed target line
 
 
 class _WidgetBase(_Strict):

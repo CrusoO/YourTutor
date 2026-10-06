@@ -50,6 +50,7 @@ def load_path(
     prune: bool = False,
 ) -> ValidationReport:
     from app.content.bundle_merge import load_content_bundle
+    from app.lessons.loader import lesson_errors  # lazy: lessons import app.content.schema
 
     if not root.is_dir():
         raise LoadError(f"content root {root} does not exist or is not a folder")
@@ -62,6 +63,7 @@ def load_path(
         raise LoadError(f"content root {root} has no skills or items; refusing to load")
     report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
+    report.errors.extend(lesson_errors(root, {skill.id for skill in bundle.skills}))
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
     engine = make_engine(database_url)

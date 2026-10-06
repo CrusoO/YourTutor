@@ -14,7 +14,11 @@ def config_dir() -> Path:
     return Path(override) if override else repo_root() / "config"
 
 
-def content_curricula_dir() -> Path:
-    """`CONTENT_DIR`/curricula (containers mount `/content`), else `<repo>/content/curricula`."""
+def content_root() -> Path:
+    """`CONTENT_DIR` (containers mount `/content`), else `<repo>/content`."""
     override = os.environ.get("CONTENT_DIR")
-    return (Path(override) if override else repo_root() / "content") / "curricula"
+    return Path(override) if override else repo_root() / "content"
+
+
+def content_curricula_dir() -> Path:
+    return content_root() / "curricula"

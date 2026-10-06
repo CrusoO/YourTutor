@@ -1,0 +1,158 @@
+id: LESSON.FRACTION
+skill_id: MATH.ALG.LIN1.FRACTION_COEFF
+title:
+  en: Equations with a fraction of x
+source_ref: NOTE.LIN1.FRACTION
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: A number divided by 3, plus 2, makes 9. What do you think the number is?
+  choices:
+  - value: '15'
+    text:
+      en: '15'
+  - value: '18'
+    text:
+      en: '18'
+  - value: '21'
+    text:
+      en: '21'
+  - value: '27'
+    text:
+      en: '27'
+  reveal:
+    en: Keep that guess. Now you will test it on a graph.
+- kind: explore
+  title:
+    en: Find it on a graph
+  widget:
+    type: function_graph
+    widget_id: W.FRACTION.GRAPH
+    prompt:
+      en: The line shows x divided by 3, plus 2. Drag the dot until it reaches 9.
+    success:
+      en: The line reaches 9 exactly at x = 21.
+    hint:
+      en: If the line is lower than 9, slide to the right.
+    params:
+      slope: 0.3333333333333333
+      intercept: 2
+      target_y: 9
+      x_min: 0
+      x_max: 30
+      step: 1
+      label: y = x/3 + 2
+      x_label:
+        en: the number x
+      target_label:
+        en: target = 9
+- kind: explain_scene
+  title:
+    en: Watch it worked out
+  scene:
+    canvas:
+      width: 340
+      height: 290
+    steps:
+    - caption:
+        en: 'x divided by 3, plus 2, equals 9. In maths: x/3 + 2 = 9.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 52
+        size: 34
+        text: x/3 + 2 = 9
+    - caption:
+        en: 'First take 2 off both sides: x/3 = 7.'
+      actions:
+      - kind: write_text
+        x: 152
+        y: 112
+        size: 22
+        text: − 2
+        color: red
+      - kind: write_text
+        x: 244
+        y: 112
+        size: 22
+        text: − 2
+        color: red
+      - kind: write_text
+        x: 170
+        y: 148
+        size: 32
+        text: x/3 = 7
+    - caption:
+        en: Multiplying by 3 undoes dividing by 3.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: To undo ÷ 3, what do we do to both sides?
+        options:
+        - text:
+            en: multiply by 3
+          correct: true
+        - text:
+            en: divide by 3
+          correct: false
+          feedback:
+            en: Dividing again would make x even smaller.
+        - text:
+            en: add 3
+          correct: false
+          feedback:
+            en: Adding does not undo dividing.
+      - kind: write_text
+        x: 152
+        y: 186
+        size: 22
+        text: × 3
+        color: blue
+      - kind: write_text
+        x: 244
+        y: 186
+        size: 22
+        text: × 3
+        color: blue
+    - caption:
+        en: So x = 21.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 236
+        size: 36
+        text: x = 21
+      - kind: highlight
+        x: 106
+        y: 202
+        w: 128
+        h: 44
+    - caption:
+        en: 'Check: 21 ÷ 3 + 2 = 7 + 2 = 9. It works.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 274
+        size: 17
+        text: 'check: 21 ÷ 3 + 2 = 9 ✓'
+        color: green
+    id: SCENE.FRACTION.EXPLAIN
+    skill_id: MATH.ALG.LIN1.FRACTION_COEFF
+    source_ref: NOTE.LIN1.FRACTION
+    alt:
+      en: Whiteboard showing x/3 + 2 = 9 solved step by step
+  final_caption:
+    en: Undo the plus first, then undo the divide by multiplying.
+- kind: worked_example
+  title:
+    en: Another one
+  problem:
+    en: Solve x/4 − 1 = 2.
+  steps:
+  - en: 'Add 1 to both sides: x/4 = 3.'
+  - en: 'Multiply both sides by 4: x = 12.'
+  - en: 'Check: 12 ÷ 4 − 1 = 2. It works.'
+- kind: check
+  prompt:
+    en: Now solve one yourself.
