@@ -30,7 +30,13 @@ async function waitForSessionScreen(page: Page) {
 async function logInAs(page: Page, title: string) {
   await page.goto("/dev");
   await page.getByRole("button", { name: `Log in as ${title}` }).click();
-  await expect(page).toHaveURL(/\/today/);
+  await expect(page).toHaveURL(/\/subjects/);
+  await expect(page.getByRole("heading", { name: /what do you want to learn/i })).toBeVisible();
+}
+
+/** Today (minutes left, Resume, raw session types) still exists; S1b's flow starts at Subjects. */
+async function openToday(page: Page) {
+  await page.goto("/today");
   await expect(page.getByRole("heading", { name: /today/i })).toBeVisible();
 }
 
@@ -74,6 +80,8 @@ test.describe("preview scenarios at 360 px", () => {
   test("new_student: first run starts with the prediction", async ({ page }) => {
     await logInAs(page, "New student");
     await expect(page.getByText("Nima")).toBeVisible();
+    await openToday(page);
+    await expect(page.getByText("Nima")).toBeVisible();
     await expect(page.getByRole("button", { name: /resume/i })).toHaveCount(0);
     await expectPhoneLayout(page);
     await shot(page, "new_student", "01-today");
@@ -110,6 +118,8 @@ test.describe("preview scenarios at 360 px", () => {
   test("review_due: the next session opens with a warm-up", async ({ page }) => {
     await logInAs(page, "Review due");
     await expect(page.getByText("Rhea")).toBeVisible();
+    await openToday(page);
+    await expect(page.getByText("Rhea")).toBeVisible();
     await expect(page.getByRole("button", { name: /resume/i })).toHaveCount(0);
     await expectPhoneLayout(page);
     await shot(page, "review_due", "01-today");
@@ -122,6 +132,8 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("all_skills_level_4: starts extension practice, not a lesson", async ({ page }) => {
     await logInAs(page, "All skills level 4");
+    await expect(page.getByText("Alma")).toBeVisible();
+    await openToday(page);
     await expect(page.getByText("Alma")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "all_skills_level_4", "01-today");

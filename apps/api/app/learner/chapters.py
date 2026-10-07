@@ -186,6 +186,15 @@ def student_chapters(session: Session, student: StudentRow, now: datetime) -> di
     }
 
 
+def chapter_for_overlay(
+    session: Session, student: StudentRow, overlay_id: str | None
+) -> ChapterRow | None:
+    for chapter in _chapter_rows(session, student):
+        if chapter.overlay_id == overlay_id:
+            return chapter
+    return None
+
+
 def find_chapter(session: Session, student: StudentRow, chapter_id: str) -> ChapterRow | None:
     row = session.get(ChapterRow, chapter_id)
     if row is None or row.book_id != student.book_id:
@@ -233,6 +242,7 @@ __all__ = [
     "COMING_SOON",
     "NOT_STARTED",
     "ChapterSummary",
+    "chapter_for_overlay",
     "chapter_is_live",
     "find_chapter",
     "recommend_chapter",

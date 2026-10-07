@@ -50,6 +50,24 @@ def test_dev_scenarios_list_credentials_and_seeded_flag(
     assert seeded["new_student"] is True and seeded["mid_chapter"] is False
 
 
+def test_dev_item_answer_is_404_without_dev_tools(client: TestClient) -> None:
+    assert client.get("/dev/items/ANY/answer").status_code == 404
+
+
+def test_dev_item_answer_returns_the_authored_key(client: TestClient, db: Session) -> None:
+    from app.db.models import ItemRow
+    from tests.player.test_skip_ahead_api import _item
+
+    settings.dev_tools = True
+    settings.allow_draft_content = True
+    db.add(_item("DEV.ANS.1", "6", role="procedure"))
+    db.commit()
+    body = client.get("/dev/items/DEV.ANS.1/answer").json()
+    assert body == {"id": "DEV.ANS.1", "answer": "6", "accept": ["6", "x=6"]}
+    assert client.get("/dev/items/NOPE/answer").status_code == 404
+    assert db.get(ItemRow, "DEV.ANS.1") is not None
+
+
 def test_allowed_origins_include_localhost_and_configured_lan_origins() -> None:
     base = allowed_origins("")
     assert "http://localhost:3000" in base and "http://127.0.0.1:3001" in base

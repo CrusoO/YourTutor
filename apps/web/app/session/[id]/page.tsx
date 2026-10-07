@@ -7,6 +7,8 @@ import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
+import DoneScreen from "@/components/flow/DoneScreen";
+import { reasonCopy, type DoneSummary } from "@/lib/flow";
 
 export default function SessionPage() {
   const params = useParams<{ id: string }>();
@@ -78,16 +80,44 @@ export default function SessionPage() {
 
   if (!action) return <p>…</p>;
 
+  if (action.type === "end_session" && action.session_type !== "checkpoint") {
+    const summary = (action.extras as { summary?: DoneSummary } | undefined)?.summary;
+    return (
+      <DoneScreen
+        copy={copy}
+        reason={action.ended_reason || action.reason}
+        summary={summary}
+        onKeepGoing={(chapterId) => router.push(`/chapters/${encodeURIComponent(chapterId)}`)}
+        onChapters={() => router.push("/chapters")}
+      />
+    );
+  }
+
   if (action.type === "end_session" || action.type === "checkpoint_score") {
     return (
       <main className="stack">
         <h1>{copy.done}</h1>
-        <p>{action.ended_reason || action.reason || action.type}</p>
+        <p>{reasonCopy(copy, action.ended_reason || action.reason)}</p>
         {action.extras && action.type === "checkpoint_score" ? (
           <p>Score: {String((action.extras as { score?: number }).score ?? "")}</p>
         ) : null}
         <button type="button" onClick={() => router.push("/today")}>
           {copy.backToday}
+        </button>
+      </main>
+    );
+  }
+
+  if (action.type === "test_out_result") {
+    const passed = Boolean((action.extras as { passed?: boolean } | undefined)?.passed);
+    return (
+      <main className="stack" data-testid="test-out-result" data-passed={passed}>
+        <h1>{copy.skipAheadTitle}</h1>
+        <p className={passed ? "banner good" : "banner"}>
+          {passed ? copy.skipAheadPassed : copy.skipAheadMissed}
+        </p>
+        <button type="button" onClick={() => router.push("/chapters")}>
+          {copy.doneChapters}
         </button>
       </main>
     );
@@ -126,10 +156,24 @@ export default function SessionPage() {
 
   const item = action.item;
   const mcq = item?.type === "mcq";
+  const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
 
   return (
     <main className="stack">
-      <p className="muted">{action.session_type}</p>
+      {action.type === "warmup_item" ? (
+        <header className="stack">
+          <h1>{copy.warmupTitle}</h1>
+          <p className="muted">{copy.warmupHint}</p>
+        </header>
+      ) : null}
+      {testOut ? (
+        <header className="stack">
+          <h1>{copy.skipAheadTitle}</h1>
+          <p className="muted">
+            {copy.skipAheadCount} {testOut.index} {copy.skipAheadOf} {testOut.of}
+          </p>
+        </header>
+      ) : null}
       {nudge ? (
         <button
           type="button"

@@ -11,11 +11,11 @@ export default function HomePage() {
       // Login phase bypassed for local learning-flow testing (NEXT_PUBLIC_SKIP_LOGIN=true).
       if (skipLogin()) {
         await ensureDevStudent();
-        router.replace("/today");
+        router.replace("/subjects");
         return;
       }
       const token = localStorage.getItem("yt_token");
-      router.replace(token ? "/today" : "/login");
+      router.replace(token ? "/subjects" : "/login");
     })().catch(() => router.replace("/login"));
   }, [router]);
   return <p>YourTutor</p>;

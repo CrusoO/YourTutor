@@ -138,9 +138,57 @@ describe("SessionPage action rendering", () => {
     expect(postEvent).toHaveBeenCalledWith("sess-test", "continue", {}, actionFixtures.nudge.item_id);
   });
 
-  it("end_session shows done", async () => {
+  it("end_session shows the Done screen in plain words (S1b: no raw reason code)", async () => {
     await renderAction("end_session");
-    expect(screen.getByRole("heading", { name: /done for now/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /nice work/i })).toBeInTheDocument();
+    expect(screen.getByText(/good amount for now/i)).toBeInTheDocument();
+    expect(screen.queryByText("soft_cap")).not.toBeInTheDocument();
+  });
+
+  it("an idle end is explained without the word idle", async () => {
+    mockSession({ ...actionFixtures.end_session, ended_reason: "idle", reason: "idle" });
+    render(<SessionPage />);
+    expect(await screen.findByText(/you were away for a while/i)).toBeInTheDocument();
+    expect(screen.queryByText(/^idle$/)).not.toBeInTheDocument();
+  });
+
+  it("no screen shows the raw session type", async () => {
+    await renderAction("show_item");
+    expect(screen.queryByText(/^practice$/)).not.toBeInTheDocument();
+  });
+
+  it("warm-up items say what they are", async () => {
+    await renderAction("warmup_item");
+    expect(screen.getByRole("heading", { name: /quick warm-up/i })).toBeInTheDocument();
+    expect(screen.getByText(/questions from before/i)).toBeInTheDocument();
+  });
+
+  it("skip ahead shows its progress, never a hint button", async () => {
+    mockSession({
+      ...actionFixtures.show_item,
+      session_type: "test_out",
+      extras: { assessment: true, test_out: { index: 2, of: 2 } },
+    });
+    render(<SessionPage />);
+    expect(await screen.findByRole("heading", { name: /show what you know/i })).toBeInTheDocument();
+    expect(screen.getByText(/question 2 of 2/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^hint$/i })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    [true, /already know this/i],
+    [false, /let's practise it together/i],
+  ])("skip ahead result (passed=%s) never uses penalty wording", async (passed, words) => {
+    mockSession({
+      ...actionFixtures.show_item,
+      type: "test_out_result",
+      item: null,
+      extras: { passed, level: passed ? 4 : 0 },
+    });
+    render(<SessionPage />);
+    const result = await screen.findByTestId("test-out-result");
+    expect(result).toHaveTextContent(words);
+    expect(result.textContent).not.toMatch(/fail|wrong|lost|penalt|score/i);
   });
 
   it("checkpoint_score shows score", async () => {

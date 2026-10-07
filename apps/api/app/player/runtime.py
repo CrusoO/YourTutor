@@ -412,11 +412,14 @@ def _build_state(
     return state, load_learner(session, student.id)
 
 
+# plan keys owned by the session, not by the policy state; they survive every rewrite
+_PLAN_KEEP = ("overlay_id", "levels_at_start")
+
+
 def _persist_state(row: SessionRow, state: SessionState) -> None:
-    overlay_id = (row.plan or {}).get("overlay_id")
+    kept = {k: (row.plan or {})[k] for k in _PLAN_KEEP if (row.plan or {}).get(k) is not None}
     row.plan = dump_state(state)
-    if overlay_id:
-        row.plan["overlay_id"] = overlay_id
+    row.plan.update(kept)
     row.active_ms = state.active_ms
     row.llm_called = state.llm_called
     row.last_active_at = now_utc()
@@ -520,6 +523,28 @@ def enrich_action(
     return payload
 
 
+def reopen_idle(row: SessionRow) -> bool:
+    """Reopen a session that ended as idle (resumable). Returns True when it was reopened.
+
+    Used by Resume on Today and by starting a session of the same type: both land in the same
+    place, so a student never sees "Done for now / idle" for a session they can continue.
+    """
+    if not row.resumable:
+        return False
+    row.ended_at = None
+    row.ended_reason = None
+    row.resumable = False
+    row.last_active_at = now_utc()
+    plan = dict(row.plan or {})
+    last = plan.get("last_action") or {}
+    if last.get("type") == "end_session":
+        plan["last_action"] = None
+        plan["ended_reason"] = None
+        plan["phase"] = "practice" if plan.get("current_item_id") else "start"
+        row.plan = plan
+    return True
+
+
 def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, Any]:
     student = session.get(StudentRow, row.student_id)
     assert student is not None
@@ -528,13 +553,10 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         from app.player import test_out
 
         return test_out.view(session, student, row)
+    reopened = reopen_idle(row)
     state, learner = _build_state(session, row, student)
     if not (row.plan or {}).get("last_action"):
-        event = Event(type="resume") if row.resumable or row.ended_at else None
-        if row.resumable:
-            row.ended_at = None
-            row.ended_reason = None
-            row.resumable = False
+        event = Event(type="resume") if reopened or row.ended_at else None
         action = policy(learner, state, event)
         persist_learner(session, student.id, learner)
         _persist_state(row, state)
@@ -542,6 +564,7 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         action = state.last_action or Action(type="show_item", item_id=state.current_item_id)
     locale = student.home_language or "en"
     enriched = enrich_action(session, state, action, locale)
+    _attach_summary(session, student, row, enriched)
     return {
         "id": str(row.id),
         "type": row.type,
@@ -637,10 +660,12 @@ def apply_player_event(
         )
     )
     locale = student.home_language or "en"
+    enriched = enrich_action(session, state, action, locale)
+    _attach_summary(session, student, row, enriched)
     return {
         "session_id": str(row.id),
         "duplicate": False,
-        "action": enrich_action(session, state, action, locale),
+        "action": enriched,
         "progress": {
             "items_completed": state.items_completed,
             "active_ms": row.active_ms,
@@ -649,6 +674,14 @@ def apply_player_event(
         },
         "llm_called": row.llm_called,
     }
+
+
+def _attach_summary(
+    session: Session, student: StudentRow, row: SessionRow, payload: dict[str, Any]
+) -> None:
+    from app.player.done import attach_summary
+
+    attach_summary(session, student, row, payload)
 
 
 def _apply_lesson_event(
@@ -697,15 +730,14 @@ def _apply_lesson_event(
     }
 
 
-def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
+def _student_tz(session: Session, student: StudentRow) -> ZoneInfo:
     from app.db.models import CurriculumRow
-    from app.registries.quiet_hours import in_quiet_hours
-    from app.registries.startup import deployment_jurisdiction_profile
 
     curriculum = session.get(CurriculumRow, student.curriculum_id)
-    default_tz = curriculum.default_timezone if curriculum else "UTC"
-    tz = ZoneInfo(student.timezone or default_tz)
-    profile = deployment_jurisdiction_profile()
+    return ZoneInfo(student.timezone or (curriculum.default_timezone if curriculum else "UTC"))
+
+
+def _used_active_ms(session: Session, student: StudentRow, tz: ZoneInfo) -> int:
     start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
@@ -713,7 +745,21 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
             SessionRow.student_id == student.id, SessionRow.started_at >= start_utc
         )
     ).all()
-    used = sum(row.active_ms for row in rows)
+    return sum(row.active_ms for row in rows)
+
+
+def remaining_minutes(session: Session, student: StudentRow) -> int:
+    used = _used_active_ms(session, student, _student_tz(session, student))
+    return max(0, int((GOAL_MS - used) / 60000))
+
+
+def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
+    from app.registries.quiet_hours import in_quiet_hours
+    from app.registries.startup import deployment_jurisdiction_profile
+
+    tz = _student_tz(session, student)
+    profile = deployment_jurisdiction_profile()
+    used = _used_active_ms(session, student, tz)
     remaining = max(0, int((GOAL_MS - used) / 60000))
     open_row = session.scalar(
         select(SessionRow).where(

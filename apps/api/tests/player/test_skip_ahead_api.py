@@ -139,6 +139,7 @@ def test_two_correct_answers_move_the_skill_to_level_4(
     row = _mastery(db, world_with_items)
     assert row is not None
     assert row.ladder_level == 4
+    assert row.p_known >= 0.95  # level 4 implies mastery, so the policy stops treating it as weak
     assert row.flags["evidence"] == "test_out"
     assert len(row.ladder_evidence["4"]) == 1
     assert _events(db, skip.view["id"], "test_out_passed") == 1
@@ -176,6 +177,7 @@ def test_answers_never_touch_bkt_or_the_review_schedule(
     row = _mastery(db, world_with_items)
     assert row is not None
     assert row.attempts == 0 and row.unhinted_correct == 0 and row.hinted_correct == 0
+    assert row.p_known >= 0.95  # set by the pass itself, not by the answers
 
 
 def test_hints_and_solutions_are_refused(client: TestClient, world_with_items: World) -> None:

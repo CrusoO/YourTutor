@@ -520,6 +520,8 @@ def start_session(
     session_type: str,
     chapter_id: str | None = None,
 ) -> SessionRow:
+    from app.player.done import levels_snapshot
+
     student = student_or_404(session, student_id)
     require(can_start_session(actor, student))
     overlay_id: str | None = None
@@ -553,17 +555,9 @@ def start_session(
         )
     )
     if idle:
-        idle.ended_at = None
-        idle.ended_reason = None
-        idle.resumable = False
-        idle.last_active_at = now_utc()
-        plan = dict(idle.plan or {})
-        last = plan.get("last_action") or {}
-        if last.get("type") == "end_session":
-            plan["last_action"] = None
-            plan["ended_reason"] = None
-            plan["phase"] = "practice" if plan.get("current_item_id") else "start"
-            idle.plan = plan
+        from app.player.runtime import reopen_idle
+
+        reopen_idle(idle)
         return idle
     row = SessionRow(
         id=uuid.uuid4(),
@@ -573,6 +567,7 @@ def start_session(
         last_active_at=now_utc(),
         plan={
             "context_key": student.context_key or {},
+            "levels_at_start": levels_snapshot(session, student_id),
             **({"overlay_id": overlay_id} if overlay_id else {}),
         },
     )

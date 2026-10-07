@@ -48,7 +48,7 @@ export default function DevPage() {
       await studentLogin(scenario.family_code, scenario.pin);
       const me = await today();
       setStudentId(me.student_id);
-      router.push("/today");
+      router.push("/subjects");
     } catch {
       setError(`Could not log in as ${scenario.title}. Seed the scenarios first.`);
     }

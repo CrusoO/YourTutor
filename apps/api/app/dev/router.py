@@ -93,6 +93,18 @@ def verify_widget(body: WidgetVerifyIn) -> dict[str, Any]:
     return {"ok": ok, "code": code}
 
 
+@router.get("/items/{item_id}/answer")
+def item_answer(item_id: str, db: DbSession) -> dict[str, Any]:
+    """The authored answer, so the UI tests can type a correct response. Dev only."""
+    from app.db.models import ItemRow
+
+    row = db.get(ItemRow, item_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="item not found")
+    answer = row.answer or {}
+    return {"id": row.id, "answer": answer.get("sympy"), "accept": list(answer.get("accept") or [])}
+
+
 @router.get("/scenarios")
 def list_scenarios(db: DbSession) -> dict[str, Any]:
     codes = set(

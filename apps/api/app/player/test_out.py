@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from app.auth.security import now_utc
 from app.config import settings
 from app.db.models import EventRow, ItemRow, SessionRow, StudentRow
-from app.learner.ladder import KIND_TEST_OUT, LadderEvent, apply_ladder_event
+from app.learner.ladder import KIND_TEST_OUT, MASTERY_P, LadderEvent, apply_ladder_event
 from app.learner.types import Mastery
 from app.orchestrator.test_out import TEST_OUT_ITEMS, passed, select_items
 from app.orchestrator.types import CatalogItem
@@ -172,6 +172,9 @@ def _earn_level_4(session: Session, row: SessionRow, student: StudentRow, skill_
         params, _ = _bkt_and_prereqs(session, (skill_id,))
         start: BktParams = params[skill_id]
         learner.mastery[skill_id] = Mastery(skill_id=skill_id, p_known=start.p_init)
+    # Level 4 means p_known >= MASTERY_P; without this the policy would still see the skill as a
+    # weak prerequisite and send the student back to it. No attempt counts change.
+    learner.mastery[skill_id].p_known = max(learner.mastery[skill_id].p_known, MASTERY_P)
     apply_ladder_event(
         learner.ladders,
         LadderEvent(event_id=str(evidence_id), skill_id=skill_id, kind=KIND_TEST_OUT, at=now_utc()),
