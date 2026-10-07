@@ -531,6 +531,7 @@ Owners: curriculum lead + field coordinator. Engineering only lands outputs as v
 - **B3 Field loop:** 30–50 families or one school class run a manual version of the pedagogy; log real wrong answers and stuck points; replace placeholder misconceptions, slip patterns and stuck-point copy.
 - **B4 Legal:** jurisdiction profile review; consent copy; retention.
 - [ ] **B5 S1 pilot check:** run the S1 vertical slice with the curriculum lead, one teacher and 2–3 students on a phone; log feedback as PLAN.md items before G2.
+  - *2026-10-08: P6 started with this check still pending (gate waived by the product owner). Log the feedback as PLAN items when it happens; later prompts may need to adapt.*
 - [ ] **B2 now:** teacher approval of `ITEM.LIN1.R.0001`, `0004`, `0007` and `0031` (reason-choice explain items the validator cannot machine-verify).
 
 Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconceptions use real data.

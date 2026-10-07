@@ -553,6 +553,7 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         from app.player import test_out
 
         return test_out.view(session, student, row)
+    expire_stale_sessions(session, student)
     reopened = reopen_idle(row)
     state, learner = _build_state(session, row, student)
     if not (row.plan or {}).get("last_action"):
@@ -730,6 +731,38 @@ def _apply_lesson_event(
     }
 
 
+def expire_stale_sessions(session: Session, student: StudentRow) -> None:
+    """Close sessions that crossed local midnight (ARCHITECTURE: resume only within the same day).
+
+    Open or idle-resumable sessions whose last activity was on an earlier local day are ended with
+    `day_rollover` and are no longer resumable. Progress is unaffected: it lives in the student
+    model, not in the session.
+    """
+    from app.registries.timezone import same_local_day
+
+    now = now_utc()
+    zone = _student_tz(session, student).key
+    rows = session.scalars(
+        select(SessionRow).where(
+            SessionRow.student_id == student.id,
+            (SessionRow.ended_at.is_(None)) | (SessionRow.resumable.is_(True)),
+        )
+    ).all()
+    for row in rows:
+        if row.type == "test_out" or same_local_day(as_utc(row.last_active_at), now, zone):
+            continue
+        row.resumable = False
+        if row.ended_at is None:
+            row.ended_at = now
+        row.ended_reason = "day_rollover"
+        plan = dict(row.plan or {})
+        plan["last_action"] = _dump_action(
+            Action(type="end_session", ended_reason="day_rollover", resumable=False)
+        )
+        row.plan = plan
+    session.flush()  # later queries in this request must see the expiry
+
+
 def _student_tz(session: Session, student: StudentRow) -> ZoneInfo:
     from app.db.models import CurriculumRow
 
@@ -738,7 +771,7 @@ def _student_tz(session: Session, student: StudentRow) -> ZoneInfo:
 
 
 def _used_active_ms(session: Session, student: StudentRow, tz: ZoneInfo) -> int:
-    start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
+    start_local = datetime.combine(now_utc().astimezone(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
         select(SessionRow).where(
@@ -757,6 +790,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.registries.quiet_hours import in_quiet_hours
     from app.registries.startup import deployment_jurisdiction_profile
 
+    expire_stale_sessions(session, student)
     tz = _student_tz(session, student)
     profile = deployment_jurisdiction_profile()
     used = _used_active_ms(session, student, tz)
