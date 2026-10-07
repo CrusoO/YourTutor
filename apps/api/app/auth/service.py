@@ -446,11 +446,47 @@ def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
         session.delete(user)
 
 
+def student_chapters(session: Session, actor: Actor, student_id: uuid.UUID) -> dict[str, Any]:
+    from app.learner.chapters import student_chapters as build
+
+    student = student_or_404(session, student_id)
+    require(can_see_progress(session, actor, student))
+    return build(session, student, now_utc())
+
+
+def student_chapter_skills(
+    session: Session, actor: Actor, student_id: uuid.UUID, chapter_id: str
+) -> dict[str, Any]:
+    from app.learner.chapters import find_chapter
+    from app.learner.chapters import student_chapter_skills as build
+
+    student = student_or_404(session, student_id)
+    require(can_see_progress(session, actor, student))
+    chapter = find_chapter(session, student, chapter_id)
+    if chapter is None:
+        raise HTTPException(status_code=404, detail="chapter not found")
+    return build(session, student, chapter, now_utc())
+
+
 def start_session(
-    session: Session, actor: Actor, student_id: uuid.UUID, session_type: str
+    session: Session,
+    actor: Actor,
+    student_id: uuid.UUID,
+    session_type: str,
+    chapter_id: str | None = None,
 ) -> SessionRow:
     student = student_or_404(session, student_id)
     require(can_start_session(actor, student))
+    overlay_id: str | None = None
+    if chapter_id is not None:
+        from app.learner.chapters import chapter_is_live, find_chapter
+
+        chapter = find_chapter(session, student, chapter_id)
+        if chapter is None:
+            raise HTTPException(status_code=404, detail="chapter not found")
+        if not chapter_is_live(session, chapter):
+            raise HTTPException(status_code=409, detail="chapter_coming_soon")
+        overlay_id = chapter.overlay_id
     if not has_scope(session, student_id, "tutoring"):
         raise HTTPException(status_code=403, detail="tutoring consent required")
     if session_type not in {"practice", "diagnostic", "checkpoint"}:
@@ -490,7 +526,10 @@ def start_session(
         started_at=now_utc(),
         type=session_type,
         last_active_at=now_utc(),
-        plan={"context_key": student.context_key or {}},
+        plan={
+            "context_key": student.context_key or {},
+            **({"overlay_id": overlay_id} if overlay_id else {}),
+        },
     )
     session.add(row)
     session.flush()

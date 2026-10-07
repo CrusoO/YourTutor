@@ -44,13 +44,15 @@ def seed_g0_registry(session: Session) -> None:
     session.flush()
     for spec in load_all_curricula().values():
         for book in spec.books:
-            for chapter in book.chapters:
+            for position, chapter in enumerate(book.chapters, start=1):
                 session.merge(
                     ChapterRow(
                         id=chapter.id,
                         book_id=book.id,
                         overlay_id=chapter.overlay_id,
                         chapter_key=chapter.chapter_key,
+                        titles=dict(chapter.titles),
+                        position=position,
                     )
                 )
     session.flush()

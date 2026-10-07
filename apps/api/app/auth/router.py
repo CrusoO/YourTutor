@@ -49,6 +49,7 @@ class PinIn(BaseModel):
 class SessionIn(BaseModel):
     student_id: uuid.UUID
     type: str
+    chapter_id: str | None = None
 
 
 class EventIn(BaseModel):
@@ -185,6 +186,18 @@ def today(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.student_today(db, actor)
 
 
+@router.get("/students/{student_id}/chapters")
+def student_chapters(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.student_chapters(db, actor, student_id)
+
+
+@router.get("/students/{student_id}/chapters/{chapter_id}/skills")
+def student_chapter_skills(
+    student_id: uuid.UUID, chapter_id: str, db: DbSession, actor: ActorDep
+) -> dict[str, Any]:
+    return service.student_chapter_skills(db, actor, student_id, chapter_id)
+
+
 @router.get("/students/{student_id}/progress")
 def progress(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.student_progress(db, actor, student_id)
@@ -224,7 +237,7 @@ def delete_parent(parent_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[
 def start_session(body: SessionIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     from app.player.runtime import session_view
 
-    row = service.start_session(db, actor, body.student_id, body.type)
+    row = service.start_session(db, actor, body.student_id, body.type, body.chapter_id)
     view = session_view(db, actor, row)
     return view
 

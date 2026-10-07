@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -68,6 +68,7 @@ class ChapterSpec:
     overlay_id: str
     chapter_key: str
     sections: tuple[SectionSpec, ...] = ()
+    titles: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -185,6 +186,7 @@ def _load_chapter(ch: dict[str, Any], path: Path) -> ChapterSpec:
         overlay_id=str(ch["overlay_id"]),
         chapter_key=str(ch["chapter_key"]),
         sections=tuple(sections),
+        titles={str(k): str(v) for k, v in (ch.get("titles") or {}).items()},
     )
 
 

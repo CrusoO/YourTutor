@@ -50,10 +50,16 @@ def _curriculum(keys: tuple[str, ...], overlay_id: str = "OV") -> dict[str, Curr
     return {"C": spec}
 
 
+COMING_SOON_CHAPTER = "bhutan_class9_quadratics"
+
+
 def test_seed_curricula_have_three_placeholder_sections_each() -> None:
     for spec in load_all_curricula().values():
         for book in spec.books:
             for chapter in book.chapters:
+                if chapter.id == COMING_SOON_CHAPTER:  # S1b placeholder: no content, no sections
+                    assert chapter.sections == ()
+                    continue
                 assert [s.key for s in chapter.sections] == ["s1", "s2", "s3"]
                 assert chapter.sections[0].id == f"{chapter.id}.s1"
                 assert chapter.sections[0].titles["en"] == "Section 1"

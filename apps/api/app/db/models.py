@@ -158,6 +158,8 @@ class ChapterRow(Base):
     book_id: Mapped[str] = mapped_column(ForeignKey("books.id"))
     overlay_id: Mapped[str] = mapped_column(String)
     chapter_key: Mapped[str] = mapped_column(String)
+    titles: Mapped[dict] = mapped_column(JSONType, default=dict)
+    position: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class CheckpointFormRow(Base):

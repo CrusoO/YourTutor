@@ -164,10 +164,14 @@ def persist_learner(session: Session, student_id: uuid.UUID, learner: LearnerSta
         )
 
 
-def _overlay_skills(session: Session, student: StudentRow) -> tuple[str, ...]:
+def _overlay_skills(
+    session: Session, student: StudentRow, plan: dict | None = None
+) -> tuple[str, ...]:
     chapter_id = student.current_chapter_id
     if student.context_key and isinstance(student.context_key, dict):
         chapter_id = student.context_key.get("chapter_id") or chapter_id
+    if plan and plan.get("overlay_id"):
+        chapter_id = str(plan["overlay_id"])
     if chapter_id:
         row = session.get(OverlayRow, chapter_id)
         if row:
@@ -380,7 +384,7 @@ def _build_state(
     session: Session, row: SessionRow, student: StudentRow
 ) -> tuple[SessionState, LearnerState]:
     scopes = active_scopes(session, student.id)
-    skills = _overlay_skills(session, student)
+    skills = _overlay_skills(session, student, row.plan)
     params, prereqs = _bkt_and_prereqs(session, skills)
     catalog = load_catalog(session, allow_draft=settings.allow_draft_content)
     state = load_state(
@@ -409,7 +413,10 @@ def _build_state(
 
 
 def _persist_state(row: SessionRow, state: SessionState) -> None:
+    overlay_id = (row.plan or {}).get("overlay_id")
     row.plan = dump_state(state)
+    if overlay_id:
+        row.plan["overlay_id"] = overlay_id
     row.active_ms = state.active_ms
     row.llm_called = state.llm_called
     row.last_active_at = now_utc()
