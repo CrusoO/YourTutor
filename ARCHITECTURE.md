@@ -637,6 +637,13 @@ JSON schema in `packages/shared/schemas/scene.json`:
 - Per-locale caption strings; optional per-locale audio track (recorded or reviewed TTS). Captions always on.
 - Size budget: ≤ 50 KB per minute excluding audio. Rendered by a small SVG/JS player, offline-cacheable.
 
+### 16.2a As built (S1a)
+
+- Lessons: `content/lessons/*.yaml`, models in `apps/api/app/lessons/schema.py`, generated JSON Schemas in `packages/shared/schemas/`, TS validator in `apps/web/lib/lessons/`. Implemented beats: `predict`, `explore`, `explain_scene`, `worked_example`, `check`. Scene actions: `write_text`, `draw_shape`, `draw_arrow`, `highlight`, `pause_and_ask`.
+- Runtime: the session's `predict` and `worked_example` actions carry the skill's lesson. `interactive_result` and `scene_answer` events are verified by `app/player/lesson_events.py`, stored with `payload._verdict`, and never reach BKT/FSRS or the transition table. The check beat hands over to the first practice item.
+- Widgets: `balance_scale`, `function_graph`; Python and TS predicates share fixtures in `packages/shared/fixtures/widgets/`.
+- Dev: `GET /dev/lessons`, `GET /dev/lessons/{id}`, `POST /dev/widgets/verify`; web `/dev/lessons` and `/dev/lessons/[id]` (no login).
+
 ### 16.3 Widget registry
 
 `packages/shared/widgets/<type>/` holds: param schema, state schema, goal predicate (TS + Python mirror), accessibility description template, contract fixtures.
