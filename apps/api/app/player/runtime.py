@@ -524,6 +524,10 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
     student = session.get(StudentRow, row.student_id)
     assert student is not None
     require(can_start_session(actor, student) or actor.is_admin)
+    if row.type == "test_out":
+        from app.player import test_out
+
+        return test_out.view(session, student, row)
     state, learner = _build_state(session, row, student)
     if not (row.plan or {}).get("last_action"):
         event = Event(type="resume") if row.resumable or row.ended_at else None
@@ -590,6 +594,13 @@ def apply_player_event(
         view["session_id"] = str(row.id)
         view["duplicate"] = True
         return view
+    if row.type == "test_out":
+        from app.player import test_out
+
+        catalog = load_catalog(session, allow_draft=settings.allow_draft_content)
+        return test_out.apply_event(
+            session, row, student, catalog, client_event_id, event_type, item_id, payload
+        )
     state, learner = _build_state(session, row, student)
     if event_type in LESSON_EVENTS:
         return _apply_lesson_event(
@@ -708,12 +719,14 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
         select(SessionRow).where(
             SessionRow.student_id == student.id,
             SessionRow.ended_at.is_(None),
+            SessionRow.type != "test_out",
         )
     )
     idle_row = session.scalar(
         select(SessionRow).where(
             SessionRow.student_id == student.id,
             SessionRow.resumable.is_(True),
+            SessionRow.type != "test_out",
         )
     )
     resume = open_row or idle_row

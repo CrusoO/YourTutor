@@ -198,6 +198,16 @@ def student_chapter_skills(
     return service.student_chapter_skills(db, actor, student_id, chapter_id)
 
 
+@router.post("/students/{student_id}/chapters/{chapter_id}/skills/{skill_id}/skip-ahead")
+def skip_ahead(
+    student_id: uuid.UUID, chapter_id: str, skill_id: str, db: DbSession, actor: ActorDep
+) -> dict[str, Any]:
+    from app.player.runtime import session_view
+
+    row = service.start_test_out(db, actor, student_id, chapter_id, skill_id)
+    return session_view(db, actor, row)
+
+
 @router.get("/students/{student_id}/progress")
 def progress(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.student_progress(db, actor, student_id)

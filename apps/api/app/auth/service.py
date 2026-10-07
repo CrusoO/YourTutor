@@ -54,6 +54,7 @@ from app.db.models import (
     ConsentRow,
     EventRow,
     OtpChallengeRow,
+    OverlayRow,
     RateEventRow,
     ReviewQueueRow,
     SessionRow,
@@ -466,6 +467,50 @@ def student_chapter_skills(
     if chapter is None:
         raise HTTPException(status_code=404, detail="chapter not found")
     return build(session, student, chapter, now_utc())
+
+
+def start_test_out(
+    session: Session, actor: Actor, student_id: uuid.UUID, chapter_id: str, skill_id: str
+) -> SessionRow:
+    from app.learner.chapters import chapter_is_live, find_chapter
+    from app.player import test_out
+    from app.player.runtime import load_catalog
+
+    student = student_or_404(session, student_id)
+    require(can_start_session(actor, student))
+    if not has_scope(session, student_id, "tutoring"):
+        raise HTTPException(status_code=403, detail="tutoring consent required")
+    chapter = find_chapter(session, student, chapter_id)
+    if chapter is None:
+        raise HTTPException(status_code=404, detail="chapter not found")
+    if not chapter_is_live(session, chapter):
+        raise HTTPException(status_code=409, detail="chapter_coming_soon")
+    overlay = session.get(OverlayRow, chapter.overlay_id)
+    if overlay is None or skill_id not in (overlay.skill_ids or []):
+        raise HTTPException(status_code=404, detail="skill not in chapter")
+    items = test_out.pick_items(load_catalog(session, allow_draft=True), skill_id)
+    if items is None:
+        raise HTTPException(status_code=409, detail="test_out_unavailable")
+    for old in session.scalars(
+        select(SessionRow).where(
+            SessionRow.student_id == student_id,
+            SessionRow.type == "test_out",
+            SessionRow.ended_at.is_(None),
+        )
+    ):
+        old.ended_at = now_utc()
+        old.ended_reason = "superseded"
+    row = SessionRow(
+        id=uuid.uuid4(),
+        student_id=student_id,
+        started_at=now_utc(),
+        type="test_out",
+        last_active_at=now_utc(),
+        plan=test_out.new_plan(skill_id, chapter.overlay_id, items),
+    )
+    session.add(row)
+    session.flush()
+    return row
 
 
 def start_session(
