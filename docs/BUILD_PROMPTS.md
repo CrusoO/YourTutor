@@ -46,7 +46,7 @@ Never run two prompts in one go; each ends with a human review.
 | P2 | G1 mastery ladder | g1-mastery-ladder | DONE (2026-10-05) |
 | P3 | Setup: merge G1, UI preview tools, plan reorder | ui-preview-setup | DONE (2026-10-06; pytest 409 passed (one piece, `-p no:randomly`; random seeds 1 and 2: 409 passed each), vitest 42, test:ui 6 specs / 11 screenshots) |
 | P4 | S1a playable lesson | s1a-lesson-player | DONE (2026-10-07; pytest 467 (one piece; seeds 1 and 2: 467 each), vitest 111, test:ui 8 specs / lesson screenshots per beat) |
-| P5 | S1b student flow end to end | s1b-student-flow | TODO |
+| P5 | S1b student flow end to end | s1b-student-flow | DONE (2026-10-07; pytest 534 (one piece; seeds 1 and 2: 534 and 534), vitest 137, test:ui 10 specs) |
 | P6 | G2a diagnosis + stuck picker | g2a-diagnosis | TODO |
 | P7 | G2b policy rules R33–R40 | g2b-policy | TODO |
 | P8 | G3 remainder: all lessons, lesson path, server checks | g3-lessons | TODO |
@@ -145,7 +145,7 @@ result rejected; schemas validate; screenshots show each beat.
 
 ---
 
-## P5 — S1b: student flow end to end  [TODO]
+## P5 — S1b: student flow end to end  [DONE 2026-10-07]
 
 Prerequisites: P4 DONE.
 
