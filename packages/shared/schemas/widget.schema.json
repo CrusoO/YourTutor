@@ -1,0 +1,257 @@
+{
+  "$defs": {
+    "BalanceScaleParams": {
+      "additionalProperties": false,
+      "properties": {
+        "left_boxes": {
+          "minimum": 0,
+          "title": "Left Boxes",
+          "type": "integer"
+        },
+        "left_weights": {
+          "minimum": 0,
+          "title": "Left Weights",
+          "type": "integer"
+        },
+        "right_boxes": {
+          "minimum": 0,
+          "title": "Right Boxes",
+          "type": "integer"
+        },
+        "right_weights": {
+          "minimum": 0,
+          "title": "Right Weights",
+          "type": "integer"
+        },
+        "box_weight": {
+          "minimum": 1,
+          "title": "Box Weight",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "left_boxes",
+        "left_weights",
+        "right_boxes",
+        "right_weights",
+        "box_weight"
+      ],
+      "title": "BalanceScaleParams",
+      "type": "object"
+    },
+    "BalanceScaleWidget": {
+      "additionalProperties": false,
+      "properties": {
+        "widget_id": {
+          "minLength": 1,
+          "title": "Widget Id",
+          "type": "string"
+        },
+        "prompt": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "success": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "hint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "type": {
+          "const": "balance_scale",
+          "title": "Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/BalanceScaleParams"
+        }
+      },
+      "required": [
+        "widget_id",
+        "prompt",
+        "success",
+        "type",
+        "params"
+      ],
+      "title": "BalanceScaleWidget",
+      "type": "object"
+    },
+    "FunctionGraphParams": {
+      "additionalProperties": false,
+      "properties": {
+        "slope": {
+          "title": "Slope",
+          "type": "number"
+        },
+        "intercept": {
+          "title": "Intercept",
+          "type": "number"
+        },
+        "target_y": {
+          "title": "Target Y",
+          "type": "number"
+        },
+        "x_min": {
+          "title": "X Min",
+          "type": "number"
+        },
+        "x_max": {
+          "title": "X Max",
+          "type": "number"
+        },
+        "step": {
+          "default": 0.1,
+          "exclusiveMinimum": 0,
+          "title": "Step",
+          "type": "number"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "x_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "target_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "slope",
+        "intercept",
+        "target_y",
+        "x_min",
+        "x_max"
+      ],
+      "title": "FunctionGraphParams",
+      "type": "object"
+    },
+    "FunctionGraphWidget": {
+      "additionalProperties": false,
+      "properties": {
+        "widget_id": {
+          "minLength": 1,
+          "title": "Widget Id",
+          "type": "string"
+        },
+        "prompt": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "success": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "hint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "type": {
+          "const": "function_graph",
+          "title": "Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/FunctionGraphParams"
+        }
+      },
+      "required": [
+        "widget_id",
+        "prompt",
+        "success",
+        "type",
+        "params"
+      ],
+      "title": "FunctionGraphWidget",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "properties": {
+        "en": {
+          "title": "En",
+          "type": "string"
+        },
+        "ne": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ne"
+        },
+        "as": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As"
+        }
+      },
+      "required": [
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "balance_scale": "#/$defs/BalanceScaleWidget",
+      "function_graph": "#/$defs/FunctionGraphWidget"
+    },
+    "propertyName": "type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/BalanceScaleWidget"
+    },
+    {
+      "$ref": "#/$defs/FunctionGraphWidget"
+    }
+  ]
+}

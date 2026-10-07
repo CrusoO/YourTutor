@@ -41,6 +41,7 @@ from app.orchestrator.types import (
     default_params,
 )
 from app.player.action_flags import hint_solution_flags
+from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
 
 GOAL_MS = SOFT_ACTIVE_MS
 
@@ -505,6 +506,10 @@ def enrich_action(
     }
     if action.type == "hint" and item_row is not None:
         payload["item"] = _item_payload(item_row, locale, reveal=False, steps=False)
+    if action.type in {"predict", "worked_example"}:
+        lesson = lesson_for_state(state)
+        if lesson is not None:
+            payload["lesson"] = lesson.model_dump(mode="json", by_alias=True, exclude_none=True)
     return payload
 
 
@@ -579,6 +584,10 @@ def apply_player_event(
         view["duplicate"] = True
         return view
     state, learner = _build_state(session, row, student)
+    if event_type in LESSON_EVENTS:
+        return _apply_lesson_event(
+            session, row, student, state, event_type, payload, client_event_id
+        )
     event = Event(
         type=event_type,
         response=str(payload.get("response")) if payload.get("response") is not None else None,
@@ -614,6 +623,52 @@ def apply_player_event(
         "session_id": str(row.id),
         "duplicate": False,
         "action": enrich_action(session, state, action, locale),
+        "progress": {
+            "items_completed": state.items_completed,
+            "active_ms": row.active_ms,
+            "resumable": bool(row.resumable),
+            "ended_reason": row.ended_reason,
+        },
+        "llm_called": row.llm_called,
+    }
+
+
+def _apply_lesson_event(
+    session: Session,
+    row: SessionRow,
+    student: StudentRow,
+    state: SessionState,
+    event_type: str,
+    payload: dict[str, Any],
+    client_event_id: uuid.UUID,
+) -> dict[str, Any]:
+    """Record a lesson beat event after the server re-checks it. No policy call, no BKT/FSRS."""
+    verdict = check_lesson_event(state, event_type, payload)
+    session.add(
+        EventRow(
+            id=uuid.uuid4(),
+            client_event_id=client_event_id,
+            session_id=row.id,
+            item_id=None,
+            event_type=event_type,
+            payload={**payload, "_verdict": {"ok": verdict.ok, "code": verdict.code}},
+            correct=verdict.correct,
+            hint_level=None,
+            latency_ms=payload.get("latency_ms"),
+            created_at=state.now,
+            state_before=state.phase,
+            state_after=state.phase,
+            rule_id=None,
+        )
+    )
+    action = state.last_action or Action(type=state.phase)
+    enriched = enrich_action(session, state, action, student.home_language or "en")
+    enriched["rejected"] = not verdict.ok
+    enriched["guardrail_flag"] = None if verdict.ok else verdict.code
+    return {
+        "session_id": str(row.id),
+        "duplicate": False,
+        "action": enriched,
         "progress": {
             "items_completed": state.items_completed,
             "active_ms": row.active_ms,

@@ -1,0 +1,180 @@
+{
+  "name": "valid_minimal_lesson",
+  "note": "predict, explain_scene, check only.",
+  "expect_errors": [],
+  "lesson": {
+    "id": "LESSON.TEST.ONE",
+    "skill_id": "MATH.TEST.SKILL",
+    "title": {
+      "en": "Balancing equations"
+    },
+    "source_ref": "NOTE.TEST.ONE",
+    "status": "draft",
+    "beats": [
+      {
+        "kind": "predict",
+        "prompt": {
+          "en": "How heavy is one box?"
+        },
+        "figure": {
+          "left_boxes": 2,
+          "left_weights": 3,
+          "right_boxes": 0,
+          "right_weights": 11,
+          "box_weight": 4
+        },
+        "choices": [
+          {
+            "value": "3",
+            "text": {
+              "en": "3 kg"
+            }
+          },
+          {
+            "value": "4",
+            "text": {
+              "en": "4 kg"
+            }
+          },
+          {
+            "value": "5",
+            "text": {
+              "en": "5 kg"
+            }
+          }
+        ],
+        "reveal": {
+          "en": "Hold on to that guess."
+        }
+      },
+      {
+        "kind": "explain_scene",
+        "title": {
+          "en": "Watch it worked out"
+        },
+        "scene": {
+          "id": "SCENE.TEST.ONE",
+          "skill_id": "MATH.TEST.SKILL",
+          "source_ref": "NOTE.TEST.ONE",
+          "canvas": {
+            "width": 340,
+            "height": 290
+          },
+          "alt": {
+            "en": "Whiteboard showing 2x + 3 = 11 solved step by step"
+          },
+          "steps": [
+            {
+              "caption": {
+                "en": "The balance is level: 2x + 3 = 11."
+              },
+              "actions": [
+                {
+                  "kind": "write_text",
+                  "x": 170,
+                  "y": 52,
+                  "size": 36,
+                  "text": "2x + 3 = 11"
+                },
+                {
+                  "kind": "draw_shape",
+                  "shape": "rect",
+                  "x": 20,
+                  "y": 90,
+                  "w": 120,
+                  "h": 30
+                },
+                {
+                  "kind": "draw_shape",
+                  "shape": "circle",
+                  "cx": 200,
+                  "cy": 105,
+                  "r": 14
+                },
+                {
+                  "kind": "draw_shape",
+                  "shape": "line",
+                  "x1": 20,
+                  "y1": 130,
+                  "x2": 320,
+                  "y2": 130
+                },
+                {
+                  "kind": "draw_arrow",
+                  "x1": 150,
+                  "y1": 160,
+                  "x2": 250,
+                  "y2": 160,
+                  "color": "blue"
+                }
+              ]
+            },
+            {
+              "caption": {
+                "en": "Take 3 off both sides."
+              },
+              "actions": [
+                {
+                  "kind": "pause_and_ask",
+                  "question": {
+                    "en": "What is left after taking 3 off both sides?"
+                  },
+                  "options": [
+                    {
+                      "text": {
+                        "en": "2x = 8"
+                      },
+                      "correct": true
+                    },
+                    {
+                      "text": {
+                        "en": "2x = 14"
+                      },
+                      "correct": false,
+                      "feedback": {
+                        "en": "11 - 3 = 8."
+                      }
+                    },
+                    {
+                      "text": {
+                        "en": "x = 8"
+                      },
+                      "correct": false,
+                      "feedback": {
+                        "en": "The 2 boxes remain."
+                      }
+                    }
+                  ]
+                },
+                {
+                  "kind": "write_text",
+                  "x": 170,
+                  "y": 152,
+                  "size": 32,
+                  "text": "2x = 8",
+                  "color": "red"
+                },
+                {
+                  "kind": "highlight",
+                  "x": 116,
+                  "y": 130,
+                  "w": 108,
+                  "h": 44
+                }
+              ]
+            }
+          ]
+        },
+        "final_caption": {
+          "en": "Do the same to both sides."
+        }
+      },
+      {
+        "kind": "check",
+        "prompt": {
+          "en": "Now solve one yourself."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+id: LESSON.INVERSE
+skill_id: MATH.ALG.INVERSE_OPERATIONS
+title:
+  en: Undoing an operation
+source_ref: NOTE.ALG.INVERSE
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: A box and 9 weights balance 20 weights. How heavy is one box?
+  figure:
+    left_boxes: 1
+    left_weights: 9
+    right_boxes: 0
+    right_weights: 20
+    box_weight: 11
+  choices:
+  - value: '9'
+    text:
+      en: 9 kg
+  - value: '11'
+    text:
+      en: 11 kg
+  - value: '20'
+    text:
+      en: 20 kg
+  - value: '29'
+    text:
+      en: 29 kg
+  reveal:
+    en: Hold on to that guess. Now see how to undo the + 9.
+- kind: explore
+  title:
+    en: Undo it on the balance
+  widget:
+    type: balance_scale
+    widget_id: W.INVERSE.BALANCE
+    prompt:
+      en: 'Tap weights to take them off. Keep it level. Goal: the box alone on the
+        left.'
+    success:
+      en: The box balances 11 weights. Taking 9 off both sides undid the + 9.
+    hint:
+      en: Take the same number of weights off both sides.
+    params:
+      left_boxes: 1
+      left_weights: 9
+      right_boxes: 0
+      right_weights: 20
+      box_weight: 11
+- kind: explain_scene
+  title:
+    en: Watch the undo
+  scene:
+    canvas:
+      width: 340
+      height: 290
+    steps:
+    - caption:
+        en: x + 9 = 20. Someone added 9 to the box. We want the box alone.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 52
+        size: 36
+        text: x + 9 = 20
+    - caption:
+        en: Do the opposite of adding 9, to both sides.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: Which operation undoes adding 9?
+        options:
+        - text:
+            en: subtract 9
+          correct: true
+        - text:
+            en: add 9
+          correct: false
+          feedback:
+            en: Adding again makes it bigger. It does not undo anything.
+        - text:
+            en: multiply by 9
+          correct: false
+          feedback:
+            en: Multiplying is not the opposite of adding.
+      - kind: write_text
+        x: 152
+        y: 112
+        size: 22
+        text: − 9
+        color: red
+      - kind: write_text
+        x: 244
+        y: 112
+        size: 22
+        text: − 9
+        color: red
+    - caption:
+        en: 'The box is alone: x = 11.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 36
+        text: x = 11
+      - kind: highlight
+        x: 106
+        y: 136
+        w: 128
+        h: 44
+    - caption:
+        en: 'Check: 11 + 9 = 20. It balances.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 250
+        size: 17
+        text: 'check: 11 + 9 = 20 ✓'
+        color: green
+    id: SCENE.INVERSE.EXPLAIN
+    skill_id: MATH.ALG.INVERSE_OPERATIONS
+    source_ref: NOTE.ALG.INVERSE
+    alt:
+      en: Whiteboard showing how subtracting 9 undoes adding 9 in x + 9 = 20
+  final_caption:
+    en: Every operation has an opposite. Use it on both sides to get x alone.
+- kind: worked_example
+  title:
+    en: Another one
+  problem:
+    en: Solve x − 8 = 12.
+  steps:
+  - en: 'The opposite of subtracting 8 is adding 8. Add 8 to both sides: x = 20.'
+  - en: 'Check: 20 − 8 = 12. It balances.'
+- kind: check
+  prompt:
+    en: Now solve one yourself.

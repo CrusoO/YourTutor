@@ -1,0 +1,24 @@
+{
+  "name": "function_graph",
+  "note": "Goal: x where slope*x + intercept equals target_y, on the step grid inside [x_min, x_max]. Tolerance 1e-6.",
+  "widget": {
+    "type": "function_graph",
+    "widget_id": "W.GRAPH",
+    "prompt": { "en": "Drag the dot until the left side reaches 11." },
+    "success": { "en": "The line reaches 11 at x = 4." },
+    "params": { "slope": 2, "intercept": 3, "target_y": 11, "x_min": 0, "x_max": 8, "step": 0.1 }
+  },
+  "cases": [
+    { "name": "x = 4 hits the target", "state": { "x": 4 }, "goal_met": true },
+    { "name": "x = 4.0000001 is within tolerance", "state": { "x": 4.0000001 }, "goal_met": true },
+    { "name": "x = 3.9 misses", "state": { "x": 3.9 }, "goal_met": false },
+    { "name": "x = 4.1 misses", "state": { "x": 4.1 }, "goal_met": false },
+    { "name": "x = 4.05 is off the 0.1 grid", "state": { "x": 4.05 }, "goal_met": false },
+    { "name": "x = 1 misses", "state": { "x": 1 }, "goal_met": false },
+    { "name": "x = 40 is outside the range", "state": { "x": 40 }, "goal_met": false },
+    { "name": "x as a string", "state": { "x": "4" }, "goal_met": false },
+    { "name": "x is null", "state": { "x": null }, "goal_met": false },
+    { "name": "missing x", "state": {}, "goal_met": false },
+    { "name": "not an object", "state": 4, "goal_met": false }
+  ]
+}

@@ -1,6 +1,6 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
-**Test baseline (2026-10-06, after P3 setup):** `apps/api` pytest **409 passed, 0 failed** on Postgres in one piece (`-p no:randomly`, 1 h 54 min on a loaded machine); random seeds 1 and 2 each 409 passed (29 and 21 min). `ruff check .` 0 errors, `ruff format --check .` clean, `mypy .` 0 errors (164 files). `apps/web` vitest **42 passed**; `tsc --noEmit` ok; Playwright `test:ui` **6 passed** (11 screenshots at 360 px). Region-literal check clean; locale generation no content diff; content validates (12 skills, 406 items, 2 overlays). Alembic head `0015_g1_overlay_curriculum`.
+**Test baseline (2026-10-07, after P4 / S1a):** `apps/api` pytest **467 passed, 0 failed** on Postgres in one piece (`-p no:randomly`, 18 min); random seeds 1 and 2 each 467 passed. `ruff check .` 0 errors, `ruff format --check .` clean, `mypy .` 0 errors (177 files). `apps/web` vitest **111 passed**; `tsc --noEmit` ok; Playwright `test:ui` **8 passed** (scenario specs plus the lesson spec: 17 lesson screenshots at 360 px). Region-literal check clean; locale generation no content diff; content validates (12 skills, 406 items, 4 lessons). Alembic head `0015_g1_overlay_curriculum`.
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
 

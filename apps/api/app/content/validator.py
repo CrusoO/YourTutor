@@ -175,6 +175,8 @@ def curricula_for(root: Path) -> dict[str, CurriculumSpec] | None:
 
 
 def validate_path(root: Path) -> ValidationReport:
+    from app.lessons.loader import lesson_errors  # lazy: lessons import app.content.schema
+
     try:
         bundle = load_bundle(root)
     except Exception as exc:  # noqa: BLE001
@@ -182,6 +184,7 @@ def validate_path(root: Path) -> ValidationReport:
         report.errors.append(str(exc))
         return report
     report = validate_bundle(bundle, curricula_for(root))
+    report.errors.extend(lesson_errors(root, {skill.id for skill in bundle.skills}))
     _persist_hash_resets(root, report)
     return report
 

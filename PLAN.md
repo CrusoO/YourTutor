@@ -111,6 +111,11 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | UI preview data | Preview students come from `python -m app.dev seed_scenarios`, which replays events through the real engine (never writes mastery rows) with the clock set in the past. It uses its own database (`yourtutor_preview`) so normal dev data is untouched. |
 | Dev tools gating | `/dev` web pages need `NEXT_PUBLIC_DEV_TOOLS=true`; API `/dev/*` routes are a 404 unless `DEV_TOOLS` **and** `ALLOW_DRAFT_CONTENT` are on. Only `app.dev.clock.frozen` may pin the clock, and it refuses unless `ALLOW_DRAFT_CONTENT=true`. LAN preview uses explicit `CORS_EXTRA_ORIGINS` / `NEXT_ALLOWED_DEV_ORIGINS` (wildcards refused). |
 | Content load safety | `python -m app.content load` refuses a missing or empty content root: an empty bundle would retire (or, in dev, hard-delete) everything already loaded. |
+| Lessons as files | Lessons are validated YAML in `content/lessons/` (one per skill, checked by `app.content validate`); DB tables come with G3. Python Pydantic models are the schema source of truth, JSON Schemas are generated (drift test), the TS validator is hand-written and checked against shared fixtures. |
+| Lesson events | A lesson is attached to the session's `predict` / `worked_example` actions. `interactive_result` and `scene_answer` events bypass the policy, are checked server-side, are stored in `events` with `payload._verdict`, and never touch BKT/FSRS. The check item is the first practice item after the lesson, so it writes BKT exactly once. |
+| Widget trust | The server recomputes the goal predicate from `final_state`; a result that misses the goal or names another widget is rejected (`widget_goal_not_met`, `widget_id_mismatch`, `widget_result_malformed`). The client predicate is for instant feedback only. |
+| Scene budget | Scenes are limited to 50 KB per minute, estimated from action bytes and durations (`app/lessons/budget.py`); the validator fails a lesson over budget. |
+| Lesson copy | Player chrome strings (Continue, Checked by the server, ...) are English constants in `LessonPlayer.tsx` until S1b moves them into the locale registry. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -279,13 +284,17 @@ A phone-sized path through the seed chapter that people can open and judge: logi
 
 **S1a — playable lesson**
 
-- [ ] Schemas in `packages/shared/schemas/` for lesson (beats), scene script (`write_text`, `draw_shape`, `draw_arrow`, `highlight`, `pause_and_ask`) and widget params/state/goal; validated in Python and TS
-- [ ] Scene player (SVG, 360 px): progressive drawing, pause/replay, captions always on, `pause_and_ask` with feedback, reduced motion respected, no external libraries
-- [ ] Widgets `balance_scale` and `function_graph` with goal predicates in Python and TS (shared fixtures); the server re-checks the final state and rejects a forged result
-- [ ] Lesson runner for one skill: predict → explore (widget) → explain scene → worked example → check item; lesson beats never write BKT/FSRS, the check item does exactly once
-- [ ] Content: a draft lesson for the linear-equation skill ported from the approved prototype (`docs/prototypes/balancing-equations-lesson.html`) plus lessons for 3 more skills (draft, English, authored text; every scene has `skill_id` and `source_ref`)
-- [ ] `/dev/lessons` lists every lesson and opens each without login (dev only)
-- [ ] Playwright: the full lesson with a 360 px screenshot of each beat
+- [x] Met 2026-10-07. Schemas in `packages/shared/schemas/` for lesson (beats), scene script (`write_text`, `draw_shape`, `draw_arrow`, `highlight`, `pause_and_ask`) and widget params/state/goal; validated in Python and TS
+- [x] Met 2026-10-07. Scene player (SVG, 360 px): progressive drawing, pause/replay, captions always on, `pause_and_ask` with feedback, reduced motion respected, no external libraries
+- [x] Met 2026-10-07. Widgets `balance_scale` and `function_graph` with goal predicates in Python and TS (shared fixtures); the server re-checks the final state and rejects a forged result
+- [x] Met 2026-10-07. Lesson runner for one skill: predict → explore (widget) → explain scene → worked example → check item; lesson beats never write BKT/FSRS, the check item does exactly once
+- [x] Met 2026-10-07. Content: a draft lesson for the linear-equation skill ported from the approved prototype (`docs/prototypes/balancing-equations-lesson.html`) plus lessons for 3 more skills (draft, English, authored text; every scene has `skill_id` and `source_ref`)
+- [x] Met 2026-10-07. `/dev/lessons` lists every lesson and opens each without login (dev only)
+- [x] Met 2026-10-07. Playwright: the full lesson with a 360 px screenshot of each beat
+
+Result: pytest 467 (one piece; seeds 1 and 2: 467 each), vitest 111, test:ui 8 specs (with the 6 scenario specs); 17 lesson screenshots in apps/web/test-results/screens/lesson-*.png.
+
+Deferred from S1a (unchecked): lesson strings in the locale registry (S1b); lesson tables in the DB and lesson review workflow (G3); offline caching of scene scripts (offline milestone); `faded_example`, `number_line`, `area_model`, `fraction_bar` (not built).
 
 Accept: lesson beats never write BKT/FSRS; the check item writes once; a forged widget result is rejected; schemas validate; screenshots show each beat.
 
