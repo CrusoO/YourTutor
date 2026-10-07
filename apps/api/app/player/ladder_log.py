@@ -16,6 +16,7 @@ from app.learner.ladder import (
     KIND_ANSWER,
     KIND_HINT,
     KIND_LESSON,
+    KIND_TEST_OUT,
     LadderEvent,
     SkillLadder,
     compute,
@@ -30,6 +31,17 @@ def ladder_events_from_rows(
     """`rows` are (event, session type) in log order. Only practice sessions feed the ladder."""
     out: list[LadderEvent] = []
     for event, session_type in rows:
+        if session_type == "test_out":
+            if event.event_type == "test_out_passed":
+                out.append(
+                    LadderEvent(
+                        event_id=str(event.client_event_id or event.id),
+                        skill_id=str((event.payload or {}).get("skill_id") or ""),
+                        kind=KIND_TEST_OUT,
+                        at=as_utc(event.created_at),
+                    )
+                )
+            continue
         if session_type != "practice" or not event.item_id:
             continue
         found = catalog.get(event.item_id)

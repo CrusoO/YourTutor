@@ -54,6 +54,7 @@ from app.db.models import (
     ConsentRow,
     EventRow,
     OtpChallengeRow,
+    OverlayRow,
     RateEventRow,
     ReviewQueueRow,
     SessionRow,
@@ -446,11 +447,93 @@ def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
         session.delete(user)
 
 
-def start_session(
-    session: Session, actor: Actor, student_id: uuid.UUID, session_type: str
+def student_chapters(session: Session, actor: Actor, student_id: uuid.UUID) -> dict[str, Any]:
+    from app.learner.chapters import student_chapters as build
+
+    student = student_or_404(session, student_id)
+    require(can_see_progress(session, actor, student))
+    return build(session, student, now_utc())
+
+
+def student_chapter_skills(
+    session: Session, actor: Actor, student_id: uuid.UUID, chapter_id: str
+) -> dict[str, Any]:
+    from app.learner.chapters import find_chapter
+    from app.learner.chapters import student_chapter_skills as build
+
+    student = student_or_404(session, student_id)
+    require(can_see_progress(session, actor, student))
+    chapter = find_chapter(session, student, chapter_id)
+    if chapter is None:
+        raise HTTPException(status_code=404, detail="chapter not found")
+    return build(session, student, chapter, now_utc())
+
+
+def start_test_out(
+    session: Session, actor: Actor, student_id: uuid.UUID, chapter_id: str, skill_id: str
 ) -> SessionRow:
+    from app.learner.chapters import chapter_is_live, find_chapter
+    from app.player import test_out
+    from app.player.runtime import load_catalog
+
     student = student_or_404(session, student_id)
     require(can_start_session(actor, student))
+    if not has_scope(session, student_id, "tutoring"):
+        raise HTTPException(status_code=403, detail="tutoring consent required")
+    chapter = find_chapter(session, student, chapter_id)
+    if chapter is None:
+        raise HTTPException(status_code=404, detail="chapter not found")
+    if not chapter_is_live(session, chapter):
+        raise HTTPException(status_code=409, detail="chapter_coming_soon")
+    overlay = session.get(OverlayRow, chapter.overlay_id)
+    if overlay is None or skill_id not in (overlay.skill_ids or []):
+        raise HTTPException(status_code=404, detail="skill not in chapter")
+    items = test_out.pick_items(load_catalog(session, allow_draft=True), skill_id)
+    if items is None:
+        raise HTTPException(status_code=409, detail="test_out_unavailable")
+    for old in session.scalars(
+        select(SessionRow).where(
+            SessionRow.student_id == student_id,
+            SessionRow.type == "test_out",
+            SessionRow.ended_at.is_(None),
+        )
+    ):
+        old.ended_at = now_utc()
+        old.ended_reason = "superseded"
+    row = SessionRow(
+        id=uuid.uuid4(),
+        student_id=student_id,
+        started_at=now_utc(),
+        type="test_out",
+        last_active_at=now_utc(),
+        plan=test_out.new_plan(skill_id, chapter.overlay_id, items),
+    )
+    session.add(row)
+    session.flush()
+    return row
+
+
+def start_session(
+    session: Session,
+    actor: Actor,
+    student_id: uuid.UUID,
+    session_type: str,
+    chapter_id: str | None = None,
+) -> SessionRow:
+    from app.player.done import levels_snapshot
+
+    student = student_or_404(session, student_id)
+    require(can_start_session(actor, student))
+    overlay_id: str | None = None
+    if chapter_id is not None:
+        from app.learner.chapters import chapter_is_live, find_chapter
+
+        chapter = find_chapter(session, student, chapter_id)
+        if chapter is None:
+            raise HTTPException(status_code=404, detail="chapter not found")
+        if not chapter_is_live(session, chapter):
+            raise HTTPException(status_code=409, detail="chapter_coming_soon")
+        overlay_id = chapter.overlay_id
     if not has_scope(session, student_id, "tutoring"):
         raise HTTPException(status_code=403, detail="tutoring consent required")
     if session_type not in {"practice", "diagnostic", "checkpoint"}:
@@ -472,17 +555,9 @@ def start_session(
         )
     )
     if idle:
-        idle.ended_at = None
-        idle.ended_reason = None
-        idle.resumable = False
-        idle.last_active_at = now_utc()
-        plan = dict(idle.plan or {})
-        last = plan.get("last_action") or {}
-        if last.get("type") == "end_session":
-            plan["last_action"] = None
-            plan["ended_reason"] = None
-            plan["phase"] = "practice" if plan.get("current_item_id") else "start"
-            idle.plan = plan
+        from app.player.runtime import reopen_idle
+
+        reopen_idle(idle)
         return idle
     row = SessionRow(
         id=uuid.uuid4(),
@@ -490,7 +565,11 @@ def start_session(
         started_at=now_utc(),
         type=session_type,
         last_active_at=now_utc(),
-        plan={"context_key": student.context_key or {}},
+        plan={
+            "context_key": student.context_key or {},
+            "levels_at_start": levels_snapshot(session, student_id),
+            **({"overlay_id": overlay_id} if overlay_id else {}),
+        },
     )
     session.add(row)
     session.flush()

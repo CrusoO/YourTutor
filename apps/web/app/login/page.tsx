@@ -13,7 +13,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (!skipLogin()) return;
     ensureDevStudent()
-      .then(() => router.replace("/today"))
+      .then(() => router.replace("/subjects"))
       .catch(() => {});
   }, [router]);
   const copy = t(locale());
@@ -30,7 +30,7 @@ export default function LoginPage() {
       const me = await today();
       setStudentId(me.student_id);
       if (me.locale) setLocale(me.locale);
-      router.push("/today");
+      router.push("/subjects");
     } catch {
       setError(copy.loginError);
     }

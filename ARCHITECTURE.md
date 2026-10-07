@@ -118,7 +118,7 @@ Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis +
 - **Config loaders** live in `apps/api/app/registries/` (`loaders.py`, `locale_resolve.py`, `timezone.py`, `quiet_hours.py`, `context.py`, `student_setup.py`, `seed_db.py`). Loaders are pure functions over `config/` and `content/curricula/`; policy code never does I/O.
 - **Web i18n:** the web app keeps `apps/web/lib/messages.ts`. The locale list and fallback chains come from `config/locales.yaml`, exported by `apps/api/scripts/generate_web_locales.py` to `packages/shared/generated/locales.json`. Missing or placeholder strings fall back along the chain, ending at English; empty strings are never shown. `next-intl` is **not** used; revisit in G5.
 - **Curricula** are one registry entry per curriculum under `content/curricula/<id>/curriculum.yaml` (`id`, `default_timezone`, `jurisdiction_profile`, optional `legacy_board`, `books[]` → `chapters[]` with `overlay_id` and `chapter_key`). `sample_board` is generic; the two pilot curricula are separate entries and are not merged into it.
-- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
+- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`); S1b adds `0016_s1b_chapter_titles` (`chapters.titles`, `chapters.position`). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
 - **Region guard:** `apps/api/scripts/check_region_literals.py` fails CI on curriculum, board or time-zone literals outside `config/`, `content/`, `migrations/` and `tests/`.
 
 ---
@@ -418,6 +418,8 @@ Each practice item declares `role` so the ladder can collect the right evidence 
 
 ### 9.7 Skip ahead
 
+**As built (S1b):** a `test_out` session (`app/player/test_out.py`, pure selection in `app/orchestrator/test_out.py`), started by `POST /students/{id}/chapters/{chapter_id}/skills/{skill_id}/skip-ahead`. Answers are checked by the server, hints are refused, nothing reaches BKT or FSRS; a pass writes a `test_out_passed` event (ladder level 4, `evidence=test_out`, `p_known` raised to 0.95).
+
 Always available on the skill path. Starts a short test-out: 2 unhinted correct items at hard tier including one `apply` or `transfer` → skill moves to level 4 with `evidence=test_out`. Failure returns to the normal path without penalty copy. Logged.
 
 ---
@@ -484,6 +486,8 @@ Levels are monotonic except retention decay (§11.3). Levels are stored with the
 
 
 Chapter status = the minimum skill status in the chapter (with *Review due* shown if any skill is due). Recommended chapter = first chapter in book order not at *Solid*. No manual completion flags exist.
+
+**As built in S1b:** `GET /students/{id}/chapters` and `GET /students/{id}/chapters/{chapter_id}/skills` (`app/learner/chapters.py`) return chapter and skill statuses, exactly one `recommended` chapter and per-skill `unlocked` / `current` flags (visual only). `end_session` actions carry `extras.summary` for the Done screen (`app/player/done.py`).
 
 **As built in G1 (`app/learner/status.py`, pure):** `skill_status(level, review_overdue=...)` maps 0 → Not started, 1–3 → Learning, 4–6 → Can do it, 7 → Solid; an overdue FSRS card replaces only Can do it / Solid. `chapter_status` is the minimum, or Review due if any skill is due. No API exposes it yet (G5 chapter map).
 

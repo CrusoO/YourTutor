@@ -46,8 +46,8 @@ To reset them (the app writes to them as you click around), press **Reset scenar
 
 ## 3. On the PC
 
-Open <http://localhost:3000/dev>, press **Log in as ...** next to a scenario. You land on Today as
-that student. `/dev/lessons` lists every lesson; click one to play it without logging in.
+Open <http://localhost:3000/dev>, press **Log in as ...** next to a scenario. You land on Subjects as
+that student (Maths, then Chapters, then the chapter's skill path; Today is still at `/today`). `/dev/lessons` lists every lesson; click one to play it without logging in.
 
 `/dev` is a 404 unless `NEXT_PUBLIC_DEV_TOOLS=true`, and the API's `/dev/*` routes are a 404 unless
 `DEV_TOOLS=true` and `ALLOW_DRAFT_CONTENT=true`. Never switch these on in production.

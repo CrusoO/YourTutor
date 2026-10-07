@@ -153,11 +153,69 @@ export async function listDevScenarios(): Promise<{ scenarios: DevScenario[] }> 
   return req("/dev/scenarios");
 }
 
-export async function startSession(type: string, sid: string): Promise<SessionView> {
+export async function startSession(
+  type: string,
+  sid: string,
+  chapterId?: string,
+): Promise<SessionView> {
   return req("/sessions", {
     method: "POST",
-    body: JSON.stringify({ student_id: sid, type }),
+    body: JSON.stringify({ student_id: sid, type, ...(chapterId ? { chapter_id: chapterId } : {}) }),
   });
+}
+
+export type ChapterStatus =
+  | "not_started"
+  | "learning"
+  | "can_do_it"
+  | "solid"
+  | "review_due"
+  | "coming_soon";
+
+export type ChapterCard = {
+  id: string;
+  title: string;
+  live: boolean;
+  status: ChapterStatus;
+  recommended: boolean;
+  skills_total: number;
+  skills_can_do_it: number;
+};
+
+export type SkillStatus = Exclude<ChapterStatus, "coming_soon">;
+
+export type PathSkill = {
+  id: string;
+  title: string;
+  level: number;
+  status: SkillStatus;
+  unlocked: boolean;
+  current: boolean;
+  has_lesson: boolean;
+};
+
+export async function getChapters(
+  sid: string,
+): Promise<{ student_id: string; subject: string; chapters: ChapterCard[] }> {
+  return req(`/students/${sid}/chapters`);
+}
+
+export async function getChapterSkills(
+  sid: string,
+  chapterId: string,
+): Promise<{ chapter: Omit<ChapterCard, "recommended">; skills: PathSkill[] }> {
+  return req(`/students/${sid}/chapters/${encodeURIComponent(chapterId)}/skills`);
+}
+
+export async function startSkipAhead(
+  sid: string,
+  chapterId: string,
+  skillId: string,
+): Promise<SessionView> {
+  return req(
+    `/students/${sid}/chapters/${encodeURIComponent(chapterId)}/skills/${encodeURIComponent(skillId)}/skip-ahead`,
+    { method: "POST" },
+  );
 }
 
 export async function getSession(id: string): Promise<SessionView> {

@@ -111,6 +111,12 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | UI preview data | Preview students come from `python -m app.dev seed_scenarios`, which replays events through the real engine (never writes mastery rows) with the clock set in the past. It uses its own database (`yourtutor_preview`) so normal dev data is untouched. |
 | Dev tools gating | `/dev` web pages need `NEXT_PUBLIC_DEV_TOOLS=true`; API `/dev/*` routes are a 404 unless `DEV_TOOLS` **and** `ALLOW_DRAFT_CONTENT` are on. Only `app.dev.clock.frozen` may pin the clock, and it refuses unless `ALLOW_DRAFT_CONTENT=true`. LAN preview uses explicit `CORS_EXTRA_ORIGINS` / `NEXT_ALLOWED_DEV_ORIGINS` (wildcards refused). |
 | Content load safety | `python -m app.content load` refuses a missing or empty content root: an empty bundle would retire (or, in dev, hard-delete) everything already loaded. |
+| Chapter titles | `chapters.titles` (JSON, locale -> text) and `chapters.position` come from `curriculum.yaml` (migration 0016); titles use the locale fallback chain. A chapter is *live* when its overlay has skills and is `live: true`, or drafts are allowed. Anything else is `coming_soon` and `POST /sessions` with its `chapter_id` answers 409 `chapter_coming_soon`. The seed book has a placeholder `Quadratic equations` chapter with no overlay so the map always shows one Coming soon card. |
+| Recommended chapter | The first live chapter that is not Solid (a review-due chapter counts as not Solid); when every live chapter is Solid, the first live one. Always exactly one, or none when nothing is live. |
+| Starting a skill | The chapter page starts a normal practice session for the chapter (`chapter_id` in the plan). The existing policy already opens a new skill with its lesson and a known skill with practice, so no policy change was needed. |
+| Skip ahead | Its own session type `test_out`, outside the policy: 2 hard practice items (one `apply` or `transfer`), no hints, answers verified by the server and logged, never BKT or FSRS events. A pass writes one `test_out_passed` event: ladder level 4 with `evidence=test_out`, and `p_known` is raised to at least 0.95 so the policy does not treat the skill as a weak prerequisite. A miss writes nothing and shows no penalty wording. `ladder_log` recompute reproduces it. |
+| Done summary | `end_session` actions carry `extras.summary`: skills moved forward this session (levels at start are kept in the session plan), skills practised, every skill status, next skill, minutes left, chapter and the recommended chapter. No streaks, ranks or scores. |
+| Resume | Reopening an idle-ended session (Resume on Today, or `GET /sessions/{id}`) reopens it with `reopen_idle`, shared with starting a session; a session that ended for another reason still shows the Done screen. Skip-ahead sessions are never offered as Resume. |
 | Lessons as files | Lessons are validated YAML in `content/lessons/` (one per skill, checked by `app.content validate`); DB tables come with G3. Python Pydantic models are the schema source of truth, JSON Schemas are generated (drift test), the TS validator is hand-written and checked against shared fixtures. |
 | Lesson events | A lesson is attached to the session's `predict` / `worked_example` actions. `interactive_result` and `scene_answer` events bypass the policy, are checked server-side, are stored in `events` with `payload._verdict`, and never touch BKT/FSRS. The check item is the first practice item after the lesson, so it writes BKT exactly once. |
 | Widget trust | The server recomputes the goal predicate from `final_state`; a result that misses the goal or names another widget is rejected (`widget_goal_not_met`, `widget_id_mismatch`, `widget_result_malformed`). The client predicate is for instant feedback only. |
@@ -300,13 +306,17 @@ Accept: lesson beats never write BKT/FSRS; the check item writes once; a forged 
 
 **S1b — student flow end to end**
 
-- [ ] `GET /students/{id}/chapters`: id, title (locale + fallback), live, status (`not_started`, `learning`, `can_do_it`, `solid`, `review_due`), `recommended: true` on exactly one chapter; non-live chapters return `coming_soon` and cannot be started (server-enforced); no hard locks between live chapters
-- [ ] `GET /students/{id}/chapters/{chapter_id}/skills`: skill path with per-skill status; visual unlock when the previous skill reaches "Can do it"
-- [ ] Chapter map UI (status chips, one recommended chapter, "Coming soon" cards) and chapter page with the skill path and a logged "Skip ahead" test-out (2 unhinted-correct hard-tier items incl. one apply/transfer → level 4, `evidence=test_out`; failure returns without penalty copy)
-- [ ] Starting a skill: new skill → lesson then practice; known skill → practice. Done screen: what was learned, skill statuses, next recommendation, remaining active minutes; no streaks or ranks
-- [ ] Warm-up first when reviews are due, with plain-words copy (today a warm-up looks like any other question)
-- [ ] **Fix:** "Resume" on Today opens `/session/<id>` for an idle-ended session and shows "Done for now / idle / Back to Today"; Resume must reopen the session. Also replace the raw `practice` and `idle` labels with locale-registry copy
-- [ ] Playwright: login → map → chapter → lesson → practice (wrong → hint → retry) → done at 360 px; scenarios `new_student` and `mid_chapter` in the spec
+- [x] Met 2026-10-07. `GET /students/{id}/chapters`: id, title (locale + fallback), live, status (`not_started`, `learning`, `can_do_it`, `solid`, `review_due`), `recommended: true` on exactly one chapter; non-live chapters return `coming_soon` and cannot be started (server-enforced); no hard locks between live chapters
+- [x] Met 2026-10-07. `GET /students/{id}/chapters/{chapter_id}/skills`: skill path with per-skill status; visual unlock when the previous skill reaches "Can do it"
+- [x] Met 2026-10-07. Chapter map UI (status chips, one recommended chapter, "Coming soon" cards) and chapter page with the skill path and a logged "Skip ahead" test-out (2 unhinted-correct hard-tier items incl. one apply/transfer → level 4, `evidence=test_out`; failure returns without penalty copy)
+- [x] Met 2026-10-07. Starting a skill: new skill → lesson then practice; known skill → practice. Done screen: what was learned, skill statuses, next recommendation, remaining active minutes; no streaks or ranks
+- [x] Met 2026-10-07. Warm-up first when reviews are due, with plain-words copy (today a warm-up looks like any other question)
+- [x] Met 2026-10-07. **Fix:** "Resume" on Today opens `/session/<id>` for an idle-ended session and shows "Done for now / idle / Back to Today"; Resume must reopen the session. Also replace the raw `practice` and `idle` labels with locale-registry copy
+- [x] Met 2026-10-07. Playwright: login → map → chapter → lesson → practice (wrong → hint → retry) → done at 360 px; scenarios `new_student` and `mid_chapter` in the spec
+
+Result: pytest 534 (one piece; seeds 1 and 2: 534 and 534), vitest 137, test:ui 10 specs; 17 flow screenshots in apps/web/test-results/screens/flow-*.png.
+
+Deferred from S1b (unchecked): chapter and student-flow strings are English only until the locale review (G8); Today stays as a dev/utility page (minutes left, Resume, diagnostic and checkpoint buttons) and is no longer the first page after login; no first-run "quick warm-up" offer (G5); a chapter that is partly done shows the weakest skill status per ARCHITECTURE 11.3, which reads as "Not started" while the card says "4/12 skills you can do" (pilot check: decide whether to show "Learning" once any skill has started).
 
 Accept: a student completes the path on a phone; a coming-soon chapter cannot be started via the API; exactly one recommended chapter; status-derivation tests for each state; lesson beats never write BKT/FSRS.
 
@@ -321,7 +331,7 @@ Accept: a student completes the path on a phone; a coming-soon chapter cannot be
 - [ ] Item fields `step_hints[]` and `hint_restate`; validator leak-checks step hints
 - [ ] R33 prerequisite probe; R34 wheel-spinning stop + `teacher_alerts`
 - [ ] R35 disengagement → `break_or_switch`; R36 frustration de-escalation; R37 challenge; R40 never end on failure
-- [ ] Skip-ahead test-out (§9.7 Arch) with `evidence=test_out`
+- [x] Skip-ahead test-out (§9.7 Arch) with `evidence=test_out` *(covered by S1b)*
 - [ ] Praise trigger rules; encouragement only on triggers (authored copy)
 - [ ] `request_hint` kept as an alias of `request_help`
 - [ ] Transition table + Mermaid markers updated; drift test

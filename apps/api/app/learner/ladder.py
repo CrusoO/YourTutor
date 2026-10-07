@@ -42,6 +42,7 @@ T_LEVEL = 4  # T = first overlay skill with ladder level below this
 KIND_ANSWER = "answer"
 KIND_HINT = "request_hint"
 KIND_LESSON = "lesson_complete"
+KIND_TEST_OUT = "test_out"  # skip ahead passed (ARCHITECTURE §9.7)
 
 
 @dataclass(frozen=True)
@@ -147,6 +148,12 @@ def apply_ladder_event(
     ladders: dict[str, SkillLadder], event: LadderEvent, p_known: float
 ) -> SkillLadder | None:
     """Incremental update. `p_known` is the skill's value after BKT handled this event."""
+    if event.kind == KIND_TEST_OUT:
+        ladder = ladders.setdefault(event.skill_id, SkillLadder(skill_id=event.skill_id))
+        if 4 not in ladder.achieved:
+            _achieve(ladder, 4, [event.event_id])
+            ladder.flags["evidence"] = "test_out"
+        return ladder
     if event.kind != KIND_LESSON and event.pool not in LADDER_POOLS:
         return None
     ladder = ladders.setdefault(event.skill_id, SkillLadder(skill_id=event.skill_id))
@@ -273,7 +280,7 @@ def compute(
     for event in events:
         if event.at > now:
             continue
-        if event.kind == KIND_LESSON:
+        if event.kind in {KIND_LESSON, KIND_TEST_OUT}:
             apply_ladder_event(ladders, event, p_known=0.0)
             continue
         if event.pool in LADDER_POOLS and event.kind in {KIND_ANSWER, KIND_HINT}:

@@ -83,7 +83,7 @@ describe("/dev", () => {
   it("logs in as a scenario with one click and opens Today", async () => {
     render(<DevPage />);
     await userEvent.click(await screen.findByRole("button", { name: /log in as new student/i }));
-    await waitFor(() => expect(push).toHaveBeenCalledWith("/today"));
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/subjects"));
     expect(studentLogin).toHaveBeenCalledWith("DEVNEW", "1234");
     expect(setStudentId).toHaveBeenCalledWith("stu-1");
   });
