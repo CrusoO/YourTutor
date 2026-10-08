@@ -43,6 +43,9 @@ export const actionFixtures: Record<string, ActionPayload> = {
     dont_know_option: true,
   }),
   feedback: actionFixture("feedback", { correct: false }),
+  break_or_switch: actionFixture("break_or_switch", {
+    extras: { choices: ["break", "switch", "continue"] },
+  }),
   ask_stuck_point: actionFixture("ask_stuck_point", {
     extras: { choices: ["start", "step", "restate", "might_be_right"], step_count: 3 },
   }),

@@ -28,6 +28,8 @@ export function reasonCopy(copy: Messages, reason: string | null | undefined): s
       return copy.reasonHardCap;
     case "idle":
       return copy.reasonIdle;
+    case "break":
+      return copy.reasonBreak;
     case "chapter_complete":
       return copy.reasonChapterComplete;
     case "consent_revoked":

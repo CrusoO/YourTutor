@@ -577,6 +577,13 @@ def _effective_tier(session: SessionState, wanted: str) -> str:
     return _TIERS[index]
 
 
+def _announce_step_down(session: SessionState, wanted: str, shifted: str) -> bool:
+    """True for the first of the easier items after a step-down (a short, calm acknowledgement)."""
+    return _TIERS.index(shifted) < _TIERS.index(wanted) and (
+        session.tier_down_items == STEP_DOWN_ITEMS - 1
+    )
+
+
 def _offer_break(session: SessionState) -> Action:
     """R35: offer a break or a different activity. Calm, never accusatory (copy is in the UI)."""
     session.fast_streak = 0
@@ -927,7 +934,9 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
     source = session.item(session.similar_from_item_id) or session.item()
     if source is None:
         return _select_skill_or_item(learner, session)
-    wanted = _effective_tier(session, item_tier(source.difficulty))
+    source_tier = item_tier(source.difficulty)
+    wanted = _effective_tier(session, source_tier)
+    announce = _announce_step_down(session, source_tier, wanted)
     nxt = _pick_item(
         session,
         source.primary_skill,
@@ -946,7 +955,12 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
     session.shown_item_ids.append(nxt.id)
     return _keep(
         session,
-        Action(type="similar_item", item_id=nxt.id, skill_id=nxt.primary_skill),
+        Action(
+            type="similar_item",
+            item_id=nxt.id,
+            skill_id=nxt.primary_skill,
+            extras={"support": "step_down"} if announce else {},
+        ),
     )
 
 
@@ -994,6 +1008,7 @@ def _show_practice(
     wanted = item_tier(_p_known(learner, skill, session))
     roles, required = _roles_for(learner, session, skill)
     shifted = _effective_tier(session, wanted)
+    announce = _announce_step_down(session, wanted, shifted)
     item = _pick_item(
         session,
         skill,
@@ -1012,7 +1027,8 @@ def _show_practice(
     session.attempt_after_hint2 = False
     session.phase = "practice"
     session.shown_item_ids.append(item.id)
-    return _keep(session, Action(type="show_item", item_id=item.id, skill_id=skill))
+    extras = {"support": "step_down"} if announce else {}
+    return _keep(session, Action(type="show_item", item_id=item.id, skill_id=skill, extras=extras))
 
 
 def _show_warmup(learner: LearnerState, session: SessionState, due: list[str]) -> Action:

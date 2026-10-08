@@ -9,6 +9,7 @@ import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
+import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
 
 /** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
@@ -97,6 +98,9 @@ export default function SessionPage() {
         copy={copy}
         reason={action.ended_reason || action.reason}
         summary={summary}
+        encouragement={
+          (action.extras as { encouragement?: { text?: string | null } } | undefined)?.encouragement?.text
+        }
         onKeepGoing={(chapterId) => router.push(`/chapters/${encodeURIComponent(chapterId)}`)}
         onChapters={() => router.push("/chapters")}
       />
@@ -167,6 +171,7 @@ export default function SessionPage() {
   const item = action.item;
   const mcq = item?.type === "mcq";
   const extras = (action.extras ?? {}) as Record<string, unknown>;
+  const praise = (extras.encouragement as { text?: string | null } | undefined)?.text;
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
 
   return (
@@ -185,6 +190,16 @@ export default function SessionPage() {
           </p>
         </header>
       ) : null}
+      {praise ? (
+        <p className="banner good" data-testid="encouragement">
+          {praise}
+        </p>
+      ) : null}
+      {extras.support === "step_down" ? (
+        <p className="muted" data-testid="support-note">
+          {copy.supportStepDown}
+        </p>
+      ) : null}
       {nudge ? (
         <button
           type="button"
@@ -196,6 +211,14 @@ export default function SessionPage() {
         >
           {copy.idleNudge}
         </button>
+      ) : null}
+
+      {action.type === "break_or_switch" ? (
+        <BreakOrSwitch
+          copy={copy}
+          choices={(extras.choices as string[] | undefined) ?? []}
+          onChoose={(choice) => send("break_choice", { choice })}
+        />
       ) : null}
 
       {action.type === "ask_stuck_point" ? (
@@ -255,6 +278,11 @@ export default function SessionPage() {
 
       {action.type === "worked_example" ? (
         <>
+          {extras.representation_change ? (
+            <p className="muted" data-testid="other-view">
+              {copy.otherView}
+            </p>
+          ) : null}
           <h1>{item?.stem || action.text}</h1>
           <ol className="steps">
             {(item?.steps || []).slice(0, step).map((row) => (
@@ -322,6 +350,23 @@ export default function SessionPage() {
 
       {action.type === "similar_item" || action.type === "show_item" || action.type === "warmup_item" ? (
         <>
+          {extras.probe ? (
+            <header className="stack" data-testid="probe">
+              <h1>{copy.probeTitle}</h1>
+              <p className="muted">{copy.probeHint}</p>
+            </header>
+          ) : null}
+          {extras.challenge ? (
+            <header className="stack" data-testid="challenge">
+              <h1>{copy.challengeLabel}</h1>
+              <p className="muted">{copy.challengeHint}</p>
+            </header>
+          ) : null}
+          {extras.win ? (
+            <p className="muted" data-testid="win">
+              {copy.winLabel}
+            </p>
+          ) : null}
           <p className="stem">{item?.stem}</p>
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 400 })} />

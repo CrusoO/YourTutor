@@ -217,6 +217,16 @@ def test_two_reveals_step_the_tier_down_for_the_next_two_items() -> None:
     assert tiers[2] != "easy"  # back to the tier the student's knowledge calls for
 
 
+def test_only_the_first_easier_item_carries_a_short_acknowledgement() -> None:
+    learner, session = _learner(p_known=0.6), _session()
+    action = policy(learner, session, None)
+    action = _reveal_item(learner, session, action)
+    action = _reveal_item(learner, session, action)
+    assert action.extras.get("support") == "step_down"
+    action = _skip_explain(learner, session, _right(learner, session, action))
+    assert action.extras.get("support") is None  # the second easier item has no extra message
+
+
 def test_three_wrong_first_attempts_in_a_row_across_skills_also_step_down() -> None:
     learner, session = _learner(p_known=0.6), _session()
     action = policy(learner, session, None)
