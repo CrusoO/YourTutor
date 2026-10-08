@@ -29,6 +29,11 @@ class LocaleSpec:
 class GradeBand:
     id: str
     grades: tuple[int, ...]
+    max_words: int  # per tutor message
+    soft_minutes: int
+    soft_items: int
+    hard_minutes: int
+    read_aloud_default: bool
 
 
 @dataclass(frozen=True)
@@ -125,11 +130,38 @@ def load_locales_config(root: Path | None = None) -> tuple[str, dict[str, Locale
 def load_grade_bands(root: Path | None = None) -> tuple[GradeBand, ...]:
     data = _load_yaml((root or config_dir()) / "grade_bands.yaml")
     bands = []
+    seen: dict[int, str] = {}
     for row in data.get("bands") or []:
+        band_id = str(row["id"])
+        missing = [
+            key
+            for key in (
+                "max_words",
+                "soft_minutes",
+                "soft_items",
+                "hard_minutes",
+                "read_aloud_default",
+            )
+            if key not in row
+        ]
+        if missing:
+            raise RegistryLoadError(f"grade band {band_id!r} is missing {', '.join(missing)}")
+        grades = tuple(int(g) for g in row["grades"])
+        for grade in grades:
+            if grade in seen:
+                raise RegistryLoadError(
+                    f"grade {grade} is in two bands: {seen[grade]!r} and {band_id!r}"
+                )
+            seen[grade] = band_id
         bands.append(
             GradeBand(
-                id=str(row["id"]),
-                grades=tuple(int(g) for g in row["grades"]),
+                id=band_id,
+                grades=grades,
+                max_words=int(row["max_words"]),
+                soft_minutes=int(row["soft_minutes"]),
+                soft_items=int(row["soft_items"]),
+                hard_minutes=int(row["hard_minutes"]),
+                read_aloud_default=bool(row["read_aloud_default"]),
             )
         )
     return tuple(bands)

@@ -147,6 +147,11 @@ class SessionState:
     misconception_text: dict[str, str] = field(default_factory=dict)  # id -> authored hint
     stuck_item_id: str | None = None  # the picker is offered once per item (R32)
     stretch_served: int = 0  # stretch items served this session (max 2)
+    # session limits from the student's grade band (defaults: the 9-10 band)
+    soft_active_ms: int = SOFT_ACTIVE_MS
+    soft_item_cap: int = SOFT_ITEM_CAP
+    hard_active_ms: int = HARD_ACTIVE_MS
+    max_words: int = 60  # per tutor message
     stretch_skills: set[str] = field(default_factory=set)  # one stretch per skill per session
     blocked_skills: set[str] = field(default_factory=set)
     content_gaps: list[dict[str, Any]] = field(default_factory=list)

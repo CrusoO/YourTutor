@@ -26,13 +26,10 @@ from app.orchestrator.diagnostic import (
 )
 from app.orchestrator.transitions import rule_id_for
 from app.orchestrator.types import (
-    HARD_ACTIVE_MS,
     IDLE_END_MS,
     LATENCY_CAP_MS,
     MAX_WARMUP,
     PREREQ_BELOW,
-    SOFT_ACTIVE_MS,
-    SOFT_ITEM_CAP,
     Action,
     CatalogItem,
     Event,
@@ -1032,11 +1029,14 @@ def _idle_expired(session: SessionState, event: Event | None) -> bool:
 
 
 def _soft_cap(session: SessionState) -> bool:
-    return session.active_ms >= SOFT_ACTIVE_MS or session.items_completed >= SOFT_ITEM_CAP
+    return (
+        session.active_ms >= session.soft_active_ms
+        or session.items_completed >= session.soft_item_cap
+    )
 
 
 def _hard_cap(session: SessionState) -> bool:
-    return session.active_ms >= HARD_ACTIVE_MS
+    return session.active_ms >= session.hard_active_ms
 
 
 def _end(session: SessionState, reason: str, *, resumable: bool) -> Action:

@@ -1,3 +1,31 @@
+# Grade-band profiles (ARCHITECTURE section 15). Personalisation is by skill level; the band sets
+# tone, word limits and session length. Every grade from 1 to 12 belongs to exactly one band.
 bands:
+  - id: primary
+    grades: [1, 2, 3, 4, 5]
+    max_words: 25          # per tutor message
+    soft_minutes: 8        # done-for-today after this much active time ...
+    soft_items: 8          # ... or this many items
+    hard_minutes: 12       # finish the current item, then end
+    read_aloud_default: true
+  - id: middle
+    grades: [6, 7, 8]
+    max_words: 40
+    soft_minutes: 12
+    soft_items: 10
+    hard_minutes: 18
+    read_aloud_default: false
   - id: lower_secondary
     grades: [9, 10]
+    max_words: 60
+    soft_minutes: 15
+    soft_items: 12
+    hard_minutes: 20
+    read_aloud_default: false
+  - id: upper_secondary
+    grades: [11, 12]
+    max_words: 80
+    soft_minutes: 20
+    soft_items: 15
+    hard_minutes: 30
+    read_aloud_default: false

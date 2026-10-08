@@ -43,8 +43,16 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
+from app.registries.grade_bands import SessionLimits, session_limits
 
-GOAL_MS = SOFT_ACTIVE_MS
+GOAL_MS = (
+    SOFT_ACTIVE_MS  # default (grades 9-10); the student's band decides, see limits_for_student
+)
+
+
+def limits_for_student(student: StudentRow) -> SessionLimits:
+    """Session caps and word limit from the student's grade band (config/grade_bands.yaml)."""
+    return session_limits(student.grade)
 
 
 def _locale_value(blob: dict | None, locale: str) -> str:
@@ -416,6 +424,11 @@ def _build_state(
         prerequisites=prereqs,
     )
     state.session_key = str(row.id)
+    limits = limits_for_student(student)
+    state.soft_active_ms = limits.soft_active_ms
+    state.soft_item_cap = limits.soft_items
+    state.hard_active_ms = limits.hard_active_ms
+    state.max_words = limits.max_words
     locale = student.home_language or "en"
     for mc in session.scalars(select(MisconceptionRow)):
         state.misconception_remedial[mc.id] = mc.remedial_skill
@@ -833,7 +846,8 @@ def _used_active_ms(session: Session, student: StudentRow, tz: ZoneInfo) -> int:
 
 def remaining_minutes(session: Session, student: StudentRow) -> int:
     used = _used_active_ms(session, student, _student_tz(session, student))
-    return max(0, int((GOAL_MS - used) / 60000))
+    goal = limits_for_student(student).soft_active_ms
+    return max(0, int((goal - used) / 60000))
 
 
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
@@ -844,7 +858,8 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     tz = _student_tz(session, student)
     profile = deployment_jurisdiction_profile()
     used = _used_active_ms(session, student, tz)
-    remaining = max(0, int((GOAL_MS - used) / 60000))
+    goal_ms = limits_for_student(student).soft_active_ms
+    remaining = max(0, int((goal_ms - used) / 60000))
     open_row = session.scalar(
         select(SessionRow).where(
             SessionRow.student_id == student.id,
@@ -863,7 +878,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     return {
         "student_id": str(student.id),
         "display_name": student.display_name,
-        "goal_minutes": int(GOAL_MS / 60000),
+        "goal_minutes": int(goal_ms / 60000),
         "remaining_active_minutes": remaining,
         "used_active_ms": used,
         "timezone": student.timezone,
