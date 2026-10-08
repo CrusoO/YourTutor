@@ -16,6 +16,7 @@ from app.auth.authz import can_start_session, require
 from app.auth.consent import active_scopes, has_scope
 from app.auth.security import as_utc, now_utc
 from app.config import settings
+from app.content.copy import with_encouragement_text
 from app.content.locale import is_missing_translation
 from app.content.signatures import structure_signature
 from app.db.models import (
@@ -346,6 +347,16 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "probe_done": sorted(state.probe_done),
         "scheduled_prereq": state.scheduled_prereq,
         "scheduled_left": state.scheduled_left,
+        "reveals": state.reveals,
+        "wrong_run": state.wrong_run,
+        "tier_down_items": state.tier_down_items,
+        "tier_up_next": state.tier_up_next,
+        "unhinted_run": state.unhinted_run,
+        "last_failure": state.last_failure,
+        "win_served": state.win_served,
+        "skill_failed": sorted(state.skill_failed),
+        "last_praise_at": state.last_praise_at,
+        "praise_count": state.praise_count,
         "stretch_skills": sorted(state.stretch_skills),
         "blocked_skills": list(state.blocked_skills),
         "content_gaps": state.content_gaps,
@@ -421,6 +432,16 @@ def load_state(
         probe_done=set(plan.get("probe_done") or []),
         scheduled_prereq=plan.get("scheduled_prereq"),
         scheduled_left=int(plan.get("scheduled_left") or 0),
+        reveals=int(plan.get("reveals") or 0),
+        wrong_run=int(plan.get("wrong_run") or 0),
+        tier_down_items=int(plan.get("tier_down_items") or 0),
+        tier_up_next=bool(plan.get("tier_up_next")),
+        unhinted_run=int(plan.get("unhinted_run") or 0),
+        last_failure=bool(plan.get("last_failure")),
+        win_served=bool(plan.get("win_served")),
+        skill_failed=set(plan.get("skill_failed") or []),
+        last_praise_at=int(plan.get("last_praise_at", -99)),
+        praise_count=int(plan.get("praise_count") or 0),
         stretch_skills=set(plan.get("stretch_skills") or []),
         blocked_skills=set(plan.get("blocked_skills") or []),
         content_gaps=list(plan.get("content_gaps") or []),
@@ -559,7 +580,7 @@ def enrich_action(
         "explain_back_prompt",
         "explain_back_result",
     }
-    extras = dict(action.extras or {})
+    extras = with_encouragement_text(dict(action.extras or {}), locale)
     assessment = bool(
         extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"}
     )

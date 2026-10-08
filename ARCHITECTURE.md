@@ -326,6 +326,10 @@ stateDiagram-v2
   probe --> representation: answer/worked_example (R33)
   probe --> practice: answer/show_item (R33)
   representation --> practice: continue/show_item (R33)
+  practice --> break_choice: answer/break_or_switch (R35)
+  practice --> break_choice: request_help/break_or_switch (R35)
+  break_choice --> practice: break_choice/show_item (R35)
+  break_choice --> ended: break_choice/end_session (R35)
 ```
 <!-- ORCH_TRANSITIONS:END -->
 

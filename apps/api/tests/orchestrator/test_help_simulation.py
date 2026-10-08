@@ -126,6 +126,7 @@ def test_help_is_monotonic_and_the_reveal_rules_hold(names: list[str], level: in
     if level:
         learner.ladders[SKILL] = SkillLadder(skill_id=SKILL, achieved=[1, 2, 3, 4])
     levels_seen: dict[str, int] = {}
+    last_presented: str | None = None
     pickers: dict[str, int] = {}
     shown_items: set[str] = set()
     for name in names:
@@ -139,6 +140,9 @@ def test_help_is_monotonic_and_the_reveal_rules_hold(names: list[str], level: in
         event = _event(name, item_id, session)
         phase_before = session.phase
         answered_item = item_id
+        if last_presented is not None and item_id != last_presented:
+            levels_seen.pop(last_presented, None)  # moved on: a later return is a new presentation
+        last_presented = item_id
         action = policy(learner, session, event)
         if session.last_correct and answered_item:
             levels_seen.pop(answered_item, None)  # finished: a repeat is a new presentation

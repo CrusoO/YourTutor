@@ -160,6 +160,17 @@ class SessionState:
     probe_done: set[str] = field(default_factory=set)  # one probe per prerequisite
     scheduled_prereq: str | None = None  # a prerequisite that comes next (R33)
     scheduled_left: int = 0
+    # G2b: frustration, challenge, never-end-on-failure, praise
+    reveals: int = 0  # reveals since the last step-down (R36)
+    wrong_run: int = 0  # consecutive wrong first attempts across skills (R36)
+    tier_down_items: int = 0  # items still to serve one tier lower (R36)
+    tier_up_next: bool = False  # the next item is one tier higher (R37)
+    unhinted_run: int = 0  # consecutive unhinted correct first attempts (R37)
+    last_failure: bool = False  # the last answered item ended in a miss (R40)
+    win_served: bool = False  # the one likely-success item before a cap-end (R40)
+    skill_failed: set[str] = field(default_factory=set)  # failed, not yet recovered
+    last_praise_at: int = -99  # items_completed when encouragement last appeared
+    praise_count: int = 0
     # session limits from the student's grade band (defaults: the 9-10 band)
     soft_active_ms: int = SOFT_ACTIVE_MS
     soft_item_cap: int = SOFT_ITEM_CAP

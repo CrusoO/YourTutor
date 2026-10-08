@@ -185,6 +185,9 @@ def validate_path(root: Path) -> ValidationReport:
         return report
     report = validate_bundle(bundle, curricula_for(root))
     report.errors.extend(lesson_errors(root, {skill.id for skill in bundle.skills}))
+    from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
+
+    report.errors.extend(copy_errors(root))
     _persist_hash_resets(root, report)
     return report
 
