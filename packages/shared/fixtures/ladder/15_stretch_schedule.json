@@ -1,0 +1,25 @@
+{
+  "name": "15_stretch_schedule",
+  "description": "Reaching level 4 schedules an apply stretch item one day later; reaching level 5 schedules a transfer one; level 6 schedules nothing. Mirrored by the offline player (G9).",
+  "params": {
+    "S1": { "p_init": 0.2, "p_learn": 0.5, "p_slip": 0.05, "p_guess": 0.1 }
+  },
+  "now": "2125-12-08T09:00:00+00:00",
+  "events": [
+    { "event_id": "e1", "skill_id": "S1", "kind": "answer", "at": "2026-01-01T09:01:00+00:00", "item_id": "i1", "correct": true, "pool": "practice", "role": "procedure", "structure": "s-a" },
+    { "event_id": "e2", "skill_id": "S1", "kind": "answer", "at": "2026-01-01T09:02:00+00:00", "item_id": "i2", "correct": true, "pool": "practice", "role": "procedure", "structure": "s-b" },
+    { "event_id": "e3", "skill_id": "S1", "kind": "answer", "at": "2026-01-01T09:03:00+00:00", "item_id": "i3", "correct": true, "pool": "practice", "role": "procedure", "structure": "s-c" },
+    { "event_id": "e4", "skill_id": "S1", "kind": "answer", "at": "2026-01-03T10:00:00+00:00", "item_id": "i4", "correct": true, "pool": "practice", "role": "apply", "structure": "s-w" },
+    { "event_id": "e5", "skill_id": "S1", "kind": "answer", "at": "2026-01-05T11:00:00+00:00", "item_id": "i5", "correct": true, "pool": "practice", "role": "transfer", "structure": "s-t" }
+  ],
+  "expect": {
+    "S1": {
+      "level": 6,
+      "evidence": { "3": ["e1"], "4": ["e1", "e2", "e3"], "5": ["e4"], "6": ["e5"] },
+      "flags": {
+        "stretch_after_4": "2026-01-02T09:03:00+00:00",
+        "stretch_after_5": "2026-01-04T10:00:00+00:00"
+      }
+    }
+  }
+}

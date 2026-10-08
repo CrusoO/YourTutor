@@ -37,6 +37,8 @@ MIN_STRUCTURES = 2
 RETAIN_FIRST = timedelta(days=7)
 RETAIN_SECOND = timedelta(days=21)
 MAX_LEVEL = 7
+STRETCH_DELAY = timedelta(days=1)  # first stretch item one day after the level was reached
+STRETCH_LEVELS = (4, 5)  # level 4 -> an apply item, level 5 -> a transfer item
 T_LEVEL = 4  # T = first overlay skill with ladder level below this
 
 KIND_ANSWER = "answer"
@@ -123,10 +125,15 @@ class SkillLadder:
         )
 
 
-def _achieve(ladder: SkillLadder, level: int, event_ids: list[str]) -> None:
+def _achieve(
+    ladder: SkillLadder, level: int, event_ids: list[str], at: datetime | None = None
+) -> None:
     if level not in ladder.achieved:
         ladder.achieved.append(level)
         ladder.evidence[level] = list(event_ids)
+        key = f"stretch_after_{level}"
+        if at is not None and level in STRETCH_LEVELS and key not in ladder.flags:
+            ladder.flags[key] = (at + STRETCH_DELAY).isoformat()  # the stretch slot (G2a)
 
 
 def lesson_level1_reached(ladder: SkillLadder, event: LadderEvent) -> bool:
@@ -151,7 +158,7 @@ def apply_ladder_event(
     if event.kind == KIND_TEST_OUT:
         ladder = ladders.setdefault(event.skill_id, SkillLadder(skill_id=event.skill_id))
         if 4 not in ladder.achieved:
-            _achieve(ladder, 4, [event.event_id])
+            _achieve(ladder, 4, [event.event_id], event.at)
             ladder.flags["evidence"] = "test_out"
         return ladder
     if event.kind != KIND_LESSON and event.pool not in LADDER_POOLS:
@@ -202,7 +209,7 @@ def _first_attempt(
     if unhinted_correct and event.role == "explain":
         _achieve(ladder, 2, [event.event_id])
     if unhinted_correct and event.role == "apply" and 4 in achieved_before:
-        _achieve(ladder, 5, [event.event_id])
+        _achieve(ladder, 5, [event.event_id], event.at)
     if unhinted_correct and event.role == "transfer" and 5 in achieved_before:
         _achieve(ladder, 6, [event.event_id])
     if event.role in STREAK_ROLES:
@@ -217,7 +224,7 @@ def _first_attempt(
         and len({structure for _id, structure in ladder.run}) >= MIN_STRUCTURES
         and p_known >= MASTERY_P
     ):
-        _achieve(ladder, 4, [event_id for event_id, _s in ladder.run])
+        _achieve(ladder, 4, [event_id for event_id, _s in ladder.run], event.at)
 
 
 def _review(

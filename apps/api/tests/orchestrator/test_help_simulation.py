@@ -114,7 +114,11 @@ def test_help_is_monotonic_and_the_reveal_rules_hold(names: list[str], level: in
             shown_items.add(item_id)
         event = _event(name, item_id, session)
         phase_before = session.phase
+        answered_item = item_id
         action = policy(learner, session, event)
+        if session.last_correct and answered_item:
+            levels_seen.pop(answered_item, None)  # finished: a repeat is a new presentation
+            pickers.pop(answered_item, None)
         item_id = action.item_id or session.current_item_id
         if item_id:
             shown_items.add(item_id)

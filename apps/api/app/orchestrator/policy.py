@@ -395,6 +395,9 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     if correct:
         session.items_completed += 1
         session.shown_item_ids.append(item.id)
+        # the item is finished: if it is shown again it is a fresh presentation (picker, slip path)
+        session.last_wrong_item_id = None
+        session.stuck_item_id = None
         if session.phase == "warmup":
             return _select_skill_or_item(learner, session)
         return _after_correct(learner, session, item)
@@ -523,6 +526,12 @@ def _select_skill_or_item(learner: LearnerState, session: SessionState) -> Actio
         if due:
             return _show_warmup(learner, session, due)
         session.warmup_left = 0
+    stretch = _stretch_skill(learner, session)
+    if stretch is not None:
+        session.stretch_served += 1
+        session.stretch_skills.add(stretch)
+        session.introduced_skills.add(stretch)  # already learned: no predict / worked example
+        return _show_practice(learner, session, stretch, new_skill=False)
     skill = _choose_skill(learner, session)
     if skill is None:
         return _end(session, "chapter_complete", resumable=False)
@@ -692,6 +701,31 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
 
 
 _EXTENSION_ROLE = {4: "apply", 5: "transfer"}
+MAX_STRETCH_PER_SESSION = 2
+
+
+def _stretch_skill(learner: LearnerState, session: SessionState) -> str | None:
+    """The stretch slot: a skill whose scheduled apply (level 4) or transfer (level 5) item is due.
+
+    The ladder sets `stretch_after_<level>` one day after the level was reached, so the item
+    comes in a later session, spaced like a review. At most two per session, one per skill, and
+    only when an item of the right role exists (a missing item is not a content gap here).
+    """
+    if session.session_type != "practice" or session.stretch_served >= MAX_STRETCH_PER_SESSION:
+        return None
+    for skill_id in session.overlay_skill_ids:
+        if skill_id in session.blocked_skills or skill_id in session.stretch_skills:
+            continue
+        ladder = learner.ladders.get(skill_id)
+        if ladder is None or ladder.level not in _EXTENSION_ROLE:
+            continue
+        due = ladder.flags.get(f"stretch_after_{ladder.level}")
+        if not due or datetime.fromisoformat(str(due)) > session.now:
+            continue
+        role = _EXTENSION_ROLE[ladder.level]
+        if any(row.role == role for row in _eligible_items(session, skill_id, set())):
+            return skill_id
+    return None
 
 
 def _extension_skill(learner: LearnerState, session: SessionState) -> str | None:

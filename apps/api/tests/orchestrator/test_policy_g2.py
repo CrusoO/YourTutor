@@ -261,6 +261,18 @@ def test_help_after_a_wrong_answer_goes_straight_to_the_ladder() -> None:
     assert action.type == "hint" and action.hint_level == 2
 
 
+def test_an_item_shown_again_after_it_was_answered_gets_a_fresh_picker() -> None:
+    learner, session, first = _practice()
+    _ask(learner, session)
+    _choose(learner, session, "start")
+    _answer(learner, session, "5", first.item_id)  # finished
+    assert session.stuck_item_id is None and session.last_wrong_item_id is None
+    session.current_item_id = first.item_id  # the same item comes round again
+    session.phase = "practice"
+    session.hint_level_shown = 0
+    assert _ask(learner, session).type == "ask_stuck_point"
+
+
 def test_the_picker_is_offered_once_per_item() -> None:
     learner, session, _ = _practice()
     _ask(learner, session)
