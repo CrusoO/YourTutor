@@ -52,6 +52,11 @@ TRANSITIONS: tuple[Transition, ...] = (
     Transition("R32", "stuck", "stuck_choice", "practice", "show_item", "might be right"),
     Transition("R32", "stuck", "stuck_choice", "practice", "check_your_work", "recheck"),
     Transition("R32", "stuck_step", "stuck_step", "practice", "hint", "step hint"),
+    Transition("R33", "practice", "answer", "probe", "show_item", "prerequisite probe"),
+    Transition("R33", "practice", "answer", "representation", "worked_example", "new view"),
+    Transition("R33", "probe", "answer", "representation", "worked_example", "probe right"),
+    Transition("R33", "probe", "answer", "practice", "show_item", "probe wrong"),
+    Transition("R33", "representation", "continue", "practice", "show_item", "back to T"),
 )
 
 

@@ -147,6 +147,19 @@ class SessionState:
     misconception_text: dict[str, str] = field(default_factory=dict)  # id -> authored hint
     stuck_item_id: str | None = None  # the picker is offered once per item (R32)
     stretch_served: int = 0  # stretch items served this session (max 2)
+    # G2b: probe (R33) and wheel-spinning (R34)
+    teacher_share: bool = False  # alerts are only queued with this consent scope
+    alerts: list[dict[str, str]] = field(default_factory=list)  # drained by the runtime
+    wheel_skills: set[str] = field(default_factory=set)
+    wrong_first_streak: dict[str, int] = field(default_factory=dict)  # per skill
+    skill_items: dict[str, int] = field(default_factory=dict)  # items seen per skill
+    seen_items: set[str] = field(default_factory=set)
+    answered_items: set[str] = field(default_factory=set)
+    probe_for: str | None = None  # the target skill while a probe is running
+    probe_skill: str | None = None  # the prerequisite being probed
+    probe_done: set[str] = field(default_factory=set)  # one probe per prerequisite
+    scheduled_prereq: str | None = None  # a prerequisite that comes next (R33)
+    scheduled_left: int = 0
     # session limits from the student's grade band (defaults: the 9-10 band)
     soft_active_ms: int = SOFT_ACTIVE_MS
     soft_item_cap: int = SOFT_ITEM_CAP

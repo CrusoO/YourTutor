@@ -156,6 +156,10 @@ def _enter_practice_loop(learner: LearnerState, session: SessionState) -> Action
 
 
 def _on_continue(learner: LearnerState, session: SessionState) -> Action:
+    if session.phase == "representation":
+        target = session.probe_for or session.current_skill
+        session.probe_for = None
+        return _show_practice(learner, session, target, new_skill=False)
     if session.phase == "worked_example":
         _lesson_complete(learner, session)
         return _show_practice(learner, session, session.current_skill, new_skill=False)
@@ -177,6 +181,8 @@ def _on_hint(learner: LearnerState, session: SessionState) -> Action:
     item = session.item()
     if item is None:
         return _enter_practice_loop(learner, session)
+    if session.phase == "probe":
+        return _flag(session, "no_help_in_probe")
     if session.phase in {"stuck", "stuck_step"}:
         return _keep(session, _stuck_point_action(session, item))
     if (
@@ -215,6 +221,7 @@ def _ask_stuck_point(learner: LearnerState, session: SessionState, item: Catalog
     """R32: ask before telling. The first help request is the item's one BKT update."""
     _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
     _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
+    _note_item_seen(session, item)
     session.stuck_item_id = item.id
     session.help_without_attempt += 1
     session.phase = "stuck"
@@ -352,6 +359,22 @@ def _on_show_solution(learner: LearnerState, session: SessionState) -> Action:
 
 
 def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Action:
+    """Answer entry point: probe answers, bookkeeping, then the G2b rules around the base flow."""
+    item = session.item(event.item_id) or session.item()
+    if item is None or session.session_type != "practice":
+        return _on_answer_base(learner, session, event)
+    if session.phase == "probe" and item.primary_skill == session.probe_skill:
+        return _answer_probe(learner, session, item, event)
+    first_answer = item.id not in session.answered_items
+    action = _on_answer_base(learner, session, event)
+    if action.rejected or session.last_correct is None:
+        return action
+    if first_answer:
+        _note_first_answer(session, item, bool(session.last_correct))
+    return _apply_g2b_rules(learner, session, item, action)
+
+
+def _on_answer_base(learner: LearnerState, session: SessionState, event: Event) -> Action:
     item = session.item(event.item_id) or session.item()
     if item is None:
         return _enter_practice_loop(learner, session)
@@ -412,6 +435,165 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
         session.attempt_after_hint2 = True
         return _reveal(session)
     return _deliver_hint(learner, session, item)
+
+
+WHEEL_WRONG_STREAK = 3  # R34: consecutive wrong first attempts on one skill
+WHEEL_ITEM_LIMIT = 10  # R34: items on one skill in a session without reaching level 4
+
+
+def _note_item_seen(session: SessionState, item: CatalogItem) -> None:
+    if item.id not in session.seen_items:
+        session.seen_items.add(item.id)
+        skill = item.primary_skill
+        session.skill_items[skill] = session.skill_items.get(skill, 0) + 1
+
+
+def _note_first_answer(session: SessionState, item: CatalogItem, correct: bool) -> None:
+    """First answer on an item: it is seen, and it extends or resets the wrong-first-attempt run."""
+    session.answered_items.add(item.id)
+    _note_item_seen(session, item)
+    skill = item.primary_skill
+    session.wrong_first_streak[skill] = (
+        0 if correct else session.wrong_first_streak.get(skill, 0) + 1
+    )
+
+
+def _wheel_spinning(learner: LearnerState, session: SessionState, skill: str) -> bool:
+    if skill in session.wheel_skills or _ladder_level(learner, skill) >= T_LEVEL:
+        return False
+    return (
+        session.wrong_first_streak.get(skill, 0) >= WHEEL_WRONG_STREAK
+        or session.skill_items.get(skill, 0) >= WHEEL_ITEM_LIMIT
+    )
+
+
+def _apply_g2b_rules(
+    learner: LearnerState, session: SessionState, item: CatalogItem, action: Action
+) -> Action:
+    """Rules that wrap the base answer flow: R34 wheel-spinning stop and R33 probe."""
+    skill = item.primary_skill
+    reason: str | None = None
+    if _wheel_spinning(learner, session, skill):
+        session.wheel_skills.add(skill)
+        reason = "wheel_spinning"
+        if session.teacher_share:
+            session.alerts.append({"skill_id": skill, "type": "wheel_spinning"})
+    diagnosis = session.last_diagnosis or {}
+    if diagnosis.get("class") == "prerequisite_gap" and diagnosis.get("detail"):
+        reason = reason or "prerequisite_gap"
+    if reason is None or action.type not in _PROBE_REPLACES:
+        return action
+    prereq = diagnosis.get("detail") if reason == "prerequisite_gap" else None
+    return _start_probe(learner, session, skill, prereq) or action
+
+
+# actions the probe may replace: the next step of the item the student just answered
+_PROBE_REPLACES = frozenset(
+    {"hint", "show_item", "similar_item", "explain_back_prompt", "check_your_work"}
+)
+
+
+def _lowest_mastery_prerequisite(
+    learner: LearnerState, session: SessionState, target: str
+) -> str | None:
+    candidates = [
+        sid
+        for sid in session.prerequisites.get(target, ())
+        if sid not in session.probe_done
+        and any(row.primary_skill == sid for row in _eligible_items(session, sid, set()))
+    ]
+    if not candidates:
+        return None
+    return min(candidates, key=lambda sid: (_p_known(learner, sid, session), sid))
+
+
+def _start_probe(
+    learner: LearnerState, session: SessionState, target: str, prereq: str | None
+) -> Action | None:
+    """R33: one practice item on the prerequisite; none to probe means a new representation."""
+    if prereq is not None and prereq in session.probe_done:
+        return None
+    chosen = prereq or _lowest_mastery_prerequisite(learner, session, target)
+    item = (
+        _pick_item(
+            session,
+            chosen,
+            p_known=_p_known(learner, chosen, session),
+            prefer_tier="easy",
+            roles=("procedure",),
+        )
+        if chosen
+        else None
+    )
+    if chosen is None or item is None:
+        return _change_representation(session, target)
+    session.probe_done.add(chosen)
+    session.probe_skill, session.probe_for = chosen, target
+    session.phase = "probe"
+    session.current_skill = chosen
+    session.current_item_id = item.id
+    session.hint_level_shown = 0
+    session.attempt_after_hint2 = False
+    session.shown_item_ids.append(item.id)
+    action = Action(
+        type="show_item",
+        item_id=item.id,
+        skill_id=chosen,
+        extras={"probe": True, "for_skill": target},
+    )
+    action.rule_id = "R33"
+    return _keep(session, action)
+
+
+def _change_representation(session: SessionState, target: str) -> Action:
+    """Show the target skill in a different way: its worked example (no lesson credit)."""
+    session.phase = "representation"
+    session.probe_for = target
+    session.current_skill = target
+    current = session.item()
+    if current is None or current.primary_skill != target:
+        current = next((row for row in session.catalog if row.primary_skill == target), None)
+        session.current_item_id = current.id if current else None
+    action = Action(
+        type="worked_example",
+        item_id=session.current_item_id,
+        skill_id=target,
+        text=current.authored_explanation if current else "",
+        extras={"representation_change": True},
+    )
+    action.rule_id = "R33"
+    return _keep(session, action)
+
+
+def _answer_probe(
+    learner: LearnerState, session: SessionState, item: CatalogItem, event: Event
+) -> Action:
+    correct = verify_response(
+        event.response or "",
+        answer_sympy=item.answer_sympy,
+        accept=list(item.accept),
+        item_type=item.type,
+        verify=item.verify,
+        options=list(item.options),
+    )
+    session.last_correct = correct
+    session.last_diagnosis = None
+    _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
+    _maybe_ladder(learner, session, item, kind=KIND_ANSWER, correct=correct)
+    session.items_completed += 1
+    session.answered_items.add(item.id)
+    _note_item_seen(session, item)
+    prereq, target = session.probe_skill, session.probe_for
+    session.probe_skill = None
+    if correct and target:
+        return _change_representation(
+            session, target
+        )  # the prerequisite is fine: teach T differently
+    session.probe_for = None
+    session.phase = "practice"
+    if prereq:
+        session.scheduled_prereq, session.scheduled_left = prereq, 2  # prerequisite next, T later
+    return _select_skill_or_item(learner, session)
 
 
 def _track_engagement(session: SessionState, item: CatalogItem, event: Event) -> None:
@@ -678,6 +860,13 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     With no such skill: extension practice (level 4 -> apply, 5 -> transfer) on the first skill
     that still has a role to earn, otherwise None (chapter complete).
     """
+    scheduled = session.scheduled_prereq
+    if scheduled and session.scheduled_left > 0:
+        session.scheduled_left -= 1
+        if session.scheduled_left == 0:
+            session.scheduled_prereq = None
+        return scheduled
+    session.scheduled_prereq, session.scheduled_left = None, 0
     target = None
     for skill_id in session.overlay_skill_ids:
         if skill_id in session.blocked_skills:

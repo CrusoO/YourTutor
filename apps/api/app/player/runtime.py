@@ -335,6 +335,16 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "help_without_attempt": state.help_without_attempt,
         "stuck_item_id": state.stuck_item_id,
         "stretch_served": state.stretch_served,
+        "wheel_skills": sorted(state.wheel_skills),
+        "wrong_first_streak": state.wrong_first_streak,
+        "skill_items": state.skill_items,
+        "seen_items": sorted(state.seen_items),
+        "answered_items": sorted(state.answered_items),
+        "probe_for": state.probe_for,
+        "probe_skill": state.probe_skill,
+        "probe_done": sorted(state.probe_done),
+        "scheduled_prereq": state.scheduled_prereq,
+        "scheduled_left": state.scheduled_left,
         "stretch_skills": sorted(state.stretch_skills),
         "blocked_skills": list(state.blocked_skills),
         "content_gaps": state.content_gaps,
@@ -400,6 +410,16 @@ def load_state(
         help_without_attempt=int(plan.get("help_without_attempt") or 0),
         stuck_item_id=plan.get("stuck_item_id"),
         stretch_served=int(plan.get("stretch_served") or 0),
+        wheel_skills=set(plan.get("wheel_skills") or []),
+        wrong_first_streak={k: int(v) for k, v in (plan.get("wrong_first_streak") or {}).items()},
+        skill_items={k: int(v) for k, v in (plan.get("skill_items") or {}).items()},
+        seen_items=set(plan.get("seen_items") or []),
+        answered_items=set(plan.get("answered_items") or []),
+        probe_for=plan.get("probe_for"),
+        probe_skill=plan.get("probe_skill"),
+        probe_done=set(plan.get("probe_done") or []),
+        scheduled_prereq=plan.get("scheduled_prereq"),
+        scheduled_left=int(plan.get("scheduled_left") or 0),
         stretch_skills=set(plan.get("stretch_skills") or []),
         blocked_skills=set(plan.get("blocked_skills") or []),
         content_gaps=list(plan.get("content_gaps") or []),
@@ -424,6 +444,7 @@ def _build_state(
         prerequisites=prereqs,
     )
     state.session_key = str(row.id)
+    state.teacher_share = "teacher_share" in scopes
     limits = limits_for_student(student)
     state.soft_active_ms = limits.soft_active_ms
     state.soft_item_cap = limits.soft_items
