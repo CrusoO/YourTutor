@@ -235,3 +235,60 @@ def test_downgrade_to_pre_g0_and_upgrade_to_head_keeps_data() -> None:
         assert conn.execute(text("SELECT count(*) FROM locales")).scalar_one() >= 3
         assert conn.execute(text("SELECT count(*) FROM curricula")).scalar_one() >= 3
     engine.dispose()
+
+
+NEW_ITEM_COLUMNS = {
+    "slip_patterns",
+    "prereq_signatures",
+    "intermediate_values",
+    "min_plausible_ms",
+    "step_hints",
+    "hint_restate",
+}
+
+
+def _item_columns(engine: Engine) -> set[str]:
+    with engine.connect() as conn:
+        rows = conn.execute(
+            text(
+                "SELECT column_name FROM information_schema.columns "
+                "WHERE table_schema = 'public' AND table_name = 'items'"
+            )
+        )
+        return {row[0] for row in rows}
+
+
+@pytest.mark.postgres
+def test_0017_adds_and_removes_the_item_diagnosis_columns() -> None:
+    url = _postgres_url()
+    if url is None:
+        pytest.skip("Postgres is not available")
+    engine = create_engine(url, future=True)
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+        conn.commit()
+    cfg = _config(url)
+    command.upgrade(cfg, "head")
+    assert NEW_ITEM_COLUMNS <= _item_columns(engine)
+    with engine.connect() as conn:  # an existing row survives the round trip with empty defaults
+        conn.execute(
+            text(
+                "INSERT INTO items (id, skill_ids, primary_skill, difficulty, type, pool, role, "
+                "stem, options, answer, solution_steps, hints, prediction_prompt, "
+                "misconception_rules, status) VALUES ('I.1', '[\"S\"]', 'S', 0.5, 'expression', "
+                "'practice', 'procedure', '{}', '[]', '{}', '[]', '[]', '{}', '[]', 'draft')"
+            )
+        )
+        conn.commit()
+    command.downgrade(cfg, "0016_s1b_chapter_titles")
+    assert not (NEW_ITEM_COLUMNS & _item_columns(engine))
+    command.upgrade(cfg, "head")
+    assert NEW_ITEM_COLUMNS <= _item_columns(engine)
+    with engine.connect() as conn:
+        row = conn.execute(
+            text("SELECT slip_patterns, step_hints, hint_restate, min_plausible_ms FROM items")
+        ).one()
+    assert list(row[0]) == [] and list(row[1]) == [] and row[2] is None and row[3] is None
+    engine.dispose()
