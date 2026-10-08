@@ -106,25 +106,31 @@ def _tier(session: SessionState, action: Action) -> str:
 # ---- R35 break_or_switch ------------------------------------------------------------------
 
 
-def test_three_fast_answers_in_a_row_offer_a_break_or_a_switch() -> None:
-    learner, session = _learner(), _session()
-    action = policy(learner, session, None)
-    for _ in range(2):
-        action = _skip_explain(learner, session, _wrong(learner, session, action, latency=300))
-        action = _wrong(learner, session, action, latency=300) if action.type == "hint" else action
-    assert action.type != "break_or_switch"
-    session2, learner2 = _session(), _learner()
-    action2 = policy(learner2, session2, None)
-    last = action2
-    for _ in range(3):
-        last = _right(learner2, session2, last, latency=300)
-        last = _skip_explain(learner2, session2, last)
-        if last.type == "break_or_switch":
+def _fast_answers(learner, session, action: Action, count: int, *, right: bool) -> Action:
+    """Exactly `count` fast answers (300 ms), clicking through Continue-only screens between."""
+    given = 0
+    for _ in range(40):
+        if given == count or action.type == "break_or_switch":
             break
-    assert last.type == "break_or_switch"
-    assert last.rule_id == "R35"
-    assert last.extras["choices"] == ["break", "switch", "continue"]
-    assert session2.fast_streak == 0 and session2.phase == "break_choice"
+        if action.type in {"show_item", "similar_item", "hint", "check_your_work"}:
+            action = (_right if right else _wrong)(learner, session, action, latency=300)
+            given += 1
+        else:
+            action = policy(learner, session, Event(type="continue"))
+    return action
+
+
+def test_three_fast_answers_in_a_row_offer_a_break_or_a_switch() -> None:
+    for right in (True, False):
+        learner, session = _learner(), _session()
+        action = policy(learner, session, None)
+        action = _fast_answers(learner, session, action, 2, right=right)
+        assert action.type != "break_or_switch" and session.fast_streak == 2
+        action = _fast_answers(learner, session, action, 1, right=right)
+        assert action.type == "break_or_switch", right
+        assert action.rule_id == "R35"
+        assert action.extras["choices"] == ["break", "switch", "continue"]
+        assert session.fast_streak == 0 and session.phase == "break_choice"
 
 
 def test_a_slow_answer_resets_the_fast_streak() -> None:

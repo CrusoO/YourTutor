@@ -536,6 +536,7 @@ _BREAK_REPLACES = frozenset(
         "check_your_work",
         "predict",
         "warmup_item",
+        "reveal_solution",  # a guesser who also misses the last hint is offered the break first
     }
 )
 FRUSTRATION_REVEALS = 2  # R36
