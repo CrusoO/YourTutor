@@ -37,6 +37,7 @@ def test_dev_scenarios_list_credentials_and_seeded_flag(
         "skill_at_level_4",
         "review_due",
         "all_skills_level_4",
+        "slip_prone",
     ]
     assert all(row["pin"] == "1234" and row["family_code"] for row in body["scenarios"])
     assert not any(row["seeded"] for row in body["scenarios"])
@@ -48,6 +49,27 @@ def test_dev_scenarios_list_credentials_and_seeded_flag(
         row["name"]: row["seeded"] for row in client.get("/dev/scenarios").json()["scenarios"]
     }
     assert seeded["new_student"] is True and seeded["mid_chapter"] is False
+
+
+def test_dev_seed_can_reset_only_the_named_scenarios(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import subprocess
+
+    settings.dev_tools = True
+    settings.allow_draft_content = True
+    calls: list[list[str]] = []
+
+    def fake_run(cmd: list[str], **_: object) -> subprocess.CompletedProcess[str]:
+        calls.append(cmd)
+        return subprocess.CompletedProcess(cmd, 0, stdout="ok", stderr="")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    assert client.post("/dev/seed?only=slip_prone&only=new_student").status_code == 200
+    assert calls[-1][-4:] == ["--only", "slip_prone", "--only", "new_student"]
+    assert client.post("/dev/seed").status_code == 200
+    assert "--only" not in calls[-1]
+    assert client.post("/dev/seed?only=nope").status_code == 400
 
 
 def test_dev_item_answer_is_404_without_dev_tools(client: TestClient) -> None:

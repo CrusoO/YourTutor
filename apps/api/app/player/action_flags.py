@@ -27,6 +27,7 @@ def hint_solution_flags(
         "show_item",
         "warmup_item",
         "similar_item",
+        "hint",
         "check_your_work",
     }
     return can_request, can_show

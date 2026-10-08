@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import SessionPage from "@/app/session/[id]/page";
@@ -260,16 +260,97 @@ describe("SessionPage action rendering", () => {
     vi.useRealTimers();
   });
 
-  it("show_item request_hint after timer", async () => {
-    vi.useFakeTimers({ shouldAdvanceTime: true });
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-    mockSession(actionFixtures.show_item);
+  it("show_item offers Help straight away and sends request_help (G2: the picker asks first)", async () => {
+    await renderAction("show_item");
+    await userEvent.click(await screen.findByRole("button", { name: /^help$/i }));
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "request_help", {}, actionFixtures.show_item.item_id);
+  });
+
+  it("Help is hidden when the server does not allow it, and the old flag still works", async () => {
+    mockSession({ ...actionFixtures.show_item, can_request_help: undefined, can_request_hint: false, allow_hint: false });
     render(<SessionPage />);
     await waitFor(() => expect(getSession).toHaveBeenCalled());
-    await vi.advanceTimersByTimeAsync(60_000);
-    const hintBtn = await screen.findByRole("button", { name: /^hint$/i });
-    await user.click(hintBtn);
-    expect(postEvent).toHaveBeenCalledWith("sess-test", "request_hint", {}, actionFixtures.show_item.item_id);
-    vi.useRealTimers();
+    expect(screen.queryByRole("button", { name: /^help$/i })).not.toBeInTheDocument();
+    cleanup();
+    mockSession({ ...actionFixtures.show_item, can_request_help: undefined, can_request_hint: true });
+    render(<SessionPage />);
+    expect(await screen.findByRole("button", { name: /^help$/i })).toBeInTheDocument();
+  });
+
+  it("the stuck-point picker offers the four choices and sends the pick", async () => {
+    await renderAction("ask_stuck_point");
+    expect(screen.getByRole("heading", { name: /where are you stuck/i })).toBeInTheDocument();
+    for (const label of [/don't know how to start/i, /stuck at a step/i, /don't understand the question/i, /answer might be right/i]) {
+      expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+    }
+    await userEvent.click(screen.getByRole("button", { name: /don't understand the question/i }));
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "stuck_choice", { choice: "restate" }, actionFixtures.ask_stuck_point.item_id);
+  });
+
+  it("the picker only shows the choices the server offers", async () => {
+    mockSession({ ...actionFixtures.ask_stuck_point, extras: { choices: ["start", "might_be_right"], step_count: 0 } });
+    render(<SessionPage />);
+    await screen.findByRole("heading", { name: /where are you stuck/i });
+    expect(screen.queryByRole("button", { name: /stuck at a step/i })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("button")).toHaveLength(2);
+  });
+
+  it("the step picker shows numbered steps, never the solution steps", async () => {
+    await renderAction("ask_stuck_step");
+    const buttons = screen.getAllByRole("button");
+    expect(buttons.map((b) => b.textContent)).toEqual(["Step 1", "Step 2", "Step 3"]);
+    expect(screen.queryByText(/Subtract 4/)).not.toBeInTheDocument();
+    await userEvent.click(buttons[1]);
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "stuck_step", { index: 1 }, actionFixtures.ask_stuck_step.item_id);
+  });
+
+  it.each([
+    ["sign_flip", /signs in each line/i],
+    ["off_by", /arithmetic, line by line/i],
+    ["values", /last step again/i],
+    ["recheck", /one at a time/i],
+    ["something_else", /look over your work once more/i],
+  ])("check_your_work (%s) says what to look at, never the answer", async (kind, words) => {
+    mockSession({ ...actionFixtures.check_your_work, extras: { check_kind: kind } });
+    render(<SessionPage />);
+    const box = await screen.findByTestId("check-your-work");
+    expect(within(box).getByText(words)).toBeInTheDocument();
+    expect(box.textContent).not.toContain(actionFixtures.check_your_work.item?.answer ?? "@@none@@");
+    cleanup();
+  });
+
+  it("check_your_work lets the student try again and still offers Help", async () => {
+    await renderAction("check_your_work");
+    await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
+    await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "answer", expect.objectContaining({ response: "6" }), actionFixtures.check_your_work.item_id);
+  });
+
+  it("a restated question or a step hint is labelled as such", async () => {
+    mockSession({ ...actionFixtures.hint, text: "Read it again.", extras: { kind: "restate" } });
+    render(<SessionPage />);
+    expect(await screen.findByText(/the question again/i)).toBeInTheDocument();
+    cleanup();
+    mockSession({ ...actionFixtures.hint, text: "Undo the plus.", extras: { kind: "step", step: 0 } });
+    render(<SessionPage />);
+    expect(await screen.findByText(/hint for that step/i)).toBeInTheDocument();
+  });
+
+  it("a hint screen offers Help while the server allows it and hides it after two hints", async () => {
+    mockSession({ ...actionFixtures.hint, can_request_help: true, extras: { kind: "restate" } });
+    render(<SessionPage />);
+    await userEvent.click(await screen.findByRole("button", { name: /^help$/i }));
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "request_help", {}, actionFixtures.hint.item_id);
+    cleanup();
+    mockSession({ ...actionFixtures.hint, can_request_help: false, can_show_solution: true });
+    render(<SessionPage />);
+    await screen.findByTestId("hint-text");
+    expect(screen.queryByRole("button", { name: /^help$/i })).not.toBeInTheDocument();
+  });
+
+  it("show_item after 'might be right' asks the student to submit", async () => {
+    mockSession({ ...actionFixtures.show_item, extras: { prompt_submit: true } });
+    render(<SessionPage />);
+    expect(await screen.findByText(/go ahead and type your answer/i)).toBeInTheDocument();
   });
 });

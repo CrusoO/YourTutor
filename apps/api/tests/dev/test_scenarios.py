@@ -32,7 +32,14 @@ from app.learner.status import REVIEW_DUE, review_overdue, skill_status
 from app.player.runtime import load_catalog, recompute_ladders
 from app.registries.paths import repo_root
 
-NAMES = ["new_student", "mid_chapter", "skill_at_level_4", "review_due", "all_skills_level_4"]
+NAMES = [
+    "new_student",
+    "mid_chapter",
+    "skill_at_level_4",
+    "review_due",
+    "all_skills_level_4",
+    "slip_prone",
+]
 
 
 @pytest.fixture(scope="module")
@@ -70,9 +77,9 @@ def _overlay_skills(db: Session, student: StudentRow) -> list[str]:
     return list(overlay_skills(db, student))
 
 
-def test_scenario_names_are_the_five_required_ones() -> None:
+def test_scenario_names_are_the_six_required_ones() -> None:
     assert [s.name for s in SCENARIOS] == NAMES
-    assert len({s.family_code for s in SCENARIOS}) == 5
+    assert len({s.family_code for s in SCENARIOS}) == 6
 
 
 def test_seeding_is_refused_unless_draft_content_is_allowed(tmp_path: Path) -> None:
@@ -218,11 +225,11 @@ def test_reseeding_replaces_the_scenarios_without_duplicates(
             .select_from(StudentRow)
             .where(StudentRow.family_code.in_(spec_codes))
         )
-        assert count == 5
+        assert count == 6
         parents = db.scalar(
             select(func.count()).select_from(UserRow).where(UserRow.email.like("scenario.%"))
         )
-        assert parents == 5
+        assert parents == 6
         assert uuid.UUID(str(_student(db, "new_student").id))
 
 
@@ -279,6 +286,22 @@ def test_all_skills_level_4_starts_extension_practice_with_an_apply_item(
     with _db(url) as db:
         item = db.get(ItemRow, action["item_id"])
         assert item is not None and item.role in {"apply", "procedure"}
+
+
+def test_slip_prone_starts_with_an_item_that_can_show_check_your_work(
+    seeded: tuple[str, list[dict]],
+) -> None:
+    from app.db.models import ItemRow
+
+    url, _ = seeded
+    assert _open_sessions(url, "slip_prone") == 0
+    action = _first_action(url, "slip_prone")
+    assert action["type"] in {"show_item", "warmup_item"}
+    with _db(url) as db:
+        student = _student(db, "slip_prone")
+        assert all(level >= 4 for level in _levels(db, student).values())
+        item = db.get(ItemRow, action["item_id"])
+        assert item is not None and item.slip_patterns and item.step_hints and item.hint_restate
 
 
 def test_skill_at_level_4_and_mid_chapter_keep_a_session_open_to_resume(

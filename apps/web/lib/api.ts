@@ -19,6 +19,8 @@ export type ActionPayload = {
   phase?: string;
   hint_level_shown?: number;
   allow_hint?: boolean;
+  can_request_help?: boolean;
+  /** Deprecated: use can_request_help. */
   can_request_hint?: boolean;
   can_show_solution?: boolean;
   dont_know_option?: boolean;

@@ -85,6 +85,15 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "Alma",
         leave_open=False,
     ),
+    ScenarioSpec(
+        "slip_prone",
+        "Slip prone",
+        "Every skill at level 4, so questions are application items: a wrong sign or an "
+        "off-by-one answer shows Check your work, and Help opens the stuck-point picker.",
+        "DEVSLP",
+        "Sana",
+        leave_open=False,
+    ),
 )
 
 Stop = Callable[[list[str], dict[str, int], dict[str, int]], bool]
@@ -99,7 +108,7 @@ def _stop_for(name: str) -> Stop | None:
             and attempts.get(skills[4], 0) >= 1
             and levels.get(skills[4], 0) < 4
         )
-    if name == "all_skills_level_4":
+    if name in {"all_skills_level_4", "slip_prone"}:
         return lambda skills, levels, attempts: all(levels.get(s, 0) >= 4 for s in skills)
     return None
 
