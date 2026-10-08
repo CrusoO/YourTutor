@@ -12,10 +12,12 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 TESTS = ROOT / "tests"
@@ -39,10 +41,20 @@ def working_set_mb(pid: int) -> float:
 
 def measure(target: Path) -> tuple[float, float, str]:
     started = time.time()
+    log_path = os.environ.get("MEASURE_LOG")  # stream pytest output so a kill leaves a trail
+    sink: Any = open(log_path, "w", encoding="utf-8") if log_path else subprocess.PIPE  # noqa: SIM115
     proc = subprocess.Popen(
-        [sys.executable, "-m", "pytest", "-q", "-p", "no:randomly", str(target)],
+        [
+            sys.executable,
+            "-m",
+            "pytest",
+            "-v" if log_path else "-q",
+            "-p",
+            "no:randomly",
+            str(target),
+        ],
         cwd=ROOT,
-        stdout=subprocess.PIPE,
+        stdout=sink,
         stderr=subprocess.STDOUT,
         text=True,
     )
@@ -50,7 +62,11 @@ def measure(target: Path) -> tuple[float, float, str]:
     while proc.poll() is None:
         peak = max(peak, working_set_mb(proc.pid))
         time.sleep(INTERVAL)
-    output = proc.stdout.read() if proc.stdout else ""
+    if log_path:
+        sink.close()
+        output = open(log_path, encoding="utf-8", errors="ignore").read()
+    else:
+        output = proc.stdout.read() if proc.stdout else ""
     summary = next(
         (ln for ln in reversed(output.splitlines()) if " passed" in ln or " failed" in ln), ""
     )
