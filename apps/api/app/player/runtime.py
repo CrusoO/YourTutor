@@ -85,6 +85,12 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
         authored_explanation=steps[-1] if steps else "",
         verify=row.verify,
         options=tuple(row.options or ()),
+        slip_patterns=tuple(row.slip_patterns or ()),
+        prereq_signatures=tuple(row.prereq_signatures or ()),
+        intermediate_values=tuple(str(v) for v in (row.intermediate_values or ())),
+        min_plausible_ms=row.min_plausible_ms,
+        step_hints=tuple(str((s or {}).get("en") or "") for s in (row.step_hints or ())),
+        hint_restate=str((row.hint_restate or {}).get("en") or ""),
     )
 
 

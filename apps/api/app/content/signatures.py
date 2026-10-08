@@ -33,5 +33,10 @@ def item_content_hash(item: Item) -> str:
         else (item.verify.model_dump() if item.verify else None),
         "options": [o.id for o in item.options],
     }
+    # Added in G2: only present when authored, so older approvals keep their hash.
+    if item.step_hints:
+        payload["step_hints"] = [s.en for s in item.step_hints]
+    if item.hint_restate is not None:
+        payload["hint_restate"] = item.hint_restate.en
     blob = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
