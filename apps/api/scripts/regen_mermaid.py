@@ -6,7 +6,7 @@ from pathlib import Path
 
 from app.orchestrator.transitions import MARKER_END, MARKER_START, mermaid_from_table
 
-DOC = Path(__file__).resolve().parents[2] / "ARCHITECTURE.md"
+DOC = Path(__file__).resolve().parents[3] / "ARCHITECTURE.md"
 
 
 def main() -> None:

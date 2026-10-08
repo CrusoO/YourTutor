@@ -321,6 +321,11 @@ stateDiagram-v2
   stuck --> practice: stuck_choice/show_item (R32)
   stuck --> practice: stuck_choice/check_your_work (R32)
   stuck_step --> practice: stuck_step/hint (R32)
+  practice --> probe: answer/show_item (R33)
+  practice --> representation: answer/worked_example (R33)
+  probe --> representation: answer/worked_example (R33)
+  probe --> practice: answer/show_item (R33)
+  representation --> practice: continue/show_item (R33)
 ```
 <!-- ORCH_TRANSITIONS:END -->
 
