@@ -24,7 +24,7 @@ TRANSITIONS: tuple[Transition, ...] = (
     Transition("R03", "start", "start", "warmup", "warmup_item", "FSRS due"),
     Transition("R04", "predict", "predict_response", "worked_example", "worked_example", "advance"),
     Transition("R05", "worked_example", "continue", "practice", "show_item", "begin practice"),
-    Transition("R06", "practice", "request_hint", "practice", "hint", "hint 1 or 2"),
+    Transition("R06", "practice", "request_help", "practice", "hint", "hint 1 or 2"),
     Transition("R07", "practice", "answer", "practice", "hint", "wrong before hint 2"),
     Transition(
         "R08", "practice", "answer", "explain_back", "explain_back_prompt", "first unhinted"
@@ -45,6 +45,13 @@ TRANSITIONS: tuple[Transition, ...] = (
     Transition("R20", "diagnostic", "answer", "ended", "end_session", "seed mastery"),
     Transition("R21", "checkpoint", "answer", "ended", "checkpoint_score", "no mastery write"),
     Transition("R22", "practice", "show_solution", "practice", "show_item", "illegal reveal"),
+    Transition("R31", "practice", "answer", "practice", "check_your_work", "slip"),
+    Transition("R32", "practice", "request_help", "stuck", "ask_stuck_point", "first help"),
+    Transition("R32", "stuck", "stuck_choice", "practice", "hint", "start or restate"),
+    Transition("R32", "stuck", "stuck_choice", "stuck_step", "ask_stuck_step", "at a step"),
+    Transition("R32", "stuck", "stuck_choice", "practice", "show_item", "might be right"),
+    Transition("R32", "stuck", "stuck_choice", "practice", "check_your_work", "recheck"),
+    Transition("R32", "stuck_step", "stuck_step", "practice", "hint", "step hint"),
 )
 
 

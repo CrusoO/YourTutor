@@ -31,16 +31,28 @@ export function actionFixture(type: ActionPayload["type"], extra: Partial<Action
 export const actionFixtures: Record<string, ActionPayload> = {
   warmup_item: actionFixture("warmup_item", {
     allow_hint: true,
+    can_request_help: true,
     can_request_hint: true,
   }),
   predict: actionFixture("predict", { item: { ...sampleItem, stem: "" }, text: sampleItem.prediction }),
   worked_example: actionFixture("worked_example"),
   show_item: actionFixture("show_item", {
     allow_hint: true,
+    can_request_help: true,
     can_request_hint: true,
     dont_know_option: true,
   }),
   feedback: actionFixture("feedback", { correct: false }),
+  ask_stuck_point: actionFixture("ask_stuck_point", {
+    extras: { choices: ["start", "step", "restate", "might_be_right"], step_count: 3 },
+  }),
+  ask_stuck_step: actionFixture("ask_stuck_step", { extras: { step_count: 3 } }),
+  check_your_work: actionFixture("check_your_work", {
+    allow_hint: true,
+    can_request_help: true,
+    can_request_hint: true,
+    extras: { check_kind: "sign_flip" },
+  }),
   hint: actionFixture("hint", { text: "Try undoing the + 4.", hint_level: 1 }),
   reveal_solution: actionFixture("reveal_solution"),
   similar_item: actionFixture("similar_item", { allow_hint: true }),

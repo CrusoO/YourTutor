@@ -8,7 +8,13 @@ import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
+import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
+
+/** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
+function canHelp(a: ActionPayload): boolean {
+  return Boolean(a.can_request_help ?? a.can_request_hint ?? a.allow_hint);
+}
 
 export default function SessionPage() {
   const params = useParams<{ id: string }>();
@@ -28,7 +34,7 @@ export default function SessionPage() {
     if (hintTimer.current) window.clearTimeout(hintTimer.current);
     setNudge(false);
     idle.current = window.setTimeout(() => setNudge(true), idleNudgeMs);
-    if (next.type === "show_item" && (next.can_request_hint ?? next.allow_hint)) {
+    if (next.type === "show_item" && canHelp(next)) {
       setHintReady(wrongOnce);
       hintTimer.current = window.setTimeout(() => setHintReady(true), hintDelayMs);
     }
@@ -74,6 +80,10 @@ export default function SessionPage() {
     if (next.type === "similar_item" || next.type === "show_item") {
       setWrongOnce(false);
       setHintReady(false);
+    }
+    if (next.type === "check_your_work") {
+      setWrongOnce(true);
+      setHintReady(true);
     }
     armTimers(next);
   }
@@ -156,6 +166,7 @@ export default function SessionPage() {
 
   const item = action.item;
   const mcq = item?.type === "mcq";
+  const extras = (action.extras ?? {}) as Record<string, unknown>;
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
 
   return (
@@ -185,6 +196,48 @@ export default function SessionPage() {
         >
           {copy.idleNudge}
         </button>
+      ) : null}
+
+      {action.type === "ask_stuck_point" ? (
+        <StuckPoint
+          copy={copy}
+          stem={item?.stem}
+          choices={(extras.choices as string[] | undefined) ?? []}
+          onChoose={(choice) => send("stuck_choice", { choice })}
+        />
+      ) : null}
+
+      {action.type === "ask_stuck_step" ? (
+        <StuckStep
+          copy={copy}
+          stem={item?.stem}
+          count={Number(extras.step_count ?? 0)}
+          onPick={(index) => send("stuck_step", { index })}
+        />
+      ) : null}
+
+      {action.type === "check_your_work" ? (
+        <div className="stack" data-testid="check-your-work">
+          <h1>{copy.checkTitle}</h1>
+          <p className="stem">{item?.stem}</p>
+          <p className="banner">{checkText(copy, extras.check_kind as string | undefined)}</p>
+          {mcq ? (
+            <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 500 })} />
+          ) : (
+            <AnswerForm
+              value={answer}
+              onChange={setAnswer}
+              label={copy.answerPlaceholder}
+              submit={copy.submit}
+              onSubmit={() => send("answer", { response: answer, latency_ms: 500 })}
+            />
+          )}
+          {hintReady ? (
+            <button type="button" className="secondary" onClick={() => send("request_help")}>
+              {copy.helpButton}
+            </button>
+          ) : null}
+        </div>
       ) : null}
 
       {action.type === "predict" ? (
@@ -223,7 +276,10 @@ export default function SessionPage() {
       {action.type === "hint" ? (
         <>
           <p className="stem">{item?.stem}</p>
-          <p className="banner">{action.text}</p>
+          {extras.kind === "restate" || extras.kind === "step" ? (
+            <p className="muted">{extras.kind === "restate" ? copy.hintRestateLabel : copy.hintStepLabel}</p>
+          ) : null}
+          <p className="banner" data-testid="hint-text">{action.text}</p>
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 500 })} />
           ) : (
@@ -235,6 +291,11 @@ export default function SessionPage() {
               onSubmit={() => send("answer", { response: answer, latency_ms: 500 })}
             />
           )}
+          {canHelp(action) ? (
+            <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
+              {copy.helpButton}
+            </button>
+          ) : null}
           {action.can_show_solution ? (
             <button type="button" className="ghost" onClick={() => send("show_solution")}>
               {copy.reveal}
@@ -282,9 +343,10 @@ export default function SessionPage() {
               {copy.dontKnow}
             </button>
           ) : null}
-          {(action.can_request_hint ?? action.allow_hint) && hintReady ? (
-            <button type="button" className="secondary" onClick={() => send("request_hint")}>
-              {copy.hint}
+          {extras.prompt_submit ? <p className="banner">{copy.promptSubmit}</p> : null}
+          {canHelp(action) ? (
+            <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
+              {copy.helpButton}
             </button>
           ) : null}
           {action.can_show_solution ? (

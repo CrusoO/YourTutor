@@ -69,6 +69,7 @@ test.describe("preview scenarios at 360 px", () => {
       "Skill at level 4",
       "Review due",
       "All skills level 4",
+      "Slip prone",
     ]) {
       await expect(page.getByRole("button", { name: `Log in as ${title}` })).toBeVisible();
     }

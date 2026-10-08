@@ -75,7 +75,7 @@ def ladder_events_from_rows(
                     options=list(item.options),
                 )
             out.append(make(KIND_ANSWER, correct=correct))
-        elif event.event_type == "request_hint":
+        elif event.event_type in {"request_help", "request_hint"}:
             out.append(make(KIND_HINT))
         elif event.event_type == "continue" and event.state_before == "worked_example":
             out.append(make(KIND_LESSON, keep_item=False))

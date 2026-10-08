@@ -1,6 +1,23 @@
 from __future__ import annotations
 
+from datetime import datetime
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+
+def _zone(name: str | None) -> ZoneInfo:
+    try:
+        return ZoneInfo(name or "UTC")
+    except ZoneInfoNotFoundError:
+        return ZoneInfo("UTC")
+
+
+def same_local_day(a: datetime, b: datetime, tz_name: str | None) -> bool:
+    """Whether two instants fall on the same calendar day in the given IANA zone.
+
+    Local midnight belongs to the new day. An unknown zone is treated as UTC.
+    """
+    zone = _zone(tz_name)
+    return a.astimezone(zone).date() == b.astimezone(zone).date()
 
 
 def resolve_student_timezone(

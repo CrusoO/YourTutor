@@ -111,6 +111,14 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | UI preview data | Preview students come from `python -m app.dev seed_scenarios`, which replays events through the real engine (never writes mastery rows) with the clock set in the past. It uses its own database (`yourtutor_preview`) so normal dev data is untouched. |
 | Dev tools gating | `/dev` web pages need `NEXT_PUBLIC_DEV_TOOLS=true`; API `/dev/*` routes are a 404 unless `DEV_TOOLS` **and** `ALLOW_DRAFT_CONTENT` are on. Only `app.dev.clock.frozen` may pin the clock, and it refuses unless `ALLOW_DRAFT_CONTENT=true`. LAN preview uses explicit `CORS_EXTRA_ORIGINS` / `NEXT_ALLOWED_DEV_ORIGINS` (wildcards refused). |
 | Content load safety | `python -m app.content load` refuses a missing or empty content root: an empty bundle would retire (or, in dev, hard-delete) everything already loaded. |
+| Help events | `request_help` is the canonical event, `request_hint` a deprecated alias (stored as `request_help`). Actions carry `can_request_help` and the deprecated `can_request_hint`; OpenAPI says so. New events `stuck_choice` (`payload.choice`) and `stuck_step` (`payload.index`). |
+| Stuck-point picker | Offered once per item, only before any attempt or help on it; a repeat request goes to the hint ladder. The request is the item's one BKT update. Choices: start (hint 1), step (numbered steps, then that step's hint), restate (authored paraphrase), might be right (prompt to submit, or Check your work after a wrong answer). Step hints and the restated question use no ladder level; per-item flags reset when the item is finished. |
+| Step picker shows numbers | ARCHITECTURE 9.2 says "show the item's authored step list"; showing the steps would reveal the solution before hint 3, so the picker shows Step 1..n and the tap returns that step's hint. |
+| Slip and diagnosis | `classify` is pure and first-match (misconception, slip, prerequisite gap, incomplete procedure, disengagement, generic). A slip needs ladder level 4 or more, a first attempt, and an authored pattern (sign flip, off by up to N, listed values); it returns `check_your_work` without using a hint level, and the second wrong answer goes to the ladder. The result is stored as `payload.diagnosis`. Disengagement is classified from counters (fast answers, help without an attempt) but its response (`break_or_switch`) is P7. A misconception answer gets the authored misconception explanation as hint 1 (falls back to the item hint if it would leak). |
+| Draft diagnosis fields | `scripts/write_g2_item_fields.py` and `app/content/diagnosis_fields.py` derive drafts from solution steps. Step hints contain no numbers. Items stay `draft`; the approval hash now includes step hints and the restated question. |
+| Stretch slot | When the ladder reaches level 4 or 5 it records `stretch_after_<level>` one day later. A due skill gets an apply (level 4) or transfer (level 5) item before the next new skill, after the warm-up: at most 2 per session, once per skill per session, practice sessions only, and no content gap when no item of that role exists. |
+| Resume until midnight | A session whose last activity was on an earlier local day is ended as `day_rollover` and is never resumed; progress lives in the student model. Seeded preview sessions are stamped as used a few minutes ago. |
+| Help on hint screens | Help is offered on hint screens while fewer than two ladder hints have been shown, so a restated question or step hint can be followed by more help. The Hint button is now Help and is no longer delayed. |
 | Chapter titles | `chapters.titles` (JSON, locale -> text) and `chapters.position` come from `curriculum.yaml` (migration 0016); titles use the locale fallback chain. A chapter is *live* when its overlay has skills and is `live: true`, or drafts are allowed. Anything else is `coming_soon` and `POST /sessions` with its `chapter_id` answers 409 `chapter_coming_soon`. The seed book has a placeholder `Quadratic equations` chapter with no overlay so the map always shows one Coming soon card. |
 | Recommended chapter | The first live chapter that is not Solid (a review-due chapter counts as not Solid); when every live chapter is Solid, the first live one. Always exactly one, or none when nothing is live. |
 | Starting a skill | The chapter page starts a normal practice session for the chapter (`chapter_id` in the plan). The existing policy already opens a new skill with its lesson and a known skill with practice, so no policy change was needed. |
@@ -324,19 +332,23 @@ Accept: a student completes the path on a phone; a coming-soon chapter cannot be
 
 ### G2 — Diagnosis engine + policy v2
 
-- [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 and P3 the suite was killed three times for low memory. Time is the other problem: the full suite takes 20 min to almost 2 hours. About 15 tests each validate or load the whole seed bundle at ~75 s apiece (e.g. `test_role_coverage`, `test_overlay_curriculum`, `test_loader_guard`, `test_sections`), and `test_templates::test_generation_is_deterministic` takes ~230 s and `test_simulations::test_scripted_students_on_seed` ~150 s. Share one validated bundle per session (fixture) and speed up validation.*
-- [ ] `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
-- [ ] R30 diagnose before hint; R31 `check_your_work` for slips
-- [ ] R32 `request_help` → `ask_stuck_point`; choices route to hint 1, step hint, `hint_restate`, or recheck
-- [ ] Item fields `step_hints[]` and `hint_restate`; validator leak-checks step hints
+**G2a (P6, branch `g2a-diagnosis`) — Met 2026-10-08** for the items ticked below; G2b (R33–R40, P7) is not started. pytest 660 (one piece; seeds 1 and 2: 660 and 660), vitest 153, test:ui 13 specs; whole suite in one process peaks at 354 MB (target 2 GB); 12 Playwright screenshots in `apps/web/test-results/screens/help-*.png` and the earlier flow, lesson and scenario screens. The S1 pilot check (B5) was still pending when P6 started (gate waived by the product owner).
+
+Draft content note: the step hints, restated questions, slip patterns, intermediate values and `min_plausible_ms` on all 336 practice items are machine drafts (generic wording, English plus reviewer placeholders); a teacher must edit them before any item is approved. The restated question repeats the stem, which reads awkwardly.
+
+- [x] Met 2026-10-08. **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 and P3 the suite was killed three times for low memory. Time is the other problem: the full suite takes 20 min to almost 2 hours. About 15 tests each validate or load the whole seed bundle at ~75 s apiece (e.g. `test_role_coverage`, `test_overlay_curriculum`, `test_loader_guard`, `test_sections`), and `test_templates::test_generation_is_deterministic` takes ~230 s and `test_simulations::test_scripted_students_on_seed` ~150 s. Share one validated bundle per session (fixture) and speed up validation.* *Measured 2026-10-08: no leak; max 354 MB for the whole suite, 208 MB for the heaviest directory*
+- [x] Met 2026-10-08. `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
+- [x] Met 2026-10-08. R30 diagnose before hint; R31 `check_your_work` for slips
+- [x] Met 2026-10-08. R32 `request_help` → `ask_stuck_point`; choices route to hint 1, step hint, `hint_restate`, or recheck
+- [x] Met 2026-10-08. Item fields `step_hints[]` and `hint_restate`; validator leak-checks step hints
 - [ ] R33 prerequisite probe; R34 wheel-spinning stop + `teacher_alerts`
 - [ ] R35 disengagement → `break_or_switch`; R36 frustration de-escalation; R37 challenge; R40 never end on failure
 - [x] Skip-ahead test-out (§9.7 Arch) with `evidence=test_out` *(covered by S1b)*
 - [ ] Praise trigger rules; encouragement only on triggers (authored copy)
-- [ ] `request_hint` kept as an alias of `request_help`
-- [ ] Transition table + Mermaid markers updated; drift test
+- [x] Met 2026-10-08. `request_hint` kept as an alias of `request_help`
+- [x] Met 2026-10-08. Transition table + Mermaid markers updated; drift test *R31 and R32 rows added; R33-R40 follow in P7*
 - [ ] *Deferred from G0:* grade bands (`config/grade_bands.yaml`) drive session caps (soft/hard active-time caps per band, ARCH §20)
-- [ ] Session resume only until local midnight in the student's time zone; after that, start a new session (progress carries via the student model). Test with injected clocks. *Finding: `start_session` resumes any idle-ended session with no age limit (seen in G1 step 8).*
+- [x] Met 2026-10-08. Session resume only until local midnight in the student's time zone; after that, start a new session (progress carries via the student model). Test with injected clocks. *Finding: `start_session` resumes any idle-ended session with no age limit (seen in G1 step 8).*
 
 Accept:
 
@@ -531,6 +543,7 @@ Owners: curriculum lead + field coordinator. Engineering only lands outputs as v
 - **B3 Field loop:** 30–50 families or one school class run a manual version of the pedagogy; log real wrong answers and stuck points; replace placeholder misconceptions, slip patterns and stuck-point copy.
 - **B4 Legal:** jurisdiction profile review; consent copy; retention.
 - [ ] **B5 S1 pilot check:** run the S1 vertical slice with the curriculum lead, one teacher and 2–3 students on a phone; log feedback as PLAN.md items before G2.
+  - *2026-10-08: P6 started with this check still pending (gate waived by the product owner). Log the feedback as PLAN items when it happens; later prompts may need to adapt.*
 - [ ] **B2 now:** teacher approval of `ITEM.LIN1.R.0001`, `0004`, `0007` and `0031` (reason-choice explain items the validator cannot machine-verify).
 
 Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconceptions use real data.

@@ -538,6 +538,9 @@ def start_session(
         raise HTTPException(status_code=403, detail="tutoring consent required")
     if session_type not in {"practice", "diagnostic", "checkpoint"}:
         raise HTTPException(status_code=400, detail="invalid session type")
+    from app.player.runtime import expire_stale_sessions
+
+    expire_stale_sessions(session, student)
     existing = session.scalar(
         select(SessionRow).where(
             SessionRow.student_id == student_id,

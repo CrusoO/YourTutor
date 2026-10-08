@@ -1,0 +1,44 @@
+{
+  "name": "diagnosis.classify",
+  "note": "First match wins: misconception, slip, prerequisite_gap, incomplete_procedure, disengagement, generic. A correct answer is class none. Mirrored by the offline player (G9).",
+  "base_item": {
+    "skill": "S.TWO_STEP",
+    "answer": "4",
+    "misconception_rules": [["MC.FORGET_BOTH_SIDES", ["6"]], ["MC.PREREQ", ["-2"]]],
+    "slip_patterns": [{"kind": "sign_flip"}, {"kind": "off_by", "max_distance": 1}, {"kind": "values", "values": ["40"]}],
+    "prereq_signatures": [{"skill_id": "S.INTEGERS", "values": ["-4x"]}],
+    "intermediate_values": ["12", "3x = 12"],
+    "min_plausible_ms": 3000
+  },
+  "base_context": {
+    "ladder_level": 0,
+    "first_attempt": true,
+    "prerequisites": ["S.INTEGERS"],
+    "remedial": {"MC.PREREQ": "S.INTEGERS", "MC.FORGET_BOTH_SIDES": "S.TWO_STEP"},
+    "fast_streak": 0,
+    "help_without_attempt": 0
+  },
+  "cases": [
+    {"name": "correct answer is none", "response": "4", "correct": true, "expected": {"class": "none"}},
+    {"name": "misconception answer", "response": "6", "expected": {"class": "misconception", "detail": "MC.FORGET_BOTH_SIDES"}},
+    {"name": "misconception wins over a slip pattern", "context": {"ladder_level": 5}, "response": "6", "expected": {"class": "misconception", "detail": "MC.FORGET_BOTH_SIDES"}},
+    {"name": "sign flip is a slip for a skill at level 4", "context": {"ladder_level": 4}, "response": "-4", "expected": {"class": "slip", "detail": "sign_flip"}},
+    {"name": "x= form of a sign flip", "context": {"ladder_level": 4}, "response": "x = -4", "expected": {"class": "slip", "detail": "sign_flip"}},
+    {"name": "off by one is a slip", "context": {"ladder_level": 6}, "response": "5", "expected": {"class": "slip", "detail": "off_by"}},
+    {"name": "explicit slip value", "context": {"ladder_level": 4}, "response": "40", "expected": {"class": "slip", "detail": "values"}},
+    {"name": "no slip below level 4", "context": {"ladder_level": 3}, "response": "-4", "expected": {"class": "generic"}},
+    {"name": "no slip on a repeat attempt", "context": {"ladder_level": 4, "first_attempt": false}, "response": "-4", "expected": {"class": "generic"}},
+    {"name": "off by two is not a slip", "context": {"ladder_level": 4}, "response": "6.5", "expected": {"class": "generic"}},
+    {"name": "misconception whose remedial skill is a prerequisite", "response": "-2", "expected": {"class": "prerequisite_gap", "detail": "S.INTEGERS"}},
+    {"name": "prerequisite signature", "response": "-4x", "expected": {"class": "prerequisite_gap", "detail": "S.INTEGERS"}},
+    {"name": "intermediate value", "response": "12", "expected": {"class": "incomplete_procedure", "detail": "12"}},
+    {"name": "intermediate equation with different spacing", "response": "3x=12", "expected": {"class": "incomplete_procedure", "detail": "3x = 12"}},
+    {"name": "three fast answers", "context": {"fast_streak": 3}, "response": "99", "expected": {"class": "disengagement", "detail": "fast_answers"}},
+    {"name": "hints opened without an attempt three times", "context": {"help_without_attempt": 3}, "response": "99", "expected": {"class": "disengagement", "detail": "help_without_attempt"}},
+    {"name": "two fast answers are not enough", "context": {"fast_streak": 2}, "response": "99", "expected": {"class": "generic"}},
+    {"name": "a misconception outranks disengagement", "context": {"fast_streak": 3}, "response": "6", "expected": {"class": "misconception", "detail": "MC.FORGET_BOTH_SIDES"}},
+    {"name": "unrelated wrong answer", "response": "99", "expected": {"class": "generic"}},
+    {"name": "unparseable text is generic", "response": "banana", "expected": {"class": "generic"}},
+    {"name": "empty response is generic", "response": "", "expected": {"class": "generic"}}
+  ]
+}

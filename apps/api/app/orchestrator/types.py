@@ -41,6 +41,13 @@ class CatalogItem:
     verify: str | dict[str, Any] | None = None
     options: tuple[dict[str, Any], ...] = ()
     last_shown_at: datetime | None = None
+    # diagnosis fields (G2): authored, optional
+    slip_patterns: tuple[dict[str, Any], ...] = ()
+    prereq_signatures: tuple[dict[str, Any], ...] = ()
+    intermediate_values: tuple[str, ...] = ()
+    min_plausible_ms: int | None = None
+    step_hints: tuple[str, ...] = ()
+    hint_restate: str = ""
 
     @property
     def primary_skill(self) -> str:
@@ -132,6 +139,15 @@ class SessionState:
     stored_explain_text: str | None = None
     similar_from_item_id: str | None = None
     last_wrong_response: str | None = None
+    last_wrong_item_id: str | None = None  # first attempt on an item = this differs from the item
+    fast_streak: int = 0  # consecutive answers faster than the item's min_plausible_ms (R35)
+    help_without_attempt: int = 0  # help opened before any attempt (R35)
+    misconception_remedial: dict[str, str] = field(default_factory=dict)  # misconception -> skill
+    last_diagnosis: dict[str, Any] | None = None  # stored on the event as payload.diagnosis
+    misconception_text: dict[str, str] = field(default_factory=dict)  # id -> authored hint
+    stuck_item_id: str | None = None  # the picker is offered once per item (R32)
+    stretch_served: int = 0  # stretch items served this session (max 2)
+    stretch_skills: set[str] = field(default_factory=set)  # one stretch per skill per session
     blocked_skills: set[str] = field(default_factory=set)
     content_gaps: list[dict[str, Any]] = field(default_factory=list)
     bkt_memory: dict = field(

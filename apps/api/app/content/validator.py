@@ -305,6 +305,22 @@ def _items(bundle: ContentBundle, report: ValidationReport) -> None:
                         f"{item.id} hint level {hint.level} leaks accept value {accept!r}"
                     )
                     break
+        _check_diagnosis_fields(item, report.errors)
+
+
+def _check_diagnosis_fields(item: Item, errors: list[str]) -> None:
+    """Step hints and the restated question are shown before the answer is revealed (G2)."""
+    answers = [item.answer.sympy, *item.answer.accept]
+    for index, hint in enumerate(item.step_hints, start=1):
+        if any(hint_leaks_answer(hint.en, answer) for answer in answers):
+            errors.append(f"{item.id} step hint {index} leaks the answer")
+    if item.hint_restate is not None and any(
+        hint_leaks_answer(item.hint_restate.en, answer) for answer in answers
+    ):
+        # the stem may legitimately contain a number equal to the answer; only the added words count
+        extra = item.hint_restate.en.replace(item.stem.en, "")
+        if any(hint_leaks_answer(extra, answer) for answer in answers):
+            errors.append(f"{item.id} hint restate leaks the answer")
 
 
 def _checkpoint_isolation(bundle: ContentBundle, report: ValidationReport) -> None:

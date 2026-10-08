@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml
 
+from app.content.diagnosis_fields import draft_fields
 from app.content.language import lint_item_texts
 from app.content.leak import hint_leaks_answer
 from app.content.math_parse import ParseError, parse_math
@@ -214,6 +215,7 @@ def instantiate(
     if template.options:
         payload["options"] = [opt.model_dump(by_alias=True) for opt in template.options]
     item = Item.model_validate(payload)
+    item = Item.model_validate({**payload, **draft_fields(item)})
     errors, _warnings = lint_item_texts(
         stem=item.stem.en,
         hints=[hint.en for hint in item.hints],

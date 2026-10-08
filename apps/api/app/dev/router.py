@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import select
 
@@ -30,11 +30,17 @@ router = APIRouter(prefix="/dev", dependencies=[Depends(require_dev_tools)], tag
 
 
 @router.post("/seed")
-def reseed() -> dict[str, Any]:
-    """Re-create every scenario. Runs the CLI in a subprocess: replaying history pins the clock,
-    which must never happen inside the process that is serving requests."""
+def reseed(only: list[str] | None = Query(default=None)) -> dict[str, Any]:
+    """Re-create every scenario (or only the named ones: `?only=slip_prone`). Runs the CLI in a
+    subprocess: replaying history pins the clock, which must never happen inside the process that
+    is serving requests."""
+    names = {s.name for s in SCENARIOS}
+    unknown = [name for name in only or [] if name not in names]
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"unknown scenario: {unknown[0]}")
+    flags = [arg for name in only or [] for arg in ("--only", name)]
     done = subprocess.run(
-        [sys.executable, "-m", "app.dev", "seed_scenarios"],
+        [sys.executable, "-m", "app.dev", "seed_scenarios", *flags],
         cwd=str(API_ROOT),
         capture_output=True,
         text=True,

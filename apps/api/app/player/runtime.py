@@ -22,6 +22,7 @@ from app.db.models import (
     EventRow,
     ItemRow,
     MasteryRow,
+    MisconceptionRow,
     OverlayRow,
     ReviewCardRow,
     SessionRow,
@@ -85,6 +86,12 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
         authored_explanation=steps[-1] if steps else "",
         verify=row.verify,
         options=tuple(row.options or ()),
+        slip_patterns=tuple(row.slip_patterns or ()),
+        prereq_signatures=tuple(row.prereq_signatures or ()),
+        intermediate_values=tuple(str(v) for v in (row.intermediate_values or ())),
+        min_plausible_ms=row.min_plausible_ms,
+        step_hints=tuple(str((s or {}).get("en") or "") for s in (row.step_hints or ())),
+        hint_restate=str((row.hint_restate or {}).get("en") or ""),
     )
 
 
@@ -315,6 +322,12 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "checkpoint_result": state.checkpoint_result,
         "similar_from_item_id": state.similar_from_item_id,
         "last_wrong_response": state.last_wrong_response,
+        "last_wrong_item_id": state.last_wrong_item_id,
+        "fast_streak": state.fast_streak,
+        "help_without_attempt": state.help_without_attempt,
+        "stuck_item_id": state.stuck_item_id,
+        "stretch_served": state.stretch_served,
+        "stretch_skills": sorted(state.stretch_skills),
         "blocked_skills": list(state.blocked_skills),
         "content_gaps": state.content_gaps,
         "stored_explain_text": state.stored_explain_text,
@@ -374,6 +387,12 @@ def load_state(
         stored_explain_text=plan.get("stored_explain_text"),
         similar_from_item_id=plan.get("similar_from_item_id"),
         last_wrong_response=plan.get("last_wrong_response"),
+        last_wrong_item_id=plan.get("last_wrong_item_id"),
+        fast_streak=int(plan.get("fast_streak") or 0),
+        help_without_attempt=int(plan.get("help_without_attempt") or 0),
+        stuck_item_id=plan.get("stuck_item_id"),
+        stretch_served=int(plan.get("stretch_served") or 0),
+        stretch_skills=set(plan.get("stretch_skills") or []),
         blocked_skills=set(plan.get("blocked_skills") or []),
         content_gaps=list(plan.get("content_gaps") or []),
         bkt_memory=_load_memory(plan.get("bkt_memory")),
@@ -397,6 +416,12 @@ def _build_state(
         prerequisites=prereqs,
     )
     state.session_key = str(row.id)
+    locale = student.home_language or "en"
+    for mc in session.scalars(select(MisconceptionRow)):
+        state.misconception_remedial[mc.id] = mc.remedial_skill
+        text = _locale_value(mc.explanation, locale)
+        if text:
+            state.misconception_text[mc.id] = text
     state.has_ai_processing = "ai_processing" in scopes
     state.allow_draft = settings.allow_draft_content
     state.active_ms = row.active_ms
@@ -468,6 +493,21 @@ def _item_payload(
     return payload
 
 
+def _localised_help_text(row: ItemRow, action: Action, locale: str) -> str | None:
+    """Step hints and the restated question are authored per language; fall back to English."""
+    kind = (action.extras or {}).get("kind")
+    if kind == "restate" and row.hint_restate:
+        return _locale_value(row.hint_restate, locale) or None
+    if kind == "step":
+        index = int((action.extras or {}).get("step", -1))
+        steps = row.step_hints or []
+        if 0 <= index < len(steps):
+            text = _locale_value(steps[index], locale)
+            if text:
+                return text
+    return None
+
+
 def enrich_action(
     session: Session,
     state: SessionState,
@@ -504,18 +544,21 @@ def enrich_action(
         "resumable": action.resumable,
         "rejected": action.rejected,
         "guardrail_flag": action.guardrail_flag,
+        "rule_id": action.rule_id,
         "extras": extras,
         "session_type": state.session_type,
         "phase": state.phase,
         "hint_level_shown": state.hint_level_shown,
         "allow_hint": can_request_hint,
-        "can_request_hint": can_request_hint,
+        "can_request_help": can_request_hint,
+        "can_request_hint": can_request_hint,  # deprecated alias of can_request_help
         "can_show_solution": can_show_solution,
         "dont_know_option": bool(extras.get("dont_know_option")),
         "item": _item_payload(item_row, locale, reveal=reveal, steps=steps),
     }
     if action.type == "hint" and item_row is not None:
         payload["item"] = _item_payload(item_row, locale, reveal=False, steps=False)
+        payload["text"] = _localised_help_text(item_row, action, locale) or action.text
     if action.type in {"predict", "worked_example"}:
         lesson = lesson_for_state(state)
         if lesson is not None:
@@ -553,6 +596,7 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         from app.player import test_out
 
         return test_out.view(session, student, row)
+    expire_stale_sessions(session, student)
     reopened = reopen_idle(row)
     state, learner = _build_state(session, row, student)
     if not (row.plan or {}).get("last_action"):
@@ -629,9 +673,14 @@ def apply_player_event(
         return _apply_lesson_event(
             session, row, student, state, event_type, payload, client_event_id
         )
+    response = str(payload.get("response")) if payload.get("response") is not None else None
+    if event_type == "stuck_choice":
+        response = str(payload.get("choice") or "")
+    elif event_type == "stuck_step":
+        response = str(payload.get("index")) if payload.get("index") is not None else ""
     event = Event(
         type=event_type,
-        response=str(payload.get("response")) if payload.get("response") is not None else None,
+        response=response,
         client_correct=payload.get("correct"),
         latency_ms=payload.get("latency_ms"),
         item_id=item_id,
@@ -648,8 +697,10 @@ def apply_player_event(
             client_event_id=client_event_id,
             session_id=row.id,
             item_id=item_id or action.item_id,
-            event_type=event_type,
-            payload=payload,
+            event_type="request_help" if event_type == "request_hint" else event_type,
+            payload={**payload, "diagnosis": state.last_diagnosis}
+            if state.last_diagnosis
+            else payload,
             correct=state.last_correct if event_type == "answer" else action.correct,
             hint_level=action.hint_level,
             latency_ms=payload.get("latency_ms"),
@@ -730,6 +781,38 @@ def _apply_lesson_event(
     }
 
 
+def expire_stale_sessions(session: Session, student: StudentRow) -> None:
+    """Close sessions that crossed local midnight (ARCHITECTURE: resume only within the same day).
+
+    Open or idle-resumable sessions whose last activity was on an earlier local day are ended with
+    `day_rollover` and are no longer resumable. Progress is unaffected: it lives in the student
+    model, not in the session.
+    """
+    from app.registries.timezone import same_local_day
+
+    now = now_utc()
+    zone = _student_tz(session, student).key
+    rows = session.scalars(
+        select(SessionRow).where(
+            SessionRow.student_id == student.id,
+            (SessionRow.ended_at.is_(None)) | (SessionRow.resumable.is_(True)),
+        )
+    ).all()
+    for row in rows:
+        if row.type == "test_out" or same_local_day(as_utc(row.last_active_at), now, zone):
+            continue
+        row.resumable = False
+        if row.ended_at is None:
+            row.ended_at = now
+        row.ended_reason = "day_rollover"
+        plan = dict(row.plan or {})
+        plan["last_action"] = _dump_action(
+            Action(type="end_session", ended_reason="day_rollover", resumable=False)
+        )
+        row.plan = plan
+    session.flush()  # later queries in this request must see the expiry
+
+
 def _student_tz(session: Session, student: StudentRow) -> ZoneInfo:
     from app.db.models import CurriculumRow
 
@@ -738,7 +821,7 @@ def _student_tz(session: Session, student: StudentRow) -> ZoneInfo:
 
 
 def _used_active_ms(session: Session, student: StudentRow, tz: ZoneInfo) -> int:
-    start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
+    start_local = datetime.combine(now_utc().astimezone(tz).date(), time.min, tzinfo=tz)
     start_utc = start_local.astimezone(ZoneInfo("UTC"))
     rows = session.scalars(
         select(SessionRow).where(
@@ -757,6 +840,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.registries.quiet_hours import in_quiet_hours
     from app.registries.startup import deployment_jurisdiction_profile
 
+    expire_stale_sessions(session, student)
     tz = _student_tz(session, student)
     profile = deployment_jurisdiction_profile()
     used = _used_active_ms(session, student, tz)

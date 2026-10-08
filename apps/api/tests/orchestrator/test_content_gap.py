@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from app.orchestrator.policy import policy
 from app.orchestrator.types import Event
-from tests.orchestrator.conftest import catalog_item, make_learner, make_session
+from tests.orchestrator.conftest import ask_hint, catalog_item, make_learner, make_session
 
 
 def test_similar_item_falls_back_then_logs_content_gap() -> None:
@@ -17,8 +17,8 @@ def test_similar_item_falls_back_then_logs_content_gap() -> None:
     learner = make_learner()
     start = policy(learner, session, None)
     assert start.item_id == "ITEM.ONLY"
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
     policy(learner, session, Event(type="show_solution"))
     follow = policy(learner, session, Event(type="continue"))
     assert session.content_gaps
@@ -38,8 +38,8 @@ def test_nearest_tier_used_when_same_tier_exhausted() -> None:
     session = make_session(easy, hard, introduced={"MATH.S1"})
     learner = make_learner()
     start = policy(learner, session, None)
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
     policy(learner, session, Event(type="show_solution"))
     similar = policy(learner, session, Event(type="continue"))
     assert similar.type == "similar_item"

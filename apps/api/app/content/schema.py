@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -104,6 +104,31 @@ class MisconceptionRule(BaseModel):
     when_answer_equals: list[str]
 
 
+class SlipPattern(BaseModel):
+    """An authored set of answers that look like a slip, not a misunderstanding (G2)."""
+
+    model_config = {"extra": "forbid"}
+
+    kind: Literal["values", "sign_flip", "off_by"]
+    values: list[str] = []
+    max_distance: float | None = Field(default=None, gt=0)
+
+    @model_validator(mode="after")
+    def values_need_values(self) -> SlipPattern:
+        if self.kind == "values" and not self.values:
+            raise ValueError("a `values` slip pattern needs values")
+        return self
+
+
+class PrereqSignature(BaseModel):
+    """Answers that point at a gap in a prerequisite skill (G2)."""
+
+    model_config = {"extra": "forbid"}
+
+    skill_id: str
+    values: list[str] = Field(min_length=1)
+
+
 class Item(BaseModel):
     id: str
     skill_ids: list[str] = Field(min_length=1)
@@ -119,6 +144,13 @@ class Item(BaseModel):
     hints: list[Hint]
     prediction_prompt: LocalizedText
     misconception_rules: list[MisconceptionRule] = []
+    # G2 diagnosis and stuck-point fields (all optional)
+    slip_patterns: list[SlipPattern] = []
+    prereq_signatures: list[PrereqSignature] = []
+    intermediate_values: list[str] = []
+    min_plausible_ms: int | None = Field(default=None, ge=500)
+    step_hints: list[LocalizedText] = []
+    hint_restate: LocalizedText | None = None
     reviewed_by: str | None = None
     content_hash: str | None = None
     status: ContentStatus = ContentStatus.draft
@@ -137,6 +169,8 @@ class Item(BaseModel):
             raise ValueError(f"{self.id} must have hint levels 1, 2, and 3")
         if not self.solution_steps:
             raise ValueError(f"{self.id} must have solution_steps")
+        if self.step_hints and len(self.step_hints) != len(self.solution_steps):
+            raise ValueError(f"{self.id} step_hints must match solution_steps one to one")
         if self.type == ItemType.mcq:
             ids = [o.id for o in self.options]
             if len(ids) < 2:
