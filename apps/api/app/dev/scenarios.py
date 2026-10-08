@@ -183,6 +183,11 @@ def _seed_one(
             # so the next Start practice begins a fresh session instead of resuming this one.
             last.resumable = False
             db.commit()
+        else:
+            # "A few minutes ago": an idle session is only resumable on the day it was last used,
+            # and the replayed history starts yesterday.
+            last.last_active_at = datetime.now(UTC)
+            db.commit()
     summary = _summary(db, student)
     if spec.name == "review_due":
         _require_overdue_card(db, student)

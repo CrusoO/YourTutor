@@ -310,3 +310,17 @@ def test_skill_at_level_4_and_mid_chapter_keep_a_session_open_to_resume(
     url, _ = seeded
     assert _open_sessions(url, "skill_at_level_4") >= 1
     assert _open_sessions(url, "mid_chapter") >= 1
+    from app.auth.security import now_utc
+    from app.registries.timezone import same_local_day
+
+    with _db(url) as db:
+        for name in ("skill_at_level_4", "mid_chapter"):
+            student = _student(db, name)
+            rows = db.scalars(
+                select(SessionRow).where(
+                    SessionRow.student_id == student.id, SessionRow.resumable.is_(True)
+                )
+            ).all()
+            assert rows, name
+            for row in rows:  # resumable only on the day of last use (G2 rule)
+                assert same_local_day(row.last_active_at, now_utc(), student.timezone), name
