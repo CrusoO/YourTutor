@@ -324,6 +324,21 @@ Accept: a student completes the path on a phone; a coming-soon chapter cannot be
 
 ### G2 — Diagnosis engine + policy v2
 
+**G2a progress (P6, branch `g2a-diagnosis`, 2026-10-08)** — a status note, not a Met mark; P6 is not finished.
+
+| P6 scope item | State | Commits / notes |
+| --- | --- | --- |
+| 1. Test-suite memory check | **Done, no leak found.** Peak per test directory 130–208 MB (`auth` highest); the whole suite in one process peaks at **337 MB** (592 passed, 22 min), far under 2 GB. The earlier kills came from the machine being short of memory, not from the tests. `scripts/measure_test_memory.py` repeats the measurement (use a second test database so it never overlaps another pytest run). | `271c5b6` (script) |
+| 2. Resume only until local midnight | **Done.** `same_local_day`, `expire_stale_sessions` (`day_rollover`), injected-clock tests incl. the UTC+6 boundary. | `271c5b6` |
+| 3. `diagnosis.classify()` + item fields | **Partly done.** Pure `classify` (6 classes + `none`), shared fixture (22 cases), item fields, DB columns, loader, catalog mapping, draft-field helper, drafts on all 336 practice items, leak check in the validator, approval hash covers step hints. **Not done:** storing the result on `events.payload.diagnosis` (needs the policy wiring), `min_plausible_ms` and fast-answer counters are in the state but nothing updates them yet, the misconception-to-remedial map is not loaded into the session yet. | `02790c0` (migration 0017), `a32c312` (code, tests, fixture), `f98243c` (content) |
+| 4. R30 diagnose before hint, R31 slip to `check_your_work` | **Not started** (policy, transition table, Mermaid and drift test). | |
+| 5. R32 stuck-point picker | **Partly done:** the `step_hints[]` / `hint_restate` schema, drafts and leak checks. **Not started:** `ask_stuck_point` action, `stuck_choice` events, routing, the single BKT update. | |
+| 6. `request_help` alias, `can_request_help` | **Not started.** | |
+| 7. Player UI, `slip_prone` scenario, Playwright spec | **Not started.** | |
+| 8. Stretch slot (apply / transfer item after level 4 / 5) | **Not started.** | |
+
+Draft content note: the step hints, restated questions and slip patterns are machine drafts (generic wording, English plus reviewer placeholders) and need teacher review before any item is approved. The S1 pilot check (B5) was still pending when P6 started.
+
 - [ ] **Test-suite memory check (start of G2):** measure peak memory per test directory; find and fix leaks (undisposed engines/sessions, large fixtures). Target: the full suite runs within 2 GB. *Finding: during G1 and P3 the suite was killed three times for low memory. Time is the other problem: the full suite takes 20 min to almost 2 hours. About 15 tests each validate or load the whole seed bundle at ~75 s apiece (e.g. `test_role_coverage`, `test_overlay_curriculum`, `test_loader_guard`, `test_sections`), and `test_templates::test_generation_is_deterministic` takes ~230 s and `test_simulations::test_scripted_students_on_seed` ~150 s. Share one validated bundle per session (fixture) and speed up validation.*
 - [ ] `diagnosis.classify()` pure, with item fields `slip_patterns`, `prereq_signatures`, intermediate step values, `min_plausible_ms`
 - [ ] R30 diagnose before hint; R31 `check_your_work` for slips
