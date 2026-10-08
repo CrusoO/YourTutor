@@ -118,7 +118,7 @@ Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis +
 - **Config loaders** live in `apps/api/app/registries/` (`loaders.py`, `locale_resolve.py`, `timezone.py`, `quiet_hours.py`, `context.py`, `student_setup.py`, `seed_db.py`). Loaders are pure functions over `config/` and `content/curricula/`; policy code never does I/O.
 - **Web i18n:** the web app keeps `apps/web/lib/messages.ts`. The locale list and fallback chains come from `config/locales.yaml`, exported by `apps/api/scripts/generate_web_locales.py` to `packages/shared/generated/locales.json`. Missing or placeholder strings fall back along the chain, ending at English; empty strings are never shown. `next-intl` is **not** used; revisit in G5.
 - **Curricula** are one registry entry per curriculum under `content/curricula/<id>/curriculum.yaml` (`id`, `default_timezone`, `jurisdiction_profile`, optional `legacy_board`, `books[]` → `chapters[]` with `overlay_id` and `chapter_key`). `sample_board` is generic; the two pilot curricula are separate entries and are not merged into it.
-- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`); S1b adds `0016_s1b_chapter_titles` (`chapters.titles`, `chapters.position`). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
+- **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`); S1b adds `0016_s1b_chapter_titles` (`chapters.titles`, `chapters.position`); G2a adds `0017_g2_item_diagnosis` (item diagnosis and step-hint columns). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
 - **Region guard:** `apps/api/scripts/check_region_literals.py` fails CI on curriculum, board or time-zone literals outside `config/`, `content/`, `migrations/` and `tests/`.
 
 ---
@@ -332,6 +332,8 @@ Kept from v1 unchanged:
 - Session caps checked after every completed item; idle nudge at 90 s; auto-end after 10 min idle; resumable.
 - Consent revoked mid-session ends the session on the next event; no further LLM calls.
 
+**As built in G2a (P6):** R30 runs inside `answer` (every answer is classified, `payload.diagnosis` is stored); R31 and R32 are rows in the table above; R33-R40 are P7. Picker events are `stuck_choice` and `stuck_step`; `request_help` is canonical and `request_hint` an alias. The picker is offered once per item and its first request is the item's one BKT update.
+
 Added in v2:
 
 - **R30 Diagnose before hint.** Every wrong answer passes through `diagnosis.classify()` (§10) before an action is chosen.
@@ -380,6 +382,8 @@ Misconception-matched answers replace levels 1–2 with the misconception's targ
 | "I think my answer might be right" | Prompt to submit; if already submitted wrong, `check_your_work`                                                    |
 
 
+**As built (G2a):** the "I'm stuck at a step" choice shows numbered steps, not the authored step texts (which would reveal the solution before hint 3); tapping a number returns `step_hints[i]`. "I think my answer might be right" returns to the question with a prompt to submit, or `check_your_work` if a wrong answer was already submitted. Step hints and the restated question use no hint level; Help stays available on hint screens until two ladder hints have been shown.
+
 ### 9.3 Feedback rules (enforced in copy, prompts and evals)
 
 - Feedback targets the task or process, never the person.
@@ -395,7 +399,8 @@ Kept from v1: T = first skill in overlay order whose ladder level < 4 (v1 used `
 Policy order:
 
 1. Due FSRS reviews (max 3, session start only).
-2. Prerequisite scheduled by R33 in this session.
+2. **[G2a]** A due stretch item (apply after level 4, transfer after level 5; max 2 per session, one day after the level was reached).
+2a. Prerequisite scheduled by R33 in this session.
 3. Lowest-mastery prerequisite of T with `p_known < 0.6`.
 4. T.
 5. **[v2]** If T is at level 4–6 and nothing else qualifies: interleaved mixed item from T and earlier chapter skills (transfer evidence).
@@ -449,6 +454,8 @@ Always available on the skill path. Starts a short test-out: 2 unhinted correct 
 Session-level flags computed after every item: `wheel_spinning(skill)`, `frustration_risk`, `easy_streak(skill)`.
 
 Diagnosis results are stored on the event (`payload.diagnosis`) and feed the student model (§11) and teacher views.
+
+**As built in G2a:** `app/orchestrator/diagnosis.py` (pure, shared fixture `packages/shared/fixtures/diagnosis/classify.json`). Item fields: `slip_patterns` (`sign_flip`, `off_by` with `max_distance`, `values`), `prereq_signatures`, `intermediate_values`, `min_plausible_ms`, `step_hints[]`, `hint_restate` (migration 0017). The fast-answer streak and help-without-attempt counters are kept in session state; the disengagement response is P7.
 
 ---
 

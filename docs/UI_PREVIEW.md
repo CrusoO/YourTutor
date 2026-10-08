@@ -1,7 +1,7 @@
 # UI preview: see the app on your PC and your phone
 
 Dev only. The preview uses its own database (`yourtutor_preview`) so it never touches your normal
-dev data, and five ready-made students ("scenarios") so you can open any state in one click.
+dev data, and six ready-made students ("scenarios") so you can open any state in one click.
 
 Commands below were run on Windows 11 with Docker Desktop. Run them from the repo root in
 PowerShell unless it says otherwise. Do not paste Linux paths such as `/content` into Git Bash as
@@ -40,6 +40,7 @@ It prints the family code and PIN of each scenario. They are always the same:
 | skill_at_level_4 | DEVLV4 | 1234 | The first skill done |
 | review_due | DEVRVW | 1234 | A review is overdue: the next session opens with a warm-up |
 | all_skills_level_4 | DEVALL | 1234 | The whole chapter at level 4 |
+| slip_prone | DEVSLP | 1234 | Every skill at level 4, so questions are application items: a wrong sign shows Check your work, Help opens the stuck-point picker |
 
 To reset them (the app writes to them as you click around), press **Reset scenarios** on the
 `/dev` page, or run the `seed_scenarios` command again.
