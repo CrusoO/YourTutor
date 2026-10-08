@@ -95,6 +95,28 @@ def _event(name: str, action_item: str | None, session) -> Event:
     return Event(type=kind, response=response, item_id=item_id, latency_ms=latency, text=response)
 
 
+# Flow-control events are only ever sent by the client on the screen they belong to; every help,
+# answer and reveal event stays random so illegal help sequences are still exercised.
+_FLOW_ACTIONS = {
+    "predict": {"predict"},
+    "explain": {"explain_back_prompt"},
+    "continue": {
+        "worked_example",
+        "reveal_solution",
+        "explain_back_prompt",
+        "explain_back_result",
+        "feedback",
+        "nudge",
+        "content_gap",
+    },
+}
+
+
+def _legal(name: str, action_type: str) -> bool:
+    allowed = _FLOW_ACTIONS.get(name)
+    return allowed is None or action_type in allowed
+
+
 @settings(max_examples=150, deadline=None, suppress_health_check=[HealthCheck.too_slow])
 @given(names=st.lists(EVENTS, min_size=1, max_size=45), level=st.sampled_from([0, 4]))
 def test_help_is_monotonic_and_the_reveal_rules_hold(names: list[str], level: int) -> None:
@@ -109,6 +131,8 @@ def test_help_is_monotonic_and_the_reveal_rules_hold(names: list[str], level: in
     for name in names:
         if action.type == "end_session":
             break
+        if not _legal(name, action.type):
+            continue
         item_id = action.item_id or session.current_item_id
         if item_id:
             shown_items.add(item_id)
@@ -155,6 +179,8 @@ def test_bkt_updates_once_per_item_whatever_the_help_path(names: list[str]) -> N
     for name in names:
         if action.type == "end_session":
             break
+        if not _legal(name, action.type):
+            continue
         item_id = action.item_id or session.current_item_id
         event = _event(name, item_id, session)
         action = policy(learner, session, event)
