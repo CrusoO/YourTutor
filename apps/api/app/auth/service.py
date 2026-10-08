@@ -60,6 +60,7 @@ from app.db.models import (
     SessionRow,
     StudentRow,
     StudyParticipantRow,
+    TeacherAlertRow,
     UserRow,
 )
 from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
@@ -436,6 +437,7 @@ def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
             session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
         session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
         session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
+        session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
         session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
         session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
         session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))

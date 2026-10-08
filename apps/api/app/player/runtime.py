@@ -28,6 +28,7 @@ from app.db.models import (
     SessionRow,
     SkillRow,
     StudentRow,
+    TeacherAlertRow,
 )
 from app.learner.bkt import BktParams
 from app.learner.ladder import SkillLadder
@@ -637,6 +638,7 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         event = Event(type="resume") if reopened or row.ended_at else None
         action = policy(learner, state, event)
         persist_learner(session, student.id, learner)
+        sync_alerts(session, student, state, learner)
         _persist_state(row, state)
     else:
         action = state.last_action or Action(type="show_item", item_id=state.current_item_id)
@@ -724,6 +726,7 @@ def apply_player_event(
     )
     action = policy(learner, state, event)
     persist_learner(session, student.id, learner)
+    sync_alerts(session, student, state, learner)
     _persist_state(row, state)
     session.add(
         EventRow(
@@ -759,6 +762,39 @@ def apply_player_event(
         },
         "llm_called": row.llm_called,
     }
+
+
+def sync_alerts(
+    session: Session, student: StudentRow, state: SessionState, learner: LearnerState
+) -> None:
+    """Write queued teacher alerts (the policy only queues them with teacher_share) and resolve
+    open ones whose skill has reached ladder level 4."""
+    now = now_utc()
+    open_rows = session.scalars(
+        select(TeacherAlertRow).where(
+            TeacherAlertRow.student_id == student.id, TeacherAlertRow.resolved_at.is_(None)
+        )
+    ).all()
+    have = {(row.skill_id, row.type) for row in open_rows}
+    for alert in state.alerts:
+        key = (alert["skill_id"], alert["type"])
+        if key not in have:
+            session.add(
+                TeacherAlertRow(
+                    id=uuid.uuid4(),
+                    student_id=student.id,
+                    skill_id=key[0],
+                    type=key[1],
+                    created_at=now,
+                )
+            )
+            have.add(key)
+    state.alerts = []
+    for row in open_rows:
+        ladder = learner.ladders.get(row.skill_id)
+        if ladder is not None and ladder.level >= 4:
+            row.resolved_at = now
+    session.flush()
 
 
 def _attach_summary(
