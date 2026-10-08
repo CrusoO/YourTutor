@@ -39,6 +39,7 @@ NAMES = [
     "review_due",
     "all_skills_level_4",
     "slip_prone",
+    "wheel_spinning",
 ]
 
 
@@ -77,9 +78,9 @@ def _overlay_skills(db: Session, student: StudentRow) -> list[str]:
     return list(overlay_skills(db, student))
 
 
-def test_scenario_names_are_the_six_required_ones() -> None:
+def test_scenario_names_are_the_seven_required_ones() -> None:
     assert [s.name for s in SCENARIOS] == NAMES
-    assert len({s.family_code for s in SCENARIOS}) == 6
+    assert len({s.family_code for s in SCENARIOS}) == 7
 
 
 def test_seeding_is_refused_unless_draft_content_is_allowed(tmp_path: Path) -> None:
@@ -225,11 +226,11 @@ def test_reseeding_replaces_the_scenarios_without_duplicates(
             .select_from(StudentRow)
             .where(StudentRow.family_code.in_(spec_codes))
         )
-        assert count == 6
+        assert count == 7
         parents = db.scalar(
             select(func.count()).select_from(UserRow).where(UserRow.email.like("scenario.%"))
         )
-        assert parents == 6
+        assert parents == 7
         assert uuid.UUID(str(_student(db, "new_student").id))
 
 
@@ -302,6 +303,50 @@ def test_slip_prone_starts_with_an_item_that_can_show_check_your_work(
         assert all(level >= 4 for level in _levels(db, student).values())
         item = db.get(ItemRow, action["item_id"])
         assert item is not None and item.slip_patterns and item.step_hints and item.hint_restate
+
+
+def test_wheel_spinning_has_an_open_session_with_two_missed_items_and_the_next_miss_probes(
+    seeded: tuple[str, list[dict]],
+) -> None:
+    import uuid
+
+    from app.auth.actor import Actor
+    from app.auth.security import now_utc
+    from app.db.models import EventRow
+    from app.player.runtime import apply_player_event, session_view
+    from app.registries.timezone import same_local_day
+
+    url, _ = seeded
+    settings.allow_draft_content = True
+    with _db(url) as db:
+        student = _student(db, "wheel_spinning")
+        levels = _levels(db, student)
+        skills = _overlay_skills(db, student)
+        assert all(levels[s] >= 4 for s in skills[:4]) and levels.get(skills[4], 0) < 4
+        row = db.scalar(
+            select(SessionRow).where(
+                SessionRow.student_id == student.id, SessionRow.resumable.is_(True)
+            )
+        )
+        assert row is not None and same_local_day(row.last_active_at, now_utc(), student.timezone)
+        misses = db.scalars(
+            select(EventRow).where(EventRow.session_id == row.id, EventRow.correct.is_(False))
+        ).all()
+        assert len([e for e in misses if e.event_type == "answer"]) >= 2
+        admin = Actor(role="admin")
+        view = session_view(db, admin, row)
+        assert view["action"]["type"] in {"show_item", "similar_item"}
+        missed = apply_player_event(
+            db,
+            admin,
+            row,
+            client_event_id=uuid.uuid4(),
+            event_type="answer",
+            item_id=view["action"]["item_id"],
+            payload={"response": "0", "latency_ms": 9000},
+        )["action"]
+        assert missed["extras"].get("probe") is True, missed
+        db.rollback()
 
 
 def test_skill_at_level_4_and_mid_chapter_keep_a_session_open_to_resume(

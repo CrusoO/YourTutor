@@ -635,12 +635,13 @@ def reopen_idle(row: SessionRow) -> bool:
     row.resumable = False
     row.last_active_at = now_utc()
     plan = dict(row.plan or {})
+    plan["last_active_at"] = row.last_active_at.isoformat()  # resuming restarts the idle clock
     last = plan.get("last_action") or {}
     if last.get("type") == "end_session":
         plan["last_action"] = None
         plan["ended_reason"] = None
         plan["phase"] = "practice" if plan.get("current_item_id") else "start"
-        row.plan = plan
+    row.plan = plan
     return True
 
 

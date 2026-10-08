@@ -109,3 +109,23 @@ def test_a_session_that_really_ended_is_not_reopened(
     db.commit()
     again = client.get(f"/sessions/{started['id']}", headers=auth_header(idle_world.student_token))
     assert again.json()["action"]["type"] == "end_session"
+
+
+def test_starting_a_session_after_an_idle_end_resumes_it_instead_of_ending_it_again(
+    client: TestClient, idle_world: World
+) -> None:
+    started = _start(client, idle_world)
+    _go_idle(client, idle_world, started["id"])
+    again = _start(client, idle_world)  # the student presses Start practice
+    assert again["id"] == started["id"]
+    assert again["action"]["type"] != "end_session"
+    sent = client.post(
+        f"/sessions/{again['id']}/events",
+        json={
+            "client_event_id": str(uuid.uuid4()),
+            "event_type": "idle_nudge",
+            "payload": {"idle_ms": 1000},
+        },
+        headers=auth_header(idle_world.student_token),
+    )
+    assert sent.json()["action"]["type"] != "end_session"

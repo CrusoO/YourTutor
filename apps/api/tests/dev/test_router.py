@@ -38,6 +38,7 @@ def test_dev_scenarios_list_credentials_and_seeded_flag(
         "review_due",
         "all_skills_level_4",
         "slip_prone",
+        "wheel_spinning",
     ]
     assert all(row["pin"] == "1234" and row["family_code"] for row in body["scenarios"])
     assert not any(row["seeded"] for row in body["scenarios"])
