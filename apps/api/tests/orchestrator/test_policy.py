@@ -16,6 +16,7 @@ from app.orchestrator.types import (
 from app.verifier.check import leak_check
 from tests.orchestrator.conftest import (
     NOW,
+    ask_hint,
     catalog_item,
     due_card,
     make_learner,
@@ -72,12 +73,12 @@ def test_predict_and_worked_example_only_for_new_skill() -> None:
 def test_no_reveal_on_hint_1_or_2_and_leak_check() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, _ = _start_practice(session)
-    h1 = policy(learner, session, Event(type="request_hint"))
+    h1 = ask_hint(learner, session)
     assert h1.type == "hint"
     assert h1.hint_level == 1
     assert h1.type != "reveal_solution"
     assert not leak_check(h1.text or "", "5", level=1)
-    h2 = policy(learner, session, Event(type="request_hint"))
+    h2 = ask_hint(learner, session)
     assert h2.type == "hint"
     assert h2.hint_level == 2
     assert h2.type != "reveal_solution"
@@ -89,17 +90,17 @@ def test_no_reveal_on_hint_1_or_2_and_leak_check() -> None:
 def test_hint_3_never_returned_as_retry_hint() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, _ = _start_practice(session)
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
-    third = policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
+    third = ask_hint(learner, session)
     assert not (third.type == "hint" and third.hint_level == 3)
 
 
 def test_reveal_after_wrong_following_hint2_starts_with_hint3() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, start = _start_practice(session)
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
     reveal = policy(learner, session, Event(type="answer", response="19", item_id=start.item_id))
     assert reveal.type == "reveal_solution"
     assert (reveal.text or "").startswith("Subtract 7")
@@ -108,8 +109,8 @@ def test_reveal_after_wrong_following_hint2_starts_with_hint3() -> None:
 def test_show_solution_after_two_hints_reveals() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, _ = _start_practice(session)
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
     reveal = policy(learner, session, Event(type="show_solution"))
     assert reveal.type == "reveal_solution"
 
@@ -117,7 +118,7 @@ def test_show_solution_after_two_hints_reveals() -> None:
 def test_after_hint_retry_same_practice_item() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, start = _start_practice(session)
-    hint = policy(learner, session, Event(type="request_hint"))
+    hint = ask_hint(learner, session)
     assert hint.type == "hint"
     assert session.phase == "practice"
     assert session.current_item_id == start.item_id
@@ -126,7 +127,7 @@ def test_after_hint_retry_same_practice_item() -> None:
 def test_single_bkt_update_then_hinted_correct() -> None:
     session = make_session(introduced={"MATH.S1"})
     learner, start = _start_practice(session)
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
     after_hint = learner.mastery["MATH.S1"].p_known
     policy(learner, session, Event(type="answer", response="5", item_id=start.item_id))
     row = learner.mastery["MATH.S1"]
@@ -334,8 +335,8 @@ def test_similar_item_different_approved_same_skill_and_tier() -> None:
     b = catalog_item("ITEM.B", difficulty=0.28, answer="4")
     session = make_session(a, b, introduced={"MATH.S1"})
     learner, start = _start_practice(session)
-    policy(learner, session, Event(type="request_hint"))
-    policy(learner, session, Event(type="request_hint"))
+    ask_hint(learner, session)
+    ask_hint(learner, session)
     policy(learner, session, Event(type="show_solution"))
     similar = policy(learner, session, Event(type="continue"))
     assert similar.type == "similar_item"

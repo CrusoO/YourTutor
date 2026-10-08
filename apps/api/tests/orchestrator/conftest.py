@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import Any
 
 from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
@@ -20,6 +21,7 @@ def catalog_item(
     extra_skill: str | None = None,
     last_shown_at: datetime | None = None,
     rules: tuple[tuple[str, tuple[str, ...]], ...] = (),
+    **fields: Any,
 ) -> CatalogItem:
     skills = (skill,) if extra_skill is None else (skill, extra_skill)
     return CatalogItem(
@@ -42,6 +44,7 @@ def catalog_item(
         authored_explanation="Subtract the same number from both sides.",
         verify="x + 7 = 12" if answer == "5" else None,
         last_shown_at=last_shown_at,
+        **fields,
     )
 
 
@@ -82,3 +85,15 @@ def make_learner(*, p_known: dict[str, float] | None = None) -> LearnerState:
 
 def due_card(skill_id: str, *, due: datetime | None = None) -> ReviewCard:
     return ReviewCard(skill_id=skill_id, due_at=due or NOW)
+
+
+def ask_hint(learner: LearnerState, session: SessionState):  # type: ignore[no-untyped-def]
+    """Ask for the next hint the way a student does since G2: the first help request on an item
+    opens the stuck-point picker (R32), so choose "I don't know how to start" to get hint 1."""
+    from app.orchestrator.policy import policy
+    from app.orchestrator.types import Event
+
+    action = policy(learner, session, Event(type="request_help"))
+    if action.type == "ask_stuck_point":
+        action = policy(learner, session, Event(type="stuck_choice", response="start"))
+    return action

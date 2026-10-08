@@ -287,7 +287,7 @@ The transition table (rule ids R01…Rnn) remains the normative spec; the Mermai
 
 ### 8.1 Practice transitions (normative)
 
-Generated from the code transition table (v1 rules R01–R22, as implemented today; the v2 rules R30+ below are not in the table yet). CI fails if this block drifts.
+Generated from the code transition table (v1 rules R01–R22, plus the G2a rules R31 and R32; R30 is an ordering rule inside `answer` and has no row of its own; R33–R40 are not in the table yet). CI fails if this block drifts. `request_help` is the canonical help event; `request_hint` is accepted as an alias.
 
 <!-- ORCH_TRANSITIONS:START -->
 ```mermaid
@@ -297,7 +297,7 @@ stateDiagram-v2
   start --> warmup: start/warmup_item (R03)
   predict --> worked_example: predict_response/worked_example (R04)
   worked_example --> practice: continue/show_item (R05)
-  practice --> practice: request_hint/hint (R06)
+  practice --> practice: request_help/hint (R06)
   practice --> practice: answer/hint (R07)
   practice --> explain_back: answer/explain_back_prompt (R08)
   practice --> reveal: answer/reveal_solution (R09)
@@ -314,6 +314,13 @@ stateDiagram-v2
   diagnostic --> ended: answer/end_session (R20)
   checkpoint --> ended: answer/checkpoint_score (R21)
   practice --> practice: show_solution/show_item (R22)
+  practice --> practice: answer/check_your_work (R31)
+  practice --> stuck: request_help/ask_stuck_point (R32)
+  stuck --> practice: stuck_choice/hint (R32)
+  stuck --> stuck_step: stuck_choice/ask_stuck_step (R32)
+  stuck --> practice: stuck_choice/show_item (R32)
+  stuck --> practice: stuck_choice/check_your_work (R32)
+  stuck_step --> practice: stuck_step/hint (R32)
 ```
 <!-- ORCH_TRANSITIONS:END -->
 

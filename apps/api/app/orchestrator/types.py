@@ -144,6 +144,8 @@ class SessionState:
     help_without_attempt: int = 0  # help opened before any attempt (R35)
     misconception_remedial: dict[str, str] = field(default_factory=dict)  # misconception -> skill
     last_diagnosis: dict[str, Any] | None = None  # stored on the event as payload.diagnosis
+    misconception_text: dict[str, str] = field(default_factory=dict)  # id -> authored hint
+    stuck_item_id: str | None = None  # the picker is offered once per item (R32)
     blocked_skills: set[str] = field(default_factory=set)
     content_gaps: list[dict[str, Any]] = field(default_factory=list)
     bkt_memory: dict = field(

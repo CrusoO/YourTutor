@@ -17,6 +17,7 @@ from app.learner.ladder import (
 from app.learner.mastery_service import apply_event
 from app.learner.scheduler_fsrs import FixedClock
 from app.learner.types import LearnerEvent, LearnerState, Mastery
+from app.orchestrator.diagnosis import classify
 from app.orchestrator.diagnostic import (
     is_dont_know,
     next_diagnostic_item,
@@ -45,8 +46,11 @@ def policy(learner: LearnerState, session: SessionState, last_event: Event | Non
     from app.observe.otel import span
 
     before = session.phase
+    if last_event is not None and last_event.type == "request_hint":
+        last_event.type = "request_help"  # request_hint is kept as an alias (G2)
     session.last_event = last_event
     session.last_correct = None
+    session.last_diagnosis = None
     with span("policy", component="policy", action_type=last_event.type if last_event else "start"):
         action = _policy(learner, session, last_event, before)
         if action.type == "end_session":
@@ -124,8 +128,12 @@ def _practice(learner: LearnerState, session: SessionState, event: Event | None)
         )
     if event.type == "continue":
         return _on_continue(learner, session)
-    if event.type == "request_hint":
+    if event.type == "request_help":
         return _on_hint(learner, session)
+    if event.type == "stuck_choice":
+        return _on_stuck_choice(learner, session, event)
+    if event.type == "stuck_step":
+        return _on_stuck_step(learner, session, event)
     if event.type == "show_solution":
         return _on_show_solution(learner, session)
     if event.type == "answer":
@@ -172,6 +180,14 @@ def _on_hint(learner: LearnerState, session: SessionState) -> Action:
     item = session.item()
     if item is None:
         return _enter_practice_loop(learner, session)
+    if session.phase in {"stuck", "stuck_step"}:
+        return _keep(session, _stuck_point_action(session, item))
+    if (
+        session.stuck_item_id != item.id
+        and session.last_wrong_item_id != item.id
+        and session.hint_level_shown == 0
+    ):
+        return _ask_stuck_point(learner, session, item)
     if session.hint_level_shown >= 2:
         session.phase = "practice"
         return _keep(
@@ -181,17 +197,141 @@ def _on_hint(learner: LearnerState, session: SessionState) -> Action:
     return _deliver_hint(learner, session, item)
 
 
+_STUCK_CHOICES = ("start", "step", "restate", "might_be_right")
+
+
+def _stuck_point_action(session: SessionState, item: CatalogItem) -> Action:
+    choices = [
+        choice
+        for choice in _STUCK_CHOICES
+        if (choice != "step" or item.step_hints) and (choice != "restate" or item.hint_restate)
+    ]
+    return Action(
+        type="ask_stuck_point",
+        item_id=item.id,
+        skill_id=item.primary_skill,
+        extras={"choices": choices, "step_count": len(item.step_hints)},
+    )
+
+
+def _ask_stuck_point(learner: LearnerState, session: SessionState, item: CatalogItem) -> Action:
+    """R32: ask before telling. The first help request is the item's one BKT update."""
+    _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
+    _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
+    session.stuck_item_id = item.id
+    session.help_without_attempt += 1
+    session.phase = "stuck"
+    return _keep(session, _stuck_point_action(session, item))
+
+
+def _on_stuck_choice(learner: LearnerState, session: SessionState, event: Event) -> Action:
+    item = session.item()
+    if session.phase != "stuck" or item is None:
+        return _flag(session, "not_in_stuck_picker")
+    choice = (event.response or "").strip()
+    offered = _stuck_point_action(session, item).extras["choices"]
+    if choice not in offered:
+        return _flag(session, "bad_choice")
+    if choice == "start":
+        if session.hint_level_shown >= 2:
+            session.phase = "practice"
+            return _keep(
+                session, Action(type="show_item", item_id=item.id, skill_id=item.primary_skill)
+            )
+        return _deliver_hint(learner, session, item)
+    if choice == "step":
+        session.phase = "stuck_step"
+        return _keep(
+            session,
+            Action(
+                type="ask_stuck_step",
+                item_id=item.id,
+                skill_id=item.primary_skill,
+                extras={"step_count": len(item.step_hints)},
+            ),
+        )
+    if choice == "restate":
+        session.phase = "practice"
+        return _keep(
+            session,
+            Action(
+                type="hint",
+                item_id=item.id,
+                skill_id=item.primary_skill,
+                text=item.hint_restate,
+                source="authored",
+                extras={"kind": "restate"},
+            ),
+        )
+    session.phase = "practice"
+    if session.last_wrong_item_id == item.id:
+        return _check_your_work(session, item, "recheck")
+    return _keep(
+        session,
+        Action(
+            type="show_item",
+            item_id=item.id,
+            skill_id=item.primary_skill,
+            extras={"prompt_submit": True},
+        ),
+    )
+
+
+def _on_stuck_step(learner: LearnerState, session: SessionState, event: Event) -> Action:
+    item = session.item()
+    if session.phase != "stuck_step" or item is None:
+        return _flag(session, "not_in_stuck_picker")
+    try:
+        index = int((event.response or "").strip())
+    except ValueError:
+        return _flag(session, "bad_step")
+    if not 0 <= index < len(item.step_hints):
+        return _flag(session, "bad_step")
+    text = item.step_hints[index]
+    if leak_check(text, item.answer_sympy, level=1):
+        text = item.hint(1)  # never reveal before hint 3
+    session.phase = "practice"
+    return _keep(
+        session,
+        Action(
+            type="hint",
+            item_id=item.id,
+            skill_id=item.primary_skill,
+            text=text,
+            source="authored",
+            extras={"kind": "step", "step": index},
+        ),
+    )
+
+
+def _check_your_work(session: SessionState, item: CatalogItem, kind: str) -> Action:
+    """R31: point at what to recheck. No hint level is used."""
+    session.phase = "practice"
+    return _keep(
+        session,
+        Action(
+            type="check_your_work",
+            item_id=item.id,
+            skill_id=item.primary_skill,
+            extras={"check_kind": kind},
+        ),
+    )
+
+
 def _deliver_hint(learner: LearnerState, session: SessionState, item: CatalogItem) -> Action:
     level = session.hint_level_shown + 1
     text = item.hint(level)
     if leak_check(text, item.answer_sympy, level=level):
         text = item.hint(level)
     _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
-    if session.last_event is not None and session.last_event.type == "request_hint":
+    if session.last_event is not None and session.last_event.type == "request_help":
         _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
     session.hint_level_shown = level
     session.phase = "practice"
     misconception = _match_misconception(item, session.last_wrong_response or "")
+    targeted = session.misconception_text.get(misconception or "")
+    if level == 1 and targeted and not leak_check(targeted, item.answer_sympy, level=1):
+        text = targeted  # the hint names the misunderstanding, not just the item (R30)
     return _keep(
         session,
         Action(
@@ -229,6 +369,10 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     if session.session_type == "practice" and item.pool != "practice":
         return _flag(session, "checkpoint_item_in_practice")
     session.last_correct = correct
+    if session.session_type == "practice":
+        _track_engagement(session, item, event)
+        diagnosis = classify(item, event.response or "", correct, learner, session)
+        session.last_diagnosis = diagnosis.as_payload()
     if session.session_type != "diagnostic":
         _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
         _maybe_ladder(learner, session, item, kind=KIND_ANSWER, correct=correct)
@@ -254,11 +398,31 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
         if session.phase == "warmup":
             return _select_skill_or_item(learner, session)
         return _after_correct(learner, session, item)
+    first_attempt = session.last_wrong_item_id != item.id
     session.last_wrong_response = event.response or ""
+    session.last_wrong_item_id = item.id
+    if (
+        first_attempt
+        and session.hint_level_shown == 0
+        and session.last_diagnosis is not None
+        and session.last_diagnosis["class"] == "slip"
+    ):
+        return _check_your_work(session, item, str(session.last_diagnosis["detail"]))
     if session.hint_level_shown >= 2:
         session.attempt_after_hint2 = True
         return _reveal(session)
     return _deliver_hint(learner, session, item)
+
+
+def _track_engagement(session: SessionState, item: CatalogItem, event: Event) -> None:
+    """Counters behind the disengagement class (R35): fast answers and help without an attempt."""
+    fast = (
+        event.latency_ms is not None
+        and item.min_plausible_ms is not None
+        and event.latency_ms < item.min_plausible_ms
+    )
+    session.fast_streak = session.fast_streak + 1 if fast else 0
+    session.help_without_attempt = 0
 
 
 def _after_correct(learner: LearnerState, session: SessionState, item: CatalogItem) -> Action:
@@ -422,7 +586,7 @@ def _show_warmup(learner: LearnerState, session: SessionState, due: list[str]) -
 
 
 def _diagnostic(learner: LearnerState, session: SessionState, event: Event | None) -> Action:
-    blocked = {"request_hint", "show_solution", "explain_back", "predict_response"}
+    blocked = {"request_help", "request_hint", "show_solution", "explain_back", "predict_response"}
     if event and event.type in blocked:
         return _flag(session, "no_hint_in_assessment")
     if event and event.type == "answer":
@@ -453,7 +617,7 @@ def _diagnostic(learner: LearnerState, session: SessionState, event: Event | Non
 
 
 def _checkpoint(session: SessionState, event: Event | None) -> Action:
-    if event and event.type in {"request_hint", "show_solution", "explain_back"}:
+    if event and event.type in {"request_help", "request_hint", "show_solution", "explain_back"}:
         return _flag(session, "no_hint_in_assessment")
     ids = session.checkpoint_ids or [row.id for row in session.catalog if row.pool == "checkpoint"]
     if event and event.type == "answer":

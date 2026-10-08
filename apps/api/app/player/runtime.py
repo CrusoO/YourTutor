@@ -22,6 +22,7 @@ from app.db.models import (
     EventRow,
     ItemRow,
     MasteryRow,
+    MisconceptionRow,
     OverlayRow,
     ReviewCardRow,
     SessionRow,
@@ -321,6 +322,10 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "checkpoint_result": state.checkpoint_result,
         "similar_from_item_id": state.similar_from_item_id,
         "last_wrong_response": state.last_wrong_response,
+        "last_wrong_item_id": state.last_wrong_item_id,
+        "fast_streak": state.fast_streak,
+        "help_without_attempt": state.help_without_attempt,
+        "stuck_item_id": state.stuck_item_id,
         "blocked_skills": list(state.blocked_skills),
         "content_gaps": state.content_gaps,
         "stored_explain_text": state.stored_explain_text,
@@ -380,6 +385,10 @@ def load_state(
         stored_explain_text=plan.get("stored_explain_text"),
         similar_from_item_id=plan.get("similar_from_item_id"),
         last_wrong_response=plan.get("last_wrong_response"),
+        last_wrong_item_id=plan.get("last_wrong_item_id"),
+        fast_streak=int(plan.get("fast_streak") or 0),
+        help_without_attempt=int(plan.get("help_without_attempt") or 0),
+        stuck_item_id=plan.get("stuck_item_id"),
         blocked_skills=set(plan.get("blocked_skills") or []),
         content_gaps=list(plan.get("content_gaps") or []),
         bkt_memory=_load_memory(plan.get("bkt_memory")),
@@ -403,6 +412,12 @@ def _build_state(
         prerequisites=prereqs,
     )
     state.session_key = str(row.id)
+    locale = student.home_language or "en"
+    for mc in session.scalars(select(MisconceptionRow)):
+        state.misconception_remedial[mc.id] = mc.remedial_skill
+        text = _locale_value(mc.explanation, locale)
+        if text:
+            state.misconception_text[mc.id] = text
     state.has_ai_processing = "ai_processing" in scopes
     state.allow_draft = settings.allow_draft_content
     state.active_ms = row.active_ms
@@ -474,6 +489,21 @@ def _item_payload(
     return payload
 
 
+def _localised_help_text(row: ItemRow, action: Action, locale: str) -> str | None:
+    """Step hints and the restated question are authored per language; fall back to English."""
+    kind = (action.extras or {}).get("kind")
+    if kind == "restate" and row.hint_restate:
+        return _locale_value(row.hint_restate, locale) or None
+    if kind == "step":
+        index = int((action.extras or {}).get("step", -1))
+        steps = row.step_hints or []
+        if 0 <= index < len(steps):
+            text = _locale_value(steps[index], locale)
+            if text:
+                return text
+    return None
+
+
 def enrich_action(
     session: Session,
     state: SessionState,
@@ -510,18 +540,21 @@ def enrich_action(
         "resumable": action.resumable,
         "rejected": action.rejected,
         "guardrail_flag": action.guardrail_flag,
+        "rule_id": action.rule_id,
         "extras": extras,
         "session_type": state.session_type,
         "phase": state.phase,
         "hint_level_shown": state.hint_level_shown,
         "allow_hint": can_request_hint,
-        "can_request_hint": can_request_hint,
+        "can_request_help": can_request_hint,
+        "can_request_hint": can_request_hint,  # deprecated alias of can_request_help
         "can_show_solution": can_show_solution,
         "dont_know_option": bool(extras.get("dont_know_option")),
         "item": _item_payload(item_row, locale, reveal=reveal, steps=steps),
     }
     if action.type == "hint" and item_row is not None:
         payload["item"] = _item_payload(item_row, locale, reveal=False, steps=False)
+        payload["text"] = _localised_help_text(item_row, action, locale) or action.text
     if action.type in {"predict", "worked_example"}:
         lesson = lesson_for_state(state)
         if lesson is not None:
@@ -636,9 +669,14 @@ def apply_player_event(
         return _apply_lesson_event(
             session, row, student, state, event_type, payload, client_event_id
         )
+    response = str(payload.get("response")) if payload.get("response") is not None else None
+    if event_type == "stuck_choice":
+        response = str(payload.get("choice") or "")
+    elif event_type == "stuck_step":
+        response = str(payload.get("index")) if payload.get("index") is not None else ""
     event = Event(
         type=event_type,
-        response=str(payload.get("response")) if payload.get("response") is not None else None,
+        response=response,
         client_correct=payload.get("correct"),
         latency_ms=payload.get("latency_ms"),
         item_id=item_id,
@@ -655,8 +693,10 @@ def apply_player_event(
             client_event_id=client_event_id,
             session_id=row.id,
             item_id=item_id or action.item_id,
-            event_type=event_type,
-            payload=payload,
+            event_type="request_help" if event_type == "request_hint" else event_type,
+            payload={**payload, "diagnosis": state.last_diagnosis}
+            if state.last_diagnosis
+            else payload,
             correct=state.last_correct if event_type == "answer" else action.correct,
             hint_level=action.hint_level,
             latency_ms=payload.get("latency_ms"),

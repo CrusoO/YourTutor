@@ -267,6 +267,13 @@ def get_session(session_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[s
 def post_event(
     session_id: uuid.UUID, body: EventIn, db: DbSession, actor: ActorDep
 ) -> dict[str, Any]:
+    """Record one player event and return the next action.
+
+    Help events: `request_help` is the canonical name; `request_hint` is a deprecated alias that
+    behaves the same. In the returned action, `can_request_help` replaces the deprecated
+    `can_request_hint` (both are sent for now). The stuck-point picker uses `stuck_choice`
+    (`payload.choice`) and `stuck_step` (`payload.index`).
+    """
     return service.post_session_event(
         db,
         actor,
