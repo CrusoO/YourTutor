@@ -22,6 +22,8 @@ def hint_solution_flags(
     practice = state.session_type == "practice" and not assessment
     if not practice or action.type not in _ITEM_HINT_TYPES:
         return False, False
+    if state.phase in {"probe", "break_choice"}:  # a probe is a short check: no help, no reveal
+        return False, False
     can_show = state.hint_level_shown >= 2
     can_request = state.hint_level_shown < 2 and action.type in {
         "show_item",

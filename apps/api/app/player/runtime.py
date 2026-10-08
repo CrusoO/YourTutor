@@ -731,7 +731,7 @@ def apply_player_event(
             session, row, student, state, event_type, payload, client_event_id
         )
     response = str(payload.get("response")) if payload.get("response") is not None else None
-    if event_type == "stuck_choice":
+    if event_type in {"stuck_choice", "break_choice"}:
         response = str(payload.get("choice") or "")
     elif event_type == "stuck_step":
         response = str(payload.get("index")) if payload.get("index") is not None else ""
