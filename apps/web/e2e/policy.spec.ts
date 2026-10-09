@@ -86,6 +86,23 @@ async function answerRight(page: Page, tracker: ReturnType<typeof trackActions>)
   );
 }
 
+async function answerWrong(page: Page, tracker: ReturnType<typeof trackActions>) {
+  const box = page.getByPlaceholder(/type your answer/i);
+  if (await box.isVisible()) {
+    await box.fill("0");
+    await submitAndWait(page, () => page.getByRole("button", { name: /^check$/i }).click());
+    return;
+  }
+  const key = await authoredAnswer(page, String(tracker.last()!.item_id));
+  const options = (tracker.last() as unknown as { item?: { options?: { id: string; label: string }[] } })
+    .item?.options ?? [];
+  const wrong = options.find((o) => o.id !== key);
+  expect(wrong, "a wrong option to click").toBeTruthy();
+  await submitAndWait(page, () =>
+    page.getByRole("button", { name: wrong!.label || wrong!.id, exact: true }).click(),
+  );
+}
+
 test.describe("G2b policy rules at 360 px", () => {
   test.beforeEach(() => {
     test.setTimeout(420_000);
@@ -102,14 +119,13 @@ test.describe("G2b policy rules at 360 px", () => {
     await expect(page).toHaveURL(/\/subjects/);
     await expect(page.getByText("Hi Wen")).toBeVisible();
     await page.getByRole("button", { name: /resume/i }).click();
-    await expect(page.getByPlaceholder(/type your answer/i)).toBeVisible({ timeout: 20_000 });
+    await expect(page.locator(".stem").first()).toBeVisible({ timeout: 20_000 });
     // two items were already missed in this open session; the question is waiting
     await expectPhoneLayout(page);
     await shot(page, "01-resumed-after-two-misses");
 
     // the third miss in a row: a short check on the skill before it, not another hint
-    await page.getByPlaceholder(/type your answer/i).fill("0");
-    await page.getByRole("button", { name: /^check$/i }).click();
+    await answerWrong(page, tracker);
     await expect(page.getByTestId("probe")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Quick check" })).toBeVisible();
     await expect(page.getByRole("button", { name: /^help$/i })).toHaveCount(0);
@@ -125,7 +141,7 @@ test.describe("G2b policy rules at 360 px", () => {
       await page.getByRole("button", { name: "Show next step" }).click();
     }
     await page.getByRole("button", { name: /^continue$/i }).click();
-    await expect(page.getByPlaceholder(/type your answer/i)).toBeVisible();
+    await expect(page.locator(".stem").first()).toBeVisible();
     await expect(page.getByTestId("probe")).toHaveCount(0);
     await shot(page, "04-back-to-the-question");
   });
