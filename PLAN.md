@@ -341,21 +341,21 @@ Draft content note: the step hints, restated questions, slip patterns, intermedi
 - [x] Met 2026-10-08. R30 diagnose before hint; R31 `check_your_work` for slips
 - [x] Met 2026-10-08. R32 `request_help` → `ask_stuck_point`; choices route to hint 1, step hint, `hint_restate`, or recheck
 - [x] Met 2026-10-08. Item fields `step_hints[]` and `hint_restate`; validator leak-checks step hints
-- [ ] R33 prerequisite probe; R34 wheel-spinning stop + `teacher_alerts`
-- [ ] R35 disengagement → `break_or_switch`; R36 frustration de-escalation; R37 challenge; R40 never end on failure
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). R33 prerequisite probe; R34 wheel-spinning stop + `teacher_alerts`
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). R35 disengagement → `break_or_switch`; R36 frustration de-escalation; R37 challenge; R40 never end on failure
 - [x] Skip-ahead test-out (§9.7 Arch) with `evidence=test_out` *(covered by S1b)*
-- [ ] Praise trigger rules; encouragement only on triggers (authored copy)
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Praise trigger rules; encouragement only on triggers (authored copy)
 - [x] Met 2026-10-08. `request_hint` kept as an alias of `request_help`
 - [x] Met 2026-10-08. Transition table + Mermaid markers updated; drift test *R31 and R32 rows added; R33-R40 follow in P7*
-- [ ] *Deferred from G0:* grade bands (`config/grade_bands.yaml`) drive session caps (soft/hard active-time caps per band, ARCH §20)
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). *Deferred from G0:* grade bands (`config/grade_bands.yaml`) drive session caps (soft/hard active-time caps per band, ARCH §20)
 - [x] Met 2026-10-08. Session resume only until local midnight in the student's time zone; after that, start a new session (progress carries via the student model). Test with injected clocks. *Finding: `start_session` resumes any idle-ended session with no age limit (seen in G1 step 8).*
 
 Accept:
 
-- [ ] Scripted students (hypothesis): slip student gets `check_your_work` then ladder; misconception student gets targeted hints; prerequisite-gap student gets a probe within 3 failures; random guesser triggers `break_or_switch`; strong student hits `challenge` after 3 unhinted correct
-- [ ] Wheel-spinning detected by item 10 on a skill in 100% of simulated non-learners; teacher alert row written only with `teacher_share`
-- [ ] Help escalation is monotonic in every simulated session; no reveal before v1 conditions
-- [ ] No session ends immediately after a reveal or wrong answer (R40) while staying within hard cap + 1 item
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Scripted students (hypothesis): slip student gets `check_your_work` then ladder; misconception student gets targeted hints; prerequisite-gap student gets a probe within 3 failures; random guesser triggers `break_or_switch`; strong student hits `challenge` after 3 unhinted correct
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Wheel-spinning detected by item 10 on a skill in 100% of simulated non-learners; teacher alert row written only with `teacher_share`
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Help escalation is monotonic in every simulated session; no reveal before v1 conditions
+- [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). No session ends immediately after a reveal or wrong answer (R40) while staying within hard cap + 1 item
 - [ ] Stuck-point step hints pass leak checks; BKT still updated exactly once per item
 
 ### G3 — Lessons, scenes and widgets (backend + content)
