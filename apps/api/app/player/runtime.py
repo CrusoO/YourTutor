@@ -622,6 +622,7 @@ def enrich_action(
     if action.type == "hint" and item_row is not None:
         payload["item"] = _item_payload(item_row, locale, reveal=False, steps=False)
         payload["text"] = _localised_help_text(item_row, action, locale) or action.text
+    payload["sources"] = _source_chips(action, state)
     if action.type in {"predict", "worked_example"}:
         lesson = lesson_for_state(state)
         if lesson is not None:
@@ -634,6 +635,27 @@ def enrich_action(
             served["order"] = order
             payload["lesson"] = served
     return payload
+
+
+SOURCE_CHIP_ACTIONS = frozenset(
+    {"predict", "worked_example", "reveal_solution", "explain_back_result"}
+)
+
+
+def _source_chips(action: Action, state: SessionState) -> list[dict[str, str]]:
+    """Where an explanation comes from: the approved source of the skill lesson, with its title."""
+    from app.lessons.loader import lesson_for_skill, servable
+    from app.lessons.sources import source_titles
+
+    skill_id = action.skill_id or state.current_skill
+    if action.type not in SOURCE_CHIP_ACTIONS or not skill_id:
+        return []
+    lesson = lesson_for_skill(skill_id)
+    if lesson is None or not servable(lesson):
+        return []
+    refs = list(dict.fromkeys([lesson.source_ref, *(s.source_ref for s in lesson.scenes())]))
+    titles = source_titles()
+    return [{"id": ref, "title": titles.get(ref, ref)} for ref in refs]
 
 
 def _beats_in_path(beats: list[dict], kinds: list[str]) -> list[dict]:

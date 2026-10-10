@@ -98,6 +98,7 @@ const en = {
   probeTitle: "Quick check",
   probeHint: "One short question on an earlier idea. It helps me see where to start.",
   otherView: "Let's look at it another way",
+  sourceLabel: "Source",
   challengeLabel: "Challenge",
   challengeHint: "A harder one, for when things are going well.",
   winLabel: "One quick one to finish",

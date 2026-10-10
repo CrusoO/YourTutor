@@ -6,6 +6,8 @@ export type ActionPayload = {
   type: string;
   lesson?: Lesson;
   rejected?: boolean;
+  /** Approved sources of an explanation, shown as chips. */
+  sources?: { id: string; title: string }[];
   /** The server's verdict on a lesson beat answer (faded example, scene question). */
   lesson_correct?: boolean | null;
   item_id?: string | null;

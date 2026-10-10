@@ -247,6 +247,25 @@ def test_a_malformed_faded_answer_is_rejected(
     assert player.action["rejected"] is True
 
 
+def test_explanations_carry_source_chips_from_the_approved_sources(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, LESSON_SKILL)
+    player = Player(client, world)
+    chips = [{"id": "NOTE.LIN1.TWO_STEP", "title": "Two-step equations (authored note)"}]
+    assert player.action["type"] == "predict" and player.action["sources"] == chips
+    player.send("predict_response", response="4")
+    assert player.action["type"] == "worked_example" and player.action["sources"] == chips
+
+
+def test_a_skill_without_a_lesson_has_no_source_chips(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, PLAIN_SKILL)
+    player = Player(client, world)
+    assert player.action["sources"] == []
+
+
 def test_a_skill_without_a_lesson_keeps_the_plain_flow(
     client: TestClient, world: World, db: Session
 ) -> None:

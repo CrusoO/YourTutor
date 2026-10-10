@@ -58,6 +58,20 @@ describe("LessonPlayer", () => {
     await waitFor(() => expect(onComplete).toHaveBeenCalledTimes(1));
   });
 
+  it("shows the source chips on the scene and worked-example beats only", () => {
+    const sources = [{ id: "NOTE.X", title: "A note (authored)" }];
+    const { unmount } = render(
+      <LessonPlayer lesson={lesson} locale="en" mode="preview" reducedMotion delay={instant} sources={sources} />,
+    );
+    expect(screen.queryByText("A note (authored)")).not.toBeInTheDocument(); // predict beat
+    unmount();
+    const worked = lesson.beats.findIndex((b) => b.kind === "worked_example");
+    render(
+      <LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={worked} reducedMotion delay={instant} sources={sources} />,
+    );
+    expect(screen.getByText("A note (authored)")).toBeInTheDocument();
+  });
+
   it("has no practice button in preview mode", () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={5} reducedMotion delay={instant} />);
     expect(screen.queryByRole("button", { name: "Start practice" })).not.toBeInTheDocument();

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { pick, type Beat, type Lesson } from "@/lib/lessons/types";
 import { balanceStart } from "@/lib/lessons/widgets";
+import SourceChips, { type SourceChip } from "@/components/flow/SourceChips";
 import BalanceScale, { BalanceFigure } from "./BalanceScale";
 import FunctionGraph from "./FunctionGraph";
 import ScenePlayer, { type Delay, type SceneAskInfo } from "./ScenePlayer";
@@ -18,6 +19,7 @@ const COPY = {
   checkTitle: "Your turn",
   previewNote: "In a real session this is the first practice item.",
   answerLabel: "Your answer",
+  source: "Source",
   check: "Check",
   fadedPreviewNote: "In a real session you type the last step here and the server checks it.",
   steps: {
@@ -47,6 +49,8 @@ type Props = {
   onComplete?: (info: { latency_ms: number }) => Promise<void> | void;
   reducedMotion?: boolean;
   delay?: Delay;
+  /** Approved sources of this lesson, shown as chips on the scene and worked-example beats. */
+  sources?: SourceChip[];
 };
 
 function Beats({ beat, children }: { beat: Beat; children: React.ReactNode }) {
@@ -65,6 +69,7 @@ export default function LessonPlayer({
   onComplete,
   reducedMotion,
   delay,
+  sources,
 }: Props) {
   const [cur, setCur] = useState(startAt);
   const [maxSeen, setMaxSeen] = useState(startAt);
@@ -307,6 +312,9 @@ export default function LessonPlayer({
             <p className="lp-problem">{pick(beat.prompt, locale)}</p>
             {mode === "preview" ? <p className="lp-src">{COPY.previewNote}</p> : null}
           </Beats>
+        ) : null}
+        {beat.kind === "explain_scene" || beat.kind === "worked_example" || beat.kind === "faded_example" ? (
+          <SourceChips sources={sources} label={COPY.source} />
         ) : null}
       </main>
 
