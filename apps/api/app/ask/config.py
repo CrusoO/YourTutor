@@ -44,3 +44,22 @@ def load_ask_config(root: Path | None = None) -> AskConfig:
 @lru_cache(maxsize=1)
 def ask_config() -> AskConfig:
     return load_ask_config()
+
+
+@dataclass(frozen=True)
+class SafetyLists:
+    injection_patterns: tuple[str, ...]
+    distress_terms: tuple[str, ...]
+    solve_intent_phrases: tuple[str, ...]
+
+
+def load_safety(language: str, root: Path | None = None) -> SafetyLists:
+    data = yaml.safe_load(((root or config_dir()) / "ask.yaml").read_text(encoding="utf-8")) or {}
+    safety = data.get("safety", {})
+    by_language = safety.get("languages", {})
+    row = by_language.get(language) or by_language.get(safety.get("default_language", "en")) or {}
+    return SafetyLists(
+        injection_patterns=tuple(row.get("injection_patterns", ())),
+        distress_terms=tuple(row.get("distress_terms", ())),
+        solve_intent_phrases=tuple(row.get("solve_intent_phrases", ())),
+    )

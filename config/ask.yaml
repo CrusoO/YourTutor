@@ -10,3 +10,44 @@ gate:
   choices: 3
 limits:
   max_question_chars: 300
+# Input safety and the current-item guard. Lists are per language; a language without a list uses
+# the default one (a known gap until the reviewer adds that language).
+safety:
+  default_language: en
+  languages:
+    en:
+      injection_patterns:
+        - ignore (all |any |the )?(previous|prior|above) (instructions|rules)
+        - disregard (all |any |the )?(previous|prior|above)
+        - forget (all |any |the |your )?(previous |prior )?(instructions|rules)
+        - (reveal|show|print|repeat) (me )?(your|the) (system )?(prompt|instructions|rules)
+        - you are now
+        - pretend (to be|you are|that)
+        - act as (a|an|if)
+        - developer mode
+        - jailbreak
+        - new instructions
+        - system prompt
+        - override (the |your )?(rules|instructions|safety)
+      distress_terms:
+        - want to die
+        - kill myself
+        - hurt myself
+        - hate my life
+        - nobody cares
+        - no one cares
+        - end it all
+      solve_intent_phrases:
+        - solve this
+        - solve it for me
+        - do this question
+        - do this one for me
+        - what is the answer
+        - what's the answer
+        - give me the answer
+        - tell me the answer
+        - just tell me
+        - answer for this
+        - find x for me
+        - what is x here
+        - what does x equal here
