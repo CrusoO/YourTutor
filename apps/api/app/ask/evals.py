@@ -33,7 +33,7 @@ from sqlalchemy.pool import StaticPool
 
 from app.ask.flow import AskReply, ask
 from app.ask.load import upsert_passages
-from app.ask.passages import load_passages
+from app.ask.passages import chapter_index, load_passages
 from app.config import settings
 from app.db.models import Base, ConsentRow, ItemRow, SessionRow, StudentRow, UserRow
 from app.llm.gateway import Gateway
@@ -108,6 +108,9 @@ class _World:
         seed_g0_registry(self.db)
         upsert_passages(self.db, content_root(), load_all_curricula())
         now = datetime.now(UTC)
+        # the first chapter the shipped passages belong to
+        chapter = load_passages(content_root())[0].chapter_id
+        curriculum_id, book_id, _ = chapter_index(load_all_curricula())[chapter]
         owner = UserRow(
             id=uuid.uuid4(), role="parent", email="eval@example.invalid", created_at=now
         )
@@ -118,17 +121,17 @@ class _World:
             parent_id=owner.id,
             display_name="Eval",
             grade=9,
-            board="bhutan",
-            curriculum_id="bhutan",
-            book_id="bhutan_class9",
+            board=curriculum_id,
+            curriculum_id=curriculum_id,
+            book_id=book_id,
             context_key={
-                "curriculum_id": "bhutan",
-                "book_id": "bhutan_class9",
-                "chapter_id": "bhutan_class9",
+                "curriculum_id": curriculum_id,
+                "book_id": book_id,
+                "chapter_id": chapter,
             },
             home_language="en",
             exam_language="en",
-            current_chapter_id="bhutan_class9",
+            current_chapter_id=chapter,
             timezone="UTC",
             created_at=now,
         )

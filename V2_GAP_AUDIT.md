@@ -1,5 +1,7 @@
 # v2 gap audit (code vs PLAN / ARCHITECTURE v2)
 
+**Pending (G7 onward): targeted tests only; the last full ordered run after G7 code was 1032 passed, 1 failed (the region-literal check, since fixed). Full counts and seeds come at the end.** Alembic head is now `0023` (passages, content_gaps).
+
 **Test baseline (2026-10-10, after G6):** `apps/api` pytest **938 passed, 0 failed** on Postgres in one piece (`-p no:randomly`; random seeds 1 and 2: 938 and 938 passed). Earlier baselines: G5 902, G4 866, G3 777, G2b 757, G2a 660. `ruff check .` 0 errors, `ruff format --check .` clean, `mypy .` 0 errors (250 files). `apps/web` vitest **185 passed**; `tsc --noEmit` ok; Playwright `test:ui` **16 passed** (scenarios, lesson, flow, help, policy and guest specs). Region-literal check clean; locale generation no diff; content validates (12 skills, 406 items, 12 lessons). Alembic head `0022` (site_id, classes.curriculum_id); offline LLM evals accepted (phrasing 46 cases, explain-back 8).
 
 `docs/TUTOR_CONSTITUTION.md` — **present** (orchestrator/LLM/evals should cite it; code still mostly v1).
