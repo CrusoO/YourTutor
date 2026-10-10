@@ -51,6 +51,7 @@ class SafetyLists:
     injection_patterns: tuple[str, ...]
     distress_terms: tuple[str, ...]
     solve_intent_phrases: tuple[str, ...]
+    meaning_terms: tuple[str, ...] = ()
 
 
 def load_safety(language: str, root: Path | None = None) -> SafetyLists:
@@ -62,4 +63,5 @@ def load_safety(language: str, root: Path | None = None) -> SafetyLists:
         injection_patterns=tuple(row.get("injection_patterns", ())),
         distress_terms=tuple(row.get("distress_terms", ())),
         solve_intent_phrases=tuple(row.get("solve_intent_phrases", ())),
+        meaning_terms=tuple(row.get("meaning_terms", ())),
     )

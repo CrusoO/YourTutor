@@ -77,8 +77,6 @@ def _system(ctx: PromptContext) -> str:
 
 
 def build_prompt(ctx: PromptContext) -> Prompt:
-    if ctx.purpose is Purpose.answer_doubt:
-        raise PromptError("answer_doubt is stubbed until G7 (Study Mode Ask)")
     if ctx.purpose not in RUNTIME_PURPOSES:
         raise PromptError(f"{ctx.purpose.value} is an authoring tool, not a runtime prompt")
     missing = [name for name in REQUIRED_FIELDS[ctx.purpose] if not ctx.fields.get(name)]
