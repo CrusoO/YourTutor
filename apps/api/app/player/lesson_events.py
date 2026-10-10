@@ -1,4 +1,4 @@
-"""Lesson beat events (`interactive_result`, `scene_answer`): checked by the server, never trusted.
+"""Lesson beat events (`interactive_result`, `scene_answer`, `faded_answer`): server-checked.
 
 These events never reach the policy and never touch BKT or FSRS; they are only recorded. A widget
 result is re-checked with the same Python predicate the client mirrors, so a forged "solved" state
@@ -14,8 +14,9 @@ from app.lessons.loader import lesson_for_skill, servable
 from app.lessons.schema import Lesson, PauseAndAsk
 from app.lessons.widgets import verify_widget_result
 from app.orchestrator.types import SessionState
+from app.verifier.check import verify_response
 
-LESSON_EVENTS = frozenset({"interactive_result", "scene_answer"})
+LESSON_EVENTS = frozenset({"interactive_result", "scene_answer", "faded_answer"})
 LESSON_PHASES = frozenset({"predict", "worked_example"})
 
 
@@ -41,6 +42,8 @@ def check_lesson_event(
         return LessonVerdict(False, "lesson_event_out_of_phase", False)
     if event_type == "interactive_result":
         return _check_widget(lesson, payload)
+    if event_type == "faded_answer":
+        return _check_faded(lesson, payload)
     return _check_scene_answer(lesson, payload)
 
 
@@ -50,6 +53,19 @@ def _check_widget(lesson: Lesson, payload: dict[str, Any]) -> LessonVerdict:
         return LessonVerdict(False, "widget_unknown", False)
     ok, code = verify_widget_result(widget, payload)
     return LessonVerdict(ok, code, ok)
+
+
+def _check_faded(lesson: Lesson, payload: dict[str, Any]) -> LessonVerdict:
+    """Formative: a wrong answer is recorded as incorrect, not rejected. Client flags are ignored."""
+    faded = lesson.faded_examples()
+    index, response = payload.get("faded"), payload.get("response")
+    if not isinstance(index, int) or isinstance(index, bool) or not 0 <= index < len(faded):
+        return LessonVerdict(False, "faded_unknown", False)
+    if not isinstance(response, str):
+        return LessonVerdict(False, "faded_answer_malformed", False)
+    beat = faded[index]
+    correct = verify_response(response, answer_sympy=beat.answer, accept=beat.accept)
+    return LessonVerdict(True, None, correct)
 
 
 def _check_scene_answer(lesson: Lesson, payload: dict[str, Any]) -> LessonVerdict:

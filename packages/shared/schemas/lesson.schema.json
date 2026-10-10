@@ -465,6 +465,70 @@
       "title": "ExploreBeat",
       "type": "object"
     },
+    "FadedExampleBeat": {
+      "additionalProperties": false,
+      "description": "A worked example with its last step left to the student; checked by the server, formative.",
+      "properties": {
+        "kind": {
+          "const": "faded_example",
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "problem": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/LocalizedText"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "blank_prompt": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "answer": {
+          "title": "Answer",
+          "type": "string"
+        },
+        "accept": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Accept",
+          "type": "array"
+        },
+        "hint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "success": {
+          "$ref": "#/$defs/LocalizedText"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "problem",
+        "steps",
+        "blank_prompt",
+        "answer",
+        "success"
+      ],
+      "title": "FadedExampleBeat",
+      "type": "object"
+    },
     "FunctionGraphParams": {
       "additionalProperties": false,
       "properties": {
@@ -964,6 +1028,7 @@
             "check": "#/$defs/CheckBeat",
             "explain_scene": "#/$defs/ExplainSceneBeat",
             "explore": "#/$defs/ExploreBeat",
+            "faded_example": "#/$defs/FadedExampleBeat",
             "predict": "#/$defs/PredictBeat",
             "worked_example": "#/$defs/WorkedExampleBeat"
           },
@@ -981,6 +1046,9 @@
           },
           {
             "$ref": "#/$defs/WorkedExampleBeat"
+          },
+          {
+            "$ref": "#/$defs/FadedExampleBeat"
           },
           {
             "$ref": "#/$defs/CheckBeat"

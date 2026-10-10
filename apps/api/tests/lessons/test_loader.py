@@ -80,6 +80,7 @@ def test_ported_lesson_keeps_the_prototypes_structure() -> None:
         "explore",
         "explain_scene",
         "worked_example",
+        "faded_example",
         "explore",
         "check",
     ]

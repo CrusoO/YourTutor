@@ -176,7 +176,15 @@ def test_ready_student_gets_every_beat_in_the_authored_order(
     _seed(db, world, LESSON_SKILL)
     ready = Player(client, world)
     kinds = [beat["kind"] for beat in ready.action["lesson"]["beats"]]
-    assert kinds == ["predict", "explore", "explain_scene", "worked_example", "explore", "check"]
+    assert kinds == [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "faded_example",
+        "explore",
+        "check",
+    ]
     assert ready.action["lesson"]["order"] == "problem_first"
 
 
@@ -204,10 +212,39 @@ def test_novice_gets_worked_example_first_and_keeps_it_after_the_prediction(
     db.commit()
     novice = Player(client, world)
     beats = [beat["kind"] for beat in novice.action["lesson"]["beats"]]
-    assert beats == ["predict", "worked_example", "explore", "check"]
+    assert beats == ["predict", "worked_example", "faded_example", "explore", "check"]
     assert novice.action["lesson"]["order"] == "worked_example_first"
     novice.send("predict_response", response="4")
     assert [b["kind"] for b in novice.action["lesson"]["beats"]] == beats
+
+
+def test_faded_answer_is_checked_by_the_server_and_never_writes_bkt_or_fsrs(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, LESSON_SKILL)
+    player = Player(client, world)
+    mastery_before = _count(db, MasteryRow, world)
+    cards_before = _count(db, ReviewCardRow, world)
+    # a client "correct" flag is ignored: the server compares the response itself
+    wrong = player.send("faded_answer", faded=0, response="7", correct=True)
+    assert wrong["type"] == player.action["type"]
+    right = player.send("faded_answer", faded=0, response="x = 4")
+    assert right["type"] == player.action["type"]
+    rows = _events(db, player.session_id, "faded_answer")
+    assert [row.correct for row in rows] == [False, True]
+    assert _count(db, MasteryRow, world) == mastery_before
+    assert _count(db, ReviewCardRow, world) == cards_before
+    assert _mastery(db, world) is None
+
+
+def test_a_malformed_faded_answer_is_rejected(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, LESSON_SKILL)
+    player = Player(client, world)
+    player.send("faded_answer", faded=3, response="4")  # the lesson has no fourth faded example
+    assert [r.correct for r in _events(db, player.session_id, "faded_answer")] == [False]
+    assert player.action["rejected"] is True
 
 
 def test_a_skill_without_a_lesson_keeps_the_plain_flow(
@@ -393,7 +430,7 @@ def test_dev_lessons_list_get_and_verify(client: TestClient) -> None:
     ]
     assert all(row["skill_id"] and row["title"] and row["beats"] for row in listed)
     one = client.get("/dev/lessons/LESSON.TWO_STEP").json()
-    assert one["skill_id"] == LESSON_SKILL and len(one["beats"]) == 6
+    assert one["skill_id"] == LESSON_SKILL and len(one["beats"]) == 7
     assert client.get("/dev/lessons/LESSON.NOPE").status_code == 404
     ok = client.post(
         "/dev/widgets/verify",

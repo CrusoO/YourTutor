@@ -183,13 +183,27 @@ class WorkedExampleBeat(_Strict):
     steps: list[LocalizedText] = Field(min_length=2)
 
 
+class FadedExampleBeat(_Strict):
+    """A worked example with its last step left to the student; checked by the server, formative."""
+
+    kind: Literal["faded_example"]
+    title: LocalizedText
+    problem: LocalizedText
+    steps: list[LocalizedText] = Field(min_length=1)  # the steps still shown
+    blank_prompt: LocalizedText  # asks for the missing last step or value
+    answer: str  # blank is a rule error so authors get a clear code
+    accept: list[str] = Field(default_factory=list)
+    hint: LocalizedText | None = None
+    success: LocalizedText
+
+
 class CheckBeat(_Strict):
     kind: Literal["check"]
     prompt: LocalizedText
 
 
 Beat = Annotated[
-    PredictBeat | ExploreBeat | ExplainSceneBeat | WorkedExampleBeat | CheckBeat,
+    PredictBeat | ExploreBeat | ExplainSceneBeat | WorkedExampleBeat | FadedExampleBeat | CheckBeat,
     Field(discriminator="kind"),
 ]
 
@@ -204,6 +218,9 @@ class Lesson(_Strict):
 
     def scenes(self) -> list[Scene]:
         return [beat.scene for beat in self.beats if isinstance(beat, ExplainSceneBeat)]
+
+    def faded_examples(self) -> list[FadedExampleBeat]:
+        return [beat for beat in self.beats if isinstance(beat, FadedExampleBeat)]
 
     def widgets(self) -> list[BalanceScaleWidget | FunctionGraphWidget]:
         return [beat.widget for beat in self.beats if isinstance(beat, ExploreBeat)]
@@ -278,6 +295,13 @@ def lesson_rule_errors(lesson: Lesson) -> list[str]:
         errors.append("lesson.predict_count")
     if "explain_scene" not in kinds:
         errors.append("lesson.no_explain_scene")
+    if "faded_example" in kinds and (
+        "worked_example" not in kinds
+        or kinds.index("faded_example") < kinds.index("worked_example")
+    ):
+        errors.append("lesson.faded_before_worked_example")
+    if any(not beat.answer.strip() for beat in lesson.faded_examples()):
+        errors.append("faded.answer_blank")
     widget_ids = [w.widget_id for w in lesson.widgets()]
     if len(set(widget_ids)) != len(widget_ids):
         errors.append("lesson.duplicate_widget_id")
