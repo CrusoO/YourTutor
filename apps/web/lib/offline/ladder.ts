@@ -287,3 +287,22 @@ export function compute(
 }
 
 export { parseAt };
+
+/** Rebuild a ladder from the shape `toJson` (and Python's `to_json`) writes. */
+export function fromJson(data: ReturnType<typeof toJson>): SkillLadder {
+  const evidence: Record<number, string[]> = {};
+  for (const [key, ids] of Object.entries(data.evidence ?? {})) evidence[Number(key)] = [...ids];
+  return {
+    skill_id: String(data.skill_id),
+    achieved: [...(data.achieved ?? [])],
+    evidence,
+    flags: { ...(data.flags ?? {}) } as SkillLadder["flags"],
+    seen: [...(data.seen ?? [])],
+    hinted: [...(data.hinted ?? [])],
+    lesson_done: !!data.lesson_done,
+    post_lesson_item: data.post_lesson_item ?? null,
+    last_practice_at: data.last_practice_at ? parseAt(String(data.last_practice_at)) : null,
+    run: (data.run ?? []).map(([a, b]) => [String(a), String(b)] as [string, string]),
+    retention_events: [...(data.retention_events ?? [])],
+  };
+}

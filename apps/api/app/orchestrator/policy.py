@@ -1388,6 +1388,7 @@ def _maybe_bkt(
             is_warmup=session.phase == "warmup",
         ),
         params,
+        clock=FixedClock(session.now),  # the session's own time, so the policy stays pure
         memory=session.bkt_memory,
     )
 
