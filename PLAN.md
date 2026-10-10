@@ -410,26 +410,26 @@ Accept:
 ### G5 — Student app v2 (absorbs M7a)
 
 - [ ] *Curriculum, grade, subject and language are built (`/start`, `GET /context/options`); the curated school list is deliberately not, see Decisions.* Context picker: curriculum → grade → subject → (book/medium); curated optional school list with "Other"
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Guest start (`POST /guest/start`): random id, no PII; retention per profile
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). First run: "Quick warm-up to find where to start" / "Start from the beginning"; no "test" wording, no marks; nothing automatic; warm-up re-offered after 2nd session with respected "not now"
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks *(covered by S1b)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Chapter page: skill path with statuses, visual unlocks, Skip ahead *(covered by S1b)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done *(lesson beats and warm-up copy: S1a/S1b; the rest stays here)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Guest start (`POST /guest/start`): random id, no PII; retention per profile
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). First run: "Quick warm-up to find where to start" / "Start from the beginning"; no "test" wording, no marks; nothing automatic; warm-up re-offered after 2nd session with respected "not now"
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Chapter page: skill path with statuses, visual unlocks, Skip ahead *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done *(lesson beats and warm-up copy: S1a/S1b; the rest stays here)*
 - [ ] Scene player: SVG/JS, captions, optional audio, offline-cacheable *(covered by S1a; offline caching stays here)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Source chips on explanations
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Family/school login (family code + PIN) kept from M7a *(covered by S1b)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data *(360 px layout covered by S1; the rest stays here)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). *New strings are English with the registry fallback.* UI strings via locale registry with fallback *(covered by S1b for the slice)*
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). *The `board` request field and column stay for compatibility.* *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Source chips on explanations
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Family/school login (family code + PIN) kept from M7a *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data *(360 px layout covered by S1; the rest stays here)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *New strings are English with the registry fallback.* UI strings via locale registry with fallback *(covered by S1b for the slice)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *The `board` request field and column stay for compatibility.* *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
 
 Accept:
 
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Playwright: guest onboarding → chapter map → lesson (widget + scene) → practice (wrong → check-your-work or stuck picker → hint → retry → reveal → similar) → done
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). First login creates no session; skip leads to practice on T; warm-up offer after 2nd session and "not now" remembered
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). Coming-soon chapter cannot be started via API
-- [x] Met 2026-10-10 (pytest {PY5}; vitest 185; test:ui 16 specs). *Measured with a Playwright byte count on a production build; Lighthouse itself was not run.* Lighthouse mobile: page weight budget met on a lesson screen
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Playwright: guest onboarding → chapter map → lesson (widget + scene) → practice (wrong → check-your-work or stuck picker → hint → retry → reveal → similar) → done
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). First login creates no session; skip leads to practice on T; warm-up offer after 2nd session and "not now" remembered
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Coming-soon chapter cannot be started via API
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Measured with a Playwright byte count on a production build; Lighthouse itself was not run.* Lighthouse mobile: page weight budget met on a lesson screen
 
 ### G6 — Accounts and consent v2
 
