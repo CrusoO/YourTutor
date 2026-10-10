@@ -1,0 +1,743 @@
+{
+ "note": "Recorded from apps/api/app/verifier/check.py by scripts/write_verifier_fixtures.py.",
+ "cases": [
+  {
+   "name": "exact",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "5",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "wrong number",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "6",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "surrounding spaces",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "  5  ",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "x equals form",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "5",
+    "accept": [
+     "5",
+     "x=5"
+    ],
+    "options": []
+   },
+   "response": "x = 5",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "x equals form without spaces",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "x=5",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "wrong x equals form",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "x = 6",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "devanagari digit",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "५",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "bengali digit",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "৫",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "arithmetic that equals the answer",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "2+3",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "arithmetic that does not",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "2+4",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "multiplication sign",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "5×1",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "division sign",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "10÷2",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "unicode minus",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "-3",
+    "accept": [
+     "-3"
+    ],
+    "options": []
+   },
+   "response": "−3",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "negative by arithmetic",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "-3",
+    "accept": [
+     "-3"
+    ],
+    "options": []
+   },
+   "response": "0-3",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "negative wrong sign",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "-3",
+    "accept": [
+     "-3"
+    ],
+    "options": []
+   },
+   "response": "3",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "fraction exact",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "1/3",
+    "accept": [
+     "1/3"
+    ],
+    "options": []
+   },
+   "response": "1/3",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "fraction as decimal",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "1/3",
+    "accept": [
+     "1/3"
+    ],
+    "options": []
+   },
+   "response": "0.33333333333",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "fraction rough decimal is wrong",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "1/3",
+    "accept": [
+     "1/3"
+    ],
+    "options": []
+   },
+   "response": "0.33",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "decimal answer",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "2.5",
+    "accept": [
+     "2.5"
+    ],
+    "options": []
+   },
+   "response": "2.5",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "decimal as fraction",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "2.5",
+    "accept": [
+     "2.5"
+    ],
+    "options": []
+   },
+   "response": "5/2",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "decimal comma rejected without the profile",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "2.5",
+    "accept": [
+     "2.5"
+    ],
+    "options": []
+   },
+   "response": "2,5",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "decimal comma accepted with the profile",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "2.5",
+    "accept": [
+     "2.5"
+    ],
+    "options": []
+   },
+   "response": "2,5",
+   "profile": "decimal_comma",
+   "expected": true
+  },
+  {
+   "name": "decimal point still fine with the comma profile",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "2.5",
+    "accept": [
+     "2.5"
+    ],
+    "options": []
+   },
+   "response": "2.5",
+   "profile": "decimal_comma",
+   "expected": true
+  },
+  {
+   "name": "leading zero is not a number",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "05",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "trailing dot",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "5.",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "dont know",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "I don't know",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "idk",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "idk",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "empty",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "only spaces",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "   ",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "letters only",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "five",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "injection attempt",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "__import__('os')",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "too long",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "too many parentheses",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "((((((((((((5))))))))))))",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "power",
+   "item": {
+    "type": "numeric",
+    "answer_sympy": "5",
+    "accept": [
+     "5"
+    ],
+    "options": []
+   },
+   "response": "10^1/2",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "implicit multiplication in algebra",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "2*x + 2",
+    "accept": [],
+    "options": []
+   },
+   "response": "2(x+1)",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "algebra reordered",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "2*x + 2",
+    "accept": [],
+    "options": []
+   },
+   "response": "2 + 2x",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "algebra not equal",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "2*x + 2",
+    "accept": [],
+    "options": []
+   },
+   "response": "2x + 3",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "algebra with an equals prefix",
+   "item": {
+    "type": "expression",
+    "answer_sympy": "2*x + 2",
+    "accept": [],
+    "options": []
+   },
+   "response": "y = 2x + 2",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "mcq by id",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "b",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "mcq by label",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "Nine",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "mcq by label, lower case",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "nine",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "mcq wrong id",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "a",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "mcq wrong label",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "Seven",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "mcq unknown",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "b",
+    "accept": [],
+    "options": [
+     {
+      "id": "a",
+      "en": "Seven"
+     },
+     {
+      "id": "b",
+      "en": "Nine"
+     },
+     {
+      "id": "c",
+      "en": "Eleven"
+     }
+    ]
+   },
+   "response": "z",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "yes no right",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "yes",
+    "accept": [],
+    "options": [
+     {
+      "id": "yes",
+      "en": "Yes"
+     },
+     {
+      "id": "no",
+      "en": "No"
+     }
+    ]
+   },
+   "response": "yes",
+   "profile": "default_ascii",
+   "expected": true
+  },
+  {
+   "name": "yes no wrong",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "yes",
+    "accept": [],
+    "options": [
+     {
+      "id": "yes",
+      "en": "Yes"
+     },
+     {
+      "id": "no",
+      "en": "No"
+     }
+    ]
+   },
+   "response": "no",
+   "profile": "default_ascii",
+   "expected": false
+  },
+  {
+   "name": "yes no label",
+   "item": {
+    "type": "mcq",
+    "answer_sympy": "yes",
+    "accept": [],
+    "options": [
+     {
+      "id": "yes",
+      "en": "Yes"
+     },
+     {
+      "id": "no",
+      "en": "No"
+     }
+    ]
+   },
+   "response": "Yes",
+   "profile": "default_ascii",
+   "expected": true
+  }
+ ]
+}
