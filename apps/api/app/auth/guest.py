@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.consent import GUEST_ROLE
 from app.auth.service import TOO_MANY, _count_rate, _hit_rate, issue_auth_token, now_utc
 from app.config import settings
 from app.db.models import LocaleRow, StudentRow, UserRow
@@ -26,7 +27,6 @@ from app.registries.student_setup import (
     student_context_fields,
 )
 
-GUEST_ROLE = "guest"
 GUEST_NAME = "Guest"
 GUEST_EMAIL_DOMAIN = "guest.invalid"  # .invalid never resolves: no mail can reach a guest
 

@@ -250,6 +250,9 @@ class StudentRow(Base):
     )
     timezone: Mapped[str] = mapped_column(String)
     family_code: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    onboarding: Mapped[dict | None] = mapped_column(
+        JSONType, nullable=True
+    )  # warm-up offer answers
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     parent: Mapped[UserRow] = relationship(back_populates="students")

@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.consent import active_scopes, has_scope
 from app.config import settings
 from app.db.models import ConsentRow, StudentRow, UserRow
 from tests.conftest import auth_header
@@ -62,6 +63,10 @@ def test_guest_start_creates_a_student_with_a_working_token_and_no_personal_data
     assert student.grade == 9
     assert student.timezone  # resolved by the registry order
     assert db.scalars(select(ConsentRow)).all() == []
+    # a guest has no guardian, so tutoring is implied and nothing else is
+    assert active_scopes(db, student.id) == {"tutoring"}
+    assert not has_scope(db, student.id, "ai_processing")
+    assert not has_scope(db, student.id, "teacher_share")
 
 
 def test_two_guests_get_different_ids_and_owners(client: TestClient, db: Session) -> None:

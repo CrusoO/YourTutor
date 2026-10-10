@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -194,6 +194,15 @@ def student_login(body: FamilyLoginIn, db: DbSession) -> dict[str, str]:
 @router.get("/students/me/today")
 def today(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.student_today(db, actor)
+
+
+class OnboardingIn(BaseModel):
+    choice: Literal["warmup", "start_beginning", "not_now"]
+
+
+@router.post("/students/me/onboarding")
+def onboarding(body: OnboardingIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.answer_onboarding(db, actor, body.choice)
 
 
 @router.get("/students/{student_id}/chapters")

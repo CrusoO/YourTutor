@@ -8,7 +8,7 @@ from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
@@ -965,6 +965,23 @@ def remaining_minutes(session: Session, student: StudentRow) -> int:
     return max(0, int((goal - used) / 60000))
 
 
+def current_offer(session: Session, student: StudentRow) -> str | None:
+    """The first-run or re-offer prompt for this student, if any (see app/player/onboarding.py)."""
+    from app.player.onboarding import offer_for
+
+    base = (SessionRow.student_id == student.id, SessionRow.type != "test_out")
+    total = session.scalar(select(func.count()).select_from(SessionRow).where(*base)) or 0
+    ended = (
+        session.scalar(
+            select(func.count())
+            .select_from(SessionRow)
+            .where(*base, SessionRow.type == "practice", SessionRow.ended_at.is_not(None))
+        )
+        or 0
+    )
+    return offer_for(student.onboarding, total_sessions=total, ended_practice=ended)
+
+
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.registries.quiet_hours import in_quiet_hours
     from app.registries.startup import deployment_jurisdiction_profile
@@ -991,6 +1008,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     )
     resume = open_row or idle_row
     return {
+        "offer": current_offer(session, student),
         "student_id": str(student.id),
         "display_name": student.display_name,
         "goal_minutes": int(goal_ms / 60000),
