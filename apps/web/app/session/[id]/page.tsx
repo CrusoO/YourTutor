@@ -163,6 +163,10 @@ export default function SessionPage() {
           });
           return !view.action.rejected;
         }}
+        onFadedAnswer={async (index, response) => {
+          const view = await postEvent(params.id, "faded_answer", { faded: index, response });
+          return view.action.lesson_correct === true;
+        }}
         onComplete={({ latency_ms }) => send("continue", { latency_ms })}
       />
     );

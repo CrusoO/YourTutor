@@ -882,6 +882,7 @@ def _apply_lesson_event(
     action = state.last_action or Action(type=state.phase)
     enriched = enrich_action(session, state, action, student.home_language or "en")
     enriched["rejected"] = not verdict.ok
+    enriched["lesson_correct"] = verdict.correct  # the server's verdict, for beat feedback
     enriched["guardrail_flag"] = None if verdict.ok else verdict.code
     return {
         "session_id": str(row.id),

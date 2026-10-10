@@ -6,6 +6,8 @@ export type ActionPayload = {
   type: string;
   lesson?: Lesson;
   rejected?: boolean;
+  /** The server's verdict on a lesson beat answer (faded example, scene question). */
+  lesson_correct?: boolean | null;
   item_id?: string | null;
   skill_id?: string | null;
   hint_level?: number | null;

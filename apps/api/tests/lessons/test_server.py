@@ -227,9 +227,9 @@ def test_faded_answer_is_checked_by_the_server_and_never_writes_bkt_or_fsrs(
     cards_before = _count(db, ReviewCardRow, world)
     # a client "correct" flag is ignored: the server compares the response itself
     wrong = player.send("faded_answer", faded=0, response="7", correct=True)
-    assert wrong["type"] == player.action["type"]
+    assert wrong["type"] == player.action["type"] and wrong["lesson_correct"] is False
     right = player.send("faded_answer", faded=0, response="x = 4")
-    assert right["type"] == player.action["type"]
+    assert right["type"] == player.action["type"] and right["lesson_correct"] is True
     rows = _events(db, player.session_id, "faded_answer")
     assert [row.correct for row in rows] == [False, True]
     assert _count(db, MasteryRow, world) == mastery_before

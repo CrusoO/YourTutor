@@ -92,8 +92,25 @@ export type WorkedExampleBeat = {
   problem: L10n;
   steps: L10n[];
 };
+export type FadedExampleBeat = {
+  kind: "faded_example";
+  title: L10n;
+  problem: L10n;
+  steps: L10n[];
+  blank_prompt: L10n;
+  answer: string;
+  accept?: string[];
+  hint?: L10n | null;
+  success: L10n;
+};
 export type CheckBeat = { kind: "check"; prompt: L10n };
-export type Beat = PredictBeat | ExploreBeat | ExplainSceneBeat | WorkedExampleBeat | CheckBeat;
+export type Beat =
+  | PredictBeat
+  | ExploreBeat
+  | ExplainSceneBeat
+  | WorkedExampleBeat
+  | FadedExampleBeat
+  | CheckBeat;
 
 export type Lesson = {
   id: string;

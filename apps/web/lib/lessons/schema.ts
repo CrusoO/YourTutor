@@ -95,6 +95,12 @@ function beat(v: unknown): boolean {
       return l10n(v.title) && scene(v.scene) && l10n(v.final_caption);
     case "worked_example":
       return l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 2 && v.steps.every(l10n);
+    case "faded_example":
+      return (
+        l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 1 && v.steps.every(l10n) &&
+        l10n(v.blank_prompt) && isStr(v.answer) && optional(v.accept, (a) => isArr(a) && a.every(isStr)) &&
+        optional(v.hint, l10n) && l10n(v.success)
+      );
     case "check":
       return l10n(v.prompt);
     default:
@@ -169,6 +175,11 @@ export function validateLesson(data: unknown): string[] {
   else if (kinds.filter((k) => k === "check").length > 1) errors.push("lesson.check_count");
   if (kinds.filter((k) => k === "predict").length !== 1) errors.push("lesson.predict_count");
   if (!kinds.includes("explain_scene")) errors.push("lesson.no_explain_scene");
+  const firstFaded = kinds.indexOf("faded_example");
+  if (firstFaded !== -1 && (!kinds.includes("worked_example") || firstFaded < kinds.indexOf("worked_example"))) {
+    errors.push("lesson.faded_before_worked_example");
+  }
+  if (data.beats.some((b) => b.kind === "faded_example" && b.answer.trim() === "")) errors.push("faded.answer_blank");
   const ids = data.beats.flatMap((b) => (b.kind === "explore" ? [b.widget.widget_id] : []));
   if (new Set(ids).size !== ids.length) errors.push("lesson.duplicate_widget_id");
   for (const b of data.beats) {
