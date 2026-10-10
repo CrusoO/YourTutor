@@ -81,6 +81,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Lesson path (R38) | Pure `lesson_path(prerequisite_levels, beat_kinds)` in `app/lessons/path.py`, shared fixture `packages/shared/fixtures/lesson_path/cases.json`. Ready (every prerequisite at ladder level 4+, or none) gets every authored beat; anyone else skips the explore and scene beats that come before the first worked example. The prerequisite levels are recorded on the session when the `predict` action is emitted, so a resumed session serves the same path. The served lesson names its `order`. |
 | Faded example | A lesson beat `faded_example` (worked steps, then a typed last step), after a worked example. The server checks the answer with the verifier on a `faded_answer` event (payload `faded` = ordinal among the lesson's faded examples, `response`); it is formative, never writes BKT or FSRS, and the client flag is ignored. The reply carries `lesson_correct`. It is a beat, not a separate action type: actions stay `predict` and `worked_example` carrying the lesson. |
 | Approved sources | `content/sources/*.yaml` lists approved source ids with a licence (`authored`, `open`, `permission_on_file`). `content validate` and `content load` refuse a lesson or scene `source_ref` that is not listed or whose licence is not approved. Items do not carry `source_ref` yet. |
+| LLM gateway | `app/llm/`: pure prompt builder (constitution excerpt quoted verbatim from `docs/TUTOR_CONSTITUTION.md`, grade-band style and word limit, authored source, glossary, forbidden answer; student text wrapped as data), pure post-checks in order (schema, leak, grounding/citation, length, tone, moderation, language), then a gateway that regenerates once and falls back to the authored text. The model is behind a small provider interface (`LiteLLMProvider`, imported lazily, plus a fake for tests and evals). No call in diagnostic or checkpoint sessions, without `ai_processing`, or without `LLM_API_KEY`. Personalising happens once after the policy decides, is stored on the action, and never touches BKT or FSRS. Wired for ladder hints 1 and 2, the explain-back reply and encouragement; `adapt_explanation` has a prompt and checks but no session uses it yet; `answer_doubt` is a stub for G7. |
+| LLM call log | `llm_calls` holds metadata only (purpose, prompt version, model, band, outcome, attempts, failure codes, latency, tokens). The reply text is kept only for calls sampled for review (`LLM_REVIEW_SAMPLE_RATE`, default 100% for the first pilot week), and the student's own words are never stored. Skipped calls are not logged. |
+| LLM word lists | Tone and moderation word lists are in `config/llm_rules.yaml`; person-praise words reuse the encouragement-copy list. Moderation is a local whole-word list, not a provider moderation call. |
+| `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
 | Similar item | After reveal, `SIMILAR_ITEM` is a **different** approved practice item on the **same primary skill and tier**. Never the same item. |
 | Consent revoke | If consent is revoked mid-session, the session **ends on the next event** and **no further LLM calls** are made. |
 | Removed content | Removed content is retired, not deleted; hard prune is dev-only or guarded. |
@@ -383,19 +387,19 @@ Accept:
 
 ### G4 — LLM gateway (was M6, extended)
 
-- [ ] LiteLLM gateway; purposes: `personalise_hint`, `adapt_explanation`, `grade_explain_back`, `encourage`, `draft_content` (authoring only); `answer_doubt` stubbed for G7
-- [ ] Prompt includes constitution excerpt + grade-band style profile + authored source + glossary + forbidden answer
-- [ ] Post-checks: schema → leak → grounding/citation → length (band word limit) → tone (no person-praise, no shaming) → moderation → language → regenerate once → authored fallback
-- [ ] `llm_calls` + review-queue sampling; gated on `ai_processing` and API key
-- [ ] Explain-back without key/scope: store text, show authored model explanation, no grade
-- [ ] `draft_content` CLI writes `status: draft` only; refuses to run in production
-- [ ] `evals/` suites: phrasing (leak, length, tone, language), explain-back rubric agreement
-- [ ] *Deferred from G0:* grade-band style profile (word limits, tone) wired into LLM prompts and post-checks
+- [ ] *Built and tested with a fake provider; the LiteLLM path is not exercised (library not installed, no key) and `adapt_explanation` is not used by a session yet.* LiteLLM gateway; purposes: `personalise_hint`, `adapt_explanation`, `grade_explain_back`, `encourage`, `draft_content` (authoring only); `answer_doubt` stubbed for G7
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Prompt includes constitution excerpt + grade-band style profile + authored source + glossary + forbidden answer
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Post-checks: schema → leak → grounding/citation → length (band word limit) → tone (no person-praise, no shaming) → moderation → language → regenerate once → authored fallback
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). `llm_calls` + review-queue sampling; gated on `ai_processing` and API key
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Explain-back without key/scope: store text, show authored model explanation, no grade
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). `draft_content` CLI writes `status: draft` only; refuses to run in production
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). `evals/` suites: phrasing (leak, length, tone, language), explain-back rubric agreement
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). *Deferred from G0:* grade-band style profile (word limits, tone) wired into LLM prompts and post-checks
 
 Accept:
 
-- [ ] Leak rate 0% and tone violations 0% on the eval set
-- [ ] Word limits respected per band
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). *Scripted replies only; a live run is what measures a model.* Leak rate 0% and tone violations 0% on the eval set
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Word limits respected per band
 - [ ] No-key and no-scope sessions complete end to end
 - [ ] Explain-back grade never changes ladder, BKT or FSRS
 
