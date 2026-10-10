@@ -356,7 +356,7 @@ Accept:
 - [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Wheel-spinning detected by item 10 on a skill in 100% of simulated non-learners; teacher alert row written only with `teacher_share`
 - [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). Help escalation is monotonic in every simulated session; no reveal before v1 conditions
 - [x] Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs). No session ends immediately after a reveal or wrong answer (R40) while staying within hard cap + 1 item
-- [ ] Stuck-point step hints pass leak checks; BKT still updated exactly once per item
+- [x] Met 2026-10-09 (leak checks in tests/content/test_diagnosis_fields.py, BKT once per item in tests/orchestrator/test_help_simulation.py). Stuck-point step hints pass leak checks; BKT still updated exactly once per item
 
 ### G3 — Lessons, scenes and widgets (backend + content)
 
