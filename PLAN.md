@@ -363,23 +363,23 @@ Accept:
 
 ### G3 — Lessons, scenes and widgets (backend + content)
 
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal *(covered by S1a)*
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph` *(covered by S1a)*
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). `lessons`, `scenes`, `widgets` tables; loader + validator (schema, source refs, approved sources, size budget)
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). R38 lesson path (problem-first if prerequisites ≥ level 4, else worked-example-first); faded examples
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal *(covered by S1a)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph` *(covered by S1a)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). `lessons`, `scenes`, `widgets` tables; loader + validator (schema, source refs, approved sources, size budget)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). R38 lesson path (problem-first if prerequisites ≥ level 4, else worked-example-first); faded examples
 - [ ] *Events done (plus `faded_answer`); actions kept as `predict` / `worked_example` carrying the lesson, see Decisions; not ticked until you confirm.* Events `predict_response`, `interactive_result`, `scene_answer`; actions `lesson_*`, `worked_example`, `faded_example`
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Server re-checks widget predicates; client result ignored *(covered by S1a)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Server re-checks widget predicates; client result ignored *(covered by S1a)*
 - [ ] *Lessons and scenes carry `source_ref` (checked against the approved sources); items do not yet.* Every item/scene/lesson carries `section_id` / `source_ref` (Layer A grounding)
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets) *(S1a covers 4 skills; the rest stays here)*
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Live-chapter threshold requires an approved lesson per skill
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets) *(S1a covers 4 skills; the rest stays here)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Live-chapter threshold requires an approved lesson per skill
 
 Accept:
 
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Shared predicate fixtures pass in Python and TS
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). A forged `interactive_result` with an unsolved state is rejected/flagged
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Lesson beats never write BKT/FSRS; the check item does (once)
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Novice vs ready student get different lesson orders (fixtures)
-- [x] Met 2026-10-10 (pytest 777, vitest 167, test:ui 15 specs). Scene scripts ≤ 50 KB/min; every text node traces to an approved source
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Shared predicate fixtures pass in Python and TS
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). A forged `interactive_result` with an unsolved state is rejected/flagged
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Lesson beats never write BKT/FSRS; the check item does (once)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Novice vs ready student get different lesson orders (fixtures)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Scene scripts ≤ 50 KB/min; every text node traces to an approved source
 
 ### G4 — LLM gateway (was M6, extended)
 
