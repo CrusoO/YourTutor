@@ -1,0 +1,12 @@
+# Study Mode Ask settings (ARCHITECTURE section 12). Scores run from 0 to 1.
+search:
+  top_k: 4
+  keyword_weight: 0.6   # share of the score from shared words; the rest is embedding similarity
+  vector_weight: 0.4
+gate:
+  answer_min: 0.40      # top score at or above this answers
+  clarify_min: 0.25     # below this the question is out of scope
+  ambiguity_margin: 0.04  # a second skill this close to the top asks the student to choose
+  choices: 3
+limits:
+  max_question_chars: 300

@@ -78,6 +78,18 @@ def load_path(
 
     if not any(e.startswith("lesson ") for e in report.errors):
         report.errors.extend(live_lesson_errors(load_lessons(root), bundle.overlays))
+    from app.ask.load import validate_passages
+    from app.lessons.sources import approved_source_ids as _approved
+    from app.registries.loaders import load_all_curricula
+
+    report.errors.extend(
+        validate_passages(
+            root,
+            curricula_for(root) or load_all_curricula(),
+            {skill.id for skill in bundle.skills},
+            _approved(root),
+        )
+    )
     from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
 
     report.errors.extend(copy_errors(root))
@@ -90,6 +102,9 @@ def load_path(
         try:
             _upsert(session, report.bundle, prune=prune)
             _upsert_lessons(session, root)
+            from app.ask.load import upsert_passages
+
+            upsert_passages(session, root, curricula_for(root) or load_all_curricula())
             seed_g0_registry(session)  # registry YAML is the source of truth
             session.commit()
         except PruneBlockedError:

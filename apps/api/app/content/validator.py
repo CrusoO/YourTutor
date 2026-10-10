@@ -196,6 +196,16 @@ def validate_path(root: Path) -> ValidationReport:
 
     if not any(e.startswith("lesson ") for e in report.errors):
         report.errors.extend(live_lesson_errors(load_lessons(root), bundle.overlays))
+    from app.ask.load import validate_passages
+
+    report.errors.extend(
+        validate_passages(
+            root,
+            curricula_for(root) or load_all_curricula(),
+            {skill.id for skill in bundle.skills},
+            approved_source_ids(root),
+        )
+    )
     from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
 
     report.errors.extend(copy_errors(root))
