@@ -266,6 +266,17 @@ def create_student(
     return student
 
 
+def check_scopes(session: Session, student_id: uuid.UUID, scopes: list[str]) -> None:
+    unknown = set(scopes) - CONSENT_SCOPES
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    unavailable = set(scopes) - available_scopes(session, student_id)
+    if unavailable:
+        raise HTTPException(
+            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
+        )
+
+
 def grant_consent(
     session: Session,
     actor: Actor,
@@ -277,14 +288,7 @@ def grant_consent(
 ) -> ConsentRow:
     student = student_or_404(session, student_id)
     require(can_manage_student(actor, student))
-    unknown = set(scopes) - CONSENT_SCOPES
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
-    unavailable = set(scopes) - available_scopes(session, student_id)
-    if unavailable:
-        raise HTTPException(
-            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
-        )
+    check_scopes(session, student_id, scopes)
     existing = active_consent(session, student_id)
     if existing:
         existing.revoked_at = now_utc()

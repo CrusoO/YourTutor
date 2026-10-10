@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.actor import Actor
 from app.auth.consent import GUEST_ROLE
 from app.auth.service import TOO_MANY, _count_rate, _hit_rate, issue_auth_token, now_utc
 from app.config import settings
@@ -124,3 +125,62 @@ def start_guest(db: Session, body: GuestStartIn, ip: str) -> dict[str, Any]:
         "curriculum_id": curriculum_id,
         "grade": body.grade,
     }
+
+
+class UpgradeIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    guest_token: str  # proves the caller holds the guest's own session
+    version: str
+    scopes: list[str]
+    display_name: str = Field(min_length=1, max_length=60)
+    paper_ref: str | None = None
+
+
+def upgrade_guest(
+    db: Session, actor: Actor, student_id: uuid.UUID, body: UpgradeIn
+) -> dict[str, Any]:
+    """Move a guest to the signed-in guardian, with the guardian's consent, keeping every record.
+
+    The student row stays; only its owner changes, so sessions, events, mastery and review cards
+    carry over untouched. The hidden guest owner is then deleted.
+    """
+    from app.auth.service import check_scopes, grant_consent, resolve_token
+
+    if not actor.is_parent or actor.user_id is None:
+        raise HTTPException(status_code=403, detail="forbidden")
+    if "tutoring" not in body.scopes:
+        raise HTTPException(status_code=400, detail="tutoring consent is required")
+    held = resolve_token(db, body.guest_token)
+    if not held.is_student or held.student_id != student_id:
+        raise HTTPException(status_code=403, detail="forbidden")
+    student = db.get(StudentRow, student_id)
+    old_owner = db.get(UserRow, student.parent_id) if student else None
+    if student is None or old_owner is None or old_owner.role != GUEST_ROLE:
+        raise HTTPException(status_code=409, detail="not a guest")
+    check_scopes(db, student_id, body.scopes)  # refuse before anything changes
+    student.parent_id = actor.user_id
+    student.display_name = body.display_name.strip()
+    student.family_code = _family_code(db, actor.user_id)
+    db.flush()
+    grant_consent(
+        db,
+        actor,
+        student_id,
+        version=body.version,
+        scopes=body.scopes,
+        paper_ref=body.paper_ref,
+    )
+    db.delete(old_owner)
+    db.commit()
+    return {
+        "student_id": str(student_id),
+        "family_code": student.family_code,
+        "scopes": sorted(body.scopes),
+    }
+
+
+def _family_code(db: Session, parent_id: uuid.UUID) -> str:
+    from app.auth.service import _family_code_for_parent
+
+    return _family_code_for_parent(db, parent_id)

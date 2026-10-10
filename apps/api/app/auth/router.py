@@ -130,6 +130,13 @@ def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> di
     return guest.start_guest(db, body, client_ip(request))
 
 
+@router.post("/guest/{student_id}/upgrade")
+def guest_upgrade(
+    student_id: uuid.UUID, body: guest.UpgradeIn, db: DbSession, actor: ActorDep
+) -> dict[str, Any]:
+    return guest.upgrade_guest(db, actor, student_id, body)
+
+
 @router.post("/students")
 def create_student(body: StudentIn, db: DbSession, actor: ActorDep) -> dict[str, str]:
     student = service.create_student(
