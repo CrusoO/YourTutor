@@ -388,20 +388,20 @@ Accept:
 ### G4 — LLM gateway (was M6, extended)
 
 - [ ] *Built and tested with a fake provider; the LiteLLM path is not exercised (library not installed, no key) and `adapt_explanation` is not used by a session yet.* LiteLLM gateway; purposes: `personalise_hint`, `adapt_explanation`, `grade_explain_back`, `encourage`, `draft_content` (authoring only); `answer_doubt` stubbed for G7
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). Prompt includes constitution excerpt + grade-band style profile + authored source + glossary + forbidden answer
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). Post-checks: schema → leak → grounding/citation → length (band word limit) → tone (no person-praise, no shaming) → moderation → language → regenerate once → authored fallback
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). `llm_calls` + review-queue sampling; gated on `ai_processing` and API key
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). Explain-back without key/scope: store text, show authored model explanation, no grade
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). `draft_content` CLI writes `status: draft` only; refuses to run in production
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). `evals/` suites: phrasing (leak, length, tone, language), explain-back rubric agreement
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). *Deferred from G0:* grade-band style profile (word limits, tone) wired into LLM prompts and post-checks
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). Prompt includes constitution excerpt + grade-band style profile + authored source + glossary + forbidden answer
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). Post-checks: schema → leak → grounding/citation → length (band word limit) → tone (no person-praise, no shaming) → moderation → language → regenerate once → authored fallback
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). `llm_calls` + review-queue sampling; gated on `ai_processing` and API key
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). Explain-back without key/scope: store text, show authored model explanation, no grade
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). `draft_content` CLI writes `status: draft` only; refuses to run in production
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). `evals/` suites: phrasing (leak, length, tone, language), explain-back rubric agreement
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). *Deferred from G0:* grade-band style profile (word limits, tone) wired into LLM prompts and post-checks
 
 Accept:
 
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). *Scripted replies only; a live run is what measures a model.* Leak rate 0% and tone violations 0% on the eval set
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). Word limits respected per band
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). No-key and no-scope sessions complete end to end
-- [x] Met 2026-10-10 (offline; pytest 866, vitest 167). Explain-back grade never changes ladder, BKT or FSRS
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). *Scripted replies only; a live run is what measures a model.* Leak rate 0% and tone violations 0% on the eval set
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). Word limits respected per band
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). No-key and no-scope sessions complete end to end
+- [x] Met 2026-10-10 (offline; pytest 866; random seeds 1 and 2: 866 and 866; vitest 167). Explain-back grade never changes ladder, BKT or FSRS
 
 ### G5 — Student app v2 (absorbs M7a)
 
