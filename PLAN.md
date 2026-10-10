@@ -86,6 +86,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | LLM word lists | Tone and moderation word lists are in `config/llm_rules.yaml`; person-praise words reuse the encouragement-copy list. Moderation is a local whole-word list, not a provider moderation call. |
 | Guest | A guest is a student owned by a hidden user (role `guest`, unusable `.invalid` address), not a nullable `parent_id`; no personal field is accepted; its scopes are `tutoring` only. Chosen so every foreign key and cascading delete keeps working; the G6 upgrade re-parents it. |
 | First run | No session is created at login or guest start. `today.offer` is `first_run` (warm-up or start from the beginning) and, once, `warmup_reoffer` after the second finished practice session; "not now" is final. Answers live in `students.onboarding`. |
+| Upgrade | `POST /guest/{id}/upgrade` needs the guardian's login (OTP bearer) and the guest's own token in the body, so possession of the guest session is the proof; scopes are validated before anything changes. The student row stays and only `parent_id` changes, so events and ladder state are untouched; the hidden guest owner is deleted. |
+| Consent scopes | `consent_scopes` and `guest_retention_days` live in the jurisdiction profile (default_strict: all five scopes, 90 days). Grants outside the list are refused; a scope the profile later withdraws stops being active. The student's curriculum names the profile. `free_text` exists as a scope but no feature consumes it before G7. |
+| School mode | `site_id` is an opaque code (letters, digits, `_`, `-`, up to 40) on staff users and students, set only by staff (admin any; teacher only their own site). Guests cannot have one and staff do not enrol guests in classes. `POST /classes/{id}/site-members` enrols the teacher's site; seeing progress still needs `teacher_share`. `POST /students` now rejects unknown fields (school, surname, phone, address). |
+| Class curriculum | `classes.board` was renamed `curriculum_id` (migration 0022); the request still accepts `board` as a deprecated alias. |
 | School list | The context picker has no curated school list: it would put a school on the student, which the G6 rules forbid. Revisit with the G6 `site_id` design. |
 | Page weight | The lesson-screen budget (200 KB over the wire, 150 KB script) is checked by a Playwright spec against a production build, not by Lighthouse. Measured 130 KB. |
 | `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
@@ -433,19 +437,19 @@ Accept:
 
 ### G6 — Accounts and consent v2
 
-- [ ] Guest → family upgrade (`POST /guest/{id}/upgrade`) links records after guardian consent
-- [ ] Consent scopes availability from jurisdiction profile (`tutoring`, `teacher_share`, `ai_processing`, `free_text`, `research_pseudonymised`)
-- [ ] School mode via staff-assigned `site_id`; no school/surname/phone/address fields on students
-- [ ] Guest retention job (delete after profile inactivity window); export/delete for family
-- [ ] Role matrix updated for guest
-- [ ] *Deferred from G0:* `classes.board` replaced by `curriculum_id`
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Guest → family upgrade (`POST /guest/{id}/upgrade`) links records after guardian consent
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Consent scopes availability from jurisdiction profile (`tutoring`, `teacher_share`, `ai_processing`, `free_text`, `research_pseudonymised`)
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). School mode via staff-assigned `site_id`; no school/surname/phone/address fields on students
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Guest retention job (delete after profile inactivity window; `python -m app.retention purge_guests`); export/delete for family
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Role matrix updated for guest
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). *Deferred from G0:* `classes.board` replaced by `curriculum_id`
 
 Accept:
 
-- [ ] Upgrade preserves all events and ladder state
-- [ ] Guest records purge after the configured window (time-travel test)
-- [ ] Features requiring a scope are refused without it, per profile fixtures
-- [ ] Existing M2 tests green
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Upgrade preserves all events and ladder state
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Guest records purge after the configured window (time-travel test)
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Features requiring a scope are refused without it, per profile fixtures
+- [x] Met 2026-10-10 (pytest 938; random seeds 1 and 2: 938 and 938; vitest 185). Existing M2 tests green
 
 ### G7 — Study Mode Ask (grounding Layers B–D)
 
