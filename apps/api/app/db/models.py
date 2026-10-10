@@ -178,6 +178,43 @@ class CheckpointFormRow(Base):
     match_map: Mapped[dict] = mapped_column(JSONType)
 
 
+class LessonRow(Base):
+    __tablename__ = "lessons"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    skill_id: Mapped[str] = mapped_column(String, unique=True, index=True)
+    title: Mapped[dict] = mapped_column(JSONType)
+    source_ref: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
+    beats: Mapped[list] = mapped_column(JSONType)
+
+
+class SceneRow(Base):
+    __tablename__ = "scenes"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    lesson_id: Mapped[str] = mapped_column(
+        String, ForeignKey("lessons.id", ondelete="CASCADE"), index=True
+    )
+    skill_id: Mapped[str] = mapped_column(String, index=True)
+    source_ref: Mapped[str] = mapped_column(String)
+    body: Mapped[dict] = mapped_column(JSONType)
+    size_bytes: Mapped[int] = mapped_column(Integer)
+    duration_s: Mapped[float] = mapped_column(Float)
+    kb_per_minute: Mapped[float] = mapped_column(Float)
+
+
+class WidgetRow(Base):
+    __tablename__ = "widgets"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    lesson_id: Mapped[str] = mapped_column(
+        String, ForeignKey("lessons.id", ondelete="CASCADE"), index=True
+    )
+    type: Mapped[str] = mapped_column(String)
+    body: Mapped[dict] = mapped_column(JSONType)
+
+
 class UserRow(Base):
     __tablename__ = "users"
 

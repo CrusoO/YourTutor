@@ -21,12 +21,15 @@ from app.db.models import (
     EventRow,
     GlossaryTermRow,
     ItemRow,
+    LessonRow,
     MasteryRow,
     MisconceptionHitRow,
     MisconceptionRow,
     OverlayRow,
     ReviewCardRow,
+    SceneRow,
     SkillRow,
+    WidgetRow,
 )
 from app.db.session import make_engine, session_factory
 from app.registries.seed_db import seed_g0_registry
@@ -75,12 +78,61 @@ def load_path(
     with factory() as session:
         try:
             _upsert(session, report.bundle, prune=prune)
+            _upsert_lessons(session, root)
             seed_g0_registry(session)  # registry YAML is the source of truth
             session.commit()
         except PruneBlockedError:
             session.rollback()
             raise
     return report
+
+
+def _upsert_lessons(session: Session, root: Path) -> None:
+    """Replace the lesson, scene and widget rows with what `<root>/lessons` holds."""
+    import json
+
+    from app.lessons.budget import scene_bytes, scene_duration_seconds, scene_kb_per_minute
+    from app.lessons.loader import load_lessons
+
+    lessons = load_lessons(root)
+    session.query(WidgetRow).delete()
+    session.query(SceneRow).delete()
+    session.query(LessonRow).delete()
+    for lesson in lessons.values():
+        session.add(
+            LessonRow(
+                id=lesson.id,
+                skill_id=lesson.skill_id,
+                title=lesson.title.as_dict(),
+                source_ref=lesson.source_ref,
+                status=lesson.status.value,
+                beats=json.loads(lesson.model_dump_json(by_alias=True, exclude_none=True))["beats"],
+            )
+        )
+    session.flush()
+    for lesson in lessons.values():
+        for scene in lesson.scenes():
+            session.add(
+                SceneRow(
+                    id=f"{lesson.id}:{scene.id}",
+                    lesson_id=lesson.id,
+                    skill_id=scene.skill_id,
+                    source_ref=scene.source_ref,
+                    body=json.loads(scene.model_dump_json(by_alias=True, exclude_none=True)),
+                    size_bytes=scene_bytes(scene),
+                    duration_s=scene_duration_seconds(scene),
+                    kb_per_minute=scene_kb_per_minute(scene),
+                )
+            )
+        for widget in lesson.widgets():
+            session.add(
+                WidgetRow(
+                    id=f"{lesson.id}:{widget.widget_id}",
+                    lesson_id=lesson.id,
+                    type=widget.type,
+                    body=json.loads(widget.model_dump_json(by_alias=True, exclude_none=True)),
+                )
+            )
 
 
 def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
