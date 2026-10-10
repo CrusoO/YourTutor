@@ -1,38 +1,129 @@
 {
   "name": "lesson_path",
-  "description": "R38: problem-first when every prerequisite is at ladder level 4 or more, otherwise worked-example-first. Beats keep their authored order; check stays last.",
-  "beats": ["predict", "explore", "explain_scene", "worked_example", "check"],
+  "description": "R38: problem-first when every prerequisite is at ladder level 4 or more, otherwise worked-example-first (the explore and scene beats before the first worked example are skipped; later beats stay). Beats keep their authored order; predict stays first and check last.",
+  "beats": [
+    "predict",
+    "explore",
+    "explain_scene",
+    "worked_example",
+    "check"
+  ],
   "cases": [
     {
       "name": "ready_student_all_prerequisites_at_4",
-      "prerequisite_levels": [4, 5, 7],
+      "prerequisite_levels": [
+        4,
+        5,
+        7
+      ],
       "order": "problem_first",
-      "serve": ["predict", "explore", "explain_scene", "worked_example", "check"]
+      "serve": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "check"
+      ]
+    },
+    {
+      "name": "ready_student_authored_two_explores",
+      "prerequisite_levels": [
+        4
+      ],
+      "beats": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "explore",
+        "check"
+      ],
+      "order": "problem_first",
+      "serve": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "explore",
+        "check"
+      ]
     },
     {
       "name": "novice_one_prerequisite_below_4",
-      "prerequisite_levels": [4, 3],
+      "prerequisite_levels": [
+        4,
+        3
+      ],
       "order": "worked_example_first",
-      "serve": ["predict", "worked_example", "check"]
+      "serve": [
+        "predict",
+        "worked_example",
+        "check"
+      ]
     },
     {
       "name": "novice_prerequisite_never_practised",
-      "prerequisite_levels": [0],
+      "prerequisite_levels": [
+        0
+      ],
       "order": "worked_example_first",
-      "serve": ["predict", "worked_example", "check"]
+      "serve": [
+        "predict",
+        "worked_example",
+        "check"
+      ]
     },
     {
       "name": "no_prerequisites_counts_as_ready",
       "prerequisite_levels": [],
       "order": "problem_first",
-      "serve": ["predict", "explore", "explain_scene", "worked_example", "check"]
+      "serve": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "check"
+      ]
+    },
+    {
+      "name": "explore_after_the_worked_example_is_kept",
+      "prerequisite_levels": [
+        2
+      ],
+      "beats": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "worked_example",
+        "explore",
+        "check"
+      ],
+      "order": "worked_example_first",
+      "serve": [
+        "predict",
+        "worked_example",
+        "explore",
+        "check"
+      ]
     },
     {
       "name": "lesson_without_worked_example_is_served_whole",
-      "prerequisite_levels": [1],
-      "beats": ["predict", "explore", "explain_scene", "check"],
+      "prerequisite_levels": [
+        1
+      ],
+      "beats": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "check"
+      ],
       "order": "worked_example_first",
-      "serve": ["predict", "explore", "explain_scene", "check"]
+      "serve": [
+        "predict",
+        "explore",
+        "explain_scene",
+        "check"
+      ]
     }
   ]
 }
