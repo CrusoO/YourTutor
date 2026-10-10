@@ -152,7 +152,10 @@ def get_student(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[s
     return {
         "id": str(student.id),
         "display_name": student.display_name,
-        "board": student.board,
+        "grade": student.grade,
+        "curriculum_id": student.curriculum_id,
+        "context_key": student.context_key,
+        "home_language": student.home_language,
         "timezone": student.timezone,
     }
 

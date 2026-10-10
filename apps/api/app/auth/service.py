@@ -407,7 +407,7 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
                 "id": str(s.id),
                 "display_name": s.display_name,
                 "grade": s.grade,
-                "board": s.board,
+                "curriculum_id": s.curriculum_id,
                 "timezone": s.timezone,
             }
             for s in students
