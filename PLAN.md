@@ -400,8 +400,8 @@ Accept:
 
 - [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). *Scripted replies only; a live run is what measures a model.* Leak rate 0% and tone violations 0% on the eval set
 - [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Word limits respected per band
-- [ ] No-key and no-scope sessions complete end to end
-- [ ] Explain-back grade never changes ladder, BKT or FSRS
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). No-key and no-scope sessions complete end to end
+- [x] Met 2026-10-10 (offline; pytest {PY}, vitest 167). Explain-back grade never changes ladder, BKT or FSRS
 
 ### G5 — Student app v2 (absorbs M7a)
 
