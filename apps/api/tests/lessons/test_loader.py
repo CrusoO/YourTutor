@@ -205,6 +205,10 @@ def test_content_validate_accepts_a_good_lesson(content_root: Path) -> None:
         if beat["kind"] == "explain_scene":
             beat["scene"]["skill_id"] = "MATH.S1"
     write_yaml(content_root / "lessons" / "good.yaml", data)
+    write_yaml(
+        content_root / "sources" / "notes.yaml",
+        {"sources": [{"id": "NOTE.LIN1.TWO_STEP", "licence": "authored", "title": "Two-step"}]},
+    )
     report = validate_path(content_root)
     assert not [e for e in report.errors if "lesson" in e.lower()], report.errors
 

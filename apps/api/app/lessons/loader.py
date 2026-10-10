@@ -49,8 +49,11 @@ def load_lessons(root: Path | None = None) -> dict[str, Lesson]:
     return out
 
 
-def lesson_errors(root: Path, skill_ids: set[str]) -> list[str]:
-    """Every problem in the lessons folder, for `content validate` and `content load`."""
+def lesson_errors(root: Path, skill_ids: set[str], sources: set[str] | None = None) -> list[str]:
+    """Every problem in the lessons folder, for `content validate` and `content load`.
+
+    With `sources` (the approved source ids), every lesson and scene `source_ref` must be in it.
+    """
     errors: list[str] = []
     seen_ids: dict[str, str] = {}
     by_skill: dict[str, list[str]] = {}
@@ -67,7 +70,13 @@ def lesson_errors(root: Path, skill_ids: set[str]) -> list[str]:
         by_skill.setdefault(lesson.skill_id, []).append(path.name)
         if lesson.skill_id not in skill_ids:
             errors.append(f"lesson {path.name}: unknown skill {lesson.skill_id}")
+        if sources is not None and lesson.source_ref not in sources:
+            errors.append(f"lesson {path.name}: source.unknown ({lesson.source_ref})")
         for scene in lesson.scenes():
+            if sources is not None and scene.source_ref not in sources:
+                errors.append(
+                    f"lesson {path.name}: scene {scene.id} source.unknown ({scene.source_ref})"
+                )
             rate = scene_kb_per_minute(scene)
             if rate > MAX_KB_PER_MINUTE:
                 errors.append(

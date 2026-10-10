@@ -66,7 +66,14 @@ def load_path(
         raise LoadError(f"content root {root} has no skills or items; refusing to load")
     report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
-    report.errors.extend(lesson_errors(root, {skill.id for skill in bundle.skills}))
+    from app.lessons.sources import approved_source_ids, source_errors
+
+    report.errors.extend(source_errors(root))
+    report.errors.extend(
+        lesson_errors(
+            root, {skill.id for skill in bundle.skills}, sources=approved_source_ids(root)
+        )
+    )
     from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
 
     report.errors.extend(copy_errors(root))
