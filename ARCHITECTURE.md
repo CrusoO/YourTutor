@@ -654,6 +654,8 @@ Each skill has one approved lesson:
 | `check`          | One practice item                                               | Counts as first practice item (BKT) |
 
 
+**As built in G3 (P8):** lessons, scenes and widgets are loaded into the `lessons`, `scenes` and `widgets` tables by `content load` (migration 0019); the player is still served from the validated YAML files. R38 is the pure `lesson_path()`: a student whose prerequisites are all at ladder level 4 or more gets every authored beat, anyone else skips the explore and scene beats before the first worked example. The `faded_example` beat shows the worked steps and asks for the last one; the server checks the typed answer with the verifier on the `faded_answer` event (formative, no BKT or FSRS write, client flag ignored) and returns `lesson_correct`. Every lesson and scene `source_ref` must be an entry in `content/sources/` with an approved licence. A live chapter needs an approved lesson for each skill.
+
 ### 16.2 Whiteboard scene script
 
 JSON schema in `packages/shared/schemas/scene.json`:
