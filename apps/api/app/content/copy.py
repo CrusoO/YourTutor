@@ -105,7 +105,9 @@ def with_encouragement_text(extras: dict[str, object], locale: str) -> dict[str,
     praise = extras.get("encouragement")
     if not isinstance(praise, dict):
         return extras
-    text = resolve_encouragement(str(praise.get("trigger")), str(praise.get("variant")), locale)
+    text = praise.get("text") or resolve_encouragement(
+        str(praise.get("trigger")), str(praise.get("variant")), locale
+    )
     return {**extras, "encouragement": {**praise, "text": text}}
 
 
