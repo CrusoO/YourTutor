@@ -20,7 +20,7 @@ from app.auth.authz import (
     student_or_404,
     teacher_visible_student_ids,
 )
-from app.auth.consent import active_consent, has_scope
+from app.auth.consent import active_consent, available_scopes, has_scope
 from app.auth.scopes import CONSENT_SCOPES
 from app.auth.security import (
     as_utc,
@@ -63,6 +63,7 @@ from app.db.models import (
     TeacherAlertRow,
     UserRow,
 )
+from app.registries.startup import deployment_jurisdiction_profile
 from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 
 TOO_MANY = HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="rate limited")
@@ -279,6 +280,11 @@ def grant_consent(
     unknown = set(scopes) - CONSENT_SCOPES
     if unknown:
         raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    unavailable = set(scopes) - available_scopes(session, student_id)
+    if unavailable:
+        raise HTTPException(
+            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
+        )
     existing = active_consent(session, student_id)
     if existing:
         existing.revoked_at = now_utc()
@@ -294,6 +300,12 @@ def grant_consent(
     session.add(row)
     session.flush()
     return row
+
+
+def consent_options(session: Session, actor: Actor, student_id: uuid.UUID) -> set[str]:
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))
+    return available_scopes(session, student_id)
 
 
 def revoke_consent(session: Session, actor: Actor, student_id: uuid.UUID) -> None:
@@ -919,6 +931,11 @@ def enrol_pilot_family(
     unknown = set(scopes) - CONSENT_SCOPES
     if unknown:
         raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    unavailable = set(scopes) - set(deployment_jurisdiction_profile().consent_scopes)
+    if unavailable:
+        raise HTTPException(
+            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
+        )
     if "tutoring" not in scopes:
         scopes = ["tutoring", *scopes]
     code = (family_code or new_family_code()).strip().upper()

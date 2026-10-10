@@ -6,6 +6,7 @@ from typing import Any
 
 import yaml
 
+from app.auth.scopes import CONSENT_SCOPES
 from app.registries.paths import config_dir, content_curricula_dir
 
 
@@ -50,6 +51,8 @@ class JurisdictionProfile:
     id: str
     quiet_hours: QuietHours
     notation_profile: str
+    consent_scopes: tuple[str, ...] = ("tutoring",)  # scopes a guardian may grant here
+    guest_retention_days: int = 30  # a guest with no activity this long is deleted
 
 
 @dataclass(frozen=True)
@@ -182,10 +185,21 @@ def load_jurisdiction_profile(profile_id: str, root: Path | None = None) -> Juri
     if str(data.get("id")) != profile_id:
         raise RegistryLoadError(f"jurisdiction id mismatch in {path}")
     qh = data.get("quiet_hours") or {}
+    scopes = tuple(str(x) for x in (data.get("consent_scopes") or ["tutoring"]))
+    unknown = set(scopes) - CONSENT_SCOPES
+    if unknown or "tutoring" not in scopes:
+        raise RegistryLoadError(
+            f"consent_scopes in {path}: must include tutoring; unknown: {sorted(unknown)}"
+        )
+    retention = int(data.get("guest_retention_days") or 30)
+    if retention < 1:
+        raise RegistryLoadError(f"guest_retention_days in {path} must be at least 1")
     return JurisdictionProfile(
         id=profile_id,
         quiet_hours=QuietHours(start=str(qh["start"]), end=str(qh["end"])),
         notation_profile=str(data.get("notation_profile") or "default_ascii"),
+        consent_scopes=scopes,
+        guest_retention_days=retention,
     )
 
 

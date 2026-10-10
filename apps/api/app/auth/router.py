@@ -170,6 +170,11 @@ def grant_consent(
     return {"id": str(row.id), "scopes": list(row.scopes), "paper_ref": row.paper_ref}
 
 
+@router.get("/students/{student_id}/consent/options")
+def consent_options(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return {"scopes": sorted(service.consent_options(db, actor, student_id))}
+
+
 @router.post("/students/{student_id}/consent/revoke")
 def revoke_consent(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, str]:
     service.revoke_consent(db, actor, student_id)
