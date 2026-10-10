@@ -4,7 +4,7 @@ search:
   keyword_weight: 0.6   # share of the score from shared words; the rest is embedding similarity
   vector_weight: 0.4
 gate:
-  answer_min: 0.40      # top score at or above this answers
+  answer_min: 0.35      # top score at or above this answers
   clarify_min: 0.25     # below this the question is out of scope
   ambiguity_margin: 0.04  # a second skill this close to the top asks the student to choose
   choices: 3
@@ -29,6 +29,11 @@ safety:
         - new instructions
         - system prompt
         - override (the |your )?(rules|instructions|safety)
+      item_reference_patterns:
+        - (this|the current|my)\s+(question|problem|equation|sum|exercise|item|one)
+        - what (is|does) x
+        - is it -?[0-9]
+        - i (got|think|said|guess)
       distress_terms:
         - want to die
         - kill myself
@@ -51,6 +56,10 @@ safety:
         - find x for me
         - what is x here
         - what does x equal here
+        - the answer
+        - my answer
+        - is it right
+        - am i right
       # Layer D meaning preservation: a word below that is in an answer sentence must also be in
       # the passage the sentence cites, so signs, conditions and operations cannot be swapped.
       meaning_terms:

@@ -80,8 +80,8 @@ def _equations(stem: str) -> list[str]:
 def targets_current_item(question: str, item_stem: str | None, lists: SafetyLists) -> str | None:
     """Why this question is about the item being practised (None: it is a general question).
 
-    Three signals: the question contains an equation from the stem; it repeats two or more of the
-    stem's numbers; or it asks for the answer of "this" while an item is on screen.
+    Four signals: the question contains an equation from the stem; it repeats two or more of the
+    stem's numbers; it asks for the answer; or it points at "this question" while an item is open.
     """
     if not item_stem:
         return None
@@ -94,4 +94,6 @@ def targets_current_item(question: str, item_stem: str | None, lists: SafetyList
         return "stem_numbers"
     if any(phrase in asked for phrase in lists.solve_intent_phrases):
         return "solve_intent"
+    if any(re.search(pattern, asked) for pattern in lists.item_reference_patterns):
+        return "item_reference"
     return None

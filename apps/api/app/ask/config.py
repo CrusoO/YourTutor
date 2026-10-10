@@ -16,7 +16,7 @@ class AskConfig:
     top_k: int = 4
     keyword_weight: float = 0.6
     vector_weight: float = 0.4
-    answer_min: float = 0.40
+    answer_min: float = 0.35
     clarify_min: float = 0.25
     ambiguity_margin: float = 0.04
     choices: int = 3
@@ -30,7 +30,7 @@ def load_ask_config(root: Path | None = None) -> AskConfig:
         top_k=int(search.get("top_k", 4)),
         keyword_weight=float(search.get("keyword_weight", 0.6)),
         vector_weight=float(search.get("vector_weight", 0.4)),
-        answer_min=float(gate.get("answer_min", 0.40)),
+        answer_min=float(gate.get("answer_min", 0.35)),
         clarify_min=float(gate.get("clarify_min", 0.25)),
         ambiguity_margin=float(gate.get("ambiguity_margin", 0.04)),
         choices=int(gate.get("choices", 3)),
@@ -52,6 +52,7 @@ class SafetyLists:
     distress_terms: tuple[str, ...]
     solve_intent_phrases: tuple[str, ...]
     meaning_terms: tuple[str, ...] = ()
+    item_reference_patterns: tuple[str, ...] = ()
 
 
 def load_safety(language: str, root: Path | None = None) -> SafetyLists:
@@ -64,6 +65,7 @@ def load_safety(language: str, root: Path | None = None) -> SafetyLists:
         distress_terms=tuple(row.get("distress_terms", ())),
         solve_intent_phrases=tuple(row.get("solve_intent_phrases", ())),
         meaning_terms=tuple(row.get("meaning_terms", ())),
+        item_reference_patterns=tuple(row.get("item_reference_patterns", ())),
     )
 
 
