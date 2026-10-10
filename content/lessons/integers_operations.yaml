@@ -1,0 +1,99 @@
+id: LESSON.INTEGERS.OPERATIONS
+skill_id: MATH.ARITH.INTEGERS.OPERATIONS
+title:
+  en: Adding integers on a number line
+source_ref: NOTE.ARITH.INTEGERS
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: What is −6 + 15?
+  choices:
+  - value: '9'
+    text:
+      en: '9'
+  - value: −9
+    text:
+      en: −9
+  - value: '21'
+    text:
+      en: '21'
+  reveal:
+    en: Hold on to that guess. We will check it on a number line.
+- kind: explain_scene
+  title:
+    en: Watch it on a number line
+  scene:
+    id: SCENE.INTEGERS.OPERATIONS.EXPLAIN
+    skill_id: MATH.ARITH.INTEGERS.OPERATIONS
+    source_ref: NOTE.ARITH.INTEGERS
+    alt:
+      en: A number line with an arrow from −6 moving right
+    steps:
+    - caption:
+        en: Start at −6 on the number line.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: −6 + 15
+    - caption:
+        en: Move 15 steps to the right.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: 'Adding 15: which way do you move?'
+        options:
+        - text:
+            en: Right, 15 steps
+          correct: true
+        - text:
+            en: Left, 15 steps
+          correct: false
+          feedback:
+            en: Adding moves right; subtracting moves left.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: −6 → 9
+        color: red
+    - caption:
+        en: You land on 9, so −6 + 15 = 9.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: = 9
+        color: green
+  final_caption:
+    en: 'That is the whole idea: adding moves right, subtracting moves left. Now try one.'
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Work out −8 + 5.
+  steps:
+  - en: Start at −8. Adding 5 moves 5 steps to the right.
+  - en: −8 → −3, so −8 + 5 = −3.
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Work out −9 + 4.
+  steps:
+  - en: Start at −9. Adding 4 moves 4 steps to the right.
+  blank_prompt:
+    en: Where do you land?
+  answer: '-5'
+  accept:
+  - −5
+  hint:
+    en: Count 4 steps right from −9.
+  success:
+    en: 'Yes: −9 + 4 = −5.'
+- kind: check
+  prompt:
+    en: Work out −7 + 10 yourself.

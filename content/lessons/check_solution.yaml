@@ -1,0 +1,103 @@
+id: LESSON.LIN1.CHECK_SOLUTION
+skill_id: MATH.ALG.LIN1.CHECK_SOLUTION
+title:
+  en: Checking a solution by substituting
+source_ref: NOTE.LIN1.CHECK
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: Is x = 4 the solution of 3x + 4 = 19?
+  choices:
+  - value: 'Yes'
+    text:
+      en: 'Yes'
+  - value: 'No'
+    text:
+      en: 'No'
+  - value: Cannot tell
+    text:
+      en: Cannot tell
+  reveal:
+    en: Hold on to that guess. We will test it.
+- kind: explain_scene
+  title:
+    en: Watch the check
+  scene:
+    id: SCENE.LIN1.CHECK_SOLUTION.EXPLAIN
+    skill_id: MATH.ALG.LIN1.CHECK_SOLUTION
+    source_ref: NOTE.LIN1.CHECK
+    alt:
+      en: Whiteboard substituting x = 4 into 3x + 4
+    steps:
+    - caption:
+        en: Put the number in place of x.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: 3 × 4 + 4
+    - caption:
+        en: The left side comes to 16.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: What is 3 × 4 + 4?
+        options:
+        - text:
+            en: '16'
+          correct: true
+        - text:
+            en: '12'
+          correct: false
+          feedback:
+            en: You still need to add the 4.
+        - text:
+            en: '19'
+          correct: false
+          feedback:
+            en: That is the right side. We want the left side.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: = 16
+        color: red
+    - caption:
+        en: 16 is not 19, so x = 4 is not a solution.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: 16 ≠ 19
+        color: green
+  final_caption:
+    en: If both sides match, the number is a solution. If not, it is not. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Is x = 5 a solution of 3x + 4 = 19?
+  steps:
+  - en: 'Put 5 in place of x: 3 × 5 + 4.'
+  - en: That is 15 + 4 = 19, the same as the right side, so x = 5 is a solution.
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Is x = 3 a solution of 2x + 5 = 11?
+  steps:
+  - en: 'Put 3 in place of x: 2 × 3 + 5.'
+  blank_prompt:
+    en: What is the value of the left side?
+  answer: '11'
+  accept: []
+  hint:
+    en: 2 × 3 is 6, then add 5.
+  success:
+    en: 'Yes: 11 matches the right side, so x = 3 is a solution.'
+- kind: check
+  prompt:
+    en: Is x = 6 a solution of x − 2 = 4? Check by putting 6 in place of x.

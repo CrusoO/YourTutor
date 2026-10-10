@@ -59,7 +59,7 @@ def test_load_seed_postgres() -> None:
         assert len(skills) == 12
         assert len(items) == 406
         lessons = session.scalars(select(LessonRow)).all()
-        assert len(lessons) == 4
+        assert len(lessons) == 12
         assert all(row.source_ref and row.status == "draft" for row in lessons)
         scenes = session.scalars(select(SceneRow)).all()
         widgets = session.scalars(select(WidgetRow)).all()

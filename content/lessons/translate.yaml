@@ -1,0 +1,102 @@
+id: LESSON.LIN1.TRANSLATE
+skill_id: MATH.ALG.LIN1.TRANSLATE
+title:
+  en: Turning words into an equation
+source_ref: NOTE.LIN1.TRANSLATE
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: Which equation says “a number plus five is twenty”?
+  choices:
+  - value: x + 5 = 20
+    text:
+      en: x + 5 = 20
+  - value: 5x = 20
+    text:
+      en: 5x = 20
+  - value: x − 5 = 20
+    text:
+      en: x − 5 = 20
+  reveal:
+    en: Hold on to that guess. We will build it word by word.
+- kind: explain_scene
+  title:
+    en: Watch it built
+  scene:
+    id: SCENE.LIN1.TRANSLATE.EXPLAIN
+    skill_id: MATH.ALG.LIN1.TRANSLATE
+    source_ref: NOTE.LIN1.TRANSLATE
+    alt:
+      en: Whiteboard turning a sentence into an equation
+    steps:
+    - caption:
+        en: Let x stand for the number.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: x = the number
+    - caption:
+        en: Five more than x is x + 5.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: What does “five more than” tell us to do?
+        options:
+        - text:
+            en: Add 5 to x
+          correct: true
+        - text:
+            en: Multiply x by 5
+          correct: false
+          feedback:
+            en: “More than” means add, not multiply.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: x + 5
+        color: red
+    - caption:
+        en: “Is twenty” gives the equals sign.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: x + 5 = 20
+        color: green
+  final_caption:
+    en: Name the number, turn each phrase into maths, then join them with =. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: 'Write an equation: three less than a number is ten.'
+  steps:
+  - en: Let x be the number.
+  - en: Three less than x is x − 3.
+  - en: 'It equals ten: x − 3 = 10.'
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: A number plus 9 is 20. Write the equation and find the number.
+  steps:
+  - en: Let x be the number.
+  - en: 'A number plus 9 is 20: x + 9 = 20.'
+  blank_prompt:
+    en: Take 9 off both sides. What is x?
+  answer: '11'
+  accept:
+  - x=11
+  - x = 11
+  hint:
+    en: 20 take away 9.
+  success:
+    en: 'Yes: x = 11. Check: 11 + 9 = 20.'
+- kind: check
+  prompt:
+    en: 'Write an equation: a number minus four is nine.'

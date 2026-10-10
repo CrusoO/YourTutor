@@ -422,12 +422,9 @@ def test_dev_lessons_list_get_and_verify(client: TestClient) -> None:
     settings.dev_tools = True
     settings.allow_draft_content = True
     listed = client.get("/dev/lessons").json()["lessons"]
-    assert [row["id"] for row in listed] == [
-        "LESSON.FRACTION",
-        "LESSON.INVERSE",
-        "LESSON.ONE_STEP",
-        "LESSON.TWO_STEP",
-    ]
+    ids = [row["id"] for row in listed]
+    assert ids == sorted(ids) and len(ids) == 12
+    assert {"LESSON.FRACTION", "LESSON.INVERSE", "LESSON.ONE_STEP", "LESSON.TWO_STEP"} <= set(ids)
     assert all(row["skill_id"] and row["title"] and row["beats"] for row in listed)
     one = client.get("/dev/lessons/LESSON.TWO_STEP").json()
     assert one["skill_id"] == LESSON_SKILL and len(one["beats"]) == 7

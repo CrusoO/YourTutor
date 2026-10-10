@@ -1,0 +1,108 @@
+id: LESSON.LIN1.SOLVE_MULTI
+skill_id: MATH.ALG.LIN1.SOLVE_MULTI
+title:
+  en: Combining like terms, then solving
+source_ref: NOTE.LIN1.MULTI
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: Solve 2x + 3x = 20. What is x?
+  choices:
+  - value: '2'
+    text:
+      en: '2'
+  - value: '4'
+    text:
+      en: '4'
+  - value: '10'
+    text:
+      en: '10'
+  reveal:
+    en: Hold on to that guess. Let us combine the x terms.
+- kind: explain_scene
+  title:
+    en: Watch it solved
+  scene:
+    id: SCENE.LIN1.SOLVE_MULTI.EXPLAIN
+    skill_id: MATH.ALG.LIN1.SOLVE_MULTI
+    source_ref: NOTE.LIN1.MULTI
+    alt:
+      en: Whiteboard solving 2x + 3x − 4 = 21 in steps
+    steps:
+    - caption:
+        en: 'Combine the x terms first: 2x + 3x = 5x.'
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: 2x + 3x − 4 = 21
+      - kind: write_text
+        x: 170
+        y: 120
+        size: 28
+        text: 5x − 4 = 21
+        color: blue
+    - caption:
+        en: Add 4 to both sides.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: What do you do next to get 5x alone?
+        options:
+        - text:
+            en: Add 4 to both sides
+          correct: true
+        - text:
+            en: Take 4 off both sides
+          correct: false
+          feedback:
+            en: The − 4 is undone by adding 4.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: 5x = 25
+        color: red
+    - caption:
+        en: Split both sides into 5 equal parts.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: x = 5
+        color: green
+  final_caption:
+    en: Combine like terms, then undo the number, then split. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Solve 4x + x + 3 = 28.
+  steps:
+  - en: 'Combine the x terms: 5x + 3 = 28.'
+  - en: 'Take 3 off both sides: 5x = 25.'
+  - en: 'Split both sides by 5: x = 5.'
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Solve 3x + 2x − 6 = 14.
+  steps:
+  - en: 'Combine the x terms: 5x − 6 = 14.'
+  - en: 'Add 6 to both sides: 5x = 20.'
+  blank_prompt:
+    en: Split both sides by 5. What is x?
+  answer: '4'
+  accept:
+  - x=4
+  - x = 4
+  hint:
+    en: 20 split into 5 equal parts.
+  success:
+    en: 'Yes: x = 4. Check: 5 × 4 − 6 = 14.'
+- kind: check
+  prompt:
+    en: Solve 2x + 4x − 3 = 21 yourself.

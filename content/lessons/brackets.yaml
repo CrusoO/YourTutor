@@ -1,0 +1,102 @@
+id: LESSON.LIN1.BRACKETS
+skill_id: MATH.ALG.LIN1.BRACKETS
+title:
+  en: Opening brackets first
+source_ref: NOTE.LIN1.BRACKETS
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: What is 3(x + 4) when you open the bracket?
+  choices:
+  - value: 3x + 12
+    text:
+      en: 3x + 12
+  - value: 3x + 4
+    text:
+      en: 3x + 4
+  - value: x + 12
+    text:
+      en: x + 12
+  reveal:
+    en: Hold on to that guess. We will open it step by step.
+- kind: explain_scene
+  title:
+    en: Watch it solved
+  scene:
+    id: SCENE.LIN1.BRACKETS.EXPLAIN
+    skill_id: MATH.ALG.LIN1.BRACKETS
+    source_ref: NOTE.LIN1.BRACKETS
+    alt:
+      en: Whiteboard opening a bracket and solving 3(x + 4) = 21
+    steps:
+    - caption:
+        en: The 3 multiplies everything inside the bracket.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: 3(x + 4) = 21
+    - caption:
+        en: Now it is a two-step equation.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: 'Open the bracket: what is 3(x + 4)?'
+        options:
+        - text:
+            en: 3x + 12
+          correct: true
+        - text:
+            en: 3x + 4
+          correct: false
+          feedback:
+            en: Multiply both x and 4 by 3.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: 3x + 12 = 21
+        color: red
+    - caption:
+        en: Take 12 off both sides, then split by 3.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: x = 3
+        color: green
+  final_caption:
+    en: Open the bracket first, then solve as before. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Solve 2(x + 5) = 18.
+  steps:
+  - en: 'Open the bracket: 2x + 10 = 18.'
+  - en: 'Take 10 off both sides: 2x = 8.'
+  - en: 'Split both sides by 2: x = 4.'
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Solve 4(x + 2) = 28.
+  steps:
+  - en: 'Open the bracket: 4x + 8 = 28.'
+  - en: 'Take 8 off both sides: 4x = 20.'
+  blank_prompt:
+    en: Split both sides by 4. What is x?
+  answer: '5'
+  accept:
+  - x=5
+  - x = 5
+  hint:
+    en: 20 split into 4 equal parts.
+  success:
+    en: 'Yes: x = 5. Check: 4 × 7 = 28.'
+- kind: check
+  prompt:
+    en: Solve 5(x + 3) = 40 yourself.
