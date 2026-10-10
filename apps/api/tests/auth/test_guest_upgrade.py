@@ -97,8 +97,10 @@ def test_upgrade_needs_tutoring_consent_and_a_known_scope(
     assert unknown.status_code == 400
     db.expire_all()
     assert db.scalar(select(func.count()).select_from(ConsentRow)) == 0
-    owner = db.get(StudentRow, uuid.UUID(guest["student_id"]))
-    assert owner is not None and db.get(UserRow, owner.parent_id).role == "guest"  # unchanged
+    student = db.get(StudentRow, uuid.UUID(guest["student_id"]))
+    assert student is not None
+    owner = db.get(UserRow, student.parent_id)
+    assert owner is not None and owner.role == "guest"  # unchanged
 
 
 def test_upgrade_needs_the_guests_own_token_and_a_guardian_login(

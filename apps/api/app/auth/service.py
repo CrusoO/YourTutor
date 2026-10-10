@@ -53,9 +53,13 @@ from app.db.models import (
     ClassRow,
     ConsentRow,
     EventRow,
+    LlmCallRow,
+    MasteryRow,
+    MisconceptionHitRow,
     OtpChallengeRow,
     OverlayRow,
     RateEventRow,
+    ReviewCardRow,
     ReviewQueueRow,
     SessionRow,
     StudentRow,
@@ -441,23 +445,29 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
     }
 
 
+def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
+    """Delete these students and everything recorded about them."""
+    if not ids:
+        return
+    session_ids = session.scalars(select(SessionRow.id).where(SessionRow.student_id.in_(ids))).all()
+    if session_ids:
+        session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
+        session.execute(delete(LlmCallRow).where(LlmCallRow.session_id.in_(session_ids)))
+    session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
+    for table in (MasteryRow, ReviewCardRow, MisconceptionHitRow):
+        session.execute(delete(table).where(table.student_id.in_(ids)))
+    session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
+    session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
+    session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
+    session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
+    session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))
+    session.execute(delete(StudentRow).where(StudentRow.id.in_(ids)))
+
+
 def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
     require(can_export_family(actor, parent_id))
     students = session.scalars(select(StudentRow).where(StudentRow.parent_id == parent_id)).all()
-    ids = [s.id for s in students]
-    if ids:
-        session_ids = session.scalars(
-            select(SessionRow.id).where(SessionRow.student_id.in_(ids))
-        ).all()
-        if session_ids:
-            session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
-        session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
-        session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
-        session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
-        session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
-        session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
-        session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))
-        session.execute(delete(StudentRow).where(StudentRow.id.in_(ids)))
+    purge_students(session, [s.id for s in students])
     session.execute(delete(AuthSessionRow).where(AuthSessionRow.user_id == parent_id))
     session.execute(delete(ConsentRow).where(ConsentRow.parent_id == parent_id))
     user = session.get(UserRow, parent_id)
