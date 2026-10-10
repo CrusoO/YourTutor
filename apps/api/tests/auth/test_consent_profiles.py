@@ -7,9 +7,11 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.auth.consent import active_scopes, available_scopes
+from app.db.models import UserRow
 from app.registries.loaders import RegistryLoadError, load_jurisdiction_profile
 from app.registries.startup import deployment_jurisdiction_profile
 from tests.conftest import World, auth_header
@@ -120,3 +122,33 @@ def test_free_text_is_a_grantable_scope(client: TestClient, world: World) -> Non
         headers=auth_header(world.parent_token),
     )
     assert response.status_code == 200, response.text
+
+
+@pytest.mark.parametrize(
+    ("profile_scopes", "teacher_sees", "llm_allowed"),
+    [
+        ("[tutoring]", False, False),
+        ("[tutoring, teacher_share]", True, False),
+        ("[tutoring, ai_processing]", False, True),
+        ("[tutoring, teacher_share, ai_processing, free_text]", True, True),
+    ],
+)
+def test_features_that_need_a_scope_are_refused_when_the_profile_lacks_it(
+    client: TestClient,
+    db: Session,
+    world: World,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    profile_scopes: str,
+    teacher_sees: bool,
+    llm_allowed: bool,
+) -> None:
+    from app.auth.actor import Actor
+    from app.auth.authz import llm_phrasing_allowed, teacher_visible_student_ids
+
+    _narrow(monkeypatch, tmp_path, profile_scopes)
+    student = uuid.UUID(world.student_share_id)  # consent granted every scope
+    teacher = db.scalars(select(UserRow).where(UserRow.role == "teacher")).one()
+    assert (student in teacher_visible_student_ids(db, teacher.id)) is teacher_sees
+    actor = Actor(role="student", student_id=student)
+    assert llm_phrasing_allowed(actor, active_scopes(db, student)) is llm_allowed
