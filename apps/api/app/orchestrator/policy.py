@@ -988,6 +988,9 @@ def _select_skill_or_item(learner: LearnerState, session: SessionState) -> Actio
     session.current_skill = skill
     if skill not in session.introduced_skills and skill not in _shown_skills(learner):
         session.phase = "predict"
+        session.lesson_prereq_levels[skill] = [
+            _ladder_level(learner, sid) for sid in session.prerequisites.get(skill, ())
+        ]
         return _keep(
             session,
             Action(

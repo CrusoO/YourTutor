@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 from sqlalchemy import func, select
@@ -167,6 +168,46 @@ def test_predict_and_worked_example_actions_carry_the_lesson(
     player.send("predict_response", response="4")
     assert player.action["type"] == "worked_example"
     assert player.action["lesson"]["id"] == "LESSON.TWO_STEP"
+
+
+def test_ready_student_gets_every_beat_in_the_authored_order(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, LESSON_SKILL)
+    ready = Player(client, world)
+    kinds = [beat["kind"] for beat in ready.action["lesson"]["beats"]]
+    assert kinds == ["predict", "explore", "explain_scene", "worked_example", "explore", "check"]
+    assert ready.action["lesson"]["order"] == "problem_first"
+
+
+def test_novice_gets_worked_example_first_and_keeps_it_after_the_prediction(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _seed(db, world, LESSON_SKILL)
+    # a prerequisite the student has not practised: R38 picks worked-example-first
+    skill = db.get(SkillRow, LESSON_SKILL)
+    assert skill is not None
+    skill.prerequisites = ["MATH.PREREQ.EARLIER"]
+    # known well enough that it is not taught first (p_known 0.9), but ladder level only 2
+    db.add(
+        MasteryRow(
+            student_id=uuid.UUID(world.student_share_id),
+            skill_id="MATH.PREREQ.EARLIER",
+            p_known=0.9,
+            attempts=3,
+            unhinted_correct=2,
+            hinted_correct=0,
+            last_updated=datetime.now(UTC),
+            ladder_level=2,
+        )
+    )
+    db.commit()
+    novice = Player(client, world)
+    beats = [beat["kind"] for beat in novice.action["lesson"]["beats"]]
+    assert beats == ["predict", "worked_example", "explore", "check"]
+    assert novice.action["lesson"]["order"] == "worked_example_first"
+    novice.send("predict_response", response="4")
+    assert [b["kind"] for b in novice.action["lesson"]["beats"]] == beats
 
 
 def test_a_skill_without_a_lesson_keeps_the_plain_flow(
