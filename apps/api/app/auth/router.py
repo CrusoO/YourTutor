@@ -228,6 +228,22 @@ class OnboardingIn(BaseModel):
     choice: Literal["warmup", "start_beginning", "not_now"]
 
 
+class AskIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    question: str = Field(max_length=2000)
+    session_id: uuid.UUID | None = None
+    skill_id: str | None = None
+    choice: str | None = None  # a passage id picked from a previous clarify reply
+
+
+@router.post("/students/me/ask")
+def ask(body: AskIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.ask_question(
+        db, actor, body.question, body.session_id, body.skill_id, body.choice
+    )
+
+
 @router.post("/students/me/onboarding")
 def onboarding(body: OnboardingIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.answer_onboarding(db, actor, body.choice)

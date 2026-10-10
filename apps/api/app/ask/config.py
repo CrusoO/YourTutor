@@ -65,3 +65,11 @@ def load_safety(language: str, root: Path | None = None) -> SafetyLists:
         solve_intent_phrases=tuple(row.get("solve_intent_phrases", ())),
         meaning_terms=tuple(row.get("meaning_terms", ())),
     )
+
+
+def message(key: str, language: str, root: Path | None = None) -> str:
+    """An authored Ask reply in the student's language, else the default language."""
+    data = yaml.safe_load(((root or config_dir()) / "ask.yaml").read_text(encoding="utf-8")) or {}
+    table = data.get("messages", {})
+    default = data.get("safety", {}).get("default_language", "en")
+    return str((table.get(language) or {}).get(key) or (table.get(default) or {}).get(key) or "")
