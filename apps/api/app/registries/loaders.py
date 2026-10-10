@@ -83,6 +83,8 @@ class BookSpec:
     grade: int
     default_chapter_id: str
     chapters: tuple[ChapterSpec, ...]
+    subject: str = "math"  # what the book teaches; the context picker lists it
+    medium: str | None = None  # language of instruction, when a curriculum has several
 
 
 @dataclass(frozen=True)
@@ -239,6 +241,8 @@ def load_curriculum(curriculum_id: str, root: Path | None = None) -> CurriculumS
                 grade=int(book["grade"]),
                 default_chapter_id=str(book["default_chapter_id"]),
                 chapters=chapters,
+                subject=str(book.get("subject") or "math"),
+                medium=str(book["medium"]) if book.get("medium") else None,
             )
         )
     legacy = data.get("legacy_board")

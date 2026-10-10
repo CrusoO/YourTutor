@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     otp_verify_limit_email: int = 5
     rate_window_seconds: int = 900
     pin_max_attempts: int = 5
+    guest_start_limit_ip: int = 20  # guest starts per IP per rate window
     pin_lockout_seconds: int = 900
     pin_hash_iterations: int = 80_000
     session_ttl_seconds: int = 86_400

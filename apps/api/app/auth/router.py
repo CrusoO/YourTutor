@@ -6,7 +6,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from app.auth import service
+from app.auth import guest, service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, client_ip
 
 router = APIRouter()
@@ -118,6 +118,16 @@ def verify_otp(
         db, email=body.email, code=body.code, ip=client_ip(request), actor=actor
     )
     return _token_body(token)
+
+
+@router.get("/context/options")
+def context_options_route(db: DbSession) -> dict[str, Any]:
+    return guest.context_options(db)
+
+
+@router.post("/guest/start")
+def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> dict[str, Any]:
+    return guest.start_guest(db, body, client_ip(request))
 
 
 @router.post("/students")
