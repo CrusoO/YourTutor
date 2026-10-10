@@ -35,6 +35,8 @@ class GradeBand:
     hard_minutes: int
     read_aloud_default: bool
     style: str = ""  # tone and sentence style, put in every LLM prompt
+    target_size: str = "normal"  # UI tap-target class: normal or large
+    choice: str = ""  # what the student may choose: two_options, skill_first, goal_setting, ...
 
 
 @dataclass(frozen=True)
@@ -166,6 +168,8 @@ def load_grade_bands(root: Path | None = None) -> tuple[GradeBand, ...]:
                 hard_minutes=int(row["hard_minutes"]),
                 read_aloud_default=bool(row["read_aloud_default"]),
                 style=str(row.get("style") or "").strip(),
+                target_size=str(row.get("target_size") or "normal"),
+                choice=str(row.get("choice") or ""),
             )
         )
     return tuple(bands)

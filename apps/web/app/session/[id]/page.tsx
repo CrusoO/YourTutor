@@ -6,6 +6,8 @@ import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
+import { applyBodyClasses, loadUi } from "@/lib/ui";
+import ReadAloud from "@/components/flow/ReadAloud";
 import SourceChips from "@/components/flow/SourceChips";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
@@ -23,6 +25,8 @@ export default function SessionPage() {
   const router = useRouter();
   const copy = t(locale());
   const [action, setAction] = useState<ActionPayload | null>(null);
+  const ui = typeof window === "undefined" ? undefined : loadUi();
+  useEffect(() => applyBodyClasses(loadUi()), []);
   const [answer, setAnswer] = useState("");
   const [step, setStep] = useState(1);
   const [hintReady, setHintReady] = useState(false);
@@ -376,6 +380,7 @@ export default function SessionPage() {
             </p>
           ) : null}
           <p className="stem">{item?.stem}</p>
+          <ReadAloud text={item?.stem || ""} lang={locale()} ui={ui} />
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 400 })} />
           ) : (

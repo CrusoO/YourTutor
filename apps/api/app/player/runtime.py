@@ -47,7 +47,7 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
-from app.registries.grade_bands import SessionLimits, session_limits
+from app.registries.grade_bands import SessionLimits, session_limits, ui_for_grade
 
 GOAL_MS = (
     SOFT_ACTIVE_MS  # default (grades 9-10); the student's band decides, see limits_for_student
@@ -1031,6 +1031,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     resume = open_row or idle_row
     return {
         "offer": current_offer(session, student),
+        "ui": ui_for_grade(student.grade),
         "student_id": str(student.id),
         "display_name": student.display_name,
         "goal_minutes": int(goal_ms / 60000),

@@ -113,6 +113,28 @@ def test_every_band_has_a_style_line_for_the_llm_prompts() -> None:
     assert len({band.style for band in bands}) == len(bands)
 
 
+def test_bands_set_the_ui_target_size_choice_style_and_read_aloud() -> None:
+    from app.registries.grade_bands import ui_for_band
+
+    ui = {b.id: ui_for_band(b) for b in load_grade_bands()}
+    assert ui["primary"] == {
+        "band_id": "primary", "read_aloud_default": True, "target_size": "large",
+        "choice": "two_options",
+    }  # fmt: skip
+    assert ui["middle"]["choice"] == "skill_first" and ui["middle"]["read_aloud_default"] is False
+    assert ui["lower_secondary"]["choice"] == "goal_setting"
+    assert ui["upper_secondary"]["choice"] == "plan_editing"
+    assert [ui[b]["target_size"] for b in ("middle", "lower_secondary", "upper_secondary")] == [
+        "normal"
+    ] * 3
+
+
+def test_the_today_payload_carries_the_band_ui_settings(client: TestClient, world: World) -> None:
+    today = client.get("/students/me/today", headers=auth_header(world.student_token)).json()
+    assert today["ui"]["band_id"] == "lower_secondary"  # the test student is in grade 9
+    assert today["ui"]["target_size"] == "normal" and today["ui"]["read_aloud_default"] is False
+
+
 def test_a_band_without_a_style_line_loads_with_an_empty_style(tmp_path: Path) -> None:
     (tmp_path / "grade_bands.yaml").write_text(
         "bands:\n  - {id: a, grades: [1], max_words: 20, soft_minutes: 5, soft_items: 5,"
