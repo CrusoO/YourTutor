@@ -342,3 +342,103 @@ def test_the_same_session_without_a_key_serves_the_authored_hint(
     action = _to_first_hint(client, world)
     assert action["type"] == "hint" and action["text"] == "Undo the operation."
     assert provider.calls == [] and not action["llm_called"]
+
+
+def _play(client: TestClient, world: World, *, max_events: int = 40) -> list[dict]:
+    """Play a plain session to its end, answering every item correctly."""
+    headers = auth_header(world.student_token)
+    started = client.post(
+        "/sessions",
+        json={"student_id": world.student_share_id, "type": "practice"},
+        headers=headers,
+    )
+    assert started.status_code == 200, started.text
+    sid, action = started.json()["id"], started.json()["action"]
+    seen = [action]
+    answers = {"LLM.P0": "6", "LLM.P1": "8", "LLM.P2": "7"}
+    for _ in range(max_events):
+        if action.get("ended_reason") or action["type"] in {"end_session", "done"}:
+            break
+        kind, item_id = "continue", None
+        payload: dict[str, Any] = {}
+        if action["type"] == "predict":
+            kind, payload = "predict_response", {"response": "4"}
+        elif action["type"] in {"show_item", "similar_item", "warmup_item"}:
+            item_id = action["item_id"]
+            kind, payload = "answer", {"response": answers[item_id], "latency_ms": 9000}
+        elif action["type"] == "explain_back_prompt":
+            kind, payload = "explain_back", {"text": "I undid the step on both sides."}
+        body: dict[str, Any] = {
+            "client_event_id": str(uuid.uuid4()),
+            "event_type": kind,
+            "payload": payload,
+        }
+        if item_id:
+            body["item_id"] = item_id
+        response = client.post(f"/sessions/{sid}/events", json=body, headers=headers)
+        assert response.status_code == 200, response.text
+        action = response.json()["action"]
+        seen.append(action)
+    return seen
+
+
+@pytest.mark.parametrize("key", ["", "test-key"])
+def test_sessions_complete_end_to_end_without_a_key_and_the_model_is_never_needed(
+    client: TestClient, world: World, db: Session, key: str
+) -> None:
+    settings.llm_api_key = key
+    _seed(db, world)
+    gateway, provider = _gateway()  # no scripted replies: any model call would fail and fall back
+    set_gateway(gateway)
+    seen = _play(client, world)
+    assert seen[-1].get("ended_reason") or seen[-1]["type"] in {"end_session", "done"}
+    texts = [a.get("text") or "" for a in seen]
+    assert all("llm" != a.get("source") for a in seen)  # every reply is authored
+    assert all("Think about" not in t for t in texts)
+    if not key:
+        assert provider.calls == []
+
+
+def test_explain_back_grading_never_changes_mastery_ladder_or_review_cards(
+    db: Session, world: World
+) -> None:
+    from datetime import UTC, datetime
+
+    student = uuid.UUID(world.student_share_id)
+    db.add(
+        MasteryRow(
+            student_id=student,
+            skill_id="MATH.S1",
+            p_known=0.6,
+            attempts=4,
+            unhinted_correct=2,
+            hinted_correct=1,
+            last_updated=datetime.now(UTC),
+            ladder_level=3,
+            ladder_evidence={"3": ["e1"]},
+            flags={"k": 1},
+            ladder_memory={"streak": 2},
+        )
+    )
+    state, item = _state()
+    _item_row(db, item.id)
+    db.commit()
+
+    def snapshot() -> tuple[Any, ...]:
+        db.expire_all()
+        row = db.get(MasteryRow, (student, "MATH.S1"))
+        assert row is not None
+        return (
+            row.p_known, row.attempts, row.unhinted_correct, row.hinted_correct, row.ladder_level,
+            row.ladder_evidence, row.flags, row.ladder_memory,
+            len(db.scalars(select(ReviewCardRow)).all()),
+        )  # fmt: skip
+
+    before = snapshot()
+    gateway, _ = _gateway("GRADE: good\nYou undid the step on both sides.")
+    set_gateway(gateway)
+    result = Action(type="explain_back_result", item_id=item.id, text="Model.", store_text=True)
+    out = _call(db, state, result, student_text="I undid the step on both sides.")
+    db.commit()
+    assert out.grade == "good"
+    assert snapshot() == before
