@@ -62,7 +62,9 @@ def _next_ids(out_dir: Path, skill_id: str, how_many: int) -> list[str]:
     return ids
 
 
-def _build(raw: dict[str, Any], item_id: str, skill_id: str) -> dict[str, Any]:
+def _build(
+    raw: dict[str, Any], item_id: str, skill_id: str, role: str | None, pool: str
+) -> dict[str, Any]:
     """The item dict, with everything the model must not decide forced to safe values."""
     answer = str(raw.get("answer", "")).strip()
     accept = [str(a) for a in raw.get("accept") or []] or [answer]
@@ -71,8 +73,8 @@ def _build(raw: dict[str, Any], item_id: str, skill_id: str) -> dict[str, Any]:
         "skill_ids": [skill_id],
         "difficulty": raw.get("difficulty", 0.4),
         "type": raw.get("type", "expression"),
-        "pool": "practice",
-        "role": raw.get("role", "procedure"),
+        "pool": pool,
+        "role": role or "procedure",
         "stem": _loc(raw.get("stem", "")),
         "answer": {"sympy": answer, "accept": accept},
         "solution_steps": [_loc(s) for s in raw.get("solution_steps") or []],
@@ -101,9 +103,23 @@ def _problem(item: Item) -> str | None:
     return None
 
 
-def _prompt(skill_id: str, passages: str, count: int) -> Prompt:
+def role_note(role: str | None) -> str:
+    if not role:
+        return ""
+    notes = yaml.safe_load((PROMPTS_DIR / "draft_content" / "roles.yaml").read_text("utf-8"))
+    return str(notes.get(role, ""))
+
+
+def _prompt(skill_id: str, passages: str, count: int, role: str | None = None) -> Prompt:
     template = (PROMPTS_DIR / "draft_content" / "v1.md").read_text(encoding="utf-8")
-    user = template.format_map({"skill_id": skill_id, "count": count, "passages": passages.strip()})
+    user = template.format_map(
+        {
+            "skill_id": skill_id,
+            "count": count,
+            "passages": passages.strip(),
+            "role_note": role_note(role),
+        }
+    )
     return Prompt(system="You help a teacher draft practice items.", user=user, version=VERSION,
                   max_words=0)  # fmt: skip
 
@@ -116,13 +132,15 @@ def draft_items(
     provider: Provider,
     out_dir: Path,
     model: str | None = None,
+    role: str | None = None,
+    pool: str = "practice",
 ) -> DraftReport:
     if settings.app_env.lower() == "production":
         raise DraftRefused("draft_content is an authoring tool and is disabled in production")
     report = DraftReport()
     try:
         reply = provider.complete(
-            _prompt(skill_id, passages, count), model or settings.llm_model_strong
+            _prompt(skill_id, passages, count, role), model or settings.llm_model_strong
         )
     except ProviderError as exc:
         report.rejected.append((0, f"provider error: {exc}"))
@@ -137,7 +155,7 @@ def draft_items(
     entries = [e for e in parsed if isinstance(e, dict)]
     ids = _next_ids(out_dir, skill_id, len(entries))
     for index, raw in enumerate(entries):
-        data = _build(raw, ids[index], skill_id)
+        data = _build(raw, ids[index], skill_id, role, pool)
         try:
             item = Item.model_validate(data)
         except ValidationError as exc:

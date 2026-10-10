@@ -1,0 +1,47 @@
+id: TPL.ONE.TRANSFER.REVERSED
+skill_id: MATH.ALG.LIN1.SOLVE_ONE_STEP
+role: transfer
+structure: 'Solve for x: N = x + N (the unknown on the right).'
+parameters:
+  b:
+    min: 2
+    max: 12
+  x:
+    min: 2
+    max: 18
+derived:
+  c: x + b
+constraints:
+  answer_min: 1
+  answer_max: 40
+  nonzero_answer: true
+  no_one_x: true
+  no_trivial: true
+stem: 'Solve for x: {c} = x + {b}'
+verify: '{c} = x + {b}'
+prediction: Is x bigger or smaller than {c}?
+steps:
+- 'The equation reads the same either way round: x + {b} = {c}.'
+- Subtract {b} from both sides.
+- x = {x}
+hints:
+  '1': An equation can be read from either side. Where is x?
+  '2': x has {b} added to it, even though it is written on the right.
+  '3': Subtract {b} from both sides, then read off x.
+misconceptions:
+- id: MC.ALG.SWAP_EQUALS
+  formula: c + b
+options: []
+answer_expr: x
+type: expression
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

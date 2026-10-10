@@ -1021,6 +1021,30 @@
       "$ref": "#/$defs/ContentStatus",
       "default": "draft"
     },
+    "reviewed_by": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewed By"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
     "beats": {
       "items": {
         "discriminator": {
