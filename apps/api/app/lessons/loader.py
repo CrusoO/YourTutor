@@ -3,7 +3,9 @@ files; database tables for lessons, scenes and widgets arrive with G3."""
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 import yaml
 from pydantic import ValidationError
@@ -120,3 +122,24 @@ def lesson_by_id(lesson_id: str, root: Path | None = None) -> Lesson | None:
 
 def all_lessons(root: Path | None = None) -> list[Lesson]:
     return sorted(_cached(root).values(), key=lambda lesson: lesson.id)
+
+
+def live_lesson_errors(lessons: dict[str, Lesson], overlays: Iterable[Any]) -> list[str]:
+    """A live overlay (chapter) needs an approved lesson for each of its skills."""
+    by_skill = {lesson.skill_id: lesson for lesson in lessons.values()}
+    errors: list[str] = []
+    for overlay in overlays:
+        if not overlay.live:
+            continue
+        lacking: list[str] = []
+        for skill_id in overlay.skill_ids:
+            lesson = by_skill.get(skill_id)
+            if lesson is None:
+                lacking.append(f"{skill_id} (none)")
+            elif lesson.status.value != "approved":
+                lacking.append(f"{skill_id} ({lesson.status.value})")
+        if lacking:
+            errors.append(
+                f"{overlay.id} is live but lacks an approved lesson: " + ", ".join(lacking)
+            )
+    return errors
