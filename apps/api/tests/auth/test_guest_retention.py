@@ -43,7 +43,7 @@ def test_a_guest_idle_past_the_window_is_deleted_with_everything_recorded(
 ) -> None:
     _guest(client, play=True)
     assert _count(db, SessionRow) == 1
-    later = now_utc() + timedelta(days=31)  # default_strict keeps guests 30 days
+    later = now_utc() + timedelta(days=91)  # default_strict keeps guests 90 days
     assert purge_guests(db, now=later) == 1
     db.expire_all()
     for table in (StudentRow, SessionRow, EventRow, MasteryRow, AuthSessionRow):
@@ -53,7 +53,7 @@ def test_a_guest_idle_past_the_window_is_deleted_with_everything_recorded(
 
 def test_a_guest_inside_the_window_is_kept(client: TestClient, db: Session) -> None:
     _guest(client, play=True)
-    assert purge_guests(db, now=now_utc() + timedelta(days=29)) == 0
+    assert purge_guests(db, now=now_utc() + timedelta(days=89)) == 0
     assert _count(db, StudentRow) == 1
 
 
@@ -62,8 +62,8 @@ def test_activity_restarts_the_clock(client: TestClient, db: Session) -> None:
     row = db.scalars(select(SessionRow)).one()
     row.last_active_at = now_utc() + timedelta(days=20)  # played on day 20
     db.commit()
-    assert purge_guests(db, now=now_utc() + timedelta(days=40)) == 0  # 20 idle days
-    assert purge_guests(db, now=now_utc() + timedelta(days=51)) == 1  # 31 idle days
+    assert purge_guests(db, now=now_utc() + timedelta(days=100)) == 0  # 80 idle days
+    assert purge_guests(db, now=now_utc() + timedelta(days=111)) == 1  # 91 idle days
     assert db.get(StudentRow, uuid.UUID(guest["student_id"])) is None
 
 

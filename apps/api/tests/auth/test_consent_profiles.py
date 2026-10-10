@@ -34,7 +34,7 @@ def test_the_default_profile_lists_every_scope_including_free_text() -> None:
         "free_text",
         "research_pseudonymised",
     }
-    assert profile.guest_retention_days == 30
+    assert profile.guest_retention_days == 90
 
 
 def test_a_profile_without_a_scope_list_allows_tutoring_only(tmp_path: Path) -> None:

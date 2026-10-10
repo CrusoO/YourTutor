@@ -20,7 +20,7 @@ from app.auth.authz import (
     student_or_404,
     teacher_visible_student_ids,
 )
-from app.auth.consent import active_consent, available_scopes, has_scope
+from app.auth.consent import active_consent, available_scopes, has_scope, is_guest
 from app.auth.scopes import CONSENT_SCOPES
 from app.auth.security import (
     as_utc,
@@ -646,7 +646,7 @@ def post_session_event(
     )
 
 
-def create_class(session: Session, actor: Actor, *, name: str, board: str) -> ClassRow:
+def create_class(session: Session, actor: Actor, *, name: str, curriculum_id: str) -> ClassRow:
     require(actor.is_teacher or actor.is_admin)
     teacher_id = actor.user_id
     if teacher_id is None:
@@ -655,7 +655,7 @@ def create_class(session: Session, actor: Actor, *, name: str, board: str) -> Cl
         id=uuid.uuid4(),
         teacher_id=teacher_id,
         name=name,
-        board=board,
+        curriculum_id=resolve_curriculum_id(curriculum_id),
         created_at=now_utc(),
     )
     session.add(row)
@@ -671,7 +671,45 @@ def add_class_member(
         raise HTTPException(status_code=404, detail="class not found")
     require(actor.is_admin or (actor.is_teacher and actor.user_id == klass.teacher_id))
     student_or_404(session, student_id)
+    if is_guest(session, student_id):
+        raise HTTPException(status_code=409, detail="a guest upgrades to a family first")
     session.merge(ClassMembershipRow(class_id=class_id, student_id=student_id))
+
+
+def set_user_site(session: Session, actor: Actor, user_id: uuid.UUID, site_id: str) -> None:
+    """Only an admin assigns a staff member's site."""
+    require(actor.is_admin)
+    user = session.get(UserRow, user_id)
+    if user is None or user.role not in {"teacher", "admin"}:
+        raise HTTPException(status_code=404, detail="staff member not found")
+    user.site_id = site_id
+
+
+def set_student_site(session: Session, actor: Actor, student_id: uuid.UUID, site_id: str) -> None:
+    """Staff put a student on a site; a teacher can only use their own site."""
+    require(actor.is_admin or actor.is_teacher)
+    if actor.is_teacher:
+        teacher = session.get(UserRow, actor.user_id) if actor.user_id else None
+        require(teacher is not None and teacher.site_id == site_id)
+    student = student_or_404(session, student_id)
+    if is_guest(session, student_id):
+        raise HTTPException(status_code=409, detail="a guest has no site")
+    student.site_id = site_id
+
+
+def add_site_members(session: Session, actor: Actor, class_id: uuid.UUID) -> int:
+    """Enrol every student on the class teacher's site (visibility still needs teacher_share)."""
+    klass = session.get(ClassRow, class_id)
+    if klass is None:
+        raise HTTPException(status_code=404, detail="class not found")
+    require(actor.is_admin or (actor.is_teacher and actor.user_id == klass.teacher_id))
+    teacher = session.get(UserRow, klass.teacher_id)
+    if teacher is None or not teacher.site_id:
+        raise HTTPException(status_code=409, detail="the teacher has no site")
+    ids = session.scalars(select(StudentRow.id).where(StudentRow.site_id == teacher.site_id)).all()
+    for student_id in ids:
+        session.merge(ClassMembershipRow(class_id=class_id, student_id=student_id))
+    return len(ids)
 
 
 def teacher_class_view(
