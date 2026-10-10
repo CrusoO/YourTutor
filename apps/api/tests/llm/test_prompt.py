@@ -42,7 +42,7 @@ def _ctx(purpose: Purpose, **over) -> PromptContext:
     return PromptContext(**base)
 
 
-@pytest.mark.parametrize("purpose", sorted(RUNTIME_PURPOSES, key=lambda p: p.value))
+@pytest.mark.parametrize("purpose", sorted(RUNTIME_PURPOSES))
 def test_every_runtime_prompt_has_all_the_required_ingredients(purpose: Purpose) -> None:
     prompt = build_prompt(_ctx(purpose))
     text = prompt.system + "\n" + prompt.user
