@@ -56,7 +56,7 @@ def _check_widget(lesson: Lesson, payload: dict[str, Any]) -> LessonVerdict:
 
 
 def _check_faded(lesson: Lesson, payload: dict[str, Any]) -> LessonVerdict:
-    """Formative: a wrong answer is recorded as incorrect, not rejected. Client flags are ignored."""
+    """Formative: a wrong answer is recorded as incorrect, not rejected. Client flags ignored."""
     faded = lesson.faded_examples()
     index, response = payload.get("faded"), payload.get("response")
     if not isinstance(index, int) or isinstance(index, bool) or not 0 <= index < len(faded):
