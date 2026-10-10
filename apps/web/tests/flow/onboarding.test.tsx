@@ -55,8 +55,8 @@ describe("StartPage", () => {
     vi.mocked(getContextOptions).mockResolvedValue({
       curricula: [
         {
-          id: "bhutan",
-          grades: [{ grade: 9, subjects: [{ id: "math", books: [{ id: "bhutan_class9", medium: null }] }] }],
+          id: "sample_board",
+          grades: [{ grade: 9, subjects: [{ id: "math", books: [{ id: "sample_class9", medium: null }] }] }],
         },
       ],
       languages: [{ code: "en", name: "English" }],
@@ -66,13 +66,13 @@ describe("StartPage", () => {
 
   it("walks curriculum, grade, subject and language, then starts a guest with the device time zone", async () => {
     render(<StartPage />);
-    await userEvent.selectOptions(await screen.findByLabelText("Curriculum"), "bhutan");
+    await userEvent.selectOptions(await screen.findByLabelText("Curriculum"), "sample_board");
     await userEvent.selectOptions(screen.getByLabelText("Grade"), "9");
     await userEvent.selectOptions(screen.getByLabelText("Subject"), "math");
     await userEvent.click(screen.getByRole("button", { name: "Start" }));
     await waitFor(() => expect(guestStart).toHaveBeenCalledTimes(1));
     const body = vi.mocked(guestStart).mock.calls[0][0];
-    expect(body).toMatchObject({ curriculum_id: "bhutan", grade: 9, subject: "math", home_language: "en" });
+    expect(body).toMatchObject({ curriculum_id: "sample_board", grade: 9, subject: "math", home_language: "en" });
     expect(typeof body.device_timezone).toBe("string");
     expect(Object.keys(body).sort()).toEqual(
       ["curriculum_id", "device_timezone", "grade", "home_language", "subject"],
