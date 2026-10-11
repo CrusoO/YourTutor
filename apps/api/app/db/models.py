@@ -222,6 +222,7 @@ class UserRow(Base):
     role: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String, unique=True)
     locale: Mapped[str] = mapped_column(String, ForeignKey("locales.code"), default="en")
+    site_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)  # staff only
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     students: Mapped[list[StudentRow]] = relationship(back_populates="parent")
@@ -250,6 +251,7 @@ class StudentRow(Base):
     )
     timezone: Mapped[str] = mapped_column(String)
     family_code: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    site_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)  # staff-set
     onboarding: Mapped[dict | None] = mapped_column(
         JSONType, nullable=True
     )  # warm-up offer answers
@@ -280,7 +282,7 @@ class ClassRow(Base):
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     teacher_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     name: Mapped[str] = mapped_column(String)
-    board: Mapped[str] = mapped_column(String)
+    curriculum_id: Mapped[str] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     teacher: Mapped[UserRow] = relationship(back_populates="classes")

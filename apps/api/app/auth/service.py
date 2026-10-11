@@ -20,7 +20,7 @@ from app.auth.authz import (
     student_or_404,
     teacher_visible_student_ids,
 )
-from app.auth.consent import active_consent, has_scope
+from app.auth.consent import active_consent, available_scopes, has_scope, is_guest
 from app.auth.scopes import CONSENT_SCOPES
 from app.auth.security import (
     as_utc,
@@ -53,9 +53,13 @@ from app.db.models import (
     ClassRow,
     ConsentRow,
     EventRow,
+    LlmCallRow,
+    MasteryRow,
+    MisconceptionHitRow,
     OtpChallengeRow,
     OverlayRow,
     RateEventRow,
+    ReviewCardRow,
     ReviewQueueRow,
     SessionRow,
     StudentRow,
@@ -63,6 +67,7 @@ from app.db.models import (
     TeacherAlertRow,
     UserRow,
 )
+from app.registries.startup import deployment_jurisdiction_profile
 from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 
 TOO_MANY = HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="rate limited")
@@ -265,6 +270,17 @@ def create_student(
     return student
 
 
+def check_scopes(session: Session, student_id: uuid.UUID, scopes: list[str]) -> None:
+    unknown = set(scopes) - CONSENT_SCOPES
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    unavailable = set(scopes) - available_scopes(session, student_id)
+    if unavailable:
+        raise HTTPException(
+            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
+        )
+
+
 def grant_consent(
     session: Session,
     actor: Actor,
@@ -276,9 +292,7 @@ def grant_consent(
 ) -> ConsentRow:
     student = student_or_404(session, student_id)
     require(can_manage_student(actor, student))
-    unknown = set(scopes) - CONSENT_SCOPES
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    check_scopes(session, student_id, scopes)
     existing = active_consent(session, student_id)
     if existing:
         existing.revoked_at = now_utc()
@@ -294,6 +308,12 @@ def grant_consent(
     session.add(row)
     session.flush()
     return row
+
+
+def consent_options(session: Session, actor: Actor, student_id: uuid.UUID) -> set[str]:
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))
+    return available_scopes(session, student_id)
 
 
 def revoke_consent(session: Session, actor: Actor, student_id: uuid.UUID) -> None:
@@ -425,23 +445,29 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
     }
 
 
+def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
+    """Delete these students and everything recorded about them."""
+    if not ids:
+        return
+    session_ids = session.scalars(select(SessionRow.id).where(SessionRow.student_id.in_(ids))).all()
+    if session_ids:
+        session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
+        session.execute(delete(LlmCallRow).where(LlmCallRow.session_id.in_(session_ids)))
+    session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
+    for table in (MasteryRow, ReviewCardRow, MisconceptionHitRow):
+        session.execute(delete(table).where(table.student_id.in_(ids)))
+    session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
+    session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
+    session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
+    session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
+    session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))
+    session.execute(delete(StudentRow).where(StudentRow.id.in_(ids)))
+
+
 def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
     require(can_export_family(actor, parent_id))
     students = session.scalars(select(StudentRow).where(StudentRow.parent_id == parent_id)).all()
-    ids = [s.id for s in students]
-    if ids:
-        session_ids = session.scalars(
-            select(SessionRow.id).where(SessionRow.student_id.in_(ids))
-        ).all()
-        if session_ids:
-            session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
-        session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
-        session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
-        session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
-        session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
-        session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
-        session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))
-        session.execute(delete(StudentRow).where(StudentRow.id.in_(ids)))
+    purge_students(session, [s.id for s in students])
     session.execute(delete(AuthSessionRow).where(AuthSessionRow.user_id == parent_id))
     session.execute(delete(ConsentRow).where(ConsentRow.parent_id == parent_id))
     user = session.get(UserRow, parent_id)
@@ -620,7 +646,7 @@ def post_session_event(
     )
 
 
-def create_class(session: Session, actor: Actor, *, name: str, board: str) -> ClassRow:
+def create_class(session: Session, actor: Actor, *, name: str, curriculum_id: str) -> ClassRow:
     require(actor.is_teacher or actor.is_admin)
     teacher_id = actor.user_id
     if teacher_id is None:
@@ -629,7 +655,7 @@ def create_class(session: Session, actor: Actor, *, name: str, board: str) -> Cl
         id=uuid.uuid4(),
         teacher_id=teacher_id,
         name=name,
-        board=board,
+        curriculum_id=resolve_curriculum_id(curriculum_id),
         created_at=now_utc(),
     )
     session.add(row)
@@ -645,7 +671,45 @@ def add_class_member(
         raise HTTPException(status_code=404, detail="class not found")
     require(actor.is_admin or (actor.is_teacher and actor.user_id == klass.teacher_id))
     student_or_404(session, student_id)
+    if is_guest(session, student_id):
+        raise HTTPException(status_code=409, detail="a guest upgrades to a family first")
     session.merge(ClassMembershipRow(class_id=class_id, student_id=student_id))
+
+
+def set_user_site(session: Session, actor: Actor, user_id: uuid.UUID, site_id: str) -> None:
+    """Only an admin assigns a staff member's site."""
+    require(actor.is_admin)
+    user = session.get(UserRow, user_id)
+    if user is None or user.role not in {"teacher", "admin"}:
+        raise HTTPException(status_code=404, detail="staff member not found")
+    user.site_id = site_id
+
+
+def set_student_site(session: Session, actor: Actor, student_id: uuid.UUID, site_id: str) -> None:
+    """Staff put a student on a site; a teacher can only use their own site."""
+    require(actor.is_admin or actor.is_teacher)
+    if actor.is_teacher:
+        teacher = session.get(UserRow, actor.user_id) if actor.user_id else None
+        require(teacher is not None and teacher.site_id == site_id)
+    student = student_or_404(session, student_id)
+    if is_guest(session, student_id):
+        raise HTTPException(status_code=409, detail="a guest has no site")
+    student.site_id = site_id
+
+
+def add_site_members(session: Session, actor: Actor, class_id: uuid.UUID) -> int:
+    """Enrol every student on the class teacher's site (visibility still needs teacher_share)."""
+    klass = session.get(ClassRow, class_id)
+    if klass is None:
+        raise HTTPException(status_code=404, detail="class not found")
+    require(actor.is_admin or (actor.is_teacher and actor.user_id == klass.teacher_id))
+    teacher = session.get(UserRow, klass.teacher_id)
+    if teacher is None or not teacher.site_id:
+        raise HTTPException(status_code=409, detail="the teacher has no site")
+    ids = session.scalars(select(StudentRow.id).where(StudentRow.site_id == teacher.site_id)).all()
+    for student_id in ids:
+        session.merge(ClassMembershipRow(class_id=class_id, student_id=student_id))
+    return len(ids)
 
 
 def teacher_class_view(
@@ -919,6 +983,11 @@ def enrol_pilot_family(
     unknown = set(scopes) - CONSENT_SCOPES
     if unknown:
         raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
+    unavailable = set(scopes) - set(deployment_jurisdiction_profile().consent_scopes)
+    if unavailable:
+        raise HTTPException(
+            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
+        )
     if "tutoring" not in scopes:
         scopes = ["tutoring", *scopes]
     code = (family_code or new_family_code()).strip().upper()

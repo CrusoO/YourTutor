@@ -4,7 +4,7 @@ import uuid
 from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.auth import guest, service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, client_ip
@@ -22,6 +22,8 @@ class VerifyOtpIn(BaseModel):
 
 
 class StudentIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")  # no school, surname, phone or address
+
     display_name: str
     grade: int
     board: str
@@ -61,7 +63,18 @@ class EventIn(BaseModel):
 
 class ClassIn(BaseModel):
     name: str
-    board: str
+    curriculum_id: str | None = None
+    board: str | None = None  # deprecated alias of curriculum_id
+
+    @model_validator(mode="after")
+    def _one_curriculum(self) -> ClassIn:
+        if not (self.curriculum_id or self.board):
+            raise ValueError("curriculum_id is required")
+        return self
+
+
+class SiteIn(BaseModel):
+    site_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,40}$")  # an opaque code, never a school name
 
 
 class MemberIn(BaseModel):
@@ -130,6 +143,13 @@ def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> di
     return guest.start_guest(db, body, client_ip(request))
 
 
+@router.post("/guest/{student_id}/upgrade")
+def guest_upgrade(
+    student_id: uuid.UUID, body: guest.UpgradeIn, db: DbSession, actor: ActorDep
+) -> dict[str, Any]:
+    return guest.upgrade_guest(db, actor, student_id, body)
+
+
 @router.post("/students")
 def create_student(body: StudentIn, db: DbSession, actor: ActorDep) -> dict[str, str]:
     student = service.create_student(
@@ -168,6 +188,11 @@ def grant_consent(
         db, actor, student_id, version=body.version, scopes=body.scopes, paper_ref=body.paper_ref
     )
     return {"id": str(row.id), "scopes": list(row.scopes), "paper_ref": row.paper_ref}
+
+
+@router.get("/students/{student_id}/consent/options")
+def consent_options(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return {"scopes": sorted(service.consent_options(db, actor, student_id))}
 
 
 @router.post("/students/{student_id}/consent/revoke")
@@ -309,8 +334,31 @@ def post_event(
 
 @router.post("/classes")
 def create_class(body: ClassIn, db: DbSession, actor: ActorDep) -> dict[str, str]:
-    row = service.create_class(db, actor, name=body.name, board=body.board)
-    return {"id": str(row.id)}
+    row = service.create_class(
+        db, actor, name=body.name, curriculum_id=str(body.curriculum_id or body.board)
+    )
+    return {"id": str(row.id), "curriculum_id": row.curriculum_id}
+
+
+@router.put("/users/{user_id}/site")
+def set_user_site(
+    user_id: uuid.UUID, body: SiteIn, db: DbSession, actor: ActorDep
+) -> dict[str, str]:
+    service.set_user_site(db, actor, user_id, body.site_id)
+    return {"id": str(user_id), "site_id": body.site_id}
+
+
+@router.put("/students/{student_id}/site")
+def set_student_site(
+    student_id: uuid.UUID, body: SiteIn, db: DbSession, actor: ActorDep
+) -> dict[str, str]:
+    service.set_student_site(db, actor, student_id, body.site_id)
+    return {"id": str(student_id), "site_id": body.site_id}
+
+
+@router.post("/classes/{class_id}/site-members")
+def add_site_members(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, int]:
+    return {"added": service.add_site_members(db, actor, class_id)}
 
 
 @router.post("/classes/{class_id}/members")
