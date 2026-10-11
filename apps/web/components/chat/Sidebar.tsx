@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/ui/icons";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { locale } from "@/lib/api";
+import { messageText } from "@/lib/chat/labels";
 import { useChatApi } from "./ChatProvider";
 
 type Item = { icon: IconName; label: string; onClick?: () => void; soon?: boolean; testid: string };
@@ -33,7 +35,8 @@ function NavItem({ item, onDone }: { item: Item; onDone?: () => void }) {
 
 /** The navigation for the current role. Everything opens in the workspace panel; the chat stays as home. */
 export function SidebarContent({ onDone }: { onDone?: () => void }) {
-  const { copy, role, identity, newChat, openWorkspace, startMode, dispatch, signOut } = useChatApi();
+  const { copy, role, identity, newChat, openWorkspace, startMode, dispatch, signOut, chat, ctx } = useChatApi();
+  const summaries = chat.messages.filter((m) => m.key === "summary").slice(-5).reverse();
 
   const items: Item[] = [{ icon: "chat", label: copy.chatNewChat, onClick: newChat, testid: "nav-new-chat" }];
   if (role === "student" || role === "guest") {
@@ -79,7 +82,15 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
           {role === "student" || role === "guest" ? (
             <section className="mt-5 px-3" aria-label={copy.chatRecent}>
               <h2 className="m-0 mb-2 text-xs font-semibold uppercase tracking-wide text-muted">{copy.chatRecent}</h2>
-              <p className="m-0 text-sm text-muted">{copy.chatNoRecent}</p>
+              {summaries.length ? (
+                <ul className="m-0 flex list-none flex-col gap-1 p-0 text-sm" data-testid="recent">
+                  {summaries.map((m) => (
+                    <li key={m.id} className="truncate text-ink">{messageText(copy, ctx, m, locale())}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="m-0 text-sm text-muted">{copy.chatNoRecent}</p>
+              )}
             </section>
           ) : null}
         </ScrollArea>

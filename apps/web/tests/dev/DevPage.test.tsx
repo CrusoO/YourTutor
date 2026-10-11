@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DevPage from "@/app/dev/page";
 import DevLessonsPage from "@/app/dev/lessons/page";
-import { listDevLessons, listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
+import { devStaffToken, listDevLessons, listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
 
 const push = vi.fn();
 const notFound = vi.fn(() => {
@@ -16,6 +16,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 vi.mock("@/lib/api", () => ({
+  devStaffToken: vi.fn(),
   listDevScenarios: vi.fn(),
   listDevLessons: vi.fn(),
   seedDevScenarios: vi.fn(),
@@ -80,18 +81,29 @@ describe("/dev", () => {
     expect(screen.getByText(/python -m app\.dev seed_scenarios/)).toBeInTheDocument();
   });
 
-  it("logs in as a scenario with one click and opens Today", async () => {
+  // UI-1: a scenario login lands on the role home ("/"), no longer on /subjects.
+  it("logs in as a scenario with one click and lands on the role home", async () => {
     render(<DevPage />);
-    await userEvent.click(await screen.findByRole("button", { name: /log in as new student/i }));
-    await waitFor(() => expect(push).toHaveBeenCalledWith("/subjects"));
+    await userEvent.click(await screen.findByTestId("login-new_student"));
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/"));
     expect(studentLogin).toHaveBeenCalledWith("DEVNEW", "1234");
     expect(setStudentId).toHaveBeenCalledWith("stu-1");
+  });
+
+  it("signs in as the preview teacher and as a scenario's parent, landing on the role home", async () => {
+    vi.mocked(devStaffToken).mockResolvedValue({ token: "t", email: "e", role: "teacher" });
+    render(<DevPage />);
+    await userEvent.click(await screen.findByTestId("login-teacher"));
+    await waitFor(() => expect(devStaffToken).toHaveBeenCalledWith("teacher", undefined));
+    await userEvent.click(await screen.findByTestId("parent-new_student"));
+    await waitFor(() => expect(devStaffToken).toHaveBeenCalledWith("parent", "new_student"));
+    expect(push).toHaveBeenCalledWith("/");
   });
 
   it("shows an error when the login fails", async () => {
     vi.mocked(studentLogin).mockRejectedValue(new Error("nope"));
     render(<DevPage />);
-    await userEvent.click(await screen.findByRole("button", { name: /log in as review due/i }));
+    await userEvent.click(await screen.findByTestId("login-review_due"));
     expect(await screen.findByText(/could not log in/i)).toBeInTheDocument();
     expect(push).not.toHaveBeenCalled();
   });

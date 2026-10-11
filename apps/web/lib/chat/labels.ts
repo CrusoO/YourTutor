@@ -1,4 +1,6 @@
 import type { Messages } from "@/lib/messages";
+import type { ChapterStatus } from "@/lib/api";
+import { statusLabel } from "@/lib/flow";
 import type { ContextLike, Msg, SetupStep } from "./machine";
 
 /** "sample_board" -> "Sample board": the fallback when the registry gives an option no display title. */
@@ -52,6 +54,16 @@ export function messageText(copy: Messages, ctx: ContextLike | null, msg: Msg, l
       return msg.data?.step && msg.data.value !== undefined
         ? optionLabel(copy, ctx, msg.data.step, msg.data.value, language)
         : "";
+    case "summary": {
+      const { skill, status, next } = msg.data ?? {};
+      const parts = [
+        skill
+          ? copy.chatSummaryDone.replace("{skill}", skill) + (status ? ` (${statusLabel(copy, status as ChapterStatus)})` : "")
+          : copy.chatSummaryGeneric,
+        next ? copy.chatSummaryNext.replace("{next}", next) : "",
+      ];
+      return parts.filter(Boolean).join(" ");
+    }
     default:
       return "";
   }

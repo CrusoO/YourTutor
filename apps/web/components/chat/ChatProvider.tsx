@@ -126,6 +126,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const topics = useRef<Topic[] | null>(null);
   const rules = useRef<FinderRules | null>(null);
   const replySeq = useRef(1);
+  const ctxRef = useRef<ContextLike | null>(null);
 
   const emptyCtx: ContextLike = useMemo(() => ({ curricula: [] }), []);
   const [chat, dispatchRaw] = useReducer(
@@ -133,6 +134,10 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     undefined,
     initialState,
   );
+
+  useEffect(() => {
+    ctxRef.current = ctx;
+  }, [ctx]);
 
   const dispatch = useCallback(
     (event: ChatEvent) => {
@@ -203,8 +208,12 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     window.addEventListener("popstate", fromUrl);
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return;
-      const data = event.data as { type?: string; path?: string } | null;
+      const data = event.data as { type?: string; path?: string; summary?: { skill?: string; status?: string; next?: string } } | null;
       if (data?.type === "yt:nav" && typeof data.path === "string" && data.path.startsWith("/")) followWorkspace(data.path);
+      if (data?.type === "yt:done") {
+        const { skill, status, next } = data.summary ?? {};
+        dispatchRaw({ event: { type: "summary", skill, status, next }, ctx: ctxRef.current ?? { curricula: [] } });
+      }
     };
     window.addEventListener("message", onMessage);
     return () => {

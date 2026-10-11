@@ -14,7 +14,7 @@ import { messageText } from "@/lib/chat/labels";
 import { ChatProvider, useChatApi } from "./ChatProvider";
 import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
-import { Replies, Thread } from "./Thread";
+import { LatestSummary, Replies, Thread } from "./Thread";
 import { SidebarContent } from "./Sidebar";
 import { WorkspacePanel } from "./WorkspacePanel";
 
@@ -42,6 +42,7 @@ function Hero() {
       <Composer />
       <div className="w-full max-w-3xl">
         <Replies />
+        <LatestSummary />
       </div>
       <HomeCards />
       {error ? (

@@ -52,14 +52,23 @@ export type MsgKey =
   | "identity_intro"
   | "signed_in"
   | "guest_started"
-  | "restart";
+  | "restart"
+  | "summary";
 
 export type Msg = {
   id: number;
   from: "tutor" | "user" | "system";
   key: MsgKey;
   /** Choices only (step and value), never typed text. */
-  data?: { step?: SetupStep; value?: string | number; name?: string };
+  data?: {
+    step?: SetupStep;
+    value?: string | number;
+    name?: string;
+    /** A finished workflow: skill title, its status word key and the next skill (titles and ids only). */
+    skill?: string;
+    status?: string;
+    next?: string;
+  };
 };
 
 export type ChatState = {
@@ -81,7 +90,8 @@ export type ChatEvent =
   | { type: "identity"; view: IdentityView }
   | { type: "signed_in"; role: Role; name?: string }
   | { type: "guest_started" }
-  | { type: "restart" };
+  | { type: "restart" }
+  | { type: "summary"; skill?: string; status?: string; next?: string };
 
 export const initialState = (): ChatState => ({
   phase: "welcome",
@@ -242,6 +252,11 @@ export function reduce(state: ChatState, event: ChatEvent, ctx: ContextLike): Ch
     }
     case "guest_started": {
       return push({ ...state, phase: "home", role: "guest", identity: "choices" }, { from: "system", key: "guest_started" });
+    }
+    case "summary": {
+      // A workflow ended in the panel: a short structured note for the chat. Choices and titles only.
+      const { skill, status, next } = event;
+      return push(state, { from: "tutor", key: "summary", data: { skill, status, next } });
     }
     case "restart": {
       return push({ ...initialState(), nextId: state.nextId, messages: [] }, { from: "system", key: "restart" });

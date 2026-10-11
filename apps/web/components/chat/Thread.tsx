@@ -112,3 +112,15 @@ export function Thread() {
     </ThreadPrimitive.Root>
   );
 }
+
+/** The most recent finished workflow, as a short note under the composer (a summary, never a transcript). */
+export function LatestSummary() {
+  const { chat, ctx, copy } = useChatApi();
+  const last = [...chat.messages].reverse().find((m) => m.key === "summary");
+  if (!last) return null;
+  return (
+    <div aria-live="polite" data-testid="summary">
+      <Bubble from="tutor" text={messageText(copy, ctx, last, locale())} />
+    </div>
+  );
+}
