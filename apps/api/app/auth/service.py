@@ -934,6 +934,23 @@ def student_today(session: Session, actor: Actor) -> dict[str, Any]:
     return today_payload(session, student)
 
 
+def ask_question(
+    session: Session,
+    actor: Actor,
+    question: str,
+    session_id: uuid.UUID | None,
+    skill_id: str | None,
+    choice: str | None,
+) -> dict[str, Any]:
+    from app.ask.flow import ask
+
+    require(actor.is_student and actor.student_id is not None)
+    student = student_or_404(session, actor.student_id)  # type: ignore[arg-type]
+    return ask(
+        session, student, question, session_id=session_id, skill_id=skill_id, choice=choice
+    ).as_dict()
+
+
 def answer_onboarding(session: Session, actor: Actor, choice: str) -> dict[str, Any]:
     """Record the student's answer to the first-run or warm-up re-offer."""
     from app.player.onboarding import InvalidChoice, apply_choice, next_session_type

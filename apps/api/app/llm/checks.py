@@ -91,6 +91,40 @@ def _grounded(ctx: PromptContext, text: str) -> str | None:
     return None
 
 
+PASSAGE_LINE = re.compile(r"^\[([^\[\]]+)\]\s*(.+)$", re.MULTILINE)
+SENTENCE_BREAK = re.compile(r"(?<=[.!?\]])\s+(?=[A-Z0-9\"'(])")
+
+
+def passage_texts(ctx: PromptContext) -> dict[str, str]:
+    """The `[id] text` lines of an Ask prompt's source material, by passage id."""
+    return {m.group(1).strip(): m.group(2).strip() for m in PASSAGE_LINE.finditer(ctx.source)}
+
+
+def _word_set(text: str) -> set[str]:
+    return {w.casefold() for w in re.findall(r"\w+", text, flags=re.UNICODE)}
+
+
+def _answer_doubt_errors(ctx: PromptContext, text: str) -> str | None:
+    """Layer D for Ask: every sentence cites a passage, and says nothing the cited passages
+    do not (numbers and meaning-carrying words are compared sentence by sentence)."""
+    from app.ask.config import load_safety  # lazy: the Ask package imports this module's peers
+
+    texts = passage_texts(ctx)
+    terms = set(load_safety(ctx.language).meaning_terms)
+    protected = re.sub(r"\[[^\[\]]*\]", lambda m: m.group(0).replace(".", "·"), text)
+    for sentence in SENTENCE_BREAK.split(protected):
+        ids = [c.replace("·", ".").strip() for c in CITATION.findall(sentence)]
+        if not ids:
+            return "grounding.sentence"
+        cited = " ".join(texts.get(i, "") for i in ids)
+        body = CITATION.sub("", sentence)
+        if set(NUMBER.findall(body)) - set(NUMBER.findall(cited)):
+            return "grounding.number"
+        if (_word_set(body) & terms) - _word_set(cited):
+            return "meaning.term"
+    return None
+
+
 def _in_script(text: str, language: str) -> bool:
     spec = load_locales_config()[1].get(language)
     prefix = SCRIPT_PREFIX.get(spec.script) if spec else None
@@ -115,10 +149,17 @@ def run_checks(ctx: PromptContext, raw: str, rules: LlmRules | None = None) -> C
         or hint_leaks_answer(_spelled_out(text), ctx.forbidden_answer)
     ):
         return _fail("leak")
+    if ctx.purpose is Purpose.answer_doubt and text.strip() == "NOT_IN_BOOK":
+        return _fail("abstain")
     grounding = _grounded(ctx, text)
     if grounding:
         return _fail(grounding)
-    if len(text.split()) > ctx.band.max_words:
+    if ctx.purpose is Purpose.answer_doubt:
+        meaning = _answer_doubt_errors(ctx, text)
+        if meaning:
+            return _fail(meaning)
+    spoken = CITATION.sub("", text) if ctx.purpose is Purpose.answer_doubt else text
+    if len(spoken.split()) > ctx.band.max_words:
         return _fail("length")
     lowered = text.lower()
     if any(word in lowered for word in BANNED_PRAISE_WORDS):

@@ -15,7 +15,8 @@ If these disagree with the code or each other, stop and report; don't guess.
 - One milestone at a time, only when told which one. Never start the next milestone.
 - Break the milestone into small ordered steps and show them before coding.
 - Tests first for each Accept item; commit after each step (message names step + milestone).
-- Keep the full suite green at every commit. If a test changes because v2 changes behaviour, change it in the same commit and say why.
+- **Targeted tests (from G7, until the final run):** per step and per milestone run only the tests that cover the changed code and what depends on it (grep usages), plus ruff, mypy and the region check. The full Postgres suite and the random-seed passes run once, at the very end, when the user asks. Record "targeted tests: N passed" in PLAN ticks and say the audit baseline's full counts are pending. If a test changes because v2 changes behaviour, change it in the same commit and say why.
+- Keep the suite green for what you ran. If a test changes because v2 changes behaviour, change it in the same commit and say why.
 - Policy, diagnosis, ladder and widget predicates are pure functions. Logic mirrored by the offline player gets a shared fixture in packages/shared/fixtures/.
 - Never weaken a guardrail in PLAN.md §5. If one blocks you, stop and ask.
 - New content is status: draft. Never machine-translate strings and mark them approved.
@@ -42,7 +43,7 @@ Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack r
 
 ## When a milestone is done
 
-1. Run all of the above (Playwright too if UI changed).
+1. Run the targeted tests and checks above (Playwright too if UI changed); the full runs wait for the final pass.
 2. Tick checkboxes in PLAN.md with "Met " and test counts; update V2_GAP_AUDIT.md baseline.
 3. Update ARCHITECTURE.md where details settled.
 4. Report: what changed, new Decisions, test counts before/after, deferred items, and the "How to see it" block. Then stop.

@@ -25,6 +25,7 @@ FIELDS = {
         "rubric": "Mentions undoing the + 4 on both sides.",
     },
     Purpose.encourage: {"trigger": "persisted_on_hard_item"},
+    Purpose.answer_doubt: {"student_text": "what is an inverse operation", "passage_ids": "P.1"},
 }
 
 
@@ -82,8 +83,10 @@ def test_a_missing_required_field_is_an_error() -> None:
         build_prompt(_ctx(Purpose.grade_explain_back, fields={"rubric": "x"}))
 
 
-def test_answer_doubt_is_stubbed_until_g7_and_draft_content_is_not_a_runtime_prompt() -> None:
-    with pytest.raises(PromptError, match="G7"):
+def test_answer_doubt_needs_a_question_and_passages_and_draft_content_is_not_a_runtime_prompt() -> (
+    None
+):
+    with pytest.raises(PromptError, match="student_text"):
         build_prompt(_ctx(Purpose.answer_doubt, fields={}))
     assert Purpose.draft_content not in RUNTIME_PURPOSES
     with pytest.raises(PromptError, match="authoring"):

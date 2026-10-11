@@ -189,6 +189,46 @@ class LessonRow(Base):
     beats: Mapped[list] = mapped_column(JSONType)
 
 
+class PassageRow(Base):
+    """Grounded source text for Ask. Only licensed text is ever loaded (ARCHITECTURE 12.2)."""
+
+    __tablename__ = "passages"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    curriculum_id: Mapped[str] = mapped_column(String, index=True)
+    book_id: Mapped[str] = mapped_column(String, index=True)
+    chapter_id: Mapped[str] = mapped_column(String, index=True)
+    section_id: Mapped[str] = mapped_column(String, index=True)
+    page: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    locale: Mapped[str] = mapped_column(String)
+    text: Mapped[str] = mapped_column(String)
+    skill_ids: Mapped[list] = mapped_column(JSONType, default=list)
+    embedding: Mapped[list] = mapped_column(JSONType, default=list)
+    source_type: Mapped[str] = mapped_column(String)
+    licence_status: Mapped[str] = mapped_column(String)
+    source_ref: Mapped[str | None] = mapped_column(String, nullable=True)
+    reviewer: Mapped[str | None] = mapped_column(String, nullable=True)
+    content_hash: Mapped[str] = mapped_column(String)
+    edition_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    status: Mapped[str] = mapped_column(String)
+
+
+class ContentGapRow(Base):
+    """A question Ask could not answer from approved passages. The text is kept only when the
+    student's guardian granted `free_text`; otherwise just a hash."""
+
+    __tablename__ = "content_gaps"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    context_key: Mapped[dict] = mapped_column(JSONType)
+    question_hash: Mapped[str] = mapped_column(String, index=True)
+    question_text: Mapped[str | None] = mapped_column(String, nullable=True)
+    skill_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    tier: Mapped[str | None] = mapped_column(String, nullable=True)
+    reason: Mapped[str] = mapped_column(String)
+
+
 class SceneRow(Base):
     __tablename__ = "scenes"
 

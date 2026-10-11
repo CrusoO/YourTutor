@@ -39,6 +39,8 @@ class Settings(BaseSettings):
     jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
     dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
     app_env: str = "development"  # env: APP_ENV; "production" blocks authoring tools
+    ask_enabled: bool = False  # env: ASK_ENABLED; Study Mode Ask is off until turned on
+    ask_guests_enabled: bool = False  # env: ASK_GUESTS_ENABLED; guests never get Ask by default
     llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)

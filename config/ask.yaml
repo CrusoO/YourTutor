@@ -1,0 +1,108 @@
+# Study Mode Ask settings (ARCHITECTURE section 12). Scores run from 0 to 1.
+search:
+  top_k: 4
+  keyword_weight: 0.6   # share of the score from shared words; the rest is embedding similarity
+  vector_weight: 0.4
+gate:
+  answer_min: 0.35      # top score at or above this answers
+  clarify_min: 0.25     # below this the question is out of scope
+  ambiguity_margin: 0.04  # a second skill this close to the top asks the student to choose
+  choices: 3
+limits:
+  max_question_chars: 300
+# Input safety and the current-item guard. Lists are per language; a language without a list uses
+# the default one (a known gap until the reviewer adds that language).
+safety:
+  default_language: en
+  languages:
+    en:
+      injection_patterns:
+        - ignore (all |any |the )?(previous|prior|above) (instructions|rules)
+        - disregard (all |any |the )?(previous|prior|above)
+        - forget (all |any |the |your )?(previous |prior )?(instructions|rules)
+        - (reveal|show|print|repeat) (me )?(your|the) (system )?(prompt|instructions|rules)
+        - you are now
+        - pretend (to be|you are|that)
+        - act as (a|an|if)
+        - developer mode
+        - jailbreak
+        - new instructions
+        - system prompt
+        - override (the |your )?(rules|instructions|safety)
+      item_reference_patterns:
+        - (this|the current|my)\s+(question|problem|equation|sum|exercise|item|one)
+        - what (is|does) x
+        - is it -?[0-9]
+        - i (got|think|said|guess)
+      distress_terms:
+        - want to die
+        - kill myself
+        - hurt myself
+        - hate my life
+        - nobody cares
+        - no one cares
+        - end it all
+      solve_intent_phrases:
+        - solve this
+        - solve it for me
+        - do this question
+        - do this one for me
+        - what is the answer
+        - what's the answer
+        - give me the answer
+        - tell me the answer
+        - just tell me
+        - answer for this
+        - find x for me
+        - what is x here
+        - what does x equal here
+        - the answer
+        - my answer
+        - is it right
+        - am i right
+      # Layer D meaning preservation: a word below that is in an answer sentence must also be in
+      # the passage the sentence cites, so signs, conditions and operations cannot be swapped.
+      meaning_terms:
+        - not
+        - no
+        - never
+        - cannot
+        - only
+        - every
+        - always
+        - all
+        - any
+        - none
+        - opposite
+        - same
+        - both
+        - positive
+        - negative
+        - add
+        - adding
+        - subtract
+        - subtracting
+        - multiply
+        - multiplying
+        - divide
+        - dividing
+        - plus
+        - minus
+        - equal
+        - equals
+        - greater
+        - less
+        - inverse
+        - first
+        - last
+        - before
+        - after
+# Authored replies (never model-written). A language without an entry uses the default language.
+messages:
+  en:
+    out_of_scope: "That is not in your book for this chapter. You could ask your teacher."
+    clarify: "Which of these do you mean?"
+    refused: "I can only answer questions about your maths book. Try asking about this chapter."
+    too_long: "Please ask in a shorter question."
+    route_to_help: "That is the question you are working on. Let us work it out together."
+    distress: "I am sorry you are feeling this way. Please talk to a grown-up you trust, like a parent or a teacher, right now."
