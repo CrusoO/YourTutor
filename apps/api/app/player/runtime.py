@@ -855,6 +855,10 @@ def sync_alerts(
         )
     ).all()
     have = {(row.skill_id, row.type) for row in open_rows}
+    if state.teacher_share:
+        from app.views.alerts import repeated_misconceptions
+
+        state.alerts.extend(repeated_misconceptions(session, student.id, now))
     for alert in state.alerts:
         key = (alert["skill_id"], alert["type"])
         if key not in have:

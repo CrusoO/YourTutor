@@ -228,9 +228,15 @@ def test_reseeding_replaces_the_scenarios_without_duplicates(
         )
         assert count == 7
         parents = db.scalar(
-            select(func.count()).select_from(UserRow).where(UserRow.email.like("scenario.%"))
+            select(func.count())
+            .select_from(UserRow)
+            .where(UserRow.email.like("scenario.%"), UserRow.role == "parent")
         )
         assert parents == 7
+        teachers = db.scalar(
+            select(func.count()).select_from(UserRow).where(UserRow.role == "teacher")
+        )
+        assert teachers == 1  # the preview teacher is created once, however often we reseed
         assert uuid.UUID(str(_student(db, "new_student").id))
 
 

@@ -45,6 +45,7 @@ class ScenarioSpec:
     first_name: str
     days_ago: int = 1  # where the replayed history starts, relative to now
     leave_open: bool = True  # keep the last (idle-ended) session resumable
+    share_with_teacher: bool = False  # the guardian shared with the preview teacher
 
 
 SCENARIOS: tuple[ScenarioSpec, ...] = (
@@ -61,6 +62,7 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "Four skills at level 4, the fifth started, the rest untouched.",
         "DEVMID",
         "Mina",
+        share_with_teacher=True,
     ),
     ScenarioSpec(
         "skill_at_level_4",
@@ -94,6 +96,7 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "DEVSLP",
         "Sana",
         leave_open=False,
+        share_with_teacher=True,
     ),
     ScenarioSpec(
         "wheel_spinning",
@@ -102,6 +105,7 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "open session. One more miss shows a quick check on the skill before it.",
         "DEVWHL",
         "Wen",
+        share_with_teacher=True,
     ),
 )
 
@@ -139,7 +143,44 @@ def seed_scenarios(
         for spec in wanted:
             report.append(_seed_one(db, spec, curriculum_id, chapter_id))
             db.commit()
+        _seed_teacher(db, curriculum_id)
+        db.commit()
     return report
+
+
+TEACHER_EMAIL = f"{EMAIL_PREFIX}teacher{EMAIL_DOMAIN}"
+
+
+def _seed_teacher(db: Session, curriculum_id: str) -> None:
+    """A preview teacher with one class holding every seeded scenario student. Only students whose
+    guardian shared (mid_chapter, wheel_spinning, slip_prone) show on the teacher's pages."""
+    from app.db.models import ClassMembershipRow, ClassRow
+
+    teacher = db.scalar(select(UserRow).where(UserRow.email == TEACHER_EMAIL))
+    if teacher is None:
+        teacher = UserRow(
+            id=uuid.uuid4(),
+            role="teacher",
+            email=TEACHER_EMAIL,
+            locale="en",
+            created_at=datetime.now(UTC),
+        )
+        db.add(teacher)
+        db.flush()
+    klass = db.scalar(select(ClassRow).where(ClassRow.teacher_id == teacher.id))
+    if klass is None:
+        klass = ClassRow(
+            id=uuid.uuid4(),
+            teacher_id=teacher.id,
+            name="Preview class",
+            curriculum_id=curriculum_id,
+            created_at=datetime.now(UTC),
+        )
+        db.add(klass)
+        db.flush()
+    codes = [s.family_code for s in SCENARIOS]
+    for student in db.scalars(select(StudentRow).where(StudentRow.family_code.in_(codes))):
+        db.merge(ClassMembershipRow(class_id=klass.id, student_id=student.id))
 
 
 def _pick_chapter(db: Session) -> tuple[str, str]:
@@ -181,7 +222,12 @@ def _seed_one(
         )
         student.pin_hash = hash_pin(PIN)
         service.grant_consent(
-            db, admin, student.id, version="preview-v1", scopes=["tutoring"], paper_ref=None
+            db,
+            admin,
+            student.id,
+            version="preview-v1",
+            scopes=["tutoring", "teacher_share"] if spec.share_with_teacher else ["tutoring"],
+            paper_ref=None,
         )
         db.commit()
     stop = _stop_for(spec.name)

@@ -712,9 +712,22 @@ def add_site_members(session: Session, actor: Actor, class_id: uuid.UUID) -> int
     return len(ids)
 
 
-def teacher_class_view(
-    session: Session, actor: Actor, class_id: uuid.UUID, kind: str
-) -> dict[str, Any]:
+def list_classes(session: Session, actor: Actor) -> dict[str, Any]:
+    require(can_teacher_query(actor))
+    query = select(ClassRow).order_by(ClassRow.name, ClassRow.id)
+    if actor.is_teacher:
+        query = query.where(ClassRow.teacher_id == actor.user_id)
+    return {
+        "classes": [
+            {"id": str(c.id), "name": c.name, "curriculum_id": c.curriculum_id}
+            for c in session.scalars(query).all()
+        ]
+    }
+
+
+def _class_visible(session: Session, actor: Actor, class_id: uuid.UUID) -> set[uuid.UUID]:
+    """The class members this staff member may see: all for an admin, only those whose guardian
+    shared with the teacher otherwise."""
     require(can_teacher_query(actor))
     klass = session.get(ClassRow, class_id)
     if klass is None:
@@ -728,27 +741,66 @@ def teacher_class_view(
         ).all()
     ]
     if actor.is_admin:
-        visible = set(member_ids)
-    else:
-        visible = {sid for sid in member_ids if has_scope(session, sid, "teacher_share")}
-    members = session.scalars(select(StudentRow).where(StudentRow.id.in_(visible))).all()
-    return {
-        "kind": kind,
-        "class_id": str(class_id),
-        "students": [{"id": str(s.id), "display_name": s.display_name} for s in members],
-    }
+        return set(member_ids)
+    return {sid for sid in member_ids if has_scope(session, sid, "teacher_share")}
+
+
+def teacher_class_view(
+    session: Session, actor: Actor, class_id: uuid.UUID, kind: str
+) -> dict[str, Any]:
+    from app.views import teacher as views
+
+    visible = _class_visible(session, actor, class_id)
+    if kind == "heatmap":
+        return views.heatmap(session, class_id, visible)
+    if kind == "stuck":
+        return views.stuck_now(session, class_id, visible, now_utc())
+    if kind == "alerts":
+        return views.alerts(session, class_id, visible)
+    raise HTTPException(status_code=404, detail="unknown view")
+
+
+def guardian_view(
+    session: Session, actor: Actor, student_id: uuid.UUID, lang: str | None
+) -> dict[str, Any]:
+    from app.views.guardian import guardian_view as build
+
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))  # the guardian (or an admin), not a teacher
+    if lang is not None:
+        lang = ensure_locale(session, lang)
+    return build(session, student, now_utc(), lang)
+
+
+def set_student_language(
+    session: Session, actor: Actor, student_id: uuid.UUID, language: str
+) -> dict[str, str]:
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))
+    student.home_language = ensure_locale(session, language)
+    return {"id": str(student.id), "home_language": student.home_language}
+
+
+def _review_scope(session: Session, actor: Actor) -> set[uuid.UUID] | None:
+    require(can_teacher_query(actor))
+    if actor.is_teacher and actor.user_id:
+        return set(teacher_visible_student_ids(session, actor.user_id))
+    return None  # an admin sees every student
 
 
 def review_queue(session: Session, actor: Actor) -> dict[str, Any]:
-    require(can_teacher_query(actor))
-    if actor.is_teacher and actor.user_id:
-        visible = teacher_visible_student_ids(session, actor.user_id)
-        items = session.scalars(
-            select(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(visible))
-        ).all()
-    else:
-        items = session.scalars(select(ReviewQueueRow)).all()
-    return {"items": [{"id": str(i.id), "student_id": str(i.student_id)} for i in items]}
+    from app.views.teacher import review_items
+
+    return {"items": review_items(session, _review_scope(session, actor))}
+
+
+def decide_review_item(
+    session: Session, actor: Actor, call_id: uuid.UUID, decision: str
+) -> dict[str, str]:
+    from app.views.teacher import decide_review
+
+    decide_review(session, call_id, decision, _review_scope(session, actor))
+    return {"id": str(call_id), "review_status": decision}
 
 
 def analytics_export(session: Session, actor: Actor) -> dict[str, Any]:

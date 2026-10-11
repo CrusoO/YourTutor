@@ -53,6 +53,7 @@ class JurisdictionProfile:
     notation_profile: str
     consent_scopes: tuple[str, ...] = ("tutoring",)  # scopes a guardian may grant here
     guest_retention_days: int = 30  # a guest with no activity this long is deleted
+    report_channels: tuple[str, ...] = ("email",)  # where the weekly guardian report may go
 
 
 @dataclass(frozen=True)
@@ -191,6 +192,7 @@ def load_jurisdiction_profile(profile_id: str, root: Path | None = None) -> Juri
         raise RegistryLoadError(
             f"consent_scopes in {path}: must include tutoring; unknown: {sorted(unknown)}"
         )
+    channels = tuple(str(x) for x in (data.get("report_channels") or ["email"]))
     retention = int(data.get("guest_retention_days") or 30)
     if retention < 1:
         raise RegistryLoadError(f"guest_retention_days in {path} must be at least 1")
@@ -200,6 +202,7 @@ def load_jurisdiction_profile(profile_id: str, root: Path | None = None) -> Juri
         notation_profile=str(data.get("notation_profile") or "default_ascii"),
         consent_scopes=scopes,
         guest_retention_days=retention,
+        report_channels=channels,
     )
 
 

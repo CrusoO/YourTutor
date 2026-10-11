@@ -12,6 +12,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    UniqueConstraint,
     Uuid,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -560,6 +561,22 @@ class LlmCallRow(Base):
     sampled: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     output_text: Mapped[str | None] = mapped_column(String, nullable=True)
     review_status: Mapped[str | None] = mapped_column(String, nullable=True)  # pending | ok | bad
+
+
+class ReportLogRow(Base):
+    """One weekly guardian report that was sent, so a rerun of the job never sends it twice."""
+
+    __tablename__ = "report_log"
+    __table_args__ = (UniqueConstraint("student_id", "week_key", "channel"),)
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    parent_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    week_key: Mapped[str] = mapped_column(String)  # ISO year and week, e.g. 2026-W41
+    channel: Mapped[str] = mapped_column(String)
+    sent_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class ReviewQueueRow(Base):

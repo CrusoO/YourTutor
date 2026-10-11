@@ -120,6 +120,16 @@ def request_otp(
     return {"status": "sent"}
 
 
+@router.get("/auth/me")
+def whoami(actor: ActorDep) -> dict[str, str | None]:
+    """Who the token belongs to, so a page can send each role to its own screen."""
+    return {
+        "role": actor.role,
+        "email": actor.email,
+        "user_id": str(actor.user_id) if actor.user_id else None,
+    }
+
+
 @router.post("/auth/verify-otp")
 def verify_otp(
     body: VerifyOtpIn,
@@ -390,9 +400,52 @@ def heatmap(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
     return service.teacher_class_view(db, actor, class_id, "heatmap")
 
 
+@router.get("/teacher/classes")
+def my_classes(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.list_classes(db, actor)
+
+
+@router.get("/teacher/classes/{class_id}/alerts")
+def class_alerts(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.teacher_class_view(db, actor, class_id, "alerts")
+
+
 @router.get("/teacher/classes/{class_id}/stuck")
 def stuck(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.teacher_class_view(db, actor, class_id, "stuck")
+
+
+class ReviewDecisionIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    decision: str
+
+
+@router.post("/teacher/review-queue/{call_id}")
+def decide_review(
+    call_id: uuid.UUID, body: ReviewDecisionIn, db: DbSession, actor: ActorDep
+) -> dict[str, str]:
+    return service.decide_review_item(db, actor, call_id, body.decision)
+
+
+class LanguageIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    home_language: str = Field(min_length=2, max_length=12)
+
+
+@router.get("/students/{student_id}/guardian-view")
+def guardian_view(
+    student_id: uuid.UUID, db: DbSession, actor: ActorDep, lang: str | None = None
+) -> dict[str, Any]:
+    return service.guardian_view(db, actor, student_id, lang)
+
+
+@router.put("/students/{student_id}/language")
+def set_language(
+    student_id: uuid.UUID, body: LanguageIn, db: DbSession, actor: ActorDep
+) -> dict[str, str]:
+    return service.set_student_language(db, actor, student_id, body.home_language)
 
 
 @router.get("/teacher/review-queue")

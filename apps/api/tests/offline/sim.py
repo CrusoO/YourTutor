@@ -40,7 +40,7 @@ def seed_content(db: Session, chapter_id: str = "bhutan_class9") -> None:
                 status="approved",
             )
         )
-    roles = ["procedure"] * 6 + ["recall", "explain", "apply", "transfer"]
+    roles = ["procedure"] * 16 + ["recall", "explain", "apply", "transfer"]
     for skill in ("OFF.S1", "OFF.S2"):
         for index, role in enumerate(roles):
             answer = 4 + index
@@ -55,7 +55,9 @@ def seed_content(db: Session, chapter_id: str = "bhutan_class9") -> None:
                     id=f"{skill}.{index:02d}",
                     skill_ids=[skill],
                     primary_skill=skill,
-                    difficulty=[0.2, 0.3, 0.5, 0.55, 0.9, 0.3, 0.4, 0.5, 0.5, 0.9][index],
+                    difficulty=[0.2, 0.3, 0.5, 0.55, 0.9][index % 5]
+                    if role == "procedure"
+                    else 0.5,
                     type="expression",
                     pool="practice",
                     role=role,
@@ -68,7 +70,7 @@ def seed_content(db: Session, chapter_id: str = "bhutan_class9") -> None:
                         {"level": 3, "en": f"Hint three for {skill} {index}. Then read x."},
                     ],
                     prediction_prompt={"en": f"What is the first step for {skill}?"},
-                    misconception_rules=[],
+                    misconception_rules=[{"id": "MC.OFF.1", "when_answer_equals": ["77"]}],
                     status="approved",
                     content_hash="x",
                 )
@@ -100,14 +102,23 @@ def _event(kind: str, at: datetime, **payload: Any) -> dict[str, Any]:
     return {"event_type": kind, "at": at.isoformat(), "payload": payload}
 
 
-def play(db: Session, student: StudentRow, steps: int = 40, wrong_every: int = 4) -> dict[str, Any]:
+def play(
+    db: Session,
+    student: StudentRow,
+    steps: int = 40,
+    wrong_every: int = 4,
+    *,
+    t0: datetime = T0,
+    wrong_response: str = "999",
+    help_at: int | None = 5,
+) -> dict[str, Any]:
     """Run the policy as the browser would; returns the events sent and the state reached."""
     row = SessionRow(
         id=uuid.uuid4(),
         student_id=student.id,
-        started_at=T0,
+        started_at=t0,
         type="practice",
-        last_active_at=T0,
+        last_active_at=t0,
         plan={},
         active_ms=0,
     )
@@ -115,11 +126,11 @@ def play(db: Session, student: StudentRow, steps: int = 40, wrong_every: int = 4
     skills = _overlay_skills(db, student)
     state.catalog = pack_catalog(db, skills)
     answers = {item.id: item.answer_sympy for item in state.catalog}
-    state.now = T0
-    state.last_active_at = T0
+    state.now = t0
+    state.last_active_at = t0
     action: Action = policy(learner, state, None)
     events: list[dict[str, Any]] = []
-    clock, answered = T0, 0
+    clock, answered = t0, 0
     for index in range(steps):
         clock = clock + timedelta(seconds=10)
         kind: str
@@ -131,7 +142,10 @@ def play(db: Session, student: StudentRow, steps: int = 40, wrong_every: int = 4
             answered += 1
             wrong = answered % wrong_every == 0
             item = action.item_id or ""
-            payload = {"response": "999" if wrong else answers.get(item, "0"), "latency_ms": 8000}
+            payload = {
+                "response": wrong_response if wrong else answers.get(item, "0"),
+                "latency_ms": 8000,
+            }
             kind = "answer"
         elif action.type == "predict":
             kind, payload = "predict_response", {"response": "subtract"}
@@ -147,7 +161,7 @@ def play(db: Session, student: StudentRow, steps: int = 40, wrong_every: int = 4
             kind, payload = "break_choice", {"choice": "continue"}
         else:
             break
-        if index == 5:
+        if help_at is not None and index == help_at:
             kind, payload = "request_help", {}
         state.now = clock
         action = policy(
@@ -159,23 +173,23 @@ def play(db: Session, student: StudentRow, steps: int = 40, wrong_every: int = 4
                 latency_ms=payload.get("latency_ms"),
                 item_id=item_id,
                 text=payload.get("text"),
-                event_id=str(uuid.uuid5(NS, f"e{index}")),
+                event_id=str(uuid.uuid5(NS, f"{t0.isoformat()}:e{index}")),
             )
             if kind not in {"stuck_step"}
             else Event(
                 type=kind,
                 response=str(payload["index"]),
                 item_id=item_id,
-                event_id=str(uuid.uuid5(NS, f"e{index}")),
+                event_id=str(uuid.uuid5(NS, f"{t0.isoformat()}:e{index}")),
             ),  # fmt: skip
         )
         record = _event(kind, clock, **payload)
-        record["client_event_id"] = str(uuid.uuid5(NS, f"e{index}"))
+        record["client_event_id"] = str(uuid.uuid5(NS, f"{t0.isoformat()}:e{index}"))
         record["item_id"] = item_id
         record["client_action"] = {"type": action.type, "item_id": action.item_id}
         events.append(record)
     return {
-        "started_at": T0.isoformat(),
+        "started_at": t0.isoformat(),
         "events": events,
         "learner": learner_json(learner),
         "last_action": action.type,

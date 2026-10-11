@@ -299,3 +299,63 @@ export async function getPack() {
 export async function postSync(body: unknown) {
   return req("/sync/events", { method: "POST", body: JSON.stringify(body) });
 }
+
+// ---- guardians and teachers (their own sign-in; the student token is left alone) -------------
+
+const STAFF_KEY = "yt_staff_token";
+
+export function staffToken(): string {
+  return store()?.getItem(STAFF_KEY) || "";
+}
+
+export function setStaffToken(value: string) {
+  if (value) store()?.setItem(STAFF_KEY, value);
+  else store()?.removeItem(STAFF_KEY);
+}
+
+async function staffReq(path: string, init: RequestInit = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("Content-Type", "application/json");
+  const auth = staffToken();
+  if (auth) headers.set("Authorization", `Bearer ${auth}`);
+  const response = await fetch(`${API}${path}`, { ...init, headers });
+  if (!response.ok) throw new Error((await response.text()) || response.statusText);
+  return response.json();
+}
+
+export async function requestStaffCode(email: string) {
+  return staffReq("/auth/request-otp", { method: "POST", body: JSON.stringify({ email }) });
+}
+
+export async function verifyStaffCode(email: string, code: string) {
+  const out = await staffReq("/auth/verify-otp", {
+    method: "POST",
+    body: JSON.stringify({ email, code }),
+  });
+  setStaffToken(out.access_token);
+  return out;
+}
+
+export const whoAmI = () => staffReq("/auth/me");
+export const familyExport = () => staffReq("/parents/me/export");
+export const deleteFamily = () => staffReq("/parents/me", { method: "DELETE" });
+export const guardianView = (studentId: string, lang?: string) =>
+  staffReq(`/students/${studentId}/guardian-view${lang ? `?lang=${encodeURIComponent(lang)}` : ""}`);
+export const setChildLanguage = (studentId: string, home_language: string) =>
+  staffReq(`/students/${studentId}/language`, { method: "PUT", body: JSON.stringify({ home_language }) });
+export const teacherClasses = () => staffReq("/teacher/classes");
+export const classView = (classId: string, kind: "heatmap" | "stuck" | "alerts") =>
+  staffReq(`/teacher/classes/${classId}/${kind}`);
+export const reviewQueue = () => staffReq("/teacher/review-queue");
+export const decideReview = (id: string, decision: "ok" | "bad") =>
+  staffReq(`/teacher/review-queue/${id}`, { method: "POST", body: JSON.stringify({ decision }) });
+
+/** Dev only: a token for a preview guardian or teacher (404 unless DEV_TOOLS is on). */
+export async function devStaffToken(role: "parent" | "teacher", scenario?: string) {
+  const out = await staffReq("/dev/staff-token", {
+    method: "POST",
+    body: JSON.stringify({ role, scenario }),
+  });
+  setStaffToken(out.token);
+  return out as { token: string; email: string; role: string };
+}
