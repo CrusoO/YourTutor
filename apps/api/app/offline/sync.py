@@ -193,7 +193,17 @@ def sync_offline_session(db: Session, actor: Actor, body: SyncIn) -> dict[str, A
         action = policy(learner, state, _event_for(incoming))
         if action.rejected:
             flags.append(str(action.guardrail_flag))
-        _store(db, row, incoming, when, action, state.last_correct, flags=flags, applied=True)
+        _store(
+            db,
+            row,
+            incoming,
+            when,
+            action,
+            state.last_correct,
+            flags=flags,
+            applied=True,
+            diagnosis=state.last_diagnosis,
+        )
         diverged = None
         if incoming.client_action is not None:
             diverged = (incoming.client_action.type, incoming.client_action.item_id) != (
@@ -212,6 +222,7 @@ def sync_offline_session(db: Session, actor: Actor, body: SyncIn) -> dict[str, A
                 "diverged": diverged,
             }
         )
+    db.flush()  # the alert checks read the events just added
     persist_learner(db, student.id, learner)
     sync_alerts(db, student, state, learner)
     _persist_state(row, state)
@@ -243,10 +254,13 @@ def _store(
     *,
     flags: list[str],
     applied: bool,
+    diagnosis: dict[str, Any] | None = None,
 ) -> None:
     payload = {**incoming.payload, "offline": True, "applied": applied}
     if flags:
         payload["flags"] = flags
+    if diagnosis:
+        payload["diagnosis"] = diagnosis  # the same record the online path keeps
     if "correct" in payload:
         payload["client_correct"] = payload.pop("correct")  # kept for audit, never trusted
     db.add(

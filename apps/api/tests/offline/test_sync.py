@@ -59,7 +59,7 @@ def test_the_pack_holds_the_chapters_offline_items_and_the_students_state(
     res = client.get("/students/me/pack", headers=auth_header(world.student_token))
     assert res.status_code == 200, res.text
     pack = res.json()
-    assert pack["overlay"] == ["OFF.S1", "OFF.S2"] and len(pack["catalog"]) == 20
+    assert pack["overlay"] == ["OFF.S1", "OFF.S2"] and len(pack["catalog"]) == 40
     assert {i["pool"] for i in pack["catalog"]} == {"practice"}
     assert pack["prerequisites"]["OFF.S2"] == ["OFF.S1"]
     assert pack["learner"] == {"mastery": {}, "ladders": {}, "cards": {}}
@@ -81,7 +81,7 @@ def test_symbolic_and_unmarkable_items_stay_out_of_the_pack(
     db.commit()
     pack = client.get("/students/me/pack", headers=auth_header(world.student_token)).json()
     assert "OFF.S1.00" not in {i["id"] for i in pack["catalog"]}
-    assert len(pack["catalog"]) == 19
+    assert len(pack["catalog"]) == 39
 
 
 def test_the_pack_hash_changes_when_an_item_changes(
