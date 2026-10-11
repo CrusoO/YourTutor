@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
+import warnings
 from dataclasses import dataclass
 
 import sympy
@@ -57,6 +58,10 @@ def _safe_parse(expr: str) -> sympy.Expr:
         raise ParseError("expression rejected")
     if not _ALLOWED.match(expr):
         raise ParseError("expression failed allowlist")
+    # Maths text has single-letter variables only: no words (if, else, abs, ...) and no `.name`
+    # attribute access. A decimal point between digits is still fine.
+    if re.search(r"[A-Za-z]{2,}|\.\s*[A-Za-z]|[A-Za-z0-9)]\s*\.\s*\(", expr):
+        raise ParseError("expression failed allowlist")
     body = expr
     if "=" in expr:
         left, right = expr.split("=", 1)
@@ -71,24 +76,32 @@ def _safe_parse(expr: str) -> sympy.Expr:
     # Implicit multiplication on allowlisted text only (2x → 2*x, 2(x-1) → 2*(x-1)).
     body = re.sub(r"(\d)([A-Za-z(])", r"\1*\2", body)
     body = re.sub(r"([A-Za-z)])(\()", r"\1*\2", body)
-    allowed_names = {
+    # Only sympy's number and operator constructors plus the single letters in the text exist for
+    # the evaluation. `__builtins__` is emptied, so no Python built-in (abs, open, eval, ...) can be
+    # looked up by name, whatever the allowlist let through.
+    allowed_names: dict[str, object] = {
         "Integer": sympy.Integer,
         "Float": sympy.Float,
         "Rational": sympy.Rational,
-        "Symbol": sympy.Symbol,
         "Add": sympy.Add,
         "Mul": sympy.Mul,
         "Pow": sympy.Pow,
     }
-    letters = {ch: sympy.Symbol(ch) for ch in re.findall(r"[A-Za-z]", body)}
+    letters: dict[str, object] = {ch: sympy.Symbol(ch) for ch in re.findall(r"[A-Za-z]", body)}
     try:
-        parsed = parse_expr(
-            body,
-            evaluate=True,
-            local_dict=letters,
-            global_dict=allowed_names,
-            transformations=(),
-        )
+        # parse_expr compiles `body` as a string, so odd student text such as "2(3)" or "x is 1.5"
+        # makes Python emit SyntaxWarning from `<string>`. They are noise for a text we already
+        # reject or evaluate safely, so they are silenced here only (catch_warnings is
+        # process-wide, which is fine: the block holds no other work).
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", SyntaxWarning)
+            parsed = parse_expr(
+                body,
+                evaluate=True,
+                local_dict={**allowed_names, **letters},
+                global_dict={"__builtins__": {}},
+                transformations=(),
+            )
     except Exception as exc:  # noqa: BLE001 — convert parser failures
         raise ParseError(f"could not parse expression: {exc}") from exc
     return _to_expr(parsed)

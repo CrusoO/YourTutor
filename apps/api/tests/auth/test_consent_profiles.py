@@ -34,6 +34,7 @@ def test_the_default_profile_lists_every_scope_including_free_text() -> None:
         "teacher_share",
         "ai_processing",
         "free_text",
+        "uploads",
         "research_pseudonymised",
     }
     assert profile.guest_retention_days == 90

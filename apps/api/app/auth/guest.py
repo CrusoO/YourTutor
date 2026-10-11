@@ -145,7 +145,9 @@ def upgrade_guest(
     The student row stays; only its owner changes, so sessions, events, mastery and review cards
     carry over untouched. The hidden guest owner is then deleted.
     """
-    from app.auth.service import check_scopes, grant_consent, resolve_token
+    from app.auth.consent import available_scopes
+    from app.auth.scopes import scope_error
+    from app.auth.service import grant_consent, resolve_token
 
     if not actor.is_parent or actor.user_id is None:
         raise HTTPException(status_code=403, detail="forbidden")
@@ -158,7 +160,11 @@ def upgrade_guest(
     old_owner = db.get(UserRow, student.parent_id) if student else None
     if student is None or old_owner is None or old_owner.role != GUEST_ROLE:
         raise HTTPException(status_code=409, detail="not a guest")
-    check_scopes(db, student_id, body.scopes)  # refuse before anything changes
+    # The guardian is the one granting, so judge the scopes as a guardian's (the row is still the
+    # guest's until the owner changes below); refuse before anything changes.
+    error = scope_error(body.scopes, guest=False, available=available_scopes(db, student_id))
+    if error:
+        raise HTTPException(status_code=400, detail=error)
     student.parent_id = actor.user_id
     student.display_name = body.display_name.strip()
     student.family_code = _family_code(db, actor.user_id)

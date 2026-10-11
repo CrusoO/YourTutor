@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     research_module: bool = False  # env: RESEARCH_MODULE=true
     jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
     dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
+    next_public_dev_tools: bool = False  # env: NEXT_PUBLIC_DEV_TOOLS (web flag; checked here too)
     app_env: str = "development"  # env: APP_ENV; "production" blocks authoring tools
     public_web_url: str = "http://localhost:3000/guardian"  # env: PUBLIC_WEB_URL (report links)
     rate_limit_enabled: bool = True  # env: RATE_LIMIT_ENABLED (config/limits.yaml)
@@ -48,6 +49,18 @@ class Settings(BaseSettings):
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
     llm_review_sample_rate: float = 1.0  # env: LLM_REVIEW_SAMPLE_RATE; 100% in the first pilot week
     cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
+
+
+# Switches that are for local development only: with APP_ENV=production none may be on.
+PRODUCTION = "production"
+DEV_ONLY_FLAGS = ("allow_draft_content", "research_module", "dev_tools", "next_public_dev_tools")
+
+
+def production_flag_errors(current: Settings) -> list[str]:
+    """Dev-only switches that are on although APP_ENV says production (empty list: fine)."""
+    if current.app_env.strip().lower() != PRODUCTION:
+        return []
+    return [name.upper() for name in DEV_ONLY_FLAGS if getattr(current, name)]
 
 
 settings = Settings()

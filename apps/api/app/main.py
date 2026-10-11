@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse
 from app.auth.admin import router as admin_router
 from app.auth.deps import client_ip
 from app.auth.router import router as auth_router
-from app.config import settings
+from app.config import production_flag_errors, settings
 from app.dev.router import router as dev_router
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
@@ -26,6 +26,12 @@ logger = logging.getLogger("yourtutor.access")
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     validate_startup_config()  # unknown JURISDICTION_PROFILE etc. stops startup
+    unsafe = production_flag_errors(settings)
+    if unsafe:
+        raise RuntimeError(
+            f"Refusing to start: APP_ENV=production but {', '.join(unsafe)} "
+            "is on. These switches are for local development only; turn them off."
+        )
     yield
 
 
