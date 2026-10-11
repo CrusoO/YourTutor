@@ -24,7 +24,7 @@ jobs:
       - name: Ruff
         run: ruff check .
       - name: Mypy
-        run: mypy app
+        run: mypy .
       - name: Pytest
         run: pytest
       - name: Validate seed content
@@ -82,10 +82,10 @@ jobs:
           node-version: "22"
       - name: Install
         run: npm install
-      - name: Typecheck
-        run: npm run lint
+      - name: Typecheck (tsc)
+        run: npx tsc --noEmit
       - name: Vitest
-        run: npm test
+        run: npx vitest run
 
   content:
     runs-on: ubuntu-latest
