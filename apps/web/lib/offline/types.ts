@@ -38,6 +38,8 @@ export type CatalogItem = {
   min_plausible_ms: number | null;
   step_hints: string[];
   hint_restate: string;
+  /** the question as shown (packs carry it; the policy never reads it) */
+  stem?: string;
 };
 
 export const primarySkill = (item: CatalogItem): string => item.skill_ids[0];

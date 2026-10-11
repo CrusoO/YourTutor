@@ -8,6 +8,21 @@ const FALLBACK: Record<string, readonly string[]> = Object.fromEntries(
 
 const en = {
   appName: "YourTutor",
+  offlineTitle: "Practice without internet",
+  offlineIntro:
+    "Download this chapter once. Then you can practise anywhere, and your work is saved when you are back online.",
+  offlineDownload: "Download for offline",
+  offlineDownloaded: "Saved on this device",
+  offlineStart: "Start practice",
+  offlineResume: "Continue where you stopped",
+  offlineSync: "Send my work now",
+  offlineSynced: "Your work is saved.",
+  offlineWaiting: "Waiting to be sent",
+  offlineNotSaved: "This browser cannot keep it after you close the page.",
+  offlineNothing: "Nothing is saved on this device yet.",
+  offlineBack: "Back to Today",
+  offlineIsOffline: "You are offline",
+  offlineIsOnline: "You are online",
   loginTitle: "Student login",
   familyCode: "Family code",
   pin: "PIN",

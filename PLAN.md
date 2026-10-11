@@ -98,6 +98,9 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Review sheet | Every row has a `content_hash`; a row whose object changed since export is reported as stale and not approved, and a sheet without the column is refused. Lessons and passages are rows (a lesson row carries its scene and widget text). Items and templates are approved in one validation pass, falling back to one by one only if it fails. |
 | Locale review | Per-language approval lives in `content/locale_review.yaml`, keyed by file and path and tied to the hash of the English sentence. Only rows with `origin: human`, a real translation and an allowlisted reviewer are written; machine drafts, blanks and placeholders are refused. |
 | Going live | `python -m app.author go-live` flips the overlay only when `status` shows no blocker (thresholds, approved lesson, approved passage per skill, checkpoint forms, no unchecked items) and the reviewer is allowlisted; it rolls back if validation then fails. Items and templates of other chapters are untouched. |
+| Offline replay | Sync replays the whole offline session through the server policy against the offline catalog, so correctness, hint levels, reveals and picker rules are decided on the server; a client verdict is stored for audit only. The offline catalog keeps only items the browser can judge (multiple choice, plain number or fraction answers). Sessions are identified by `uuid5(student, client_session_id)`; a batch is at most 500 events. |
+| Policy clock | `_maybe_bkt` now passes `FixedClock(session.now)` to the mastery service, so warm-up review cards use the session's time, not the wall clock. Without it the policy was not a pure function and could not be recorded as a golden fixture. |
+| Offline FSRS | ts-fsrs and py-fsrs agree on due times but not on 8-decimal rounding of stability; the byte-for-byte guarantee covers BKT and the ladder, and the server's cards replace the local ones after sync. |
 | School list | The context picker has no curated school list: it would put a school on the student, which the G6 rules forbid. Revisit with the G6 `site_id` design. |
 | Page weight | The lesson-screen budget (200 KB over the wire, 150 KB script) is checked by a Playwright spec against a production build, not by Lighthouse. Measured 130 KB. |
 | `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
@@ -489,14 +492,14 @@ Accept:
 
 ### G9 — Offline + sync (was M7b, extended)
 
-- [ ] Packs: offline-verifiable items, lessons, scenes, widgets for a chapter
-- [ ] TS mirrors: policy (incl. R30–R40), diagnosis, ladder, BKT, ts-fsrs, widget predicates — same fixtures
-- [ ] Sync: server re-verifies, ignores client correctness and widget results, recomputes ladder/BKT/FSRS, rejects/flags illegal sequences
+- [x] Met 2026-10-11 (targeted tests {T9}). *Items, lessons (with their scenes and widgets) and learner state are in the pack; the offline page plays practice, not the lesson player, so lesson beats are not yet shown offline.* Packs: offline-verifiable items, lessons, scenes, widgets for a chapter
+- [x] Met 2026-10-11 (targeted tests {T9}). TS mirrors: policy (incl. R30–R40), diagnosis, ladder, BKT, ts-fsrs, widget predicates — same fixtures
+- [x] Met 2026-10-11 (targeted tests {T9}). Sync: server re-verifies, ignores client correctness and widget results, recomputes ladder/BKT/FSRS, rejects/flags illegal sequences
 
 Accept:
 
-- [ ] All shared fixtures pass in Python and TS
-- [ ] Offline session synced = server recompute, byte-for-byte on ladder and BKT state
+- [x] Met 2026-10-11 (targeted tests {T9}). All shared fixtures pass in Python and TS
+- [x] Met 2026-10-11 (targeted tests {T9}). Offline session synced = server recompute, byte-for-byte on ladder and BKT state
 
 ### G10 — Guardian and teacher views (was M8, extended)
 

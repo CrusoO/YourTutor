@@ -11,6 +11,7 @@ from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import settings
 from app.dev.router import router as dev_router
+from app.offline.router import router as offline_router
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
 
@@ -54,6 +55,7 @@ app.add_middleware(
 )
 app.include_router(auth_router)
 app.include_router(research_router)
+app.include_router(offline_router)
 app.include_router(admin_router)
 app.include_router(dev_router)
 
