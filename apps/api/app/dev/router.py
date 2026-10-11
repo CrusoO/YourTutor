@@ -133,3 +133,32 @@ def list_scenarios(db: DbSession) -> dict[str, Any]:
             for s in SCENARIOS
         ]
     }
+
+
+class StaffTokenIn(BaseModel):
+    role: str  # parent | teacher
+    scenario: str | None = None  # for a parent: the scenario whose family to sign in as
+
+
+@router.post("/staff-token")
+def staff_token(body: StaffTokenIn, db: DbSession) -> dict[str, Any]:
+    """A sign-in token for a preview guardian or the preview teacher, so the browser tests can
+    open the guardian and teacher pages without an email code. Dev only."""
+    from app.auth.service import issue_auth_token
+    from app.db.models import UserRow
+    from app.dev.scenarios import EMAIL_DOMAIN, EMAIL_PREFIX, TEACHER_EMAIL
+
+    if body.role == "teacher":
+        email = TEACHER_EMAIL
+    elif body.role == "parent" and body.scenario in {s.name for s in SCENARIOS}:
+        email = f"{EMAIL_PREFIX}{body.scenario}{EMAIL_DOMAIN}"
+    else:
+        raise HTTPException(
+            status_code=400, detail="role must be teacher or parent with a scenario"
+        )
+    user = db.scalar(select(UserRow).where(UserRow.email == email))
+    if user is None:
+        raise HTTPException(status_code=404, detail="seed the scenarios first")
+    token = issue_auth_token(db, role=user.role, user_id=user.id)
+    db.commit()
+    return {"token": token, "email": email, "role": user.role}

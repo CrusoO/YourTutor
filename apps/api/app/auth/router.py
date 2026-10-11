@@ -120,6 +120,16 @@ def request_otp(
     return {"status": "sent"}
 
 
+@router.get("/auth/me")
+def whoami(actor: ActorDep) -> dict[str, str | None]:
+    """Who the token belongs to, so a page can send each role to its own screen."""
+    return {
+        "role": actor.role,
+        "email": actor.email,
+        "user_id": str(actor.user_id) if actor.user_id else None,
+    }
+
+
 @router.post("/auth/verify-otp")
 def verify_otp(
     body: VerifyOtpIn,
@@ -388,6 +398,11 @@ def add_member(
 @router.get("/teacher/classes/{class_id}/heatmap")
 def heatmap(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.teacher_class_view(db, actor, class_id, "heatmap")
+
+
+@router.get("/teacher/classes")
+def my_classes(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.list_classes(db, actor)
 
 
 @router.get("/teacher/classes/{class_id}/alerts")

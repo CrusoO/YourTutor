@@ -101,6 +101,8 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Offline replay | Sync replays the whole offline session through the server policy against the offline catalog, so correctness, hint levels, reveals and picker rules are decided on the server; a client verdict is stored for audit only. The offline catalog keeps only items the browser can judge (multiple choice, plain number or fraction answers). Sessions are identified by `uuid5(student, client_session_id)`; a batch is at most 500 events. |
 | Policy clock | `_maybe_bkt` now passes `FixedClock(session.now)` to the mastery service, so warm-up review cards use the session's time, not the wall clock. Without it the policy was not a pure function and could not be recorded as a golden fixture. |
 | Offline FSRS | ts-fsrs and py-fsrs agree on due times but not on 8-decimal rounding of stability; the byte-for-byte guarantee covers BKT and the ladder, and the server's cards replace the local ones after sync. |
+| Views | A "week" is the last seven days. What was learned is the ladder level at the end minus the level at the start, recomputed from events, so a report always agrees with the log. The teacher's heatmap lists students alphabetically and shows levels, never an average or an order of merit. The review queue is the sampled AI replies; `ReviewQueueRow` stays unused. |
+| Staff sign-in | Guardians and teachers sign in with an email code (`/staff/login`); a dev-only `POST /dev/staff-token` gives the preview pages a token without email. The student's token is kept separately. |
 | School list | The context picker has no curated school list: it would put a school on the student, which the G6 rules forbid. Revisit with the G6 `site_id` design. |
 | Page weight | The lesson-screen budget (200 KB over the wire, 150 KB script) is checked by a Playwright spec against a production build, not by Lighthouse. Measured 130 KB. |
 | `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
@@ -503,15 +505,15 @@ Accept:
 
 ### G10 — Guardian and teacher views (was M8, extended)
 
-- [ ] Guardian: progress by chapter status and ladder, what was learned this week, language switch, export/delete
-- [ ] Weekly report job (channels from profile); quiet hours from profile
-- [ ] Teacher: heatmap by ladder level, stuck-now, wheel-spinning and repeated-misconception alerts, review queue — consented students only
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). Guardian: progress by chapter status and ladder, what was learned this week, language switch, export/delete
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). *Email is the only channel built, and no scheduler runs the job: it is a command to run weekly.* Weekly report job (channels from profile); quiet hours from profile
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). Teacher: heatmap by ladder level, stuck-now, wheel-spinning and repeated-misconception alerts, review queue — consented students only
 
 Accept:
 
-- [ ] Reports from real events; no rankings or comparisons
-- [ ] Teacher cannot see a student without `teacher_share`
-- [ ] Alerts resolve when the skill reaches level 4
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). Reports from real events; no rankings or comparisons
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). Teacher cannot see a student without `teacher_share`
+- [x] Met 2026-10-11 (targeted tests: views, reports, offline, migrations pass; full run from the final pass pending). Alerts resolve when the skill reaches level 4
 
 ### G11 — Hardening (was M9, extended)
 

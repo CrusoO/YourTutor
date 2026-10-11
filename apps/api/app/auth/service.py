@@ -712,6 +712,19 @@ def add_site_members(session: Session, actor: Actor, class_id: uuid.UUID) -> int
     return len(ids)
 
 
+def list_classes(session: Session, actor: Actor) -> dict[str, Any]:
+    require(can_teacher_query(actor))
+    query = select(ClassRow).order_by(ClassRow.name, ClassRow.id)
+    if actor.is_teacher:
+        query = query.where(ClassRow.teacher_id == actor.user_id)
+    return {
+        "classes": [
+            {"id": str(c.id), "name": c.name, "curriculum_id": c.curriculum_id}
+            for c in session.scalars(query).all()
+        ]
+    }
+
+
 def _class_visible(session: Session, actor: Actor, class_id: uuid.UUID) -> set[uuid.UUID]:
     """The class members this staff member may see: all for an admin, only those whose guardian
     shared with the teacher otherwise."""
