@@ -158,6 +158,9 @@ def ask(
     lists = load_safety(language)
     verdict = screen(cleaned.text, lists)
     if verdict.kind == "distress":
+        from app.safety import raise_distress
+
+        raise_distress(db, student, "ask")  # pause tutoring and tell the adults
         return AskReply("distress", message("distress", language), reason="distress")
     if verdict.kind in {"injection", "moderation"}:
         return AskReply("refused", message("refused", language), reason=verdict.kind)

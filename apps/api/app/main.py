@@ -1,17 +1,22 @@
 from __future__ import annotations
 
 import logging
+import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.auth.admin import router as admin_router
+from app.auth.deps import client_ip
 from app.auth.router import router as auth_router
 from app.config import settings
 from app.dev.router import router as dev_router
+from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
+from app.ratelimit import limiter
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
 
@@ -56,6 +61,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(research_router)
 app.include_router(offline_router)
+app.include_router(metrics_router)
 app.include_router(admin_router)
 app.include_router(dev_router)
 
@@ -66,10 +72,35 @@ def access_log_line(method: str, path: str, status: int) -> str:
 
 
 @app.middleware("http")
+async def rate_limit(request: Request, call_next):  # type: ignore[no-untyped-def]
+    if settings.rate_limit_enabled and request.method != "OPTIONS":
+        wait = limiter.check(client_ip(request), request.url.path)
+        if wait is not None:
+            return JSONResponse(
+                {"detail": "too many requests"}, status_code=429, headers={"Retry-After": str(wait)}
+            )
+    return await call_next(request)
+
+
+@app.middleware("http")
 async def access_log_no_query(request: Request, call_next):  # type: ignore[no-untyped-def]
     response = await call_next(request)
     logger.info(access_log_line(request.method, request.url.path, response.status_code))
     return response
+
+
+@app.exception_handler(Exception)
+async def unhandled(request: Request, exc: Exception) -> JSONResponse:
+    """Never show a student or guardian a stack trace; the log has it, keyed by the request id."""
+    request_id = request.headers.get("x-request-id") or uuid.uuid4().hex[:12]
+    logger.error(
+        "unhandled error %s on %s %s", request_id, request.method, request.url.path, exc_info=exc
+    )
+    return JSONResponse(
+        {"detail": "something went wrong", "request_id": request_id},
+        status_code=500,
+        headers={"X-Request-Id": request_id},
+    )
 
 
 @app.get("/health")

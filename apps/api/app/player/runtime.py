@@ -761,6 +761,37 @@ def apply_player_event(
             "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
             "llm_called": False,
         }
+    if event_type == "explain_back":
+        from app.ask.config import message
+        from app.safety import is_distress, raise_distress, strip_pii
+
+        words = strip_pii(str(payload.get("text") or payload.get("response") or ""))
+        payload = {**payload, "text": words, "response": words}
+        if is_distress(words, student.home_language or "en"):
+            raise_distress(session, student, "explain_back", now_utc())
+            session.add(
+                EventRow(
+                    id=uuid.uuid4(),
+                    client_event_id=client_event_id,
+                    session_id=row.id,
+                    item_id=item_id,
+                    event_type="explain_back",
+                    payload={"flag": "distress"},  # the words themselves are not kept
+                    created_at=now_utc(),
+                )
+            )
+            return {
+                "session_id": str(row.id),
+                "duplicate": False,
+                "action": {
+                    "type": "end_session",
+                    "reason": "paused_distress",
+                    "ended_reason": "paused_distress",
+                    "text": message("distress", student.home_language or "en"),
+                },
+                "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
+                "llm_called": False,
+            }
     prior = session.scalar(select(EventRow).where(EventRow.client_event_id == client_event_id))
     if prior:
         view = session_view(session, actor, row)
@@ -1033,7 +1064,10 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
         )
     )
     resume = open_row or idle_row
+    from app.safety import is_paused
+
     return {
+        "paused": is_paused(session, student.id),
         "offer": current_offer(session, student),
         "ui": ui_for_grade(student.grade),
         "student_id": str(student.id),

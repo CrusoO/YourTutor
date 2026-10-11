@@ -563,6 +563,21 @@ class LlmCallRow(Base):
     review_status: Mapped[str | None] = mapped_column(String, nullable=True)  # pending | ok | bad
 
 
+class SafetyFlagRow(Base):
+    """A distress signal from a student's own words. Pauses tutoring until a guardian looks."""
+
+    __tablename__ = "safety_flags"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    kind: Mapped[str] = mapped_column(String)
+    source: Mapped[str] = mapped_column(String)  # ask | explain_back
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    acknowledged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
 class ReportLogRow(Base):
     """One weekly guardian report that was sent, so a rerun of the job never sends it twice."""
 

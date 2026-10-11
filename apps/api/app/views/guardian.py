@@ -142,7 +142,13 @@ def guardian_view(
     started = db.scalars(
         select(MasteryRow).where(MasteryRow.student_id == student.id, MasteryRow.ladder_level > 0)
     ).all()
+    from app.safety import open_flags
+
     return {
+        "safety_flags": [
+            {"id": str(f.id), "kind": f.kind, "since": as_utc(f.created_at).isoformat()}
+            for f in open_flags(db, student.id)
+        ],
         "student": {
             "id": str(student.id),
             "display_name": student.display_name,

@@ -40,6 +40,7 @@ class Settings(BaseSettings):
     dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
     app_env: str = "development"  # env: APP_ENV; "production" blocks authoring tools
     public_web_url: str = "http://localhost:3000/guardian"  # env: PUBLIC_WEB_URL (report links)
+    rate_limit_enabled: bool = True  # env: RATE_LIMIT_ENABLED (config/limits.yaml)
     ask_enabled: bool = False  # env: ASK_ENABLED; Study Mode Ask is off until turned on
     ask_guests_enabled: bool = False  # env: ASK_GUESTS_ENABLED; guests never get Ask by default
     llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
