@@ -1,0 +1,48 @@
+// Page-weight budget (UI standard: 150 KB per screen, audio excluded), checked from the build output.
+// Run after `next build`:  node scripts/check-weight.mjs
+// For every app route it adds the gzip size of the JavaScript and CSS the page loads, plus the font files
+// the route is known to use, and fails if a product route is over budget. /dev routes are exempt.
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { gzipSync } from "node:zlib";
+import { join } from "node:path";
+
+const BUDGET_KB = Number(process.env.WEIGHT_BUDGET_KB || 150);
+const NEXT = ".next";
+const manifestPath = join(NEXT, "app-build-manifest.json");
+if (!existsSync(manifestPath)) {
+  console.error("No build output: run `next build` first.");
+  process.exit(2);
+}
+
+const gz = (file) => gzipSync(readFileSync(join(NEXT, file)), { level: 9 }).length / 1024;
+const pages = JSON.parse(readFileSync(manifestPath, "utf8")).pages;
+
+// Fonts the home screen uses (the display serif, latin subset only). Other routes use system fonts.
+const fontDir = join("node_modules", "@fontsource", "fraunces", "files");
+const homeFontKB = existsSync(fontDir)
+  ? readdirSync(fontDir)
+      .filter((f) => f === "fraunces-latin-500-normal.woff2")
+      .reduce((sum, f) => sum + readFileSync(join(fontDir, f)).length / 1024, 0)
+  : 0;
+
+const rows = [];
+for (const [page, files] of Object.entries(pages)) {
+  const route = page.replace(/\/page$/, "") || "/";
+  if (route.startsWith("/dev") || route.startsWith("/api") || route.includes("not-found")) continue;
+  const assets = [...new Set(files)].filter((f) => /\.(js|css)$/.test(f));
+  let kb = assets.reduce((sum, f) => sum + gz(f), 0);
+  if (route === "/") kb += homeFontKB;
+  rows.push({ route, kb: Math.round(kb * 10) / 10 });
+}
+rows.sort((a, b) => b.kb - a.kb);
+let failed = 0;
+for (const { route, kb } of rows) {
+  const over = kb > BUDGET_KB;
+  if (over) failed += 1;
+  console.log(`${over ? "OVER " : "ok   "} ${String(kb).padStart(7)} KB  ${route}`);
+}
+console.log(`budget ${BUDGET_KB} KB per screen (gzip JS and CSS, plus the home font)`);
+if (failed) {
+  console.error(`${failed} route(s) over budget`);
+  process.exit(1);
+}
