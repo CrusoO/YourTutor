@@ -114,7 +114,7 @@ export default function SessionPage() {
 
   if (action.type === "end_session" || action.type === "checkpoint_score") {
     return (
-      <main className="stack">
+      <main className="stack column">
         <h1>{copy.done}</h1>
         <p>{reasonCopy(copy, action.ended_reason || action.reason)}</p>
         {action.extras && action.type === "checkpoint_score" ? (
@@ -130,7 +130,7 @@ export default function SessionPage() {
   if (action.type === "test_out_result") {
     const passed = Boolean((action.extras as { passed?: boolean } | undefined)?.passed);
     return (
-      <main className="stack" data-testid="test-out-result" data-passed={passed}>
+      <main className="stack column" data-testid="test-out-result" data-passed={passed}>
         <h1>{copy.skipAheadTitle}</h1>
         <p className={passed ? "banner good" : "banner"}>
           {passed ? copy.skipAheadPassed : copy.skipAheadMissed}
@@ -185,7 +185,7 @@ export default function SessionPage() {
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
 
   return (
-    <main className="stack">
+    <main className="stack column">
       {action.type === "warmup_item" ? (
         <header className="stack">
           <h1>{copy.warmupTitle}</h1>

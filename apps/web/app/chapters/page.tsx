@@ -39,7 +39,7 @@ export default function ChaptersPage() {
         <Link href="/subjects">← {copy.chaptersBack}</Link>
       </p>
       <h1>{copy.chaptersTitle}</h1>
-      <ul className="plain stack">
+      <ul className="plain stack grid-cards">
         {chapters.map((chapter) => {
           const body = (
             <>
