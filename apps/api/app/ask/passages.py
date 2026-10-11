@@ -31,6 +31,7 @@ class Passage(BaseModel):
     licence_status: str
     source_ref: str | None = None  # an id in content/sources when the text is an authored note
     reviewer: str | None = None
+    approved_hash: str | None = None  # hash of the content when it was approved
     edition_year: int | None = None
     status: str = "draft"
 

@@ -214,6 +214,8 @@ class Lesson(_Strict):
     title: LocalizedText
     source_ref: str = Field(min_length=1)
     status: ContentStatus = ContentStatus.draft
+    reviewed_by: str | None = None  # set with the approval, together with content_hash
+    content_hash: str | None = None
     beats: list[Beat] = Field(min_length=3)
 
     def scenes(self) -> list[Scene]:

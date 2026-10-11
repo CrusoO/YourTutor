@@ -94,6 +94,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Ask gating | Typing a question needs the `free_text` scope; the model rewording needs `ai_processing` as well, and without it (or a key) the student gets the approved passage. This relaxes ARCHITECTURE 12.3, which lists `ai_processing` for all of Ask, because nothing leaves the server on the passage-only path. Guests are refused unless `ASK_GUESTS_ENABLED`. |
 | Ask safety lists | Injection, distress, solve-intent and meaning-term lists are per language in `config/ask.yaml`; a language without a list uses English (known gap). Distress gets an authored reply; flagging a guardian or teacher is not built. |
 | Test scope | From G7 each milestone runs targeted tests (the changed code and its dependents) plus lint, types and the region check; the full suite and the random-seed passes run once at the end of the whole run. V2_GAP_AUDIT.md keeps the last full baseline (through G6) until then. G7 ticks therefore show targeted counts. |
+| Approval hashes | Lessons (with their scenes and widgets) and passages carry `reviewed_by` plus a hash of their English content; items and templates already did. Approved content whose hash no longer matches, or that has no reviewer, is reset to draft by `content validate` / `content load` and the file is rewritten. Other languages are left out of the hash, so translating never resets the English approval. |
+| Review sheet | Every row has a `content_hash`; a row whose object changed since export is reported as stale and not approved, and a sheet without the column is refused. Lessons and passages are rows (a lesson row carries its scene and widget text). Items and templates are approved in one validation pass, falling back to one by one only if it fails. |
+| Locale review | Per-language approval lives in `content/locale_review.yaml`, keyed by file and path and tied to the hash of the English sentence. Only rows with `origin: human`, a real translation and an allowlisted reviewer are written; machine drafts, blanks and placeholders are refused. |
+| Going live | `python -m app.author go-live` flips the overlay only when `status` shows no blocker (thresholds, approved lesson, approved passage per skill, checkpoint forms, no unchecked items) and the reviewer is allowlisted; it rolls back if validation then fails. Items and templates of other chapters are untouched. |
 | School list | The context picker has no curated school list: it would put a school on the student, which the G6 rules forbid. Revisit with the G6 `site_id` design. |
 | Page weight | The lesson-screen budget (200 KB over the wire, 150 KB script) is checked by a Playwright spec against a production build, not by Lighthouse. Measured 130 KB. |
 | `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
@@ -473,15 +477,15 @@ Accept:
 
 ### G8 — Content scale-up tooling
 
-- [ ] Authoring UI/CLI: section passages → `draft_content` → validator → teacher review queue → approve
-- [ ] Template coverage for roles (apply/transfer templates)
-- [ ] Review export/import with hashes (from M4.5) extended to lessons and scenes
-- [ ] Locale review workflow: reviewer fills per-locale strings; machine drafts never auto-approved
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). *CLI only (`python -m app.author`); there is no authoring UI.* Authoring UI/CLI: section passages → `draft_content` → validator → teacher review queue → approve
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). *The coverage report and a validator warning exist, and four apply/transfer templates for the one- and two-step skills were added (draft, items not generated yet); ten skills still have no apply/transfer template, which is content work for the curriculum lead.* Template coverage for roles (apply/transfer templates)
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). Review export/import with hashes (from M4.5) extended to lessons and scenes
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). *The workflow and sheets exist; no translation was produced or approved, and no real reviewer has used it.* Locale review workflow: reviewer fills per-locale strings; machine drafts never auto-approved
 
 Accept:
 
-- [ ] A chapter can go from passages to live using only the tooling + teacher approvals
-- [ ] Editing any approved object resets approval via hash
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). A chapter can go from passages to live using only the tooling + teacher approvals
+- [x] Met 2026-10-11 (targeted tests: 454 passed (content, lessons, llm, ask, dev, meta)). Editing any approved object resets approval via hash
 
 ### G9 — Offline + sync (was M7b, extended)
 

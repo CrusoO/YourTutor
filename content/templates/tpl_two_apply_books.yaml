@@ -1,0 +1,58 @@
+id: TPL.TWO.APPLY.BOOKS
+skill_id: MATH.ALG.LIN1.SOLVE_TWO_STEP
+role: apply
+structure: N identical books plus N rupees delivery cost N rupees in total.
+parameters:
+  a:
+    min: 2
+    max: 6
+  b:
+    min: 5
+    max: 30
+  x:
+    min: 6
+    max: 30
+derived:
+  c: a * x + b
+constraints:
+  nonzero:
+  - a
+  - b
+  answer_min: 6
+  answer_max: 30
+  no_one_x: true
+  no_trivial: true
+  distinct:
+  - a
+  - b
+stem: A shop adds {b} rupees for delivery to the price of {a} identical books. The
+  books and the delivery add to {c} rupees. How many rupees does one book cost?
+verify: '{a}x + {b} = {c}'
+prediction: Does one book cost more than the delivery?
+steps:
+- Let x be the price of one book in rupees. Then {a}x + {b} = {c}.
+- Subtract {b} from both sides.
+- Divide both sides by {a}.
+- x = {x}
+hints:
+  '1': Let x be the price of one book. What do {a} books cost?
+  '2': 'The bill is {a} books plus {b} rupees delivery: {a}x + {b} = {c}. Which part
+    do you undo first?'
+  '3': Subtract {b} on both sides, then divide by {a}.
+misconceptions:
+- id: MC.ALG.FORGET_BOTH_SIDES
+  formula: c - b
+options: []
+answer_expr: x
+type: expression
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

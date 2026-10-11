@@ -60,11 +60,20 @@ def test_seed_items_all_have_a_role_and_word_problems_are_apply() -> None:
         assert item.role == expected, item.id
 
 
+SCALED_TEMPLATE_ROLES = {
+    "TPL.ONE.APPLY.MARBLES": ItemRole.apply,
+    "TPL.ONE.TRANSFER.REVERSED": ItemRole.transfer,
+    "TPL.TWO.APPLY.BOOKS": ItemRole.apply,
+    "TPL.TWO.TRANSFER.REVERSED": ItemRole.transfer,
+}
+
+
 def test_templates_declare_a_role_and_generated_items_inherit_it() -> None:
     templates = {tpl.id: tpl for tpl in load_templates(CONTENT)}
     assert templates
     for tpl in templates.values():
         expected = ItemRole.apply if tpl.skill_id == WORD_SKILL else ItemRole.procedure
+        expected = SCALED_TEMPLATE_ROLES.get(tpl.id, expected)  # G8 adds apply and transfer ones
         assert tpl.role == expected, tpl.id
     bundle = load_bundle(CONTENT)
     generated = [item for item in bundle.items if item.template_id]

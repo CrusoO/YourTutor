@@ -161,6 +161,9 @@ def validate_bundle(
     _template_approval(bundle, report)
     _checkpoint_practice_stems(bundle, report)
     _live_chapter(bundle, report)
+    from app.content.coverage import coverage_gaps
+
+    report.warnings.extend(coverage_gaps(bundle.templates, bundle.items))
     if curricula is not None:
         report.errors.extend(overlay_curriculum_errors(bundle.overlays, curricula))
         report.errors.extend(section_map_errors(bundle.overlays, curricula))
@@ -175,7 +178,10 @@ def curricula_for(root: Path) -> dict[str, CurriculumSpec] | None:
 
 
 def validate_path(root: Path) -> ValidationReport:
+    from app.content.approval import reset_stale_approvals
     from app.lessons.loader import lesson_errors  # lazy: lessons import app.content.schema
+
+    stale = reset_stale_approvals(root)
 
     try:
         bundle = load_bundle(root)
@@ -209,6 +215,7 @@ def validate_path(root: Path) -> ValidationReport:
     from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
 
     report.errors.extend(copy_errors(root))
+    report.warnings.extend(stale)
     _persist_hash_resets(root, report)
     return report
 

@@ -1,0 +1,48 @@
+id: TPL.ONE.APPLY.MARBLES
+skill_id: MATH.ALG.LIN1.SOLVE_ONE_STEP
+role: apply
+structure: Some marbles, N more won, N in total.
+parameters:
+  b:
+    min: 2
+    max: 12
+  x:
+    min: 4
+    max: 30
+derived:
+  c: x + b
+constraints:
+  answer_min: 4
+  answer_max: 30
+  nonzero_answer: true
+  no_one_x: true
+  no_trivial: true
+stem: Mina had some marbles. After she won {b} more she had {c}. How many marbles
+  did she start with?
+verify: x + {b} = {c}
+prediction: Did Mina start with more than {c} marbles?
+steps:
+- Let x be the marbles she started with. Then x + {b} = {c}.
+- Subtract {b} from both sides.
+- x = {x}
+hints:
+  '1': Let x be the number she started with. What happened to x?
+  '2': She won {b} more, so x + {b} = {c}. Which step undoes the + {b}?
+  '3': Subtract {b} from both sides of x + {b} = {c}.
+misconceptions:
+- id: MC.ALG.INVERSE_OP_WRONG_SIDE
+  formula: c + b
+options: []
+answer_expr: x
+type: expression
+tier_rules:
+- tier: easy
+  difficulty: 0.25
+  max_abs_answer: 6
+  max_abs_coeff: 3
+- tier: medium
+  difficulty: 0.55
+  max_abs_answer: 10
+- tier: hard
+  difficulty: 0.86
+status: draft

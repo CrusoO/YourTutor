@@ -697,6 +697,8 @@ Initial types: `balance_scale`, `number_line`, `function_graph`, `area_model`, `
 2. Templates → deterministic generator (practice instances; v1 M5.5 kept).
 3. **[v2]** LLM-assisted drafts (`draft_content`) from section passages → validator → machine checks → teacher approval. Drafts can never be served in production.
 
+**As built in G8 (P13):** `python -m app.author` runs the pipeline: `draft` asks the model for only the items a chapter lacks (practice, diagnostic and one each of explain, apply, transfer per skill; the role and pool are set by the tool, never by the model's reply) from that skill's passages into `items/drafts/<chapter>/`, `queue` counts what is still draft, `status` lists every blocker to live, and `go-live` flips the overlay after the checks. Teachers approve with `python -m app.content export-review` / `import-review`, whose rows now include lessons and passages and carry a content hash. `app/content/approval.py` resets stale approvals of lessons and passages by hash; `app/content/coverage.py` reports template coverage by role; `python -m app.content export-locale-review / import-locale-review / locale-status` run the per-language review. Not built: an authoring UI, a model-based draft for multiple-choice or checkpoint items, and any real translation.
+
 ### 17.2 Validator (v1 rules kept, v2 additions marked)
 
 Unique ids; refs resolve; no prerequisite cycles; primary skill required; 3 hint levels; leak check on hints 1–2 and step hints; solution steps end equivalent to answer; checkpoint items not in practice; allowlist-parseable answers; hint reuse and structure diversity checks (M4.5).

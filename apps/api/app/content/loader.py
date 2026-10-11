@@ -57,6 +57,9 @@ def load_path(
 
     if not root.is_dir():
         raise LoadError(f"content root {root} does not exist or is not a folder")
+    from app.content.approval import reset_stale_approvals
+
+    stale_approvals = reset_stale_approvals(root)
     try:
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
@@ -65,6 +68,7 @@ def load_path(
         # An empty bundle would retire (or, in dev, hard-delete) everything already loaded.
         raise LoadError(f"content root {root} has no skills or items; refusing to load")
     report = validate_bundle(bundle, curricula_for(root))
+    report.warnings.extend(stale_approvals)
     _persist_hash_resets(root, report)
     from app.lessons.sources import approved_source_ids, source_errors
 
