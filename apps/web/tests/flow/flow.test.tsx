@@ -79,7 +79,9 @@ describe("Subjects", () => {
     render(<SubjectsPage />);
     const math = screen.getByTestId("subject-math");
     expect(math).toHaveAttribute("href", "/chapters");
-    expect(screen.getAllByRole("link")).toHaveLength(1);
+    // Maths, plus the link to practise without internet (G9)
+    expect(screen.getAllByRole("link")).toHaveLength(2);
+    expect(screen.getByTestId("offline-link")).toHaveAttribute("href", "/offline");
     expect(screen.getByText(/Hi Asha/)).toBeInTheDocument();
     expect(screen.getByText(/24 active minutes left today/)).toBeInTheDocument();
   });
