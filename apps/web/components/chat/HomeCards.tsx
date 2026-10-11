@@ -15,6 +15,7 @@ import {
 import { useChatApi } from "./ChatProvider";
 
 type StudentHome = {
+  resume: { session_id: string } | null;
   minutesLeft: number | null;
   current: { chapter: ChapterCard; skill?: string } | null;
   started: boolean;
@@ -43,7 +44,7 @@ function useStudentHome(enabled: boolean) {
         if (c.id === chapter?.id) skill = body.skills.find((s) => s.current)?.title;
       }
       const started = live_.some((c) => c.status !== "not_started");
-      if (live) setData({ minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due });
+      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due });
     })().catch(() => live && setFailed(true));
     return () => {
       live = false;
@@ -126,11 +127,13 @@ export function HomeCards() {
         </Row>
       );
     }
-    const { current, started, due, minutesLeft } = student.data;
+    const { current, started, due, minutesLeft, resume } = student.data;
     const startCard = !started;
     return (
       <Row>
-        {startCard ? (
+        {resume ? (
+          <SuggestionCard tone="accent" icon="play" title={copy.resume} description={current?.chapter.title} tag={copy.chatContinue} onClick={() => openWorkspace(`/session/${resume.session_id}`, copy.resume)} data-testid="card-resume" />
+        ) : startCard ? (
           <SuggestionCard tone="accent" icon="play" title={copy.chatStartHere} description={current?.chapter.title} tag={copy.chatNew} onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)} data-testid="card-start" />
         ) : (
           <SuggestionCard

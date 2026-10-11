@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { devLogin, enter } from "./shell";
 
 /**
  * G2b at 360 px: the wheel-spinning quick check (probe), the other-way view that follows it, and
@@ -114,11 +115,9 @@ test.describe("G2b policy rules at 360 px", () => {
   }) => {
     await reseed(request, "wheel_spinning", "DEVWHL");
     const tracker = trackActions(page);
-    await page.goto("/dev");
-    await page.getByRole("button", { name: "Log in as Wheel spinning" }).click();
-    await expect(page).toHaveURL(/\/subjects/);
-    await expect(page.getByText("Hi Wen")).toBeVisible();
-    await page.getByRole("button", { name: /resume/i }).click();
+    await devLogin(page, "Wheel spinning");
+    await expect(page.getByTestId("greeting")).toContainText("Wen");
+    await enter(page, "card-resume");
     await expect(page.locator(".stem").first()).toBeVisible({ timeout: 20_000 });
     // two items were already missed in this open session; the question is waiting
     await expectPhoneLayout(page);
@@ -152,9 +151,8 @@ test.describe("G2b policy rules at 360 px", () => {
   }) => {
     await reseed(request, "slip_prone", "DEVSLP");
     const tracker = trackActions(page);
-    await page.goto("/dev");
-    await page.getByRole("button", { name: "Log in as Slip prone" }).click();
-    await page.getByTestId("subject-math").click();
+    await devLogin(page, "Slip prone");
+    await enter(page, "nav-chapters");
     await page.getByTestId("chapter-bhutan_class9").click();
     await page.getByRole("button", { name: "Continue this chapter" }).click();
     await expect(page.getByPlaceholder(/type your answer/i)).toBeVisible({ timeout: 20_000 });

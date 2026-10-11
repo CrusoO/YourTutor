@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { devLogin, enter } from "./shell";
 
 /**
  * Preview scenarios (python -m app.dev seed_scenarios). One spec per scenario; every screen is
@@ -27,16 +28,14 @@ async function waitForSessionScreen(page: Page) {
   await page.locator(".stem, h1").first().waitFor({ state: "visible", timeout: 20_000 });
 }
 
+// UI-1: a scenario login lands on the role home ("/"); the flows open their screen from there.
 async function logInAs(page: Page, title: string) {
-  await page.goto("/dev");
-  await page.getByRole("button", { name: `Log in as ${title}` }).click();
-  await expect(page).toHaveURL(/\/subjects/);
-  await expect(page.getByRole("heading", { name: /what do you want to learn/i })).toBeVisible();
+  await devLogin(page, title);
 }
 
 /** Today (minutes left, Resume, raw session types) still exists; S1b's flow starts at Subjects. */
 async function openToday(page: Page) {
-  await page.goto("/today");
+  await enter(page, "nav-today");
   await expect(page.getByRole("heading", { name: /today/i })).toBeVisible();
 }
 
@@ -80,7 +79,7 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("new_student: first run starts with the prediction", async ({ page }) => {
     await logInAs(page, "New student");
-    await expect(page.getByText("Nima")).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Nima");
     await openToday(page);
     await expect(page.getByText("Nima")).toBeVisible();
     await expect(page.getByRole("button", { name: /resume/i })).toHaveCount(0);
@@ -94,11 +93,11 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("mid_chapter: resume the open session", async ({ page }) => {
     await logInAs(page, "Mid chapter");
-    await expect(page.getByText("Mina")).toBeVisible();
-    await expect(page.getByRole("button", { name: /resume/i })).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Mina");
+    await expect(page.getByTestId("card-resume")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "mid_chapter", "01-today");
-    await page.getByRole("button", { name: /resume/i }).click();
+    await enter(page, "card-resume");
     await waitForSessionScreen(page);
     await expectPhoneLayout(page);
     await shot(page, "mid_chapter", "02-resumed");
@@ -106,11 +105,11 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("skill_at_level_4: resume the open session", async ({ page }) => {
     await logInAs(page, "Skill at level 4");
-    await expect(page.getByText("Lena")).toBeVisible();
-    await expect(page.getByRole("button", { name: /resume/i })).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Lena");
+    await expect(page.getByTestId("card-resume")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "skill_at_level_4", "01-today");
-    await page.getByRole("button", { name: /resume/i }).click();
+    await enter(page, "card-resume");
     await waitForSessionScreen(page);
     await expectPhoneLayout(page);
     await shot(page, "skill_at_level_4", "02-resumed");
@@ -118,7 +117,7 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("review_due: the next session opens with a warm-up", async ({ page }) => {
     await logInAs(page, "Review due");
-    await expect(page.getByText("Rhea")).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Rhea");
     await openToday(page);
     await expect(page.getByText("Rhea")).toBeVisible();
     await expect(page.getByRole("button", { name: /resume/i })).toHaveCount(0);
@@ -133,7 +132,7 @@ test.describe("preview scenarios at 360 px", () => {
 
   test("all_skills_level_4: starts extension practice, not a lesson", async ({ page }) => {
     await logInAs(page, "All skills level 4");
-    await expect(page.getByText("Alma")).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Alma");
     await openToday(page);
     await expect(page.getByText("Alma")).toBeVisible();
     await expectPhoneLayout(page);
