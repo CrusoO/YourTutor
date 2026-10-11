@@ -15,6 +15,7 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.security import as_utc
 from app.config import settings
 from app.db.models import (
     ChapterRow,
@@ -111,7 +112,7 @@ def _mastery_levels(
         )
     }
     due = {
-        row.skill_id: row.due_at
+        row.skill_id: as_utc(row.due_at)
         for row in session.scalars(
             select(ReviewCardRow).where(
                 ReviewCardRow.student_id == student_id,

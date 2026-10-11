@@ -16,6 +16,7 @@ from app.auth.authz import can_start_session, require
 from app.auth.consent import active_scopes, has_scope
 from app.auth.security import as_utc, now_utc
 from app.config import settings
+from app.content.copy import with_encouragement_text
 from app.content.locale import is_missing_translation
 from app.content.signatures import structure_signature
 from app.db.models import (
@@ -28,6 +29,7 @@ from app.db.models import (
     SessionRow,
     SkillRow,
     StudentRow,
+    TeacherAlertRow,
 )
 from app.learner.bkt import BktParams
 from app.learner.ladder import SkillLadder
@@ -43,8 +45,16 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
+from app.registries.grade_bands import SessionLimits, session_limits
 
-GOAL_MS = SOFT_ACTIVE_MS
+GOAL_MS = (
+    SOFT_ACTIVE_MS  # default (grades 9-10); the student's band decides, see limits_for_student
+)
+
+
+def limits_for_student(student: StudentRow) -> SessionLimits:
+    """Session caps and word limit from the student's grade band (config/grade_bands.yaml)."""
+    return session_limits(student.grade)
 
 
 def _locale_value(blob: dict | None, locale: str) -> str:
@@ -327,6 +337,26 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "help_without_attempt": state.help_without_attempt,
         "stuck_item_id": state.stuck_item_id,
         "stretch_served": state.stretch_served,
+        "wheel_skills": sorted(state.wheel_skills),
+        "wrong_first_streak": state.wrong_first_streak,
+        "skill_items": state.skill_items,
+        "seen_items": sorted(state.seen_items),
+        "answered_items": sorted(state.answered_items),
+        "probe_for": state.probe_for,
+        "probe_skill": state.probe_skill,
+        "probe_done": sorted(state.probe_done),
+        "scheduled_prereq": state.scheduled_prereq,
+        "scheduled_left": state.scheduled_left,
+        "reveals": state.reveals,
+        "wrong_run": state.wrong_run,
+        "tier_down_items": state.tier_down_items,
+        "tier_up_next": state.tier_up_next,
+        "unhinted_run": state.unhinted_run,
+        "last_failure": state.last_failure,
+        "win_served": state.win_served,
+        "skill_failed": sorted(state.skill_failed),
+        "last_praise_at": state.last_praise_at,
+        "praise_count": state.praise_count,
         "stretch_skills": sorted(state.stretch_skills),
         "blocked_skills": list(state.blocked_skills),
         "content_gaps": state.content_gaps,
@@ -392,6 +422,26 @@ def load_state(
         help_without_attempt=int(plan.get("help_without_attempt") or 0),
         stuck_item_id=plan.get("stuck_item_id"),
         stretch_served=int(plan.get("stretch_served") or 0),
+        wheel_skills=set(plan.get("wheel_skills") or []),
+        wrong_first_streak={k: int(v) for k, v in (plan.get("wrong_first_streak") or {}).items()},
+        skill_items={k: int(v) for k, v in (plan.get("skill_items") or {}).items()},
+        seen_items=set(plan.get("seen_items") or []),
+        answered_items=set(plan.get("answered_items") or []),
+        probe_for=plan.get("probe_for"),
+        probe_skill=plan.get("probe_skill"),
+        probe_done=set(plan.get("probe_done") or []),
+        scheduled_prereq=plan.get("scheduled_prereq"),
+        scheduled_left=int(plan.get("scheduled_left") or 0),
+        reveals=int(plan.get("reveals") or 0),
+        wrong_run=int(plan.get("wrong_run") or 0),
+        tier_down_items=int(plan.get("tier_down_items") or 0),
+        tier_up_next=bool(plan.get("tier_up_next")),
+        unhinted_run=int(plan.get("unhinted_run") or 0),
+        last_failure=bool(plan.get("last_failure")),
+        win_served=bool(plan.get("win_served")),
+        skill_failed=set(plan.get("skill_failed") or []),
+        last_praise_at=int(plan.get("last_praise_at", -99)),
+        praise_count=int(plan.get("praise_count") or 0),
         stretch_skills=set(plan.get("stretch_skills") or []),
         blocked_skills=set(plan.get("blocked_skills") or []),
         content_gaps=list(plan.get("content_gaps") or []),
@@ -416,6 +466,12 @@ def _build_state(
         prerequisites=prereqs,
     )
     state.session_key = str(row.id)
+    state.teacher_share = "teacher_share" in scopes
+    limits = limits_for_student(student)
+    state.soft_active_ms = limits.soft_active_ms
+    state.soft_item_cap = limits.soft_items
+    state.hard_active_ms = limits.hard_active_ms
+    state.max_words = limits.max_words
     locale = student.home_language or "en"
     for mc in session.scalars(select(MisconceptionRow)):
         state.misconception_remedial[mc.id] = mc.remedial_skill
@@ -524,7 +580,7 @@ def enrich_action(
         "explain_back_prompt",
         "explain_back_result",
     }
-    extras = dict(action.extras or {})
+    extras = with_encouragement_text(dict(action.extras or {}), locale)
     assessment = bool(
         extras.get("assessment") or state.session_type in {"diagnostic", "checkpoint"}
     )
@@ -579,12 +635,13 @@ def reopen_idle(row: SessionRow) -> bool:
     row.resumable = False
     row.last_active_at = now_utc()
     plan = dict(row.plan or {})
+    plan["last_active_at"] = row.last_active_at.isoformat()  # resuming restarts the idle clock
     last = plan.get("last_action") or {}
     if last.get("type") == "end_session":
         plan["last_action"] = None
         plan["ended_reason"] = None
         plan["phase"] = "practice" if plan.get("current_item_id") else "start"
-        row.plan = plan
+    row.plan = plan
     return True
 
 
@@ -603,6 +660,7 @@ def session_view(session: Session, actor: Actor, row: SessionRow) -> dict[str, A
         event = Event(type="resume") if reopened or row.ended_at else None
         action = policy(learner, state, event)
         persist_learner(session, student.id, learner)
+        sync_alerts(session, student, state, learner)
         _persist_state(row, state)
     else:
         action = state.last_action or Action(type="show_item", item_id=state.current_item_id)
@@ -674,7 +732,7 @@ def apply_player_event(
             session, row, student, state, event_type, payload, client_event_id
         )
     response = str(payload.get("response")) if payload.get("response") is not None else None
-    if event_type == "stuck_choice":
+    if event_type in {"stuck_choice", "break_choice"}:
         response = str(payload.get("choice") or "")
     elif event_type == "stuck_step":
         response = str(payload.get("index")) if payload.get("index") is not None else ""
@@ -690,6 +748,7 @@ def apply_player_event(
     )
     action = policy(learner, state, event)
     persist_learner(session, student.id, learner)
+    sync_alerts(session, student, state, learner)
     _persist_state(row, state)
     session.add(
         EventRow(
@@ -725,6 +784,39 @@ def apply_player_event(
         },
         "llm_called": row.llm_called,
     }
+
+
+def sync_alerts(
+    session: Session, student: StudentRow, state: SessionState, learner: LearnerState
+) -> None:
+    """Write queued teacher alerts (the policy only queues them with teacher_share) and resolve
+    open ones whose skill has reached ladder level 4."""
+    now = now_utc()
+    open_rows = session.scalars(
+        select(TeacherAlertRow).where(
+            TeacherAlertRow.student_id == student.id, TeacherAlertRow.resolved_at.is_(None)
+        )
+    ).all()
+    have = {(row.skill_id, row.type) for row in open_rows}
+    for alert in state.alerts:
+        key = (alert["skill_id"], alert["type"])
+        if key not in have:
+            session.add(
+                TeacherAlertRow(
+                    id=uuid.uuid4(),
+                    student_id=student.id,
+                    skill_id=key[0],
+                    type=key[1],
+                    created_at=now,
+                )
+            )
+            have.add(key)
+    state.alerts = []
+    for row in open_rows:
+        ladder = learner.ladders.get(row.skill_id)
+        if ladder is not None and ladder.level >= 4:
+            row.resolved_at = now
+    session.flush()
 
 
 def _attach_summary(
@@ -833,7 +925,8 @@ def _used_active_ms(session: Session, student: StudentRow, tz: ZoneInfo) -> int:
 
 def remaining_minutes(session: Session, student: StudentRow) -> int:
     used = _used_active_ms(session, student, _student_tz(session, student))
-    return max(0, int((GOAL_MS - used) / 60000))
+    goal = limits_for_student(student).soft_active_ms
+    return max(0, int((goal - used) / 60000))
 
 
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
@@ -844,7 +937,8 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     tz = _student_tz(session, student)
     profile = deployment_jurisdiction_profile()
     used = _used_active_ms(session, student, tz)
-    remaining = max(0, int((GOAL_MS - used) / 60000))
+    goal_ms = limits_for_student(student).soft_active_ms
+    remaining = max(0, int((goal_ms - used) / 60000))
     open_row = session.scalar(
         select(SessionRow).where(
             SessionRow.student_id == student.id,
@@ -863,7 +957,7 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     return {
         "student_id": str(student.id),
         "display_name": student.display_name,
-        "goal_minutes": int(GOAL_MS / 60000),
+        "goal_minutes": int(goal_ms / 60000),
         "remaining_active_minutes": remaining,
         "used_active_ms": used,
         "timezone": student.timezone,

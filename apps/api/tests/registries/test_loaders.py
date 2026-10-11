@@ -26,7 +26,7 @@ def test_locales_and_grade_bands_load() -> None:
     assert default == "en"
     assert locales["ne"].fallback_chain == ("en",)
     bands = load_grade_bands()
-    assert bands[0].grades == (9, 10)
+    assert {b.id: b.grades for b in bands}["lower_secondary"] == (9, 10)  # G2b: four bands now
 
 
 def test_jurisdiction_and_notation_profiles() -> None:

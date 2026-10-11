@@ -33,6 +33,7 @@ EMAIL_DOMAIN = "@preview.local"
 STEP = timedelta(seconds=20)  # time between replayed events
 SESSION_GAP = timedelta(hours=2)
 IDLE_MS = 11 * 60 * 1000
+ANSWER_MS = 9000  # a steady pace: slower than any item's min_plausible_ms
 
 
 @dataclass(frozen=True)
@@ -94,6 +95,14 @@ SCENARIOS: tuple[ScenarioSpec, ...] = (
         "Sana",
         leave_open=False,
     ),
+    ScenarioSpec(
+        "wheel_spinning",
+        "Wheel spinning",
+        "Four skills at level 4 and a fifth the student keeps missing: two items missed in an "
+        "open session. One more miss shows a quick check on the skill before it.",
+        "DEVWHL",
+        "Wen",
+    ),
 )
 
 Stop = Callable[[list[str], dict[str, int], dict[str, int]], bool]
@@ -102,7 +111,7 @@ Stop = Callable[[list[str], dict[str, int], dict[str, int]], bool]
 def _stop_for(name: str) -> Stop | None:
     if name in {"skill_at_level_4", "review_due"}:
         return lambda skills, levels, attempts: levels.get(skills[0], 0) >= 4
-    if name == "mid_chapter":
+    if name in {"mid_chapter", "wheel_spinning"}:
         return lambda skills, levels, attempts: (
             all(levels.get(s, 0) >= 4 for s in skills[:4])
             and attempts.get(skills[4], 0) >= 1
@@ -177,7 +186,10 @@ def _seed_one(
         db.commit()
     stop = _stop_for(spec.name)
     if stop is not None:
-        last = _Replay(db, student, admin).run(stop, start)
+        replay = _Replay(db, student, admin)
+        last = replay.run(stop, start)
+        if spec.name == "wheel_spinning":
+            last = replay.struggle(start, items=2)
         if not spec.leave_open:
             # Stand-in for "yesterday's idle session has expired" (G2: resume until local midnight),
             # so the next Start practice begins a fresh session instead of resuming this one.
@@ -265,7 +277,13 @@ class _Replay:
         if kind in {"show_item", "warmup_item", "similar_item", "hint"}:
             item = self.db.get(ItemRow, action["item_id"])
             assert item is not None
-            return "answer", item.id, {"response": item.answer["sympy"], "latency_ms": 2000}
+            return "answer", item.id, {"response": item.answer["sympy"], "latency_ms": ANSWER_MS}
+        if kind == "check_your_work":
+            item = self.db.get(ItemRow, action["item_id"])
+            assert item is not None
+            return "answer", item.id, {"response": item.answer["sympy"], "latency_ms": ANSWER_MS}
+        if kind == "break_or_switch":
+            return "break_choice", None, {"choice": "continue"}
         raise RuntimeError(f"scenario replay met an unexpected action: {kind}")
 
     def _send(
@@ -284,6 +302,40 @@ class _Replay:
             )
             self.db.commit()
         return result["action"]
+
+    def struggle(self, after: datetime, *, items: int) -> SessionRow:
+        """A new session in which the student misses `items` items completely (wrong answers,
+        hints, then the revealed solution), left open as an idle session to resume."""
+        with frozen(self.clock + SESSION_GAP):
+            row = service.start_session(self.db, self.admin, self.student.id, "practice")
+            view = session_view(self.db, self.admin, row)
+            self.db.commit()
+        self.clock += SESSION_GAP
+        action = view["action"]
+        missed = 0
+        for _ in range(400):
+            kind = action["type"]
+            if kind == "reveal_solution":
+                missed += 1
+                if missed == items:
+                    # the next screen is the following item: stop right there
+                    action = self._send(row, "continue", None, {})
+                    break
+                action = self._send(row, "continue", None, {})
+            elif kind in {"show_item", "similar_item", "hint", "warmup_item", "check_your_work"}:
+                item_id = action["item_id"]
+                action = self._send(
+                    row, "answer", item_id, {"response": "0", "latency_ms": ANSWER_MS}
+                )
+            elif kind == "ask_stuck_point":
+                action = self._send(row, "stuck_choice", None, {"choice": "start"})
+            else:
+                event_type, item_id, payload = self._next_event(action)
+                action = self._send(row, event_type, item_id, payload)
+        else:
+            raise RuntimeError("the struggle replay did not finish")
+        self._end_idle(row)
+        return row
 
     def _end_idle(self, row: Any) -> None:
         self.clock += timedelta(minutes=12)

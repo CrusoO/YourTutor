@@ -6,17 +6,31 @@ type Props = {
   copy: Messages;
   reason: string | null | undefined;
   summary: DoneSummary | null | undefined;
+  /** Authored encouragement for a session that ended well (never after a failure). */
+  encouragement?: string | null;
   onKeepGoing: (chapterId: string) => void;
   onChapters: () => void;
 };
 
 /** End of a session: what moved, where every skill stands, what is next. No streaks or ranks. */
-export default function DoneScreen({ copy, reason, summary, onKeepGoing, onChapters }: Props) {
+export default function DoneScreen({
+  copy,
+  reason,
+  summary,
+  encouragement,
+  onKeepGoing,
+  onChapters,
+}: Props) {
   const chapterId = summary?.chapter?.id ?? summary?.recommended_chapter ?? null;
   return (
     <main className="stack done">
       <h1>{copy.doneTitle}</h1>
       <p className="muted">{reasonCopy(copy, reason)}</p>
+      {encouragement ? (
+        <p className="banner good" data-testid="encouragement">
+          {encouragement}
+        </p>
+      ) : null}
       {summary ? (
         <>
           {summary.learned.length > 0 ? (

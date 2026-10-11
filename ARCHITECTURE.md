@@ -287,7 +287,7 @@ The transition table (rule ids R01…Rnn) remains the normative spec; the Mermai
 
 ### 8.1 Practice transitions (normative)
 
-Generated from the code transition table (v1 rules R01–R22, plus the G2a rules R31 and R32; R30 is an ordering rule inside `answer` and has no row of its own; R33–R40 are not in the table yet). CI fails if this block drifts. `request_help` is the canonical help event; `request_hint` is accepted as an alias.
+Generated from the code transition table (v1 rules R01–R22, plus the G2a rules R31 and R32 and the G2b rules R33 and R35; R30 is an ordering rule inside `answer` and has no row of its own; R34, R36, R37 and R40 change what is served or when a session ends, so they have no row of their own). CI fails if this block drifts. `request_help` is the canonical help event; `request_hint` is accepted as an alias.
 
 <!-- ORCH_TRANSITIONS:START -->
 ```mermaid
@@ -321,6 +321,15 @@ stateDiagram-v2
   stuck --> practice: stuck_choice/show_item (R32)
   stuck --> practice: stuck_choice/check_your_work (R32)
   stuck_step --> practice: stuck_step/hint (R32)
+  practice --> probe: answer/show_item (R33)
+  practice --> representation: answer/worked_example (R33)
+  probe --> representation: answer/worked_example (R33)
+  probe --> practice: answer/show_item (R33)
+  representation --> practice: continue/show_item (R33)
+  practice --> break_choice: answer/break_or_switch (R35)
+  practice --> break_choice: request_help/break_or_switch (R35)
+  break_choice --> practice: break_choice/show_item (R35)
+  break_choice --> ended: break_choice/end_session (R35)
 ```
 <!-- ORCH_TRANSITIONS:END -->
 
@@ -332,7 +341,7 @@ Kept from v1 unchanged:
 - Session caps checked after every completed item; idle nudge at 90 s; auto-end after 10 min idle; resumable.
 - Consent revoked mid-session ends the session on the next event; no further LLM calls.
 
-**As built in G2a (P6):** R30 runs inside `answer` (every answer is classified, `payload.diagnosis` is stored); R31 and R32 are rows in the table above; R33-R40 are P7. Picker events are `stuck_choice` and `stuck_step`; `request_help` is canonical and `request_hint` an alias. The picker is offered once per item and its first request is the item's one BKT update.
+**As built in G2a (P6):** R30 runs inside `answer` (every answer is classified, `payload.diagnosis` is stored); R31 and R32 are rows in the table above; R33-R40 landed in P7 (G2b): R33 and R35 are rows in the table; R34 sets the wheel-spinning flag and queues a `teacher_alerts` row only with `teacher_share`; R36 and R37 move the tier; R40 serves one likely-success item before a cap-end. Session caps come from `config/grade_bands.yaml`. Picker events are `stuck_choice` and `stuck_step`; `request_help` is canonical and `request_hint` an alias. The picker is offered once per item and its first request is the item's one BKT update.
 
 Added in v2:
 

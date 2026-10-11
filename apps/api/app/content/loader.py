@@ -64,6 +64,9 @@ def load_path(
     report = validate_bundle(bundle, curricula_for(root))
     _persist_hash_resets(root, report)
     report.errors.extend(lesson_errors(root, {skill.id for skill in bundle.skills}))
+    from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
+
+    report.errors.extend(copy_errors(root))
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
     engine = make_engine(database_url)

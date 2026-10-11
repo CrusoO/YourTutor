@@ -292,3 +292,24 @@ def test_0017_adds_and_removes_the_item_diagnosis_columns() -> None:
         ).one()
     assert list(row[0]) == [] and list(row[1]) == [] and row[2] is None and row[3] is None
     engine.dispose()
+
+
+@pytest.mark.postgres
+def test_0018_creates_and_drops_the_teacher_alerts_table() -> None:
+    url = _postgres_url()
+    if url is None:
+        pytest.skip("Postgres is not available")
+    engine = create_engine(url, future=True)
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+        conn.commit()
+    cfg = _config(url)
+    command.upgrade(cfg, "head")
+    assert "teacher_alerts" in _tables(engine)
+    command.downgrade(cfg, "0017_g2_item_diagnosis")
+    assert "teacher_alerts" not in _tables(engine)
+    command.upgrade(cfg, "head")
+    assert "teacher_alerts" in _tables(engine)
+    engine.dispose()

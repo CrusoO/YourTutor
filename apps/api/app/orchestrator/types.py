@@ -147,6 +147,35 @@ class SessionState:
     misconception_text: dict[str, str] = field(default_factory=dict)  # id -> authored hint
     stuck_item_id: str | None = None  # the picker is offered once per item (R32)
     stretch_served: int = 0  # stretch items served this session (max 2)
+    # G2b: probe (R33) and wheel-spinning (R34)
+    teacher_share: bool = False  # alerts are only queued with this consent scope
+    alerts: list[dict[str, str]] = field(default_factory=list)  # drained by the runtime
+    wheel_skills: set[str] = field(default_factory=set)
+    wrong_first_streak: dict[str, int] = field(default_factory=dict)  # per skill
+    skill_items: dict[str, int] = field(default_factory=dict)  # items seen per skill
+    seen_items: set[str] = field(default_factory=set)
+    answered_items: set[str] = field(default_factory=set)
+    probe_for: str | None = None  # the target skill while a probe is running
+    probe_skill: str | None = None  # the prerequisite being probed
+    probe_done: set[str] = field(default_factory=set)  # one probe per prerequisite
+    scheduled_prereq: str | None = None  # a prerequisite that comes next (R33)
+    scheduled_left: int = 0
+    # G2b: frustration, challenge, never-end-on-failure, praise
+    reveals: int = 0  # reveals since the last step-down (R36)
+    wrong_run: int = 0  # consecutive wrong first attempts across skills (R36)
+    tier_down_items: int = 0  # items still to serve one tier lower (R36)
+    tier_up_next: bool = False  # the next item is one tier higher (R37)
+    unhinted_run: int = 0  # consecutive unhinted correct first attempts (R37)
+    last_failure: bool = False  # the last answered item ended in a miss (R40)
+    win_served: bool = False  # the one likely-success item before a cap-end (R40)
+    skill_failed: set[str] = field(default_factory=set)  # failed, not yet recovered
+    last_praise_at: int = -99  # items_completed when encouragement last appeared
+    praise_count: int = 0
+    # session limits from the student's grade band (defaults: the 9-10 band)
+    soft_active_ms: int = SOFT_ACTIVE_MS
+    soft_item_cap: int = SOFT_ITEM_CAP
+    hard_active_ms: int = HARD_ACTIVE_MS
+    max_words: int = 60  # per tutor message
     stretch_skills: set[str] = field(default_factory=set)  # one stretch per skill per session
     blocked_skills: set[str] = field(default_factory=set)
     content_gaps: list[dict[str, Any]] = field(default_factory=list)

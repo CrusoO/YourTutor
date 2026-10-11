@@ -348,6 +348,72 @@ describe("SessionPage action rendering", () => {
     expect(screen.queryByRole("button", { name: /^help$/i })).not.toBeInTheDocument();
   });
 
+  it("break_or_switch offers a break, something different, or carrying on, in calm words", async () => {
+    await renderAction("break_or_switch");
+    expect(screen.getByRole("heading", { name: /want a short break/i })).toBeInTheDocument();
+    for (const label of [/take a short break/i, /try something different/i, /keep going/i]) {
+      expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+    }
+    const box = screen.getByTestId("break-or-switch");
+    expect(box.textContent).not.toMatch(/rushing|guess|careless|lazy|too fast/i);
+    await userEvent.click(screen.getByRole("button", { name: /try something different/i }));
+    expect(postEvent).toHaveBeenCalledWith("sess-test", "break_choice", { choice: "switch" }, actionFixtures.break_or_switch.item_id);
+  });
+
+  it("a probe question is labelled as a quick check and offers no Help", async () => {
+    mockSession({
+      ...actionFixtures.show_item,
+      can_request_help: false,
+      can_request_hint: false,
+      extras: { probe: true, for_skill: "S1" },
+    });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("probe")).toHaveTextContent(/quick check/i);
+    expect(screen.queryByRole("button", { name: /^help$/i })).not.toBeInTheDocument();
+  });
+
+  it("a challenge question and a closing win are labelled", async () => {
+    mockSession({ ...actionFixtures.show_item, extras: { challenge: true } });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("challenge")).toHaveTextContent(/challenge/i);
+    cleanup();
+    mockSession({ ...actionFixtures.show_item, extras: { win: true } });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("win")).toHaveTextContent(/quick one to finish/i);
+  });
+
+  it("a representation change says it is another way of looking at the skill", async () => {
+    mockSession({ ...actionFixtures.worked_example, extras: { representation_change: true } });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("other-view")).toHaveTextContent(/another way/i);
+  });
+
+  it("shows authored encouragement above the next screen, and a short note after a step-down", async () => {
+    mockSession({
+      ...actionFixtures.show_item,
+      extras: {
+        support: "step_down",
+        encouragement: { trigger: "recovery", variant: "kept_trying", text: "You kept going and it paid off." },
+      },
+    });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("encouragement")).toHaveTextContent("You kept going and it paid off.");
+    expect(screen.getByTestId("support-note")).toHaveTextContent(/smaller step first/i);
+  });
+
+  it("the Done screen shows session-end encouragement and a break reason in plain words", async () => {
+    mockSession({
+      ...actionFixtures.end_session,
+      ended_reason: "break",
+      reason: "break",
+      extras: { encouragement: { trigger: "session_end", variant: "steady_work", text: "Nice steady work today." } },
+    });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("encouragement")).toHaveTextContent("Nice steady work today.");
+    expect(screen.getByText(/taking a break is a good idea/i)).toBeInTheDocument();
+    expect(screen.queryByText("break")).not.toBeInTheDocument();
+  });
+
   it("show_item after 'might be right' asks the student to submit", async () => {
     mockSession({ ...actionFixtures.show_item, extras: { prompt_submit: true } });
     render(<SessionPage />);

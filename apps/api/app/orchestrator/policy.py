@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 from app.checkpoint.score import score_answers
@@ -17,22 +18,20 @@ from app.learner.ladder import (
 from app.learner.mastery_service import apply_event
 from app.learner.scheduler_fsrs import FixedClock
 from app.learner.types import LearnerEvent, LearnerState, Mastery
-from app.orchestrator.diagnosis import classify
+from app.orchestrator.diagnosis import FAST_STREAK_LIMIT, HELP_WITHOUT_ATTEMPT_LIMIT, classify
 from app.orchestrator.diagnostic import (
     is_dont_know,
     next_diagnostic_item,
     record_answer,
     seed_placement,
 )
+from app.orchestrator.encouragement import pick_variant
 from app.orchestrator.transitions import rule_id_for
 from app.orchestrator.types import (
-    HARD_ACTIVE_MS,
     IDLE_END_MS,
     LATENCY_CAP_MS,
     MAX_WARMUP,
     PREREQ_BELOW,
-    SOFT_ACTIVE_MS,
-    SOFT_ITEM_CAP,
     Action,
     CatalogItem,
     Event,
@@ -68,7 +67,7 @@ def _policy(
     if last_event and last_event.type not in {"answer", "resume"} and not finishing:
         if _hard_cap(session) or _soft_cap(session):
             reason = "hard_cap" if _hard_cap(session) else "soft_cap"
-            return _annotate(_end(session, reason, resumable=False), session, before, last_event)
+            return _annotate(_end_for_cap(learner, session, reason), session, before, last_event)
     if session.consent_revoked or (last_event and last_event.type == "consent_revoked"):
         return _annotate(
             _end(session, "consent_revoked", resumable=False), session, before, last_event
@@ -130,6 +129,8 @@ def _practice(learner: LearnerState, session: SessionState, event: Event | None)
         return _on_continue(learner, session)
     if event.type == "request_help":
         return _on_hint(learner, session)
+    if event.type == "break_choice":
+        return _on_break_choice(learner, session, event)
     if event.type == "stuck_choice":
         return _on_stuck_choice(learner, session, event)
     if event.type == "stuck_step":
@@ -145,9 +146,9 @@ def _practice(learner: LearnerState, session: SessionState, event: Event | None)
 
 def _enter_practice_loop(learner: LearnerState, session: SessionState) -> Action:
     if _hard_cap(session):
-        return _end(session, "hard_cap", resumable=False)
+        return _end_for_cap(learner, session, "hard_cap")
     if _soft_cap(session):
-        return _end(session, "soft_cap", resumable=False)
+        return _end_for_cap(learner, session, "soft_cap")
     if not session.warmup_done:
         due = _due_skills(learner, session)
         if due:
@@ -159,6 +160,10 @@ def _enter_practice_loop(learner: LearnerState, session: SessionState) -> Action
 
 
 def _on_continue(learner: LearnerState, session: SessionState) -> Action:
+    if session.phase == "representation":
+        target = session.probe_for or session.current_skill
+        session.probe_for = None
+        return _show_practice(learner, session, target, new_skill=False)
     if session.phase == "worked_example":
         _lesson_complete(learner, session)
         return _show_practice(learner, session, session.current_skill, new_skill=False)
@@ -180,6 +185,8 @@ def _on_hint(learner: LearnerState, session: SessionState) -> Action:
     item = session.item()
     if item is None:
         return _enter_practice_loop(learner, session)
+    if session.phase == "probe":
+        return _flag(session, "no_help_in_probe")
     if session.phase in {"stuck", "stuck_step"}:
         return _keep(session, _stuck_point_action(session, item))
     if (
@@ -218,8 +225,11 @@ def _ask_stuck_point(learner: LearnerState, session: SessionState, item: Catalog
     """R32: ask before telling. The first help request is the item's one BKT update."""
     _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
     _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
+    _note_item_seen(session, item)
     session.stuck_item_id = item.id
     session.help_without_attempt += 1
+    if session.help_without_attempt >= HELP_WITHOUT_ATTEMPT_LIMIT:
+        return _offer_break(session)  # R35: help opened without an attempt three times
     session.phase = "stuck"
     return _keep(session, _stuck_point_action(session, item))
 
@@ -355,6 +365,36 @@ def _on_show_solution(learner: LearnerState, session: SessionState) -> Action:
 
 
 def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Action:
+    """Answer entry point: probe answers, bookkeeping, then the G2b rules around the base flow."""
+    item = session.item(event.item_id) or session.item()
+    if item is None or session.session_type != "practice":
+        return _on_answer_base(learner, session, event)
+    if session.phase == "probe" and item.primary_skill == session.probe_skill:
+        return _answer_probe(learner, session, item, event)
+    first_answer = item.id not in session.answered_items
+    hinted = (
+        session.hint_level_shown > 0
+        or session.stuck_item_id == item.id
+        or session.last_wrong_item_id == item.id
+    )
+    tier_before = item_tier(item.difficulty)
+    action = _on_answer_base(learner, session, event)
+    if action.rejected or session.last_correct is None:
+        return action
+    correct = bool(session.last_correct)
+    session.last_failure = not correct
+    if first_answer:
+        _note_first_answer(session, item, correct)
+    return _apply_g2b_rules(
+        learner,
+        session,
+        item,
+        action,
+        _Outcome(first=first_answer, correct=correct, hinted=hinted, tier=tier_before),
+    )
+
+
+def _on_answer_base(learner: LearnerState, session: SessionState, event: Event) -> Action:
     item = session.item(event.item_id) or session.item()
     if item is None:
         return _enter_practice_loop(learner, session)
@@ -417,6 +457,405 @@ def _on_answer(learner: LearnerState, session: SessionState, event: Event) -> Ac
     return _deliver_hint(learner, session, item)
 
 
+WHEEL_WRONG_STREAK = 3  # R34: consecutive wrong first attempts on one skill
+WHEEL_ITEM_LIMIT = 10  # R34: items on one skill in a session without reaching level 4
+
+
+def _note_item_seen(session: SessionState, item: CatalogItem) -> None:
+    if item.id not in session.seen_items:
+        session.seen_items.add(item.id)
+        skill = item.primary_skill
+        session.skill_items[skill] = session.skill_items.get(skill, 0) + 1
+
+
+def _note_first_answer(session: SessionState, item: CatalogItem, correct: bool) -> None:
+    """First answer on an item: it is seen, and it extends or resets the wrong-first-attempt run."""
+    session.answered_items.add(item.id)
+    _note_item_seen(session, item)
+    skill = item.primary_skill
+    session.wrong_first_streak[skill] = (
+        0 if correct else session.wrong_first_streak.get(skill, 0) + 1
+    )
+
+
+def _wheel_spinning(learner: LearnerState, session: SessionState, skill: str) -> bool:
+    if skill in session.wheel_skills or _ladder_level(learner, skill) >= T_LEVEL:
+        return False
+    return (
+        session.wrong_first_streak.get(skill, 0) >= WHEEL_WRONG_STREAK
+        or session.skill_items.get(skill, 0) >= WHEEL_ITEM_LIMIT
+    )
+
+
+@dataclass(frozen=True)
+class _Outcome:
+    """What the student just did on an item, captured before the base flow moved on."""
+
+    first: bool  # the first answer on this item
+    correct: bool
+    hinted: bool  # help, a stuck-point choice or an earlier wrong answer came first
+    tier: str  # tier of the item that was answered
+
+
+def _apply_g2b_rules(
+    learner: LearnerState,
+    session: SessionState,
+    item: CatalogItem,
+    action: Action,
+    outcome: _Outcome,
+) -> Action:
+    """Rules around the base answer flow: R35 break, R34/R33 wheel and probe, R36, R37, praise."""
+    skill = item.primary_skill
+    _update_runs(session, skill, outcome)
+    if session.fast_streak >= FAST_STREAK_LIMIT and action.type in _BREAK_REPLACES:
+        return _offer_break(session)
+    reason: str | None = None
+    if _wheel_spinning(learner, session, skill):
+        session.wheel_skills.add(skill)
+        reason = "wheel_spinning"
+        if session.teacher_share:
+            session.alerts.append({"skill_id": skill, "type": "wheel_spinning"})
+    diagnosis = session.last_diagnosis or {}
+    if diagnosis.get("class") == "prerequisite_gap" and diagnosis.get("detail"):
+        reason = reason or "prerequisite_gap"
+    if reason is not None and action.type in _PROBE_REPLACES:
+        prereq = diagnosis.get("detail") if reason == "prerequisite_gap" else None
+        probe = _start_probe(learner, session, skill, prereq)
+        if probe is not None:
+            return probe
+    action = _challenge_or_tier_up(learner, session, item, action, outcome)
+    return _maybe_praise(session, item, action, outcome)
+
+
+_BREAK_REPLACES = frozenset(
+    {
+        "hint",
+        "show_item",
+        "similar_item",
+        "explain_back_prompt",
+        "check_your_work",
+        "predict",
+        "warmup_item",
+        "reveal_solution",  # a guesser who also misses the last hint is offered the break first
+    }
+)
+FRUSTRATION_REVEALS = 2  # R36
+FRUSTRATION_WRONG_RUN = 3  # R36
+STEP_DOWN_ITEMS = 2  # R36
+CHALLENGE_RUN = 3  # R37
+PRAISE_GAP_ITEMS = 3  # encouragement is never on consecutive items
+_TIERS = ("easy", "medium", "hard")
+
+
+def _update_runs(session: SessionState, skill: str, outcome: _Outcome) -> None:
+    """Counters behind R36 (frustration) and R37 (challenge) and the recovery trigger."""
+    if outcome.first:
+        session.wrong_run = 0 if outcome.correct else session.wrong_run + 1
+        if outcome.correct:
+            session.skill_failed.discard(skill) if outcome.tier == "easy" else None
+        else:
+            session.skill_failed.add(skill)
+    unhinted_correct = outcome.first and outcome.correct and not outcome.hinted
+    session.unhinted_run = session.unhinted_run + 1 if unhinted_correct else 0
+    if (
+        session.reveals >= FRUSTRATION_REVEALS or session.wrong_run >= FRUSTRATION_WRONG_RUN
+    ) and session.tier_down_items == 0:
+        session.tier_down_items = STEP_DOWN_ITEMS  # acknowledge, step down, give a win (R36)
+        session.reveals = 0
+        session.wrong_run = 0
+
+
+def _effective_tier(session: SessionState, wanted: str) -> str:
+    """Apply a pending step-down (R36) or step-up (R37) to the tier of the next item."""
+    index = _TIERS.index(wanted) if wanted in _TIERS else 1
+    if session.tier_down_items > 0:
+        session.tier_down_items -= 1
+        index = max(0, index - 1)
+    elif session.tier_up_next:
+        session.tier_up_next = False
+        index = min(len(_TIERS) - 1, index + 1)
+    return _TIERS[index]
+
+
+def _announce_step_down(session: SessionState, wanted: str, shifted: str) -> bool:
+    """True for the first of the easier items after a step-down (a short, calm acknowledgement)."""
+    return _TIERS.index(shifted) < _TIERS.index(wanted) and (
+        session.tier_down_items == STEP_DOWN_ITEMS - 1
+    )
+
+
+def _offer_break(session: SessionState) -> Action:
+    """R35: offer a break or a different activity. Calm, never accusatory (copy is in the UI)."""
+    session.fast_streak = 0
+    session.help_without_attempt = 0
+    session.phase = "break_choice"
+    action = Action(
+        type="break_or_switch",
+        item_id=session.current_item_id,
+        skill_id=session.current_skill,
+        extras={"choices": ["break", "switch", "continue"]},
+    )
+    action.rule_id = "R35"
+    return _keep(session, action)
+
+
+def _on_break_choice(learner: LearnerState, session: SessionState, event: Event) -> Action:
+    if session.phase != "break_choice":
+        return _flag(session, "not_in_break_choice")
+    choice = (event.response or "").strip()
+    if choice not in {"break", "switch", "continue"}:
+        return _flag(session, "bad_choice")
+    session.phase = "practice"
+    item = session.item()
+    if choice == "break":
+        return _end(session, "break", resumable=True)
+    if choice == "switch" and session.current_skill:
+        skill = session.current_skill
+        session.blocked_skills.add(skill)
+        nxt = _select_skill_or_item(learner, session)
+        if not (nxt.type == "end_session" and nxt.ended_reason == "chapter_complete"):
+            return nxt
+        session.blocked_skills.discard(skill)  # nothing else to switch to: stay
+        session.phase = "practice"
+        session.ended_reason = None
+    if item is None:
+        return _enter_practice_loop(learner, session)
+    return _keep(session, Action(type="show_item", item_id=item.id, skill_id=item.primary_skill))
+
+
+def _challenge_or_tier_up(
+    learner: LearnerState,
+    session: SessionState,
+    item: CatalogItem,
+    action: Action,
+    outcome: _Outcome,
+) -> Action:
+    """R37: after three unhinted correct first attempts step the tier up; at hard, a challenge."""
+    if session.unhinted_run < CHALLENGE_RUN:
+        return action
+    session.unhinted_run = 0
+    if outcome.tier != "hard":
+        session.tier_up_next = True
+        if action.type == "show_item" and not action.extras:
+            if session.shown_item_ids and session.shown_item_ids[-1] == action.item_id:
+                session.shown_item_ids.pop()  # re-pick one tier higher
+            return _show_practice(learner, session, item.primary_skill, new_skill=False)
+        return action
+    if action.type not in {"show_item", "explain_back_prompt"}:
+        return action
+    challenge = _challenge_item(learner, session, item.primary_skill)
+    return challenge or action
+
+
+def _challenge_item(learner: LearnerState, session: SessionState, skill: str) -> Action | None:
+    """A transfer item on the skill, or an interleaved item from another skill in the chapter."""
+    picked = _pick_item(session, skill, p_known=0.9, prefer_tier="hard", roles=("transfer",))
+    if picked is None or picked.role != "transfer":
+        for other in session.overlay_skill_ids:
+            if other == skill or other in session.blocked_skills:
+                continue
+            picked = _pick_item(
+                session, other, p_known=0.9, prefer_tier="hard", roles=("transfer",)
+            )
+            if picked is not None:
+                break
+    if picked is None:
+        return None
+    session.current_skill = picked.primary_skill
+    session.current_item_id = picked.id
+    session.hint_level_shown = 0
+    session.attempt_after_hint2 = False
+    session.phase = "practice"
+    session.shown_item_ids.append(picked.id)
+    action = Action(
+        type="show_item",
+        item_id=picked.id,
+        skill_id=picked.primary_skill,
+        extras={"challenge": True},
+    )
+    action.rule_id = "R37"
+    return _keep(session, action)
+
+
+def _maybe_praise(
+    session: SessionState, item: CatalogItem, action: Action, outcome: _Outcome
+) -> Action:
+    """Encouragement only on a trigger, never after an easy item, never on consecutive items."""
+    if not (outcome.first and outcome.correct) or outcome.tier == "easy":
+        return action
+    if session.items_completed - session.last_praise_at < PRAISE_GAP_ITEMS:
+        return action
+    trigger: str | None = None
+    if outcome.tier == "hard" and not outcome.hinted:
+        trigger = "hard_success"
+    elif item.primary_skill in session.skill_failed:
+        trigger = "recovery"
+    session.skill_failed.discard(item.primary_skill)
+    if trigger is None or action.type == "end_session":
+        return action
+    return _attach_praise(session, action, trigger)
+
+
+def _attach_praise(session: SessionState, action: Action, trigger: str) -> Action:
+    action.extras = {
+        **(action.extras or {}),
+        "encouragement": {
+            "trigger": trigger,
+            "variant": pick_variant(trigger, session.praise_count),
+        },
+    }
+    session.last_praise_at = session.items_completed
+    session.praise_count += 1
+    return action
+
+
+def _serve_win(learner: LearnerState, session: SessionState) -> Action | None:
+    """R40: one short item likely to succeed before a cap ends the session after a failure."""
+    skills = [s for s in [session.current_skill, *session.overlay_skill_ids] if s]
+    for skill in dict.fromkeys(skills):
+        item = _pick_item(session, skill, p_known=0.0, prefer_tier="easy", roles=("procedure",))
+        if item is not None:
+            break
+    else:
+        return None
+    session.win_served = True
+    session.phase = "practice"
+    session.current_skill = item.primary_skill
+    session.current_item_id = item.id
+    session.hint_level_shown = 0
+    session.attempt_after_hint2 = False
+    session.shown_item_ids.append(item.id)
+    action = Action(
+        type="show_item",
+        item_id=item.id,
+        skill_id=item.primary_skill,
+        extras={"win": True},
+    )
+    action.rule_id = "R40"
+    return _keep(session, action)
+
+
+def _end_for_cap(learner: LearnerState, session: SessionState, reason: str) -> Action:
+    """A cap ended the session: after a failure one likely-success item comes first (R40)."""
+    if session.last_failure and not session.win_served:
+        win = _serve_win(learner, session)
+        if win is not None:
+            return win
+    action = _end(session, reason, resumable=False)
+    if not session.last_failure:
+        _attach_praise(session, action, "session_end")
+    return action
+
+
+# actions the probe may replace: the next step of the item the student just answered
+_PROBE_REPLACES = frozenset(
+    {"hint", "show_item", "similar_item", "explain_back_prompt", "check_your_work"}
+)
+
+
+def _lowest_mastery_prerequisite(
+    learner: LearnerState, session: SessionState, target: str
+) -> str | None:
+    candidates = [
+        sid
+        for sid in session.prerequisites.get(target, ())
+        if sid not in session.probe_done
+        and any(row.primary_skill == sid for row in _eligible_items(session, sid, set()))
+    ]
+    if not candidates:
+        return None
+    return min(candidates, key=lambda sid: (_p_known(learner, sid, session), sid))
+
+
+def _start_probe(
+    learner: LearnerState, session: SessionState, target: str, prereq: str | None
+) -> Action | None:
+    """R33: one practice item on the prerequisite; none to probe means a new representation."""
+    if prereq is not None and prereq in session.probe_done:
+        return None
+    chosen = prereq or _lowest_mastery_prerequisite(learner, session, target)
+    item = (
+        _pick_item(
+            session,
+            chosen,
+            p_known=_p_known(learner, chosen, session),
+            prefer_tier="easy",
+            roles=("procedure",),
+        )
+        if chosen
+        else None
+    )
+    if chosen is None or item is None:
+        return _change_representation(session, target)
+    session.probe_done.add(chosen)
+    session.probe_skill, session.probe_for = chosen, target
+    session.phase = "probe"
+    session.current_skill = chosen
+    session.current_item_id = item.id
+    session.hint_level_shown = 0
+    session.attempt_after_hint2 = False
+    session.shown_item_ids.append(item.id)
+    action = Action(
+        type="show_item",
+        item_id=item.id,
+        skill_id=chosen,
+        extras={"probe": True, "for_skill": target},
+    )
+    action.rule_id = "R33"
+    return _keep(session, action)
+
+
+def _change_representation(session: SessionState, target: str) -> Action:
+    """Show the target skill in a different way: its worked example (no lesson credit)."""
+    session.phase = "representation"
+    session.probe_for = target
+    session.current_skill = target
+    current = session.item()
+    if current is None or current.primary_skill != target:
+        current = next((row for row in session.catalog if row.primary_skill == target), None)
+        session.current_item_id = current.id if current else None
+    action = Action(
+        type="worked_example",
+        item_id=session.current_item_id,
+        skill_id=target,
+        text=current.authored_explanation if current else "",
+        extras={"representation_change": True},
+    )
+    action.rule_id = "R33"
+    return _keep(session, action)
+
+
+def _answer_probe(
+    learner: LearnerState, session: SessionState, item: CatalogItem, event: Event
+) -> Action:
+    correct = verify_response(
+        event.response or "",
+        answer_sympy=item.answer_sympy,
+        accept=list(item.accept),
+        item_type=item.type,
+        verify=item.verify,
+        options=list(item.options),
+    )
+    session.last_correct = correct
+    session.last_diagnosis = None
+    _maybe_bkt(learner, session, item, event_type="answer", correct=correct)
+    _maybe_ladder(learner, session, item, kind=KIND_ANSWER, correct=correct)
+    session.items_completed += 1
+    session.answered_items.add(item.id)
+    _note_item_seen(session, item)
+    prereq, target = session.probe_skill, session.probe_for
+    session.probe_skill = None
+    if correct and target:
+        return _change_representation(
+            session, target
+        )  # the prerequisite is fine: teach T differently
+    session.probe_for = None
+    session.phase = "practice"
+    if prereq:
+        session.scheduled_prereq, session.scheduled_left = prereq, 2  # prerequisite next, T later
+    return _select_skill_or_item(learner, session)
+
+
 def _track_engagement(session: SessionState, item: CatalogItem, event: Event) -> None:
     """Counters behind the disengagement class (R35): fast answers and help without an attempt."""
     fast = (
@@ -476,6 +915,7 @@ def _reveal(session: SessionState) -> Action:
     assert item is not None
     lead = item.hint(3)
     body = " ".join(item.solution_steps)
+    session.reveals += 1
     session.phase = "reveal"
     session.similar_from_item_id = item.id
     return _keep(
@@ -494,7 +934,9 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
     source = session.item(session.similar_from_item_id) or session.item()
     if source is None:
         return _select_skill_or_item(learner, session)
-    wanted = item_tier(source.difficulty)
+    source_tier = item_tier(source.difficulty)
+    wanted = _effective_tier(session, source_tier)
+    announce = _announce_step_down(session, source_tier, wanted)
     nxt = _pick_item(
         session,
         source.primary_skill,
@@ -513,14 +955,19 @@ def _similar_item(learner: LearnerState, session: SessionState) -> Action:
     session.shown_item_ids.append(nxt.id)
     return _keep(
         session,
-        Action(type="similar_item", item_id=nxt.id, skill_id=nxt.primary_skill),
+        Action(
+            type="similar_item",
+            item_id=nxt.id,
+            skill_id=nxt.primary_skill,
+            extras={"support": "step_down"} if announce else {},
+        ),
     )
 
 
 def _select_skill_or_item(learner: LearnerState, session: SessionState) -> Action:
     if _hard_cap(session) or _soft_cap(session):
         reason = "hard_cap" if _hard_cap(session) else "soft_cap"
-        return _end(session, reason, resumable=False)
+        return _end_for_cap(learner, session, reason)
     if session.warmup_left > 0:
         due = _due_skills(learner, session)
         if due:
@@ -534,7 +981,10 @@ def _select_skill_or_item(learner: LearnerState, session: SessionState) -> Actio
         return _show_practice(learner, session, stretch, new_skill=False)
     skill = _choose_skill(learner, session)
     if skill is None:
-        return _end(session, "chapter_complete", resumable=False)
+        done = _end(session, "chapter_complete", resumable=False)
+        if not session.last_failure:
+            _attach_praise(session, done, "session_end")
+        return done
     session.current_skill = skill
     if skill not in session.introduced_skills and skill not in _shown_skills(learner):
         session.phase = "predict"
@@ -557,7 +1007,15 @@ def _show_practice(
         return _end(session, "chapter_complete", resumable=False)
     wanted = item_tier(_p_known(learner, skill, session))
     roles, required = _roles_for(learner, session, skill)
-    item = _pick_item(session, skill, p_known=_p_known(learner, skill, session), roles=roles)
+    shifted = _effective_tier(session, wanted)
+    announce = _announce_step_down(session, wanted, shifted)
+    item = _pick_item(
+        session,
+        skill,
+        p_known=_p_known(learner, skill, session),
+        roles=roles,
+        prefer_tier=shifted if shifted != wanted else None,
+    )
     if item is None:
         return _content_gap(learner, session, skill, wanted)
     if required and item.role != roles[0]:
@@ -569,7 +1027,8 @@ def _show_practice(
     session.attempt_after_hint2 = False
     session.phase = "practice"
     session.shown_item_ids.append(item.id)
-    return _keep(session, Action(type="show_item", item_id=item.id, skill_id=skill))
+    extras = {"support": "step_down"} if announce else {}
+    return _keep(session, Action(type="show_item", item_id=item.id, skill_id=skill, extras=extras))
 
 
 def _show_warmup(learner: LearnerState, session: SessionState, due: list[str]) -> Action:
@@ -681,6 +1140,13 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
     With no such skill: extension practice (level 4 -> apply, 5 -> transfer) on the first skill
     that still has a role to earn, otherwise None (chapter complete).
     """
+    scheduled = session.scheduled_prereq
+    if scheduled and session.scheduled_left > 0:
+        session.scheduled_left -= 1
+        if session.scheduled_left == 0:
+            session.scheduled_prereq = None
+        return scheduled
+    session.scheduled_prereq, session.scheduled_left = None, 0
     target = None
     for skill_id in session.overlay_skill_ids:
         if skill_id in session.blocked_skills:
@@ -1032,11 +1498,14 @@ def _idle_expired(session: SessionState, event: Event | None) -> bool:
 
 
 def _soft_cap(session: SessionState) -> bool:
-    return session.active_ms >= SOFT_ACTIVE_MS or session.items_completed >= SOFT_ITEM_CAP
+    return (
+        session.active_ms >= session.soft_active_ms
+        or session.items_completed >= session.soft_item_cap
+    )
 
 
 def _hard_cap(session: SessionState) -> bool:
-    return session.active_ms >= HARD_ACTIVE_MS
+    return session.active_ms >= session.hard_active_ms
 
 
 def _end(session: SessionState, reason: str, *, resumable: bool) -> Action:

@@ -437,6 +437,21 @@ class ReviewCardRow(Base):
     due_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
+class TeacherAlertRow(Base):
+    """A wheel-spinning (or repeated misconception) alert; only written with `teacher_share`."""
+
+    __tablename__ = "teacher_alerts"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    skill_id: Mapped[str] = mapped_column(String)
+    type: Mapped[str] = mapped_column(String)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
 class ReviewQueueRow(Base):
     __tablename__ = "review_queue"
 
