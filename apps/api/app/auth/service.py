@@ -21,7 +21,7 @@ from app.auth.authz import (
     teacher_visible_student_ids,
 )
 from app.auth.consent import active_consent, available_scopes, has_scope, is_guest
-from app.auth.scopes import CONSENT_SCOPES
+from app.auth.scopes import scope_error
 from app.auth.security import (
     as_utc,
     codes_match,
@@ -271,14 +271,13 @@ def create_student(
 
 
 def check_scopes(session: Session, student_id: uuid.UUID, scopes: list[str]) -> None:
-    unknown = set(scopes) - CONSENT_SCOPES
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
-    unavailable = set(scopes) - available_scopes(session, student_id)
-    if unavailable:
-        raise HTTPException(
-            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
-        )
+    error = scope_error(
+        scopes,
+        guest=is_guest(session, student_id),
+        available=available_scopes(session, student_id),
+    )
+    if error:
+        raise HTTPException(status_code=400, detail=error)
 
 
 def grant_consent(
@@ -1065,14 +1064,11 @@ def enrol_pilot_family(
         name = first_name.strip()
     if not paper_ref.strip():
         raise HTTPException(status_code=400, detail="paper_ref required")
-    unknown = set(scopes) - CONSENT_SCOPES
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"unknown scopes: {sorted(unknown)}")
-    unavailable = set(scopes) - set(deployment_jurisdiction_profile().consent_scopes)
-    if unavailable:
-        raise HTTPException(
-            status_code=400, detail=f"scopes not available here: {sorted(unavailable)}"
-        )
+    error = scope_error(
+        scopes, guest=False, available=deployment_jurisdiction_profile().consent_scopes
+    )
+    if error:
+        raise HTTPException(status_code=400, detail=error)
     if "tutoring" not in scopes:
         scopes = ["tutoring", *scopes]
     code = (family_code or new_family_code()).strip().upper()
