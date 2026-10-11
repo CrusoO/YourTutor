@@ -492,14 +492,14 @@ Accept:
 
 ### G9 — Offline + sync (was M7b, extended)
 
-- [x] Met 2026-10-11 (targeted tests {T9}). *Items, lessons (with their scenes and widgets) and learner state are in the pack; the offline page plays practice, not the lesson player, so lesson beats are not yet shown offline.* Packs: offline-verifiable items, lessons, scenes, widgets for a chapter
-- [x] Met 2026-10-11 (targeted tests {T9}). TS mirrors: policy (incl. R30–R40), diagnosis, ladder, BKT, ts-fsrs, widget predicates — same fixtures
-- [x] Met 2026-10-11 (targeted tests {T9}). Sync: server re-verifies, ignores client correctness and widget results, recomputes ladder/BKT/FSRS, rejects/flags illegal sequences
+- [x] Met 2026-10-11 (targeted tests: pytest 510 (offline, orchestrator, learner, player, verifier, packs, meta), vitest 304 (all), test:ui offline spec). *Items, lessons (with their scenes and widgets) and learner state are in the pack; the offline page plays practice, not the lesson player, so lesson beats are not yet shown offline.* Packs: offline-verifiable items, lessons, scenes, widgets for a chapter
+- [x] Met 2026-10-11 (targeted tests: pytest 510 (offline, orchestrator, learner, player, verifier, packs, meta), vitest 304 (all), test:ui offline spec). TS mirrors: policy (incl. R30–R40), diagnosis, ladder, BKT, ts-fsrs, widget predicates — same fixtures
+- [x] Met 2026-10-11 (targeted tests: pytest 510 (offline, orchestrator, learner, player, verifier, packs, meta), vitest 304 (all), test:ui offline spec). Sync: server re-verifies, ignores client correctness and widget results, recomputes ladder/BKT/FSRS, rejects/flags illegal sequences
 
 Accept:
 
-- [x] Met 2026-10-11 (targeted tests {T9}). All shared fixtures pass in Python and TS
-- [x] Met 2026-10-11 (targeted tests {T9}). Offline session synced = server recompute, byte-for-byte on ladder and BKT state
+- [x] Met 2026-10-11 (targeted tests: pytest 510 (offline, orchestrator, learner, player, verifier, packs, meta), vitest 304 (all), test:ui offline spec). All shared fixtures pass in Python and TS
+- [x] Met 2026-10-11 (targeted tests: pytest 510 (offline, orchestrator, learner, player, verifier, packs, meta), vitest 304 (all), test:ui offline spec). Offline session synced = server recompute, byte-for-byte on ladder and BKT state
 
 ### G10 — Guardian and teacher views (was M8, extended)
 

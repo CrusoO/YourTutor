@@ -261,7 +261,7 @@ export default function OfflinePage() {
       <p data-testid="offline-status" className="muted">
         {online ? copy.offlineIsOnline : copy.offlineIsOffline}
         {" · "}
-        {pack ? `${pack.catalog.length} ${copy.offlineDownloaded}` : copy.offlineNothing}
+        {pack ? `${pack.catalog.length} ${copy.offlineCount}` : copy.offlineNothing}
         {pending > 0 ? ` · ${pending} ${copy.offlineWaiting}` : ""}
       </p>
       {store && !store.durable ? <p className="banner">{copy.offlineNotSaved}</p> : null}

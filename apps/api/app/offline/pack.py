@@ -216,4 +216,5 @@ def build_pack(session: Session, student: StudentRow) -> dict[str, Any]:
             "divide_symbols": list(profile.divide_symbols) if profile else ["/"],
         },
         "dont_know": sorted(DONT_KNOW),
+        "allow_draft": settings.allow_draft_content,  # draft items are served only in development
     }

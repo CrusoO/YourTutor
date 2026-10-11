@@ -44,6 +44,7 @@ export type Pack = {
   };
   notation: NotationProfile;
   dont_know: string[];
+  allow_draft?: boolean;
 };
 
 /** A py-fsrs card (what the server stores) as a ts-fsrs card. */
@@ -88,6 +89,7 @@ export function sessionFromPack(pack: Pack, startedAt: string, sessionKey = "ses
     bkt_params: pack.bkt_params,
     prerequisites: pack.prerequisites,
     last_active_at: now,
+    allow_draft: !!pack.allow_draft,
     soft_active_ms: pack.limits.soft_active_ms,
     soft_item_cap: pack.limits.soft_item_cap,
     hard_active_ms: pack.limits.hard_active_ms,

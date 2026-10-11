@@ -34,7 +34,7 @@ test("download, practise offline, come back online and sync", async ({ page, con
   await shot(page, "01-before-download");
 
   await page.getByRole("button", { name: "Download for offline" }).click();
-  await expect(page.getByTestId("offline-status")).toContainText("Saved on this device");
+  await expect(page.getByTestId("offline-status")).toContainText("questions saved on this device");
   await shot(page, "02-downloaded");
 
   await context.setOffline(true);

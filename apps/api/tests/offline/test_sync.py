@@ -167,7 +167,7 @@ def test_an_illegal_sequence_is_rejected_flagged_and_changes_nothing(
 ) -> None:
     student = _student(db, world)
     played = play(db, student, steps=4)
-    bad = {
+    bad: dict[str, Any] = {
         "client_event_id": str(uuid.uuid5(NS, "illegal")),
         "event_type": "show_solution",
         "at": (T0 + timedelta(minutes=3)).isoformat(),
@@ -284,7 +284,7 @@ def test_the_session_row_is_derived_from_the_client_session_id(
     db.expire_all()
     row = db.get(SessionRow, expected)
     assert row is not None and row.plan["offline"] is True
-    assert db.scalar(select(func.count()).select_from(MasteryRow)) >= 1
+    assert (db.scalar(select(func.count()).select_from(MasteryRow)) or 0) >= 1
 
 
 # ---- the shared fixture the TypeScript mirror replays ------------------------------------------

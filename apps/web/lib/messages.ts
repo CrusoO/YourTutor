@@ -13,6 +13,7 @@ const en = {
     "Download this chapter once. Then you can practise anywhere, and your work is saved when you are back online.",
   offlineDownload: "Download for offline",
   offlineDownloaded: "Saved on this device",
+  offlineCount: "questions saved on this device",
   offlineStart: "Start practice",
   offlineResume: "Continue where you stopped",
   offlineSync: "Send my work now",
