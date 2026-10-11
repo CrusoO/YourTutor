@@ -489,6 +489,34 @@ class TeacherAlertRow(Base):
     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
+class LlmCallRow(Base):
+    """One gateway call. Metadata only: the student's own words are never stored here. The reply
+    text is kept only for calls sampled for human review."""
+
+    __tablename__ = "llm_calls"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    session_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("sessions.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    purpose: Mapped[str] = mapped_column(String, index=True)
+    prompt_version: Mapped[str] = mapped_column(String)
+    model: Mapped[str] = mapped_column(String, default="")
+    band_id: Mapped[str] = mapped_column(String)
+    language: Mapped[str] = mapped_column(String)
+    outcome: Mapped[str] = mapped_column(String)  # llm | fallback | skipped
+    skip_reason: Mapped[str | None] = mapped_column(String, nullable=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    failure_codes: Mapped[list] = mapped_column(JSONType, default=list)
+    latency_ms: Mapped[int] = mapped_column(Integer, default=0)
+    tokens_in: Mapped[int] = mapped_column(Integer, default=0)
+    tokens_out: Mapped[int] = mapped_column(Integer, default=0)
+    sampled: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    output_text: Mapped[str | None] = mapped_column(String, nullable=True)
+    review_status: Mapped[str | None] = mapped_column(String, nullable=True)  # pending | ok | bad
+
+
 class ReviewQueueRow(Base):
     __tablename__ = "review_queue"
 

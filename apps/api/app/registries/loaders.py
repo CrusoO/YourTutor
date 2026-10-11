@@ -34,6 +34,7 @@ class GradeBand:
     soft_items: int
     hard_minutes: int
     read_aloud_default: bool
+    style: str = ""  # tone and sentence style, put in every LLM prompt
 
 
 @dataclass(frozen=True)
@@ -162,6 +163,7 @@ def load_grade_bands(root: Path | None = None) -> tuple[GradeBand, ...]:
                 soft_items=int(row["soft_items"]),
                 hard_minutes=int(row["hard_minutes"]),
                 read_aloud_default=bool(row["read_aloud_default"]),
+                style=str(row.get("style") or "").strip(),
             )
         )
     return tuple(bands)

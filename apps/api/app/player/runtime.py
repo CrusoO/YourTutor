@@ -35,6 +35,7 @@ from app.learner.bkt import BktParams
 from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.lessons.path import lesson_path
+from app.llm.personalise import personalise_action
 from app.orchestrator.policy import policy
 from app.orchestrator.types import (
     SOFT_ACTIVE_MS,
@@ -598,6 +599,7 @@ def enrich_action(
         "misconception_id": action.misconception_id,
         "text": action.text,
         "source": action.source,
+        "llm_called": action.llm_called,
         "correct": action.correct,
         "grade": action.grade,
         "ended_reason": action.ended_reason or state.ended_reason,
@@ -771,6 +773,15 @@ def apply_player_event(
         event_id=str(client_event_id),
     )
     action = policy(learner, state, event)
+    action = personalise_action(
+        session,
+        state,
+        action,
+        grade=student.grade,
+        language=student.home_language or "en",
+        session_id=row.id,
+        student_text=event.text or event.response if event_type == "explain_back" else None,
+    )
     persist_learner(session, student.id, learner)
     sync_alerts(session, student, state, learner)
     _persist_state(row, state)

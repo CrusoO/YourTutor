@@ -107,6 +107,21 @@ def test_a_band_missing_a_setting_is_refused(tmp_path: Path) -> None:
         load_grade_bands(tmp_path)
 
 
+def test_every_band_has_a_style_line_for_the_llm_prompts() -> None:
+    bands = load_grade_bands()
+    assert all(band.style.strip() for band in bands)
+    assert len({band.style for band in bands}) == len(bands)
+
+
+def test_a_band_without_a_style_line_loads_with_an_empty_style(tmp_path: Path) -> None:
+    (tmp_path / "grade_bands.yaml").write_text(
+        "bands:\n  - {id: a, grades: [1], max_words: 20, soft_minutes: 5, soft_items: 5,"
+        " hard_minutes: 8, read_aloud_default: true}\n",
+        encoding="utf-8",
+    )
+    assert load_grade_bands(tmp_path)[0].style == ""
+
+
 # ---- policy ---------------------------------------------------------------------------------
 
 

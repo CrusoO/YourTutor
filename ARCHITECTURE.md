@@ -615,6 +615,10 @@ Post-checks: schema → leak → citation/grounding → length → tone rules (n
 
 No LLM calls in diagnostic/checkpoint modes, without `ai_processing`, or without an API key.
 
+**As built in G4 (P9):** code is in `app/llm/`. `prompt.py` builds each prompt from `prompts/<purpose>/v1.md` plus the constitution excerpt (`prompts/constitution_excerpt.md`, a test checks every line is quoted verbatim from `docs/TUTOR_CONSTITUTION.md`), the band style and word limit from `config/grade_bands.yaml`, the authored source, glossary and forbidden answer; student text is wrapped in `<student_text>` tags and the system prompt says it is data. `checks.py` runs the post-checks in the order above and stops at the first failure (codes `schema.*`, `leak`, `grounding.*`, `length`, `tone.*`, `moderation`, `language`); word lists are in `config/llm_rules.yaml`. `gateway.py` gates, calls the provider, regenerates once with the failed rule named (never the failed text), and falls back to the authored text; it never raises for a provider or content problem. `provider.py` has `LiteLLMProvider` (lazy import) and a fake used by tests and evals. `personalise.py` is called by the runtime after the policy decides, so the policy stays pure; it rephrases ladder hints 1 and 2, grades explain-back (a formative `GRADE: good|partly|not_yet` line, never written to mastery, ladder or FSRS) and rephrases the one-sentence encouragement, and stores the result on the action so a re-render never calls the model again. `llm_calls` (migration 0020) logs metadata only; the reply text is kept only for calls sampled for review. `python -m app.llm draft_content` is the authoring tool (draft only, refuses in production). Offline and live evals: `python -m app.llm.evals`, cases in `evals/cases/`.
+
+Not built yet: `adapt_explanation` is implemented (prompt and checks) but no session calls it, `answer_doubt` waits for G7, moderation is a local word list rather than a provider call, and the LiteLLM path has not been run against a real model.
+
 ---
 
 ## 15. Grade-band style profiles **[v2]**
