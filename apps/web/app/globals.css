@@ -24,13 +24,63 @@ body {
   min-height: 100dvh;
 }
 
+/* App shell: full width on a phone, a centred column that widens with the screen on tablets and
+   laptops (breakpoints 768, 1024, 1280). Reading text is capped at about 70 characters. */
 .phone {
-  width: 360px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 480px;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: 16px;
+  --pad-x: 16px;
+  --pad-y: 16px;
+  padding: var(--pad-y) max(var(--pad-x), env(safe-area-inset-right, 0px)) var(--pad-y)
+    max(var(--pad-x), env(safe-area-inset-left, 0px));
   background: var(--card);
+}
+
+.phone p,
+.phone .stem {
+  max-width: 70ch;
+}
+
+@media (min-width: 768px) {
+  .phone {
+    max-width: 760px;
+    --pad-x: 40px;
+    --pad-y: 28px;
+  }
+
+  /* Action buttons keep a comfortable size instead of stretching across the page. */
+  main.stack > button,
+  section.stack > button {
+    width: auto;
+    min-width: 240px;
+    max-width: 420px;
+    align-self: flex-start;
+  }
+
+  /* Lists of cards become a grid. */
+  .grid-cards,
+  .stack.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .phone {
+    max-width: 980px;
+    --pad-x: 48px;
+    --pad-y: 32px;
+    box-shadow: 0 0 0 1px rgba(18, 34, 34, 0.06);
+  }
+}
+
+@media (min-width: 1280px) {
+  .phone {
+    max-width: 1120px;
+  }
 }
 
 h1,
@@ -141,8 +191,8 @@ button:disabled {
   --green-bg: #e3f5ec;
   --red-bg: #fbe8e6;
   --tip-bg: #e8effc;
-  margin: -16px;
-  padding: 0 16px 96px;
+  margin: calc(-1 * var(--pad-y)) calc(-1 * var(--pad-x));
+  padding: 0 var(--pad-x) 96px;
   min-height: 100dvh;
   color: var(--ink);
   background-color: var(--paper);
@@ -750,4 +800,41 @@ a.card:focus-visible {
 .target-large textarea {
   min-height: 56px;
   font-size: 1.1rem;
+}
+
+/* Lesson player on wider screens: one centred stage so the scene never grows taller than the screen. */
+@media (min-width: 768px) {
+  .lp > *:not(.lp-bar) {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  /* The "All lessons" link above the player: out of the flow, aligned with the stage column. */
+  .phone {
+    position: relative;
+  }
+  .phone > p.lp-src {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    left: calc(50% - 320px);
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  /* The practice screen reads and answers in one comfortable column. */
+  .column {
+    width: 100%;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Room above the lesson for the back link, so it never covers the lesson's own label. */
+  .lp {
+    padding-top: 44px;
+  }
 }
