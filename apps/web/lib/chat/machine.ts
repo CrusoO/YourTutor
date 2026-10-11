@@ -229,7 +229,10 @@ export function reduce(state: ChatState, event: ChatEvent, ctx: ContextLike): Ch
     }
     case "identity": {
       if (state.phase !== "identity" && state.phase !== "welcome" && state.phase !== "home") return state;
-      return { ...state, phase: state.phase === "home" ? "home" : "identity", identity: event.view };
+      const next: ChatState = { ...state, phase: state.phase === "home" ? "home" : "identity", identity: event.view };
+      // Opening sign-in straight from the welcome screen still needs a message to hang the card on.
+      const hasIntro = state.messages.some((m) => m.key === "identity_intro");
+      return state.phase === "welcome" && !hasIntro ? push(next, { from: "tutor", key: "identity_intro" }) : next;
     }
     case "signed_in": {
       return push(

@@ -1,5 +1,6 @@
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+import type { FinderRules } from "./chat/finder";
 import type { Lesson } from "./lessons/types";
 
 export type ActionPayload = {
@@ -61,8 +62,19 @@ function token(): string {
   return store()?.getItem("yt_token") || "";
 }
 
+/** Is a student (or guest) token stored on this device? */
+export function hasStudentToken(): boolean {
+  return token() !== "";
+}
+
 export function setToken(value: string) {
   store()?.setItem("yt_token", value);
+}
+
+/** Forget the student (or guest) on this device. */
+export function clearStudent() {
+  store()?.removeItem("yt_token");
+  store()?.removeItem("yt_student");
 }
 
 export function setStudentId(value: string) {
@@ -103,13 +115,17 @@ export async function studentLogin(family_code: string, pin: string) {
     method: "POST",
     body: JSON.stringify({ family_code, pin }),
   });
+  setStaffToken(""); // one role per device: a student sign-in replaces any guardian or teacher sign-in
   setToken(body.access_token);
   return body;
 }
 
 export type ContextOptions = {
+  /** Every class the product knows about (from config), so empty ones can say "coming soon". */
+  grades?: number[];
   curricula: {
     id: string;
+    titles?: Record<string, string>;
     grades: { grade: number; subjects: { id: string; books: { id: string; medium: string | null }[] }[] }[];
   }[];
   languages: { code: string; name: string }[];
@@ -126,6 +142,11 @@ export type GuestStartBody = {
 /** The context picker's choices: curriculum, grade, subject and language. No login needed. */
 export async function getContextOptions(): Promise<ContextOptions> {
   return req("/context/options");
+}
+
+/** The checks the topic finder runs in the browser on typed text (a GET: no user text is sent). */
+export async function getFinderRules(language: string): Promise<FinderRules> {
+  return req(`/context/finder-rules?language=${encodeURIComponent(language)}`);
 }
 
 /** Start as a guest: no name, email or school; the reply carries the student's token. */
@@ -332,6 +353,7 @@ export async function verifyStaffCode(email: string, code: string) {
     method: "POST",
     body: JSON.stringify({ email, code }),
   });
+  clearStudent(); // one role per device: a guardian or teacher sign-in replaces any student sign-in
   setStaffToken(out.access_token);
   return out;
 }
@@ -356,6 +378,7 @@ export async function devStaffToken(role: "parent" | "teacher", scenario?: strin
     method: "POST",
     body: JSON.stringify({ role, scenario }),
   });
+  clearStudent();
   setStaffToken(out.token);
   return out as { token: string; email: string; role: string };
 }

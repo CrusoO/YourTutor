@@ -37,3 +37,18 @@ def test_a_curriculum_can_name_itself_per_language(tmp_path: Path) -> None:
     )
     spec = load_curriculum("demo_board", root=tmp_path)
     assert spec.titles == {"en": "Demo board", "hi": "डेमो"}
+
+
+def test_today_says_whether_the_student_is_a_guest(client: TestClient) -> None:
+    from tests.conftest import auth_header
+
+    guest = client.post("/guest/start", json={"curriculum_id": "bhutan", "grade": 9}).json()
+    body = client.get("/students/me/today", headers=auth_header(guest["token"])).json()
+    assert body["guest"] is True
+
+
+def test_a_family_student_is_not_a_guest(client: TestClient, world) -> None:  # type: ignore[no-untyped-def]
+    from tests.conftest import auth_header
+
+    body = client.get("/students/me/today", headers=auth_header(world.student_token)).json()
+    assert body["guest"] is False
