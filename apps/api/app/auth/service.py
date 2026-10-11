@@ -407,7 +407,7 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
                 "id": str(s.id),
                 "display_name": s.display_name,
                 "grade": s.grade,
-                "board": s.board,
+                "curriculum_id": s.curriculum_id,
                 "timezone": s.timezone,
             }
             for s in students
@@ -868,6 +868,25 @@ def student_today(session: Session, actor: Actor) -> dict[str, Any]:
     from app.player.runtime import today_payload
 
     return today_payload(session, student)
+
+
+def answer_onboarding(session: Session, actor: Actor, choice: str) -> dict[str, Any]:
+    """Record the student's answer to the first-run or warm-up re-offer."""
+    from app.player.onboarding import InvalidChoice, apply_choice, next_session_type
+    from app.player.runtime import current_offer
+
+    if actor.student_id is None:
+        raise HTTPException(status_code=403, detail="forbidden")
+    student = student_or_404(session, actor.student_id)
+    require(can_start_session(actor, student) or actor.is_admin)
+    try:
+        student.onboarding = apply_choice(
+            student.onboarding, current_offer(session, student), choice
+        )
+    except InvalidChoice:
+        raise HTTPException(status_code=409, detail="nothing to choose right now") from None
+    session.commit()
+    return {"next": {"session_type": next_session_type(choice)}}
 
 
 def require_pilot() -> None:

@@ -6,6 +6,9 @@ import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
+import { applyBodyClasses, loadUi } from "@/lib/ui";
+import ReadAloud from "@/components/flow/ReadAloud";
+import SourceChips from "@/components/flow/SourceChips";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
@@ -22,6 +25,8 @@ export default function SessionPage() {
   const router = useRouter();
   const copy = t(locale());
   const [action, setAction] = useState<ActionPayload | null>(null);
+  const ui = typeof window === "undefined" ? undefined : loadUi();
+  useEffect(() => applyBodyClasses(loadUi()), []);
   const [answer, setAnswer] = useState("");
   const [step, setStep] = useState(1);
   const [hintReady, setHintReady] = useState(false);
@@ -146,6 +151,7 @@ export default function SessionPage() {
         lesson={action.lesson}
         locale={locale()}
         mode="session"
+        sources={action.sources}
         startAt={action.type === "worked_example" ? 1 : 0}
         onPredict={(choice) => send("predict_response", { response: choice ?? "" })}
         onSceneAsk={(info) => {
@@ -293,6 +299,7 @@ export default function SessionPage() {
               <li key={row}>{row}</li>
             ))}
           </ol>
+          <SourceChips sources={action.sources} label={copy.sourceLabel} />
           {item?.steps && step < item.steps.length ? (
             <button type="button" className="secondary" onClick={() => setStep(step + 1)}>
               {copy.nextStep}
@@ -346,6 +353,7 @@ export default function SessionPage() {
               <li key={row}>{row}</li>
             ))}
           </ol>
+          <SourceChips sources={action.sources} label={copy.sourceLabel} />
           <button type="button" onClick={() => send("continue")}>
             {copy.similar}
           </button>
@@ -372,6 +380,7 @@ export default function SessionPage() {
             </p>
           ) : null}
           <p className="stem">{item?.stem}</p>
+          <ReadAloud text={item?.stem || ""} lang={locale()} ui={ui} />
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 400 })} />
           ) : (
@@ -410,6 +419,9 @@ export default function SessionPage() {
         <>
           <h1>{copy.explainBack}</h1>
           <p>{action.text}</p>
+          {action.type === "explain_back_result" ? (
+            <SourceChips sources={action.sources} label={copy.sourceLabel} />
+          ) : null}
           {action.type === "explain_back_prompt" ? (
             <AnswerForm
               value={answer}

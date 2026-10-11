@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from app.auth import service
+from app.auth import guest, service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, client_ip
 
 router = APIRouter()
@@ -120,6 +120,16 @@ def verify_otp(
     return _token_body(token)
 
 
+@router.get("/context/options")
+def context_options_route(db: DbSession) -> dict[str, Any]:
+    return guest.context_options(db)
+
+
+@router.post("/guest/start")
+def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> dict[str, Any]:
+    return guest.start_guest(db, body, client_ip(request))
+
+
 @router.post("/students")
 def create_student(body: StudentIn, db: DbSession, actor: ActorDep) -> dict[str, str]:
     student = service.create_student(
@@ -142,7 +152,10 @@ def get_student(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[s
     return {
         "id": str(student.id),
         "display_name": student.display_name,
-        "board": student.board,
+        "grade": student.grade,
+        "curriculum_id": student.curriculum_id,
+        "context_key": student.context_key,
+        "home_language": student.home_language,
         "timezone": student.timezone,
     }
 
@@ -184,6 +197,15 @@ def student_login(body: FamilyLoginIn, db: DbSession) -> dict[str, str]:
 @router.get("/students/me/today")
 def today(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.student_today(db, actor)
+
+
+class OnboardingIn(BaseModel):
+    choice: Literal["warmup", "start_beginning", "not_now"]
+
+
+@router.post("/students/me/onboarding")
+def onboarding(body: OnboardingIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.answer_onboarding(db, actor, body.choice)
 
 
 @router.get("/students/{student_id}/chapters")

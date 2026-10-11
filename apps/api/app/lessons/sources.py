@@ -53,3 +53,15 @@ def approved_source_ids(root: Path) -> set[str]:
         for _, row in rows
         if row.get("id") and row.get("licence") in APPROVED_LICENCES
     }
+
+
+def source_titles(root: Path | None = None) -> dict[str, str]:
+    """Approved source id -> title, for the source chips shown on explanations."""
+    from app.registries.paths import content_root
+
+    rows, _ = _rows(root or content_root())
+    return {
+        str(row["id"]).strip(): str(row.get("title") or row["id"])
+        for _, row in rows
+        if row.get("id") and row.get("licence") in APPROVED_LICENCES
+    }

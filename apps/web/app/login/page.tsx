@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
@@ -78,6 +79,9 @@ export default function LoginPage() {
         {error ? <p className="banner">{error}</p> : null}
         <button type="submit">{copy.signIn}</button>
       </form>
+      <Link href="/start" className="muted" data-testid="try-guest">
+        {copy.tryAsGuest}
+      </Link>
     </main>
   );
 }

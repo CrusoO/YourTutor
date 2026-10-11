@@ -115,3 +115,19 @@ npm run test:ui -- --workers=1
   the web container must be rebuilt/restarted after you change it.
 - **Your normal dev data:** it lives in the `yourtutor` database and is not used here. To return to
   it, unset the variables above (`Remove-Item Env:POSTGRES_DB`, etc.) and `docker compose up -d`.
+
+
+## Page-weight budget (lesson screen)
+
+A lesson screen must stay under 200 KB over the wire (150 KB of script). Check it against a
+production build, with the API allowing the production origin:
+
+```powershell
+cd apps/web; npm run build; npx next start -p 3002
+$env:CORS_EXTRA_ORIGINS = "http://127.0.0.1:3002"   # before starting the API
+$env:PLAYWRIGHT_NO_WEB = "true"; $env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:3002"
+npm run test:weight
+```
+
+Measured on 2026-10-10: 130 KB total, 118 KB of it script. Lighthouse itself is not used; this is the
+same budget as a number that CI can check.

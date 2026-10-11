@@ -8,7 +8,7 @@ from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
@@ -47,7 +47,7 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
-from app.registries.grade_bands import SessionLimits, session_limits
+from app.registries.grade_bands import SessionLimits, session_limits, ui_for_grade
 
 GOAL_MS = (
     SOFT_ACTIVE_MS  # default (grades 9-10); the student's band decides, see limits_for_student
@@ -622,6 +622,7 @@ def enrich_action(
     if action.type == "hint" and item_row is not None:
         payload["item"] = _item_payload(item_row, locale, reveal=False, steps=False)
         payload["text"] = _localised_help_text(item_row, action, locale) or action.text
+    payload["sources"] = _source_chips(action, state)
     if action.type in {"predict", "worked_example"}:
         lesson = lesson_for_state(state)
         if lesson is not None:
@@ -634,6 +635,27 @@ def enrich_action(
             served["order"] = order
             payload["lesson"] = served
     return payload
+
+
+SOURCE_CHIP_ACTIONS = frozenset(
+    {"predict", "worked_example", "reveal_solution", "explain_back_result"}
+)
+
+
+def _source_chips(action: Action, state: SessionState) -> list[dict[str, str]]:
+    """Where an explanation comes from: the approved source of the skill lesson, with its title."""
+    from app.lessons.loader import lesson_for_skill, servable
+    from app.lessons.sources import source_titles
+
+    skill_id = action.skill_id or state.current_skill
+    if action.type not in SOURCE_CHIP_ACTIONS or not skill_id:
+        return []
+    lesson = lesson_for_skill(skill_id)
+    if lesson is None or not servable(lesson):
+        return []
+    refs = list(dict.fromkeys([lesson.source_ref, *(s.source_ref for s in lesson.scenes())]))
+    titles = source_titles()
+    return [{"id": ref, "title": titles.get(ref, ref)} for ref in refs]
 
 
 def _beats_in_path(beats: list[dict], kinds: list[str]) -> list[dict]:
@@ -965,6 +987,23 @@ def remaining_minutes(session: Session, student: StudentRow) -> int:
     return max(0, int((goal - used) / 60000))
 
 
+def current_offer(session: Session, student: StudentRow) -> str | None:
+    """The first-run or re-offer prompt for this student, if any (see app/player/onboarding.py)."""
+    from app.player.onboarding import offer_for
+
+    base = (SessionRow.student_id == student.id, SessionRow.type != "test_out")
+    total = session.scalar(select(func.count()).select_from(SessionRow).where(*base)) or 0
+    ended = (
+        session.scalar(
+            select(func.count())
+            .select_from(SessionRow)
+            .where(*base, SessionRow.type == "practice", SessionRow.ended_at.is_not(None))
+        )
+        or 0
+    )
+    return offer_for(student.onboarding, total_sessions=total, ended_practice=ended)
+
+
 def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     from app.registries.quiet_hours import in_quiet_hours
     from app.registries.startup import deployment_jurisdiction_profile
@@ -991,6 +1030,8 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
     )
     resume = open_row or idle_row
     return {
+        "offer": current_offer(session, student),
+        "ui": ui_for_grade(student.grade),
         "student_id": str(student.id),
         "display_name": student.display_name,
         "goal_minutes": int(goal_ms / 60000),

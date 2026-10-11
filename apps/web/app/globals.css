@@ -722,3 +722,32 @@ a.card:focus-visible {
 .done li {
   margin: 6px 0;
 }
+
+.source-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+}
+.source-chips li {
+  font-size: 0.74rem;
+  color: var(--muted);
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.read-aloud {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+/* Grade band: primary students get larger tap targets (config/grade_bands.yaml target_size) */
+.target-large button,
+.target-large input,
+.target-large textarea {
+  min-height: 56px;
+  font-size: 1.1rem;
+}

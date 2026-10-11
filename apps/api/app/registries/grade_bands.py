@@ -49,3 +49,19 @@ def session_limits(grade: int) -> SessionLimits:
     band = band_for_grade(grade, _cached_bands())
     assert band is not None, "config/grade_bands.yaml defines no bands"
     return limits_for_band(band)
+
+
+def ui_for_band(band: GradeBand) -> dict[str, object]:
+    """What the client styles from: read-aloud default, tap-target size, and the choice style."""
+    return {
+        "band_id": band.id,
+        "read_aloud_default": band.read_aloud_default,
+        "target_size": band.target_size,
+        "choice": band.choice,
+    }
+
+
+def ui_for_grade(grade: int) -> dict[str, object]:
+    band = band_for_grade(grade, _cached_bands())
+    assert band is not None, "config/grade_bands.yaml defines no bands"
+    return ui_for_band(band)

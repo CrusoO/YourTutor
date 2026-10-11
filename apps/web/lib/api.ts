@@ -6,6 +6,8 @@ export type ActionPayload = {
   type: string;
   lesson?: Lesson;
   rejected?: boolean;
+  /** Approved sources of an explanation, shown as chips. */
+  sources?: { id: string; title: string }[];
   /** The server's verdict on a lesson beat answer (faded example, scene question). */
   lesson_correct?: boolean | null;
   item_id?: string | null;
@@ -103,6 +105,43 @@ export async function studentLogin(family_code: string, pin: string) {
   });
   setToken(body.access_token);
   return body;
+}
+
+export type ContextOptions = {
+  curricula: {
+    id: string;
+    grades: { grade: number; subjects: { id: string; books: { id: string; medium: string | null }[] }[] }[];
+  }[];
+  languages: { code: string; name: string }[];
+};
+
+export type GuestStartBody = {
+  curriculum_id: string;
+  grade: number;
+  subject: string;
+  home_language: string;
+  device_timezone: string;
+};
+
+/** The context picker's choices: curriculum, grade, subject and language. No login needed. */
+export async function getContextOptions(): Promise<ContextOptions> {
+  return req("/context/options");
+}
+
+/** Start as a guest: no name, email or school; the reply carries the student's token. */
+export async function guestStart(body: GuestStartBody) {
+  const out = await req("/guest/start", { method: "POST", body: JSON.stringify(body) });
+  setToken(out.token);
+  setStudentId(out.student_id);
+  setLocale(body.home_language);
+  return out;
+}
+
+/** Answer the first-run or warm-up re-offer. Resolves with the kind of session to start. */
+export async function answerOnboarding(
+  choice: "warmup" | "start_beginning" | "not_now",
+): Promise<{ next: { session_type: string } }> {
+  return req("/students/me/onboarding", { method: "POST", body: JSON.stringify({ choice }) });
 }
 
 export async function today() {

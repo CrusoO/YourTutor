@@ -35,6 +35,8 @@ class GradeBand:
     hard_minutes: int
     read_aloud_default: bool
     style: str = ""  # tone and sentence style, put in every LLM prompt
+    target_size: str = "normal"  # UI tap-target class: normal or large
+    choice: str = ""  # what the student may choose: two_options, skill_first, goal_setting, ...
 
 
 @dataclass(frozen=True)
@@ -83,6 +85,8 @@ class BookSpec:
     grade: int
     default_chapter_id: str
     chapters: tuple[ChapterSpec, ...]
+    subject: str = "math"  # what the book teaches; the context picker lists it
+    medium: str | None = None  # language of instruction, when a curriculum has several
 
 
 @dataclass(frozen=True)
@@ -164,6 +168,8 @@ def load_grade_bands(root: Path | None = None) -> tuple[GradeBand, ...]:
                 hard_minutes=int(row["hard_minutes"]),
                 read_aloud_default=bool(row["read_aloud_default"]),
                 style=str(row.get("style") or "").strip(),
+                target_size=str(row.get("target_size") or "normal"),
+                choice=str(row.get("choice") or ""),
             )
         )
     return tuple(bands)
@@ -239,6 +245,8 @@ def load_curriculum(curriculum_id: str, root: Path | None = None) -> CurriculumS
                 grade=int(book["grade"]),
                 default_chapter_id=str(book["default_chapter_id"]),
                 chapters=chapters,
+                subject=str(book.get("subject") or "math"),
+                medium=str(book["medium"]) if book.get("medium") else None,
             )
         )
     legacy = data.get("legacy_board")

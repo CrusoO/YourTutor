@@ -84,6 +84,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | LLM gateway | `app/llm/`: pure prompt builder (constitution excerpt quoted verbatim from `docs/TUTOR_CONSTITUTION.md`, grade-band style and word limit, authored source, glossary, forbidden answer; student text wrapped as data), pure post-checks in order (schema, leak, grounding/citation, length, tone, moderation, language), then a gateway that regenerates once and falls back to the authored text. The model is behind a small provider interface (`LiteLLMProvider`, imported lazily, plus a fake for tests and evals). No call in diagnostic or checkpoint sessions, without `ai_processing`, or without `LLM_API_KEY`. Personalising happens once after the policy decides, is stored on the action, and never touches BKT or FSRS. Wired for ladder hints 1 and 2, the explain-back reply and encouragement; `adapt_explanation` has a prompt and checks but no session uses it yet; `answer_doubt` is a stub for G7. |
 | LLM call log | `llm_calls` holds metadata only (purpose, prompt version, model, band, outcome, attempts, failure codes, latency, tokens). The reply text is kept only for calls sampled for review (`LLM_REVIEW_SAMPLE_RATE`, default 100% for the first pilot week), and the student's own words are never stored. Skipped calls are not logged. |
 | LLM word lists | Tone and moderation word lists are in `config/llm_rules.yaml`; person-praise words reuse the encouragement-copy list. Moderation is a local whole-word list, not a provider moderation call. |
+| Guest | A guest is a student owned by a hidden user (role `guest`, unusable `.invalid` address), not a nullable `parent_id`; no personal field is accepted; its scopes are `tutoring` only. Chosen so every foreign key and cascading delete keeps working; the G6 upgrade re-parents it. |
+| First run | No session is created at login or guest start. `today.offer` is `first_run` (warm-up or start from the beginning) and, once, `warmup_reoffer` after the second finished practice session; "not now" is final. Answers live in `students.onboarding`. |
+| School list | The context picker has no curated school list: it would put a school on the student, which the G6 rules forbid. Revisit with the G6 `site_id` design. |
+| Page weight | The lesson-screen budget (200 KB over the wire, 150 KB script) is checked by a Playwright spec against a production build, not by Lighthouse. Measured 130 KB. |
 | `draft_content` | `python -m app.llm draft_content` writes `status: draft` items only, with reviewer placeholders in place of translations, after schema, solver, verifier and leak checks. It refuses when `APP_ENV=production` or without a key. |
 | Similar item | After reveal, `SIMILAR_ITEM` is a **different** approved practice item on the **same primary skill and tier**. Never the same item. |
 | Consent revoke | If consent is revoked mid-session, the session **ends on the next event** and **no further LLM calls** are made. |
@@ -405,27 +409,27 @@ Accept:
 
 ### G5 — Student app v2 (absorbs M7a)
 
-- [ ] Context picker: curriculum → grade → subject → (book/medium); curated optional school list with "Other"
-- [ ] Guest start (`POST /guest/start`): random id, no PII; retention per profile
-- [ ] First run: "Quick warm-up to find where to start" / "Start from the beginning"; no "test" wording, no marks; nothing automatic; warm-up re-offered after 2nd session with respected "not now"
-- [ ] Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks *(covered by S1b)*
-- [ ] Chapter page: skill path with statuses, visual unlocks, Skip ahead *(covered by S1b)*
-- [ ] Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done *(lesson beats and warm-up copy: S1a/S1b; the rest stays here)*
+- [ ] *Curriculum, grade, subject and language are built (`/start`, `GET /context/options`); the curated school list is deliberately not, see Decisions.* Context picker: curriculum → grade → subject → (book/medium); curated optional school list with "Other"
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Guest start (`POST /guest/start`): random id, no PII; retention per profile
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). First run: "Quick warm-up to find where to start" / "Start from the beginning"; no "test" wording, no marks; nothing automatic; warm-up re-offered after 2nd session with respected "not now"
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Subjects → Chapter map (`GET /students/{id}/chapters`): statuses, one recommended, Coming soon (server-enforced), no hard locks *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Chapter page: skill path with statuses, visual unlocks, Skip ahead *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Session player: warm-up, lesson beats (predict, explore widget, scene player with pause-and-ask, worked/faded examples), practice (math input + MCQ), feedback, stuck-point picker, hints, check-your-work, reveal, similar item, prerequisite probe, challenge, explain-back, break/switch, done *(lesson beats and warm-up copy: S1a/S1b; the rest stays here)*
 - [ ] Scene player: SVG/JS, captions, optional audio, offline-cacheable *(covered by S1a; offline caching stays here)*
-- [ ] Source chips on explanations
-- [ ] Family/school login (family code + PIN) kept from M7a *(covered by S1b)*
-- [ ] Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data *(360 px layout covered by S1; the rest stays here)*
-- [ ] UI strings via locale registry with fallback *(covered by S1b for the slice)*
-- [ ] *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
-- [ ] *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
-- [ ] *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Source chips on explanations
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Family/school login (family code + PIN) kept from M7a *(covered by S1b)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Grade-band styling (read-aloud default, choices), 360 px layout, large targets, low data *(360 px layout covered by S1; the rest stays here)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *New strings are English with the registry fallback.* UI strings via locale registry with fallback *(covered by S1b for the slice)*
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Deferred from G0:* client sends `device_timezone`; resolution order student → curriculum default → device → UTC already in the API
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Deferred from G0:* grade bands drive UI styling (read-aloud default, choices, target sizes)
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *The `board` request field and column stay for compatibility.* *Deferred from G0:* remove the read-only `board` compat field from student API responses once clients use `curriculum_id` / `context_key`
 
 Accept:
 
-- [ ] Playwright: guest onboarding → chapter map → lesson (widget + scene) → practice (wrong → check-your-work or stuck picker → hint → retry → reveal → similar) → done
-- [ ] First login creates no session; skip leads to practice on T; warm-up offer after 2nd session and "not now" remembered
-- [ ] Coming-soon chapter cannot be started via API
-- [ ] Lighthouse mobile: page weight budget met on a lesson screen
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Playwright: guest onboarding → chapter map → lesson (widget + scene) → practice (wrong → check-your-work or stuck picker → hint → retry → reveal → similar) → done
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). First login creates no session; skip leads to practice on T; warm-up offer after 2nd session and "not now" remembered
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). Coming-soon chapter cannot be started via API
+- [x] Met 2026-10-10 (pytest 902; random seeds 1 and 2: 902 and 902; vitest 185; test:ui 16 specs). *Measured with a Playwright byte count on a production build; Lighthouse itself was not run.* Lighthouse mobile: page weight budget met on a lesson screen
 
 ### G6 — Accounts and consent v2
 
