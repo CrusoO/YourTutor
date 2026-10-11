@@ -21,7 +21,7 @@ from app.auth.consent import GUEST_ROLE
 from app.auth.service import TOO_MANY, _count_rate, _hit_rate, issue_auth_token, now_utc
 from app.config import settings
 from app.db.models import LocaleRow, StudentRow, UserRow
-from app.registries.loaders import load_all_curricula
+from app.registries.loaders import load_all_curricula, load_grade_bands
 from app.registries.student_setup import (
     ensure_locale,
     resolve_curriculum_id,
@@ -53,6 +53,7 @@ def context_options(db: Session) -> dict[str, Any]:
         curricula.append(
             {
                 "id": spec.id,
+                "titles": spec.titles,
                 "grades": [
                     {
                         "grade": grade,
@@ -67,6 +68,9 @@ def context_options(db: Session) -> dict[str, Any]:
     languages = db.scalars(select(LocaleRow).order_by(LocaleRow.code)).all()
     return {
         "curricula": curricula,
+        # Every class the product knows about (from the grade-band config), so the picker can show
+        # the ones without content as "coming soon".
+        "grades": sorted({g for band in load_grade_bands() for g in band.grades}),
         "languages": [{"code": row.code, "name": row.name} for row in languages],
     }
 
