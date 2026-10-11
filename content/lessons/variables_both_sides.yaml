@@ -1,0 +1,100 @@
+id: LESSON.LIN1.BOTH_SIDES
+skill_id: MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+title:
+  en: Solving with x on both sides
+source_ref: NOTE.LIN1.BOTH_SIDES
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: In 5x = 3x + 8, what should we do first?
+  choices:
+  - value: Take 3x off both sides
+    text:
+      en: Take 3x off both sides
+  - value: Add 3x to both sides
+    text:
+      en: Add 3x to both sides
+  - value: Divide by 5
+    text:
+      en: Divide by 5
+  reveal:
+    en: Hold on to that guess. We will see which move works.
+- kind: explain_scene
+  title:
+    en: Watch it solved
+  scene:
+    id: SCENE.LIN1.BOTH_SIDES.EXPLAIN
+    skill_id: MATH.ALG.LIN1.VARIABLES_BOTH_SIDES
+    source_ref: NOTE.LIN1.BOTH_SIDES
+    alt:
+      en: Whiteboard solving 5x = 3x + 8
+    steps:
+    - caption:
+        en: There are x terms on both sides.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: 5x = 3x + 8
+    - caption:
+        en: Now the x terms are on one side.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: Take 3x off both sides. What is left on the left side?
+        options:
+        - text:
+            en: 2x
+          correct: true
+        - text:
+            en: 8x
+          correct: false
+          feedback:
+            en: 5x − 3x is 2x, not 8x.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: 2x = 8
+        color: red
+    - caption:
+        en: Split both sides into 2 equal parts.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: x = 4
+        color: green
+  final_caption:
+    en: Move the x terms to one side first, then solve as before. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Solve 7x = 4x + 12.
+  steps:
+  - en: 'Take 4x off both sides: 3x = 12.'
+  - en: 'Split both sides by 3: x = 4.'
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Solve 6x = 2x + 20.
+  steps:
+  - en: 'Take 2x off both sides: 4x = 20.'
+  blank_prompt:
+    en: Split both sides by 4. What is x?
+  answer: '5'
+  accept:
+  - x=5
+  - x = 5
+  hint:
+    en: 20 split into 4 equal parts.
+  success:
+    en: 'Yes: x = 5. Check: 30 = 10 + 20.'
+- kind: check
+  prompt:
+    en: Solve 9x = 5x + 24 yourself.

@@ -89,6 +89,14 @@ test.describe("S1a lesson at 360 px", () => {
     await shot(page, "4-worked-example-all-steps");
     await page.getByRole("button", { name: "Continue", exact: true }).click();
 
+    // 4b. faded example: the worked steps, then the last step is left to the student
+    await expect(page.getByRole("heading", { name: "Now you finish one" })).toBeVisible();
+    await expect(page.getByText("Take 2 off both sides to undo the + 2: 3x = 12.")).toBeVisible();
+    await expect(page.getByText(/the server checks it/)).toBeVisible(); // preview has no session
+    await expectPhoneLayout(page);
+    await shot(page, "4b-faded-example");
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+
     // 5. explore: function graph
     const slider = page.getByRole("slider");
     await expect(slider).toBeVisible();

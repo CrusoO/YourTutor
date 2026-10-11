@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, select, text
 from sqlalchemy.exc import OperationalError
 
 from app.content.loader import load_path
-from app.db.models import ItemRow, SkillRow
+from app.db.models import ItemRow, LessonRow, SceneRow, SkillRow, WidgetRow
 from app.db.session import session_factory
 
 API_ROOT = Path(__file__).resolve().parents[2]
@@ -58,4 +58,13 @@ def test_load_seed_postgres() -> None:
         items = session.scalars(select(ItemRow)).all()
         assert len(skills) == 12
         assert len(items) == 406
+        lessons = session.scalars(select(LessonRow)).all()
+        assert len(lessons) == 12
+        assert all(row.source_ref and row.status == "draft" for row in lessons)
+        scenes = session.scalars(select(SceneRow)).all()
+        widgets = session.scalars(select(WidgetRow)).all()
+        assert scenes and widgets
+        assert all(row.source_ref and row.kb_per_minute > 0 for row in scenes)
+        assert {row.lesson_id for row in scenes} <= {row.id for row in lessons}
+        assert {row.type for row in widgets} <= {"balance_scale", "function_graph"}
     engine.dispose()

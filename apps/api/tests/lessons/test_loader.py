@@ -38,13 +38,34 @@ def _seed_skill_ids() -> set[str]:
     return ids
 
 
-def test_seed_has_four_draft_lessons_for_four_distinct_skills() -> None:
+def test_seed_has_one_draft_lesson_for_each_of_the_twelve_skills() -> None:
     lessons = load_lessons(CONTENT)
-    assert len(lessons) == 4
-    assert {lesson.skill_id for lesson in lessons.values()} == EXPECTED_SKILLS
+    assert len(lessons) == 12
+    assert {lesson.skill_id for lesson in lessons.values()} == _seed_skill_ids()
+    assert EXPECTED_SKILLS <= {lesson.skill_id for lesson in lessons.values()}
     for lesson in lessons.values():
         assert lesson.status.value == "draft"
         assert lesson.source_ref.startswith("NOTE.")
+
+
+def test_every_seed_faded_example_accepts_its_own_answer_and_refuses_a_wrong_one() -> None:
+    from app.verifier.check import verify_response
+
+    faded = [beat for lesson in load_lessons(CONTENT).values() for beat in lesson.faded_examples()]
+    assert len(faded) >= 9
+    for beat in faded:
+        for good in [beat.answer, *beat.accept]:
+            assert verify_response(good, answer_sympy=beat.answer, accept=beat.accept), beat.problem
+        assert not verify_response("12345", answer_sympy=beat.answer, accept=beat.accept)
+
+
+def test_every_seed_scene_has_a_question_and_a_hint_free_of_the_answer() -> None:
+    from app.verifier.check import leak_check
+
+    for lesson in load_lessons(CONTENT).values():
+        for beat in lesson.faded_examples():
+            if beat.hint is not None and len(beat.answer) > 1:
+                assert not leak_check(beat.hint.en, beat.answer, level=1), lesson.id
 
 
 def test_every_scene_carries_skill_id_and_source_ref_and_traces_to_its_lesson() -> None:
@@ -80,6 +101,7 @@ def test_ported_lesson_keeps_the_prototypes_structure() -> None:
         "explore",
         "explain_scene",
         "worked_example",
+        "faded_example",
         "explore",
         "check",
     ]
@@ -205,6 +227,10 @@ def test_content_validate_accepts_a_good_lesson(content_root: Path) -> None:
         if beat["kind"] == "explain_scene":
             beat["scene"]["skill_id"] = "MATH.S1"
     write_yaml(content_root / "lessons" / "good.yaml", data)
+    write_yaml(
+        content_root / "sources" / "notes.yaml",
+        {"sources": [{"id": "NOTE.LIN1.TWO_STEP", "licence": "authored", "title": "Two-step"}]},
+    )
     report = validate_path(content_root)
     assert not [e for e in report.errors if "lesson" in e.lower()], report.errors
 

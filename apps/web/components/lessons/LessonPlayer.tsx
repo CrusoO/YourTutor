@@ -17,7 +17,17 @@ const COPY = {
   notVerified: "We could not verify that. Try it again.",
   checkTitle: "Your turn",
   previewNote: "In a real session this is the first practice item.",
-  steps: { predict: "Guess", explore: "Try", explain_scene: "Watch", worked_example: "Example", check: "Practise" },
+  answerLabel: "Your answer",
+  check: "Check",
+  fadedPreviewNote: "In a real session you type the last step here and the server checks it.",
+  steps: {
+    predict: "Guess",
+    explore: "Try",
+    explain_scene: "Watch",
+    worked_example: "Example",
+    faded_example: "Finish it",
+    check: "Practise",
+  },
 } as const;
 
 export type WidgetResult = { widget_id: string; final_state: unknown; actions_count: number };
@@ -32,6 +42,8 @@ type Props = {
   onSceneAsk?: (info: SceneAskInfo) => void;
   /** Resolves true when the server accepted the widget result. */
   onWidgetResult?: (result: WidgetResult) => Promise<boolean>;
+  /** Resolves true when the server says the typed answer to faded example number `index` is right. */
+  onFadedAnswer?: (index: number, response: string) => Promise<boolean>;
   onComplete?: (info: { latency_ms: number }) => Promise<void> | void;
   reducedMotion?: boolean;
   delay?: Delay;
@@ -49,6 +61,7 @@ export default function LessonPlayer({
   onPredict,
   onSceneAsk,
   onWidgetResult,
+  onFadedAnswer,
   onComplete,
   reducedMotion,
   delay,
@@ -60,6 +73,8 @@ export default function LessonPlayer({
   const [stepsShown, setStepsShown] = useState(1);
   const [verify, setVerify] = useState<Record<string, "pending" | "ok" | "bad">>({});
   const [busy, setBusy] = useState(false);
+  const [fadedText, setFadedText] = useState("");
+  const [faded, setFaded] = useState<"idle" | "pending" | "ok" | "bad">("idle");
   const started = useRef(Date.now());
   const beats = lesson.beats;
   const beat = beats[cur];
@@ -70,6 +85,8 @@ export default function LessonPlayer({
     setCur(next);
     setMaxSeen((m) => Math.max(m, next));
     setStepsShown(1);
+    setFadedText("");
+    setFaded("idle");
     window.scrollTo?.(0, 0);
   }
 
@@ -105,6 +122,17 @@ export default function LessonPlayer({
       setVerify((v) => ({ ...v, [widgetId]: ok ? "ok" : "bad" }));
     } catch {
       setVerify((v) => ({ ...v, [widgetId]: "bad" }));
+    }
+  }
+
+  async function checkFaded() {
+    if (!onFadedAnswer || fadedText.trim() === "" || faded === "pending") return;
+    const index = beats.slice(0, cur).filter((b) => b.kind === "faded_example").length;
+    setFaded("pending");
+    try {
+      setFaded((await onFadedAnswer(index, fadedText.trim())) ? "ok" : "bad");
+    } catch {
+      setFaded("bad");
     }
   }
 
@@ -226,6 +254,50 @@ export default function LessonPlayer({
                 {COPY.nextStep}
               </button>
             ) : null}
+          </Beats>
+        ) : null}
+
+        {beat.kind === "faded_example" ? (
+          <Beats beat={beat}>
+            <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            <p className="lp-problem">{pick(beat.problem, locale)}</p>
+            <ol className="lp-steps">
+              {beat.steps.map((st, i) => (
+                <li key={i}>{pick(st, locale)}</li>
+              ))}
+            </ol>
+            <p className="lp-problem">{pick(beat.blank_prompt, locale)}</p>
+            {onFadedAnswer ? (
+              <form
+                className="lp-faded"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void checkFaded();
+                }}
+              >
+                <input
+                  type="text"
+                  aria-label={COPY.answerLabel}
+                  placeholder={COPY.answerLabel}
+                  value={fadedText}
+                  autoComplete="off"
+                  readOnly={faded === "ok"}
+                  onChange={(e) => setFadedText(e.target.value)}
+                />
+                <button type="submit" className="lp-btn" disabled={fadedText.trim() === "" || faded === "pending" || faded === "ok"}>
+                  {COPY.check}
+                </button>
+              </form>
+            ) : (
+              <p className="lp-src">{COPY.fadedPreviewNote}</p>
+            )}
+            {faded === "pending" ? (
+              <p className="lp-verify pending" role="status">
+                {COPY.checking}
+              </p>
+            ) : null}
+            {faded === "ok" ? <p className="lp-fb tip" role="status">{pick(beat.success, locale)}</p> : null}
+            {faded === "bad" && beat.hint ? <p className="lp-fb tip" role="status">{pick(beat.hint, locale)}</p> : null}
           </Beats>
         ) : null}
 

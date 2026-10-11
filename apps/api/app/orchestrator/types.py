@@ -155,6 +155,7 @@ class SessionState:
     skill_items: dict[str, int] = field(default_factory=dict)  # items seen per skill
     seen_items: set[str] = field(default_factory=set)
     answered_items: set[str] = field(default_factory=set)
+    lesson_prereq_levels: dict[str, list[int]] = field(default_factory=dict)  # R38, by skill
     probe_for: str | None = None  # the target skill while a probe is running
     probe_skill: str | None = None  # the prerequisite being probed
     probe_done: set[str] = field(default_factory=set)  # one probe per prerequisite

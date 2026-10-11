@@ -78,6 +78,9 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Content gate | Production: `status=approved` only. `ALLOW_DRAFT_CONTENT=true` for dev/demo. **Live chapter:** ≥5 approved practice and ≥2 approved diagnostic items **per skill**; forms A and B with ≥10 checkpoint items each. |
 | Line endings | `.gitattributes` forces LF. |
 | Primary skill | Each item has a **primary skill** = first `skill_ids` entry. BKT updates that skill only. Validator requires `skill_ids` length ≥ 1. |
+| Lesson path (R38) | Pure `lesson_path(prerequisite_levels, beat_kinds)` in `app/lessons/path.py`, shared fixture `packages/shared/fixtures/lesson_path/cases.json`. Ready (every prerequisite at ladder level 4+, or none) gets every authored beat; anyone else skips the explore and scene beats that come before the first worked example. The prerequisite levels are recorded on the session when the `predict` action is emitted, so a resumed session serves the same path. The served lesson names its `order`. |
+| Faded example | A lesson beat `faded_example` (worked steps, then a typed last step), after a worked example. The server checks the answer with the verifier on a `faded_answer` event (payload `faded` = ordinal among the lesson's faded examples, `response`); it is formative, never writes BKT or FSRS, and the client flag is ignored. The reply carries `lesson_correct`. It is a beat, not a separate action type: actions stay `predict` and `worked_example` carrying the lesson. |
+| Approved sources | `content/sources/*.yaml` lists approved source ids with a licence (`authored`, `open`, `permission_on_file`). `content validate` and `content load` refuse a lesson or scene `source_ref` that is not listed or whose licence is not approved. Items do not carry `source_ref` yet. |
 | Similar item | After reveal, `SIMILAR_ITEM` is a **different** approved practice item on the **same primary skill and tier**. Never the same item. |
 | Consent revoke | If consent is revoked mid-session, the session **ends on the next event** and **no further LLM calls** are made. |
 | Removed content | Removed content is retired, not deleted; hard prune is dev-only or guarded. |
@@ -332,7 +335,7 @@ Accept: a student completes the path on a phone; a coming-soon chapter cannot be
 
 ### G2 — Diagnosis engine + policy v2
 
-**G2a (P6, branch `g2a-diagnosis`) — Met 2026-10-08** for the items ticked below; G2b (R33–R40, P7) is not started. pytest 660 (one piece; seeds 1 and 2: 660 and 660), vitest 153, test:ui 13 specs; whole suite in one process peaks at 354 MB (target 2 GB); 12 Playwright screenshots in `apps/web/test-results/screens/help-*.png` and the earlier flow, lesson and scenario screens. The S1 pilot check (B5) was still pending when P6 started (gate waived by the product owner).
+**G2a (P6, branch `g2a-diagnosis`) — Met 2026-10-08** for the items ticked below; G2b (R33–R40, P7) — Met 2026-10-09 (pytest 757, vitest 160, test:ui 15 specs; random seeds 1 and 2: 757 and 757). pytest 660 (one piece; seeds 1 and 2: 660 and 660), vitest 153, test:ui 13 specs; whole suite in one process peaks at 354 MB (target 2 GB); 12 Playwright screenshots in `apps/web/test-results/screens/help-*.png` and the earlier flow, lesson and scenario screens. The S1 pilot check (B5) was still pending when P6 started (gate waived by the product owner).
 
 Draft content note: the step hints, restated questions, slip patterns, intermediate values and `min_plausible_ms` on all 336 practice items are machine drafts (generic wording, English plus reviewer placeholders); a teacher must edit them before any item is approved. The restated question repeats the stem, which reads awkwardly.
 
@@ -360,23 +363,23 @@ Accept:
 
 ### G3 — Lessons, scenes and widgets (backend + content)
 
-- [ ] Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal *(covered by S1a)*
-- [ ] Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph` *(covered by S1a)*
-- [ ] `lessons`, `scenes`, `widgets` tables; loader + validator (schema, source refs, approved sources, size budget)
-- [ ] R38 lesson path (problem-first if prerequisites ≥ level 4, else worked-example-first); faded examples
-- [ ] Events `predict_response`, `interactive_result`, `scene_answer`; actions `lesson_*`, `worked_example`, `faded_example`
-- [ ] Server re-checks widget predicates; client result ignored *(covered by S1a)*
-- [ ] Every item/scene/lesson carries `section_id` / `source_ref` (Layer A grounding)
-- [ ] Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets) *(S1a covers 4 skills; the rest stays here)*
-- [ ] Live-chapter threshold requires an approved lesson per skill
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Schemas in `packages/shared/schemas/`: lesson, scene script, widget params/state/goal *(covered by S1a)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Widget registry with Python + TS predicate mirrors: `balance_scale`, `function_graph` *(covered by S1a)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). `lessons`, `scenes`, `widgets` tables; loader + validator (schema, source refs, approved sources, size budget)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). R38 lesson path (problem-first if prerequisites ≥ level 4, else worked-example-first); faded examples
+- [ ] *Events done (plus `faded_answer`); actions kept as `predict` / `worked_example` carrying the lesson, see Decisions; not ticked until you confirm.* Events `predict_response`, `interactive_result`, `scene_answer`; actions `lesson_*`, `worked_example`, `faded_example`
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Server re-checks widget predicates; client result ignored *(covered by S1a)*
+- [ ] *Lessons and scenes carry `source_ref` (checked against the approved sources); items do not yet.* Every item/scene/lesson carries `section_id` / `source_ref` (Layer A grounding)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Seed: one draft lesson per skill in the seed chapter (≥ 4 using widgets) *(S1a covers 4 skills; the rest stays here)*
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Live-chapter threshold requires an approved lesson per skill
 
 Accept:
 
-- [ ] Shared predicate fixtures pass in Python and TS
-- [ ] A forged `interactive_result` with an unsolved state is rejected/flagged
-- [ ] Lesson beats never write BKT/FSRS; the check item does (once)
-- [ ] Novice vs ready student get different lesson orders (fixtures)
-- [ ] Scene scripts ≤ 50 KB/min; every text node traces to an approved source
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Shared predicate fixtures pass in Python and TS
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). A forged `interactive_result` with an unsolved state is rejected/flagged
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Lesson beats never write BKT/FSRS; the check item does (once)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Novice vs ready student get different lesson orders (fixtures)
+- [x] Met 2026-10-10 (pytest 777; random seeds 1 and 2: 777 and 777; vitest 167; test:ui 15 specs). Scene scripts ≤ 50 KB/min; every text node traces to an approved source
 
 ### G4 — LLM gateway (was M6, extended)
 

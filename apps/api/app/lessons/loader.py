@@ -3,7 +3,9 @@ files; database tables for lessons, scenes and widgets arrive with G3."""
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 import yaml
 from pydantic import ValidationError
@@ -49,8 +51,11 @@ def load_lessons(root: Path | None = None) -> dict[str, Lesson]:
     return out
 
 
-def lesson_errors(root: Path, skill_ids: set[str]) -> list[str]:
-    """Every problem in the lessons folder, for `content validate` and `content load`."""
+def lesson_errors(root: Path, skill_ids: set[str], sources: set[str] | None = None) -> list[str]:
+    """Every problem in the lessons folder, for `content validate` and `content load`.
+
+    With `sources` (the approved source ids), every lesson and scene `source_ref` must be in it.
+    """
     errors: list[str] = []
     seen_ids: dict[str, str] = {}
     by_skill: dict[str, list[str]] = {}
@@ -67,7 +72,13 @@ def lesson_errors(root: Path, skill_ids: set[str]) -> list[str]:
         by_skill.setdefault(lesson.skill_id, []).append(path.name)
         if lesson.skill_id not in skill_ids:
             errors.append(f"lesson {path.name}: unknown skill {lesson.skill_id}")
+        if sources is not None and lesson.source_ref not in sources:
+            errors.append(f"lesson {path.name}: source.unknown ({lesson.source_ref})")
         for scene in lesson.scenes():
+            if sources is not None and scene.source_ref not in sources:
+                errors.append(
+                    f"lesson {path.name}: scene {scene.id} source.unknown ({scene.source_ref})"
+                )
             rate = scene_kb_per_minute(scene)
             if rate > MAX_KB_PER_MINUTE:
                 errors.append(
@@ -111,3 +122,24 @@ def lesson_by_id(lesson_id: str, root: Path | None = None) -> Lesson | None:
 
 def all_lessons(root: Path | None = None) -> list[Lesson]:
     return sorted(_cached(root).values(), key=lambda lesson: lesson.id)
+
+
+def live_lesson_errors(lessons: dict[str, Lesson], overlays: Iterable[Any]) -> list[str]:
+    """A live overlay (chapter) needs an approved lesson for each of its skills."""
+    by_skill = {lesson.skill_id: lesson for lesson in lessons.values()}
+    errors: list[str] = []
+    for overlay in overlays:
+        if not overlay.live:
+            continue
+        lacking: list[str] = []
+        for skill_id in overlay.skill_ids:
+            lesson = by_skill.get(skill_id)
+            if lesson is None:
+                lacking.append(f"{skill_id} (none)")
+            elif lesson.status.value != "approved":
+                lacking.append(f"{skill_id} ({lesson.status.value})")
+        if lacking:
+            errors.append(
+                f"{overlay.id} is live but lacks an approved lesson: " + ", ".join(lacking)
+            )
+    return errors

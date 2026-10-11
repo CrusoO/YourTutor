@@ -34,6 +34,7 @@ from app.db.models import (
 from app.learner.bkt import BktParams
 from app.learner.ladder import SkillLadder
 from app.learner.types import LearnerState, Mastery, ReviewCard
+from app.lessons.path import lesson_path
 from app.orchestrator.policy import policy
 from app.orchestrator.types import (
     SOFT_ACTIVE_MS,
@@ -343,6 +344,7 @@ def dump_state(state: SessionState) -> dict[str, Any]:
         "seen_items": sorted(state.seen_items),
         "answered_items": sorted(state.answered_items),
         "probe_for": state.probe_for,
+        "lesson_prereq_levels": state.lesson_prereq_levels,
         "probe_skill": state.probe_skill,
         "probe_done": sorted(state.probe_done),
         "scheduled_prereq": state.scheduled_prereq,
@@ -428,6 +430,9 @@ def load_state(
         seen_items=set(plan.get("seen_items") or []),
         answered_items=set(plan.get("answered_items") or []),
         probe_for=plan.get("probe_for"),
+        lesson_prereq_levels={
+            k: [int(x) for x in v] for k, v in (plan.get("lesson_prereq_levels") or {}).items()
+        },
         probe_skill=plan.get("probe_skill"),
         probe_done=set(plan.get("probe_done") or []),
         scheduled_prereq=plan.get("scheduled_prereq"),
@@ -618,8 +623,27 @@ def enrich_action(
     if action.type in {"predict", "worked_example"}:
         lesson = lesson_for_state(state)
         if lesson is not None:
-            payload["lesson"] = lesson.model_dump(mode="json", by_alias=True, exclude_none=True)
+            order, kinds = lesson_path(
+                state.lesson_prereq_levels.get(state.current_skill or "", []),
+                [beat.kind for beat in lesson.beats],
+            )
+            served = lesson.model_dump(mode="json", by_alias=True, exclude_none=True)
+            served["beats"] = _beats_in_path(served["beats"], kinds)
+            served["order"] = order
+            payload["lesson"] = served
     return payload
+
+
+def _beats_in_path(beats: list[dict], kinds: list[str]) -> list[dict]:
+    """The authored beats R38 keeps, in order (kinds may repeat, so walk both lists together)."""
+    out: list[dict] = []
+    wanted = iter(kinds)
+    want = next(wanted, None)
+    for beat in beats:
+        if beat["kind"] == want:
+            out.append(beat)
+            want = next(wanted, None)
+    return out
 
 
 def reopen_idle(row: SessionRow) -> bool:
@@ -858,6 +882,7 @@ def _apply_lesson_event(
     action = state.last_action or Action(type=state.phase)
     enriched = enrich_action(session, state, action, student.home_language or "en")
     enriched["rejected"] = not verdict.ok
+    enriched["lesson_correct"] = verdict.correct  # the server's verdict, for beat feedback
     enriched["guardrail_flag"] = None if verdict.ok else verdict.code
     return {
         "session_id": str(row.id),

@@ -1,0 +1,99 @@
+id: LESSON.LIN1.IDENTITIES
+skill_id: MATH.ALG.LIN1.IDENTITIES
+title:
+  en: When every number is a solution
+source_ref: NOTE.LIN1.IDENTITIES
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: How many solutions does 2x + 2 = 2(x + 1) have?
+  choices:
+  - value: Exactly one
+    text:
+      en: Exactly one
+  - value: None
+    text:
+      en: None
+  - value: Every number works
+    text:
+      en: Every number works
+  reveal:
+    en: Hold on to that guess. We will open the bracket and see.
+- kind: explain_scene
+  title:
+    en: Watch what happens
+  scene:
+    id: SCENE.LIN1.IDENTITIES.EXPLAIN
+    skill_id: MATH.ALG.LIN1.IDENTITIES
+    source_ref: NOTE.LIN1.IDENTITIES
+    alt:
+      en: Whiteboard opening a bracket and comparing both sides
+    steps:
+    - caption:
+        en: Look at both sides.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: 2x + 2 = 2(x + 1)
+    - caption:
+        en: Now both sides can be compared.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: What is 2(x + 1) when you open the bracket?
+        options:
+        - text:
+            en: 2x + 2
+          correct: true
+        - text:
+            en: 2x + 1
+          correct: false
+          feedback:
+            en: Multiply both x and 1 by 2.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: 2x + 2 = 2x + 2
+        color: red
+    - caption:
+        en: Both sides are the same for every x. This is an identity.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: true for every x
+        color: green
+  final_caption:
+    en: If both sides become the same, every number is a solution. If they can never match, there is no
+      solution. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: Solve 3x + 6 = 3(x + 2).
+  steps:
+  - en: 'Open the bracket: 3x + 6 = 3x + 6.'
+  - en: Both sides are the same, so every number is a solution. It is an identity.
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Solve x + 3 = x + 5.
+  steps:
+  - en: 'Take x off both sides: 3 = 5.'
+  blank_prompt:
+    en: Is 3 = 5 ever true? Type 1 for yes or 0 for no.
+  answer: '0'
+  accept: []
+  hint:
+    en: 3 and 5 are different numbers.
+  success:
+    en: 'Right: 3 = 5 is never true, so there is no solution. This is a contradiction.'
+- kind: check
+  prompt:
+    en: Solve 4x + 8 = 4(x + 2). What kind of equation is it?

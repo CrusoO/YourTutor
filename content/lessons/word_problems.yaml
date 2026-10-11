@@ -1,0 +1,103 @@
+id: LESSON.LIN1.WORD_PROBLEMS
+skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
+title:
+  en: Solving a story with an equation
+source_ref: NOTE.LIN1.WORD_PROBLEMS
+status: draft
+beats:
+- kind: predict
+  prompt:
+    en: Sam has some marbles. He gets 7 more and then has 19. How many did he start with?
+  choices:
+  - value: '12'
+    text:
+      en: '12'
+  - value: '26'
+    text:
+      en: '26'
+  - value: '7'
+    text:
+      en: '7'
+  reveal:
+    en: Hold on to that guess. We will write it as an equation.
+- kind: explain_scene
+  title:
+    en: Watch it solved
+  scene:
+    id: SCENE.LIN1.WORD_PROBLEMS.EXPLAIN
+    skill_id: MATH.ALG.LIN1.WORD_PROBLEMS
+    source_ref: NOTE.LIN1.WORD_PROBLEMS
+    alt:
+      en: Whiteboard turning a marble story into an equation
+    steps:
+    - caption:
+        en: Pick a letter for what we do not know.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 70
+        size: 28
+        text: x = marbles at the start
+    - caption:
+        en: He started with x, got 7 more, and has 19.
+      actions:
+      - kind: pause_and_ask
+        question:
+          en: Which equation matches the story?
+        options:
+        - text:
+            en: x + 7 = 19
+          correct: true
+        - text:
+            en: 7x = 19
+          correct: false
+          feedback:
+            en: He gets 7 more. That is adding, not multiplying.
+      - kind: write_text
+        x: 170
+        y: 170
+        size: 30
+        text: x + 7 = 19
+        color: red
+    - caption:
+        en: Take 7 off both sides.
+      actions:
+      - kind: write_text
+        x: 170
+        y: 220
+        size: 30
+        text: x = 12
+        color: green
+  final_caption:
+    en: Name the unknown, write the equation from the story, then solve it. Now try one.
+- kind: worked_example
+  title:
+    en: A worked example
+  problem:
+    en: A pen costs 5 more than a pencil. Together they cost 17. Find the price of the pencil.
+  steps:
+  - en: Let p be the pencil price. The pen costs p + 5.
+  - en: 'Together: p + (p + 5) = 17, so 2p + 5 = 17.'
+  - en: 'Take 5 off both sides: 2p = 12, so p = 6.'
+- kind: faded_example
+  title:
+    en: Now you finish one
+  problem:
+    en: Three bags and one 4 kg box weigh 19 kg in total. How heavy is one bag?
+  steps:
+  - en: Let b be the weight of one bag.
+  - en: 'Write the equation: 3b + 4 = 19.'
+  - en: 'Take 4 off both sides: 3b = 15.'
+  blank_prompt:
+    en: Split both sides by 3. What is b?
+  answer: '5'
+  accept:
+  - b=5
+  - b = 5
+  hint:
+    en: 15 split into 3 equal parts.
+  success:
+    en: 'Yes: b = 5. Check: 3 × 5 + 4 = 19.'
+- kind: check
+  prompt:
+    en: Two tickets and a fee of 3 cost 17 in total. Write an equation and find the price of one ticket.
