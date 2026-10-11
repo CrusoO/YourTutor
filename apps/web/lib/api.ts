@@ -289,3 +289,13 @@ export async function enrolPilot(body: Record<string, unknown>) {
     body: JSON.stringify(body),
   });
 }
+
+/** The offline pack for the signed-in student's chapter. */
+export async function getPack() {
+  return req("/students/me/pack");
+}
+
+/** Send queued offline events; the reply carries the server's recomputed learner state. */
+export async function postSync(body: unknown) {
+  return req("/sync/events", { method: "POST", body: JSON.stringify(body) });
+}

@@ -44,6 +44,9 @@ export default function SubjectsPage() {
         <strong>{copy.subjectMath}</strong>
         <span className="muted">{copy.subjectMathHint}</span>
       </Link>
+      <Link href="/offline" className="muted" data-testid="offline-link">
+        {copy.offlineTitle}
+      </Link>
       <p className="muted">
         {student.remaining_active_minutes} {copy.doneMinutes}
       </p>

@@ -500,7 +500,7 @@ def _build_state(
 
 
 # plan keys owned by the session, not by the policy state; they survive every rewrite
-_PLAN_KEEP = ("overlay_id", "levels_at_start")
+_PLAN_KEEP = ("overlay_id", "levels_at_start", "offline", "client_session_id", "last_event_at")
 
 
 def _persist_state(row: SessionRow, state: SessionState) -> None:

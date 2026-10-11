@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING
 
 from app.content.gate import content_status_is_servable
@@ -11,14 +12,22 @@ if TYPE_CHECKING:
     from app.db.models import ItemRow
 
 
+_PLAIN_NUMBER = re.compile(r"^-?\d+(?:\.\d+)?(?:/\d+)?$")
+
+
 def item_is_offline_verifiable(
     *, item_type: str, answer: dict | None, verify: str | dict | None
 ) -> bool:
+    """Whether the browser can mark this item on its own (apps/web/lib/offline/verify.ts).
+
+    Multiple choice always can. A numeric or expression answer can when it is a plain number or
+    fraction; symbolic answers (`2x + 2`) need the server's algebra and stay online-only.
+    """
     del verify
-    if item_type in ("numeric", "mcq"):
+    if item_type == "mcq":
         return True
-    if item_type in ("short_text", "expression"):
-        return bool((answer or {}).get("accept"))
+    if item_type in ("numeric", "expression"):
+        return bool(_PLAIN_NUMBER.match(str((answer or {}).get("sympy") or "").strip()))
     return False
 
 

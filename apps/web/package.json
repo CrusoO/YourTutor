@@ -10,12 +10,13 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:weight": "playwright test e2e/weight.spec.ts",
-    "test:ui": "playwright test e2e/scenarios.spec.ts e2e/lesson.spec.ts e2e/flow.spec.ts e2e/help.spec.ts e2e/policy.spec.ts e2e/guest.spec.ts"
+    "test:ui": "playwright test e2e/scenarios.spec.ts e2e/lesson.spec.ts e2e/flow.spec.ts e2e/help.spec.ts e2e/policy.spec.ts e2e/guest.spec.ts e2e/offline.spec.ts"
   },
   "dependencies": {
     "next": "^15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "ts-fsrs": "^5.4.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
@@ -27,6 +28,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "fake-indexeddb": "^6.2.5",
     "jsdom": "^29.1.1",
     "typescript": "^5.7.0",
     "vitest": "^2.1.0"
