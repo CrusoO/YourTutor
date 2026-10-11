@@ -148,6 +148,27 @@ def context_options_route(db: DbSession) -> dict[str, Any]:
     return guest.context_options(db)
 
 
+@router.get("/context/finder-rules")
+def finder_rules_route(language: str = "en") -> dict[str, Any]:
+    """The checks the browser runs on typed topic text before matching it (UI-1 topic finder).
+
+    The text never leaves the device: the browser fetches these rules (a GET with no user text) and
+    cleans and screens locally, so nothing a visitor types reaches the API, a log or the database.
+    """
+    from app.ask.config import load_ask_config, load_safety
+    from app.ask.guard import EMAIL, PHONE, URL
+    from app.llm.rules import default_rules
+
+    lists = load_safety(language)
+    return {
+        "max_chars": load_ask_config().max_question_chars,
+        "pii": {"email": EMAIL.pattern, "phone": PHONE.pattern, "url": URL.pattern},
+        "distress_terms": list(lists.distress_terms),
+        "blocked_patterns": list(lists.injection_patterns),
+        "blocked_terms": list(default_rules().blocked_terms),
+    }
+
+
 @router.post("/guest/start")
 def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> dict[str, Any]:
     return guest.start_guest(db, body, client_ip(request))
