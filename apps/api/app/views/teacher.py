@@ -32,6 +32,7 @@ STUCK_WINDOW = timedelta(minutes=10)
 ALERT_LABELS = {
     "wheel_spinning": "Keeps missing this skill",
     "repeated_misconception": "Same mistake again and again",
+    "distress": "Said something worrying: please check in",
 }
 LEVELS = list(range(0, 8))
 

@@ -441,6 +441,13 @@ def guardian_view(
     return service.guardian_view(db, actor, student_id, lang)
 
 
+@router.post("/students/{student_id}/safety-flags/{flag_id}/acknowledge")
+def acknowledge_flag(
+    student_id: uuid.UUID, flag_id: uuid.UUID, db: DbSession, actor: ActorDep
+) -> dict[str, str]:
+    return service.acknowledge_safety_flag(db, actor, student_id, flag_id)
+
+
 @router.put("/students/{student_id}/language")
 def set_language(
     student_id: uuid.UUID, body: LanguageIn, db: DbSession, actor: ActorDep

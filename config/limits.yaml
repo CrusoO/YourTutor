@@ -1,0 +1,9 @@
+# API rate limits per client address (requests per window). The first matching prefix wins.
+window_seconds: 60
+default: 300
+groups:
+  - {prefix: /auth/, limit: 30}
+  - {prefix: /guest/, limit: 20}
+  - {prefix: /students/me/ask, limit: 20}
+  - {prefix: /sync/, limit: 60}
+exempt: [/health, /ready]

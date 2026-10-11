@@ -28,6 +28,7 @@ settings.research_module = True
 def _restore_settings() -> Generator[None, None, None]:
     """Tests mutate the global settings singleton; undo it so test order cannot matter."""
     snapshot = settings.model_dump()
+    settings.rate_limit_enabled = False  # tests send many requests; the limiter has its own tests
     yield
     for name, value in snapshot.items():
         if getattr(settings, name) != value:

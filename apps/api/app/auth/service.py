@@ -564,6 +564,10 @@ def start_session(
         overlay_id = chapter.overlay_id
     if not has_scope(session, student_id, "tutoring"):
         raise HTTPException(status_code=403, detail="tutoring consent required")
+    from app.safety import is_paused
+
+    if is_paused(session, student_id):
+        raise HTTPException(status_code=409, detail="paused: a guardian needs to look first")
     if session_type not in {"practice", "diagnostic", "checkpoint"}:
         raise HTTPException(status_code=400, detail="invalid session type")
     from app.player.runtime import expire_stale_sessions
@@ -770,6 +774,18 @@ def guardian_view(
     if lang is not None:
         lang = ensure_locale(session, lang)
     return build(session, student, now_utc(), lang)
+
+
+def acknowledge_safety_flag(
+    session: Session, actor: Actor, student_id: uuid.UUID, flag_id: uuid.UUID
+) -> dict[str, str]:
+    from app.safety import acknowledge
+
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))
+    if not acknowledge(session, student_id, flag_id):
+        raise HTTPException(status_code=404, detail="not found")
+    return {"id": str(flag_id), "status": "acknowledged"}
 
 
 def set_student_language(

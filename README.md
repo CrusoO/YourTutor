@@ -53,3 +53,5 @@ npm test
 cd apps/api
 python -m app.content.validate ../../content
 ```
+
+Operator guide for a pilot: [docs/OPERATOR.md](docs/OPERATOR.md).

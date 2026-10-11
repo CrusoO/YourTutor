@@ -864,6 +864,7 @@ OpenAPI → generated TS types in `packages/shared`.
 - No open-ended chat. The only free text is explain-back and (if enabled) Ask, both scoped to the current chapter.
 - Distress keywords → authored gentle script, pause tutoring, flag to guardian/teacher per profile. The model does not counsel.
 - Human review queue samples AI messages.
+**As built in G11 (P16):** `app/safety.py` strips emails, phones and links from explain-back text, recognises distress phrases (per-language list in `config/ask.yaml`), and on a match ends the open session, records a `safety_flag`, queues a teacher `distress` alert (with `teacher_share`) and pauses new sessions for 24 hours or until the guardian acknowledges (`POST /students/{id}/safety-flags/{flag}/acknowledge`); `today.paused` tells the student app. `app/ratelimit.py` limits requests per client address by route group from `config/limits.yaml` (429 with `Retry-After`; health and ready exempt), alongside the database-backed OTP, PIN and guest limits. Unhandled errors return a generic body with a request id and log the detail. `python -m app.operator check` verifies the install; `docs/OPERATOR.md` is the operator guide.
 - Guest mode cannot enable free text unless the jurisdiction profile allows it without guardian consent.
 
 ---
