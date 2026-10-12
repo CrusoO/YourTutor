@@ -447,7 +447,9 @@ export default function SessionPage() {
 
       {action.type === "feedback" ? (
         <>
-          <p className="banner">{action.correct ? copy.feedbackCorrect : copy.feedbackWrong}</p>
+          <p className={action.correct ? "fb ok" : "fb try"} role="status" data-testid="feedback">
+            {action.correct ? copy.feedbackCorrect : copy.feedbackWrong}
+          </p>
           <button type="button" onClick={() => send("continue")}>
             {copy.continue}
           </button>
