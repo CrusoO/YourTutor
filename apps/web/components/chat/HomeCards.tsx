@@ -12,7 +12,9 @@ import {
   today,
   type ChapterCard,
 } from "@/lib/api";
+import { planFor, progressShare, type Share } from "@/lib/chat/today";
 import { useChatApi } from "./ChatProvider";
+import { TodayStrip } from "./TodayStrip";
 
 type StudentHome = {
   resume: { session_id: string } | null;
@@ -20,6 +22,7 @@ type StudentHome = {
   current: { chapter: ChapterCard; skill?: string } | null;
   started: boolean;
   due: number;
+  share: Share;
 };
 
 type TeacherHome = { classes: number; stuck: number; review: number };
@@ -44,7 +47,7 @@ function useStudentHome(enabled: boolean) {
         if (c.id === chapter?.id) skill = body.skills.find((s) => s.current)?.title;
       }
       const started = live_.some((c) => c.status !== "not_started");
-      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due });
+      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due, share: progressShare(live_) });
     })().catch(() => live && setFailed(true));
     return () => {
       live = false;
@@ -73,10 +76,10 @@ function useTeacherHome(enabled: boolean) {
   return { data, failed };
 }
 
-function Row({ children }: { children: React.ReactNode }) {
+function Row({ children, two = false }: { children: React.ReactNode; two?: boolean }) {
   return (
     <div
-      className="grid w-full max-w-4xl auto-cols-[minmax(14rem,1fr)] grid-flow-col gap-3 overflow-x-auto pb-1 @2xl:grid-flow-row @2xl:grid-cols-3 @2xl:overflow-visible"
+      className={`grid w-full max-w-4xl auto-cols-[minmax(14rem,1fr)] grid-flow-col gap-3 overflow-x-auto pb-1 @2xl:grid-flow-row ${two ? "@2xl:grid-cols-2" : "@2xl:grid-cols-3"} @2xl:overflow-visible`}
       data-testid="home-cards"
     >
       {children}
@@ -86,7 +89,7 @@ function Row({ children }: { children: React.ReactNode }) {
 
 /** Three suggestion cards for whoever is looking at the home: the cards follow the role. */
 export function HomeCards() {
-  const { role, copy, dispatch, openWorkspace, startMode, identityReady, ctx, contextError } = useChatApi();
+  const { role, copy, dispatch, openWorkspace, startMode, tryOneQuestion, busy, identityReady, ctx, contextError } = useChatApi();
   const student = useStudentHome(role === "student" || role === "guest");
   const teacher = useTeacherHome(role === "teacher");
 
@@ -116,11 +119,26 @@ export function HomeCards() {
       );
     }
     return (
-      <Row>
-        <SuggestionCard tone="accent" icon="users" title={copy.chatCardPickClass} description={copy.chatCardPickClassHint} onClick={() => dispatch({ type: "start_setup", intent: null })} data-testid="card-pick-class" />
-        <SuggestionCard tone="success" icon="play" title={copy.chatCardTryLesson} description={copy.chatCardTryLessonHint} tag={copy.chatNew} onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="card-try-lesson" />
-        <SuggestionCard tone="neutral" icon="pencil" title={copy.chatCardPractise} description={copy.chatCardPractiseHint} onClick={() => dispatch({ type: "start_setup", intent: "practice" })} data-testid="card-practise" />
-      </Row>
+      <div className="flex w-full max-w-4xl flex-col gap-3">
+        <SuggestionCard
+          tone="accent"
+          icon="play"
+          title={copy.chatCardTryQuestion}
+          description={copy.chatCardTryQuestionHint}
+          tag={copy.chatNew}
+          disabled={busy}
+          onClick={() => void tryOneQuestion()}
+          className="@2xl:flex-row @2xl:items-center"
+          data-testid="card-try-question"
+        />
+        <Row two>
+          <SuggestionCard tone="neutral" icon="users" title={copy.chatCardPickClass} description={copy.chatCardPickClassHint} onClick={() => dispatch({ type: "start_setup", intent: null })} data-testid="card-pick-class" />
+          <SuggestionCard tone="success" icon="book" title={copy.chatCardTryLesson} description={copy.chatCardTryLessonHint} onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="card-try-lesson" />
+        </Row>
+        <p className="m-0 text-center text-sm text-muted" data-testid="no-account-line">
+          {copy.chatNoAccountLine}
+        </p>
+      </div>
     );
   }
 
@@ -143,7 +161,15 @@ export function HomeCards() {
     }
     const { current, started, due, minutesLeft, resume } = student.data;
     const startCard = !started;
+    const plan = planFor({ due: role === "guest" ? 0 : due, next: current?.skill });
+    const startToday = () => {
+      if (resume) openWorkspace(`/session/${resume.session_id}`, copy.resume);
+      else if (due > 0 && role !== "guest") void startMode("revise");
+      else openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title);
+    };
     return (
+      <>
+      {started ? <TodayStrip share={student.data.share} plan={plan} onStart={startToday} /> : null}
       <Row>
         {resume ? (
           <SuggestionCard tone="accent" icon="play" title={copy.resume} description={current?.chapter.title} tag={copy.chatContinue} onClick={() => openWorkspace(`/session/${resume.session_id}`, copy.resume)} data-testid="card-resume" />
@@ -170,6 +196,7 @@ export function HomeCards() {
         />
         <SuggestionCard tone="neutral" icon="calendar" title={copy.chatTodayPlan} tag={minutesLeft !== null ? copy.chatMinutesLeft.replace("{n}", String(minutesLeft)) : undefined} onClick={() => openWorkspace("/today", copy.chatToday)} data-testid="card-plan" />
       </Row>
+      </>
     );
   }
 

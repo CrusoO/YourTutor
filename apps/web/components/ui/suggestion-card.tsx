@@ -29,7 +29,7 @@ type AsButton = Common & { onClick: () => void; href?: undefined; disabled?: boo
 type AsLink = Common & { href: string; onClick?: undefined; disabled?: undefined };
 
 const base =
-  "group flex min-h-11 w-full cursor-pointer flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface p-4 text-left text-ink shadow-[var(--shadow-card)] transition hover:-translate-y-px hover:border-accent hover:bg-surface-2 active:translate-y-0 active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:translate-y-0 no-underline";
+  "group flex min-h-12 w-full cursor-pointer flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface p-4 text-left text-ink shadow-[var(--shadow-card)] transition hover:-translate-y-px hover:border-accent hover:bg-surface-2 active:translate-y-0 active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:translate-y-0 no-underline";
 
 /** One card, one primary action. Pass `onClick` for an action in the page or `href` for a route. */
 export function SuggestionCard(props: AsButton | AsLink) {

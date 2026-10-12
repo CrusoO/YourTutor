@@ -6,7 +6,7 @@ const field =
 
 const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, type = "text", ...props }, ref) => (
-    <input ref={ref} type={type} className={cn(field, "min-h-11", className)} {...props} />
+    <input ref={ref} type={type} className={cn(field, "min-h-12", className)} {...props} />
   ),
 );
 Input.displayName = "Input";
@@ -15,7 +15,7 @@ const Textarea = React.forwardRef<
   HTMLTextAreaElement,
   React.TextareaHTMLAttributes<HTMLTextAreaElement>
 >(({ className, ...props }, ref) => (
-  <textarea ref={ref} className={cn(field, "min-h-11 resize-none", className)} {...props} />
+  <textarea ref={ref} className={cn(field, "min-h-12 resize-none", className)} {...props} />
 ));
 Textarea.displayName = "Textarea";
 

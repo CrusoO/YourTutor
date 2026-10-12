@@ -21,7 +21,7 @@ export const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
       aria-pressed={selected}
       disabled={disabled}
       className={cn(
-        "inline-flex min-h-11 w-auto cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-base font-semibold",
+        "inline-flex min-h-12 w-auto cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-base font-semibold",
         selected
           ? "border-accent bg-accent-soft text-ink"
           : "border-line bg-surface text-ink hover:bg-surface-2",

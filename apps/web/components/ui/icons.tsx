@@ -26,6 +26,7 @@ const PATHS = {
   user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-8 9a8 8 0 0 1 16 0",
   back: "M15 5 8 12l7 7",
   sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z",
+  check: "M5 12.5l4.5 4.5L19 7.5",
   settings: "M4 7h10m4 0h2M4 17h2m4 0h10M16 4v6M8 14v6",
 } as const;
 

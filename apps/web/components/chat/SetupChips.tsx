@@ -43,7 +43,7 @@ export function EditableAnswers() {
         <li key={step}>
           <button
             type="button"
-            className="min-h-11 w-auto cursor-pointer rounded-full border border-line bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2"
+            className="min-h-12 w-auto cursor-pointer rounded-full border border-line bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2"
             onClick={() => dispatch({ type: "pick", step, value: String(value) })}
             data-testid={`edit-${step}`}
           >

@@ -25,7 +25,7 @@ function NavItem({ item, onDone }: { item: Item; onDone?: () => void }) {
           if (!item.keepOpen) onDone?.();
         }}
         data-testid={item.testid}
-        className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl border-0 bg-transparent px-3 text-left text-base font-medium text-ink hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="flex min-h-12 w-full cursor-pointer items-center gap-3 rounded-xl border-0 bg-transparent px-3 text-left text-base font-medium text-ink hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <Icon name={item.icon} />
         <span className="flex-1">{item.label}</span>

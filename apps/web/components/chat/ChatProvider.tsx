@@ -27,16 +27,19 @@ import {
   today,
   type ContextOptions,
 } from "@/lib/api";
-import { saveSetup } from "@/lib/chat/device";
+import { loadSetup, saveSetup } from "@/lib/chat/device";
+import { markActive } from "@/lib/chat/today";
 import { findTopics, prepare, type FinderRules, type Topic } from "@/lib/chat/finder";
 import { currentIdentity, type Identity } from "@/lib/chat/identity";
 import {
   initialState,
   reduce,
+  resolveSetup,
   type ChatEvent,
   type ChatState,
   type ContextLike,
   type Role,
+  type Setup,
 } from "@/lib/chat/machine";
 import { t, type Messages } from "@/lib/messages";
 
@@ -88,6 +91,7 @@ export type ChatApi = {
   submitText: (text: string) => Promise<void>;
   pickTopic: (topic: Topic, mode: Mode) => Promise<void>;
   justTry: () => Promise<void>;
+  tryOneQuestion: () => Promise<void>;
   startMode: (mode: Mode) => Promise<void>;
   signedIn: (role: Role, name?: string) => void;
   signOut: () => void;
@@ -175,6 +179,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   /** The panel is part of the address (?w=/path) so deep links, refresh and the back button all work. */
   const openWorkspace = useCallback((path: string, title?: string) => {
+    if (path.startsWith("/session/")) markActive();
     setWorkspace({ path, src: path, title });
     try {
       window.history.pushState({ w: path }, "", `/?w=${encodeURIComponent(path)}`);
@@ -212,6 +217,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       const data = event.data as { type?: string; path?: string; summary?: { skill?: string; status?: string; next?: string } } | null;
       if (data?.type === "yt:nav" && typeof data.path === "string" && data.path.startsWith("/")) followWorkspace(data.path);
       if (data?.type === "yt:done") {
+        markActive();
         const { skill, status, next } = data.summary ?? {};
         dispatchRaw({ event: { type: "summary", skill, status, next }, ctx: ctxRef.current ?? { curricula: [] } });
       }
@@ -333,34 +339,56 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     [dispatch],
   );
 
-  /** "Just try it": a guest on this device, then straight into the first activity. */
-  const justTry = useCallback(async () => {
-    setBusy(true);
-    setError("");
-    try {
-      const { setup } = chat;
-      if (!setup.board || setup.grade === undefined || !setup.subject) throw new Error("setup incomplete");
-      saveSetup(setup);
-      await guestStart({
-        curriculum_id: setup.board,
-        grade: setup.grade,
-        subject: setup.subject,
-        home_language: locale(),
-        device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      });
-      setIdentity({ role: "guest" });
-      dispatch({ type: "guest_started" });
-      const me = await today();
-      if (me.offer === "first_run") await answerOnboarding("start_beginning");
-      const { chapters } = await getChapters(me.student_id);
-      const first = chapters.find((c) => c.recommended) ?? chapters.find((c) => c.live);
-      await startPractice(first?.id, copy.chatFirstLesson);
-    } catch {
+  /** A guest on this device for the given class, then straight into the first activity. */
+  const startAsGuest = useCallback(
+    async (setup: Setup, remember: boolean) => {
+      setBusy(true);
+      setError("");
+      try {
+        if (!setup.board || setup.grade === undefined || !setup.subject) throw new Error("setup incomplete");
+        if (remember) saveSetup(setup);
+        await guestStart({
+          curriculum_id: setup.board,
+          grade: setup.grade,
+          subject: setup.subject,
+          home_language: locale(),
+          device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        });
+        setIdentity({ role: "guest" });
+        dispatch({ type: "guest_started" });
+        const me = await today();
+        if (me.offer === "first_run") await answerOnboarding("start_beginning");
+        const { chapters } = await getChapters(me.student_id);
+        const first = chapters.find((c) => c.recommended) ?? chapters.find((c) => c.live);
+        await startPractice(first?.id, copy.chatFirstLesson);
+      } catch {
+        setError(copy.chatCouldNotLoad);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [copy, dispatch, startPractice],
+  );
+
+  /** "Just try it" at the end of the setup questions. */
+  const justTry = useCallback(() => startAsGuest(chat.setup, true), [chat.setup, startAsGuest]);
+
+  /**
+   * "Try one question": no questions asked first. The class is the one saved on this device, or the first
+   * class the registry offers; the student can change it any time from "Pick my class".
+   */
+  const tryOneQuestion = useCallback(async () => {
+    const saved = loadSetup();
+    if (saved?.board && saved.grade !== undefined && saved.subject) return startAsGuest(saved, false);
+    const curriculum = ctx?.curricula.find((c) => c.grades.some((g) => g.subjects.length));
+    const grade = curriculum?.grades.find((g) => g.subjects.length);
+    const subject = grade?.subjects[0];
+    if (!curriculum || !grade || !subject) {
       setError(copy.chatCouldNotLoad);
-    } finally {
-      setBusy(false);
+      return;
     }
-  }, [chat, copy, dispatch, startPractice]);
+    return startAsGuest(resolveSetup(ctx!, { board: curriculum.id, grade: grade.grade, subject: subject.id }), false);
+  }, [copy, ctx, startAsGuest]);
 
   const signOut = useCallback(() => {
     setToken("");
@@ -403,6 +431,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     submitText,
     pickTopic,
     justTry,
+    tryOneQuestion,
     startMode,
     signedIn,
     signOut,

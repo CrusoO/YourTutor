@@ -11,13 +11,13 @@ const buttonVariants = cva(
       variant: {
         default: "bg-accent text-accent-fg hover:opacity-90 active:opacity-80",
         secondary: "bg-surface-2 text-ink hover:bg-accent-soft active:opacity-80",
-        outline: "border-line bg-surface text-ink hover:bg-surface-2 active:opacity-80",
+        outline: "border-input-line bg-surface text-ink hover:bg-surface-2 active:opacity-80",
         ghost: "bg-transparent text-ink hover:bg-surface-2 active:opacity-80",
       },
       size: {
-        default: "min-h-11 min-w-11 px-5 py-2",
-        sm: "min-h-11 min-w-11 px-3 py-1.5 text-sm",
-        icon: "size-11 p-0",
+        default: "min-h-12 min-w-12 px-5 py-2",
+        sm: "min-h-12 min-w-12 px-3 py-1.5 text-sm",
+        icon: "size-12 p-0",
       },
     },
     defaultVariants: { variant: "default", size: "default" },
