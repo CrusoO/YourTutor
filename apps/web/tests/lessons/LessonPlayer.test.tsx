@@ -16,6 +16,12 @@ const cont = () => screen.getByRole("button", { name: /^Continue$/ });
 const pills = () => Array.from(document.querySelectorAll<HTMLButtonElement>(".lp-path button"));
 
 describe("LessonPlayer", () => {
+  it("shows the lesson title and never a raw skill id (UI-2 R-01)", () => {
+    render(<LessonPlayer lesson={lesson} locale="en" mode="preview" reducedMotion delay={instant} />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(document.querySelector(".lp-top")?.textContent ?? "").not.toContain(lesson.skill_id);
+  });
+
   it("starts on the predict beat and only unlocks later beats as they are reached", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" reducedMotion delay={instant} />);
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("How heavy is one box?");
