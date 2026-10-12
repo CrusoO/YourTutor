@@ -163,6 +163,15 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Maths text and dynamic execution | `parse_expr` runs with `__builtins__` emptied and an explicit local dict, and input with words of two or more letters or `.name` access is refused. `eval`, `exec`, `sympify`, `parse_expr` and `compile` may appear in `app/` only where an allowlist in `tests/meta/test_no_dynamic_eval.py` names them with the guard that protects them; today that is `app/content/math_parse.py` only. (harden-1) |
 | Production startup | With `APP_ENV=production` the API refuses to start if `ALLOW_DRAFT_CONTENT`, `RESEARCH_MODULE`, `DEV_TOOLS` or `NEXT_PUBLIC_DEV_TOOLS` is on, and says which. The compose file no longer defaults draft content on, and `.env.example` marks these as local-development switches. (harden-1) |
 | Responsive widths | The app shell widens at 768, 1024 and 1280 px (760, 980 and 1120 px columns), lists become card grids, the lesson stage and the practice screen sit in a 640 px column, and phone layout at 360 px is unchanged. This is a width fix only, not the chat-style redesign (UI-1), which still needs its own audit and standards. (ui-responsive) |
+| Chat shell | The front door `/` is a chat-style shell (UI-1): sidebar, greeting, composer, three suggestion cards, a workspace panel. assistant-ui primitives run on an external-store runtime with no model calls; what is typed is matched locally and never added to the thread. The conversation (welcome, context, identity, home) is a pure state machine in `lib/chat/machine.ts`. |
+| Workspace panel | The existing screens run unchanged in a frame named `yt-embed` (side panel from 1280 px, right overlay from 1024 px, full-screen sheet below). The address carries the panel (`/?w=/path`), and the framed screens report their page and the end of a session to the chat by `postMessage`. Old routes keep working. Browser Back inside the frame is only approximate. |
+| Design system | Tailwind runs utilities-only (no preflight) and the legacy stylesheet sits in a lower CSS layer, so old screens are untouched. Components are shadcn-style on Radix; tokens (light and dark) are in `app/tokens.css`; display font Fraunces (OFL, self-hosted, latin subset). Added dependencies are MIT, Apache-2.0 (class-variance-authority) or OFL. |
+| Topic finder | Deterministic and local. The browser fetches `GET /context/finder-rules` (PII patterns, distress terms, blocked terms, all from config) and cleans, screens and matches typed text on the device; the text is never sent, stored or logged (API and database tests prove it). Distress words get an authored gentle message. No generated answers; Ask stays off. |
+| Setup steps | Class, state, board, medium, subject come from `GET /context/options` (plus every known grade from the grade-band config, so empty classes say "coming soon"). The registry has no states and no display titles yet, so the state step is skipped and boards show a readable id until a curriculum adds `titles`. |
+| Create account | Student = family code and PIN, or "ask a grown-up" (the guardian email-code card); parent = email code; teacher = email code. The existing auth has no school-code input (staff link a teacher to a school code in admin), so the card says so instead of asking for one. A guest-to-family upgrade has an API but no screen yet. |
+| One role per device | Signing in as a student clears any guardian or teacher sign-in and the other way round, so the home always follows one role. |
+| Page weight of the home | Home `/` loads about 280 KB (gzip JS, CSS and font): React and Next are 103 KB before any code, assistant-ui is about 100 KB, the design system and font the rest. The 150 KB budget holds for the other screens and is enforced in CI by `npm run check:weight`; `/` has its own documented limit until the owner decides between a larger budget and a lighter chat list and composer. |
+| UI tests | The 12 existing specs that began at `/dev` then `/subjects` now begin at `/`, open their workflow through a home card or sidebar item (`e2e/shell.ts`) and continue on the screen the panel opened; assertions are unchanged. New specs at 360, 768, 1280 and 1536 px are in `e2e/shell.spec.ts`. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -543,6 +552,22 @@ Accept:
 - [ ] *Checklist in docs/GO_NO_GO.md, unsigned.* Go/no-go review signed by curriculum lead, engineering, and legal
 
 ---
+
+### UI-1 — Chat-first front door, role homes and design system
+
+Branch `ui-1-chat-shell`. Docs: docs/UI_AUDIT.md, docs/UI_STANDARDS.md, docs/HOME_AND_ONBOARDING.md.
+
+- [x] Step 0: audit and standards docs
+- [x] Design system: tokens (light and dark), shadcn-style components, assistant-ui primitives, Brand, StatusChip, Choice, SuggestionCard, `/dev/ui`, CI weight check
+- [x] Chat shell at `/` with a pure state machine and unit tests (14 machine, 12 finder, greeting and label tests)
+- [x] Setup chips from the registry; "coming soon" cannot start; guest choices on the device only
+- [x] Identity in chat: sign in, just try it, save my progress (ask a grown-up), parent, teacher, create account
+- [x] Role homes fed by the existing APIs; Resume card
+- [x] Workspace panel around the existing screens; deep links, refresh, back to chat; structured summaries
+- [x] Responsive shell (four width bands)
+- [x] `/dev` restyled and scenario logins land on the role home; preview teacher and parent logins
+- [ ] Tests: ported specs and new four-width specs (see the report for counts); self-critique of every screenshot
+- [ ] Home page weight within the 150 KB budget: **not met** (about 280 KB, documented exception above)
 
 ## 9. Required tests (ongoing)
 

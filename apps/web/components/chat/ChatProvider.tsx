@@ -141,6 +141,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   const dispatch = useCallback(
     (event: ChatEvent) => {
+      if (event.type === "start_setup" && !ctx) return; // the registry has not arrived yet
       setReplies([]);
       dispatchRaw({ event, ctx: ctx ?? emptyCtx });
     },

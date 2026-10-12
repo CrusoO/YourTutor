@@ -86,7 +86,7 @@ function Row({ children }: { children: React.ReactNode }) {
 
 /** Three suggestion cards for whoever is looking at the home: the cards follow the role. */
 export function HomeCards() {
-  const { role, copy, dispatch, openWorkspace, startMode, identityReady } = useChatApi();
+  const { role, copy, dispatch, openWorkspace, startMode, identityReady, ctx, contextError } = useChatApi();
   const student = useStudentHome(role === "student" || role === "guest");
   const teacher = useTeacherHome(role === "teacher");
 
@@ -101,6 +101,20 @@ export function HomeCards() {
   }
 
   if (role === "visitor") {
+    // The setup questions come from the registry: wait for it, never start with nothing to ask.
+    if (!ctx) {
+      return contextError ? (
+        <p role="alert" className="m-0 text-sm text-danger" data-testid="context-error">
+          {copy.chatCouldNotLoad}
+        </p>
+      ) : (
+        <Row>
+          <SuggestionCardSkeleton />
+          <SuggestionCardSkeleton />
+          <SuggestionCardSkeleton />
+        </Row>
+      );
+    }
     return (
       <Row>
         <SuggestionCard tone="accent" icon="users" title={copy.chatCardPickClass} description={copy.chatCardPickClassHint} onClick={() => dispatch({ type: "start_setup", intent: null })} data-testid="card-pick-class" />

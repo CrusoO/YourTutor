@@ -46,6 +46,13 @@ async function expectNoClippedText(page: Page) {
   expect(clipped, "text is not clipped").toEqual([]);
 }
 
+/** Open "/" and wait until the app has started (the greeting is filled in after hydration). */
+async function openHome(page: Page) {
+  await page.goto("/");
+  await expect(page.getByTestId("hero")).toBeVisible();
+  await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
+}
+
 async function tapsTo(page: Page, ids: string[]) {
   let taps = 0;
   for (const id of ids) {
@@ -60,8 +67,7 @@ for (const { w, h } of WIDTHS) {
     test.use({ viewport: { width: w, height: h } });
 
     test("guest: from / to a first lesson in five taps, then back to the chat", async ({ page }) => {
-      await page.goto("/");
-      await expect(page.getByTestId("hero")).toBeVisible();
+      await openHome(page);
       await expect(page.getByTestId("greeting")).toContainText(/welcome/i);
       await expectNoOverflow(page);
       await expectNoClippedText(page);
@@ -134,7 +140,7 @@ for (const { w, h } of WIDTHS) {
     });
 
     test("create account: a card for each role, and students under 18 are never left alone", async ({ page }) => {
-      await page.goto("/");
+      await openHome(page);
       if (w < 768) await page.getByTestId("menu-open").click();
       await page.locator('[data-testid="nav-create-account"]:visible').first().click();
       await expect(page.getByTestId("create-account")).toBeVisible();
@@ -150,26 +156,21 @@ for (const { w, h } of WIDTHS) {
       await page.getByTestId("create-account").waitFor({ state: "detached" }).catch(() => {});
     });
 
-    test("create account: teacher and parent ask for an email code", async ({ page }) => {
-      await page.goto("/");
-      if (w < 768) await page.getByTestId("menu-open").click();
-      await page.locator('[data-testid="nav-create-account"]:visible').first().click();
-      await page.getByTestId("create-teacher").click();
-      await expect(page.getByTestId("teacher-otp")).toBeVisible();
-      await expect(page.getByTestId("otp-email")).toBeVisible();
-      await shot(page, "create-teacher");
-      await page.getByTestId("identity-back").click();
-      await page.getByTestId("identity-back").click().catch(() => {});
-      await page.goto("/");
-      if (w < 768) await page.getByTestId("menu-open").click();
-      await page.locator('[data-testid="nav-create-account"]:visible').first().click();
-      await page.getByTestId("create-parent").click();
-      await expect(page.getByTestId("parent-otp")).toBeVisible();
-      await shot(page, "create-parent");
-    });
+    for (const role of ["teacher", "parent"] as const) {
+      test(`create account: the ${role} card asks for an email code`, async ({ page }) => {
+        await openHome(page);
+        if (w < 768) await page.getByTestId("menu-open").click();
+        await page.locator('[data-testid="nav-create-account"]:visible').first().click();
+        await page.getByTestId(`create-${role}`).click();
+        await expect(page.getByTestId(`${role}-otp`)).toBeVisible();
+        await expect(page.getByTestId("otp-email")).toBeVisible();
+        await expectNoOverflow(page);
+        await shot(page, `create-${role}`);
+      });
+    }
 
     test("ask a grown-up: the guest path ends at the guardian sign-in card", async ({ page }) => {
-      await page.goto("/");
+      await openHome(page);
       await tapsTo(page, ["card-pick-class", "choice-grade-9"]);
       await page.locator('[data-testid^="choice-board-"]:visible').first().click();
       await tapsTo(page, ["choice-subject-math", "save-progress"]);
@@ -187,6 +188,7 @@ for (const { w, h } of WIDTHS) {
       await page.goto("/dev");
       await page.getByTestId("login-review_due").click();
       await expect(page.getByTestId("hero")).toBeVisible();
+      await expect(page.getByTestId("card-plan")).toBeVisible({ timeout: 30_000 }); // cards have loaded
       await page.getByTestId("composer-input").focus();
       await expect(page.getByTestId("composer-input")).toBeFocused();
       // The focus ring is visible on the composer's box and on a card reached by keyboard.
@@ -195,9 +197,14 @@ for (const { w, h } of WIDTHS) {
         return getComputedStyle(inner).borderColor;
       });
       expect(ring).toBeTruthy();
-      const card = page.getByTestId("card-plan");
-      await card.focus();
-      const outline = await card.evaluate((el) => {
+      // Tab through the page until the Today's-plan card has focus (keyboard focus shows the ring).
+      let reached = false;
+      for (let i = 0; i < 40 && !reached; i += 1) {
+        await page.keyboard.press("Tab");
+        reached = await page.evaluate(() => document.activeElement?.getAttribute("data-testid") === "card-plan");
+      }
+      expect(reached, "the card is reachable with Tab").toBeTruthy();
+      const outline = await page.getByTestId("card-plan").evaluate((el) => {
         const style = getComputedStyle(el);
         return { width: parseFloat(style.outlineWidth), style: style.outlineStyle };
       });
