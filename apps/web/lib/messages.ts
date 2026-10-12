@@ -299,7 +299,7 @@ const en = {
   chatCreateStudent: "I am a student",
   chatCreateStudentHint: "Use your family code and PIN, or ask a grown-up.",
   chatCreateTeacher: "I am a teacher",
-  chatCreateTeacherHint: "Email code and your school code.",
+  chatCreateTeacherHint: "Email code. Your school links your account to your class.",
   chatCreateParent: "I am a parent",
   chatCreateParentHint: "Email code. You will add your children after.",
   chatUnder18: "Students under 18 never create an account alone. A grown-up sets it up.",

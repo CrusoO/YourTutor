@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icons";
 import { Brand } from "@/components/ui/brand";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
-import { Toaster } from "@/components/ui/sonner";
 import { locale } from "@/lib/api";
 import { dismissTip, tipDismissed } from "@/lib/chat/device";
 import { greeting } from "@/lib/chat/greeting";
@@ -93,7 +92,7 @@ function Shell() {
           {copy.chatBackToChat}
         </a>
         {!collapsed ? (
-          <aside className="hidden w-72 shrink-0 border-r border-line bg-surface md:flex" aria-label={copy.appName} data-testid="sidebar">
+          <aside className="hidden w-72 shrink-0 border-r border-line bg-surface lg:flex" aria-label={copy.appName} data-testid="sidebar">
             <SidebarContent />
           </aside>
         ) : null}
@@ -107,15 +106,15 @@ function Shell() {
 
         <main id="chat-main" className="@container flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
           <header className="flex items-center gap-3 px-3 py-2">
-            <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setDrawer(true)} data-testid="menu-open">
+            <Button variant="ghost" size="sm" className="lg:hidden" onClick={() => setDrawer(true)} data-testid="menu-open">
               <Icon name="menu" />
               {copy.chatOpenMenu}
             </Button>
-            <Button variant="ghost" size="sm" className="hidden md:inline-flex" onClick={() => setCollapsed((v) => !v)} aria-expanded={!collapsed} data-testid="sidebar-toggle">
+            <Button variant="ghost" size="sm" className="hidden lg:inline-flex" onClick={() => setCollapsed((v) => !v)} aria-expanded={!collapsed} data-testid="sidebar-toggle">
               <Icon name="menu" />
               {copy.chatCollapse}
             </Button>
-            <span className="md:hidden">
+            <span className="lg:hidden">
               <Brand />
             </span>
           </header>
@@ -131,7 +130,6 @@ function Shell() {
           )}
         </main>
         {workspace ? <WorkspacePanel /> : null}
-        <Toaster />
       </div>
     </AssistantRuntimeProvider>
   );

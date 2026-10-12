@@ -7,6 +7,10 @@ import { gzipSync } from "node:zlib";
 import { join } from "node:path";
 
 const BUDGET_KB = Number(process.env.WEIGHT_BUDGET_KB || 150);
+// Documented exception (PLAN.md Decisions, "Page weight of the home"): React and Next are about 103 KB
+// before any code and assistant-ui adds about 100 KB, so the chat home cannot fit 150 KB. Its limit is
+// the measured value plus a little headroom, so it can only shrink unnoticed, never grow.
+const ROUTE_BUDGET_KB = { "/": Number(process.env.WEIGHT_HOME_BUDGET_KB || 275) };
 const NEXT = ".next";
 const manifestPath = join(NEXT, "app-build-manifest.json");
 if (!existsSync(manifestPath)) {
@@ -37,9 +41,10 @@ for (const [page, files] of Object.entries(pages)) {
 rows.sort((a, b) => b.kb - a.kb);
 let failed = 0;
 for (const { route, kb } of rows) {
-  const over = kb > BUDGET_KB;
+  const limit = ROUTE_BUDGET_KB[route] ?? BUDGET_KB;
+  const over = kb > limit;
   if (over) failed += 1;
-  console.log(`${over ? "OVER " : "ok   "} ${String(kb).padStart(7)} KB  ${route}`);
+  console.log(`${over ? "OVER " : "ok   "} ${String(kb).padStart(7)} KB  ${route}${limit !== BUDGET_KB ? `  (limit ${limit})` : ""}`);
 }
 console.log(`budget ${BUDGET_KB} KB per screen (gzip JS and CSS, plus the home font)`);
 if (failed) {

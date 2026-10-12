@@ -18,15 +18,21 @@ export async function devLogin(page: Page, title: string) {
 
 /**
  * Open a workflow from the home: a card (card-continue, card-resume, ...) or a sidebar item (nav-today,
- * nav-chapters, ...). On a phone the sidebar lives in the menu drawer, so it is opened first. The panel
+ * nav-chapters, ...). Below 1024 px the sidebar lives in the menu drawer, so it is opened first. The panel
  * shows the existing screen in a frame; the flow then continues on that screen's own address, so every
  * legacy screen is still exercised exactly as before, but reached through the new entry point.
  */
 export async function enter(page: Page, entry: string) {
-  const target = page.locator(`[data-testid="${entry}"]:visible`).first();
-  if (!(await target.isVisible())) {
-    const menu = page.getByTestId("menu-open");
-    if (await menu.isVisible()) await menu.click();
+  if (entry.startsWith("card-")) {
+    // Home cards load after the page does: wait for the card, never open the menu for it.
+    await expect(page.locator(`[data-testid="${entry}"]:visible`).first()).toBeVisible({ timeout: 30_000 });
+  } else {
+    // Sidebar items live in the menu drawer below 1024 px.
+    const target = page.locator(`[data-testid="${entry}"]:visible`).first();
+    if (!(await target.isVisible())) {
+      const menu = page.getByTestId("menu-open");
+      if (await menu.isVisible()) await menu.click();
+    }
   }
   await page.locator(`[data-testid="${entry}"]:visible`).first().click();
   const frame = page.getByTestId("workspace-frame");

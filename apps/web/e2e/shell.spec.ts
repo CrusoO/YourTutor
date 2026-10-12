@@ -141,7 +141,7 @@ for (const { w, h } of WIDTHS) {
 
     test("create account: a card for each role, and students under 18 are never left alone", async ({ page }) => {
       await openHome(page);
-      if (w < 768) await page.getByTestId("menu-open").click();
+      if (w < 1024) await page.getByTestId("menu-open").click();
       await page.locator('[data-testid="nav-create-account"]:visible').first().click();
       await expect(page.getByTestId("create-account")).toBeVisible();
       await expect(page.getByTestId("create-account")).toContainText(/under 18/i);
@@ -159,7 +159,7 @@ for (const { w, h } of WIDTHS) {
     for (const role of ["teacher", "parent"] as const) {
       test(`create account: the ${role} card asks for an email code`, async ({ page }) => {
         await openHome(page);
-        if (w < 768) await page.getByTestId("menu-open").click();
+        if (w < 1024) await page.getByTestId("menu-open").click();
         await page.locator('[data-testid="nav-create-account"]:visible').first().click();
         await page.getByTestId(`create-${role}`).click();
         await expect(page.getByTestId(`${role}-otp`)).toBeVisible();

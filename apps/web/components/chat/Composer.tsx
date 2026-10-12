@@ -66,7 +66,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
           {copy.chatSend}
         </ComposerPrimitive.Send>
       </ComposerPrimitive.Root>
-      <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={copy.chatModes}>
+      <div className={docked && role === "visitor" ? "hidden" : "mt-3 flex flex-wrap gap-2"} role="group" aria-label={copy.chatModes}>
         {modes.map((m) => (
           <Choice
             key={m}
