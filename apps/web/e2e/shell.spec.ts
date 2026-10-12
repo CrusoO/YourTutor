@@ -68,7 +68,7 @@ for (const { w, h } of WIDTHS) {
 
     test("guest: from / to a first lesson in five taps, then back to the chat", async ({ page }) => {
       await openHome(page);
-      await expect(page.getByTestId("greeting")).toContainText(/welcome/i);
+      await expect(page.getByTestId("greeting")).toContainText(/learn today/i);
       await expectNoOverflow(page);
       await expectNoClippedText(page);
       await shot(page, "guest-welcome");
@@ -171,7 +171,7 @@ for (const { w, h } of WIDTHS) {
 
     test("ask a grown-up: the guest path ends at the guardian sign-in card", async ({ page }) => {
       await openHome(page);
-      await tapsTo(page, ["card-pick-class", "choice-grade-9"]);
+      await tapsTo(page, ["card-try-lesson", "choice-grade-9"]);
       await page.locator('[data-testid^="choice-board-"]:visible').first().click();
       await tapsTo(page, ["choice-subject-math", "save-progress"]);
       await expect(page.getByTestId("grown-up")).toBeVisible();

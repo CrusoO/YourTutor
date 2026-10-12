@@ -14,7 +14,7 @@ import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
-import { useCopy } from "@/lib/locale";
+import { useCopy, useLocale } from "@/lib/locale";
 
 /** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
 function canHelp(a: ActionPayload): boolean {
@@ -25,6 +25,7 @@ export default function SessionPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const copy = useCopy();
+  const activeLocale = useLocale();
   const [action, setAction] = useState<ActionPayload | null>(null);
   const ui = typeof window === "undefined" ? undefined : loadUi();
   useEffect(() => applyBodyClasses(loadUi()), []);
@@ -150,7 +151,7 @@ export default function SessionPage() {
       <LessonPlayer
         key={action.lesson.id}
         lesson={action.lesson}
-        locale={locale()}
+        locale={activeLocale}
         mode="session"
         sources={action.sources}
         startAt={action.type === "worked_example" ? 1 : 0}
@@ -381,7 +382,7 @@ export default function SessionPage() {
             </p>
           ) : null}
           <p className="stem">{item?.stem}</p>
-          <ReadAloud text={item?.stem || ""} lang={locale()} ui={ui} />
+          <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 400 })} />
           ) : (

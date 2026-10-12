@@ -18,7 +18,7 @@ import dynamic from "next/dynamic";
 // The strip is a separate chunk (students only); the placeholder keeps its footprint so nothing jumps.
 const TodayStrip = dynamic(() => import("./TodayStrip").then((m) => m.TodayStrip), {
   ssr: false,
-  loading: () => <div aria-hidden="true" className="min-h-[15rem] w-full max-w-4xl animate-pulse rounded-[var(--radius-card)] border border-line bg-surface @2xl:min-h-[12rem]" />,
+  loading: () => <div aria-hidden="true" className="min-h-[15rem] w-full max-w-3xl animate-pulse rounded-[var(--radius-card)] border border-line bg-surface @2xl:min-h-[12rem]" />,
 });
 
 type StudentHome = {
@@ -28,6 +28,7 @@ type StudentHome = {
   started: boolean;
   due: number;
   share: Share;
+  topics: { id: string; title: string }[];
 };
 
 type TeacherHome = { classes: number; stuck: number; review: number };
@@ -52,7 +53,7 @@ function useStudentHome(enabled: boolean) {
         if (c.id === chapter?.id) skill = body.skills.find((s) => s.current)?.title;
       }
       const started = live_.some((c) => c.status !== "not_started");
-      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due, share: progressShare(live_) });
+      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due, share: progressShare(live_), topics: live_.map((c) => ({ id: c.id, title: c.title })) });
     })().catch(() => live && setFailed(true));
     return () => {
       live = false;
@@ -84,7 +85,7 @@ function useTeacherHome(enabled: boolean) {
 function Row({ children, two = false }: { children: React.ReactNode; two?: boolean }) {
   return (
     <div
-      className={`grid w-full max-w-4xl auto-cols-[minmax(14rem,1fr)] grid-flow-col gap-3 overflow-x-auto pb-1 @2xl:grid-flow-row ${two ? "@2xl:grid-cols-2" : "@2xl:grid-cols-3"} @2xl:overflow-visible`}
+      className={`grid w-full max-w-3xl grid-cols-1 gap-3 ${two ? "@2xl:grid-cols-2" : "@2xl:grid-cols-3"}`}
       data-testid="home-cards"
     >
       {children}
@@ -124,22 +125,20 @@ export function HomeCards() {
       );
     }
     return (
-      <div className="flex w-full max-w-4xl flex-col gap-3">
-        <SuggestionCard
-          tone="accent"
-          icon="play"
-          title={copy.chatCardTryQuestion}
-          description={copy.chatCardTryQuestionHint}
-          tag={copy.chatNew}
-          disabled={busy}
-          onClick={() => void tryOneQuestion()}
-          data-testid="card-try-question"
-        />
+      <div className="flex w-full max-w-3xl flex-col gap-3">
         <Row two>
-          <SuggestionCard tone="neutral" icon="users" title={copy.chatCardPickClass} description={copy.chatCardPickClassHint} onClick={() => dispatch({ type: "start_setup", intent: null })} data-testid="card-pick-class" />
-          <SuggestionCard tone="success" icon="book" title={copy.chatCardTryLesson} description={copy.chatCardTryLessonHint} onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="card-try-lesson" />
+          <button type="button" disabled={busy} onClick={() => void tryOneQuestion()} data-testid="card-try-question" className="flex min-h-[11rem] w-full cursor-pointer flex-col items-start gap-1.5 rounded-[1.5rem] border border-warning/30 bg-warning-soft p-5 text-left text-ink shadow-[var(--shadow-card)] disabled:opacity-60">
+            <span className="text-lg font-semibold">{copy.chatCardTryQuestion}</span>
+            <span className="text-sm font-normal text-muted">{copy.chatCardTryQuestionHint}</span>
+            <span className="mt-auto inline-flex min-h-11 items-center rounded-xl border border-ink px-4 text-sm font-semibold">{copy.chatPlanStart}</span>
+          </button>
+          <button type="button" onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="card-try-lesson" className="home-card flex min-h-[11rem] w-full cursor-pointer flex-col items-start gap-1.5 rounded-[1.5rem] p-5 text-left text-ink shadow-[var(--shadow-card)]">
+            <span className="text-lg font-semibold">{copy.chatCardTryLesson}</span>
+            <span className="text-sm font-normal text-muted">{copy.chatCardTryLessonHint}</span>
+            <span className="mt-auto inline-flex min-h-11 items-center rounded-xl bg-accent px-4 text-sm font-semibold text-accent-fg">{copy.chatStartLesson}</span>
+          </button>
         </Row>
-        <p className="m-0 text-center text-sm text-muted" data-testid="no-account-line">
+        <p className="m-0 text-sm text-muted" data-testid="no-account-line">
           {copy.chatNoAccountLine}
         </p>
       </div>
@@ -173,6 +172,15 @@ export function HomeCards() {
     };
     return (
       <>
+      {student.data.topics.length > 0 ? (
+        <div className="flex w-full max-w-3xl flex-wrap gap-2" role="group" aria-label={copy.chatTopics} data-testid="topic-chips">
+          {student.data.topics.slice(0, 6).map((topic) => (
+            <button key={topic.id} type="button" onClick={() => openWorkspace(`/chapters/${encodeURIComponent(topic.id)}`, topic.title)} className="home-card inline-flex min-h-11 w-auto cursor-pointer items-center rounded-full px-3.5 text-sm font-normal text-ink">
+              {topic.title}
+            </button>
+          ))}
+        </div>
+      ) : null}
       {started || resume ? <TodayStrip share={student.data.share} plan={plan} onStart={startToday} /> : null}
       <Row>
         {resume ? (

@@ -17,7 +17,7 @@ export function Brand({ className, showName = true }: { className?: string; show
         />
       </svg>
       {showName ? (
-        <span className="text-lg font-semibold leading-none">{BRAND.name}</span>
+        <span className="label text-sm leading-none max-[419px]:hidden">{BRAND.name}</span>
       ) : (
         <span className="sr-only">{BRAND.name}</span>
       )}

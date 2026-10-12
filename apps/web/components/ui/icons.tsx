@@ -16,6 +16,8 @@ const PATHS = {
   plus: "M12 5v14M5 12h14",
   search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Zm9 3-4.5-4.5",
   send: "M4 12 20 4l-4 16-4-6-8-2Z",
+  mic: "M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm-6-3a6 6 0 0 0 12 0m-6 6v3",
+  arrowUp: "M12 19V5m-7 7 7-7 7 7",
   menu: "M4 7h16M4 12h16M4 17h16",
   close: "M6 6l12 12M18 6 6 18",
   chat: "M4 5h16v11H9l-5 4V5Z",

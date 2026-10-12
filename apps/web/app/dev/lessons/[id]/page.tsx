@@ -4,12 +4,14 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
-import { getDevLesson, locale, verifyDevWidget } from "@/lib/api";
+import { getDevLesson, verifyDevWidget } from "@/lib/api";
+import { useLocale } from "@/lib/locale";
 import { devToolsEnabled } from "@/lib/dev";
 import type { Lesson } from "@/lib/lessons/types";
 
 /** Dev only: play one lesson with no login. Widget results are still checked by the server. */
 export default function DevLessonPage() {
+  const activeLocale = useLocale();
   if (!devToolsEnabled()) notFound();
   const params = useParams<{ id: string }>();
   const id = decodeURIComponent(String(params?.id ?? ""));
@@ -38,7 +40,7 @@ export default function DevLessonPage() {
       </p>
       <LessonPlayer
         lesson={lesson}
-        locale={locale()}
+        locale={activeLocale}
         mode="preview"
         onWidgetResult={async (r) => (await verifyDevWidget(lesson.id, r.widget_id, r.final_state)).ok}
       />

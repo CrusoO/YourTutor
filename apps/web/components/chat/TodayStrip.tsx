@@ -10,29 +10,12 @@ import { useChatApi } from "./ChatProvider";
 const fill = (text: string, values: Record<string, string | number>) =>
   Object.entries(values).reduce((out, [key, value]) => out.replaceAll(`{${key}}`, String(value)), text);
 
-/** A progress ring with its meaning in words beside it; the ring itself carries no information alone. */
+/** A glossy progress sphere with its meaning in words beside it; the sphere itself carries no information alone. */
 function Ring({ percent, label }: { percent: number; label: string }) {
-  const r = 26;
-  const c = 2 * Math.PI * r;
   return (
-    <svg width="68" height="68" viewBox="0 0 68 68" role="img" aria-label={label} className="shrink-0" data-testid="today-ring">
-      <circle cx="34" cy="34" r={r} fill="none" stroke="var(--c-line)" strokeWidth="7" />
-      <circle
-        cx="34"
-        cy="34"
-        r={r}
-        fill="none"
-        stroke="var(--c-accent)"
-        strokeWidth="7"
-        strokeLinecap="round"
-        strokeDasharray={`${(c * percent) / 100} ${c}`}
-        transform="rotate(-90 34 34)"
-        style={{ transition: "stroke-dasharray var(--dur) var(--ease)" }}
-      />
-      <text x="34" y="39" textAnchor="middle" fontSize="15" fontWeight="700" fill="var(--c-text)">
-        {percent}%
-      </text>
-    </svg>
+    <div role="img" aria-label={label} className="sphere" data-testid="today-ring">
+      {percent}%
+    </div>
   );
 }
 
@@ -73,7 +56,7 @@ export function TodayStrip({ share, plan, onStart }: { share: Share; plan: Plan 
   return (
     <section
       aria-label={copy.chatTodayTitle}
-      className="grid w-full max-w-4xl gap-5 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] @2xl:grid-cols-[1fr_auto]"
+      className="glass-flat grid w-full max-w-4xl gap-5 rounded-[var(--radius-card)] p-5 shadow-[var(--shadow-card)] @2xl:grid-cols-[1fr_auto]"
       data-testid="today-strip"
     >
       <div className="flex items-center gap-4">

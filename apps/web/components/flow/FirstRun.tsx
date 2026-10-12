@@ -1,4 +1,3 @@
-import {  } from "@/lib/api";
 
 import { useCopy } from "@/lib/locale";
 
@@ -14,7 +13,7 @@ export default function FirstRun({ offer, onChoose }: { offer: Offer; onChoose: 
     <section className="card first-run" data-testid="first-run" aria-labelledby="first-run-title">
       <h2 id="first-run-title">{reoffer ? copy.reofferTitle : copy.firstRunTitle}</h2>
       <p className="muted">{reoffer ? copy.reofferHint : copy.firstRunHint}</p>
-      <button type="button" onClick={() => onChoose("warmup")}>
+      <button type="button" className="reading" onClick={() => onChoose("warmup")}>
         {copy.warmupButton}
       </button>
       {reoffer ? (

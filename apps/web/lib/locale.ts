@@ -67,10 +67,20 @@ export function setLocale(code: string): void {
   listeners.forEach((fn) => fn());
 }
 
+/** Another tab, or the workspace frame beside the chat, changed the language: follow it. */
+function onStorage(event: StorageEvent) {
+  if (event.key !== LOCALE_KEY) return;
+  current = read();
+  if (typeof document !== "undefined") document.documentElement.lang = current;
+  listeners.forEach((fn) => fn());
+}
+
 function subscribe(fn: () => void) {
+  if (listeners.size === 0 && typeof window !== "undefined") window.addEventListener("storage", onStorage);
   listeners.add(fn);
   return () => {
     listeners.delete(fn);
+    if (listeners.size === 0 && typeof window !== "undefined") window.removeEventListener("storage", onStorage);
   };
 }
 

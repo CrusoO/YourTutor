@@ -18,7 +18,6 @@ import { SuggestionCard, SuggestionCardSkeleton } from "@/components/ui/suggesti
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ChapterStatus } from "@/lib/api";
 import { devToolsEnabled } from "@/lib/dev";
-import {  } from "@/lib/api";
 
 import { useCopy } from "@/lib/locale";
 

@@ -4,8 +4,11 @@
 
 /* Page: light is a soft sky gradient with three glow shapes made of radial gradients (no images, no blur filter,
    nothing to animate). Dark is the solid page colour with one faint violet glow at the top. */
-body {
+html {
   background: var(--c-bg);
+}
+body {
+  background: transparent; /* body::before (z-index -1) paints the gradient above the html colour */
   font-family: var(--ff-body);
 }
 body::before {
@@ -50,8 +53,8 @@ body::before {
 .glass {
   background: var(--c-glass);
   border: 1px solid var(--c-glass-edge);
-  -webkit-backdrop-filter: blur(var(--blur-glass));
-  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
 }
 @supports not (backdrop-filter: blur(1px)) {
   .glass {
@@ -73,6 +76,31 @@ body::before {
     border-color: var(--c-input-line);
   }
 }
+/* Flat glass: the same translucent look without a blur, for the surfaces beyond the four-blur budget. */
+.glass-flat {
+  background: var(--c-glass);
+  border: 1px solid var(--c-glass-edge);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-flat {
+    background: var(--c-surface);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass-flat {
+    background: var(--c-popover);
+  }
+}
+@media (prefers-contrast: more) {
+  .glass-flat {
+    background: var(--c-popover);
+    border-color: var(--c-input-line);
+  }
+}
+html[data-effects="reduce"] .glass-flat {
+  background: var(--c-popover);
+}
+
 /* Comfort > Reduce effects: solid surfaces, no glow shapes, no animation. On automatically for save-data. */
 html[data-effects="reduce"] .glass {
   -webkit-backdrop-filter: none;
@@ -117,6 +145,34 @@ html[data-effects="reduce"] * {
   filter: brightness(1.04);
 }
 
+/* Legacy screens (lesson, practice): short action buttons take the label style (never answer choices or units), the lesson
+   title takes the display style. Answer choices and long labels stay in Inter (reading text). */
+.phone button:not(.secondary, .lp button),
+.phone button[data-testid="help-button"],
+.lp-primary,
+.lp-btn {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.875rem;
+}
+.lp h1 {
+  font-family: var(--ff-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+/* A long label (more than about six words) is reading text: opt out with class "reading". */
+.phone button.reading {
+  font-family: var(--ff-body);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.05rem;
+}
+
 /* Glossy progress sphere for syllabus coverage. */
 .sphere {
   display: grid;
@@ -139,30 +195,75 @@ html[data-effects="reduce"] * {
 /* Hindi (Devanagari) type rules: Noto Sans Devanagari for the display line and labels (not the monospace), no
    uppercase, no negative letter-spacing, proportional word spaces, roomy lines so matras never clip, and no
    synthetic bold or italic (Noto ships 400 and 500 only; emphasis is the 500 weight and size). */
-html:lang(hi) {
+:lang(hi) {
   font-synthesis: none;
 }
-html:lang(hi) body {
+:lang(hi) body {
   line-height: 1.7;
 }
-html:lang(hi) .display {
+/* Tailwind text sizes carry their own 1.5 line height, which would clip stacked matras: reading text in Hindi gets
+   1.7 and headings 1.45. (:where keeps specificity at zero, so .display below still sets its own 1.35.) */
+:lang(hi) :where(p, li, label, span, a, td, th, dd, dt, input, textarea, select, button, small, blockquote, figcaption, summary) {
+  line-height: 1.7;
+}
+:lang(hi) :where(h1, h2, h3, h4) {
+  line-height: 1.45;
+}
+:lang(hi) .display {
   text-transform: none;
   letter-spacing: 0;
   word-spacing: normal;
   font-weight: 500;
   line-height: 1.35;
 }
-html:lang(hi) .label,
-html:lang(hi) .glow-btn,
-html:lang(hi) .sphere {
+:lang(hi) .label,
+:lang(hi) .glow-btn,
+:lang(hi) .sphere,
+:lang(hi) .phone button:not(.secondary, .lp button),
+:lang(hi) .phone button[data-testid="help-button"],
+:lang(hi) .lp-primary,
+:lang(hi) .lp-btn {
   text-transform: none;
   letter-spacing: 0;
   word-spacing: normal;
   font-size: max(0.875rem, 1em);
 }
-html:lang(hi) :is(b, strong, h1, h2, h3, h4, th, button, [class*="font-semibold"], [class*="font-bold"], [class*="font-medium"]) {
+:lang(hi) .lp h1 {
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  font-weight: 500;
+  line-height: 1.35;
+}
+:lang(hi) :is(b, strong, h1, h2, h3, h4, th, button, [class*="font-semibold"], [class*="font-bold"], [class*="font-medium"]) {
   font-weight: 500;
 }
-html:lang(hi) :is(i, em, cite) {
+:lang(hi) :is(i, em, cite) {
   font-style: normal;
+}
+
+/* Home (UI-5 home mockup): flat page, bold sans headline, white cards. No gradient or glow behind the home. */
+body:has(.home-flat)::before {
+  background: var(--c-home-bg);
+}
+.home-title {
+  font-family: var(--ff-body);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.home-card {
+  background: var(--c-card-solid);
+  border: 1px solid var(--c-line);
+}
+:lang(hi) .home-title {
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+/* A themed panel inside a page (the design gallery) keeps its own solid page colour. */
+.ui-root[data-theme] {
+  background: var(--c-bg);
 }

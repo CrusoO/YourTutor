@@ -42,7 +42,7 @@ for (const theme of THEMES) {
         expect(Object.keys(images).some((k) => k.startsWith(".lp#"))).toBe(true);
         for (const [where, image] of Object.entries(images)) expect(image, where).toBe("none");
         const surface = rgbToHex(await page.locator(".lp").first().evaluate((el) => getComputedStyle(el).backgroundColor));
-        expect(surface).toBe(theme === "light" ? "#ffffff" : "#0b0f1d");
+        expect(surface).toBe(theme === "light" ? "#ffffff" : "#0b041a");
         await page.waitForTimeout(400);
         await page.screenshot({ path: `${SHOTS}/paper-lesson-${theme}-${w}.png` });
       });
@@ -54,7 +54,7 @@ for (const theme of THEMES) {
         await expect(page.locator(".stem, h1, h2").first()).toBeVisible({ timeout: 30_000 });
         for (const [where, image] of Object.entries(await backgroundImages(page))) expect(image, where).toBe("none");
         const surface = rgbToHex(await page.locator(".phone").first().evaluate((el) => getComputedStyle(el).backgroundColor));
-        expect(surface).toBe(theme === "light" ? "#ffffff" : "#0b0f1d");
+        expect(surface).toBe(theme === "light" ? "#ffffff" : "#0b041a");
         await page.waitForTimeout(400);
         await page.screenshot({ path: `${SHOTS}/paper-practice-${theme}-${w}.png` });
       });

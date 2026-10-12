@@ -8,7 +8,7 @@ import { Icon, type IconName } from "./icons";
 export type CardTone = "accent" | "success" | "warning" | "neutral";
 
 const TONE: Record<CardTone, { icon: string; tag: string }> = {
-  accent: { icon: "bg-accent-soft text-ink", tag: "bg-accent-soft text-ink" },
+  accent: { icon: "bg-accent-soft text-accent-ink", tag: "bg-accent-soft text-accent-ink" },
   success: { icon: "bg-success-soft text-success", tag: "bg-success-soft text-success" },
   warning: { icon: "bg-warning-soft text-warning", tag: "bg-warning-soft text-warning" },
   neutral: { icon: "bg-neutral-soft text-neutral", tag: "bg-neutral-soft text-neutral" },
@@ -29,7 +29,7 @@ type AsButton = Common & { onClick: () => void; href?: undefined; disabled?: boo
 type AsLink = Common & { href: string; onClick?: undefined; disabled?: undefined };
 
 const base =
-  "group flex min-h-12 w-full cursor-pointer flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface p-4 text-left text-ink shadow-[var(--shadow-card)] transition hover:-translate-y-px hover:border-accent hover:bg-surface-2 active:translate-y-0 active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:translate-y-0 no-underline";
+  "glass group flex min-h-12 w-full cursor-pointer flex-col gap-3 rounded-[var(--radius-card)] p-4 text-left text-ink shadow-[var(--shadow-card)] transition hover:-translate-y-px hover:border-accent active:translate-y-0 active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:translate-y-0 no-underline";
 
 /** One card, one primary action. Pass `onClick` for an action in the page or `href` for a route. */
 export function SuggestionCard(props: AsButton | AsLink) {
@@ -41,12 +41,12 @@ export function SuggestionCard(props: AsButton | AsLink) {
           <Icon name={icon} />
         </span>
         {tag ? (
-          <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", TONE[tone].tag)}>
+          <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-medium", TONE[tone].tag)}>
             {tag}
           </span>
         ) : null}
       </span>
-      <span className="text-base font-semibold leading-snug">{title}</span>
+      <span className="label text-[0.8125rem] leading-snug">{title}</span>
       {description ? <span className="text-sm text-muted">{description}</span> : null}
     </>
   );
@@ -78,7 +78,7 @@ export function SuggestionCardSkeleton({ className }: { className?: string }) {
     <div
       aria-hidden="true"
       className={cn(
-        "flex min-h-[7.5rem] w-full animate-pulse flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface p-4",
+        "glass-flat flex min-h-[7.5rem] w-full animate-pulse flex-col gap-3 rounded-[var(--radius-card)] p-4",
         className,
       )}
     >

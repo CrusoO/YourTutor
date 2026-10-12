@@ -26,7 +26,7 @@ export default function DevLessonsPage() {
       {lessons && lessons.length === 0 ? <p>No lessons found in content/lessons.</p> : null}
       <ul className="stack">
         {(lessons ?? []).map((l) => (
-          <li key={l.id}>
+          <li key={l.id} className="[overflow-wrap:anywhere]">
             <Link href={`/dev/lessons/${encodeURIComponent(l.id)}`}>{l.title}</Link>
             <div>
               {l.id} · {l.skill_id} · {l.status} · {l.beats.join(" → ")}

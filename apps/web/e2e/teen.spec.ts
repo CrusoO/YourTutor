@@ -42,7 +42,7 @@ const SCREENS: Screen[] = [
     name: "setup",
     open: async (page) => {
       await page.goto("/");
-      await page.locator('[data-testid="card-pick-class"]:visible').first().click({ timeout: 30_000 });
+      await page.locator('[data-testid="card-try-lesson"]:visible').first().click({ timeout: 30_000 });
       await expect(page.locator('[data-testid^="choice-grade-"]:visible').first()).toBeVisible({ timeout: 20_000 });
     },
   },
@@ -87,7 +87,12 @@ async function scanContrast(page: Page): Promise<string[]> {
       return [mix(0), mix(1), mix(2), a];
     };
     const background = (el: Element | null): RGBA => {
-      if (!el) return parse(getComputedStyle(document.documentElement).backgroundColor).map((v, i) => (i === 3 ? 1 : v)) as RGBA;
+      // The page is a gradient (UI-5): text that sits straight on it is measured against its darkest zone, --c-bg-deep.
+      if (!el) {
+        const deep = getComputedStyle(document.documentElement).getPropertyValue("--c-bg-deep").trim();
+        const n = parseInt(deep.replace("#", ""), 16);
+        return [(n >> 16) & 255, (n >> 8) & 255, n & 255, 1] as RGBA;
+      }
       const own = parse(getComputedStyle(el).backgroundColor);
       return own[3] >= 0.99 ? own : over(own, background(el.parentElement));
     };
@@ -137,14 +142,15 @@ for (const theme of THEMES) {
         const tokens = await page.evaluate(() => {
           const css = getComputedStyle(document.documentElement);
           const out: Record<string, string> = {};
-          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-lesson", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-teal", "--c-teal-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus"]))) {
+          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-lesson", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-teal", "--c-teal-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus", "--c-bg-deep", "--c-home-bg", "--c-card-solid"]))) {
             out[name] = css.getPropertyValue(name).trim();
           }
           return out;
         });
         const lows = PAIRS.filter((p) => contrast(tokens[p.fg]!, tokens[p.bg]!) < p.min).map((p) => `${p.label} ${contrast(tokens[p.fg]!, tokens[p.bg]!).toFixed(2)} < ${p.min}`);
         expect(lows, "token pairs").toEqual([]);
-        expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.body).backgroundColor))).not.toMatch(/^#(000000|ffffff)$/);
+        // UI-5: the page colour is on <html> (the body is transparent over the gradient).
+        expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor))).not.toMatch(/^#(000000|ffffff)$/);
 
         expect(await scanContrast(page), "rendered text").toEqual([]);
       });
@@ -226,12 +232,15 @@ test.describe("theme and comfort settings", () => {
     await expect(page.getByTestId("theme-auto")).toHaveAttribute("aria-pressed", "true");
     expect(await page.evaluate(() => document.documentElement.dataset.theme ?? "auto")).toBe("auto");
     const darkBg = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim());
-    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.body).backgroundColor))).toBe(darkBg.toLowerCase());
-    expect(darkBg.toLowerCase()).toBe("#0b0f1d");
+    // UI-5: the page colour is on <html>; the body is transparent so the gradient and glow shapes (body::before) show.
+    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor))).toBe(darkBg.toLowerCase());
+    expect(darkBg.toLowerCase()).toBe("#0b041a");
 
     await page.getByTestId("theme-light").click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.querySelector("[data-testid=app-shell]")!).backgroundColor))).toBe("#f6f7fb");
+    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor))).toBe("#e4ecfd");
+    // ...and the flat home colour is drawn by body::before (the sky gradient is for the other screens).
+    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.body, "::before").backgroundColor))).toBe("#eef0fc");
 
     // Reload: the theme is already on <html> when the document is parsed, before any script from the app runs.
     await page.goto("/", { waitUntil: "commit" });
@@ -265,7 +274,7 @@ test.describe("theme and comfort settings", () => {
     await page.goto("/");
     const send = page.getByTestId("composer-send");
     await expect(send).toBeEnabled();
-    expect(rgbToHex(await send.evaluate((el) => getComputedStyle(el).backgroundColor))).toBe("#4f46e5");
+    expect(rgbToHex(await send.evaluate((el) => getComputedStyle(el).backgroundColor))).toBe("#1d4fd8");
     await send.click();
     await expect(page.getByTestId("composer-hint")).toBeVisible();
     await page.getByTestId("composer-input").fill("quadratic");
@@ -280,8 +289,8 @@ test.describe("guest and student home", () => {
     await page.goto("/");
     await expect(page.getByTestId("card-try-question")).toBeVisible({ timeout: 30_000 });
     await expect(page.getByTestId("no-account-line")).toBeVisible();
-    const order = await page.evaluate(() => ["card-try-question", "card-pick-class", "card-try-lesson"].map((id) => document.querySelector(`[data-testid=${id}]`)!.getBoundingClientRect().top));
-    expect(order[0]!).toBeLessThan(order[1]!);
+    const order = await page.evaluate(() => ["card-try-question", "card-try-lesson"].map((id) => document.querySelector(`[data-testid=${id}]`)!.getBoundingClientRect().top));
+    expect(order[0]!).toBeLessThanOrEqual(order[1]!); // side by side: the lead card is first in reading order
     await page.getByTestId("card-try-question").click();
     await expect(page.getByTestId("workspace-frame")).toBeVisible({ timeout: 40_000 });
     const frame = page.frameLocator('[data-testid="workspace-frame"]');

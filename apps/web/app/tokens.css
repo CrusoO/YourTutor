@@ -14,6 +14,8 @@
 [data-theme="light"] {
   --c-bg: #e4ecfd; /* page gradient: #e4ecfd, #c6d4f5, #d6e4fb (see body) */
   --c-surface: #e9effb; /* glass card, solid worst case; 62 % white over #c6d4f5 */
+  --c-home-bg: #eef0fc; /* the flat home page (UI-5 home mockup) */
+  --c-card-solid: #ffffff; /* white card on the flat home */
   --c-bg-deep: #c6d4f5; /* the darkest zone of the page gradient: text 11.0 : 1, muted 6.9 : 1 */
   --c-surface-2: #e3eafa; /* secondary and muted fills, solid worst case */
   --c-lesson: #ffffff; /* plain lesson surface: no paper texture, no glass (UI-4) */
@@ -45,6 +47,7 @@
   --c-glass-edge: rgba(255, 255, 255, 0.7);
   --c-popover: #f3f6fe;
   --blur-glass: 14px;
+  --glass-filter: blur(14px);
   --radius-card: 1rem;
   --radius-pill: 999px;
   --shadow-card: 0 1px 2px rgba(15, 27, 76, 0.06), 0 6px 18px rgba(15, 27, 76, 0.07);
@@ -61,7 +64,9 @@
   :root:not([data-theme="light"]) {
     --c-bg: #0b041a;
     --c-surface: #120b24;
-    --c-bg-deep: #0b041a;
+    --c-home-bg: #0b041a;
+  --c-card-solid: #120b24;
+  --c-bg-deep: #0b041a;
     --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
     --c-lesson: #0b041a;
     --c-text: #f4f1ff; /* 18.0 : 1 on the page, 17.2 on a card */
@@ -92,6 +97,7 @@
     --c-glass-edge: rgba(255, 255, 255, 0.12);
     --c-popover: #1b1530;
     --blur-glass: 0px; /* dark uses solid surfaces, no blur */
+    --glass-filter: none;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
     --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
     color-scheme: dark;
@@ -101,6 +107,8 @@
 [data-theme="dark"] {
   --c-bg: #0b041a;
   --c-surface: #120b24;
+  --c-home-bg: #0b041a;
+  --c-card-solid: #120b24;
   --c-bg-deep: #0b041a;
   --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
   --c-lesson: #0b041a;
@@ -132,6 +140,7 @@
   --c-glass-edge: rgba(255, 255, 255, 0.12);
   --c-popover: #1b1530;
   --blur-glass: 0px;
+  --glass-filter: none;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
   color-scheme: dark;
@@ -176,7 +185,7 @@ html[data-motion="reduce"] * {
   --ff-display: "Geist Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
   --ff-body: "Inter", system-ui, "Segoe UI", "Noto Sans", Roboto, sans-serif;
 }
-html:lang(hi) {
+:lang(hi) {
   --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
   --ff-body: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
 }
@@ -209,6 +218,7 @@ html:lang(hi) {
   --font-display: var(--ff-display);
   --font-body: var(--ff-body);
   --color-glass: var(--c-glass);
+  --color-card-solid: var(--c-card-solid);
   --radius-card: 1rem;
 }
 
