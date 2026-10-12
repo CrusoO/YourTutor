@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from app.registries.loaders import LocaleSpec, load_locales_config
 
-_PLACEHOLDER_MARKERS = ("to be filled", "<nepali", "<assamese")
+_PLACEHOLDER_MARKERS = ("to be filled", "<nepali", "<assamese", "<hindi")
 
 
 def locale_text_missing(text: str | None) -> bool:

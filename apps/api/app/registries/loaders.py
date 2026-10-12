@@ -14,7 +14,7 @@ class RegistryLoadError(ValueError):
     pass
 
 
-LOCALE_STATUSES = ("active", "draft")
+LOCALE_STATUSES = ("active", "draft", "coming_soon")
 
 
 @dataclass(frozen=True)
