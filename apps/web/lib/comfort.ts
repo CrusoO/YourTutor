@@ -12,10 +12,12 @@ export type TextSize = "s" | "m" | "l";
 export type Spacing = "normal" | "relaxed";
 export type Motion = "auto" | "reduce";
 export type Paper = "plain" | "grid";
-export type Comfort = { theme: ThemeChoice; text: TextSize; spacing: Spacing; motion: Motion; paper: Paper };
+/** Visual effects: "auto" shows glass and glow shapes unless the device asks for less (data saver, very low memory). */
+export type Effects = "auto" | "reduce";
+export type Comfort = { theme: ThemeChoice; text: TextSize; spacing: Spacing; motion: Motion; paper: Paper; effects: Effects };
 
 export const COMFORT_KEY = "yt.comfort";
-export const DEFAULT_COMFORT: Comfort = { theme: "auto", text: "m", spacing: "normal", motion: "auto", paper: "plain" };
+export const DEFAULT_COMFORT: Comfort = { theme: "auto", text: "m", spacing: "normal", motion: "auto", paper: "plain", effects: "auto" };
 
 const pick = <T extends string>(value: unknown, allowed: readonly T[], fallback: T): T =>
   allowed.includes(value as T) ? (value as T) : fallback;
@@ -35,6 +37,7 @@ export function parseComfort(raw: string | null): Comfort {
     spacing: pick(data.spacing, ["normal", "relaxed"], DEFAULT_COMFORT.spacing),
     motion: pick(data.motion, ["auto", "reduce"], DEFAULT_COMFORT.motion),
     paper: pick(data.paper, ["plain", "grid"], DEFAULT_COMFORT.paper),
+    effects: pick(data.effects, ["auto", "reduce"], DEFAULT_COMFORT.effects),
   };
 }
 
@@ -46,6 +49,12 @@ export function readComfort(): Comfort {
   }
 }
 
+/** Low-power hints from the browser: the data-saver flag, or 1 GB of memory or less. Missing hints mean "no". */
+export function deviceWantsReducedEffects(nav: { connection?: { saveData?: boolean }; deviceMemory?: number } | undefined): boolean {
+  if (!nav) return false;
+  return nav.connection?.saveData === true || (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 1);
+}
+
 /** Put the settings on <html>. Auto means "no attribute": the CSS follows the device. */
 export function applyComfort(c: Comfort, root: HTMLElement = document.documentElement): void {
   const set = (name: string, value: string | null) => (value === null ? root.removeAttribute(name) : root.setAttribute(name, value));
@@ -54,6 +63,8 @@ export function applyComfort(c: Comfort, root: HTMLElement = document.documentEl
   set("data-spacing", c.spacing === "normal" ? null : c.spacing);
   set("data-motion", c.motion === "auto" ? null : c.motion);
   set("data-paper", c.paper === "plain" ? null : c.paper);
+  const reduced = c.effects === "reduce" || (typeof navigator !== "undefined" && deviceWantsReducedEffects(navigator as never));
+  set("data-effects", reduced ? "reduce" : null);
 }
 
 export function saveComfort(c: Comfort): void {
@@ -64,8 +75,12 @@ export function saveComfort(c: Comfort): void {
   }
 }
 
-/** Runs in <head> before the page paints. Keep it tiny and free of dependencies. */
-export const COMFORT_INIT_SCRIPT = `(function(){try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");var d=document.documentElement;if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce");if(c.paper==="grid")d.setAttribute("data-paper","grid")}catch(e){}})();`;
+/**
+ * Runs in <head> before the page paints. Keep it tiny and free of dependencies. It also sets the document language
+ * from the saved choice (so the right type rules apply on the first paint) and preloads only the Latin font files
+ * used above the fold; a Hindi reader skips them (the Devanagari faces load later, see components/FontLoader).
+ */
+export const COMFORT_INIT_SCRIPT = `(function(){var d=document.documentElement;try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce");if(c.paper==="grid")d.setAttribute("data-paper","grid");var n=navigator,k=n.connection;if(c.effects==="reduce"||(k&&k.saveData===true)||(typeof n.deviceMemory==="number"&&n.deviceMemory<=1))d.setAttribute("data-effects","reduce")}catch(e){}try{var l=localStorage.getItem("yt_locale");if(l==="hi")d.lang="hi";else{["geist-mono-latin-300","geist-mono-latin-500","inter-latin-400"].forEach(function(f){var a=document.createElement("link");a.rel="preload";a.setAttribute("as","font");a.type="font/woff2";a.setAttribute("crossorigin","anonymous");a.href="/fonts/"+f+".woff2";document.head.appendChild(a)})}}catch(e){}})();`;
 
 // One store for the whole page: every control (sidebar switch, Settings dialog) reads and writes the same
 // value, so changing one setting never undoes another.

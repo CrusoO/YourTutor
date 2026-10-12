@@ -12,7 +12,8 @@ import {
   setStaffToken,
   staffToken,
 } from "@/lib/api";
-import { t } from "@/lib/messages";
+
+import { isLiveLocale, useCopy } from "@/lib/locale";
 
 type Child = { id: string; display_name: string };
 type Skill = { id: string; title: string; level: number; status: string };
@@ -42,7 +43,7 @@ const STATUS_KEY: Record<string, string> = {
 /** The guardian's page: where the child is in each chapter, what changed this week. */
 export default function GuardianPage() {
   const router = useRouter();
-  const copy = t(locale()) as Record<string, string>;
+  const copy = (useCopy() as unknown as Record<string, string>);
   const [children, setChildren] = useState<Child[]>([]);
   const [current, setCurrent] = useState("");
   const [view, setView] = useState<View | null>(null);
@@ -59,7 +60,7 @@ export default function GuardianPage() {
         setCurrent(data.students[0]?.id ?? "");
       })
       .catch(() => router.push("/staff/login"));
-    getContextOptions().then((o) => setLanguages(o.languages));
+    getContextOptions().then((o) => setLanguages(o.languages.filter((l) => isLiveLocale(l.code))));
   }, [router]);
 
   useEffect(() => {

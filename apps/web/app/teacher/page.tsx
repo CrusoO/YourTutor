@@ -11,7 +11,8 @@ import {
   staffToken,
   teacherClasses,
 } from "@/lib/api";
-import { t } from "@/lib/messages";
+
+import { useCopy } from "@/lib/locale";
 
 type Heat = {
   skills: { id: string; title: string }[];
@@ -32,7 +33,7 @@ function shade(level: number): string {
 /** The teacher's page: only students whose family chose to share appear. */
 export default function TeacherPage() {
   const router = useRouter();
-  const copy = t(locale()) as Record<string, string>;
+  const copy = (useCopy() as unknown as Record<string, string>);
   const [classes, setClasses] = useState<{ id: string; name: string }[]>([]);
   const [current, setCurrent] = useState("");
   const [heat, setHeat] = useState<Heat | null>(null);

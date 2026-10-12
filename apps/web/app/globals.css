@@ -4,10 +4,11 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "./tokens.css";
+@import "./identity.css";
 
 @layer legacy {
 :root {
-  font-family: var(--font-body, system-ui, sans-serif);
+  font-family: var(--ff-body);
   line-height: var(--lh-body, 1.5);
   --tap: 48px;
   /* The old screens read the shared tokens, so they follow the theme and the Comfort settings. */

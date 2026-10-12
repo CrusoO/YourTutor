@@ -1,4 +1,5 @@
 import localeRegistry from "../../../packages/shared/generated/locales.json";
+import hiFile from "../locales/hi.json";
 
 type RegistryLocale = (typeof localeRegistry.locales)[number]["code"];
 export type Locale = RegistryLocale;
@@ -230,6 +231,9 @@ const en = {
   boardPaperLabel: "Board paper",
   paperPlain: "Plain",
   paperGrid: "Light grid",
+  effectsLabel: "Visual effects",
+  effectsAuto: "Full (less on data saver)",
+  effectsReduce: "Reduce effects",
   chatCardTryQuestion: "Try one question",
   chatCardTryQuestionHint: "About 10 seconds. No sign-in.",
   chatNoAccountLine: "No account needed. Progress stays on this device.",
@@ -391,11 +395,23 @@ const as: Messages = {
   language: "ভাষা",
 };
 
-const TABLE: Record<Locale, Messages> = { en, ne, as };
+/**
+ * Hindi strings carry their own status (locales/hi.json). They are shown only once a native speaker has marked the
+ * file "reviewed"; until then every string falls back to English. Previews and tests can show the draft with
+ * NEXT_PUBLIC_SHOW_DRAFT_LOCALES=true. A key that is missing from the file also falls back to English, string by string.
+ */
+export const SHOW_DRAFT_LOCALES = process.env.NEXT_PUBLIC_SHOW_DRAFT_LOCALES === "true";
+export const HI_STATUS: string = hiFile.status;
+export const hiVisible = (): boolean => hiFile.status === "reviewed" || SHOW_DRAFT_LOCALES;
+const hi: Messages = hiVisible() ? { ...en, ...(hiFile.strings as Partial<Messages>) } : en;
+
+const TABLE: Record<Locale, Messages> = { en, hi, ne, as };
+const LIVE = new Set(localeRegistry.locales.filter((row) => row.status === "active").map((row) => row.code as string));
 
 export function t(locale: Locale | string | null | undefined): Messages {
   const code = locale && FALLBACK[locale] !== undefined ? locale : localeRegistry.default;
-  if (code in TABLE) {
+  // A locale the registry has not made active ("coming soon") shows English.
+  if (code in TABLE && LIVE.has(code)) {
     return TABLE[code as Locale];
   }
   for (const step of FALLBACK[code] ?? []) {

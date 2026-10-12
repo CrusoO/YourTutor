@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
-import { locale, setStudentId, startSession, studentId, today } from "@/lib/api";
-import { t } from "@/lib/messages";
+import { setStudentId, startSession, studentId, today } from "@/lib/api";
+
+import { useCopy } from "@/lib/locale";
 
 type Today = {
   student_id: string;
@@ -16,7 +17,7 @@ type Today = {
 
 export default function TodayPage() {
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const [data, setData] = useState<Today | null>(null);
   const [error, setError] = useState("");
 

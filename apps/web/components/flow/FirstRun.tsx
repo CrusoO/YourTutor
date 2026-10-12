@@ -1,12 +1,13 @@
-import { locale } from "@/lib/api";
-import { t } from "@/lib/messages";
+import {  } from "@/lib/api";
+
+import { useCopy } from "@/lib/locale";
 
 export type Offer = "first_run" | "warmup_reoffer" | null | undefined;
 export type Choice = "warmup" | "start_beginning" | "not_now";
 
 /** The first-run choice, or the one-time warm-up re-offer. A card, never a gate. */
 export default function FirstRun({ offer, onChoose }: { offer: Offer; onChoose: (c: Choice) => void }) {
-  const copy = t(locale());
+  const copy = useCopy();
   if (!offer) return null;
   const reoffer = offer === "warmup_reoffer";
   return (

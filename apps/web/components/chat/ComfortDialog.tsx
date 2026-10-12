@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { useComfort, type Motion, type Paper, type Spacing, type TextSize } from "@/lib/comfort";
+import { LanguageSwitch } from "@/components/ui/language-switch";
+import { useComfort, type Effects, type Motion, type Paper, type Spacing, type TextSize } from "@/lib/comfort";
 import { useChatApi } from "./ChatProvider";
 import { Group, ThemeSwitch } from "./ComfortSettings";
 
@@ -16,6 +17,10 @@ export function ComfortDialog({ open, onOpenChange }: { open: boolean; onOpenCha
         <DialogTitle className="m-0 text-xl font-semibold">{copy.comfortTitle}</DialogTitle>
         <DialogDescription className="m-0 mb-4 text-sm text-muted">{copy.comfortHint}</DialogDescription>
         <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2" data-testid="settings-language">
+            <span className="text-sm font-semibold text-muted">{copy.language}</span>
+            <LanguageSwitch showSoon />
+          </div>
           <ThemeSwitch />
           <Group<TextSize>
             label={copy.textSizeLabel}
@@ -56,6 +61,16 @@ export function ComfortDialog({ open, onOpenChange }: { open: boolean; onOpenCha
             options={[
               { id: "plain", text: copy.paperPlain },
               { id: "grid", text: copy.paperGrid },
+            ]}
+          />
+          <Group<Effects>
+            label={copy.effectsLabel}
+            value={comfort.effects}
+            onPick={(effects) => update({ effects })}
+            testid="effects"
+            options={[
+              { id: "auto", text: copy.effectsAuto },
+              { id: "reduce", text: copy.effectsReduce },
             ]}
           />
         </div>

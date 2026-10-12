@@ -14,6 +14,7 @@ import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
+import { useCopy } from "@/lib/locale";
 
 /** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
 function canHelp(a: ActionPayload): boolean {
@@ -23,7 +24,7 @@ function canHelp(a: ActionPayload): boolean {
 export default function SessionPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const [action, setAction] = useState<ActionPayload | null>(null);
   const ui = typeof window === "undefined" ? undefined : loadUi();
   useEffect(() => applyBodyClasses(loadUi()), []);

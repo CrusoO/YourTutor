@@ -18,8 +18,9 @@ import { SuggestionCard, SuggestionCardSkeleton } from "@/components/ui/suggesti
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ChapterStatus } from "@/lib/api";
 import { devToolsEnabled } from "@/lib/dev";
-import { locale } from "@/lib/api";
-import { t } from "@/lib/messages";
+import {  } from "@/lib/api";
+
+import { useCopy } from "@/lib/locale";
 
 const STATUSES: ChapterStatus[] = [
   "not_started",
@@ -40,7 +41,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function Showcase({ theme }: { theme: "light" | "dark" }) {
-  const copy = t(locale());
+  const copy = useCopy();
   const [picked, setPicked] = useState("9");
   return (
     <div

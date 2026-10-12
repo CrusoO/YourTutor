@@ -1,25 +1,30 @@
-/* Design tokens (UI-1, teen palette in UI-2b). One file holds the palette, type, motion and shape: every
-   component reads these variables, nothing hard-codes a colour. The theme is Auto (follows the device),
-   Light or Dark: html[data-theme] is set before first paint by the inline script in app/layout.tsx.
-   Every text/background pair is checked by tests/ui/tokens.test.ts (4.5:1 text, 7:1 body and muted text,
-   3:1 for borders, focus rings and meaningful icons), and the dark values below exist twice (Auto and
-   forced Dark); that test also checks the two copies are identical. */
-@import "@fontsource/fraunces/latin-500.css"; /* OFL-1.1, self-hosted; used only for the short greeting */
+/* Design tokens (UI-1, teen palette UI-2b, new identity UI-5). One file holds the palette, type, motion and shape:
+   every component reads these variables, nothing hard-codes a colour. The values come from
+   docs/identity/theme-tokens.css (light = soft sky glass, dark = deep violet); the measured ratios are in the comments.
+   The theme is Auto (follows the device), Light or Dark: html[data-theme] is set before first paint by the inline
+   script in app/layout.tsx. Every text/background pair is checked by tests/ui/tokens.test.ts (4.5:1 text, 7:1 body
+   and muted text, 3:1 for borders, focus rings and meaningful icons), and the dark values below exist twice (Auto and
+   forced Dark); that test also checks the two copies are identical.
+   Glass: --c-surface is the SOLID colour a frosted card has in the worst case (white at 62 % over the darkest zone of
+   the page gradient), so every contrast pair is measured against the colour a card really shows, and it is also the
+   fallback when blur is unavailable or switched off. */
+@import "./fonts-latin.css"; /* Geist Mono, Inter (OFL-1.1, self-hosted in public/fonts). Hindi adds Noto Sans Devanagari later. */
 
 :root,
 [data-theme="light"] {
-  --c-bg: #f6f7fb;
-  --c-surface: #ffffff;
-  --c-surface-2: #eef0fa;
-  --c-lesson: #ffffff; /* plain lesson surface: no paper texture (UI-4) */
-  --c-text: #14172b;
-  --c-muted: #464e6b;
-  --c-line: #dde1f0;
-  --c-input-line: #7c84a8;
-  --c-accent: #4f46e5;
+  --c-bg: #e4ecfd; /* page gradient: #e4ecfd, #c6d4f5, #d6e4fb (see body) */
+  --c-surface: #e9effb; /* glass card, solid worst case; 62 % white over #c6d4f5 */
+  --c-bg-deep: #c6d4f5; /* the darkest zone of the page gradient: text 11.0 : 1, muted 6.9 : 1 */
+  --c-surface-2: #e3eafa; /* secondary and muted fills, solid worst case */
+  --c-lesson: #ffffff; /* plain lesson surface: no paper texture, no glass (UI-4) */
+  --c-text: #0f1b4c; /* 14 : 1 on glass, 11 on the darkest zone */
+  --c-muted: #2f3c78; /* 8.9 : 1 on glass, 6.9 on the darkest zone (checked below at 7 : 1 on the surfaces it sits on) */
+  --c-line: rgba(15, 27, 76, 0.22); /* hairlines */
+  --c-input-line: #5a6aa8; /* 4.5 : 1 on glass */
+  --c-accent: #1d4fd8; /* white label 6.6 : 1 */
   --c-accent-fg: #ffffff;
-  --c-accent-ink: #3730a3; /* accent used as text or an icon on the page and on soft tints */
-  --c-accent-soft: #e8e9ff;
+  --c-accent-ink: #1d4fd8; /* accent used as text or an icon, 5.8 : 1 on glass */
+  --c-accent-soft: #dbe5fc;
   --c-success: #0f6b4a;
   --c-success-soft: #ddf5ea;
   --c-warning: #7a4b00;
@@ -32,11 +37,18 @@
   --c-neutral-soft: #e9ebf3;
   --c-danger: #b42318;
   --c-danger-soft: #fbe5e5;
-  --c-focus: #4f46e5;
+  --c-focus: #1d4fd8;
+  --c-glow-from: #4db4ff; /* inline glow button: gradient, NAVY label 7.3 and 6.5 : 1 */
+  --c-glow-to: #7aa2f7;
+  --c-glow-label: #0f1b4c;
+  --c-glass: rgba(255, 255, 255, 0.62);
+  --c-glass-edge: rgba(255, 255, 255, 0.7);
+  --c-popover: #f3f6fe;
+  --blur-glass: 14px;
   --radius-card: 1rem;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 2px rgba(20, 23, 43, 0.06), 0 4px 14px rgba(20, 23, 43, 0.05);
-  --shadow-lift: 0 2px 4px rgba(20, 23, 43, 0.08), 0 10px 24px rgba(20, 23, 43, 0.1);
+  --shadow-card: 0 1px 2px rgba(15, 27, 76, 0.06), 0 6px 18px rgba(15, 27, 76, 0.07);
+  --shadow-lift: 0 2px 4px rgba(15, 27, 76, 0.08), 0 10px 24px rgba(15, 27, 76, 0.12);
   --dur: 200ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --lh-body: 1.5;
@@ -47,22 +59,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --c-bg: #0b0f1d;
-    --c-surface: #141a2f;
-    --c-surface-2: #1b2240;
-    --c-lesson: #0b0f1d;
-    --c-text: #edeffa;
-    --c-muted: #a7afcb;
-    --c-line: #2b3354;
-    --c-input-line: #6b75a3;
-    --c-accent: #5b5bd6;
+    --c-bg: #0b041a;
+    --c-surface: #120b24;
+    --c-bg-deep: #0b041a;
+    --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
+    --c-lesson: #0b041a;
+    --c-text: #f4f1ff; /* 18.0 : 1 on the page, 17.2 on a card */
+    --c-muted: #a39cb2; /* 7.2 : 1 on a card */
+    --c-line: rgba(255, 255, 255, 0.12);
+    --c-input-line: #6f6890; /* 3.7 : 1 on a card */
+    --c-accent: #6d5bd0; /* white label 5.2 : 1 */
     --c-accent-fg: #ffffff;
-    --c-accent-ink: #c7cbff;
-    --c-accent-soft: #23285a;
-    --c-success: #6fd7a8;
-    --c-success-soft: #173a2e;
-    --c-warning: #fbbf24;
-    --c-warning-soft: #3a2f12;
+    --c-accent-ink: #9d8ffa; /* 7.1 : 1 on a card */
+    --c-accent-soft: #201b3e;
+    --c-success: #56c59d;
+    --c-success-soft: #10241f;
+    --c-warning: #f5b942;
+    --c-warning-soft: #2e2410;
     --c-info: #7cb7ff;
     --c-info-soft: #12284a;
     --c-teal: #2dd4bf;
@@ -72,6 +85,13 @@
     --c-danger: #f87171;
     --c-danger-soft: #431d1f;
     --c-focus: #a5b4fc;
+    --c-glow-from: #6d5bd0;
+    --c-glow-to: #5b4cc8;
+    --c-glow-label: #ffffff;
+    --c-glass: #120b24;
+    --c-glass-edge: rgba(255, 255, 255, 0.12);
+    --c-popover: #1b1530;
+    --blur-glass: 0px; /* dark uses solid surfaces, no blur */
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
     --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
     color-scheme: dark;
@@ -79,22 +99,23 @@
 }
 
 [data-theme="dark"] {
-  --c-bg: #0b0f1d;
-  --c-surface: #141a2f;
-  --c-surface-2: #1b2240;
-  --c-lesson: #0b0f1d;
-  --c-text: #edeffa;
-  --c-muted: #a7afcb;
-  --c-line: #2b3354;
-  --c-input-line: #6b75a3;
-  --c-accent: #5b5bd6;
+  --c-bg: #0b041a;
+  --c-surface: #120b24;
+  --c-bg-deep: #0b041a;
+  --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
+  --c-lesson: #0b041a;
+  --c-text: #f4f1ff;
+  --c-muted: #a39cb2;
+  --c-line: rgba(255, 255, 255, 0.12);
+  --c-input-line: #6f6890;
+  --c-accent: #6d5bd0;
   --c-accent-fg: #ffffff;
-  --c-accent-ink: #c7cbff;
-  --c-accent-soft: #23285a;
-  --c-success: #6fd7a8;
-  --c-success-soft: #173a2e;
-  --c-warning: #fbbf24;
-  --c-warning-soft: #3a2f12;
+  --c-accent-ink: #9d8ffa;
+  --c-accent-soft: #201b3e;
+  --c-success: #56c59d;
+  --c-success-soft: #10241f;
+  --c-warning: #f5b942;
+  --c-warning-soft: #2e2410;
   --c-info: #7cb7ff;
   --c-info-soft: #12284a;
   --c-teal: #2dd4bf;
@@ -104,6 +125,13 @@
   --c-danger: #f87171;
   --c-danger-soft: #431d1f;
   --c-focus: #a5b4fc;
+  --c-glow-from: #6d5bd0;
+  --c-glow-to: #5b4cc8;
+  --c-glow-label: #ffffff;
+  --c-glass: #120b24;
+  --c-glass-edge: rgba(255, 255, 255, 0.12);
+  --c-popover: #1b1530;
+  --blur-glass: 0px;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
   color-scheme: dark;
@@ -132,13 +160,25 @@ html[data-motion="reduce"] * {
   scroll-behavior: auto !important;
 }
 
-/* Per-script line height: Indic scripts need more room than Latin. */
+/* Per-script line height: Devanagari matras need more room than Latin (body 1.6 or more, display 1.3 or more). */
 :lang(hi),
 :lang(as),
 :lang(bn),
 :lang(ne),
 :lang(mr) {
   --lh-body: 1.75;
+}
+
+/* Type families. English: Geist Mono for short display and label strings, Inter for everything that is read.
+   Hindi: Noto Sans Devanagari for both (its Latin subset keeps Class 12 and Maths in the same family). The
+   Devanagari faces load only when the language is hi (components/FontLoader), so English never pays for them. */
+:root {
+  --ff-display: "Geist Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+  --ff-body: "Inter", system-ui, "Segoe UI", "Noto Sans", Roboto, sans-serif;
+}
+html:lang(hi) {
+  --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
+  --ff-body: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
 }
 
 /* Tailwind utilities read the same variables (bg-surface, text-muted, border-line, ...). */
@@ -166,17 +206,17 @@ html[data-motion="reduce"] * {
   --color-neutral-soft: var(--c-neutral-soft);
   --color-danger: var(--c-danger);
   --color-danger-soft: var(--c-danger-soft);
-  --font-display: "Fraunces", Georgia, "Noto Serif Devanagari", "Noto Serif Bengali", serif;
-  --font-body: system-ui, "Segoe UI", "Noto Sans", "Noto Sans Devanagari", "Noto Sans Bengali",
-    sans-serif;
+  --font-display: var(--ff-display);
+  --font-body: var(--ff-body);
+  --color-glass: var(--c-glass);
   --radius-card: 1rem;
 }
 
 /* The new shell and its components. */
 .ui-root {
-  background: var(--c-bg);
+  background: transparent; /* the page gradient and glow shapes (body::before) show through */
   color: var(--c-text);
-  font-family: var(--font-body, system-ui, sans-serif);
+  font-family: var(--ff-body);
   line-height: var(--lh-body);
 }
 

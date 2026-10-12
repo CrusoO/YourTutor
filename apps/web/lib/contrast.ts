@@ -15,6 +15,8 @@ export const PAIRS: Pair[] = [
   { fg: "--c-muted", bg: "--c-bg", min: 7, label: "muted text on page" },
   { fg: "--c-muted", bg: "--c-surface", min: 7, label: "muted text on card" },
   { fg: "--c-muted", bg: "--c-surface-2", min: 7, label: "muted text on raised surface" },
+  { fg: "--c-text", bg: "--c-bg-deep", min: 7, label: "text on the darkest page zone" },
+  { fg: "--c-muted", bg: "--c-bg-deep", min: 4.5, label: "muted text on the darkest page zone (6.9 measured)" },
   { fg: "--c-text", bg: "--c-lesson", min: 7, label: "text on lesson surface" },
   { fg: "--c-muted", bg: "--c-lesson", min: 7, label: "muted text on lesson surface" },
   { fg: "--c-accent-ink", bg: "--c-lesson", min: 4.5, label: "accent text on lesson surface" },

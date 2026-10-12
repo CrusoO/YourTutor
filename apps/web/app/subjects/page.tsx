@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import FirstRun, { type Choice } from "@/components/flow/FirstRun";
-import { answerOnboarding, locale, startSession } from "@/lib/api";
-import { t } from "@/lib/messages";
+import { answerOnboarding, startSession } from "@/lib/api";
+
 import { useStudent } from "@/lib/useStudent";
+import { useCopy } from "@/lib/locale";
 
 /** Subjects. Maths is the only one for now. */
 export default function SubjectsPage() {
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const student = useStudent();
   const [answered, setAnswered] = useState(false);
   if (!student) return <p>…</p>;

@@ -2,6 +2,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 import type { FinderRules } from "./chat/finder";
 import type { Lesson } from "./lessons/types";
+import { setLocale } from "./locale";
 
 export type ActionPayload = {
   type: string;
@@ -85,13 +86,8 @@ export function studentId(): string {
   return store()?.getItem("yt_student") || "";
 }
 
-export function locale(): string {
-  return store()?.getItem("yt_locale") || "en";
-}
-
-export function setLocale(value: string) {
-  store()?.setItem("yt_locale", value);
-}
+/** The interface language and its setter live in lib/locale.ts (one store, live languages only); re-exported here. */
+export { currentLocale as locale, setLocale } from "./locale";
 
 async function req(path: string, init: RequestInit = {}) {
   const headers = new Headers(init.headers);

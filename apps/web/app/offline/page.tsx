@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getPack, locale, postSync } from "@/lib/api";
-import { t } from "@/lib/messages";
+import { getPack, postSync } from "@/lib/api";
+
 import type { Pack } from "@/lib/offline/pack";
 import { OfflinePlayer } from "@/lib/offline/player";
 import { type KeyValueStore, openStore } from "@/lib/offline/store";
 import { syncPlayer, type SyncReply } from "@/lib/offline/sync";
 import type { Action, CatalogItem } from "@/lib/offline/types";
 import { useStudent } from "@/lib/useStudent";
+import { useCopy } from "@/lib/locale";
 
 /**
  * Practice without a network. The pack is downloaded once; every step after that runs in the
@@ -18,7 +19,7 @@ import { useStudent } from "@/lib/useStudent";
  * hints, the help picker, the reveal, explain-back, breaks) with a generic layout.
  */
 export default function OfflinePage() {
-  const copy = t(locale());
+  const copy = useCopy();
   const student = useStudent();
   const [store, setStore] = useState<KeyValueStore | null>(null);
   const [pack, setPack] = useState<Pack | null>(null);

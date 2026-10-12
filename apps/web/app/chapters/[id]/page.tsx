@@ -11,16 +11,17 @@ import {
   type ChapterCard,
   type PathSkill,
 } from "@/lib/api";
-import { t } from "@/lib/messages";
+
 import { useStudent } from "@/lib/useStudent";
 import StatusChip from "@/components/flow/StatusChip";
+import { useCopy } from "@/lib/locale";
 
 /** Chapter page: the skill path, a start button, and Skip ahead on every skill. */
 export default function ChapterPage() {
   const params = useParams<{ id: string }>();
   const chapterId = decodeURIComponent(String(params?.id ?? ""));
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const student = useStudent();
   const [chapter, setChapter] = useState<Omit<ChapterCard, "recommended"> | null>(null);
   const [skills, setSkills] = useState<PathSkill[]>([]);

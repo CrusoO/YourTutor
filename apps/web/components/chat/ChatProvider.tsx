@@ -27,6 +27,7 @@ import {
   today,
   type ContextOptions,
 } from "@/lib/api";
+import { useCopy } from "@/lib/locale";
 import { loadSetup, saveSetup } from "@/lib/chat/device";
 import { markActive } from "@/lib/chat/today";
 import { findTopics, prepare, type FinderRules, type Topic } from "@/lib/chat/finder";
@@ -41,7 +42,7 @@ import {
   type Role,
   type Setup,
 } from "@/lib/chat/machine";
-import { t, type Messages } from "@/lib/messages";
+import { type Messages } from "@/lib/messages";
 
 export type Mode =
   | "learn"
@@ -116,7 +117,7 @@ function toContext(options: ContextOptions): ContextLike {
 }
 
 export function ChatProvider({ children }: { children: ReactNode }) {
-  const copy = useMemo(() => t(locale()), []);
+  const copy = useCopy();
   const [hour, setHour] = useState<number | null>(null);
   const [ctx, setCtx] = useState<ContextLike | null>(null);
   const [contextError, setContextError] = useState(false);
