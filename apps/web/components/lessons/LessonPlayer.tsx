@@ -147,7 +147,6 @@ export default function LessonPlayer({
     <div className="lp">
       <header className="lp-top">
         <div>
-          <div className="lp-subj">{lesson.skill_id}</div>
           <h1>{pick(lesson.title, locale)}</h1>
         </div>
       </header>

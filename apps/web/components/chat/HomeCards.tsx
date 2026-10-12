@@ -153,7 +153,7 @@ export function HomeCards() {
           <SuggestionCard
             tone="accent"
             icon="play"
-            title={current?.skill ? `${copy.chatContinue}: ${current.skill}` : copy.chatContinue}
+            title={copy.chatContinue}
             description={current ? `${current.chapter.skills_can_do_it}/${current.chapter.skills_total} · ${current.chapter.title}` : copy.chatContinueHint}
             onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)}
             data-testid="card-continue"
