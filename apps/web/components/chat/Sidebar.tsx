@@ -7,9 +7,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { locale } from "@/lib/api";
 import { messageText } from "@/lib/chat/labels";
+import { useState } from "react";
+import { ComfortDialog, ThemeSwitch } from "./ComfortSettings";
 import { useChatApi } from "./ChatProvider";
 
-type Item = { icon: IconName; label: string; onClick?: () => void; soon?: boolean; testid: string };
+type Item = { icon: IconName; label: string; onClick?: () => void; soon?: boolean; testid: string; keepOpen?: boolean };
 
 function NavItem({ item, onDone }: { item: Item; onDone?: () => void }) {
   const { copy } = useChatApi();
@@ -20,7 +22,7 @@ function NavItem({ item, onDone }: { item: Item; onDone?: () => void }) {
         disabled={item.soon}
         onClick={() => {
           item.onClick?.();
-          onDone?.();
+          if (!item.keepOpen) onDone?.();
         }}
         data-testid={item.testid}
         className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl border-0 bg-transparent px-3 text-left text-base font-medium text-ink hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-60"
@@ -36,6 +38,7 @@ function NavItem({ item, onDone }: { item: Item; onDone?: () => void }) {
 /** The navigation for the current role. Everything opens in the workspace panel; the chat stays as home. */
 export function SidebarContent({ onDone }: { onDone?: () => void }) {
   const { copy, role, identity, newChat, openWorkspace, startMode, dispatch, signOut, chat, ctx } = useChatApi();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const summaries = chat.messages.filter((m) => m.key === "summary").slice(-5).reverse();
 
   const items: Item[] = [{ icon: "chat", label: copy.chatNewChat, onClick: newChat, testid: "nav-new-chat" }];
@@ -64,6 +67,8 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
       { icon: "lock", label: copy.chatMyData, onClick: open(copy.chatMyData), testid: "nav-data" },
     );
   }
+
+  items.push({ icon: "settings", label: copy.chatSettings, onClick: () => setSettingsOpen(true), testid: "nav-settings", keepOpen: true });
 
   const initial = (identity?.name ?? "").trim().charAt(0).toUpperCase();
 
@@ -96,6 +101,9 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
         </ScrollArea>
       </nav>
       <div className="border-t border-line pt-3">
+        <div className="mb-3 px-2" data-testid="sidebar-theme">
+          <ThemeSwitch />
+        </div>
         {identity ? (
           <div className="flex items-center gap-3 px-2">
             <Avatar>
@@ -126,6 +134,7 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
           </div>
         )}
       </div>
+      <ComfortDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </div>
   );
 }
