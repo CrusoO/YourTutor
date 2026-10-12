@@ -566,7 +566,7 @@ Branch `ui-1-chat-shell`. Docs: docs/UI_AUDIT.md, docs/UI_STANDARDS.md, docs/HOM
 - [x] Workspace panel around the existing screens; deep links, refresh, back to chat; structured summaries
 - [x] Responsive shell (four width bands)
 - [x] `/dev` restyled and scenario logins land on the role home; preview teacher and parent logins
-- [ ] Tests: ported specs and new four-width specs (see the report for counts); self-critique of every screenshot
+- [x] Tests: Met 2026-10-12 (targeted): UI specs 61 passed (12 ported, new four-width shell spec 38), vitest 350, tsc, ruff, mypy, region, locales, backend targeted tests; self-critique done. The full API suite was started and killed for low memory, so it is **pending**
 - [ ] Home page weight within the 150 KB budget: **not met** (about 280 KB, documented exception above)
 
 ## 9. Required tests (ongoing)
