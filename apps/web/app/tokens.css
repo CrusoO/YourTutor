@@ -1,23 +1,30 @@
-/* Design tokens (UI-1). One file holds the palette, type and shape for the new shell: every new
-   component reads these variables, nothing hard-codes a colour. Light is the default; dark follows the
-   system (or data-theme="dark"). Own identity: an indigo accent on cool neutrals. */
-@import "@fontsource/fraunces/500.css"; /* OFL-1.1, self-hosted; unicode-range loads only the scripts used */
+/* Design tokens (UI-1, teen palette in UI-2b). One file holds the palette, type, motion and shape: every
+   component reads these variables, nothing hard-codes a colour. The theme is Auto (follows the device),
+   Light or Dark: html[data-theme] is set before first paint by the inline script in app/layout.tsx.
+   Every text/background pair is checked by tests/ui/tokens.test.ts (4.5:1 text, 7:1 body and muted text,
+   3:1 for borders, focus rings and meaningful icons), and the dark values below exist twice (Auto and
+   forced Dark); that test also checks the two copies are identical. */
+@import "@fontsource/fraunces/500.css"; /* OFL-1.1, self-hosted; used only for the short greeting */
 
 :root,
 [data-theme="light"] {
   --c-bg: #f6f7fb;
   --c-surface: #ffffff;
-  --c-surface-2: #eef0f7;
-  --c-text: #161a2e;
-  --c-muted: #565f77;
-  --c-line: #d5d9e6;
-  --c-accent: #4338ca;
+  --c-surface-2: #eef0fa;
+  --c-text: #14172b;
+  --c-muted: #464e6b;
+  --c-line: #d5d9ea;
+  --c-input-line: #7c84a8;
+  --c-accent: #4f46e5;
   --c-accent-fg: #ffffff;
+  --c-accent-ink: #4338ca; /* accent used as text or an icon on the page and on soft tints */
   --c-accent-soft: #e4e6fb;
   --c-success: #0f6b4a;
-  --c-success-soft: #dff3ea;
-  --c-warning: #8a5a00;
-  --c-warning-soft: #fcefd0;
+  --c-success-soft: #ddf5ea;
+  --c-warning: #7a4b00;
+  --c-warning-soft: #fff1cc;
+  --c-info: #0b6b63;
+  --c-info-soft: #d9f5f1;
   --c-neutral: #3b4258;
   --c-neutral-soft: #e9ebf3;
   --c-danger: #a82424;
@@ -25,54 +32,95 @@
   --c-focus: #4338ca;
   --radius-card: 1rem;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 2px rgba(22, 26, 46, 0.06), 0 4px 14px rgba(22, 26, 46, 0.05);
+  --shadow-card: 0 1px 2px rgba(20, 23, 43, 0.06), 0 4px 14px rgba(20, 23, 43, 0.05);
+  --shadow-lift: 0 2px 4px rgba(20, 23, 43, 0.08), 0 10px 24px rgba(20, 23, 43, 0.1);
+  --dur: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
   --lh-body: 1.5;
+  --fs-body: 1rem;
+  --fs-read: max(18px, 1.125rem);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --c-bg: #0e1120;
     --c-surface: #171b2f;
-    --c-surface-2: #20253d;
+    --c-surface-2: #1e2340;
     --c-text: #eceefa;
-    --c-muted: #a5adc6;
-    --c-line: #323955;
-    --c-accent: #a5b4fc;
-    --c-accent-fg: #0e1120;
+    --c-muted: #a9b1cc;
+    --c-line: #2e3558;
+    --c-input-line: #7a83b0;
+    --c-accent: #5b5bd6;
+    --c-accent-fg: #ffffff;
+    --c-accent-ink: #b4bcff;
     --c-accent-soft: #272e55;
     --c-success: #6fd7a8;
     --c-success-soft: #173a2e;
-    --c-warning: #f3c969;
-    --c-warning-soft: #3b2f12;
+    --c-warning: #fbbf24;
+    --c-warning-soft: #3a2f12;
+    --c-info: #2dd4bf;
+    --c-info-soft: #0f3a3a;
     --c-neutral: #c4cadd;
     --c-neutral-soft: #262b43;
     --c-danger: #ff9b9b;
     --c-danger-soft: #431d1f;
-    --c-focus: #c7d2fe;
+    --c-focus: #b4bcff;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
   }
 }
 
 [data-theme="dark"] {
   --c-bg: #0e1120;
   --c-surface: #171b2f;
-  --c-surface-2: #20253d;
+  --c-surface-2: #1e2340;
   --c-text: #eceefa;
-  --c-muted: #a5adc6;
-  --c-line: #323955;
-  --c-accent: #a5b4fc;
-  --c-accent-fg: #0e1120;
+  --c-muted: #a9b1cc;
+  --c-line: #2e3558;
+  --c-input-line: #7a83b0;
+  --c-accent: #5b5bd6;
+  --c-accent-fg: #ffffff;
+  --c-accent-ink: #b4bcff;
   --c-accent-soft: #272e55;
   --c-success: #6fd7a8;
   --c-success-soft: #173a2e;
-  --c-warning: #f3c969;
-  --c-warning-soft: #3b2f12;
+  --c-warning: #fbbf24;
+  --c-warning-soft: #3a2f12;
+  --c-info: #2dd4bf;
+  --c-info-soft: #0f3a3a;
   --c-neutral: #c4cadd;
   --c-neutral-soft: #262b43;
   --c-danger: #ff9b9b;
   --c-danger-soft: #431d1f;
-  --c-focus: #c7d2fe;
+  --c-focus: #b4bcff;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+/* Comfort settings (Settings > Comfort), stored on the device and applied to <html> without a reload.
+   Text size never goes below 16 px. */
+html {
+  font-size: 17px;
+}
+html[data-text="s"] {
+  font-size: 16px;
+}
+html[data-text="l"] {
+  font-size: 19px;
+}
+html[data-spacing="relaxed"] {
+  --lh-body: 1.75;
+}
+html[data-motion="reduce"] {
+  --dur: 0.001ms;
+}
+html[data-motion="reduce"] * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
 }
 
 /* Per-script line height: Indic scripts need more room than Latin. */
@@ -92,13 +140,17 @@
   --color-ink: var(--c-text);
   --color-muted: var(--c-muted);
   --color-line: var(--c-line);
+  --color-input-line: var(--c-input-line);
   --color-accent: var(--c-accent);
   --color-accent-fg: var(--c-accent-fg);
+  --color-accent-ink: var(--c-accent-ink);
   --color-accent-soft: var(--c-accent-soft);
   --color-success: var(--c-success);
   --color-success-soft: var(--c-success-soft);
   --color-warning: var(--c-warning);
   --color-warning-soft: var(--c-warning-soft);
+  --color-info: var(--c-info);
+  --color-info-soft: var(--c-info-soft);
   --color-neutral: var(--c-neutral);
   --color-neutral-soft: var(--c-neutral-soft);
   --color-danger: var(--c-danger);
@@ -109,7 +161,7 @@
   --radius-card: 1rem;
 }
 
-/* The new shell and its components. Legacy screens inside the panel stay light until restyled. */
+/* The new shell and its components. */
 .ui-root {
   background: var(--c-bg);
   color: var(--c-text);
@@ -120,10 +172,6 @@
 .ui-root :focus-visible {
   outline: 3px solid var(--c-focus);
   outline-offset: 2px;
-}
-
-.ui-legacy {
-  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {

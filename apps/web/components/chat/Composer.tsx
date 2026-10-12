@@ -44,7 +44,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
 
   return (
     <div className={docked ? "w-full" : "w-full max-w-3xl"} data-testid="composer">
-      <ComposerPrimitive.Root className="flex items-end gap-2 rounded-[1.75rem] border border-line bg-surface p-2 pl-5 shadow-[var(--shadow-card)] focus-within:border-accent">
+      <ComposerPrimitive.Root className="flex items-end gap-2 rounded-[1.75rem] border border-input-line bg-surface p-2 pl-5 shadow-[var(--shadow-card)] focus-within:border-accent">
         <ComposerPrimitive.Input
           aria-label={placeholder}
           placeholder={placeholder}
