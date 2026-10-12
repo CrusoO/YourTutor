@@ -721,3 +721,66 @@ running. End with "How to see it": URL, the exact clicks for guest, student and 
 switch, the contrast table (every token pair with its ratio), screenshot paths, remaining
 issues, and how to stop everything. Then STOP.
 ```
+
+## UI-5 — new visual identity  [IN PROGRESS]
+
+Branch `ui-5-identity`, based on `ui-4-plain-paper` (the branch that holds the current UI). The references were supplied as files in `mockdesigns/files`; copies are in `docs/identity/` (`theme-tokens.css` is the token source). There are no "UI-3 notes" in the repo: the rounds so far are UI-1, UI-2, UI-2b and UI-4.
+
+```
+UI-5: new visual identity (light = sky glass, dark = deep violet). Branch ui-5-identity from
+the branch that holds the current UI. Read CLAUDE.md, docs/UI_STANDARDS.md and the UI-3 notes.
+Add this prompt to docs/BUILD_PROMPTS.md as UI-5. Visual work only; no change to the tutoring
+engine. Reference files are in the zip I provide: theme-tokens.css (use as the single token
+source), the mockup HTML, and the PNGs. Where this conflicts with UI-2 or UI-3 colours, this wins.
+
+1. TOKENS: replace the colour tokens with theme-tokens.css (light and dark). Keep the
+   measured ratios in the comments and re-run the automated contrast test on home, setup,
+   practice, lesson and board screens in both themes: text 4.5:1 minimum (body and muted 7:1
+   where the token comment says so), input borders and focus rings 3:1.
+2. FONTS: self-host (OFL, no CDN) Geist Mono 300/400/500, Inter 400/500/600, Noto Sans
+   Devanagari and Noto Sans Bengali (subsets for the scripts we support, font-display swap).
+   Report the added font weight and keep the page-weight budget. Display and label
+   styles use Geist Mono; every reading surface (questions, hints, explanations, lesson text,
+   feedback, forms) uses Inter at 16 px minimum on phones and 18 px with 1.5 line height for
+   lesson text. The mono style is only for strings of about six words or fewer: headline, nav,
+   tags, button labels, card titles, numerals. Use CSS text-transform for uppercase, never
+   typed capitals.
+3. INDIAN SCRIPTS: in Hindi, Nepali, Marathi, Bengali and Assamese locales, use the Noto
+   family for the whole display line, no uppercase transform, no negative letter-spacing, and
+   proportional word spaces. Add a Playwright visual test with a conjunct-heavy Hindi
+   headline and a Bengali headline that fails on clipped or overlapping text.
+4. LIGHT THEME: page gradient (#E4ECFD to #C6D4F5 to #D6E4FB) with two or three blurred glow
+   shapes (CSS radial blobs, not images; limit to three per screen); frosted-glass cards, nav
+   pill and composer (backdrop blur 14 px, at most four blurred surfaces visible at once);
+   hairline dividers; outlined pill tags; the inline glow button with a NAVY label; a glossy
+   progress sphere for syllabus coverage. Text is deep navy, never white on the gradient.
+5. DARK THEME: solid surfaces, no backdrop blur. Page #0B041A with a faint violet radial glow at
+   the top; cards #120B24 with a faint border; near-white text #F4F1FF; muted #A39CB2; violet
+   primary #6D5BD0 with a white label; green and amber status tags as in the tokens.
+6. GLASS FALLBACKS: implement the .glass utility from the token file: solid popover colour
+   when backdrop-filter is unsupported, under prefers-reduced-transparency, and under
+   prefers-contrast: more. Add a Comfort setting "Reduce effects" (solid surfaces, no blurred
+   glow shapes, no animation) that is on automatically for low-power or save-data hints
+   (navigator.connection.saveData) and can be turned on by the student. Never animate the blur
+   radius.
+7. SCREENS: apply the new look to the home (guest and returning student), setup, practice,
+   lesson, board chrome and the sidebar drawer, using the mockup layout: hairline-framed hero,
+   pill tags, glass composer with a segmented mode control and round send button, three cards,
+   progress sphere. Do not change behaviour or copy except where the mockup shows new copy.
+8. TESTS AND REVIEW: contrast tests, axe-core (zero serious or critical), theme persistence and
+   no-flash, keyboard path, Playwright screenshots in light and dark at 360x800, 390x844,
+   768x1024, 1280x800 and 1536x900, and a performance check on throttled 4G with a 4x CPU
+   slowdown (report time to first content and any long tasks caused by blur). View every
+   screenshot, critique it against docs/UI_STANDARDS.md, fix what you find, list what remains.
+9. DOCS: update docs/UI_STANDARDS.md (identity, fonts, Indian-script rules, glass limits) and
+   add Decision rows: "new identity: sky-glass light and violet dark; monospace only for short
+   strings; reading text in Inter; blur is capped and has solid fallbacks".
+
+HARD RULES: no analytics or tracking; no change to orchestrator, verifier or mastery; list
+every new dependency and licence (fonts are OFL); do not delete or weaken any test.
+DONE: vitest, tsc, Playwright, test:weight, region check, locale generation; log to ./logs; if
+the classifier blocks a read, report the exact command. Do NOT merge and do NOT push.
+LOAD THE UI: start the API and web app in the background with seed scenarios and leave them
+running. End with "How to see it": the URL, exact clicks, screenshot paths, the contrast
+table, font weight added, and how to stop everything. Then STOP.
+```
