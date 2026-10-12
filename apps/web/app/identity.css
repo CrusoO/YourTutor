@@ -269,3 +269,8 @@ body:has(.home-flat)::before {
 .ui-root[data-theme] {
   background: var(--c-bg);
 }
+
+/* Sheets and dialogs (the full-window workspace, the drawer) are solid: nothing of the page shows through. */
+.ui-root[role="dialog"] {
+  background: var(--c-popover);
+}
