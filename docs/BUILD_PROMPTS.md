@@ -639,3 +639,85 @@ End with "How to see it": for each finding marked fixed, the exact clicks to re-
 and the before and after screenshot paths; the friction numbers; the "Decisions needed"
 list; the "Next round" list; and how to stop everything. Then STOP.
 ```
+
+## UI-2b — teen-friendly polish  [IN PROGRESS]
+
+Requested as "UI-2"; renamed UI-2b because the refinement round already took the name UI-2 (see PLAN Decisions). Branch `ui-2-teen-polish`, based on master (which holds UI-1 and the UI-2 refinement).
+
+```
+UI-2: teen-friendly polish. Branch ui-2-teen-polish from the branch that holds the current
+chat-first UI. Read CLAUDE.md, docs/UI_STANDARDS.md and docs/HOME_AND_ONBOARDING.md. Add this
+prompt to docs/BUILD_PROMPTS.md as UI-2. No new product features and no change to the
+tutoring engine; this is visual and interaction polish for ages 15 to 18.
+
+1. TOKENS (one tokens file, light and dark; verify every pair with an automated test)
+   Dark: bg #0E1120, surface #171B2F, surface2 #1E2340, text #ECEEFA, muted #A9B1CC,
+   border #2E3558, input border #7A83B0, accent #5B5BD6 (white label), ok #6FD7A8 on
+   #173A2E, warn #FBBF24 on #3A2F12, teal #2DD4BF on #0F3A3A.
+   Light: bg #F6F7FB, surface #FFFFFF, surface2 #EEF0FA, text #14172B, muted #4A5270,
+   border #D5D9EA, input border #7C84A8, accent #4F46E5 (white label), ok #0F6B4A on #DDF5EA,
+   warn #7A4B00 on #FFF1CC, teal #0B6B63 on #D9F5F1.
+   Rules: text at least 4.5:1 (body and muted text at least 7:1), large text and UI component
+   edges (input borders, focus rings, icons that carry meaning) at least 3:1. No pure black or
+   pure white backgrounds. Write a Playwright test that reads computed styles for every
+   token pair on the home, setup, practice and lesson screens in both themes and fails
+   below these ratios.
+2. THEME: Auto (follow the device) by default, with Light and Dark; stored on the device; no
+   flash of the wrong theme on load; a visible switch in the sidebar and settings. Add
+   "Comfort" settings: text size (S, M, L), line spacing, reduced motion. All persist on the
+   device and apply without reload.
+3. TYPOGRAPHY: sans-serif for all reading text; the serif only for the short greeting.
+   16 px minimum body on phones; question and lesson text 18 px with 1.5 line height; Indic
+   scripts use their per-script line-height tokens. Add a test that applies the WCAG text
+   spacing overrides (line height 1.5, paragraph spacing 2x, letter spacing 0.12em, word
+   spacing 0.16em) and fails on clipped or overlapping text, in English and one Indic locale.
+4. HOME (all four widths)
+   - Composer: the Send button always looks enabled (accent fill, white label). It is
+     disabled only when sending is impossible, with a visible reason. Input border at least 3:1.
+   - Guest first visit: lead card "Try one question" (about ten seconds, no sign-in) that opens
+     a real practice item in the workspace; then "Pick my class" and "See a short lesson". A
+     small line says "No account needed. Progress stays on this device."
+   - Returning student: greeting with the nickname and time of day; a "Today" strip with a
+     progress ring (share of syllabus nodes at "can do it" or better, labelled in text), a
+     plan of about 25 minutes built from due reviews plus the recommended next skill, and one
+     Start button; cards: Continue, Review due, Worth your time (only when the roadmap data
+     exists, ranked by syllabus weight times weakness; otherwise hide it).
+   - A weekly consistency row (days active this week) with no streak counter, no loss
+     framing, and no leaderboard or rank anywhere.
+5. CARDS AND AFFORDANCE: tinted icon tile, title, status tag; hover lift and a visible
+   focus ring (3:1); entire card is the target; 48 px minimum height for any control on
+   touch; no drag-only or hover-only interactions anywhere (check practice and widgets and
+   add a tap alternative where missing).
+6. FEEDBACK AND COLOUR: no red for wrong answers. Use amber or blue plus text and an icon,
+   always with a next step; correct answers use quiet green plus text; status never relies
+   on colour alone; feedback is announced to screen readers. Keep red only for real errors
+   such as a failed save.
+7. COPY: direct, warm, short, for 15 to 18 year olds; no baby talk, no "Oops!", no fear
+   words. Write a short copy guide in docs/UI_STANDARDS.md with five before and after
+   examples, and apply it to the home, setup, practice and empty and error states. Locale
+   strings through the registry.
+8. MOTION: 150 to 250 ms transitions; honour reduced motion; no confetti.
+9. SPEED: skeleton states for every card and panel; report page weight and, on throttled 4G
+   in Playwright, time to first content for the guest home and the first question; fail the
+   build if page weight exceeds the existing budget.
+10. TESTS AND REVIEW: Playwright screenshots in light and dark at 360x800, 768x1024, 1280x800
+    and 1536x900; axe-core accessibility scan on every route with zero serious or critical
+    violations; keyboard path from the composer to a card to the panel and back. View every
+    screenshot, critique it against docs/UI_STANDARDS.md, fix what you find, and list what
+    remains with severity.
+11. USABILITY TEST KIT: write docs/USABILITY_TEST_PLAN.md for five student testers: tasks
+    (do a first question as a guest, switch theme, find and finish a review, find your
+    class's chapter), what to observe without helping, measures (time on task, taps, errors,
+    a one-question ease rating), and a findings template (screen, expected, happened).
+
+HARD RULES: nothing typed by guests is stored; no analytics or tracking scripts; no change to
+orchestrator, verifier or mastery; no new dependency without listing its licence; do not
+delete or weaken any test.
+DONE: vitest, tsc, Playwright (including the contrast, text-spacing and axe tests),
+region check, locale generation; log to ./logs; if the classifier blocks a read, report the
+exact command. Do NOT merge and do NOT push.
+LOAD THE UI: start the API and web app in the background with seed scenarios and leave them
+running. End with "How to see it": URL, the exact clicks for guest, student and the theme
+switch, the contrast table (every token pair with its ratio), screenshot paths, remaining
+issues, and how to stop everything. Then STOP.
+```
