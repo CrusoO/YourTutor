@@ -175,6 +175,7 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | UI-2b palette | The pasted palette is applied as tokens. Light muted text is `#464E6B` instead of `#4A5270` so muted text on the raised surface reaches 7:1 (6.76 before). White cards on the light page are kept ("no pure white" applies to page backgrounds). Info is blue, teal is its own token. See docs/UI_CONTRAST.md. |
 | UI-2b comfort | Theme and Comfort settings live in one shared store on the device (localStorage key `yt.comfort`); an inline script sets them before first paint. Weekly activity is dates on the device only (`yt.days`), no streak, no server data. |
 | UI-2b home weight | The conversation view (setup chips, sign-in forms), the Today strip and the Settings dialog load on demand. The home is 262.5 KB and its limit is lowered from 275 to 265 KB. |
+| Plain paper (UI-4) | Lessons and boards use plain surfaces; the earlier graph-paper decision is reversed because it was visually irritating; grid is an opt-in setting. The lesson surface is white in light and the dark background in dark (`--c-lesson`). Settings > Comfort > Board paper (Plain by default, or Light grid) only affects the graph widget's grid lines, never lesson text. This is the one place pure white is used as a background, by explicit decision; pages elsewhere keep `--c-bg`. |
 | UI tests | The 12 existing specs that began at `/dev` then `/subjects` now begin at `/`, open their workflow through a home card or sidebar item (`e2e/shell.ts`) and continue on the screen the panel opened; assertions are unchanged. New specs at 360, 768, 1280 and 1536 px are in `e2e/shell.spec.ts`. |
 
 
@@ -641,3 +642,7 @@ Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconc
 
 - [x] Tokens, theme, comfort settings, typography, home, cards, feedback, copy, motion, speed, tests and usability kit: Met 2026-10-13 (not merged, not pushed). Tests: vitest 432 (431 plus one copy expectation updated), Playwright UI suite 127 passed (the 56 new teen specs: contrast, text spacing, theme and comfort, home, screenshots in light and dark at four widths, axe on every route, throttled 4G), `check:weight` ok (home 262.5 KB, limit lowered from 275 to 265), tsc, region and locale generation clean. No backend change. New dev dependency: `@axe-core/playwright` 4.13 and `axe-core` 4.13 (MPL-2.0, test tooling only).
 - Deferred: the "Worth your time" card (no roadmap data exists, so it is hidden), human translations of the new strings, a measured contrast audit of every old teacher and parent table cell beyond what axe reports, usability sessions with real students (`docs/USABILITY_TEST_PLAN.md`).
+
+### UI-4 — Plain paper (branch ui-4-plain-paper)
+
+- [x] Graph paper removed from the lesson player, practice and widget areas; Board paper setting added; docs updated: Met 2026-10-13 (not merged, not pushed). The Excalidraw board part of the prompt is **not done**: there is no board, no prototype files and no `make_lesson_board.py` in the repo (BOARD-1 has not been built). Its requirements are recorded in docs/UI_STANDARDS.md for when it is.

@@ -137,7 +137,7 @@ for (const theme of THEMES) {
         const tokens = await page.evaluate(() => {
           const css = getComputedStyle(document.documentElement);
           const out: Record<string, string> = {};
-          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-teal", "--c-teal-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus"]))) {
+          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-lesson", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-teal", "--c-teal-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus"]))) {
             out[name] = css.getPropertyValue(name).trim();
           }
           return out;

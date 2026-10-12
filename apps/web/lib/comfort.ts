@@ -11,10 +11,11 @@ export type ThemeChoice = "auto" | "light" | "dark";
 export type TextSize = "s" | "m" | "l";
 export type Spacing = "normal" | "relaxed";
 export type Motion = "auto" | "reduce";
-export type Comfort = { theme: ThemeChoice; text: TextSize; spacing: Spacing; motion: Motion };
+export type Paper = "plain" | "grid";
+export type Comfort = { theme: ThemeChoice; text: TextSize; spacing: Spacing; motion: Motion; paper: Paper };
 
 export const COMFORT_KEY = "yt.comfort";
-export const DEFAULT_COMFORT: Comfort = { theme: "auto", text: "m", spacing: "normal", motion: "auto" };
+export const DEFAULT_COMFORT: Comfort = { theme: "auto", text: "m", spacing: "normal", motion: "auto", paper: "plain" };
 
 const pick = <T extends string>(value: unknown, allowed: readonly T[], fallback: T): T =>
   allowed.includes(value as T) ? (value as T) : fallback;
@@ -33,6 +34,7 @@ export function parseComfort(raw: string | null): Comfort {
     text: pick(data.text, ["s", "m", "l"], DEFAULT_COMFORT.text),
     spacing: pick(data.spacing, ["normal", "relaxed"], DEFAULT_COMFORT.spacing),
     motion: pick(data.motion, ["auto", "reduce"], DEFAULT_COMFORT.motion),
+    paper: pick(data.paper, ["plain", "grid"], DEFAULT_COMFORT.paper),
   };
 }
 
@@ -51,6 +53,7 @@ export function applyComfort(c: Comfort, root: HTMLElement = document.documentEl
   set("data-text", c.text === "m" ? null : c.text);
   set("data-spacing", c.spacing === "normal" ? null : c.spacing);
   set("data-motion", c.motion === "auto" ? null : c.motion);
+  set("data-paper", c.paper === "plain" ? null : c.paper);
 }
 
 export function saveComfort(c: Comfort): void {
@@ -62,7 +65,7 @@ export function saveComfort(c: Comfort): void {
 }
 
 /** Runs in <head> before the page paints. Keep it tiny and free of dependencies. */
-export const COMFORT_INIT_SCRIPT = `(function(){try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");var d=document.documentElement;if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce")}catch(e){}})();`;
+export const COMFORT_INIT_SCRIPT = `(function(){try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");var d=document.documentElement;if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce");if(c.paper==="grid")d.setAttribute("data-paper","grid")}catch(e){}})();`;
 
 // One store for the whole page: every control (sidebar switch, Settings dialog) reads and writes the same
 // value, so changing one setting never undoes another.

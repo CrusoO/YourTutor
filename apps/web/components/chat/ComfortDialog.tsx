@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { useComfort, type Motion, type Spacing, type TextSize } from "@/lib/comfort";
+import { useComfort, type Motion, type Paper, type Spacing, type TextSize } from "@/lib/comfort";
 import { useChatApi } from "./ChatProvider";
 import { Group, ThemeSwitch } from "./ComfortSettings";
 
@@ -46,6 +46,16 @@ export function ComfortDialog({ open, onOpenChange }: { open: boolean; onOpenCha
             options={[
               { id: "auto", text: copy.motionAuto },
               { id: "reduce", text: copy.motionReduce },
+            ]}
+          />
+          <Group<Paper>
+            label={copy.boardPaperLabel}
+            value={comfort.paper}
+            onPick={(paper) => update({ paper })}
+            testid="paper"
+            options={[
+              { id: "plain", text: copy.paperPlain },
+              { id: "grid", text: copy.paperGrid },
             ]}
           />
         </div>

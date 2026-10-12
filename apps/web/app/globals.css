@@ -43,7 +43,7 @@ body {
   --pad-y: 16px;
   padding: var(--pad-y) max(var(--pad-x), env(safe-area-inset-right, 0px)) var(--pad-y)
     max(var(--pad-x), env(safe-area-inset-left, 0px));
-  background: var(--card);
+  background: var(--c-lesson);
 }
 
 .phone p,
@@ -197,7 +197,7 @@ button:disabled {
 /* ------------------------------------------------------------------ lesson player (S1a) */
 /* Look and behaviour from docs/prototypes/balancing-equations-lesson.html, scoped under .lp. */
 .lp {
-  --paper: var(--c-bg);
+  --paper: var(--c-lesson);
   --grid: var(--c-line);
   --ink: var(--c-text);
   --muted: var(--c-muted);
@@ -215,10 +215,10 @@ button:disabled {
   padding: 0 var(--pad-x) 96px;
   min-height: 100dvh;
   color: var(--ink);
-  background-color: var(--paper);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
+  /* Plain surface, never a graph-paper texture behind text (UI-4). The grid is an opt-in for the graph
+     widget only: Settings > Comfort > Board paper. */
+  background: var(--c-lesson);
+  background-image: none;
   font-size: var(--fs-read, 1.125rem);
   line-height: var(--lh-body, 1.5);
 }
@@ -446,7 +446,8 @@ button:disabled {
   right: 0;
   bottom: 0;
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(transparent, var(--paper) 30%);
+  background: var(--c-lesson);
+  border-top: 1px solid var(--c-line);
 }
 .lp-primary {
   display: block;
@@ -623,6 +624,10 @@ button:disabled {
 .lp-g {
   stroke: var(--grid);
   stroke-width: 1;
+  visibility: hidden;
+}
+html[data-paper="grid"] .lp-g {
+  visibility: visible;
 }
 .lp-gl {
   font-size: 11px;
