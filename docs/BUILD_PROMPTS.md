@@ -515,7 +515,7 @@ as a blocker.
 
 ---
 
-## UI-1 — chat-first front door, role homes and design system  [IN PROGRESS]
+## UI-1 — chat-first front door, role homes and design system  [MET, merged locally 2026-10-12, not pushed]
 
 Branch ui-1-chat-shell from master. Prerequisites: master clean and pushed; H1 and R1 merged (tags
 harden-1-done, ui-responsive-done); server-side consent-scope validation present. Docs written first:
@@ -567,4 +567,75 @@ budget; added dependencies and licences listed; teacher and parent clashes liste
 HARD RULES: guest data on the device only; no analytics or tracking SDKs; no engine behaviour change; no
 AGPL dependencies; region-neutral; strings through the locale registry; seed students only in dev. Do not
 merge to master; do not push.
+```
+
+## UI-2 — refinement round  [IN PROGRESS]
+
+```
+UI-2: refinement round. Branch ui-2-refine from master (UI-1 is merged locally, not pushed). If UI-1
+is not merged yet, base on ui-1-chat-shell and say so. Read CLAUDE.md, PLAN.md,
+docs/UI_STANDARDS.md, docs/HOME_AND_ONBOARDING.md, docs/UI_AUDIT.md and the UI-1 report.
+Add this prompt to docs/BUILD_PROMPTS.md as UI-2. No new features: this is fixing and
+polishing what exists.
+
+INPUT 1 - MY FINDINGS (one per line: id | screen | expected | what happened):
+<paste your notes here; leave empty if none>
+
+INPUT 2 - the "remaining issues" list from the UI-1 self-critique.
+
+STEP 1 - TRIAGE (docs commit first)
+Write docs/UI_REFINEMENT_1.md: a table with id, screen, expected, actual, severity
+(blocker, major, minor, polish), probable cause, planned fix, test. Merge duplicates.
+Any finding that is really a product or workflow decision (not a bug) goes under
+"Decisions needed" with two options and a recommendation; do not implement those.
+Anything larger than a small fix goes under "Next round".
+
+STEP 2 - REPRODUCE
+For every blocker and major finding, first create a failing test or a "before"
+screenshot (Playwright, stable data-testid selectors, layout and accessibility
+assertions at 360x800, 768x1024, 1280x800 and 1536x900).
+
+STEP 3 - FIX, in severity order
+Small commits, one finding per commit where possible, each with its test. Save
+before and after screenshots under apps/web/test-results/refine/.
+
+STEP 4 - SYSTEMATIC POLISH PASS (beyond my findings)
+Check and fix, listing what you changed:
+a. First ten seconds: a new visitor knows what this is and what to tap, with one
+   obvious primary action.
+b. Every card, panel and sheet has loading (skeleton), empty, error and offline states.
+c. Copy: plain words, short sentences, consistent terms; replace jargon (skill,
+   mastery, ladder, diagnosis) with student words; no fear words such as "test", "fail"
+   or "wrong"; word limits from the age band; check text expansion in English and one
+   Indic locale; no clipped or overflowing text.
+d. Feedback tone: neutral colour, a next step on every wrong answer, no red flashes.
+e. Accessibility: 44 px targets, visible focus, logical focus order, full keyboard
+   path (composer, card, panel, back to chat), labels for every control, screen-reader
+   announcements for feedback, AA contrast in light and dark, reduced motion.
+f. Responsive: 360, 768, 1024, 1280, 1536; landscape phone; 200% zoom; a 700 px tall
+   laptop; the composer above the keyboard; no horizontal scroll anywhere.
+g. Navigation: back button, deep links, refresh, closing a panel returns to the chat,
+   switching between roles on one device logs out cleanly.
+h. Performance: page weight budget; no layout shift when cards load; fonts do not
+   flash; test on throttled 4G in Playwright and report the numbers.
+i. Friction count: taps from "/" to the first activity (guest), to resume (student),
+   to start a review, to open the teacher heatmap. Report before and after.
+
+HARD RULES
+No change to orchestrator, verifier or mastery behaviour. Nothing typed by guests is
+stored. No new dependencies unless a finding requires one (list and licence it). Do
+not delete or weaken any test. Strings through the locale registry.
+
+DONE MEANS
+vitest, tsc, Playwright (including the new specs), test:weight, region check, locale
+generation, ruff and mypy if backend code changed. Log to ./logs. If the permission
+classifier blocks a read, report the exact command. Update docs/UI_REFINEMENT_1.md with
+status per finding (fixed, not fixed with reason, needs decision), PLAN.md and Decision
+rows. Do NOT merge and do NOT push.
+
+LOAD THE UI FOR ME TO TEST
+Start the API and web app in the background with seed scenarios and LEAVE THEM RUNNING.
+End with "How to see it": for each finding marked fixed, the exact clicks to re-check it
+and the before and after screenshot paths; the friction numbers; the "Decisions needed"
+list; the "Next round" list; and how to stop everything. Then STOP.
 ```
