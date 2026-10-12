@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { Messages } from "@/lib/messages";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
 import StatusChip from "./StatusChip";
@@ -22,6 +23,24 @@ export default function DoneScreen({
   onChapters,
 }: Props) {
   const chapterId = summary?.chapter?.id ?? summary?.recommended_chapter ?? null;
+
+  // Inside the workspace panel, tell the chat that this workflow ended (titles only, no answers).
+  useEffect(() => {
+    if (typeof window === "undefined" || window.name !== "yt-embed" || window.parent === window) return;
+    const row = summary?.learned[0] ?? summary?.practised[0];
+    window.parent.postMessage(
+      {
+        type: "yt:done",
+        summary: {
+          skill: row?.title ?? summary?.chapter?.title,
+          status: row?.status ?? summary?.chapter?.status,
+          next: summary?.next?.title,
+        },
+      },
+      window.location.origin,
+    );
+  }, [summary]);
+
   return (
     <main className="stack done">
       <h1>{copy.doneTitle}</h1>

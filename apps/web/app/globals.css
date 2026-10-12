@@ -1,3 +1,11 @@
+/* Layer order: the legacy stylesheet is the lowest priority, so design-system utilities and component
+   styles win over its bare element rules (button, input, ...). Tailwind runs without its preflight. */
+@layer legacy, theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./tokens.css";
+
+@layer legacy {
 :root {
   color-scheme: light;
   font-family: system-ui, sans-serif;
@@ -837,4 +845,5 @@ a.card:focus-visible {
   .lp {
     padding-top: 44px;
   }
+}
 }

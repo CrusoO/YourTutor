@@ -1064,10 +1064,12 @@ def today_payload(session: Session, student: StudentRow) -> dict[str, Any]:
         )
     )
     resume = open_row or idle_row
+    from app.auth.consent import is_guest
     from app.safety import is_paused
 
     return {
         "paused": is_paused(session, student.id),
+        "guest": is_guest(session, student.id),
         "offer": current_offer(session, student),
         "ui": ui_for_grade(student.grade),
         "student_id": str(student.id),

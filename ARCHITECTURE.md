@@ -904,3 +904,19 @@ Structured JSON logs; every LLM call in `llm_calls`; optional OpenTelemetry behi
 ## 28. Local infrastructure
 
 docker-compose: postgres (16, pgvector), redis, api, web. Windows: Docker Desktop + WSL2, repo on the WSL filesystem. `.gitattributes` forces LF. `.env.example` sets `ALLOW_DRAFT_CONTENT=true`, `RESEARCH_MODULE=off`, `ASK_ENABLED=false`, `JURISDICTION_PROFILE=default_strict`. Production leaves draft content off.
+
+## 29. Web shell (UI-1, as built)
+
+* `/` is a client shell: `components/chat/` (provider, thread, composer, sidebar, role cards, identity
+  cards, workspace panel). Conversation state is the pure reducer in `lib/chat/machine.ts`
+  (welcome, context, identity, home); options come from the registry through `GET /context/options`.
+* The composer runs on assistant-ui's external-store runtime with no model. Typed text goes to
+  `lib/chat/finder.ts` (clean, screen, match against chapter and skill titles) using the rules from
+  `GET /context/finder-rules`, and is dropped. It is never added to the thread, stored or sent.
+* The workspace panel embeds existing routes in an iframe named `yt-embed`. `components/AppFrame.tsx`
+  tells the chat the current page (`yt:nav`) and `components/flow/DoneScreen.tsx` tells it a session
+  ended (`yt:done`, titles only). The panel is part of the address (`/?w=`).
+* Styling: `app/tokens.css` (tokens, light and dark), Tailwind utilities-only, the legacy stylesheet in
+  a lower layer. Page weight is checked from the build output by `scripts/check-weight.mjs`.
+* One role per device: student and staff tokens replace each other (`lib/api.ts`).
+

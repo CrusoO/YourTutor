@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./globals.css";
+import AppFrame from "@/components/AppFrame";
 
 export const metadata = {
   title: "YourTutor",
@@ -10,7 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className="phone">{children}</div>
+        <AppFrame>{children}</AppFrame>
       </body>
     </html>
   );

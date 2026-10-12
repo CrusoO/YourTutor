@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { devLogin, enter } from "./shell";
 
 /**
  * G2a at 360 px: the stuck-point picker (ask before telling) and Check your work after a slip.
@@ -64,10 +65,8 @@ async function typeAnswer(page: Page, value: string) {
 }
 
 async function openFirstQuestion(page: Page, tracker: ReturnType<typeof trackActions>) {
-  await page.goto("/dev");
-  await page.getByRole("button", { name: "Log in as Slip prone" }).click();
-  await expect(page).toHaveURL(/\/subjects/);
-  await page.getByTestId("subject-math").click();
+  await devLogin(page, "Slip prone");
+  await enter(page, "nav-chapters");
   await page.getByTestId("chapter-bhutan_class9").click();
   await page.getByRole("button", { name: "Continue this chapter" }).click();
   await expect(page).toHaveURL(/\/session\//);

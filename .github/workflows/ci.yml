@@ -89,6 +89,10 @@ jobs:
         run: npx tsc --noEmit
       - name: Vitest
         run: npx vitest run
+      - name: Build
+        run: npm run build
+      - name: Page-weight budget (150 KB per screen)
+        run: npm run check:weight
 
   content:
     runs-on: ubuntu-latest

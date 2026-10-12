@@ -1,22 +1,6 @@
-"use client";
+import ChatApp from "@/components/chat/ChatApp";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
-
+/** The front door: a chat-style welcome with no login wall. Signing in happens inside the conversation. */
 export default function HomePage() {
-  const router = useRouter();
-  useEffect(() => {
-    (async () => {
-      // Login phase bypassed for local learning-flow testing (NEXT_PUBLIC_SKIP_LOGIN=true).
-      if (skipLogin()) {
-        await ensureDevStudent();
-        router.replace("/subjects");
-        return;
-      }
-      const token = localStorage.getItem("yt_token");
-      router.replace(token ? "/subjects" : "/login");
-    })().catch(() => router.replace("/login"));
-  }, [router]);
-  return <p>YourTutor</p>;
+  return <ChatApp />;
 }

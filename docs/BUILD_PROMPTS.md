@@ -48,17 +48,20 @@ Never run two prompts in one go; each ends with a human review.
 | P4 | S1a playable lesson | s1a-lesson-player | DONE (2026-10-07; pytest 467 (one piece; seeds 1 and 2: 467 each), vitest 111, test:ui 8 specs / lesson screenshots per beat) |
 | P5 | S1b student flow end to end | s1b-student-flow | DONE (2026-10-07; pytest 534 (one piece; seeds 1 and 2: 534 and 534), vitest 137, test:ui 10 specs) |
 | P6 | G2a diagnosis + stuck picker | g2a-diagnosis | DONE (2026-10-08; pytest 660 (one piece; seeds 1 and 2: 660 and 660), vitest 153, test:ui 13 specs; suite peak 354 MB) |
-| P7 | G2b policy rules R33–R40 | g2b-policy | TODO |
-| P8 | G3 remainder: all lessons, lesson path, server checks | g3-lessons | TODO |
-| P9 | G4 LLM gateway | g4-llm | TODO |
-| P10 | G5 remainder: guest, context picker, first run | g5-student-app | TODO |
-| P11 | G6 accounts and consent v2 | g6-accounts | TODO |
-| P12 | G7 Study Mode Ask | g7-ask | TODO |
-| P13 | G8 content scale-up tooling | g8-authoring | TODO |
-| P14 | G9 offline + sync | g9-offline | TODO |
-| P15 | G10 guardian and teacher views | g10-views | TODO |
-| P16 | G11 hardening | g11-hardening | TODO |
-| P17 | G12 pilot readiness | g12-pilot | TODO |
+| P7 | G2b policy rules R33–R40 | g2b-policy | DONE (merged 2026-10-11, tag g2b-done) |
+| P8 | G3 remainder: all lessons, lesson path, server checks | g3-lessons | DONE (merged 2026-10-11, tag g3-done) |
+| P9 | G4 LLM gateway | g4-llm-gateway | DONE (merged 2026-10-11, tag g4-done; never run against a real model) |
+| P10 | G5 remainder: guest, context picker, first run | g5-student-app | DONE (merged 2026-10-11, tag g5-done) |
+| P11 | G6 accounts and consent v2 | g6-accounts | DONE (merged 2026-10-11, tag g6-done) |
+| P12 | G7 Study Mode Ask | g7-ask | DONE (merged 2026-10-11, tag g7-done; ASK_ENABLED off by default) |
+| P13 | G8 content scale-up tooling | g8-authoring | DONE (merged 2026-10-11, tag g8-done) |
+| P14 | G9 offline + sync | g9-offline | DONE (merged 2026-10-11, tag g9-done) |
+| P15 | G10 guardian and teacher views | g10-views | DONE (merged 2026-10-11, tag g10-done) |
+| P16 | G11 hardening | g11-hardening | DONE (merged 2026-10-11, tag g11-done) |
+| P17 | G12 pilot readiness | g12-pilot | PARTLY (engineering parts built on g11-hardening; the launch chapter, reviewer sign-off and go/no-go are human work) |
+| H1 | harden-1: server-side consent scopes, safe maths parser, production startup guard, CI | harden-1 | DONE (merged 2026-10-12, tag harden-1-done) |
+| R1 | ui-responsive: shell widths at 768, 1024, 1280 | ui-responsive | DONE (merged 2026-10-12, tag ui-responsive-done) |
+| UI-1 | Chat-first front door, role homes, design system | ui-1-chat-shell | IN PROGRESS |
 
 Human checkpoints (not prompts): after P5, run the S1 pilot check (curriculum lead + one teacher
 + 2–3 students on a phone); log feedback as PLAN.md items before P6. Teacher approval of content
@@ -508,4 +511,60 @@ pilot metrics). Show your step plan first.
 
 Accept: go/no-go review items all have evidence; every eval gate met or listed
 as a blocker.
+```
+
+---
+
+## UI-1 — chat-first front door, role homes and design system  [IN PROGRESS]
+
+Branch ui-1-chat-shell from master. Prerequisites: master clean and pushed; H1 and R1 merged (tags
+harden-1-done, ui-responsive-done); server-side consent-scope validation present. Docs written first:
+docs/UI_AUDIT.md, docs/UI_STANDARDS.md, docs/HOME_AND_ONBOARDING.md.
+
+```text
+PRODUCT RULE: the product opens as a chat-style interface (like ChatGPT or Claude): a welcoming screen
+first, no login wall. Signing in or registering happens inside the conversation when the visitor
+chooses. Once the app knows who they are it loads their details and shows workflow cards for their role.
+Each workflow opens in a workspace panel (beside the chat on laptops, full screen on phones). The chat
+stays as home and history.
+
+LAYOUT: collapsible left sidebar; centred greeting in a self-hosted OFL serif display font; one large
+rounded composer (grows to five lines) with mode chips; three suggestion cards; dismissible tip banner.
+Own identity (Brand component, tokens file); no other product's name, logo or palette. The composer is a
+deterministic topic or student finder: nothing typed is stored or logged, PII stripped, moderation on
+input, "Did you mean" chips, "not in your syllabus yet", no generated answers, ASK stays off.
+SuggestionCard: tone from tokens, inline SVG icon, title, tag, hover/focus/pressed, 44 px, keyboard
+operable, skeleton, one primary action.
+
+ROLES: Guest (setup cards), Student (Continue, Review due, Today's plan), Teacher and Parent (thin shells
+opening the EXISTING views in the panel; clashes with the newer consent and school model are listed, not
+fixed). Create account: Student = family code and PIN or "ask a grown-up"; Teacher = email code plus
+school code; Parent = email code. Existing auth; scopes validated on the server.
+
+BUILD (tests first, commit per step, targeted tests per commit)
+1 Design system (tokens light/dark, shadcn/ui, assistant-ui primitives with a custom runtime and no model
+  calls, self-hosted fonts, StatusChip, Choice, SuggestionCard, /dev/ui; report added JS weight; CI weight
+  check).
+2 Chat shell at "/" with a pure state machine (welcome, context, identity, home) and unit tests.
+3 Setup chips from the registry (class, state, board, medium, subject); "coming soon" cannot start;
+  guest choices on the device only.
+4 Identity in chat (sign in, just try it, save my progress, parent, teacher, create account).
+5 Role homes fed by the existing APIs.
+6 WorkspacePanel wrapping the existing screens; deep links, back and refresh work; old routes keep
+  working; structured summary message at the end of a workflow; no engine change.
+7 Responsive shell (1280+, 1024-1279, 768-1023, below 768).
+8 Restyle /dev; scenario logins land on the role home; fake teacher and parent in seed_scenarios.
+9 Tests: PORT the existing Playwright specs (data-testid, no text selectors); new specs at 360x800,
+  768x1024, 1280x800, 1536x900; overflow, clipping (English and one Indic locale) and focus checks; unit
+  tests for the state machine, topic finder and registry options.
+10 Self-critique against docs/UI_STANDARDS.md; fix; list remaining issues with severity.
+
+ACCEPT: a first activity from "/" in five taps or fewer with no login; nothing typed is stored or logged
+(tested at API and database level); all previously passing UI flows still pass (ported specs listed);
+panel and sidebar behave at all four widths with no overflow; keyboard path works; page weight within
+budget; added dependencies and licences listed; teacher and parent clashes listed.
+
+HARD RULES: guest data on the device only; no analytics or tracking SDKs; no engine behaviour change; no
+AGPL dependencies; region-neutral; strings through the locale registry; seed students only in dev. Do not
+merge to master; do not push.
 ```

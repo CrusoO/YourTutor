@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  devStaffToken,
   listDevScenarios,
   seedDevScenarios,
   setStudentId,
@@ -50,10 +51,22 @@ export default function DevPage() {
       await studentLogin(scenario.family_code, scenario.pin);
       const me = await today();
       setStudentId(me.student_id);
-      router.push("/subjects");
+      router.push("/");
     } catch {
       setError(
         `Could not log in as ${scenario.title}. Seed the scenarios first.`,
+      );
+    }
+  }
+
+  async function staffAs(role: "teacher" | "parent", scenario?: DevScenario) {
+    setError("");
+    try {
+      await devStaffToken(role, scenario?.name);
+      router.push("/");
+    } catch {
+      setError(
+        "Could not sign in the preview adult. Seed the scenarios first.",
       );
     }
   }
@@ -73,6 +86,14 @@ export default function DevPage() {
       >
         {resetting ? "Resetting… (about a minute)" : "Reset scenarios"}
       </button>
+      <button
+        type="button"
+        className="secondary"
+        onClick={() => staffAs("teacher")}
+        data-testid="login-teacher"
+      >
+        Log in as the preview teacher
+      </button>
       {error ? <p className="banner">{error}</p> : null}
       <div className="grid-cards">
         {scenarios?.map((scenario) => (
@@ -87,8 +108,20 @@ export default function DevPage() {
                 Not seeded. Run <code>python -m app.dev seed_scenarios</code>.
               </p>
             )}
-            <button type="button" onClick={() => loginAs(scenario)}>
+            <button
+              type="button"
+              onClick={() => loginAs(scenario)}
+              data-testid={`login-${scenario.name}`}
+            >
               Log in as {scenario.title}
+            </button>
+            <button
+              type="button"
+              className="secondary"
+              onClick={() => staffAs("parent", scenario)}
+              data-testid={`parent-${scenario.name}`}
+            >
+              Parent of {scenario.title}
             </button>
           </section>
         ))}

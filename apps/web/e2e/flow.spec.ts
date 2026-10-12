@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { devLogin, enter } from "./shell";
 
 /**
  * S1b student flow at 360 px: login -> Subjects -> Chapter map -> Chapter page -> lesson ->
@@ -46,15 +47,13 @@ function trackActions(page: Page): { last: () => Action | null } {
   return { last: () => latest };
 }
 
+// UI-1: the flow starts at the role home ("/") and opens the chapter map through the sidebar.
 async function logInAs(page: Page, title: string) {
-  await page.goto("/dev");
-  await page.getByRole("button", { name: `Log in as ${title}` }).click();
-  await expect(page).toHaveURL(/\/subjects/);
-  await expect(page.getByRole("heading", { name: /what do you want to learn/i })).toBeVisible();
+  await devLogin(page, title);
 }
 
 async function openChapter(page: Page, testId: string) {
-  await page.getByTestId("subject-math").click();
+  await enter(page, "nav-chapters");
   await expect(page).toHaveURL(/\/chapters$/);
   await expect(page.getByTestId(testId)).toBeVisible();
 }
@@ -95,7 +94,7 @@ test.describe("S1b student flow at 360 px", () => {
   }) => {
     const tracker = trackActions(page);
     await logInAs(page, "New student");
-    await expect(page.getByText("Hi Nima")).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Nima");
     await expectPhoneLayout(page);
     await shot(page, "01-subjects");
 
@@ -191,8 +190,8 @@ test.describe("S1b student flow at 360 px", () => {
   }) => {
     const tracker = trackActions(page);
     await logInAs(page, "Mid chapter");
-    await expect(page.getByText("Hi Mina")).toBeVisible();
-    await expect(page.getByRole("button", { name: /resume/i })).toBeVisible();
+    await expect(page.getByTestId("greeting")).toContainText("Mina");
+    await expect(page.getByTestId("card-resume")).toBeVisible();
     await shot(page, "20-mid-subjects");
     await openChapter(page, "chapter-bhutan_class9");
     // chapter status is the weakest skill (ARCHITECTURE 11.3); the card also counts what is done
