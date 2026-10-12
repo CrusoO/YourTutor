@@ -13,7 +13,10 @@ import { messageText } from "@/lib/chat/labels";
 import { ChatProvider, useChatApi } from "./ChatProvider";
 import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
-import { LatestSummary, Replies, Thread } from "./Thread";
+import dynamic from "next/dynamic";
+import { LatestSummary, Replies } from "./Bubbles";
+// The conversation (setup chips, sign-in forms) loads only when there is one: the first screen is the hero.
+const Thread = dynamic(() => import("./Thread").then((m) => m.Thread), { ssr: false });
 import { SidebarContent } from "./Sidebar";
 import { WorkspacePanel } from "./WorkspacePanel";
 
@@ -25,7 +28,7 @@ function Hero() {
   const adult = identity?.role === "teacher" || identity?.role === "parent";
   const line = hour === null || !identityReady ? "" : greeting(copy, hour, name, adult);
   return (
-    <div className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col items-center justify-center gap-6 overflow-y-auto px-4 py-8" data-testid="hero">
+    <div className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col items-center gap-6 overflow-y-auto px-4 py-8 [&>:first-child]:mt-auto [&>:last-child]:mb-auto" data-testid="hero">
       {identity?.role === "guest" && tipOpen ? (
         <div className="flex w-full max-w-3xl items-center justify-between gap-3 rounded-2xl bg-accent-soft px-4 py-2 text-sm" role="note" data-testid="tip">
           <span>{copy.chatTipGuest}</span>

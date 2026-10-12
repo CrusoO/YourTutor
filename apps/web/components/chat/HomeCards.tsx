@@ -14,7 +14,12 @@ import {
 } from "@/lib/api";
 import { planFor, progressShare, type Share } from "@/lib/chat/today";
 import { useChatApi } from "./ChatProvider";
-import { TodayStrip } from "./TodayStrip";
+import dynamic from "next/dynamic";
+// The strip is a separate chunk (students only); the placeholder keeps its footprint so nothing jumps.
+const TodayStrip = dynamic(() => import("./TodayStrip").then((m) => m.TodayStrip), {
+  ssr: false,
+  loading: () => <div aria-hidden="true" className="min-h-[15rem] w-full max-w-4xl animate-pulse rounded-[var(--radius-card)] border border-line bg-surface @2xl:min-h-[12rem]" />,
+});
 
 type StudentHome = {
   resume: { session_id: string } | null;
@@ -169,7 +174,7 @@ export function HomeCards() {
     };
     return (
       <>
-      {started ? <TodayStrip share={student.data.share} plan={plan} onStart={startToday} /> : null}
+      {started || resume ? <TodayStrip share={student.data.share} plan={plan} onStart={startToday} /> : null}
       <Row>
         {resume ? (
           <SuggestionCard tone="accent" icon="play" title={copy.resume} description={current?.chapter.title} tag={copy.chatContinue} onClick={() => openWorkspace(`/session/${resume.session_id}`, copy.resume)} data-testid="card-resume" />

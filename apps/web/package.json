@@ -11,7 +11,7 @@
     "test:e2e": "playwright test",
     "test:weight": "playwright test e2e/weight.spec.ts",
     "check:weight": "node scripts/check-weight.mjs",
-    "test:ui": "playwright test e2e/scenarios.spec.ts e2e/lesson.spec.ts e2e/flow.spec.ts e2e/help.spec.ts e2e/policy.spec.ts e2e/guest.spec.ts e2e/offline.spec.ts e2e/staff.spec.ts e2e/shell.spec.ts"
+    "test:ui": "playwright test e2e/scenarios.spec.ts e2e/lesson.spec.ts e2e/flow.spec.ts e2e/help.spec.ts e2e/policy.spec.ts e2e/guest.spec.ts e2e/offline.spec.ts e2e/staff.spec.ts e2e/shell.spec.ts e2e/refine.spec.ts e2e/teen.spec.ts"
   },
   "dependencies": {
     "@assistant-ui/react": "^0.15.27",
@@ -32,6 +32,7 @@
     "ts-fsrs": "^5.4.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.49.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/dom": "^10.4.2",

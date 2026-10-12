@@ -1,6 +1,6 @@
 "use client";
 
-import { ComposerPrimitive, useAui, useAuiState } from "@assistant-ui/react";
+import { ComposerPrimitive } from "@assistant-ui/react";
 import { useState } from "react";
 import { Choice } from "@/components/ui/choice";
 import { Icon } from "@/components/ui/icons";
@@ -39,8 +39,7 @@ const SOON: Mode[] = ["notes", "content"];
  */
 export function Composer({ docked = false }: { docked?: boolean }) {
   const { copy, role, mode, setMode, busy } = useChatApi();
-  const aui = useAui();
-  const text = useAuiState((state) => state.composer.text);
+  const [empty, setEmpty] = useState(true);
   const [emptyHint, setEmptyHint] = useState(false);
   const modes = MODES_BY_ROLE[role];
   const disabled = SOON.includes(mode);
@@ -50,7 +49,10 @@ export function Composer({ docked = false }: { docked?: boolean }) {
     <div className={docked ? "w-full" : "w-full max-w-3xl"} data-testid="composer">
       <ComposerPrimitive.Root className="flex items-end gap-2 rounded-[1.75rem] border border-input-line bg-surface p-2 pl-5 shadow-[var(--shadow-card)] focus-within:border-accent">
         <ComposerPrimitive.Input
-          onChange={() => setEmptyHint(false)}
+          onChange={(e) => {
+            setEmpty(!e.target.value.trim());
+            setEmptyHint(false);
+          }}
           aria-label={placeholder}
           placeholder={placeholder}
           maxRows={5}
@@ -65,12 +67,14 @@ export function Composer({ docked = false }: { docked?: boolean }) {
         {/* Send always looks ready. It is disabled only when sending is impossible (a mode that is not built
             yet), and then the reason is shown in words below. An empty box gets a gentle hint instead. */}
         <button
-          type="button"
+          type="submit"
           disabled={disabled || busy}
-          onClick={() => {
-            if (!text.trim()) return setEmptyHint(true);
-            setEmptyHint(false);
-            aui.composer().send();
+          onClick={(e) => {
+            // An empty box: say what to do instead of looking dead. The form handles a real send.
+            if (empty) {
+              e.preventDefault();
+              setEmptyHint(true);
+            }
           }}
           className="inline-flex min-h-12 w-auto cursor-pointer items-center gap-2 rounded-full border-0 bg-accent px-5 text-base font-semibold text-accent-fg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:bg-neutral-soft disabled:text-muted"
           data-testid="composer-send"

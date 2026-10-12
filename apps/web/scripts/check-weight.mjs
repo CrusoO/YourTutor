@@ -10,7 +10,7 @@ const BUDGET_KB = Number(process.env.WEIGHT_BUDGET_KB || 150);
 // Documented exception (PLAN.md Decisions, "Page weight of the home"): React and Next are about 103 KB
 // before any code and assistant-ui adds about 100 KB, so the chat home cannot fit 150 KB. Its limit is
 // the measured value plus a little headroom, so it can only shrink unnoticed, never grow.
-const ROUTE_BUDGET_KB = { "/": Number(process.env.WEIGHT_HOME_BUDGET_KB || 275) };
+const ROUTE_BUDGET_KB = { "/": Number(process.env.WEIGHT_HOME_BUDGET_KB || 265) };
 const NEXT = ".next";
 const manifestPath = join(NEXT, "app-build-manifest.json");
 if (!existsSync(manifestPath)) {

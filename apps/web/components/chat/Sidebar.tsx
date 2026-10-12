@@ -8,8 +8,12 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { locale } from "@/lib/api";
 import { messageText } from "@/lib/chat/labels";
 import { useState } from "react";
-import { ComfortDialog, ThemeSwitch } from "./ComfortSettings";
+import dynamic from "next/dynamic";
+import { ThemeSwitch } from "./ComfortSettings";
 import { useChatApi } from "./ChatProvider";
+
+// Loaded only when someone opens Settings, so it stays out of the first load of the home.
+const ComfortDialog = dynamic(() => import("./ComfortDialog").then((m) => m.ComfortDialog), { ssr: false });
 
 type Item = { icon: IconName; label: string; onClick?: () => void; soon?: boolean; testid: string; keepOpen?: boolean };
 
@@ -134,7 +138,7 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
           </div>
         )}
       </div>
-      <ComfortDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+      {settingsOpen ? <ComfortDialog open={settingsOpen} onOpenChange={setSettingsOpen} /> : null}
     </div>
   );
 }

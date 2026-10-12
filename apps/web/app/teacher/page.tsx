@@ -89,7 +89,7 @@ export default function TeacherPage() {
         <p className="muted">{copy.teacherHeatmapHint}</p>
         {heat && heat.students.length === 0 ? <p>{copy.teacherNoStudents}</p> : null}
         {heat && heat.students.length ? (
-          <div style={{ overflowX: "auto" }}>
+          <div style={{ overflowX: "auto" }} tabIndex={0} role="region" aria-label={copy.teacherHeatmap}>
             <table>
               <thead>
                 <tr>
