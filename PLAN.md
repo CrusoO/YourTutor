@@ -628,3 +628,7 @@ Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconc
 - Learned policy and learned mastery behind existing interfaces
 - Additional curricula, subjects and widget types via registries
 
+### UI-2 — Refinement round (docs/UI_REFINEMENT_1.md)
+
+- [x] Triage, reproduction, fixes and polish pass: Met 2026-10-12 (branch `ui-2-refine`, not merged, not pushed). Fixed R-01 and R-02 (no raw skill id), reworded two jargon strings. R-04 could not be reproduced and is guarded by a spec. R-03 (dark legacy screens) and R-06 (board display names) wait for a restyle and content. Tests: vitest 351, Playwright UI 71 (10 new), check:weight ok, region and locales clean. No backend change.
+- Decisions: D-1 page weight of `/`, D-2 guest upgrade screen, D-3 teacher school code are listed in `docs/UI_REFINEMENT_1.md` and not implemented.

@@ -569,7 +569,7 @@ AGPL dependencies; region-neutral; strings through the locale registry; seed stu
 merge to master; do not push.
 ```
 
-## UI-2 — refinement round  [IN PROGRESS]
+## UI-2 — refinement round  [MET 2026-10-12, not merged, not pushed]
 
 ```
 UI-2: refinement round. Branch ui-2-refine from master (UI-1 is merged locally, not pushed). If UI-1
