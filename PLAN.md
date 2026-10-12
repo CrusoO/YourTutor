@@ -171,6 +171,10 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Create account | Student = family code and PIN, or "ask a grown-up" (the guardian email-code card); parent = email code; teacher = email code. The existing auth has no school-code input (staff link a teacher to a school code in admin), so the card says so instead of asking for one. A guest-to-family upgrade has an API but no screen yet. |
 | One role per device | Signing in as a student clears any guardian or teacher sign-in and the other way round, so the home always follows one role. |
 | Page weight of the home | Home `/` loads about 280 KB (gzip JS, CSS and font): React and Next are 103 KB before any code, assistant-ui is about 100 KB, the design system and font the rest. The 150 KB budget holds for the other screens and is enforced in CI by `npm run check:weight`; `/` has its own documented limit until the owner decides between a larger budget and a lighter chat list and composer. |
+| UI-2b naming | The teen polish prompt asked to be added as "UI-2", but UI-2 was already the refinement round, so it is filed as UI-2b. |
+| UI-2b palette | The pasted palette is applied as tokens. Light muted text is `#464E6B` instead of `#4A5270` so muted text on the raised surface reaches 7:1 (6.76 before). White cards on the light page are kept ("no pure white" applies to page backgrounds). Info is blue, teal is its own token. See docs/UI_CONTRAST.md. |
+| UI-2b comfort | Theme and Comfort settings live in one shared store on the device (localStorage key `yt.comfort`); an inline script sets them before first paint. Weekly activity is dates on the device only (`yt.days`), no streak, no server data. |
+| UI-2b home weight | The conversation view (setup chips, sign-in forms), the Today strip and the Settings dialog load on demand. The home is 262.5 KB and its limit is lowered from 275 to 265 KB. |
 | UI tests | The 12 existing specs that began at `/dev` then `/subjects` now begin at `/`, open their workflow through a home card or sidebar item (`e2e/shell.ts`) and continue on the screen the panel opened; assertions are unchanged. New specs at 360, 768, 1280 and 1536 px are in `e2e/shell.spec.ts`. |
 
 
@@ -632,3 +636,8 @@ Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconc
 
 - [x] Triage, reproduction, fixes and polish pass: Met 2026-10-12 (branch `ui-2-refine`, not merged, not pushed). Fixed R-01 and R-02 (no raw skill id), reworded two jargon strings. R-04 could not be reproduced and is guarded by a spec. R-03 (dark legacy screens) and R-06 (board display names) wait for a restyle and content. Tests: vitest 351, Playwright UI 71 (10 new), check:weight ok, region and locales clean. No backend change.
 - Decisions: D-1 page weight of `/`, D-2 guest upgrade screen, D-3 teacher school code are listed in `docs/UI_REFINEMENT_1.md` and not implemented.
+
+### UI-2b — Teen-friendly polish (branch ui-2-teen-polish)
+
+- [x] Tokens, theme, comfort settings, typography, home, cards, feedback, copy, motion, speed, tests and usability kit: Met 2026-10-13 (not merged, not pushed). Tests: vitest 432 (431 plus one copy expectation updated), Playwright UI suite 127 passed (the 56 new teen specs: contrast, text spacing, theme and comfort, home, screenshots in light and dark at four widths, axe on every route, throttled 4G), `check:weight` ok (home 262.5 KB, limit lowered from 275 to 265), tsc, region and locale generation clean. No backend change. New dev dependency: `@axe-core/playwright` 4.13 and `axe-core` 4.13 (MPL-2.0, test tooling only).
+- Deferred: the "Worth your time" card (no roadmap data exists, so it is hidden), human translations of the new strings, a measured contrast audit of every old teacher and parent table cell beyond what axe reports, usability sessions with real students (`docs/USABILITY_TEST_PLAN.md`).

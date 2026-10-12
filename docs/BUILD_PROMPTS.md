@@ -640,7 +640,7 @@ and the before and after screenshot paths; the friction numbers; the "Decisions 
 list; the "Next round" list; and how to stop everything. Then STOP.
 ```
 
-## UI-2b — teen-friendly polish  [IN PROGRESS]
+## UI-2b — teen-friendly polish  [MET 2026-10-13, not merged, not pushed]
 
 Requested as "UI-2"; renamed UI-2b because the refinement round already took the name UI-2 (see PLAN Decisions). Branch `ui-2-teen-polish`, based on master (which holds UI-1 and the UI-2 refinement).
 

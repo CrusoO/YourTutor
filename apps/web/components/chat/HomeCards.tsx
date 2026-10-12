@@ -133,7 +133,6 @@ export function HomeCards() {
           tag={copy.chatNew}
           disabled={busy}
           onClick={() => void tryOneQuestion()}
-          className="@2xl:flex-row @2xl:items-center"
           data-testid="card-try-question"
         />
         <Row two>

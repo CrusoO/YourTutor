@@ -11,19 +11,21 @@ export function Group<T extends string>({
   options,
   onPick,
   testid,
+  compact = false,
 }: {
   label: string;
   value: T;
   options: { id: T; text: string }[];
   onPick: (id: T) => void;
   testid: string;
+  compact?: boolean;
 }) {
   return (
     <div role="group" aria-label={label} className="flex flex-col gap-2" data-testid={testid}>
       <span className="text-sm font-semibold text-muted">{label}</span>
-      <div className="flex flex-wrap gap-2">
+      <div className={compact ? "flex gap-2" : "flex flex-wrap gap-2"}>
         {options.map((o) => (
-          <Choice key={o.id} selected={value === o.id} onClick={() => onPick(o.id)} data-testid={`${testid}-${o.id}`}>
+          <Choice key={o.id} selected={value === o.id} onClick={() => onPick(o.id)} data-testid={`${testid}-${o.id}`} className={compact ? "flex-1 justify-center px-2" : undefined}>
             {o.text}
           </Choice>
         ))}
@@ -33,7 +35,7 @@ export function Group<T extends string>({
 }
 
 /** Auto / Light / Dark. Used in the sidebar and in the Comfort dialog. */
-export function ThemeSwitch() {
+export function ThemeSwitch({ compact = false }: { compact?: boolean }) {
   const { copy } = useChatApi();
   const [comfort, update] = useComfort();
   return (
@@ -42,6 +44,7 @@ export function ThemeSwitch() {
       value={comfort.theme}
       onPick={(theme) => update({ theme })}
       testid="theme"
+      compact={compact}
       options={[
         { id: "auto", text: copy.themeAuto },
         { id: "light", text: copy.themeLight },

@@ -106,7 +106,7 @@ export function SidebarContent({ onDone }: { onDone?: () => void }) {
       </nav>
       <div className="border-t border-line pt-3">
         <div className="mb-3 px-2" data-testid="sidebar-theme">
-          <ThemeSwitch />
+          <ThemeSwitch compact />
         </div>
         {identity ? (
           <div className="flex items-center gap-3 px-2">

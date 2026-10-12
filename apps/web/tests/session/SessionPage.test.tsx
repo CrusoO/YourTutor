@@ -109,7 +109,7 @@ describe("SessionPage action rendering", () => {
 
   it("feedback continue", async () => {
     await renderAction("feedback");
-    expect(screen.getByText(/not yet/i)).toBeInTheDocument();
+    expect(screen.getByText(/not quite/i)).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: /^continue$/i }));
     expect(postEvent).toHaveBeenCalledWith("sess-test", "continue", {}, actionFixtures.feedback.item_id);
   });

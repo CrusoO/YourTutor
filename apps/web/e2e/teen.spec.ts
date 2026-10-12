@@ -225,7 +225,9 @@ test.describe("theme and comfort settings", () => {
     await page.goto("/");
     await expect(page.getByTestId("theme-auto")).toHaveAttribute("aria-pressed", "true");
     expect(await page.evaluate(() => document.documentElement.dataset.theme ?? "auto")).toBe("auto");
-    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.body).backgroundColor))).toBe("#0e1120");
+    const darkBg = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim());
+    expect(rgbToHex(await page.evaluate(() => getComputedStyle(document.body).backgroundColor))).toBe(darkBg.toLowerCase());
+    expect(darkBg.toLowerCase()).toBe("#0b0f1d");
 
     await page.getByTestId("theme-light").click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
