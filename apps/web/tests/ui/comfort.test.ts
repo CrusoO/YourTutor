@@ -1,7 +1,8 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { applyComfort, COMFORT_INIT_SCRIPT, COMFORT_KEY, DEFAULT_COMFORT, parseComfort, readComfort, saveComfort } from "../../lib/comfort";
+import { applyComfort, COMFORT_INIT_SCRIPT, COMFORT_KEY, DEFAULT_COMFORT, parseComfort, readComfort, resetComfortStore, saveComfort, updateComfort } from "../../lib/comfort";
 
 afterEach(() => {
+  resetComfortStore();
   window.localStorage.clear();
   for (const a of ["data-theme", "data-text", "data-spacing", "data-motion"]) document.documentElement.removeAttribute(a);
 });
@@ -38,5 +39,13 @@ describe("comfort settings", () => {
     expect([root.dataset.theme, root.dataset.text, root.dataset.spacing, root.dataset.motion]).toEqual(["dark", "l", "relaxed", "reduce"]);
     window.localStorage.setItem(COMFORT_KEY, "{broken");
     expect(() => new Function(COMFORT_INIT_SCRIPT)()).not.toThrow();
+  });
+
+  it("changing one setting never undoes another (the Settings dialog bug)", () => {
+    updateComfort({ text: "l" });
+    updateComfort({ spacing: "relaxed" });
+    updateComfort({ theme: "dark" });
+    expect(readComfort()).toEqual({ theme: "dark", text: "l", spacing: "relaxed", motion: "auto" });
+    expect(document.documentElement.dataset.text).toBe("l");
   });
 });

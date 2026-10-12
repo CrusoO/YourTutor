@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 /**
  * Theme and Comfort settings (UI-2b). They live on the device only (localStorage), are applied to <html> as
@@ -64,16 +64,41 @@ export function saveComfort(c: Comfort): void {
 /** Runs in <head> before the page paints. Keep it tiny and free of dependencies. */
 export const COMFORT_INIT_SCRIPT = `(function(){try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");var d=document.documentElement;if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce")}catch(e){}})();`;
 
+// One store for the whole page: every control (sidebar switch, Settings dialog) reads and writes the same
+// value, so changing one setting never undoes another.
+let store: Comfort = DEFAULT_COMFORT;
+let loaded = false;
+const listeners = new Set<() => void>();
+
+function ensureLoaded() {
+  if (!loaded && typeof window !== "undefined") {
+    loaded = true;
+    store = readComfort();
+  }
+}
+
+export function updateComfort(patch: Partial<Comfort>): void {
+  ensureLoaded();
+  store = { ...store, ...patch };
+  applyComfort(store);
+  saveComfort(store);
+  listeners.forEach((listener) => listener());
+}
+
+/** Forget the cached value (tests only). */
+export function resetComfortStore(): void {
+  store = DEFAULT_COMFORT;
+  loaded = false;
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  ensureLoaded();
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
 export function useComfort(): [Comfort, (patch: Partial<Comfort>) => void] {
-  const [comfort, setComfort] = useState<Comfort>(DEFAULT_COMFORT);
-  useEffect(() => setComfort(readComfort()), []);
-  const update = useCallback((patch: Partial<Comfort>) => {
-    setComfort((current) => {
-      const next = { ...current, ...patch };
-      applyComfort(next);
-      saveComfort(next);
-      return next;
-    });
-  }, []);
-  return [comfort, update];
+  const comfort = useSyncExternalStore(subscribe, () => (ensureLoaded(), store), () => DEFAULT_COMFORT);
+  return [comfort, updateComfort];
 }

@@ -137,7 +137,7 @@ for (const theme of THEMES) {
         const tokens = await page.evaluate(() => {
           const css = getComputedStyle(document.documentElement);
           const out: Record<string, string> = {};
-          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus"]))) {
+          for (const name of Array.from(new Set(["--c-text", "--c-muted", "--c-bg", "--c-surface", "--c-surface-2", "--c-accent", "--c-accent-fg", "--c-accent-ink", "--c-accent-soft", "--c-success", "--c-success-soft", "--c-warning", "--c-warning-soft", "--c-info", "--c-info-soft", "--c-teal", "--c-teal-soft", "--c-neutral", "--c-neutral-soft", "--c-danger", "--c-danger-soft", "--c-input-line", "--c-focus"]))) {
             out[name] = css.getPropertyValue(name).trim();
           }
           return out;
@@ -164,8 +164,25 @@ async function clippedOrOverlapping(page: Page): Promise<string[]> {
       if (style.visibility === "hidden" || style.display === "none" || el.closest(".sr-only, svg")) continue;
       const own = Array.from(el.childNodes).filter((n) => n.nodeType === 3).map((n) => n.textContent ?? "").join("").trim();
       if (!own) continue;
-      const r = el.getBoundingClientRect();
+      let r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
+      // Only the part you can see counts: clip to every scrolling or overflow-hidden ancestor.
+      let hiddenAway = false;
+      for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+        const as = getComputedStyle(a);
+        if (as.overflowX === "visible" && as.overflowY === "visible") continue;
+        const ar = a.getBoundingClientRect();
+        const left = Math.max(r.left, ar.left);
+        const top = Math.max(r.top, ar.top);
+        const right = Math.min(r.right, ar.right);
+        const bottom = Math.min(r.bottom, ar.bottom);
+        if (right <= left || bottom <= top) {
+          hiddenAway = true;
+          break;
+        }
+        r = new DOMRect(left, top, right - left, bottom - top);
+      }
+      if (hiddenAway) continue;
       const hidesOverflow = style.overflowX !== "visible" || style.overflowY !== "visible";
       const ellipsis = style.textOverflow === "ellipsis" || el.classList.contains("truncate");
       if (hidesOverflow && !ellipsis && (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1)) out.push(`clipped: ${own.slice(0, 30)}`);
