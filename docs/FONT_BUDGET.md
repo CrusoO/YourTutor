@@ -74,9 +74,9 @@ the budget has to come down, because it is the only one that cuts English withou
 The engine's player needs the same two scripts plus KaTeX's own maths fonts (see
 `EduVideoEngine/docs/FONT_BUDGET.md`). If its player is hosted on the same origin as YourTutor and uses the **same
 files** (Inter 400 and 600, Noto Sans Devanagari 400 and 500 with its Latin subset), the browser downloads each file once
-and a student who has seen the home already has most of the lesson's fonts. The engine currently bundles Noto Sans
-(Latin) and Noto Sans Devanagari at 400 and 700; aligning it with this set is a one-line change plus new golden frames
-and is the recommended outcome of approving this document.
+and a student who has seen the home already has most of the lesson's fonts. The engine now bundles exactly these files (byte-identical, locked by hash, same URLs and `unicode-range`), so a lesson adds only
+KaTeX's three maths fonts (46.9 KB) on top of the home page's fonts. Its equations are pre-rendered at build time, so the player
+ships no KaTeX script (91.8 KB gzip saved). See `EduVideoEngine/docs/FONT_BUDGET.md`. Changing this set means changing both together.
 
 ## 5. How this is enforced
 
