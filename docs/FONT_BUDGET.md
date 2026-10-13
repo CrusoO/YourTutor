@@ -1,6 +1,6 @@
 # Font budget (UI-5)
 
-Status: **PROPOSAL, waiting for approval. Nothing here is merged and the existing 265 KB home limit has not been changed.**
+Status: **ceilings approved (2026-10-13) and enforced** by `apps/web/scripts/check-weight.mjs` (`npm run check:weight` after `next build`): home JS and CSS 255 KB, English fonts 70 KB, Hindi fonts 125 KB. Raising any of them needs an explicit change to that script in the same pull request, with the reason. The branch is still not merged.
 Launch languages: English and Hindi only (UI-5 scope change). All fonts are OFL-1.1, self-hosted in `apps/web/public/fonts`
 (licence texts in `LICENSES.txt` next to them), Latin and Devanagari subsets only. No CDN, no other script.
 Measured 2026-10-13 on the production build (`next build`, gzip JS and CSS from `scripts/check-weight.mjs`, fonts as
@@ -82,6 +82,6 @@ ships no KaTeX script (91.8 KB gzip saved). See `EduVideoEngine/docs/FONT_BUDGET
 
 * `e2e/identity.spec.ts` "fonts": English never fetches a Devanagari file; Hindi fetches the Noto files and no Geist or
   Inter file; every request is same-origin.
-* `scripts/check-weight.mjs` currently counts JS and CSS only (the Fraunces special case is gone); it should gain a
-  separate fonts line with the limits above once they are approved. Not changed yet, because the numbers are not approved.
+* `scripts/check-weight.mjs` counts JS and CSS (limit 255 KB for the home) and prints one fonts line per language with the
+  approved limits (70 and 125 KB); any line over fails the run (exit 1). Measured now: 249.7, 66.7 and 122.3 KB.
 * The preload list lives in `COMFORT_INIT_SCRIPT` (`lib/comfort.ts`) and is unit-tested (3 links for English, none for Hindi).
