@@ -1,3 +1,5 @@
+<!-- Archived: dated audit of the student player before UI-1 (2026-10-04); superseded by docs/UI_AUDIT.md and docs/UI_STANDARDS.md. -->
+
 # Student player UI audit (read-only)
 
 ## 1. Where is the student player?
