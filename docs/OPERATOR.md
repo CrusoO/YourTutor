@@ -30,6 +30,7 @@ The ones that matter:
 | `JURISDICTION_PROFILE` | `default_strict` | Consent scopes, quiet hours, retention, report channels (`config/jurisdictions/`). |
 | `PUBLIC_WEB_URL` | the guardian page address | The link in weekly reports. |
 | `CORS_EXTRA_ORIGINS` | the web address | Where the browser app is served from. |
+| `TRUSTED_PROXIES` | empty, or `127.0.0.1` behind a proxy on this machine | Addresses or CIDR ranges whose `X-Forwarded-For` header is believed. See section 8.1. |
 | `LLM_API_KEY`, `LLM_MODEL_FAST`, `LLM_MODEL_STRONG` | optional | Without them every reply is authored text. |
 | `ASK_ENABLED` | `false` until reviewed | Study Mode Ask. |
 
@@ -123,6 +124,26 @@ Set these, then rebuild the web app (the first value is fixed at build time):
 | `NEXT_PUBLIC_API_URL` | `https://tutor.example.org/api` (before `npm run build`) |
 | `PUBLIC_WEB_URL` | `https://tutor.example.org` |
 | `CORS_EXTRA_ORIGINS` | `https://tutor.example.org` |
+| `TRUSTED_PROXIES` | `127.0.0.1` (the proxy's address as the API sees it; a CIDR range works too) |
+
+**`TRUSTED_PROXIES` behind a proxy.** The API believes `X-Forwarded-For` only from an address in
+this list. With the list empty (the default) the header is ignored and the connecting address is used.
+The standard command in section 1 starts uvicorn, which by default already replaces the connecting
+address with the visitor's when the proxy is on this machine (127.0.0.1); checked with a real uvicorn,
+visitors then get their own limits even with the list empty. Set the list anyway, because it covers
+what uvicorn's default does not: a proxy at another address (a Docker network, another machine) and a
+uvicorn started with `--no-proxy-headers`. There, with the list empty, every visitor appears as the
+proxy's address and everyone shares one rate limit: people start getting `429 too many requests`.
+`python -m app.operator check` prints a `warn proxy addresses` line when the running API has seen
+`X-Forwarded-For` from this machine while the list is empty (checked with `--no-proxy-headers`; with
+the default uvicorn the address is already replaced, so no warning appears). Several proxies in a row
+all go in the list; the API uses the first address, counting from the right, that is not in it.
+
+**Migration note.** Before this setting existed the API believed the first address in the header from
+anyone, so a visitor could send a made-up address and escape the rate limits. It no longer does. A
+deployment behind a proxy that upgrades should add `TRUSTED_PROXIES=127.0.0.1` (or the proxy's range)
+to `.env` and restart the API; until then it relies on uvicorn's default as described above, or
+shares one limit if that does not apply. A deployment with no proxy needs nothing.
 
 **Option A: a reverse proxy with automatic certificates (Caddy).** Needs a public address, a DNS
 name that points to the machine, and ports 80 and 443 open. Save as `/etc/caddy/Caddyfile`:
@@ -227,7 +248,10 @@ journalctl -u yourtutor-api --since "1 day ago" | grep -A 30 "unhandled error <i
 
 1. Only the proxy is public: ports 80 and 443 (and 22 for you). Ports 8000, 3000, 5432 and 6379 must
    not be reachable from outside. The API and the web app above listen on `127.0.0.1`. Do not use
-   `--host 0.0.0.0` from the private-network note in section 1 on a public machine.
+   `--host 0.0.0.0` from the private-network note in section 1 on a public machine. Set
+   `TRUSTED_PROXIES` as in 8.1: the API believes `X-Forwarded-For` only from those addresses, so
+   anyone who reaches port 8000 directly can no longer send a made-up address to escape the rate
+   limits.
 2. `docker-compose.yml` publishes every port on `127.0.0.1` only (Postgres 5432, Redis 6379, API 8000,
    web 3000) and restarts Postgres and Redis after a reboot. Only the rendered result of
    `docker compose config` was checked (every port showed `host_ip: 127.0.0.1`); running containers

@@ -51,6 +51,9 @@ class Settings(BaseSettings):
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
     llm_review_sample_rate: float = 1.0  # env: LLM_REVIEW_SAMPLE_RATE; 100% in the first pilot week
     cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
+    trusted_proxies: str = (
+        ""  # env: TRUSTED_PROXIES, addresses or CIDR ranges; empty ignores X-Forwarded-For
+    )
 
 
 # Switches that are for local development only: with APP_ENV=production none may be on.

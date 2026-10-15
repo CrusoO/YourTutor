@@ -7,7 +7,8 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.auth import guest, service
-from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, client_ip
+from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep
+from app.proxy import client_ip
 
 router = APIRouter()
 

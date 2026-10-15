@@ -61,3 +61,26 @@ def test_a_development_install_passes_the_switch_checks() -> None:
     names = {c.name: c.ok for c in operator.run_checks()}
     assert names["draft content off in production"] and names["token pepper changed"]
     assert operator.main(["nonsense"]) == 2
+
+
+def test_a_proxy_without_trusted_proxies_is_a_warning_not_a_failure(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(operator, "_api_ready", lambda: {"forwarded_header_ignored": True})
+    settings.trusted_proxies = ""
+    check = operator._proxy_check(prod=True)
+    assert check.ok and check.warning and "TRUSTED_PROXIES=127.0.0.1" in check.detail
+    settings.trusted_proxies = "127.0.0.1"
+    assert not operator._proxy_check(prod=True).warning
+    settings.trusted_proxies = ""
+    monkeypatch.setattr(operator, "_api_ready", lambda: None)  # the API is not running here
+    assert not operator._proxy_check(prod=True).warning
+
+
+def test_the_warning_is_printed_and_does_not_change_the_exit_code(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    warned = operator.Check("proxy addresses", True, "WARN example", warning=True)
+    monkeypatch.setattr(operator, "run_checks", lambda: [warned])
+    assert operator.main(["check"]) == 0
+    assert "warn proxy addresses: WARN example" in capsys.readouterr().out

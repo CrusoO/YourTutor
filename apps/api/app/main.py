@@ -10,12 +10,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.auth.admin import router as admin_router
-from app.auth.deps import client_ip
 from app.auth.router import router as auth_router
 from app.config import production_flag_errors, production_secret_errors, settings
 from app.dev.router import router as dev_router
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
+from app.proxy import (
+    client_ip,
+    header_ignored_from_loopback,
+    note_ignored_header,
+    trusted_networks,
+)
 from app.ratelimit import limiter
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
@@ -26,6 +31,7 @@ logger = logging.getLogger("yourtutor.access")
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     validate_startup_config()  # unknown JURISDICTION_PROFILE etc. stops startup
+    trusted_networks()  # a bad TRUSTED_PROXIES entry stops startup
     unsafe = production_flag_errors(settings)
     if unsafe:
         raise RuntimeError(
@@ -85,6 +91,7 @@ def access_log_line(method: str, path: str, status: int) -> str:
 
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):  # type: ignore[no-untyped-def]
+    note_ignored_header(request)
     if settings.rate_limit_enabled and request.method != "OPTIONS":
         wait = limiter.check(client_ip(request), request.url.path)
         if wait is not None:
@@ -125,4 +132,5 @@ def ready() -> dict[str, object]:
     return {
         "status": "ok",
         "allow_draft_content": settings.allow_draft_content,
+        "forwarded_header_ignored": header_ignored_from_loopback(),
     }
