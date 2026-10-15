@@ -4,6 +4,8 @@ The orchestrator decides pedagogy. The textbook decides content. The LLM only ph
 
 v2 is region-neutral: curricula, languages, time zones, legal rules and hosting region are configuration, not code. v1 behaviour that is already built (M0–M5.5) is preserved unless a section says otherwise; changes are marked **[v2]**.
 
+**Direction (proposed, owner to confirm).** Every child understands what they are taught, first in the language they think in, then in the languages that open doors. This is direction, not decided scope: the first community, language and subject are chosen after the December field visit. If it holds, the likely pressures on this design are an interface that needs little reading, more than one script, sign-in without an email address, practice and lessons that work on a shared phone with a poor connection, and a teacher in the room. The gaps are listed in PLAN.md section 13; none changes a guardrail.
+
 ---
 
 ## 0. Design sources
