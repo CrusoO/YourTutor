@@ -33,8 +33,13 @@ The ones that matter:
 | `LLM_API_KEY`, `LLM_MODEL_FAST`, `LLM_MODEL_STRONG` | optional | Without them every reply is authored text. |
 | `ASK_ENABLED` | `false` until reviewed | Study Mode Ask. |
 
-Start the API with `python -m uvicorn app.main:app --host 0.0.0.0 --port 8000` from `apps/api`
-and the web app with `npm run start` from `apps/web`.
+Start the API with `python -m uvicorn app.main:app --host 127.0.0.1 --port 8000` from `apps/api`
+and the web app with `npm run start -- --hostname 127.0.0.1` from `apps/web`. Both listen on this
+machine only; section 8 puts a proxy in front for the internet.
+
+> Only for a private network with no proxy (a school LAN): use `--host 0.0.0.0` and
+> `--hostname 0.0.0.0`, and keep the machine off the internet. Do this on a public machine and anyone
+> can reach the API directly.
 
 ## 2. Check that it is ready
 
@@ -222,7 +227,7 @@ journalctl -u yourtutor-api --since "1 day ago" | grep -A 30 "unhandled error <i
 
 1. Only the proxy is public: ports 80 and 443 (and 22 for you). Ports 8000, 3000, 5432 and 6379 must
    not be reachable from outside. The API and the web app above listen on `127.0.0.1`. Do not use
-   `--host 0.0.0.0` from section 1 on a public machine.
+   `--host 0.0.0.0` from the private-network note in section 1 on a public machine.
 2. `docker-compose.yml` publishes every port on `127.0.0.1` only (Postgres 5432, Redis 6379, API 8000,
    web 3000) and restarts Postgres and Redis after a reboot. Only the rendered result of
    `docker compose config` was checked (every port showed `host_ip: 127.0.0.1`); running containers
