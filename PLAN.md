@@ -646,3 +646,26 @@ Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconc
 ### UI-4 — Plain paper (branch ui-4-plain-paper)
 
 - [x] Graph paper removed from the lesson player, practice and widget areas; Board paper setting added; docs updated: Met 2026-10-13 (not merged, not pushed). The Excalidraw board part of the prompt is **not done**: there is no board, no prototype files and no `make_lesson_board.py` in the repo (BOARD-1 has not been built). Its requirements are recorded in docs/UI_STANDARDS.md for when it is.
+
+## 13. Pending the December field visit
+
+Direction, not decided scope. The owner will work with schoolchildren who are not strong in English but
+understand Nepali, Adivasi languages and Hindi, in communities with limited connectivity, shared phones
+and teachers who need support. Nothing below is scheduled; each row waits for what the visit shows, and
+the first community, language and subject are chosen after it. Sizes: S is days, M is weeks, L is a
+milestone of its own. "Today" was read from the repository on 2026-10-16.
+
+| Area | Today | Gap | Size | Smallest first step |
+| --- | --- | --- | --- | --- |
+| Languages | English and Hindi are selectable (`config/locales.yaml`); Hindi UI strings are draft and hidden until a native speaker reviews them; Nepali and Assamese are `coming_soon`; `content/glossary/en-ne.yaml` and `en-as.yaml` hold placeholders; human-only locale review exists (`app/content/locale_review.py`) | Nepali strings and glossary; a script other than Latin and Devanagari (for example Ol Chiki) has no font, no budget and no loader | Nepali S to M, other scripts L | Fill the Nepali glossary through the existing locale review with a native reviewer |
+| Reading-free child interface | Chat-style home, text questions with tap choices, a speaker button using the browser's speech engine (`ReadAloud.tsx`), primary-band defaults (large targets, two options, read aloud on) | Every instruction is text; no icon-only navigation, no recorded audio; the browser's speech engine may have no voice for Nepali or a tribal language | L | List the voices on the phones that will be used; record audio for the first-run and start path |
+| Identity and consent | Guardian signs in by email code; guardian creates children; child signs in with family code and PIN; guests need no personal data; consent scopes in `config/jurisdictions/default_strict.yaml` | A guardian needs an email address; no phone-number sign-in, teacher-created accounts, class join code or QR, shared-device switching; no community language-data scope; consent text only in English and draft Hindi | S for the scope, M for teacher-created accounts and a class code, L for phone-number sign-in | Draft the community language-data scope and decide who consents (guardian or school) |
+| Offline use | Offline pack and sync (`app/offline`, `/offline` page, IndexedDB queue) for items the browser can check; reduced effects on data-saver or low-memory devices | No web app manifest and no service worker found, so the app cannot be installed and the first load needs a network; no install from a file, Bluetooth or WhatsApp | L | Spike a manifest and a cached shell for `/offline`, measured against the font and weight budgets |
+| Teacher-facilitated mode | Classes, `site_id`, teacher heatmap, stuck and alert views for students whose guardian chose `teacher_share`, a review queue | No one-phone-for-a-class mode; each child signs in separately | M | A roster screen on the teacher's phone that starts a child's session |
+| Authoring and approval | Content status draft or approved with hashes; teacher review sheets; reviewer allowlist; `ALLOW_DRAFT_CONTENT` gate; locale review tied to the English text hash | Nothing imports an engine lesson (`docs/ENGINE_INTEGRATION.md`); glossary entries have no dialect variants, audio, provenance or licence | M for engine lessons, L for a terminology commons | Record the adopted engine contract version in an ADR; add reviewer and date to glossary entries |
+| Operating model | `docs/OPERATOR.md` needs Docker, Python 3.12, Node 20, Postgres, Redis, mail, a domain and cron | A school or community operator may have none of these | L | Interview the December hosts before choosing between one hosted server and a school-LAN server |
+| Pilot readiness | Pilot protocol and usability plan assume readers: guardian enrolment on a page, English think-aloud with 15 to 18 year olds | Oral-first children and guardians who read little English; no oral-probe record | S to M | Add an oral-probe protocol and a spoken-consent record to the pilot protocol, with a paper sheet |
+| Data protection | One profile, `default_strict` (90-day guest retention, email reports, export and delete) | No Nepal or India variant; nothing for community language data; reports go by email only | S for draft profiles, M for legal review | Copy `default_strict` into draft Nepal and India profiles marked for legal review (Track B4) |
+
+Not decided: the first community, language, grade and subject; whether the first release is hosted or
+runs on a school machine; whether engine lessons or this app's own lessons come first.
