@@ -96,3 +96,224 @@ for a week without practice.
 
 Back up the `yourtutor` PostgreSQL database (`pg_dump`) and the `content/` folder. Everything a
 student did is in the database; nothing else holds learner data. Test a restore before the pilot.
+
+## 8. Put it on the internet
+
+Sections 1 to 7 get YourTutor running on one machine. This section makes it reachable over HTTPS
+for families. What was run on a development machine is said where it is used; anything marked
+"(not tested)", and every command not said to be run, was not. The public address is written `tutor.example.org` below; use your own.
+
+### 8.1 HTTPS and the front door
+
+The browser app calls the API directly, at the address baked in as `NEXT_PUBLIC_API_URL` when you run
+`npm run build`. The API has no `/api` prefix of its own. The simplest public layout is one address
+with the API under `/api`: the proxy removes the prefix before the request reaches the API. The web
+app has one route of its own, `/api/health`, which the proxy must keep for the web app.
+
+Set these, then rebuild the web app (the first value is fixed at build time):
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | `https://tutor.example.org/api` (before `npm run build`) |
+| `PUBLIC_WEB_URL` | `https://tutor.example.org` |
+| `CORS_EXTRA_ORIGINS` | `https://tutor.example.org` |
+
+**Option A: a reverse proxy with automatic certificates (Caddy).** Needs a public address, a DNS
+name that points to the machine, and ports 80 and 443 open. Save as `/etc/caddy/Caddyfile`:
+
+```
+tutor.example.org {
+	encode gzip
+	handle /api/health {
+		reverse_proxy 127.0.0.1:3000
+	}
+	handle_path /api/* {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle {
+		reverse_proxy 127.0.0.1:3000
+	}
+}
+```
+
+```bash
+caddy validate --config /etc/caddy/Caddyfile      # prints "Valid configuration"
+sudo systemctl reload caddy                        # (not tested) when installed from the Caddy package
+```
+
+What was tested: `caddy validate` on this file (the `caddy:2` image, with the proxy targets written as
+`host.docker.internal:…`), and the routing with a copy that listened on a local port with HTTPS off.
+`/api/health` answered from the web app, `/api/ready` from the API, and `/` from the web app. The
+certificate request needs a real DNS name and was not tested; Caddy gets and renews the
+certificate by itself.
+
+**Option B: a tunnel, for a machine with no public address (Cloudflare Tunnel).** All steps are
+(not tested). The tunnel does not remove the `/api` prefix, so it points at a local Caddy that does.
+
+1. Put the domain in a Cloudflare account. Install `cloudflared` on the machine.
+2. `cloudflared tunnel login`, then `cloudflared tunnel create yourtutor`.
+3. Run Caddy on a local port with HTTPS off. Use the Caddyfile above, but start it with
+   `{ auto_https off }` as the first block and `:8081 {` in place of `tutor.example.org {`.
+4. Save `~/.cloudflared/config.yml`, with the tunnel id and credentials file from step 2:
+
+```
+tunnel: yourtutor
+credentials-file: /home/YOU/.cloudflared/<tunnel id>.json
+ingress:
+  - hostname: tutor.example.org
+    service: http://127.0.0.1:8081
+  - service: http_status:404
+```
+
+5. `cloudflared tunnel route dns yourtutor tutor.example.org`, then `cloudflared tunnel run yourtutor`.
+
+Cloudflare provides the HTTPS. The three variables in the table are the same.
+
+### 8.2 Keeping it running
+
+Run the API and the web app as services that start after a reboot. Example with systemd (not tested;
+paths and the user name are yours). The `.env` file holds the settings from section 1.
+
+`/etc/systemd/system/yourtutor-api.service`:
+
+```
+[Unit]
+Description=YourTutor API
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+User=yourtutor
+WorkingDirectory=/srv/yourtutor/apps/api
+EnvironmentFile=/srv/yourtutor/.env
+ExecStart=/usr/bin/python3 -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+```
+
+`/etc/systemd/system/yourtutor-web.service`: the same, with `WorkingDirectory=/srv/yourtutor/apps/web`
+and `ExecStart=/usr/bin/npm run start -- --hostname 127.0.0.1`.
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now yourtutor-api yourtutor-web
+```
+
+Postgres and Redis start with `docker compose up -d postgres redis`. The override file in 8.3 adds
+`restart: unless-stopped`, so Docker brings them back after a reboot.
+
+**Logs.** Under systemd both services write to the journal: `journalctl -u yourtutor-api -f` (not
+tested). The API logs one line per request, `METHOD /path STATUS`, with no query string and no
+address. Caddy logs to its own journal: `journalctl -u caddy`.
+
+**Find a request id.** A 500 error shows the person "something went wrong" and a request id (12
+letters and digits; the same id is in the `X-Request-Id` response header). The error is logged as
+`unhandled error <id> on METHOD /path`, followed by the stack trace:
+
+```bash
+journalctl -u yourtutor-api --since "1 day ago" | grep -A 30 "unhandled error <id>"   # (not tested)
+```
+
+### 8.3 Closing the doors
+
+1. Only the proxy is public: ports 80 and 443 (and 22 for you). Ports 8000, 3000, 5432 and 6379 must
+   not be reachable from outside. The API and the web app above listen on `127.0.0.1`. Do not use
+   `--host 0.0.0.0` from section 1 on a public machine: the API trusts the first address in
+   `X-Forwarded-For` for its rate limits, so anyone who can reach port 8000 directly can send a
+   made-up address and escape them. Caddy sets that header itself (not tested).
+2. `docker-compose.yml` publishes Postgres and Redis on every network interface. Keep them on the
+   machine by putting this in `docker-compose.override.yml` next to it (Compose reads it by itself).
+   Only the rendered result of `docker compose config` was checked, and it showed
+   `host_ip: 127.0.0.1`; running containers were not restarted:
+
+```yaml
+services:
+  postgres:
+    restart: unless-stopped
+    ports: !override
+      - "127.0.0.1:5432:5432"
+  redis:
+    restart: unless-stopped
+    ports: !override
+      - "127.0.0.1:6379:6379"
+```
+
+3. Change the database password. The compose file defaults to `tutor` / `tutor`; set
+   `POSTGRES_PASSWORD` in `.env` before the first `docker compose up`, and the same password in the
+   API's database settings. A password set after the first start needs `ALTER USER`.
+4. Close the ports in the machine's firewall too, for example
+   `sudo ufw default deny incoming && sudo ufw allow 22 && sudo ufw allow 80 && sudo ufw allow 443 && sudo ufw enable`
+   (not tested). Docker's published ports can bypass `ufw`, which is why step 2 matters.
+5. `.env` holds secrets: `chmod 600 /srv/yourtutor/.env` and let only the service user own it.
+   Keep it, and `TOKEN_PEPPER`, outside the repository (the repository's `.gitignore` already excludes
+   `.env`). Keep a copy of `TOKEN_PEPPER` in your password manager: losing it signs everyone out.
+
+### 8.4 Scheduled jobs and backups
+
+Run them as the service user. Save the script as `/srv/yourtutor/ops/daily.sh`, make it executable,
+and run it from `crontab -e` with `15 3 * * * /srv/yourtutor/ops/daily.sh` (the script and cron are
+not tested; `app.operator check` and the dump and restore were run by hand, with `docker exec` on the
+Postgres container in place of `docker compose exec`; `app.reports` and `app.retention` were not run).
+
+```bash
+#!/usr/bin/env bash
+set -u
+cd /srv/yourtutor/apps/api
+set -a; . /srv/yourtutor/.env; set +a
+
+python -m app.reports weekly                 # the guardian report, safe to run every day
+python -m app.retention purge_guests         # delete idle guests
+
+if ! python -m app.operator check > /tmp/operator-check.txt 2>&1; then
+  mail -s "YourTutor check FAILED" you@example.org < /tmp/operator-check.txt   # (not tested)
+fi
+
+# backup, 14 days kept
+mkdir -p /srv/yourtutor/backups
+docker compose -f /srv/yourtutor/docker-compose.yml exec -T postgres \
+  pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" | gzip > "/srv/yourtutor/backups/yourtutor-$(date +%F).sql.gz"
+find /srv/yourtutor/backups -name 'yourtutor-*.sql.gz' -mtime +14 -delete
+```
+
+`python -m app.operator check` exits 1 when any line says `FAIL` (checked on a development
+database: 7 of 8 checks passed and the exit code was 1). The `mail` line needs a mail program on the
+machine; any command that sends you a message works in its place.
+
+**Restore test, once before the pilot.** Restore into a spare database, never over the real one.
+This was done on a development database: the dump was valid gzip, restored with no errors, and the
+restored copy had 23 tables.
+
+```bash
+cd /srv/yourtutor
+docker compose exec -T postgres createdb -U "$POSTGRES_USER" restore_test
+gunzip -c backups/yourtutor-$(date +%F).sql.gz | docker compose exec -T postgres \
+  psql -U "$POSTGRES_USER" -q -v ON_ERROR_STOP=1 restore_test
+docker compose exec -T postgres psql -U "$POSTGRES_USER" -At restore_test \
+  -c "select count(*) from information_schema.tables where table_schema='public'"
+docker compose exec -T postgres dropdb -U "$POSTGRES_USER" restore_test
+```
+
+Copy the `backups/` folder to another machine or storage as well; a backup on the same disk does
+not survive that disk failing.
+
+### 8.5 Watching it
+
+1. Set up an uptime check (any free service, or `cron` on another machine) that fetches the public
+   address every minute and alerts you by email or phone after two misses:
+   `https://tutor.example.org/api/health` (the web app) and `https://tutor.example.org/api/ready`
+   (the API). Through the tested proxy the first answered `{"status":"ok","service":"web"}` and the
+   second `{"status":"ok", …}`.
+2. When it is down, in this order:
+   1. Open the public address in a browser on a phone's mobile data, to rule out your own network.
+   2. On the machine: `systemctl status yourtutor-api yourtutor-web caddy` (not tested), and
+      `docker compose ps` for Postgres and Redis.
+   3. `curl -s http://127.0.0.1:8000/health` and `curl -s http://127.0.0.1:3000/api/health`. If
+      these answer but the public address does not, the problem is the proxy or tunnel: read its log.
+   4. If a service is down, read the last 50 lines of its journal, then
+      `sudo systemctl restart <name>`. Run `python -m app.operator check` before telling families
+      it is back.
+   5. If Postgres lost its data or will not start, restore the latest file in `backups/` as in
+      8.4, into the real database name only after you have stopped the API.
