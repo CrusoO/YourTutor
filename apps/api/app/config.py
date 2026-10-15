@@ -1,11 +1,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+DEFAULT_DB_PASSWORD = "tutor"  # development only; production refuses to start on it
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     postgres_user: str = "tutor"
-    postgres_password: str = "tutor"
+    postgres_password: str = DEFAULT_DB_PASSWORD
     postgres_db: str = "yourtutor"
     postgres_host: str = "127.0.0.1"  # not "localhost": ::1 can stall 30 s per connection
     postgres_port: int = 5432
@@ -61,6 +63,13 @@ def production_flag_errors(current: Settings) -> list[str]:
     if current.app_env.strip().lower() != PRODUCTION:
         return []
     return [name.upper() for name in DEV_ONLY_FLAGS if getattr(current, name)]
+
+
+def production_secret_errors(current: Settings) -> list[str]:
+    """Secrets that still hold their development default although APP_ENV says production."""
+    if current.app_env.strip().lower() != PRODUCTION:
+        return []
+    return ["POSTGRES_PASSWORD"] if current.postgres_password == DEFAULT_DB_PASSWORD else []
 
 
 settings = Settings()

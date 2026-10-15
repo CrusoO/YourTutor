@@ -14,7 +14,7 @@ from alembic.config import Config
 from alembic.script import ScriptDirectory
 from sqlalchemy import text
 
-from app.config import settings
+from app.config import DEFAULT_DB_PASSWORD, settings
 from app.db.session import session_factory
 from app.registries.startup import validate_startup_config
 
@@ -79,6 +79,15 @@ def run_checks() -> list[Check]:
             "token pepper changed",
             not (prod and settings.token_pepper == "dev-only-change-me"),
             "TOKEN_PEPPER is set" if settings.token_pepper != "dev-only-change-me" else "default",
+        )
+    )
+    checks.append(
+        Check(
+            "database password changed",
+            not (prod and settings.postgres_password == DEFAULT_DB_PASSWORD),
+            "POSTGRES_PASSWORD is set"
+            if settings.postgres_password != DEFAULT_DB_PASSWORD
+            else "default",
         )
     )
     checks.append(

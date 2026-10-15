@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse
 from app.auth.admin import router as admin_router
 from app.auth.deps import client_ip
 from app.auth.router import router as auth_router
-from app.config import production_flag_errors, settings
+from app.config import production_flag_errors, production_secret_errors, settings
 from app.dev.router import router as dev_router
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
@@ -31,6 +31,12 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         raise RuntimeError(
             f"Refusing to start: APP_ENV=production but {', '.join(unsafe)} "
             "is on. These switches are for local development only; turn them off."
+        )
+    default_secrets = production_secret_errors(settings)
+    if default_secrets:
+        raise RuntimeError(
+            f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
+            "its development default. Set a real value in the environment."
         )
     yield
 

@@ -45,11 +45,13 @@ def test_production_with_draft_content_dev_tools_or_the_default_pepper_fails(
     settings.allow_draft_content = True
     settings.dev_tools = True
     settings.token_pepper = "dev-only-change-me"
+    settings.postgres_password = "tutor"
     failed = {c.name for c in operator.run_checks() if not c.ok}
     assert {
         "draft content off in production",
         "dev tools off in production",
         "token pepper changed",
+        "database password changed",
         "email for codes and reports",
     } <= failed
 

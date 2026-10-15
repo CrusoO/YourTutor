@@ -24,6 +24,7 @@ The ones that matter:
 | `APP_ENV` | `production` | Blocks authoring tools. |
 | `ALLOW_DRAFT_CONTENT` | `false` | Only approved content is served. |
 | `DEV_TOOLS` | `false` | Hides the preview pages and dev endpoints. |
+| `POSTGRES_PASSWORD` | a long random string | The database password. Required: `docker compose` will not start without it, and in production the API refuses to start on the development value `tutor`. |
 | `TOKEN_PEPPER` | a long random string | Hashes tokens and codes. Changing it signs everyone out. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `OTP_FROM_EMAIL` | your mail server | Sign-in codes and weekly reports. Without `SMTP_HOST` they only go to the log. |
 | `JURISDICTION_PROFILE` | `default_strict` | Consent scopes, quiet hours, retention, report channels (`config/jurisdictions/`). |
@@ -202,8 +203,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now yourtutor-api yourtutor-web
 ```
 
-Postgres and Redis start with `docker compose up -d postgres redis`. The override file in 8.3 adds
-`restart: unless-stopped`, so Docker brings them back after a reboot.
+Postgres and Redis start with `docker compose up -d postgres redis`. The compose file sets
+`restart: unless-stopped` on both, so Docker brings them back after a reboot.
 
 **Logs.** Under systemd both services write to the journal: `journalctl -u yourtutor-api -f` (not
 tested). The API logs one line per request, `METHOD /path STATUS`, with no query string and no
@@ -221,32 +222,23 @@ journalctl -u yourtutor-api --since "1 day ago" | grep -A 30 "unhandled error <i
 
 1. Only the proxy is public: ports 80 and 443 (and 22 for you). Ports 8000, 3000, 5432 and 6379 must
    not be reachable from outside. The API and the web app above listen on `127.0.0.1`. Do not use
-   `--host 0.0.0.0` from section 1 on a public machine: the API trusts the first address in
-   `X-Forwarded-For` for its rate limits, so anyone who can reach port 8000 directly can send a
-   made-up address and escape them. Caddy sets that header itself (not tested).
-2. `docker-compose.yml` publishes Postgres and Redis on every network interface. Keep them on the
-   machine by putting this in `docker-compose.override.yml` next to it (Compose reads it by itself).
-   Only the rendered result of `docker compose config` was checked, and it showed
-   `host_ip: 127.0.0.1`; running containers were not restarted:
-
-```yaml
-services:
-  postgres:
-    restart: unless-stopped
-    ports: !override
-      - "127.0.0.1:5432:5432"
-  redis:
-    restart: unless-stopped
-    ports: !override
-      - "127.0.0.1:6379:6379"
-```
-
-3. Change the database password. The compose file defaults to `tutor` / `tutor`; set
-   `POSTGRES_PASSWORD` in `.env` before the first `docker compose up`, and the same password in the
-   API's database settings. A password set after the first start needs `ALTER USER`.
+   `--host 0.0.0.0` from section 1 on a public machine.
+2. `docker-compose.yml` publishes every port on `127.0.0.1` only (Postgres 5432, Redis 6379, API 8000,
+   web 3000) and restarts Postgres and Redis after a reboot. Only the rendered result of
+   `docker compose config` was checked (every port showed `host_ip: 127.0.0.1`); running containers
+   were not restarted, so run `docker compose up -d postgres redis` again after updating. The
+   `web` service in that file runs `npm run dev` and is for development only: do not start it for a
+   pilot. Run `npm run build` and `npm run start` as in 8.2, and start only `postgres` and `redis`
+   from compose.
+3. Set the database password. `docker compose` has no default for `POSTGRES_PASSWORD` and stops with
+   "required variable POSTGRES_PASSWORD is missing" if it is unset; put a long random value in `.env`
+   before the first `docker compose up`. The API reads the same variable, and with `APP_ENV=production`
+   it refuses to start while the password is still the development value `tutor`.
+   `python -m app.operator check` has a `database password changed` line for the same reason. A
+   password changed after the first start also needs `ALTER USER` inside Postgres.
 4. Close the ports in the machine's firewall too, for example
    `sudo ufw default deny incoming && sudo ufw allow 22 && sudo ufw allow 80 && sudo ufw allow 443 && sudo ufw enable`
-   (not tested). Docker's published ports can bypass `ufw`, which is why step 2 matters.
+   (not tested). Docker's published ports can bypass `ufw`, which is why the `127.0.0.1` bindings in step 2 matter.
 5. `.env` holds secrets: `chmod 600 /srv/yourtutor/.env` and let only the service user own it.
    Keep it, and `TOKEN_PEPPER`, outside the repository (the repository's `.gitignore` already excludes
    `.env`). Keep a copy of `TOKEN_PEPPER` in your password manager: losing it signs everyone out.
