@@ -67,7 +67,9 @@ cd apps/api && python -m app.dev seed_scenarios
 
 This creates six students in known states and a preview teacher with a class. Open `/dev` on the
 web app to sign in as any of them, `/staff/login` for the guardian and teacher pages. See
-`docs/UI_PREVIEW.md`. Never run it against the pilot database.
+`docs/UI_PREVIEW.md`. Never run it against the pilot database. `npm run dev` in `apps/web` listens
+on this machine only; to open the demo from a phone over Wi-Fi use `npm run dev:lan` instead (see
+`docs/UI_PREVIEW.md` section 4), which listens on every network interface: never on a shared network.
 
 ## 4. Enrol the pilot families
 

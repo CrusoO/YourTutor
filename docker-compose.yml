@@ -74,7 +74,7 @@ services:
       retries: 10
 
   web:
-    # DEVELOPMENT ONLY: this image runs `npm run dev`. For a pilot run `npm run build` and
+    # DEVELOPMENT ONLY: this image runs `npm run dev:lan` (inside the container). For a pilot run `npm run build` and
     # `npm run start` on the host (docs/OPERATOR.md sections 1 and 8) and do not start this service.
     build:
       context: ./apps/web

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000 --hostname 0.0.0.0",
+    "dev": "next dev --port 3000 --hostname 127.0.0.1",
+    "//dev:lan": "For testing on a phone over Wi-Fi only (docs/UI_PREVIEW.md section 4). Listens on every network interface: never use it on a shared or public network.",
+    "dev:lan": "next dev --port 3000 --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start --port 3000",
     "lint": "tsc --noEmit",

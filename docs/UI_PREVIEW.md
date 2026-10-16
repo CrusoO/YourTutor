@@ -57,20 +57,35 @@ that student (Maths, then Chapters, then the chapter's skill path; Today is stil
 
 1. Find the PC's address: `ipconfig` and read the **IPv4 Address** of your Wi-Fi adapter, for example
    `192.168.1.20`.
-2. Restart the stack so the browser on the phone talks to the PC, not to itself:
+2. Run the API and the web app on the PC so the browser on the phone talks to the PC, not to itself.
+   `docker compose` publishes ports on the PC's own address only (127.0.0.1), so start just the
+   database and cache from it, and run the API and web app from the host. In one PowerShell window:
 
    ```powershell
+   docker compose up -d postgres redis
+   cd apps/api
    $env:POSTGRES_DB = "yourtutor_preview"
+   $env:POSTGRES_PASSWORD = "<the value in your .env>"
    $env:DEV_TOOLS = "true"
-   $env:NEXT_PUBLIC_DEV_TOOLS = "true"
-   $env:NEXT_PUBLIC_API_URL = "http://192.168.1.20:8000"
+   $env:ALLOW_DRAFT_CONTENT = "true"
    $env:CORS_EXTRA_ORIGINS = "http://192.168.1.20:3000"
-   $env:NEXT_ALLOWED_DEV_ORIGINS = "192.168.1.20"
-   docker compose up -d --build api web
+   python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
    ```
 
-   (`CORS_EXTRA_ORIGINS` lets the API accept the phone's page; `NEXT_ALLOWED_DEV_ORIGINS` lets the
-   Next.js dev server serve it. Wildcards are refused.)
+   and in a second one:
+
+   ```powershell
+   cd apps/web
+   $env:NEXT_PUBLIC_DEV_TOOLS = "true"
+   $env:NEXT_PUBLIC_API_URL = "http://192.168.1.20:8000"
+   $env:NEXT_ALLOWED_DEV_ORIGINS = "192.168.1.20"
+   npm run dev:lan
+   ```
+
+   (`npm run dev` listens on this PC only; `dev:lan` listens on every network interface, which is
+   what a phone needs, so use it on a private network only. `CORS_EXTRA_ORIGINS` lets the API accept
+   the phone's page; `NEXT_ALLOWED_DEV_ORIGINS` lets the Next.js dev server serve it. Wildcards are
+   refused.) The steps in this section were not run on a phone after the compose ports changed.
 3. On the phone open `http://192.168.1.20:3000/dev`.
 4. If it does not load, allow the two ports through the Windows firewall once, in an
    **administrator** PowerShell:
@@ -81,9 +96,8 @@ that student (Maths, then Chapters, then the chapter's skill path; Today is stil
 
    Remove it later with `Remove-NetFirewallRule -DisplayName "YourTutor preview"`.
 
-The web dev server already listens on all interfaces (`npm run dev` uses `--hostname 0.0.0.0`) and
-Docker publishes ports 3000 and 8000 on the PC, so no other setting is needed. Use a private
-network, not public Wi-Fi.
+`npm run dev:lan` and `uvicorn --host 0.0.0.0` listen on every interface, so no other setting is needed
+beyond the firewall rule above. Use a private network, not public Wi-Fi.
 
 ## 5. Screenshots at phone size (Playwright)
 
