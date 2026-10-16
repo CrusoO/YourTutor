@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import sys
+import urllib.error
 import urllib.request
 from dataclasses import dataclass
 
@@ -46,6 +47,12 @@ def _api_ready() -> dict[str, object] | None:
         url = f"http://127.0.0.1:{settings.api_port}/ready"
         with urllib.request.urlopen(url, timeout=1) as res:  # noqa: S310 - fixed loopback URL
             body = json.load(res)
+        return body if isinstance(body, dict) else None
+    except urllib.error.HTTPError as exc:  # 503 while the database is down still has a body
+        try:
+            body = json.load(exc)
+        except ValueError:
+            return None
         return body if isinstance(body, dict) else None
     except Exception:  # noqa: BLE001 - "cannot reach it" is an answer, not an error
         return None

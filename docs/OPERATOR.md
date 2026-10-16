@@ -322,17 +322,23 @@ not survive that disk failing.
 
 ### 8.5 Watching it
 
-1. Set up an uptime check (any free service, or `cron` on another machine) that fetches the public
-   address every minute and alerts you by email or phone after two misses:
-   `https://tutor.example.org/api/health` (the web app) and `https://tutor.example.org/api/ready`
-   (the API). Through the tested proxy the first answered `{"status":"ok","service":"web"}` and the
-   second `{"status":"ok", …}`.
+1. Set up an uptime check (any free service, or `cron` on another machine) that fetches
+   `https://tutor.example.org/api/ready` every minute and alerts you by email or phone after two
+   misses. The API answers `200` with `"database": "ok"` when it can reach Postgres (`select 1`, two
+   seconds at most) and `503` with `{"status": "unavailable", "database": "down"}` when it cannot, for
+   example after a wrong database password or with Postgres stopped. The body never holds connection
+   details; the cause is in the API log. `"redis"` is reported as `ok` or `down` but never fails the
+   check, because nothing in the app uses Redis yet. `/health` on the API is a separate liveness
+   answer (the process is up) and is used by the compose healthcheck; it does not look at the database.
+   Optionally also fetch `https://tutor.example.org/api/health`, which the proxy sends to the web app.
 2. When it is down, in this order:
    1. Open the public address in a browser on a phone's mobile data, to rule out your own network.
    2. On the machine: `systemctl status yourtutor-api yourtutor-web caddy` (not tested), and
       `docker compose ps` for Postgres and Redis.
-   3. `curl -s http://127.0.0.1:8000/health` and `curl -s http://127.0.0.1:3000/api/health`. If
+   3. `curl -s http://127.0.0.1:8000/ready` and `curl -s http://127.0.0.1:3000/api/health`. If
       these answer but the public address does not, the problem is the proxy or tunnel: read its log.
+      A `503` from `/ready` means the API is up but cannot reach Postgres: check `docker compose ps`
+      and the database password (8.3).
    4. If a service is down, read the last 50 lines of its journal, then
       `sudo systemctl restart <name>`. Run `python -m app.operator check` before telling families
       it is back.

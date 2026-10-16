@@ -84,3 +84,18 @@ def test_the_warning_is_printed_and_does_not_change_the_exit_code(
     monkeypatch.setattr(operator, "run_checks", lambda: [warned])
     assert operator.main(["check"]) == 0
     assert "warn proxy addresses: WARN example" in capsys.readouterr().out
+
+
+def test_the_probe_reads_the_body_of_a_503_from_a_running_api(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import io
+    import urllib.error
+
+    body = io.BytesIO(b'{"status": "unavailable", "forwarded_header_ignored": true}')
+
+    def refuse(*args: object, **kwargs: object) -> None:
+        raise urllib.error.HTTPError("http://127.0.0.1/ready", 503, "unavailable", {}, body)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(operator.urllib.request, "urlopen", refuse)
+    assert operator._api_ready() == {"status": "unavailable", "forwarded_header_ignored": True}

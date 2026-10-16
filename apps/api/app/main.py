@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import uuid
 from collections.abc import AsyncIterator
@@ -13,6 +14,7 @@ from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import production_flag_errors, production_secret_errors, settings
 from app.dev.router import router as dev_router
+from app.health import database_ready, ping_redis
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
 from app.proxy import (
@@ -128,9 +130,16 @@ def health() -> dict[str, str]:
 
 
 @app.get("/ready")
-def ready() -> dict[str, object]:
-    return {
-        "status": "ok",
-        "allow_draft_content": settings.allow_draft_content,
+async def ready() -> JSONResponse:
+    """Ready when the database answers `select 1`; 503 with a plain body when it does not."""
+    database = await database_ready()
+    redis = await asyncio.to_thread(ping_redis)  # reported only: nothing here needs Redis yet
+    body: dict[str, object] = {
+        "status": "ok" if database else "unavailable",
+        "database": "ok" if database else "down",
+        "redis": redis,
         "forwarded_header_ignored": header_ignored_from_loopback(),
     }
+    if database:
+        body["allow_draft_content"] = settings.allow_draft_content
+    return JSONResponse(body, status_code=200 if database else 503)
