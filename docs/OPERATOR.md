@@ -17,6 +17,11 @@ cd ../web && npm install && npm run build
 ```
 
 Settings are environment variables (a `.env` file next to `apps/api` works; never commit it).
+The API run on the host does not read the repository-root `.env` (the one `docker compose` uses). It needs
+the database settings (`POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`,
+`POSTGRES_DB`) set in `apps/api/.env` or in its environment, with the same password as the database;
+the systemd example in 8.2 does this with `EnvironmentFile`. A password that differs from the
+database's shows up as `FAIL database` in `python -m app.operator check` and as a `503` from `/ready`.
 The ones that matter:
 
 | Variable | Pilot value | What it does |
@@ -24,7 +29,7 @@ The ones that matter:
 | `APP_ENV` | `production` | Blocks authoring tools. |
 | `ALLOW_DRAFT_CONTENT` | `false` | Only approved content is served. |
 | `DEV_TOOLS` | `false` | Hides the preview pages and dev endpoints. |
-| `POSTGRES_PASSWORD` | a long random string | The database password. Required: `docker compose` will not start without it, and in production the API refuses to start on the development value `tutor`. |
+| `POSTGRES_PASSWORD` | a long random string | Required. No default. Change it before any real data; production refuses `tutor`. Postgres reads it only on first start, so changing it later needs `ALTER USER` or a recreated volume (see 8.3). |
 | `TOKEN_PEPPER` | a long random string | Hashes tokens and codes. Changing it signs everyone out. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `OTP_FROM_EMAIL` | your mail server | Sign-in codes and weekly reports. Without `SMTP_HOST` they only go to the log. |
 | `JURISDICTION_PROFILE` | `default_strict` | Consent scopes, quiet hours, retention, report channels (`config/jurisdictions/`). |
