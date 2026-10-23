@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import shutil
 import signal
 import subprocess
 import sys
@@ -168,13 +169,18 @@ def _is_api_cancelled(factory: sessionmaker[Session], job_id: uuid.UUID) -> bool
 
 def _popen_engine(engine_dir: Path, request_file: Path) -> subprocess.Popen:  # type: ignore[type-arg]
     """Start the engine process. Extracted for monkeypatching in tests."""
-    # On Windows, .cmd shims require shell=True; on POSIX, shell is unnecessary.
+    if sys.platform == "win32":
+        # On Windows, pnpm is a corepack .cmd shim. We must resolve its full
+        # path and invoke it through cmd.exe so CreateProcess can execute it.
+        pnpm = shutil.which("pnpm.cmd") or "pnpm.cmd"
+        cmd: list[str] = ["cmd.exe", "/c", pnpm, "video:job", str(request_file)]
+    else:
+        cmd = ["pnpm", "video:job", str(request_file)]
     return subprocess.Popen(
-        ["pnpm", "video:job", str(request_file)],
+        cmd,
         cwd=str(engine_dir),
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
-        shell=(sys.platform == "win32"),
     )
 
 
