@@ -6,6 +6,7 @@ import json
 import logging
 import signal
 import subprocess
+import sys
 import tempfile
 import time
 import uuid
@@ -167,11 +168,13 @@ def _is_api_cancelled(factory: sessionmaker[Session], job_id: uuid.UUID) -> bool
 
 def _popen_engine(engine_dir: Path, request_file: Path) -> subprocess.Popen:  # type: ignore[type-arg]
     """Start the engine process. Extracted for monkeypatching in tests."""
+    # On Windows, .cmd shims require shell=True; on POSIX, shell is unnecessary.
     return subprocess.Popen(
         ["pnpm", "video:job", str(request_file)],
         cwd=str(engine_dir),
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
+        shell=(sys.platform == "win32"),
     )
 
 
