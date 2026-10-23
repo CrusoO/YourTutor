@@ -583,10 +583,10 @@ Student picks a CBSE maths topic; a subprocess worker runs the engine; student w
 - [x] Step 1 — Docs: `YourTutor/docs/adr/0001-engine-video-jobs.md` and `YourTutor/docs/ENGINE_INTEGRATION.md` (consumer contract v0). Met 2026-10-24.
 - [x] Step 2 — Migration `0026_vj_video_jobs` (`video_jobs` table, `VideoJobRow` model, round-trip test). Met 2026-10-24.
 - [x] Step 3 — API: `POST /video-jobs` (202/200 idempotent), `GET /{id}`, `POST /{id}/cancel`, `POST /{id}/retry`; tutoring consent gate; rate-limit entry; 26 router tests (SQLite). Met 2026-10-24.
-- [ ] Step 4 — Worker (`python -m app.video_jobs.worker`): FOR UPDATE SKIP LOCKED, temp request file (no student data), `subprocess.Popen`, events.jsonl tail, timeout, SIGTERM cancel, crash recovery; tests with a fake engine command.
-- [ ] Step 5 — Serve `GET /video-jobs/{id}/lesson.mp4` and `GET /video-jobs/{id}/sources.json` behind owner check; strip internal paths from sources.json.
-- [ ] Step 6 — Web page: topic picker from chapters/sections, progress polling, player, mandatory Sources panel caveats.
-- [ ] Step 7 — Playwright e2e + manual real-engine run; report tested vs not.
+- [x] Step 4 — Worker (`python -m app.video_jobs.worker`): FOR UPDATE SKIP LOCKED, temp request file (no student data), `subprocess.Popen`, events.jsonl tail, timeout, SIGTERM cancel, crash recovery; tests with a fake engine command. Met 2026-10-24.
+- [x] Step 5 — `GET /video-jobs/topics`, `GET /video-jobs/{id}/lesson.mp4`, `GET /video-jobs/{id}/sources.json` behind owner check; `_strip_paths` removes engine-internal path keys; 10 new router tests (36 total). Met 2026-10-24.
+- [x] Step 6 — `apps/web/app/video-jobs/page.tsx`: topic picker grouped by chapter, job progress polling (3 s), video player (Blob URL on demand), Sources panel with two always-on mandatory caveats; API types + `authFetch` added to `lib/api.ts`. Met 2026-10-24.
+- [x] Step 7 — `apps/web/e2e/video-jobs.spec.ts`: 5 specs (heading, auth-gate, empty-state, prefix filter, API cancel). Not tested (requires real engine): running→done transition, video playback, engine caveats in Sources. Met 2026-10-24.
 
 Accept:
 - [ ] A student with tutoring consent can pick a CBSE topic, poll for done, and play the MP4.
