@@ -601,3 +601,29 @@ class ReviewQueueRow(Base):
     student_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("students.id", ondelete="CASCADE"))
     status: Mapped[str] = mapped_column(String, default="pending")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class VideoJobRow(Base):
+    __tablename__ = "video_jobs"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), nullable=True, index=True
+    )
+    org_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
+    node_id: Mapped[str] = mapped_column(String)
+    request_json: Mapped[dict] = mapped_column(JSONType)
+    idempotency_key: Mapped[str] = mapped_column(String, unique=True)
+    status: Mapped[str] = mapped_column(String, default="queued")
+    stage: Mapped[str | None] = mapped_column(String, nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String, nullable=True)
+    events: Mapped[list] = mapped_column(JSONType, default=list)
+    result_path: Mapped[str | None] = mapped_column(String, nullable=True)
+    lesson_mp4_sha256: Mapped[str | None] = mapped_column(String, nullable=True)
+    sources_json_path: Mapped[str | None] = mapped_column(String, nullable=True)
+    qa_json_path: Mapped[str | None] = mapped_column(String, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

@@ -313,3 +313,94 @@ def test_0018_creates_and_drops_the_teacher_alerts_table() -> None:
     command.upgrade(cfg, "head")
     assert "teacher_alerts" in _tables(engine)
     engine.dispose()
+
+
+@pytest.mark.postgres
+def test_0026_creates_and_drops_the_video_jobs_table() -> None:
+    url = _postgres_url()
+    if url is None:
+        pytest.skip("Postgres is not available")
+    engine = create_engine(url, future=True)
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+        conn.commit()
+    cfg = _config(url)
+    command.upgrade(cfg, "head")
+
+    # table and unique constraint exist
+    assert "video_jobs" in _tables(engine)
+    with engine.connect() as conn:
+        cols = {
+            row[0]
+            for row in conn.execute(
+                text(
+                    "SELECT column_name FROM information_schema.columns "
+                    "WHERE table_schema = 'public' AND table_name = 'video_jobs'"
+                )
+            )
+        }
+        assert {
+            "id",
+            "student_id",
+            "org_id",
+            "node_id",
+            "request_json",
+            "idempotency_key",
+            "status",
+            "stage",
+            "error_code",
+            "events",
+            "result_path",
+            "lesson_mp4_sha256",
+            "sources_json_path",
+            "qa_json_path",
+            "created_at",
+            "started_at",
+            "completed_at",
+        } <= cols
+
+        # idempotency_key unique constraint is enforced
+        job_id = uuid.uuid4()
+        idem_key = "test-idem-key-0026"
+        conn.execute(
+            text(
+                "INSERT INTO video_jobs (id, node_id, request_json, idempotency_key, "
+                "status, events, created_at) VALUES "
+                "(:id, :node_id, :req, :ikey, 'queued', '[]', now())"
+            ),
+            {
+                "id": str(job_id),
+                "node_id": "cbse.10.maths.ch02.s2_3",
+                "req": "{}",
+                "ikey": idem_key,
+            },
+        )
+        conn.commit()
+        with pytest.raises(Exception):
+            conn.execute(
+                text(
+                    "INSERT INTO video_jobs (id, node_id, request_json, idempotency_key, "
+                    "status, events, created_at) VALUES "
+                    "(:id, :node_id, :req, :ikey, 'queued', '[]', now())"
+                ),
+                {
+                    "id": str(uuid.uuid4()),
+                    "node_id": "cbse.10.maths.ch02.s2_3",
+                    "req": "{}",
+                    "ikey": idem_key,
+                },
+            )
+            conn.commit()
+        conn.rollback()
+
+    # downgrade removes the table; the students table is untouched
+    command.downgrade(cfg, "0025_g11_safety_flags")
+    assert "video_jobs" not in _tables(engine)
+    assert "students" in _tables(engine)
+
+    # upgrade restores it
+    command.upgrade(cfg, "head")
+    assert "video_jobs" in _tables(engine)
+    engine.dispose()
