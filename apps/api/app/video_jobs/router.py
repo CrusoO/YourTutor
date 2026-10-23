@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import json
 import uuid
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Response, status
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -15,7 +18,7 @@ from app.auth.authz import FORBIDDEN
 from app.auth.consent import has_scope
 from app.auth.deps import ActorDep, DbSession
 from app.auth.security import now_utc
-from app.db.models import VideoJobRow
+from app.db.models import ChapterRow, SectionRow, VideoJobRow
 
 router = APIRouter(prefix="/video-jobs", tags=["video-jobs"])
 
@@ -113,7 +116,46 @@ def _job_view(row: VideoJobRow) -> dict[str, Any]:
     ).model_dump()
 
 
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+
+def _strip_paths(obj: Any) -> Any:
+    """Remove 'path' keys (engine-internal filesystem references) from the JSON tree."""
+    if isinstance(obj, dict):
+        return {k: _strip_paths(v) for k, v in obj.items() if k != "path"}
+    if isinstance(obj, list):
+        return [_strip_paths(item) for item in obj]
+    return obj
+
+
 # ── endpoints ────────────────────────────────────────────────────────────────
+
+
+@router.get("/topics")
+def list_topics(
+    db: DbSession,
+    actor: ActorDep,  # noqa: ARG001  # auth gate only
+    node_prefix: str = "cbse.10.maths",
+) -> dict[str, Any]:
+    """List sections available as video-lesson topics, grouped under their chapter."""
+    rows = db.execute(
+        select(SectionRow, ChapterRow)
+        .join(ChapterRow, SectionRow.chapter_id == ChapterRow.id)
+        .where(SectionRow.id.like(f"{node_prefix}%"))
+        .order_by(ChapterRow.position, SectionRow.order)
+    ).all()
+    topics = []
+    for section, chapter in rows:
+        topics.append(
+            {
+                "node_id": section.id,
+                "chapter_title": (chapter.titles or {}).get("en") or chapter.chapter_key,
+                "section_title": (section.titles or {}).get("en") or section.id,
+                "page_start": section.page_start,
+                "page_end": section.page_end,
+            }
+        )
+    return {"topics": topics}
 
 
 @router.post("", status_code=status.HTTP_202_ACCEPTED)
@@ -173,6 +215,40 @@ def get_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]
     row = _job_or_404(db, job_id)
     _require_owner(actor, row)
     return _job_view(row)
+
+
+@router.get("/{job_id}/lesson.mp4")
+def serve_lesson_mp4(
+    job_id: uuid.UUID, db: DbSession, actor: ActorDep
+) -> FileResponse:
+    """Stream the rendered MP4. Owner or admin; job must be in done status."""
+    row = _job_or_404(db, job_id)
+    _require_owner(actor, row)
+    if row.status != "done" or not row.result_path:
+        raise HTTPException(status_code=404, detail="video not ready")
+    mp4 = Path(row.result_path) / "lesson.mp4"
+    if not mp4.exists():
+        raise HTTPException(status_code=404, detail="video file not found")
+    return FileResponse(str(mp4), media_type="video/mp4", filename="lesson.mp4")
+
+
+@router.get("/{job_id}/sources.json")
+def serve_sources_json(
+    job_id: uuid.UUID, db: DbSession, actor: ActorDep
+) -> Any:
+    """Return stripped sources.json. Internal 'path' keys are removed before sending."""
+    row = _job_or_404(db, job_id)
+    _require_owner(actor, row)
+    if row.status != "done" or not row.sources_json_path:
+        raise HTTPException(status_code=404, detail="sources not ready")
+    src = Path(row.sources_json_path)
+    if not src.exists():
+        raise HTTPException(status_code=404, detail="sources file not found")
+    try:
+        data = json.loads(src.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as exc:
+        raise HTTPException(status_code=500, detail="sources unreadable") from exc
+    return _strip_paths(data)
 
 
 @router.post("/{job_id}/cancel")
