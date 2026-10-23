@@ -574,6 +574,28 @@ Branch `ui-1-chat-shell`. Docs: docs/UI_AUDIT.md, docs/UI_STANDARDS.md, docs/HOM
 - [x] Tests: Met 2026-10-12 (targeted): UI specs 61 passed (12 ported, new four-width shell spec 38), vitest 350, tsc, ruff, mypy, region, locales, backend targeted tests; self-critique done. Full API suite (ordered, `-p no:randomly`, Postgres): **1297 passed**, 0 failed, 27m35s (2026-10-12). Random-seed passes not run
 - [ ] Home page weight within the 150 KB budget: **not met** (about 280 KB, documented exception above)
 
+---
+
+### VJ — Engine video jobs (CBSE maths topic → MP4)
+
+Student picks a CBSE maths topic; a subprocess worker runs the engine; student watches the narrated MP4 and sees verified Sources panel.
+
+- [x] Step 1 — Docs: `YourTutor/docs/adr/0001-engine-video-jobs.md` and `YourTutor/docs/ENGINE_INTEGRATION.md` (consumer contract v0). Met 2026-10-24.
+- [x] Step 2 — Migration `0026_vj_video_jobs` (`video_jobs` table, `VideoJobRow` model, round-trip test). Met 2026-10-24.
+- [x] Step 3 — API: `POST /video-jobs` (202/200 idempotent), `GET /{id}`, `POST /{id}/cancel`, `POST /{id}/retry`; tutoring consent gate; rate-limit entry; 26 router tests (SQLite). Met 2026-10-24.
+- [ ] Step 4 — Worker (`python -m app.video_jobs.worker`): FOR UPDATE SKIP LOCKED, temp request file (no student data), `subprocess.Popen`, events.jsonl tail, timeout, SIGTERM cancel, crash recovery; tests with a fake engine command.
+- [ ] Step 5 — Serve `GET /video-jobs/{id}/lesson.mp4` and `GET /video-jobs/{id}/sources.json` behind owner check; strip internal paths from sources.json.
+- [ ] Step 6 — Web page: topic picker from chapters/sections, progress polling, player, mandatory Sources panel caveats.
+- [ ] Step 7 — Playwright e2e + manual real-engine run; report tested vs not.
+
+Accept:
+- [ ] A student with tutoring consent can pick a CBSE topic, poll for done, and play the MP4.
+- [ ] Sources panel always shows both mandatory caveats (no person confirmed these page numbers; voice is AI-generated).
+- [ ] `request_json` stored in the DB and sent to the engine never includes `student_id`.
+- [ ] Worker survives a crashed engine process and marks the job `failed`.
+
+---
+
 ## 9. Required tests (ongoing)
 
 

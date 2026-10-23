@@ -14,6 +14,7 @@ from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import production_flag_errors, production_secret_errors, settings
 from app.dev.router import router as dev_router
+from app.video_jobs.router import router as video_jobs_router
 from app.health import database_ready, ping_redis
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
@@ -84,6 +85,7 @@ app.include_router(offline_router)
 app.include_router(metrics_router)
 app.include_router(admin_router)
 app.include_router(dev_router)
+app.include_router(video_jobs_router)
 
 
 def access_log_line(method: str, path: str, status: int) -> str:
