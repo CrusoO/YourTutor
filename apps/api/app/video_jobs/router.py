@@ -128,6 +128,21 @@ def _strip_paths(obj: Any) -> Any:
     return obj
 
 
+def _curriculum_from_node_id(node_id: str) -> dict[str, Any]:
+    """Parse a node_id like 'cbse.10.maths.ch02.s2_3' into the engine's curriculum object.
+
+    The engine's LessonRequest schema requires board (uppercase enum), grade (int),
+    subject (lowercase), and nodeId. The node_id format encodes all four.
+    """
+    parts = node_id.split(".", 3)
+    return {
+        "board": parts[0].upper(),
+        "grade": int(parts[1]),
+        "subject": parts[2],
+        "nodeId": node_id,
+    }
+
+
 # ── endpoints ────────────────────────────────────────────────────────────────
 
 
@@ -185,8 +200,8 @@ def create_job(
         request_json={
             "requestId": str(uuid.uuid4()),
             "idempotencyKey": body.idempotency_key,
-            "curriculum": {"nodeId": body.node_id},
-            "options": {"locale": "en", "voice": "default", "fps": 24, "theme": "light"},
+            "curriculum": _curriculum_from_node_id(body.node_id),
+            "options": {"locale": "en-IN", "voice": "auto", "fps": 24, "theme": "light"},
         },
         idempotency_key=body.idempotency_key,
         status="queued",
@@ -291,8 +306,8 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
         request_json={
             "requestId": str(uuid.uuid4()),
             "idempotencyKey": new_idem,
-            "curriculum": {"nodeId": original.node_id},
-            "options": {"locale": "en", "voice": "default", "fps": 24, "theme": "light"},
+            "curriculum": _curriculum_from_node_id(original.node_id),
+            "options": {"locale": "en-IN", "voice": "auto", "fps": 24, "theme": "light"},
         },
         idempotency_key=new_idem,
         status="queued",
