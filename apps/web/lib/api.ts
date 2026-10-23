@@ -299,6 +299,67 @@ export async function postEvent(
   });
 }
 
+// ── video jobs ────────────────────────────────────────────────────────────────
+
+export type VideoJobTopic = {
+  node_id: string;
+  chapter_title: string;
+  section_title: string;
+  page_start: number | null;
+  page_end: number | null;
+};
+
+export type VideoJob = {
+  id: string;
+  node_id: string;
+  status: "queued" | "running" | "done" | "failed" | "cancelled";
+  stage: string | null;
+  stage_label: string | null;
+  error_code: string | null;
+  error_message: string | null;
+  events: unknown[];
+  created_at: string;
+  started_at: string | null;
+  completed_at: string | null;
+};
+
+export async function getVideoJobTopics(
+  nodePrefix = "cbse.10.maths",
+): Promise<{ topics: VideoJobTopic[] }> {
+  return req(`/video-jobs/topics?node_prefix=${encodeURIComponent(nodePrefix)}`);
+}
+
+export async function createVideoJob(
+  nodeId: string,
+  idempotencyKey: string,
+): Promise<VideoJob> {
+  return req("/video-jobs", {
+    method: "POST",
+    body: JSON.stringify({ node_id: nodeId, idempotency_key: idempotencyKey }),
+  });
+}
+
+export async function getVideoJob(jobId: string): Promise<VideoJob> {
+  return req(`/video-jobs/${jobId}`);
+}
+
+export async function cancelVideoJob(jobId: string): Promise<VideoJob> {
+  return req(`/video-jobs/${jobId}/cancel`, { method: "POST" });
+}
+
+/**
+ * Low-level authenticated fetch for non-JSON responses (e.g. MP4 blobs).
+ * Caller is responsible for checking response.ok.
+ */
+export async function authFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  const headers = new Headers(init.headers);
+  const auth = token();
+  if (auth) headers.set("Authorization", `Bearer ${auth}`);
+  return fetch(`${API}${path}`, { ...init, headers });
+}
+
+// ── pilot enrol ───────────────────────────────────────────────────────────────
+
 export async function enrolPilot(body: Record<string, unknown>) {
   return req("/admin/pilot/enrol", {
     method: "POST",
