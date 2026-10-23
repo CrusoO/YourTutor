@@ -54,6 +54,8 @@ class Settings(BaseSettings):
     trusted_proxies: str = (
         ""  # env: TRUSTED_PROXIES, addresses or CIDR ranges; empty ignores X-Forwarded-For
     )
+    engine_dir: str = "../EduVideoEngine"  # env: ENGINE_DIR
+    video_job_timeout_seconds: int = 600  # env: VIDEO_JOB_TIMEOUT_SECONDS
 
 
 # Switches that are for local development only: with APP_ENV=production none may be on.
