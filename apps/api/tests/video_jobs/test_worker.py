@@ -338,6 +338,62 @@ def test_timeout_marks_build_failed(
     assert row.completed_at is not None
 
 
+# ── run_one_job: stale heartbeat ─────────────────────────────────────────────
+
+
+def test_stale_heartbeat_marks_build_failed(
+    factory,
+    db: Session,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A subprocess that writes one event then hangs is killed after _HEARTBEAT_TIMEOUT."""
+    engine_dir = tmp_path / "stale_engine"
+    engine_dir.mkdir()
+    monkeypatch.setattr(_worker, "_ENGINE_DIR", engine_dir)
+    monkeypatch.setattr(_worker, "_POLL_SECONDS", 0.05)
+    monkeypatch.setattr(_worker, "_HEARTBEAT_TIMEOUT", 1)
+
+    script = tmp_path / "stale_engine.py"
+    script.write_text(
+        textwrap.dedent("""\
+            import json, os, sys, time, datetime as dt
+            from pathlib import Path
+            data = json.load(open(sys.argv[1]))
+            request_id = data["requestId"]
+            job_dir = Path(os.getcwd()) / "dist" / "jobs" / request_id
+            job_dir.mkdir(parents=True, exist_ok=True)
+            line = json.dumps({"t": dt.datetime.utcnow().isoformat() + "Z",
+                               "jobId": request_id, "stage": "build",
+                               "status": "started", "code": None, "detail": None})
+            with open(job_dir / "events.jsonl", "a") as ef:
+                ef.write(line + "\\n")
+                ef.flush()
+            time.sleep(30)   # hang; worker kills this via heartbeat timeout
+        """)
+    )
+
+    import subprocess as _sp
+
+    def _popen(ed: Path, rf: Path) -> _sp.Popen:  # type: ignore[type-arg]
+        return _sp.Popen(
+            [sys.executable, str(script), str(rf)],
+            cwd=str(engine_dir),
+            stdout=_sp.DEVNULL,
+            stderr=_sp.DEVNULL,
+        )
+
+    monkeypatch.setattr(_worker, "_popen_engine", _popen)
+
+    row = _insert_job(db, status="running")
+    run_one_job(factory, row.id)
+
+    db.refresh(row)
+    assert row.status == "failed"
+    assert row.error_code == "build_failed"
+    assert row.completed_at is not None
+
+
 # ── run_one_job: API cancel ───────────────────────────────────────────────────
 
 

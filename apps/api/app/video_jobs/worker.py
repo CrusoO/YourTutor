@@ -30,6 +30,11 @@ _TIMEOUT: int = settings.video_job_timeout_seconds
 _POLL_SECONDS: float = 0.5
 _CANCEL_CHECK_SECONDS: float = 4.0
 _IDLE_SLEEP_SECONDS: float = 5.0
+# If no new events.jsonl line arrives for this many seconds while the
+# subprocess is still running, the stage is considered hung and killed.
+# 300s is intentionally longer than a worst-case TTS stage (~5 min) but
+# shorter than the global deadline so stuck renders are caught early.
+_HEARTBEAT_TIMEOUT: int = 300
 
 
 def _now() -> datetime:
@@ -236,12 +241,13 @@ def _handle_exit(
             pass
 
     if returncode == 0:
-        files = {
-            f.get("name", ""): f.get("sha256")
-            for f in result.get("files", [])
-            if isinstance(f, dict)
-        }
-        _mark_done(factory, job_id, result_path.parent, files.get("lesson.mp4"), all_events)
+        # engine result.json: files is {video:{sha256:..}, sources:{..}} — extract mp4 hash
+        files_field = result.get("files", {})
+        mp4_sha: str | None = None
+        if isinstance(files_field, dict):
+            video_entry = files_field.get("video", {})
+            mp4_sha = video_entry.get("sha256") if isinstance(video_entry, dict) else None
+        _mark_done(factory, job_id, result_path.parent, mp4_sha, all_events)
     else:
         code = (result.get("code") or "build_failed") if result else "build_failed"
         _mark_failed(factory, job_id, str(code), all_events)
@@ -271,6 +277,7 @@ def run_one_job(factory: sessionmaker[Session], job_id: uuid.UUID) -> None:
         proc = _popen_engine(engine_dir, tmp_path)
         deadline = time.monotonic() + _TIMEOUT
         last_cancel_check = time.monotonic()
+        last_event_time = time.monotonic()
         last_pos = 0
         all_events: list[dict] = []
         last_stage: str | None = None
@@ -287,6 +294,17 @@ def run_one_job(factory: sessionmaker[Session], job_id: uuid.UUID) -> None:
                             last_stage = ev["stage"]
                             break
                     _push_events(factory, job_id, all_events, last_stage)
+                    last_event_time = time.monotonic()
+                elif time.monotonic() - last_event_time > _HEARTBEAT_TIMEOUT:
+                    logger.warning(
+                        "job %s stale: no events.jsonl progress for %ds",
+                        job_id,
+                        _HEARTBEAT_TIMEOUT,
+                    )
+                    proc.send_signal(signal.SIGTERM)
+                    _wait_and_kill(proc)
+                    _mark_failed(factory, job_id, "build_failed", all_events)
+                    return
 
                 ret = proc.poll()
                 if ret is not None:
