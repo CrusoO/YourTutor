@@ -6,7 +6,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Protocol
 
-from app.config import settings
+from app.config import key_for_model
 from app.llm.prompt import Prompt
 
 REQUEST_TIMEOUT_S = 20
@@ -58,15 +58,25 @@ class LiteLLMProvider:
         except ImportError as exc:
             raise ProviderError("litellm is not installed") from exc
         try:
+            extra: dict = {}
+            if prompt.output_schema:
+                extra["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": prompt.schema_name or "response",
+                        "schema": prompt.output_schema,
+                    },
+                }
             response = litellm.completion(
                 model=model,
-                api_key=settings.llm_api_key,
+                api_key=key_for_model(model),
                 messages=[
                     {"role": "system", "content": prompt.system},
                     {"role": "user", "content": prompt.user},
                 ],
                 max_tokens=MAX_TOKENS,
                 timeout=REQUEST_TIMEOUT_S,
+                **extra,
             )
             usage = getattr(response, "usage", None)
             return ProviderResult(

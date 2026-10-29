@@ -45,6 +45,8 @@ class Prompt:
     user: str
     version: str  # "<purpose>/<version>", stored with every call
     max_words: int
+    output_schema: dict | None = None  # JSON Schema dict; when set, provider enforces structured output
+    schema_name: str = ""  # stable identifier for the schema (required by some providers when output_schema is set)
 
 
 def _excerpt() -> str:
