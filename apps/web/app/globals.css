@@ -1,12 +1,21 @@
+/* Layer order: the legacy stylesheet is the lowest priority, so design-system utilities and component
+   styles win over its bare element rules (button, input, ...). Tailwind runs without its preflight. */
+@layer legacy, theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./tokens.css";
+@import "./identity.css";
+
+@layer legacy {
 :root {
-  color-scheme: light;
-  font-family: system-ui, sans-serif;
-  line-height: 1.45;
+  font-family: var(--ff-body);
+  line-height: var(--lh-body, 1.5);
   --tap: 48px;
-  --ink: #122;
-  --bg: #f6f3ec;
-  --card: #fff;
-  --accent: #0b5;
+  /* The old screens read the shared tokens, so they follow the theme and the Comfort settings. */
+  --ink: var(--c-text);
+  --bg: var(--c-bg);
+  --card: var(--c-surface);
+  --accent: var(--c-accent);
 }
 
 * {
@@ -35,7 +44,7 @@ body {
   --pad-y: 16px;
   padding: var(--pad-y) max(var(--pad-x), env(safe-area-inset-right, 0px)) var(--pad-y)
     max(var(--pad-x), env(safe-area-inset-left, 0px));
-  background: var(--card);
+  background: var(--c-lesson);
 }
 
 .phone p,
@@ -73,7 +82,7 @@ body {
     max-width: 980px;
     --pad-x: 48px;
     --pad-y: 32px;
-    box-shadow: 0 0 0 1px rgba(18, 34, 34, 0.06);
+    box-shadow: 0 0 0 1px var(--c-line);
   }
 }
 
@@ -94,7 +103,8 @@ p {
 }
 
 .stem {
-  font-size: 1.2rem;
+  font-size: var(--fs-read, 1.125rem);
+  line-height: var(--lh-body, 1.5);
   margin: 12px 0 16px;
 }
 
@@ -118,25 +128,35 @@ button {
   min-height: var(--tap);
   font-size: 1.05rem;
   border-radius: 10px;
-  border: 1px solid #bbc;
+  border: 1px solid var(--c-input-line);
+  background: var(--c-surface);
+  color: var(--c-text);
   padding: 10px 12px;
   width: 100%;
 }
 
 button {
   background: var(--accent);
-  color: #fff;
+  color: var(--c-accent-fg);
   border: none;
   font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--dur, 200ms) var(--ease, ease);
+}
+
+a {
+  color: var(--c-accent-ink);
 }
 
 button.secondary {
-  background: #234;
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  border: 1px solid var(--c-input-line);
 }
 
 button.ghost {
-  background: #eef;
-  color: var(--ink);
+  background: var(--c-accent-soft);
+  color: var(--c-accent-ink);
 }
 
 button:disabled {
@@ -144,13 +164,14 @@ button:disabled {
 }
 
 .muted {
-  color: #456;
+  color: var(--c-muted);
   font-size: 0.95rem;
 }
 
 .banner {
-  background: #ffd;
-  border: 1px solid #cc8;
+  background: var(--c-warning-soft);
+  color: var(--c-text);
+  border: 1px solid var(--c-warning);
   padding: 12px;
   border-radius: 10px;
 }
@@ -177,30 +198,30 @@ button:disabled {
 /* ------------------------------------------------------------------ lesson player (S1a) */
 /* Look and behaviour from docs/prototypes/balancing-equations-lesson.html, scoped under .lp. */
 .lp {
-  --paper: #f3f6fb;
-  --grid: #dfe6f3;
-  --ink: #1d2b53;
-  --muted: #5a6b8c;
-  --lp-card: #ffffff;
-  --line: #c9d4e8;
-  --blue: #2f6fde;
-  --green: #13895a;
-  --red: #cc3b33;
+  --paper: var(--c-lesson);
+  --grid: var(--c-line);
+  --ink: var(--c-text);
+  --muted: var(--c-muted);
+  --lp-card: var(--c-surface);
+  --line: var(--c-line);
+  --blue: var(--c-accent-ink);
+  --green: var(--c-success);
+  --red: var(--c-warning); /* a miss is amber, never red (UI-2b); the name is kept for the scene markup */
   --yellow: #f2b705;
   --hl: rgba(242, 183, 5, 0.38);
-  --green-bg: #e3f5ec;
-  --red-bg: #fbe8e6;
-  --tip-bg: #e8effc;
+  --green-bg: var(--c-success-soft);
+  --red-bg: var(--c-warning-soft);
+  --tip-bg: var(--c-accent-soft);
   margin: calc(-1 * var(--pad-y)) calc(-1 * var(--pad-x));
   padding: 0 var(--pad-x) 96px;
   min-height: 100dvh;
   color: var(--ink);
-  background-color: var(--paper);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
-  font-size: 16px;
-  line-height: 1.5;
+  /* Plain surface, never a graph-paper texture behind text (UI-4). The grid is an opt-in for the graph
+     widget only: Settings > Comfort > Board paper. */
+  background: var(--c-lesson);
+  background-image: none;
+  font-size: var(--fs-read, 1.125rem);
+  line-height: var(--lh-body, 1.5);
 }
 .lp button {
   font: inherit;
@@ -210,7 +231,7 @@ button:disabled {
 .lp button:focus-visible,
 .lp input:focus-visible,
 .lp [tabindex]:focus-visible {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--c-focus);
   outline-offset: 2px;
   border-radius: 8px;
 }
@@ -259,7 +280,7 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--muted);
   min-height: 0;
 }
@@ -283,9 +304,9 @@ button:disabled {
   color: var(--blue);
 }
 .lp-path button.on .n {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: var(--c-accent-fg);
 }
 .lp-path button.on {
   color: var(--ink);
@@ -417,7 +438,7 @@ button:disabled {
   box-sizing: border-box;
   font-size: 1.1rem;
   padding: 12px;
-  border: 1.5px solid var(--muted);
+  border: 1.5px solid var(--c-input-line);
   border-radius: 12px;
 }
 .lp-bar {
@@ -426,7 +447,8 @@ button:disabled {
   right: 0;
   bottom: 0;
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(transparent, var(--paper) 30%);
+  background: var(--c-lesson);
+  border-top: 1px solid var(--c-line);
 }
 .lp-primary {
   display: block;
@@ -436,8 +458,8 @@ button:disabled {
   border: 0;
   border-radius: 14px;
   padding: 15px;
-  background: var(--blue);
-  color: #fff !important;
+  background: var(--c-accent);
+  color: var(--c-accent-fg) !important;
   font-weight: 600;
   font-size: 1.02rem;
   min-height: 52px;
@@ -562,13 +584,13 @@ button:disabled {
   fill: #3a2a00;
 }
 .lp-wc {
-  fill: var(--blue);
+  fill: var(--c-accent);
 }
 .lp-wtt {
   font-size: 11px;
   font-weight: 600;
   text-anchor: middle;
-  fill: #fff;
+  fill: var(--c-accent-fg);
   pointer-events: none;
 }
 .lp-wt.tap {
@@ -603,6 +625,10 @@ button:disabled {
 .lp-g {
   stroke: var(--grid);
   stroke-width: 1;
+  visibility: hidden;
+}
+html[data-paper="grid"] .lp-g {
+  visibility: visible;
 }
 .lp-gl {
   font-size: 11px;
@@ -658,6 +684,7 @@ button:disabled {
 }
 .lp-range {
   width: 100%;
+  min-height: 48px;
   accent-color: var(--blue);
   margin: 4px 0 0;
 }
@@ -683,15 +710,21 @@ button:disabled {
   flex-direction: column;
   gap: 6px;
   padding: 14px;
-  border: 1px solid #ccd;
+  border: 1px solid var(--c-line);
   border-radius: 12px;
-  background: #fff;
+  background: var(--c-surface);
   color: var(--ink);
   text-decoration: none;
+  transition: box-shadow var(--dur, 200ms) var(--ease, ease), transform var(--dur, 200ms) var(--ease, ease);
+}
+
+a.card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-1px);
 }
 
 a.card:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--c-focus);
   outline-offset: 2px;
 }
 
@@ -701,8 +734,7 @@ a.card:focus-visible {
 
 .card.soon,
 .card.dim {
-  opacity: 0.65;
-  background: #f4f4f8;
+  background: var(--c-surface-2);
 }
 
 .card.current {
@@ -720,7 +752,7 @@ a.card:focus-visible {
   align-self: flex-start;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--c-accent-fg);
   background: var(--accent);
   border-radius: 999px;
   padding: 2px 10px;
@@ -734,34 +766,34 @@ a.card:focus-visible {
   white-space: nowrap;
   border-radius: 999px;
   padding: 2px 10px;
-  background: #eef;
-  color: #234;
+  background: var(--c-neutral-soft);
+  color: var(--c-neutral);
 }
 
 .chip-can_do_it,
 .chip-solid {
-  background: #e3f5ec;
-  color: #0d6b45;
+  background: var(--c-success-soft);
+  color: var(--c-success);
 }
 
 .chip-learning {
-  background: #fff3d6;
-  color: #7a5200;
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 
 .chip-review_due {
-  background: #e8effc;
-  color: #1d3d8f;
+  background: var(--c-accent-soft);
+  color: var(--c-accent-ink);
 }
 
 .chip-coming_soon {
-  background: #ececf2;
-  color: #555;
+  background: var(--c-neutral-soft);
+  color: var(--c-muted);
 }
 
 .banner.good {
-  background: #e3f5ec;
-  border-color: #9ad2b6;
+  background: var(--c-success-soft);
+  border-color: var(--c-success);
 }
 
 .done h2 {
@@ -837,4 +869,59 @@ a.card:focus-visible {
   .lp {
     padding-top: 44px;
   }
+}
+
+/* ---- Feedback (UI-2b): never red for a wrong answer. Quiet green for right, amber for "not yet", each with
+   a marker and words, so colour is never the only signal. The markers are silent for screen readers
+   (the words and role="status" carry the message). */
+.fb {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid currentColor;
+  font-weight: 600;
+}
+.fb::before {
+  flex: none;
+  font-weight: 800;
+}
+.fb.ok {
+  background: var(--c-success-soft);
+  color: var(--c-success);
+}
+.fb.ok::before {
+  content: "\2713" / "";
+}
+.fb.try {
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
+}
+.fb.try::before {
+  content: "\21BB" / "";
+}
+.lp-fb.good::before {
+  content: "\2713\00a0" / "";
+  font-weight: 800;
+}
+.lp-fb.bad::before {
+  content: "\21BB\00a0" / "";
+  font-weight: 800;
+}
+.lp-fb.tip::before {
+  content: "\2192\00a0" / "";
+  font-weight: 800;
+}
+.lp-choice.wrong::after {
+  content: "\00a0\21BB" / "";
+}
+
+/* Off-screen chat message items skip layout and paint, cutting render time for long threads.
+   Thread.tsx marks each message wrapper with data-message-item to opt in. */
+[data-message-item] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 80px;
+}
 }

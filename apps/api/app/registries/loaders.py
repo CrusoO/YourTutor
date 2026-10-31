@@ -14,7 +14,7 @@ class RegistryLoadError(ValueError):
     pass
 
 
-LOCALE_STATUSES = ("active", "draft")
+LOCALE_STATUSES = ("active", "draft", "coming_soon")
 
 
 @dataclass(frozen=True)
@@ -100,6 +100,7 @@ class CurriculumSpec:
     jurisdiction_profile: str
     legacy_board: str | None
     books: tuple[BookSpec, ...]
+    titles: dict[str, str] = field(default_factory=dict)  # display name per language, optional
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
@@ -273,6 +274,7 @@ def load_curriculum(curriculum_id: str, root: Path | None = None) -> CurriculumS
         jurisdiction_profile=str(data["jurisdiction_profile"]),
         legacy_board=str(legacy) if legacy else None,
         books=tuple(books),
+        titles={str(k): str(v) for k, v in (data.get("titles") or {}).items()},
     )
 
 

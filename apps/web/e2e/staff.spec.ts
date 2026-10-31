@@ -34,8 +34,8 @@ test("a guardian sees the child's chapters and week, and can change the language
     expect(text, word).not.toContain(word);
   }
   await shot(page, "02-guardian");
-  await page.getByLabel("Language").selectOption("ne");
-  await expect(page.getByLabel("Language")).toHaveValue("ne");
+  await page.getByLabel("Language").selectOption("hi");
+  await expect(page.getByLabel("Language")).toHaveValue("hi");
   await page.getByLabel("Language").selectOption("en");
   await expect(page.getByLabel("Language")).toHaveValue("en");
 });

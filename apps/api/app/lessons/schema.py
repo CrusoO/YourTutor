@@ -326,5 +326,5 @@ def lesson_json_schemas() -> dict[str, dict[str, Any]]:
     return {
         "lesson.schema.json": Lesson.model_json_schema(),
         "scene.schema.json": Scene.model_json_schema(),
-        "widget.schema.json": TypeAdapter(WidgetSpec).json_schema(),
+        "widget.schema.json": TypeAdapter(WidgetSpec).json_schema(),  # type: ignore[arg-type]
     }

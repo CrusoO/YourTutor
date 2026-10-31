@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getContextOptions, guestStart, locale, type ContextOptions } from "@/lib/api";
-import { t } from "@/lib/messages";
+import { getContextOptions, guestStart, type ContextOptions } from "@/lib/api";
+
+import { useCopy } from "@/lib/locale";
 
 /** Guest start: curriculum, grade, subject and language. Nothing personal is asked or stored. */
 export default function StartPage() {
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const [options, setOptions] = useState<ContextOptions | null>(null);
   const [curriculum, setCurriculum] = useState("");
   const [grade, setGrade] = useState("");

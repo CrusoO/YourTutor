@@ -17,7 +17,7 @@ from app.registries.paths import repo_root
 
 DIR = repo_root() / "packages" / "shared" / "fixtures" / "widgets"
 FILES = sorted(DIR.glob("*.json"))
-ADAPTER: TypeAdapter[Any] = TypeAdapter(WidgetSpec)
+ADAPTER: TypeAdapter[Any] = TypeAdapter(WidgetSpec)  # type: ignore[arg-type]
 
 
 def _widget(path: Path) -> tuple[BalanceScaleWidget | FunctionGraphWidget, list[dict]]:

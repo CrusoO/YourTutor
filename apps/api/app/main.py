@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import uuid
 from collections.abc import AsyncIterator
@@ -10,15 +11,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.auth.admin import router as admin_router
-from app.auth.deps import client_ip
 from app.auth.router import router as auth_router
-from app.config import production_flag_errors, settings
+from app.config import production_flag_errors, production_secret_errors, settings
 from app.dev.router import router as dev_router
+from app.explain.router import router as explain_router
+from app.health import database_ready, ping_redis
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
+from app.proxy import (
+    client_ip,
+    header_ignored_from_loopback,
+    note_ignored_header,
+    trusted_networks,
+)
 from app.ratelimit import limiter
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
+from app.video_jobs.router import router as video_jobs_router
 
 logger = logging.getLogger("yourtutor.access")
 
@@ -26,11 +35,18 @@ logger = logging.getLogger("yourtutor.access")
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     validate_startup_config()  # unknown JURISDICTION_PROFILE etc. stops startup
+    trusted_networks()  # a bad TRUSTED_PROXIES entry stops startup
     unsafe = production_flag_errors(settings)
     if unsafe:
         raise RuntimeError(
             f"Refusing to start: APP_ENV=production but {', '.join(unsafe)} "
             "is on. These switches are for local development only; turn them off."
+        )
+    default_secrets = production_secret_errors(settings)
+    if default_secrets:
+        raise RuntimeError(
+            f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
+            "its development default. Set a real value in the environment."
         )
     yield
 
@@ -70,6 +86,8 @@ app.include_router(offline_router)
 app.include_router(metrics_router)
 app.include_router(admin_router)
 app.include_router(dev_router)
+app.include_router(video_jobs_router)
+app.include_router(explain_router)
 
 
 def access_log_line(method: str, path: str, status: int) -> str:
@@ -79,6 +97,7 @@ def access_log_line(method: str, path: str, status: int) -> str:
 
 @app.middleware("http")
 async def rate_limit(request: Request, call_next):  # type: ignore[no-untyped-def]
+    note_ignored_header(request)
     if settings.rate_limit_enabled and request.method != "OPTIONS":
         wait = limiter.check(client_ip(request), request.url.path)
         if wait is not None:
@@ -115,8 +134,16 @@ def health() -> dict[str, str]:
 
 
 @app.get("/ready")
-def ready() -> dict[str, object]:
-    return {
-        "status": "ok",
-        "allow_draft_content": settings.allow_draft_content,
+async def ready() -> JSONResponse:
+    """Ready when the database answers `select 1`; 503 with a plain body when it does not."""
+    database = await database_ready()
+    redis = await asyncio.to_thread(ping_redis)  # reported only: nothing here needs Redis yet
+    body: dict[str, object] = {
+        "status": "ok" if database else "unavailable",
+        "database": "ok" if database else "down",
+        "redis": redis,
+        "forwarded_header_ignored": header_ignored_from_loopback(),
     }
+    if database:
+        body["allow_draft_content"] = settings.allow_draft_content
+    return JSONResponse(body, status_code=200 if database else 503)

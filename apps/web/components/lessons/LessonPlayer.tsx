@@ -3,34 +3,37 @@
 import { useRef, useState } from "react";
 import { pick, type Beat, type Lesson } from "@/lib/lessons/types";
 import { balanceStart } from "@/lib/lessons/widgets";
+import { t, type Messages } from "@/lib/messages";
 import SourceChips, { type SourceChip } from "@/components/flow/SourceChips";
 import BalanceScale, { BalanceFigure } from "./BalanceScale";
 import FunctionGraph from "./FunctionGraph";
 import ScenePlayer, { type Delay, type SceneAskInfo } from "./ScenePlayer";
 
-// S1b moves these strings into the locale registry; until then English only.
-const COPY = {
-  continue: "Continue",
-  start: "Start practice",
-  nextStep: "Next step",
-  checking: "Checking with the server…",
-  verified: "Checked by the server ✓",
-  notVerified: "We could not verify that. Try it again.",
-  checkTitle: "Your turn",
-  previewNote: "In a real session this is the first practice item.",
-  answerLabel: "Your answer",
-  source: "Source",
-  check: "Check",
-  fadedPreviewNote: "In a real session you type the last step here and the server checks it.",
-  steps: {
-    predict: "Guess",
-    explore: "Try",
-    explain_scene: "Watch",
-    worked_example: "Example",
-    faded_example: "Finish it",
-    check: "Practise",
-  },
-} as const;
+/** The player's own words come from the locale files (English wherever a Hindi string is missing or unreviewed). */
+function lessonCopy(m: Messages) {
+  return {
+    continue: m.lessonContinue,
+    start: m.lessonStart,
+    nextStep: m.lessonNextStep,
+    checking: m.lessonChecking,
+    verified: m.lessonVerified,
+    notVerified: m.lessonNotVerified,
+    checkTitle: m.lessonCheckTitle,
+    previewNote: m.lessonPreviewNote,
+    answerLabel: m.lessonAnswerLabel,
+    source: m.lessonSource,
+    check: m.lessonCheck,
+    fadedPreviewNote: m.lessonFadedPreviewNote,
+    steps: {
+      predict: m.lessonStepGuess,
+      explore: m.lessonStepTry,
+      explain_scene: m.lessonStepWatch,
+      worked_example: m.lessonStepExample,
+      faded_example: m.lessonStepFinish,
+      check: m.lessonStepPractise,
+    },
+  };
+}
 
 export type WidgetResult = { widget_id: string; final_state: unknown; actions_count: number };
 
@@ -71,6 +74,7 @@ export default function LessonPlayer({
   delay,
   sources,
 }: Props) {
+  const COPY = lessonCopy(t(locale));
   const [cur, setCur] = useState(startAt);
   const [maxSeen, setMaxSeen] = useState(startAt);
   const [guess, setGuess] = useState<string | null>(null);
@@ -147,7 +151,6 @@ export default function LessonPlayer({
     <div className="lp">
       <header className="lp-top">
         <div>
-          <div className="lp-subj">{lesson.skill_id}</div>
           <h1>{pick(lesson.title, locale)}</h1>
         </div>
       </header>

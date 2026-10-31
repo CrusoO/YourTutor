@@ -7,15 +7,19 @@ are safe, and the jobs have what they need. Exit code 0 only when nothing failed
 
 from __future__ import annotations
 
+import json
 import sys
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 
 from alembic.config import Config
 from alembic.script import ScriptDirectory
 from sqlalchemy import text
 
-from app.config import settings
+from app.config import DEFAULT_DB_PASSWORD, settings
 from app.db.session import session_factory
+from app.proxy import trusted_networks
 from app.registries.startup import validate_startup_config
 
 PRODUCTION = "production"
@@ -26,6 +30,7 @@ class Check:
     name: str
     ok: bool
     detail: str
+    warning: bool = False  # still ok (exit code 0), but the operator should read it
 
 
 def _head_revision() -> str:
@@ -34,6 +39,38 @@ def _head_revision() -> str:
     cfg = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
     cfg.set_main_option("script_location", str(Path(__file__).resolve().parents[1] / "migrations"))
     return ScriptDirectory.from_config(cfg).get_current_head() or ""
+
+
+def _api_ready() -> dict[str, object] | None:
+    """The running API's /ready answer, or None when it is not reachable from here."""
+    try:
+        url = f"http://127.0.0.1:{settings.api_port}/ready"
+        with urllib.request.urlopen(url, timeout=1) as res:  # noqa: S310 - fixed loopback URL
+            body = json.load(res)
+        return body if isinstance(body, dict) else None
+    except urllib.error.HTTPError as exc:  # 503 while the database is down still has a body
+        try:
+            body = json.load(exc)
+        except ValueError:
+            return None
+        return body if isinstance(body, dict) else None
+    except Exception:  # noqa: BLE001 - "cannot reach it" is an answer, not an error
+        return None
+
+
+def _proxy_check(prod: bool) -> Check:
+    if trusted_networks():
+        return Check("proxy addresses", True, f"{len(trusted_networks())} trusted proxy range(s)")
+    ready = _api_ready() if prod else None
+    if ready and ready.get("forwarded_header_ignored"):
+        return Check(
+            "proxy addresses",
+            True,
+            "WARN the API saw X-Forwarded-For from this machine but TRUSTED_PROXIES is empty, so "
+            "every visitor shares one rate limit; set TRUSTED_PROXIES=127.0.0.1",
+            warning=True,
+        )
+    return Check("proxy addresses", True, "no proxy headers seen from this machine")
 
 
 def run_checks() -> list[Check]:
@@ -83,6 +120,15 @@ def run_checks() -> list[Check]:
     )
     checks.append(
         Check(
+            "database password changed",
+            not (prod and settings.postgres_password == DEFAULT_DB_PASSWORD),
+            "POSTGRES_PASSWORD is set"
+            if settings.postgres_password != DEFAULT_DB_PASSWORD
+            else "default",
+        )
+    )
+    checks.append(
+        Check(
             "email for codes and reports",
             bool(settings.smtp_host) or not prod,
             "SMTP_HOST set" if settings.smtp_host else "codes and reports only go to the log",
@@ -91,6 +137,7 @@ def run_checks() -> list[Check]:
     checks.append(
         Check("rate limits on", settings.rate_limit_enabled, str(settings.rate_limit_enabled))
     )
+    checks.append(_proxy_check(prod))
     return checks
 
 
@@ -101,7 +148,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     results = run_checks()
     for check in results:
-        print(f"{'ok  ' if check.ok else 'FAIL'} {check.name}: {check.detail}")
+        label = "FAIL" if not check.ok else "warn" if check.warning else "ok  "
+        print(f"{label} {check.name}: {check.detail}")
     failed = [c for c in results if not c.ok]
     print(f"{len(results) - len(failed)} of {len(results)} checks passed")
     return 1 if failed else 0

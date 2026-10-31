@@ -43,6 +43,55 @@ def test_the_api_answers_429_with_retry_after_when_a_client_goes_over(client: Te
     limiter.reset()
 
 
+def test_a_made_up_forwarded_address_does_not_escape_the_limit(client: TestClient) -> None:
+    settings.rate_limit_enabled = True
+    settings.trusted_proxies = ""
+    limiter.reset()
+    body = {"curriculum_id": "bhutan", "grade": 9}
+    codes = [
+        client.post(
+            "/guest/start", json=body, headers={"X-Forwarded-For": f"198.51.100.{i}"}
+        ).status_code
+        for i in range(25)
+    ]
+    assert 429 in codes
+    limiter.reset()
+
+
+def test_behind_a_trusted_proxy_each_visitor_has_their_own_limit(client: TestClient) -> None:
+    from app.main import app
+
+    settings.rate_limit_enabled = True
+    settings.trusted_proxies = "127.0.0.1"
+    limiter.reset()
+    body = {"curriculum_id": "bhutan", "grade": 9}
+    proxied = TestClient(app, client=("127.0.0.1", 50000))  # the proxy's connection
+    visitor_a = {"X-Forwarded-For": "198.51.100.1"}
+    visitor_b = {"X-Forwarded-For": "198.51.100.2"}
+    first = [
+        proxied.post("/guest/start", json=body, headers=visitor_a).status_code for _ in range(25)
+    ]
+    assert 429 in first  # visitor A went over
+    assert proxied.post("/guest/start", json=body, headers=visitor_b).status_code != 429
+    limiter.reset()
+
+
+def test_behind_a_proxy_without_the_setting_everyone_shares_one_limit(client: TestClient) -> None:
+    from app.main import app
+
+    settings.rate_limit_enabled = True
+    settings.trusted_proxies = ""
+    limiter.reset()
+    body = {"curriculum_id": "bhutan", "grade": 9}
+    proxied = TestClient(app, client=("127.0.0.1", 50000))
+    for i in range(25):
+        proxied.post("/guest/start", json=body, headers={"X-Forwarded-For": f"198.51.100.{i}"})
+    other = proxied.post("/guest/start", json=body, headers={"X-Forwarded-For": "192.0.2.1"})
+    assert other.status_code == 429  # no uvicorn here: what a proxy without the setting looks like
+    assert proxied.get("/ready").json()["forwarded_header_ignored"] is True
+    limiter.reset()
+
+
 # ---- distress ---------------------------------------------------------------------------------
 
 

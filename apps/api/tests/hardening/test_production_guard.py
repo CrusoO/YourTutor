@@ -52,5 +52,18 @@ def test_the_api_starts_when_production_is_clean(monkeypatch: pytest.MonkeyPatch
     monkeypatch.setattr(main.settings, "app_env", "production")
     for name in DEV_ONLY_FLAGS:
         monkeypatch.setattr(main.settings, name, False)
+    monkeypatch.setattr(main.settings, "postgres_password", "a-real-password-for-the-test")
     with TestClient(main.app) as client:
         assert client.get("/health").status_code == 200
+
+
+def test_the_api_refuses_to_start_in_production_on_the_default_database_password(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(main.settings, "app_env", "production")
+    for name in DEV_ONLY_FLAGS:
+        monkeypatch.setattr(main.settings, name, False)
+    monkeypatch.setattr(main.settings, "postgres_password", "tutor")
+    with pytest.raises(RuntimeError, match="Refusing to start.*POSTGRES_PASSWORD"):
+        with TestClient(main.app):
+            pass

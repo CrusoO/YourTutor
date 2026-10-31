@@ -1,18 +1,27 @@
 default: en
-# status: active = reviewed UI/content; draft = placeholder strings, falls back to English.
+# status: active = selectable in the app (UI-5: English and Hindi only);
+#         draft = placeholder strings, falls back to English;
+#         coming_soon = shown as "coming soon", cannot be selected, falls back to English.
+# Hindi UI strings carry their own draft/reviewed status in apps/web/lib/locales/hi.json: the app shows Hindi only
+# once that file is reviewed by a native speaker, and falls back to English string by string.
 locales:
   - code: en
     name: English
     script: Latn
     status: active
     fallback_chain: []
+  - code: hi
+    name: Hindi
+    script: Deva
+    status: active
+    fallback_chain: [en]
   - code: ne
     name: Nepali
     script: Deva
-    status: draft
+    status: coming_soon
     fallback_chain: [en]
   - code: as
     name: Assamese
     script: Beng
-    status: draft
+    status: coming_soon
     fallback_chain: [en]

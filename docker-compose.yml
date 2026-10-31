@@ -1,12 +1,16 @@
+# Local and pilot stack. Every published port is bound to 127.0.0.1: put a reverse proxy in front
+# for anything public (docs/OPERATOR.md section 8). POSTGRES_PASSWORD has no default here: copy
+# .env.example to .env for development (its value is development only) or set a real one.
 services:
   postgres:
     image: pgvector/pgvector:pg16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-tutor}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tutor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: ${POSTGRES_DB:-yourtutor}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -18,8 +22,9 @@ services:
 
   redis:
     image: redis:7-alpine
+    restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -29,12 +34,20 @@ services:
   api:
     build:
       context: ./apps/api
+    env_file:
+      - path: ./apps/api/.env
+        required: false   # missing file → fall back to environment: block only
     volumes:
       - ./content:/content:ro
       - ./config:/config:ro
+      - ../EduVideoEngine/dist/jobs:/engine-jobs:ro
     environment:
       POSTGRES_HOST: postgres
+      ENGINE_JOBS_DIR: /engine-jobs
+      POSTGRES_USER: ${POSTGRES_USER:-tutor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: ${POSTGRES_DB:-yourtutor}
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-}
       REDIS_URL: redis://redis:6379/0
       OTEL_ENABLED: ${OTEL_ENABLED:-false}
       ALLOW_DRAFT_CONTENT: ${ALLOW_DRAFT_CONTENT:-false}
@@ -47,7 +60,7 @@ services:
       PILOT_ONBOARDING: ${PILOT_ONBOARDING:-true}
       PILOT_KEY: ${PILOT_KEY:-dev-pilot}
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -66,8 +79,11 @@ services:
       retries: 10
 
   web:
+    # DEVELOPMENT ONLY: this image runs `npm run dev:lan` (inside the container). For a pilot run `npm run build` and
+    # `npm run start` on the host (docs/OPERATOR.md sections 1 and 8) and do not start this service.
     build:
-      context: ./apps/web
+      context: .
+      dockerfile: apps/web/Dockerfile
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
       NEXT_PUBLIC_DEV_TOOLS: ${NEXT_PUBLIC_DEV_TOOLS:-false}
@@ -75,7 +91,7 @@ services:
       NEXT_PUBLIC_PILOT_KEY: ${PILOT_KEY:-dev-pilot}
       NEXT_PUBLIC_SKIP_LOGIN: "false"
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     depends_on:
       api:
         condition: service_healthy

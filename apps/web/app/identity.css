@@ -1,0 +1,293 @@
+/* UI-5 identity layer: page gradient and glow shapes, glass, display and label type, pills, the glow button,
+   the progress sphere and the Hindi type rules. Colours come from tokens.css; nothing here hard-codes one except
+   the page gradient stops and glow shapes, which are decoration (never behind reading text without a surface). */
+
+/* Page: light is a soft sky gradient with three glow shapes made of radial gradients (no images, no blur filter,
+   nothing to animate). Dark is the solid page colour with one faint violet glow at the top. */
+html {
+  background: var(--c-bg);
+}
+body {
+  background: transparent; /* body::before (z-index -1) paints the gradient above the html colour */
+  font-family: var(--ff-body);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(52rem 28rem at 88% -10%, rgba(120, 180, 255, 0.28), transparent 70%), var(--c-bg);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body::before {
+    background: radial-gradient(54rem 28rem at 88% -12%, rgba(56, 182, 255, 0.1), transparent 70%), var(--c-bg);
+  }
+}
+[data-theme="dark"] body::before {
+  background: radial-gradient(54rem 28rem at 88% -12%, rgba(56, 182, 255, 0.1), transparent 70%), var(--c-bg);
+}
+
+/* Display and label type: short strings only (about six words or fewer). Uppercase is CSS, never typed. */
+.display {
+  font-family: var(--ff-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+.label {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+}
+
+/* Glass: frosted card, nav pill and composer. At most four blurred surfaces are visible at once; dark and every
+   fallback is a solid colour. Never animate the blur radius. */
+.glass {
+  background: var(--c-glass);
+  border: 1px solid var(--c-glass-edge);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: var(--c-surface);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--c-popover);
+  }
+}
+@media (prefers-contrast: more) {
+  .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--c-popover);
+    border-color: var(--c-input-line);
+  }
+}
+/* Flat glass: the same translucent look without a blur, for the surfaces beyond the four-blur budget. */
+.glass-flat {
+  background: var(--c-glass);
+  border: 1px solid var(--c-glass-edge);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-flat {
+    background: var(--c-surface);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass-flat {
+    background: var(--c-popover);
+  }
+}
+@media (prefers-contrast: more) {
+  .glass-flat {
+    background: var(--c-popover);
+    border-color: var(--c-input-line);
+  }
+}
+html[data-effects="reduce"] .glass-flat {
+  background: var(--c-popover);
+}
+
+/* Comfort > Reduce effects: solid surfaces, no glow shapes, no animation. On automatically for save-data. */
+html[data-effects="reduce"] .glass {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: var(--c-popover);
+}
+html[data-effects="reduce"] body::before {
+  background: var(--c-bg);
+}
+html[data-effects="reduce"] * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Outlined pill tag and the inline glow button (label is NAVY in light, white in dark; never white on the glow). */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--c-input-line);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem 0.85rem;
+}
+.glow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--c-glow-from), var(--c-glow-to));
+  color: var(--c-glow-label);
+  font-family: var(--ff-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 6px 26px color-mix(in srgb, var(--c-glow-from) 55%, transparent);
+}
+.glow-btn:hover {
+  filter: brightness(1.04);
+}
+
+/* Legacy screens (lesson, practice): short action buttons take the label style (never answer choices or units), the lesson
+   title takes the display style. Answer choices and long labels stay in Inter (reading text). */
+.phone button:not(.secondary, .lp button),
+.phone button[data-testid="help-button"],
+.lp-primary,
+.lp-btn {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.875rem;
+}
+.lp h1 {
+  font-family: var(--ff-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+/* A long label (more than about six words) is reading text: opt out with class "reading". */
+.phone button.reading {
+  font-family: var(--ff-body);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.05rem;
+}
+
+/* Glossy progress sphere for syllabus coverage. */
+.sphere {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  color: #ffffff;
+  font-family: var(--ff-display);
+  font-weight: 500;
+  background-color: #1d4fd8; /* white label 6.6 : 1; the gradient only adds the gloss */
+  background-image: radial-gradient(circle at 32% 28%, #7fc4ff 0%, #2458dc 46%, #1a3fb4 100%);
+  box-shadow: inset 0 -6px 12px rgba(10, 20, 80, 0.35), 0 8px 22px rgba(29, 79, 216, 0.35);
+}
+[data-theme="dark"] .sphere {
+  background-color: #38b6ff;
+  background-image: radial-gradient(circle at 32% 28%, #b5e4ff 0%, #38b6ff 50%, #0d6fb8 100%);
+  box-shadow: inset 0 -6px 12px rgba(10, 5, 60, 0.5), 0 8px 22px rgba(56, 182, 255, 0.3);
+}
+
+/* Hindi (Devanagari) type rules: Noto Sans Devanagari for the display line and labels (not the monospace), no
+   uppercase, no negative letter-spacing, proportional word spaces, roomy lines so matras never clip, and no
+   synthetic bold or italic (Noto ships 400 and 500 only; emphasis is the 500 weight and size). */
+:lang(hi) {
+  font-synthesis: none;
+}
+:lang(hi) body {
+  line-height: 1.7;
+}
+/* Tailwind text sizes carry their own 1.5 line height, which would clip stacked matras: reading text in Hindi gets
+   1.7 and headings 1.45. (:where keeps specificity at zero, so .display below still sets its own 1.35.) */
+:lang(hi) :where(p, li, label, span, a, td, th, dd, dt, input, textarea, select, button, small, blockquote, figcaption, summary) {
+  line-height: 1.7;
+}
+:lang(hi) :where(h1, h2, h3, h4) {
+  line-height: 1.45;
+}
+:lang(hi) .display {
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  font-weight: 500;
+  line-height: 1.35;
+}
+:lang(hi) .label,
+:lang(hi) .glow-btn,
+:lang(hi) .sphere,
+:lang(hi) .phone button:not(.secondary, .lp button),
+:lang(hi) .phone button[data-testid="help-button"],
+:lang(hi) .lp-primary,
+:lang(hi) .lp-btn {
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  font-size: max(0.875rem, 1em);
+}
+:lang(hi) .lp h1 {
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  font-weight: 500;
+  line-height: 1.35;
+}
+:lang(hi) :is(b, strong, h1, h2, h3, h4, th, button, [class*="font-semibold"], [class*="font-bold"], [class*="font-medium"]) {
+  font-weight: 500;
+}
+:lang(hi) :is(i, em, cite) {
+  font-style: normal;
+}
+
+/* Home (UI-5 home mockup): flat page, bold sans headline, white cards. No gradient or glow behind the home. */
+.home-title {
+  font-family: var(--ff-body);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.home-card {
+  background: var(--c-card-solid);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-card);
+}
+:lang(hi) .home-title {
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+/* A themed panel inside a page (the design gallery) keeps its own solid page colour. */
+.ui-root[data-theme] {
+  background: var(--c-bg);
+}
+
+/* Sheets and dialogs (the full-window workspace, the drawer) are solid: nothing of the page shows through. */
+.ui-root[role="dialog"] {
+  background: var(--c-popover);
+}
+
+/* Home in Hindi: Devanagari needs looser lines, no negative tracking and a slightly larger floor than the Latin
+   micro sizes (11 to 12 px) the home design uses; the display weight is 500 because Noto ships 400 and 500 only. */
+:lang(hi) .home-display {
+  letter-spacing: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+:lang(hi) .ui-root :is([class*="text-[0.5625rem]"], [class*="text-[0.6875rem]"]) {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+:lang(hi) .ui-root [class*="text-[0.75rem]"] {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+:lang(hi) .ui-root [class*="text-[0.8125rem]"] {
+  line-height: 1.55;
+}
+
+:lang(hi) .home-stat {
+  line-height: 1;
+}

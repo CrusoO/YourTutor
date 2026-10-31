@@ -10,14 +10,15 @@ import {
   verifyStaffCode,
   whoAmI,
 } from "@/lib/api";
-import { t } from "@/lib/messages";
+
+import { useCopy } from "@/lib/locale";
 
 const DEV = process.env.NEXT_PUBLIC_DEV_TOOLS === "true";
 
 /** Sign-in for guardians and teachers: an email, then the code that arrives by email. */
 export default function StaffLogin() {
   const router = useRouter();
-  const copy = t(locale());
+  const copy = useCopy();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);

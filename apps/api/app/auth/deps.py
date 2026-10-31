@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import Depends, Header, HTTPException, Request
+from fastapi import Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
@@ -12,13 +12,6 @@ from app.db.session import get_db
 
 DbSession = Annotated[Session, Depends(get_db)]
 OtpDep = Annotated[OtpSender, Depends(get_otp_sender)]
-
-
-def client_ip(request: Request) -> str:
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
 
 
 def optional_actor(

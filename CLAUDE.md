@@ -48,3 +48,4 @@ Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack r
 3. Update ARCHITECTURE.md where details settled.
 4. Report: what changed, new Decisions, test counts before/after, deferred items, and the "How to see it" block. Then stop.
 
+The video engine is a separate repository with its own session. Never edit it from here and never copy its docs or prompts into this repo. The only contact is docs/ENGINE_INTEGRATION.md.

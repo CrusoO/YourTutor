@@ -163,6 +163,20 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | Maths text and dynamic execution | `parse_expr` runs with `__builtins__` emptied and an explicit local dict, and input with words of two or more letters or `.name` access is refused. `eval`, `exec`, `sympify`, `parse_expr` and `compile` may appear in `app/` only where an allowlist in `tests/meta/test_no_dynamic_eval.py` names them with the guard that protects them; today that is `app/content/math_parse.py` only. (harden-1) |
 | Production startup | With `APP_ENV=production` the API refuses to start if `ALLOW_DRAFT_CONTENT`, `RESEARCH_MODULE`, `DEV_TOOLS` or `NEXT_PUBLIC_DEV_TOOLS` is on, and says which. The compose file no longer defaults draft content on, and `.env.example` marks these as local-development switches. (harden-1) |
 | Responsive widths | The app shell widens at 768, 1024 and 1280 px (760, 980 and 1120 px columns), lists become card grids, the lesson stage and the practice screen sit in a 640 px column, and phone layout at 360 px is unchanged. This is a width fix only, not the chat-style redesign (UI-1), which still needs its own audit and standards. (ui-responsive) |
+| Chat shell | The front door `/` is a chat-style shell (UI-1): sidebar, greeting, composer, three suggestion cards, a workspace panel. assistant-ui primitives run on an external-store runtime with no model calls; what is typed is matched locally and never added to the thread. The conversation (welcome, context, identity, home) is a pure state machine in `lib/chat/machine.ts`. |
+| Workspace panel | The existing screens run unchanged in a frame named `yt-embed` (side panel from 1280 px, right overlay from 1024 px, full-screen sheet below). The address carries the panel (`/?w=/path`), and the framed screens report their page and the end of a session to the chat by `postMessage`. Old routes keep working. Browser Back inside the frame is only approximate. |
+| Design system | Tailwind runs utilities-only (no preflight) and the legacy stylesheet sits in a lower CSS layer, so old screens are untouched. Components are shadcn-style on Radix; tokens (light and dark) are in `app/tokens.css`; display font Fraunces (OFL, self-hosted, latin subset). Added dependencies are MIT, Apache-2.0 (class-variance-authority) or OFL. |
+| Topic finder | Deterministic and local. The browser fetches `GET /context/finder-rules` (PII patterns, distress terms, blocked terms, all from config) and cleans, screens and matches typed text on the device; the text is never sent, stored or logged (API and database tests prove it). Distress words get an authored gentle message. No generated answers; Ask stays off. |
+| Setup steps | Class, state, board, medium, subject come from `GET /context/options` (plus every known grade from the grade-band config, so empty classes say "coming soon"). The registry has no states and no display titles yet, so the state step is skipped and boards show a readable id until a curriculum adds `titles`. |
+| Create account | Student = family code and PIN, or "ask a grown-up" (the guardian email-code card); parent = email code; teacher = email code. The existing auth has no school-code input (staff link a teacher to a school code in admin), so the card says so instead of asking for one. A guest-to-family upgrade has an API but no screen yet. |
+| One role per device | Signing in as a student clears any guardian or teacher sign-in and the other way round, so the home always follows one role. |
+| Page weight of the home | Home `/` loads about 280 KB (gzip JS, CSS and font): React and Next are 103 KB before any code, assistant-ui is about 100 KB, the design system and font the rest. The 150 KB budget holds for the other screens and is enforced in CI by `npm run check:weight`; `/` has its own documented limit until the owner decides between a larger budget and a lighter chat list and composer. |
+| UI-2b naming | The teen polish prompt asked to be added as "UI-2", but UI-2 was already the refinement round, so it is filed as UI-2b. |
+| UI-2b palette | The pasted palette is applied as tokens. Light muted text is `#464E6B` instead of `#4A5270` so muted text on the raised surface reaches 7:1 (6.76 before). White cards on the light page are kept ("no pure white" applies to page backgrounds). Info is blue, teal is its own token. See docs/UI_CONTRAST.md. |
+| UI-2b comfort | Theme and Comfort settings live in one shared store on the device (localStorage key `yt.comfort`); an inline script sets them before first paint. Weekly activity is dates on the device only (`yt.days`), no streak, no server data. |
+| UI-2b home weight | The conversation view (setup chips, sign-in forms), the Today strip and the Settings dialog load on demand. The home is 262.5 KB and its limit is lowered from 275 to 265 KB. |
+| Plain paper (UI-4) | Lessons and boards use plain surfaces; the earlier graph-paper decision is reversed because it was visually irritating; grid is an opt-in setting. The lesson surface is white in light and the dark background in dark (`--c-lesson`). Settings > Comfort > Board paper (Plain by default, or Light grid) only affects the graph widget's grid lines, never lesson text. This is the one place pure white is used as a background, by explicit decision; pages elsewhere keep `--c-bg`. |
+| UI tests | The 12 existing specs that began at `/dev` then `/subjects` now begin at `/`, open their workflow through a home card or sidebar item (`e2e/shell.ts`) and continue on the screen the panel opened; assertions are unchanged. New specs at 360, 768, 1280 and 1536 px are in `e2e/shell.spec.ts`. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -544,6 +558,44 @@ Accept:
 
 ---
 
+### UI-1 — Chat-first front door, role homes and design system
+
+Branch `ui-1-chat-shell`. Docs: docs/UI_AUDIT.md, docs/UI_STANDARDS.md, docs/HOME_AND_ONBOARDING.md.
+
+- [x] Step 0: audit and standards docs
+- [x] Design system: tokens (light and dark), shadcn-style components, assistant-ui primitives, Brand, StatusChip, Choice, SuggestionCard, `/dev/ui`, CI weight check
+- [x] Chat shell at `/` with a pure state machine and unit tests (14 machine, 12 finder, greeting and label tests)
+- [x] Setup chips from the registry; "coming soon" cannot start; guest choices on the device only
+- [x] Identity in chat: sign in, just try it, save my progress (ask a grown-up), parent, teacher, create account
+- [x] Role homes fed by the existing APIs; Resume card
+- [x] Workspace panel around the existing screens; deep links, refresh, back to chat; structured summaries
+- [x] Responsive shell (four width bands)
+- [x] `/dev` restyled and scenario logins land on the role home; preview teacher and parent logins
+- [x] Tests: Met 2026-10-12 (targeted): UI specs 61 passed (12 ported, new four-width shell spec 38), vitest 350, tsc, ruff, mypy, region, locales, backend targeted tests; self-critique done. Full API suite (ordered, `-p no:randomly`, Postgres): **1297 passed**, 0 failed, 27m35s (2026-10-12). Random-seed passes not run
+- [ ] Home page weight within the 150 KB budget: **not met** (about 280 KB, documented exception above)
+
+---
+
+### VJ — Engine video jobs (CBSE maths topic → MP4)
+
+Student picks a CBSE maths topic; a subprocess worker runs the engine; student watches the narrated MP4 and sees verified Sources panel.
+
+- [x] Step 1 — Docs: `YourTutor/docs/adr/0001-engine-video-jobs.md` and `YourTutor/docs/ENGINE_INTEGRATION.md` (consumer contract v0). Met 2026-10-24.
+- [x] Step 2 — Migration `0026_vj_video_jobs` (`video_jobs` table, `VideoJobRow` model, round-trip test). Met 2026-10-24.
+- [x] Step 3 — API: `POST /video-jobs` (202/200 idempotent), `GET /{id}`, `POST /{id}/cancel`, `POST /{id}/retry`; tutoring consent gate; rate-limit entry; 26 router tests (SQLite). Met 2026-10-24.
+- [x] Step 4 — Worker (`python -m app.video_jobs.worker`): FOR UPDATE SKIP LOCKED, temp request file (no student data), `subprocess.Popen`, events.jsonl tail, timeout, SIGTERM cancel, crash recovery; tests with a fake engine command. Met 2026-10-24.
+- [x] Step 5 — `GET /video-jobs/topics`, `GET /video-jobs/{id}/lesson.mp4`, `GET /video-jobs/{id}/sources.json` behind owner check; `_strip_paths` removes engine-internal path keys; 10 new router tests (36 total). Met 2026-10-24.
+- [x] Step 6 — `apps/web/app/video-jobs/page.tsx`: topic picker grouped by chapter, job progress polling (3 s), video player (Blob URL on demand), Sources panel with two always-on mandatory caveats; API types + `authFetch` added to `lib/api.ts`. Met 2026-10-24.
+- [x] Step 7 — `apps/web/e2e/video-jobs.spec.ts`: 5 specs (heading, auth-gate, empty-state, prefix filter, API cancel). Not tested (requires real engine): running→done transition, video playback, engine caveats in Sources. Met 2026-10-24.
+
+Accept:
+- [ ] A student with tutoring consent can pick a CBSE topic, poll for done, and play the MP4.
+- [ ] Sources panel always shows both mandatory caveats (no person confirmed these page numbers; voice is AI-generated).
+- [ ] `request_json` stored in the DB and sent to the engine never includes `student_id`.
+- [ ] Worker survives a crashed engine process and marks the job `failed`.
+
+---
+
 ## 9. Required tests (ongoing)
 
 
@@ -603,3 +655,39 @@ Track B does not block G0–G3. Start B1 and B3 now so G2 thresholds and misconc
 - Learned policy and learned mastery behind existing interfaces
 - Additional curricula, subjects and widget types via registries
 
+### UI-2 — Refinement round (docs/UI_REFINEMENT_1.md)
+
+- [x] Triage, reproduction, fixes and polish pass: Met 2026-10-12 (branch `ui-2-refine`, not merged, not pushed). Fixed R-01 and R-02 (no raw skill id), reworded two jargon strings. R-04 could not be reproduced and is guarded by a spec. R-03 (dark legacy screens) and R-06 (board display names) wait for a restyle and content. Tests: vitest 351, Playwright UI 71 (10 new), check:weight ok, region and locales clean. No backend change.
+- Decisions: D-1 page weight of `/`, D-2 guest upgrade screen, D-3 teacher school code are listed in `docs/UI_REFINEMENT_1.md` and not implemented.
+
+### UI-2b — Teen-friendly polish (branch ui-2-teen-polish)
+
+- [x] Tokens, theme, comfort settings, typography, home, cards, feedback, copy, motion, speed, tests and usability kit: Met 2026-10-13 (not merged, not pushed). Tests: vitest 432 (431 plus one copy expectation updated), Playwright UI suite 127 passed (the 56 new teen specs: contrast, text spacing, theme and comfort, home, screenshots in light and dark at four widths, axe on every route, throttled 4G), `check:weight` ok (home 262.5 KB, limit lowered from 275 to 265), tsc, region and locale generation clean. No backend change. New dev dependency: `@axe-core/playwright` 4.13 and `axe-core` 4.13 (MPL-2.0, test tooling only).
+- Deferred: the "Worth your time" card (no roadmap data exists, so it is hidden), human translations of the new strings, a measured contrast audit of every old teacher and parent table cell beyond what axe reports, usability sessions with real students (`docs/USABILITY_TEST_PLAN.md`).
+
+### UI-4 — Plain paper (branch ui-4-plain-paper)
+
+- [x] Graph paper removed from the lesson player, practice and widget areas; Board paper setting added; docs updated: Met 2026-10-13 (not merged, not pushed). The Excalidraw board part of the prompt is **not done**: there is no board, no prototype files and no `make_lesson_board.py` in the repo (BOARD-1 has not been built). Its requirements are recorded in docs/UI_STANDARDS.md for when it is.
+
+## 13. Pending the December field visit
+
+Direction, not decided scope. The owner will work with schoolchildren who are not strong in English but
+understand Nepali, Adivasi languages and Hindi, in communities with limited connectivity, shared phones
+and teachers who need support. Nothing below is scheduled; each row waits for what the visit shows, and
+the first community, language and subject are chosen after it. Sizes: S is days, M is weeks, L is a
+milestone of its own. "Today" was read from the repository on 2026-10-16.
+
+| Area | Today | Gap | Size | Smallest first step |
+| --- | --- | --- | --- | --- |
+| Languages | English and Hindi are selectable (`config/locales.yaml`); Hindi UI strings are draft and hidden until a native speaker reviews them; Nepali and Assamese are `coming_soon`; `content/glossary/en-ne.yaml` and `en-as.yaml` hold placeholders; human-only locale review exists (`app/content/locale_review.py`) | Nepali strings and glossary; a script other than Latin and Devanagari (for example Ol Chiki) has no font, no budget and no loader | Nepali S to M, other scripts L | Fill the Nepali glossary through the existing locale review with a native reviewer |
+| Reading-free child interface | Chat-style home, text questions with tap choices, a speaker button using the browser's speech engine (`ReadAloud.tsx`), primary-band defaults (large targets, two options, read aloud on) | Every instruction is text; no icon-only navigation, no recorded audio; the browser's speech engine may have no voice for Nepali or a tribal language | L | List the voices on the phones that will be used; record audio for the first-run and start path |
+| Identity and consent | Guardian signs in by email code; guardian creates children; child signs in with family code and PIN; guests need no personal data; consent scopes in `config/jurisdictions/default_strict.yaml` | A guardian needs an email address; no phone-number sign-in, teacher-created accounts, class join code or QR, shared-device switching; no community language-data scope; consent text only in English and draft Hindi | S for the scope, M for teacher-created accounts and a class code, L for phone-number sign-in | Draft the community language-data scope and decide who consents (guardian or school) |
+| Offline use | Offline pack and sync (`app/offline`, `/offline` page, IndexedDB queue) for items the browser can check; reduced effects on data-saver or low-memory devices | No web app manifest and no service worker found, so the app cannot be installed and the first load needs a network; no install from a file, Bluetooth or WhatsApp | L | Spike a manifest and a cached shell for `/offline`, measured against the font and weight budgets |
+| Teacher-facilitated mode | Classes, `site_id`, teacher heatmap, stuck and alert views for students whose guardian chose `teacher_share`, a review queue | No one-phone-for-a-class mode; each child signs in separately | M | A roster screen on the teacher's phone that starts a child's session |
+| Authoring and approval | Content status draft or approved with hashes; teacher review sheets; reviewer allowlist; `ALLOW_DRAFT_CONTENT` gate; locale review tied to the English text hash | Nothing imports an engine lesson (`docs/ENGINE_INTEGRATION.md`); glossary entries have no dialect variants, audio, provenance or licence | M for engine lessons, L for a terminology commons | Record the adopted engine contract version in an ADR; add reviewer and date to glossary entries |
+| Operating model | `docs/OPERATOR.md` needs Docker, Python 3.12, Node 20, Postgres, Redis, mail, a domain and cron | A school or community operator may have none of these | L | Interview the December hosts before choosing between one hosted server and a school-LAN server |
+| Pilot readiness | Pilot protocol and usability plan assume readers: guardian enrolment on a page, English think-aloud with 15 to 18 year olds | Oral-first children and guardians who read little English; no oral-probe record | S to M | Add an oral-probe protocol and a spoken-consent record to the pilot protocol, with a paper sheet |
+| Data protection | One profile, `default_strict` (90-day guest retention, email reports, export and delete) | No Nepal or India variant; nothing for community language data; reports go by email only | S for draft profiles, M for legal review | Copy `default_strict` into draft Nepal and India profiles marked for legal review (Track B4) |
+
+Not decided: the first community, language, grade and subject; whether the first release is hosted or
+runs on a school machine; whether engine lessons or this app's own lessons come first.

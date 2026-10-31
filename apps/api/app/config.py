@@ -1,11 +1,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+DEFAULT_DB_PASSWORD = "tutor"  # development only; production refuses to start on it
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     postgres_user: str = "tutor"
-    postgres_password: str = "tutor"
+    postgres_password: str = DEFAULT_DB_PASSWORD
     postgres_db: str = "yourtutor"
     postgres_host: str = "127.0.0.1"  # not "localhost": ::1 can stall 30 s per connection
     postgres_port: int = 5432
@@ -44,11 +46,28 @@ class Settings(BaseSettings):
     rate_limit_enabled: bool = True  # env: RATE_LIMIT_ENABLED (config/limits.yaml)
     ask_enabled: bool = False  # env: ASK_ENABLED; Study Mode Ask is off until turned on
     ask_guests_enabled: bool = False  # env: ASK_GUESTS_ENABLED; guests never get Ask by default
+    explain_enabled: bool = False  # env: EXPLAIN_ENABLED; off until turned on
+    explain_guests_enabled: bool = False  # env: EXPLAIN_GUESTS_ENABLED; guests hold no AI consent
+    explain_signing_key: str = ""  # env: EXPLAIN_SIGNING_KEY; signs video sources (random if empty)
+    llm_story_model: str = ""  # env: LLM_STORY_MODEL; tried first for animated stories
+    llm_story_api_key: str = ""  # env: LLM_STORY_API_KEY; the key for that model
+    story_voice: str = "kokoro"  # env: STORY_VOICE; kokoro (default, af_heart) or piper
     llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
+    groq_api_key: str = ""  # env: GROQ_API_KEY
+    gemini_api_key: str = ""  # env: GEMINI_API_KEY
+    openrouter_api_key: str = ""  # env: OPENROUTER_API_KEY
+    anthropic_api_key: str = ""  # env: ANTHROPIC_API_KEY
     llm_review_sample_rate: float = 1.0  # env: LLM_REVIEW_SAMPLE_RATE; 100% in the first pilot week
     cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
+    trusted_proxies: str = (
+        ""  # env: TRUSTED_PROXIES, addresses or CIDR ranges; empty ignores X-Forwarded-For
+    )
+    engine_dir: str = "../EduVideoEngine"  # env: ENGINE_DIR
+    # env: ENGINE_JOBS_DIR; when set (Docker), overrides host path in result_path
+    engine_jobs_dir: str = ""
+    video_job_timeout_seconds: int = 600  # env: VIDEO_JOB_TIMEOUT_SECONDS
 
 
 # Switches that are for local development only: with APP_ENV=production none may be on.
@@ -63,4 +82,25 @@ def production_flag_errors(current: Settings) -> list[str]:
     return [name.upper() for name in DEV_ONLY_FLAGS if getattr(current, name)]
 
 
+def production_secret_errors(current: Settings) -> list[str]:
+    """Secrets that still hold their development default although APP_ENV says production."""
+    if current.app_env.strip().lower() != PRODUCTION:
+        return []
+    return ["POSTGRES_PASSWORD"] if current.postgres_password == DEFAULT_DB_PASSWORD else []
+
+
 settings = Settings()
+
+
+def key_for_model(model: str) -> str:
+    """Return the API key for a model based on its provider prefix (e.g. 'groq/...')."""
+    provider, _, _ = model.partition("/")
+    if provider == "groq":
+        return settings.groq_api_key or settings.llm_api_key
+    if provider == "gemini":
+        return settings.gemini_api_key or settings.llm_api_key
+    if provider == "openrouter":
+        return settings.openrouter_api_key or settings.llm_api_key
+    if provider == "anthropic":
+        return settings.anthropic_api_key or settings.llm_api_key
+    return settings.llm_api_key

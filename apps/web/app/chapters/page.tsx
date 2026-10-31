@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getChapters, locale, type ChapterCard } from "@/lib/api";
-import { t } from "@/lib/messages";
+import { getChapters, type ChapterCard } from "@/lib/api";
+
 import { useStudent } from "@/lib/useStudent";
 import StatusChip from "@/components/flow/StatusChip";
+import { useCopy } from "@/lib/locale";
 
 /** Chapter map: one recommended chapter, coming-soon cards, no locks between live chapters. */
 export default function ChaptersPage() {
-  const copy = t(locale());
+  const copy = useCopy();
   const student = useStudent();
   const [chapters, setChapters] = useState<ChapterCard[] | null>(null);
   const [error, setError] = useState(false);

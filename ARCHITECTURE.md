@@ -4,6 +4,8 @@ The orchestrator decides pedagogy. The textbook decides content. The LLM only ph
 
 v2 is region-neutral: curricula, languages, time zones, legal rules and hosting region are configuration, not code. v1 behaviour that is already built (M0–M5.5) is preserved unless a section says otherwise; changes are marked **[v2]**.
 
+**Direction (proposed, owner to confirm).** Every child understands what they are taught, first in the language they think in, then in the languages that open doors. This is direction, not decided scope: the first community, language and subject are chosen after the December field visit. If it holds, the likely pressures on this design are an interface that needs little reading, more than one script, sign-in without an email address, practice and lessons that work on a shared phone with a poor connection, and a teacher in the room. The gaps are listed in PLAN.md section 13; none changes a guardrail.
+
 ---
 
 ## 0. Design sources
@@ -904,3 +906,19 @@ Structured JSON logs; every LLM call in `llm_calls`; optional OpenTelemetry behi
 ## 28. Local infrastructure
 
 docker-compose: postgres (16, pgvector), redis, api, web. Windows: Docker Desktop + WSL2, repo on the WSL filesystem. `.gitattributes` forces LF. `.env.example` sets `ALLOW_DRAFT_CONTENT=true`, `RESEARCH_MODULE=off`, `ASK_ENABLED=false`, `JURISDICTION_PROFILE=default_strict`. Production leaves draft content off.
+
+## 29. Web shell (UI-1, as built)
+
+* `/` is a client shell: `components/chat/` (provider, thread, composer, sidebar, role cards, identity
+  cards, workspace panel). Conversation state is the pure reducer in `lib/chat/machine.ts`
+  (welcome, context, identity, home); options come from the registry through `GET /context/options`.
+* The composer runs on assistant-ui's external-store runtime with no model. Typed text goes to
+  `lib/chat/finder.ts` (clean, screen, match against chapter and skill titles) using the rules from
+  `GET /context/finder-rules`, and is dropped. It is never added to the thread, stored or sent.
+* The workspace panel embeds existing routes in an iframe named `yt-embed`. `components/AppFrame.tsx`
+  tells the chat the current page (`yt:nav`) and `components/flow/DoneScreen.tsx` tells it a session
+  ended (`yt:done`, titles only). The panel is part of the address (`/?w=`).
+* Styling: `app/tokens.css` (tokens, light and dark), Tailwind utilities-only, the legacy stylesheet in
+  a lower layer. Page weight is checked from the build output by `scripts/check-weight.mjs`.
+* One role per device: student and staff tokens replace each other (`lib/api.ts`).
+

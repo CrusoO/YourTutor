@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
-import { t, type Locale } from "@/lib/messages";
+import { type Locale } from "@/lib/messages";
+import { useCopy } from "@/lib/locale";
+import { LanguageSwitch } from "@/components/ui/language-switch";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,11 +19,10 @@ export default function LoginPage() {
       .then(() => router.replace("/subjects"))
       .catch(() => {});
   }, [router]);
-  const copy = t(locale());
+  const copy = useCopy();
   const [family, setFamily] = useState("");
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
-  const [lang, setLang] = useState<Locale>((locale() as Locale) || "en");
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -40,21 +41,7 @@ export default function LoginPage() {
   return (
     <main className="stack">
       <h1>{copy.loginTitle}</h1>
-      <div className="lang">
-        {(["en", "ne", "as"] as Locale[]).map((code) => (
-          <button
-            key={code}
-            type="button"
-            className={lang === code ? undefined : "ghost"}
-            onClick={() => {
-              setLang(code);
-              setLocale(code);
-            }}
-          >
-            {code}
-          </button>
-        ))}
-      </div>
+      <LanguageSwitch />
       <form className="stack" onSubmit={onSubmit}>
         <label>
           {copy.familyCode}

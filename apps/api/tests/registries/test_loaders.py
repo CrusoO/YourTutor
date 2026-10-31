@@ -57,7 +57,9 @@ def test_locale_metadata_loaded_from_registry() -> None:
         "active",
     )
     assert locales["ne"].script == "Deva"
-    assert locales["as"].status == "draft"
+    assert locales["as"].status == "coming_soon"
+    # UI-5 launch scope: English and Hindi are the only live languages.
+    assert {code for code, spec in locales.items() if spec.status == "active"} == {"en", "hi"}
 
 
 def test_locale_without_metadata_is_rejected(tmp_path: Path) -> None:
@@ -80,7 +82,7 @@ def test_locale_with_unknown_status_is_rejected(tmp_path: Path) -> None:
 def test_locale_rows_seeded_with_metadata(db: Session) -> None:
     row = db.get(LocaleRow, "as")
     assert row is not None
-    assert (row.name, row.script, row.status) == ("Assamese", "Beng", "draft")
+    assert (row.name, row.script, row.status) == ("Assamese", "Beng", "coming_soon")
 
 
 def test_content_load_syncs_registry_and_overlay_sections(tmp_path: Path) -> None:

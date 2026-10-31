@@ -1,5 +1,19 @@
-.venv
-__pycache__
-.pytest_cache
-.mypy_cache
-.ruff_cache
+# Secrets — never bake API keys into the image; pass via docker-compose environment:
+.env
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Test code — not needed at runtime
+tests/
+
+# Logs
+*.log
+logs/

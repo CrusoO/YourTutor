@@ -12,7 +12,7 @@ async function loadForm(
   form: string,
   cookieHeader: string | undefined
 ): Promise<{ items: Item[]; html?: string } | null> {
-  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const api = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   const response = await fetch(`${api}/checkpoints/${checkpointId}/forms/${form}`, {
     headers: cookieHeader ? { cookie: cookieHeader } : {},
     cache: "no-store",
@@ -33,7 +33,7 @@ export default async function ComparisonCheckpointPage({
 }) {
   const { checkpointId, form } = await params;
   const { token } = await searchParams;
-  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const api = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   if (token) {
     redirect(`${api}/checkpoints/${encodeURIComponent(checkpointId)}/forms/${encodeURIComponent(form)}?token=${encodeURIComponent(token)}`);
   }
