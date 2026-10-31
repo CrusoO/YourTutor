@@ -917,4 +917,11 @@ a.card:focus-visible {
 .lp-choice.wrong::after {
   content: "\00a0\21BB" / "";
 }
+
+/* Off-screen chat message items skip layout and paint, cutting render time for long threads.
+   Thread.tsx marks each message wrapper with data-message-item to opt in. */
+[data-message-item] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 80px;
+}
 }

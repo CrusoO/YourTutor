@@ -1,4 +1,7 @@
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API =
+  typeof window === "undefined"
+    ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+    : "/api";
 
 import type { FinderRules } from "./chat/finder";
 import type { Lesson } from "./lessons/types";
@@ -59,8 +62,22 @@ function store(): Storage | null {
   return window.localStorage;
 }
 
+/** An anonymous guest is kept for this tab only: closing the tab forgets them. A real sign-in uses the device store. */
+function tab(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.sessionStorage;
+  } catch {
+    return null;
+  }
+}
+
+function read(key: string): string {
+  return tab()?.getItem(key) || store()?.getItem(key) || "";
+}
+
 function token(): string {
-  return store()?.getItem("yt_token") || "";
+  return read("yt_token");
 }
 
 /** Is a student (or guest) token stored on this device? */
@@ -69,6 +86,8 @@ export function hasStudentToken(): boolean {
 }
 
 export function setToken(value: string) {
+  tab()?.removeItem("yt_token"); // a real sign-in replaces any guest of this tab
+  tab()?.removeItem("yt_student");
   store()?.setItem("yt_token", value);
 }
 
@@ -76,6 +95,8 @@ export function setToken(value: string) {
 export function clearStudent() {
   store()?.removeItem("yt_token");
   store()?.removeItem("yt_student");
+  tab()?.removeItem("yt_token");
+  tab()?.removeItem("yt_student");
 }
 
 export function setStudentId(value: string) {
@@ -83,7 +104,7 @@ export function setStudentId(value: string) {
 }
 
 export function studentId(): string {
-  return store()?.getItem("yt_student") || "";
+  return read("yt_student");
 }
 
 /** The interface language and its setter live in lib/locale.ts (one store, live languages only); re-exported here. */
@@ -148,8 +169,10 @@ export async function getFinderRules(language: string): Promise<FinderRules> {
 /** Start as a guest: no name, email or school; the reply carries the student's token. */
 export async function guestStart(body: GuestStartBody) {
   const out = await req("/guest/start", { method: "POST", body: JSON.stringify(body) });
-  setToken(out.token);
-  setStudentId(out.student_id);
+  store()?.removeItem("yt_token");
+  store()?.removeItem("yt_student");
+  tab()?.setItem("yt_token", out.token);
+  tab()?.setItem("yt_student", out.student_id);
   setLocale(body.home_language);
   return out;
 }
@@ -337,6 +360,63 @@ export async function createVideoJob(
     method: "POST",
     body: JSON.stringify({ node_id: nodeId, idempotency_key: idempotencyKey }),
   });
+}
+
+/** A video for a typed question: the engine matches the words to a topic and may answer "not available". */
+export async function createPromptVideoJob(prompt: string, idempotencyKey: string): Promise<VideoJob> {
+  return req("/video-jobs", {
+    method: "POST",
+    body: JSON.stringify({ prompt, idempotency_key: idempotencyKey }),
+  });
+}
+
+export type VideoSource = { title: string; sections: { heading: string; body: string }[] };
+
+/** A video made from the explanation just written: the API accepts only text it signed for this student. */
+export async function createSourceVideoJob(video: { source: VideoSource; proof: string }, idempotencyKey: string): Promise<VideoJob> {
+  return req("/video-jobs", {
+    method: "POST",
+    body: JSON.stringify({ source: video.source, source_proof: video.proof, idempotency_key: idempotencyKey }),
+  });
+}
+
+export type StoryResult =
+  | { kind: "story"; story: Record<string, unknown>; proof: string }
+  | { kind: "unavailable"; reason: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string }
+  | { kind: "empty" };
+
+/** The question planned as an animated story and written scene by scene (shapes, motion and narration). */
+export async function explainStory(prompt: string, language: "en" | "hi"): Promise<StoryResult> {
+  return req("/explain/story", { method: "POST", body: JSON.stringify({ prompt, language }) });
+}
+
+/** A video from a story this API wrote and signed for this student: the engine draws and animates it. */
+export async function createStoryVideoJob(story: Record<string, unknown>, proof: string, idempotencyKey: string): Promise<VideoJob> {
+  return req("/video-jobs", {
+    method: "POST",
+    body: JSON.stringify({ story, story_proof: proof, idempotency_key: idempotencyKey }),
+  });
+}
+
+export type Explanation =
+  | {
+      kind: "explanation";
+      title: string;
+      sections: { heading: string; body: string }[];
+      /**
+       * The video content signed by the API for this student.
+       * `story` = animated story (preferred, ADR 0091); `source` = text-card fallback.
+       */
+      video?: { story: Record<string, unknown>; proof: string } | { source: VideoSource; proof: string };
+    }
+  | { kind: "unavailable"; reason: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "empty" };
+
+/** The in-depth, first-principles explanation of a typed question. The question is never kept by the page. */
+export async function explainQuestion(prompt: string, language: "en" | "hi"): Promise<Explanation> {
+  return req("/explain", { method: "POST", body: JSON.stringify({ prompt, language }) });
 }
 
 export async function getVideoJob(jobId: string): Promise<VideoJob> {

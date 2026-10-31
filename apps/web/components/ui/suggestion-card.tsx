@@ -29,26 +29,23 @@ type AsButton = Common & { onClick: () => void; href?: undefined; disabled?: boo
 type AsLink = Common & { href: string; onClick?: undefined; disabled?: undefined };
 
 const base =
-  "glass group flex min-h-12 w-full cursor-pointer flex-col gap-3 rounded-[var(--radius-card)] p-4 text-left text-ink shadow-[var(--shadow-card)] transition hover:-translate-y-px hover:border-accent active:translate-y-0 active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:translate-y-0 no-underline";
+  "home-card group flex min-h-12 w-full cursor-pointer flex-col rounded-2xl px-4 py-3.5 text-left text-ink transition hover:border-accent active:opacity-90 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 no-underline";
 
 /** One card, one primary action. Pass `onClick` for an action in the page or `href` for a route. */
 export function SuggestionCard(props: AsButton | AsLink) {
   const { tone = "accent", icon, title, tag, description, className } = props;
   const body = (
-    <>
-      <span className="flex items-start justify-between gap-3">
-        <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", TONE[tone].icon)}>
-          <Icon name={icon} />
-        </span>
-        {tag ? (
-          <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-medium", TONE[tone].tag)}>
-            {tag}
-          </span>
-        ) : null}
+    <span className="flex w-full items-center gap-3">
+      <span className={cn("grid size-9 shrink-0 place-items-center rounded-[10px]", TONE[tone].icon)}>
+        <Icon name={icon} size={16} />
       </span>
-      <span className="label text-[0.8125rem] leading-snug">{title}</span>
-      {description ? <span className="text-sm text-muted">{description}</span> : null}
-    </>
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-[0.8125rem] font-medium leading-snug">{title}</span>
+        {description ? <span className="text-[0.6875rem] leading-snug text-muted">{description}</span> : null}
+      </span>
+      {tag ? <span className={cn("shrink-0 rounded-full px-2.5 py-0.5 text-[0.6875rem] font-medium", TONE[tone].tag)}>{tag}</span> : null}
+      <Icon name="arrowUp" size={13} className="shrink-0 rotate-45 text-muted transition-colors group-hover:text-ink" />
+    </span>
   );
   const testId = props["data-testid"];
   if (props.href !== undefined) {
@@ -78,13 +75,12 @@ export function SuggestionCardSkeleton({ className }: { className?: string }) {
     <div
       aria-hidden="true"
       className={cn(
-        "glass-flat flex min-h-[7.5rem] w-full animate-pulse flex-col gap-3 rounded-[var(--radius-card)] p-4",
+        "glass-flat flex min-h-[4.25rem] w-full animate-pulse items-center gap-3 rounded-2xl px-4 py-3.5",
         className,
       )}
     >
-      <span className="size-10 rounded-xl bg-surface-2" />
+      <span className="size-9 rounded-[10px] bg-surface-2" />
       <span className="h-4 w-2/3 rounded bg-surface-2" />
-      <span className="h-3 w-1/2 rounded bg-surface-2" />
     </div>
   );
 }

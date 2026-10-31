@@ -17,19 +17,15 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(60rem 36rem at 105% -8%, rgba(185, 174, 251, 0.95), transparent 62%),
-    radial-gradient(44rem 34rem at -12% 52%, rgba(122, 162, 247, 0.7), transparent 65%),
-    radial-gradient(40rem 30rem at 82% 112%, rgba(150, 214, 255, 0.85), transparent 62%),
-    linear-gradient(160deg, #e4ecfd 0%, #c6d4f5 52%, #d6e4fb 100%);
+  background: radial-gradient(52rem 28rem at 88% -10%, rgba(120, 180, 255, 0.28), transparent 70%), var(--c-bg);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) body::before {
-    background: radial-gradient(48rem 24rem at 50% -6%, rgba(109, 91, 208, 0.22), transparent 70%), var(--c-bg);
+    background: radial-gradient(54rem 28rem at 88% -12%, rgba(56, 182, 255, 0.1), transparent 70%), var(--c-bg);
   }
 }
 [data-theme="dark"] body::before {
-  background: radial-gradient(48rem 24rem at 50% -6%, rgba(109, 91, 208, 0.22), transparent 70%), var(--c-bg);
+  background: radial-gradient(54rem 28rem at 88% -12%, rgba(56, 182, 255, 0.1), transparent 70%), var(--c-bg);
 }
 
 /* Display and label type: short strings only (about six words or fewer). Uppercase is CSS, never typed. */
@@ -189,9 +185,9 @@ html[data-effects="reduce"] * {
   box-shadow: inset 0 -6px 12px rgba(10, 20, 80, 0.35), 0 8px 22px rgba(29, 79, 216, 0.35);
 }
 [data-theme="dark"] .sphere {
-  background-color: #6d5bd0; /* white label 5.2 : 1 */
-  background-image: radial-gradient(circle at 32% 28%, #a99bff 0%, #6d5bd0 50%, #3f2fa0 100%);
-  box-shadow: inset 0 -6px 12px rgba(10, 5, 60, 0.5), 0 8px 22px rgba(109, 91, 208, 0.35);
+  background-color: #38b6ff;
+  background-image: radial-gradient(circle at 32% 28%, #b5e4ff 0%, #38b6ff 50%, #0d6fb8 100%);
+  box-shadow: inset 0 -6px 12px rgba(10, 5, 60, 0.5), 0 8px 22px rgba(56, 182, 255, 0.3);
 }
 
 /* Hindi (Devanagari) type rules: Noto Sans Devanagari for the display line and labels (not the monospace), no
@@ -245,9 +241,6 @@ html[data-effects="reduce"] * {
 }
 
 /* Home (UI-5 home mockup): flat page, bold sans headline, white cards. No gradient or glow behind the home. */
-body:has(.home-flat)::before {
-  background: var(--c-home-bg);
-}
 .home-title {
   font-family: var(--ff-body);
   font-weight: 600;
@@ -258,6 +251,7 @@ body:has(.home-flat)::before {
 .home-card {
   background: var(--c-card-solid);
   border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-card);
 }
 :lang(hi) .home-title {
   font-weight: 500;
@@ -273,4 +267,27 @@ body:has(.home-flat)::before {
 /* Sheets and dialogs (the full-window workspace, the drawer) are solid: nothing of the page shows through. */
 .ui-root[role="dialog"] {
   background: var(--c-popover);
+}
+
+/* Home in Hindi: Devanagari needs looser lines, no negative tracking and a slightly larger floor than the Latin
+   micro sizes (11 to 12 px) the home design uses; the display weight is 500 because Noto ships 400 and 500 only. */
+:lang(hi) .home-display {
+  letter-spacing: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+:lang(hi) .ui-root :is([class*="text-[0.5625rem]"], [class*="text-[0.6875rem]"]) {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+:lang(hi) .ui-root [class*="text-[0.75rem]"] {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+:lang(hi) .ui-root [class*="text-[0.8125rem]"] {
+  line-height: 1.55;
+}
+
+:lang(hi) .home-stat {
+  line-height: 1;
 }

@@ -34,11 +34,16 @@ services:
   api:
     build:
       context: ./apps/api
+    env_file:
+      - path: ./apps/api/.env
+        required: false   # missing file → fall back to environment: block only
     volumes:
       - ./content:/content:ro
       - ./config:/config:ro
+      - ../EduVideoEngine/dist/jobs:/engine-jobs:ro
     environment:
       POSTGRES_HOST: postgres
+      ENGINE_JOBS_DIR: /engine-jobs
       POSTGRES_USER: ${POSTGRES_USER:-tutor}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: ${POSTGRES_DB:-yourtutor}
@@ -77,7 +82,8 @@ services:
     # DEVELOPMENT ONLY: this image runs `npm run dev:lan` (inside the container). For a pilot run `npm run build` and
     # `npm run start` on the host (docs/OPERATOR.md sections 1 and 8) and do not start this service.
     build:
-      context: ./apps/web
+      context: .
+      dockerfile: apps/web/Dockerfile
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
       NEXT_PUBLIC_DEV_TOOLS: ${NEXT_PUBLIC_DEV_TOOLS:-false}

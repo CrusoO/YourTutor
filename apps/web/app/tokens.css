@@ -12,21 +12,21 @@
 
 :root,
 [data-theme="light"] {
-  --c-bg: #e4ecfd; /* page gradient: #e4ecfd, #c6d4f5, #d6e4fb (see body) */
-  --c-surface: #e9effb; /* glass card, solid worst case; 62 % white over #c6d4f5 */
-  --c-home-bg: #eef0fc; /* the flat home page (UI-5 home mockup) */
+  --c-bg: #eef2fb; /* page gradient: #e4ecfd, #c6d4f5, #d6e4fb (see body) */
+  --c-surface: #ffffff; /* glass card, solid worst case; 62 % white over #c6d4f5 */
+  --c-home-bg: #eef2fb; /* the flat home page (UI-5 home mockup) */
   --c-card-solid: #ffffff; /* white card on the flat home */
-  --c-bg-deep: #c6d4f5; /* the darkest zone of the page gradient: text 11.0 : 1, muted 6.9 : 1 */
-  --c-surface-2: #e3eafa; /* secondary and muted fills, solid worst case */
+  --c-bg-deep: #e3e9f6; /* the darkest zone of the page gradient: text 11.0 : 1, muted 6.9 : 1 */
+  --c-surface-2: #e8eef9; /* secondary and muted fills, solid worst case */
   --c-lesson: #ffffff; /* plain lesson surface: no paper texture, no glass (UI-4) */
-  --c-text: #0f1b4c; /* 14 : 1 on glass, 11 on the darkest zone */
-  --c-muted: #2f3c78; /* 8.9 : 1 on glass, 6.9 on the darkest zone (checked below at 7 : 1 on the surfaces it sits on) */
-  --c-line: rgba(15, 27, 76, 0.22); /* hairlines */
-  --c-input-line: #5a6aa8; /* 4.5 : 1 on glass */
-  --c-accent: #1d4fd8; /* white label 6.6 : 1 */
+  --c-text: #0d1b3e; /* 14 : 1 on glass, 11 on the darkest zone */
+  --c-muted: #46526f; /* 8.9 : 1 on glass, 6.9 on the darkest zone (checked below at 7 : 1 on the surfaces it sits on) */
+  --c-line: rgba(13, 27, 62, 0.1); /* hairlines */
+  --c-input-line: #76829f; /* 4.5 : 1 on glass */
+  --c-accent: #0b6bd3; /* white label 6.6 : 1 */
   --c-accent-fg: #ffffff;
-  --c-accent-ink: #1d4fd8; /* accent used as text or an icon, 5.8 : 1 on glass */
-  --c-accent-soft: #dbe5fc;
+  --c-accent-ink: #0b6bd3; /* accent used as text or an icon, 5.8 : 1 on glass */
+  --c-accent-soft: #e0ecfb;
   --c-success: #0f6b4a;
   --c-success-soft: #ddf5ea;
   --c-warning: #7a4b00;
@@ -39,19 +39,19 @@
   --c-neutral-soft: #e9ebf3;
   --c-danger: #b42318;
   --c-danger-soft: #fbe5e5;
-  --c-focus: #1d4fd8;
-  --c-glow-from: #4db4ff; /* inline glow button: gradient, NAVY label 7.3 and 6.5 : 1 */
-  --c-glow-to: #7aa2f7;
-  --c-glow-label: #0f1b4c;
-  --c-glass: rgba(255, 255, 255, 0.62);
-  --c-glass-edge: rgba(255, 255, 255, 0.7);
-  --c-popover: #f3f6fe;
+  --c-focus: #0b6bd3;
+  --c-glow-from: #38b6ff; /* inline glow button: gradient, NAVY label 7.3 and 6.5 : 1 */
+  --c-glow-to: #0b6bd3;
+  --c-glow-label: #04243d;
+  --c-glass: rgba(255, 255, 255, 0.8);
+  --c-glass-edge: rgba(13, 27, 62, 0.1);
+  --c-popover: #f6f8fd;
   --blur-glass: 14px;
   --glass-filter: blur(14px);
   --radius-card: 1rem;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 2px rgba(15, 27, 76, 0.06), 0 6px 18px rgba(15, 27, 76, 0.07);
-  --shadow-lift: 0 2px 4px rgba(15, 27, 76, 0.08), 0 10px 24px rgba(15, 27, 76, 0.12);
+  --shadow-card: 0 1px 2px rgba(13, 27, 62, 0.04), 0 8px 24px rgba(13, 27, 62, 0.06);
+  --shadow-lift: 0 2px 4px rgba(13, 27, 62, 0.06), 0 12px 28px rgba(13, 27, 62, 0.1);
   --dur: 200ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --lh-body: 1.5;
@@ -62,21 +62,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --c-bg: #0b041a;
-    --c-surface: #120b24;
-    --c-home-bg: #0b041a;
-  --c-card-solid: #120b24;
-  --c-bg-deep: #0b041a;
-    --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
-    --c-lesson: #0b041a;
-    --c-text: #f4f1ff; /* 18.0 : 1 on the page, 17.2 on a card */
-    --c-muted: #a39cb2; /* 7.2 : 1 on a card */
-    --c-line: rgba(255, 255, 255, 0.12);
-    --c-input-line: #6f6890; /* 3.7 : 1 on a card */
-    --c-accent: #6d5bd0; /* white label 5.2 : 1 */
-    --c-accent-fg: #ffffff;
-    --c-accent-ink: #9d8ffa; /* 7.1 : 1 on a card */
-    --c-accent-soft: #201b3e;
+    --c-bg: #0a0c11;
+    --c-surface: #0f1218;
+    --c-home-bg: #0a0c11;
+  --c-card-solid: #0e1117;
+  --c-bg-deep: #090b10;
+    --c-surface-2: #161a22; /* the reference #1b1530 gives muted text only 6.65 : 1 */
+    --c-lesson: #0a0c11;
+    --c-text: #f1f4f9; /* 18.0 : 1 on the page, 17.2 on a card */
+    --c-muted: #9ba4b5; /* 7.2 : 1 on a card */
+    --c-line: rgba(255, 255, 255, 0.09);
+    --c-input-line: #6b7589; /* 3.7 : 1 on a card */
+    --c-accent: #38b6ff; /* white label 5.2 : 1 */
+    --c-accent-fg: #04243d;
+    --c-accent-ink: #4cc0ff; /* 7.1 : 1 on a card */
+    --c-accent-soft: #0f2a3f;
     --c-success: #56c59d;
     --c-success-soft: #10241f;
     --c-warning: #f5b942;
@@ -89,13 +89,13 @@
     --c-neutral-soft: #262b43;
     --c-danger: #f87171;
     --c-danger-soft: #431d1f;
-    --c-focus: #a5b4fc;
-    --c-glow-from: #6d5bd0;
-    --c-glow-to: #5b4cc8;
-    --c-glow-label: #ffffff;
-    --c-glass: #120b24;
-    --c-glass-edge: rgba(255, 255, 255, 0.12);
-    --c-popover: #1b1530;
+    --c-focus: #7fd0ff;
+    --c-glow-from: #38b6ff;
+    --c-glow-to: #5aa8ff;
+    --c-glow-label: #04243d;
+    --c-glass: #0f1218;
+    --c-glass-edge: rgba(255, 255, 255, 0.09);
+    --c-popover: #151922;
     --blur-glass: 0px; /* dark uses solid surfaces, no blur */
     --glass-filter: none;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
@@ -105,21 +105,21 @@
 }
 
 [data-theme="dark"] {
-  --c-bg: #0b041a;
-  --c-surface: #120b24;
-  --c-home-bg: #0b041a;
-  --c-card-solid: #120b24;
-  --c-bg-deep: #0b041a;
-  --c-surface-2: #150e26; /* the reference #1b1530 gives muted text only 6.65 : 1 */
-  --c-lesson: #0b041a;
-  --c-text: #f4f1ff;
-  --c-muted: #a39cb2;
-  --c-line: rgba(255, 255, 255, 0.12);
-  --c-input-line: #6f6890;
-  --c-accent: #6d5bd0;
-  --c-accent-fg: #ffffff;
-  --c-accent-ink: #9d8ffa;
-  --c-accent-soft: #201b3e;
+  --c-bg: #0a0c11;
+  --c-surface: #0f1218;
+  --c-home-bg: #0a0c11;
+  --c-card-solid: #0e1117;
+  --c-bg-deep: #090b10;
+  --c-surface-2: #161a22; /* the reference #1b1530 gives muted text only 6.65 : 1 */
+  --c-lesson: #0a0c11;
+  --c-text: #f1f4f9;
+  --c-muted: #9ba4b5;
+  --c-line: rgba(255, 255, 255, 0.09);
+  --c-input-line: #6b7589;
+  --c-accent: #38b6ff;
+  --c-accent-fg: #04243d;
+  --c-accent-ink: #4cc0ff;
+  --c-accent-soft: #0f2a3f;
   --c-success: #56c59d;
   --c-success-soft: #10241f;
   --c-warning: #f5b942;
@@ -132,13 +132,13 @@
   --c-neutral-soft: #262b43;
   --c-danger: #f87171;
   --c-danger-soft: #431d1f;
-  --c-focus: #a5b4fc;
-  --c-glow-from: #6d5bd0;
-  --c-glow-to: #5b4cc8;
-  --c-glow-label: #ffffff;
-  --c-glass: #120b24;
-  --c-glass-edge: rgba(255, 255, 255, 0.12);
-  --c-popover: #1b1530;
+  --c-focus: #7fd0ff;
+  --c-glow-from: #38b6ff;
+  --c-glow-to: #5aa8ff;
+  --c-glow-label: #04243d;
+  --c-glass: #0f1218;
+  --c-glass-edge: rgba(255, 255, 255, 0.09);
+  --c-popover: #151922;
   --blur-glass: 0px;
   --glass-filter: none;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
@@ -183,7 +183,8 @@ html[data-motion="reduce"] * {
    Devanagari faces load only when the language is hi (components/FontLoader), so English never pays for them. */
 :root {
   --ff-display: "Geist Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
-  --ff-body: "Inter", system-ui, "Segoe UI", "Noto Sans", Roboto, sans-serif;
+  --ff-body: "Geist", "Inter", system-ui, "Segoe UI", "Noto Sans", Roboto, sans-serif;
+  --ff-sans: var(--ff-body);
 }
 :lang(hi) {
   --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;

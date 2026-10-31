@@ -2,6 +2,7 @@
 
 import { AssistantRuntimeProvider, useExternalStoreRuntime, type ThreadMessageLike } from "@assistant-ui/react";
 import { useMemo, useState } from "react";
+import { useLocale } from "@/lib/locale";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icons";
 import { Brand } from "@/components/ui/brand";
@@ -14,12 +15,19 @@ import { messageText } from "@/lib/chat/labels";
 import { ChatProvider, useChatApi } from "./ChatProvider";
 import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
+import { IconSidebar } from "./IconSidebar";
+import { LessonView } from "./LessonView";
+import { RightPanel } from "./RightPanel";
+import { TopicMastery } from "./TopicMastery";
 import dynamic from "next/dynamic";
 import { LatestSummary, Replies } from "./Bubbles";
 // The conversation (setup chips, sign-in forms) loads only when there is one: the first screen is the hero.
 const Thread = dynamic(() => import("./Thread").then((m) => m.Thread), { ssr: false });
 import { SidebarContent } from "./Sidebar";
-import { WorkspacePanel } from "./WorkspacePanel";
+const WorkspacePanel = dynamic(
+  () => import("./WorkspacePanel").then((m) => m.WorkspacePanel),
+  { ssr: false },
+);
 
 /** A visitor with nothing set up yet, or someone on their home: greeting, composer and cards, centred. */
 function Hero() {
@@ -28,42 +36,57 @@ function Hero() {
   const name = identity?.name;
   const adult = identity?.role === "teacher" || identity?.role === "parent";
   const line = hour === null || !identityReady ? "" : greeting(copy, hour, name, adult);
+  const lang = useLocale();
+  const dateLabel = useMemo(
+    () => new Intl.DateTimeFormat(lang === "hi" ? "hi-IN" : "en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date()),
+    [lang],
+  );
   return (
-    <div className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col items-center gap-6 overflow-y-auto px-4 py-8 [&>:first-child]:mt-auto [&>:last-child]:mb-auto" data-testid="hero">
-      {identity?.role === "guest" && tipOpen ? (
-        <div className="glass-flat flex w-full max-w-3xl items-center justify-between gap-3 rounded-2xl px-4 py-2 text-sm" role="note" data-testid="tip">
-          <span>{copy.chatTipGuest}</span>
-          <Button variant="ghost" size="sm" onClick={() => { dismissTip(); setTipOpen(false); }}>
-            {copy.chatTipDismiss}
-          </Button>
+    <div className="flex min-h-0 w-full flex-1 justify-center gap-10 overflow-y-auto px-4 pb-10 pt-2 lg:pt-8" data-testid="hero">
+      <div className="flex w-full max-w-[37rem] min-w-0 flex-col gap-4">
+        {identity?.role === "guest" && tipOpen ? (
+          <div className="glass-flat flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-2 text-sm" role="note" data-testid="tip">
+            <span>{copy.chatTipGuest}</span>
+            <Button variant="ghost" size="sm" onClick={() => { dismissTip(); setTipOpen(false); }}>
+              {copy.chatTipDismiss}
+            </Button>
+          </div>
+        ) : null}
+        <div className="mb-2 flex w-full flex-col gap-1" data-testid="hero-frame">
+          <p className="m-0 text-[0.75rem] text-muted" suppressHydrationWarning>{dateLabel}</p>
+          <h1
+            className="home-display m-0 min-h-[1lh] text-[clamp(1.75rem,2.7vw,2.4rem)] font-light leading-[1.1] tracking-[-0.035em] text-ink"
+            style={{ fontFamily: "var(--ff-body)" }}
+            data-testid="greeting"
+          >
+            {line}
+          </h1>
+          <p className="m-0 mt-1 text-[0.875rem] text-muted">{role === "visitor" ? copy.homeSubtitleAnon : copy.chatPrompt}</p>
         </div>
-      ) : null}
-      <div className="flex w-full max-w-3xl flex-col gap-3" data-testid="hero-frame">
-        <h1 className="home-title m-0 min-h-[1lh] text-ink" data-testid="greeting">
-          {line}
-        </h1>
-        <p className="m-0 text-base text-muted">{role === "visitor" ? copy.homeSubtitle : copy.chatPrompt}</p>
+        <Composer />
+        <div className="w-full">
+          <Replies />
+          <LatestSummary />
+        </div>
+        <TopicMastery />
+        <HomeCards />
+        {error ? (
+          <p role="alert" className="m-0 text-sm text-danger">
+            {error}
+          </p>
+        ) : null}
       </div>
-      <Composer />
-      <div className="w-full max-w-3xl">
-        <Replies />
-        <LatestSummary />
+      <div className="hidden pt-1 xl:block">
+        <RightPanel />
       </div>
-      <HomeCards />
-      {error ? (
-        <p role="alert" className="m-0 text-sm text-danger">
-          {error}
-        </p>
-      ) : null}
     </div>
   );
 }
 
 function Shell() {
   const api = useChatApi();
-  const { chat, ctx, copy, busy, submitText, workspace } = api;
+  const { chat, ctx, copy, busy, submitText, workspace, lesson } = api;
   const [drawer, setDrawer] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
 
   const threadMessages = useMemo<ThreadMessageLike[]>(
     () =>
@@ -97,11 +120,7 @@ function Shell() {
         <a href="#chat-main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-surface focus:p-3">
           {copy.chatBackToChat}
         </a>
-        {!collapsed ? (
-          <aside className="glass-flat hidden w-72 shrink-0 border-0 border-r border-line lg:flex" aria-label={copy.appName} data-testid="sidebar">
-            <SidebarContent />
-          </aside>
-        ) : null}
+        <IconSidebar />
         <Sheet open={drawer} onOpenChange={setDrawer}>
           <SheetContent side="left" className="p-0">
             <SheetTitle className="sr-only">{copy.appName}</SheetTitle>
@@ -110,22 +129,35 @@ function Shell() {
           </SheetContent>
         </Sheet>
 
-        <main id="chat-main" className="@container flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
-          <header className="flex items-center gap-3 px-3 py-2">
+        <main id="chat-main" className="@container relative flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
+          <header className={`flex items-center gap-3 px-3 py-2 ${hero ? "lg:absolute lg:right-3 lg:top-2 lg:z-10 lg:p-0" : ""}`}>
             <Button variant="ghost" size="icon" className="size-11 min-h-11 min-w-11 text-muted lg:hidden" onClick={() => setDrawer(true)} aria-label={copy.chatOpenMenu} title={copy.chatOpenMenu} data-testid="menu-open">
-              <Icon name="menu" />
-            </Button>
-            <Button variant="ghost" size="icon" className="hidden size-11 min-h-11 min-w-11 text-muted lg:inline-flex" onClick={() => setCollapsed((v) => !v)} aria-expanded={!collapsed} aria-label={collapsed ? copy.chatOpenMenu : copy.chatCollapse} title={collapsed ? copy.chatOpenMenu : copy.chatCollapse} data-testid="sidebar-toggle">
               <Icon name="menu" />
             </Button>
             <span className="lg:hidden">
               <Brand />
             </span>
-            <span className="ml-auto">
+            <span className="ml-auto flex items-center gap-2">
+              {api.identity ? (
+                <Button variant="outline" size="sm" className="hidden lg:inline-flex" onClick={api.signOut} data-testid="header-sign-out">
+                  {copy.chatSignOut}
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" className="hidden lg:inline-flex" onClick={() => api.dispatch({ type: "identity", view: "choices" })} data-testid="header-sign-in">
+                  {copy.chatSignIn}
+                </Button>
+              )}
               <LanguageSwitch />
             </span>
           </header>
-          {hero ? (
+          {lesson ? (
+            <>
+              <LessonView />
+              <div className="mx-auto w-full max-w-[40rem] px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2" data-testid="docked-composer">
+                <Composer docked />
+              </div>
+            </>
+          ) : hero ? (
             <Hero />
           ) : (
             <>

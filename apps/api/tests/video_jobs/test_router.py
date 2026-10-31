@@ -263,9 +263,7 @@ def test_retry_wrong_owner_returns_403(client: TestClient, world: World, db: Ses
 # ── GET /video-jobs/topics ────────────────────────────────────────────────────
 
 
-def test_topics_returns_sections_for_prefix(
-    client: TestClient, world: World, db: Session
-) -> None:
+def test_topics_returns_sections_for_prefix(client: TestClient, world: World, db: Session) -> None:
     from app.db.models import BookRow, ChapterRow, CurriculumRow, SectionRow
 
     db.merge(CurriculumRow(id="tvj", default_timezone="UTC", jurisdiction_profile="default_strict"))
@@ -299,9 +297,7 @@ def test_topics_returns_sections_for_prefix(
     )
     db.commit()
 
-    r = client.get(
-        "/video-jobs/topics?node_prefix=tvj", headers=auth_header(world.student_token)
-    )
+    r = client.get("/video-jobs/topics?node_prefix=tvj", headers=auth_header(world.student_token))
     assert r.status_code == 200, r.text
     topics = r.json()["topics"]
     assert len(topics) == 1
@@ -329,9 +325,7 @@ def test_topics_requires_auth(client: TestClient) -> None:
 # ── file serving helpers ──────────────────────────────────────────────────────
 
 
-def _insert_done_job(
-    db: Session, student_id: uuid.UUID, result_dir: Path
-) -> VideoJobRow:
+def _insert_done_job(db: Session, student_id: uuid.UUID, result_dir: Path) -> VideoJobRow:
     job_id = uuid.uuid4()
     (result_dir / "lesson.mp4").write_bytes(b"FAKE-MP4-DATA")
     sources_data = {
@@ -364,21 +358,15 @@ def test_lesson_mp4_serves_file(
     client: TestClient, world: World, db: Session, tmp_path: Path
 ) -> None:
     row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
-    r = client.get(
-        f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.student_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.student_token))
     assert r.status_code == 200
     assert "video/mp4" in r.headers["content-type"]
     assert r.content == b"FAKE-MP4-DATA"
 
 
-def test_lesson_mp4_404_when_not_done(
-    client: TestClient, world: World, db: Session
-) -> None:
+def test_lesson_mp4_404_when_not_done(client: TestClient, world: World, db: Session) -> None:
     row = _insert_job(db, uuid.UUID(world.student_share_id), status="running")
-    r = client.get(
-        f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.student_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.student_token))
     assert r.status_code == 404
 
 
@@ -386,9 +374,7 @@ def test_lesson_mp4_403_wrong_owner(
     client: TestClient, world: World, db: Session, tmp_path: Path
 ) -> None:
     row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
-    r = client.get(
-        f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.parent_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.parent_token))
     assert r.status_code == 403
 
 
@@ -396,9 +382,7 @@ def test_lesson_mp4_admin_can_access(
     client: TestClient, world: World, db: Session, tmp_path: Path
 ) -> None:
     row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
-    r = client.get(
-        f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.admin_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/lesson.mp4", headers=auth_header(world.admin_token))
     assert r.status_code == 200
 
 
@@ -409,9 +393,7 @@ def test_sources_json_strips_path_keys(
     client: TestClient, world: World, db: Session, tmp_path: Path
 ) -> None:
     row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
-    r = client.get(
-        f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.student_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.student_token))
     assert r.status_code == 200
     body = r.json()
     assert body["caveats"] == ["Engine caveat."]
@@ -421,13 +403,9 @@ def test_sources_json_strips_path_keys(
     assert book["title"] == "NCERT Mathematics"
 
 
-def test_sources_json_404_when_not_done(
-    client: TestClient, world: World, db: Session
-) -> None:
+def test_sources_json_404_when_not_done(client: TestClient, world: World, db: Session) -> None:
     row = _insert_job(db, uuid.UUID(world.student_share_id), status="queued")
-    r = client.get(
-        f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.student_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.student_token))
     assert r.status_code == 404
 
 
@@ -435,9 +413,7 @@ def test_sources_json_403_wrong_owner(
     client: TestClient, world: World, db: Session, tmp_path: Path
 ) -> None:
     row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
-    r = client.get(
-        f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.parent_token)
-    )
+    r = client.get(f"/video-jobs/{row.id}/sources.json", headers=auth_header(world.parent_token))
     assert r.status_code == 403
 
 

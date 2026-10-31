@@ -25,6 +25,7 @@ import {
   startSession,
   studentId,
   today,
+  clearStudent,
   type ContextOptions,
 } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
@@ -43,6 +44,8 @@ import {
   type Setup,
 } from "@/lib/chat/machine";
 import { type Messages } from "@/lib/messages";
+
+export type Lesson = { id: number; prompt: string };
 
 export type Mode =
   | "learn"
@@ -98,6 +101,9 @@ export type ChatApi = {
   signOut: () => void;
   newChat: () => void;
   workspace: Workspace | null;
+  /** The question a signed-out visitor just asked: shown as an in-depth explanation with a video. In memory only. */
+  lesson: Lesson | null;
+  closeLesson: () => void;
   openWorkspace: (path: string, title?: string) => void;
   closeWorkspace: () => void;
   busy: boolean;
@@ -126,6 +132,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [modeChoice, setModeState] = useState<Mode>("learn");
   const [replies, setReplies] = useState<Reply[]>([]);
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
+  const [lesson, setLesson] = useState<Lesson | null>(null);
+  const lessonSeq = useRef(1);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const topics = useRef<Topic[] | null>(null);
@@ -298,6 +306,36 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     [copy, openWorkspace, startPractice],
   );
 
+  const beginGuest = useCallback(
+    async (setup: Setup, remember: boolean) => {
+      if (!setup.board || setup.grade === undefined || !setup.subject) throw new Error("setup incomplete");
+      if (remember) saveSetup(setup);
+      await guestStart({
+        curriculum_id: setup.board,
+        grade: setup.grade,
+        subject: setup.subject,
+        home_language: locale(),
+        device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+      setIdentity({ role: "guest" });
+      dispatch({ type: "guest_started" });
+      topics.current = null;
+    },
+    [dispatch],
+  );
+
+  /** The class used when nobody has picked one: the one saved on this device, else the first class on offer. */
+  const defaultSetup = useCallback((): Setup | null => {
+    const saved = loadSetup();
+    if (saved?.board && saved.grade !== undefined && saved.subject) return saved;
+    // Class 10 CBSE maths first: it is the class the video engine has lessons for.
+    const hasClass10 = (c: ContextLike["curricula"][number]) => c.grades.some((g) => g.grade === 10 && g.subjects.length);
+    const curriculum = ctx?.curricula.find((c) => c.id === "cbse" && hasClass10(c)) ?? ctx?.curricula.find((c) => c.grades.some((g) => g.subjects.length));
+    const grade = curriculum?.grades.find((g) => g.grade === 10 && g.subjects.length) ?? curriculum?.grades.find((g) => g.subjects.length);
+    const subject = grade?.subjects[0];
+    return curriculum && grade && subject ? resolveSetup(ctx!, { board: curriculum.id, grade: grade.grade, subject: subject.id }) : null;
+  }, [ctx]);
+
   /** The composer: a deterministic topic finder. The typed text stays in this function and is dropped. */
   const submitText = useCallback(
     async (text: string) => {
@@ -308,7 +346,25 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         return;
       }
       if (role === "visitor") {
-        addReply({ kind: "pick_class" });
+        // Nobody is signed in: no questions first. A guest starts quietly on the default class and the prompt is answered below.
+        setBusy(true);
+        try {
+          const setup = defaultSetup();
+          if (!setup) throw new Error("no class on offer");
+          await beginGuest(setup, false);
+        } catch {
+          setError(copy.chatCouldNotLoad);
+          return;
+        } finally {
+          setBusy(false);
+        }
+      }
+      if ((role === "visitor" || role === "guest") && mode === "learn") {
+        const question = text.trim();
+        if (!question) return;
+        setReplies([]);
+        setWorkspace(null);
+        setLesson({ id: lessonSeq.current++, prompt: question });
         return;
       }
       try {
@@ -325,9 +381,14 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       const list = await loadTopics();
       const found = findTopics(prepared.text, list);
       if (found.kind === "none") return addReply({ kind: "none", topics: list.filter((x) => x.kind === "chapter").slice(0, 3), piiRemoved: prepared.piiRemoved });
+      // Not signed in (a visitor or a guest): teach straight away from the best match instead of asking to choose.
+      if (found.topics[0]) {
+        await pickTopic(found.topics[0], mode);
+        return;
+      }
       addReply({ kind: "matches", topics: found.topics, piiRemoved: prepared.piiRemoved, mode });
     },
-    [addReply, loadTopics, mode, role, startMode],
+    [addReply, beginGuest, copy, defaultSetup, loadTopics, mode, pickTopic, role, startMode],
   );
 
   const signedIn = useCallback(
@@ -340,65 +401,55 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     [dispatch],
   );
 
-  /** A guest on this device for the given class, then straight into the first activity. */
+  /** Register a guest silently and land on the home screen. No chapter navigation: the guest uses the
+   * Composer to ask anything. If live chapters exist they are reachable via the workspace. */
   const startAsGuest = useCallback(
     async (setup: Setup, remember: boolean) => {
       setBusy(true);
       setError("");
       try {
-        if (!setup.board || setup.grade === undefined || !setup.subject) throw new Error("setup incomplete");
-        if (remember) saveSetup(setup);
-        await guestStart({
-          curriculum_id: setup.board,
-          grade: setup.grade,
-          subject: setup.subject,
-          home_language: locale(),
-          device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        });
-        setIdentity({ role: "guest" });
-        dispatch({ type: "guest_started" });
+        await beginGuest(setup, remember);
         const me = await today();
         if (me.offer === "first_run") await answerOnboarding("start_beginning");
-        const { chapters } = await getChapters(me.student_id);
-        const first = chapters.find((c) => c.recommended) ?? chapters.find((c) => c.live);
-        await startPractice(first?.id, copy.chatFirstLesson);
       } catch {
         setError(copy.chatCouldNotLoad);
       } finally {
         setBusy(false);
       }
     },
-    [copy, dispatch, startPractice],
+    [beginGuest, copy],
   );
 
-  /** "Just try it" at the end of the setup questions. */
-  const justTry = useCallback(() => startAsGuest(chat.setup, true), [chat.setup, startAsGuest]);
-
-  /**
-   * "Try one question": no questions asked first. The class is the one saved on this device, or the first
-   * class the registry offers; the student can change it any time from "Pick my class".
-   */
-  const tryOneQuestion = useCallback(async () => {
-    const saved = loadSetup();
-    if (saved?.board && saved.grade !== undefined && saved.subject) return startAsGuest(saved, false);
-    const curriculum = ctx?.curricula.find((c) => c.grades.some((g) => g.subjects.length));
-    const grade = curriculum?.grades.find((g) => g.subjects.length);
-    const subject = grade?.subjects[0];
-    if (!curriculum || !grade || !subject) {
+  /** "Just try it" — works without setup questions. Falls back to the default class so any visitor
+   * (student, professional, curious adult) can start without picking a curriculum first. */
+  const justTry = useCallback(async () => {
+    const setup =
+      chat.setup.board && chat.setup.grade !== undefined && chat.setup.subject
+        ? chat.setup
+        : defaultSetup();
+    if (!setup) {
       setError(copy.chatCouldNotLoad);
       return;
     }
-    return startAsGuest(resolveSetup(ctx!, { board: curriculum.id, grade: grade.grade, subject: subject.id }), false);
-  }, [copy, ctx, startAsGuest]);
+    await startAsGuest(setup, false);
+  }, [chat.setup, copy, defaultSetup, setError, startAsGuest]);
+
+  /**
+   * "Try one question": no questions asked first. Uses the saved class or the first available one.
+   */
+  const tryOneQuestion = useCallback(async () => {
+    const setup = defaultSetup();
+    if (!setup) { setError(copy.chatCouldNotLoad); return; }
+    return startAsGuest(setup, false);
+  }, [copy, defaultSetup, setError, startAsGuest]);
+
+  const closeLesson = useCallback(() => setLesson(null), []);
 
   const signOut = useCallback(() => {
+    setLesson(null);
     setToken("");
     setStaffToken("");
-    try {
-      window.localStorage.removeItem("yt_student");
-    } catch {
-      /* storage is optional */
-    }
+    clearStudent();
     topics.current = null;
     setIdentity(null);
     setWorkspace(null);
@@ -407,6 +458,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }, [ctx, emptyCtx]);
 
   const newChat = useCallback(() => {
+    setLesson(null);
     setWorkspace(null);
     setReplies([]);
     if (identity) {
@@ -438,6 +490,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     signOut,
     newChat,
     workspace,
+    lesson,
+    closeLesson,
     openWorkspace,
     closeWorkspace,
     busy,

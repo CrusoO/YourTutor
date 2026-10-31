@@ -2,23 +2,29 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import uuid
 from datetime import datetime
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Response, status
 from fastapi.responses import FileResponse
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+from app.ask.config import load_safety
+from app.ask.guard import clean_question, screen
 from app.auth.authz import FORBIDDEN
 from app.auth.consent import has_scope
 from app.auth.deps import ActorDep, DbSession
 from app.auth.security import now_utc
-from app.db.models import ChapterRow, SectionRow, VideoJobRow
+from app.config import settings
+from app.db.models import ChapterRow, SectionRow, StudentRow, VideoJobRow
+from app.explain import proof
+from app.registries.loaders import load_curriculum
 
 router = APIRouter(prefix="/video-jobs", tags=["video-jobs"])
 
@@ -52,11 +58,45 @@ _STAGE_LABELS: dict[str, str] = {
 # ── request / response schemas ──────────────────────────────────────────────
 
 
+PROMPT_MAX_CHARS = 300
+STORY_MAX_CHARS = 120_000
+
+
+class SourceSectionIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    heading: str = Field(max_length=proof.HEADING_MAX)
+    body: str = Field(max_length=proof.BODY_MAX)
+
+
+class SourceIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    title: str = Field(min_length=3, max_length=proof.TITLE_MAX)
+    sections: list[SourceSectionIn] = Field(min_length=1, max_length=10)
+
+
 class CreateJobIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    node_id: str
+    node_id: str | None = None
+    prompt: str | None = None
+    source: SourceIn | None = None
+    source_proof: str | None = None
+    story: dict[str, Any] | None = None
+    story_proof: str | None = None
     idempotency_key: str
+
+    @model_validator(mode="after")
+    def _exactly_one(self) -> CreateJobIn:
+        given = (self.node_id, self.prompt, self.source, self.story)
+        if sum(x is not None for x in given) != 1:
+            raise ValueError("give exactly one of node_id, prompt, source or story")
+        if (self.source is None) != (self.source_proof is None):
+            raise ValueError("a source needs its proof, and only a source has one")
+        if (self.story is None) != (self.story_proof is None):
+            raise ValueError("a story needs its proof, and only a story has one")
+        return self
 
 
 class JobOut(BaseModel):
@@ -143,6 +183,81 @@ def _curriculum_from_node_id(node_id: str) -> dict[str, Any]:
     }
 
 
+def _student_curriculum(db: DbSession, student_id: uuid.UUID) -> dict[str, Any]:
+    """Return the student's actual enrolled curriculum (board/grade/subject)."""
+    student = db.get(StudentRow, student_id)
+    if student is None:
+        return {"board": "CBSE", "grade": 10, "subject": "maths"}
+    subject = "maths"
+    if student.curriculum_id and student.book_id:
+        try:
+            spec = load_curriculum(student.curriculum_id)
+            book = next((b for b in spec.books if b.id == student.book_id), None)
+            if book:
+                subject = book.subject
+        except Exception:
+            pass
+    return {
+        "board": student.board.upper(),
+        "grade": student.grade,
+        "subject": subject,
+    }
+
+
+def _engine_options(place: dict[str, Any]) -> dict[str, Any]:
+    """Story and source videos use the configured voice; prompt jobs use auto."""
+    is_story = "story" in place
+    is_source = "source" in place
+    voice = settings.story_voice if (is_story or is_source) else "auto"
+    theme = "dark" if is_story else "whiteboard"
+    fps = 15 if is_story else 12
+    return {
+        "locale": "en-IN",
+        "voice": voice,
+        "fps": fps,
+        "theme": theme,
+    }
+
+
+def _story_request(
+    student_id: uuid.UUID, story: dict[str, Any], story_proof: str, curriculum: dict[str, Any]
+) -> tuple[str, dict[str, Any]]:
+    """A job from a story this API wrote for this student: only one with a valid proof."""
+    if not proof.verify(student_id, story, story_proof):
+        raise HTTPException(status_code=422, detail="story proof is not valid")
+    if len(json.dumps(story)) > STORY_MAX_CHARS:
+        raise HTTPException(status_code=422, detail="story is too large")
+    digest = hashlib.sha256(json.dumps(story, sort_keys=True).encode("utf-8")).hexdigest()[:12]
+    return f"story:{digest}", {"curriculum": curriculum, "story": story}
+
+
+def _source_request(
+    student_id: uuid.UUID, source: SourceIn, source_proof: str, curriculum: dict[str, Any]
+) -> tuple[str, dict[str, Any]]:
+    """A job from text this API wrote for this student: only a source with a valid proof."""
+    text = source.model_dump()
+    if not proof.verify(student_id, text, source_proof):
+        raise HTTPException(status_code=422, detail="source proof is not valid")
+    digest = hashlib.sha256(json.dumps(text, sort_keys=True).encode("utf-8")).hexdigest()[:12]
+    return f"source:{digest}", {"curriculum": curriculum, "source": text}
+
+
+def _prompt_request(prompt: str, curriculum: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    """A job node id and the curriculum part of the engine request for a typed question.
+
+    The student's actual enrolled curriculum is used so the engine searches the right
+    knowledge base. A guest who chose CBSE grade 10 science gets science, not a hardcoded
+    maths default. The question is cleaned and screened before queuing.
+    """
+    cleaned = clean_question(prompt, PROMPT_MAX_CHARS)
+    if cleaned.empty or cleaned.too_long:
+        raise HTTPException(status_code=422, detail="prompt must be 1 to 300 characters")
+    if screen(cleaned.text, load_safety("en")).kind != "ok":
+        raise HTTPException(status_code=422, detail="prompt not accepted")
+    digest = hashlib.sha256(cleaned.text.encode("utf-8")).hexdigest()[:12]
+    return f"prompt:{digest}", {"curriculum": curriculum, "prompt": cleaned.text}
+
+
 # ── endpoints ────────────────────────────────────────────────────────────────
 
 
@@ -193,15 +308,27 @@ def create_job(
         response.status_code = status.HTTP_200_OK
         return _job_view(existing)
 
+    curriculum = _student_curriculum(db, student_id)
+    if body.story is not None:
+        node_id, place = _story_request(student_id, body.story, body.story_proof or "", curriculum)
+    elif body.source is not None:
+        node_id, place = _source_request(
+            student_id, body.source, body.source_proof or "", curriculum
+        )
+    elif body.prompt is not None:
+        node_id, place = _prompt_request(body.prompt, curriculum)
+    else:
+        assert body.node_id is not None
+        node_id, place = body.node_id, {"curriculum": _curriculum_from_node_id(body.node_id)}
     row = VideoJobRow(
         id=uuid.uuid4(),
         student_id=student_id,
-        node_id=body.node_id,
+        node_id=node_id,
         request_json={
             "requestId": str(uuid.uuid4()),
             "idempotencyKey": body.idempotency_key,
-            "curriculum": _curriculum_from_node_id(body.node_id),
-            "options": {"locale": "en-IN", "voice": "auto", "fps": 12, "theme": "whiteboard"},
+            **place,
+            "options": _engine_options(place),
         },
         idempotency_key=body.idempotency_key,
         status="queued",
@@ -232,31 +359,43 @@ def get_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]
     return _job_view(row)
 
 
+def _job_file(result_path: str, filename: str) -> Path:
+    """Resolve a job output file.
+
+    When ENGINE_JOBS_DIR is set (Docker), the worker stores a host absolute path that the
+    container cannot reach. We extract just the UUID (the last path component) and look the
+    file up under the mounted directory instead. On the host (ENGINE_JOBS_DIR empty) the
+    stored path is used directly.
+    """
+    if settings.engine_jobs_dir:
+        # result_path is a Windows absolute path stored by the host worker.
+        # PureWindowsPath parses backslash-separated paths on any host OS.
+        job_uuid = PureWindowsPath(result_path).name
+        return Path(settings.engine_jobs_dir) / job_uuid / filename
+    return Path(result_path) / filename
+
+
 @router.get("/{job_id}/lesson.mp4")
-def serve_lesson_mp4(
-    job_id: uuid.UUID, db: DbSession, actor: ActorDep
-) -> FileResponse:
+def serve_lesson_mp4(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> FileResponse:
     """Stream the rendered MP4. Owner or admin; job must be in done status."""
     row = _job_or_404(db, job_id)
     _require_owner(actor, row)
     if row.status != "done" or not row.result_path:
         raise HTTPException(status_code=404, detail="video not ready")
-    mp4 = Path(row.result_path) / "lesson.mp4"
+    mp4 = _job_file(row.result_path, "lesson.mp4")
     if not mp4.exists():
         raise HTTPException(status_code=404, detail="video file not found")
     return FileResponse(str(mp4), media_type="video/mp4", filename="lesson.mp4")
 
 
 @router.get("/{job_id}/sources.json")
-def serve_sources_json(
-    job_id: uuid.UUID, db: DbSession, actor: ActorDep
-) -> Any:
+def serve_sources_json(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> Any:
     """Return stripped sources.json. Internal 'path' keys are removed before sending."""
     row = _job_or_404(db, job_id)
     _require_owner(actor, row)
-    if row.status != "done" or not row.sources_json_path:
+    if row.status != "done" or not row.result_path:
         raise HTTPException(status_code=404, detail="sources not ready")
-    src = Path(row.sources_json_path)
+    src = _job_file(row.result_path, "sources.json")
     if not src.exists():
         raise HTTPException(status_code=404, detail="sources file not found")
     try:
@@ -299,6 +438,11 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
             detail=f"job is {original.status}; only failed jobs can be retried",
         )
     new_idem = str(uuid.uuid4())
+    if any(k in original.request_json for k in ("source", "story", "prompt")):
+        keep = ("curriculum", "source", "story", "prompt")
+        place = {k: original.request_json[k] for k in keep if k in original.request_json}
+    else:
+        place = {"curriculum": _curriculum_from_node_id(original.node_id)}
     row = VideoJobRow(
         id=uuid.uuid4(),
         student_id=original.student_id,
@@ -306,8 +450,8 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
         request_json={
             "requestId": str(uuid.uuid4()),
             "idempotencyKey": new_idem,
-            "curriculum": _curriculum_from_node_id(original.node_id),
-            "options": {"locale": "en-IN", "voice": "auto", "fps": 12, "theme": "whiteboard"},
+            **place,
+            "options": _engine_options(place),
         },
         idempotency_key=new_idem,
         status="queued",
