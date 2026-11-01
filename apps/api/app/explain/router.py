@@ -57,7 +57,7 @@ def explain_question(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[st
     result = explain(body.prompt, body.language, gate, restricted=not guest)
     if result["kind"] == "explanation":
         # The web client calls /explain/story separately in parallel to get the animated story.
-        # /explain only needs to provide the text fallback so the client always has something to show.
+        # /explain only needs to provide a text fallback for the client.
         source = proof.video_source(result["title"], result["sections"])
         result["video"] = {"source": source, "proof": proof.sign(actor.student_id, source)}
     return result
