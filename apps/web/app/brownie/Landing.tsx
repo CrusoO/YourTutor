@@ -35,7 +35,23 @@ function LandingPageContent() {
       <header id="top" className={styles.hero}>
         <nav className={styles.heroTop} aria-label={copy.accessibility.main}>
           <a className={styles.heroBrand} href="/" aria-label={copy.hero.homepage}>
-            {copy.hero.topLabel}
+            <span className={styles.brandIdentity}>
+              <img
+                className={`${styles.brandLogo} ${styles.brandLogoDark}`}
+                src="/brand/brownie-wordmark-dark.png"
+                alt=""
+                data-testid="landing-brand-dark"
+              />
+              <img
+                className={`${styles.brandLogo} ${styles.brandLogoLight}`}
+                src="/brand/brownie-wordmark-light.png"
+                alt=""
+                data-testid="landing-brand-light"
+              />
+              <span className={styles.brandSlogan} data-testid="landing-brand-slogan">
+                {copy.hero.topNote}
+              </span>
+            </span>
           </a>
           <div className={styles.heroTopRight}>
             <a className={styles.signInLink} href={`/login?lang=${language}`}>{copy.hero.signIn}</a>

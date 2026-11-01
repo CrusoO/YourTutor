@@ -31,6 +31,28 @@ test("the homepage presents the landing page and keeps the video picker after Ch
   await expect.poll(() => audience.getAttribute("data-active-index")).not.toBe(firstAudienceIndex);
 });
 
+test("the header uses the matching Brownie logo and theme in light and dark mode", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem("yt.comfort", JSON.stringify({ theme: "dark" }));
+  });
+  await page.goto("/");
+
+  await expect(page.getByTestId("landing-brand-dark")).toBeVisible();
+  await expect(page.getByTestId("landing-brand-light")).toBeHidden();
+  await expect(page.getByTestId("landing-brand-slogan")).toHaveText("ONE TO ONE, FOR EVERYONE");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", /icon\.png/);
+  await expect(page.getByTestId("brownie-landing")).toHaveCSS("background-color", "rgb(11, 14, 20)");
+
+  await page.evaluate(() => {
+    window.localStorage.setItem("yt.comfort", JSON.stringify({ theme: "light" }));
+    document.documentElement.setAttribute("data-theme", "light");
+  });
+
+  await expect(page.getByTestId("landing-brand-light")).toBeVisible();
+  await expect(page.getByTestId("landing-brand-dark")).toBeHidden();
+  await expect(page.getByTestId("brownie-landing")).toHaveCSS("background-color", "rgb(243, 243, 238)");
+});
+
 test("the scripted Brownie chat demonstrates accurate fraction addition and fixed follow-ups", async ({ page }) => {
   await page.goto("/");
 
