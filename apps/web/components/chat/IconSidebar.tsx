@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import { useChatApi } from "./ChatProvider";
 
 const NAV = [
-  { name: "home", label: "homeNavHome", href: "/" },
+  { name: "home", label: "homeNavHome", href: "/brownie-chat" },
   { name: "book", label: "homeNavLessons", href: "/video-jobs" },
   { name: "pencil", label: "homeNavPractice", href: "#practice" },
   { name: "chart", label: "homeNavProgress", href: "#progress" },
@@ -36,7 +36,7 @@ export function IconSidebar() {
       data-testid="sidebar"
     >
       <Link
-        href="/"
+        href="/brownie-chat"
         aria-label={copy.homeNavNew}
         className="mb-5 grid size-7 place-items-center rounded-full bg-accent text-accent-fg shadow-[0_0_18px_color-mix(in_srgb,var(--c-accent)_45%,transparent)] transition-opacity hover:opacity-85"
       >

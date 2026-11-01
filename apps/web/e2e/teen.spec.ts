@@ -33,7 +33,7 @@ const SCREENS: Screen[] = [
   {
     name: "home",
     open: async (page) => {
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await expect(page.getByTestId("card-try-question")).toBeVisible({ timeout: 30_000 });
       await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
     },
@@ -41,7 +41,7 @@ const SCREENS: Screen[] = [
   {
     name: "setup",
     open: async (page) => {
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await page.locator('[data-testid="card-try-lesson"]:visible').first().click({ timeout: 30_000 });
       await expect(page.locator('[data-testid^="choice-grade-"]:visible').first()).toBeVisible({ timeout: 20_000 });
     },
@@ -228,7 +228,7 @@ test.describe("theme and comfort settings", () => {
 
   test("Auto follows the device, the switch changes it, and the choice survives a reload with no flash", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("theme-auto")).toHaveAttribute("aria-pressed", "true");
     expect(await page.evaluate(() => document.documentElement.dataset.theme ?? "auto")).toBe("auto");
     const darkBg = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim());
@@ -249,7 +249,7 @@ test.describe("theme and comfort settings", () => {
   });
 
   test("Settings: text size, line spacing and motion apply at once and persist", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await page.locator('[data-testid="nav-settings"]:visible').first().click();
     await expect(page.getByTestId("comfort-dialog")).toBeVisible();
     await page.getByTestId("text-size-l").click();
@@ -271,7 +271,7 @@ test.describe("theme and comfort settings", () => {
   });
 
   test("Send always looks ready: filled with the accent, hint when empty, reason when a mode is not built", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     const send = page.getByTestId("composer-send");
     await expect(send).toBeEnabled();
     expect(rgbToHex(await send.evaluate((el) => getComputedStyle(el).backgroundColor))).toBe("#1d4fd8");
@@ -286,7 +286,7 @@ test.describe("guest and student home", () => {
   test.use({ viewport: { width: 360, height: 800 } });
 
   test("guest: lead card first, the no-account line, and Try one question opens a real item", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("card-try-question")).toBeVisible({ timeout: 30_000 });
     await expect(page.getByTestId("no-account-line")).toBeVisible();
     const order = await page.evaluate(() => ["card-try-question", "card-try-lesson"].map((id) => document.querySelector(`[data-testid=${id}]`)!.getBoundingClientRect().top));
@@ -359,7 +359,7 @@ for (const theme of THEMES) {
       await chapter.click();
       await page.waitForLoadState("networkidle");
       problems.push(...(await serious(page)).map((p) => `chapter: ${p}`));
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await enter(page, "nav-revision");
       await expect(page.locator(".stem, h1, h2").first()).toBeVisible({ timeout: 30_000 });
       problems.push(...(await serious(page)).map((p) => `session: ${p}`));

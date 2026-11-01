@@ -66,7 +66,7 @@ const SHAPES = [
 for (const shape of SHAPES) {
   test(`4f: ${shape.name} has no horizontal scroll and a reachable composer`, async ({ page }) => {
     await page.setViewportSize({ width: shape.width, height: shape.height });
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("composer")).toBeVisible({ timeout: 30_000 });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, "horizontal overflow in px").toBeLessThanOrEqual(0);
