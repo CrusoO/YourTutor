@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
-import { landingContent, type LandingLanguage, type LevelId, type StyleId } from "./content";
+import { landingContent, type LandingLanguage } from "./content";
 import { useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
 
@@ -32,57 +32,107 @@ export function LandingLanguages() {
   );
 }
 
-export function BrownieQuestion() {
+type DemoReply = "picture" | "steps";
+
+export function BrownieChatDemo() {
   const { copy } = useLandingLanguage();
-  const [level, setLevel] = useState<LevelId>("new");
-  const [style, setStyle] = useState<StyleId>("picture");
-  const firstReply = copy.chapterTwo.firstReplies[level];
-  const explanation = copy.chapterTwo.explanations[style];
+  const [replies, setReplies] = useState<DemoReply[]>([]);
+  const latestReply = useRef<HTMLDivElement>(null);
+  const chat = copy.chapterTwo.demoChat;
+
+  useEffect(() => {
+    if (replies.length === 0) return;
+    latestReply.current?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "nearest",
+    });
+  }, [replies.length]);
 
   return (
-    <section className={styles.questionPanel} aria-label={copy.chapterTwo.questionAria}>
-      <p className={styles.panelLabel}>{copy.chapterTwo.problemLabel}</p>
-      <p className={styles.problem}>{copy.chapterTwo.problem}</p>
+    <section
+      className={`${styles.questionPanel} ${styles.demoChat}`}
+      aria-label={copy.chapterTwo.questionAria}
+      data-testid="demo-chat"
+    >
+      <header className={styles.demoChatHeader}>
+        <p className={styles.panelLabel}>{chat.label}</p>
+        <p className={styles.demoDisclosure} data-testid="demo-disclosure">{chat.disclosure}</p>
+      </header>
 
-      <fieldset className={styles.choiceGroup}>
-        <legend>{copy.chapterTwo.levelQuestion}</legend>
-        <div className={styles.choiceRow}>
-          {copy.chapterTwo.levels.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              aria-pressed={level === option.id}
-              className={`${styles.choice} ${level === option.id ? styles.choiceSelected : ""}`}
-              onClick={() => setLevel(option.id)}
-            >
-              {option.label}
-            </button>
-          ))}
+      <div className={styles.demoConversation} aria-live="polite">
+        <div className={`${styles.demoMessage} ${styles.demoMessageUser}`}>
+          <span className={styles.demoSpeaker}>{chat.studentLabel}</span>
+          <p className={styles.demoBubble}>{chat.studentQuestion}</p>
         </div>
-      </fieldset>
-
-      <fieldset className={styles.choiceGroup}>
-        <legend>{copy.chapterTwo.styleQuestion}</legend>
-        <div className={styles.choiceRow}>
-          {copy.chapterTwo.styles.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              aria-pressed={style === option.id}
-              className={`${styles.choice} ${style === option.id ? styles.choiceSelected : ""}`}
-              onClick={() => setStyle(option.id)}
-            >
-              {option.label}
-            </button>
-          ))}
+        <div className={styles.demoMessage} data-testid="demo-opening">
+          <span className={styles.demoSpeaker}>{chat.tutorLabel}</span>
+          <p className={`${styles.demoBubble} ${styles.demoBubbleTutor}`}>{chat.brownieOpening}</p>
         </div>
-      </fieldset>
 
-      <div className={styles.readout} aria-live="polite" aria-atomic="true">
-        <p className={styles.readLabel}>{copy.chapterTwo.firstReplyLabel}</p>
-        <p className={styles.readBody}>{firstReply}</p>
-        <p className={`${styles.readLabel} ${styles.explanationReadLabel}`}>{copy.chapterTwo.explanationLabel}</p>
-        <p className={styles.readBody}>{explanation}</p>
+        {replies.map((reply, index) => (
+          <div
+            className={styles.demoReply}
+            key={reply}
+            ref={index === replies.length - 1 ? latestReply : undefined}
+          >
+            <div className={`${styles.demoMessage} ${styles.demoMessageUser}`}>
+              <span className={styles.demoSpeaker}>{chat.studentLabel}</span>
+              <p className={styles.demoBubble}>
+                {reply === "picture" ? chat.pictureUser : chat.stepsUser}
+              </p>
+            </div>
+            <div className={styles.demoMessage} data-testid={`demo-follow-up-${reply}`}>
+              <span className={styles.demoSpeaker}>{chat.tutorLabel}</span>
+              <div className={`${styles.demoBubble} ${styles.demoBubbleTutor}`}>
+                <p>{reply === "picture" ? chat.pictureExplanation : chat.stepsExplanation}</p>
+                {reply === "picture" ? (
+                  <div className={styles.fractionDiagram}>
+                    <div className={styles.fractionPieces} aria-label={chat.piecesAria} data-testid="fraction-pieces">
+                      {Array.from({ length: 6 }, (_, index) => (
+                        <span
+                          key={index}
+                          aria-hidden="true"
+                          className={
+                            index < 3
+                              ? styles.fractionHalf
+                              : index < 5
+                                ? styles.fractionThird
+                                : styles.fractionEmpty
+                          }
+                        />
+                      ))}
+                    </div>
+                    <div className={styles.fractionLegend}>
+                      <span>{chat.halfLegend}</span>
+                      <span>{chat.thirdLegend}</span>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.demoChatActions}>
+        {replies.length < 2 ? <p>{chat.followUpPrompt}</p> : null}
+        <div className={styles.choiceRow}>
+          {!replies.includes("picture") ? (
+            <button type="button" className={styles.choice} onClick={() => setReplies((current) => [...current, "picture"])}>
+              {chat.pictureChoice}
+            </button>
+          ) : null}
+          {!replies.includes("steps") ? (
+            <button type="button" className={styles.choice} onClick={() => setReplies((current) => [...current, "steps"])}>
+              {chat.stepsChoice}
+            </button>
+          ) : null}
+          {replies.length > 0 ? (
+            <button type="button" className={styles.demoRestart} onClick={() => setReplies([])}>
+              {chat.restart}
+            </button>
+          ) : null}
+        </div>
       </div>
     </section>
   );

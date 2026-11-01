@@ -75,37 +75,30 @@ export const landingContent = {
       "Would you like pictures, everyday examples, or step by step?",
     ],
     invitation: "Not sure what’s confusing? That’s okay. Brownie helps you find where things stopped making sense. Let’s try it.",
-    problemLabel: "TRY IT",
-    problem: "Half a pizza, plus one-third of another. How much pizza altogether?",
-    levelQuestion: "HOW COMFORTABLE ARE YOU WITH FRACTIONS?",
-    levels: [
-      { id: "new", label: "I’m completely new to fractions" },
-      { id: "adding", label: "I get fractions, but adding them confuses me" },
-      { id: "why", label: "I can solve it, but I want to know why" },
-    ],
-    styleQuestion: "HOW WOULD YOU LIKE TO LEARN?",
-    styles: [
-      { id: "picture", label: "Show me with pictures" },
-      { id: "everyday", label: "Use everyday examples" },
-      { id: "steps", label: "Take me through it step by step" },
-    ],
-    firstReplyLabel: "Brownie’s first reply, depending on where you are:",
-    firstReplies: {
-      new: "No worries! Imagine a pizza cut into two equal pieces. If you take one piece, you’ve taken half the pizza. That’s what a fraction means: a part of a whole.",
-      adding: "You’re already halfway there! Imagine one pizza cut into two pieces and another cut into three. The pieces aren’t the same size, so we can’t simply count them together.",
-      why: "You may know the shortcut: make the denominators the same, then add. But why does that work? Let’s look at what really happens to the pizza.",
-    },
-    explanationLabel: "Then the explanation, in your style:",
-    explanations: {
-      picture: "Picture two same-size pizzas. One is cut into 2 big slices, the other into 3. Now cut both into 6 equal slices. Your half is 3 slices, and your third is 2 slices. Together: 5 slices out of 6.",
-      everyday: "Think of juice. You have half a glass, and a friend pours in a third of a glass. You have more than half, but not quite a full glass. The exact amount is 5/6.",
-      steps: "1. The pieces are different sizes, so make them the same size: sixths. 2. ½ is 3 out of 6, and ⅓ is 2 out of 6. 3. Add them: 3 + 2 = 5. So you have 5/6 of a pizza.",
+    demoChat: {
+      label: "A SAMPLE CHAT · SCRIPTED",
+      disclosure: "A scripted preview. Brownie is not responding live here.",
+      studentQuestion: "Why can't I just add 1/2 + 1/3 and get 2/5?",
+      brownieOpening: "That’s a reasonable guess. The bottom numbers tell us the size of the pieces. Halves and thirds are different-sized pieces, so let’s rename them as sixths before adding.",
+      studentLabel: "You",
+      tutorLabel: "Brownie",
+      followUpPrompt: "What would help next?",
+      pictureChoice: "Show me with pieces",
+      pictureUser: "Show me with pieces.",
+      pictureExplanation: "Imagine one whole split into 6 equal pieces. One half is 3 of those pieces; one third is 2. Now the pieces are the same size, so 3/6 + 2/6 = 5/6.",
+      stepsChoice: "Why can’t we add the bottoms?",
+      stepsUser: "Why can’t we add the bottoms?",
+      stepsExplanation: "The denominator names the size of each piece. Adding 2 + 3 would mix different-sized pieces. Split each half into 3 pieces and each third into 2, making sixths without changing the amounts: 1/2 = 3/6 and 1/3 = 2/6. Now count same-sized pieces: 3/6 + 2/6 = 5/6.",
+      piecesAria: "Six equal pieces: three from one half, two from one third",
+      halfLegend: "3/6 (one half)",
+      thirdLegend: "2/6 (one third)",
+      restart: "Restart example",
     },
     afterPanel: [
       "Not clear yet? Ask again. Brownie will try another way, without making you feel you did something wrong. It doesn’t move ahead because the textbook does. It moves ahead when you’re ready.",
       "Not understanding doesn’t mean you can’t learn it. You don’t need to try harder. You just need someone to teach you differently.",
     ],
-    questionAria: "Choose your comfort with fractions and preferred explanation style",
+    questionAria: "A scripted sample conversation about adding fractions",
   },
   chapterThree: {
     chapter: "Chapter Three",
@@ -163,9 +156,6 @@ export const landingContent = {
     chapters: "The Brownie approach",
   },
 } as const;
-
-export type LevelId = (typeof landingContent.chapterTwo.levels)[number]["id"];
-export type StyleId = (typeof landingContent.chapterTwo.styles)[number]["id"];
 
 export type LandingLanguage = "en" | "hi" | "ne";
 
