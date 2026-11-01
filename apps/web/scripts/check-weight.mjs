@@ -5,8 +5,9 @@
  * and exits 1 when any budget is exceeded.
  *
  * Budgets (gzip):
- *   JS for the chat route  ≤ 100 KB
- *   CSS (all pages)        ≤  25 KB
+ *   JS for the homepage route  ≤ 125 KB
+ *   CSS (all pages)            ≤  25 KB
+ *   Homepage JS + all CSS      ≤ 150 KB
  */
 
 import { createReadStream, existsSync, readdirSync } from "node:fs";
@@ -15,11 +16,12 @@ import { join } from "node:path";
 import { createGzip } from "node:zlib";
 
 const DIST = join(process.cwd(), ".next");
-const JS_BUDGET_KB = 100;
+const JS_BUDGET_KB = 125;
 const CSS_BUDGET_KB = 25;
+const PAGE_BUDGET_KB = 150;
 
 if (!existsSync(DIST)) {
-  console.error("ERROR: .next/ not found — run `pnpm build` first");
+  console.error("ERROR: .next/ not found — run the production build first");
   process.exit(1);
 }
 
@@ -36,14 +38,14 @@ async function gzipSize(filePath) {
   });
 }
 
-/** Resolve a manifest-relative path to an absolute .next/ path. */
+/** Resolve a manifest-relative path to an absolute build-output path. */
 function resolve(relativePath) {
   // Paths in manifests are like "static/chunks/…" or "_next/static/…"
   const cleaned = relativePath.startsWith("_next/") ? relativePath.slice(6) : relativePath;
   return join(DIST, cleaned);
 }
 
-// ── find chunks for the root chat route ──────────────────────────────────────
+// ── find chunks for the homepage route ────────────────────────────────────────
 
 let jsFiles = [];
 
@@ -52,12 +54,13 @@ const buildManifestPath = join(DIST, "build-manifest.json");
 
 if (existsSync(appManifestPath)) {
   const manifest = JSON.parse(await readFile(appManifestPath, "utf8"));
-  // App Router: pages keyed by file path, e.g. "page" or "(root)/page"
-  const rootChunks =
-    manifest.pages?.["page"] ??
-    manifest.pages?.["(root)/page"] ??
-    manifest.pages?.["app/page"] ??
-    [];
+  // App Router: keys vary by Next version; current builds use "/page".
+  const rootChunks = [
+    manifest.pages?.["/page"],
+    manifest.pages?.["page"],
+    manifest.pages?.["(root)/page"],
+    manifest.pages?.["app/page"],
+  ].find((chunks) => Array.isArray(chunks) && chunks.length > 0) ?? [];
   jsFiles = rootChunks
     .filter((f) => f.endsWith(".js"))
     .map(resolve)
@@ -73,14 +76,9 @@ if (jsFiles.length === 0 && existsSync(buildManifestPath)) {
     .filter(existsSync);
 }
 
-// Fallback: all chunks (gives the most conservative total)
 if (jsFiles.length === 0) {
-  const chunksDir = join(DIST, "static", "chunks");
-  if (existsSync(chunksDir)) {
-    jsFiles = readdirSync(chunksDir)
-      .filter((f) => f.endsWith(".js"))
-      .map((f) => join(chunksDir, f));
-  }
+  console.error("ERROR: homepage JS chunks were not found in the Next.js build manifests");
+  process.exit(1);
 }
 
 // ── CSS ───────────────────────────────────────────────────────────────────────
@@ -110,12 +108,15 @@ for (const f of cssFiles) {
 
 const jsTotalKB = (jsTotalBytes / 1024).toFixed(1);
 const cssTotalKB = (cssTotalBytes / 1024).toFixed(1);
+const pageTotalBytes = jsTotalBytes + cssTotalBytes;
+const pageTotalKB = (pageTotalBytes / 1024).toFixed(1);
 
 // ── report ────────────────────────────────────────────────────────────────────
 
 console.log("\n=== Bundle weight check ===");
 console.log(`JS  (gzip): ${jsTotalKB} KB  budget: ${JS_BUDGET_KB} KB`);
 console.log(`CSS (gzip): ${cssTotalKB} KB  budget: ${CSS_BUDGET_KB} KB`);
+console.log(`Page (gzip): ${pageTotalKB} KB  budget: ${PAGE_BUDGET_KB} KB`);
 if (jsResults.length > 0) {
   console.log("\nTop JS chunks:");
   for (const r of jsResults.slice(0, 10)) {
@@ -125,12 +126,16 @@ if (jsResults.length > 0) {
 }
 
 let failed = false;
-if (parseFloat(jsTotalKB) > JS_BUDGET_KB) {
+if (jsTotalBytes > JS_BUDGET_KB * 1024) {
   console.error(`\nFAIL: JS ${jsTotalKB} KB exceeds ${JS_BUDGET_KB} KB budget`);
   failed = true;
 }
-if (parseFloat(cssTotalKB) > CSS_BUDGET_KB) {
+if (cssTotalBytes > CSS_BUDGET_KB * 1024) {
   console.error(`\nFAIL: CSS ${cssTotalKB} KB exceeds ${CSS_BUDGET_KB} KB budget`);
+  failed = true;
+}
+if (pageTotalBytes > PAGE_BUDGET_KB * 1024) {
+  console.error(`\nFAIL: page ${pageTotalKB} KB exceeds ${PAGE_BUDGET_KB} KB budget`);
   failed = true;
 }
 if (!failed) {

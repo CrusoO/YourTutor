@@ -160,7 +160,9 @@ class ExplainProvider:
                 if is_anthropic:
                     # content may have a leading "thinking" block — find the first "text" block.
                     content_blocks = data.get("content") or []
-                    text_block = next((b for b in content_blocks if b.get("type") == "text"), {})
+                    text_block: dict[str, Any] = next(
+                        (b for b in content_blocks if b.get("type") == "text"), {}
+                    )
                     text = str(text_block.get("text") or "")
                     tokens_in = int(usage.get("input_tokens") or 0)
                     tokens_out = int(usage.get("output_tokens") or 0)
