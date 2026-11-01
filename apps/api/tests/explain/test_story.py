@@ -109,7 +109,8 @@ def test_a_cut_off_reply_still_gives_the_scenes_that_finished() -> None:
 def test_a_bad_first_reply_is_retried() -> None:
     provider = FakeProvider(["not json", _plan(4), "still not json", _scenes(4)])
     out = build_story("q", "en", OPEN, provider, "m")
-    assert out["kind"] == "story" and len(provider.calls) == 5  # +1 repair attempt (ProviderError → keeps scenes)
+    # One repair attempt raises ProviderError, preserving the existing scenes.
+    assert out["kind"] == "story" and len(provider.calls) == 5
 
 
 def test_too_few_scenes_is_unavailable() -> None:

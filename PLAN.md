@@ -594,6 +594,13 @@ Accept:
 - [ ] `request_json` stored in the DB and sent to the engine never includes `student_id`.
 - [ ] Worker survives a crashed engine process and marks the job `failed`.
 
+### Brownie landing refinement — owner-approved
+
+- [x] `/` serves the Brownie landing, `/brownie-chat` preserves the chat app, and `/brownie` redirects home.
+- [x] Hero copy, audience rotation, header sign-in, chapter/demo order, and homepage navigation refined without changing the existing demo interactions.
+- [x] Full English, Hindi, and Nepali landing copy is wired through one catalog; Hindi and Nepali remain draft pending native-speaker review.
+- [x] Verified 2026-11-01: landing Playwright 4/4 passed; web type check and production build passed; desktop hero alignment and mobile overflow checked. Full UI suite started (145 tests): the 4 landing tests passed, then the run stopped after `flow.spec.ts` timed out in setup on `/dev/seed`; the full suite remains unverified.
+
 ---
 
 ## 9. Required tests (ongoing)

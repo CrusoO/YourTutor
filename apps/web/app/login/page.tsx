@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
-import { type Locale } from "@/lib/messages";
-import { useCopy } from "@/lib/locale";
-import { LanguageSwitch } from "@/components/ui/language-switch";
+import { LandingLanguages } from "../brownie/Interactions";
+import { LandingLanguageProvider, useLandingLanguage } from "../brownie/LandingLanguage";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
+  const { copy, language } = useLandingLanguage();
 
   // Login UI skipped while NEXT_PUBLIC_SKIP_LOGIN=true (dev learning-flow testing).
   useEffect(() => {
@@ -19,7 +19,6 @@ export default function LoginPage() {
       .then(() => router.replace("/subjects"))
       .catch(() => {});
   }, [router]);
-  const copy = useCopy();
   const [family, setFamily] = useState("");
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
@@ -34,17 +33,20 @@ export default function LoginPage() {
       if (me.locale) setLocale(me.locale);
       router.push("/subjects");
     } catch {
-      setError(copy.loginError);
+      setError(copy.auth.loginError);
     }
   }
 
   return (
-    <main className="stack">
-      <h1>{copy.loginTitle}</h1>
-      <LanguageSwitch />
+    <main className="stack" lang={language}>
+      <Link href="/" className="muted" aria-label={copy.auth.homepage}>
+        ← {copy.auth.homepage}
+      </Link>
+      <h1>{copy.auth.title}</h1>
+      <LandingLanguages />
       <form className="stack" onSubmit={onSubmit}>
         <label>
-          {copy.familyCode}
+          {copy.auth.familyCode}
           <input
             name="family_code"
             autoComplete="username"
@@ -53,7 +55,7 @@ export default function LoginPage() {
           />
         </label>
         <label>
-          {copy.pin}
+          {copy.auth.pin}
           <input
             name="pin"
             type="password"
@@ -64,11 +66,19 @@ export default function LoginPage() {
           />
         </label>
         {error ? <p className="banner">{error}</p> : null}
-        <button type="submit">{copy.signIn}</button>
+        <button type="submit">{copy.auth.signIn}</button>
       </form>
       <Link href="/start" className="muted" data-testid="try-guest">
-        {copy.tryAsGuest}
+        {copy.auth.tryAsGuest}
       </Link>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <LandingLanguageProvider>
+      <LoginPageContent />
+    </LandingLanguageProvider>
   );
 }

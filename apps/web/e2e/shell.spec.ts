@@ -48,7 +48,7 @@ async function expectNoClippedText(page: Page) {
 
 /** Open "/" and wait until the app has started (the greeting is filled in after hydration). */
 async function openHome(page: Page) {
-  await page.goto("/");
+  await page.goto("/brownie-chat");
   await expect(page.getByTestId("hero")).toBeVisible();
   await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
 }
@@ -67,7 +67,7 @@ for (const { w, h } of WIDTHS) {
     test.use({ viewport: { width: w, height: h } });
 
     test("fresh visitor sees a clear flow without demo progress", async ({ page }) => {
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await expect(page.getByTestId("hero")).toBeVisible();
       await expect(page.getByTestId("welcome-flow")).toBeVisible();
       await expect(page.getByTestId("topic-mastery")).toHaveCount(0);

@@ -1,23 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
-import { landingContent, type LevelId, type StyleId } from "./content";
+import { landingContent, type LandingLanguage, type LevelId, type StyleId } from "./content";
+import { useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
 
 // Set to a path under /public or a public URL to show a permanent demo. Local selections are never uploaded.
 const DEMO_VIDEO_SRC = "";
 const DEMO_VIDEO_POSTER = "";
 
-type LandingLanguage = "en" | "hi" | "ne";
-
 export function LandingLanguages() {
-  const [language, setLanguage] = useState<LandingLanguage>("en");
-  const status = language === "en" ? "" : landingContent.hero.languageStatus[language];
+  const { language, setLanguage, copy } = useLandingLanguage();
 
   return (
     <div className={styles.languageBlock}>
-      <div className={styles.languageSwitch} role="group" aria-label={landingContent.hero.languageLabel}>
-        {landingContent.hero.languageOptions.map((option) => (
+      <div className={styles.languageSwitch} role="group" aria-label={copy.hero.languageLabel}>
+        {copy.hero.languageOptions.map((option) => (
           <button
             key={option.id}
             type="button"
@@ -30,26 +28,26 @@ export function LandingLanguages() {
           </button>
         ))}
       </div>
-      {status ? <p className={styles.languageStatus} role="status" aria-live="polite">{status}</p> : null}
     </div>
   );
 }
 
 export function BrownieQuestion() {
+  const { copy } = useLandingLanguage();
   const [level, setLevel] = useState<LevelId>("new");
   const [style, setStyle] = useState<StyleId>("picture");
-  const firstReply = landingContent.chapterTwo.firstReplies[level];
-  const explanation = landingContent.chapterTwo.explanations[style];
+  const firstReply = copy.chapterTwo.firstReplies[level];
+  const explanation = copy.chapterTwo.explanations[style];
 
   return (
-    <section className={styles.questionPanel} aria-label={landingContent.chapterTwo.questionAria}>
-      <p className={styles.panelLabel}>{landingContent.chapterTwo.problemLabel}</p>
-      <p className={styles.problem}>{landingContent.chapterTwo.problem}</p>
+    <section className={styles.questionPanel} aria-label={copy.chapterTwo.questionAria}>
+      <p className={styles.panelLabel}>{copy.chapterTwo.problemLabel}</p>
+      <p className={styles.problem}>{copy.chapterTwo.problem}</p>
 
       <fieldset className={styles.choiceGroup}>
-        <legend>{landingContent.chapterTwo.levelQuestion}</legend>
+        <legend>{copy.chapterTwo.levelQuestion}</legend>
         <div className={styles.choiceRow}>
-          {landingContent.chapterTwo.levels.map((option) => (
+          {copy.chapterTwo.levels.map((option) => (
             <button
               key={option.id}
               type="button"
@@ -64,9 +62,9 @@ export function BrownieQuestion() {
       </fieldset>
 
       <fieldset className={styles.choiceGroup}>
-        <legend>{landingContent.chapterTwo.styleQuestion}</legend>
+        <legend>{copy.chapterTwo.styleQuestion}</legend>
         <div className={styles.choiceRow}>
-          {landingContent.chapterTwo.styles.map((option) => (
+          {copy.chapterTwo.styles.map((option) => (
             <button
               key={option.id}
               type="button"
@@ -81,9 +79,9 @@ export function BrownieQuestion() {
       </fieldset>
 
       <div className={styles.readout} aria-live="polite" aria-atomic="true">
-        <p className={styles.readLabel}>{landingContent.chapterTwo.firstReplyLabel}</p>
+        <p className={styles.readLabel}>{copy.chapterTwo.firstReplyLabel}</p>
         <p className={styles.readBody}>{firstReply}</p>
-        <p className={`${styles.readLabel} ${styles.explanationReadLabel}`}>{landingContent.chapterTwo.explanationLabel}</p>
+        <p className={`${styles.readLabel} ${styles.explanationReadLabel}`}>{copy.chapterTwo.explanationLabel}</p>
         <p className={styles.readBody}>{explanation}</p>
       </div>
     </section>
@@ -91,6 +89,7 @@ export function BrownieQuestion() {
 }
 
 export function MasteryChart() {
+  const { copy } = useLandingLanguage();
   const chartRef = useRef<HTMLOListElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -118,10 +117,10 @@ export function MasteryChart() {
     <ol
       ref={chartRef}
       className={styles.masteryChart}
-      aria-label={landingContent.chapterThree.chartAria}
+      aria-label={copy.chapterThree.chartAria}
       data-visible={visible}
     >
-      {landingContent.chapterThree.topics.map((topic) => (
+      {copy.chapterThree.topics.map((topic) => (
         <li key={topic.id} className={styles.masteryItem}>
           <div className={styles.masteryValue}>
             {topic.percent}<span>%</span>
@@ -159,6 +158,7 @@ function displaySize(size: number): string {
 }
 
 export function DemoVideo() {
+  const { copy } = useLandingLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const currentUrl = useRef<string | null>(null);
   const [localVideo, setLocalVideo] = useState<LocalVideo | null>(null);
@@ -198,7 +198,7 @@ export function DemoVideo() {
         preload="metadata"
         poster={DEMO_VIDEO_POSTER || undefined}
         src={DEMO_VIDEO_SRC}
-        aria-label={landingContent.demo.playerAria}
+        aria-label={copy.demo.playerAria}
       />
     );
   }
@@ -212,16 +212,16 @@ export function DemoVideo() {
           playsInline
           preload="metadata"
           src={localVideo.src}
-          aria-label={landingContent.demo.playerAria}
+          aria-label={copy.demo.playerAria}
         />
         <div className={styles.videoFileRow}>
           <p title={localVideo.name}>{localVideo.name} <span>{displaySize(localVideo.size)}</span></p>
           <button type="button" className={styles.videoReplace} onClick={() => inputRef.current?.click()}>
-            {landingContent.demo.replace}
+            {copy.demo.replace}
           </button>
         </div>
-        {fileError ? <p className={styles.fileError} role="alert">{landingContent.demo.invalidFile}</p> : null}
-        <input ref={inputRef} className={styles.srOnly} type="file" accept="video/*" onChange={onChange} aria-label={landingContent.demo.fileAria} aria-hidden="true" tabIndex={-1} />
+        {fileError ? <p className={styles.fileError} role="alert">{copy.demo.invalidFile}</p> : null}
+        <input ref={inputRef} className={styles.srOnly} type="file" accept="video/*" onChange={onChange} aria-label={copy.demo.fileAria} aria-hidden="true" tabIndex={-1} />
       </div>
     );
   }
@@ -229,22 +229,22 @@ export function DemoVideo() {
   return (
     <div
       role="group"
-      aria-label={landingContent.demo.dropAria}
+      aria-label={copy.demo.dropAria}
       onDragOver={(event) => { event.preventDefault(); setDragging(true); }}
       onDragLeave={() => setDragging(false)}
       onDrop={onDrop}
     >
-      <input ref={inputRef} className={styles.srOnly} type="file" accept="video/*" onChange={onChange} aria-label={landingContent.demo.fileAria} aria-hidden="true" tabIndex={-1} />
+      <input ref={inputRef} className={styles.srOnly} type="file" accept="video/*" onChange={onChange} aria-label={copy.demo.fileAria} aria-hidden="true" tabIndex={-1} />
       <button
         type="button"
         className={`${styles.dropZone} ${dragging ? styles.dropZoneActive : ""}`}
-        aria-label={landingContent.demo.dropAria}
+        aria-label={copy.demo.dropAria}
         onClick={() => inputRef.current?.click()}
       >
-        <p className={styles.dropTitle}>{landingContent.demo.dropTitle} <em>{landingContent.demo.dropAccent}</em></p>
-        <p className={styles.dropHint}>{landingContent.demo.dropHint}</p>
-        <span className={styles.videoChoose}>{landingContent.demo.choose}</span>
-        {fileError ? <p className={styles.fileError} role="alert">{landingContent.demo.invalidFile}</p> : null}
+        <p className={styles.dropTitle}>{copy.demo.dropTitle} <em>{copy.demo.dropAccent}</em></p>
+        <p className={styles.dropHint}>{copy.demo.dropHint}</p>
+        <span className={styles.videoChoose}>{copy.demo.choose}</span>
+        {fileError ? <p className={styles.fileError} role="alert">{copy.demo.invalidFile}</p> : null}
       </button>
     </div>
   );
@@ -253,10 +253,11 @@ export function DemoVideo() {
 type FeedbackCategory = (typeof landingContent.feedback.categories)[number]["id"];
 
 export function BrownieFeedback() {
+  const { copy } = useLandingLanguage();
   const [category, setCategory] = useState<FeedbackCategory | null>(null);
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const copy = landingContent.feedback;
+  const feedback = copy.feedback;
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -267,14 +268,14 @@ export function BrownieFeedback() {
   return (
     <section className={styles.feedbackSection} aria-labelledby="feedback-title">
       <div className={styles.feedbackIntro}>
-        <h2 id="feedback-title">{copy.headlineStart} <em>{copy.headlineEmphasis}</em></h2>
-        <p>{copy.intro}</p>
+        <h2 id="feedback-title">{feedback.headlineStart} <em>{feedback.headlineEmphasis}</em></h2>
+        <p>{feedback.intro}</p>
       </div>
       <form className={styles.feedbackForm} onSubmit={submit}>
         <fieldset className={styles.feedbackChoices}>
-          <legend>{copy.categoryLabel}</legend>
+          <legend>{feedback.categoryLabel}</legend>
           <div className={styles.feedbackChoiceRow}>
-            {copy.categories.map((option) => (
+            {feedback.categories.map((option) => (
               <button
                 key={option.id}
                 type="button"
@@ -287,20 +288,20 @@ export function BrownieFeedback() {
             ))}
           </div>
         </fieldset>
-        <label className={styles.feedbackMessageLabel} htmlFor="brownie-feedback-message">{copy.messageLabel}</label>
+        <label className={styles.feedbackMessageLabel} htmlFor="brownie-feedback-message">{feedback.messageLabel}</label>
         <textarea
           id="brownie-feedback-message"
           className={styles.feedbackTextarea}
           maxLength={1000}
-          placeholder={copy.placeholder}
+          placeholder={feedback.placeholder}
           value={message}
           onChange={(event) => { setMessage(event.target.value); setSubmitted(false); }}
         />
         <div className={styles.feedbackActions}>
-          <p>{copy.localNote}</p>
-          <button className={styles.feedbackSubmit} type="submit" disabled={!category && !message.trim()}>{copy.submit}</button>
+          <p>{feedback.localNote}</p>
+          <button className={styles.feedbackSubmit} type="submit" disabled={!category && !message.trim()}>{feedback.submit}</button>
         </div>
-        {submitted ? <p className={styles.feedbackThanks} role="status" aria-live="polite">{copy.thanks}</p> : null}
+        {submitted ? <p className={styles.feedbackThanks} role="status" aria-live="polite">{feedback.thanks}</p> : null}
       </form>
     </section>
   );

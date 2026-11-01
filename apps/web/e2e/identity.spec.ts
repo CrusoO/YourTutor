@@ -134,7 +134,7 @@ for (const width of [360, 390, 1280]) {
   test(`hero in Hindi: headline and the line under it do not overlap at ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await prefs(page, "light", "hi");
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
     await fontsReady(page);
     const boxes = await page.evaluate(() => {
@@ -181,7 +181,7 @@ test.describe("language switch", () => {
 
   test("the setup question stays open when the language changes", async ({ page }) => {
     await prefs(page, "light", null);
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("card-try-lesson")).toBeVisible({ timeout: 30_000 });
     await page.getByTestId("card-try-lesson").click();
     await expect(page.getByTestId("setup-grade")).toBeVisible({ timeout: 20_000 });
@@ -192,7 +192,7 @@ test.describe("language switch", () => {
 
   test("only English and Hindi can be chosen; the others are listed as coming soon in Settings", async ({ page }) => {
     await prefs(page, "light", "en");
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("hero")).toBeVisible();
     await expect(page.getByTestId("language-switch").getByRole("button")).toHaveCount(2);
     await page.getByRole("button", { name: /^menu|open menu/i }).first().click();
@@ -204,7 +204,7 @@ test.describe("language switch", () => {
 
   test("the class dropdown lists classes 5 to 12 (classes without content are disabled) and starts setup at the next question", async ({ page }) => {
     await prefs(page, "light", "en");
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     const select = page.getByTestId("class-select");
     await expect(select).toBeVisible({ timeout: 30_000 });
     const options = await select.locator("option").evaluateAll((els) => els.map((o) => ({ value: (o as HTMLOptionElement).value, disabled: (o as HTMLOptionElement).disabled })));
@@ -219,7 +219,7 @@ test.describe("language switch", () => {
   test("Try one question opens the work in a full-window sheet over the sidebar, and Back to chat returns", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await prefs(page, "light", "en");
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await page.getByTestId("card-try-question").click({ timeout: 30_000 });
     const panel = page.getByTestId("workspace-panel");
     await expect(panel).toBeVisible({ timeout: 40_000 });
@@ -236,7 +236,7 @@ test.describe("language switch", () => {
   test("the sidebar button is a small icon with an accessible name", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await prefs(page, "light", "en");
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     const toggle = page.getByTestId("sidebar-toggle");
     await expect(toggle).toBeVisible();
     await expect(toggle).toHaveAccessibleName(/menu|sidebar/i);
@@ -245,7 +245,7 @@ test.describe("language switch", () => {
 
   test("a stored language that is not live falls back to English", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("yt_locale", "ne"));
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.getByTestId("hero")).toBeVisible();
     await expect(page.getByTestId("composer-send")).toHaveAccessibleName("Send");
   });
@@ -257,7 +257,7 @@ const SCREENS: Screen[] = [
   {
     name: "home",
     open: async (page) => {
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
       await expect(page.getByTestId("card-try-lesson")).toBeVisible({ timeout: 30_000 });
     },
@@ -272,7 +272,7 @@ const SCREENS: Screen[] = [
   {
     name: "setup",
     open: async (page) => {
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await expect(page.getByTestId("card-try-lesson")).toBeVisible({ timeout: 30_000 });
       await page.getByTestId("card-try-lesson").click();
       await expect(page.getByTestId("setup-grade")).toBeVisible({ timeout: 20_000 });
@@ -331,7 +331,7 @@ for (const theme of THEMES) {
     test(`home at ${w}x${h}, ${theme}: screenshot and no sideways scroll`, async ({ page }) => {
       await page.setViewportSize({ width: w, height: h });
       await prefs(page, theme, "en");
-      await page.goto("/");
+      await page.goto("/brownie-chat");
       await expect(page.getByTestId("card-try-lesson")).toBeVisible({ timeout: 30_000 });
       await fontsReady(page);
       expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
@@ -387,7 +387,7 @@ test.describe("glass limits and Reduce effects", () => {
 
   test("Reduce effects turns on by itself for a data-saver device", async ({ page }) => {
     await page.addInitScript(() => Object.defineProperty(navigator, "connection", { value: { saveData: true }, configurable: true }));
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await expect(page.locator("html")).toHaveAttribute("data-effects", "reduce");
   });
 
@@ -405,7 +405,7 @@ test("fonts: English never fetches Devanagari; Hindi never fetches the Latin fac
     if (/\/fonts\//.test(req.url())) fetched.push(req.url().split("/fonts/")[1]!);
   });
   await prefs(page, "light", "en");
-  await page.goto("/");
+  await page.goto("/brownie-chat");
   await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
   await fontsReady(page);
   await page.waitForTimeout(1500);
@@ -419,7 +419,7 @@ test("fonts: English never fetches Devanagari; Hindi never fetches the Latin fac
     if (/\/fonts\//.test(req.url())) fetched.push(req.url().split("/fonts/")[1]!);
   });
   await hindi.addInitScript(() => window.localStorage.setItem("yt_locale", "hi"));
-  await hindi.goto("/");
+  await hindi.goto("/brownie-chat");
   await expect(hindi.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
   await hindi.waitForTimeout(2500);
   expect(fetched.some((f) => f.startsWith("noto-sans-devanagari-deva-400"))).toBe(true);

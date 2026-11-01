@@ -150,6 +150,15 @@ function Shell() {
 
         <main id="chat-main" className="@container relative flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
           <header className={`flex items-center gap-3 px-3 py-2 ${hero ? "lg:absolute lg:right-3 lg:top-2 lg:z-10 lg:p-0" : ""}`}>
+            <a
+              href="/"
+              aria-label={copy.chatHome}
+              title={copy.chatHome}
+              className="grid size-11 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+              data-testid="back-home"
+            >
+              <span aria-hidden="true">←</span>
+            </a>
             <Button variant="ghost" size="icon" className="size-11 min-h-11 min-w-11 text-muted lg:hidden" onClick={() => setDrawer(true)} aria-label={copy.chatOpenMenu} title={copy.chatOpenMenu} data-testid="menu-open">
               <Icon name="menu" />
             </Button>

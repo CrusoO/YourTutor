@@ -87,7 +87,7 @@ test.describe("board paper setting", () => {
 
   test("Light grid is opt-in from Settings, persists, and never puts an image behind the lesson", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto("/");
+    await page.goto("/brownie-chat");
     await page.locator('[data-testid="nav-settings"]:visible').first().click();
     await expect(page.getByTestId("comfort-dialog")).toBeVisible();
     await expect(page.getByTestId("paper-plain")).toHaveAttribute("aria-pressed", "true");

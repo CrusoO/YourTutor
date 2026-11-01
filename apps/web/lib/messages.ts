@@ -199,6 +199,7 @@ const en = {
   chatCollapse: "Collapse sidebar",
   chatOpenMenu: "Open menu",
   chatBackToChat: "Back to chat",
+  chatHome: "Back to the Brownie homepage",
   chatGreetMorning: "Good morning",
   chatGreetAfternoon: "Good afternoon",
   chatGreetEvening: "Good evening",
@@ -426,6 +427,7 @@ export type Messages = typeof en;
 
 const ne: Messages = {
   ...en,
+  chatHome: "Brownie को गृहपृष्ठमा फर्कनुहोस्",
   loginTitle: "विद्यार्थी लगइन",
   familyCode: "परिवार कोड",
   pin: "पिन",

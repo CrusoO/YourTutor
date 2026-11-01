@@ -13,24 +13,38 @@ export const landingContent = {
       { id: "hi", label: "हिन्दी" },
       { id: "ne", label: "नेपाली" },
     ],
-    languageStatus: {
-      hi: "Hindi copy is awaiting native-speaker review. English is shown for now.",
-      ne: "Nepali copy is awaiting native-speaker review. English is shown for now.",
-    },
     ask: "Ask",
     name: "Brownie",
+    audienceLead: "Brownie is for",
+    audiences: ["Students", "Teachers", "Professionals", "Everyone"],
     tagline: "Understands you first. Then teaches.",
-    languages: "NEPALI · HINDI · ENGLISH",
+    description:
+      "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to the way you understand.",
+    tryBrownie: "Try asking Brownie",
+    readStory: "Read Robin's story ↓",
+    signIn: "Sign in",
+    explore: "Try Brownie first. Discover what's possible.",
+    exploreNote: "Explore at your own pace. Sign in when you're ready to go further.",
+    homepage: "Go to the Brownie homepage",
+  },
+  auth: {
+    title: "Sign in to Brownie",
+    familyCode: "Family code",
+    pin: "PIN",
+    signIn: "Sign in",
+    loginError: "That code or PIN did not match. Try again.",
+    tryAsGuest: "Try without an account",
+    homepage: "Back to the Brownie homepage",
   },
   hook: {
     firstLine: "Everyone is taught one way.",
     secondLine: "You learn your way.",
-    body: "Brownie is a tutor that understands you first, then teaches you the way that makes it click. Here's why that matters.",
+    body: "Brownie first finds out what makes sense to you, then explains the next step in a way that clicks.",
     seeHow: "See how Brownie asks",
     watchDemo: "Watch the demo",
   },
   chapterOne: {
-    chapter: "Chapter one",
+    chapter: "Chapter One",
     label: "THE NOD",
     hook: "The most dangerous word in a classroom is “yes.”",
     headline: "Robin nodded. But he didn’t understand.",
@@ -46,13 +60,13 @@ export const landingContent = {
     stats: "One classroom · Thirty students · One student afraid to ask · A question that never got asked",
   },
   chapterTwo: {
-    chapter: "Chapter two",
+    chapter: "Chapter Two",
     label: "THE QUESTION",
-    headlineStart: "What if learning started with understanding the student",
+    headlineStart: "What if learning started by understanding the student",
     headlineEmphasis: "not just the subject?",
     paragraphs: [
       "Remember Robin? He was afraid to admit he didn’t understand. With Brownie, he doesn’t have to pretend.",
-      "Brownie doesn’t assume everyone learns at the same pace. It doesn’t expect you to know everything first. And it never makes you feel bad for asking the same question twice.",
+      "Brownie doesn’t assume everyone learns at the same pace or expect you to know everything already. It never makes you feel bad for asking the same question twice.",
       "Before teaching you, Brownie asks a few small questions, like:",
     ],
     questions: [
@@ -94,7 +108,7 @@ export const landingContent = {
     questionAria: "Choose your comfort with fractions and preferred explanation style",
   },
   chapterThree: {
-    chapter: "Chapter three",
+    chapter: "Chapter Three",
     label: "THE CLICK",
     headlineStart: "Now he can see",
     headlineEnd: "what he knows.",
@@ -123,13 +137,6 @@ export const landingContent = {
     dropAria: "Choose a local video or drop it here to preview",
     playerAria: "Ask Brownie demo video",
   },
-  close: {
-    ask: "Ask",
-    name: "Brownie",
-    tagline: "Be taught the way you learn. No sign-in needed.",
-    start: "Start learning",
-    watchDemo: "Watch the demo",
-  },
   feedback: {
     headlineStart: "How can Brownie",
     headlineEmphasis: "know you better?",
@@ -154,14 +161,22 @@ export const landingContent = {
   accessibility: {
     main: "Ask Brownie landing page",
     chapters: "The Brownie approach",
-    close: "Start learning with Brownie",
-  },
-  // TODO: native-speaker translations and review for Hindi and Nepali. Do not machine-translate.
-  translations: {
-    hi: "TODO: Hindi copy for native-speaker review.",
-    ne: "TODO: Nepali copy for native-speaker review.",
   },
 } as const;
 
 export type LevelId = (typeof landingContent.chapterTwo.levels)[number]["id"];
 export type StyleId = (typeof landingContent.chapterTwo.styles)[number]["id"];
+
+export type LandingLanguage = "en" | "hi" | "ne";
+
+type Widen<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends readonly (infer Item)[]
+      ? ReadonlyArray<Widen<Item>>
+      : T extends object
+        ? { [K in keyof T]: K extends "id" ? T[K] : Widen<T[K]> }
+        : T;
+
+export type LandingCopy = Widen<typeof landingContent>;

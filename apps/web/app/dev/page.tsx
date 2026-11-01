@@ -51,7 +51,7 @@ export default function DevPage() {
       await studentLogin(scenario.family_code, scenario.pin);
       const me = await today();
       setStudentId(me.student_id);
-      router.push("/");
+      router.push("/brownie-chat");
     } catch {
       setError(
         `Could not log in as ${scenario.title}. Seed the scenarios first.`,
@@ -63,7 +63,7 @@ export default function DevPage() {
     setError("");
     try {
       await devStaffToken(role, scenario?.name);
-      router.push("/");
+      router.push("/brownie-chat");
     } catch {
       setError(
         "Could not sign in the preview adult. Seed the scenarios first.",
