@@ -12,7 +12,7 @@ export async function devLogin(page: Page, title: string) {
   await page.goto("/dev");
   await page.getByTestId(`login-${nameOf(title)}`).click();
   await expect(page).toHaveURL(/\/brownie-chat$/, { timeout: 60_000 });
-  await expect(page.getByTestId("hero")).toBeVisible();
+  await expect(page.getByTestId("hero")).toBeVisible({ timeout: 30_000 });
   await expect(page.getByTestId("greeting")).not.toHaveText("", { timeout: 20_000 });
 }
 

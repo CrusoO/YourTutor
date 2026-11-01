@@ -2,10 +2,11 @@
 
 import { Icon } from "@/components/ui/icons";
 import { useCopy } from "@/lib/locale";
-import type { StudentHome } from "./HomeCards";
+import type { StudentHomeSnapshot } from "@/lib/chat/home-cache";
+import styles from "./ChatHome.module.css";
 
 type Props = {
-  student: StudentHome;
+  student: StudentHomeSnapshot;
   reviewEnabled: boolean;
   onContinue: () => void;
   onReview: () => void;
@@ -20,8 +21,8 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
     : null;
 
   return (
-    <aside className="flex w-full min-w-0 flex-col gap-4 xl:w-60" aria-label={copy.homePanelLabel} data-testid="right-panel">
-      <section className="rounded-2xl border border-accent bg-surface p-[18px] shadow-[0_0_0_1px_color-mix(in_srgb,var(--c-accent)_12%,transparent),0_10px_30px_color-mix(in_srgb,var(--c-accent)_10%,transparent)]">
+    <aside className={`flex w-full min-w-0 flex-col ${styles.rightPanel} ${styles.panel}`} aria-label={copy.homePanelLabel} data-testid="right-panel">
+      <section className={`border p-[18px] ${styles.panelCard} ${styles.continueCard}`}>
         <p className="m-0 text-[0.6875rem] text-muted">{copy.homeContinueLabel}</p>
         {percent !== null ? (
           <>
@@ -50,7 +51,7 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
         <button
           type="button"
           onClick={onContinue}
-          className="mt-4 inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full border-0 bg-accent px-3.5 text-[0.75rem] font-medium text-accent-fg transition-opacity hover:opacity-90"
+          className={`mt-4 inline-flex min-h-9 cursor-pointer items-center gap-1.5 border-0 bg-accent px-3.5 text-[0.75rem] font-medium text-accent-fg transition-opacity hover:opacity-90 ${styles.continueButton}`}
           data-testid="panel-continue"
         >
           {student.resume ? copy.homeResume : copy.chatContinue}
@@ -58,13 +59,13 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
         </button>
       </section>
 
-      <section className="rounded-2xl border border-line bg-surface p-[18px]" aria-label={copy.homeToday}>
+      <section className={`border p-[18px] ${styles.panelCard}`} aria-label={copy.homeToday}>
         <h2 className="m-0 text-[0.8125rem] font-medium text-ink">{copy.homeToday}</h2>
         <button
           type="button"
           onClick={onReview}
           disabled={student.due === 0 || !reviewEnabled}
-          className="mt-3 flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 border-0 border-b border-line bg-transparent px-0 py-2 text-left text-[0.75rem] text-ink disabled:cursor-default disabled:text-muted"
+          className={`mt-3 flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 border-0 border-b border-line bg-transparent px-0 py-2 text-left text-[0.75rem] text-ink disabled:cursor-default disabled:text-muted ${styles.panelReview}`}
           data-testid="panel-review"
         >
           <span>{copy.chatReviewDue}</span>
@@ -78,7 +79,7 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
         <button
           type="button"
           onClick={onToday}
-          className="mt-2 inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full border border-input-line bg-transparent px-3.5 text-[0.75rem] font-medium text-ink hover:bg-surface-2"
+          className={`mt-2 inline-flex min-h-9 cursor-pointer items-center gap-1.5 border border-input-line bg-transparent px-3.5 text-[0.75rem] font-medium text-ink hover:bg-surface-2 ${styles.panelToday}`}
           data-testid="panel-today"
         >
           {copy.chatTodayPlan}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Icon } from "@/components/ui/icons";
 import { stepOptions } from "@/lib/chat/machine";
 import { MODES_BY_ROLE, useChatApi, type Mode } from "./ChatProvider";
+import styles from "./ChatHome.module.css";
 
 const MODE_LABEL = {
   learn: "chatModeLearn",
@@ -51,10 +52,10 @@ export function Composer({ docked = false }: { docked?: boolean }) {
 
   return (
     <div className="w-full" data-testid="composer">
-      <ComposerPrimitive.Root className="home-card flex flex-col gap-1 rounded-[18px] px-4 pb-3 pt-3 focus-within:border-accent">
+      <ComposerPrimitive.Root className={`home-card flex flex-col gap-1 focus-within:border-accent ${styles.composerRoot}`}>
         {/* The mode control: plain tabs. The chosen mode is filled and carries aria-pressed; a mode that is not
             built yet is dimmed and tagged in words. */}
-        <div className={docked && role === "visitor" ? "hidden" : "-ml-2 flex min-w-0 flex-wrap items-center gap-0.5"} role="group" aria-label={copy.chatModes}>
+        <div className={`${docked && role === "visitor" ? "hidden" : "-ml-2 flex min-w-0 flex-wrap items-center gap-0.5"} ${styles.modeGroup}`} role="group" aria-label={copy.chatModes}>
           {modes.map((m) => (
             <button
               key={m}
@@ -63,7 +64,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
               disabled={SOON.includes(m)}
               onClick={() => setMode(m)}
               data-testid={`mode-${m}`}
-              className={`inline-flex min-h-8 w-auto cursor-pointer items-center gap-1.5 rounded-full border-0 px-3 text-[0.75rem] font-normal disabled:cursor-not-allowed disabled:opacity-60 ${mode === m ? "bg-surface-2 text-ink" : "bg-transparent text-muted hover:text-ink"}`}
+              className={`inline-flex min-h-8 w-auto cursor-pointer items-center gap-1.5 border-0 text-[0.75rem] font-normal disabled:cursor-not-allowed disabled:opacity-60 ${mode === m ? "bg-surface-2 text-ink" : "bg-transparent text-muted hover:text-ink"} ${styles.modeButton}`}
             >
               {copy[MODE_LABEL[m]]}
               {SOON.includes(m) ? <span className="rounded-full bg-neutral-soft px-1.5 py-0.5 text-[0.625rem] text-muted">{copy.chatSoon}</span> : null}
@@ -86,7 +87,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
             autoCorrect="off"
             spellCheck={false}
             data-testid="composer-input"
-            className="min-h-[3.25rem] w-full flex-1 resize-none border-0 bg-transparent py-2 font-[inherit] text-[0.9375rem] text-ink outline-none placeholder:text-muted"
+            className={`min-h-[3.25rem] w-full flex-1 resize-none border-0 bg-transparent py-2 font-[inherit] text-[0.9375rem] text-ink outline-none placeholder:text-muted ${styles.composerInput}`}
           />
           {/* Send always looks ready. It is disabled only when sending is impossible (a mode that is not built
               yet), and then the reason is shown in words below. An empty box gets a gentle hint instead. */}
@@ -111,7 +112,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
                 setEmptyHint(true);
               }
             }}
-            className="mb-1 grid size-8 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-accent text-accent-fg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:bg-neutral-soft disabled:text-muted"
+            className={`mb-1 grid size-8 shrink-0 cursor-pointer place-items-center border-0 bg-accent text-accent-fg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:bg-neutral-soft disabled:text-muted ${styles.sendButton}`}
             data-testid="composer-send"
           >
             <Icon name="arrowUp" size={16} />

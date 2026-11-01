@@ -97,6 +97,7 @@ test.describe("S1b student flow at 360 px", () => {
     await expect(page.getByTestId("greeting")).toContainText("Nima");
     await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
     await expect(page.getByTestId("right-panel")).toHaveCount(0);
+    await expect(page.getByTestId("dashboard-layout")).toHaveCount(0);
     await expect(page.getByTestId("card-start")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "01-subjects");

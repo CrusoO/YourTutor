@@ -1,0 +1,305 @@
+.app {
+  position: relative;
+  background: var(--c-home-bg);
+  color: var(--c-text);
+}
+
+:global(html[data-theme="dark"]) .app {
+  --c-bg: #05080c;
+  --c-home-bg: #05080c;
+  --c-surface: #0a1017;
+  --c-card-solid: #0a1017;
+  --c-surface-2: #0e151d;
+  --c-text: #f4f7fa;
+  --c-muted: #a4afbd;
+  --c-line: #18212c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .app {
+    --c-bg: #05080c;
+    --c-home-bg: #05080c;
+    --c-surface: #0a1017;
+    --c-card-solid: #0a1017;
+    --c-surface-2: #0e151d;
+    --c-text: #f4f7fa;
+    --c-muted: #a4afbd;
+    --c-line: #18212c;
+  }
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 54rem;
+  gap: 1.5rem;
+  font-family: var(--font-inter), var(--ff-body);
+}
+
+.date {
+  margin: 0;
+  color: var(--c-muted);
+  font-family: var(--ff-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.headline {
+  max-width: 38rem;
+  margin: 0.3rem 0 0;
+  font-family: var(--font-instrument-serif), var(--font-noto-serif-deva), Georgia, serif;
+  font-size: clamp(2.7rem, 4vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+
+.emphasis {
+  color: var(--c-accent-ink);
+  font-style: italic;
+}
+
+.hint {
+  max-width: 38rem;
+  margin: 0.7rem 0 0;
+  color: var(--c-muted);
+  font-family: var(--font-inter), var(--ff-body);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.header {
+  min-height: 3rem;
+  column-gap: 0.5rem;
+}
+
+.header :global(.ml-auto) {
+  gap: 0.4rem;
+}
+
+.headerButton {
+  min-width: 4rem;
+  min-height: 2rem !important;
+  border-radius: 0 !important;
+  border-color: var(--c-line) !important;
+  padding-inline: 0.85rem !important;
+  font-family: var(--ff-display);
+  font-size: 0.62rem !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.languageSwitcher :global([data-testid="language-switch"]) {
+  gap: 0;
+  border-radius: 0;
+  border-color: var(--c-line);
+  background: transparent;
+  padding: 0;
+}
+
+.languageSwitcher :global(button[data-testid^="language-"]) {
+  min-height: 2rem;
+  min-width: 2.6rem;
+  border-radius: 0;
+  padding-inline: 0.35rem;
+  font-family: var(--ff-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+}
+
+.composerRoot {
+  gap: 0.45rem !important;
+  border-radius: 0.25rem !important;
+  border-color: var(--c-line) !important;
+  background: var(--c-surface) !important;
+  box-shadow: none !important;
+  padding: 0.65rem 0.8rem 0.75rem !important;
+}
+
+.modeGroup {
+  min-height: 1.8rem;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.modeButton {
+  min-height: 1.8rem !important;
+  border-radius: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  padding-inline: 0.7rem !important;
+  font-family: var(--ff-display);
+  font-size: 0.58rem !important;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.modeButton[aria-pressed="true"] {
+  border-bottom-color: var(--c-accent) !important;
+  background: transparent !important;
+  color: var(--c-text) !important;
+}
+
+.composerInput {
+  font-family: var(--font-instrument-serif), var(--font-noto-serif-deva), Georgia, serif !important;
+  font-size: 1.08rem !important;
+  font-style: italic;
+}
+
+.sendButton {
+  width: 2.45rem !important;
+  height: 2.45rem !important;
+  border-radius: 0.12rem !important;
+}
+
+.dashboard {
+  position: static;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rightPanel {
+  width: 100%;
+}
+
+.masteryCard {
+  border-radius: 0.25rem !important;
+  border-color: var(--c-line) !important;
+  background: var(--c-surface) !important;
+  box-shadow: none !important;
+}
+
+.masteryCard :global(h2) {
+  font-family: var(--ff-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.masteryCard :global(.home-stat) {
+  font-family: var(--font-instrument-serif), var(--font-noto-serif-deva), Georgia, serif !important;
+  font-size: clamp(2.2rem, 4vw, 3rem) !important;
+  font-weight: 400 !important;
+}
+
+.topicLabel {
+  font-family: var(--font-inter), var(--ff-body);
+  font-size: 0.62rem !important;
+}
+
+.startCard {
+  max-width: 30rem;
+  border-radius: 0.25rem !important;
+  background: var(--c-surface) !important;
+  box-shadow: none !important;
+}
+
+.staleNotice {
+  margin: 0;
+  border: 1px solid var(--c-warning);
+  padding: 0.55rem 0.7rem;
+  color: var(--c-warning);
+  font-size: 0.75rem;
+}
+
+.panel {
+  width: 100%;
+  gap: 1rem;
+}
+
+.panelCard {
+  border-radius: 0.2rem !important;
+  border-color: var(--c-line) !important;
+  background: var(--c-surface) !important;
+  box-shadow: none !important;
+  padding: 0.9rem !important;
+}
+
+.continueCard {
+  border-color: var(--c-accent) !important;
+}
+
+.continueButton {
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.15rem !important;
+  font-family: var(--ff-display);
+  font-size: 0.6rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panelReview {
+  min-height: 2.4rem !important;
+  font-family: var(--font-inter), var(--ff-body);
+}
+
+.panelToday {
+  min-height: 2.2rem !important;
+  border-radius: 0.15rem !important;
+  font-family: var(--ff-display);
+  font-size: 0.58rem !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.panelCard > p:first-child {
+  color: var(--c-accent-ink);
+  font-family: var(--ff-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.panel :global(.home-stat) {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-size: 3rem !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.03em;
+}
+
+.panel :global(h2) {
+  font-family: var(--ff-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+:global(:lang(hi)) .headline {
+  font-family: var(--font-noto-serif-deva), var(--ff-body), serif;
+  font-size: clamp(2.3rem, 5vw, 3.5rem);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+:global(:lang(hi)) .emphasis {
+  font-style: normal;
+}
+
+@media (min-width: 64rem) {
+  .content:has(.rightPanel) {
+    padding-right: 17rem;
+  }
+
+  .rightPanel {
+    position: absolute;
+    top: 1.2rem;
+    right: 0;
+    width: 15rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .headline {
+    font-size: clamp(2.45rem, 11vw, 3.25rem);
+  }
+
+  .content {
+    gap: 1.2rem;
+  }
+}

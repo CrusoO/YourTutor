@@ -10,29 +10,25 @@ import {
   studentId,
   teacherClasses,
   today,
-  type ChapterCard,
 } from "@/lib/api";
+import { readGuestHomeCache, writeGuestHomeCache, type StudentHomeSnapshot } from "@/lib/chat/home-cache";
 import { useChatApi } from "./ChatProvider";
 import { TopicMastery } from "./TopicMastery";
 import { RightPanel } from "./RightPanel";
-
-export type StudentHome = {
-  resume: { session_id: string } | null;
-  minutesLeft: number | null;
-  current: { chapter: ChapterCard; skill?: string } | null;
-  started: boolean;
-  due: number;
-  topics: { id: string; title: string; percent: number | null }[];
-};
+import styles from "./ChatHome.module.css";
 
 type TeacherHome = { classes: number; stuck: number; review: number };
 
-function useStudentHome(enabled: boolean) {
-  const [data, setData] = useState<StudentHome | null>(null);
+function useStudentHome(enabled: boolean, cacheGuest: boolean) {
+  const [data, setData] = useState<StudentHomeSnapshot | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (!enabled) return;
     let live = true;
+    const guestId = cacheGuest ? studentId() : "";
+    const cached = guestId ? readGuestHomeCache(guestId) : null;
+    setData(cached);
+    setFailed(false);
     (async () => {
       const me = await today();
       const sid = me.student_id || studentId();
@@ -48,7 +44,7 @@ function useStudentHome(enabled: boolean) {
       }
       const started = live_.some((c) => c.status !== "not_started");
       if (live) {
-        setData({
+        const snapshot: StudentHomeSnapshot = {
           resume: me.resume ?? null,
           minutesLeft: me.remaining_active_minutes ?? null,
           current: chapter ? { chapter, skill } : null,
@@ -59,13 +55,16 @@ function useStudentHome(enabled: boolean) {
             title: c.title,
             percent: c.skills_total > 0 ? Math.round((c.skills_can_do_it / c.skills_total) * 100) : null,
           })),
-        });
+        };
+        setData(snapshot);
+        setFailed(false);
+        if (cacheGuest && sid) writeGuestHomeCache(sid, snapshot);
       }
     })().catch(() => live && setFailed(true));
     return () => {
       live = false;
     };
-  }, [enabled]);
+  }, [enabled, cacheGuest]);
   return { data, failed };
 }
 
@@ -103,7 +102,7 @@ function Row({ children }: { children: React.ReactNode; two?: boolean }) {
 /** Home actions follow the role; learner progress is shown only when backed by API data. */
 export function HomeCards() {
   const { role, copy, dispatch, openWorkspace, startMode, tryOneQuestion, busy, identityReady, ctx, contextError } = useChatApi();
-  const student = useStudentHome(role === "student" || role === "guest");
+  const student = useStudentHome(role === "student" || role === "guest", role === "guest");
   const teacher = useTeacherHome(role === "teacher");
 
   if (!identityReady) {
@@ -141,7 +140,7 @@ export function HomeCards() {
   }
 
   if (role === "student" || role === "guest") {
-    if (student.failed) {
+    if (student.failed && !student.data) {
       return <p role="alert" className="m-0 text-sm text-danger">{copy.chatCouldNotLoad}</p>;
     }
     if (!student.data) return null;
@@ -149,22 +148,16 @@ export function HomeCards() {
     const hasProgress = started || Boolean(resume);
     return (
       <>
-        <div className={`grid w-full grid-cols-1 items-start gap-4 ${hasProgress ? "xl:grid-cols-[minmax(0,1fr)_15rem]" : ""}`}>
-          <div className="flex min-w-0 flex-col gap-4">
+        {student.failed ? (
+          <p role="alert" className={`text-sm ${styles.staleNotice}`} data-testid="stale-home-cache">
+            {copy.chatCouldNotLoad}
+          </p>
+        ) : null}
+        {hasProgress ? (
+          <div className={styles.dashboard} data-testid="dashboard-layout">
             {started && student.data.topics.some((topic) => topic.percent !== null) ? (
               <TopicMastery topics={student.data.topics.filter((topic): topic is typeof topic & { percent: number } => topic.percent !== null)} />
             ) : null}
-            {student.data.topics.length > 0 ? (
-              <div className="flex w-full flex-wrap gap-2" role="group" aria-label={copy.chatTopics} data-testid="topic-chips">
-                {student.data.topics.slice(0, 6).map((topic) => (
-                  <button key={topic.id} type="button" onClick={() => openWorkspace(`/chapters/${encodeURIComponent(topic.id)}`, topic.title)} className="home-card inline-flex min-h-11 w-auto cursor-pointer items-center rounded-full px-3.5 text-sm font-normal text-ink">
-                    {topic.title}
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          {hasProgress ? (
             <RightPanel
               student={student.data}
               reviewEnabled={role !== "guest"}
@@ -175,11 +168,20 @@ export function HomeCards() {
               onReview={() => void startMode("revise")}
               onToday={() => openWorkspace("/today", copy.chatToday)}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
         {!hasProgress ? (
           <Row>
-          <SuggestionCard tone="accent" icon="play" title={copy.chatStartHere} description={current?.chapter.title} tag={copy.chatNew} onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)} data-testid="card-start" />
+            <SuggestionCard
+              tone="accent"
+              icon="play"
+              title={copy.chatStartHere}
+              description={current?.chapter.title}
+              tag={copy.chatNew}
+              onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)}
+              className={styles.startCard}
+              data-testid="card-start"
+            />
           </Row>
         ) : null}
       </>

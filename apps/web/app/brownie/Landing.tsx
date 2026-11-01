@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Instrument_Serif, Inter, Noto_Serif_Devanagari } from "next/font/google";
 import {
   BrownieChatDemo,
   BrownieFeedback,
@@ -11,28 +10,7 @@ import {
 } from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
-
-const instrument = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-instrument-serif",
-});
-
-const inter = Inter({
-  weight: ["400", "500"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  weight: ["400", "500"],
-  subsets: ["devanagari"],
-  display: "swap",
-  variable: "--font-noto-serif-deva",
-});
+import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
 
 function LandingPageContent() {
   const { language, copy } = useLandingLanguage();
@@ -49,7 +27,7 @@ function LandingPageContent() {
 
   return (
     <main
-      className={`${styles.landing} ${instrument.variable} ${inter.variable} ${notoSerifDevanagari.variable}`}
+      className={`${styles.landing} ${instrumentSerif.variable} ${inter.variable} ${notoSerifDevanagari.variable}`}
       aria-label={copy.accessibility.main}
       lang={language}
       data-testid="brownie-landing"

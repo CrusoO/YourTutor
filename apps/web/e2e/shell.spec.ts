@@ -73,6 +73,10 @@ for (const { w, h } of WIDTHS) {
       await expect(page.getByTestId("welcome-flow")).toHaveCount(0);
       await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
       await expect(page.getByTestId("right-panel")).toHaveCount(0);
+      await expect(page.getByTestId("dashboard-layout")).toHaveCount(0);
+      await expect(page.getByTestId("header-sign-in")).toBeVisible();
+      const titleFont = await page.getByTestId("greeting").evaluate((el) => getComputedStyle(el).fontFamily);
+      expect(titleFont).toContain("Instrument Serif");
       await expectNoOverflow(page);
       await expectNoClippedText(page);
       await shot(page, "fresh-visitor");
@@ -112,10 +116,16 @@ for (const { w, h } of WIDTHS) {
     });
 
     test("student (Review due): greeting, a Review card, and the warm-up opens in the panel", async ({ page }) => {
+      await page.addInitScript(() => {
+        window.localStorage.setItem("yt.comfort", JSON.stringify({ theme: "dark" }));
+      });
       await devLogin(page, "Review due");
       await expect(page.getByTestId("greeting")).toContainText("Rhea");
       await expect(page.getByTestId("topic-mastery")).toBeVisible({ timeout: 30_000 });
       await expect(page.getByTestId("right-panel")).toBeVisible();
+      await expect(page.getByTestId("dashboard-layout")).toBeVisible();
+      const appBackground = await page.getByTestId("app-shell").evaluate((el) => getComputedStyle(el).backgroundColor);
+      expect(appBackground).toBe("rgb(5, 8, 12)");
       await expect(page.getByTestId("panel-review")).toBeEnabled();
       await expect(page.getByTestId("card-review")).toHaveCount(0);
       await expect(page.getByTestId("home-cards")).toHaveCount(0);

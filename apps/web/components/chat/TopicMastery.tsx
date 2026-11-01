@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 import { useCopy } from "@/lib/locale";
+import styles from "./ChatHome.module.css";
 
 /** Chart height in px: taller for higher mastery, so the stats stagger down the row. */
 const chartHeight = (pct: number) => Math.round(18 + 1.09 * pct);
@@ -35,7 +36,7 @@ type TopicProgress = { id: string; title: string; percent: number };
 export function TopicMastery({ topics }: { topics: TopicProgress[] }) {
   const copy = useCopy();
   return (
-    <section className="w-full rounded-[18px] border border-line bg-surface px-[22px] pb-0 pt-[18px] shadow-[var(--shadow-card)]" aria-label={copy.homeMastery} data-testid="topic-mastery">
+    <section className={`w-full border px-[22px] pb-0 pt-[18px] ${styles.masteryCard}`} aria-label={copy.homeMastery} data-testid="topic-mastery">
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="m-0 text-[0.8125rem] font-medium text-ink">{copy.homeMastery}</h2>
         <span className="text-[0.6875rem] text-muted">{copy.chatTopics}</span>
@@ -50,7 +51,7 @@ export function TopicMastery({ topics }: { topics: TopicProgress[] }) {
               {topic.percent}
               <span className="ml-[0.08em] mt-[0.42em] text-[0.4em] font-light tracking-normal">%</span>
             </div>
-            <div className="mb-3 mt-1.5 truncate text-[0.6875rem] leading-snug text-muted" title={topic.title}>{topic.title}</div>
+            <div className={`mb-3 mt-1.5 truncate leading-snug text-muted ${styles.topicLabel}`} title={topic.title}>{topic.title}</div>
             <Chart pct={topic.percent} />
           </div>
         ))}

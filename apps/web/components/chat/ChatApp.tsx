@@ -22,6 +22,8 @@ import { LatestSummary, Replies } from "./Bubbles";
 // The conversation (setup chips, sign-in forms) loads only when there is one: the first screen is the hero.
 const Thread = dynamic(() => import("./Thread").then((m) => m.Thread), { ssr: false });
 import { SidebarContent } from "./Sidebar";
+import { instrumentSerif, inter, notoSerifDevanagari } from "@/app/fonts";
+import styles from "./ChatHome.module.css";
 const WorkspacePanel = dynamic(
   () => import("./WorkspacePanel").then((m) => m.WorkspacePanel),
   { ssr: false },
@@ -45,7 +47,7 @@ function Hero() {
   );
   return (
     <div className="flex min-h-0 w-full flex-1 justify-center overflow-y-auto overscroll-contain px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 sm:px-6 lg:pt-8" data-testid="hero">
-      <div className="flex w-full max-w-6xl min-w-0 flex-col gap-5">
+      <div className={`flex w-full min-w-0 flex-col ${styles.content}`}>
         {identity?.role === "guest" && tipOpen ? (
           <div className="glass-flat flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-2 text-sm" role="note" data-testid="tip">
             <span>{copy.chatTipGuest}</span>
@@ -55,19 +57,19 @@ function Hero() {
           </div>
         ) : null}
         <div className="mb-2 flex w-full flex-col gap-1" data-testid="hero-frame">
-          <p className="m-0 text-[0.75rem] text-muted" suppressHydrationWarning>{dateLabel}</p>
+          <p className={styles.date} suppressHydrationWarning>{dateLabel}</p>
           <h1
-            className="home-display m-0 min-h-[1lh] text-3xl font-light leading-tight text-ink sm:text-4xl lg:text-5xl"
+            className={`home-display min-h-[1lh] ${styles.headline}`}
             data-testid="greeting"
           >
             {line === copy.chatGreetGuest ? (
               <>
                 {copy.chatGreetGuestLead}{" "}
-                <em className="not-italic text-accent-ink">{copy.chatGreetGuestEmphasis}</em>
+                <em className={styles.emphasis}>{copy.chatGreetGuestEmphasis}</em>
               </>
             ) : line}
           </h1>
-          <p className="m-0 mt-1 text-[0.875rem] text-muted" data-testid="home-chat-hint">{copy.chatHomeHint}</p>
+          <p className={styles.hint} data-testid="home-chat-hint">{copy.chatHomeHint}</p>
         </div>
         <Composer />
         <div className="w-full">
@@ -118,7 +120,10 @@ function Shell() {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <div className="ui-root home-flat flex h-dvh w-full overflow-hidden" data-testid="app-shell">
+      <div
+        className={`${instrumentSerif.variable} ${inter.variable} ${notoSerifDevanagari.variable} ui-root home-flat flex h-dvh w-full overflow-hidden ${styles.app}`}
+        data-testid="app-shell"
+      >
         <a href="#chat-main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-surface focus:p-3">
           {copy.chatBackToChat}
         </a>
@@ -132,7 +137,7 @@ function Shell() {
         </Sheet>
 
         <main id="chat-main" className="@container relative flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
-          <header className={`flex items-center gap-3 px-3 py-2 ${hero ? "lg:absolute lg:right-3 lg:top-2 lg:z-10 lg:p-0" : ""}`}>
+          <header className={`flex items-center gap-3 px-3 py-2 ${styles.header} ${hero ? "lg:absolute lg:right-3 lg:top-2 lg:z-10 lg:p-0" : ""}`}>
             <a
               href="/"
               aria-label={copy.chatHome}
@@ -150,15 +155,15 @@ function Shell() {
             </span>
             <span className="ml-auto flex items-center gap-2">
               {api.identity ? (
-                <Button variant="outline" size="sm" className="hidden lg:inline-flex" onClick={api.signOut} data-testid="header-sign-out">
+                <Button variant="outline" size="sm" className={styles.headerButton} onClick={api.signOut} data-testid="header-sign-out">
                   {copy.chatSignOut}
                 </Button>
               ) : (
-                <Button variant="outline" size="sm" className="hidden lg:inline-flex" onClick={() => api.dispatch({ type: "identity", view: "choices" })} data-testid="header-sign-in">
+                <Button variant="outline" size="sm" className={styles.headerButton} onClick={() => api.dispatch({ type: "identity", view: "choices" })} data-testid="header-sign-in">
                   {copy.chatSignIn}
                 </Button>
               )}
-              <LanguageSwitch />
+              <LanguageSwitch className={styles.languageSwitcher} />
             </span>
           </header>
           {lesson ? (
