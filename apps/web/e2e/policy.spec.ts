@@ -117,7 +117,7 @@ test.describe("G2b policy rules at 360 px", () => {
     const tracker = trackActions(page);
     await devLogin(page, "Wheel spinning");
     await expect(page.getByTestId("greeting")).toContainText("Wen");
-    await enter(page, "card-resume");
+    await enter(page, "panel-continue");
     await expect(page.locator(".stem").first()).toBeVisible({ timeout: 20_000 });
     // two items were already missed in this open session; the question is waiting
     await expectPhoneLayout(page);

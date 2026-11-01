@@ -1,7 +1,7 @@
 const API =
   typeof window === "undefined"
     ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-    : "/api";
+    : process.env.NEXT_PUBLIC_API_URL || "/api";
 
 import type { FinderRules } from "./chat/finder";
 import type { Lesson } from "./lessons/types";

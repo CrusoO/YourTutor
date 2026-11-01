@@ -12,23 +12,17 @@ import {
   today,
   type ChapterCard,
 } from "@/lib/api";
-import { planFor, progressShare, type Share } from "@/lib/chat/today";
 import { useChatApi } from "./ChatProvider";
-import dynamic from "next/dynamic";
-// The strip is a separate chunk (students only); the placeholder keeps its footprint so nothing jumps.
-const TodayStrip = dynamic(() => import("./TodayStrip").then((m) => m.TodayStrip), {
-  ssr: false,
-  loading: () => <div aria-hidden="true" className="min-h-[15rem] w-full animate-pulse rounded-[var(--radius-card)] border border-line bg-surface @2xl:min-h-[12rem]" />,
-});
+import { TopicMastery } from "./TopicMastery";
+import { RightPanel } from "./RightPanel";
 
-type StudentHome = {
+export type StudentHome = {
   resume: { session_id: string } | null;
   minutesLeft: number | null;
   current: { chapter: ChapterCard; skill?: string } | null;
   started: boolean;
   due: number;
-  share: Share;
-  topics: { id: string; title: string }[];
+  topics: { id: string; title: string; percent: number | null }[];
 };
 
 type TeacherHome = { classes: number; stuck: number; review: number };
@@ -53,7 +47,20 @@ function useStudentHome(enabled: boolean) {
         if (c.id === chapter?.id) skill = body.skills.find((s) => s.current)?.title;
       }
       const started = live_.some((c) => c.status !== "not_started");
-      if (live) setData({ resume: me.resume ?? null, minutesLeft: me.remaining_active_minutes ?? null, current: chapter ? { chapter, skill } : null, started, due, share: progressShare(live_), topics: live_.map((c) => ({ id: c.id, title: c.title })) });
+      if (live) {
+        setData({
+          resume: me.resume ?? null,
+          minutesLeft: me.remaining_active_minutes ?? null,
+          current: chapter ? { chapter, skill } : null,
+          started,
+          due,
+          topics: live_.map((c) => ({
+            id: c.id,
+            title: c.title,
+            percent: c.skills_total > 0 ? Math.round((c.skills_can_do_it / c.skills_total) * 100) : null,
+          })),
+        });
+      }
     })().catch(() => live && setFailed(true));
     return () => {
       live = false;
@@ -93,20 +100,14 @@ function Row({ children }: { children: React.ReactNode; two?: boolean }) {
   );
 }
 
-/** Three suggestion cards for whoever is looking at the home: the cards follow the role. */
+/** Home actions follow the role; learner progress is shown only when backed by API data. */
 export function HomeCards() {
   const { role, copy, dispatch, openWorkspace, startMode, tryOneQuestion, busy, identityReady, ctx, contextError } = useChatApi();
   const student = useStudentHome(role === "student" || role === "guest");
   const teacher = useTeacherHome(role === "teacher");
 
   if (!identityReady) {
-    return (
-      <Row>
-        <SuggestionCardSkeleton />
-        <SuggestionCardSkeleton />
-        <SuggestionCardSkeleton />
-      </Row>
-    );
+    return null;
   }
 
   if (role === "visitor") {
@@ -116,13 +117,7 @@ export function HomeCards() {
         <p role="alert" className="m-0 text-sm text-danger" data-testid="context-error">
           {copy.chatCouldNotLoad}
         </p>
-      ) : (
-        <Row>
-          <SuggestionCardSkeleton />
-          <SuggestionCardSkeleton />
-          <SuggestionCardSkeleton />
-        </Row>
-      );
+      ) : null;
     }
     return (
       <div className="flex w-full flex-col gap-3">
@@ -147,67 +142,46 @@ export function HomeCards() {
 
   if (role === "student" || role === "guest") {
     if (student.failed) {
-      return (
-        <Row>
-          <SuggestionCard tone="neutral" icon="calendar" title={copy.chatToday} onClick={() => openWorkspace("/today", copy.chatToday)} data-testid="card-today" />
-        </Row>
-      );
+      return <p role="alert" className="m-0 text-sm text-danger">{copy.chatCouldNotLoad}</p>;
     }
-    if (!student.data) {
-      return (
-        <Row>
-          <SuggestionCardSkeleton />
-          <SuggestionCardSkeleton />
-          <SuggestionCardSkeleton />
-        </Row>
-      );
-    }
-    const { current, started, due, minutesLeft, resume } = student.data;
-    const startCard = !started;
-    const plan = planFor({ due: role === "guest" ? 0 : due, next: current?.skill });
-    const startToday = () => {
-      if (resume) openWorkspace(`/session/${resume.session_id}`, copy.resume);
-      else if (due > 0 && role !== "guest") void startMode("revise");
-      else openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title);
-    };
+    if (!student.data) return null;
+    const { current, started, due, resume } = student.data;
+    const hasProgress = started || Boolean(resume);
     return (
       <>
-      {student.data.topics.length > 0 ? (
-        <div className="flex w-full flex-wrap gap-2" role="group" aria-label={copy.chatTopics} data-testid="topic-chips">
-          {student.data.topics.slice(0, 6).map((topic) => (
-            <button key={topic.id} type="button" onClick={() => openWorkspace(`/chapters/${encodeURIComponent(topic.id)}`, topic.title)} className="home-card inline-flex min-h-11 w-auto cursor-pointer items-center rounded-full px-3.5 text-sm font-normal text-ink">
-              {topic.title}
-            </button>
-          ))}
+        <div className={`grid w-full grid-cols-1 items-start gap-4 ${hasProgress ? "xl:grid-cols-[minmax(0,1fr)_15rem]" : ""}`}>
+          <div className="flex min-w-0 flex-col gap-4">
+            {started && student.data.topics.some((topic) => topic.percent !== null) ? (
+              <TopicMastery topics={student.data.topics.filter((topic): topic is typeof topic & { percent: number } => topic.percent !== null)} />
+            ) : null}
+            {student.data.topics.length > 0 ? (
+              <div className="flex w-full flex-wrap gap-2" role="group" aria-label={copy.chatTopics} data-testid="topic-chips">
+                {student.data.topics.slice(0, 6).map((topic) => (
+                  <button key={topic.id} type="button" onClick={() => openWorkspace(`/chapters/${encodeURIComponent(topic.id)}`, topic.title)} className="home-card inline-flex min-h-11 w-auto cursor-pointer items-center rounded-full px-3.5 text-sm font-normal text-ink">
+                    {topic.title}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
+          {hasProgress ? (
+            <RightPanel
+              student={student.data}
+              reviewEnabled={role !== "guest"}
+              onContinue={() => {
+                if (resume) openWorkspace(`/session/${resume.session_id}`, copy.resume);
+                else openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title);
+              }}
+              onReview={() => void startMode("revise")}
+              onToday={() => openWorkspace("/today", copy.chatToday)}
+            />
+          ) : null}
         </div>
-      ) : null}
-      {started || resume ? <TodayStrip share={student.data.share} plan={plan} onStart={startToday} /> : null}
-      <Row>
-        {resume ? (
-          <SuggestionCard tone="accent" icon="play" title={copy.resume} description={current?.chapter.title} tag={copy.chatContinue} onClick={() => openWorkspace(`/session/${resume.session_id}`, copy.resume)} data-testid="card-resume" />
-        ) : startCard ? (
+        {!hasProgress ? (
+          <Row>
           <SuggestionCard tone="accent" icon="play" title={copy.chatStartHere} description={current?.chapter.title} tag={copy.chatNew} onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)} data-testid="card-start" />
-        ) : (
-          <SuggestionCard
-            tone="accent"
-            icon="play"
-            title={copy.chatContinue}
-            description={current ? `${current.chapter.skills_can_do_it}/${current.chapter.skills_total} · ${current.chapter.title}` : copy.chatContinueHint}
-            onClick={() => openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title)}
-            data-testid="card-continue"
-          />
-        )}
-        <SuggestionCard
-          tone={due > 0 ? "success" : "neutral"}
-          icon="refresh"
-          title={copy.chatReviewDue}
-          tag={due > 0 ? copy.chatReviewDueN.replace("{n}", String(due)) : copy.chatNothingDue}
-          disabled={due === 0 || role === "guest"}
-          onClick={() => void startMode("revise")}
-          data-testid="card-review"
-        />
-        <SuggestionCard tone="neutral" icon="calendar" title={copy.chatTodayPlan} tag={minutesLeft !== null ? copy.chatMinutesLeft.replace("{n}", String(minutesLeft)) : undefined} onClick={() => openWorkspace("/today", copy.chatToday)} data-testid="card-plan" />
-      </Row>
+          </Row>
+        ) : null}
       </>
     );
   }

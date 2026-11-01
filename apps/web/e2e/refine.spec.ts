@@ -14,7 +14,7 @@ async function signIn(page: import("@playwright/test").Page, login = "login-mid_
   await page.goto("/dev");
   await page.getByTestId(login).click();
   await expect(page.getByTestId("hero")).toBeVisible();
-  await expect(page.getByTestId("card-continue").or(page.getByTestId("card-resume")).or(page.getByTestId("card-start")).first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByTestId("panel-continue").or(page.getByTestId("card-start")).first()).toBeVisible({ timeout: 30_000 });
 }
 
 for (const size of SIZES) {
@@ -49,7 +49,7 @@ for (const size of SIZES) {
     test("R-01 and R-02: no raw skill id on the home or the lesson header", async ({ page }) => {
       await signIn(page);
       const idLike = /\b[a-z]{1,4}\d{0,2}[._][a-z0-9_.]{3,}\b/;
-      const cont = page.getByTestId("card-continue");
+      const cont = page.getByTestId("panel-continue");
       if (await cont.count()) await expect(cont).not.toContainText(idLike);
       await page.screenshot({ path: `${SHOTS}/r02-${size.name}-home.png` });
     });
@@ -80,13 +80,13 @@ for (const shape of SHAPES) {
 test("4i: friction counts", async ({ page }) => {
   const log: Record<string, number> = {};
   await signIn(page);
-  await page.locator('[data-testid="card-resume"], [data-testid="card-continue"], [data-testid="card-start"]').first().click();
+  await page.locator('[data-testid="panel-continue"], [data-testid="card-start"]').first().click();
   await expect(page.getByTestId("workspace-frame")).toBeVisible({ timeout: 20_000 });
   log["student to resume"] = 1;
   await page.goto("/dev");
   await page.getByTestId("login-review_due").click();
-  await expect(page.getByTestId("card-review")).toBeVisible({ timeout: 30_000 });
-  await page.getByTestId("card-review").click();
+  await expect(page.getByTestId("panel-review")).toBeVisible({ timeout: 30_000 });
+  await page.getByTestId("panel-review").click();
   await expect(page.getByTestId("workspace-frame")).toBeVisible({ timeout: 20_000 });
   log["student to start a review"] = 1;
   await page.goto("/dev");
