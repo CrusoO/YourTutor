@@ -597,9 +597,9 @@ Accept:
 ### Brownie landing refinement — owner-approved
 
 - [x] `/` serves the Brownie landing, `/brownie-chat` preserves the chat app, and `/brownie` redirects home.
-- [x] Hero copy, audience rotation, header sign-in, chapter/demo order, and homepage navigation refined without changing the existing demo interactions.
+- [x] Hero copy, audience rotation, header sign-in, chapter/demo order, and homepage navigation refined; Chapter Two now includes a localized scripted chat preview with fixed explanations and no live model/engine calls.
 - [x] Full English, Hindi, and Nepali landing copy is wired through one catalog; Hindi and Nepali remain draft pending native-speaker review.
-- [x] Verified 2026-11-01: landing Playwright 4/4 passed; web type check and production build passed; desktop hero alignment and mobile overflow checked. Full UI suite started (145 tests): the 4 landing tests passed, then the run stopped after `flow.spec.ts` timed out in setup on `/dev/seed`; the full suite remains unverified.
+- [x] Verified 2026-11-01: landing Playwright 5/5 passed, including both scripted explanation paths and Hindi/Nepali responses; translation tests 3/3 and web type check passed. Desktop and mobile checks passed. Full UI suite started (145 tests): the previous 4 landing tests passed, then the run stopped after `flow.spec.ts` timed out in setup on `/dev/seed`; the full suite remains unverified.
 
 ---
 

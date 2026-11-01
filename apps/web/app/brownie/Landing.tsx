@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Instrument_Serif, Inter, Noto_Serif_Devanagari } from "next/font/google";
-import { BrownieFeedback, BrownieQuestion, DemoVideo, LandingLanguages, MasteryChart } from "./Interactions";
+import {
+  BrownieChatDemo,
+  BrownieFeedback,
+  DemoVideo,
+  LandingLanguages,
+  MasteryChart,
+} from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
 
@@ -135,7 +141,7 @@ function LandingPageContent() {
               {copy.chapterTwo.questions.map((question) => <li key={question}>{question}</li>)}
             </ul>
             <p>{copy.chapterTwo.invitation}</p>
-            <BrownieQuestion />
+            <BrownieChatDemo />
             {copy.chapterTwo.afterPanel.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </section>

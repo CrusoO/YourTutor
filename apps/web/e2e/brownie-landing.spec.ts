@@ -31,12 +31,38 @@ test("the homepage presents the landing page and keeps the video picker after Ch
   await expect.poll(() => audience.getAttribute("data-active-index")).not.toBe(firstAudienceIndex);
 });
 
+test("the scripted Brownie chat demonstrates accurate fraction addition and fixed follow-ups", async ({ page }) => {
+  await page.goto("/");
+
+  const demo = page.getByTestId("demo-chat");
+  await expect(demo).toBeVisible();
+  await expect(demo.getByTestId("demo-disclosure")).toContainText("scripted");
+  await expect(demo.getByTestId("demo-opening")).toContainText("different-sized pieces");
+
+  await demo.getByRole("button", { name: "Show me with pieces" }).click();
+  const pictureReply = demo.getByTestId("demo-follow-up-picture");
+  await expect(pictureReply).toContainText("3/6 + 2/6 = 5/6");
+  await expect(pictureReply).toBeInViewport();
+  await expect(demo.getByTestId("fraction-pieces")).toHaveAttribute(
+    "aria-label",
+    "Six equal pieces: three from one half, two from one third",
+  );
+
+  await demo.getByRole("button", { name: "Restart example" }).click();
+  await expect(demo.getByTestId("demo-follow-up-picture")).toHaveCount(0);
+  await demo.getByRole("button", { name: /Why can.t we add the bottoms\?/ }).click();
+  await expect(demo.getByTestId("demo-follow-up-steps")).toContainText("1/2 = 3/6");
+  await expect(demo.getByTestId("demo-follow-up-steps")).toContainText("1/3 = 2/6");
+});
+
 test("Hindi and Nepali translate the complete landing, interactions, and sign-in form", async ({ page }) => {
   await page.goto("/");
 
   await page.getByRole("button", { name: "हिन्दी" }).click();
   await expect(page.getByTestId("brownie-landing")).toHaveAttribute("lang", "hi");
   await expect(page.getByTestId("landing-hero-copy").getByText("पहले समझता है। फिर सिखाता है।")).toBeVisible();
+  await page.getByRole("button", { name: "टुकड़ों से दिखाएँ" }).click();
+  await expect(page.getByTestId("demo-follow-up-picture")).toContainText("3/6 + 2/6 = 5/6");
   await expect(page.getByText("अध्याय दो")).toBeVisible();
   await expect(page.getByText("वीडियो चुनें")).toBeVisible();
   await expect(page.getByPlaceholder("अभी सीखने में क्या मुश्किल है? किससे बात समझ आएगी?")).toBeVisible();
@@ -52,6 +78,8 @@ test("Hindi and Nepali translate the complete landing, interactions, and sign-in
   await page.getByRole("button", { name: "नेपाली" }).click();
   await expect(page.getByTestId("brownie-landing")).toHaveAttribute("lang", "ne");
   await expect(page.getByTestId("landing-hero-copy").getByText("पहिले बुझ्छ। त्यसपछि सिकाउँछ।")).toBeVisible();
+  await page.getByRole("button", { name: "टुक्राबाट देखाउनुहोस्" }).click();
+  await expect(page.getByTestId("demo-follow-up-picture")).toContainText("3/6 + 2/6 = 5/6");
   await expect(page.getByText("अध्याय दुई")).toBeVisible();
   await expect(page.getByText("भिडियो छान्नुहोस्")).toBeVisible();
   await expect(page.getByPlaceholder("अहिले सिक्न के गाह्रो छ? के गर्दा कुरा बुझिन्छ?")).toBeVisible();
