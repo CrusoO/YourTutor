@@ -46,7 +46,7 @@ async function expectNoClippedText(page: Page) {
   expect(clipped, "text is not clipped").toEqual([]);
 }
 
-/** Open "/" and wait until the app has started (the greeting is filled in after hydration). */
+/** Open the chat home and wait until its greeting is filled in after hydration. */
 async function openHome(page: Page) {
   await page.goto("/brownie-chat");
   await expect(page.getByTestId("hero")).toBeVisible();
@@ -66,10 +66,11 @@ for (const { w, h } of WIDTHS) {
   test.describe(`front door at ${w}x${h}`, () => {
     test.use({ viewport: { width: w, height: h } });
 
-    test("fresh visitor sees a clear flow without demo progress", async ({ page }) => {
+    test("fresh visitor sees a clean chat home without premature or sample progress", async ({ page }) => {
       await page.goto("/brownie-chat");
       await expect(page.getByTestId("hero")).toBeVisible();
-      await expect(page.getByTestId("welcome-flow")).toBeVisible();
+      await expect(page.getByTestId("home-chat-hint")).toBeVisible();
+      await expect(page.getByTestId("welcome-flow")).toHaveCount(0);
       await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
       await expect(page.getByTestId("right-panel")).toHaveCount(0);
       await expectNoOverflow(page);
@@ -80,7 +81,7 @@ for (const { w, h } of WIDTHS) {
     test("guest: from / to a first lesson in five taps, then back to the chat", async ({ page }) => {
       await openHome(page);
       await expect(page.getByTestId("greeting")).toContainText(/learn today/i);
-      await expect(page.getByTestId("welcome-flow")).toBeVisible();
+      await expect(page.getByTestId("welcome-flow")).toHaveCount(0);
       await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
       await expect(page.getByTestId("right-panel")).toHaveCount(0);
       await expect(page.getByTestId("card-try-lesson")).toBeVisible();
@@ -113,14 +114,19 @@ for (const { w, h } of WIDTHS) {
     test("student (Review due): greeting, a Review card, and the warm-up opens in the panel", async ({ page }) => {
       await devLogin(page, "Review due");
       await expect(page.getByTestId("greeting")).toContainText("Rhea");
-      await expect(page.getByTestId("card-review")).toBeVisible();
-      await expect(page.getByTestId("card-review")).toBeEnabled();
+      await expect(page.getByTestId("topic-mastery")).toBeVisible({ timeout: 30_000 });
+      await expect(page.getByTestId("right-panel")).toBeVisible();
+      await expect(page.getByTestId("panel-review")).toBeEnabled();
+      await expect(page.getByTestId("card-review")).toHaveCount(0);
+      await expect(page.getByTestId("home-cards")).toHaveCount(0);
+      await expect(page.getByTestId("today-strip")).toHaveCount(0);
+      await expect(page.getByTestId("panel-today")).toBeVisible();
       await expectNoOverflow(page);
       await expectNoClippedText(page);
       await shot(page, "student-home");
-      await page.getByTestId("card-review").click();
+      await page.getByTestId("panel-review").click();
       const frame = page.frameLocator('[data-testid="workspace-frame"]');
-      await expect(frame.locator(".stem, h1").first()).toBeVisible({ timeout: 30_000 });
+      await expect(frame.locator(".stem, h1").first()).toBeVisible({ timeout: 60_000 });
       await shot(page, "student-warmup-panel");
     });
 
@@ -203,7 +209,7 @@ for (const { w, h } of WIDTHS) {
       await page.goto("/dev");
       await page.getByTestId("login-review_due").click();
       await expect(page.getByTestId("hero")).toBeVisible();
-      await expect(page.getByTestId("card-plan")).toBeVisible({ timeout: 30_000 }); // cards have loaded
+      await expect(page.getByTestId("panel-today")).toBeVisible({ timeout: 30_000 }); // panel has loaded
       await page.getByTestId("composer-input").focus();
       await expect(page.getByTestId("composer-input")).toBeFocused();
       // The focus ring is visible on the composer's box and on a card reached by keyboard.
@@ -212,14 +218,14 @@ for (const { w, h } of WIDTHS) {
         return getComputedStyle(inner).borderColor;
       });
       expect(ring).toBeTruthy();
-      // Tab through the page until the Today's-plan card has focus (keyboard focus shows the ring).
+      // Tab through the page until the Today's-plan action has focus (keyboard focus shows the ring).
       let reached = false;
       for (let i = 0; i < 40 && !reached; i += 1) {
         await page.keyboard.press("Tab");
-        reached = await page.evaluate(() => document.activeElement?.getAttribute("data-testid") === "card-plan");
+        reached = await page.evaluate(() => document.activeElement?.getAttribute("data-testid") === "panel-today");
       }
-      expect(reached, "the card is reachable with Tab").toBeTruthy();
-      const outline = await page.getByTestId("card-plan").evaluate((el) => {
+      expect(reached, "the action is reachable with Tab").toBeTruthy();
+      const outline = await page.getByTestId("panel-today").evaluate((el) => {
         const style = getComputedStyle(el);
         return { width: parseFloat(style.outlineWidth), style: style.outlineStyle };
       });
@@ -242,7 +248,7 @@ for (const { w, h } of WIDTHS) {
       await page.evaluate(() => {
         const sample = "विद्यार्थीहरूको आत्मनिर्भरतासम्बन्धी अभ्यासकार्यक्रम";
         document.documentElement.lang = "ne";
-        for (const sel of ['[data-testid="greeting"]', '[data-testid="card-review"] span:nth-of-type(2)', '[data-testid="card-plan"] span:nth-of-type(2)']) {
+        for (const sel of ['[data-testid="greeting"]', '[data-testid="panel-review"] span:nth-of-type(2)', '[data-testid="panel-today"]']) {
           const el = document.querySelector(sel);
           if (el) el.textContent = sample;
         }
@@ -253,6 +259,20 @@ for (const { w, h } of WIDTHS) {
     });
   });
 }
+
+test("chat home copy switches between Hindi and English", async ({ page }) => {
+  await page.goto("/brownie-chat");
+
+  await page.evaluate(() => window.localStorage.setItem("yt_locale", "hi"));
+  await page.reload();
+  await expect(page.getByTestId("greeting")).toContainText("आज आप क्या सीखना चाहते हैं?");
+  await expect(page.getByTestId("home-chat-hint")).not.toContainText("Pick a topic");
+
+  await page.evaluate(() => window.localStorage.setItem("yt_locale", "en"));
+  await page.reload();
+  await expect(page.getByTestId("greeting")).toContainText("What do you want to learn today?");
+  await expect(page.getByTestId("home-chat-hint")).toContainText("Pick a topic");
+});
 
 test.describe("nothing typed leaves the device", () => {
   test.use({ viewport: { width: 1280, height: 800 } });

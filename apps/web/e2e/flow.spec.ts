@@ -47,7 +47,7 @@ function trackActions(page: Page): { last: () => Action | null } {
   return { last: () => latest };
 }
 
-// UI-1: the flow starts at the role home ("/") and opens the chapter map through the sidebar.
+// UI-1: the flow starts at the chat home and opens the chapter map through the sidebar.
 async function logInAs(page: Page, title: string) {
   await devLogin(page, title);
 }
@@ -95,6 +95,9 @@ test.describe("S1b student flow at 360 px", () => {
     const tracker = trackActions(page);
     await logInAs(page, "New student");
     await expect(page.getByTestId("greeting")).toContainText("Nima");
+    await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
+    await expect(page.getByTestId("right-panel")).toHaveCount(0);
+    await expect(page.getByTestId("card-start")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "01-subjects");
 
@@ -191,7 +194,7 @@ test.describe("S1b student flow at 360 px", () => {
     const tracker = trackActions(page);
     await logInAs(page, "Mid chapter");
     await expect(page.getByTestId("greeting")).toContainText("Mina");
-    await expect(page.getByTestId("card-resume")).toBeVisible();
+    await expect(page.getByTestId("panel-continue")).toBeVisible();
     await shot(page, "20-mid-subjects");
     await openChapter(page, "chapter-bhutan_class9");
     // chapter status is the weakest skill (ARCHITECTURE 11.3); the card also counts what is done

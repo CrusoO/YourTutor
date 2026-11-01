@@ -29,19 +29,23 @@ const WorkspacePanel = dynamic(
 
 /** A visitor with nothing set up yet, or someone on their home: greeting, composer and cards, centred. */
 function Hero() {
-  const { copy, hour, identity, identityReady, error, role } = useChatApi();
+  const { copy, hour, identity, identityReady, error } = useChatApi();
   const [tipOpen, setTipOpen] = useState(() => !tipDismissed());
   const name = identity?.name;
   const adult = identity?.role === "teacher" || identity?.role === "parent";
   const line = hour === null || !identityReady ? "" : greeting(copy, hour, name, adult);
   const lang = useLocale();
   const dateLabel = useMemo(
-    () => new Intl.DateTimeFormat(lang === "hi" ? "hi-IN" : "en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date()),
+    () =>
+      new Intl.DateTimeFormat(
+        lang === "hi" ? "hi-IN" : lang,
+        { weekday: "long", day: "numeric", month: "long" },
+      ).format(new Date()),
     [lang],
   );
   return (
     <div className="flex min-h-0 w-full flex-1 justify-center overflow-y-auto overscroll-contain px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 sm:px-6 lg:pt-8" data-testid="hero">
-      <div className="flex w-full max-w-4xl min-w-0 flex-col gap-5">
+      <div className="flex w-full max-w-6xl min-w-0 flex-col gap-5">
         {identity?.role === "guest" && tipOpen ? (
           <div className="glass-flat flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-2 text-sm" role="note" data-testid="tip">
             <span>{copy.chatTipGuest}</span>
@@ -53,40 +57,19 @@ function Hero() {
         <div className="mb-2 flex w-full flex-col gap-1" data-testid="hero-frame">
           <p className="m-0 text-[0.75rem] text-muted" suppressHydrationWarning>{dateLabel}</p>
           <h1
-            className="home-display m-0 min-h-[1lh] text-3xl font-light leading-tight text-ink sm:text-4xl"
-            style={{ fontFamily: "var(--ff-body)" }}
+            className="home-display m-0 min-h-[1lh] text-3xl font-light leading-tight text-ink sm:text-4xl lg:text-5xl"
             data-testid="greeting"
           >
-            {line}
+            {line === copy.chatGreetGuest ? (
+              <>
+                {copy.chatGreetGuestLead}{" "}
+                <em className="not-italic text-accent-ink">{copy.chatGreetGuestEmphasis}</em>
+              </>
+            ) : line}
           </h1>
-          <p className="m-0 mt-1 text-[0.875rem] text-muted">{role === "visitor" ? copy.homeSubtitleAnon : copy.chatPrompt}</p>
+          <p className="m-0 mt-1 text-[0.875rem] text-muted" data-testid="home-chat-hint">{copy.chatHomeHint}</p>
         </div>
         <Composer />
-        {(role === "visitor" || role === "guest") ? (
-          <ol className="m-0 grid list-none gap-3 p-0 sm:grid-cols-3" data-testid="welcome-flow" aria-label={copy.homeFlowTitle}>
-            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">1</span>
-              <span className="min-w-0">
-                <span className="block text-sm font-medium text-ink">{copy.homeFlowChoose}</span>
-                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowChooseHint}</span>
-              </span>
-            </li>
-            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">2</span>
-              <span className="min-w-0">
-                <span className="block text-sm font-medium text-ink">{copy.homeFlowLearn}</span>
-                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowLearnHint}</span>
-              </span>
-            </li>
-            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">3</span>
-              <span className="min-w-0">
-                <span className="block text-sm font-medium text-ink">{copy.homeFlowTry}</span>
-                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowTryHint}</span>
-              </span>
-            </li>
-          </ol>
-        ) : null}
         <div className="w-full">
           <Replies />
           <LatestSummary />

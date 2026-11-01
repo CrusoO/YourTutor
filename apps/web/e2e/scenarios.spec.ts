@@ -94,10 +94,10 @@ test.describe("preview scenarios at 360 px", () => {
   test("mid_chapter: resume the open session", async ({ page }) => {
     await logInAs(page, "Mid chapter");
     await expect(page.getByTestId("greeting")).toContainText("Mina");
-    await expect(page.getByTestId("card-resume")).toBeVisible();
+    await expect(page.getByTestId("panel-continue")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "mid_chapter", "01-today");
-    await enter(page, "card-resume");
+    await enter(page, "panel-continue");
     await waitForSessionScreen(page);
     await expectPhoneLayout(page);
     await shot(page, "mid_chapter", "02-resumed");
@@ -106,10 +106,10 @@ test.describe("preview scenarios at 360 px", () => {
   test("skill_at_level_4: resume the open session", async ({ page }) => {
     await logInAs(page, "Skill at level 4");
     await expect(page.getByTestId("greeting")).toContainText("Lena");
-    await expect(page.getByTestId("card-resume")).toBeVisible();
+    await expect(page.getByTestId("panel-continue")).toBeVisible();
     await expectPhoneLayout(page);
     await shot(page, "skill_at_level_4", "01-today");
-    await enter(page, "card-resume");
+    await enter(page, "panel-continue");
     await waitForSessionScreen(page);
     await expectPhoneLayout(page);
     await shot(page, "skill_at_level_4", "02-resumed");
