@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 /** Routes that bring their own full-width layout (the new chat shell and the design gallery). */
-const BARE = [/^\/$/, /^\/dev\/ui(\/|$)/];
+const BARE = [/^\/$/, /^\/brownie(\/|$)/, /^\/dev\/ui(\/|$)/];
 
 /**
  * The legacy phone-column wrapper for every other screen. When a screen runs inside the workspace panel
