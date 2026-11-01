@@ -66,9 +66,24 @@ for (const { w, h } of WIDTHS) {
   test.describe(`front door at ${w}x${h}`, () => {
     test.use({ viewport: { width: w, height: h } });
 
+    test("fresh visitor sees a clear flow without demo progress", async ({ page }) => {
+      await page.goto("/");
+      await expect(page.getByTestId("hero")).toBeVisible();
+      await expect(page.getByTestId("welcome-flow")).toBeVisible();
+      await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
+      await expect(page.getByTestId("right-panel")).toHaveCount(0);
+      await expectNoOverflow(page);
+      await expectNoClippedText(page);
+      await shot(page, "fresh-visitor");
+    });
+
     test("guest: from / to a first lesson in five taps, then back to the chat", async ({ page }) => {
       await openHome(page);
       await expect(page.getByTestId("greeting")).toContainText(/learn today/i);
+      await expect(page.getByTestId("welcome-flow")).toBeVisible();
+      await expect(page.getByTestId("topic-mastery")).toHaveCount(0);
+      await expect(page.getByTestId("right-panel")).toHaveCount(0);
+      await expect(page.getByTestId("card-try-lesson")).toBeVisible();
       await expectNoOverflow(page);
       await expectNoClippedText(page);
       await shot(page, "guest-welcome");

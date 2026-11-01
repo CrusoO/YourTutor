@@ -17,8 +17,6 @@ import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
 import { IconSidebar } from "./IconSidebar";
 import { LessonView } from "./LessonView";
-import { RightPanel } from "./RightPanel";
-import { TopicMastery } from "./TopicMastery";
 import dynamic from "next/dynamic";
 import { LatestSummary, Replies } from "./Bubbles";
 // The conversation (setup chips, sign-in forms) loads only when there is one: the first screen is the hero.
@@ -42,8 +40,8 @@ function Hero() {
     [lang],
   );
   return (
-    <div className="flex min-h-0 w-full flex-1 justify-center gap-10 overflow-y-auto px-4 pb-10 pt-2 lg:pt-8" data-testid="hero">
-      <div className="flex w-full max-w-[37rem] min-w-0 flex-col gap-4">
+    <div className="flex min-h-0 w-full flex-1 justify-center overflow-y-auto overscroll-contain px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 sm:px-6 lg:pt-8" data-testid="hero">
+      <div className="flex w-full max-w-4xl min-w-0 flex-col gap-5">
         {identity?.role === "guest" && tipOpen ? (
           <div className="glass-flat flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-2 text-sm" role="note" data-testid="tip">
             <span>{copy.chatTipGuest}</span>
@@ -55,7 +53,7 @@ function Hero() {
         <div className="mb-2 flex w-full flex-col gap-1" data-testid="hero-frame">
           <p className="m-0 text-[0.75rem] text-muted" suppressHydrationWarning>{dateLabel}</p>
           <h1
-            className="home-display m-0 min-h-[1lh] text-[clamp(1.75rem,2.7vw,2.4rem)] font-light leading-[1.1] tracking-[-0.035em] text-ink"
+            className="home-display m-0 min-h-[1lh] text-3xl font-light leading-tight text-ink sm:text-4xl"
             style={{ fontFamily: "var(--ff-body)" }}
             data-testid="greeting"
           >
@@ -64,20 +62,41 @@ function Hero() {
           <p className="m-0 mt-1 text-[0.875rem] text-muted">{role === "visitor" ? copy.homeSubtitleAnon : copy.chatPrompt}</p>
         </div>
         <Composer />
+        {(role === "visitor" || role === "guest") ? (
+          <ol className="m-0 grid list-none gap-3 p-0 sm:grid-cols-3" data-testid="welcome-flow" aria-label={copy.homeFlowTitle}>
+            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">1</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-medium text-ink">{copy.homeFlowChoose}</span>
+                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowChooseHint}</span>
+              </span>
+            </li>
+            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">2</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-medium text-ink">{copy.homeFlowLearn}</span>
+                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowLearnHint}</span>
+              </span>
+            </li>
+            <li className="flex min-w-0 items-start gap-3 border-t border-line pt-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent-ink">3</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-medium text-ink">{copy.homeFlowTry}</span>
+                <span className="mt-0.5 block text-xs leading-relaxed text-muted">{copy.homeFlowTryHint}</span>
+              </span>
+            </li>
+          </ol>
+        ) : null}
         <div className="w-full">
           <Replies />
           <LatestSummary />
         </div>
-        <TopicMastery />
         <HomeCards />
         {error ? (
           <p role="alert" className="m-0 text-sm text-danger">
             {error}
           </p>
         ) : null}
-      </div>
-      <div className="hidden pt-1 xl:block">
-        <RightPanel />
       </div>
     </div>
   );
