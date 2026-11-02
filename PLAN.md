@@ -705,8 +705,7 @@ runs on a school machine; whether engine lessons or this app's own lessons come 
 Written from the platform master plan (milestones M0 to M14, kept outside this repo). Built so far on
 the tutor side: BKT-F as a shadow model (`learner/bktf.py`, replay and report), event-retry fixes, and
 M4 (shadow traits, Loop B, `loop_b_*` tables, migration 0027, wired at session end behind
-`LOOP_B_ENABLED`, off by default). The M4 branch is `feat/shadow-traits`; check it is merged before
-relying on it. Everything below is still open.
+`LOOP_B_ENABLED`, off by default). M4 is merged (PR #18). Everything below is still open.
 
 ### Waiting on a decision or a person
 
@@ -731,6 +730,8 @@ relying on it. Everything below is still open.
 - Evaluation harness and pilot readiness (M11).
 - Fit the BKT-F parameters and the trait priors once pilot logs with timestamps exist; the seeded preview data has no long gaps and says nothing about forgetting.
 - Representation fluency and load tolerance traits need items to carry representation and load metadata (M5).
+- Explain page, next steps: cache the interactive lesson per topic (it takes about 30 s and one model call each time); check the numbers in a lesson before dropping the "AI draft" label; Hindi lesson blocks need a human review; let the answers to the opening prediction choose the next blocks (today a right guess only offers a skip to the check question), so the landing-page line "finds out what you know first" is fully true.
+- Explainer video teaching rhythm (separate plan, separate session): questions and pauses in the narration, no skipped steps in a mechanism, pictures painted while they are spoken, a stick figure. It changes the story prompts here and needs EduVideoEngine edits, which must be done in an engine session with an ADR (workspace rule 2).
 
 ### Known issues
 
@@ -740,5 +741,9 @@ relying on it. Everything below is still open.
 | LessonPlayer test can time out | `apps/web/tests/lessons/LessonPlayer.test.tsx` has a 5 s limit and can time out when the whole suite runs under load; it passes on its own. | Raise its timeout. |
 | `test_scripted_students_on_seed` failed once | A randomised test in `tests/orchestrator/test_simulations.py` failed once in a long run, with no reason captured; run alone it passed. Unexplained. | Re-run in CI; keep the failure output if it recurs. |
 | Hindi and Nepali are masculine and out of date | The neutral Robin wording and the new tagline are English only; the Hindi and Nepali drafts still use gendered verbs and the old tagline. | Human translation. |
-| Local `.env` does not parse | python-dotenv warns about lines 19 to 32 of `.env`, and on one run reading it failed with "Bad file descriptor". | Fix the file by hand; its values were never read or printed. |
+| Local `.env` does not parse | Lines 19 to 33 of `apps/api/.env` were not `KEY=value` pairs (one is a pasted instruction; the R2 and `DATABASE_URL` entries use another format). Docker Compose refused the whole file, so on 2026-11-03 those lines were commented out (`# (not KEY=value, ...)`). The app was already ignoring them, so the R2 and `DATABASE_URL` values on them still have no effect. On one run reading the file also failed with "Bad file descriptor". | Rewrite those entries as `KEY=value` by hand; their values were never read or printed. |
+| Tests can read real keys from `.env` | `test_no_key_means_unavailable` cleared only three provider keys, so with an Anthropic key in `.env` it made a live model call; a story test failed the same way. Both now clear the keys they depend on. Other tests may do the same. | Give the test suite a settings fixture that blanks every provider key. |
+| Lesson text is unchecked AI output | The interactive lesson and its follow-up answers are not verified; worked numbers and formulas (for example a tunnelling formula with an approximate constant) are illustrations. The page says so. | Verify numbers against a reference before removing the label. |
+| Lesson generation is slow and costs a model call | About 30 s on Claude Haiku (its hidden thinking uses 2,700 to 2,900 tokens of the budget), plus the story call, each time a question is asked. Groq's free tier caps a minute at 8,000 tokens, so the lesson budget there stays at 4,000. | Cache lessons per topic; consider a smaller thinking budget. |
+| Lesson blocks have no Hindi review | New lesson copy is English only (Hindi falls back to English), and the model writes Hindi lesson text unreviewed. | Native-speaker review before showing Hindi lessons. |
 | Tests can wipe a database | The pytest engine fixture and `tests/migrations/test_roundtrip.py` drop everything in the database `TEST_DATABASE_URL` names. | Point it only at `yourtutor_test`. |
