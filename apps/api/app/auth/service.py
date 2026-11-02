@@ -54,6 +54,8 @@ from app.db.models import (
     ConsentRow,
     EventRow,
     LlmCallRow,
+    LoopBRecordRow,
+    LoopBSnapshotRow,
     MasteryRow,
     MisconceptionHitRow,
     OtpChallengeRow,
@@ -453,7 +455,13 @@ def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
         session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
         session.execute(delete(LlmCallRow).where(LlmCallRow.session_id.in_(session_ids)))
     session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
-    for table in (MasteryRow, ReviewCardRow, MisconceptionHitRow):
+    for table in (
+        MasteryRow,
+        ReviewCardRow,
+        MisconceptionHitRow,
+        LoopBSnapshotRow,
+        LoopBRecordRow,
+    ):
         session.execute(delete(table).where(table.student_id.in_(ids)))
     session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
     session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
