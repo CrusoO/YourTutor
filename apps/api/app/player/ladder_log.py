@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.auth.security import as_utc
 from app.db.models import EventRow, SessionRow
 from app.learner.bkt import BktParams
+from app.learner.bktf_shadow import ShadowStep, replay_shadow
 from app.learner.ladder import (
     KIND_ANSWER,
     KIND_HINT,
@@ -21,6 +22,7 @@ from app.learner.ladder import (
     SkillLadder,
     compute,
 )
+from app.learner.types import LearnerEvent
 from app.orchestrator.types import CatalogItem
 from app.verifier.check import verify_response
 
@@ -60,6 +62,7 @@ def ladder_events_from_rows(
                 pool="warmup" if event.state_before == "warmup" else "practice",
                 role=item.role,
                 structure=item.structure,
+                latency_ms=event.latency_ms,
             )
 
         if event.event_type == "answer":
@@ -80,6 +83,55 @@ def ladder_events_from_rows(
         elif event.event_type == "continue" and event.state_before == "worked_example":
             out.append(make(KIND_LESSON, keep_item=False))
     return out
+
+
+def learner_events_from_ladder(events: Sequence[LadderEvent]) -> list[LearnerEvent]:
+    """Attempts and hint requests as timestamped learner events, which the BKT-F replay reads."""
+    return [
+        LearnerEvent(
+            item_id=event.item_id,
+            skill_id=event.skill_id,
+            event_type=event.kind,
+            correct=event.correct,
+            pool=event.pool,
+            latency_ms=event.latency_ms,
+            is_warmup=event.pool == "warmup",
+            at=event.at,
+        )
+        for event in events
+        if event.kind in {KIND_ANSWER, KIND_HINT}
+    ]
+
+
+def shadow_steps_for_student(
+    session: Session,
+    student_id: uuid.UUID,
+    catalog: tuple[CatalogItem, ...],
+    params_by_skill: Mapping[str, BktParams],
+) -> list[ShadowStep]:
+    """Replay one student's logged practice through the live model and BKT-F, side by side.
+
+    Read-only. The authored `min_plausible_ms` of each item is its rapid-guess threshold, so a fast
+    answer is judged against what that item can plausibly take, not one number for every item.
+    """
+    rows = session.execute(
+        select(EventRow, SessionRow.type)
+        .join(SessionRow, EventRow.session_id == SessionRow.id)
+        .where(SessionRow.student_id == student_id)
+        .order_by(EventRow.created_at, EventRow.id)
+    ).all()
+    ladder_events = ladder_events_from_rows(
+        [(event, session_type) for event, session_type in rows],
+        {item.id: item for item in catalog},
+    )
+    thresholds = {
+        item.id: item.min_plausible_ms for item in catalog if item.min_plausible_ms is not None
+    }
+    return replay_shadow(
+        learner_events_from_ladder(ladder_events),
+        dict(params_by_skill),
+        rapid_guess_ms_by_item=thresholds,
+    )
 
 
 def recompute_ladders(
