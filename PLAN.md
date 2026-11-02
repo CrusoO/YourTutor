@@ -699,3 +699,46 @@ milestone of its own. "Today" was read from the repository on 2026-10-16.
 
 Not decided: the first community, language, grade and subject; whether the first release is hosted or
 runs on a school machine; whether engine lessons or this app's own lessons come first.
+
+## 14. Pending after the master-plan work (2026-11-03)
+
+Written from the platform master plan (milestones M0 to M14, kept outside this repo). Built so far on
+the tutor side: BKT-F as a shadow model (`learner/bktf.py`, replay and report), event-retry fixes, and
+M4 (shadow traits, Loop B, `loop_b_*` tables, migration 0027, wired at session end behind
+`LOOP_B_ENABLED`, off by default). The M4 branch is `feat/shadow-traits`; check it is merged before
+relying on it. Everything below is still open.
+
+### Waiting on a decision or a person
+
+| Item | Waiting on |
+| --- | --- |
+| Seed content for the first pilot (M6) | The state board and first class (OPEN-1, OPEN-2), and written permission for any NCERT or board text (OPEN-19). Write original items until then. |
+| Adult and independent sign-in (M13) | The age-gate and consent route. Under-18s are processed only through a school or after verified parental consent; "notify, then sign later" does not fit. |
+| Adaptive tracking of under-18s | Counsel's ruling on whether it counts as behavioural monitoring (OPEN-16). Keep `LOOP_B_ENABLED` off until then. |
+| Privacy line and pages on the landing page | Wording approved by the owner or counsel. |
+| Bandit routing and experiments on children (M7) | OPEN-3 and the research-ethics path (OPEN-7). |
+| Impact ledger (M12) | The reward unit and its legal status (OPEN-10, OPEN-11). |
+| Enterprise training (M14) | Who may see individual learner data (OPEN-18) and the engine product terms (OPEN-17). |
+| Hindi and Nepali landing copy | A human translator: neutral Robin wording, the new tagline, and the three Robin scenes (English only today). |
+| Learner-facing percentages | Decided: keep as labelled syllabus coverage. The rule is "no numeric mastery probability for learners". |
+
+### Buildable next
+
+- Run Loop B for sessions that end through the offline sync (`app/offline/sync.py`); only the online path calls it.
+- Graph versioning and migration maps (M5): confirm whether a graph version field exists first.
+- Teacher dashboard privacy protections (M8): small-group suppression and differencing checks.
+- Per-learner keys and crypto-shredding, retention and audit (M10).
+- Evaluation harness and pilot readiness (M11).
+- Fit the BKT-F parameters and the trait priors once pilot logs with timestamps exist; the seeded preview data has no long gaps and says nothing about forgetting.
+- Representation fluency and load tolerance traits need items to carry representation and load metadata (M5).
+
+### Known issues
+
+| Issue | Detail | Next step |
+| --- | --- | --- |
+| `test_review_due_flow` fails on sqlite | `tests/player/test_review_due_flow.py::test_overdue_card_brings_a_warmup_and_shows_review_due_until_recalled` compares a naive datetime with an aware one (`review_overdue(card.due_at, now_utc())`). It fails the same way on a clean `master` and passes on Postgres. | Make the test compare aware datetimes, or normalise `card.due_at` after reading it. |
+| LessonPlayer test can time out | `apps/web/tests/lessons/LessonPlayer.test.tsx` has a 5 s limit and can time out when the whole suite runs under load; it passes on its own. | Raise its timeout. |
+| `test_scripted_students_on_seed` failed once | A randomised test in `tests/orchestrator/test_simulations.py` failed once in a long run, with no reason captured; run alone it passed. Unexplained. | Re-run in CI; keep the failure output if it recurs. |
+| Hindi and Nepali are masculine and out of date | The neutral Robin wording and the new tagline are English only; the Hindi and Nepali drafts still use gendered verbs and the old tagline. | Human translation. |
+| Local `.env` does not parse | python-dotenv warns about lines 19 to 32 of `.env`, and on one run reading it failed with "Bad file descriptor". | Fix the file by hand; its values were never read or printed. |
+| Tests can wipe a database | The pytest engine fixture and `tests/migrations/test_roundtrip.py` drop everything in the database `TEST_DATABASE_URL` names. | Point it only at `yourtutor_test`. |
