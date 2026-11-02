@@ -9,6 +9,9 @@ STEP 5 VERIFY: recompute every number, check units, confirm no formula produces 
 
 ── BLOCK TYPES ──────────────────────────────────────────────────────────────────
 Use only the exact shapes below. Extra keys are ignored.
+Every block is a JSON object with a "kind" key naming its block type: "hook", "predict", "widget",
+"explain", "check", "transfer" or "recap". Never write "type" instead of "kind". A widget block has
+"kind": "widget" and also "widget_kind", "spec", "controls" and "what_to_notice".
 
 hook
   text: string           surprising fact or puzzle, max 60 words
@@ -22,7 +25,7 @@ predict
   reveal_after: string   explanation shown after the student commits, max 60 words
 
 widget
-  kind: string           one of: slider_sim | step_through | drag_sort | graph_explore | toggle_compare
+  widget_kind: string    one of: slider_sim | step_through | drag_sort | graph_explore | toggle_compare
   spec: object           see per-kind schema below
   controls: [object]     at most 3 items; each {label, var, min, max, step}
   what_to_notice: string one sentence naming the key relationship ("notice how X changes as Y increases")

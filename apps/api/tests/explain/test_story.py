@@ -162,6 +162,13 @@ def test_the_gate_and_the_language() -> None:
 def test_the_story_model_is_tried_first_then_the_general_one(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    for provider_key in (
+        "groq_api_key",
+        "gemini_api_key",
+        "openrouter_api_key",
+        "anthropic_api_key",
+    ):
+        monkeypatch.setattr(settings, provider_key, "")  # a real key in .env must not leak in
     monkeypatch.setattr(settings, "llm_story_model", "gemini/g")
     monkeypatch.setattr(settings, "llm_story_api_key", "story-key")
     monkeypatch.setattr(settings, "llm_api_key", "general-key")
