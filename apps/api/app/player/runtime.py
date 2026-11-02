@@ -220,6 +220,12 @@ def _bkt_and_prereqs(
     return params, prereqs
 
 
+def bkt_params_by_skill(session: Session) -> dict[str, BktParams]:
+    """Every skill's authored BKT parameters (defaults filled in), as the live model uses them."""
+    params, _ = _bkt_and_prereqs(session, ())
+    return params
+
+
 def _dump_action(action: Action | None) -> dict[str, Any] | None:
     if action is None:
         return None
