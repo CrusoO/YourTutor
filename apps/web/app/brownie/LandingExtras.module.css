@@ -1,0 +1,548 @@
+/* Styles for the English-only landing additions. Colours come from the custom properties the landing sets on `.landing`. */
+
+/* ── story pictures ─────────────────────────────────────────────────────────────────────────────── */
+
+.storyFigure {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 14px 14px 12px;
+}
+
+.storySvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
+.storyCaption {
+  color: var(--brownie-mute);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.inkStroke {
+  stroke: var(--brownie-ink);
+}
+
+.accentStroke {
+  stroke: var(--brownie-blue);
+}
+
+.accentFill {
+  fill: var(--brownie-blue);
+}
+
+.dimStroke {
+  stroke: var(--brownie-dim);
+  stroke-width: 1.5;
+}
+
+.dimFill {
+  fill: var(--brownie-dim);
+}
+
+.propBox {
+  fill: var(--brownie-panel);
+  stroke: var(--brownie-line);
+  stroke-width: 1.5;
+}
+
+.crowdDot {
+  fill: color-mix(in srgb, var(--brownie-dim) 70%, var(--brownie-panel));
+}
+
+.artText {
+  fill: var(--brownie-ink);
+  font-family: var(--brownie-sans);
+  font-size: 11.5px;
+}
+
+.artNote {
+  fill: var(--brownie-mute);
+  font-family: var(--brownie-sans);
+  font-size: 11px;
+}
+
+.artLabel {
+  fill: var(--brownie-mute);
+  font-family: var(--brownie-sans);
+  font-size: 10px;
+}
+
+.artLabelAccent {
+  fill: var(--brownie-blue);
+  font-family: var(--brownie-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.questionMark {
+  fill: var(--brownie-mute);
+  font-family: var(--brownie-serif);
+  font-size: 34px;
+  opacity: 0;
+}
+
+.step {
+  fill: color-mix(in srgb, var(--brownie-dim) 35%, var(--brownie-panel));
+  stroke: var(--brownie-line);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+.stepLater {
+  fill: color-mix(in srgb, var(--brownie-dim) 22%, var(--brownie-panel));
+  stroke: var(--brownie-line);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+.stepMissing {
+  fill: transparent;
+  stroke: var(--brownie-blue);
+  stroke-dasharray: 5 4;
+  stroke-width: 1.8;
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+.stepFound {
+  fill: color-mix(in srgb, var(--brownie-blue) 55%, var(--brownie-panel));
+  stroke: var(--brownie-blue);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+.storyFigure[data-seen="true"] .step,
+.storyFigure[data-seen="true"] .stepLater,
+.storyFigure[data-seen="true"] .stepMissing,
+.storyFigure[data-seen="true"] .stepFound {
+  animation: stepRise 560ms ease-out forwards;
+}
+
+.storyFigure[data-seen="true"] .questionMark {
+  animation: questionIn 600ms ease-out forwards;
+}
+
+.storyFigure[data-seen="true"] .crowdDot[data-nod="true"],
+.storyFigure[data-seen="true"] .nodder {
+  animation: nod 1.6s ease-in-out 2;
+}
+
+@keyframes stepRise {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes questionIn {
+  to {
+    opacity: 0.85;
+  }
+}
+
+@keyframes nod {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2.5px);
+  }
+}
+
+.crowdDot[data-nod="true"] {
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step,
+  .stepLater,
+  .stepMissing,
+  .stepFound {
+    transform: scaleY(1);
+  }
+
+  .questionMark {
+    opacity: 0.85;
+  }
+
+  .storyFigure[data-seen="true"] .step,
+  .storyFigure[data-seen="true"] .stepLater,
+  .storyFigure[data-seen="true"] .stepMissing,
+  .storyFigure[data-seen="true"] .stepFound,
+  .storyFigure[data-seen="true"] .questionMark,
+  .storyFigure[data-seen="true"] .crowdDot[data-nod="true"],
+  .storyFigure[data-seen="true"] .nodder {
+    animation: none;
+  }
+}
+
+/* ── pick a situation (chat and videos) ─────────────────────────────────────────────────────────── */
+
+.pickerLabel {
+  margin-bottom: 8px !important;
+  color: var(--brownie-mute);
+  font-size: 13px;
+}
+
+.tabRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  min-height: 44px;
+  border: 1px solid var(--brownie-line);
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 14px;
+  color: var(--brownie-mute);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab:hover {
+  border-color: var(--brownie-blue);
+  color: var(--brownie-ink);
+}
+
+.tabOn {
+  border-color: var(--brownie-blue);
+  color: var(--brownie-blue);
+}
+
+/* ── the guess-first chat ───────────────────────────────────────────────────────────────────────── */
+
+.chatGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr);
+  align-items: start;
+  gap: clamp(18px, 3vw, 36px);
+}
+
+.chatTranscript {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.choiceStack {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.choiceWide {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--brownie-line);
+  border-radius: 10px;
+  background: transparent;
+  padding: 10px 14px;
+  color: var(--brownie-ink);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.choiceWide:hover:not(:disabled) {
+  border-color: var(--brownie-blue);
+}
+
+.choiceWide:disabled {
+  cursor: default;
+}
+
+.choiceMiss {
+  border-color: var(--brownie-red);
+}
+
+.choiceHit {
+  border-color: var(--brownie-blue);
+  color: var(--brownie-blue);
+}
+
+.slipTag {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: var(--brownie-red);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.noteCard {
+  position: sticky;
+  top: 16px;
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--brownie-line);
+  background: color-mix(in srgb, var(--brownie-panel) 70%, var(--brownie-bg));
+  padding: 16px;
+}
+
+.noteTitle {
+  color: var(--brownie-dim);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.noteList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.noteItem {
+  display: grid;
+  gap: 2px;
+}
+
+.noteLabel {
+  color: var(--brownie-ink);
+  font-size: 14px;
+}
+
+.noteEvidence {
+  color: var(--brownie-mute);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.noteHelp {
+  color: var(--brownie-dim);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.stateChip {
+  display: inline-block;
+  margin-right: 8px;
+  border: 1px solid currentcolor;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.stateSolid {
+  color: var(--brownie-blue);
+}
+
+.stateShaky {
+  color: var(--brownie-red);
+}
+
+.stateTried,
+.stateUnseen {
+  color: var(--brownie-mute);
+}
+
+.tryOwn {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--brownie-blue);
+  font-size: 14px;
+}
+
+/* ── the learning map ───────────────────────────────────────────────────────────────────────────── */
+
+.mapList {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mapRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.9fr) 112px minmax(0, 1.6fr);
+  align-items: baseline;
+  gap: 8px 18px;
+  border-top: 1px solid var(--brownie-line);
+  padding-block: 14px;
+}
+
+.mapRow:first-child {
+  border-top: 0;
+}
+
+.mapName {
+  color: var(--brownie-ink);
+  font-size: 15px;
+}
+
+.mapEvidence {
+  color: var(--brownie-mute);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.mapCaveat {
+  margin-top: 14px !important;
+  color: var(--brownie-dim);
+  font-size: 12.5px;
+}
+
+/* ── videos ─────────────────────────────────────────────────────────────────────────────────────── */
+
+.videoStage {
+  display: grid;
+  gap: 12px;
+}
+
+.videoFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.videoMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 18px;
+  color: var(--brownie-mute);
+  font-size: 13px;
+}
+
+.videoTitle {
+  color: var(--brownie-ink);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.transcript summary {
+  cursor: pointer;
+  color: var(--brownie-blue);
+  font-size: 13px;
+}
+
+.transcript p {
+  margin-top: 8px !important;
+  color: var(--brownie-mute);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.videoSoon {
+  border: 1px dashed var(--brownie-line);
+  padding: clamp(24px, 6vw, 56px);
+  color: var(--brownie-mute);
+  text-align: center;
+}
+
+/* ── before you try it ──────────────────────────────────────────────────────────────────────────── */
+
+.trustSection {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+  margin: clamp(48px, 8vw, 96px) auto;
+  padding-inline: clamp(0px, 2vw, 24px);
+}
+
+.trustTitle {
+  font-family: var(--brownie-serif);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.trustIntro {
+  color: var(--brownie-mute);
+}
+
+.trustList {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trustRow {
+  border-top: 1px solid var(--brownie-line);
+}
+
+.trustRow:last-child {
+  border-bottom: 1px solid var(--brownie-line);
+}
+
+.trustItem summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  cursor: pointer;
+  color: var(--brownie-ink);
+  font-size: 16px;
+  list-style: none;
+}
+
+.trustItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.trustItem summary::after {
+  content: "+";
+  color: var(--brownie-blue);
+  font-size: 22px;
+}
+
+.trustItem[open] summary::after {
+  content: "–";
+}
+
+.trustItem p {
+  max-width: 62ch;
+  padding-bottom: 18px;
+  color: var(--brownie-mute);
+  line-height: 1.65;
+}
+
+.pendingTag {
+  margin-left: 10px;
+  color: var(--brownie-red);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── small screens ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 760px) {
+  .chatGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .noteCard {
+    position: static;
+  }
+
+  .mapRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .mapEvidence {
+    grid-column: 1 / -1;
+  }
+}
