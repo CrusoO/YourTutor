@@ -36,6 +36,8 @@ class LearnerEvent:
     session_id: str = ""
     latency_ms: int | None = None
     is_warmup: bool = False
+    # When the event happened (server time). Optional: only the BKT-F shadow replay reads it.
+    at: datetime | None = None
 
 
 @dataclass
