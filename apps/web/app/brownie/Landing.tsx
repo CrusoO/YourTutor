@@ -7,6 +7,7 @@ import {
   DemoVideo,
   LandingLanguages,
   MasteryChart,
+  RobinOpening,
 } from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
@@ -114,7 +115,9 @@ function LandingPageContent() {
           <div className={styles.chapterContent}>
             <p className={styles.storyHook}>{copy.chapterOne.hook}</p>
             <h2 id="chapter-one-title">{copy.chapterOne.headline}</h2>
-            {copy.chapterOne.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            {copy.chapterOne.paragraphs.map((paragraph, index) =>
+              index === 0 ? <RobinOpening key={paragraph} fallback={paragraph} /> : <p key={paragraph}>{paragraph}</p>,
+            )}
             <p className={styles.storyInvitation}>{copy.chapterOne.invitation}</p>
             <p className={styles.storyStats}>{copy.chapterOne.stats}</p>
           </div>

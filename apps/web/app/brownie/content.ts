@@ -157,6 +157,32 @@ export const landingContent = {
   },
 } as const;
 
+/**
+ * Who Robin is in Chapter One. English only for now: Hindi and Nepali keep the original paragraph until a
+ * human translator provides these (never machine-translated), so this sits outside landingContent.
+ */
+export const robinScenes = {
+  prompt: "Who is Robin to you?",
+  groupLabel: "Choose a setting for Robin's story",
+  scenes: [
+    {
+      id: "class",
+      label: "In a class",
+      text: "A teacher had just explained fractions and asked, “Does everyone understand?” Almost everyone nodded. Robin did too.",
+    },
+    {
+      id: "work",
+      label: "At work",
+      text: "A manager had just walked the team through a new tool and asked, “Does everyone understand?” Almost everyone nodded. Robin did too.",
+    },
+    {
+      id: "alone",
+      label: "On my own",
+      text: "Robin was learning alone from a video course. The narrator asked, “Got it?” Nobody was there to answer, so Robin nodded at the screen and let the next lesson start.",
+    },
+  ],
+} as const;
+
 export type LandingLanguage = "en" | "hi" | "ne";
 
 type Widen<T> = T extends string
