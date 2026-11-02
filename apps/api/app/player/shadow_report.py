@@ -23,6 +23,11 @@ from app.player.runtime import bkt_params_by_skill, load_catalog
 
 # TUNABLE-DEFAULT: below this many attempts a log-loss difference is mostly noise.
 MIN_ATTEMPTS_TO_JUDGE = 30
+# TUNABLE-DEFAULT: a log-loss difference smaller than this is a tie, not a win or a loss.
+MEANINGFUL_LOG_LOSS_DIFF = 0.005
+# TUNABLE-DEFAULT: with no gap this long, forgetting cannot show. Practice seconds apart (a seeded
+# preview, or one sitting) leaves BKT-F and the live model nearly identical.
+MIN_MEANINGFUL_GAP_DAYS = 1.0
 
 
 def format_report(student_id: uuid.UUID, steps: Sequence[ShadowStep]) -> str:
@@ -40,14 +45,19 @@ def format_report(student_id: uuid.UUID, steps: Sequence[ShadowStep]) -> str:
         lines.append(
             f"Too few attempts to judge (under {MIN_ATTEMPTS_TO_JUDGE}); do not act on this."
         )
+    elif abs(result.shadow_log_loss - result.live_log_loss) < MEANINGFUL_LOG_LOSS_DIFF:
+        lines.append("No meaningful difference between the two models on these answers.")
     elif result.shadow_is_better:
         lines.append(
             "BKT-F predicted these answers better. One student is not enough to promote it."
         )
     else:
         lines.append("BKT-F did not predict these answers better.")
-    if all(step.gap_days == 0.0 for step in steps):
-        lines.append("Every gap is zero, so forgetting was not exercised: BKT-F ~ the live model.")
+    if max(step.gap_days for step in steps) < MIN_MEANINGFUL_GAP_DAYS:
+        lines.append(
+            f"No gap between attempts reaches {MIN_MEANINGFUL_GAP_DAYS:g} day, so forgetting was "
+            "not exercised: BKT-F ~ the live model."
+        )
 
     by_skill: dict[str, list[ShadowStep]] = defaultdict(list)
     for step in steps:

@@ -4,7 +4,13 @@ import uuid
 
 from app.learner.bktf import AttemptKind
 from app.learner.bktf_shadow import ShadowStep
-from app.player.shadow_report import MIN_ATTEMPTS_TO_JUDGE, format_report, main
+from app.player.shadow_report import (
+    MEANINGFUL_LOG_LOSS_DIFF,
+    MIN_ATTEMPTS_TO_JUDGE,
+    MIN_MEANINGFUL_GAP_DAYS,
+    format_report,
+    main,
+)
 
 STUDENT = uuid.UUID("12345678-1234-5678-1234-567812345678")
 
@@ -59,6 +65,26 @@ def test_shadow_loss_is_reported() -> None:
 def test_zero_gaps_are_flagged() -> None:
     text = format_report(STUDENT, [step(n) for n in range(MIN_ATTEMPTS_TO_JUDGE)])
     assert "forgetting was not exercised" in text
+
+
+def test_gaps_of_a_few_seconds_are_flagged_like_zero_gaps() -> None:
+    seconds = 5 / 86_400
+    steps = [step(n, gap=seconds) for n in range(MIN_ATTEMPTS_TO_JUDGE)]
+    assert "forgetting was not exercised" in format_report(STUDENT, steps)
+
+
+def test_one_long_gap_is_enough_to_stop_the_warning() -> None:
+    steps = [step(n) for n in range(MIN_ATTEMPTS_TO_JUDGE)]
+    steps.append(step(99, gap=MIN_MEANINGFUL_GAP_DAYS))
+    assert "forgetting was not exercised" not in format_report(STUDENT, steps)
+
+
+def test_a_tiny_difference_is_called_a_tie() -> None:
+    near = 0.5 + MEANINGFUL_LOG_LOSS_DIFF / 100
+    steps = [step(n, gap=3.0, live=0.5, shadow=near) for n in range(MIN_ATTEMPTS_TO_JUDGE)]
+    text = format_report(STUDENT, steps)
+    assert "No meaningful difference" in text
+    assert "did not predict" not in text
 
 
 def test_per_skill_counts() -> None:
