@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     pilot_key: str = "dev-pilot"
     e2e_mini_content: bool = False
     research_module: bool = False  # env: RESEARCH_MODULE=true
+    # env: LOOP_B_ENABLED=true. Off by default: it writes a shadow trait profile per learner, which
+    # needs the consent and legal decisions in the master plan (OPEN-16) before it is switched on.
+    loop_b_enabled: bool = False
     jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
     dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
     next_public_dev_tools: bool = False  # env: NEXT_PUBLIC_DEV_TOOLS (web flag; checked here too)
