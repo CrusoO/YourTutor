@@ -1,13 +1,48 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
-import { landingContent, type LandingLanguage } from "./content";
+import { landingContent, robinScenes, type LandingLanguage } from "./content";
 import { useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
 
 // Set to a path under /public or a public URL to show a permanent demo. Local selections are never uploaded.
 const DEMO_VIDEO_SRC = "";
 const DEMO_VIDEO_POSTER = "";
+
+/**
+ * Chapter One's opening paragraph, with a choice of who Robin is. Hindi and Nepali show the original
+ * paragraph unchanged until human translations of the scenes exist.
+ */
+export function RobinOpening({ fallback }: { fallback: string }) {
+  const { language } = useLandingLanguage();
+  const [sceneId, setSceneId] = useState<string | null>(null);
+
+  if (language !== "en") return <p>{fallback}</p>;
+  const scene = robinScenes.scenes.find((item) => item.id === sceneId);
+
+  return (
+    <>
+      <div className={styles.robinPicker} data-testid="robin-picker">
+        <p className={styles.robinPrompt}>{robinScenes.prompt}</p>
+        <div className={styles.choiceRow} role="group" aria-label={robinScenes.groupLabel}>
+          {robinScenes.scenes.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-pressed={sceneId === item.id}
+              className={`${styles.choice} ${sceneId === item.id ? styles.choiceSelected : ""}`}
+              onClick={() => setSceneId(sceneId === item.id ? null : item.id)}
+              data-testid={`robin-scene-${item.id}`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <p aria-live="polite" data-testid="robin-opening">{scene ? scene.text : fallback}</p>
+    </>
+  );
+}
 
 export function LandingLanguages() {
   const { language, setLanguage, copy } = useLandingLanguage();
