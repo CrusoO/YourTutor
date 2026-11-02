@@ -761,6 +761,14 @@ def apply_player_event(
             "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
             "llm_called": False,
         }
+    # A retry of an event already recorded must change nothing, including the distress path below,
+    # which would otherwise raise the alert and insert the same client_event_id a second time.
+    prior = session.scalar(select(EventRow).where(EventRow.client_event_id == client_event_id))
+    if prior:
+        view = session_view(session, actor, row)
+        view["session_id"] = str(row.id)
+        view["duplicate"] = True
+        return view
     if event_type == "explain_back":
         from app.ask.config import message
         from app.safety import is_distress, raise_distress, strip_pii
@@ -792,12 +800,6 @@ def apply_player_event(
                 "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
                 "llm_called": False,
             }
-    prior = session.scalar(select(EventRow).where(EventRow.client_event_id == client_event_id))
-    if prior:
-        view = session_view(session, actor, row)
-        view["session_id"] = str(row.id)
-        view["duplicate"] = True
-        return view
     if row.type == "test_out":
         from app.player import test_out
 
