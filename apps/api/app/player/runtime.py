@@ -849,6 +849,7 @@ def apply_player_event(
     )
     persist_learner(session, student.id, learner)
     sync_alerts(session, student, state, learner)
+    was_open = row.ended_at is None
     _persist_state(row, state)
     session.add(
         EventRow(
@@ -869,6 +870,10 @@ def apply_player_event(
             rule_id=action.rule_id,
         )
     )
+    if was_open and row.ended_at is not None:
+        from app.player.loop_b_hook import run_for_ended_session
+
+        run_for_ended_session(session, row)  # shadow only; off unless LOOP_B_ENABLED
     locale = student.home_language or "en"
     enriched = enrich_action(session, state, action, locale)
     _attach_summary(session, student, row, enriched)

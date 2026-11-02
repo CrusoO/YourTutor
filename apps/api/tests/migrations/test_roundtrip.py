@@ -404,3 +404,53 @@ def test_0026_creates_and_drops_the_video_jobs_table() -> None:
     command.upgrade(cfg, "head")
     assert "video_jobs" in _tables(engine)
     engine.dispose()
+
+
+@pytest.mark.postgres
+def test_0027_creates_and_drops_the_loop_b_tables() -> None:
+    url = _postgres_url()
+    if url is None:
+        pytest.skip("Postgres is not available")
+    engine = create_engine(url, future=True)
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+        conn.commit()
+    cfg = _config(url)
+    command.upgrade(cfg, "head")
+
+    assert {"loop_b_records", "loop_b_snapshots"} <= _tables(engine)
+    with engine.connect() as conn:
+        # both tables are deleted with the student (the privacy promise), at the database level too
+        rules = {
+            row[0]: row[1]
+            for row in conn.execute(
+                text(
+                    "SELECT tc.table_name, rc.delete_rule "
+                    "FROM information_schema.table_constraints tc "
+                    "JOIN information_schema.referential_constraints rc "
+                    "ON rc.constraint_name = tc.constraint_name "
+                    "WHERE tc.table_name IN ('loop_b_records', 'loop_b_snapshots') "
+                    "AND tc.constraint_type = 'FOREIGN KEY'"
+                )
+            )
+        }
+        assert rules == {"loop_b_records": "CASCADE", "loop_b_snapshots": "CASCADE"}
+        uniques = {
+            row[0]
+            for row in conn.execute(
+                text(
+                    "SELECT constraint_name FROM information_schema.table_constraints "
+                    "WHERE table_name = 'loop_b_snapshots' AND constraint_type = 'UNIQUE'"
+                )
+            )
+        }
+        assert "uq_loop_b_snapshot" in uniques
+
+    command.downgrade(cfg, "0026_vj_video_jobs")
+    assert not {"loop_b_records", "loop_b_snapshots"} & _tables(engine)
+    assert "video_jobs" in _tables(engine)
+    command.upgrade(cfg, "head")
+    assert {"loop_b_records", "loop_b_snapshots"} <= _tables(engine)
+    engine.dispose()

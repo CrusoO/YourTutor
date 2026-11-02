@@ -509,6 +509,37 @@ class MasteryRow(Base):
     ladder_memory: Mapped[dict] = mapped_column(JSONType, default=dict)  # incremental state
 
 
+class LoopBRecordRow(Base):
+    """Loop B's stored state per learner: version for compare-and-set, plus the data blob."""
+
+    __tablename__ = "loop_b_records"
+
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), primary_key=True
+    )
+    version: Mapped[int] = mapped_column(Integer)
+    data: Mapped[dict] = mapped_column(JSONType)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class LoopBSnapshotRow(Base):
+    """One versioned snapshot per Loop B write, naming the graph, parameter and policy versions."""
+
+    __tablename__ = "loop_b_snapshots"
+    __table_args__ = (UniqueConstraint("student_id", "record_version", name="uq_loop_b_snapshot"),)
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    session_id: Mapped[str] = mapped_column(String)
+    watermark: Mapped[int] = mapped_column(Integer)
+    record_version: Mapped[int] = mapped_column(Integer)
+    versions: Mapped[dict] = mapped_column(JSONType)
+    payload: Mapped[dict] = mapped_column(JSONType)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class ReviewCardRow(Base):
     __tablename__ = "review_cards"
 
