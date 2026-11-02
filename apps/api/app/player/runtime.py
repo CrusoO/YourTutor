@@ -8,6 +8,7 @@ from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from fastapi import HTTPException
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -764,6 +765,9 @@ def apply_player_event(
     # A retry of an event already recorded must change nothing, including the distress path below,
     # which would otherwise raise the alert and insert the same client_event_id a second time.
     prior = session.scalar(select(EventRow).where(EventRow.client_event_id == client_event_id))
+    if prior and prior.session_id != row.id:
+        # Same rule as the offline sync: an id already used elsewhere is not a retry of this one.
+        raise HTTPException(status_code=409, detail="event_id_conflict")
     if prior:
         view = session_view(session, actor, row)
         view["session_id"] = str(row.id)

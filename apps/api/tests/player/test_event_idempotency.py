@@ -54,3 +54,19 @@ def test_a_retried_distress_message_is_recorded_and_alerted_once(
     assert again.json()["duplicate"] is True
     assert _count(db, SafetyFlagRow) == 1
     assert _count(db, EventRow) == 1
+
+
+def test_an_event_id_from_another_session_is_a_conflict_not_a_duplicate(
+    client: TestClient, db: Session, world: World
+) -> None:
+    first_session = _session(db, world)
+    second_session = _session(db, world)
+    event_id = uuid.uuid4()
+    assert _send(client, world, first_session, event_id).status_code == 200
+
+    clash = _send(client, world, second_session, event_id)
+
+    assert clash.status_code == 409
+    assert clash.json()["detail"] == "event_id_conflict"
+    assert _count(db, EventRow) == 1
+    assert _count(db, SafetyFlagRow) == 1
