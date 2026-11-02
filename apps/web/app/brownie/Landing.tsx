@@ -12,6 +12,66 @@ import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
 import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
 
+const storyBeatParagraphs = [[0], [1], [2], [3, 4], [5]];
+
+function StoryBeatIllustration({ index }: { index: number }) {
+  if (index === 0) {
+    return (
+      <div className={styles.classroomArt}>
+        {Array.from({ length: 24 }, (_, dot) => (
+          <span key={dot} className={dot === 14 ? styles.studentDot : ""} />
+        ))}
+      </div>
+    );
+  }
+
+  if (index === 1) {
+    return (
+      <div className={styles.silenceArt}>
+        <span className={styles.studentSilhouette} />
+        <span className={styles.unaskedQuestions} aria-hidden="true">? ? ?</span>
+        <span className={styles.silenceMark} aria-hidden="true">···</span>
+      </div>
+    );
+  }
+
+  if (index === 2) {
+    return (
+      <div className={styles.lessonPathArt}>
+        {[5, 4, 3, 2, 1].map((lesson, step) => (
+          <span key={lesson} className={step === 3 ? styles.missedLesson : ""}>
+            <i />
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  if (index === 3) {
+    return (
+      <div className={styles.beliefArt}>
+        <span className={styles.quoteMark} aria-hidden="true">“</span>
+        <span className={styles.beliefLine} />
+        <span className={styles.notTrueMark} />
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.conversationArt}>
+      <div className={styles.lessonPathMini}>
+        {[5, 4, 3, 2, 1].map((lesson) => <span key={lesson} className={lesson === 2 ? styles.foundLesson : ""} />)}
+      </div>
+      <div className={styles.questionBubble}>
+        <span />
+        <i />
+        <i />
+      </div>
+      <span className={styles.conversationLine} aria-hidden="true" />
+    </div>
+  );
+}
+
 function LandingPageContent() {
   const { language, copy } = useLandingLanguage();
   const [audienceIndex, setAudienceIndex] = useState(0);
@@ -106,7 +166,7 @@ function LandingPageContent() {
       </section>
 
       <div className={styles.story} aria-label={copy.accessibility.chapters}>
-        <section id="chapter-one" className={styles.chapter} aria-labelledby="chapter-one-title">
+        <section id="chapter-one" className={`${styles.chapter} ${styles.chapterStory}`} aria-labelledby="chapter-one-title">
           <div className={styles.chapterMarker}>
             <p>{copy.chapterOne.chapter}</p>
             <span>{copy.chapterOne.label}</span>
@@ -114,7 +174,23 @@ function LandingPageContent() {
           <div className={styles.chapterContent}>
             <p className={styles.storyHook}>{copy.chapterOne.hook}</p>
             <h2 id="chapter-one-title">{copy.chapterOne.headline}</h2>
-            {copy.chapterOne.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            <div className={styles.storyTimeline} data-testid="story-timeline">
+              {storyBeatParagraphs.map((paragraphIndexes, index) => (
+                <article className={styles.storyBeat} key={index} data-testid="story-beat">
+                  <span className={styles.storyBeatNumber} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className={styles.storyBeatArt} aria-hidden="true">
+                    <StoryBeatIllustration index={index} />
+                  </div>
+                  <div className={styles.storyBeatCopy}>
+                    {paragraphIndexes.map((paragraphIndex) => (
+                      <p key={paragraphIndex}>{copy.chapterOne.paragraphs[paragraphIndex]}</p>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
             <p className={styles.storyInvitation}>{copy.chapterOne.invitation}</p>
             <p className={styles.storyStats}>{copy.chapterOne.stats}</p>
           </div>
