@@ -58,6 +58,7 @@ class LadderEvent:
     pool: str = "practice"
     role: str = "procedure"
     structure: str = ""
+    latency_ms: int | None = None
 
 
 @dataclass

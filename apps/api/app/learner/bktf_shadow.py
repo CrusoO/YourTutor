@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import math
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
@@ -92,8 +92,13 @@ def replay_shadow(
     shadow: dict[str, BktFParams] | None = None,
     *,
     rapid_guess_ms: int = DEFAULT_RAPID_GUESS_MS,
+    rapid_guess_ms_by_item: Mapping[str, int] | None = None,
 ) -> list[ShadowStep]:
-    """Walk the log once, advancing both models, and return one step per first answer."""
+    """Walk the log once, advancing both models, and return one step per first answer.
+
+    `rapid_guess_ms_by_item` overrides the default threshold for the items it names.
+    """
+    thresholds = rapid_guess_ms_by_item or {}
     shadow = shadow or {sid: shadow_params(p) for sid, p in legacy_params.items()}
     live_state = LearnerState()
     live_memory: dict = {
@@ -128,7 +133,11 @@ def replay_shadow(
 
         answered.add(event.item_id)
         params = shadow[skill_id]
-        kind = _kind(event.item_id in hinted, event.latency_ms, rapid_guess_ms)
+        kind = _kind(
+            event.item_id in hinted,
+            event.latency_ms,
+            thresholds.get(event.item_id, rapid_guess_ms),
+        )
         gap = _gap_days(last_at.get(skill_id), event.at)
         prior = p_shadow.get(skill_id, params.p_init)
         correct = bool(event.correct)
