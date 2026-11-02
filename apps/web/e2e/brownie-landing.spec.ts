@@ -8,6 +8,8 @@ test("the homepage presents the landing page and keeps the video picker after Ch
   await expect(page.getByText("Don't understand something? You don't have to pretend you do.", { exact: false })).toBeVisible();
   await expect(page.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login?lang=en");
   await expect(page.getByRole("link", { name: "Try asking Brownie" })).toHaveAttribute("href", "/brownie-chat");
+  await expect(page.getByTestId("story-beat")).toHaveCount(5);
+  await expect(page.getByTestId("story-timeline")).toContainText("Robin did too");
 
   const heroWordmark = await page.getByTestId("landing-wordmark").boundingBox();
   const heroCopy = await page.getByTestId("landing-hero-copy").boundingBox();
@@ -126,6 +128,7 @@ test("the translated landing fits a mobile viewport without horizontal overflow"
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await page.getByRole("button", { name: "नेपाली" }).click();
+  await expect(page.getByTestId("story-beat")).toHaveCount(5);
 
   const dimensions = await page.evaluate(() => ({
     viewport: document.documentElement.clientWidth,
