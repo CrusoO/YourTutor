@@ -124,7 +124,13 @@ function VideoSection({ video, onRetry }: { video: VideoState; onRetry: () => vo
 
 function LessonBody({ prompt }: { prompt: string }) {
   const copy = useCopy();
-  const { closeLesson } = useChatApi();
+  const { closeLesson: closeLessonView } = useChatApi();
+  const heading = useRef<HTMLParagraphElement>(null);
+  // The ask box is hidden during a lesson, so leaving it must put the cursor back in the box that returns.
+  const closeLesson = () => {
+    closeLessonView();
+    requestAnimationFrame(() => document.querySelector<HTMLTextAreaElement>('[data-testid="composer-input"]')?.focus());
+  };
   const [explanation, setExplanation] = useState<Explanation | "loading">("loading");
   const [video, setVideo] = useState<VideoState>({ phase: "starting" });
   const [attempt, setAttempt] = useState(0);
@@ -205,6 +211,7 @@ function LessonBody({ prompt }: { prompt: string }) {
   // The written explanation and the story start together.
   useEffect(() => {
     mounted.current = true;
+    heading.current?.focus({ preventScroll: true });
     if (!started.current) {
       started.current = true;
       explainQuestion(prompt, language.current)
@@ -273,8 +280,13 @@ function LessonBody({ prompt }: { prompt: string }) {
         ) : null}
 
         <header className="flex flex-col gap-2">
-          <p className="m-0 text-[0.75rem] text-muted">{copy.lessonYouAsked}</p>
-          <p className="m-0 break-words text-[0.9375rem] text-ink" data-testid="lesson-prompt">
+          <div className="flex items-center justify-between gap-3">
+            <p className="m-0 text-[0.75rem] text-muted">{copy.lessonYouAsked}</p>
+            <Button variant="ghost" size="sm" onClick={closeLesson} data-testid="lesson-new-top">
+              {copy.lessonNewQuestion}
+            </Button>
+          </div>
+          <p ref={heading} tabIndex={-1} className="m-0 break-words text-[0.9375rem] text-ink outline-none" data-testid="lesson-prompt">
             {prompt}
           </p>
           {explanation !== "loading" && explanation.kind === "explanation" && explanation.title ? (
@@ -322,7 +334,7 @@ function LessonBody({ prompt }: { prompt: string }) {
         {showVideo ? <VideoSection video={video} onRetry={() => { startVideo(); setAttempt((n) => n + 1); }} /> : null}
 
         <div>
-          <Button variant="outline" size="sm" onClick={closeLesson} data-testid="lesson-new">
+          <Button onClick={closeLesson} data-testid="lesson-new">
             {copy.lessonAskElse}
           </Button>
         </div>

@@ -385,6 +385,7 @@ const en = {
   lessonVideoVoice: "The voice in this video is AI-generated.",
   lessonVideoPill: "Video",
   lessonAskElse: "Ask something else",
+  lessonNewQuestion: "New question",
   lessonCouldNotLoad: "Something went wrong. Please try again.",
   lessonVideoExpand: "Full screen",
   lessonVideoCollapse: "Exit full screen",
