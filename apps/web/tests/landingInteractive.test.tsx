@@ -47,6 +47,15 @@ describe("the landing page in English", () => {
     expect(screen.getAllByTestId("story-beat")).toHaveLength(5);
   });
 
+  it("draws every picture in full when no scroll watcher runs, so nothing depends on an animation", () => {
+    render(<BrownieLanding />);
+    for (const beat of ["nod", "silence", "missed", "belief", "asked"] as const) {
+      const art = screen.getByTestId(`story-art-${beat}`);
+      expect(art).toHaveAttribute("data-armed", "false");
+      expect(art).toHaveAttribute("data-seen", "true");
+    }
+  });
+
   it("redraws every picture and caption for the setting the reader picks", async () => {
     render(<BrownieLanding />);
     await userEvent.click(screen.getByTestId("robin-scene-work"));

@@ -5,9 +5,12 @@ import { storyCaptions, type SettingId, type StoryBeatId } from "./landing-extra
 import styles from "./LandingExtras.module.css";
 
 /** True once the element has scrolled into view; always true where there is no observer or motion is reduced. */
-export function useSeen<T extends Element>(): [React.RefObject<T | null>, boolean] {
+export function useSeen<T extends Element>(): [React.RefObject<T | null>, boolean, boolean] {
   const ref = useRef<T | null>(null);
   const [seen, setSeen] = useState(false);
+  // Armed means the scroll watcher is running: only then may a picture start hidden. Without it (no script,
+  // no observer, reduced motion) everything is simply shown, so nothing important depends on an animation.
+  const [armed, setArmed] = useState(false);
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
@@ -15,6 +18,7 @@ export function useSeen<T extends Element>(): [React.RefObject<T | null>, boolea
       setSeen(true);
       return;
     }
+    setArmed(true);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -27,7 +31,7 @@ export function useSeen<T extends Element>(): [React.RefObject<T | null>, boolea
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
-  return [ref, seen];
+  return [ref, seen, armed];
 }
 
 type Pose = "stand" | "think" | "raise" | "point";
@@ -111,7 +115,7 @@ function Nod({ setting }: { setting: SettingId }) {
       </>
     );
   }
-  const robin = setting === "class" ? 14 : 15;
+  const robin = setting === "class" ? 11 : 17; // a seat at the right-hand edge, so the label has clear space
   return (
     <>
       <Prop setting={setting} />
@@ -131,7 +135,8 @@ function Nod({ setting }: { setting: SettingId }) {
           />
         );
       })}
-      <text x={76 + (robin % 6) * 34} y={62 + Math.floor(robin / 6) * 25 - 12} textAnchor="middle" className={styles.artLabelAccent}>
+      <circle cx={76 + (robin % 6) * 34} cy={62 + Math.floor(robin / 6) * 25} r={11} className={styles.robinRing} />
+      <text x={76 + (robin % 6) * 34 + 18} y={62 + Math.floor(robin / 6) * 25 + 4} className={styles.artLabelAccent}>
         Robin
       </text>
     </>
@@ -251,10 +256,10 @@ function Asked({ setting }: { setting: SettingId }) {
 
 /** The picture for one beat of Robin's story, drawn for the chosen setting, with its caption underneath. */
 export function StoryArt({ beat, setting }: { beat: StoryBeatId; setting: SettingId }) {
-  const [ref, seen] = useSeen<HTMLElement>();
+  const [ref, seen, armed] = useSeen<HTMLElement>();
   const caption = storyCaptions[setting][beat];
   return (
-    <figure ref={ref} className={styles.storyFigure} data-seen={seen} data-testid={`story-art-${beat}`}>
+    <figure ref={ref} className={styles.storyFigure} data-seen={seen} data-armed={armed} data-testid={`story-art-${beat}`}>
       <svg viewBox="0 0 320 200" className={styles.storySvg} role="img" aria-label={caption}>
         {beat === "nod" ? <Nod setting={setting} /> : null}
         {beat === "silence" ? <Silence /> : null}

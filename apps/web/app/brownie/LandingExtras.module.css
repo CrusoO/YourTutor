@@ -79,19 +79,11 @@
   font-weight: 600;
 }
 
-.questionMark {
-  fill: var(--brownie-mute);
-  font-family: var(--brownie-serif);
-  font-size: 34px;
-  opacity: 0;
-}
-
 .step {
   fill: color-mix(in srgb, var(--brownie-dim) 35%, var(--brownie-panel));
   stroke: var(--brownie-line);
   transform-box: fill-box;
   transform-origin: bottom;
-  transform: scaleY(0);
 }
 
 .stepLater {
@@ -99,7 +91,6 @@
   stroke: var(--brownie-line);
   transform-box: fill-box;
   transform-origin: bottom;
-  transform: scaleY(0);
 }
 
 .stepMissing {
@@ -109,7 +100,6 @@
   stroke-width: 1.8;
   transform-box: fill-box;
   transform-origin: bottom;
-  transform: scaleY(0);
 }
 
 .stepFound {
@@ -117,32 +107,56 @@
   stroke: var(--brownie-blue);
   transform-box: fill-box;
   transform-origin: bottom;
+}
+
+.robinRing {
+  fill: none;
+  stroke: var(--brownie-blue);
+  stroke-width: 1.5;
+}
+
+/* Everything is drawn by default. Only while the scroll watcher is running and the picture has not been seen
+   yet do the animated parts wait, so a missing script, a screenshot or print never shows a half-empty picture. */
+.storyFigure[data-armed="true"]:not([data-seen="true"]) :is(.step, .stepLater, .stepMissing, .stepFound) {
   transform: scaleY(0);
 }
 
-.storyFigure[data-seen="true"] .step,
-.storyFigure[data-seen="true"] .stepLater,
-.storyFigure[data-seen="true"] .stepMissing,
-.storyFigure[data-seen="true"] .stepFound {
-  animation: stepRise 560ms ease-out forwards;
+.storyFigure[data-armed="true"]:not([data-seen="true"]) .questionMark {
+  opacity: 0;
 }
 
-.storyFigure[data-seen="true"] .questionMark {
-  animation: questionIn 600ms ease-out forwards;
+.storyFigure[data-seen="true"][data-armed="true"] :is(.step, .stepLater, .stepMissing, .stepFound) {
+  animation: stepRise 560ms ease-out both;
 }
 
-.storyFigure[data-seen="true"] .crowdDot[data-nod="true"],
-.storyFigure[data-seen="true"] .nodder {
+.storyFigure[data-seen="true"][data-armed="true"] .questionMark {
+  animation: questionIn 600ms ease-out both;
+}
+
+.storyFigure[data-seen="true"][data-armed="true"] .crowdDot[data-nod="true"],
+.storyFigure[data-seen="true"][data-armed="true"] .nodder {
   animation: nod 1.6s ease-in-out 2;
 }
 
+.questionMark {
+  fill: var(--brownie-mute);
+  font-family: var(--brownie-serif);
+  font-size: 34px;
+}
+
 @keyframes stepRise {
+  from {
+    transform: scaleY(0);
+  }
   to {
     transform: scaleY(1);
   }
 }
 
 @keyframes questionIn {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 0.85;
   }
@@ -163,25 +177,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .step,
-  .stepLater,
-  .stepMissing,
-  .stepFound {
-    transform: scaleY(1);
-  }
-
-  .questionMark {
-    opacity: 0.85;
-  }
-
-  .storyFigure[data-seen="true"] .step,
-  .storyFigure[data-seen="true"] .stepLater,
-  .storyFigure[data-seen="true"] .stepMissing,
-  .storyFigure[data-seen="true"] .stepFound,
-  .storyFigure[data-seen="true"] .questionMark,
-  .storyFigure[data-seen="true"] .crowdDot[data-nod="true"],
-  .storyFigure[data-seen="true"] .nodder {
-    animation: none;
+  .storyFigure :is(.step, .stepLater, .stepMissing, .stepFound, .questionMark, .crowdDot, .nodder) {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
@@ -201,6 +200,7 @@
 }
 
 .tab {
+  width: auto;
   min-height: 44px;
   border: 1px solid var(--brownie-line);
   border-radius: 0;
