@@ -7,6 +7,7 @@ import {
   DemoVideo,
   LandingLanguages,
   MasteryChart,
+  RobinOpening,
 } from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import styles from "./BrownieLanding.module.css";
@@ -184,9 +185,13 @@ function LandingPageContent() {
                     <StoryBeatIllustration index={index} />
                   </div>
                   <div className={styles.storyBeatCopy}>
-                    {paragraphIndexes.map((paragraphIndex) => (
-                      <p key={paragraphIndex}>{copy.chapterOne.paragraphs[paragraphIndex]}</p>
-                    ))}
+                    {paragraphIndexes.map((paragraphIndex) =>
+                      paragraphIndex === 0 ? (
+                        <RobinOpening key={paragraphIndex} fallback={copy.chapterOne.paragraphs[paragraphIndex]} />
+                      ) : (
+                        <p key={paragraphIndex}>{copy.chapterOne.paragraphs[paragraphIndex]}</p>
+                      ),
+                    )}
                   </div>
                 </article>
               ))}

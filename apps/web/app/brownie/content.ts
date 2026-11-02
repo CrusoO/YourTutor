@@ -1,7 +1,7 @@
 export const landingContent = {
   metadata: {
-    title: "Ask Brownie | Understands you first",
-    description: "Brownie understands you first, then teaches in the way that makes it click.",
+    title: "Ask Brownie | Finds out what you know first",
+    description: "Brownie finds out what you already know first, then teaches in the way that helps it click.",
   },
   brand: "Brownie",
   hero: {
@@ -17,9 +17,9 @@ export const landingContent = {
     name: "Brownie",
     audienceLead: "Brownie is for",
     audiences: ["Students", "Teachers", "Professionals", "Everyone"],
-    tagline: "Understands you first. Then teaches.",
+    tagline: "Finds out what you know first. Then teaches.",
     description:
-      "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to the way you understand.",
+      "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to what you already know and what helps.",
     tryBrownie: "Try asking Brownie",
     readStory: "Read Robin's story ↓",
     signIn: "Sign in",
@@ -149,12 +149,38 @@ export const landingContent = {
   },
   footer: {
     brand: "BROWNIE",
-    line: "UNDERSTANDS YOU FIRST. THEN TEACHES.",
+    line: "FINDS OUT WHAT YOU KNOW FIRST. THEN TEACHES.",
   },
   accessibility: {
     main: "Ask Brownie landing page",
     chapters: "The Brownie approach",
   },
+} as const;
+
+/**
+ * Who Robin is in Chapter One. English only for now: Hindi and Nepali keep the original paragraph until a
+ * human translator provides these (never machine-translated), so this sits outside landingContent.
+ */
+export const robinScenes = {
+  prompt: "Who is Robin to you?",
+  groupLabel: "Choose a setting for Robin's story",
+  scenes: [
+    {
+      id: "class",
+      label: "In a class",
+      text: "A teacher had just explained fractions and asked, “Does everyone understand?” Almost everyone nodded. Robin did too.",
+    },
+    {
+      id: "work",
+      label: "At work",
+      text: "A manager had just walked the team through a new tool and asked, “Does everyone understand?” Almost everyone nodded. Robin did too.",
+    },
+    {
+      id: "alone",
+      label: "On my own",
+      text: "Robin was learning alone from a video course. The narrator asked, “Got it?” Nobody was there to answer, so Robin nodded at the screen and let the next lesson start.",
+    },
+  ],
 } as const;
 
 export type LandingLanguage = "en" | "hi" | "ne";
