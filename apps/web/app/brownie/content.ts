@@ -1,7 +1,7 @@
 export const landingContent = {
   metadata: {
-    title: "Ask Brownie | Understands you first",
-    description: "Brownie understands you first, then teaches in the way that makes it click.",
+    title: "Ask Brownie | Finds out what you know first",
+    description: "Brownie finds out what you already know first, then teaches in the way that helps it click.",
   },
   brand: "Brownie",
   hero: {
@@ -17,9 +17,9 @@ export const landingContent = {
     name: "Brownie",
     audienceLead: "Brownie is for",
     audiences: ["Students", "Teachers", "Professionals", "Everyone"],
-    tagline: "Understands you first. Then teaches.",
+    tagline: "Finds out what you know first. Then teaches.",
     description:
-      "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to the way you understand.",
+      "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to what you already know and what helps.",
     tryBrownie: "Try asking Brownie",
     readStory: "Read Robin's story ↓",
     signIn: "Sign in",
@@ -149,7 +149,7 @@ export const landingContent = {
   },
   footer: {
     brand: "BROWNIE",
-    line: "UNDERSTANDS YOU FIRST. THEN TEACHES.",
+    line: "FINDS OUT WHAT YOU KNOW FIRST. THEN TEACHES.",
   },
   accessibility: {
     main: "Ask Brownie landing page",
