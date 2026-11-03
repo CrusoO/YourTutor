@@ -370,13 +370,8 @@ export const trust = {
   items: [
     {
       id: "ai",
-      q: "Is it a person or an AI, and can it be wrong?",
-      a: "Brownie is an AI, not a person, and it can make mistakes. But the AI does not decide what is true: its job is to explain. Check anything important with a teacher, a book or a trusted source.",
-    },
-    {
-      id: "truth",
-      q: "Where do the facts and answers come from?",
-      a: "Brownie’s own lessons and practice are built on a fixed map of topics and the order they are learned in, with the questions and answers written down in advance. Maths answers are checked by a computer, never by the AI. The AI explains and adapts to you. A teacher is meant to approve that material before it is used, and most of it is still waiting for that review. When you ask your own question, the AI writes the lesson itself. That lesson is not checked against our material, and it says so at the top.",
+      q: "Who am I talking to?",
+      a: "Someone on your side. Brownie is a friendly tutor that uses AI to explain, but it does not make up the facts: your practice questions come from our own knowledge base, and every maths answer is checked by a computer. Brownie learns from your answers, finds where things stopped making sense, and teaches from exactly there. A lesson it writes for your own question is a good first explanation, not the last word, so check anything important with your book or your teacher.",
     },
     {
       id: "signup",
