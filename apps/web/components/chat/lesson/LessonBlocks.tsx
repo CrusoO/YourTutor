@@ -38,7 +38,9 @@ export function LessonBlocks({
   const copy = useCopy();
   const [shown, setShown] = useState(1);
   const [answered, setAnswered] = useState<ReadonlySet<number>>(new Set());
+  // A right guess that was only a hunch ("not sure") is not knowing: it still gets the explanation.
   const [predictedRight, setPredictedRight] = useState<boolean | null>(null);
+  const [predictedUnsure, setPredictedUnsure] = useState(false);
   const lastRef = useRef<HTMLLIElement>(null);
   const first = useRef(true);
 
@@ -48,7 +50,7 @@ export function LessonBlocks({
   const finished = atEnd && !pending;
   const waitingForMore = atEnd && pending && ready;
   const checkAt = blocks.findIndex((b) => b.block.kind === "check");
-  const canSkip = current.block.kind === "predict" && predictedRight === true && ready && checkAt > shown;
+  const canSkip = current.block.kind === "predict" && predictedRight === true && !predictedUnsure && ready && checkAt > shown;
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
 
@@ -103,6 +105,7 @@ export function LessonBlocks({
                   block={block}
                   onResult={(info) => {
                     setPredictedRight(info.right);
+                    setPredictedUnsure(info.confidence === "unsure");
                     record(i, block, info);
                     mark(i);
                   }}
