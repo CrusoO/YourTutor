@@ -499,6 +499,17 @@ export async function explainChat(prompt: string, language: "en" | "hi", history
   return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
 }
 
+/** What a typed command asks Brownie to do. Chosen by the server from a closed list; never built from the student's words. */
+export type ActionDirective =
+  | { kind: "none" }
+  | { kind: "denied"; name: string; narration: string }
+  | { kind: "action"; name: string; client: string; args: Record<string, string>; risk: "safe" | "confirm"; narration: string; confirm?: string };
+
+/** Is this typed message a command ("practice", "switch to Hindi")? A pure lookup on the server: no model, nothing stored. */
+export async function routeAction(utterance: string, language: "en" | "hi"): Promise<ActionDirective> {
+  return req("/actions/route", { method: "POST", body: JSON.stringify({ utterance, language }) });
+}
+
 /** The learning card a signed-in learner chose to keep in their account (a guest is refused). */
 export async function keepLessonRecords(records: unknown[]): Promise<{ saved: number }> {
   return req("/students/me/lesson-records", { method: "POST", body: JSON.stringify({ records }) });

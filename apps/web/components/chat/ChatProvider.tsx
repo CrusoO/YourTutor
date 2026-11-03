@@ -20,6 +20,7 @@ import {
   guestStart,
   hasStudentToken,
   locale,
+  routeAction,
   setStaffToken,
   setToken,
   startSession,
@@ -28,7 +29,8 @@ import {
   clearStudent,
   type ContextOptions,
 } from "@/lib/api";
-import { useCopy } from "@/lib/locale";
+import { isLiveLocale, setLocale, useCopy } from "@/lib/locale";
+import { planAction, type Step } from "@/lib/chat/actions";
 import { loadSetup, saveSetup } from "@/lib/chat/device";
 import { markActive } from "@/lib/chat/today";
 import { findTopics, prepare, type FinderRules, type Topic } from "@/lib/chat/finder";
@@ -74,6 +76,10 @@ export type Reply = {
   piiRemoved?: boolean;
   /** Which mode the matches belong to, so tapping a chip does the right thing. */
   mode?: Mode;
+  /** Brownie's own words for a "notice": what it is doing, or the question it asks before doing it. */
+  text?: string;
+  /** Set when the notice asks first: the step runs only if the student says yes. */
+  confirm?: { step: Step; after: string };
 };
 
 /** `src` is where the frame was opened and never changes while it is open; `path` follows the screen inside. */
@@ -100,6 +106,9 @@ export type ChatApi = {
   signedIn: (role: Role, name?: string) => void;
   signOut: () => void;
   newChat: () => void;
+  /** The student said yes to a notice that asked first. */
+  confirmStep: (step: Step, after: string) => void;
+  dismissReplies: () => void;
   workspace: Workspace | null;
   /** The question a signed-out visitor just asked: shown as an in-depth explanation with a video. In memory only. */
   lesson: Lesson | null;
@@ -140,6 +149,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const rules = useRef<FinderRules | null>(null);
   const replySeq = useRef(1);
   const ctxRef = useRef<ContextLike | null>(null);
+  // Set below, once newChat and startMode exist; submitText calls it before it can use them directly.
+  const actionRef = useRef<(text: string) => Promise<boolean>>(async () => false);
 
   const emptyCtx: ContextLike = useMemo(() => ({ curricula: [] }), []);
   const [chat, dispatchRaw] = useReducer(
@@ -345,6 +356,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         await startMode(mode);
         return;
       }
+      // A short command ("practice", "switch to Hindi") is done at once and costs nothing; anything else is a question.
+      if ((role === "guest" || role === "student") && (await actionRef.current(text))) return;
       if (role === "visitor") {
         // Nobody is signed in: no questions first. A guest starts quietly on the default class and the prompt is answered below.
         setBusy(true);
@@ -468,6 +481,49 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     }
   }, [ctx, emptyCtx, identity]);
 
+  const runStep = useCallback(
+    async (step: Step) => {
+      if (step.verb === "start_practice") await startMode("revise");
+      else if (step.verb === "open_screen") openWorkspace(step.path);
+      else if (step.verb === "set_language") setLocale(step.code);
+      else newChat();
+    },
+    [newChat, openWorkspace, startMode],
+  );
+
+  const confirmStep = useCallback(
+    (step: Step, after: string) => {
+      void runStep(step).then(() => addReply({ kind: "notice", text: after }));
+    },
+    [addReply, runStep],
+  );
+
+  const dismissReplies = useCallback(() => setReplies([]), []);
+
+  /** Ask the server whether the typed text is a command. Any failure means "not a command": the question carries on as before. */
+  actionRef.current = async (text: string) => {
+    const typed = text.trim();
+    if (!typed) return false;
+    try {
+      const lang = locale() === "hi" ? "hi" : "en";
+      const plan = planAction(await routeAction(typed, lang), isLiveLocale);
+      if (plan.kind === "ignore") return false;
+      if (plan.kind === "say") {
+        addReply({ kind: "notice", text: plan.text });
+        return true;
+      }
+      if (plan.kind === "confirm") {
+        addReply({ kind: "notice", text: plan.ask, confirm: { step: plan.step, after: plan.text } });
+        return true;
+      }
+      addReply({ kind: "notice", text: plan.text });
+      if (plan.step) await runStep(plan.step);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const api: ChatApi = {
     copy,
     hour,
@@ -489,6 +545,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     signedIn,
     signOut,
     newChat,
+    confirmStep,
+    dismissReplies,
     workspace,
     lesson,
     closeLesson,
