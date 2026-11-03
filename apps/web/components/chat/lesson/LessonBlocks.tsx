@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import type { UsableBlock } from "@/lib/lessons/ai-lesson";
+import type { AiCheck, AiPredict, UsableBlock } from "@/lib/lessons/ai-lesson";
+import type { Evidence } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
 import { AskAbout } from "./AskAbout";
-import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock } from "./blocks";
+import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock, type AnswerInfo } from "./blocks";
+import { LearningCard } from "./LearningCard";
 import { WidgetBlock } from "./widgets";
 
 /** The blocks that need an answer before "Continue" opens. Every other block is ready as soon as it shows. */
@@ -47,6 +49,23 @@ export function LessonBlocks({
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
 
+  // What each judged answer showed the first time: kept for the end-of-lesson card (this device only).
+  const [evidence, setEvidence] = useState<Evidence[]>([]);
+  const record = (index: number, block: AiPredict | AiCheck, info: AnswerInfo) => {
+    if (info.right === null || !block.options || block.correct === null) return;
+    const entry: Evidence = {
+      id: String(index),
+      kind: block.kind,
+      question: block.kind === "predict" ? block.prompt : block.question,
+      options: block.options,
+      correct: block.correct,
+      right: info.right,
+      confidence: info.confidence,
+      idea: info.idea,
+    };
+    setEvidence((prev) => (prev.some((e) => e.id === entry.id) ? prev : [...prev, entry]));
+  };
+
   useEffect(() => {
     if (first.current) {
       first.current = false;
@@ -79,15 +98,16 @@ export function LessonBlocks({
               {block.kind === "predict" ? (
                 <PredictBlock
                   block={block}
-                  onResult={(correct) => {
-                    setPredictedRight(correct);
+                  onResult={(info) => {
+                    setPredictedRight(info.right);
+                    record(i, block, info);
                     mark(i);
                   }}
                 />
               ) : null}
               {block.kind === "widget" && "run" in entry ? <WidgetBlock run={entry.run} /> : null}
               {block.kind === "explain" ? <ExplainBlock block={block} /> : null}
-              {block.kind === "check" ? <CheckBlock block={block} onSolved={() => mark(i)} /> : null}
+              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} /> : null}
               {block.kind === "transfer" ? <TransferBlock block={block} onShown={() => mark(i)} /> : null}
               {block.kind === "recap" ? <RecapBlock block={block} /> : null}
             </li>
@@ -118,6 +138,7 @@ export function LessonBlocks({
               {copy.lessonRestFailed}
             </p>
           ) : null}
+          <LearningCard evidence={evidence} topic={prompt} />
           <AskAbout prompt={prompt} language={language} />
         </>
       )}

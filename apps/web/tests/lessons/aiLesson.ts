@@ -14,6 +14,7 @@ export const LESSON: AiLesson = {
       options: ["It rolls back", "It appears on the other side"],
       correct: 0,
       reveal_after: "A ball rolls back, but an electron is a wave and behaves differently.",
+      misconceptions: [null, "thinks a ball can pass through the hill"],
     },
     {
       kind: "widget",
@@ -30,6 +31,7 @@ export const LESSON: AiLesson = {
       correct: 1,
       feedback_per_option: ["Thicker means less wave gets through.", "Yes: the fall is very steep.", "Width matters a lot.", "It is never certain."],
       hint_ladder: ["Think about the wave inside the wall.", "The wave shrinks as it goes deeper.", "Less wave out the far side means a smaller chance."],
+      misconceptions: ["thinks a thicker barrier helps", null, "thinks width does not matter", "thinks it becomes certain"],
     },
     { kind: "transfer", scenario: "Two nuclei in the Sun must get close.", question: "Why does tunnelling help the Sun shine?", model_answer: "It lets nuclei fuse without enough energy to climb the barrier." },
     { kind: "recap", three_bullets: ["Waves leak into barriers", "Thicker barriers cut the chance fast", "The Sun relies on it"], spaced_review_question: "Why does width matter so much?" },
