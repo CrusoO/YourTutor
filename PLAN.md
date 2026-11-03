@@ -725,6 +725,8 @@ M4 (shadow traits, Loop B, `loop_b_*` tables, migration 0027, wired at session e
 
 ### Buildable next
 
+- Phase 0 of the total plan (signals and feedback) is built: a real per-question answer timer replaces the old constants in the session page; an optional "sure / not sure" tap is stored on the answer; a matched misconception writes `misconception_hits`; the hint screen says in plain words why an answer may have gone wrong, with a "that's not why" button (stored as `diagnosis_correction`); the explain-back grade is shown. Still to do: let the live policy read confidence (a `confident_error` diagnosis class, retest later), Hindi and Nepali copy for the new strings, and the confidence tap for the AI-lesson blocks (Phase 1).
+
 - Run Loop B for sessions that end through the offline sync (`app/offline/sync.py`); only the online path calls it.
 - Graph versioning and migration maps (M5): confirm whether a graph version field exists first.
 - Teacher dashboard privacy protections (M8): small-group suppression and differencing checks.

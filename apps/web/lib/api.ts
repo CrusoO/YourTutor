@@ -25,6 +25,8 @@ export type ActionPayload = {
   reason?: string | null;
   resumable?: boolean;
   extras?: Record<string, unknown>;
+  /** The formative grade of an explain-back (never part of mastery): good, partly or not_yet. */
+  grade?: string | null;
   session_type?: string;
   phase?: string;
   hint_level_shown?: number;
