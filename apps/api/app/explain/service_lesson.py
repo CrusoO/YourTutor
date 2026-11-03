@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from app.config import settings
+from app.explain import lesson_cache
 from app.explain.service import Completer, ExplainProvider, Gate, precheck, unavailable
 from app.explain.story import extract_json
 from app.llm.prompt import STUDENT_TAG, Prompt
@@ -484,6 +485,23 @@ def _run(
     if not chosen:
         return unavailable("no_key")
 
+    # An injected provider (tests) is never cached; a real one is, after the checks above.
+    cache_key = (
+        lesson_cache.key_for(
+            version=PROMPT_VERSION,
+            model=chosen,
+            language=language,
+            restricted=restricted,
+            part=part,
+            question=text_in,
+            opening=opening,
+        )
+        if provider is None
+        else None
+    )
+    if cache_key is not None and (hit := lesson_cache.get(cache_key)) is not None:
+        return hit
+
     if part == "opening":
         tokens = OPENING_TOKENS_GROQ if chosen.startswith("groq/") else OPENING_TOKENS
     else:
@@ -536,7 +554,10 @@ def _run(
             outcome = unavailable("checks")
             continue
 
-        return {"kind": kind, **cleaned}
+        result = {"kind": kind, **cleaned}
+        if cache_key is not None:
+            lesson_cache.put(cache_key, result)
+        return result
 
     return outcome
 
