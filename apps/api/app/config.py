@@ -41,6 +41,13 @@ class Settings(BaseSettings):
     # env: LOOP_B_ENABLED=true. Off by default: it writes a shadow trait profile per learner, which
     # needs the consent and legal decisions in the master plan (OPEN-16) before it is switched on.
     loop_b_enabled: bool = False
+    # Spending limits for an open API (see app/budget.py). 0 turns a limit off.
+    llm_daily_cap: int = 0  # env: LLM_DAILY_CAP
+    video_queue_max: int = 0  # env: VIDEO_QUEUE_MAX
+    video_jobs_per_day: int = 0  # env: VIDEO_JOBS_PER_DAY (signed-in learner)
+    video_jobs_per_day_guest: int = 0  # env: VIDEO_JOBS_PER_DAY_GUEST
+    # env: AUTO_MIGRATE=true. Run `alembic upgrade head` when the API starts (handy in compose).
+    auto_migrate: bool = False
     # env: ADULT_LEARNERS_ASSUMED. Unset means "assume adults in development, never in production".
     # For now every learner is treated as 18 or older, which lets a teacher or manager see
     # anonymous group results. It is a stand-in for a real age gate: production refuses to start
