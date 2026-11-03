@@ -5,13 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
-import { hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
+import { elapsedMs, hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
 import { applyBodyClasses, loadUi } from "@/lib/ui";
 import ReadAloud from "@/components/flow/ReadAloud";
 import SourceChips from "@/components/flow/SourceChips";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
+import { ConfidenceTap, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
 import { useCopy, useLocale } from "@/lib/locale";
@@ -36,6 +37,19 @@ export default function SessionPage() {
   const [wrongOnce, setWrongOnce] = useState(false);
   const idle = useRef<number | null>(null);
   const hintTimer = useRef<number | null>(null);
+  // When the current question appeared, so an answer carries the time it really took.
+  const shownAt = useRef(Date.now());
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
+
+  /** The payload of an answer: what was said, how long it took, and how sure the learner said they were. */
+  function answerPayload(response: string): Record<string, unknown> {
+    return { response, latency_ms: elapsedMs(shownAt.current), ...(confidence ? { confidence } : {}) };
+  }
+
+  function questionShown() {
+    shownAt.current = Date.now();
+    setConfidence(null);
+  }
 
   function armTimers(next: ActionPayload) {
     if (idle.current) window.clearTimeout(idle.current);
@@ -51,6 +65,7 @@ export default function SessionPage() {
   async function load() {
     const view = await getSession(params.id);
     setAction(view.action);
+    questionShown();
     armTimers(view.action);
   }
 
@@ -79,6 +94,7 @@ export default function SessionPage() {
       return;
     }
     setAction(next);
+    questionShown();
     setAnswer("");
     setStep(1);
     if (event_type === "answer" && next.type === "hint") {
@@ -182,6 +198,9 @@ export default function SessionPage() {
 
   const item = action.item;
   const mcq = item?.type === "mcq";
+  // The tap is optional and only for practice (a diagnostic or checkpoint gives no feedback to calibrate on).
+  const askConfidence = action.session_type === "practice" && action.type !== "warmup_item";
+  const confidenceTap = askConfidence ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null;
   const extras = (action.extras ?? {}) as Record<string, unknown>;
   const praise = (extras.encouragement as { text?: string | null } | undefined)?.text;
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
@@ -256,15 +275,16 @@ export default function SessionPage() {
           <h1>{copy.checkTitle}</h1>
           <p className="stem">{item?.stem}</p>
           <p className="banner">{checkText(copy, extras.check_kind as string | undefined)}</p>
+          {confidenceTap}
           {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 500 })} />
+            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
           ) : (
             <AnswerForm
               value={answer}
               onChange={setAnswer}
               label={copy.answerPlaceholder}
               submit={copy.submit}
-              onSubmit={() => send("answer", { response: answer, latency_ms: 500 })}
+              onSubmit={() => send("answer", answerPayload(answer))}
             />
           )}
           {hintReady ? (
@@ -320,16 +340,25 @@ export default function SessionPage() {
           {extras.kind === "restate" || extras.kind === "step" ? (
             <p className="muted">{extras.kind === "restate" ? copy.hintRestateLabel : copy.hintStepLabel}</p>
           ) : null}
+          <WhyWrong
+            copy={copy}
+            diagnosis={extras.diagnosis as { class?: string } | undefined}
+            onNotWhy={(diagnosed) => {
+              // Recorded without touching the screen: the learner stays on the same question and timer.
+              postEvent(params.id, "diagnosis_correction", { diagnosed }, action.item_id).catch(() => {});
+            }}
+          />
           <p className="banner" data-testid="hint-text">{action.text}</p>
+          {confidenceTap}
           {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 500 })} />
+            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
           ) : (
             <AnswerForm
               value={answer}
               onChange={setAnswer}
               label={copy.answerPlaceholder}
               submit={copy.submit}
-              onSubmit={() => send("answer", { response: answer, latency_ms: 500 })}
+              onSubmit={() => send("answer", answerPayload(answer))}
             />
           )}
           {canHelp(action) ? (
@@ -383,22 +412,23 @@ export default function SessionPage() {
           ) : null}
           <p className="stem">{item?.stem}</p>
           <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
+          {confidenceTap}
           {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", { response: id, latency_ms: 400 })} />
+            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
           ) : (
             <AnswerForm
               value={answer}
               onChange={setAnswer}
               label={copy.answerPlaceholder}
               submit={copy.submit}
-              onSubmit={() => send("answer", { response: answer, latency_ms: 400 })}
+              onSubmit={() => send("answer", answerPayload(answer))}
             />
           )}
           {action.dont_know_option ? (
             <button
               type="button"
               className="ghost"
-              onClick={() => send("answer", { response: "i don't know", latency_ms: 200 })}
+              onClick={() => send("answer", { response: "i don't know", latency_ms: elapsedMs(shownAt.current) })}
             >
               {copy.dontKnow}
             </button>
@@ -420,6 +450,7 @@ export default function SessionPage() {
       {action.type === "explain_back_prompt" || action.type === "explain_back_result" ? (
         <>
           <h1>{copy.explainBack}</h1>
+          {action.type === "explain_back_result" ? <ExplainGrade copy={copy} grade={action.grade} /> : null}
           <p>{action.text}</p>
           {action.type === "explain_back_result" ? (
             <SourceChips sources={action.sources} label={copy.sourceLabel} />

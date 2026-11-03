@@ -177,7 +177,7 @@ export function GuessChat() {
                   </button>
                 ))}
                 <button type="button" className={styles.demoRestart} onClick={() => setState(START)} data-testid="demo-restart">
-                  Restart example
+                  Start over
                 </button>
               </div>
               {left.length === 0 ? (

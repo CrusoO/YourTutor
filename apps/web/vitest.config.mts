@@ -13,5 +13,8 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./tests/setup.ts"],
     include: ["tests/**/*.test.{ts,tsx}"],
+    // Component tests that render a whole screen take a few seconds when the suite runs in parallel on a
+    // busy machine; the 5 s default turned that into failures that passed when run alone.
+    testTimeout: 20_000,
   },
 });

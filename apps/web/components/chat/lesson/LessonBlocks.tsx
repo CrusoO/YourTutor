@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import type { UsableBlock } from "@/lib/lessons/ai-lesson";
+import type { AiCheck, AiPredict, UsableBlock } from "@/lib/lessons/ai-lesson";
+import type { Evidence } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
 import { AskAbout } from "./AskAbout";
-import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock } from "./blocks";
+import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock, type AnswerInfo } from "./blocks";
+import { LearningCard } from "./LearningCard";
 import { WidgetBlock } from "./widgets";
 
 /** The blocks that need an answer before "Continue" opens. Every other block is ready as soon as it shows. */
@@ -15,7 +17,24 @@ const NEEDS_ANSWER = new Set(["predict", "check", "transfer"]);
  * The interactive lesson: blocks appear one at a time, each after the student has done what it asks. Earlier
  * blocks stay on the page (with their answers) so the student can scroll back.
  */
-export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock[]; prompt: string; language: "en" | "hi" }) {
+export function LessonBlocks({
+  blocks,
+  prompt,
+  language,
+  pending = false,
+  restFailed = false,
+  footer,
+}: {
+  blocks: UsableBlock[];
+  prompt: string;
+  language: "en" | "hi";
+  /** More blocks are on their way: the student can work on what is here and Continue waits for the next. */
+  pending?: boolean;
+  /** The rest could not be built; what is here is all there is. */
+  restFailed?: boolean;
+  /** Shown once the lesson is over, after the follow-up box (for example, the way back to asking something else). */
+  footer?: ReactNode;
+}) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
   const [answered, setAnswered] = useState<ReadonlySet<number>>(new Set());
@@ -25,11 +44,30 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
 
   const current = blocks[shown - 1]!;
   const ready = !NEEDS_ANSWER.has(current.block.kind) || answered.has(shown - 1);
-  const finished = shown === blocks.length;
+  const atEnd = shown === blocks.length;
+  const finished = atEnd && !pending;
+  const waitingForMore = atEnd && pending && ready;
   const checkAt = blocks.findIndex((b) => b.block.kind === "check");
   const canSkip = current.block.kind === "predict" && predictedRight === true && ready && checkAt > shown;
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
+
+  // What each judged answer showed the first time: kept for the end-of-lesson card (this device only).
+  const [evidence, setEvidence] = useState<Evidence[]>([]);
+  const record = (index: number, block: AiPredict | AiCheck, info: AnswerInfo) => {
+    if (info.right === null || !block.options || block.correct === null) return;
+    const entry: Evidence = {
+      id: String(index),
+      kind: block.kind,
+      question: block.kind === "predict" ? block.prompt : block.question,
+      options: block.options,
+      correct: block.correct,
+      right: info.right,
+      confidence: info.confidence,
+      idea: info.idea,
+    };
+    setEvidence((prev) => (prev.some((e) => e.id === entry.id) ? prev : [...prev, entry]));
+  };
 
   useEffect(() => {
     if (first.current) {
@@ -63,15 +101,16 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
               {block.kind === "predict" ? (
                 <PredictBlock
                   block={block}
-                  onResult={(correct) => {
-                    setPredictedRight(correct);
+                  onResult={(info) => {
+                    setPredictedRight(info.right);
+                    record(i, block, info);
                     mark(i);
                   }}
                 />
               ) : null}
               {block.kind === "widget" && "run" in entry ? <WidgetBlock run={entry.run} /> : null}
               {block.kind === "explain" ? <ExplainBlock block={block} /> : null}
-              {block.kind === "check" ? <CheckBlock block={block} onSolved={() => mark(i)} /> : null}
+              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} /> : null}
               {block.kind === "transfer" ? <TransferBlock block={block} onShown={() => mark(i)} /> : null}
               {block.kind === "recap" ? <RecapBlock block={block} /> : null}
             </li>
@@ -79,7 +118,11 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
         })}
       </ol>
 
-      {!finished ? (
+      {waitingForMore ? (
+        <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-preparing">
+          {copy.lessonPreparing}
+        </p>
+      ) : !finished ? (
         <div className="flex flex-wrap items-center gap-3">
           <Button onClick={() => setShown((n) => n + 1)} disabled={!ready} data-testid="lesson-continue">
             {copy.lessonContinue}
@@ -92,7 +135,16 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
           {!ready ? <p className="m-0 text-[0.8125rem] text-muted">{copy.lessonPickFirst}</p> : null}
         </div>
       ) : (
-        <AskAbout prompt={prompt} language={language} />
+        <>
+          {restFailed ? (
+            <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-rest-failed">
+              {copy.lessonRestFailed}
+            </p>
+          ) : null}
+          <LearningCard evidence={evidence} topic={prompt} />
+          <AskAbout prompt={prompt} language={language} />
+          {footer}
+        </>
       )}
     </div>
   );

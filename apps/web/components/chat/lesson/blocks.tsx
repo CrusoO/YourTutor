@@ -2,6 +2,8 @@
 
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { ConfidenceTap } from "@/components/session/Signals";
+import type { Confidence } from "@/lib/lessons/learning-map";
 import type { AiCheck, AiExplain, AiHook, AiPredict, AiRecap, AiTransfer } from "@/lib/lessons/ai-lesson";
 import { useCopy } from "@/lib/locale";
 
@@ -68,29 +70,36 @@ export function ExplainBlock({ block }: { block: AiExplain }) {
   );
 }
 
+/** What one answer showed: right or not (null when it was not judged), how sure, and the idea behind a wrong pick. */
+export type AnswerInfo = { right: boolean | null; confidence: Confidence | null; idea: string | null };
+
 /** Commit a guess before the reveal. A multiple-choice guess is judged; a free-text one is only revealed against. */
-export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: (correct: boolean | null) => void }) {
+export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: (info: AnswerInfo) => void }) {
   const copy = useCopy();
   const [picked, setPicked] = useState<number | null>(null);
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
   const [text, setText] = useState("");
   const [revealed, setRevealed] = useState(false);
   const options = !block.free_text && block.options ? block.options : null;
   const matched = options && picked !== null && block.correct !== null ? picked === block.correct : null;
+  const idea = picked !== null && matched === false ? block.misconceptions?.[picked] ?? null : null;
 
   const pick = (i: number) => {
     if (picked !== null) return;
     setPicked(i);
     setRevealed(true);
-    onResult(block.correct === null ? null : i === block.correct);
+    const right = block.correct === null ? null : i === block.correct;
+    onResult({ right, confidence, idea: right === false ? block.misconceptions?.[i] ?? null : null });
   };
   const reveal = () => {
     setRevealed(true);
-    onResult(null);
+    onResult({ right: null, confidence: null, idea: null });
   };
 
   return (
     <section className="flex flex-col gap-3" data-testid="block-predict">
       <BlockTitle>{block.prompt}</BlockTitle>
+      {options && picked === null ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null}
       {options ? (
         <div className="flex flex-col gap-2" role="group" aria-label={block.prompt}>
           {options.map((option, i) => (
@@ -122,6 +131,8 @@ export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: 
       {revealed ? (
         <Note tone={matched === true ? "good" : matched === false ? "miss" : "info"}>
           {matched === true ? `${copy.lessonGuessMatched} ` : matched === false ? `${copy.lessonGuessMissed} ` : ""}
+          {idea ? `${copy.lessonIdeaBehind} ${idea}. ` : ""}
+          {matched === false && confidence === "sure" ? `${copy.lessonSureButWrong} ` : ""}
           {block.reveal_after}
         </Note>
       ) : null}
@@ -131,22 +142,29 @@ export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: 
 
 const MAX_ATTEMPTS = 3;
 
-/** A four-option check with feedback on every option and a three-step hint ladder. */
-export function CheckBlock({ block, onSolved }: { block: AiCheck; onSolved: () => void }) {
+/** A four-option check with feedback on every option, a three-step hint ladder and an idea label on a wrong pick. */
+export function CheckBlock({ block, onFirst, onSolved }: { block: AiCheck; onFirst: (info: AnswerInfo) => void; onSolved: () => void }) {
   const copy = useCopy();
   const [tried, setTried] = useState<number[]>([]);
   const [last, setLast] = useState<number | null>(null);
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
   const [hints, setHints] = useState(0);
   const solved = last === block.correct;
   const gaveUp = !solved && tried.length >= MAX_ATTEMPTS;
   const done = solved || gaveUp;
   const hintList = block.hint_ladder.filter(Boolean);
+  const idea = last !== null && last !== block.correct ? block.misconceptions?.[last] ?? null : null;
 
   const pick = (i: number) => {
     if (done || tried.includes(i)) return;
     setLast(i);
     const next = [...tried, i];
     setTried(next);
+    // Only the first pick says what the learner knew; later ones are the learner working it out.
+    if (tried.length === 0) {
+      const right = i === block.correct;
+      onFirst({ right, confidence, idea: right ? null : block.misconceptions?.[i] ?? null });
+    }
     if (i === block.correct || next.length >= MAX_ATTEMPTS) onSolved();
   };
   const stateOf = (i: number): ChoiceState => {
@@ -159,6 +177,7 @@ export function CheckBlock({ block, onSolved }: { block: AiCheck; onSolved: () =
     <section className="flex flex-col gap-3" data-testid="block-check">
       <p className="m-0 text-[0.75rem] text-muted">{copy.lessonCheckYourself}</p>
       <BlockTitle>{block.question}</BlockTitle>
+      {tried.length === 0 ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null}
       <div className="flex flex-col gap-2" role="group" aria-label={block.question}>
         {block.options.map((option, i) => (
           <Choice key={i} state={stateOf(i)} disabled={done || tried.includes(i)} onClick={() => pick(i)}>
@@ -169,6 +188,8 @@ export function CheckBlock({ block, onSolved }: { block: AiCheck; onSolved: () =
       {last !== null ? (
         <Note tone={last === block.correct ? "good" : "miss"}>
           <strong>{last === block.correct ? copy.lessonRightAnswer : copy.lessonNotQuite}</strong> {block.feedback_per_option[last] ?? ""}
+          {idea ? ` ${copy.lessonIdeaBehind} ${idea}.` : ""}
+          {tried.length === 1 && last !== block.correct && confidence === "sure" ? ` ${copy.lessonSureButWrong}` : ""}
           {gaveUp ? ` ${copy.lessonAnswerShown} ${block.feedback_per_option[block.correct] ?? ""}` : ""}
         </Note>
       ) : null}

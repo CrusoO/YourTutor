@@ -51,6 +51,8 @@ export type AiPredict = {
   options?: string[];
   correct: number | null;
   reveal_after: string;
+  /** A short name for the idea behind each wrong option (null for the right one); may be empty. */
+  misconceptions?: (string | null)[];
 };
 export type AiExplain = { kind: "explain"; text: string; analogy?: string };
 export type AiCheck = {
@@ -60,6 +62,7 @@ export type AiCheck = {
   correct: number;
   feedback_per_option: string[];
   hint_ladder: string[];
+  misconceptions?: (string | null)[];
 };
 export type AiTransfer = { kind: "transfer"; scenario: string; question: string; model_answer: string };
 export type AiRecap = { kind: "recap"; three_bullets: string[]; spaced_review_question: string };
@@ -67,11 +70,20 @@ export type AiRecap = { kind: "recap"; three_bullets: string[]; spaced_review_qu
 export type AiBlock = AiHook | AiPredict | AiWidget | AiExplain | AiCheck | AiTransfer | AiRecap;
 export type AiLesson = { kind: "lesson"; level: string; objectives: string[]; blocks: AiBlock[] };
 
-export type LessonResult =
-  | AiLesson
+type LessonNotice =
   | { kind: "unavailable"; reason: string }
   | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
   | { kind: "empty" };
+
+export type LessonResult = AiLesson | LessonNotice;
+
+/** The first two blocks (a hook and a prediction), which arrive fast so the student can start. */
+export type LessonOpeningResult =
+  | { kind: "opening"; level: string; objectives: string[]; blocks: AiBlock[] }
+  | LessonNotice;
+
+/** The remaining blocks, written to follow the opening the student has already seen. */
+export type LessonRestResult = { kind: "rest"; blocks: AiBlock[] } | LessonNotice;
 
 /** A widget that is safe to draw, with its formulas already compiled. */
 export type RunnableWidget =
@@ -120,14 +132,9 @@ export function runWidget(widget: AiWidget): RunnableWidget | null {
 
 export type UsableBlock = { block: Exclude<AiBlock, AiWidget> } | { block: AiWidget; run: RunnableWidget };
 
-/**
- * The blocks a student will see, in order. A widget that cannot be drawn safely is removed; if what is
- * left no longer has enough to teach with (fewer than 3 blocks), the whole lesson is rejected so the
- * caller falls back to the written explanation.
- */
-export function usableBlocks(lesson: AiLesson): UsableBlock[] | null {
+function toUsable(blocks: AiBlock[]): UsableBlock[] {
   const out: UsableBlock[] = [];
-  for (const block of lesson.blocks) {
+  for (const block of blocks) {
     if (block.kind === "widget") {
       const run = runWidget(block);
       if (run) out.push({ block, run });
@@ -135,5 +142,27 @@ export function usableBlocks(lesson: AiLesson): UsableBlock[] | null {
       out.push({ block });
     }
   }
+  return out;
+}
+
+/** The opening is exactly a hook then a prediction; anything else is not an opening. */
+export function usableOpening(opening: { blocks: AiBlock[] }): UsableBlock[] | null {
+  const kinds = opening.blocks.map((b) => b.kind).join(",");
+  return kinds === "hook,predict" ? toUsable(opening.blocks) : null;
+}
+
+/** The blocks after the opening: at least three that can be drawn safely, ending with something to answer. */
+export function usableRest(blocks: AiBlock[]): UsableBlock[] | null {
+  const usable = toUsable(blocks.filter((b) => b.kind !== "hook"));
+  return usable.length >= 3 && usable.some((u) => u.block.kind === "check") ? usable : null;
+}
+
+/**
+ * The blocks a student will see, in order. A widget that cannot be drawn safely is removed; if what is
+ * left no longer has enough to teach with (fewer than 3 blocks), the whole lesson is rejected so the
+ * caller falls back to the written explanation.
+ */
+export function usableBlocks(lesson: AiLesson): UsableBlock[] | null {
+  const out = toUsable(lesson.blocks);
   return out.length >= 3 ? out : null;
 }

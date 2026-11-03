@@ -4,7 +4,7 @@ const API =
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
 import type { FinderRules } from "./chat/finder";
-import type { LessonResult } from "./lessons/ai-lesson";
+import type { AiBlock, LessonOpeningResult, LessonRestResult, LessonResult } from "./lessons/ai-lesson";
 import type { Lesson } from "./lessons/types";
 import { setLocale } from "./locale";
 
@@ -25,6 +25,8 @@ export type ActionPayload = {
   reason?: string | null;
   resumable?: boolean;
   extras?: Record<string, unknown>;
+  /** The formative grade of an explain-back (never part of mastery): good, partly or not_yet. */
+  grade?: string | null;
   session_type?: string;
   phase?: string;
   hint_level_shown?: number;
@@ -423,6 +425,16 @@ export async function explainQuestion(prompt: string, language: "en" | "hi"): Pr
 /** The question built as an interactive lesson: hook, predict, widgets, checks, recap (see lib/lessons/ai-lesson.ts). */
 export async function explainLesson(prompt: string, language: "en" | "hi"): Promise<LessonResult> {
   return req("/explain/lesson", { method: "POST", body: JSON.stringify({ prompt, language }) });
+}
+
+/** Just a hook and a prediction, fast, so the first question is on screen within seconds. */
+export async function explainLessonOpening(prompt: string, language: "en" | "hi"): Promise<LessonOpeningResult> {
+  return req("/explain/lesson/opening", { method: "POST", body: JSON.stringify({ prompt, language }) });
+}
+
+/** The rest of the lesson, written knowing the opening the student has already seen. */
+export async function explainLessonRest(prompt: string, language: "en" | "hi", opening: AiBlock[]): Promise<LessonRestResult> {
+  return req("/explain/lesson", { method: "POST", body: JSON.stringify({ prompt, language, opening }) });
 }
 
 export type TutorTurn = { role: "user" | "assistant"; content: string };

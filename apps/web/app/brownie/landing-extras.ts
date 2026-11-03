@@ -244,7 +244,7 @@ export const chatUi = {
   noteHelp: "This is only an example of a note. Nothing you press here is saved.",
   pickTopic: "Pick a situation",
   askNext: "How would you like it explained?",
-  tryOwn: "Try this with your own question",
+  tryOwn: "Ask your own question",
   stateLabels: { solid: "Solid", shaky: "Shaky", tried: "Noted" } satisfies Record<NoteState, string>,
 } as const;
 

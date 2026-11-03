@@ -14,7 +14,12 @@ from app.config import settings
 from app.explain import proof
 from app.explain.service import Gate, explain
 from app.explain.service_chat import build_chat
-from app.explain.service_lesson import build_lesson
+from app.explain.service_lesson import (
+    build_lesson,
+    build_opening,
+    build_rest,
+    clean_client_opening,
+)
 from app.explain.story import build_story
 
 router = APIRouter(prefix="/explain", tags=["explain"])
@@ -25,6 +30,11 @@ class ExplainIn(BaseModel):
 
     prompt: str = Field(max_length=2000)
     language: str = "en"
+
+
+class LessonIn(ExplainIn):
+    # The opening the student has already seen, sent back so the rest can follow from it.
+    opening: list[dict[str, Any]] | None = Field(default=None, max_length=4)
 
 
 class ChatMessage(BaseModel):
@@ -63,14 +73,8 @@ def explain_question(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[st
     return result
 
 
-@router.post("/lesson")
-def explain_lesson(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    """A student question compiled into structured interactive lesson blocks (JSON).
-
-    Returns {kind:"lesson", level, objectives,
-    blocks:[hook|predict|widget|explain|check|transfer|recap]}.
-    The same consent gate and safety screen as /explain apply.
-    """
+def _lesson_gate(db: DbSession, actor: ActorDep) -> tuple[Gate, bool]:
+    """The consent gate for any lesson call, and whether the caller is a guest."""
     if not actor.is_student or actor.student_id is None:
         raise FORBIDDEN
     guest = is_guest(db, actor.student_id)
@@ -79,8 +83,37 @@ def explain_lesson(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str,
         if guest
         else has_scope(db, actor.student_id, "ai_processing")
     )
-    gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
+    return Gate(enabled=settings.explain_enabled, allowed=allowed), guest
+
+
+@router.post("/lesson")
+def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """A student question compiled into structured interactive lesson blocks (JSON).
+
+    Without `opening`: returns {kind:"lesson", level, objectives,
+    blocks:[hook|predict|widget|explain|check|transfer|recap]}.
+    With the `opening` the student has already seen (from /explain/lesson/opening): returns
+    {kind:"rest", blocks:[...]}, the remaining blocks written to follow it.
+    The same consent gate and safety screen as /explain apply.
+    """
+    gate, guest = _lesson_gate(db, actor)
+    if body.opening is not None:
+        opening = clean_client_opening(body.opening)
+        if opening is None:
+            return {"kind": "unavailable", "reason": "bad_opening"}
+        return build_rest(body.prompt, body.language, opening, gate, restricted=not guest)
     return build_lesson(body.prompt, body.language, gate, restricted=not guest)
+
+
+@router.post("/lesson/opening")
+def explain_lesson_opening(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Just the first two blocks of a lesson (a hook and a prediction), fast.
+
+    Returns {kind:"opening", level, objectives, blocks:[hook, predict]}. The student can start at
+    once; the rest comes from /explain/lesson with this opening sent back.
+    """
+    gate, guest = _lesson_gate(db, actor)
+    return build_opening(body.prompt, body.language, gate, restricted=not guest)
 
 
 @router.post("/chat")

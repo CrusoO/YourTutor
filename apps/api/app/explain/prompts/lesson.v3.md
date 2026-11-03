@@ -23,6 +23,9 @@ predict
   free_text: boolean     true for open-ended; false or absent for multiple-choice
   correct: integer|null  0-based index of correct option; null when free_text is true
   reveal_after: string   explanation shown after the student commits, max 60 words
+  misconceptions: [string|null]   same length as options; for each WRONG option, a 3 to 8 word name for the
+                         idea behind it ("thinks a bigger bottom number means a bigger piece"); null for the
+                         correct option. Omit when free_text is true.
 
 widget
   widget_kind: string    one of: slider_sim | step_through | drag_sort | graph_explore | toggle_compare
@@ -39,6 +42,8 @@ check
   options: [string]      exactly 4 choices
   correct: integer       0-based index of the correct option
   feedback_per_option: [string]   exactly 4 items; one sentence each, naming the likely misconception for wrong answers and confirming the right one
+  misconceptions: [string|null]   exactly 4 items; for each WRONG option a 3 to 8 word name for the idea behind
+                         it; null for the correct option
   hint_ladder: [string, string, string]   3 escalating hints: (a) nudge, (b) narrow, (c) one worked step
 
 transfer

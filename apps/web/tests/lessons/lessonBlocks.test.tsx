@@ -7,7 +7,7 @@ const explainChat = vi.fn();
 vi.mock("@/lib/api", () => ({ explainChat: (...args: unknown[]) => explainChat(...args) }));
 
 import { LessonBlocks } from "@/components/chat/lesson/LessonBlocks";
-import { usableBlocks, type AiBlock } from "@/lib/lessons/ai-lesson";
+import { usableBlocks, usableOpening, usableRest, type AiBlock } from "@/lib/lessons/ai-lesson";
 
 const blocks = usableBlocks(LESSON)!;
 const cont = () => screen.getByTestId("lesson-continue");
@@ -50,7 +50,7 @@ describe("LessonBlocks", () => {
     expect(screen.getByTestId("block-predict")).toBeInTheDocument();
     expect(cont()).toBeDisabled();
     await userEvent.click(screen.getByRole("button", { name: "It appears on the other side" }));
-    expect(screen.getByText(/Not what most people expect/)).toBeInTheDocument();
+    expect(screen.getByText(/Lots of people guess that/)).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -58,7 +58,7 @@ describe("LessonBlocks", () => {
     render(<LessonBlocks blocks={blocks} prompt="q" language="en" />);
     await userEvent.click(cont());
     await userEvent.click(screen.getByRole("button", { name: "It rolls back" }));
-    expect(screen.getByText(/Your guess matched/)).toBeInTheDocument();
+    expect(screen.getByText(/Yep, you got it/)).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("lesson-skip"));
     expect(screen.getByTestId("block-check")).toBeInTheDocument();
   });
@@ -90,11 +90,11 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It rises" }));
     expect(screen.getByText(/Thicker means less wave gets through/)).toBeInTheDocument();
     expect(cont()).toBeDisabled();
-    await userEvent.click(screen.getByRole("button", { name: "Give me a hint" }));
+    await userEvent.click(screen.getByRole("button", { name: "Help me" }));
     expect(screen.getByText(/Think about the wave inside the wall/)).toBeInTheDocument();
     expect(screen.queryByText(/The wave shrinks as it goes deeper/)).toBeNull();
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
-    expect(screen.getByText("That is right.")).toBeInTheDocument();
+    expect(screen.getByText("Yes, exactly.")).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -106,7 +106,7 @@ describe("LessonBlocks", () => {
     for (const wrong of ["It rises", "It stays the same", "It becomes certain"]) {
       await userEvent.click(screen.getByRole("button", { name: wrong }));
     }
-    expect(screen.getByText(/Here is the answer/)).toBeInTheDocument();
+    expect(screen.getByText(/Here's the answer/)).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -117,8 +117,8 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByTestId("lesson-skip"));
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
     await userEvent.click(cont());
-    await userEvent.type(screen.getByLabelText("Write your answer"), "Nuclei tunnel");
-    await userEvent.click(screen.getByRole("button", { name: "Show a model answer" }));
+    await userEvent.type(screen.getByLabelText("Type your answer"), "Nuclei tunnel");
+    await userEvent.click(screen.getByRole("button", { name: "See a sample answer" }));
     await userEvent.click(cont());
   }
 
@@ -153,6 +153,34 @@ describe("LessonBlocks", () => {
     await toEnd();
     await userEvent.type(screen.getByTestId("ask-about-input"), "hello");
     await userEvent.click(screen.getByRole("button", { name: "Ask" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("could not answer");
+    expect(await screen.findByRole("alert")).toHaveTextContent("I couldn't answer");
+  });
+});
+
+
+describe("usableOpening and usableRest", () => {
+  const [hook, predict, widget, explain, check, transfer, recap] = LESSON.blocks as [
+    AiBlock, AiBlock, AiBlock, AiBlock, AiBlock, AiBlock, AiBlock,
+  ];
+
+  it("accepts exactly a hook then a prediction as an opening", () => {
+    expect(usableOpening({ blocks: [hook, predict] })?.map((b) => b.block.kind)).toEqual(["hook", "predict"]);
+    for (const blocks of [[hook], [predict, hook], [hook, predict, explain], [explain, check]]) {
+      expect(usableOpening({ blocks })).toBeNull();
+    }
+  });
+
+  it("accepts a rest of at least three drawable blocks that includes a check, and drops a second hook", () => {
+    const usable = usableRest([hook, widget, explain, check, transfer, recap]);
+    expect(usable?.map((b) => b.block.kind)).toEqual(["widget", "explain", "check", "transfer", "recap"]);
+  });
+
+  it("rejects a rest that is too short, has no check, or loses its widget and falls below three", () => {
+    expect(usableRest([explain, check])).toBeNull();
+    expect(usableRest([widget, explain, transfer, recap])).toBeNull();
+    const broken = { ...(widget as Extract<AiBlock, { widget_kind: "slider_sim" }>) };
+    broken.spec = { ...broken.spec, formula: "alert(1)" };
+    expect(usableRest([broken, check, recap])).toBeNull(); // the widget is dropped, two are left
+    expect(usableRest([broken, explain, check, recap])?.map((b) => b.block.kind)).toEqual(["explain", "check", "recap"]);
   });
 });

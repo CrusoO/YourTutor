@@ -48,6 +48,13 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
+from app.player.signals import (
+    CORRECTION_EVENT,
+    clean_correction,
+    clean_signals,
+    public_diagnosis,
+    record_misconception_hit,
+)
 from app.registries.grade_bands import SessionLimits, session_limits, ui_for_grade
 
 GOAL_MS = (
@@ -779,6 +786,24 @@ def apply_player_event(
         view["session_id"] = str(row.id)
         view["duplicate"] = True
         return view
+    if event_type == CORRECTION_EVENT:
+        # "That's not why": the learner disagreed with the explanation shown. Kept as evidence; it
+        # changes no state, so the session carries on exactly where it was.
+        session.add(
+            EventRow(
+                id=uuid.uuid4(),
+                client_event_id=client_event_id,
+                session_id=row.id,
+                item_id=item_id,
+                event_type=CORRECTION_EVENT,
+                payload=clean_correction(payload),
+                created_at=now_utc(),
+            )
+        )
+        view = session_view(session, actor, row)
+        view["session_id"] = str(row.id)
+        view["duplicate"] = False
+        return view
     if event_type == "explain_back":
         from app.ask.config import message
         from app.safety import is_distress, raise_distress, strip_pii
@@ -822,6 +847,7 @@ def apply_player_event(
         return _apply_lesson_event(
             session, row, student, state, event_type, payload, client_event_id
         )
+    payload = clean_signals(event_type, payload)
     response = str(payload.get("response")) if payload.get("response") is not None else None
     if event_type in {"stuck_choice", "break_choice"}:
         response = str(payload.get("choice") or "")
@@ -848,6 +874,15 @@ def apply_player_event(
         student_text=event.text or event.response if event_type == "explain_back" else None,
     )
     persist_learner(session, student.id, learner)
+    record_misconception_hit(
+        session,
+        student.id,
+        event_type,
+        state,
+        action.misconception_id,
+        item_id or action.item_id,
+        state.now,
+    )
     sync_alerts(session, student, state, learner)
     was_open = row.ended_at is None
     _persist_state(row, state)
@@ -876,6 +911,9 @@ def apply_player_event(
         run_for_ended_session(session, row)  # shadow only; off unless LOOP_B_ENABLED
     locale = student.home_language or "en"
     enriched = enrich_action(session, state, action, locale)
+    why = public_diagnosis(event_type, state, enriched.get("extras") or {}, action.misconception_id)
+    if why:
+        enriched.setdefault("extras", {})["diagnosis"] = why
     _attach_summary(session, student, row, enriched)
     return {
         "session_id": str(row.id),
