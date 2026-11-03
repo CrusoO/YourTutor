@@ -74,7 +74,7 @@ describe("WhyWrong", () => {
     expect(onNotWhy).toHaveBeenCalledTimes(1);
     expect(onNotWhy).toHaveBeenCalledWith("slip");
     expect(screen.queryByTestId("not-why")).toBeNull();
-    expect(screen.getByRole("status")).toHaveTextContent("Thanks. Noted.");
+    expect(screen.getByRole("status")).toHaveTextContent("Got it, thanks.");
   });
 });
 

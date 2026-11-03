@@ -50,7 +50,7 @@ describe("LessonBlocks", () => {
     expect(screen.getByTestId("block-predict")).toBeInTheDocument();
     expect(cont()).toBeDisabled();
     await userEvent.click(screen.getByRole("button", { name: "It appears on the other side" }));
-    expect(screen.getByText(/Not what most people expect/)).toBeInTheDocument();
+    expect(screen.getByText(/Most people guess that/)).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -58,7 +58,7 @@ describe("LessonBlocks", () => {
     render(<LessonBlocks blocks={blocks} prompt="q" language="en" />);
     await userEvent.click(cont());
     await userEvent.click(screen.getByRole("button", { name: "It rolls back" }));
-    expect(screen.getByText(/Your guess matched/)).toBeInTheDocument();
+    expect(screen.getByText(/Nice, you guessed it/)).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("lesson-skip"));
     expect(screen.getByTestId("block-check")).toBeInTheDocument();
   });
@@ -90,11 +90,11 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It rises" }));
     expect(screen.getByText(/Thicker means less wave gets through/)).toBeInTheDocument();
     expect(cont()).toBeDisabled();
-    await userEvent.click(screen.getByRole("button", { name: "Give me a hint" }));
+    await userEvent.click(screen.getByRole("button", { name: "Nudge me" }));
     expect(screen.getByText(/Think about the wave inside the wall/)).toBeInTheDocument();
     expect(screen.queryByText(/The wave shrinks as it goes deeper/)).toBeNull();
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
-    expect(screen.getByText("That is right.")).toBeInTheDocument();
+    expect(screen.getByText("Yes, that's it.")).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -117,8 +117,8 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByTestId("lesson-skip"));
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
     await userEvent.click(cont());
-    await userEvent.type(screen.getByLabelText("Write your answer"), "Nuclei tunnel");
-    await userEvent.click(screen.getByRole("button", { name: "Show a model answer" }));
+    await userEvent.type(screen.getByLabelText("Type your answer"), "Nuclei tunnel");
+    await userEvent.click(screen.getByRole("button", { name: "See a good answer" }));
     await userEvent.click(cont());
   }
 
@@ -153,6 +153,6 @@ describe("LessonBlocks", () => {
     await toEnd();
     await userEvent.type(screen.getByTestId("ask-about-input"), "hello");
     await userEvent.click(screen.getByRole("button", { name: "Ask" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("could not answer");
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't answer");
   });
 });

@@ -40,7 +40,7 @@ describe("LessonView leaving the lesson", () => {
     render(<LessonView />);
     const top = screen.getByTestId("lesson-new-top");
     const end = screen.getByTestId("lesson-new");
-    expect(top).toHaveTextContent("New question");
+    expect(top).toHaveTextContent("Ask another");
     expect(end).toHaveTextContent("Ask something else");
     await userEvent.click(top);
     await userEvent.click(end);
