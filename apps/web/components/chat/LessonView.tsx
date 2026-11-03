@@ -7,6 +7,7 @@ import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainLesson
 import { usableBlocks, usableOpening, usableRest, type LessonOpeningResult, type LessonResult, type LessonRestResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
+import { ShareLesson } from "./lesson/ShareLesson";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
 import { useChatApi } from "./ChatProvider";
@@ -396,10 +397,13 @@ function LessonBody({ prompt }: { prompt: string }) {
             pending={rest === "pending"}
             restFailed={rest === "failed"}
             footer={
-              <div>
-                <Button onClick={closeLesson} data-testid="lesson-new">
-                  {copy.lessonAskElse}
-                </Button>
+              <div className="flex flex-col gap-4">
+                <ShareLesson prompt={prompt} />
+                <div>
+                  <Button onClick={closeLesson} data-testid="lesson-new">
+                    {copy.lessonAskElse}
+                  </Button>
+                </div>
               </div>
             }
           />

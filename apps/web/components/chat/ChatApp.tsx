@@ -12,6 +12,7 @@ import { locale } from "@/lib/api";
 import { dismissTip, tipDismissed } from "@/lib/chat/device";
 import { greeting } from "@/lib/chat/greeting";
 import { messageText } from "@/lib/chat/labels";
+import { useLinkStart } from "@/lib/chat/useLinkStart";
 import { ChatProvider, useChatApi } from "./ChatProvider";
 import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
@@ -117,6 +118,9 @@ function Shell() {
   });
 
   const hero = chat.phase === "welcome" || chat.phase === "home";
+
+  // A shared link (/brownie-chat?topic=...) opens straight into a lesson on that question.
+  useLinkStart({ role: api.role, identityReady: api.identityReady, contextReady: api.ctx, lessonOpen: Boolean(lesson), submitText });
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
