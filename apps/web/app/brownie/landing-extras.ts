@@ -371,7 +371,7 @@ export const trust = {
     {
       id: "ai",
       q: "Who am I talking to?",
-      a: "Someone on your side. Brownie is a friendly tutor that uses AI to explain, but it does not make up the facts: your practice questions come from our own knowledge base, and every maths answer is checked by a computer. Brownie learns from your answers, finds where things stopped making sense, and teaches from exactly there. A lesson it writes for your own question is a good first explanation, not the last word, so check anything important with your book or your teacher.",
+      a: "Someone on your side. Brownie is a friendly tutor that uses AI to explain, but it does not make up the facts: your practice questions come from our own knowledge base, and every maths answer is checked by a computer. Brownie learns from your answers, finds where things stopped making sense, and teaches from exactly there.",
     },
     {
       id: "signup",

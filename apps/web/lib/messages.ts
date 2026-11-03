@@ -402,7 +402,7 @@ const en = {
   lessonNewQuestion: "Try another question",
   lessonStep: "Step",
   lessonOf: "of",
-  lessonDraftNote: "Brownie is an AI and wrote this for your question. It can make mistakes, so check anything important with a teacher or a book.",
+  lessonDraftNote: "Brownie is an AI and wrote this for your question. It can make mistakes, so check anything important with a source you trust.",
   lessonPickFirst: "Go on, take a guess.",
   lessonHoldGuess: "Hold on to that guess.",
   lessonIdeaBehind: "The idea behind that:",
