@@ -130,7 +130,8 @@ def test_a_prerequisite_gap_answer_probes_the_prerequisite_then_changes_the_view
     play = Play(client, g2b_world)
     probe = play.send("answer", response="-2", latency_ms=9000)
     assert probe["type"] == "show_item" and probe["skill_id"] == "SK.P"
-    assert probe["extras"] == {"probe": True, "for_skill": "SK.A"}
+    assert probe["extras"]["probe"] is True and probe["extras"]["for_skill"] == "SK.A"
+    assert probe["extras"]["diagnosis"] == {"class": "prerequisite_gap"}  # what the learner is told
     assert probe["rule_id"] == "R33"
     assert probe["can_request_help"] is False and probe["can_show_solution"] is False
     shown = play.send(
