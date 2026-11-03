@@ -50,7 +50,7 @@ describe("WhyWrong", () => {
   afterEach(cleanup);
 
   it.each([
-    ["misconception", "A common idea"],
+    ["misconception", "common idea"],
     ["slip", "small slip"],
     ["prerequisite_gap", "earlier idea"],
     ["incomplete_procedure", "one step early"],
@@ -74,7 +74,7 @@ describe("WhyWrong", () => {
     expect(onNotWhy).toHaveBeenCalledTimes(1);
     expect(onNotWhy).toHaveBeenCalledWith("slip");
     expect(screen.queryByTestId("not-why")).toBeNull();
-    expect(screen.getByRole("status")).toHaveTextContent("Got it, thanks.");
+    expect(screen.getByRole("status")).toHaveTextContent("Okay, thanks for telling me.");
   });
 });
 
@@ -82,8 +82,8 @@ describe("ExplainGrade", () => {
   afterEach(cleanup);
 
   it.each([
-    ["good", "Clear"],
-    ["partly", "Partly there"],
+    ["good", "main idea"],
+    ["partly", "partway there"],
     ["not_yet", "Not yet"],
   ])("shows the %s grade in words", (grade, words) => {
     render(<ExplainGrade copy={copy} grade={grade} />);
@@ -204,7 +204,7 @@ describe("SessionPage signals", () => {
 
   it("shows the explain-back grade and the explanation together", async () => {
     await open(actionFixture("explain_back_result", { text: "Thanks for explaining.", grade: "partly" }));
-    expect(screen.getByTestId("explain-grade")).toHaveTextContent("Partly there");
+    expect(screen.getByTestId("explain-grade")).toHaveTextContent("partway there");
     expect(screen.getByText("Thanks for explaining.")).toBeInTheDocument();
   });
 });

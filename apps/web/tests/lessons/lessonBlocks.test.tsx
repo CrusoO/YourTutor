@@ -50,7 +50,7 @@ describe("LessonBlocks", () => {
     expect(screen.getByTestId("block-predict")).toBeInTheDocument();
     expect(cont()).toBeDisabled();
     await userEvent.click(screen.getByRole("button", { name: "It appears on the other side" }));
-    expect(screen.getByText(/Most people guess that/)).toBeInTheDocument();
+    expect(screen.getByText(/Lots of people guess that/)).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -58,7 +58,7 @@ describe("LessonBlocks", () => {
     render(<LessonBlocks blocks={blocks} prompt="q" language="en" />);
     await userEvent.click(cont());
     await userEvent.click(screen.getByRole("button", { name: "It rolls back" }));
-    expect(screen.getByText(/Nice, you guessed it/)).toBeInTheDocument();
+    expect(screen.getByText(/Yep, you got it/)).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("lesson-skip"));
     expect(screen.getByTestId("block-check")).toBeInTheDocument();
   });
@@ -90,11 +90,11 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It rises" }));
     expect(screen.getByText(/Thicker means less wave gets through/)).toBeInTheDocument();
     expect(cont()).toBeDisabled();
-    await userEvent.click(screen.getByRole("button", { name: "Nudge me" }));
+    await userEvent.click(screen.getByRole("button", { name: "Give me a little help" }));
     expect(screen.getByText(/Think about the wave inside the wall/)).toBeInTheDocument();
     expect(screen.queryByText(/The wave shrinks as it goes deeper/)).toBeNull();
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
-    expect(screen.getByText("Yes, that's it.")).toBeInTheDocument();
+    expect(screen.getByText("Yes, exactly.")).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -106,7 +106,7 @@ describe("LessonBlocks", () => {
     for (const wrong of ["It rises", "It stays the same", "It becomes certain"]) {
       await userEvent.click(screen.getByRole("button", { name: wrong }));
     }
-    expect(screen.getByText(/Here is the answer/)).toBeInTheDocument();
+    expect(screen.getByText(/Here's the answer/)).toBeInTheDocument();
     expect(cont()).toBeEnabled();
   });
 
@@ -118,7 +118,7 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
     await userEvent.click(cont());
     await userEvent.type(screen.getByLabelText("Type your answer"), "Nuclei tunnel");
-    await userEvent.click(screen.getByRole("button", { name: "See a good answer" }));
+    await userEvent.click(screen.getByRole("button", { name: "Show me how you'd say it" }));
     await userEvent.click(cont());
   }
 
@@ -153,6 +153,6 @@ describe("LessonBlocks", () => {
     await toEnd();
     await userEvent.type(screen.getByTestId("ask-about-input"), "hello");
     await userEvent.click(screen.getByRole("button", { name: "Ask" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't answer");
+    expect(await screen.findByRole("alert")).toHaveTextContent("I couldn't answer");
   });
 });
