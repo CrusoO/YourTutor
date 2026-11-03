@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainLessonOpening, explainLessonRest, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
+import { clearLessonRecords, createSourceVideoJob, keepLessonRecords, createStoryVideoJob, explainLesson, explainLessonOpening, explainLessonRest, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
 import { usableBlocks, usableOpening, usableRest, type LessonOpeningResult, type LessonResult, type LessonRestResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
@@ -128,7 +128,7 @@ function VideoSection({ video, onRetry }: { video: VideoState; onRetry: () => vo
 
 function LessonBody({ prompt }: { prompt: string }) {
   const copy = useCopy();
-  const { closeLesson: closeLessonView } = useChatApi();
+  const { closeLesson: closeLessonView, identity } = useChatApi();
   const heading = useRef<HTMLParagraphElement>(null);
   // The ask box is hidden during a lesson, so leaving it must put the cursor back in the box that returns.
   const closeLesson = () => {
@@ -397,6 +397,7 @@ function LessonBody({ prompt }: { prompt: string }) {
             language={language.current}
             pending={rest === "pending"}
             restFailed={rest === "failed"}
+            keep={identity?.role === "student" ? { save: keepLessonRecords, clear: clearLessonRecords } : undefined}
             footer={
               <div className="flex flex-col gap-4">
                 <ShareLesson prompt={prompt} />

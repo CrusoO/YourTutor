@@ -499,6 +499,15 @@ export async function explainChat(prompt: string, language: "en" | "hi", history
   return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
 }
 
+/** The learning card a signed-in learner chose to keep in their account (a guest is refused). */
+export async function keepLessonRecords(records: unknown[]): Promise<{ saved: number }> {
+  return req("/students/me/lesson-records", { method: "POST", body: JSON.stringify({ records }) });
+}
+
+export async function clearLessonRecords(): Promise<{ cleared: boolean }> {
+  return req("/students/me/lesson-records", { method: "DELETE" });
+}
+
 export async function getVideoJob(jobId: string): Promise<VideoJob> {
   return req(`/video-jobs/${jobId}`);
 }
