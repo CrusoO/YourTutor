@@ -59,6 +59,8 @@ class LadderEvent:
     role: str = "procedure"
     structure: str = ""
     latency_ms: int | None = None
+    # "unsure" marks a right answer that was a hunch. Empty when the rule is off or unsaid.
+    confidence: str = ""
 
 
 @dataclass
@@ -182,18 +184,23 @@ def apply_ladder_event(
         ladder.seen.append(event.item_id)
         if event.kind == KIND_HINT:
             ladder.hinted.append(event.item_id)
+    # A right first answer that the learner called a guess is fragile, not evidence: it neither
+    # counts as unhinted-correct nor breaks a streak or a review (see `_first_attempt`).
+    fragile = (
+        first and event.kind == KIND_ANSWER and bool(event.correct) and event.confidence == "unsure"
+    )
     unhinted_correct_first = (
-        first and event.kind == KIND_ANSWER and bool(event.correct)
+        first and event.kind == KIND_ANSWER and bool(event.correct) and not fragile
     )  # a hint request is the first event on a hinted item, so it never gets here
 
     if first:
-        _first_attempt(ladder, event, p_known, unhinted_correct_first, achieved_before)
+        _first_attempt(ladder, event, p_known, unhinted_correct_first, achieved_before, fragile)
     if event.kind == KIND_ANSWER and event.correct:
         if event.role == "procedure":
             _achieve(ladder, 3, [event.event_id])
         if lesson_level1_reached(ladder, event):
             _achieve(ladder, 1, [event.event_id])
-    if first and event.pool == "warmup":
+    if first and event.pool == "warmup" and not fragile:
         _review(ladder, event, previous_practice, review_correct=unhinted_correct_first)
     ladder.last_practice_at = event.at
     _retention_level(ladder)
@@ -206,6 +213,7 @@ def _first_attempt(
     p_known: float,
     unhinted_correct: bool,
     achieved_before: set[int],
+    fragile: bool = False,
 ) -> None:
     if unhinted_correct and event.role == "explain":
         _achieve(ladder, 2, [event.event_id])
@@ -213,7 +221,7 @@ def _first_attempt(
         _achieve(ladder, 5, [event.event_id], event.at)
     if unhinted_correct and event.role == "transfer" and 5 in achieved_before:
         _achieve(ladder, 6, [event.event_id])
-    if event.role in STREAK_ROLES:
+    if event.role in STREAK_ROLES and not fragile:
         if unhinted_correct:
             ladder.run = [*ladder.run, (event.event_id, event.structure)][-STREAK_LENGTH:]
         else:

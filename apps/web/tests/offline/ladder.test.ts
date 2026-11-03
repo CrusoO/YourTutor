@@ -18,12 +18,13 @@ function events(raw: Record<string, unknown>[]): LadderEvent[] {
     pool: (row.pool as string | undefined) ?? "practice",
     role: (row.role as string | undefined) ?? "procedure",
     structure: (row.structure as string | undefined) ?? "",
+    confidence: (row.confidence as string | undefined) ?? "",
   }));
 }
 
 describe("ladder fixtures shared with Python", () => {
   it("has the fixtures", () => {
-    expect(files.length).toBeGreaterThanOrEqual(14);
+    expect(files.length).toBeGreaterThanOrEqual(17);
   });
   for (const file of files) {
     it(file, () => {

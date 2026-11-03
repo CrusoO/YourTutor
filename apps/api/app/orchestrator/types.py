@@ -70,6 +70,8 @@ class Event:
     idle_ms: int | None = None
     text: str | None = None
     event_id: str | None = None
+    # "sure" or "unsure", only when the deployment uses it (CONFIDENCE_RULES); otherwise None.
+    confidence: str | None = None
 
 
 @dataclass

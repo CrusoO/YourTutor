@@ -862,6 +862,7 @@ def apply_player_event(
         idle_ms=payload.get("idle_ms"),
         text=payload.get("text"),
         event_id=str(client_event_id),
+        confidence=payload.get("confidence") if settings.confidence_rules else None,
     )
     action = policy(learner, state, event)
     action = personalise_action(

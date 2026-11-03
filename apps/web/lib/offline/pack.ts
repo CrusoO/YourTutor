@@ -26,6 +26,8 @@ export type PackLearner = {
 export type Pack = {
   version: number;
   hash: string;
+  /** Whether the server counts a right answer called a guess as neither evidence nor a miss. */
+  confidence_rules?: boolean;
   student_id?: string;
   chapter_id?: string | null;
   overlay: string[];
@@ -111,7 +113,7 @@ export type SyncEvent = {
   payload: Record<string, unknown>;
 };
 
-export function policyEventFor(event: SyncEvent): PolicyEvent {
+export function policyEventFor(event: SyncEvent, confidenceRules = false): PolicyEvent {
   const payload = event.payload ?? {};
   let response: string | null =
     payload.response !== undefined && payload.response !== null ? String(payload.response) : null;
@@ -129,5 +131,6 @@ export function policyEventFor(event: SyncEvent): PolicyEvent {
     idle_ms: (payload.idle_ms as number | undefined) ?? null,
     text: (payload.text as string | undefined) ?? null,
     event_id: event.client_event_id,
+    confidence: confidenceRules ? ((payload.confidence as string | undefined) ?? null) : null,
   };
 }
