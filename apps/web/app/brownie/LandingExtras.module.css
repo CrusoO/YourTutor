@@ -518,13 +518,67 @@
   line-height: 1.65;
 }
 
-.pendingTag {
-  margin-left: 10px;
-  color: var(--brownie-red);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.howSection {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+  margin: clamp(48px, 8vw, 96px) auto;
+  padding-inline: clamp(0px, 2vw, 24px);
+}
+
+.howSteps {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.howStep {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--brownie-line);
+}
+
+.howStep:last-child {
+  border-bottom: 1px solid var(--brownie-line);
+}
+
+.howNumber {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--brownie-line);
+  border-radius: 50%;
+  color: var(--brownie-blue);
+  font-size: 14px;
+}
+
+.howStep h3,
+.soonList h3 {
+  margin: 0 0 6px;
+  color: var(--brownie-ink);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.howStep p,
+.soonList p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--brownie-mute);
+  line-height: 1.65;
+}
+
+.soonList {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 /* ── small screens ──────────────────────────────────────────────────────────────────────────────── */

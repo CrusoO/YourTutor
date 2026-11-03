@@ -10,7 +10,7 @@ import {
   RobinOpening,
 } from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
-import { GuessChat, LearningMapView, TrustStrip, VideoDemos } from "./LandingExtras";
+import { ComingSoon, GuessChat, HowItWorks, LearningMapView, TrustStrip, VideoDemos } from "./LandingExtras";
 import { heroExtras, learningMap, videoUi, type SettingId, type StoryBeatId } from "./landing-extras";
 import { StoryArt } from "./StoryArt";
 import styles from "./BrownieLanding.module.css";
@@ -160,24 +160,11 @@ function LandingPageContent() {
               <a className={styles.ghostButton} href="#chapter-one">{copy.hero.readStory}</a>
             </div>
             <div className={styles.exploreMessage}>
-              <p>{copy.hero.explore}</p>
               <span>{english ? heroExtras.note : copy.hero.exploreNote}</span>
             </div>
           </div>
         </div>
       </header>
-
-      <section className={`${styles.section} ${styles.hook}`} aria-labelledby="hook-title">
-        <h2 id="hook-title">
-          {copy.hook.firstLine}<br />
-          <em>{copy.hook.secondLine}</em>
-        </h2>
-        <p>{copy.hook.body}</p>
-        <div className={styles.actions}>
-          <a className={styles.primaryButton} href="#chapter-two">{copy.hook.seeHow}</a>
-          <a className={styles.ghostButton} href="#demo">{copy.hook.watchDemo}</a>
-        </div>
-      </section>
 
       <div className={styles.story} aria-label={copy.accessibility.chapters}>
         <section id="chapter-one" className={`${styles.chapter} ${styles.chapterStory}`} aria-labelledby="chapter-one-title">
@@ -271,7 +258,11 @@ function LandingPageContent() {
         </section>
       </div>
 
+      {english ? <HowItWorks /> : null}
+
       {english ? <TrustStrip /> : null}
+
+      {english ? <ComingSoon /> : null}
 
       <BrownieFeedback />
 

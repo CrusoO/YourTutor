@@ -78,7 +78,7 @@ describe("the landing page in English", () => {
     await userEvent.click(within(chat).getByTestId(`demo-choice-${wrong.id}`));
     expect(within(chat).getByTestId("demo-misconception")).toHaveTextContent("The idea that slipped");
     expect(within(chat).getByTestId("demo-reply")).toHaveTextContent(wrong.reply);
-    expect(within(chat).getByTestId("demo-note-0")).toHaveTextContent("Shaky");
+    expect(within(chat).getByTestId("demo-note-0")).toHaveTextContent("Needs another look");
     expect(within(chat).getByTestId("demo-note-0")).toHaveTextContent(wrong.note.evidence);
     expect(within(chat).queryByTestId(`demo-choice-${wrong.id}`)).toBeNull();
   });
@@ -90,7 +90,7 @@ describe("the landing page in English", () => {
     const right = scenario.diagnostic.choices.find((c) => c.correct)!;
     await userEvent.click(within(chat).getByTestId(`demo-choice-${right.id}`));
     expect(within(chat).queryByTestId("demo-misconception")).toBeNull();
-    expect(within(chat).getByTestId("demo-note-0")).toHaveTextContent("Solid");
+    expect(within(chat).getByTestId("demo-note-0")).toHaveTextContent("Got it");
 
     await userEvent.click(within(chat).getByRole("button", { name: "Show me with pieces" }));
     expect(within(chat).getByTestId("demo-follow-up-first")).toHaveTextContent("3/6 + 2/6 = 5/6");
@@ -123,8 +123,8 @@ describe("the landing page in English", () => {
   it("shows the learning map as states with evidence, never a percentage", () => {
     render(<BrownieLanding />);
     const map = screen.getByTestId("learning-map");
-    expect(map).toHaveTextContent("Shaky");
-    expect(map).toHaveTextContent("Not yet seen");
+    expect(map).toHaveTextContent("Needs another look");
+    expect(map).toHaveTextContent("Not tried yet");
     expect(map).toHaveTextContent("3 of 5 right");
     expect(map.textContent).not.toMatch(/%/);
   });
@@ -143,13 +143,29 @@ describe("the landing page in English", () => {
     expect(await screen.findByText("Choose video")).toBeInTheDocument();
   });
 
-  it("answers the five doubts and marks the two answers that still need approval", () => {
+  it("says in order what Brownie looks at, once, and that it is only an estimate", () => {
+    render(<BrownieLanding />);
+    const how = screen.getByTestId("how-it-works");
+    for (const id of ["ask", "read", "teach", "check", "show"]) expect(within(how).getByTestId(`how-${id}`)).toBeInTheDocument();
+    expect(how).toHaveTextContent("it can be wrong");
+    // the promise is said once: the old second opening section is gone
+    expect(screen.queryByText("Everyone is taught one way.")).toBeNull();
+  });
+
+  it("is honest about the languages that are not here yet, and says sorry", () => {
+    render(<BrownieLanding />);
+    const soon = screen.getByTestId("coming-soon");
+    expect(soon).toHaveTextContent("We are sorry");
+    expect(within(soon).getByTestId("soon-languages")).toHaveTextContent("Nepali lessons are not here yet");
+  });
+
+  it("answers the five doubts without any placeholder wording", () => {
     render(<BrownieLanding />);
     const section = screen.getByTestId("trust");
     for (const item of trust.items) {
       expect(within(section).getByTestId(`trust-${item.id}`)).toHaveTextContent(item.q);
     }
-    expect(within(section).getAllByText(trust.pendingNote)).toHaveLength(2);
+    expect(section).not.toHaveTextContent(/to be confirmed/i);
   });
 });
 

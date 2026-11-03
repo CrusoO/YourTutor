@@ -5,6 +5,8 @@ import { ask, guess, notesFor, pickedChoice, remaining, START, type DemoState } 
 import {
   chatScenarios,
   chatUi,
+  comingSoon,
+  howItWorks,
   learningMap,
   trust,
   videoDemos,
@@ -284,7 +286,53 @@ export function VideoDemos() {
   );
 }
 
-/** Plain answers to the doubts a visitor has. Wording still awaiting approval is marked, not hidden. */
+/** What Brownie looks at and what it does with it, step by step, so the promise "finds out first" can be checked. */
+export function HowItWorks() {
+  return (
+    <section className={x.howSection} aria-labelledby="how-title" data-testid="how-it-works">
+      <h2 id="how-title" className={x.trustTitle}>
+        {howItWorks.title}
+      </h2>
+      <p className={x.trustIntro}>{howItWorks.intro}</p>
+      <ol className={x.howSteps}>
+        {howItWorks.steps.map((step, index) => (
+          <li key={step.id} className={x.howStep} data-testid={`how-${step.id}`}>
+            <span className={x.howNumber} aria-hidden="true">
+              {index + 1}
+            </span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className={x.noteHelp}>{howItWorks.limits}</p>
+    </section>
+  );
+}
+
+/** What is not here yet, with an apology for the language gap. */
+export function ComingSoon() {
+  return (
+    <section className={x.trustSection} aria-labelledby="soon-title" data-testid="coming-soon">
+      <h2 id="soon-title" className={x.trustTitle}>
+        {comingSoon.title}
+      </h2>
+      <p className={x.trustIntro}>{comingSoon.apology}</p>
+      <ul className={x.soonList}>
+        {comingSoon.items.map((item) => (
+          <li key={item.id} data-testid={`soon-${item.id}`}>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Plain answers to the doubts a visitor has. */
 export function TrustStrip() {
   return (
     <section className={x.trustSection} aria-labelledby="trust-title" data-testid="trust">
@@ -297,10 +345,7 @@ export function TrustStrip() {
           <li key={item.id} className={x.trustRow}>
             <details className={x.trustItem} data-testid={`trust-${item.id}`}>
               <summary>
-                <span>
-                  {item.q}
-                  {"pending" in item && item.pending ? <span className={x.pendingTag}>{trust.pendingNote}</span> : null}
-                </span>
+                <span>{item.q}</span>
               </summary>
               <p>{item.a}</p>
             </details>

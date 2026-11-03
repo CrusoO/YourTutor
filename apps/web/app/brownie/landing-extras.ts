@@ -8,8 +8,8 @@
 
 export const heroExtras = {
   description:
-    "Stuck on something? Ask. Brownie starts with one small question to see where you are, then explains from there, with a picture, steps or a real example, whichever works for you. Get it wrong and that is useful: Brownie shows you the exact idea that slipped.",
-  note: "No sign-up needed to try it. Brownie is an AI and can make mistakes, and it says so.",
+    "Stuck on something? Ask. Brownie starts with one small question, then teaches the way that works for you. Get it wrong and that is useful: it shows you the idea that slipped.",
+  note: "No sign-up needed. Brownie is an AI and can make mistakes.",
 } as const;
 
 // ── the story: one picture per beat, drawn for the setting the reader chose ───────────────────────
@@ -245,7 +245,7 @@ export const chatUi = {
   pickTopic: "Pick a situation",
   askNext: "How would you like it explained?",
   tryOwn: "Ask your own question",
-  stateLabels: { solid: "Solid", shaky: "Shaky", tried: "Noted" } satisfies Record<NoteState, string>,
+  stateLabels: { solid: "Got it", shaky: "Needs another look", tried: "Noted" } satisfies Record<NoteState, string>,
 } as const;
 
 // ── the learning map: states and evidence, never a probability ───────────────────────────────────
@@ -253,9 +253,9 @@ export const chatUi = {
 export const learningMap = {
   title: "WHAT BROWNIE HAS SEEN",
   label: "EXAMPLE",
-  lead: "Every answer adds to a map of what Robin knows, what is shaky and what has not been tried. Each state comes with the evidence behind it.",
+  lead: "Each answer adds to a picture of what Robin knows, what needs another look and what has not been tried, with the evidence behind each. It is an estimate from a few answers, so it can be wrong.",
   caveat: "An example, not a real person. The map a signed-in learner sees comes from their own answers.",
-  states: { solid: "Solid", shaky: "Shaky", unseen: "Not yet seen" },
+  states: { solid: "Got it", shaky: "Needs another look", unseen: "Not tried yet" },
   topics: [
     { id: "linear", name: "Linear equations", state: "solid", evidence: "Last 5 answers right, none needed a hint" },
     { id: "quadratic", name: "Quadratic equations", state: "shaky", evidence: "3 of 5 right; slips when a sign changes" },
@@ -327,6 +327,41 @@ export const videoUi = {
   soon: "Example videos are coming soon. Until then, try Brownie yourself.",
 } as const;
 
+// ── how Brownie finds out what you know, said plainly ───────────────────────────────────────────
+
+export const howItWorks = {
+  title: "How Brownie finds out what you know",
+  intro: "It does not read your mind. It looks at your answers, and that is all.",
+  steps: [
+    {
+      id: "ask",
+      title: "It asks first",
+      body: "You answer one small question before you are told anything, so Brownie sees what you think, not what you have just been told.",
+    },
+    {
+      id: "read",
+      title: "It reads what the answer shows",
+      body: "Which choice you picked, because each wrong choice usually comes from one particular idea. And how sure you said you were. Nothing else: not your name, not your face.",
+    },
+    {
+      id: "teach",
+      title: "It teaches the part that slipped",
+      body: "If you already know it, you can skip ahead. If one idea slipped, Brownie shows where that idea breaks and explains that part, with a picture, steps or an example.",
+    },
+    {
+      id: "check",
+      title: "It checks that it stuck",
+      body: "A fresh question, and a second go at anything you were sure about but got wrong, because those are the ones people forget a week later.",
+    },
+    {
+      id: "show",
+      title: "It shows you what it saw",
+      body: "A short card at the end: what you got, what needs another look, and how well your sureness matched your answers. You can clear it.",
+    },
+  ],
+  limits: "It is an estimate from a few answers, so it can be wrong. Without an account the card stays on your device.",
+} as const;
+
 // ── before you try it: plain answers ─────────────────────────────────────────────────────────────
 
 export const trust = {
@@ -336,7 +371,7 @@ export const trust = {
     {
       id: "ai",
       q: "Is it a person or an AI, and can it be wrong?",
-      a: "Brownie is an AI. It can make mistakes, and lessons it writes are not checked by a person, so the page says so. If something looks wrong, ask again or check with a teacher or a trusted source.",
+      a: "Brownie is an AI, not a person. It can make mistakes, and nobody checks a lesson before you see it, so every lesson says so at the top. Check anything important with a teacher, a book or a trusted source. If something looks wrong, ask again.",
     },
     {
       id: "signup",
@@ -346,14 +381,12 @@ export const trust = {
     {
       id: "remember",
       q: "What does it remember?",
-      a: "Asking without an account starts a temporary guest with no name or email. The page does not keep the text of your question, but a video made from it is stored on our server. The interactive lesson can keep a small note of your guesses on your own device, and you can clear it. What a signed-in account keeps is explained on the privacy page.",
-      pending: true,
+      a: "Asking without an account starts a temporary guest with no name or email. The page does not keep the text of your question. The interactive lesson can keep a small note of your guesses on your own device, and you can clear it. If a video is made, it is stored on our server. What a signed-in account keeps is explained on the privacy page.",
     },
     {
       id: "child",
       q: "Is it safe for a child?",
-      a: "Details are on the privacy page. Brownie is built for learners in classes 6 to 12 and for adults, and it is not a replacement for a parent, a teacher or a counsellor.",
-      pending: true,
+      a: "Brownie is built for learners in classes 6 to 12 and for adults. It is not a replacement for a parent, a teacher or a counsellor. Details are on the privacy page.",
     },
     {
       id: "cannot",
@@ -361,5 +394,23 @@ export const trust = {
       a: "It cannot replace a teacher. It does not diagnose learning difficulties. It does not check your marks or your school’s syllabus unless you sign in and set it up.",
     },
   ],
-  pendingNote: "Wording to be confirmed.",
+} as const;
+
+// ── what is not here yet, and sorry for it ───────────────────────────────────────────────────────
+
+export const comingSoon = {
+  title: "What is coming",
+  apology: "We are sorry that Brownie is mostly in English today. We would rather get other languages right than rush them.",
+  items: [
+    {
+      id: "languages",
+      title: "Hindi and Nepali",
+      body: "Lessons in Hindi work, but they are a draft that no person has reviewed yet. Nepali lessons are not here yet, and the videos speak English only. These are coming, written and checked with people who speak the language.",
+    },
+    {
+      id: "videos",
+      title: "Example videos",
+      body: "Three short examples, for a student, for a person at work and for a company course, are being made.",
+    },
+  ],
 } as const;
