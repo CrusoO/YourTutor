@@ -10,10 +10,15 @@ import {
   RobinOpening,
 } from "./Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
+import { GuessChat, LearningMapView, TrustStrip, VideoDemos } from "./LandingExtras";
+import { heroExtras, learningMap, videoUi, type SettingId, type StoryBeatId } from "./landing-extras";
+import { StoryArt } from "./StoryArt";
 import styles from "./BrownieLanding.module.css";
 import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
 
 const storyBeatParagraphs = [[0], [1], [2], [3, 4], [5]];
+const storyBeatIds: StoryBeatId[] = ["nod", "silence", "missed", "belief", "asked"];
+const SETTINGS: readonly SettingId[] = ["class", "work", "alone"];
 
 function StoryBeatIllustration({ index }: { index: number }) {
   if (index === 0) {
@@ -76,6 +81,14 @@ function StoryBeatIllustration({ index }: { index: number }) {
 function LandingPageContent() {
   const { language, copy } = useLandingLanguage();
   const [audienceIndex, setAudienceIndex] = useState(0);
+  const [sceneId, setSceneId] = useState<string | null>(null);
+  const [preview, setPreview] = useState(false);
+  const english = language === "en";
+  // The pictures follow the reader's choice of who Robin is; a classroom is the default.
+  const setting: SettingId = SETTINGS.find((id) => id === sceneId) ?? "class";
+
+  // The owner's local video picker stays reachable at /?preview=1; visitors never see it.
+  useEffect(() => setPreview(new URLSearchParams(window.location.search).get("preview") === "1"), []);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -141,14 +154,14 @@ function LandingPageContent() {
               </span>
             </h2>
             <p className={styles.heroTagline}>{copy.hero.tagline}</p>
-            <p className={styles.heroDescription}>{copy.hero.description}</p>
+            <p className={styles.heroDescription}>{english ? heroExtras.description : copy.hero.description}</p>
             <div className={styles.actions}>
               <a className={styles.primaryButton} href="/brownie-chat">{copy.hero.tryBrownie}</a>
               <a className={styles.ghostButton} href="#chapter-one">{copy.hero.readStory}</a>
             </div>
             <div className={styles.exploreMessage}>
               <p>{copy.hero.explore}</p>
-              <span>{copy.hero.exploreNote}</span>
+              <span>{english ? heroExtras.note : copy.hero.exploreNote}</span>
             </div>
           </div>
         </div>
@@ -181,13 +194,18 @@ function LandingPageContent() {
                   <span className={styles.storyBeatNumber} aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className={styles.storyBeatArt} aria-hidden="true">
-                    <StoryBeatIllustration index={index} />
+                  <div className={styles.storyBeatArt} aria-hidden={english ? undefined : true}>
+                    {english ? <StoryArt beat={storyBeatIds[index]!} setting={setting} /> : <StoryBeatIllustration index={index} />}
                   </div>
                   <div className={styles.storyBeatCopy}>
                     {paragraphIndexes.map((paragraphIndex) =>
                       paragraphIndex === 0 ? (
-                        <RobinOpening key={paragraphIndex} fallback={copy.chapterOne.paragraphs[paragraphIndex]} />
+                        <RobinOpening
+                          key={paragraphIndex}
+                          fallback={copy.chapterOne.paragraphs[paragraphIndex]}
+                          sceneId={sceneId}
+                          onSceneChange={setSceneId}
+                        />
                       ) : (
                         <p key={paragraphIndex}>{copy.chapterOne.paragraphs[paragraphIndex]}</p>
                       ),
@@ -216,7 +234,7 @@ function LandingPageContent() {
               {copy.chapterTwo.questions.map((question) => <li key={question}>{question}</li>)}
             </ul>
             <p>{copy.chapterTwo.invitation}</p>
-            <BrownieChatDemo />
+            {english ? <GuessChat /> : <BrownieChatDemo />}
             {copy.chapterTwo.afterPanel.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </section>
@@ -224,12 +242,11 @@ function LandingPageContent() {
         <section id="demo" className={styles.demoSection} aria-labelledby="demo-title">
           <div className={styles.demoHeading}>
             <h2 id="demo-title">
-              {copy.demo.headlineStart}<br />
-              <em>{copy.demo.headlineEnd}</em>
+              {english ? videoUi.heading : <>{copy.demo.headlineStart}<br /><em>{copy.demo.headlineEnd}</em></>}
             </h2>
-            <p>{copy.demo.note}</p>
+            <p>{english ? videoUi.note : copy.demo.note}</p>
           </div>
-          <DemoVideo />
+          {english && !preview ? <VideoDemos /> : <DemoVideo />}
         </section>
 
         <section className={styles.chapter} aria-labelledby="chapter-three-title">
@@ -242,17 +259,19 @@ function LandingPageContent() {
               {copy.chapterThree.headlineStart}<br />
               {copy.chapterThree.headlineEnd}
             </h2>
-            <p>{copy.chapterThree.body}</p>
+            <p>{english ? learningMap.lead : copy.chapterThree.body}</p>
             <div className={styles.chartFrame}>
               <div className={styles.chartHeading}>
-                <span>{copy.chapterThree.chartTitle}</span>
-                <span>{copy.chapterThree.chartLabel}</span>
+                <span>{english ? learningMap.title : copy.chapterThree.chartTitle}</span>
+                <span>{english ? learningMap.label : copy.chapterThree.chartLabel}</span>
               </div>
-              <MasteryChart />
+              {english ? <LearningMapView /> : <MasteryChart />}
             </div>
           </div>
         </section>
       </div>
+
+      {english ? <TrustStrip /> : null}
 
       <BrownieFeedback />
 

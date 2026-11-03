@@ -719,7 +719,9 @@ relying on it. Everything below is still open.
 | Bandit routing and experiments on children (M7) | OPEN-3 and the research-ethics path (OPEN-7). |
 | Impact ledger (M12) | The reward unit and its legal status (OPEN-10, OPEN-11). |
 | Enterprise training (M14) | Who may see individual learner data (OPEN-18) and the engine product terms (OPEN-17). |
-| Hindi and Nepali landing copy | A human translator: neutral Robin wording, the new tagline, and the three Robin scenes (English only today). |
+| Hindi and Nepali landing copy | A human translator: neutral Robin wording, the new tagline, the three Robin scenes, and everything in `app/brownie/landing-extras.ts` (new hero text, story captions, the three sample chats, the learning map, the trust answers). English only today; Hindi and Nepali keep the older page. |
+| Landing answers about privacy and children | Owner or counsel wording for the two answers marked "Wording to be confirmed" on the page (what is remembered, and whether it is safe for a child). Whether Brownie is free to try is also unconfirmed, so the page says only "no sign-up needed". |
+| The three example videos | Scripts and the files (a student, a person at work, a company course) from EduVideoEngine; set `src`, `poster`, `captions` and `transcript` in `landing-extras.ts` (`videoDemos`) and each tab appears. Large files belong on object storage, not in git. |
 | Learner-facing percentages | Decided: keep as labelled syllabus coverage. The rule is "no numeric mastery probability for learners". |
 
 ### Buildable next
@@ -741,4 +743,6 @@ relying on it. Everything below is still open.
 | `test_scripted_students_on_seed` failed once | A randomised test in `tests/orchestrator/test_simulations.py` failed once in a long run, with no reason captured; run alone it passed. Unexplained. | Re-run in CI; keep the failure output if it recurs. |
 | Hindi and Nepali are masculine and out of date | The neutral Robin wording and the new tagline are English only; the Hindi and Nepali drafts still use gendered verbs and the old tagline. | Human translation. |
 | Local `.env` does not parse | python-dotenv warns about lines 19 to 32 of `.env`, and on one run reading it failed with "Bad file descriptor". | Fix the file by hand; its values were never read or printed. |
+| Hindi and Nepali still show the old mastery chart and drop-zone | Only English got the evidence-based learning map and the example-video section; the older translated page still shows percentages as "topic mastery" (against the rule of no numeric mastery for learners) and the local video picker. | Update both once a translator provides the new copy. |
+| The landing sample chat is scripted | The "guess first" chat, its notes card and the three situations are fixed scripts, labelled as such; nothing is sent or saved. They illustrate the diagnosis the signed-in tutor does, they do not run it. | Replace with a short live example only after the consent and cost questions are settled. |
 | Tests can wipe a database | The pytest engine fixture and `tests/migrations/test_roundtrip.py` drop everything in the database `TEST_DATABASE_URL` names. | Point it only at `yourtutor_test`. |
