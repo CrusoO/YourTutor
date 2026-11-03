@@ -21,6 +21,17 @@ export function topicFromSearch(search: string): string | null {
   return topic.length >= 2 ? topic : null;
 }
 
+/** The code of a shared group lesson in a page address, or null when it is missing or malformed. */
+export function groupFromSearch(search: string): string | null {
+  let raw: string | null;
+  try {
+    raw = new URLSearchParams(search).get("group");
+  } catch {
+    return null;
+  }
+  return raw !== null && /^[A-Za-z0-9_-]{6,16}$/.test(raw) ? raw : null;
+}
+
 /** The address that opens a lesson on this question. */
 export function lessonLink(origin: string, topic: string): string {
   const clean = topic.replace(/\s+/g, " ").trim().slice(0, MAX_TOPIC_CHARS);

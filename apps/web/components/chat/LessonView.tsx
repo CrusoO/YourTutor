@@ -7,6 +7,7 @@ import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainLesson
 import { usableBlocks, usableOpening, usableRest, type LessonOpeningResult, type LessonResult, type LessonRestResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
+import { GroupLessonBody } from "./lesson/GroupLesson";
 import { ShareLesson } from "./lesson/ShareLesson";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
@@ -464,5 +465,6 @@ function LessonBody({ prompt }: { prompt: string }) {
 export function LessonView() {
   const { lesson } = useChatApi();
   if (!lesson) return null;
+  if (lesson.group) return <GroupLessonBody key={lesson.id} code={lesson.group} />;
   return <LessonBody key={lesson.id} prompt={lesson.prompt} />;
 }

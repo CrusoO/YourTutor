@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { topicFromSearch } from "./share";
+import { groupFromSearch, topicFromSearch } from "./share";
 
 type Ready = {
   /** Who is using the page; only a visitor or a guest is taken straight into a lesson. */
@@ -11,11 +11,12 @@ type Ready = {
   contextReady: unknown;
   /** A lesson is already open. */
   lessonOpen: boolean;
-  submitText: (text: string) => Promise<void> | void;
+  submitText: (text: string, group?: string) => Promise<void> | void;
 };
 
 /**
- * A shared link (`/brownie-chat?topic=...`) opens straight into a lesson on that question, once. It goes through
+ * A shared link (`/brownie-chat?topic=...`, or `?group=CODE` for a lesson someone checked and shared) opens
+ * straight into that lesson, once. It goes through
  * the same submit path, and so the same safety checks, as typing the question. The address is cleaned right
  * afterwards so reloading, or coming back later, does not start it again.
  */
@@ -24,10 +25,12 @@ export function useLinkStart({ role, identityReady, contextReady, lessonOpen, su
   useEffect(() => {
     if (started.current || !identityReady || !contextReady || lessonOpen) return;
     if (role !== "visitor" && role !== "guest") return;
-    const topic = topicFromSearch(window.location.search);
-    if (!topic) return;
+    // a shared group lesson (?group=CODE) wins over a plain question (?topic=...)
+    const group = groupFromSearch(window.location.search);
+    const topic = group ? null : topicFromSearch(window.location.search);
+    if (!group && !topic) return;
     started.current = true;
     window.history.replaceState(window.history.state, "", window.location.pathname);
-    void submitText(topic);
+    void (group ? submitText("", group) : submitText(topic as string));
   }, [identityReady, contextReady, lessonOpen, role, submitText]);
 }

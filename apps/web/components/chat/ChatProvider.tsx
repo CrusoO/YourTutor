@@ -45,7 +45,7 @@ import {
 } from "@/lib/chat/machine";
 import { type Messages } from "@/lib/messages";
 
-export type Lesson = { id: number; prompt: string };
+export type Lesson = { id: number; prompt: string; /** A shared group lesson: opened by this code, not asked of the model. */ group?: string };
 
 export type Mode =
   | "learn"
@@ -92,7 +92,7 @@ export type ChatApi = {
   setMode: (mode: Mode) => void;
   replies: Reply[];
   dispatch: (event: ChatEvent) => void;
-  submitText: (text: string) => Promise<void>;
+  submitText: (text: string, group?: string) => Promise<void>;
   pickTopic: (topic: Topic, mode: Mode) => Promise<void>;
   justTry: () => Promise<void>;
   tryOneQuestion: () => Promise<void>;
@@ -338,7 +338,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   /** The composer: a deterministic topic finder. The typed text stays in this function and is dropped. */
   const submitText = useCallback(
-    async (text: string) => {
+    async (text: string, group?: string) => {
       setError("");
       if (mode === "notes" || mode === "content") return;
       if (mode !== "learn" && mode !== "practise") {
@@ -361,10 +361,10 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       }
       if ((role === "visitor" || role === "guest") && mode === "learn") {
         const question = text.trim();
-        if (!question) return;
+        if (!question && !group) return;
         setReplies([]);
         setWorkspace(null);
-        setLesson({ id: lessonSeq.current++, prompt: question });
+        setLesson({ id: lessonSeq.current++, prompt: question, ...(group ? { group } : {}) });
         return;
       }
       try {
