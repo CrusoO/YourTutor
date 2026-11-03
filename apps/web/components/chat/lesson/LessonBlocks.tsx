@@ -33,7 +33,7 @@ export function LessonBlocks({
   /** The rest could not be built; what is here is all there is. */
   restFailed?: boolean;
   /** Shown once the lesson is over, after the follow-up box (for example, the way back to asking something else). */
-  footer?: ReactNode;
+  footer?: ReactNode | ((evidence: Evidence[]) => ReactNode);
 }) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
@@ -143,7 +143,7 @@ export function LessonBlocks({
           ) : null}
           <LearningCard evidence={evidence} topic={prompt} />
           <AskAbout prompt={prompt} language={language} />
-          {footer}
+          {typeof footer === "function" ? footer(evidence) : footer}
         </>
       )}
     </div>

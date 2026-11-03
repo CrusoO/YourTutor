@@ -437,6 +437,56 @@ export async function explainLessonRest(prompt: string, language: "en" | "hi", o
   return req("/explain/lesson", { method: "POST", body: JSON.stringify({ prompt, language, opening }) });
 }
 
+export type GroupLesson = {
+  code: string;
+  prompt: string;
+  language: "en" | "hi";
+  blocks: AiBlock[];
+  closed: boolean;
+  /** Whether this page may offer to send results back (off while there is no age gate to rely on). */
+  results_open: boolean;
+};
+
+/** A shared lesson, opened by its code. No sign-in and no model: it is the lesson the organiser checked. */
+export async function openGroup(code: string): Promise<GroupLesson> {
+  return req(`/groups/${encodeURIComponent(code)}`);
+}
+
+export type GroupAnswer = { question: string; kind: "predict" | "check"; right: boolean; confidence: "sure" | "unsure" | null; idea: string | null };
+
+/** How the learner did, with no name or account. Sending again replaces the earlier answer. */
+export async function sendGroupResults(code: string, items: GroupAnswer[]): Promise<{ accepted: number }> {
+  return req(`/groups/${encodeURIComponent(code)}/results`, { method: "POST", body: JSON.stringify({ items }) });
+}
+
+export async function publishGroup(prompt: string, language: "en" | "hi", blocks: AiBlock[]): Promise<{ code: string; path: string }> {
+  return req("/groups", { method: "POST", body: JSON.stringify({ prompt, language, blocks }) });
+}
+
+export type GroupListing = { code: string; path: string; prompt: string; created_at: string; closed: boolean; participants: number };
+
+export async function myGroups(): Promise<{ groups: GroupListing[] }> {
+  return req("/groups");
+}
+
+export type GroupSummary = {
+  code: string;
+  prompt: string;
+  participants: number;
+  minimum: number;
+  cell: number;
+  ready: boolean;
+  questions: { question: string; kind: string; answered: number; wrong: number | null; sure_wrong: number | null; ideas: { idea: string; count: number }[] }[];
+};
+
+export async function groupSummary(code: string): Promise<GroupSummary> {
+  return req(`/groups/${encodeURIComponent(code)}/summary`);
+}
+
+export async function closeGroup(code: string): Promise<{ closed: boolean }> {
+  return req(`/groups/${encodeURIComponent(code)}/close`, { method: "POST" });
+}
+
 export type TutorTurn = { role: "user" | "assistant"; content: string };
 export type TutorReply =
   | { kind: "reply"; text: string; language?: string }

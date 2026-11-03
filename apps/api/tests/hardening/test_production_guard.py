@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app import main
-from app.config import DEV_ONLY_FLAGS, Settings, production_flag_errors
+from app.config import DEV_ONLY_FLAGS, Settings, adults_assumed, production_flag_errors
 
 
 def _settings(monkeypatch: pytest.MonkeyPatch, **env: str) -> Settings:
@@ -67,3 +67,21 @@ def test_the_api_refuses_to_start_in_production_on_the_default_database_password
     with pytest.raises(RuntimeError, match="Refusing to start.*POSTGRES_PASSWORD"):
         with TestClient(main.app):
             pass
+
+
+def test_adults_are_assumed_in_development_but_never_by_default_in_production(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert adults_assumed(_settings(monkeypatch)) is True
+    assert adults_assumed(_settings(monkeypatch, APP_ENV="development")) is True
+    assert adults_assumed(_settings(monkeypatch, APP_ENV="production")) is False
+    assert adults_assumed(_settings(monkeypatch, APP_ENV=" Production ")) is False
+
+
+def test_the_assumption_can_be_set_either_way_and_a_production_start_blocks_it_on(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert adults_assumed(_settings(monkeypatch, ADULT_LEARNERS_ASSUMED="false")) is False
+    on_in_production = _settings(monkeypatch, APP_ENV="production", ADULT_LEARNERS_ASSUMED="true")
+    assert production_flag_errors(on_in_production) == ["ADULT_LEARNERS_ASSUMED"]
+    assert "ADULT_LEARNERS_ASSUMED" in [f.upper() for f in DEV_ONLY_FLAGS]

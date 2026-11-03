@@ -540,6 +540,48 @@ class LoopBSnapshotRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
+class GroupLessonRow(Base):
+    """A lesson a teacher or manager generated once, checked, and shared by a link.
+
+    The blocks are fixed, so every participant meets the same questions and their results can be
+    counted together (a lesson written afresh for each person could not be). Nothing here names a
+    learner.
+    """
+
+    __tablename__ = "group_lessons"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    owner_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    code: Mapped[str] = mapped_column(String(16), unique=True, index=True)
+    prompt: Mapped[str] = mapped_column(String(300))
+    language: Mapped[str] = mapped_column(String(8))
+    blocks: Mapped[list] = mapped_column(JSONType)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    closed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class GroupResultRow(Base):
+    """One participant's first-try results for a group lesson, sent only when they chose to.
+
+    `participant` is a keyed hash of the guest and the group: it stops one person answering twice
+    and cannot be traced back to them, nor matched across groups. No name, account or address is
+    kept.
+    """
+
+    __tablename__ = "group_results"
+    __table_args__ = (UniqueConstraint("group_id", "participant", name="uq_group_participant"),)
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    group_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("group_lessons.id", ondelete="CASCADE"), index=True
+    )
+    participant: Mapped[str] = mapped_column(String(64))
+    submitted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    items: Mapped[list] = mapped_column(JSONType)
+
+
 class ReviewCardRow(Base):
     __tablename__ = "review_cards"
 
