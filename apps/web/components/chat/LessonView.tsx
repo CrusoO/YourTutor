@@ -3,8 +3,10 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createSourceVideoJob, createStoryVideoJob, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
+import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
+import { usableBlocks, type LessonResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
+import { LessonBlocks } from "./lesson/LessonBlocks";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
 import { useChatApi } from "./ChatProvider";
@@ -124,8 +126,19 @@ function VideoSection({ video, onRetry }: { video: VideoState; onRetry: () => vo
 
 function LessonBody({ prompt }: { prompt: string }) {
   const copy = useCopy();
-  const { closeLesson } = useChatApi();
-  const [explanation, setExplanation] = useState<Explanation | "loading">("loading");
+  const { closeLesson: closeLessonView } = useChatApi();
+  const heading = useRef<HTMLParagraphElement>(null);
+  // The ask box is hidden during a lesson, so leaving it must put the cursor back in the box that returns.
+  const closeLesson = () => {
+    closeLessonView();
+    requestAnimationFrame(() => document.querySelector<HTMLTextAreaElement>('[data-testid="composer-input"]')?.focus());
+  };
+  // The interactive lesson is tried first. The written explanation is only asked for when it is needed: as the
+  // fallback page, or as the source of a text-card video when no story could be made. That keeps it to two model
+  // calls per question in the usual case, which matters on a free tier.
+  const [lessonState, setLessonState] = useState<"loading" | "failed" | UsableBlock[]>("loading");
+  const [explanation, setExplanation] = useState<Explanation | "loading" | "idle">("idle");
+  const explainRequested = useRef(false);
   const [video, setVideo] = useState<VideoState>({ phase: "starting" });
   const [attempt, setAttempt] = useState(0);
   const mounted = useRef(true);
@@ -176,6 +189,29 @@ function LessonBody({ prompt }: { prompt: string }) {
     startVideo();
   }
 
+  function ensureExplained() {
+    if (explainRequested.current) return;
+    explainRequested.current = true;
+    setExplanation("loading");
+    explainQuestion(prompt, language.current)
+      .then((result) => mounted.current && onExplained(result))
+      .catch(() => mounted.current && onExplained({ kind: "unavailable", reason: "provider_error" }));
+  }
+
+  function onLesson(result: LessonResult) {
+    if (result.kind === "lesson") {
+      const blocks = usableBlocks(result);
+      if (blocks) return setLessonState(blocks);
+    } else if (result.kind === "refused" || result.kind === "distress" || result.kind === "out_of_scope") {
+      // the safety checks answered: show their message, as the written page would
+      explainRequested.current = true;
+      setLessonState("failed");
+      return onExplained(result);
+    }
+    setLessonState("failed");
+    ensureExplained();
+  }
+
   function onStory(result: StoryResult) {
     if (result.kind === "story") {
       storyState.current = "ok";
@@ -189,6 +225,7 @@ function LessonBody({ prompt }: { prompt: string }) {
       launched.current = true;
       return setVideo({ phase: "none" });
     }
+    ensureExplained();
     fallbackVideo();
   }
 
@@ -202,14 +239,15 @@ function LessonBody({ prompt }: { prompt: string }) {
     fallbackVideo();
   }
 
-  // The written explanation and the story start together.
+  // The interactive lesson and the story start together.
   useEffect(() => {
     mounted.current = true;
+    heading.current?.focus({ preventScroll: true });
     if (!started.current) {
       started.current = true;
-      explainQuestion(prompt, language.current)
-        .then((result) => mounted.current && onExplained(result))
-        .catch(() => mounted.current && onExplained({ kind: "unavailable", reason: "provider_error" }));
+      explainLesson(prompt, language.current)
+        .then((result) => mounted.current && onLesson(result))
+        .catch(() => mounted.current && onLesson({ kind: "unavailable", reason: "provider_error" }));
       if (language.current === "hi") {
         storyState.current = "failed";
         launched.current = true;
@@ -254,16 +292,23 @@ function LessonBody({ prompt }: { prompt: string }) {
     };
   }, [jobId, finished, attempt]);
 
-  const sections = explanation !== "loading" && explanation.kind === "explanation" ? explanation.sections : [];
-  const note = explanation !== "loading" && (explanation.kind === "refused" || explanation.kind === "distress" || explanation.kind === "out_of_scope") ? explanation.message : null;
-  const unavailable = explanation !== "loading" && (explanation.kind === "unavailable" || explanation.kind === "empty");
+  const written = typeof explanation === "object" ? explanation : null;
+  const blocks = Array.isArray(lessonState) ? lessonState : null;
+  const waiting = lessonState === "loading" || (lessonState === "failed" && written === null);
+  const sections = written?.kind === "explanation" ? written.sections : [];
+  const note = written && (written.kind === "refused" || written.kind === "distress" || written.kind === "out_of_scope") ? written.message : null;
+  const unavailable = written !== null && (written.kind === "unavailable" || written.kind === "empty");
   // A refused or crisis question never gets a video: the API refuses the job too.
-  const showVideo = !(explanation !== "loading" && (explanation.kind === "refused" || explanation.kind === "distress"));
+  const showVideo = !(written && (written.kind === "refused" || written.kind === "distress"));
+  const retryVideo = () => {
+    startVideo();
+    setAttempt((n) => n + 1);
+  };
   const job = video.phase === "job" ? video.job : null;
 
   return (
     <div className="flex min-h-0 w-full flex-1 justify-center overflow-y-auto px-4 pb-8 pt-2 lg:pt-8" data-testid="lesson">
-      <article className="flex w-full max-w-[40rem] min-w-0 flex-col gap-7" aria-busy={explanation === "loading"}>
+      <article className="flex w-full max-w-[40rem] min-w-0 flex-col gap-7" aria-busy={waiting}>
         {job && !TERMINAL.has(job.status) && showVideo ? (
           <div className="sticky top-0 z-10 -mx-1 flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-2 text-[0.75rem] text-muted shadow-[var(--shadow-card)]" role="status" data-testid="lesson-pill">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" aria-hidden="true" />
@@ -273,18 +318,39 @@ function LessonBody({ prompt }: { prompt: string }) {
         ) : null}
 
         <header className="flex flex-col gap-2">
-          <p className="m-0 text-[0.75rem] text-muted">{copy.lessonYouAsked}</p>
-          <p className="m-0 break-words text-[0.9375rem] text-ink" data-testid="lesson-prompt">
+          <div className="flex items-center justify-between gap-3">
+            <p className="m-0 text-[0.75rem] text-muted">{copy.lessonYouAsked}</p>
+            <Button variant="ghost" size="sm" onClick={closeLesson} data-testid="lesson-new-top">
+              {copy.lessonNewQuestion}
+            </Button>
+          </div>
+          <p ref={heading} tabIndex={-1} className="m-0 break-words text-[0.9375rem] text-ink outline-none" data-testid="lesson-prompt">
             {prompt}
           </p>
-          {explanation !== "loading" && explanation.kind === "explanation" && explanation.title ? (
+          {written?.kind === "explanation" && written.title ? (
             <h1 className="home-display m-0 mt-3 text-[clamp(1.5rem,2.6vw,2.1rem)] font-light leading-[1.15] tracking-[-0.03em] text-ink" style={{ fontFamily: "var(--ff-body)" }}>
-              {explanation.title}
+              {written.title}
             </h1>
+          ) : null}
+          {blocks ? (
+            <p className="m-0 text-[0.75rem] text-muted" data-testid="lesson-draft-note">
+              {copy.lessonDraftNote}
+            </p>
           ) : null}
         </header>
 
-        {explanation === "loading" ? (
+        {blocks && showVideo ? (
+          <details className="rounded-2xl border border-line bg-surface px-4 py-3" data-testid="lesson-video-card">
+            <summary className="cursor-pointer text-[0.9375rem] text-ink">{copy.lessonWatchStory}</summary>
+            <div className="mt-4">
+              <VideoSection video={video} onRetry={retryVideo} />
+            </div>
+          </details>
+        ) : null}
+
+        {blocks ? <LessonBlocks blocks={blocks} prompt={prompt} language={language.current} /> : null}
+
+        {waiting ? (
           <div className="flex flex-col gap-4" role="status">
             <p className="m-0 text-[0.9375rem] text-muted">{copy.lessonWriting}</p>
             <Skeleton className="h-4 w-11/12" />
@@ -319,10 +385,10 @@ function LessonBody({ prompt }: { prompt: string }) {
           </section>
         ))}
 
-        {showVideo ? <VideoSection video={video} onRetry={() => { startVideo(); setAttempt((n) => n + 1); }} /> : null}
+        {showVideo && !blocks ? <VideoSection video={video} onRetry={retryVideo} /> : null}
 
         <div>
-          <Button variant="outline" size="sm" onClick={closeLesson} data-testid="lesson-new">
+          <Button onClick={closeLesson} data-testid="lesson-new">
             {copy.lessonAskElse}
           </Button>
         </div>

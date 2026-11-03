@@ -4,6 +4,7 @@ const API =
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
 import type { FinderRules } from "./chat/finder";
+import type { LessonResult } from "./lessons/ai-lesson";
 import type { Lesson } from "./lessons/types";
 import { setLocale } from "./locale";
 
@@ -417,6 +418,23 @@ export type Explanation =
 /** The in-depth, first-principles explanation of a typed question. The question is never kept by the page. */
 export async function explainQuestion(prompt: string, language: "en" | "hi"): Promise<Explanation> {
   return req("/explain", { method: "POST", body: JSON.stringify({ prompt, language }) });
+}
+
+/** The question built as an interactive lesson: hook, predict, widgets, checks, recap (see lib/lessons/ai-lesson.ts). */
+export async function explainLesson(prompt: string, language: "en" | "hi"): Promise<LessonResult> {
+  return req("/explain/lesson", { method: "POST", body: JSON.stringify({ prompt, language }) });
+}
+
+export type TutorTurn = { role: "user" | "assistant"; content: string };
+export type TutorReply =
+  | { kind: "reply"; text: string; language?: string }
+  | { kind: "unavailable"; reason: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "empty" };
+
+/** A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept. */
+export async function explainChat(prompt: string, language: "en" | "hi", history: TutorTurn[]): Promise<TutorReply> {
+  return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
 }
 
 export async function getVideoJob(jobId: string): Promise<VideoJob> {

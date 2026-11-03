@@ -19,9 +19,13 @@ from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
 
-PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v1.md"
-PROMPT_VERSION = "lesson/v1"
-MAX_TOKENS = 4000
+PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v2.md"
+PROMPT_VERSION = "lesson/v2"
+# A model that thinks before it answers spends part of this budget on the thinking (about 3,000 of
+# 4,000 tokens for Claude Haiku), which cut the JSON off mid-object. Groq's free tier counts the
+# whole budget against 8,000 tokens a minute, so it keeps the small one.
+MAX_TOKENS = 8000
+MAX_TOKENS_GROQ = 4000
 MAX_QUESTION_CHARS = 300
 LANGUAGES = ("en", "hi")
 MAX_ATTEMPTS = 2
@@ -43,6 +47,15 @@ VALID_BLOCK_KINDS = {"hook", "predict", "widget", "explain", "check", "transfer"
 VALID_WIDGET_KINDS = {"slider_sim", "step_through", "drag_sort", "graph_explore", "toggle_compare"}
 VALID_COLORS = {"blue", "red", "green", "orange", "purple"}
 FENCE = re.compile(r"^```[a-zA-Z]*\s*|\s*```$")
+
+
+def _max_tokens(model: str) -> int:
+    return MAX_TOKENS_GROQ if model.startswith("groq/") else MAX_TOKENS
+
+
+def _kind_of(raw: dict[str, Any]) -> str:
+    """The block's type. The prompt says "kind", but models sometimes write "type"."""
+    return str(raw.get("kind") or raw.get("type") or "")
 
 
 def _words(value: Any, limit: int) -> str:
@@ -220,8 +233,8 @@ def _clean_widget(raw: dict[str, Any]) -> dict[str, Any] | None:
     # or wrap it as kind:"widget" with "widget_kind" for the subtype.
     wkind = str(raw.get("widget_kind") or "")
     if wkind not in VALID_WIDGET_KINDS:
-        # fall back: maybe kind IS the widget subtype
-        wkind = str(raw.get("kind") or "")
+        # fall back: maybe kind (or type) IS the widget subtype
+        wkind = _kind_of(raw)
         if wkind not in VALID_WIDGET_KINDS:
             return None
     spec = _clean_widget_spec(wkind, raw.get("spec"))
@@ -320,7 +333,7 @@ def clean_lesson(data: dict[str, Any] | None) -> dict[str, Any] | None:
     for raw in blocks_raw[:MAX_BLOCKS]:
         if not isinstance(raw, dict):
             continue
-        kind = str(raw.get("kind", ""))
+        kind = _kind_of(raw)
         if kind in VALID_WIDGET_KINDS:
             # LLM put the widget subtype directly in "kind"
             cleaned = _clean_widget(raw)
@@ -380,7 +393,7 @@ def build_lesson(
 
     story_provider = ExplainProvider(
         json_mode=True,
-        max_tokens=MAX_TOKENS,
+        max_tokens=_max_tokens(chosen),
         api_key=settings.llm_story_api_key or settings.llm_api_key or None,
     )
     actual_provider = provider or story_provider

@@ -167,12 +167,8 @@ function Shell() {
             </span>
           </header>
           {lesson ? (
-            <>
-              <LessonView />
-              <div className="mx-auto w-full max-w-[40rem] px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2" data-testid="docked-composer">
-                <Composer docked />
-              </div>
-            </>
+            // The ask box is gone while a lesson is open; "Ask something else" at the end brings it back.
+            <LessonView />
           ) : hero ? (
             <Hero />
           ) : (
