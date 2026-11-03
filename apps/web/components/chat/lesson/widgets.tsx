@@ -6,6 +6,7 @@ import { controlDefaults, type AiSeries, type RunnableWidget } from "@/lib/lesso
 import { linspace, type Formula } from "@/lib/lessons/formula";
 import { useCopy } from "@/lib/locale";
 import { BlockTitle, Note } from "./blocks";
+import { StepPicture } from "./StepPicture";
 
 type SliderRun = Extract<RunnableWidget, { formula: Formula }>;
 type GraphRun = Extract<RunnableWidget, { series: unknown[] }>;
@@ -197,6 +198,7 @@ function StepThrough({ run }: { run: PlainRun }) {
         </BlockTitle>
         <p className="m-0 text-[0.9375rem] leading-[1.6] text-ink">{step.description}</p>
       </div>
+      <StepPicture picture={step.picture} />
       <div className="flex gap-2">
         <Button variant="outline" size="sm" disabled={i === 0} onClick={() => setI(i - 1)}>
           {copy.lessonPrev}
