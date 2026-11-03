@@ -159,7 +159,7 @@ describe("the landing page in English", () => {
     expect(within(soon).getByTestId("soon-languages")).toHaveTextContent("Nepali lessons are not here yet");
   });
 
-  it("answers the five doubts without any placeholder wording", () => {
+  it("answers the doubts without any placeholder wording", () => {
     render(<BrownieLanding />);
     const section = screen.getByTestId("trust");
     for (const item of trust.items) {
