@@ -16,17 +16,19 @@ from pathlib import Path
 from typing import Any
 
 from app.config import key_for_model, settings
+from app.explain.rhythm import rhythm_issues, spoken
 from app.explain.service import Completer, ExplainProvider, Gate, precheck, unavailable
 from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
 
 PROMPTS = Path(__file__).parent / "prompts"
-PLAN_FILE = PROMPTS / "story_plan.v2.md"
-SCENES_FILE = PROMPTS / "story_scenes.v2.md"
-PROMPT_VERSION = "story/v3"
+PLAN_FILE = PROMPTS / "story_plan.v3.md"
+SCENES_FILE = PROMPTS / "story_scenes.v3.md"
+PROMPT_VERSION = "story/v4"
 MAX_SCENES = 7
 MIN_SCENES = 3
+MAX_STEPS = 8
 PLAN_TOKENS = 1500  # on Groq the input plus the output budget must stay under 8,000 a minute
 SCENES_TOKENS = 5600
 ATTEMPTS = 2
@@ -236,6 +238,25 @@ _VALID_COLORS = {
 }
 
 
+def _chain(raw: Any) -> list[str]:
+    """The ordered steps of the mechanism being explained: short plain sentences."""
+    if not isinstance(raw, list):
+        return []
+    steps = [_words(s, 140) for s in raw if isinstance(s, str)]
+    return [s for s in steps if s][:MAX_STEPS]
+
+
+def _step_numbers(raw: Any, count: int) -> list[int]:
+    """Step numbers from 1 to `count`, in order, without repeats; anything else is dropped."""
+    if not isinstance(raw, list):
+        return []
+    seen: list[int] = []
+    for n in raw:
+        if isinstance(n, int) and not isinstance(n, bool) and 1 <= n <= count and n not in seen:
+            seen.append(n)
+    return seen
+
+
 def clean_plan(data: dict[str, Any] | None) -> dict[str, Any] | None:
     """Clean and return the plan: title, color_map, and up to seven scenes."""
     if not data or not isinstance(data.get("scenes"), list):
@@ -248,6 +269,7 @@ def clean_plan(data: dict[str, Any] | None) -> dict[str, Any] | None:
         for k, v in raw_map.items()
         if isinstance(k, str) and isinstance(v, str) and v in _VALID_COLORS
     }
+    chain = _chain(data.get("chain"))
     scenes = []
     for raw in data["scenes"][:MAX_SCENES]:
         if not isinstance(raw, dict):
@@ -259,13 +281,14 @@ def clean_plan(data: dict[str, Any] | None) -> dict[str, Any] | None:
             "purpose": _words(raw.get("purpose"), 300),
             "story": _words(raw.get("story"), 300),
             "picture": _words(raw.get("picture"), 300),
+            "steps": _step_numbers(raw.get("steps"), len(chain)),
         }
         if scene["heading"] and scene["story"]:
             scenes.append(scene)
     title = _words(data.get("title"), 120)
     if len(title) < 3 or len(scenes) < MIN_SCENES:
         return None
-    return {"title": title, "color_map": color_map, "scenes": scenes}
+    return {"title": title, "color_map": color_map, "chain": chain, "scenes": scenes}
 
 
 def plan_prompt(question: str, restricted: bool, style: str = "animated") -> Prompt:
@@ -300,7 +323,15 @@ def scenes_prompt(question: str, plan: dict[str, Any], style: str = "animated") 
         role = s.get("role", "build")
         lines.append(
             f"{i}. [{role}] {s['heading']} | {s['purpose'] or role} | {s['story']} | {s['picture']}"
+            + (f" | covers steps {s['steps']}" if s.get("steps") else "")
         )
+    chain = plan.get("chain") or []
+    if chain:
+        lines += [
+            "",
+            "The steps of the explanation, in order (every one must be said, none skipped):",
+        ]
+        lines += [f"{n}. {step}" for n, step in enumerate(chain, 1)]
     lines += ["", f"Write all {len(plan['scenes'])} scenes now. Reply with the JSON object only."]
     return Prompt(
         system=system,
@@ -323,7 +354,12 @@ def clean_scene(data: dict[str, Any] | None) -> dict[str, Any] | None:
     if len(sentences) < 2:
         return None
     visuals = [v for v in data.get("visuals", []) if isinstance(v, dict)][:30]
-    return {"heading": _words(data.get("heading"), 80), "sentences": sentences, "visuals": visuals}
+    return {
+        "heading": _words(data.get("heading"), 80),
+        "sentences": sentences,
+        "visuals": visuals,
+        "covers": _step_numbers(data.get("covers"), MAX_STEPS),
+    }
 
 
 def _scenes_of(text: str) -> list[dict[str, Any]]:
@@ -410,7 +446,7 @@ def _quick_qa(scenes: list[dict[str, Any]]) -> list[str]:
         sents = sc.get("sentences", [])
         visuals = sc.get("visuals", [])
         # hook must end with question mark
-        if sc.get("role") == "hook" and sents and not sents[-1].rstrip().endswith("?"):
+        if sc.get("role") == "hook" and sents and not spoken(sents[-1]).endswith("?"):
             issues.append(
                 f"Scene {i + 1} (hook): last sentence must end with '?' — change '{sents[-1][-40:]}' to a question."  # noqa: E501
             )
@@ -540,7 +576,9 @@ def build_story(
         for i, scene in enumerate(written[: len(plan["scenes"])]):
             scene["role"] = plan["scenes"][i]["role"]
         # QA: run a repair pass if structural issues are found
-        qa_issues = _quick_qa(written[: len(plan["scenes"])])
+        qa_issues = _quick_qa(written[: len(plan["scenes"])]) + rhythm_issues(
+            written[: len(plan["scenes"])], plan.get("chain")
+        )
         if qa_issues and scene_provider is not None:
             written = _repair(
                 scene_provider, use, text_in, plan, written[: len(plan["scenes"])], qa_issues, style
@@ -551,6 +589,7 @@ def build_story(
         scenes = []
         for i, scene in enumerate(written[: len(plan["scenes"])]):
             scene["heading"] = scene["heading"] or plan["scenes"][i]["heading"]
+            scene.pop("covers", None)
             scenes.append(scene)
         terms = default_rules().blocked_terms
         text = " ".join(s for sc in scenes for s in sc["sentences"]).lower()

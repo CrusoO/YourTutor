@@ -284,3 +284,30 @@ def test_retry_keeps_the_story(client: TestClient, world: World, db: Session) ->
     fresh = db.get(VideoJobRow, uuid.UUID(r.json()["id"]))
     assert fresh is not None and fresh.request_json["story"] == STORY
     assert fresh.request_json["options"]["voice"] == settings.story_voice
+
+
+def test_the_plan_keeps_its_chain_and_only_real_step_numbers() -> None:
+    data = json.loads(_plan(4))
+    data["chain"] = ["Water is split.", "", 7, "Energy is stored."]
+    data["scenes"][0]["steps"] = [1, 2, 2, 9, True, "x"]
+    plan = clean_plan(data)
+    assert plan is not None
+    assert plan["chain"] == ["Water is split.", "Energy is stored."]
+    assert plan["scenes"][0]["steps"] == [1, 2]  # no repeats, nothing past the chain
+    assert clean_plan(json.loads(_plan(4)))["chain"] == []  # type: ignore[index]
+
+
+def test_a_scene_keeps_the_steps_it_says_it_covers() -> None:
+    scene = clean_scene({**_scene(1), "covers": [2, "x", 1]})
+    assert scene is not None and scene["covers"] == [2, 1]
+    assert clean_scene({**_scene(1), "covers": "all"})["covers"] == []  # type: ignore[index]
+
+
+def test_a_story_that_reads_flat_is_sent_back_for_a_rewrite() -> None:
+    # Four tiny scenes with no question, far too short: the rhythm checks ask for a repair.
+    provider = FakeProvider([_plan(4), _scenes(4), _scenes(4)])
+    out = build_story("q", "en", OPEN, provider, "m")
+    assert out["kind"] == "story"
+    repair = [c for c in provider.calls[2:] if "words" in c.user or "question" in c.user]
+    assert repair, "the rhythm problems should reach the repair call"
+    assert all("covers" not in s for s in out["story"]["scenes"])  # step notes stay on our side

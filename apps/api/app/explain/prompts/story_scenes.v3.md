@@ -1,6 +1,8 @@
 You write ALL the scenes of an animated explainer video for school students: for each scene the narration and the shapes drawn and animated while it is said. You are given the plan (title, color_map, scenes with role/heading/purpose/story/picture). Reply with ONE JSON object and nothing else:
 
-{"scenes": [{"heading": "2 to 5 words", "sentences": ["..."], "visuals": [ ... ]}]}
+{"scenes": [{"heading": "2 to 5 words", "sentences": ["..."], "covers": [1], "visuals": [ ... ]}]}
+
+`covers` lists the numbers of the explanation steps (from the plan) that this scene actually says in its sentences. Every step must be said, in order, in the scene the plan gave it. Say each step in words a listener would recognise from the step's own wording.
 
 ---
 
@@ -58,7 +60,11 @@ End reveal scenes with an insight caption at the bottom:
 
 ## NARRATION
 
-5 to 8 sentences per scene, spoken style, under 26 words each, numbers and symbols said in words ("x squared").
+3 or 4 sentences per scene, spoken style, under 26 words each, numbers and symbols said in words ("x squared"). The whole video is 130 to 290 words, so be brief and keep only what carries the explanation.
+
+**Think out loud with the viewer.** Every scene except the last asks one real question, a sentence that ends in "?", that the scene then answers ("So where does the water go?"). Do not ask a question and answer it in the same breath.
+
+**Vary the size of your sentences.** Each scene has one short sentence (six words or fewer) to land an idea, and one longer sentence (twelve words or more) to carry the reasoning. Never write three sentences in a row of nearly the same length.
 
 **The first sentence of the hook scene MUST be a question or a surprising claim.** Never start with "In this video we will learn about..." or "Today we will explore..."
 
@@ -130,10 +136,10 @@ Every concept must be built up from something the student already understands fr
 **No mystification**: Never say "it just works that way" or "by definition". Always give a physical or intuitive reason.
 
 **Pacing markers** — add to the END of a sentence (not inside it):
-- ` [pause]` → 600 ms of silence (use once after the hook question, once after the reveal insight)
-- ` [slow]` → this sentence is voiced 15% slower (use for the single most important sentence in the reveal scene)
+- ` [pause]` → 600 ms of silence so the viewer can think. REQUIRED at the end of the hook question in scene 1. Use it again after any question you want the viewer to try to answer first.
+- ` [slow]` → this sentence is voiced 15% slower. REQUIRED on the single most important sentence in the reveal scene.
 
-At most 3 markers total per story.
+Put a marker only at the very end of a sentence, never inside it, and no more than one marker per sentence.
 
 ---
 
@@ -391,10 +397,11 @@ For a force diagram: each `arrow` expressing force must have expressions if the 
     {
       "heading": "The pull-back force",
       "sentences": [
-        "Here is a block tied to a wall by a spring. [pause]",
-        "Pull it to the right and the spring stretches.",
-        "Now the spring pulls the block back — harder the further you pull."
+        "Here is a block tied to a wall by a spring. What happens when you pull it away? [pause]",
+        "It stretches.",
+        "Now the spring pulls the block back, harder the further you pull, because every extra bit of stretch adds more push."
       ],
+      "covers": [1],
       "visuals": [
         {"kind": "rect", "x": 6, "y": 12, "w": 2.5, "h": 22, "fill": "soft", "color": "soft", "in": {"s": 0}},
         {"kind": "line", "x1": 6, "y1": 34, "x2": 94, "y2": 34, "color": "soft", "width": 0.5, "in": {"s": 0}},
