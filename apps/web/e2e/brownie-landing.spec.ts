@@ -7,7 +7,7 @@ test("the homepage presents the landing page and keeps the video section after C
   await expect(page.getByTestId("brownie-landing")).toBeVisible();
   await expect(page.getByText("Brownie starts with one small question", { exact: false })).toBeVisible();
   await expect(page.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login?lang=en");
-  await expect(page.getByRole("link", { name: "Try asking Brownie" })).toHaveAttribute("href", "/brownie-chat");
+  await expect(page.getByRole("link", { name: "Ask Brownie" })).toHaveAttribute("href", "/brownie-chat");
   await expect(page.getByTestId("story-beat")).toHaveCount(5);
   await expect(page.getByTestId("story-timeline")).toContainText("Robin did too");
 
@@ -82,7 +82,7 @@ test("the scripted Brownie chat asks first, names the idea behind a wrong guess,
   await expect(demo.getByTestId("demo-follow-up-second")).toContainText("1/2 = 3/6");
   await expect(demo.getByTestId("demo-follow-up-second")).toContainText("1/3 = 2/6");
 
-  await demo.getByRole("button", { name: "Restart example" }).click();
+  await demo.getByRole("button", { name: "Start over" }).click();
   await expect(demo.getByTestId("demo-reply")).toHaveCount(0);
   await demo.getByTestId("demo-scenario-work").click();
   await expect(demo.getByTestId("demo-diagnostic")).toContainText("VLOOKUP");

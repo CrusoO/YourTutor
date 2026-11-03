@@ -90,7 +90,7 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It rises" }));
     expect(screen.getByText(/Thicker means less wave gets through/)).toBeInTheDocument();
     expect(cont()).toBeDisabled();
-    await userEvent.click(screen.getByRole("button", { name: "Give me a little help" }));
+    await userEvent.click(screen.getByRole("button", { name: "Help me" }));
     expect(screen.getByText(/Think about the wave inside the wall/)).toBeInTheDocument();
     expect(screen.queryByText(/The wave shrinks as it goes deeper/)).toBeNull();
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
@@ -118,7 +118,7 @@ describe("LessonBlocks", () => {
     await userEvent.click(screen.getByRole("button", { name: "It falls quickly" }));
     await userEvent.click(cont());
     await userEvent.type(screen.getByLabelText("Type your answer"), "Nuclei tunnel");
-    await userEvent.click(screen.getByRole("button", { name: "Show me how you'd say it" }));
+    await userEvent.click(screen.getByRole("button", { name: "See a sample answer" }));
     await userEvent.click(cont());
   }
 

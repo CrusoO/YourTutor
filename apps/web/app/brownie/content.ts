@@ -20,7 +20,7 @@ export const landingContent = {
     tagline: "Finds out what you know first. Then teaches.",
     description:
       "Don't understand something? You don't have to pretend you do. Ask Brownie. Take your time, ask again, and learn until it clicks. It never laughs or makes you feel uncomfortable. It adapts its explanations to what you already know and what helps.",
-    tryBrownie: "Try asking Brownie",
+    tryBrownie: "Ask Brownie",
     readStory: "Read Robin's story ↓",
     signIn: "Sign in",
     explore: "Try Brownie first. Discover what's possible.",
