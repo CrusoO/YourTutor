@@ -388,7 +388,22 @@ function LessonBody({ prompt }: { prompt: string }) {
           </details>
         ) : null}
 
-        {blocks ? <LessonBlocks blocks={blocks} prompt={prompt} language={language.current} pending={rest === "pending"} restFailed={rest === "failed"} /> : null}
+        {blocks ? (
+          <LessonBlocks
+            blocks={blocks}
+            prompt={prompt}
+            language={language.current}
+            pending={rest === "pending"}
+            restFailed={rest === "failed"}
+            footer={
+              <div>
+                <Button onClick={closeLesson} data-testid="lesson-new">
+                  {copy.lessonAskElse}
+                </Button>
+              </div>
+            }
+          />
+        ) : null}
 
         {waiting ? (
           <div className="flex flex-col gap-4" role="status">
@@ -427,11 +442,15 @@ function LessonBody({ prompt }: { prompt: string }) {
 
         {showVideo && !blocks ? <VideoSection video={video} onRetry={retryVideo} /> : null}
 
-        <div>
-          <Button onClick={closeLesson} data-testid="lesson-new">
-            {copy.lessonAskElse}
-          </Button>
-        </div>
+        {/* While an interactive lesson is under way the way out is the small link at the top; the big
+            button comes back at the very end of the lesson, inside it. */}
+        {!blocks ? (
+          <div>
+            <Button onClick={closeLesson} data-testid="lesson-new">
+              {copy.lessonAskElse}
+            </Button>
+          </div>
+        ) : null}
       </article>
     </div>
   );

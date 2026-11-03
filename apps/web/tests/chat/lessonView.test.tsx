@@ -143,6 +143,9 @@ describe("LessonView in two parts", () => {
     render(<LessonView />);
 
     expect(await screen.findByTestId("block-hook")).toBeInTheDocument();
+    // mid-lesson the way out is the small link at the top, not a big button under Continue
+    expect(screen.getByTestId("lesson-new-top")).toBeInTheDocument();
+    expect(screen.queryByTestId("lesson-new")).toBeNull();
     expect(api.explainLesson).not.toHaveBeenCalled();
     expect(api.explainLessonRest).toHaveBeenCalledWith("what is quantum tunnelling?", "en", opening.blocks);
 

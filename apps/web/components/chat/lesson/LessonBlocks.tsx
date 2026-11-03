@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import type { AiCheck, AiPredict, UsableBlock } from "@/lib/lessons/ai-lesson";
 import type { Evidence } from "@/lib/lessons/learning-map";
@@ -23,6 +23,7 @@ export function LessonBlocks({
   language,
   pending = false,
   restFailed = false,
+  footer,
 }: {
   blocks: UsableBlock[];
   prompt: string;
@@ -31,6 +32,8 @@ export function LessonBlocks({
   pending?: boolean;
   /** The rest could not be built; what is here is all there is. */
   restFailed?: boolean;
+  /** Shown once the lesson is over, after the follow-up box (for example, the way back to asking something else). */
+  footer?: ReactNode;
 }) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
@@ -140,6 +143,7 @@ export function LessonBlocks({
           ) : null}
           <LearningCard evidence={evidence} topic={prompt} />
           <AskAbout prompt={prompt} language={language} />
+          {footer}
         </>
       )}
     </div>

@@ -19,7 +19,10 @@ type Plan = { predict: string; predictSure?: boolean; check: string; checkSure?:
 
 /** Walk the lesson: answer the prediction and the check as planned, skipping the rest, to the end card. */
 async function walk(plan: Plan) {
-  render(<LessonBlocks blocks={blocks} prompt="what is quantum tunnelling?" language="en" />);
+  render(
+    <LessonBlocks blocks={blocks} prompt="what is quantum tunnelling?" language="en" footer={<span data-testid="footer">end</span>} />,
+  );
+  expect(screen.queryByTestId("footer")).toBeNull(); // nothing to leave by while the lesson is under way
   await userEvent.click(cont()); // hook -> predict
   if (plan.predictSure !== undefined) await userEvent.click(screen.getByTestId(plan.predictSure ? "confidence-sure" : "confidence-unsure"));
   await userEvent.click(screen.getByRole("button", { name: plan.predict }));
@@ -90,6 +93,7 @@ describe("confidence and the idea behind a wrong answer, inside the lesson", () 
 describe("the end-of-lesson card", () => {
   it("lists each judged answer by its first try, says how the learner read themselves, and keeps it on the device", async () => {
     await walk({ predict: "It rolls back", predictSure: true, check: "It falls quickly", checkSure: true });
+    expect(screen.getByTestId("footer")).toBeInTheDocument(); // the way out appears at the very end
     const card = screen.getByTestId("learning-card");
     const rows = within(card).getAllByTestId("learning-row");
     expect(rows.map((r) => r.getAttribute("data-state"))).toEqual(["right", "right"]);
