@@ -26,6 +26,7 @@ from app.proxy import (
     trusted_networks,
 )
 from app.ratelimit import limiter
+from app.records.router import router as records_router
 from app.registries.startup import validate_startup_config
 from app.research.router import router as research_router
 from app.video_jobs.router import router as video_jobs_router
@@ -90,6 +91,7 @@ app.include_router(dev_router)
 app.include_router(video_jobs_router)
 app.include_router(explain_router)
 app.include_router(groups_router)
+app.include_router(records_router)
 
 
 def access_log_line(method: str, path: str, status: int) -> str:

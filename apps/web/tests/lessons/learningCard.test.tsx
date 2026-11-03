@@ -6,6 +6,7 @@ import { LESSON } from "./aiLesson";
 vi.mock("@/lib/api", () => ({ explainChat: vi.fn() }));
 
 import { LessonBlocks } from "@/components/chat/lesson/LessonBlocks";
+import type { KeepCard } from "@/components/chat/lesson/LearningCard";
 import { usableBlocks } from "@/lib/lessons/ai-lesson";
 import { loadSaved } from "@/lib/lessons/learning-map";
 
@@ -18,9 +19,9 @@ afterEach(cleanup);
 type Plan = { predict: string; predictSure?: boolean; check: string; checkSure?: boolean };
 
 /** Walk the lesson: answer the prediction and the check as planned, skipping the rest, to the end card. */
-async function walk(plan: Plan) {
+async function walk(plan: Plan, keep?: KeepCard) {
   render(
-    <LessonBlocks blocks={blocks} prompt="what is quantum tunnelling?" language="en" footer={<span data-testid="footer">end</span>} />,
+    <LessonBlocks blocks={blocks} prompt="what is quantum tunnelling?" language="en" keep={keep} footer={<span data-testid="footer">end</span>} />,
   );
   expect(screen.queryByTestId("footer")).toBeNull(); // nothing to leave by while the lesson is under way
   await userEvent.click(cont()); // hook -> predict
@@ -152,5 +153,34 @@ describe("the end-of-lesson card", () => {
     render(<LessonBlocks blocks={noAnswers} prompt="q" language="en" />);
     expect(screen.queryByTestId("learning-card")).toBeNull();
     expect(loadSaved()).toEqual([]);
+  });
+
+  it("offers no way to keep the card in an account unless the learner is signed in", async () => {
+    await walk({ predict: "It rolls back", check: "It falls quickly" });
+    expect(screen.queryByTestId("learning-keep")).toBeNull();
+  });
+
+  it("keeps the device record in the account when asked, and clears both together", async () => {
+    const save = vi.fn().mockResolvedValue({ saved: 1 });
+    const clear = vi.fn().mockResolvedValue({ cleared: true });
+    await walk({ predict: "It rolls back", check: "It falls quickly" }, { save, clear });
+    expect(save).not.toHaveBeenCalled(); // nothing leaves the device until the learner asks
+    await userEvent.click(screen.getByTestId("learning-keep"));
+    expect(save).toHaveBeenCalledTimes(1);
+    expect(save.mock.calls[0]![0]).toEqual(loadSaved());
+    expect(await screen.findByText(/Saved to your account/)).toBeInTheDocument();
+    expect(screen.queryByTestId("learning-keep")).toBeNull();
+    await userEvent.click(screen.getByTestId("learning-clear"));
+    expect(clear).toHaveBeenCalledTimes(1);
+    expect(screen.getByText("Cleared from this device and your account.")).toBeInTheDocument();
+  });
+
+  it("says so when the account could not be reached, and keeps the device copy", async () => {
+    const save = vi.fn().mockRejectedValue(new Error("down"));
+    await walk({ predict: "It rolls back", check: "It falls quickly" }, { save, clear: vi.fn() });
+    await userEvent.click(screen.getByTestId("learning-keep"));
+    expect(await screen.findByText(/Could not save it just now/)).toBeInTheDocument();
+    expect(loadSaved()).toHaveLength(1);
+    expect(screen.getByTestId("learning-keep")).toBeEnabled(); // the learner can try again
   });
 });

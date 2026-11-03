@@ -582,6 +582,25 @@ class GroupResultRow(Base):
     items: Mapped[list] = mapped_column(JSONType)
 
 
+class LessonRecordRow(Base):
+    """One lesson's first-try results on a signed-in learner's learning card, kept on request.
+
+    The same small shape the device keeps: a topic, when, and per question right or wrong, how
+    sure, and the named idea. No question text and no free text from the learner is stored.
+    """
+
+    __tablename__ = "lesson_records"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    topic: Mapped[str] = mapped_column(String(80))
+    taken_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    items: Mapped[list] = mapped_column(JSONType)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class ReviewCardRow(Base):
     __tablename__ = "review_cards"
 

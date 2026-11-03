@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { calibration, clearSaved, rotated, saveLesson, summarise, type Evidence } from "@/lib/lessons/learning-map";
+import { calibration, clearSaved, loadSaved, rotated, saveLesson, summarise, type Evidence, type SavedLesson } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
 import { BlockTitle, Choice, Note } from "./blocks";
 
@@ -31,14 +31,18 @@ function RetestRow({ item }: { item: Evidence }) {
   );
 }
 
+/** How a signed-in learner keeps the card in their account: given the device record, and clearing it again. */
+export type KeepCard = { save: (records: SavedLesson[]) => Promise<unknown>; clear: () => Promise<unknown> };
+
 /**
  * What the learner showed in this lesson: what went right, what is shaky, how well they read themselves,
  * and a second go at anything they were sure about and got wrong (those return after a week if not
  * revisited). It is kept on this device only, and can be cleared here.
  */
-export function LearningCard({ evidence, topic }: { evidence: Evidence[]; topic: string }) {
+export function LearningCard({ evidence, topic, keep }: { evidence: Evidence[]; topic: string; keep?: KeepCard }) {
   const copy = useCopy();
   const [cleared, setCleared] = useState(false);
+  const [kept, setKept] = useState<"idle" | "saving" | "kept" | "failed">("idle");
   const saved = useRef(false);
   const summary = summarise(evidence);
   const line = calibration(summary);
@@ -89,7 +93,26 @@ export function LearningCard({ evidence, topic }: { evidence: Evidence[]; topic:
         </div>
       ) : null}
       <div className="flex flex-wrap items-center gap-3">
-        <p className="m-0 text-[0.75rem] text-muted">{cleared ? copy.lessonCardCleared : copy.lessonCardOnDevice}</p>
+        <p className="m-0 text-[0.75rem] text-muted" data-testid="learning-where">
+          {cleared ? (kept === "kept" ? copy.lessonCardClearedAll : copy.lessonCardCleared) : kept === "kept" ? copy.lessonCardKept : kept === "failed" ? copy.lessonCardKeepFailed : copy.lessonCardOnDevice}
+        </p>
+        {keep && !cleared && kept !== "kept" ? (
+          <Button
+            variant="outline"
+            size="sm"
+            data-testid="learning-keep"
+            disabled={kept === "saving"}
+            onClick={() => {
+              setKept("saving");
+              keep
+                .save(loadSaved())
+                .then(() => setKept("kept"))
+                .catch(() => setKept("failed"));
+            }}
+          >
+            {copy.lessonCardKeep}
+          </Button>
+        ) : null}
         {cleared ? null : (
           <Button
             variant="ghost"
@@ -98,6 +121,7 @@ export function LearningCard({ evidence, topic }: { evidence: Evidence[]; topic:
             onClick={() => {
               clearSaved();
               setCleared(true);
+              if (kept === "kept") void keep?.clear().catch(() => undefined);
             }}
           >
             {copy.lessonCardClear}

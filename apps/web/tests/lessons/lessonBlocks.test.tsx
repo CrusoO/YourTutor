@@ -70,6 +70,16 @@ describe("LessonBlocks", () => {
     expect(screen.queryByTestId("lesson-skip")).toBeNull();
   });
 
+  it("does not offer the skip when a right prediction was marked not sure", async () => {
+    render(<LessonBlocks blocks={blocks} prompt="q" language="en" />);
+    await userEvent.click(cont());
+    await userEvent.click(screen.getByRole("button", { name: "Not sure" }));
+    await userEvent.click(screen.getByRole("button", { name: "It rolls back" }));
+    expect(screen.getByText(/Yep, you got it/)).toBeInTheDocument();
+    expect(screen.queryByTestId("lesson-skip")).toBeNull();
+    expect(cont()).toBeEnabled();
+  });
+
   it("moves the slider widget's output with the slider", async () => {
     render(<LessonBlocks blocks={blocks} prompt="q" language="en" />);
     await userEvent.click(cont());

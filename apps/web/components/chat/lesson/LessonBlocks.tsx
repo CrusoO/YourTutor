@@ -7,7 +7,7 @@ import type { Evidence } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
 import { AskAbout } from "./AskAbout";
 import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock, type AnswerInfo } from "./blocks";
-import { LearningCard } from "./LearningCard";
+import { LearningCard, type KeepCard } from "./LearningCard";
 import { WidgetBlock } from "./widgets";
 
 /** The blocks that need an answer before "Continue" opens. Every other block is ready as soon as it shows. */
@@ -23,6 +23,7 @@ export function LessonBlocks({
   language,
   pending = false,
   restFailed = false,
+  keep,
   footer,
 }: {
   blocks: UsableBlock[];
@@ -32,13 +33,17 @@ export function LessonBlocks({
   pending?: boolean;
   /** The rest could not be built; what is here is all there is. */
   restFailed?: boolean;
+  /** Present only for a signed-in learner: the card can be kept in their account. */
+  keep?: KeepCard;
   /** Shown once the lesson is over, after the follow-up box (for example, the way back to asking something else). */
   footer?: ReactNode | ((evidence: Evidence[]) => ReactNode);
 }) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
   const [answered, setAnswered] = useState<ReadonlySet<number>>(new Set());
+  // A right guess that was only a hunch ("not sure") is not knowing: it still gets the explanation.
   const [predictedRight, setPredictedRight] = useState<boolean | null>(null);
+  const [predictedUnsure, setPredictedUnsure] = useState(false);
   const lastRef = useRef<HTMLLIElement>(null);
   const first = useRef(true);
 
@@ -48,7 +53,7 @@ export function LessonBlocks({
   const finished = atEnd && !pending;
   const waitingForMore = atEnd && pending && ready;
   const checkAt = blocks.findIndex((b) => b.block.kind === "check");
-  const canSkip = current.block.kind === "predict" && predictedRight === true && ready && checkAt > shown;
+  const canSkip = current.block.kind === "predict" && predictedRight === true && !predictedUnsure && ready && checkAt > shown;
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
 
@@ -103,6 +108,7 @@ export function LessonBlocks({
                   block={block}
                   onResult={(info) => {
                     setPredictedRight(info.right);
+                    setPredictedUnsure(info.confidence === "unsure");
                     record(i, block, info);
                     mark(i);
                   }}
@@ -141,7 +147,7 @@ export function LessonBlocks({
               {copy.lessonRestFailed}
             </p>
           ) : null}
-          <LearningCard evidence={evidence} topic={prompt} />
+          <LearningCard evidence={evidence} topic={prompt} keep={keep} />
           <AskAbout prompt={prompt} language={language} />
           {typeof footer === "function" ? footer(evidence) : footer}
         </>

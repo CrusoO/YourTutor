@@ -416,3 +416,66 @@ def test_the_lesson_endpoint_continues_from_a_clean_opening_and_refuses_a_bad_on
         "/explain/lesson", json={"prompt": "x", "opening": _blocks()}, headers=headers
     )
     assert too_many.status_code == 422  # more than four blocks is not an opening
+
+
+def _counting_provider(monkeypatch: pytest.MonkeyPatch, reply: str) -> list[int]:
+    """Real-provider path with a fake model that counts its calls."""
+    calls: list[int] = []
+
+    class Counting(ExplainProvider):
+        def complete(self, prompt: Any, model: str) -> Any:
+            calls.append(1)
+            return FakeProvider([reply]).complete(prompt, model)
+
+    monkeypatch.setattr(sl, "ExplainProvider", Counting)
+    monkeypatch.setattr(settings, "llm_api_key", "k")
+    monkeypatch.setattr(settings, "llm_story_model", "")
+    monkeypatch.setattr(settings, "llm_model_strong", "anthropic/claude-haiku-5-5")
+    return calls
+
+
+def test_a_topic_asked_twice_costs_one_model_call(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls = _counting_provider(monkeypatch, _lesson_json())
+    first = sl.build_lesson("What is tunnelling", "en", OPEN)
+    again = sl.build_lesson("  what is   TUNNELLING ", "en", OPEN)
+    assert first["kind"] == "lesson" and again == first
+    assert len(calls) == 1
+    again["blocks"].clear()  # a caller changing its copy does not change the cache
+    assert len(sl.build_lesson("what is tunnelling", "en", OPEN)["blocks"]) == 6
+
+
+def test_a_different_language_scope_or_part_is_not_shared(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = _counting_provider(monkeypatch, _lesson_json())
+    sl.build_lesson("what is tunnelling", "en", OPEN)
+    sl.build_lesson("what is tunnelling", "hi", OPEN)
+    sl.build_lesson("what is tunnelling", "en", OPEN, restricted=True)
+    assert len(calls) == 3
+
+
+def test_a_failed_lesson_is_not_cached(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls = _counting_provider(monkeypatch, "not json")
+    assert sl.build_lesson("what is tunnelling", "en", OPEN)["kind"] == "unavailable"
+    before = len(calls)
+    sl.build_lesson("what is tunnelling", "en", OPEN)
+    assert len(calls) > before
+
+
+def test_a_refused_question_never_reaches_the_cache(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls = _counting_provider(monkeypatch, _lesson_json())
+    sl.build_lesson("what is tunnelling", "en", OPEN)
+    shut = Gate(enabled=True, allowed=False)
+    assert sl.build_lesson("what is tunnelling", "en", shut)["kind"] != "lesson"
+    assert len(calls) == 1
+
+
+def test_the_cache_expires_and_stays_small() -> None:
+    from app.explain import lesson_cache as cache
+
+    cache.put("a", {"kind": "lesson"}, now=0.0)
+    assert cache.get("a", now=cache.TTL_SECONDS - 1) == {"kind": "lesson"}
+    assert cache.get("a", now=cache.TTL_SECONDS + 1) is None
+    for i in range(cache.MAX_ENTRIES + 5):
+        cache.put(f"k{i}", {"n": i}, now=0.0)
+    assert cache.get("k0", now=1.0) is None and cache.get(f"k{cache.MAX_ENTRIES + 4}", now=1.0)
