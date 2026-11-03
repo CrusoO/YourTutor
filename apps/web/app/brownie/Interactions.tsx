@@ -13,9 +13,17 @@ const DEMO_VIDEO_POSTER = "";
  * Chapter One's opening paragraph, with a choice of who Robin is. Hindi and Nepali show the original
  * paragraph unchanged until human translations of the scenes exist.
  */
-export function RobinOpening({ fallback }: { fallback: string }) {
+export function RobinOpening({
+  fallback,
+  sceneId,
+  onSceneChange,
+}: {
+  fallback: string;
+  sceneId: string | null;
+  onSceneChange: (id: string | null) => void;
+}) {
   const { language } = useLandingLanguage();
-  const [sceneId, setSceneId] = useState<string | null>(null);
+  const setSceneId = onSceneChange;
 
   if (language !== "en") return <p>{fallback}</p>;
   const scene = robinScenes.scenes.find((item) => item.id === sceneId);

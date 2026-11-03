@@ -1,11 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-test("the homepage presents the landing page and keeps the video picker after Chapter Two", async ({ page }) => {
+test("the homepage presents the landing page and keeps the video section after Chapter Two", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
 
   await expect(page.getByTestId("brownie-landing")).toBeVisible();
-  await expect(page.getByText("Don't understand something? You don't have to pretend you do.", { exact: false })).toBeVisible();
+  await expect(page.getByText("Brownie starts with one small question", { exact: false })).toBeVisible();
   await expect(page.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login?lang=en");
   await expect(page.getByRole("link", { name: "Try asking Brownie" })).toHaveAttribute("href", "/brownie-chat");
   await expect(page.getByTestId("story-beat")).toHaveCount(5);
@@ -55,16 +55,22 @@ test("the header uses the matching Brownie logo and theme in light and dark mode
   await expect(page.getByTestId("brownie-landing")).toHaveCSS("background-color", "rgb(243, 243, 238)");
 });
 
-test("the scripted Brownie chat demonstrates accurate fraction addition and fixed follow-ups", async ({ page }) => {
+test("the scripted Brownie chat asks first, names the idea behind a wrong guess, and shows what it noted", async ({ page }) => {
   await page.goto("/");
 
   const demo = page.getByTestId("demo-chat");
   await expect(demo).toBeVisible();
   await expect(demo.getByTestId("demo-disclosure")).toContainText("scripted");
-  await expect(demo.getByTestId("demo-opening")).toContainText("different-sized pieces");
+  await expect(demo.getByTestId("demo-diagnostic")).toContainText("Is one slice from each the same size?");
+  await expect(demo.getByTestId("demo-notes")).toContainText("Nothing yet");
+
+  await demo.getByRole("button", { name: "Yes, a slice is a slice" }).click();
+  await expect(demo.getByTestId("demo-misconception")).toBeVisible();
+  await expect(demo.getByTestId("demo-reply")).toContainText("treating every piece as the same size");
+  await expect(demo.getByTestId("demo-note-0")).toContainText("Shaky");
 
   await demo.getByRole("button", { name: "Show me with pieces" }).click();
-  const pictureReply = demo.getByTestId("demo-follow-up-picture");
+  const pictureReply = demo.getByTestId("demo-follow-up-first");
   await expect(pictureReply).toContainText("3/6 + 2/6 = 5/6");
   await expect(pictureReply).toBeInViewport();
   await expect(demo.getByTestId("fraction-pieces")).toHaveAttribute(
@@ -72,11 +78,45 @@ test("the scripted Brownie chat demonstrates accurate fraction addition and fixe
     "Six equal pieces: three from one half, two from one third",
   );
 
-  await demo.getByRole("button", { name: "Restart example" }).click();
-  await expect(demo.getByTestId("demo-follow-up-picture")).toHaveCount(0);
   await demo.getByRole("button", { name: /Why can.t we add the bottoms\?/ }).click();
-  await expect(demo.getByTestId("demo-follow-up-steps")).toContainText("1/2 = 3/6");
-  await expect(demo.getByTestId("demo-follow-up-steps")).toContainText("1/3 = 2/6");
+  await expect(demo.getByTestId("demo-follow-up-second")).toContainText("1/2 = 3/6");
+  await expect(demo.getByTestId("demo-follow-up-second")).toContainText("1/3 = 2/6");
+
+  await demo.getByRole("button", { name: "Restart example" }).click();
+  await expect(demo.getByTestId("demo-reply")).toHaveCount(0);
+  await demo.getByTestId("demo-scenario-work").click();
+  await expect(demo.getByTestId("demo-diagnostic")).toContainText("VLOOKUP");
+});
+
+test("the story pictures follow the setting the reader chooses, and every picture has a caption", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByTestId("story-art-nod")).toContainText("Thirty people in a room");
+  await page.getByTestId("robin-scene-work").click();
+  await expect(page.getByTestId("story-art-nod")).toContainText("A team meeting");
+  await page.getByTestId("robin-scene-alone").click();
+  await expect(page.getByTestId("story-art-nod")).toContainText("One person, one screen");
+  for (const beat of ["nod", "silence", "missed", "belief", "asked"]) {
+    await expect(page.getByTestId(`story-art-${beat}`).locator("figcaption")).not.toBeEmpty();
+  }
+});
+
+test("visitors see example videos or a coming-soon note, never the local video picker", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByText("Drop your demo video")).toHaveCount(0);
+  await expect(page.getByText("Choose video")).toHaveCount(0);
+  await expect(page.getByTestId("video-soon")).toBeVisible();
+
+  await page.goto("/?preview=1");
+  await expect(page.getByText("Choose video")).toBeVisible();
+});
+
+test("the page answers the visitor's doubts before they try it", async ({ page }) => {
+  await page.goto("/");
+  const trust = page.getByTestId("trust");
+  await expect(trust).toBeVisible();
+  await trust.getByText("Is it a person or an AI, and can it be wrong?").click();
+  await expect(trust.getByText("Brownie is an AI. It can make mistakes", { exact: false })).toBeVisible();
+  await expect(trust.getByText("Wording to be confirmed.")).toHaveCount(2);
 });
 
 test("Hindi and Nepali translate the complete landing, interactions, and sign-in form", async ({ page }) => {
