@@ -75,6 +75,8 @@ class ValidationReport:
     needs_teacher_check: list[str] = field(default_factory=list)
     stats: dict = field(default_factory=dict)
     no_misconception_rules: list[str] = field(default_factory=list)
+    # multiple-choice items with a wrong option that names no misconception: (item id, options)
+    unnamed_distractors: list[tuple[str, tuple[str, ...]]] = field(default_factory=list)
     ab_mismatches: list[str] = field(default_factory=list)
     bundle: ContentBundle | None = None
 
@@ -146,6 +148,7 @@ def validate_bundle(
     _unique_ids(bundle, report)
     _refs_and_cycles(bundle, report)
     _items(bundle, report)
+    _distractor_rationales(bundle, report)
     _checkpoint_isolation(bundle, report)
     _checkpoint_forms(bundle, report)
     _stem_answers(bundle, report)
@@ -339,6 +342,32 @@ def _items(bundle: ContentBundle, report: ValidationReport) -> None:
         _check_diagnosis_fields(item, report.errors)
 
 
+def unnamed_options(item: Item) -> tuple[str, ...]:
+    """The wrong options of a multiple-choice item that no misconception rule accounts for.
+
+    A wrong option that names no idea leaves the learner with a shrug (a "generic" diagnosis), so
+    every distractor should map to the misconception that makes it tempting.
+    """
+    if item.type != ItemType.mcq:
+        return ()
+    named = {answer for rule in item.misconception_rules for answer in rule.when_answer_equals}
+    return tuple(
+        option.id
+        for option in item.options
+        if option.id != item.answer.sympy and option.id not in named and option.en not in named
+    )
+
+
+def _distractor_rationales(bundle: ContentBundle, report: ValidationReport) -> None:
+    for item in bundle.items:
+        missing = unnamed_options(item)
+        if missing:
+            report.unnamed_distractors.append((item.id, missing))
+            report.warnings.append(
+                f"{item.id} wrong options name no misconception: {', '.join(missing)}"
+            )
+
+
 def _check_diagnosis_fields(item: Item, errors: list[str]) -> None:
     """Step hints and the restated question are shown before the answer is revealed (G2)."""
     answers = [item.answer.sympy, *item.answer.accept]
@@ -436,6 +465,18 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                 )
             if not bundle.checkpoint_forms:
                 report.errors.append(f"{overlay.id} is live but missing matched checkpoint forms")
+            unnamed = [
+                item.id
+                for item in bundle.items
+                if item.status.value == "approved"
+                and item.primary_skill in overlay.skill_ids
+                and unnamed_options(item)
+            ]
+            if unnamed:
+                report.errors.append(
+                    f"{overlay.id} is live but these multiple-choice items have wrong options "
+                    f"that name no misconception: {', '.join(unnamed)}"
+                )
             if unchecked:
                 report.errors.append(
                     f"{overlay.id} is live but has needs_teacher_check "
@@ -833,6 +874,9 @@ def format_report(report: ValidationReport) -> str:
     lines.append(f"  no misconception_rules: {len(report.no_misconception_rules)}")
     for item_id in report.no_misconception_rules:
         lines.append(f"    {item_id}")
+    lines.append(f"  wrong options naming no misconception: {len(report.unnamed_distractors)}")
+    for item_id, options in report.unnamed_distractors:
+        lines.append(f"    {item_id}: {', '.join(options)}")
     lines.append(f"  A/B skill-or-tier mismatches: {len(report.ab_mismatches)}")
     for row in report.ab_mismatches:
         lines.append(f"    {row}")
