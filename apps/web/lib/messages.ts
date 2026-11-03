@@ -405,6 +405,8 @@ const en = {
   lessonDraftNote: "An AI wrote this and nobody has checked it yet. Treat any numbers as examples, not facts.",
   lessonPickFirst: "Go on, take a guess.",
   lessonHoldGuess: "Hold on to that guess.",
+  lessonPreparing: "Getting the next part ready…",
+  lessonRestFailed: "I couldn't build the rest of the lesson. The written version is below.",
   lessonGuessMatched: "Yep, you got it.",
   lessonGuessMissed: "Lots of people guess that. Here's what's really going on.",
   lessonWriteGuess: "Type your guess",

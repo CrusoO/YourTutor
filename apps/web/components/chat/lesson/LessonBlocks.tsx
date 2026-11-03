@@ -15,7 +15,21 @@ const NEEDS_ANSWER = new Set(["predict", "check", "transfer"]);
  * The interactive lesson: blocks appear one at a time, each after the student has done what it asks. Earlier
  * blocks stay on the page (with their answers) so the student can scroll back.
  */
-export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock[]; prompt: string; language: "en" | "hi" }) {
+export function LessonBlocks({
+  blocks,
+  prompt,
+  language,
+  pending = false,
+  restFailed = false,
+}: {
+  blocks: UsableBlock[];
+  prompt: string;
+  language: "en" | "hi";
+  /** More blocks are on their way: the student can work on what is here and Continue waits for the next. */
+  pending?: boolean;
+  /** The rest could not be built; what is here is all there is. */
+  restFailed?: boolean;
+}) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
   const [answered, setAnswered] = useState<ReadonlySet<number>>(new Set());
@@ -25,7 +39,9 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
 
   const current = blocks[shown - 1]!;
   const ready = !NEEDS_ANSWER.has(current.block.kind) || answered.has(shown - 1);
-  const finished = shown === blocks.length;
+  const atEnd = shown === blocks.length;
+  const finished = atEnd && !pending;
+  const waitingForMore = atEnd && pending && ready;
   const checkAt = blocks.findIndex((b) => b.block.kind === "check");
   const canSkip = current.block.kind === "predict" && predictedRight === true && ready && checkAt > shown;
 
@@ -79,7 +95,11 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
         })}
       </ol>
 
-      {!finished ? (
+      {waitingForMore ? (
+        <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-preparing">
+          {copy.lessonPreparing}
+        </p>
+      ) : !finished ? (
         <div className="flex flex-wrap items-center gap-3">
           <Button onClick={() => setShown((n) => n + 1)} disabled={!ready} data-testid="lesson-continue">
             {copy.lessonContinue}
@@ -92,7 +112,14 @@ export function LessonBlocks({ blocks, prompt, language }: { blocks: UsableBlock
           {!ready ? <p className="m-0 text-[0.8125rem] text-muted">{copy.lessonPickFirst}</p> : null}
         </div>
       ) : (
-        <AskAbout prompt={prompt} language={language} />
+        <>
+          {restFailed ? (
+            <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-rest-failed">
+              {copy.lessonRestFailed}
+            </p>
+          ) : null}
+          <AskAbout prompt={prompt} language={language} />
+        </>
       )}
     </div>
   );

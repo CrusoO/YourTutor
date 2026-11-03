@@ -3,8 +3,8 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
-import { usableBlocks, type LessonResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
+import { createSourceVideoJob, createStoryVideoJob, explainLesson, explainLessonOpening, explainLessonRest, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
+import { usableBlocks, usableOpening, usableRest, type LessonOpeningResult, type LessonResult, type LessonRestResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
 import { SourcesDrawer } from "./SourcesDrawer";
@@ -139,6 +139,8 @@ function LessonBody({ prompt }: { prompt: string }) {
   const [lessonState, setLessonState] = useState<"loading" | "failed" | UsableBlock[]>("loading");
   const [explanation, setExplanation] = useState<Explanation | "loading" | "idle">("idle");
   const explainRequested = useRef(false);
+  // The lesson arrives in two parts: the opening at once, then the rest while the student starts on it.
+  const [rest, setRest] = useState<"idle" | "pending" | "done" | "failed">("idle");
   const [video, setVideo] = useState<VideoState>({ phase: "starting" });
   const [attempt, setAttempt] = useState(0);
   const mounted = useRef(true);
@@ -198,6 +200,44 @@ function LessonBody({ prompt }: { prompt: string }) {
       .catch(() => mounted.current && onExplained({ kind: "unavailable", reason: "provider_error" }));
   }
 
+  // The single-call lesson: the way in when the fast opening is not available.
+  function wholeLesson() {
+    explainLesson(prompt, language.current)
+      .then((result) => mounted.current && onLesson(result))
+      .catch(() => mounted.current && onLesson({ kind: "unavailable", reason: "provider_error" }));
+  }
+
+  function onOpening(result: LessonOpeningResult) {
+    if (result.kind === "opening") {
+      const opening = usableOpening(result);
+      if (opening) {
+        setLessonState(opening);
+        setRest("pending");
+        explainLessonRest(prompt, language.current, result.blocks)
+          .then((more) => mounted.current && onRest(more))
+          .catch(() => mounted.current && onRest({ kind: "unavailable", reason: "provider_error" }));
+        return;
+      }
+    } else if (result.kind === "refused" || result.kind === "distress" || result.kind === "out_of_scope") {
+      explainRequested.current = true;
+      setLessonState("failed");
+      return onExplained(result);
+    }
+    wholeLesson();
+  }
+
+  function onRest(result: LessonRestResult) {
+    const more = result.kind === "rest" ? usableRest(result.blocks) : null;
+    if (more) {
+      setLessonState((current) => (Array.isArray(current) ? [...current, ...more] : current));
+      setRest("done");
+      return;
+    }
+    // The opening is already on screen; the written explanation fills in what the lesson could not.
+    setRest("failed");
+    ensureExplained();
+  }
+
   function onLesson(result: LessonResult) {
     if (result.kind === "lesson") {
       const blocks = usableBlocks(result);
@@ -245,9 +285,9 @@ function LessonBody({ prompt }: { prompt: string }) {
     heading.current?.focus({ preventScroll: true });
     if (!started.current) {
       started.current = true;
-      explainLesson(prompt, language.current)
-        .then((result) => mounted.current && onLesson(result))
-        .catch(() => mounted.current && onLesson({ kind: "unavailable", reason: "provider_error" }));
+      explainLessonOpening(prompt, language.current)
+        .then((result) => mounted.current && onOpening(result))
+        .catch(() => mounted.current && wholeLesson());
       if (language.current === "hi") {
         storyState.current = "failed";
         launched.current = true;
@@ -348,7 +388,7 @@ function LessonBody({ prompt }: { prompt: string }) {
           </details>
         ) : null}
 
-        {blocks ? <LessonBlocks blocks={blocks} prompt={prompt} language={language.current} /> : null}
+        {blocks ? <LessonBlocks blocks={blocks} prompt={prompt} language={language.current} pending={rest === "pending"} restFailed={rest === "failed"} /> : null}
 
         {waiting ? (
           <div className="flex flex-col gap-4" role="status">

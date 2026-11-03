@@ -7,7 +7,7 @@ const explainChat = vi.fn();
 vi.mock("@/lib/api", () => ({ explainChat: (...args: unknown[]) => explainChat(...args) }));
 
 import { LessonBlocks } from "@/components/chat/lesson/LessonBlocks";
-import { usableBlocks, type AiBlock } from "@/lib/lessons/ai-lesson";
+import { usableBlocks, usableOpening, usableRest, type AiBlock } from "@/lib/lessons/ai-lesson";
 
 const blocks = usableBlocks(LESSON)!;
 const cont = () => screen.getByTestId("lesson-continue");
@@ -154,5 +154,33 @@ describe("LessonBlocks", () => {
     await userEvent.type(screen.getByTestId("ask-about-input"), "hello");
     await userEvent.click(screen.getByRole("button", { name: "Ask" }));
     expect(await screen.findByRole("alert")).toHaveTextContent("I couldn't answer");
+  });
+});
+
+
+describe("usableOpening and usableRest", () => {
+  const [hook, predict, widget, explain, check, transfer, recap] = LESSON.blocks as [
+    AiBlock, AiBlock, AiBlock, AiBlock, AiBlock, AiBlock, AiBlock,
+  ];
+
+  it("accepts exactly a hook then a prediction as an opening", () => {
+    expect(usableOpening({ blocks: [hook, predict] })?.map((b) => b.block.kind)).toEqual(["hook", "predict"]);
+    for (const blocks of [[hook], [predict, hook], [hook, predict, explain], [explain, check]]) {
+      expect(usableOpening({ blocks })).toBeNull();
+    }
+  });
+
+  it("accepts a rest of at least three drawable blocks that includes a check, and drops a second hook", () => {
+    const usable = usableRest([hook, widget, explain, check, transfer, recap]);
+    expect(usable?.map((b) => b.block.kind)).toEqual(["widget", "explain", "check", "transfer", "recap"]);
+  });
+
+  it("rejects a rest that is too short, has no check, or loses its widget and falls below three", () => {
+    expect(usableRest([explain, check])).toBeNull();
+    expect(usableRest([widget, explain, transfer, recap])).toBeNull();
+    const broken = { ...(widget as Extract<AiBlock, { widget_kind: "slider_sim" }>) };
+    broken.spec = { ...broken.spec, formula: "alert(1)" };
+    expect(usableRest([broken, check, recap])).toBeNull(); // the widget is dropped, two are left
+    expect(usableRest([broken, explain, check, recap])?.map((b) => b.block.kind)).toEqual(["explain", "check", "recap"]);
   });
 });
