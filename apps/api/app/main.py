@@ -50,7 +50,24 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
             f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
             "its development default. Set a real value in the environment."
         )
+    check_database_schema()
     yield
+
+
+def check_database_schema() -> None:
+    """Stop a production start on a database that is behind; shout about it anywhere else."""
+    from app.db.schema_check import check_schema
+    from app.db.session import make_engine
+
+    engine = make_engine()
+    try:
+        check_schema(
+            engine,
+            production=settings.app_env.lower() == "production",
+            auto_migrate=settings.auto_migrate,
+        )
+    finally:
+        engine.dispose()
 
 
 _LOCAL_ORIGINS = (
