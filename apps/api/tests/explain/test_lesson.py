@@ -479,3 +479,64 @@ def test_the_cache_expires_and_stays_small() -> None:
     for i in range(cache.MAX_ENTRIES + 5):
         cache.put(f"k{i}", {"n": i}, now=0.0)
     assert cache.get("k0", now=1.0) is None and cache.get(f"k{cache.MAX_ENTRIES + 4}", now=1.0)
+
+
+def test_a_step_keeps_a_clean_picture_and_drops_a_bad_one() -> None:
+    balance = {
+        "kind": "balance",
+        "left": [{"n": 0, "what": "x", "unknown": True}, {"n": 4, "what": "coins", "out": 9}],
+        "right": [{"n": 10, "what": "coins"}],
+    }
+    got = sl.clean_picture(balance)
+    assert got is not None
+    assert got["left"][1] == {
+        "n": 4,
+        "what": "coins",
+        "unknown": False,
+        "out": 0,
+    }  # out > n: ignored
+    assert got["left"][0]["unknown"] is True
+    spec = {
+        "steps": [
+            {"label": "Start", "description": "d", "picture": balance},
+            {"label": "Next", "description": "d", "picture": {"kind": "<script>"}},
+        ]
+    }
+    cleaned = sl._clean_widget_spec("step_through", spec)  # noqa: SLF001
+    assert cleaned is not None
+    assert cleaned["steps"][0]["picture"] is not None and cleaned["steps"][1]["picture"] is None
+
+
+def test_pictures_are_clamped_and_never_carry_free_text() -> None:
+    assert sl.clean_picture({"kind": "pieces", "parts": 6, "shaded": 3, "what": "pizza"}) == {
+        "kind": "pieces",
+        "parts": 6,
+        "shaded": 3,
+        "what": "pizza",
+    }
+    assert sl.clean_picture({"kind": "pieces", "parts": 6, "shaded": 7}) is None
+    assert sl.clean_picture({"kind": "pieces", "parts": 99, "shaded": 1}) is None
+    assert sl.clean_picture({"kind": "pieces", "parts": 6.5, "shaded": 1}) is None
+    assert sl.clean_picture({"kind": "groups", "groups": True, "each": 2}) is None
+    assert sl.clean_picture({"kind": "groups", "groups": 3, "each": 4}) is not None
+    long = sl.clean_picture({"kind": "groups", "groups": 3, "each": 4, "what": "x" * 200})
+    assert long is not None and len(long["what"]) == sl.PICTURE_NAME_CHARS
+    assert sl.clean_picture({"kind": "balance", "left": [], "right": [{"n": 1}]}) is None
+    assert sl.clean_picture({"kind": "balance", "left": [{"n": 99}], "right": [{"n": 1}]}) is None
+    assert sl.clean_picture("balance") is None and sl.clean_picture(None) is None
+
+
+def test_a_line_picture_keeps_marks_and_a_jump_inside_the_line() -> None:
+    line = {
+        "kind": "line",
+        "min": 0,
+        "max": 10,
+        "marks": [{"at": 4, "label": "start"}, {"at": 99, "label": "off"}, "junk"],
+        "jump": {"from": 4, "to": 10},
+    }
+    got = sl.clean_picture(line)
+    assert got is not None and got["marks"] == [{"at": 4, "label": "start"}]
+    assert got["jump"] == {"from": 4, "to": 10}
+    assert sl.clean_picture({**line, "jump": {"from": 4, "to": 40}})["jump"] is None  # type: ignore[index]
+    assert sl.clean_picture({"kind": "line", "min": 5, "max": 5}) is None
+    assert sl.clean_picture({"kind": "line", "min": 0, "max": 5000}) is None
