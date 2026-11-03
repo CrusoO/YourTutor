@@ -20,7 +20,7 @@ import {
   guestStart,
   hasStudentToken,
   locale,
-  routeAction,
+  getActionRules,
   setStaffToken,
   setToken,
   startSession,
@@ -30,7 +30,7 @@ import {
   type ContextOptions,
 } from "@/lib/api";
 import { isLiveLocale, setLocale, useCopy } from "@/lib/locale";
-import { planAction, type Step } from "@/lib/chat/actions";
+import { decide, planAction, type ActionRules, type Step } from "@/lib/chat/actions";
 import { loadSetup, saveSetup } from "@/lib/chat/device";
 import { markActive } from "@/lib/chat/today";
 import { findTopics, prepare, type FinderRules, type Topic } from "@/lib/chat/finder";
@@ -151,6 +151,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const ctxRef = useRef<ContextLike | null>(null);
   // Set below, once newChat and startMode exist; submitText calls it before it can use them directly.
   const actionRef = useRef<(text: string) => Promise<boolean>>(async () => false);
+  const actionRules = useRef<{ asked: string; rules: ActionRules } | null>(null);
 
   const emptyCtx: ContextLike = useMemo(() => ({ curricula: [] }), []);
   const [chat, dispatchRaw] = useReducer(
@@ -500,28 +501,31 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   const dismissReplies = useCallback(() => setReplies([]), []);
 
-  /** Ask the server whether the typed text is a command. Any failure means "not a command": the question carries on as before. */
+  /**
+   * Is the typed text a command? Decided here, on the device: the phrase table is fetched (a GET with no user text)
+   * and the finder's own safety screen runs first, so distress or blocked text is never a command. Any failure
+   * means "not a command" and the text carries on as a question. Returns true when it was handled.
+   */
   actionRef.current = async (text: string) => {
-    const typed = text.trim();
-    if (!typed) return false;
+    let plan;
     try {
-      const lang = locale() === "hi" ? "hi" : "en";
-      const plan = planAction(await routeAction(typed, lang), isLiveLocale);
-      if (plan.kind === "ignore") return false;
-      if (plan.kind === "say") {
-        addReply({ kind: "notice", text: plan.text });
-        return true;
-      }
-      if (plan.kind === "confirm") {
-        addReply({ kind: "notice", text: plan.ask, confirm: { step: plan.step, after: plan.text } });
-        return true;
-      }
-      addReply({ kind: "notice", text: plan.text });
-      if (plan.step) await runStep(plan.step);
-      return true;
+      if (!rules.current) rules.current = await getFinderRules(locale());
+      const prepared = prepare(text, rules.current);
+      if (prepared.kind !== "ok") return false;
+      const asked = locale();
+      if (actionRules.current?.asked !== asked) actionRules.current = { asked, rules: await getActionRules(asked) };
+      plan = planAction(decide(prepared.text, actionRules.current.rules, role === "guest" ? "guest" : "student"), isLiveLocale);
     } catch {
       return false;
     }
+    if (plan.kind === "ignore") return false;
+    if (plan.kind === "say") addReply({ kind: "notice", text: plan.text });
+    else if (plan.kind === "confirm") addReply({ kind: "notice", text: plan.ask, confirm: { step: plan.step, after: plan.text } });
+    else {
+      addReply({ kind: "notice", text: plan.text });
+      if (plan.step) await runStep(plan.step);
+    }
+    return true;
   };
 
   const api: ChatApi = {

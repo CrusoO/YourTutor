@@ -1,6 +1,15 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { ActionDirective } from "@/lib/api";
-import { planAction, SCREENS, stepFor } from "@/lib/chat/actions";
+import { decide, normalise, planAction, SCREENS, stepFor, type ActionDirective, type ActionRules, type Tier } from "@/lib/chat/actions";
+
+const DIR = path.resolve(__dirname, "../../../../packages/shared/fixtures/actions");
+const rules = JSON.parse(fs.readFileSync(path.join(DIR, "rules_en.json"), "utf-8")) as ActionRules;
+const cases = JSON.parse(fs.readFileSync(path.join(DIR, "cases.json"), "utf-8")).cases as {
+  text: string;
+  tier: Tier;
+  expect: { kind: string; name?: string; args?: Record<string, string>; risk?: string };
+}[];
 
 const live = (code: string) => code === "en" || code === "hi";
 
@@ -70,5 +79,39 @@ describe("planAction", () => {
     expect(planAction(action({ client: "launch_missiles" }), live)).toEqual({ kind: "ignore" });
     expect(planAction(action({ narration: "" }), live)).toEqual({ kind: "ignore" });
     expect(planAction(action({ client: "set_language", args: { language: "fr" } }), live)).toEqual({ kind: "ignore" });
+  });
+});
+
+describe("the matcher agrees with the Python reference (shared cases)", () => {
+  it("has the fixtures", () => {
+    expect(cases.length).toBeGreaterThanOrEqual(20);
+    expect(Object.keys(rules.phrases).length).toBeGreaterThan(20);
+  });
+
+  it.each(cases.map((c) => [`${c.tier}: ${JSON.stringify(c.text)}`, c] as const))("%s", (_label, c) => {
+    const got = decide(c.text, rules, c.tier);
+    const want = c.expect;
+    expect(got.kind).toBe(want.kind);
+    if (got.kind === "action") expect({ name: got.name, args: got.args, risk: got.risk }).toEqual({ name: want.name, args: want.args, risk: want.risk });
+    if (got.kind === "denied") expect(got.name).toBe(want.name);
+  });
+
+  it("normalises every phrase key to itself, as Python does", () => {
+    for (const key of Object.keys(rules.phrases)) expect(normalise(key, rules.fillers)).toBe(key);
+  });
+
+  it("keeps Indic combining marks", () => {
+    expect(normalise("हिन्दी!", [])).toBe("हिन्दी");
+  });
+
+  it("never runs a verb or screen outside the closed list, whatever the table says", () => {
+    const hostile: ActionRules = {
+      ...rules,
+      phrases: { oops: { name: "x", args: { screen: "/admin" } } },
+      actions: { x: { client: "open_screen", risk: "safe", tiers: ["guest"], narration: "Opening." } },
+    };
+    const directive = decide("oops", hostile, "guest");
+    expect(directive.kind).toBe("action");
+    expect(planAction(directive, (c) => c === "en")).toEqual({ kind: "ignore" });
   });
 });

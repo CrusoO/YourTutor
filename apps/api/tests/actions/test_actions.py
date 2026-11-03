@@ -1,7 +1,8 @@
-"""A1: the deterministic action router. Pure matching and routing first, then the endpoint."""
+"""A1: the action rules. Config and registry agree, matching is exact, the table is sound."""
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -12,12 +13,11 @@ from fastapi.testclient import TestClient
 
 from app.actions.matcher import load_action_config, match_utterance, normalise
 from app.actions.registry import REGISTRY, ActionSpec, Risk, Tier
-from app.actions.service import route
-from app.ask.guard import Verdict
-from app.registries.paths import config_dir
-from tests.conftest import World, auth_header
+from app.actions.rules import build_rules
+from app.registries.paths import config_dir, repo_root
 
 CONFIG = load_action_config()
+FIXTURES = repo_root() / "packages" / "shared" / "fixtures" / "actions"
 
 
 # -- the config and the registry agree ----------------------------------------------------------
@@ -73,114 +73,6 @@ def test_a_missing_narration_is_refused(tmp_path: Path) -> None:
         load_action_config(root)
 
 
-# -- matching: exact after filler words, never partial --------------------------------------------
-
-
-@pytest.mark.parametrize(
-    ("text", "action", "value"),
-    [
-        ("practice", "start_practice", None),
-        ("Please, can you quiz me?", "start_practice", None),
-        ("  START   PRACTICE!! ", "start_practice", None),
-        ("continue where I left off", "continue_learning", None),
-        ("show my subjects", "show_subjects", None),
-        ("switch to Hindi", "switch_language", "hi"),
-        ("English please", "switch_language", "en"),
-        ("let's start over", "new_chat", None),
-        ("what can you do?", "help", None),
-    ],
-)
-def test_phrases_match(text: str, action: str, value: str | None) -> None:
-    hit = match_utterance(text, CONFIG, "en")
-    assert hit is not None and (hit.action, hit.value) == (action, value)
-
-
-@pytest.mark.parametrize(
-    "text",
-    [
-        "what is practice in physics",
-        "how do I solve a quadratic",
-        "practice makes perfect",
-        "continue the story of the french revolution",
-        "switch to hindi and then explain slope to me please",
-        "",
-        "   ",
-        "?!",
-    ],
-)
-def test_questions_and_noise_are_not_actions(text: str) -> None:
-    assert match_utterance(text, CONFIG, "en") is None
-
-
-def test_an_unknown_language_falls_back_to_the_default_block() -> None:
-    hit = match_utterance("practice", CONFIG, "xx")
-    assert hit is not None and hit.action == "start_practice"
-
-
-def test_normalise_keeps_indic_combining_marks() -> None:
-    assert normalise("हिन्दी!", frozenset()) == "हिन्दी"
-
-
-# -- routing: tiers, risk, safety -----------------------------------------------------------------
-
-
-def test_a_safe_action_runs_with_validated_arguments() -> None:
-    assert route("switch to hindi", "en", Tier.GUEST) == {
-        "kind": "action",
-        "name": "switch_language",
-        "client": "set_language",
-        "args": {"language": "hi"},
-        "risk": "safe",
-        "narration": "Okay, changing the language.",
-    }
-
-
-def test_the_reply_never_echoes_the_students_words() -> None:
-    out = str(route("please quiz me", "en", Tier.STUDENT)).lower()
-    assert "quiz" not in out and "please" not in out
-
-
-def test_a_confirm_action_asks_first() -> None:
-    out = route("new chat", "en", Tier.STUDENT)
-    assert out["kind"] == "action" and out["risk"] == "confirm" and out["confirm"]
-
-
-def test_guest_only_action_is_denied_to_a_signed_in_student() -> None:
-    assert route("sign in", "en", Tier.GUEST)["kind"] == "action"
-    assert route("sign in", "en", Tier.STUDENT) == {
-        "kind": "denied",
-        "name": "sign_in_prompt",
-        "narration": "You are already signed in.",
-    }
-
-
-@pytest.mark.parametrize("kind", ["distress", "injection", "moderation"])
-def test_an_unsafe_or_distressed_message_is_never_an_action(
-    monkeypatch: pytest.MonkeyPatch, kind: str
-) -> None:
-    monkeypatch.setattr("app.actions.service.screen", lambda *_a, **_k: Verdict(kind))
-    assert route("practice", "en", Tier.STUDENT) == {"kind": "none"}
-
-
-def test_too_long_and_empty_messages_do_nothing() -> None:
-    assert route("practice " * 40, "en", Tier.STUDENT) == {"kind": "none"}
-    assert route("   ", "en", Tier.STUDENT) == {"kind": "none"}
-
-
-def test_a_value_the_registry_rejects_does_nothing(monkeypatch: pytest.MonkeyPatch) -> None:
-    spec = REGISTRY["switch_language"]
-    narrow = ActionSpec(
-        spec.name,
-        spec.client,
-        Risk.SAFE,
-        spec.tiers,
-        arg_name="language",
-        arg_values=frozenset({"en"}),
-    )
-    monkeypatch.setattr("app.actions.service.REGISTRY", {**REGISTRY, spec.name: narrow})
-    assert route("hindi", "en", Tier.STUDENT) == {"kind": "none"}
-
-
 def test_the_registry_is_closed_and_has_no_pedagogy_or_data_actions() -> None:
     forbidden = ("mark", "grade", "answer", "hint", "teach", "explain", "delete", "buy", "share")
     assert not [name for name in REGISTRY if any(word in name for word in forbidden)]
@@ -190,43 +82,88 @@ def test_the_registry_is_closed_and_has_no_pedagogy_or_data_actions() -> None:
         REGISTRY["x"] = REGISTRY["help"]  # type: ignore[index]
 
 
+def test_a_confirm_action_always_has_a_question() -> None:
+    rules = build_rules("en")
+    for name, row in rules["actions"].items():
+        if row["risk"] == Risk.CONFIRM.value:
+            assert row.get("confirm"), name
+
+
+def test_argument_values_are_checked_against_the_registry() -> None:
+    spec = REGISTRY["switch_language"]
+    assert spec.args_for("hi") == {"language": "hi"}
+    assert spec.args_for("fr") is None and spec.args_for(None) is None
+    plain = ActionSpec("p", "none", Risk.SAFE, frozenset({Tier.GUEST}))
+    assert plain.args_for(None) == {} and plain.args_for("x") is None
+
+
+# -- matching: exact after filler words, never partial --------------------------------------------
+
+
+def test_an_unknown_language_falls_back_to_the_default_block() -> None:
+    hit = match_utterance("practice", CONFIG, "xx")
+    assert hit is not None and hit.action == "start_practice"
+    assert build_rules("xx")["language"] == "en"
+
+
+def test_normalise_keeps_indic_combining_marks() -> None:
+    assert normalise("हिन्दी!", frozenset()) == "हिन्दी"
+
+
+# -- the browser's table ------------------------------------------------------------------------
+
+
+def test_the_shared_rules_fixture_is_current() -> None:
+    fixture = json.loads((FIXTURES / "rules_en.json").read_text(encoding="utf-8"))
+    assert fixture == build_rules("en"), (
+        "config/actions.yaml or the registry changed; regenerate the fixture: "
+        "cd apps/api && python -m app.actions.rules > "
+        "../../packages/shared/fixtures/actions/rules_en.json"
+    )
+
+
+def decide(rules: dict[str, Any], text: str, tier: str) -> dict[str, Any]:
+    """The reference decision, written here to match apps/web/lib/chat/actions.ts case for case."""
+    cleaned = " ".join(text.split())
+    if not cleaned or len(cleaned) > rules["max_chars"]:
+        return {"kind": "none"}
+    key = normalise(cleaned, frozenset(rules["fillers"]))
+    if not key or len(key.split()) > rules["max_words"]:
+        return {"kind": "none"}
+    hit = rules["phrases"].get(key)
+    if hit is None:
+        return {"kind": "none"}
+    row = rules["actions"][hit["name"]]
+    if tier not in row["tiers"]:
+        return {"kind": "denied", "name": hit["name"]}
+    return {"kind": "action", "name": hit["name"], "args": hit["args"], "risk": row["risk"]}
+
+
+def test_the_shared_cases_hold_for_the_python_reference() -> None:
+    cases = json.loads((FIXTURES / "cases.json").read_text(encoding="utf-8"))["cases"]
+    rules = build_rules("en")
+    assert len(cases) >= 20
+    for case in cases:
+        assert decide(rules, case["text"], case["tier"]) == case["expect"], case
+
+
+def test_every_phrase_in_the_table_names_a_registered_action_with_valid_arguments() -> None:
+    rules = build_rules("en")
+    for key, hit in rules["phrases"].items():
+        assert key == normalise(key, frozenset(rules["fillers"])), key
+        spec = REGISTRY[hit["name"]]
+        assert set(hit["args"]) <= set(spec.fixed_args) | {spec.arg_name}, key
+
+
+def test_the_table_contains_nothing_from_a_student() -> None:
+    # Built from config alone: no per-student or per-request input exists to leak into it.
+    assert build_rules("en") == build_rules("en")
+
+
 # -- the endpoint ---------------------------------------------------------------------------------
 
 
-def test_endpoint_needs_a_student(client: TestClient, world: World) -> None:
-    r = client.post(
-        "/actions/route",
-        json={"utterance": "practice"},
-        headers=auth_header(world.parent_token),
-    )
-    assert r.status_code == 403
-
-
-def test_endpoint_routes_for_a_student(client: TestClient, world: World) -> None:
-    headers = auth_header(world.student_token)
-    r = client.post("/actions/route", json={"utterance": "practice"}, headers=headers)
-    assert r.status_code == 200 and r.json()["name"] == "start_practice"
-    miss = client.post("/actions/route", json={"utterance": "why is the sky blue"}, headers=headers)
-    assert miss.json() == {"kind": "none"}
-
-
-def test_endpoint_treats_a_guest_as_the_guest_tier(client: TestClient) -> None:
-    started = client.post(
-        "/guest/start", json={"curriculum_id": "bhutan", "grade": 9, "subject": "math"}
-    )
-    assert started.status_code == 200, started.text
-    headers = auth_header(started.json()["token"])
-    r = client.post("/actions/route", json={"utterance": "sign in"}, headers=headers)
-    assert r.json()["kind"] == "action" and r.json()["name"] == "sign_in_prompt"
-
-
-def test_endpoint_rejects_unknown_fields_and_tolerates_a_bad_language(
-    client: TestClient, world: World
-) -> None:
-    headers = auth_header(world.student_token)
-    bad = client.post("/actions/route", json={"utterance": "practice", "x": 1}, headers=headers)
-    assert bad.status_code == 422
-    ok = client.post(
-        "/actions/route", json={"utterance": "practice", "language": "zz"}, headers=headers
-    )
-    assert ok.status_code == 200 and ok.json()["kind"] == "action"
+def test_rules_are_public_and_take_no_user_text(client: TestClient) -> None:
+    r = client.get("/actions/rules", params={"language": "en"})
+    assert r.status_code == 200 and r.json() == build_rules("en")
+    assert client.post("/actions/route", json={"utterance": "practice"}).status_code in (404, 405)

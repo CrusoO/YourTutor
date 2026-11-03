@@ -1,0 +1,356 @@
+{
+  "actions": {
+    "continue_learning": {
+      "client": "open_screen",
+      "narration": "Okay, taking you back to where you were.",
+      "risk": "safe",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    },
+    "help": {
+      "client": "none",
+      "narration": "You can say: practice, continue, subjects, switch to Hindi, or new chat. Or just ask me anything you want to learn.",
+      "risk": "safe",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    },
+    "new_chat": {
+      "client": "new_chat",
+      "confirm": "This clears the chat on this screen. Do it?",
+      "narration": "Okay, starting a fresh chat.",
+      "risk": "confirm",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    },
+    "show_subjects": {
+      "client": "open_screen",
+      "narration": "Okay, here are your subjects.",
+      "risk": "safe",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    },
+    "sign_in_prompt": {
+      "client": "none",
+      "denied": "You are already signed in.",
+      "narration": "To keep your progress, sign in from the menu. You can carry on as a guest meanwhile.",
+      "risk": "safe",
+      "tiers": [
+        "guest"
+      ]
+    },
+    "start_practice": {
+      "client": "start_practice",
+      "narration": "Okay, opening your practice.",
+      "risk": "safe",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    },
+    "switch_language": {
+      "client": "set_language",
+      "narration": "Okay, changing the language.",
+      "risk": "safe",
+      "tiers": [
+        "guest",
+        "student"
+      ]
+    }
+  },
+  "denied_default": "That is not available here.",
+  "fillers": [
+    "a",
+    "brownie",
+    "can",
+    "could",
+    "hey",
+    "hi",
+    "i",
+    "let",
+    "lets",
+    "me",
+    "my",
+    "now",
+    "please",
+    "pls",
+    "the",
+    "to",
+    "us",
+    "want",
+    "would",
+    "you"
+  ],
+  "language": "en",
+  "max_chars": 120,
+  "max_words": 6,
+  "phrases": {
+    "carry on": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "change english": {
+      "args": {
+        "language": "en"
+      },
+      "name": "switch_language"
+    },
+    "change hindi": {
+      "args": {
+        "language": "hi"
+      },
+      "name": "switch_language"
+    },
+    "chapters": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "clear chat": {
+      "args": {},
+      "name": "new_chat"
+    },
+    "commands": {
+      "args": {},
+      "name": "help"
+    },
+    "continue": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "continue where left off": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "create account": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "english": {
+      "args": {
+        "language": "en"
+      },
+      "name": "switch_language"
+    },
+    "give questions": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "help": {
+      "args": {},
+      "name": "help"
+    },
+    "hindi": {
+      "args": {
+        "language": "hi"
+      },
+      "name": "switch_language"
+    },
+    "in english": {
+      "args": {
+        "language": "en"
+      },
+      "name": "switch_language"
+    },
+    "in hindi": {
+      "args": {
+        "language": "hi"
+      },
+      "name": "switch_language"
+    },
+    "keep progress": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "log in": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "login": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "new chat": {
+      "args": {},
+      "name": "new_chat"
+    },
+    "next": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "open subjects": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "options": {
+      "args": {},
+      "name": "help"
+    },
+    "pick up where left off": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "practice": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "practise": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "quiz": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "reset chat": {
+      "args": {},
+      "name": "new_chat"
+    },
+    "resume": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "revise": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "revision": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "save progress": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "show chapters": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "show subjects": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "show topics": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "sign in": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "sign up": {
+      "args": {},
+      "name": "sign_in_prompt"
+    },
+    "speak english": {
+      "args": {
+        "language": "en"
+      },
+      "name": "switch_language"
+    },
+    "speak hindi": {
+      "args": {
+        "language": "hi"
+      },
+      "name": "switch_language"
+    },
+    "start again": {
+      "args": {},
+      "name": "new_chat"
+    },
+    "start over": {
+      "args": {},
+      "name": "new_chat"
+    },
+    "start practice": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "start practising": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "subjects": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "switch english": {
+      "args": {
+        "language": "en"
+      },
+      "name": "switch_language"
+    },
+    "switch hindi": {
+      "args": {
+        "language": "hi"
+      },
+      "name": "switch_language"
+    },
+    "test": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "today": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "topics": {
+      "args": {
+        "screen": "subjects"
+      },
+      "name": "show_subjects"
+    },
+    "warm up": {
+      "args": {},
+      "name": "start_practice"
+    },
+    "what do": {
+      "args": {},
+      "name": "help"
+    },
+    "what next": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    },
+    "where left off": {
+      "args": {
+        "screen": "today"
+      },
+      "name": "continue_learning"
+    }
+  }
+}

@@ -3,6 +3,7 @@ const API =
     ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
+import type { ActionRules } from "./chat/actions";
 import type { FinderRules } from "./chat/finder";
 import type { AiBlock, LessonOpeningResult, LessonRestResult, LessonResult } from "./lessons/ai-lesson";
 import type { Lesson } from "./lessons/types";
@@ -499,15 +500,9 @@ export async function explainChat(prompt: string, language: "en" | "hi", history
   return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
 }
 
-/** What a typed command asks Brownie to do. Chosen by the server from a closed list; never built from the student's words. */
-export type ActionDirective =
-  | { kind: "none" }
-  | { kind: "denied"; name: string; narration: string }
-  | { kind: "action"; name: string; client: string; args: Record<string, string>; risk: "safe" | "confirm"; narration: string; confirm?: string };
-
-/** Is this typed message a command ("practice", "switch to Hindi")? A pure lookup on the server: no model, nothing stored. */
-export async function routeAction(utterance: string, language: "en" | "hi"): Promise<ActionDirective> {
-  return req("/actions/route", { method: "POST", body: JSON.stringify({ utterance, language }) });
+/** The words that mean a command, matched in the browser on typed text (a GET: no user text is sent). */
+export async function getActionRules(language: string): Promise<ActionRules> {
+  return req(`/actions/rules?language=${encodeURIComponent(language)}`);
 }
 
 /** The learning card a signed-in learner chose to keep in their account (a guest is refused). */
