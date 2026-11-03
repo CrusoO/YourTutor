@@ -20,22 +20,29 @@ export function ConfidenceTap({
     { id: "unsure", label: copy.confidenceUnsure },
   ];
   return (
-    <div className="stack" role="group" aria-label={copy.confidenceLabel} data-testid="confidence">
-      <p className="muted">{copy.confidenceLabel}</p>
-      <div className="row">
-        {options.map((option) => (
-          <button
-            key={option.id}
-            type="button"
-            className={value === option.id ? "" : "secondary"}
-            aria-pressed={value === option.id}
-            data-testid={`confidence-${option.id}`}
-            onClick={() => onChange(value === option.id ? null : option.id)}
-          >
-            {option.label}
-          </button>
-        ))}
-      </div>
+    <div
+      className="flex flex-wrap items-center gap-2"
+      style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}
+      role="group"
+      aria-label={copy.confidenceLabel}
+      data-testid="confidence"
+    >
+      <span className="text-[0.8125rem] text-muted">{copy.confidenceLabel}</span>
+      {options.map((option) => (
+        <button
+          key={option.id}
+          type="button"
+          className={`min-h-9 cursor-pointer rounded-full border px-3.5 py-1 text-[0.8125rem] ${
+            value === option.id ? "border-accent bg-accent-soft text-ink" : "border-line bg-transparent text-muted hover:text-ink"
+          }`}
+          style={{ width: "auto", minHeight: 36 }}
+          aria-pressed={value === option.id}
+          data-testid={`confidence-${option.id}`}
+          onClick={() => onChange(value === option.id ? null : option.id)}
+        >
+          {option.label}
+        </button>
+      ))}
     </div>
   );
 }
