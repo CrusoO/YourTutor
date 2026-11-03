@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from collections.abc import Generator
 
-from app.config import settings
 from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
+
+from app.config import settings
 
 
 def database_url(override: str | None = None) -> str:
