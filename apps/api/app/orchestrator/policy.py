@@ -1428,6 +1428,7 @@ def _maybe_ladder(
             pool="warmup" if session.phase == "warmup" else "practice",
             role=item.role,
             structure=item.structure,
+            confidence=(session.last_event.confidence or "") if session.last_event else "",
         ),
         p_known,
     )

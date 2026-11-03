@@ -10,6 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.auth.security import as_utc
+from app.config import settings
 from app.db.models import EventRow, SessionRow
 from app.learner.bkt import BktParams
 from app.learner.bktf_shadow import ShadowStep, replay_shadow
@@ -25,6 +26,14 @@ from app.learner.ladder import (
 from app.learner.types import LearnerEvent
 from app.orchestrator.types import CatalogItem
 from app.verifier.check import verify_response
+
+
+def _confidence(event: EventRow) -> str:
+    """The learner's own "sure" or "unsure", only when the deployment uses it."""
+    if not settings.confidence_rules or not isinstance(event.payload, dict):
+        return ""
+    value = event.payload.get("confidence")
+    return value if value in ("sure", "unsure") else ""
 
 
 def ladder_events_from_rows(
@@ -63,6 +72,7 @@ def ladder_events_from_rows(
                 role=item.role,
                 structure=item.structure,
                 latency_ms=event.latency_ms,
+                confidence=_confidence(event),
             )
 
         if event.event_type == "answer":

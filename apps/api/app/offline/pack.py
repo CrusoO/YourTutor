@@ -196,6 +196,7 @@ def build_pack(session: Session, student: StudentRow) -> dict[str, Any]:
         "student_id": str(student.id),
         "chapter_id": (student.context_key or {}).get("chapter_id") or student.current_chapter_id,
         "hash": content_hash(catalog, list(skills), bkt),
+        "confidence_rules": settings.confidence_rules,
         "overlay": list(skills),
         "prerequisites": {sid: list(prereqs.get(sid, ())) for sid in skills},
         "bkt_params": bkt,

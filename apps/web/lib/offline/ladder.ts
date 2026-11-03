@@ -34,6 +34,8 @@ export type LadderEvent = {
   pool?: string;
   role?: string;
   structure?: string;
+  /** "unsure" marks a right answer that was a hunch; empty when the rule is off or unsaid. */
+  confidence?: string;
 };
 
 export type SkillLadder = {
@@ -160,14 +162,17 @@ export function applyLadderEvent(
     l.seen.push(itemId);
     if (event.kind === KIND_HINT) l.hinted.push(itemId);
   }
-  const unhintedCorrectFirst = first && event.kind === KIND_ANSWER && !!event.correct;
+  // A right first answer the learner called a guess is fragile, not evidence: it neither counts as
+  // unhinted-correct nor breaks a streak or a review.
+  const fragile = first && event.kind === KIND_ANSWER && !!event.correct && event.confidence === "unsure";
+  const unhintedCorrectFirst = first && event.kind === KIND_ANSWER && !!event.correct && !fragile;
 
-  if (first) firstAttempt(l, event, pKnown, unhintedCorrectFirst, achievedBefore);
+  if (first) firstAttempt(l, event, pKnown, unhintedCorrectFirst, achievedBefore, fragile);
   if (event.kind === KIND_ANSWER && event.correct) {
     if ((event.role ?? "procedure") === "procedure") achieve(l, 3, [event.event_id]);
     if (lessonLevel1Reached(l, event)) achieve(l, 1, [event.event_id]);
   }
-  if (first && pool === "warmup") {
+  if (first && pool === "warmup" && !fragile) {
     review(l, event, previousPractice, unhintedCorrectFirst);
   }
   l.last_practice_at = event.at;
@@ -181,6 +186,7 @@ function firstAttempt(
   pKnown: number,
   unhintedCorrect: boolean,
   achievedBefore: Set<number>,
+  fragile = false,
 ) {
   const role = event.role ?? "procedure";
   if (unhintedCorrect && role === "explain") achieve(l, 2, [event.event_id]);
@@ -190,7 +196,7 @@ function firstAttempt(
   if (unhintedCorrect && role === "transfer" && achievedBefore.has(5)) {
     achieve(l, 6, [event.event_id]);
   }
-  if (STREAK_ROLES.has(role)) {
+  if (STREAK_ROLES.has(role) && !fragile) {
     if (unhintedCorrect) {
       l.run = [...l.run, [event.event_id, event.structure ?? ""] as [string, string]].slice(
         -STREAK_LENGTH,

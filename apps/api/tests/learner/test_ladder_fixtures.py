@@ -28,13 +28,14 @@ def _events(raw: list[dict]) -> list[LadderEvent]:
             pool=row.get("pool", "practice"),
             role=row.get("role", "procedure"),
             structure=row.get("structure", ""),
+            confidence=row.get("confidence", ""),
         )
         for row in raw
     ]
 
 
 def test_fixture_directory_is_not_empty() -> None:
-    assert len(FILES) >= 14
+    assert len(FILES) >= 17
 
 
 @pytest.mark.parametrize("path", FILES, ids=lambda p: p.stem)

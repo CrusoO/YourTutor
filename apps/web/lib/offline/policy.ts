@@ -1247,6 +1247,7 @@ function maybeLadder(
       pool: session.phase === "warmup" ? "warmup" : "practice",
       role: item.role,
       structure: item.structure,
+      confidence: session.last_event?.confidence ?? "",
     },
     known,
   );

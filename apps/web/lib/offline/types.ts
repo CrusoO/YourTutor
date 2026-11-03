@@ -58,6 +58,8 @@ export type PolicyEvent = {
   idle_ms?: number | null;
   text?: string | null;
   event_id?: string | null;
+  /** "sure" or "unsure"; only set when the deployment uses it (the pack says so). */
+  confidence?: string | null;
 };
 
 export type Action = {
