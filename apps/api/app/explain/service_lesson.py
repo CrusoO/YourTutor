@@ -345,12 +345,15 @@ _CLEANERS = {
 }
 
 
-def _clean_blocks(blocks_raw: Any) -> list[dict[str, Any]]:
+MAX_PUBLISHED_BLOCKS = 14
+
+
+def _clean_blocks(blocks_raw: Any, limit: int = MAX_BLOCKS) -> list[dict[str, Any]]:
     """The usable blocks of a model reply, in order. Unknown or malformed ones are dropped."""
     if not isinstance(blocks_raw, list):
         return []
     blocks: list[dict[str, Any]] = []
-    for raw in blocks_raw[:MAX_BLOCKS]:
+    for raw in blocks_raw[:limit]:
         if not isinstance(raw, dict):
             continue
         kind = _kind_of(raw)
@@ -406,6 +409,16 @@ def clean_rest(data: dict[str, Any] | None) -> dict[str, Any] | None:
     if len(blocks) < MIN_REST_BLOCKS or not any(b["kind"] == "check" for b in blocks):
         return None
     return {"blocks": blocks}
+
+
+def clean_published_blocks(raw: Any) -> list[dict[str, Any]] | None:
+    """A whole lesson a teacher or manager is publishing: the same cleaners as any model text, a
+    start and an end to it (a hook first, a check somewhere), and room for an opening plus the
+    rest."""
+    blocks = _clean_blocks(raw, MAX_PUBLISHED_BLOCKS)
+    if len(blocks) < MIN_BLOCKS or blocks[0]["kind"] != "hook":
+        return None
+    return blocks if any(b["kind"] == "check" for b in blocks) else None
 
 
 def clean_client_opening(raw: Any) -> list[dict[str, Any]] | None:

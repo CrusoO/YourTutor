@@ -41,6 +41,12 @@ class Settings(BaseSettings):
     # env: LOOP_B_ENABLED=true. Off by default: it writes a shadow trait profile per learner, which
     # needs the consent and legal decisions in the master plan (OPEN-16) before it is switched on.
     loop_b_enabled: bool = False
+    # env: ADULT_LEARNERS_ASSUMED. Unset means "assume adults in development, never in production".
+    # For now every learner is treated as 18 or older, which lets a teacher or manager see
+    # anonymous group results. It is a stand-in for a real age gate: production refuses to start
+    # with it switched on (DEV_ONLY_FLAGS) and, unset, does not assume it, so the gate cannot be
+    # forgotten.
+    adult_learners_assumed: bool | None = None
     jurisdiction_profile: str = "default_strict"  # env: JURISDICTION_PROFILE
     dev_tools: bool = False  # env: DEV_TOOLS (needs ALLOW_DRAFT_CONTENT too)
     next_public_dev_tools: bool = False  # env: NEXT_PUBLIC_DEV_TOOLS (web flag; checked here too)
@@ -75,7 +81,13 @@ class Settings(BaseSettings):
 
 # Switches that are for local development only: with APP_ENV=production none may be on.
 PRODUCTION = "production"
-DEV_ONLY_FLAGS = ("allow_draft_content", "research_module", "dev_tools", "next_public_dev_tools")
+DEV_ONLY_FLAGS = (
+    "allow_draft_content",
+    "research_module",
+    "dev_tools",
+    "next_public_dev_tools",
+    "adult_learners_assumed",  # until there is an age gate, production must not assume adults
+)
 
 
 def production_flag_errors(current: Settings) -> list[str]:
@@ -93,6 +105,14 @@ def production_secret_errors(current: Settings) -> list[str]:
 
 
 settings = Settings()
+
+
+def adults_assumed(current: Settings | None = None) -> bool:
+    """Whether learners count as adults for now: yes in development, not by default in prod."""
+    chosen = current or settings
+    if chosen.adult_learners_assumed is not None:
+        return chosen.adult_learners_assumed
+    return chosen.app_env.strip().lower() != PRODUCTION
 
 
 def key_for_model(model: str) -> str:
