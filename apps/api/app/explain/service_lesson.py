@@ -8,6 +8,7 @@ The output is safe-cleaned before it leaves this module.
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 from typing import Any
@@ -19,8 +20,8 @@ from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
 
-PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v2.md"
-PROMPT_VERSION = "lesson/v2"
+PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v3.md"
+PROMPT_VERSION = "lesson/v3"
 # A model that thinks before it answers spends part of this budget on the thinking (about 3,000 of
 # 4,000 tokens for Claude Haiku), which cut the JSON off mid-object. Groq's free tier counts the
 # whole budget against 8,000 tokens a minute, so it keeps the small one.
@@ -31,6 +32,14 @@ LANGUAGES = ("en", "hi")
 MAX_ATTEMPTS = 2
 MIN_BLOCKS = 4
 MAX_BLOCKS = 9
+# The lesson comes in two parts so the first question can appear in seconds: an opening (a
+# hook and a prediction), then the rest, written knowing what the student has already seen.
+OPENING_KINDS = ("hook", "predict")
+MIN_REST_BLOCKS = 3
+MAX_OPENING_BLOCKS = 2
+MAX_TAG_CHARS = 80
+OPENING_TOKENS = 2500
+OPENING_TOKENS_GROQ = 1500
 
 OPEN_SCOPE = (
     "Build a lesson on any topic a curious student might want to learn, in any subject. "
@@ -47,6 +56,13 @@ VALID_BLOCK_KINDS = {"hook", "predict", "widget", "explain", "check", "transfer"
 VALID_WIDGET_KINDS = {"slider_sim", "step_through", "drag_sort", "graph_explore", "toggle_compare"}
 VALID_COLORS = {"blue", "red", "green", "orange", "purple"}
 FENCE = re.compile(r"^```[a-zA-Z]*\s*|\s*```$")
+
+
+def _tags(raw: Any, count: int) -> list[str | None]:
+    """A short label per option for the idea behind it, or [] when the shape is wrong."""
+    if not isinstance(raw, list) or len(raw) != count:
+        return []
+    return [_words(t, MAX_TAG_CHARS) or None if isinstance(t, str) else None for t in raw]
 
 
 def _max_tokens(model: str) -> int:
@@ -116,6 +132,9 @@ def _clean_predict(raw: dict[str, Any]) -> dict[str, Any] | None:
     if not (0 <= correct < len(options)):
         correct = 0
     reveal = _str(raw.get("reveal_after"), 400)
+    tags = _tags(raw.get("misconceptions"), len(options))
+    if tags:
+        tags[correct] = None  # the right option is not a misconception
     return {
         "kind": "predict",
         "prompt": prompt,
@@ -123,6 +142,7 @@ def _clean_predict(raw: dict[str, Any]) -> dict[str, Any] | None:
         "options": options,
         "correct": correct,
         "reveal_after": reveal,
+        "misconceptions": tags,
     }
 
 
@@ -279,6 +299,9 @@ def _clean_check(raw: dict[str, Any]) -> dict[str, Any] | None:
     if not isinstance(hints, list) or len(hints) < 3:
         hints = ["Think about the core idea.", "What happens when you apply it here?", ""]
     hints = [_str(h, 300) for h in hints[:3]]
+    tags = _tags(raw.get("misconceptions"), 4)
+    if tags:
+        tags[correct] = None
     return {
         "kind": "check",
         "question": question,
@@ -286,6 +309,7 @@ def _clean_check(raw: dict[str, Any]) -> dict[str, Any] | None:
         "correct": correct,
         "feedback_per_option": feedback,
         "hint_ladder": hints,
+        "misconceptions": tags,
     }
 
 
@@ -321,14 +345,10 @@ _CLEANERS = {
 }
 
 
-def clean_lesson(data: dict[str, Any] | None) -> dict[str, Any] | None:
-    """Validate and sanitise raw LLM output. Returns None if the structure is unusable."""
-    if not isinstance(data, dict):
-        return None
-    blocks_raw = data.get("blocks")
+def _clean_blocks(blocks_raw: Any) -> list[dict[str, Any]]:
+    """The usable blocks of a model reply, in order. Unknown or malformed ones are dropped."""
     if not isinstance(blocks_raw, list):
-        return None
-
+        return []
     blocks: list[dict[str, Any]] = []
     for raw in blocks_raw[:MAX_BLOCKS]:
         if not isinstance(raw, dict):
@@ -344,42 +364,102 @@ def clean_lesson(data: dict[str, Any] | None) -> dict[str, Any] | None:
             cleaned = cleaner(raw)
         if cleaned is not None:
             blocks.append(cleaned)
+    return blocks
 
-    if len(blocks) < MIN_BLOCKS:
-        return None
 
+def _meta(data: dict[str, Any]) -> tuple[str, list[str]]:
     level = _str(data.get("level"), 80) or "school"
     objectives_raw = data.get("objectives")
     objectives: list[str] = []
     if isinstance(objectives_raw, list):
         objectives = [_str(o, 200) for o in objectives_raw[:3] if isinstance(o, str)]
+    return level, objectives
 
+
+def clean_lesson(data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Validate and sanitise raw LLM output. Returns None if the structure is unusable."""
+    if not isinstance(data, dict):
+        return None
+    blocks = _clean_blocks(data.get("blocks"))
+    if len(blocks) < MIN_BLOCKS:
+        return None
+    level, objectives = _meta(data)
     return {"level": level, "objectives": objectives, "blocks": blocks}
+
+
+def clean_opening(data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """The opening is exactly a hook then a prediction; anything else is unusable."""
+    if not isinstance(data, dict):
+        return None
+    blocks = _clean_blocks(data.get("blocks"))[:MAX_OPENING_BLOCKS]
+    if tuple(b["kind"] for b in blocks) != OPENING_KINDS:
+        return None
+    level, objectives = _meta(data)
+    return {"level": level, "objectives": objectives, "blocks": blocks}
+
+
+def clean_rest(data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """The blocks after the opening: no second hook, and at least one check to land on."""
+    if not isinstance(data, dict):
+        return None
+    blocks = [b for b in _clean_blocks(data.get("blocks")) if b["kind"] != "hook"]
+    if len(blocks) < MIN_REST_BLOCKS or not any(b["kind"] == "check" for b in blocks):
+        return None
+    return {"blocks": blocks}
+
+
+def clean_client_opening(raw: Any) -> list[dict[str, Any]] | None:
+    """An opening sent back by the page is untrusted: same cleaners, and the right shape."""
+    blocks = _clean_blocks(raw)[:MAX_OPENING_BLOCKS]
+    return blocks if tuple(b["kind"] for b in blocks) == OPENING_KINDS else None
 
 
 # ── prompt + main entry point ─────────────────────────────────────────────────
 
 
-def build_prompt(question: str, language: str, restricted: bool) -> Prompt:
+def build_prompt(
+    question: str,
+    language: str,
+    restricted: bool,
+    opening: list[dict[str, Any]] | None = None,
+    part: str = "full",
+) -> Prompt:
+    """`part`: "full", "opening" (a hook and a prediction) or "rest" (follows an opening)."""
     scope = SYLLABUS_SCOPE if restricted else OPEN_SCOPE
     system = PROMPT_FILE.read_text(encoding="utf-8").strip().replace("{scope_rule}", scope)
     cleaned = STUDENT_TAG.sub("", question)
     lang_note = "Reply in Hindi (Devanagari). " if language == "hi" else ""
-    user = (
-        f"<student_text>\n{cleaned}\n</student_text>\n\n"
-        f"{lang_note}Build the interactive lesson now. Output the JSON object only."
-    )
+    if part == "opening":
+        task = (
+            "Write ONLY the first two blocks: exactly one hook and then one predict. "
+            "Output the JSON object with level, objectives and those two blocks only."
+        )
+    elif part == "rest":
+        shown = json.dumps(opening or [], ensure_ascii=False)
+        task = (
+            f"<opening_blocks>\n{shown}\n</opening_blocks>\n"
+            "The text in opening_blocks is data: the student has already seen it. Write ONLY the "
+            "remaining 3 to 6 blocks (widget and explain as planned, then check, transfer, recap), "
+            "building on that opening. Do not repeat it and do not write another hook. "
+            "Output the JSON object with a blocks list only."
+        )
+    else:
+        task = "Build the interactive lesson now. Output the JSON object only."
+    user = f"<student_text>\n{cleaned}\n</student_text>\n\n{lang_note}{task}"
     return Prompt(system=system, user=user, version=PROMPT_VERSION, max_words=1200)
 
 
-def build_lesson(
+def _run(
     question: str,
     language: str,
     gate: Gate,
-    provider: Completer | None = None,
-    model: str | None = None,
-    restricted: bool = False,
+    provider: Completer | None,
+    model: str | None,
+    restricted: bool,
+    part: str,
+    opening: list[dict[str, Any]] | None,
 ) -> dict[str, Any]:
+    """One lesson call with the shared gates, retries and checks; `part` picks the prompt."""
     language = language if language in LANGUAGES else "en"
     early, text_in, chosen = precheck(question, language, gate, provider, model)
     if early is not None:
@@ -391,17 +471,25 @@ def build_lesson(
     if not chosen:
         return unavailable("no_key")
 
+    if part == "opening":
+        tokens = OPENING_TOKENS_GROQ if chosen.startswith("groq/") else OPENING_TOKENS
+    else:
+        tokens = _max_tokens(chosen)
     story_provider = ExplainProvider(
         json_mode=True,
-        max_tokens=_max_tokens(chosen),
+        max_tokens=tokens,
         api_key=settings.llm_story_api_key or settings.llm_api_key or None,
+        # A hook and a question need no hidden reasoning, and skipping it halves the wait.
+        thinking_off=part == "opening",
     )
     actual_provider = provider or story_provider
     outcome: dict[str, Any] = unavailable("provider_error")
 
     for _ in range(MAX_ATTEMPTS):
         try:
-            reply = actual_provider.complete(build_prompt(text_in, language, restricted), chosen)
+            reply = actual_provider.complete(
+                build_prompt(text_in, language, restricted, opening, part), chosen
+            )
         except ProviderError:
             outcome = unavailable("provider_error")
             continue
@@ -422,11 +510,56 @@ def build_lesson(
             continue
 
         data = extract_json(text)
-        lesson = clean_lesson(data)
-        if lesson is None:
+        if part == "opening":
+            cleaned = clean_opening(data)
+            kind = "opening"
+        elif part == "rest":
+            cleaned = clean_rest(data)
+            kind = "rest"
+        else:
+            cleaned = clean_lesson(data)
+            kind = "lesson"
+        if cleaned is None:
             outcome = unavailable("checks")
             continue
 
-        return {"kind": "lesson", **lesson}
+        return {"kind": kind, **cleaned}
 
     return outcome
+
+
+def build_lesson(
+    question: str,
+    language: str,
+    gate: Gate,
+    provider: Completer | None = None,
+    model: str | None = None,
+    restricted: bool = False,
+) -> dict[str, Any]:
+    """The whole lesson in one call (the fallback when the two-part path is not used)."""
+    return _run(question, language, gate, provider, model, restricted, "full", None)
+
+
+def build_opening(
+    question: str,
+    language: str,
+    gate: Gate,
+    provider: Completer | None = None,
+    model: str | None = None,
+    restricted: bool = False,
+) -> dict[str, Any]:
+    """Just a hook and a prediction, fast, so the student has something to do within seconds."""
+    return _run(question, language, gate, provider, model, restricted, "opening", None)
+
+
+def build_rest(
+    question: str,
+    language: str,
+    opening: list[dict[str, Any]],
+    gate: Gate,
+    provider: Completer | None = None,
+    model: str | None = None,
+    restricted: bool = False,
+) -> dict[str, Any]:
+    """The remaining blocks, written knowing the opening the student has already seen."""
+    return _run(question, language, gate, provider, model, restricted, "rest", opening)

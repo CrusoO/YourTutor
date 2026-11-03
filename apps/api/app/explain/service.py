@@ -94,11 +94,18 @@ class ExplainProvider:
     (429) or a server error is retried after a short wait, as the provider asks."""
 
     def __init__(
-        self, json_mode: bool = False, max_tokens: int = MAX_TOKENS, api_key: str | None = None
+        self,
+        json_mode: bool = False,
+        max_tokens: int = MAX_TOKENS,
+        api_key: str | None = None,
+        thinking_off: bool = False,
     ) -> None:
         self.json_mode = json_mode
         self.max_tokens = max_tokens
         self.api_key = api_key
+        # Skips the model's hidden thinking where the provider supports it: about twice as
+        # fast for a short, simple reply. Ignored by providers that have no such switch.
+        self.thinking_off = thinking_off
 
     def complete(self, prompt: Prompt, model: str) -> ProviderResult:
         provider, _, name = model.partition("/")
@@ -116,6 +123,8 @@ class ExplainProvider:
                 "system": prompt.system,
                 "messages": [{"role": "user", "content": prompt.user}],
             }
+            if self.thinking_off:
+                body["thinking"] = {"type": "disabled"}
             req_headers: dict[str, str] = {
                 "Content-Type": "application/json",
                 "User-Agent": "yourtutor-api/0.1",
