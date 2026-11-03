@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from collections.abc import Generator
 
+from app.config import settings
 from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-
-from app.config import settings
 
 
 def database_url(override: str | None = None) -> str:
@@ -19,7 +18,8 @@ def database_url(override: str | None = None) -> str:
 
 
 def make_engine(url: str | None = None):
-    return create_engine(database_url(url), future=True)
+    # pool_pre_ping: a connection a hosted database dropped while idle is replaced, not failed.
+    return create_engine(database_url(url), future=True, pool_pre_ping=True)
 
 
 def session_factory(url: str | None = None) -> sessionmaker[Session]:

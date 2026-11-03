@@ -26,6 +26,7 @@ from app.config import settings
 from app.db.models import ChapterRow, SectionRow, StudentRow, VideoJobRow
 from app.explain import proof
 from app.registries.loaders import load_curriculum
+from app.video_jobs import wake
 
 router = APIRouter(prefix="/video-jobs", tags=["video-jobs"])
 
@@ -354,6 +355,7 @@ def create_job(
     try:
         db.commit()
         db.refresh(row)
+        wake.touch(settings.video_wake_file)
     except IntegrityError:
         db.rollback()
         existing = db.scalar(
@@ -478,4 +480,5 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
     db.add(row)
     db.commit()
     db.refresh(row)
+    wake.touch(settings.video_wake_file)
     return _job_view(row)

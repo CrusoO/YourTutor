@@ -41,6 +41,12 @@ class Settings(BaseSettings):
     # env: LOOP_B_ENABLED=true. Off by default: it writes a shadow trait profile per learner, which
     # needs the consent and legal decisions in the master plan (OPEN-16) before it is switched on.
     loop_b_enabled: bool = False
+    # env: VIDEO_WAKE_FILE. A file the API touches when it queues a video job, so an idle worker
+    # on the same machine can skip polling the database (see app/video_jobs/wake.py). Empty: poll.
+    video_wake_file: str = ""
+    # env: VIDEO_WORKER_IDLE_POLL_SECONDS. How long an idle worker waits before asking the database.
+    # Set it above 300 together with VIDEO_WAKE_FILE so a free hosted database can go to sleep.
+    video_worker_idle_poll_seconds: float = 5.0
     # Spending limits for an open API (see app/budget.py). 0 turns a limit off.
     llm_daily_cap: int = 0  # env: LLM_DAILY_CAP
     video_queue_max: int = 0  # env: VIDEO_QUEUE_MAX
