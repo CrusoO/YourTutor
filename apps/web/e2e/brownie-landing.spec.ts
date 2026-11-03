@@ -67,7 +67,7 @@ test("the scripted Brownie chat asks first, names the idea behind a wrong guess,
   await demo.getByRole("button", { name: "Yes, a slice is a slice" }).click();
   await expect(demo.getByTestId("demo-misconception")).toBeVisible();
   await expect(demo.getByTestId("demo-reply")).toContainText("treating every piece as the same size");
-  await expect(demo.getByTestId("demo-note-0")).toContainText("Shaky");
+  await expect(demo.getByTestId("demo-note-0")).toContainText("Needs another look");
 
   await demo.getByRole("button", { name: "Show me with pieces" }).click();
   const pictureReply = demo.getByTestId("demo-follow-up-first");
@@ -116,7 +116,7 @@ test("the page answers the visitor's doubts before they try it", async ({ page }
   await expect(trust).toBeVisible();
   await trust.getByText("Is it a person or an AI, and can it be wrong?").click();
   await expect(trust.getByText("Brownie is an AI. It can make mistakes", { exact: false })).toBeVisible();
-  await expect(trust.getByText("Wording to be confirmed.")).toHaveCount(2);
+  await expect(trust.getByText("to be confirmed")).toHaveCount(0);
 });
 
 test("Hindi and Nepali translate the complete landing, interactions, and sign-in form", async ({ page }) => {

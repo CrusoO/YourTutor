@@ -36,13 +36,6 @@ export const landingContent = {
     tryAsGuest: "Try without an account",
     homepage: "Back to the Brownie homepage",
   },
-  hook: {
-    firstLine: "Everyone is taught one way.",
-    secondLine: "You learn your way.",
-    body: "Brownie first finds out what makes sense to you, then explains the next step in a way that clicks.",
-    seeHow: "See how Brownie asks",
-    watchDemo: "Watch the demo",
-  },
   chapterOne: {
     chapter: "Chapter One",
     label: "THE NOD",
@@ -65,16 +58,15 @@ export const landingContent = {
     headlineStart: "What if learning started by understanding the learner",
     headlineEmphasis: "not just the subject?",
     paragraphs: [
-      "Remember Robin? They were afraid to admit they didn’t understand. With Brownie, Robin doesn’t have to pretend.",
-      "Brownie doesn’t assume everyone learns at the same pace or expect you to know everything already. It never makes you feel bad for asking the same question twice.",
-      "Before teaching you, Brownie asks a few small questions, like:",
+      "With Brownie, Robin doesn’t have to pretend. It doesn’t expect you to know everything already, and it never minds the same question twice.",
+      "Before teaching, it asks a few small questions, like:",
     ],
     questions: [
       "Have you learned about fractions before?",
       "Is the meaning confusing, or is it adding them?",
       "Would you like pictures, everyday examples, or step by step?",
     ],
-    invitation: "Not sure what’s confusing? That’s okay. Brownie helps you find where things stopped making sense. Let’s try it.",
+    invitation: "Not sure what’s confusing? That’s okay. Brownie helps you find where it stopped making sense.",
     demoChat: {
       label: "A SAMPLE CHAT · SCRIPTED",
       disclosure: "A scripted preview. Brownie is not responding live here.",
@@ -95,8 +87,7 @@ export const landingContent = {
       restart: "Restart example",
     },
     afterPanel: [
-      "Not clear yet? Ask again. Brownie will try another way, without making you feel you did something wrong. It doesn’t move ahead because the textbook does. It moves ahead when you’re ready.",
-      "Not understanding doesn’t mean you can’t learn it. You don’t need to try harder. You just need someone to teach you differently.",
+      "Not clear yet? Ask again and Brownie tries another way. It moves ahead when you’re ready, not when the textbook does. Not understanding doesn’t mean you can’t learn it. You just need it taught differently.",
     ],
     questionAria: "A scripted sample conversation about adding fractions",
   },

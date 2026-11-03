@@ -21,8 +21,8 @@ from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
 
-PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v3.md"
-PROMPT_VERSION = "lesson/v3"
+PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v4.md"
+PROMPT_VERSION = "lesson/v4"
 # A model that thinks before it answers spends part of this budget on the thinking (about 3,000 of
 # 4,000 tokens for Claude Haiku), which cut the JSON off mid-object. Groq's free tier counts the
 # whole budget against 8,000 tokens a minute, so it keeps the small one.
@@ -95,6 +95,96 @@ def _int_or(value: Any, default: int) -> int:
 def _num(value: Any) -> float | int | None:
     if isinstance(value, (int, float)):
         return value
+    return None
+
+
+# A picture for one step: a small fixed set of real-life drawings the page knows how to draw.
+# The model only fills in numbers and short names, so nothing it writes becomes markup or a link.
+MAX_PICTURE_COUNT = 12
+PICTURE_NAME_CHARS = 14
+
+
+def _count(value: Any, low: int, high: int) -> int | None:
+    """A whole number from `low` to `high`, or None (a bool is not a number here)."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or value != int(value):
+        return None
+    return int(value) if low <= int(value) <= high else None
+
+
+def _balance_side(raw: Any) -> list[dict[str, Any]] | None:
+    if not isinstance(raw, list) or not (1 <= len(raw) <= 3):
+        return None
+    side: list[dict[str, Any]] = []
+    for part in raw:
+        if not isinstance(part, dict):
+            return None
+        unknown = part.get("unknown") is True
+        n = _count(part.get("n"), 0, MAX_PICTURE_COUNT)
+        if n is None and not unknown:
+            return None
+        n = n or 0
+        out = _count(part.get("out"), 0, n) or 0
+        side.append(
+            {
+                "n": n,
+                "what": _str(part.get("what"), PICTURE_NAME_CHARS),
+                "unknown": unknown,
+                "out": out,
+            }
+        )
+    return side
+
+
+def clean_picture(raw: Any) -> dict[str, Any] | None:
+    """One of balance, pieces, groups, line; None when it is not a usable one."""
+    if not isinstance(raw, dict):
+        return None
+    kind = raw.get("kind")
+    if kind == "balance":
+        left, right = _balance_side(raw.get("left")), _balance_side(raw.get("right"))
+        return {"kind": "balance", "left": left, "right": right} if left and right else None
+    if kind == "pieces":
+        parts = _count(raw.get("parts"), 2, MAX_PICTURE_COUNT)
+        shaded = _count(raw.get("shaded"), 0, parts or 0)
+        if parts is None or shaded is None:
+            return None
+        return {
+            "kind": "pieces",
+            "parts": parts,
+            "shaded": shaded,
+            "what": _str(raw.get("what"), PICTURE_NAME_CHARS),
+        }
+    if kind == "groups":
+        groups, each = _count(raw.get("groups"), 1, 6), _count(raw.get("each"), 1, 8)
+        if groups is None or each is None:
+            return None
+        return {
+            "kind": "groups",
+            "groups": groups,
+            "each": each,
+            "what": _str(raw.get("what"), PICTURE_NAME_CHARS),
+        }
+    if kind == "line":
+        low, high = _num(raw.get("min")), _num(raw.get("max"))
+        if low is None or high is None or isinstance(low, bool) or isinstance(high, bool):
+            return None
+        if not (high > low) or abs(low) > 1000 or abs(high) > 1000 or high - low > 200:
+            return None
+        marks = []
+        raw_marks = raw.get("marks")
+        for mark in (raw_marks if isinstance(raw_marks, list) else [])[:4]:
+            if not isinstance(mark, dict):
+                continue
+            at = _num(mark.get("at"))
+            if at is not None and not isinstance(at, bool) and low <= at <= high:
+                marks.append({"at": at, "label": _str(mark.get("label"), PICTURE_NAME_CHARS)})
+        jump = raw.get("jump")
+        move = None
+        if isinstance(jump, dict):
+            a, b = _num(jump.get("from")), _num(jump.get("to"))
+            if a is not None and b is not None and low <= a <= high and low <= b <= high and a != b:
+                move = {"from": a, "to": b}
+        return {"kind": "line", "min": low, "max": high, "marks": marks, "jump": move}
     return None
 
 
@@ -196,7 +286,11 @@ def _clean_widget_spec(kind: str, spec: Any) -> dict[str, Any] | None:
         if not isinstance(steps, list) or not (2 <= len(steps) <= 6):
             return None
         cleaned = [
-            {"label": _str(s.get("label"), 80), "description": _str(s.get("description"), 300)}
+            {
+                "label": _str(s.get("label"), 80),
+                "description": _str(s.get("description"), 300),
+                "picture": clean_picture(s.get("picture")),
+            }
             for s in steps
             if isinstance(s, dict)
         ]

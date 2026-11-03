@@ -71,7 +71,21 @@ slider_sim  a slider changes one variable; one computed value updates live
 
 step_through  walk a process one labelled step at a time (2–6 steps)
   spec:
-    steps: [{label: string, description: string}]   each description max 40 words
+    steps: [{label: string, description: string, picture?: Picture}]   each description max 40 words
+  Add a `picture` to a step whenever the step does something to real quantities: working an equation,
+  adding or sharing, a fraction, a distance. The picture is the everyday version of that step (coins in
+  a pan, slices of a pizza, bags of apples, a walk along a path). Skip it for steps that are only words.
+  Picture is exactly one of these, with whole numbers (at most 12) and names of at most 14 characters:
+    {"kind":"balance","left":[Part],"right":[Part]}   a scale that stays level; each side 1 to 3 Parts
+        Part = {"n": count, "what": "coins", "unknown": true|false, "out": how many are taken away}
+        (`unknown` draws a closed box for the thing we are finding, such as x; `out` crosses items out)
+    {"kind":"pieces","parts":6,"shaded":3,"what":"pizza"}   a whole cut into equal parts, some shaded
+    {"kind":"groups","groups":3,"each":4,"what":"apples"}   equal groups of things (sharing, multiplying)
+    {"kind":"line","min":0,"max":10,"marks":[{"at":4,"label":"start"}],"jump":{"from":4,"to":10}}
+  Example, solving x + 4 = 10 (the pans stay level at every step):
+    step 1: balance left [{"n":0,"what":"x","unknown":true},{"n":4,"what":"coins"}], right [{"n":10,"what":"coins"}]
+    step 2: the same, but left coins out 4 and right coins out 4 ("take 4 from both sides")
+    step 3: balance left [{"n":0,"what":"x","unknown":true}], right [{"n":6,"what":"coins"}]
 
 drag_sort  reorder items into the correct sequence (3–6 items)
   spec:

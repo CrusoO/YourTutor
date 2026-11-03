@@ -20,7 +20,15 @@ export type AiSliderSpec = {
   output_label: string;
   output_unit: string;
 };
-export type AiStepSpec = { steps: { label: string; description: string }[] };
+/** One thing on a pan of the balance: a count of items, or a closed box for what is not known yet. */
+export type BalancePart = { n: number; what: string; unknown: boolean; out: number };
+/** The everyday picture for a step. The API clamps every number; the page still checks before drawing. */
+export type AiPicture =
+  | { kind: "balance"; left: BalancePart[]; right: BalancePart[] }
+  | { kind: "pieces"; parts: number; shaded: number; what: string }
+  | { kind: "groups"; groups: number; each: number; what: string }
+  | { kind: "line"; min: number; max: number; marks: { at: number; label: string }[]; jump: { from: number; to: number } | null };
+export type AiStepSpec = { steps: { label: string; description: string; picture?: AiPicture | null }[] };
 export type AiSortSpec = { items: string[]; correct_order: number[] };
 export type AiSeries = { name: string; formula: string; color: "blue" | "red" | "green" | "orange" | "purple" };
 export type AiGraphSpec = {
