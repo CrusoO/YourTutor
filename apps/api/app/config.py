@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     # env: LOOP_B_ENABLED=true. Off by default: it writes a shadow trait profile per learner, which
     # needs the consent and legal decisions in the master plan (OPEN-16) before it is switched on.
     loop_b_enabled: bool = False
+    # env: PILOT_EXPORT_SALT. Keys the pilot export pseudonyms; empty: the export refuses to run.
+    pilot_export_salt: str = ""
     # env: ADULT_LEARNERS_ASSUMED. Unset means "assume adults in development, never in production".
     # For now every learner is treated as 18 or older, which lets a teacher or manager see
     # anonymous group results. It is a stand-in for a real age gate: production refuses to start
