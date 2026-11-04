@@ -805,13 +805,19 @@ def apply_player_event(
         view["duplicate"] = False
         return view
     if event_type == "explain_back":
-        from app.ask.config import message
-        from app.safety import is_distress, raise_distress, strip_pii
+        from app.safety import assess_text, run_distress_flow, strip_pii
 
         words = strip_pii(str(payload.get("text") or payload.get("response") or ""))
         payload = {**payload, "text": words, "response": words}
-        if is_distress(words, student.home_language or "en"):
-            raise_distress(session, student, "explain_back", now_utc())
+        language = student.home_language or "en"
+        found = assess_text(words, language)
+        if found.risk == "concern":
+            # Exam stress: a minimal record only; the session carries on.
+            run_distress_flow(session, student, "explain_back", found, language, now_utc())
+        if found.risk == "urgent":
+            support = run_distress_flow(
+                session, student, "explain_back", found, language, now_utc()
+            )
             session.add(
                 EventRow(
                     id=uuid.uuid4(),
@@ -830,7 +836,9 @@ def apply_player_event(
                     "type": "end_session",
                     "reason": "paused_distress",
                     "ended_reason": "paused_distress",
-                    "text": message("distress", student.home_language or "en"),
+                    "text": support["message"],
+                    "helplines": support["helplines"],
+                    "message_status": support["message_status"],
                 },
                 "progress": {"items_completed": 0, "active_ms": row.active_ms, "resumable": False},
                 "llm_called": False,

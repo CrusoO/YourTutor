@@ -48,9 +48,10 @@ class AskReply:
     sources: list[dict[str, Any]] = field(default_factory=list)
     choices: list[dict[str, str]] = field(default_factory=list)
     llm_called: bool = False
+    support: dict[str, Any] | None = None  # distress: risk, category, helplines, message_status
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        out: dict[str, Any] = {
             "kind": self.kind,
             "text": self.text,
             "reason": self.reason,
@@ -58,6 +59,9 @@ class AskReply:
             "choices": self.choices,
             "llm_called": self.llm_called,
         }
+        if self.support is not None:
+            out["support"] = self.support
+        return out
 
 
 def question_hash(text: str) -> str:
@@ -156,12 +160,27 @@ def ask(
     if cleaned.too_long:
         return AskReply("refused", message("too_long", language), reason="too_long")
     lists = load_safety(language)
+    from app.safety import (
+        assess_text,
+        detection_from_verdict,
+        is_paused,
+        paused_reply,
+        run_distress_flow,
+    )
+
+    if is_paused(db, student.id):  # chat stays paused after a distress flag
+        paused = paused_reply(language)
+        return AskReply("distress", paused["message"], reason="paused", support=paused)
     verdict = screen(cleaned.text, lists)
     if verdict.kind == "distress":
-        from app.safety import raise_distress
-
-        raise_distress(db, student, "ask")  # pause tutoring and tell the adults
-        return AskReply("distress", message("distress", language), reason="distress")
+        detection = detection_from_verdict(verdict)
+    elif verdict.kind == "ok":
+        detection = assess_text(cleaned.text, language)  # Layer 2, when it is switched on
+    else:
+        detection = None
+    if detection is not None and detection.risk != "none":
+        reply = run_distress_flow(db, student, "ask", detection, language)
+        return AskReply("distress", reply["message"], reason="distress", support=reply)
     if verdict.kind in {"injection", "moderation"}:
         return AskReply("refused", message("refused", language), reason=verdict.kind)
     why = targets_current_item(cleaned.text, _active_stem(db, session_id, student), lists)
