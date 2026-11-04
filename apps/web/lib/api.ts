@@ -489,9 +489,11 @@ export async function closeGroup(code: string): Promise<{ closed: boolean }> {
 }
 
 export type TutorTurn = { role: "user" | "assistant"; content: string };
+/** What Brownie says when it cannot answer: an authored line and the next choices (ids the client knows). */
+export type TutorFallback = { reason: string; text: string; offers: { id: string; label: string }[] };
 export type TutorReply =
   | { kind: "reply"; text: string; language?: string }
-  | { kind: "unavailable"; reason: string }
+  | { kind: "unavailable"; reason: string; fallback?: TutorFallback }
   | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
   | { kind: "empty" };
 

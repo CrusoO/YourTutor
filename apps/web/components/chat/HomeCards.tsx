@@ -12,8 +12,10 @@ import {
   today,
 } from "@/lib/api";
 import { readGuestHomeCache, writeGuestHomeCache, type StudentHomeSnapshot } from "@/lib/chat/home-cache";
+import { memoryLine } from "@/lib/chat/memory";
 import { useChatApi } from "./ChatProvider";
 import { TopicMastery } from "./TopicMastery";
+import { WelcomeBack } from "./WelcomeBack";
 import { RightPanel } from "./RightPanel";
 import styles from "./ChatHome.module.css";
 
@@ -101,7 +103,7 @@ function Row({ children }: { children: React.ReactNode; two?: boolean }) {
 
 /** Home actions follow the role; learner progress is shown only when backed by API data. */
 export function HomeCards() {
-  const { role, copy, dispatch, openWorkspace, startMode, tryOneQuestion, busy, identityReady, ctx, contextError } = useChatApi();
+  const { role, copy, dispatch, openWorkspace, startMode, tryOneQuestion, busy, identityReady, ctx, contextError, identity } = useChatApi();
   const student = useStudentHome(role === "student" || role === "guest", role === "guest");
   const teacher = useTeacherHome(role === "teacher");
 
@@ -146,8 +148,14 @@ export function HomeCards() {
     if (!student.data) return null;
     const { current, started, due, resume } = student.data;
     const hasProgress = started || Boolean(resume);
+    const goOn = () => {
+      if (resume) openWorkspace(`/session/${resume.session_id}`, copy.resume);
+      else openWorkspace(current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters", current?.chapter.title);
+    };
+    const memory = hasProgress ? memoryLine(copy, student.data, identity?.name, role !== "guest") : null;
     return (
       <>
+        {memory ? <WelcomeBack memory={memory} onGo={(kind) => (kind === "review" ? void startMode("revise") : goOn())} /> : null}
         {student.failed ? (
           <p role="alert" className={`text-sm ${styles.staleNotice}`} data-testid="stale-home-cache">
             {copy.chatCouldNotLoad}
