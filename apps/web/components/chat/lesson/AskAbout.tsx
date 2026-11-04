@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { explainChat, type TutorFallback, type TutorTurn } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
+import { Reveal } from "./Reveal";
 
 /** The tutor keeps only the last few turns, and so does this box: nothing is stored anywhere. */
 const MAX_TURNS = 8;
@@ -14,7 +15,8 @@ const MAX_TURNS = 8;
  */
 export function AskAbout({ prompt, language, onPractice }: { prompt: string; language: "en" | "hi"; onPractice?: () => void }) {
   const copy = useCopy();
-  const [turns, setTurns] = useState<TutorTurn[]>([]);
+  // `fresh` marks Brownie's newest reply, which appears word by word; earlier turns are shown whole.
+  const [turns, setTurns] = useState<(TutorTurn & { fresh?: boolean })[]>([]);
   // The choices under Brownie's last "I can't answer that" line; gone as soon as the learner moves on.
   const [offers, setOffers] = useState<TutorFallback["offers"]>([]);
   const lastQuestion = useRef("");
@@ -27,9 +29,10 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
     const question = text.trim();
     if (!question || busy) return;
     // The tutor needs to know what the lesson was about: the original question always leads the history.
-    const history: TutorTurn[] = [{ role: "user", content: prompt.slice(0, 500) }, ...turns.slice(-(MAX_TURNS - 1))];
+    const recent = turns.slice(-(MAX_TURNS - 1)).map(({ role, content }) => ({ role, content }));
+    const history: TutorTurn[] = [{ role: "user", content: prompt.slice(0, 500) }, ...recent];
     lastQuestion.current = question;
-    setTurns((prev) => [...prev, { role: "user", content: question }]);
+    setTurns((prev) => [...prev.map(({ role, content }) => ({ role, content })), { role: "user", content: question }]);
     setText("");
     setBusy(true);
     setFailed(false);
@@ -44,7 +47,7 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
             : "message" in reply
               ? reply.message
               : null;
-      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer }]);
+      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer, fresh: true }]);
       else setFailed(true);
       // Only a choice that can be acted on here is shown: practice needs the chat to start it.
       if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers.filter((o) => o.id !== "practice" || onPractice));
@@ -80,7 +83,7 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
               data-testid={turn.role === "user" ? "ask-about-you" : "ask-about-tutor"}
               className={`max-w-[90%] rounded-2xl px-4 py-2.5 text-[0.9375rem] leading-[1.6] text-ink ${turn.role === "user" ? "self-end bg-accent-soft" : "self-start bg-surface-2"}`}
             >
-              {turn.content}
+              {turn.fresh ? <Reveal text={turn.content} /> : turn.content}
             </li>
           ))}
           {busy ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
