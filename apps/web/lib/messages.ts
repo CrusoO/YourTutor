@@ -331,6 +331,7 @@ const en = {
   chatAskMedium: "Which language do you study in?",
   chatAskSubject: "Which subject?",
   chatClassN: "Class {n}",
+  chatAdult: "Adult",
   chatYou: "You",
   chatTutor: "Tutor",
   chatIdentityIntro: "Great. How would you like to continue?",

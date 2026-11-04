@@ -42,6 +42,7 @@ import {
   type ContextLike,
   type Role,
   type Setup,
+  bookGrade,
 } from "@/lib/chat/machine";
 import { type Messages } from "@/lib/messages";
 
@@ -312,7 +313,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       if (remember) saveSetup(setup);
       await guestStart({
         curriculum_id: setup.board,
-        grade: setup.grade,
+        grade: bookGrade(ctxRef.current ?? { curricula: [] }, setup) ?? setup.grade,
         subject: setup.subject,
         home_language: locale(),
         device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
