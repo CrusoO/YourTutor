@@ -84,6 +84,7 @@ class Settings(BaseSettings):
     explain_signing_key: str = ""  # env: EXPLAIN_SIGNING_KEY; signs video sources (random if empty)
     llm_story_model: str = ""  # env: LLM_STORY_MODEL; tried first for animated stories
     llm_story_api_key: str = ""  # env: LLM_STORY_API_KEY; the key for that model
+    voice_enabled: bool = False  # env: VOICE_ENABLED; the web mic is off until voice input exists
     story_voice: str = "kokoro"  # env: STORY_VOICE; kokoro (default, af_heart) or piper
     llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)

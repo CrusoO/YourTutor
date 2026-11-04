@@ -26,6 +26,7 @@ from app.config import settings
 from app.db.models import ChapterRow, SectionRow, StudentRow, VideoJobRow
 from app.explain import proof
 from app.registries.loaders import load_curriculum
+from app.safety import guarded_llm_route
 from app.video_jobs import wake
 
 router = APIRouter(prefix="/video-jobs", tags=["video-jobs"])
@@ -244,20 +245,38 @@ def _source_request(
     return f"source:{digest}", {"curriculum": curriculum, "source": text}
 
 
-def _prompt_request(prompt: str, curriculum: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-    """A job node id and the curriculum part of the engine request for a typed question.
+def _prompt_request(
+    db: DbSession, student_id: uuid.UUID, prompt: str, curriculum: dict[str, Any]
+) -> tuple[str, dict[str, Any]] | dict[str, Any]:
+    """A job node id and the engine request for a typed question, or the support reply.
 
     The student's actual enrolled curriculum is used so the engine searches the right
-    knowledge base. A guest who chose CBSE grade 10 science gets science, not a hardcoded
-    maths default. The question is cleaned and screened before queuing.
+    knowledge base. The question is cleaned and run through the shared safety flow before
+    queuing: a distress hit (or a paused student) gets the authored support reply and no job.
+    The text stays in the queued request only until the worker starts the job (see worker).
     """
     cleaned = clean_question(prompt, PROMPT_MAX_CHARS)
     if cleaned.empty or cleaned.too_long:
         raise HTTPException(status_code=422, detail="prompt must be 1 to 300 characters")
-    if screen(cleaned.text, load_safety("en")).kind != "ok":
+
+    def screened() -> dict[str, Any]:
+        verdict = screen(cleaned.text, load_safety("en"))
+        if verdict.kind == "distress":
+            return {"kind": "distress", "risk": verdict.risk, "category": verdict.category}
+        return {"kind": "ok" if verdict.kind == "ok" else "refused"}
+
+    result = guarded_llm_route(db, student_id, "video", cleaned.text, "en", screened)
+    if result.get("kind") == "distress":
+        return result
+    if result.get("kind") != "ok":
         raise HTTPException(status_code=422, detail="prompt not accepted")
     digest = hashlib.sha256(cleaned.text.encode("utf-8")).hexdigest()[:12]
     return f"prompt:{digest}", {"curriculum": curriculum, "prompt": cleaned.text}
+
+
+def without_prompt(request: dict[str, Any]) -> dict[str, Any]:
+    """The request as kept at rest: every setting and the topic, never the typed question."""
+    return {k: v for k, v in request.items() if k != "prompt"}
 
 
 # ── endpoints ────────────────────────────────────────────────────────────────
@@ -323,8 +342,14 @@ def create_job(
         response.status_code = status.HTTP_200_OK
         return _job_view(existing)
 
-    _enforce_video_limits(db, student_id)
     curriculum = _student_curriculum(db, student_id)
+    if body.prompt is not None:
+        made = _prompt_request(db, student_id, body.prompt, curriculum)
+        if isinstance(made, dict):  # distress or paused: the support reply, no job
+            response.status_code = status.HTTP_200_OK
+            return made
+        node_id, place = made
+    _enforce_video_limits(db, student_id)
     if body.story is not None:
         node_id, place = _story_request(student_id, body.story, body.story_proof or "", curriculum)
     elif body.source is not None:
@@ -332,7 +357,7 @@ def create_job(
             student_id, body.source, body.source_proof or "", curriculum
         )
     elif body.prompt is not None:
-        node_id, place = _prompt_request(body.prompt, curriculum)
+        pass  # built above, before the limits
     else:
         assert body.node_id is not None
         node_id, place = body.node_id, {"curriculum": _curriculum_from_node_id(body.node_id)}
@@ -439,6 +464,7 @@ def cancel_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, A
     row.status = "cancelled"
     row.error_code = "cancelled"
     row.completed_at = now_utc()
+    row.request_json = without_prompt(row.request_json)
     db.commit()
     db.refresh(row)
     return _job_view(row)
@@ -457,6 +483,8 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
     if original.student_id is not None:
         _enforce_video_limits(db, original.student_id)
     new_idem = str(uuid.uuid4())
+    if original.node_id.startswith("prompt:") and "prompt" not in original.request_json:
+        raise HTTPException(status_code=409, detail="the question is not kept; ask it again")
     if any(k in original.request_json for k in ("source", "story", "prompt")):
         keep = ("curriculum", "source", "story", "prompt")
         place = {k: original.request_json[k] for k in keep if k in original.request_json}

@@ -89,6 +89,11 @@ function usable(pick: () => Storage): Storage | null {
   }
 }
 
+/** The one safe browser store: the device, else this tab, else memory. It never throws. */
+export function safeStorage(): Storage | null {
+  return store();
+}
+
 export type StorageMode = "device" | "tab" | "memory";
 
 /** Where sign-in is kept right now: the device, only this tab, or only until the page reloads. */

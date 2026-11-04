@@ -103,6 +103,11 @@ export const initialState = (): ChatState => ({
   nextId: 1,
 });
 
+/** The classes a guest can pick. Younger learners are not offered the tutor without a guardian. */
+export const GUEST_GRADES = [6, 7, 8, 9, 10, 11, 12];
+/** "Adult" in the class picker. Stored as grade 0; it means "no class", and still gets syllabus scope. */
+export const ADULT_GRADE = 0;
+
 const ORDER: SetupStep[] = ["grade", "state", "board", "medium", "subject"];
 
 const unique = <T,>(values: T[]): T[] => [...new Set(values)];
@@ -118,7 +123,7 @@ function booksFor(ctx: ContextLike, setup: Setup) {
   const boards = setup.board ? ctx.curricula.filter((c) => c.id === setup.board) : boardsFor(ctx, setup);
   return boards.flatMap((c) =>
     c.grades
-      .filter((g) => setup.grade === undefined || g.grade === setup.grade)
+      .filter((g) => setup.grade === undefined || setup.grade === ADULT_GRADE || g.grade === setup.grade)
       .flatMap((g) => g.subjects.flatMap((s) => s.books.map((b) => ({ ...b, subject: s.id, board: c.id })))),
   );
 }
@@ -127,8 +132,11 @@ function booksFor(ctx: ContextLike, setup: Setup) {
 export function stepOptions(ctx: ContextLike, setup: Setup, step: SetupStep): Option[] {
   if (step === "grade") {
     const withContent = new Set(ctx.curricula.flatMap((c) => c.grades.map((g) => g.grade)));
-    const all = unique([...(ctx.grades ?? []), ...withContent]).sort((a, b) => a - b);
-    return all.map((g) => ({ value: String(g), available: withContent.has(g) }));
+    const all = unique([...(ctx.grades ?? []), ...withContent])
+      .filter((g) => GUEST_GRADES.includes(g))
+      .sort((a, b) => a - b);
+    const classes = all.map((g) => ({ value: String(g), available: withContent.has(g) }));
+    return [...classes, { value: "adult", available: withContent.size > 0 }];
   }
   if (step === "state") {
     return (ctx.states ?? []).map((s) => ({
@@ -139,7 +147,8 @@ export function stepOptions(ctx: ContextLike, setup: Setup, step: SetupStep): Op
   if (step === "board") {
     return boardsFor(ctx, setup).map((c) => ({
       value: c.id,
-      available: setup.grade === undefined || c.grades.some((g) => g.grade === setup.grade),
+      available:
+        setup.grade === undefined || setup.grade === ADULT_GRADE || c.grades.some((g) => g.grade === setup.grade),
     }));
   }
   if (step === "medium") {
@@ -229,7 +238,7 @@ export function reduce(state: ChatState, event: ChatEvent, ctx: ContextLike): Ch
       ) as Setup;
       const option = stepOptions(ctx, base, event.step).find((o) => o.value === event.value);
       if (!option || !option.available) return state; // "coming soon" cannot start
-      const value = event.step === "grade" ? Number(event.value) : event.value;
+      const value = event.step === "grade" ? (event.value === "adult" ? ADULT_GRADE : Number(event.value)) : event.value;
       const setup = resolveSetup(ctx, { ...base, [event.step]: value } as Setup);
       const chosen = push(
         { ...state, setup, phase: "context", identity: "choices" },
@@ -277,4 +286,13 @@ export function tapsToIdentity(ctx: ContextLike, picks: Record<SetupStep, string
     taps += 1;
   }
   return taps;
+}
+
+/** The real class a guest is started in: the chosen one, or for "adult" the highest class the board has for the subject. */
+export function bookGrade(ctx: ContextLike, setup: Setup): number | undefined {
+  if (setup.grade !== ADULT_GRADE) return setup.grade;
+  const grades = ctx.curricula
+    .filter((c) => c.id === setup.board)
+    .flatMap((c) => c.grades.filter((g) => GUEST_GRADES.includes(g.grade) && g.subjects.some((s) => s.id === setup.subject)).map((g) => g.grade));
+  return grades.length ? Math.max(...grades) : undefined;
 }

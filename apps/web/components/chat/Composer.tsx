@@ -4,6 +4,7 @@ import { ComposerPrimitive } from "@assistant-ui/react";
 import { useState } from "react";
 import { Icon } from "@/components/ui/icons";
 import { stepOptions } from "@/lib/chat/machine";
+import { voiceEnabled } from "@/lib/flags";
 import { MODES_BY_ROLE, useChatApi, type Mode } from "./ChatProvider";
 import styles from "./ChatHome.module.css";
 
@@ -91,16 +92,18 @@ export function Composer({ docked = false }: { docked?: boolean }) {
           />
           {/* Send always looks ready. It is disabled only when sending is impossible (a mode that is not built
               yet), and then the reason is shown in words below. An empty box gets a gentle hint instead. */}
-          <button
-            type="button"
-            aria-disabled="true"
-            aria-label={copy.chatMicLabel}
-            onClick={() => setMicHint(true)}
-            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-muted hover:text-ink"
-            data-testid="composer-mic"
-          >
-            <Icon name="mic" size={17} />
-          </button>
+          {voiceEnabled() ? (
+            <button
+              type="button"
+              aria-disabled="true"
+              aria-label={copy.chatMicLabel}
+              onClick={() => setMicHint(true)}
+              className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-muted hover:text-ink"
+              data-testid="composer-mic"
+            >
+              <Icon name="mic" size={17} />
+            </button>
+          ) : null}
           <button
             type="submit"
             disabled={disabled || busy}

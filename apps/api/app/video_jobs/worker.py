@@ -263,6 +263,9 @@ def run_one_job(factory: sessionmaker[Session], job_id: uuid.UUID) -> None:
         if row is None:
             return
         request_data = dict(row.request_json)
+        if "prompt" in request_data:
+            # The typed question is needed only to start the engine; it is not kept at rest.
+            row.request_json = {k: v for k, v in request_data.items() if k != "prompt"}
 
     request_id: str = request_data.get("requestId") or str(job_id)
     engine_dir = _ENGINE_DIR.resolve()

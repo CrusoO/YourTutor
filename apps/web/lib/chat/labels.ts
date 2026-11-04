@@ -29,6 +29,7 @@ export function optionLabel(
   language: string,
 ): string {
   const text = String(value);
+  if (step === "grade" && (text === "adult" || text === "0")) return copy.chatAdult;
   if (step === "grade") return copy.chatClassN.replace("{n}", text);
   if (step === "board") return boardLabel(ctx, text, language);
   if (step === "state") return stateLabel(ctx, text, language);

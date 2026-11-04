@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  ADULT_GRADE,
+  bookGrade,
   initialState,
   nextStep,
   reduce,
@@ -79,13 +81,35 @@ describe("the chat conversation state machine", () => {
 
   it("a class without live content is offered as coming soon and cannot be started", () => {
     const options = stepOptions(registry, {}, "grade");
-    expect(options).toHaveLength(12);
+    expect(options).toHaveLength(8); // classes 6 to 12, and adult
     expect(options.find((o) => o.value === "9")?.available).toBe(true);
     expect(options.find((o) => o.value === "10")?.available).toBe(false);
     let s = reduce(initialState(), { type: "start_setup", intent: null }, registry);
     s = run(s, registry, ["grade", "10"]);
     expect(s.setup.grade).toBeUndefined();
     expect(s.messages.at(-1)?.key).toBe("ask_grade"); // still waiting for a real choice
+  });
+
+  it("offers classes 6 to 12 and adult, never classes below 6", () => {
+    const values = stepOptions(registry, {}, "grade").map((o) => o.value);
+    expect(values).toEqual(["6", "7", "8", "9", "10", "11", "12", "adult"]);
+    expect(stepOptions(registry, {}, "grade").find((o) => o.value === "adult")?.available).toBe(true);
+  });
+
+  it("adult is chosen like a class, narrows nothing, and starts in a real class of the board", () => {
+    let s = reduce(initialState(), { type: "start_setup", intent: null }, registry);
+    s = run(s, registry, ["grade", "adult"]);
+    expect(s.setup.grade).toBe(ADULT_GRADE);
+    expect(s.messages.at(-1)?.key).toBe("ask_board");
+    s = run(s, registry, ["board", "board_a"], ["subject", "math"]);
+    expect(s.phase).toBe("identity");
+    expect(bookGrade(registry, s.setup)).toBe(9);
+    expect(bookGrade(registry, { grade: 7, board: "board_a", subject: "math" })).toBe(7);
+  });
+
+  it("adult is unavailable when there is no content at all", () => {
+    const empty: ContextLike = { grades: [6, 7], curricula: [] };
+    expect(stepOptions(empty, {}, "grade").find((o) => o.value === "adult")?.available).toBe(false);
   });
 
   it("ignores a choice for a step that is not being asked, and unknown values", () => {
