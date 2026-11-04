@@ -104,7 +104,7 @@ def _check_verify_ip(session: Session, ip: str) -> None:
     if len(stamps) >= settings.otp_verify_limit_ip:
         raise TOO_MANY
     extra = len(stamps) - settings.otp_verify_free_failures_ip
-    if extra >= 0:
+    if stamps and extra >= 0:
         wait = min(2**extra, settings.otp_verify_max_delay_seconds)
         if (now_utc() - stamps[-1]).total_seconds() < wait:
             raise TOO_MANY

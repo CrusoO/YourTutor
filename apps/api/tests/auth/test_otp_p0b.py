@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import uuid
 
 import pytest
 from fastapi import HTTPException
@@ -10,8 +11,16 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from app.auth import service
-from app.auth.sender import EmailOtpSender, EmailUnavailable, MemoryOtpSender, set_otp_sender
+from app.auth.sender import (
+    EmailOtpSender,
+    EmailUnavailable,
+    MemoryOtpSender,
+    get_otp_sender,
+)
 from app.config import settings
+from app.db.models import RateEventRow
+from app.main import app
+from app.auth.security import now_utc
 
 
 def test_otp_never_logged_and_unavailable_when_smtp_unset(caplog) -> None:
@@ -41,7 +50,7 @@ def test_smtp_failure_becomes_email_unavailable(monkeypatch, caplog) -> None:
 
 def test_request_otp_answers_503_email_unavailable(client: TestClient) -> None:
     settings.smtp_host = ""
-    set_otp_sender(EmailOtpSender())
+    app.dependency_overrides[get_otp_sender] = EmailOtpSender
     response = client.post("/auth/request-otp", json={"email": "nomail@example.com"})
     assert response.status_code == 503
     assert response.json()["detail"]["code"] == "email_unavailable"
@@ -61,10 +70,23 @@ def test_wrong_codes_from_attacker_ips_do_not_block_the_victims_fresh_code(
 
 
 def test_one_ip_gets_an_exponential_delay(db: Session) -> None:
-    for _ in range(settings.otp_verify_free_failures_ip):
-        with pytest.raises(HTTPException) as bad:
-            service.verify_otp(db, email="x@example.com", code="1", ip="198.51.100.9", actor=None)
-        assert bad.value.status_code == 401
+    ip = "198.51.100.9"
+    for _ in range(settings.otp_verify_free_failures_ip + 3):  # 3 over the free ones: wait 8 s
+        db.add(
+            RateEventRow(id=uuid.uuid4(), bucket=f"otp_verify_fail:ip:{ip}", created_at=now_utc())
+        )
+    db.commit()
     with pytest.raises(HTTPException) as delayed:
-        service.verify_otp(db, email="x@example.com", code="1", ip="198.51.100.9", actor=None)
+        service.verify_otp(db, email="x@example.com", code="1", ip=ip, actor=None)
     assert delayed.value.status_code == 429
+    # another IP is not affected
+    with pytest.raises(HTTPException) as other:
+        service.verify_otp(db, email="x@example.com", code="1", ip="198.51.100.10", actor=None)
+    assert other.value.status_code == 401
+
+
+def test_first_failure_with_no_free_tries_does_not_crash(db: Session, monkeypatch) -> None:
+    monkeypatch.setattr(settings, "otp_verify_free_failures_ip", 0)
+    with pytest.raises(HTTPException) as first:
+        service.verify_otp(db, email="y@example.com", code="1", ip="198.51.100.11", actor=None)
+    assert first.value.status_code == 401
