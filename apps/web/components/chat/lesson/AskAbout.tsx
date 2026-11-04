@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { explainChat, type TutorFallback, type TutorTurn } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
-import { useChatApi } from "../ChatProvider";
 
 /** The tutor keeps only the last few turns, and so does this box: nothing is stored anywhere. */
 const MAX_TURNS = 8;
@@ -13,9 +12,8 @@ const MAX_TURNS = 8;
  * Follow-up questions about the lesson just finished, answered one short Socratic reply at a time. The
  * conversation lives in this component only; closing the lesson drops it, like the question itself.
  */
-export function AskAbout({ prompt, language }: { prompt: string; language: "en" | "hi" }) {
+export function AskAbout({ prompt, language, onPractice }: { prompt: string; language: "en" | "hi"; onPractice?: () => void }) {
   const copy = useCopy();
-  const { startMode } = useChatApi();
   const [turns, setTurns] = useState<TutorTurn[]>([]);
   // The choices under Brownie's last "I can't answer that" line; gone as soon as the learner moves on.
   const [offers, setOffers] = useState<TutorFallback["offers"]>([]);
@@ -48,7 +46,8 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
               : null;
       if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer }]);
       else setFailed(true);
-      if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers);
+      // Only a choice that can be acted on here is shown: practice needs the chat to start it.
+      if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers.filter((o) => o.id !== "practice" || onPractice));
     } catch {
       setFailed(true);
     } finally {
@@ -64,7 +63,7 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
       setText(lastQuestion.current);
       inputRef.current?.focus();
     } else if (id === "practice") {
-      void startMode("revise");
+      onPractice?.();
     }
   }
 

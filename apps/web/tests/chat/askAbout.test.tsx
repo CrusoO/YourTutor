@@ -2,11 +2,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const startMode = vi.fn();
-
-vi.mock("@/components/chat/ChatProvider", () => ({
-  useChatApi: () => ({ startMode }),
-}));
+const onPractice = vi.fn();
 
 vi.mock("@/lib/api", () => ({
   explainChat: vi.fn(),
@@ -29,7 +25,7 @@ async function ask(text: string) {
   await userEvent.click(screen.getByRole("button", { name: "Ask" }));
 }
 
-beforeEach(() => startMode.mockClear());
+beforeEach(() => onPractice.mockClear());
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
@@ -38,7 +34,7 @@ afterEach(() => {
 describe("AskAbout when Brownie cannot answer", () => {
   it("shows the authored line as Brownie's turn, not an error", async () => {
     vi.mocked(api.explainChat).mockResolvedValue({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     expect(await screen.findByTestId("ask-about-tutor")).toHaveTextContent("It isn't anything you did.");
     expect(screen.queryByRole("alert")).toBeNull();
@@ -46,7 +42,7 @@ describe("AskAbout when Brownie cannot answer", () => {
 
   it("offers the choices the server named", async () => {
     vi.mocked(api.explainChat).mockResolvedValue({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     expect(await screen.findByTestId("offer-ask_again")).toHaveTextContent("Ask it another way");
     expect(screen.getByTestId("offer-practice")).toHaveTextContent("Try a practice question");
@@ -54,7 +50,7 @@ describe("AskAbout when Brownie cannot answer", () => {
 
   it("'ask it another way' brings the question back into the box", async () => {
     vi.mocked(api.explainChat).mockResolvedValue({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     await userEvent.click(await screen.findByTestId("offer-ask_again"));
     expect(screen.getByTestId("ask-about-input")).toHaveValue("why does it double");
@@ -63,10 +59,18 @@ describe("AskAbout when Brownie cannot answer", () => {
 
   it("'practice' starts practice through the chat", async () => {
     vi.mocked(api.explainChat).mockResolvedValue({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     await userEvent.click(await screen.findByTestId("offer-practice"));
-    expect(startMode).toHaveBeenCalledWith("revise");
+    expect(onPractice).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not offer practice where nothing can start it", async () => {
+    vi.mocked(api.explainChat).mockResolvedValue({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK });
+    render(<AskAbout prompt="slope" language="en" />);
+    await ask("why does it double");
+    expect(await screen.findByTestId("offer-ask_again")).toBeInTheDocument();
+    expect(screen.queryByTestId("offer-practice")).toBeNull();
   });
 
   it("ignores an offer id it does not know", async () => {
@@ -75,10 +79,10 @@ describe("AskAbout when Brownie cannot answer", () => {
       reason: "provider_error",
       fallback: { ...FALLBACK, offers: [{ id: "launch", label: "Do the thing" }] },
     });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     await userEvent.click(await screen.findByTestId("offer-launch"));
-    expect(startMode).not.toHaveBeenCalled();
+    expect(onPractice).not.toHaveBeenCalled();
     expect(screen.getByTestId("ask-about-input")).toHaveValue("");
   });
 
@@ -86,7 +90,7 @@ describe("AskAbout when Brownie cannot answer", () => {
     vi.mocked(api.explainChat)
       .mockResolvedValueOnce({ kind: "unavailable", reason: "provider_error", fallback: FALLBACK })
       .mockResolvedValueOnce({ kind: "reply", text: "Think about the units." });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("why does it double");
     await screen.findByTestId("ask-about-offers");
     await ask("what about the units");
@@ -96,12 +100,12 @@ describe("AskAbout when Brownie cannot answer", () => {
 
   it("falls back to the old warning when the server sent no fallback or the call itself failed", async () => {
     vi.mocked(api.explainChat).mockResolvedValueOnce({ kind: "unavailable", reason: "off" });
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("hello");
     expect(await screen.findByRole("alert")).toBeInTheDocument();
     cleanup();
     vi.mocked(api.explainChat).mockRejectedValueOnce(new Error("network"));
-    render(<AskAbout prompt="slope" language="en" />);
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
     await ask("hello again");
     expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
