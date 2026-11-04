@@ -73,11 +73,17 @@ def test_unverified_helplines_are_refused_through_the_injected_hook() -> None:
     assert production_config_errors(_s(), unverified_helplines=lambda: []) == []
 
 
-@pytest.mark.xfail(reason="TODO(lead): wire app.safety.unverified_helplines in main", strict=True)
 def test_lifespan_passes_the_safety_helpline_check() -> None:
     from app import main
 
     assert "unverified_helplines=" in inspect.getsource(main.lifespan)
+
+
+def test_shipped_helplines_are_unverified_so_production_refuses_until_the_owner_verifies() -> None:
+    from app.helplines import unverified_helplines
+
+    errors = production_config_errors(_s(), unverified_helplines=unverified_helplines)
+    assert any(e.startswith("HELPLINES") for e in errors)
 
 
 def test_the_dev_flag_is_still_refused() -> None:

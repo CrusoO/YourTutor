@@ -22,6 +22,7 @@ from app.dev.router import router as dev_router
 from app.explain.router import router as explain_router
 from app.groups.router import router as groups_router
 from app.health import database_ready, ping_redis
+from app.helplines import unverified_helplines
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
 from app.proxy import (
@@ -55,9 +56,8 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
             f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
             "its development default. Set a real value in the environment."
         )
-    # TODO(lead): after stream A merges, hand app.safety's unverified_helplines function to
-    # the config check below.
-    unsafe_config = production_config_errors(settings)
+    # Production refuses to start while any shown helpline is unverified (config/helplines.yaml).
+    unsafe_config = production_config_errors(settings, unverified_helplines=unverified_helplines)
     if unsafe_config:
         raise RuntimeError(
             f"Refusing to start: APP_ENV=production but {'; '.join(unsafe_config)}. "
