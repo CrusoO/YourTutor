@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from app.auth import service
+from app.auth.security import now_utc
 from app.auth.sender import (
     EmailOtpSender,
     EmailUnavailable,
@@ -20,7 +21,6 @@ from app.auth.sender import (
 from app.config import settings
 from app.db.models import RateEventRow
 from app.main import app
-from app.auth.security import now_utc
 
 
 def test_otp_never_logged_and_unavailable_when_smtp_unset(caplog) -> None:
