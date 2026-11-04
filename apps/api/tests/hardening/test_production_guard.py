@@ -53,6 +53,12 @@ def test_the_api_starts_when_production_is_clean(monkeypatch: pytest.MonkeyPatch
     for name in DEV_ONLY_FLAGS:
         monkeypatch.setattr(main.settings, name, False)
     monkeypatch.setattr(main.settings, "postgres_password", "a-real-password-for-the-test")
+    monkeypatch.setattr(main.settings, "token_pepper", "p" * 40)
+    monkeypatch.setattr(main.settings, "smtp_host", "smtp.example.org")
+    monkeypatch.setattr(main.settings, "pilot_onboarding", False)
+    monkeypatch.setattr(main.settings, "ask_enabled", False)
+    monkeypatch.setattr(main.settings, "explain_enabled", False)
+    monkeypatch.setattr(main.settings, "cors_extra_origins", "")
     with TestClient(main.app) as client:
         assert client.get("/health").status_code == 200
 

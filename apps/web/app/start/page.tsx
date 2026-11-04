@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getContextOptions, guestStart, type ContextOptions } from "@/lib/api";
 
+import StorageNotice from "@/components/StorageNotice";
 import { useCopy } from "@/lib/locale";
 
 /** Guest start: curriculum, grade, subject and language. Nothing personal is asked or stored. */
@@ -49,6 +50,7 @@ export default function StartPage() {
 
   return (
     <main className="stack">
+      <StorageNotice />
       <h1>{copy.startTitle}</h1>
       <p className="muted">{copy.startHint}</p>
       <label>

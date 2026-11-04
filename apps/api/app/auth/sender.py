@@ -10,27 +10,35 @@ from app.config import settings
 logger = logging.getLogger("yourtutor.otp")
 
 
+class EmailUnavailable(Exception):  # noqa: N818
+    """The code could not be sent (no SMTP configured, or the mail server failed)."""
+
+
 class OtpSender(Protocol):
     def send(self, destination: str, code: str) -> None: ...
 
 
 class EmailOtpSender:
-    """Email OTP. Logs the code to the console when SMTP is unset."""
+    """Email OTP. Never logs the code; with no SMTP host it raises EmailUnavailable."""
 
     def send(self, destination: str, code: str) -> None:
         if not settings.smtp_host:
-            logger.info("OTP for %s: %s", destination, code)
-            return
+            logger.warning("OTP email not sent: SMTP_HOST is empty")
+            raise EmailUnavailable("SMTP_HOST is empty")
         message = EmailMessage()
         message["From"] = settings.otp_from_email
         message["To"] = destination
         message["Subject"] = "YourTutor sign-in code"
         message.set_content(f"Your sign-in code is {code}. It expires in 10 minutes.")
-        with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10) as smtp:
-            if settings.smtp_user:
-                smtp.starttls()
-                smtp.login(settings.smtp_user, settings.smtp_password)
-            smtp.send_message(message)
+        try:
+            with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10) as smtp:
+                if settings.smtp_user:
+                    smtp.starttls()
+                    smtp.login(settings.smtp_user, settings.smtp_password)
+                smtp.send_message(message)
+        except (OSError, smtplib.SMTPException) as error:
+            logger.warning("OTP email not sent: %s", type(error).__name__)
+            raise EmailUnavailable(type(error).__name__) from None
 
 
 class MemoryOtpSender:
@@ -41,7 +49,6 @@ class MemoryOtpSender:
 
     def send(self, destination: str, code: str) -> None:
         self.inbox[destination] = code
-        logger.info("OTP for %s: %s", destination, code)
 
 
 _sender: OtpSender = EmailOtpSender()
