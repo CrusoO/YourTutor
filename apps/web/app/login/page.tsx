@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
+import StorageNotice from "@/components/StorageNotice";
 import { LandingLanguages } from "../brownie/Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "../brownie/LandingLanguage";
 
@@ -42,6 +43,7 @@ function LoginPageContent() {
       <Link href="/" className="muted" aria-label={copy.auth.homepage}>
         ← {copy.auth.homepage}
       </Link>
+      <StorageNotice />
       <h1>{copy.auth.title}</h1>
       <LandingLanguages />
       <form className="stack" onSubmit={onSubmit}>

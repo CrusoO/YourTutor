@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SuggestionCard } from "@/components/ui/suggestion-card";
-import { requestStaffCode, setLocale, setStudentId, studentLogin, today, verifyStaffCode, whoAmI } from "@/lib/api";
+import { isEmailUnavailable, requestStaffCode, setLocale, setStudentId, studentLogin, today, verifyStaffCode, whoAmI } from "@/lib/api";
 import type { IdentityView, Role } from "@/lib/chat/machine";
 import { useChatApi } from "./ChatProvider";
 
@@ -70,12 +70,13 @@ function StudentSignIn({ createFlow }: { createFlow?: boolean }) {
 
 /** Parent and teacher sign-in: an email code through the existing guardian and teacher auth. */
 function OtpForm({ expect }: { expect: Extract<Role, "parent" | "teacher"> }) {
-  const { copy, signedIn } = useChatApi();
+  const { copy, signedIn, justTry } = useChatApi();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [mailDown, setMailDown] = useState(false);
 
   async function send(event: FormEvent) {
     event.preventDefault();
@@ -84,8 +85,9 @@ function OtpForm({ expect }: { expect: Extract<Role, "parent" | "teacher"> }) {
     try {
       await requestStaffCode(email.trim());
       setSent(true);
-    } catch {
-      setError(copy.chatCouldNotLoad);
+    } catch (caught) {
+      if (isEmailUnavailable(caught)) setMailDown(true);
+      else setError(copy.chatCouldNotLoad);
     } finally {
       setBusy(false);
     }
@@ -124,6 +126,16 @@ function OtpForm({ expect }: { expect: Extract<Role, "parent" | "teacher"> }) {
         <p role="alert" className="m-0 text-sm text-danger">
           {error}
         </p>
+      ) : null}
+      {mailDown ? (
+        <div className="flex flex-col gap-2" data-testid="email-unavailable">
+          <p role="alert" className="m-0 text-sm text-danger">
+            {copy.emailUnavailable}
+          </p>
+          <Button type="button" onClick={() => void justTry()} data-testid="continue-as-guest">
+            {copy.continueAsGuest}
+          </Button>
+        </div>
       ) : null}
       <div className="flex flex-wrap items-center gap-2">
         <Button type="submit" disabled={busy || !email || (sent && !code)} data-testid="otp-go">
