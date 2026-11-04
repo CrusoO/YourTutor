@@ -3,6 +3,7 @@ const API =
     ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
+import type { ActionRules } from "./chat/actions";
 import type { FinderRules } from "./chat/finder";
 import type { AiBlock, LessonOpeningResult, LessonRestResult, LessonResult } from "./lessons/ai-lesson";
 import type { Lesson } from "./lessons/types";
@@ -497,6 +498,11 @@ export type TutorReply =
 /** A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept. */
 export async function explainChat(prompt: string, language: "en" | "hi", history: TutorTurn[]): Promise<TutorReply> {
   return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
+}
+
+/** The words that mean a command, matched in the browser on typed text (a GET: no user text is sent). */
+export async function getActionRules(language: string): Promise<ActionRules> {
+  return req(`/actions/rules?language=${encodeURIComponent(language)}`);
 }
 
 /** The learning card a signed-in learner chose to keep in their account (a guest is refused). */
