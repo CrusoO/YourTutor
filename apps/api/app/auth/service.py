@@ -86,6 +86,34 @@ def _hit_rate(session: Session, bucket: str) -> None:
     session.add(RateEventRow(id=uuid.uuid4(), bucket=bucket, created_at=now_utc()))
 
 
+def _verify_fail_bucket(ip: str) -> str:
+    return f"otp_verify_fail:ip:{ip}"
+
+
+def _check_verify_ip(session: Session, ip: str) -> None:
+    """Wrong codes are counted per IP, never per email, so a stranger cannot lock a victim out.
+
+    Over the cap: 429. After a few wrong codes: an exponential wait (1, 2, 4 ... s) since the
+    last one. A correct code from a quiet IP is never delayed.
+    """
+    cutoff = expires_after(-settings.rate_window_seconds)
+    rows = session.scalars(
+        select(RateEventRow).where(RateEventRow.bucket == _verify_fail_bucket(ip))
+    ).all()
+    stamps = sorted(as_utc(row.created_at) for row in rows if as_utc(row.created_at) >= cutoff)
+    if len(stamps) >= settings.otp_verify_limit_ip:
+        raise TOO_MANY
+    extra = len(stamps) - settings.otp_verify_free_failures_ip
+    if extra >= 0:
+        wait = min(2**extra, settings.otp_verify_max_delay_seconds)
+        if (now_utc() - stamps[-1]).total_seconds() < wait:
+            raise TOO_MANY
+
+
+def _fail_verify(session: Session, ip: str) -> None:
+    _hit_rate(session, _verify_fail_bucket(ip))
+
+
 def request_otp(
     session: Session,
     sender: OtpSender,
@@ -135,22 +163,27 @@ def verify_otp(
     email = email.strip().lower()
     if actor is not None and actor.email and actor.email != email:
         raise HTTPException(status_code=403, detail="forbidden")
-    if _count_rate(session, f"otp_verify:email:{email}") >= settings.otp_verify_limit_email:
-        raise TOO_MANY
-    _hit_rate(session, f"otp_verify:email:{email}")
+    _check_verify_ip(session, ip)
     challenge = session.scalar(
         select(OtpChallengeRow)
         .where(OtpChallengeRow.email == email, OtpChallengeRow.consumed_at.is_(None))
         .order_by(OtpChallengeRow.created_at.desc())
     )
     if challenge is None or as_utc(challenge.expires_at) < now_utc():
+        _fail_verify(session, ip)
         raise HTTPException(status_code=401, detail="invalid otp")
-    if challenge.consumed_at is not None or challenge.attempts >= 5:
+    if (
+        challenge.consumed_at is not None
+        or challenge.attempts >= settings.otp_challenge_max_attempts
+    ):
+        _fail_verify(session, ip)
         raise HTTPException(status_code=401, detail="invalid otp")
     if not codes_match(challenge.code_hash, hash_code(code)):
         challenge.attempts += 1
-        if challenge.attempts >= 5:
+        if challenge.attempts >= settings.otp_challenge_max_attempts:
             challenge.consumed_at = now_utc()
+        _fail_verify(session, ip)
+        session.commit()  # the failure must survive the 401 below
         raise HTTPException(status_code=401, detail="invalid otp")
     challenge.consumed_at = now_utc()
     user = session.scalar(select(UserRow).where(UserRow.email == email))
