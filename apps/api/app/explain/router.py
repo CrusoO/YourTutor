@@ -11,6 +11,8 @@ from app.auth.authz import FORBIDDEN
 from app.auth.consent import has_scope, is_guest
 from app.auth.deps import ActorDep, DbSession
 from app.config import settings
+from app.conversation.voice import fallback_turn, register_for_grade
+from app.db.models import StudentRow
 from app.explain import proof
 from app.explain.service import Gate, explain
 from app.explain.service_chat import build_chat
@@ -121,7 +123,8 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     """Socratic tutor: one short reply to a student's follow-up question.
 
     The client sends the full conversation history with each request (stateless server).
-    Returns {kind:"reply", text, language} or a gate/safety signal.
+    Returns {kind:"reply", text, language} or a gate/safety signal. When no reply can be given,
+    {kind:"unavailable", reason, fallback:{reason, text, offers}} carries an authored line.
     """
     if not actor.is_student or actor.student_id is None:
         raise FORBIDDEN
@@ -133,7 +136,19 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     )
     gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
     history = [{"role": m.role, "content": m.content} for m in body.history]
-    return build_chat(body.prompt, body.language, history, gate, restricted=not guest)
+    student = db.get(StudentRow, actor.student_id)
+    register = register_for_grade(student.grade if student else None)
+    result = build_chat(
+        body.prompt, body.language, history, gate, restricted=not guest, register=register
+    )
+    if result.get("kind") == "unavailable":
+        # Never a bare error: an honest authored line and the next choices. `kind` and `reason`
+        # are unchanged, so a client that ignores `fallback` behaves as before.
+        turns = sum(1 for m in history if m["role"] == "assistant")
+        result["fallback"] = fallback_turn(
+            str(result.get("reason", "")), register, body.language, turns
+        )
+    return result
 
 
 @router.post("/story")
