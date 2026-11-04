@@ -54,6 +54,11 @@ class Settings(BaseSettings):
     video_jobs_per_day_guest: int = 0  # env: VIDEO_JOBS_PER_DAY_GUEST
     # env: AUTO_MIGRATE=true. Run `alembic upgrade head` when the API starts (handy in compose).
     auto_migrate: bool = False
+    # env: CONFIDENCE_RULES=true. Lets a right answer the learner called a guess count as neither
+    # evidence nor a miss. Off by default until pilot data shows children's "unsure" is meaningful.
+    confidence_rules: bool = False
+    # env: PILOT_EXPORT_SALT. Keys the pilot export pseudonyms; empty: the export refuses to run.
+    pilot_export_salt: str = ""
     # env: ADULT_LEARNERS_ASSUMED. Unset means "assume adults in development, never in production".
     # For now every learner is treated as 18 or older, which lets a teacher or manager see
     # anonymous group results. It is a stand-in for a real age gate: production refuses to start

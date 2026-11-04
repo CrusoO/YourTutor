@@ -232,7 +232,7 @@ export class OfflinePlayer {
       at: isoformat(at),
       payload,
     };
-    const policyEvent: PolicyEvent = policyEventFor(event);
+    const policyEvent: PolicyEvent = policyEventFor(event, this.pack.confidence_rules === true);
     const action = policy(this.learner, this.session, policyEvent);
     this.stored.events.push({
       ...event,

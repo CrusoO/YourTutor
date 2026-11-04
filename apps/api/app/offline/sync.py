@@ -28,6 +28,7 @@ from app.auth.actor import Actor
 from app.auth.authz import require, student_or_404
 from app.auth.consent import has_scope
 from app.auth.security import as_utc, now_utc
+from app.config import settings
 from app.db.models import EventRow, SessionRow, StudentRow
 from app.offline.pack import build_pack, canonical, learner_json, pack_catalog
 from app.orchestrator.policy import policy
@@ -114,6 +115,7 @@ def _event_for(body: SyncEventIn) -> Event:
         idle_ms=payload.get("idle_ms"),
         text=payload.get("text"),
         event_id=str(body.client_event_id),
+        confidence=payload.get("confidence") if settings.confidence_rules else None,
     )
 
 
