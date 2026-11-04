@@ -18,13 +18,15 @@ from sqlalchemy.exc import IntegrityError
 from app.ask.config import load_safety
 from app.ask.guard import clean_question, screen
 from app.auth.authz import FORBIDDEN
-from app.auth.consent import has_scope
+from app.auth.consent import has_scope, is_guest
 from app.auth.deps import ActorDep, DbSession
 from app.auth.security import now_utc
+from app.budget import video_jobs_today, video_queue_full
 from app.config import settings
 from app.db.models import ChapterRow, SectionRow, StudentRow, VideoJobRow
 from app.explain import proof
 from app.registries.loaders import load_curriculum
+from app.video_jobs import wake
 
 router = APIRouter(prefix="/video-jobs", tags=["video-jobs"])
 
@@ -288,6 +290,19 @@ def list_topics(
     return {"topics": topics}
 
 
+def _enforce_video_limits(db: DbSession, student_id: uuid.UUID) -> None:
+    """Refuse a new job when the queue is full or this learner has made their share today."""
+    if video_queue_full(db, settings.video_queue_max):
+        raise HTTPException(status_code=503, detail="busy: the video queue is full, try later")
+    cap = (
+        settings.video_jobs_per_day_guest
+        if is_guest(db, student_id)
+        else settings.video_jobs_per_day
+    )
+    if cap > 0 and video_jobs_today(db, student_id) >= cap:
+        raise HTTPException(status_code=429, detail="busy: that is today's limit of videos")
+
+
 @router.post("", status_code=status.HTTP_202_ACCEPTED)
 def create_job(
     body: CreateJobIn, db: DbSession, actor: ActorDep, response: Response
@@ -308,6 +323,7 @@ def create_job(
         response.status_code = status.HTTP_200_OK
         return _job_view(existing)
 
+    _enforce_video_limits(db, student_id)
     curriculum = _student_curriculum(db, student_id)
     if body.story is not None:
         node_id, place = _story_request(student_id, body.story, body.story_proof or "", curriculum)
@@ -339,6 +355,7 @@ def create_job(
     try:
         db.commit()
         db.refresh(row)
+        wake.touch(settings.video_wake_file)
     except IntegrityError:
         db.rollback()
         existing = db.scalar(
@@ -437,6 +454,8 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
             status_code=409,
             detail=f"job is {original.status}; only failed jobs can be retried",
         )
+    if original.student_id is not None:
+        _enforce_video_limits(db, original.student_id)
     new_idem = str(uuid.uuid4())
     if any(k in original.request_json for k in ("source", "story", "prompt")):
         keep = ("curriculum", "source", "story", "prompt")
@@ -461,4 +480,5 @@ def retry_job(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, An
     db.add(row)
     db.commit()
     db.refresh(row)
+    wake.touch(settings.video_wake_file)
     return _job_view(row)

@@ -21,6 +21,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.config import settings
 from app.db.models import VideoJobRow
+from app.video_jobs import wake
 
 logger = logging.getLogger("yourtutor.worker.vj")
 
@@ -29,7 +30,7 @@ _ENGINE_DIR: Path = Path(settings.engine_dir)
 _TIMEOUT: int = settings.video_job_timeout_seconds
 _POLL_SECONDS: float = 0.5
 _CANCEL_CHECK_SECONDS: float = 4.0
-_IDLE_SLEEP_SECONDS: float = 5.0
+_IDLE_SLEEP_SECONDS: float = settings.video_worker_idle_poll_seconds
 # If no new events.jsonl line arrives for this many seconds while the
 # subprocess is still running, the stage is considered hung and killed.
 # 300s is intentionally longer than a worst-case TTS stage (~5 min) but
@@ -355,11 +356,12 @@ def main_loop(factory: sessionmaker[Session]) -> None:
     if n:
         logger.info("reset %d stuck running job(s) to queued", n)
     logger.info("video-job worker started (timeout=%ds, engine=%s)", _TIMEOUT, _ENGINE_DIR)
+    seen = wake.stamp(settings.video_wake_file)
     while True:
         try:
             job_id = claim_one_job(factory)
             if job_id is None:
-                time.sleep(_IDLE_SLEEP_SECONDS)
+                seen = wake.wait_for_work(settings.video_wake_file, seen, _IDLE_SLEEP_SECONDS)
                 continue
             logger.info("claimed job %s", job_id)
             run_one_job(factory, job_id)
