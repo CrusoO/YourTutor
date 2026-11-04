@@ -36,13 +36,15 @@ export function Bubble({ from, text }: { from: "tutor" | "user"; text: string })
 
 /** Replies from the finder: Did you mean chips, "not in your syllabus yet", and gentle notices. */
 export function Replies() {
-  const { replies, copy, pickTopic, mode } = useChatApi();
+  const { replies, copy, pickTopic, mode, confirmStep, dismissReplies } = useChatApi();
   if (!replies.length) return null;
   return (
     <div className="flex flex-col gap-3" aria-live="polite" data-testid="replies">
       {replies.map((reply) => {
         const text =
-          reply.kind === "matches"
+          reply.kind === "notice"
+            ? (reply.text ?? "")
+            : reply.kind === "matches"
             ? copy.chatFinderDidYouMean
             : reply.kind === "none"
               ? copy.chatFinderNone
@@ -59,6 +61,16 @@ export function Replies() {
           <div key={reply.id} className="flex flex-col gap-3" data-testid={`reply-${reply.kind}`}>
             <Bubble from="tutor" text={text} />
             {reply.piiRemoved ? <p className="m-0 pl-11 text-sm text-muted">{copy.chatFinderPii}</p> : null}
+            {reply.confirm ? (
+              <div className="flex flex-wrap gap-2 pl-11">
+                <Choice onClick={() => confirmStep(reply.confirm!.step, reply.confirm!.after)} data-testid="action-yes">
+                  {copy.yes}
+                </Choice>
+                <Choice onClick={dismissReplies} data-testid="action-no">
+                  {copy.no}
+                </Choice>
+              </div>
+            ) : null}
             {reply.topics?.length ? (
               <div className="flex flex-wrap gap-2 pl-11">
                 {reply.topics.map((topic) => (

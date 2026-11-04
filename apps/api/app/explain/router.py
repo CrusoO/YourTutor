@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from app.auth.authz import FORBIDDEN
 from app.auth.consent import has_scope, is_guest
 from app.auth.deps import ActorDep, DbSession
+from app.budget import llm_budget
 from app.config import settings
 from app.conversation.voice import fallback_turn, register_for_grade
 from app.db.models import StudentRow
@@ -25,6 +26,13 @@ from app.explain.service_lesson import (
 from app.explain.story import build_story
 
 router = APIRouter(prefix="/explain", tags=["explain"])
+
+BUSY: dict[str, Any] = {"kind": "unavailable", "reason": "daily_limit"}
+
+
+def _over_budget() -> bool:
+    """True when today's model budget for the whole API is spent (LLM_DAILY_CAP)."""
+    return not llm_budget.charge(settings.llm_daily_cap)
 
 
 class ExplainIn(BaseModel):
@@ -58,6 +66,8 @@ class ChatIn(BaseModel):
 def explain_question(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     if not actor.is_student or actor.student_id is None:
         raise FORBIDDEN
+    if _over_budget():
+        return BUSY
     guest = is_guest(db, actor.student_id)
     # A guest holds no AI consent, so a guest is served only where the owner has switched that on.
     allowed = (
@@ -99,6 +109,8 @@ def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, 
     The same consent gate and safety screen as /explain apply.
     """
     gate, guest = _lesson_gate(db, actor)
+    if _over_budget():
+        return BUSY
     if body.opening is not None:
         opening = clean_client_opening(body.opening)
         if opening is None:
@@ -115,6 +127,8 @@ def explain_lesson_opening(body: ExplainIn, db: DbSession, actor: ActorDep) -> d
     once; the rest comes from /explain/lesson with this opening sent back.
     """
     gate, guest = _lesson_gate(db, actor)
+    if _over_budget():
+        return BUSY
     return build_opening(body.prompt, body.language, gate, restricted=not guest)
 
 
@@ -128,6 +142,8 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     """
     if not actor.is_student or actor.student_id is None:
         raise FORBIDDEN
+    if _over_budget():
+        return BUSY
     guest = is_guest(db, actor.student_id)
     allowed = (
         settings.explain_guests_enabled
@@ -156,6 +172,8 @@ def explain_story(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, 
     """The question planned as an animated story, written scene by scene and signed."""
     if not actor.is_student or actor.student_id is None:
         raise FORBIDDEN
+    if _over_budget():
+        return BUSY
     guest = is_guest(db, actor.student_id)
     allowed = (
         settings.explain_guests_enabled

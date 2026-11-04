@@ -10,6 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import production_flag_errors, production_secret_errors, settings
@@ -50,7 +51,24 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
             f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
             "its development default. Set a real value in the environment."
         )
+    check_database_schema()
     yield
+
+
+def check_database_schema() -> None:
+    """Stop a production start on a database that is behind; shout about it anywhere else."""
+    from app.db.schema_check import check_schema
+    from app.db.session import make_engine
+
+    engine = make_engine()
+    try:
+        check_schema(
+            engine,
+            production=settings.app_env.lower() == "production",
+            auto_migrate=settings.auto_migrate,
+        )
+    finally:
+        engine.dispose()
 
 
 _LOCAL_ORIGINS = (
@@ -90,6 +108,7 @@ app.include_router(admin_router)
 app.include_router(dev_router)
 app.include_router(video_jobs_router)
 app.include_router(explain_router)
+app.include_router(actions_router)
 app.include_router(groups_router)
 app.include_router(records_router)
 
