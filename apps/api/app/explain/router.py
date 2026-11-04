@@ -81,7 +81,7 @@ def explain_question(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[st
         "explain",
         body.prompt,
         body.language,
-        lambda: explain(body.prompt, body.language, gate, restricted=not guest),
+        lambda: explain(body.prompt, body.language, gate, restricted=True),
     )
     if result["kind"] == "explanation":
         # The web client calls /explain/story separately in parallel to get the animated story.
@@ -114,7 +114,7 @@ def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, 
     {kind:"rest", blocks:[...]}, the remaining blocks written to follow it.
     The same consent gate and safety screen as /explain apply.
     """
-    gate, guest = _lesson_gate(db, actor)
+    gate, _ = _lesson_gate(db, actor)
     if _over_budget():
         return BUSY
     assert actor.student_id is not None  # _lesson_gate refuses anyone else
@@ -128,7 +128,7 @@ def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, 
             "lesson",
             body.prompt,
             body.language,
-            lambda: build_rest(body.prompt, body.language, opening, gate, restricted=not guest),
+            lambda: build_rest(body.prompt, body.language, opening, gate, restricted=True),
         )
     return guarded_llm_route(
         db,
@@ -136,7 +136,7 @@ def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, 
         "lesson",
         body.prompt,
         body.language,
-        lambda: build_lesson(body.prompt, body.language, gate, restricted=not guest),
+        lambda: build_lesson(body.prompt, body.language, gate, restricted=True),
     )
 
 
@@ -147,7 +147,7 @@ def explain_lesson_opening(body: ExplainIn, db: DbSession, actor: ActorDep) -> d
     Returns {kind:"opening", level, objectives, blocks:[hook, predict]}. The student can start at
     once; the rest comes from /explain/lesson with this opening sent back.
     """
-    gate, guest = _lesson_gate(db, actor)
+    gate, _ = _lesson_gate(db, actor)
     if _over_budget():
         return BUSY
     assert actor.student_id is not None  # _lesson_gate refuses anyone else
@@ -157,7 +157,7 @@ def explain_lesson_opening(body: ExplainIn, db: DbSession, actor: ActorDep) -> d
         "lesson",
         body.prompt,
         body.language,
-        lambda: build_opening(body.prompt, body.language, gate, restricted=not guest),
+        lambda: build_opening(body.prompt, body.language, gate, restricted=True),
     )
 
 
@@ -186,7 +186,7 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
         "chat",
         body.prompt,
         body.language,
-        lambda: build_chat(body.prompt, body.language, history, gate, restricted=not guest),
+        lambda: build_chat(body.prompt, body.language, history, gate, restricted=True),
     )
 
 
@@ -210,7 +210,7 @@ def explain_story(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, 
         "story",
         body.prompt,
         body.language,
-        lambda: build_story(body.prompt, body.language, gate, restricted=not guest),
+        lambda: build_story(body.prompt, body.language, gate, restricted=True),
     )
     if result["kind"] == "story":
         result["proof"] = proof.sign(actor.student_id, result["story"])
