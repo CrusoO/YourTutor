@@ -14,11 +14,28 @@ shaming_phrases:
   - you will fail
   - stupid
   - dumb
-# Moderation: the reply is refused if it contains any of these as a whole word.
+# Moderation: a text is refused if it contains any of these as a whole word or phrase.
+# This is a small EXACT list (profanity, and a few unambiguous requests for harm). It no longer
+# holds ordinary words such as kill, die or sex: they are legitimate in science, history and
+# civics ("how do stars die", "why do antibiotics kill bacteria", "what is sex ratio"). Meaning-based
+# moderation (harmful_instructions, sexual_content, violence) is the job of the safety classifier
+# (app/safety_classifier.py), which is off until SAFETY_CLASSIFIER_ENABLED=true.
 blocked_terms:
   - damn
   - hell
   - idiot
-  - kill
-  - die
-  - sex
+  - fuck
+  - fucking
+  - shit
+  - bitch
+  - porn
+  - pornography
+  - nude
+  - nudes
+  - make a bomb
+  - build a bomb
+  - make explosives
+  - make a weapon
+  - make poison
+  - buy drugs
+  - make meth

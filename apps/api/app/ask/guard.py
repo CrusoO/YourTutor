@@ -11,6 +11,7 @@ from dataclasses import dataclass
 
 from app.ask.config import SafetyLists
 from app.llm.rules import LlmRules, default_rules
+from app.safety_lexicon import NONE, URGENT, detect
 
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 PHONE = re.compile(r"(?<!\w)\+?\d[\d\s().-]{7,}\d(?!\w)")
@@ -41,13 +42,22 @@ def clean_question(raw: str, max_chars: int) -> Cleaned:
 class Verdict:
     kind: str  # ok | distress | injection | moderation
     detail: str = ""
+    risk: str = ""  # for kind "distress": urgent | concern
+    category: str = ""  # for kind "distress": suicide | self_harm | abuse | exam_stress
 
 
 def screen(text: str, lists: SafetyLists, rules: LlmRules | None = None) -> Verdict:
     rules = rules or default_rules()
     lowered = text.lower()
+    # Layer 1 of distress detection: the normalised lexicon (English, Hindi, Hinglish), plus the
+    # short list in ask.yaml that the browser also runs on typed topic text.
+    found = detect(text)
+    if found.risk == URGENT:
+        return Verdict("distress", found.category, URGENT, found.category)
     if any(term in lowered for term in lists.distress_terms):
-        return Verdict("distress")
+        return Verdict("distress", "distress", URGENT, "distress")
+    if found.risk != NONE:
+        return Verdict("distress", found.category, found.risk, found.category)
     for pattern in lists.injection_patterns:
         if re.search(pattern, lowered):
             return Verdict("injection", pattern)

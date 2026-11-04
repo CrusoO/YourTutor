@@ -25,6 +25,7 @@ from app.explain.service import (
 )
 from app.llm.prompt import STUDENT_TAG
 from app.llm.provider import ProviderError
+from app.safety import detection_from_verdict, distress_reply
 
 PROMPT_FILE = Path(__file__).parent / "prompts" / "tutor.v1.md"
 PROMPT_VERSION = "tutor/v1"
@@ -144,7 +145,7 @@ def build_chat(
 
     verdict = screen(cleaned.text, load_safety(language))
     if verdict.kind == "distress":
-        return {"kind": "distress", "message": message("distress", language)}
+        return distress_reply(detection_from_verdict(verdict), language)
     if verdict.kind != "ok":
         return {"kind": "refused", "reason": verdict.kind, "message": message("refused", language)}
 
