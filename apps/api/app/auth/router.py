@@ -8,6 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.auth import guest, service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep
+from app.auth.sender import EmailUnavailable
 from app.proxy import client_ip
 
 router = APIRouter()
@@ -117,7 +118,13 @@ def request_otp(
     sender: OtpDep,
     actor: OptionalActorDep,
 ) -> dict[str, str]:
-    service.request_otp(db, sender, email=body.email, ip=client_ip(request), actor=actor)
+    try:
+        service.request_otp(db, sender, email=body.email, ip=client_ip(request), actor=actor)
+    except EmailUnavailable:
+        db.commit()  # keep the rate-limit hits so an outage cannot be used to spam requests
+        raise HTTPException(
+            status_code=503, detail={"code": "email_unavailable", "message": "email unavailable"}
+        ) from None
     return {"status": "sent"}
 
 
