@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { explainChat, type TutorTurn } from "@/lib/api";
+import { explainChat, type TutorFallback, type TutorTurn } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
+import { useChatApi } from "../ChatProvider";
 
 /** The tutor keeps only the last few turns, and so does this box: nothing is stored anywhere. */
 const MAX_TURNS = 8;
@@ -14,7 +15,11 @@ const MAX_TURNS = 8;
  */
 export function AskAbout({ prompt, language }: { prompt: string; language: "en" | "hi" }) {
   const copy = useCopy();
+  const { startMode } = useChatApi();
   const [turns, setTurns] = useState<TutorTurn[]>([]);
+  // The choices under Brownie's last "I can't answer that" line; gone as soon as the learner moves on.
+  const [offers, setOffers] = useState<TutorFallback["offers"]>([]);
+  const lastQuestion = useRef("");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -25,20 +30,41 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
     if (!question || busy) return;
     // The tutor needs to know what the lesson was about: the original question always leads the history.
     const history: TutorTurn[] = [{ role: "user", content: prompt.slice(0, 500) }, ...turns.slice(-(MAX_TURNS - 1))];
+    lastQuestion.current = question;
     setTurns((prev) => [...prev, { role: "user", content: question }]);
     setText("");
     setBusy(true);
     setFailed(false);
+    setOffers([]);
     try {
       const reply = await explainChat(question, language, history);
-      const answer = reply.kind === "reply" ? reply.text : "message" in reply ? reply.message : null;
+      const answer =
+        reply.kind === "reply"
+          ? reply.text
+          : reply.kind === "unavailable"
+            ? (reply.fallback?.text ?? null)
+            : "message" in reply
+              ? reply.message
+              : null;
       if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer }]);
       else setFailed(true);
+      if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers);
     } catch {
       setFailed(true);
     } finally {
       setBusy(false);
       inputRef.current?.focus();
+    }
+  }
+
+  /** A choice under a fallback line. Only ids this client knows do anything; any other is ignored. */
+  function choose(id: string) {
+    setOffers([]);
+    if (id === "ask_again") {
+      setText(lastQuestion.current);
+      inputRef.current?.focus();
+    } else if (id === "practice") {
+      void startMode("revise");
     }
   }
 
@@ -60,6 +86,15 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
           ))}
           {busy ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
         </ul>
+      ) : null}
+      {offers.length > 0 ? (
+        <div className="flex flex-wrap gap-2" data-testid="ask-about-offers">
+          {offers.map((offer) => (
+            <Button key={offer.id} type="button" variant="secondary" onClick={() => choose(offer.id)} data-testid={`offer-${offer.id}`}>
+              {offer.label}
+            </Button>
+          ))}
+        </div>
       ) : null}
       {failed ? (
         <p className="m-0 text-[0.875rem] text-warning" role="alert">
