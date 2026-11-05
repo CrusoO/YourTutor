@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEFAULT_DB_PASSWORD = "tutor"  # development only; production refuses to start on it
@@ -23,7 +25,11 @@ class Settings(BaseSettings):
     otp_ttl_seconds: int = 600
     otp_request_limit_email: int = 3
     otp_request_limit_ip: int = 10
-    otp_verify_limit_email: int = 5
+    otp_verify_limit_email: int = 5  # kept for old env files; verifies are now limited per IP
+    otp_verify_limit_ip: int = 10  # wrong codes per IP per rate window (not per email)
+    otp_verify_free_failures_ip: int = 5  # wrong codes from one IP before the delay starts
+    otp_verify_max_delay_seconds: int = 300
+    otp_challenge_max_attempts: int = 5  # wrong tries on one code before that code dies
     rate_window_seconds: int = 900
     pin_max_attempts: int = 5
     guest_start_limit_ip: int = 20  # guest starts per IP per rate window
@@ -78,6 +84,7 @@ class Settings(BaseSettings):
     explain_signing_key: str = ""  # env: EXPLAIN_SIGNING_KEY; signs video sources (random if empty)
     llm_story_model: str = ""  # env: LLM_STORY_MODEL; tried first for animated stories
     llm_story_api_key: str = ""  # env: LLM_STORY_API_KEY; the key for that model
+    voice_enabled: bool = False  # env: VOICE_ENABLED; the web mic is off until voice input exists
     story_voice: str = "kokoro"  # env: STORY_VOICE; kokoro (default, af_heart) or piper
     llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
@@ -120,6 +127,63 @@ def production_secret_errors(current: Settings) -> list[str]:
     if current.app_env.strip().lower() != PRODUCTION:
         return []
     return ["POSTGRES_PASSWORD"] if current.postgres_password == DEFAULT_DB_PASSWORD else []
+
+
+MIN_SECRET_LENGTH = 32
+DEFAULT_TOKEN_PEPPER = "dev-only-change-me"
+DEFAULT_PILOT_KEY = "dev-pilot"
+_LOCAL_HOSTS = ("localhost", "127.0.0.1", "[::1]", "0.0.0.0")  # noqa: S104
+
+
+def llm_route_enabled(current: Settings) -> bool:
+    """An AI route is on when Ask or Explain is switched on (guests flags only matter with them)."""
+    return current.ask_enabled or current.explain_enabled
+
+
+def has_llm_key(current: Settings) -> bool:
+    """Any provider key key_for_model() can return; ANTHROPIC_API_KEY or the shared LLM_API_KEY."""
+    return any(
+        (
+            current.anthropic_api_key,
+            current.llm_api_key,
+            current.groq_api_key,
+            current.gemini_api_key,
+            current.openrouter_api_key,
+        )
+    )
+
+
+def production_config_errors(
+    current: Settings, unverified_helplines: Callable[[], list[str]] | None = None
+) -> list[str]:
+    """Unsafe production settings, one message per problem (empty list: fine).
+
+    `unverified_helplines` is injected so this module does not import app.safety. The lead wires
+    app.safety.unverified_helplines here once stream A has merged it.
+    """
+    if current.app_env.strip().lower() != PRODUCTION:
+        return []
+    errors: list[str] = []
+    pepper = current.token_pepper
+    if pepper == DEFAULT_TOKEN_PEPPER or len(pepper) < MIN_SECRET_LENGTH:
+        errors.append("TOKEN_PEPPER (default or shorter than 32 characters)")
+    if current.pilot_onboarding and (
+        current.pilot_key == DEFAULT_PILOT_KEY or len(current.pilot_key) < MIN_SECRET_LENGTH
+    ):
+        errors.append("PILOT_KEY (default or shorter than 32 characters while PILOT_ONBOARDING)")
+    if not current.smtp_host.strip():
+        errors.append("SMTP_HOST (empty: sign-in codes cannot be sent)")
+    if llm_route_enabled(current) and not has_llm_key(current):
+        errors.append("ANTHROPIC_API_KEY (no LLM key while ASK_ENABLED or EXPLAIN_ENABLED is on)")
+    for origin in current.cors_extra_origins.split(","):
+        if any(host in origin.strip().lower() for host in _LOCAL_HOSTS):
+            errors.append("CORS_EXTRA_ORIGINS (contains a localhost origin)")
+            break
+    if unverified_helplines is not None:
+        pending = unverified_helplines()
+        if pending:
+            errors.append("HELPLINES (unverified: " + ", ".join(pending) + ")")
+    return errors
 
 
 settings = Settings()

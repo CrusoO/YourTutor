@@ -23,6 +23,7 @@ from app.explain.mathtext import plain_math
 from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError, ProviderResult
 from app.llm.rules import default_rules
+from app.safety import detection_from_verdict, distress_reply
 
 PROMPT_FILE = Path(__file__).parent / "prompts" / "v1.md"
 MAX_QUESTION_CHARS = 300
@@ -285,7 +286,7 @@ def precheck(
         return refusal, "", ""
     verdict = screen(cleaned.text, load_safety(language))
     if verdict.kind == "distress":
-        return {"kind": "distress", "message": message("distress", language)}, "", ""
+        return distress_reply(detection_from_verdict(verdict), language), "", ""
     if verdict.kind != "ok":
         refusal = {
             "kind": "refused",

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import inspect
-import logging
 from datetime import UTC, datetime, timedelta
 
 from fastapi.testclient import TestClient
@@ -9,18 +8,10 @@ from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.auth.security import codes_match, hash_code
-from app.auth.sender import EmailOtpSender, MemoryOtpSender
+from app.auth.sender import MemoryOtpSender
 from app.config import settings
 from app.db.models import OtpChallengeRow, RateEventRow
 from tests.conftest import auth_header, signup
-
-
-def test_otp_console_when_smtp_unset(caplog) -> None:
-    settings.smtp_host = ""
-    logging.getLogger("yourtutor.otp").propagate = True
-    with caplog.at_level(logging.INFO, logger="yourtutor.otp"):
-        EmailOtpSender().send("dev@example.com", "654321")
-    assert "OTP for dev@example.com: 654321" in caplog.text
 
 
 def test_request_and_verify_otp(client: TestClient, sender: MemoryOtpSender) -> None:

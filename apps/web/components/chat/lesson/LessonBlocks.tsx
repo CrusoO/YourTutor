@@ -22,6 +22,9 @@ export function LessonBlocks({
   prompt,
   language,
   pending = false,
+  art,
+  voice,
+  offer,
   restFailed = false,
   keep,
   footer,
@@ -32,6 +35,12 @@ export function LessonBlocks({
   language: "en" | "hi";
   /** More blocks are on their way: the student can work on what is here and Continue waits for the next. */
   pending?: boolean;
+  /** A small picture shown beside block i (a prepared lesson has one for every step). */
+  art?: (index: number) => ReactNode;
+  /** After a wrong guess Brownie suggests the video under that block (ready, or still being made); onWatch gets the block's index. */
+  offer?: { ready: boolean; onWatch: (blockIndex: number) => void };
+  /** The voice control shown under the step on screen (index of that step). */
+  voice?: (index: number) => ReactNode;
   /** The rest could not be built; what is here is all there is. */
   restFailed?: boolean;
   /** Present only for a signed-in learner: the card can be kept in their account. */
@@ -59,6 +68,10 @@ export function LessonBlocks({
   const canSkip = current.block.kind === "predict" && predictedRight === true && !predictedUnsure && ready && checkAt > shown;
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
+
+  // A wrong guess gets a video suggestion under that block.
+  const [slippedAt, setSlippedAt] = useState<ReadonlySet<number>>(new Set());
+  const slipped = (index: number) => () => setSlippedAt((prev) => new Set(prev).add(index));
 
   // What each judged answer showed the first time: kept for the end-of-lesson card (this device only).
   const [evidence, setEvidence] = useState<Evidence[]>([]);
@@ -103,12 +116,18 @@ export function LessonBlocks({
       <ol className="m-0 flex list-none flex-col gap-8 p-0">
         {blocks.slice(0, shown).map((entry, i) => {
           const { block } = entry;
+          const picture = art?.(i);
+          const stacked = block.kind === "widget";
           return (
             <li key={i} ref={i === shown - 1 ? lastRef : undefined} className="scroll-mt-16">
+              {picture && stacked ? <div className="mb-3 w-1/2 max-w-[11rem]">{picture}</div> : null}
+              <div className={picture && !stacked ? "flex items-start gap-3" : undefined}>
+                <div className={picture && !stacked ? "min-w-0 flex-1" : undefined}>
               {block.kind === "hook" ? <HookBlock block={block} /> : null}
               {block.kind === "predict" ? (
                 <PredictBlock
                   block={block}
+                  onWrong={slipped(i)}
                   onResult={(info) => {
                     setPredictedRight(info.right);
                     setPredictedUnsure(info.confidence === "unsure");
@@ -119,13 +138,34 @@ export function LessonBlocks({
               ) : null}
               {block.kind === "widget" && "run" in entry ? <WidgetBlock run={entry.run} /> : null}
               {block.kind === "explain" ? <ExplainBlock block={block} /> : null}
-              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} /> : null}
+              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} onWrong={slipped(i)} /> : null}
               {block.kind === "transfer" ? <TransferBlock block={block} onShown={() => mark(i)} /> : null}
               {block.kind === "recap" ? <RecapBlock block={block} /> : null}
+                </div>
+                {picture && !stacked ? <aside className="w-[38%] max-w-[11rem] shrink-0" aria-label="Picture for this step">{picture}</aside> : null}
+              </div>
+              {offer && slippedAt.has(i) ? (
+                <div className="mt-3 flex flex-col gap-2 rounded-2xl border border-accent bg-accent-soft p-4" role="status" data-testid="video-suggest">
+                  <p className="m-0 text-[0.75rem] font-medium text-accent-ink">Brownie</p>
+                  <p className="m-0 text-[0.9375rem] leading-[1.6] text-ink">
+                    Do you want to understand this better?{" "}
+                    {offer.ready ? "A short video shows it step by step." : "I am still putting your video together, and it will be ready soon."}
+                  </p>
+                  {offer.ready ? (
+                    <div>
+                      <Button size="sm" onClick={() => offer.onWatch(i)}>
+                        Watch the video
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </li>
           );
         })}
       </ol>
+
+      {voice ? <div data-testid="lesson-voice">{voice(shown - 1)}</div> : null}
 
       {waitingForMore ? (
         <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-preparing">

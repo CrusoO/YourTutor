@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getContextOptions, guestStart, type ContextOptions } from "@/lib/api";
 
+import { ADULT_GRADE, bookGrade, GUEST_GRADES } from "@/lib/chat/machine";
+import StorageNotice from "@/components/StorageNotice";
 import { useCopy } from "@/lib/locale";
 
 /** Guest start: curriculum, grade, subject and language. Nothing personal is asked or stored. */
@@ -25,8 +27,12 @@ export default function StartPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const grades = options?.curricula.find((c) => c.id === curriculum)?.grades ?? [];
-  const subjects = grades.find((g) => String(g.grade) === grade)?.subjects ?? [];
+  const allGrades = options?.curricula.find((c) => c.id === curriculum)?.grades ?? [];
+  const grades = allGrades.filter((g) => GUEST_GRADES.includes(g.grade));
+  const adult = grade === "adult";
+  const subjects = adult
+    ? [...new Map(allGrades.flatMap((g) => g.subjects).map((x) => [x.id, x])).values()]
+    : (grades.find((g) => String(g.grade) === grade)?.subjects ?? []);
   const ready = Boolean(curriculum && grade && subject && language) && !busy;
 
   async function start() {
@@ -35,7 +41,9 @@ export default function StartPage() {
     try {
       await guestStart({
         curriculum_id: curriculum,
-        grade: Number(grade),
+        grade: adult
+          ? (bookGrade(options ?? { curricula: [] }, { grade: ADULT_GRADE, board: curriculum, subject }) ?? 0)
+          : Number(grade),
         subject,
         home_language: language,
         device_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -49,6 +57,7 @@ export default function StartPage() {
 
   return (
     <main className="stack">
+      <StorageNotice />
       <h1>{copy.startTitle}</h1>
       <p className="muted">{copy.startHint}</p>
       <label>
@@ -85,6 +94,7 @@ export default function StartPage() {
               {g.grade}
             </option>
           ))}
+          <option value="adult">{copy.chatAdult}</option>
         </select>
       </label>
       <label>

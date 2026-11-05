@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { clearLessonRecords, createSourceVideoJob, keepLessonRecords, createStoryVideoJob, explainLesson, explainLessonOpening, explainLessonRest, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
+import { clearLessonRecords, createSourceVideoJob, getFinderRules, keepLessonRecords, createStoryVideoJob, explainLesson, explainLessonOpening, explainLessonRest, explainQuestion, explainStory, getVideoJob, type Explanation, type StoryResult, type VideoJob, type VideoSource } from "@/lib/api";
 import { usableBlocks, usableOpening, usableRest, type LessonOpeningResult, type LessonResult, type LessonRestResult, type UsableBlock } from "@/lib/lessons/ai-lesson";
 import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
@@ -11,6 +11,11 @@ import { GroupLessonBody } from "./lesson/GroupLesson";
 import { ShareLesson } from "./lesson/ShareLesson";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
+import { PreparedVideo, VideoDialog } from "./PreparedVideo";
+import { ModeBar, StepVoice, type LessonMode } from "./PreparedListen";
+import { LessonArt } from "./lesson/LessonArt";
+import { findPrepared, preparedEnabled, type PreparedLesson } from "@/lib/chat/prepared";
+import { prepare } from "@/lib/chat/finder";
 import { useChatApi } from "./ChatProvider";
 
 const FAST_MS = 3_000;
@@ -152,6 +157,13 @@ function LessonBody({ prompt }: { prompt: string }) {
   const explained = useRef<Explanation | null>(null);
   const storyState = useRef<"pending" | "ok" | "failed">("pending");
   const launched = useRef(false);
+  // A lesson built beforehand for a common question (flag off by default). Matched here, in the browser; the typed text goes nowhere.
+  const prepared = useRef<PreparedLesson | null>(preparedEnabled() ? findPrepared(prompt) : null);
+  const [usePrepared, setUsePrepared] = useState(false);
+  const videoCard = useRef<HTMLDetailsElement>(null);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [dialogAt, setDialogAt] = useState<number | null>(null); // the prepared video opening over the lesson, at this second
+  const [mode, setMode] = useState<LessonMode>("read"); // a prepared lesson can be read, listened to (Brownie's voice) or watched
 
   function startVideo() {
     const make = launch.current;
@@ -281,12 +293,27 @@ function LessonBody({ prompt }: { prompt: string }) {
     fallbackVideo();
   }
 
+  // A prepared lesson is used only when the same screen the composer uses (GET rules, run here) passes the text; a
+  // flagged text, or rules that cannot be fetched, take the normal path, where the server's own checks apply.
+  function startPrepared(p: PreparedLesson) {
+    getFinderRules(language.current)
+      .then((rules) => {
+        if (!mounted.current) return;
+        const usable = prepare(prompt, rules).kind === "ok" ? usableBlocks({ kind: "lesson", level: "", objectives: [], blocks: p.blocks }) : null;
+        if (!usable) return startNormal();
+        launched.current = true;
+        storyState.current = "ok";
+        setLessonState(usable);
+        setRest("done");
+        setVideo({ phase: "none" });
+        setUsePrepared(true);
+      })
+      .catch(() => mounted.current && startNormal());
+  }
+
   // The interactive lesson and the story start together.
-  useEffect(() => {
-    mounted.current = true;
-    heading.current?.focus({ preventScroll: true });
-    if (!started.current) {
-      started.current = true;
+  function startNormal() {
+    {
       explainLessonOpening(prompt, language.current)
         .then((result) => mounted.current && onOpening(result))
         .catch(() => mounted.current && wholeLesson());
@@ -299,6 +326,16 @@ function LessonBody({ prompt }: { prompt: string }) {
           .then((result) => mounted.current && onStory(result))
           .catch(() => mounted.current && onStory({ kind: "unavailable", reason: "provider_error" }));
       }
+    }
+  }
+
+  useEffect(() => {
+    mounted.current = true;
+    heading.current?.focus({ preventScroll: true });
+    if (!started.current) {
+      started.current = true;
+      if (prepared.current) startPrepared(prepared.current);
+      else startNormal();
     }
     return () => {
       mounted.current = false;
@@ -374,15 +411,36 @@ function LessonBody({ prompt }: { prompt: string }) {
               {written.title}
             </h1>
           ) : null}
-          {blocks ? (
+          {blocks && usePrepared ? (
+            <p className="m-0 text-[0.75rem] text-muted" data-testid="prepared-note">
+              Prepared in advance. Brownie builds lessons like this ahead of time for common questions. The maths in it has been checked.
+            </p>
+          ) : blocks ? (
             <p className="m-0 text-[0.75rem] text-muted" data-testid="lesson-draft-note">
               {copy.lessonDraftNote}
             </p>
           ) : null}
         </header>
 
-        {blocks && showVideo ? (
-          <details className="rounded-2xl border border-line bg-surface px-4 py-3" data-testid="lesson-video-card">
+        {blocks && usePrepared && prepared.current ? (
+          <div className="flex flex-col gap-4">
+            <ModeBar mode={mode} onChange={setMode} />
+            {mode === "listen" ? (
+              <div className="flex flex-col gap-2" data-testid="listen-note">
+                <p className="m-0 text-[0.8125rem] text-muted">Listen mode: Brownie reads each step in the same voice as the video. Tap Continue for the next step.</p>
+                <div>
+                  <Button variant="outline" size="sm" onClick={() => setMode("watch")} data-testid="listen-to-watch">
+                    Watch the video instead
+                  </Button>
+                </div>
+              </div>
+            ) : null}
+            {mode === "watch" ? <PreparedVideo src={prepared.current.video} title={prepared.current.title} poster={prepared.current.poster} /> : null}
+          </div>
+        ) : null}
+
+        {blocks && showVideo && !usePrepared ? (
+          <details ref={videoCard} open={videoOpen} onToggle={(e) => setVideoOpen(e.currentTarget.open)} className="rounded-2xl border border-line bg-surface px-4 py-3" data-testid="lesson-video-card">
             <summary className="cursor-pointer text-[0.9375rem] text-ink">{copy.lessonWatchStory}</summary>
             <div className="mt-4">
               <VideoSection video={video} onRetry={retryVideo} />
@@ -395,6 +453,16 @@ function LessonBody({ prompt }: { prompt: string }) {
             blocks={blocks}
             prompt={prompt}
             language={language.current}
+            art={usePrepared && prepared.current ? (i) => (prepared.current!.art[i] ? <LessonArt kind={prepared.current!.art[i]!} /> : null) : undefined}
+            voice={usePrepared && prepared.current && mode !== "watch" ? (i) => <StepVoice key={`${i}-${mode}`} src={prepared.current!.audio(i)} autoPlay={mode === "listen"} /> : undefined}
+            offer={{
+              ready: usePrepared || (video.phase === "job" && video.job.status === "done"),
+              onWatch: (blockIndex: number) => {
+                if (usePrepared && prepared.current) return setDialogAt(prepared.current.videoAt[blockIndex] ?? 0);
+                setVideoOpen(true);
+                requestAnimationFrame(() => videoCard.current?.scrollIntoView?.({ block: "start", behavior: "smooth" }));
+              },
+            }}
             pending={rest === "pending"}
             restFailed={rest === "failed"}
             keep={identity?.role === "student" ? { save: keepLessonRecords, clear: clearLessonRecords } : undefined}
@@ -459,6 +527,9 @@ function LessonBody({ prompt }: { prompt: string }) {
           </div>
         ) : null}
       </article>
+      {dialogAt !== null && usePrepared && prepared.current ? (
+        <VideoDialog src={prepared.current.video} title={prepared.current.title} poster={prepared.current.poster} startAt={dialogAt} onClose={() => setDialogAt(null)} />
+      ) : null}
     </div>
   );
 }

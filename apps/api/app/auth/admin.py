@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import uuid
 from typing import Any
 
@@ -44,7 +45,9 @@ def _pilot_admin(actor: Actor | None, request: Request) -> Actor:
     if (
         settings.pilot_onboarding
         and settings.pilot_key
-        and request.headers.get("x-pilot-key") == settings.pilot_key
+        and hmac.compare_digest(
+            request.headers.get("x-pilot-key", "").encode(), settings.pilot_key.encode()
+        )
     ):
         return Actor(role="admin")
     if actor is None:

@@ -236,3 +236,30 @@ def test_the_strict_profile_is_the_default_and_keeps_every_scope_and_a_retention
     assert profile.guest_retention_days == 90
     assert profile.quiet_hours.start == "21:00" and profile.quiet_hours.end == "07:00"
     assert "tutoring" in profile.consent_scopes and "free_text" in profile.consent_scopes
+
+
+def test_exam_stress_in_an_explain_back_is_recorded_but_the_session_carries_on(
+    client: TestClient, world: World, db: Session
+) -> None:
+    started = client.post(
+        "/sessions",
+        json={"student_id": world.student_share_id, "type": "practice"},
+        headers=auth_header(world.student_token),
+    )
+    sid = started.json()["id"]
+    res = client.post(
+        f"/sessions/{sid}/events",
+        json={
+            "client_event_id": str(uuid.uuid4()),
+            "event_type": "explain_back",
+            "payload": {"text": "I cant do this anymore, the exam is too much pressure"},
+        },
+        headers=auth_header(world.student_token),
+    )
+    assert res.status_code == 200, res.text
+    assert res.json()["action"].get("ended_reason") != "paused_distress"
+    db.expire_all()
+    assert not is_paused(db, uuid.UUID(world.student_share_id))
+    (row,) = db.scalars(select(SafetyFlagRow)).all()
+    assert row.kind == "exam_stress" and row.source == "explain_back:exam_stress"
+    assert db.scalars(select(TeacherAlertRow)).all() == []

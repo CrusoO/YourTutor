@@ -53,8 +53,34 @@ def test_the_api_starts_when_production_is_clean(monkeypatch: pytest.MonkeyPatch
     for name in DEV_ONLY_FLAGS:
         monkeypatch.setattr(main.settings, name, False)
     monkeypatch.setattr(main.settings, "postgres_password", "a-real-password-for-the-test")
+    monkeypatch.setattr(main.settings, "token_pepper", "p" * 40)
+    monkeypatch.setattr(main.settings, "smtp_host", "smtp.example.org")
+    monkeypatch.setattr(main.settings, "pilot_onboarding", False)
+    monkeypatch.setattr(main.settings, "ask_enabled", False)
+    monkeypatch.setattr(main.settings, "explain_enabled", False)
+    monkeypatch.setattr(main.settings, "cors_extra_origins", "")
+    monkeypatch.setattr(main, "unverified_helplines", lambda: [])  # the owner has verified them
     with TestClient(main.app) as client:
         assert client.get("/health").status_code == 200
+
+
+def test_the_api_refuses_to_start_in_production_while_helplines_are_unverified(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(main.settings, "app_env", "production")
+    for name in DEV_ONLY_FLAGS:
+        monkeypatch.setattr(main.settings, name, False)
+    monkeypatch.setattr(main.settings, "postgres_password", "a-real-password-for-the-test")
+    monkeypatch.setattr(main.settings, "token_pepper", "p" * 40)
+    monkeypatch.setattr(main.settings, "smtp_host", "smtp.example.org")
+    monkeypatch.setattr(main.settings, "pilot_onboarding", False)
+    monkeypatch.setattr(main.settings, "ask_enabled", False)
+    monkeypatch.setattr(main.settings, "explain_enabled", False)
+    monkeypatch.setattr(main.settings, "cors_extra_origins", "")
+    monkeypatch.setattr(main, "unverified_helplines", lambda: ["tele_manas"])
+    with pytest.raises(RuntimeError, match="Refusing to start.*HELPLINES"):
+        with TestClient(main.app):
+            pass
 
 
 def test_the_api_refuses_to_start_in_production_on_the_default_database_password(

@@ -61,19 +61,60 @@ export type SessionView = {
   };
 };
 
+/**
+ * Storage that never throws. Order: localStorage, then sessionStorage, then an in-memory map. Some browsers
+ * (private mode, blocked site data) make window.localStorage throw on access or on write; the app must still work.
+ */
+const memory = new Map<string, string>();
+
+const memoryStore: Storage = {
+  get length() {
+    return memory.size;
+  },
+  clear: () => memory.clear(),
+  getItem: (key) => memory.get(key) ?? null,
+  key: (index) => [...memory.keys()][index] ?? null,
+  removeItem: (key) => void memory.delete(key),
+  setItem: (key, value) => void memory.set(key, String(value)),
+};
+
+function usable(pick: () => Storage): Storage | null {
+  try {
+    const candidate = pick();
+    const probe = "yt_probe";
+    candidate.setItem(probe, "1");
+    candidate.removeItem(probe);
+    return candidate;
+  } catch {
+    return null;
+  }
+}
+
+/** The one safe browser store: the device, else this tab, else memory. It never throws. */
+export function safeStorage(): Storage | null {
+  return store();
+}
+
+export type StorageMode = "device" | "tab" | "memory";
+
+/** Where sign-in is kept right now: the device, only this tab, or only until the page reloads. */
+export function storageMode(): StorageMode {
+  if (typeof window === "undefined") return "device";
+  if (usable(() => window.localStorage)) return "device";
+  return usable(() => window.sessionStorage) ? "tab" : "memory";
+}
+
 function store(): Storage | null {
   if (typeof window === "undefined") return null;
-  return window.localStorage;
+  return (
+    usable(() => window.localStorage) ?? usable(() => window.sessionStorage) ?? memoryStore
+  );
 }
 
 /** An anonymous guest is kept for this tab only: closing the tab forgets them. A real sign-in uses the device store. */
 function tab(): Storage | null {
   if (typeof window === "undefined") return null;
-  try {
-    return window.sessionStorage;
-  } catch {
-    return null;
-  }
+  return usable(() => window.sessionStorage) ?? memoryStore;
 }
 
 function read(key: string): string {
@@ -574,8 +615,36 @@ async function staffReq(path: string, init: RequestInit = {}) {
   const auth = staffToken();
   if (auth) headers.set("Authorization", `Bearer ${auth}`);
   const response = await fetch(`${API}${path}`, { ...init, headers });
-  if (!response.ok) throw new Error((await response.text()) || response.statusText);
+  if (!response.ok) throw await apiError(response);
   return response.json();
+}
+
+/** A failed API call. `code` is the API's machine code when it sent one, e.g. "email_unavailable". */
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly code: string = "",
+  ) {
+    super(message);
+  }
+}
+
+export async function apiError(response: Response): Promise<ApiError> {
+  const text = await response.text();
+  let code = "";
+  try {
+    const detail = JSON.parse(text)?.detail;
+    if (detail && typeof detail === "object" && typeof detail.code === "string") code = detail.code;
+  } catch {
+    /* not JSON */
+  }
+  return new ApiError(text || response.statusText, response.status, code);
+}
+
+/** True when the sign-in code could not be sent (the API answered 503 email_unavailable). */
+export function isEmailUnavailable(error: unknown): boolean {
+  return error instanceof ApiError && error.code === "email_unavailable";
 }
 
 export async function requestStaffCode(email: string) {

@@ -13,11 +13,17 @@ from fastapi.responses import JSONResponse
 from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
-from app.config import production_flag_errors, production_secret_errors, settings
+from app.config import (
+    production_config_errors,
+    production_flag_errors,
+    production_secret_errors,
+    settings,
+)
 from app.dev.router import router as dev_router
 from app.explain.router import router as explain_router
 from app.groups.router import router as groups_router
 from app.health import database_ready, ping_redis
+from app.helplines import unverified_helplines
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
 from app.proxy import (
@@ -51,6 +57,13 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
             f"Refusing to start: APP_ENV=production but {', '.join(default_secrets)} still has "
             "its development default. Set a real value in the environment."
         )
+    # Production refuses to start while any shown helpline is unverified (config/helplines.yaml).
+    unsafe_config = production_config_errors(settings, unverified_helplines=unverified_helplines)
+    if unsafe_config:
+        raise RuntimeError(
+            f"Refusing to start: APP_ENV=production but {'; '.join(unsafe_config)}. "
+            "Set real values in the environment."
+        )
     check_database_schema()
     yield
 
@@ -79,9 +92,12 @@ _LOCAL_ORIGINS = (
 )
 
 
-def allowed_origins(extra: str) -> list[str]:
-    """Local origins plus explicit extras (e.g. a PC's LAN address for phone preview)."""
-    origins = list(_LOCAL_ORIGINS)
+def allowed_origins(extra: str, *, production: bool = False) -> list[str]:
+    """Local origins plus explicit extras (e.g. a PC's LAN address for phone preview).
+
+    In production the local origins are left out: only the listed extras are allowed.
+    """
+    origins = [] if production else list(_LOCAL_ORIGINS)
     for raw in extra.split(","):
         origin = raw.strip()
         if not origin:
@@ -95,7 +111,9 @@ def allowed_origins(extra: str) -> list[str]:
 app = FastAPI(title="YourTutor API", version="0.2.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins(settings.cors_extra_origins),
+    allow_origins=allowed_origins(
+        settings.cors_extra_origins, production=settings.app_env.strip().lower() == "production"
+    ),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

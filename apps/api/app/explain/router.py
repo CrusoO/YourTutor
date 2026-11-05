@@ -24,6 +24,7 @@ from app.explain.service_lesson import (
     clean_client_opening,
 )
 from app.explain.story import build_story
+from app.safety import guarded_llm_route
 
 router = APIRouter(prefix="/explain", tags=["explain"])
 
@@ -76,7 +77,14 @@ def explain_question(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[st
         else has_scope(db, actor.student_id, "ai_processing")
     )
     gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
-    result = explain(body.prompt, body.language, gate, restricted=not guest)
+    result = guarded_llm_route(
+        db,
+        actor.student_id,
+        "explain",
+        body.prompt,
+        body.language,
+        lambda: explain(body.prompt, body.language, gate, restricted=True),
+    )
     if result["kind"] == "explanation":
         # The web client calls /explain/story separately in parallel to get the animated story.
         # /explain only needs to provide a text fallback for the client.
@@ -108,15 +116,30 @@ def explain_lesson(body: LessonIn, db: DbSession, actor: ActorDep) -> dict[str, 
     {kind:"rest", blocks:[...]}, the remaining blocks written to follow it.
     The same consent gate and safety screen as /explain apply.
     """
-    gate, guest = _lesson_gate(db, actor)
+    gate, _ = _lesson_gate(db, actor)
     if _over_budget():
         return BUSY
+    assert actor.student_id is not None  # _lesson_gate refuses anyone else
     if body.opening is not None:
         opening = clean_client_opening(body.opening)
         if opening is None:
             return {"kind": "unavailable", "reason": "bad_opening"}
-        return build_rest(body.prompt, body.language, opening, gate, restricted=not guest)
-    return build_lesson(body.prompt, body.language, gate, restricted=not guest)
+        return guarded_llm_route(
+            db,
+            actor.student_id,
+            "lesson",
+            body.prompt,
+            body.language,
+            lambda: build_rest(body.prompt, body.language, opening, gate, restricted=True),
+        )
+    return guarded_llm_route(
+        db,
+        actor.student_id,
+        "lesson",
+        body.prompt,
+        body.language,
+        lambda: build_lesson(body.prompt, body.language, gate, restricted=True),
+    )
 
 
 @router.post("/lesson/opening")
@@ -126,10 +149,18 @@ def explain_lesson_opening(body: ExplainIn, db: DbSession, actor: ActorDep) -> d
     Returns {kind:"opening", level, objectives, blocks:[hook, predict]}. The student can start at
     once; the rest comes from /explain/lesson with this opening sent back.
     """
-    gate, guest = _lesson_gate(db, actor)
+    gate, _ = _lesson_gate(db, actor)
     if _over_budget():
         return BUSY
-    return build_opening(body.prompt, body.language, gate, restricted=not guest)
+    assert actor.student_id is not None  # _lesson_gate refuses anyone else
+    return guarded_llm_route(
+        db,
+        actor.student_id,
+        "lesson",
+        body.prompt,
+        body.language,
+        lambda: build_opening(body.prompt, body.language, gate, restricted=True),
+    )
 
 
 @router.post("/chat")
@@ -152,19 +183,14 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     )
     gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
     history = [{"role": m.role, "content": m.content} for m in body.history]
-    student = db.get(StudentRow, actor.student_id)
-    register = register_for_grade(student.grade if student else None)
-    result = build_chat(
-        body.prompt, body.language, history, gate, restricted=not guest, register=register
+    return guarded_llm_route(
+        db,
+        actor.student_id,
+        "chat",
+        body.prompt,
+        body.language,
+        lambda: build_chat(body.prompt, body.language, history, gate, restricted=True),
     )
-    if result.get("kind") == "unavailable":
-        # Never a bare error: an honest authored line and the next choices. `kind` and `reason`
-        # are unchanged, so a client that ignores `fallback` behaves as before.
-        turns = sum(1 for m in history if m["role"] == "assistant")
-        result["fallback"] = fallback_turn(
-            str(result.get("reason", "")), register, body.language, turns
-        )
-    return result
 
 
 @router.post("/story")
@@ -181,7 +207,14 @@ def explain_story(body: ExplainIn, db: DbSession, actor: ActorDep) -> dict[str, 
         else has_scope(db, actor.student_id, "ai_processing")
     )
     gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
-    result = build_story(body.prompt, body.language, gate, restricted=not guest)
+    result = guarded_llm_route(
+        db,
+        actor.student_id,
+        "story",
+        body.prompt,
+        body.language,
+        lambda: build_story(body.prompt, body.language, gate, restricted=True),
+    )
     if result["kind"] == "story":
         result["proof"] = proof.sign(actor.student_id, result["story"])
     return result

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   devStaffToken,
+  isEmailUnavailable,
   locale,
   requestStaffCode,
   setStaffToken,
@@ -11,6 +12,8 @@ import {
   whoAmI,
 } from "@/lib/api";
 
+import EmailUnavailable from "@/components/EmailUnavailable";
+import StorageNotice from "@/components/StorageNotice";
 import { useCopy } from "@/lib/locale";
 
 const DEV = process.env.NEXT_PUBLIC_DEV_TOOLS === "true";
@@ -23,6 +26,7 @@ export default function StaffLogin() {
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [mailDown, setMailDown] = useState(false);
 
   async function go() {
     const me = await whoAmI();
@@ -34,8 +38,9 @@ export default function StaffLogin() {
     try {
       await requestStaffCode(email.trim());
       setSent(true);
-    } catch {
-      setError(copy.loadError);
+    } catch (caught) {
+      if (isEmailUnavailable(caught)) setMailDown(true);
+      else setError(copy.loadError);
     }
   }
 
@@ -57,6 +62,7 @@ export default function StaffLogin() {
 
   return (
     <main className="stack" data-testid="staff-login">
+      <StorageNotice />
       <h1>{copy.staffLoginTitle}</h1>
       <label className="stack">
         {copy.staffEmail}
@@ -83,6 +89,7 @@ export default function StaffLogin() {
         </button>
       )}
       {error ? <p className="banner">{error}</p> : null}
+      {mailDown ? <EmailUnavailable /> : null}
       {DEV ? (
         <div className="stack" data-testid="staff-dev">
           <p className="muted">Preview only</p>

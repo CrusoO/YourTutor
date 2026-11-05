@@ -243,3 +243,34 @@ def test_an_empty_or_overlong_question_is_handled(client: TestClient, world: Wor
     assert _ask(client, world, "   ").status_code == 422
     assert _ask(client, world, "a" * 301).json()["reason"] == "too_long"
     assert _ask(client, world, "a" * 2001).status_code == 422
+
+
+def test_ask_distress_returns_helplines_and_pauses_later_questions(
+    client: TestClient, world: World, db: Session
+) -> None:
+    provider = _model(client, world, [GOOD])
+    first = _ask(client, world, "mujhe marna hai").json()
+    assert first["kind"] == "distress" and first["support"]["risk"] == "urgent"
+    assert {h["number"] for h in first["support"]["helplines"]} == {"14416", "1098"}
+    later = _ask(client, world, "how do I solve a step equation").json()
+    assert later["kind"] == "distress" and later["support"]["risk"] == "paused"
+    assert provider.calls == []
+
+
+def test_ask_exam_stress_gets_the_gentle_message_and_no_pause(
+    client: TestClient, world: World, db: Session
+) -> None:
+    _model(client, world, [GOOD])
+    stress = _ask(client, world, "I will fail and my parents will kill me").json()
+    assert stress["kind"] == "distress" and stress["support"]["risk"] == "concern"
+    assert "grown-up" not in stress["text"]
+    again = _ask(client, world, "how do I solve a step equation").json()
+    assert again["kind"] != "distress"
+
+
+def test_ask_science_questions_with_old_blocked_words_are_not_refused(
+    client: TestClient, world: World
+) -> None:
+    _model(client, world, [GOOD])
+    for question in ("how do stars die", "why do antibiotics kill bacteria", "what is sex ratio"):
+        assert _ask(client, world, question).json()["reason"] != "moderation", question
