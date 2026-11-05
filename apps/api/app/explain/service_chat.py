@@ -17,6 +17,7 @@ from typing import Any
 from app.ask.config import load_safety, message
 from app.ask.guard import clean_question, screen
 from app.config import settings
+from app.conversation.voice import Register, trim_to_words
 from app.explain.service import (
     ENDPOINTS,
     REQUEST_TIMEOUT_S,
@@ -27,8 +28,8 @@ from app.llm.prompt import STUDENT_TAG
 from app.llm.provider import ProviderError
 from app.safety import detection_from_verdict, distress_reply
 
-PROMPT_FILE = Path(__file__).parent / "prompts" / "tutor.v1.md"
-PROMPT_VERSION = "tutor/v1"
+PROMPT_FILE = Path(__file__).parent / "prompts" / "tutor.v2.md"
+PROMPT_VERSION = "tutor/v2"
 MAX_TOKENS = 600
 MAX_QUESTION_CHARS = 500
 MAX_REPLY_CHARS = 1000
@@ -48,9 +49,18 @@ SYLLABUS_SCOPE = (
 )
 
 
-def _build_system(restricted: bool) -> str:
+def _register_rule(register: Register | None) -> str:
+    """The tone and length asked of the model, from the learner's grade band."""
+    if register is None:
+        return "Keep every reply short: a few sentences at most."
+    tone = f"Tone for this learner: {register.style} " if register.style else ""
+    return f"{tone}Keep every reply to {register.max_words} words or fewer."
+
+
+def _build_system(restricted: bool, register: Register | None = None) -> str:
     scope = SYLLABUS_SCOPE if restricted else OPEN_SCOPE
-    return PROMPT_FILE.read_text(encoding="utf-8").strip().replace("{scope_rule}", scope)
+    text = PROMPT_FILE.read_text(encoding="utf-8").strip()
+    return text.replace("{scope_rule}", scope).replace("{register_rule}", _register_rule(register))
 
 
 def _trim_history(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -130,8 +140,13 @@ def build_chat(
     gate: Gate,
     model: str | None = None,
     restricted: bool = False,
+    register: Register | None = None,
 ) -> dict[str, Any]:
-    """Main entry: screen the student's message, call the tutor model, return the reply."""
+    """Main entry: screen the student's message, call the tutor model, return the reply.
+
+    `register` (from the learner's grade band) sets the tone asked of the model and the word limit
+    the reply is cut to; without it the reply is only capped at MAX_REPLY_CHARS.
+    """
     language = language if language in LANGUAGES else "en"
 
     if not gate.enabled:
@@ -163,7 +178,7 @@ def build_chat(
         f"\n\n{lang_note}" if lang_note else ""
     )
 
-    system = _build_system(restricted)
+    system = _build_system(restricted, register)
     trimmed_history = _trim_history(history)
 
     try:
@@ -175,7 +190,9 @@ def build_chat(
     if not text:
         return unavailable("checks")
 
-    # truncate to a safe length
+    # The band's word limit, cut at a sentence end; then a hard character cap as a last guard.
+    if register is not None:
+        text = trim_to_words(text, register.max_words)
     if len(text) > MAX_REPLY_CHARS:
         text = text[:MAX_REPLY_CHARS].rsplit(" ", 1)[0] + "…"
 

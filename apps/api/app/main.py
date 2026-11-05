@@ -10,6 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
 from app.config import (
@@ -125,6 +126,7 @@ app.include_router(admin_router)
 app.include_router(dev_router)
 app.include_router(video_jobs_router)
 app.include_router(explain_router)
+app.include_router(actions_router)
 app.include_router(groups_router)
 app.include_router(records_router)
 

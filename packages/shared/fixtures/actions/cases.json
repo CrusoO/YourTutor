@@ -1,0 +1,29 @@
+{
+  "note": "Held to both matchers: apps/api/tests/actions/test_actions.py and apps/web/tests/chat/actions.test.ts. expect.kind is none, action or denied.",
+  "cases": [
+    {"text": "practice", "tier": "guest", "expect": {"kind": "action", "name": "start_practice", "args": {}, "risk": "safe"}},
+    {"text": "Please, can you quiz me?", "tier": "student", "expect": {"kind": "action", "name": "start_practice", "args": {}, "risk": "safe"}},
+    {"text": "  START   PRACTICE!! ", "tier": "student", "expect": {"kind": "action", "name": "start_practice", "args": {}, "risk": "safe"}},
+    {"text": "continue where I left off", "tier": "guest", "expect": {"kind": "action", "name": "continue_learning", "args": {"screen": "today"}, "risk": "safe"}},
+    {"text": "show my subjects", "tier": "student", "expect": {"kind": "action", "name": "show_subjects", "args": {"screen": "subjects"}, "risk": "safe"}},
+    {"text": "switch to Hindi", "tier": "guest", "expect": {"kind": "action", "name": "switch_language", "args": {"language": "hi"}, "risk": "safe"}},
+    {"text": "English please", "tier": "student", "expect": {"kind": "action", "name": "switch_language", "args": {"language": "en"}, "risk": "safe"}},
+    {"text": "let's start over", "tier": "student", "expect": {"kind": "action", "name": "new_chat", "args": {}, "risk": "confirm"}},
+    {"text": "what can you do?", "tier": "guest", "expect": {"kind": "action", "name": "help", "args": {}, "risk": "safe"}},
+    {"text": "sign in", "tier": "guest", "expect": {"kind": "action", "name": "sign_in_prompt", "args": {}, "risk": "safe"}},
+    {"text": "sign in", "tier": "student", "expect": {"kind": "denied", "name": "sign_in_prompt"}},
+    {"text": "what is practice in physics", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "how do I solve a quadratic", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "practice makes perfect", "tier": "guest", "expect": {"kind": "none"}},
+    {"text": "continue the story of the french revolution", "tier": "guest", "expect": {"kind": "none"}},
+    {"text": "switch to hindi and then explain slope to me please", "tier": "guest", "expect": {"kind": "none"}},
+    {"text": "constructor", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "__proto__", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "toString", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "hasOwnProperty", "tier": "guest", "expect": {"kind": "none"}},
+    {"text": "", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "   ", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "?!", "tier": "student", "expect": {"kind": "none"}},
+    {"text": "practice practice practice practice practice practice practice", "tier": "student", "expect": {"kind": "none"}}
+  ]
+}

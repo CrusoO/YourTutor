@@ -133,7 +133,7 @@ function VideoSection({ video, onRetry }: { video: VideoState; onRetry: () => vo
 
 function LessonBody({ prompt }: { prompt: string }) {
   const copy = useCopy();
-  const { closeLesson: closeLessonView, identity } = useChatApi();
+  const { closeLesson: closeLessonView, identity, startMode } = useChatApi();
   const heading = useRef<HTMLParagraphElement>(null);
   // The ask box is hidden during a lesson, so leaving it must put the cursor back in the box that returns.
   const closeLesson = () => {
@@ -466,6 +466,7 @@ function LessonBody({ prompt }: { prompt: string }) {
             pending={rest === "pending"}
             restFailed={rest === "failed"}
             keep={identity?.role === "student" ? { save: keepLessonRecords, clear: clearLessonRecords } : undefined}
+            onPractice={() => void startMode("revise")}
             footer={
               <div className="flex flex-col gap-4">
                 <ShareLesson prompt={prompt} />

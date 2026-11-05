@@ -28,6 +28,7 @@ export function LessonBlocks({
   restFailed = false,
   keep,
   footer,
+  onPractice,
 }: {
   blocks: UsableBlock[];
   prompt: string;
@@ -46,6 +47,8 @@ export function LessonBlocks({
   keep?: KeepCard;
   /** Shown once the lesson is over, after the follow-up box (for example, the way back to asking something else). */
   footer?: ReactNode | ((evidence: Evidence[]) => ReactNode);
+  /** Starts practice from the chat. When absent, the follow-up box does not offer it. */
+  onPractice?: () => void;
 }) {
   const copy = useCopy();
   const [shown, setShown] = useState(1);
@@ -188,7 +191,7 @@ export function LessonBlocks({
             </p>
           ) : null}
           <LearningCard evidence={evidence} topic={prompt} keep={keep} />
-          <AskAbout prompt={prompt} language={language} />
+          <AskAbout prompt={prompt} language={language} onPractice={onPractice} />
           {typeof footer === "function" ? footer(evidence) : footer}
         </>
       )}

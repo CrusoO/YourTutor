@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { explainChat, type TutorTurn } from "@/lib/api";
+import { explainChat, type TutorFallback, type TutorTurn } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
+import { Reveal } from "./Reveal";
 
 /** The tutor keeps only the last few turns, and so does this box: nothing is stored anywhere. */
 const MAX_TURNS = 8;
@@ -12,9 +13,13 @@ const MAX_TURNS = 8;
  * Follow-up questions about the lesson just finished, answered one short Socratic reply at a time. The
  * conversation lives in this component only; closing the lesson drops it, like the question itself.
  */
-export function AskAbout({ prompt, language }: { prompt: string; language: "en" | "hi" }) {
+export function AskAbout({ prompt, language, onPractice }: { prompt: string; language: "en" | "hi"; onPractice?: () => void }) {
   const copy = useCopy();
-  const [turns, setTurns] = useState<TutorTurn[]>([]);
+  // `fresh` marks Brownie's newest reply, which appears word by word; earlier turns are shown whole.
+  const [turns, setTurns] = useState<(TutorTurn & { fresh?: boolean })[]>([]);
+  // The choices under Brownie's last "I can't answer that" line; gone as soon as the learner moves on.
+  const [offers, setOffers] = useState<TutorFallback["offers"]>([]);
+  const lastQuestion = useRef("");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -24,21 +29,44 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
     const question = text.trim();
     if (!question || busy) return;
     // The tutor needs to know what the lesson was about: the original question always leads the history.
-    const history: TutorTurn[] = [{ role: "user", content: prompt.slice(0, 500) }, ...turns.slice(-(MAX_TURNS - 1))];
-    setTurns((prev) => [...prev, { role: "user", content: question }]);
+    const recent = turns.slice(-(MAX_TURNS - 1)).map(({ role, content }) => ({ role, content }));
+    const history: TutorTurn[] = [{ role: "user", content: prompt.slice(0, 500) }, ...recent];
+    lastQuestion.current = question;
+    setTurns((prev) => [...prev.map(({ role, content }) => ({ role, content })), { role: "user", content: question }]);
     setText("");
     setBusy(true);
     setFailed(false);
+    setOffers([]);
     try {
       const reply = await explainChat(question, language, history);
-      const answer = reply.kind === "reply" ? reply.text : "message" in reply ? reply.message : null;
-      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer }]);
+      const answer =
+        reply.kind === "reply"
+          ? reply.text
+          : reply.kind === "unavailable"
+            ? (reply.fallback?.text ?? null)
+            : "message" in reply
+              ? reply.message
+              : null;
+      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer, fresh: true }]);
       else setFailed(true);
+      // Only a choice that can be acted on here is shown: practice needs the chat to start it.
+      if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers.filter((o) => o.id !== "practice" || onPractice));
     } catch {
       setFailed(true);
     } finally {
       setBusy(false);
       inputRef.current?.focus();
+    }
+  }
+
+  /** A choice under a fallback line. Only ids this client knows do anything; any other is ignored. */
+  function choose(id: string) {
+    setOffers([]);
+    if (id === "ask_again") {
+      setText(lastQuestion.current);
+      inputRef.current?.focus();
+    } else if (id === "practice") {
+      onPractice?.();
     }
   }
 
@@ -55,11 +83,20 @@ export function AskAbout({ prompt, language }: { prompt: string; language: "en" 
               data-testid={turn.role === "user" ? "ask-about-you" : "ask-about-tutor"}
               className={`max-w-[90%] rounded-2xl px-4 py-2.5 text-[0.9375rem] leading-[1.6] text-ink ${turn.role === "user" ? "self-end bg-accent-soft" : "self-start bg-surface-2"}`}
             >
-              {turn.content}
+              {turn.fresh ? <Reveal text={turn.content} /> : turn.content}
             </li>
           ))}
           {busy ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
         </ul>
+      ) : null}
+      {offers.length > 0 ? (
+        <div className="flex flex-wrap gap-2" data-testid="ask-about-offers">
+          {offers.map((offer) => (
+            <Button key={offer.id} type="button" variant="secondary" onClick={() => choose(offer.id)} data-testid={`offer-${offer.id}`}>
+              {offer.label}
+            </Button>
+          ))}
+        </div>
       ) : null}
       {failed ? (
         <p className="m-0 text-[0.875rem] text-warning" role="alert">

@@ -3,6 +3,7 @@ const API =
     ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
+import type { ActionRules } from "./chat/actions";
 import type { FinderRules } from "./chat/finder";
 import type { AiBlock, LessonOpeningResult, LessonRestResult, LessonResult } from "./lessons/ai-lesson";
 import type { Lesson } from "./lessons/types";
@@ -529,15 +530,22 @@ export async function closeGroup(code: string): Promise<{ closed: boolean }> {
 }
 
 export type TutorTurn = { role: "user" | "assistant"; content: string };
+/** What Brownie says when it cannot answer: an authored line and the next choices (ids the client knows). */
+export type TutorFallback = { reason: string; text: string; offers: { id: string; label: string }[] };
 export type TutorReply =
   | { kind: "reply"; text: string; language?: string }
-  | { kind: "unavailable"; reason: string }
+  | { kind: "unavailable"; reason: string; fallback?: TutorFallback }
   | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
   | { kind: "empty" };
 
 /** A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept. */
 export async function explainChat(prompt: string, language: "en" | "hi", history: TutorTurn[]): Promise<TutorReply> {
   return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
+}
+
+/** The words that mean a command, matched in the browser on typed text (a GET: no user text is sent). */
+export async function getActionRules(language: string): Promise<ActionRules> {
+  return req(`/actions/rules?language=${encodeURIComponent(language)}`);
 }
 
 /** The learning card a signed-in learner chose to keep in their account (a guest is refused). */

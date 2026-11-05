@@ -1,0 +1,45 @@
+# Brownie's own words for the moments around a model reply (the conversation layer).
+#
+# What lives here: what Brownie says when it cannot answer, and the choices it offers next. Authored,
+# so it needs no model and cannot fail. Rules (docs/TUTOR_CONSTITUTION.md): calm, brief, warm; honest
+# about what Brownie cannot do; never blame the student; one idea per message. A line for the
+# `primary` register must fit the primary grade band's word limit (config/grade_bands.yaml); a test
+# checks that. Hindi waits for a native reviewer (never machine-translate and mark approved); until a
+# language has its own block, English is used.
+default_language: en
+# Word limits and tone come from config/grade_bands.yaml. A band listed here uses its own register
+# lines; every other band (and a learner whose grade is unknown) uses `default`.
+register_for_band:
+  primary: primary
+languages:
+  en:
+    status: draft
+    lines:
+      # The model could not answer just now (provider error, a thin reply, a quota).
+      unavailable:
+        primary:
+          - "I could not find an answer just now. That is not your fault. Let's try something else."
+          - "Hmm, my answer did not come through. Want to ask it another way?"
+        default:
+          - "I couldn't get an answer for that just now. It isn't anything you did. You can ask it another way, or try a practice question."
+          - "That didn't come through on my side. Try asking again, or work on a practice question for now."
+      # Answering questions is switched off in this deployment.
+      ai_off:
+        primary:
+          - "I can't answer questions here yet. But we can practise together!"
+        default:
+          - "Answering questions is switched off here for now. Practice and the lessons still work."
+      # A parent or guardian has not turned on question answering for this learner.
+      no_consent:
+        primary:
+          - "A grown-up needs to say yes before I can answer questions. You can still practise!"
+        default:
+          - "I can answer questions once a parent or guardian turns that on. Until then, practice and lessons still work."
+    # The buttons shown under a fallback line. The client maps an id to something it already does.
+    offers:
+      ask_again: "Ask it another way"
+      practice: "Try a practice question"
+    offers_for:
+      unavailable: [ask_again, practice]
+      ai_off: [practice]
+      no_consent: [practice]
