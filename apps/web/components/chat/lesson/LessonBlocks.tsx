@@ -6,6 +6,8 @@ import type { AiCheck, AiPredict, UsableBlock } from "@/lib/lessons/ai-lesson";
 import type { Evidence } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
 import { AskAbout } from "./AskAbout";
+import ReadAloud from "@/components/flow/ReadAloud";
+import { blockSpeech } from "@/lib/lessons/block-speech";
 import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock, type AnswerInfo } from "./blocks";
 import { LearningCard, type KeepCard } from "./LearningCard";
 import { WidgetBlock } from "./widgets";
@@ -22,6 +24,7 @@ export function LessonBlocks({
   prompt,
   language,
   pending = false,
+  readAloud = false,
   restFailed = false,
   keep,
   footer,
@@ -31,6 +34,8 @@ export function LessonBlocks({
   language: "en" | "hi";
   /** More blocks are on their way: the student can work on what is here and Continue waits for the next. */
   pending?: boolean;
+  /** Offer to read the block on screen aloud (the browser's own voice). */
+  readAloud?: boolean;
   /** The rest could not be built; what is here is all there is. */
   restFailed?: boolean;
   /** Present only for a signed-in learner: the card can be kept in their account. */
@@ -123,6 +128,12 @@ export function LessonBlocks({
           );
         })}
       </ol>
+
+      {readAloud ? (
+        <div data-testid="lesson-read-aloud">
+          <ReadAloud key={shown} text={blockSpeech(current.block)} lang="en" />
+        </div>
+      ) : null}
 
       {waitingForMore ? (
         <p className="m-0 text-[0.875rem] text-muted" role="status" data-testid="lesson-preparing">
