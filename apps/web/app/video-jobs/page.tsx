@@ -9,6 +9,7 @@ import { SourcesDrawer } from "@/components/chat/SourcesDrawer";
 import { TopicChips } from "@/components/chat/TopicChips";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PitchVideoSection } from "@/components/chat/PitchVideoSection";
 
 export default function VideoJobsPage() {
   const student = useStudent();
@@ -98,6 +99,7 @@ export default function VideoJobsPage() {
           </div>
         ) : (
           <div className="space-y-4">
+            <PitchVideoSection />
             <div className="flex flex-wrap items-center gap-2">
               <label
                 htmlFor="node-prefix"
