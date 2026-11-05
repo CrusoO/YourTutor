@@ -12,6 +12,8 @@ import { ShareLesson } from "./lesson/ShareLesson";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
 import { PreparedVideo } from "./PreparedVideo";
+import { ModeBar, StepVoice, type LessonMode } from "./PreparedListen";
+import { LessonArt } from "./lesson/LessonArt";
 import { findPrepared, preparedEnabled, type PreparedLesson } from "@/lib/chat/prepared";
 import { prepare } from "@/lib/chat/finder";
 import { useChatApi } from "./ChatProvider";
@@ -158,6 +160,7 @@ function LessonBody({ prompt }: { prompt: string }) {
   // A lesson built beforehand for a common question (flag off by default). Matched here, in the browser; the typed text goes nowhere.
   const prepared = useRef<PreparedLesson | null>(preparedEnabled() ? findPrepared(prompt) : null);
   const [usePrepared, setUsePrepared] = useState(false);
+  const [mode, setMode] = useState<LessonMode>("read"); // a prepared lesson can be read, listened to (Brownie's voice) or watched
 
   function startVideo() {
     const make = launch.current;
@@ -416,11 +419,28 @@ function LessonBody({ prompt }: { prompt: string }) {
           ) : null}
         </header>
 
-        {blocks && showVideo ? (
+        {blocks && usePrepared && prepared.current ? (
+          <div className="flex flex-col gap-4">
+            <ModeBar mode={mode} onChange={setMode} />
+            {mode === "listen" ? (
+              <div className="flex flex-col gap-2" data-testid="listen-note">
+                <p className="m-0 text-[0.8125rem] text-muted">Listen mode: Brownie reads each step in the same voice as the video. Tap Continue for the next step.</p>
+                <div>
+                  <Button variant="outline" size="sm" onClick={() => setMode("watch")} data-testid="listen-to-watch">
+                    Watch the video instead
+                  </Button>
+                </div>
+              </div>
+            ) : null}
+            {mode === "watch" ? <PreparedVideo src={prepared.current.video} title={prepared.current.title} poster={prepared.current.poster} /> : null}
+          </div>
+        ) : null}
+
+        {blocks && showVideo && !usePrepared ? (
           <details className="rounded-2xl border border-line bg-surface px-4 py-3" data-testid="lesson-video-card">
             <summary className="cursor-pointer text-[0.9375rem] text-ink">{copy.lessonWatchStory}</summary>
             <div className="mt-4">
-              {usePrepared && prepared.current ? <PreparedVideo src={prepared.current.video} title={prepared.current.title} /> : <VideoSection video={video} onRetry={retryVideo} />}
+              <VideoSection video={video} onRetry={retryVideo} />
             </div>
           </details>
         ) : null}
@@ -430,7 +450,8 @@ function LessonBody({ prompt }: { prompt: string }) {
             blocks={blocks}
             prompt={prompt}
             language={language.current}
-            readAloud={usePrepared}
+            art={usePrepared && prepared.current ? (i) => (prepared.current!.art[i] ? <LessonArt kind={prepared.current!.art[i]!} /> : null) : undefined}
+            voice={usePrepared && prepared.current && mode !== "watch" ? (i) => <StepVoice key={`${i}-${mode}`} src={prepared.current!.audio(i)} autoPlay={mode === "listen"} /> : undefined}
             pending={rest === "pending"}
             restFailed={rest === "failed"}
             keep={identity?.role === "student" ? { save: keepLessonRecords, clear: clearLessonRecords } : undefined}

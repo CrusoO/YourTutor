@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import { compileFormula, finiteOver } from "@/lib/lessons/formula";
 import { usableBlocks, type AiBlock } from "@/lib/lessons/ai-lesson";
 import { blockSpeech } from "@/lib/lessons/block-speech";
-import { PREPARED_TRAIN_BLOCKS } from "@/lib/lessons/prepared-train";
+import { PREPARED_TRAIN_ART, PREPARED_TRAIN_BLOCKS, PREPARED_TRAIN_SPEECH } from "@/lib/lessons/prepared-train";
+import { LESSON_ART_KEYS } from "@/components/chat/lesson/LessonArt";
 import { findPrepared, normalise, preparedEnabled } from "@/lib/chat/prepared";
 
 const DEMO =
@@ -83,6 +84,25 @@ describe("the prepared train lesson", () => {
   it("keeps every line short and plain: no sentence over 28 words", () => {
     const text = PREPARED_TRAIN_BLOCKS.map((b) => blockSpeech(b)).join(" ");
     for (const s of text.split(/(?<=[.?!])\s+/)) expect(s.split(/\s+/).length).toBeLessThanOrEqual(28);
+  });
+});
+
+describe("what Brownie says and shows for the prepared lesson", () => {
+  it("has one spoken text and one picture for every block", () => {
+    expect(PREPARED_TRAIN_SPEECH).toHaveLength(PREPARED_TRAIN_BLOCKS.length);
+    expect(PREPARED_TRAIN_ART).toHaveLength(PREPARED_TRAIN_BLOCKS.length);
+    for (const key of PREPARED_TRAIN_ART) expect(LESSON_ART_KEYS).toContain(key);
+  });
+  it("is written to be spoken: numbers and symbols are words, not digits", () => {
+    for (const text of PREPARED_TRAIN_SPEECH) {
+      expect(text).not.toMatch(/[0-9=÷−²]/);
+      expect(text.length).toBeGreaterThan(80);
+    }
+  });
+  it("points each block's recording at its own file", () => {
+    const p = findPrepared("A train travels 360 km at a uniform speed. If the speed had been 5 km/h more, it would have taken 1 hour less.")!;
+    expect(p.audio(0)).toBe("/prepared/audio/train-360-km/b0.m4a");
+    expect(p.audio(8)).toBe("/prepared/audio/train-360-km/b8.m4a");
   });
 });
 

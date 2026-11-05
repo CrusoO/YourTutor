@@ -4,7 +4,8 @@
  * The feature is off unless NEXT_PUBLIC_PREPARED_LESSONS is exactly "true".
  */
 import type { AiBlock } from "@/lib/lessons/ai-lesson";
-import { PREPARED_TRAIN_BLOCKS } from "@/lib/lessons/prepared-train";
+import type { LessonArtKey } from "@/components/chat/lesson/LessonArt";
+import { PREPARED_TRAIN_ART, PREPARED_TRAIN_BLOCKS, PREPARED_TRAIN_SPEECH } from "@/lib/lessons/prepared-train";
 
 export type PreparedLesson = {
   id: string;
@@ -14,8 +15,15 @@ export type PreparedLesson = {
   /** The longest normalised text that may match: a long text only contains the words, it is not this question. */
   maxChars: number;
   video: string;
+  poster: string;
   preparedOn: string;
   blocks: AiBlock[];
+  /** What Brownie says for each block, in order (the recordings were made from exactly these). */
+  speech: string[];
+  /** The small picture beside each block, in order. */
+  art: readonly LessonArtKey[];
+  /** Where the recording for block i is. */
+  audio: (i: number) => string;
 };
 
 export const PREPARED: PreparedLesson[] = [
@@ -25,8 +33,12 @@ export const PREPARED: PreparedLesson[] = [
     all: ["train", "360 km", "uniform speed", "5 km/h", "1 hour"],
     maxChars: 500,
     video: "/prepared/train-360-km.mp4",
+    poster: "/prepared/train-360-km-poster.jpg",
     preparedOn: "2026-11-05",
     blocks: PREPARED_TRAIN_BLOCKS,
+    speech: PREPARED_TRAIN_SPEECH,
+    art: PREPARED_TRAIN_ART,
+    audio: (i) => `/prepared/audio/train-360-km/b${i}.m4a`,
   },
 ];
 

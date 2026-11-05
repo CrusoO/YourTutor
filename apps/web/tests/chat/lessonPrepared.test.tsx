@@ -59,8 +59,11 @@ describe("a prepared lesson", () => {
     expect(screen.getByTestId("prepared-note")).toHaveTextContent("Prepared in advance");
     expect(screen.queryByText(/generating/i)).toBeNull();
     expect(screen.queryByRole("progressbar", { name: /video/i })).toBeNull();
+    expect(screen.queryByTestId("prepared-video")).toBeNull(); // the video opens when the student chooses Watch
+    await userEvent.click(screen.getByTestId("mode-watch"));
     const video = screen.getByTestId("prepared-video") as HTMLVideoElement;
     expect(video.getAttribute("src")).toBe("/prepared/train-360-km.mp4");
+    expect(screen.getByText(/Prepared in advance. Brownie builds videos like this/)).toBeInTheDocument();
     noModelCalls();
   });
 
@@ -72,17 +75,31 @@ describe("a prepared lesson", () => {
     expect(vi.mocked(api.getFinderRules).mock.calls[0]).toEqual(["en"]);
   });
 
-  it("offers read aloud on the prepared lesson", async () => {
+  it("Read mode (the start): Brownie's recording for the step is there but does not start by itself; a picture sits beside the step", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
-    const speak = vi.fn();
-    vi.stubGlobal("speechSynthesis", { speak, cancel: vi.fn() });
-    vi.stubGlobal("SpeechSynthesisUtterance", class { constructor(public text: string) {} lang = "" });
+    const play = vi.spyOn(window.HTMLMediaElement.prototype, "play").mockResolvedValue();
     render(<LessonView />);
     await screen.findByTestId("lesson-blocks");
-    await userEvent.click(await screen.findByRole("button", { name: "Listen" }));
-    expect(speak).toHaveBeenCalledTimes(1);
-    expect((speak.mock.calls[0]![0] as { text: string }).text).toContain("faster train take more hours");
-    vi.unstubAllGlobals();
+    expect(screen.getByTestId("mode-read")).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByLabelText("Brownie reading this step").getAttribute("src")).toBe("/prepared/audio/train-360-km/b0.m4a");
+    expect(play).not.toHaveBeenCalled();
+    expect(screen.getByTestId("art-runwalk")).toHaveAttribute("aria-label", expect.stringContaining("running"));
+    play.mockRestore();
+  });
+
+  it("Listen mode: the step's recording starts by itself, the next step brings its own recording, and the video is one tap away", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
+    const play = vi.spyOn(window.HTMLMediaElement.prototype, "play").mockResolvedValue();
+    vi.spyOn(window.HTMLMediaElement.prototype, "pause").mockImplementation(() => undefined);
+    render(<LessonView />);
+    await screen.findByTestId("lesson-blocks");
+    await userEvent.click(screen.getByTestId("mode-listen"));
+    expect(play).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId("listen-note")).toHaveTextContent("same voice as the video");
+    await userEvent.click(screen.getByTestId("listen-to-watch"));
+    expect(screen.getByTestId("prepared-video")).toBeInTheDocument();
+    expect(screen.queryByTestId("step-voice")).toBeNull(); // the video has its own sound
+    vi.restoreAllMocks();
   });
 
   it("flag on but the screen flags the text (distress): the normal path runs, so the server's support reply applies", async () => {

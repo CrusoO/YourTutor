@@ -98,3 +98,22 @@ export const PREPARED_TRAIN_BLOCKS: AiBlock[] = [
     spaced_review_question: "Try this tomorrow: a car goes 120 km. At 10 km/h faster it takes 1 hour less. What is its speed?",
   },
 ];
+
+/**
+ * What Brownie says for each block, in plain spoken words (numbers and symbols written out). One entry per block, in order.
+ * The audio files in public/prepared/audio/train-360-km are made from exactly these strings with the same voice as the prepared video (Kokoro af_heart, speed 0.8).
+ */
+export const PREPARED_TRAIN_SPEECH: string[] = [
+  "Think of the last time you were late and had to run. You got there sooner, because you went faster. A train works in the same way. On the same road, does a faster train take more hours, or fewer hours?",
+  "The road is three hundred sixty kilometres long. Train A goes forty kilometres every hour. Train B goes forty-five kilometres every hour. Which train reaches first? Train A, the slower one. Train B, the faster one. Or they reach together.",
+  "Slide the speed up and watch the hours go down. At forty kilometres an hour, the trip takes nine hours. At forty-five, it takes eight hours. Five more kilometres an hour saves exactly one hour.",
+  "Here is the one idea we need. Time is the distance divided by the speed. The road is three hundred sixty kilometres, so a train going x kilometres every hour needs three hundred sixty divided by x hours. Think of it like this. If you walk four kilometres every hour, a twelve kilometre walk takes twelve divided by four, which is three hours.",
+  "Now we turn your question into an equation, one step at a time. The slow train goes at speed x, so its time is three hundred sixty divided by x. The faster train goes at x plus five, so its time is three hundred sixty divided by x plus five. The faster one takes one hour less, so the slow time minus the fast time is one hour. Clear the fractions, and we get x squared plus five x minus eighteen hundred equals zero. Split it into brackets: x plus forty-five, times x minus forty, equals zero. So x is forty, or x is minus forty-five.",
+  "Which of the two answers can be the speed of the train? Forty kilometres an hour. Minus forty-five kilometres an hour. Or both, we keep them both.",
+  "Now check forty-five kilometres an hour on the same road. How many hours does it take? Eight hours. Nine hours. Or ten hours.",
+  "Try one yourself. A bus goes two hundred forty kilometres. If it went twenty kilometres an hour faster, it would take one hour less. Write the first equation, the same way we did for the train. Then say which answer you keep.",
+  "Let's remember three things. Time is distance divided by speed, so on the same road, a faster train takes fewer hours. Write the slow time minus the fast time equals one hour, and that gives x squared plus five x minus eighteen hundred equals zero. The two answers are forty and minus forty-five. A speed cannot be negative, so the train goes forty kilometres an hour. Try this tomorrow. A car goes one hundred twenty kilometres. At ten kilometres an hour faster, it takes one hour less. What is its speed?",
+];
+
+/** The small picture shown beside each block (see components/chat/lesson/LessonArt.tsx), one key per block, in order. */
+export const PREPARED_TRAIN_ART = ["runwalk", "twotrains", "timebars", "distance", "equation", "speedometer", "clock", "bus", "recap"] as const;
