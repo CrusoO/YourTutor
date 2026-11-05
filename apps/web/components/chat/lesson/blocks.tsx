@@ -74,7 +74,7 @@ export function ExplainBlock({ block }: { block: AiExplain }) {
 export type AnswerInfo = { right: boolean | null; confidence: Confidence | null; idea: string | null };
 
 /** Commit a guess before the reveal. A multiple-choice guess is judged; a free-text one is only revealed against. */
-export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: (info: AnswerInfo) => void }) {
+export function PredictBlock({ block, onResult, onWrong }: { block: AiPredict; onResult: (info: AnswerInfo) => void; onWrong?: (idea: string | null) => void }) {
   const copy = useCopy();
   const [picked, setPicked] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<Confidence | null>(null);
@@ -90,6 +90,7 @@ export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: 
     setRevealed(true);
     const right = block.correct === null ? null : i === block.correct;
     onResult({ right, confidence, idea: right === false ? block.misconceptions?.[i] ?? null : null });
+    if (right === false) onWrong?.(block.misconceptions?.[i] ?? null);
   };
   const reveal = () => {
     setRevealed(true);
@@ -143,7 +144,7 @@ export function PredictBlock({ block, onResult }: { block: AiPredict; onResult: 
 const MAX_ATTEMPTS = 3;
 
 /** A four-option check with feedback on every option, a three-step hint ladder and an idea label on a wrong pick. */
-export function CheckBlock({ block, onFirst, onSolved }: { block: AiCheck; onFirst: (info: AnswerInfo) => void; onSolved: () => void }) {
+export function CheckBlock({ block, onFirst, onSolved, onWrong }: { block: AiCheck; onFirst: (info: AnswerInfo) => void; onSolved: () => void; onWrong?: (idea: string | null) => void }) {
   const copy = useCopy();
   const [tried, setTried] = useState<number[]>([]);
   const [last, setLast] = useState<number | null>(null);
@@ -165,6 +166,7 @@ export function CheckBlock({ block, onFirst, onSolved }: { block: AiCheck; onFir
       const right = i === block.correct;
       onFirst({ right, confidence, idea: right ? null : block.misconceptions?.[i] ?? null });
     }
+    if (i !== block.correct) onWrong?.(block.misconceptions?.[i] ?? null);
     if (i === block.correct || next.length >= MAX_ATTEMPTS) onSolved();
   };
   const stateOf = (i: number): ChoiceState => {

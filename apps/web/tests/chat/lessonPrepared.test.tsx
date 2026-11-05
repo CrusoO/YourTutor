@@ -102,6 +102,25 @@ describe("a prepared lesson", () => {
     vi.restoreAllMocks();
   });
 
+  it("after two wrong answers Brownie says the video is ready, and Watch opens it", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
+    render(<LessonView />);
+    await screen.findByTestId("lesson-blocks");
+    const next = async () => userEvent.click(screen.getByTestId("lesson-continue"));
+    await next(); // the hook
+    await userEvent.click(screen.getByRole("button", { name: "Train A, the slower one" })); // wrong answer 1
+    expect(screen.queryByTestId("help-offer")).toBeNull();
+    await next();
+    await next(); // the slider
+    await next(); // the idea
+    await next(); // the steps
+    await userEvent.click(screen.getByRole("button", { name: "−45 km/h" })); // wrong answer 2
+    expect(screen.getByTestId("help-offer")).toHaveTextContent("Your video on this is ready");
+    await userEvent.click(screen.getByRole("button", { name: "Watch the video" }));
+    expect(screen.getByTestId("prepared-video")).toBeInTheDocument();
+    expect(screen.getByTestId("mode-watch")).toHaveAttribute("aria-pressed", "true");
+  }, 30_000);
+
   it("flag on but the screen flags the text (distress): the normal path runs, so the server's support reply applies", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
     vi.mocked(api.getFinderRules).mockResolvedValue({ ...RULES, distress_terms: ["frustrated"] });
