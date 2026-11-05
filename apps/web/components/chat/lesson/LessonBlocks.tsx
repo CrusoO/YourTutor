@@ -36,8 +36,8 @@ export function LessonBlocks({
   pending?: boolean;
   /** A small picture shown beside block i (a prepared lesson has one for every step). */
   art?: (index: number) => ReactNode;
-  /** When the learner slips more than once, Brownie offers the video (ready or still being made) or carrying on. */
-  offer?: { ready: boolean; onWatch: () => void };
+  /** After a wrong guess Brownie suggests the video under that block (ready, or still being made); onWatch gets the block's index. */
+  offer?: { ready: boolean; onWatch: (blockIndex: number) => void };
   /** The voice control shown under the step on screen (index of that step). */
   voice?: (index: number) => ReactNode;
   /** The rest could not be built; what is here is all there is. */
@@ -66,13 +66,9 @@ export function LessonBlocks({
 
   const mark = (index: number) => setAnswered((prev) => new Set(prev).add(index));
 
-  // Brownie notices a run of wrong answers and offers the video: at the second, and once more at the fourth.
-  const [wrongs, setWrongs] = useState<(string | null)[]>([]);
-  const [handledAt, setHandledAt] = useState(0);
-  const slipped = () => (idea: string | null) => setWrongs((prev) => [...prev, idea]);
-  const offerStage = wrongs.length >= 4 ? 4 : wrongs.length >= 2 ? 2 : 0;
-  const showOffer = Boolean(offer) && offerStage > handledAt;
-  const sameIdea = wrongs.length >= 2 && wrongs[0] && wrongs.every((w) => w === wrongs[0]) ? wrongs[0] : null;
+  // A wrong guess gets a video suggestion under that block.
+  const [slippedAt, setSlippedAt] = useState<ReadonlySet<number>>(new Set());
+  const slipped = (index: number) => () => setSlippedAt((prev) => new Set(prev).add(index));
 
   // What each judged answer showed the first time: kept for the end-of-lesson card (this device only).
   const [evidence, setEvidence] = useState<Evidence[]>([]);
@@ -128,7 +124,7 @@ export function LessonBlocks({
               {block.kind === "predict" ? (
                 <PredictBlock
                   block={block}
-                  onWrong={slipped()}
+                  onWrong={slipped(i)}
                   onResult={(info) => {
                     setPredictedRight(info.right);
                     setPredictedUnsure(info.confidence === "unsure");
@@ -139,42 +135,32 @@ export function LessonBlocks({
               ) : null}
               {block.kind === "widget" && "run" in entry ? <WidgetBlock run={entry.run} /> : null}
               {block.kind === "explain" ? <ExplainBlock block={block} /> : null}
-              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} onWrong={slipped()} /> : null}
+              {block.kind === "check" ? <CheckBlock block={block} onFirst={(info) => record(i, block, info)} onSolved={() => mark(i)} onWrong={slipped(i)} /> : null}
               {block.kind === "transfer" ? <TransferBlock block={block} onShown={() => mark(i)} /> : null}
               {block.kind === "recap" ? <RecapBlock block={block} /> : null}
                 </div>
                 {picture && !stacked ? <aside className="w-[38%] max-w-[11rem] shrink-0" aria-label="Picture for this step">{picture}</aside> : null}
               </div>
+              {offer && slippedAt.has(i) ? (
+                <div className="mt-3 flex flex-col gap-2 rounded-2xl border border-accent bg-accent-soft p-4" role="status" data-testid="video-suggest">
+                  <p className="m-0 text-[0.75rem] font-medium text-accent-ink">Brownie</p>
+                  <p className="m-0 text-[0.9375rem] leading-[1.6] text-ink">
+                    Do you want to understand this better?{" "}
+                    {offer.ready ? "A short video shows it step by step." : "I am still putting your video together, and it will be ready soon."}
+                  </p>
+                  {offer.ready ? (
+                    <div>
+                      <Button size="sm" onClick={() => offer.onWatch(i)}>
+                        Watch the video
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </li>
           );
         })}
       </ol>
-
-      {showOffer && offer ? (
-        <div className="flex flex-col gap-3 rounded-2xl border border-accent bg-accent-soft p-4" role="status" data-testid="help-offer">
-          <p className="m-0 text-[0.75rem] font-medium text-accent-ink">Brownie</p>
-          <p className="m-0 text-[0.9375rem] leading-[1.6] text-ink">
-            That has slipped {wrongs.length === 2 ? "twice" : `${wrongs.length} times`} now{sameIdea ? `, and both times it looked like the same idea: ${sameIdea}` : ", and that is completely fine"}.{" "}
-            {offer.ready ? "Your video on this is ready. Would you like to watch it now, or keep going with the questions?" : "I am still putting your video together. Keep going with the questions, and it will be ready soon."}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {offer.ready ? (
-              <Button
-                size="sm"
-                onClick={() => {
-                  setHandledAt(offerStage);
-                  offer.onWatch();
-                }}
-              >
-                Watch the video
-              </Button>
-            ) : null}
-            <Button variant="outline" size="sm" onClick={() => setHandledAt(offerStage)}>
-              Keep going with the questions
-            </Button>
-          </div>
-        </div>
-      ) : null}
 
       {voice ? <div data-testid="lesson-voice">{voice(shown - 1)}</div> : null}
 

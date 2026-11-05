@@ -11,7 +11,7 @@ import { GroupLessonBody } from "./lesson/GroupLesson";
 import { ShareLesson } from "./lesson/ShareLesson";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
-import { PreparedVideo } from "./PreparedVideo";
+import { PreparedVideo, VideoDialog } from "./PreparedVideo";
 import { ModeBar, StepVoice, type LessonMode } from "./PreparedListen";
 import { LessonArt } from "./lesson/LessonArt";
 import { findPrepared, preparedEnabled, type PreparedLesson } from "@/lib/chat/prepared";
@@ -162,6 +162,7 @@ function LessonBody({ prompt }: { prompt: string }) {
   const [usePrepared, setUsePrepared] = useState(false);
   const videoCard = useRef<HTMLDetailsElement>(null);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [dialogAt, setDialogAt] = useState<number | null>(null); // the prepared video opening over the lesson, at this second
   const [mode, setMode] = useState<LessonMode>("read"); // a prepared lesson can be read, listened to (Brownie's voice) or watched
 
   function startVideo() {
@@ -456,10 +457,10 @@ function LessonBody({ prompt }: { prompt: string }) {
             voice={usePrepared && prepared.current && mode !== "watch" ? (i) => <StepVoice key={`${i}-${mode}`} src={prepared.current!.audio(i)} autoPlay={mode === "listen"} /> : undefined}
             offer={{
               ready: usePrepared || (video.phase === "job" && video.job.status === "done"),
-              onWatch: () => {
-                if (usePrepared) setMode("watch");
-                else setVideoOpen(true);
-                requestAnimationFrame(() => (usePrepared ? heading.current : videoCard.current)?.scrollIntoView?.({ block: "start", behavior: "smooth" }));
+              onWatch: (blockIndex: number) => {
+                if (usePrepared && prepared.current) return setDialogAt(prepared.current.videoAt[blockIndex] ?? 0);
+                setVideoOpen(true);
+                requestAnimationFrame(() => videoCard.current?.scrollIntoView?.({ block: "start", behavior: "smooth" }));
               },
             }}
             pending={rest === "pending"}
@@ -525,6 +526,9 @@ function LessonBody({ prompt }: { prompt: string }) {
           </div>
         ) : null}
       </article>
+      {dialogAt !== null && usePrepared && prepared.current ? (
+        <VideoDialog src={prepared.current.video} title={prepared.current.title} poster={prepared.current.poster} startAt={dialogAt} onClose={() => setDialogAt(null)} />
+      ) : null}
     </div>
   );
 }

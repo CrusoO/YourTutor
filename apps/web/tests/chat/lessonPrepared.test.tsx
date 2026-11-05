@@ -102,24 +102,32 @@ describe("a prepared lesson", () => {
     vi.restoreAllMocks();
   });
 
-  it("after two wrong answers Brownie says the video is ready, and Watch opens it", async () => {
+  it("after a wrong guess Brownie asks if the learner wants to understand it better; Watch opens the video over the lesson, and Close returns", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
     render(<LessonView />);
     await screen.findByTestId("lesson-blocks");
-    const next = async () => userEvent.click(screen.getByTestId("lesson-continue"));
-    await next(); // the hook
-    await userEvent.click(screen.getByRole("button", { name: "Train A, the slower one" })); // wrong answer 1
-    expect(screen.queryByTestId("help-offer")).toBeNull();
-    await next();
-    await next(); // the slider
-    await next(); // the idea
-    await next(); // the steps
-    await userEvent.click(screen.getByRole("button", { name: "−45 km/h" })); // wrong answer 2
-    expect(screen.getByTestId("help-offer")).toHaveTextContent("Your video on this is ready");
+    await userEvent.click(screen.getByTestId("lesson-continue")); // the hook
+    expect(screen.queryByTestId("video-suggest")).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: "Train A, the slower one" })); // a wrong guess
+    expect(screen.getByTestId("video-suggest")).toHaveTextContent("Do you want to understand this better?");
     await userEvent.click(screen.getByRole("button", { name: "Watch the video" }));
-    expect(screen.getByTestId("prepared-video")).toBeInTheDocument();
-    expect(screen.getByTestId("mode-watch")).toHaveAttribute("aria-pressed", "true");
+    const player = screen.getByTestId("video-dialog-player") as HTMLVideoElement;
+    expect(player.getAttribute("src")).toBe("/prepared/train-360-km.mp4");
+    expect(screen.getByTestId("video-dialog")).toHaveAttribute("aria-modal", "true");
+    await userEvent.click(screen.getByTestId("video-dialog-close"));
+    expect(screen.queryByTestId("video-dialog")).toBeNull();
   }, 30_000);
+
+  it("Escape closes the video", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");
+    render(<LessonView />);
+    await screen.findByTestId("lesson-blocks");
+    await userEvent.click(screen.getByTestId("lesson-continue"));
+    await userEvent.click(screen.getByRole("button", { name: "Train A, the slower one" }));
+    await userEvent.click(screen.getByRole("button", { name: "Watch the video" }));
+    await userEvent.keyboard("{Escape}");
+    expect(screen.queryByTestId("video-dialog")).toBeNull();
+  });
 
   it("flag on but the screen flags the text (distress): the normal path runs, so the server's support reply applies", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREPARED_LESSONS", "true");

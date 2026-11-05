@@ -22,6 +22,8 @@ export type PreparedLesson = {
   speech: string[];
   /** The small picture beside each block, in order. */
   art: readonly LessonArtKey[];
+  /** Where in the video (seconds) to open when the learner gets block i wrong; a block not listed opens at the start. */
+  videoAt: Readonly<Record<number, number>>;
   /** Where the recording for block i is. */
   audio: (i: number) => string;
 };
@@ -38,6 +40,8 @@ export const PREPARED: PreparedLesson[] = [
     blocks: PREPARED_TRAIN_BLOCKS,
     speech: PREPARED_TRAIN_SPEECH,
     art: PREPARED_TRAIN_ART,
+    // block 1 (two trains, which is faster) -> the two-trains scene; blocks 5 and 6 (which answer, 9 h against 8 h) -> the check; block 7 (the bus) -> the equation
+    videoAt: { 1: 8.8, 5: 56.8, 6: 56.8, 7: 33.8 },
     audio: (i) => `/prepared/audio/train-360-km/b${i}.m4a`,
   },
 ];
