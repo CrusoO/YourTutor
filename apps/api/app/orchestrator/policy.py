@@ -299,7 +299,7 @@ def _on_stuck_step(learner: LearnerState, session: SessionState, event: Event) -
         return _flag(session, "bad_step")
     text = item.step_hints[index]
     if leak_check(text, item.answer_sympy, level=1):
-        text = item.hint(1)  # never reveal before hint 3
+        text = _non_leaking_hint(item, avoid=0)  # never reveal before hint 3
     session.phase = "practice"
     return _keep(
         session,
@@ -328,11 +328,26 @@ def _check_your_work(session: SessionState, item: CatalogItem, kind: str) -> Act
     )
 
 
+GENERIC_SOCRATIC = "What do you think the first step is?"
+
+
+def _non_leaking_hint(item: CatalogItem, *, avoid: int) -> str:
+    """An authored hint of level 1 or 2 that does not give the answer away, else a neutral
+    question. Never a level-3 hint: that one may reveal, and it is only ever asked for."""
+    for level in (1, 2):
+        if level == avoid:
+            continue
+        text = item.hint(level)
+        if text and not leak_check(text, item.answer_sympy, level=level):
+            return text
+    return GENERIC_SOCRATIC
+
+
 def _deliver_hint(learner: LearnerState, session: SessionState, item: CatalogItem) -> Action:
     level = session.hint_level_shown + 1
     text = item.hint(level)
     if leak_check(text, item.answer_sympy, level=level):
-        text = item.hint(level)
+        text = _non_leaking_hint(item, avoid=level)
     _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
     if session.last_event is not None and session.last_event.type == "request_help":
         _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
@@ -1491,7 +1506,7 @@ def _prediction_for(session: SessionState, skill: str) -> str:
     for row in session.catalog:
         if row.primary_skill == skill and row.prediction_prompt:
             return row.prediction_prompt
-    return "What do you think the first step is?"
+    return GENERIC_SOCRATIC
 
 
 def _idle_expired(session: SessionState, event: Event | None) -> bool:
