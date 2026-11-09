@@ -110,3 +110,47 @@ describe("AskAbout when Brownie cannot answer", () => {
     expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
 });
+
+
+describe("AskAbout when the question is a cry for help", () => {
+  it("shows the helplines under the support message", async () => {
+    vi.mocked(api.explainChat).mockResolvedValue({
+      kind: "distress",
+      message: "Please talk to a grown-up you trust. The lines below can listen.",
+      helplines: [{ id: "tele_manas", kind: "mental_health", name: "Tele-MANAS", number: "14416", hours: null, verified: true }],
+    });
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
+    await ask("i want to die");
+    expect(await screen.findByTestId("ask-about-tutor")).toHaveTextContent("The lines below can listen.");
+    expect(screen.getByRole("link", { name: /Tele-MANAS/ })).toHaveAttribute("href", "tel:14416");
+  });
+});
+
+describe("AskAbout while the reply is being written", () => {
+  it("shows the text as it arrives, then keeps the final reply without revealing it again", async () => {
+    let release: () => void = () => {};
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    vi.mocked(api.explainChat).mockImplementation(async (_p, _l, _h, onDelta) => {
+      onDelta?.("You are close.");
+      await gate;
+      return { kind: "reply", text: "You are close. What do you notice?" };
+    });
+    render(<AskAbout prompt="slope" language="en" />);
+    await ask("why does it double");
+    expect(await screen.findByTestId("ask-about-live")).toHaveTextContent("You are close.");
+    release();
+    await waitFor(() => expect(screen.queryByTestId("ask-about-live")).toBeNull());
+    expect(screen.getByTestId("ask-about-tutor")).toHaveTextContent("You are close. What do you notice?");
+  });
+
+  it("replaces what was shown when the server's final reply differs (the guard stepped in)", async () => {
+    vi.mocked(api.explainChat).mockImplementation(async (_p, _l, _h, onDelta) => {
+      onDelta?.("Nice start.");
+      return { kind: "reply", text: "What undoes the +5?" };
+    });
+    render(<AskAbout prompt="slope" language="en" />);
+    await ask("what is x");
+    expect(await screen.findByTestId("ask-about-tutor")).toHaveTextContent("What undoes the +5?");
+    expect(screen.getByTestId("ask-about-tutor")).not.toHaveTextContent("Nice start.");
+  });
+});

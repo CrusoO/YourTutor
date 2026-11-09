@@ -37,3 +37,13 @@ def test_the_rules_endpoint_takes_no_typed_text_and_stores_nothing(client: TestC
     response = client.get("/context/finder-rules", params={"language": "en", "q": "marker-9d3f"})
     assert response.status_code == 200
     assert "marker-9d3f" not in response.text
+
+
+def test_finder_rules_carry_the_helplines_so_the_device_can_show_them(client: TestClient) -> None:
+    # The topic finder answers a distress phrase on the device and never posts the text, so the
+    # numbers it shows must come with the rules (a GET with no user text).
+    rules = client.get("/context/finder-rules").json()
+    helplines = rules["helplines"]
+    assert helplines and all(h["number"] for h in helplines)
+    assert {h["kind"] for h in helplines} <= {"mental_health", "child_protection"}
+    assert set(helplines[0]) == {"id", "kind", "name", "number", "hours", "verified"}

@@ -25,7 +25,7 @@ FALLBACK_REASONS = ("unavailable", "ai_off", "no_consent")
 _REASON_TO_FALLBACK = {"off": "ai_off", "consent": "no_consent"}
 # Without a grade there is no band: use a middle limit rather than the longest or shortest.
 UNKNOWN_GRADE_MAX_WORDS = 60
-_SENTENCE_END = re.compile(r"(?<=[.!?।])\s+")
+SENTENCE_END = re.compile(r"(?<=[.!?।])\s+")
 
 
 @dataclass(frozen=True)
@@ -123,7 +123,7 @@ def trim_to_words(text: str, max_words: int) -> str:
         return cleaned
     kept: list[str] = []
     used = 0
-    for sentence in _SENTENCE_END.split(cleaned):
+    for sentence in SENTENCE_END.split(cleaned):
         count = len(sentence.split())
         if used + count > max_words:
             break

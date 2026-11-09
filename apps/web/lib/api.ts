@@ -155,12 +155,16 @@ export function studentId(): string {
 /** The interface language and its setter live in lib/locale.ts (one store, live languages only); re-exported here. */
 export { currentLocale as locale, setLocale } from "./locale";
 
-async function req(path: string, init: RequestInit = {}) {
+async function authedFetch(path: string, init: RequestInit = {}) {
   const headers = new Headers(init.headers);
   headers.set("Content-Type", "application/json");
   const auth = token();
   if (auth) headers.set("Authorization", `Bearer ${auth}`);
-  const response = await fetch(`${API}${path}`, { ...init, headers });
+  return fetch(`${API}${path}`, { ...init, headers });
+}
+
+async function req(path: string, init: RequestInit = {}) {
+  const response = await authedFetch(path, init);
   if (!response.ok) {
     const detail = await response.text();
     throw new Error(detail || response.statusText);
@@ -205,6 +209,9 @@ export type GuestStartBody = {
 export async function getContextOptions(): Promise<ContextOptions> {
   return req("/context/options");
 }
+
+/** A support line the API may show (config/helplines.yaml). Hours are null until the owner confirms them. */
+export type Helpline = { id: string; kind: string; name: string; number: string; hours: string | null; verified: boolean };
 
 /** The checks the topic finder runs in the browser on typed text (a GET: no user text is sent). */
 export async function getFinderRules(language: string): Promise<FinderRules> {
@@ -428,7 +435,7 @@ export async function createSourceVideoJob(video: { source: VideoSource; proof: 
 export type StoryResult =
   | { kind: "story"; story: Record<string, unknown>; proof: string }
   | { kind: "unavailable"; reason: string }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
 /** The question planned as an animated story and written scene by scene (shapes, motion and narration). */
@@ -456,7 +463,7 @@ export type Explanation =
       video?: { story: Record<string, unknown>; proof: string } | { source: VideoSource; proof: string };
     }
   | { kind: "unavailable"; reason: string }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
 /** The in-depth, first-principles explanation of a typed question. The question is never kept by the page. */
@@ -535,12 +542,58 @@ export type TutorFallback = { reason: string; text: string; offers: { id: string
 export type TutorReply =
   | { kind: "reply"; text: string; language?: string }
   | { kind: "unavailable"; reason: string; fallback?: TutorFallback }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
-/** A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept. */
-export async function explainChat(prompt: string, language: "en" | "hi", history: TutorTurn[]): Promise<TutorReply> {
-  return req("/explain/chat", { method: "POST", body: JSON.stringify({ prompt, language, history }) });
+/**
+ * A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept.
+ * With `onDelta` the reply arrives as it is written, one checked sentence at a time; the returned reply is
+ * always the final one and replaces whatever was shown (it differs only if the server had to step in).
+ */
+export async function explainChat(
+  prompt: string,
+  language: "en" | "hi",
+  history: TutorTurn[],
+  onDelta?: (text: string) => void,
+): Promise<TutorReply> {
+  const body = JSON.stringify({ prompt, language, history });
+  if (!onDelta) return req("/explain/chat", { method: "POST", body });
+  return streamChat(body, onDelta);
+}
+
+const DELIM = String.fromCharCode(10, 10); // a blank line ends one server-sent event
+
+async function streamChat(body: string, onDelta: (text: string) => void): Promise<TutorReply> {
+  const response = await authedFetch("/explain/chat/stream", { method: "POST", body });
+  if (!response.ok) throw new Error((await response.text()) || response.statusText);
+  if (!response.body || !(response.headers.get("content-type") || "").includes("text/event-stream")) {
+    return response.json(); // a server or proxy that does not stream: the plain reply
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let pending = "";
+  let result: TutorReply | null = null;
+  for (;;) {
+    const { done, value } = await reader.read();
+    pending += decoder.decode(value, { stream: !done });
+    const events = pending.split(DELIM);
+    pending = done ? "" : (events.pop() ?? "");
+    for (const raw of events) {
+      const line = raw.trim();
+      if (!line.startsWith("data:")) continue;
+      let event: { type?: string; text?: string; result?: TutorReply };
+      try {
+        event = JSON.parse(line.slice(5));
+      } catch {
+        continue;
+      }
+      if (event.type === "delta" && typeof event.text === "string") onDelta(event.text);
+      else if (event.type === "final" && event.result) result = event.result;
+    }
+    if (done) break;
+  }
+  if (!result) throw new Error("the reply stopped early");
+  return result;
 }
 
 /** The words that mean a command, matched in the browser on typed text (a GET: no user text is sent). */

@@ -2,6 +2,7 @@
 
 import { Brand } from "@/components/ui/brand";
 import { Choice } from "@/components/ui/choice";
+import { Helplines } from "./Helplines";
 import { locale } from "@/lib/api";
 import { messageText } from "@/lib/chat/labels";
 import { useChatApi } from "./ChatProvider";
@@ -60,6 +61,11 @@ export function Replies() {
         return (
           <div key={reply.id} className="flex flex-col gap-3" data-testid={`reply-${reply.kind}`}>
             <Bubble from="tutor" text={text} />
+            {reply.kind === "distress" ? (
+              <div className="pl-11">
+                <Helplines list={reply.helplines} />
+              </div>
+            ) : null}
             {reply.piiRemoved ? <p className="m-0 pl-11 text-sm text-muted">{copy.chatFinderPii}</p> : null}
             {reply.confirm ? (
               <div className="flex flex-wrap gap-2 pl-11">
