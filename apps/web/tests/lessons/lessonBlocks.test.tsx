@@ -145,7 +145,12 @@ describe("LessonBlocks", () => {
     await userEvent.type(screen.getByTestId("ask-about-input"), "why does width matter?");
     await userEvent.click(screen.getByRole("button", { name: "Ask" }));
     await waitFor(() => expect(screen.getByTestId("ask-about-tutor")).toHaveTextContent("What do you think shrinks"));
-    expect(explainChat).toHaveBeenCalledWith("why does width matter?", "en", [{ role: "user", content: "quantum tunnelling" }]);
+    expect(explainChat).toHaveBeenCalledWith(
+      "why does width matter?",
+      "en",
+      [{ role: "user", content: "quantum tunnelling" }],
+      expect.any(Function), // the reply is streamed
+    );
 
     explainChat.mockResolvedValueOnce({ kind: "reply", text: "Right." });
     await userEvent.type(screen.getByTestId("ask-about-input"), "the wave?");

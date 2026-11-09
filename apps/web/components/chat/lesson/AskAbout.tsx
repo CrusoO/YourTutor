@@ -25,6 +25,8 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
   const lastQuestion = useRef("");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
+  // Brownie's reply as it is being written; replaced by the final reply when it ends.
+  const [live, setLive] = useState("");
   const [failed, setFailed] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,8 +43,12 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
     setFailed(false);
     setOffers([]);
     setSupport([]);
+    let streamed = false;
     try {
-      const reply = await explainChat(question, language, history);
+      const reply = await explainChat(question, language, history, (piece) => {
+        streamed = true;
+        setLive((prev) => prev + piece);
+      });
       const answer =
         reply.kind === "reply"
           ? reply.text
@@ -52,13 +58,15 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
               ? reply.message
               : null;
       if (reply.kind === "distress") setSupport(reply.helplines ?? []);
-      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer, fresh: true }]);
+      // Text that was already shown as it arrived is not revealed a second time.
+      if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer, fresh: !streamed }]);
       else setFailed(true);
       // Only a choice that can be acted on here is shown: practice needs the chat to start it.
       if (reply.kind === "unavailable" && reply.fallback) setOffers(reply.fallback.offers.filter((o) => o.id !== "practice" || onPractice));
     } catch {
       setFailed(true);
     } finally {
+      setLive("");
       setBusy(false);
       inputRef.current?.focus();
     }
@@ -91,7 +99,12 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
               {turn.fresh ? <Reveal text={turn.content} /> : turn.content}
             </li>
           ))}
-          {busy ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
+          {busy && live ? (
+            <li data-testid="ask-about-live" className="max-w-[90%] self-start rounded-2xl bg-surface-2 px-4 py-2.5 text-[0.9375rem] leading-[1.6] text-ink">
+              {live}
+            </li>
+          ) : null}
+          {busy && !live ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
         </ul>
       ) : null}
       <Helplines list={support} />
