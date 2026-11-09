@@ -89,7 +89,7 @@ _TECHNICAL_KEYWORDS = frozenset(
 
 _STYLE_PREAMBLES: dict[str, str] = {
     "technical": (
-        "## VIDEO STYLE: MATHEMATICAL (3Blue1Brown)\n\n"
+        "## VIDEO STYLE: MATHEMATICAL\n\n"
         "PALETTE: Dark stage. Use ONLY these five colors, consistent across all scenes:\n"
         "  blue=#3B82F6 (primary concept), teal=#4FC3F7 (secondary),\n"
         "  yellow=#FFD700 (key result), pink=#FF6B9D (contrast), white=ink (labels).\n"
@@ -114,7 +114,7 @@ _STYLE_PREAMBLES: dict[str, str] = {
         "before showing the answer.\n"
     ),
     "animated": (
-        "## VIDEO STYLE: CINEMATIC (Lamina Labs)\n\n"
+        "## VIDEO STYLE: CINEMATIC\n\n"
         "PALETTE: Light whiteboard background. Use MANY bold colors simultaneously:\n"
         "blue characters, red danger/friction, green good/success, orange energy, purple mystery.\n"
         "Every filled shape has a bold saturated color. fill:none only for outlines and arrows.\n\n"
@@ -144,7 +144,7 @@ _STYLE_PREAMBLES: dict[str, str] = {
 
 
 def _story_style(prompt: str) -> str:
-    """Return 'technical' (3B1B) or 'animated' (Lamina Labs) based on prompt keywords."""
+    """Return 'technical' or 'animated' based on prompt keywords."""
     low = prompt.lower()
     if any(k in low for k in _TECHNICAL_KEYWORDS):
         return "technical"
