@@ -57,10 +57,13 @@ def _register_rule(register: Register | None) -> str:
     return f"{tone}Keep every reply to {register.max_words} words or fewer."
 
 
-def _build_system(restricted: bool, register: Register | None = None) -> str:
+def _build_system(
+    restricted: bool, register: Register | None = None, extra_rule: str | None = None
+) -> str:
     scope = SYLLABUS_SCOPE if restricted else OPEN_SCOPE
     text = PROMPT_FILE.read_text(encoding="utf-8").strip()
-    return text.replace("{scope_rule}", scope).replace("{register_rule}", _register_rule(register))
+    text = text.replace("{scope_rule}", scope).replace("{register_rule}", _register_rule(register))
+    return f"{text}\n\n{extra_rule}" if extra_rule else text
 
 
 def _trim_history(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -141,11 +144,13 @@ def build_chat(
     model: str | None = None,
     restricted: bool = False,
     register: Register | None = None,
+    extra_rule: str | None = None,
 ) -> dict[str, Any]:
     """Main entry: screen the student's message, call the tutor model, return the reply.
 
     `register` (from the learner's grade band) sets the tone asked of the model and the word limit
-    the reply is cut to; without it the reply is only capped at MAX_REPLY_CHARS.
+    the reply is cut to; without it the reply is only capped at MAX_REPLY_CHARS. `extra_rule` is one
+    more instruction added to the system prompt (the answer guard uses it).
     """
     language = language if language in LANGUAGES else "en"
 
@@ -178,7 +183,7 @@ def build_chat(
         f"\n\n{lang_note}" if lang_note else ""
     )
 
-    system = _build_system(restricted, register)
+    system = _build_system(restricted, register, extra_rule)
     trimmed_history = _trim_history(history)
 
     try:

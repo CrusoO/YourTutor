@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import uuid
 from typing import Any
 
 from fastapi import APIRouter
@@ -15,6 +16,7 @@ from app.config import settings
 from app.conversation.voice import fallback_turn, register_for_grade
 from app.db.models import StudentRow
 from app.explain import proof
+from app.explain.answer_guard import enforce_no_leak, load_active_item
 from app.explain.service import Gate, explain
 from app.explain.service_chat import build_chat
 from app.explain.service_lesson import (
@@ -61,6 +63,9 @@ class ChatIn(BaseModel):
     prompt: str = Field(max_length=500)
     language: str = "en"
     history: list[ChatMessage] = Field(default_factory=list, max_length=20)
+    # The student's own open practice session. When given, the reply never gives away the answer
+    # to the item on screen before two hints and an attempt.
+    session_id: uuid.UUID | None = None
 
 
 @router.post("")
@@ -185,14 +190,25 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     history = [{"role": m.role, "content": m.content} for m in body.history]
     student = db.get(StudentRow, actor.student_id)
     register = register_for_grade(student.grade if student else None)
+    active = load_active_item(db, actor.student_id, body.session_id)
     result = guarded_llm_route(
         db,
         actor.student_id,
         "chat",
         body.prompt,
         body.language,
-        lambda: build_chat(
-            body.prompt, body.language, history, gate, restricted=True, register=register
+        lambda: enforce_no_leak(
+            lambda rule: build_chat(
+                body.prompt,
+                body.language,
+                history,
+                gate,
+                restricted=True,
+                register=register,
+                extra_rule=rule,
+            ),
+            active,
+            body.language,
         ),
     )
     if result.get("kind") == "unavailable":
