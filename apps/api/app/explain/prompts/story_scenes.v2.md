@@ -17,12 +17,12 @@ Every scene must show a SYSTEM (input → process → output, or concept A → r
 
 ### The two storytelling patterns (pick one per story):
 
-**3Blue1Brown pattern** — for mathematics, algebra, geometry, physics systems:
+**Technical pattern** — for mathematics, algebra, geometry, physics systems:
 - Hook scene: draw the EMPTY FRAMEWORK — axes only, or just the outer boxes/layers with no content yet. No data, no results. Just the structure.
 - Build scenes: fill in ONE component each scene. Immediately draw an arrow from it to the next component. Each arrow has a label naming the relationship.
 - Reveal scene: show the system working end-to-end. All components visible, all connections drawn, the focal result highlighted (use `focus:true` + `"how":"indicate"`).
 
-**Lamina Labs pattern** — for concepts, metaphors, everyday explanations:
+**Illustrated pattern** — for concepts, metaphors, everyday explanations:
 - Hook scene: large bold heading (`text` shape, `size:6`, top zone) + ONE surprising visual that represents the concept as a metaphor.
 - Build scenes: introduce each part of the metaphor, left to right, connected by labeled arrows. Scale encodes meaning: bigger = more important, smaller = subordinate/contained.
 - Reveal scene: the complete metaphor picture + a caption (`text` shape at y=40, `size:3.5`, italic) that states the insight.
@@ -41,14 +41,14 @@ Every scene must show a SYSTEM (input → process → output, or concept A → r
 - Smaller shape inside/near a larger = "part of" or "smaller version"
 - Same-sized shapes side by side = comparison or equals
 
-### Heading as visual element (Lamina Labs style)
+### Heading as visual element (illustrated style)
 For conceptual topics (not equations): make the heading visible AS A SHAPE:
 ```json
 {"kind":"text","x":50,"y":6,"text":"WHAT IS RECURSION?","size":5.5,"anchor":"middle","bold":true,"color":"ink","fill":"none","in":{"s":0},"how":"fade"}
 ```
 This is separate from the scene `heading` field (which appears in the panel header).
 
-### Caption pattern (Lamina Labs style)
+### Caption pattern (illustrated style)
 End reveal scenes with an insight caption at the bottom:
 ```json
 {"kind":"text","x":50,"y":41,"text":"A problem inside itself.","size":3.2,"anchor":"middle","bold":false,"color":"soft","fill":"none","in":{"s":2},"how":"fade"}
@@ -337,16 +337,16 @@ Example:
 
 ## CRAFT — VISUAL STYLE
 
-**Model this on Lamina Labs (Simi) for physical/life science and 3Blue1Brown for mathematics.**
+**Use the illustrated style for physical and life science and the technical style for mathematics.**
 
-### Lamina Labs style (physical objects, biology, chemistry, everyday concepts)
+### Illustrated style (physical objects, biology, chemistry, everyday concepts)
 - **Clean, illustrative, whiteboard-like**: shapes are bold, filled, with enough spacing to breathe.
 - **Tell the story through the drawing**: every sentence the narrator says must have a matching shape change on screen — if the narrator says "the force increases", an arrow must visibly grow.
 - **Label what you draw, never what you say**: the label is the object's name only. Let the animation tell the story.
 - **Process is visible**: show the sequence of events step by step — don't show the final state, show each transition. Pattern C (progression) and Pattern D (cause→effect) are your defaults.
 - **Color by role, not by aesthetics**: blue = first object, red = force/energy, green = result/velocity, yellow = heat/light, purple = mathematics. Keep this across the whole story.
 
-### 3Blue1Brown style (pure mathematics, algebra, geometry, calculus)
+### Technical style (pure mathematics, algebra, geometry, calculus)
 - **Every equation has a visual**: no equation appears without a corresponding geometric or graphical representation. `math` shape and `plot`/`axes` always appear together.
 - **Sweep graphs**: always use `"sweep": true` on `plot` shapes — the curve draws itself as the narrator explains it.
 - **Color identity for variables**: each variable gets one color (e.g., x = blue, y = green, the result = yellow). Set these in `color_map` and never violate them.
@@ -374,7 +374,7 @@ For an orbit: dashed `curve` (xfn `"50+24*cos(u)"`, yfn `"22+16*sin(u)"`, u0 0, 
 
 For a force diagram: each `arrow` expressing force must have expressions if the force changes with time.
 
-**3B1B checklist** — before writing visuals for any scene, ask:
+**Technical checklist** — before writing visuals for any scene, ask:
 1. Is there an equation? → add a `math` shape and a `plot` or geometric shape showing what it means.
 2. Does anything grow/shrink/move? → it has a `t`-expression, not a static number.
 3. Is there a comparison? → use Pattern B with identical shapes in left/right zones.
