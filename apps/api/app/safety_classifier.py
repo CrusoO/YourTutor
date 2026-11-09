@@ -99,10 +99,11 @@ class AnthropicSafetyClient:
         )
         if message.stop_reason != "end_turn":
             raise ClassifierError(f"stop_reason={message.stop_reason}")
-        block = next((b for b in message.content if getattr(b, "type", "") == "text"), None)
-        if block is None:
+        # The reply is a list of blocks of several kinds; only a text block holds the JSON.
+        texts = [str(getattr(b, "text", "")) for b in message.content if b.type == "text"]
+        if not texts:
             raise ClassifierError("no text block")
-        return parse_classification(block.text)
+        return parse_classification(texts[0])
 
 
 class ClassifierError(Exception):
