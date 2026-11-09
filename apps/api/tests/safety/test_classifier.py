@@ -126,7 +126,7 @@ class _Messages:
 
 def _client(messages: _Messages) -> AnthropicSafetyClient:
     client = AnthropicSafetyClient.__new__(AnthropicSafetyClient)  # skip the SDK import
-    client._client = SimpleNamespace(messages=messages)  # type: ignore[attr-defined]
+    client._client = SimpleNamespace(messages=messages)  # type: ignore[attr-defined,assignment]
     client._model = "claude-haiku-5-5"
     return client
 
