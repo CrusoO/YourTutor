@@ -183,14 +183,26 @@ def explain_chat(body: ChatIn, db: DbSession, actor: ActorDep) -> dict[str, Any]
     )
     gate = Gate(enabled=settings.explain_enabled, allowed=allowed)
     history = [{"role": m.role, "content": m.content} for m in body.history]
-    return guarded_llm_route(
+    student = db.get(StudentRow, actor.student_id)
+    register = register_for_grade(student.grade if student else None)
+    result = guarded_llm_route(
         db,
         actor.student_id,
         "chat",
         body.prompt,
         body.language,
-        lambda: build_chat(body.prompt, body.language, history, gate, restricted=True),
+        lambda: build_chat(
+            body.prompt, body.language, history, gate, restricted=True, register=register
+        ),
     )
+    if result.get("kind") == "unavailable":
+        # Never a bare error: an honest authored line and the next choices. `kind` and `reason`
+        # are unchanged, so a client that ignores `fallback` behaves as before.
+        turns = sum(1 for m in history if m["role"] == "assistant")
+        result["fallback"] = fallback_turn(
+            str(result.get("reason", "")), register, body.language, turns
+        )
+    return result
 
 
 @router.post("/story")
