@@ -206,6 +206,9 @@ export async function getContextOptions(): Promise<ContextOptions> {
   return req("/context/options");
 }
 
+/** A support line the API may show (config/helplines.yaml). Hours are null until the owner confirms them. */
+export type Helpline = { id: string; kind: string; name: string; number: string; hours: string | null; verified: boolean };
+
 /** The checks the topic finder runs in the browser on typed text (a GET: no user text is sent). */
 export async function getFinderRules(language: string): Promise<FinderRules> {
   return req(`/context/finder-rules?language=${encodeURIComponent(language)}`);
@@ -428,7 +431,7 @@ export async function createSourceVideoJob(video: { source: VideoSource; proof: 
 export type StoryResult =
   | { kind: "story"; story: Record<string, unknown>; proof: string }
   | { kind: "unavailable"; reason: string }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
 /** The question planned as an animated story and written scene by scene (shapes, motion and narration). */
@@ -456,7 +459,7 @@ export type Explanation =
       video?: { story: Record<string, unknown>; proof: string } | { source: VideoSource; proof: string };
     }
   | { kind: "unavailable"; reason: string }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
 /** The in-depth, first-principles explanation of a typed question. The question is never kept by the page. */
@@ -535,7 +538,7 @@ export type TutorFallback = { reason: string; text: string; offers: { id: string
 export type TutorReply =
   | { kind: "reply"; text: string; language?: string }
   | { kind: "unavailable"; reason: string; fallback?: TutorFallback }
-  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string }
+  | { kind: "refused" | "distress" | "out_of_scope"; message: string; reason?: string; helplines?: Helpline[] }
   | { kind: "empty" };
 
 /** A short Socratic reply to a follow-up question. The client sends the conversation each time; nothing is kept. */

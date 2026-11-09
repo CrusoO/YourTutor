@@ -110,3 +110,18 @@ describe("AskAbout when Brownie cannot answer", () => {
     expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
 });
+
+
+describe("AskAbout when the question is a cry for help", () => {
+  it("shows the helplines under the support message", async () => {
+    vi.mocked(api.explainChat).mockResolvedValue({
+      kind: "distress",
+      message: "Please talk to a grown-up you trust. The lines below can listen.",
+      helplines: [{ id: "tele_manas", kind: "mental_health", name: "Tele-MANAS", number: "14416", hours: null, verified: true }],
+    });
+    render(<AskAbout prompt="slope" language="en" onPractice={onPractice} />);
+    await ask("i want to die");
+    expect(await screen.findByTestId("ask-about-tutor")).toHaveTextContent("The lines below can listen.");
+    expect(screen.getByRole("link", { name: /Tele-MANAS/ })).toHaveAttribute("href", "tel:14416");
+  });
+});

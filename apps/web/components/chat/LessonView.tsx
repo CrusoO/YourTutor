@@ -9,6 +9,7 @@ import { currentLocale, useCopy } from "@/lib/locale";
 import { LessonBlocks } from "./lesson/LessonBlocks";
 import { GroupLessonBody } from "./lesson/GroupLesson";
 import { ShareLesson } from "./lesson/ShareLesson";
+import { Helplines } from "./Helplines";
 import { SourcesDrawer } from "./SourcesDrawer";
 import { VideoCard } from "./VideoCard";
 import { PreparedVideo, VideoDialog } from "./PreparedVideo";
@@ -495,6 +496,7 @@ function LessonBody({ prompt }: { prompt: string }) {
             {note}
           </p>
         ) : null}
+        {written?.kind === "distress" ? <Helplines list={written.helplines} /> : null}
         {unavailable ? (
           <p className="m-0 rounded-2xl border border-line bg-surface px-4 py-3 text-[0.9375rem] text-muted" role="status">
             {copy.lessonUnavailable}

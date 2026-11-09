@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { explainChat, type TutorFallback, type TutorTurn } from "@/lib/api";
+import { explainChat, type Helpline, type TutorFallback, type TutorTurn } from "@/lib/api";
 import { useCopy } from "@/lib/locale";
+import { Helplines } from "../Helplines";
 import { Reveal } from "./Reveal";
 
 /** The tutor keeps only the last few turns, and so does this box: nothing is stored anywhere. */
@@ -19,6 +20,8 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
   const [turns, setTurns] = useState<(TutorTurn & { fresh?: boolean })[]>([]);
   // The choices under Brownie's last "I can't answer that" line; gone as soon as the learner moves on.
   const [offers, setOffers] = useState<TutorFallback["offers"]>([]);
+  // Support lines under a crisis message; gone as soon as the learner moves on.
+  const [support, setSupport] = useState<Helpline[]>([]);
   const lastQuestion = useRef("");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
@@ -37,6 +40,7 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
     setBusy(true);
     setFailed(false);
     setOffers([]);
+    setSupport([]);
     try {
       const reply = await explainChat(question, language, history);
       const answer =
@@ -47,6 +51,7 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
             : "message" in reply
               ? reply.message
               : null;
+      if (reply.kind === "distress") setSupport(reply.helplines ?? []);
       if (answer) setTurns((prev) => [...prev, { role: "assistant", content: answer, fresh: true }]);
       else setFailed(true);
       // Only a choice that can be acted on here is shown: practice needs the chat to start it.
@@ -89,6 +94,7 @@ export function AskAbout({ prompt, language, onPractice }: { prompt: string; lan
           {busy ? <li className="self-start text-[0.8125rem] text-muted">{copy.lessonTutorThinking}</li> : null}
         </ul>
       ) : null}
+      <Helplines list={support} />
       {offers.length > 0 ? (
         <div className="flex flex-wrap gap-2" data-testid="ask-about-offers">
           {offers.map((offer) => (
