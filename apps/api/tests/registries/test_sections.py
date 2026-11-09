@@ -51,6 +51,17 @@ def _curriculum(keys: tuple[str, ...], overlay_id: str = "OV") -> dict[str, Curr
 
 
 COMING_SOON_CHAPTER = "bhutan_class9_quadratics"
+# A chapter with named sections from the book's contents, not the three placeholders.
+REAL_SECTIONS_CHAPTER = "cbse.10.maths.ch02"
+
+
+def _seeded_section_count() -> int:
+    return sum(
+        len(chapter.sections)
+        for spec in load_all_curricula().values()
+        for book in spec.books
+        for chapter in book.chapters
+    )
 
 
 def test_seed_curricula_have_three_placeholder_sections_each() -> None:
@@ -59,6 +70,13 @@ def test_seed_curricula_have_three_placeholder_sections_each() -> None:
             for chapter in book.chapters:
                 if chapter.id == COMING_SOON_CHAPTER:  # S1b placeholder: no content, no sections
                     assert chapter.sections == ()
+                    continue
+                if chapter.id == REAL_SECTIONS_CHAPTER:
+                    assert chapter.sections, "a real chapter lists its sections"
+                    assert [s.order for s in chapter.sections] == list(
+                        range(1, len(chapter.sections) + 1)
+                    )
+                    assert all(s.id == f"{chapter.id}.{s.key}" for s in chapter.sections)
                     continue
                 assert [s.key for s in chapter.sections] == ["s1", "s2", "s3"]
                 assert chapter.sections[0].id == f"{chapter.id}.s1"
@@ -99,7 +117,7 @@ def test_section_without_mapping_is_an_error() -> None:
 
 def test_sections_seeded_in_db(db: Session) -> None:
     rows = db.scalars(select(SectionRow)).all()
-    assert len(rows) == 9
+    assert len(rows) == _seeded_section_count()
     row = db.get(SectionRow, "bhutan_class9.s2")
     assert row is not None
     assert row.chapter_id == "bhutan_class9"

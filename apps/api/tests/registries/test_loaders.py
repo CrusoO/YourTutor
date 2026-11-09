@@ -89,7 +89,13 @@ def test_content_load_syncs_registry_and_overlay_sections(tmp_path: Path) -> Non
     url = f"sqlite:///{tmp_path / 'sync.db'}"
     load_path(repo_root() / "content", database_url=url)
     with session_factory(url)() as session:
-        assert len(session.scalars(select(SectionRow)).all()) == 9
+        expected = sum(
+            len(chapter.sections)
+            for spec in load_all_curricula().values()
+            for book in spec.books
+            for chapter in book.chapters
+        )
+        assert len(session.scalars(select(SectionRow)).all()) == expected
         assert session.get(LocaleRow, "ne") is not None
         overlay = session.get(OverlayRow, "bhutan_class9")
         assert overlay is not None

@@ -266,7 +266,9 @@ def test_retry_wrong_owner_returns_403(client: TestClient, world: World, db: Ses
 def test_topics_returns_sections_for_prefix(client: TestClient, world: World, db: Session) -> None:
     from app.db.models import BookRow, ChapterRow, CurriculumRow, SectionRow
 
+    # Postgres enforces the foreign keys, so each parent row is written before its children.
     db.merge(CurriculumRow(id="tvj", default_timezone="UTC", jurisdiction_profile="default_strict"))
+    db.flush()
     db.merge(
         BookRow(
             id="tvj.10.maths",
@@ -275,6 +277,7 @@ def test_topics_returns_sections_for_prefix(client: TestClient, world: World, db
             default_chapter_id="tvj.10.maths.ch01",
         )
     )
+    db.flush()
     db.merge(
         ChapterRow(
             id="tvj.10.maths.ch01",
@@ -285,6 +288,7 @@ def test_topics_returns_sections_for_prefix(client: TestClient, world: World, db
             position=1,
         )
     )
+    db.flush()
     db.merge(
         SectionRow(
             id="tvj.10.maths.ch01.s1",
