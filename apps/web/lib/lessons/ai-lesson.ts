@@ -59,6 +59,8 @@ export type AiPredict = {
   options?: string[];
   correct: number | null;
   reveal_after: string;
+  /** True when the server checked the marked option with the maths verifier; false when it could not read the question. */
+  verified?: boolean;
   /** A short name for the idea behind each wrong option (null for the right one); may be empty. */
   misconceptions?: (string | null)[];
 };
@@ -70,6 +72,8 @@ export type AiCheck = {
   correct: number;
   feedback_per_option: string[];
   hint_ladder: string[];
+  /** True when the server checked the marked option with the maths verifier; false when it could not read the question. */
+  verified?: boolean;
   misconceptions?: (string | null)[];
 };
 export type AiTransfer = { kind: "transfer"; scenario: string; question: string; model_answer: string };

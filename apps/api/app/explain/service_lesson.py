@@ -9,17 +9,21 @@ The output is safe-cleaned before it leaves this module.
 from __future__ import annotations
 
 import json
+import logging
 import re
 from pathlib import Path
 from typing import Any
 
 from app.config import settings
 from app.explain import lesson_cache
+from app.explain.quiz_verify import verify_choice
 from app.explain.service import Completer, ExplainProvider, Gate, precheck, unavailable
 from app.explain.story import extract_json
 from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
+
+log = logging.getLogger(__name__)
 
 PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v4.md"
 PROMPT_VERSION = "lesson/v4"
@@ -199,6 +203,17 @@ def _clean_hook(raw: dict[str, Any]) -> dict[str, Any] | None:
     return {"kind": "hook", "text": text, "question": question}
 
 
+def _verified(question: str, options: list[str], correct: int) -> bool | None:
+    """True when the maths verifier confirms the marked option, False when it cannot read the
+    question (the block is kept, marked as not machine-checked), None when it contradicts the mark
+    (the block is dropped: either the quiz or the mark is wrong)."""
+    verdict = verify_choice(question, options, correct)
+    if verdict.status == "conflict":
+        log.warning("lesson quiz dropped: %s", verdict.detail)
+        return None
+    return verdict.status == "verified"
+
+
 def _clean_predict(raw: dict[str, Any]) -> dict[str, Any] | None:
     prompt = _str(raw.get("prompt"), 300)
     if not prompt:
@@ -222,6 +237,9 @@ def _clean_predict(raw: dict[str, Any]) -> dict[str, Any] | None:
     correct = _int_or(raw.get("correct"), -1)
     if not (0 <= correct < len(options)):
         correct = 0
+    verified = _verified(prompt, options, correct)
+    if verified is None:
+        return None
     reveal = _str(raw.get("reveal_after"), 400)
     tags = _tags(raw.get("misconceptions"), len(options))
     if tags:
@@ -232,6 +250,7 @@ def _clean_predict(raw: dict[str, Any]) -> dict[str, Any] | None:
         "free_text": False,
         "options": options,
         "correct": correct,
+        "verified": verified,
         "reveal_after": reveal,
         "misconceptions": tags,
     }
@@ -386,6 +405,9 @@ def _clean_check(raw: dict[str, Any]) -> dict[str, Any] | None:
     correct = _int_or(raw.get("correct"), 0)
     if not (0 <= correct < 4):
         correct = 0
+    verified = _verified(question, options, correct)
+    if verified is None:
+        return None
     feedback = raw.get("feedback_per_option")
     if not isinstance(feedback, list) or len(feedback) != 4:
         feedback = [""] * 4
@@ -402,6 +424,7 @@ def _clean_check(raw: dict[str, Any]) -> dict[str, Any] | None:
         "question": question,
         "options": options,
         "correct": correct,
+        "verified": verified,
         "feedback_per_option": feedback,
         "hint_ladder": hints,
         "misconceptions": tags,
