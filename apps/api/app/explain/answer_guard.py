@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session
 
 from app.content.leak import hint_leaks_answer
 from app.db.models import ItemRow, SessionRow
+from app.explain.number_words import words_to_digits
 from app.explain.service import unavailable
 
 log = logging.getLogger(__name__)
@@ -92,8 +93,10 @@ def load_active_item(
 
 
 def leaks(text: str, active: ActiveItem) -> bool:
-    """True when `text` contains the answer or any accepted form of it."""
-    return any(hint_leaks_answer(text, answer) for answer in active.answers)
+    """True when `text` contains the answer or any accepted form of it, written in digits or as
+    an English number word ("twelve")."""
+    variants = (text, words_to_digits(text))
+    return any(hint_leaks_answer(v, answer) for v in variants for answer in active.answers)
 
 
 def _authored_hint(active: ActiveItem, language: str) -> str | None:
