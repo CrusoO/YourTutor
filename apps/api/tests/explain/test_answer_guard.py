@@ -122,6 +122,8 @@ def test_the_number_inside_a_longer_number_is_not_a_leak() -> None:
 
 @pytest.fixture(autouse=True)
 def _keys(monkeypatch: pytest.MonkeyPatch) -> None:
+    for name in ("groq_api_key", "gemini_api_key", "openrouter_api_key", "anthropic_api_key"):
+        monkeypatch.setattr(settings, name, "")  # a developer's own .env must not change a test
     monkeypatch.setattr(settings, "llm_api_key", "test-key")
     monkeypatch.setattr(settings, "llm_model_strong", "groq/test-model")
     monkeypatch.setattr(settings, "explain_enabled", True)

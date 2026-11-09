@@ -128,6 +128,8 @@ def test_an_empty_stream_is_unavailable(monkeypatch: pytest.MonkeyPatch) -> None
 
 @pytest.fixture(autouse=True)
 def _keys(monkeypatch: pytest.MonkeyPatch) -> None:
+    for name in ("groq_api_key", "gemini_api_key", "openrouter_api_key", "anthropic_api_key"):
+        monkeypatch.setattr(settings, name, "")  # a developer's own .env must not change a test
     monkeypatch.setattr(settings, "llm_api_key", "test-key")
     monkeypatch.setattr(settings, "llm_model_strong", "groq/test-model")
     monkeypatch.setattr(settings, "explain_enabled", True)
@@ -219,7 +221,7 @@ def test_a_missing_key_is_a_final_unavailable_with_the_authored_line(
 def test_a_provider_without_streaming_falls_back_to_the_plain_reply(
     client: TestClient, world: World, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(settings, "llm_model_strong", "anthropic/claude-haiku-5-5")
+    monkeypatch.setattr(settings, "llm_model_strong", "mystery/model")
     events = _stream(client, world)
     assert [e["type"] for e in events] == ["final"]
     assert events[0]["result"]["reason"] == "provider_error"
