@@ -455,6 +455,7 @@ const en = {
   lessonSkipToCheck: "I know this, skip ahead",
   lessonNotice: "Notice",
   lessonCheckYourself: "Quick check",
+  lessonNotChecked: "Brownie could not check this answer by calculation, so treat it as a guide.",
   lessonThinkOf: "Think of it like this",
   lessonRightAnswer: "Yes, exactly.",
   lessonNotQuite: "Not quite, let's look at it.",
