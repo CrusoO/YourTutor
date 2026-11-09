@@ -71,7 +71,9 @@ def model_calls(monkeypatch: pytest.MonkeyPatch) -> list[str]:
     monkeypatch.setattr(
         explain_router,
         "build_chat",
-        lambda prompt, language, history, gate, restricted=False: fake("chat")(prompt, language),
+        lambda prompt, language, history, gate, restricted=False, register=None: fake("chat")(
+            prompt, language
+        ),
     )
     return calls
 
