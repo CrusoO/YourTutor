@@ -5,12 +5,16 @@
  * logged: this module has no network, storage or console calls, and a test keeps it that way.
  */
 
+import type { Helpline } from "@/lib/api";
+
 export type FinderRules = {
   max_chars: number;
   pii: { email: string; phone: string; url: string };
   distress_terms: string[];
   blocked_patterns: string[];
   blocked_terms: string[];
+  /** Support lines the device shows when it answers a distress phrase itself (optional: older servers omit it). */
+  helplines?: Helpline[];
 };
 
 export type Topic = { id: string; title: string; chapterId: string; kind: "chapter" | "skill" };

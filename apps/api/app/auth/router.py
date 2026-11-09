@@ -165,6 +165,7 @@ def finder_rules_route(language: str = "en") -> dict[str, Any]:
     """
     from app.ask.config import load_ask_config, load_safety
     from app.ask.guard import EMAIL, PHONE, URL
+    from app.helplines import helplines_for
     from app.llm.rules import default_rules
 
     lists = load_safety(language)
@@ -174,6 +175,9 @@ def finder_rules_route(language: str = "en") -> dict[str, Any]:
         "distress_terms": list(lists.distress_terms),
         "blocked_patterns": list(lists.injection_patterns),
         "blocked_terms": list(default_rules().blocked_terms),
+        # The device answers a distress phrase itself and never posts the text, so the numbers it
+        # shows travel with the rules (verified-or-not as in config/helplines.yaml).
+        "helplines": [h.public() for h in helplines_for(("mental_health", "child_protection"))],
     }
 
 

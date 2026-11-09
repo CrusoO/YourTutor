@@ -28,6 +28,7 @@ import {
   today,
   clearStudent,
   type ContextOptions,
+  type Helpline,
 } from "@/lib/api";
 import { isLiveLocale, setLocale, useCopy } from "@/lib/locale";
 import { decide, planAction, type ActionRules, type Step } from "@/lib/chat/actions";
@@ -74,6 +75,8 @@ export type Reply = {
   id: number;
   kind: "matches" | "none" | "blocked" | "distress" | "pick_class" | "off" | "too_long" | "notice";
   topics?: Topic[];
+  /** Support lines for a "distress" reply, from the finder rules the device already holds. */
+  helplines?: Helpline[];
   piiRemoved?: boolean;
   /** Which mode the matches belong to, so tapping a chip does the right thing. */
   mode?: Mode;
@@ -391,7 +394,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       const prepared = prepare(text, rules.current);
       if (prepared.kind === "empty") return;
       if (prepared.kind === "too_long") return addReply({ kind: "too_long" });
-      if (prepared.kind === "distress") return addReply({ kind: "distress" });
+      if (prepared.kind === "distress") return addReply({ kind: "distress", helplines: rules.current.helplines });
       if (prepared.kind === "blocked") return addReply({ kind: "blocked" });
       const list = await loadTopics();
       const found = findTopics(prepared.text, list);
