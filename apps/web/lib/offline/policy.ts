@@ -328,7 +328,7 @@ function onStuckStep(_learner: LearnerState, session: SessionState, event: Polic
   if (index === null) return flag(session, "bad_step");
   if (!(index >= 0 && index < item.step_hints.length)) return flag(session, "bad_step");
   let text = item.step_hints[index];
-  if (leakCheck(text, item.answer_sympy, 1)) text = hintText(item, 1);
+  if (leakCheck(text, item.answer_sympy, 1)) text = nonLeakingHint(item, 0); // never reveal before hint 3
   session.phase = "practice";
   return keep(
     session,
@@ -354,10 +354,23 @@ function checkYourWork(session: SessionState, item: CatalogItem, kind: string): 
   );
 }
 
+const GENERIC_SOCRATIC = "What do you think the first step is?";
+
+/** An authored hint of level 1 or 2 that does not give the answer away, else a neutral question.
+ * Never a level-3 hint: that one may reveal, and is only ever asked for. Mirrors the Python policy. */
+function nonLeakingHint(item: CatalogItem, avoid: number): string {
+  for (const level of [1, 2]) {
+    if (level === avoid) continue;
+    const text = hintText(item, level);
+    if (text && !leakCheck(text, item.answer_sympy, level)) return text;
+  }
+  return GENERIC_SOCRATIC;
+}
+
 function deliverHint(learner: LearnerState, session: SessionState, item: CatalogItem): Action {
   const lvl = session.hint_level_shown + 1;
   let text = hintText(item, lvl);
-  if (leakCheck(text, item.answer_sympy, lvl)) text = hintText(item, lvl);
+  if (leakCheck(text, item.answer_sympy, lvl)) text = nonLeakingHint(item, lvl);
   maybeBkt(learner, session, item, "request_hint", false);
   if (session.last_event !== null && session.last_event.type === "request_help") {
     maybeLadder(learner, session, item, KIND_HINT, null);
@@ -1301,7 +1314,7 @@ function predictionFor(session: SessionState, skill: string): string {
   for (const row of session.catalog) {
     if (primarySkill(row) === skill && row.prediction_prompt) return row.prediction_prompt;
   }
-  return "What do you think the first step is?";
+  return GENERIC_SOCRATIC;
 }
 
 function idleExpired(session: SessionState, event: PolicyEvent | null): boolean {
