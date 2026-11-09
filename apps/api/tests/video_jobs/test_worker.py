@@ -19,6 +19,7 @@ from app.video_jobs.worker import (
     reset_running_jobs,
     run_one_job,
 )
+from tests.conftest import World
 
 # ── fake engine script ────────────────────────────────────────────────────────
 
@@ -56,7 +57,11 @@ _FAKE_ENGINE_PY = textwrap.dedent("""\
         time.sleep(0.02)
 
     if exit_code == 0:
-        result = {"status": "done", "files": [{"name": "lesson.mp4", "sha256": "deadbeef"}]}
+        # the engine's result.json: files keyed by role, as the worker reads it
+        result = {
+            "status": "done",
+            "files": {"video": {"name": "lesson.mp4", "sha256": "deadbeef"}},
+        }
         (job_dir / "lesson.mp4").write_bytes(b"fake mp4")
         (job_dir / "sources.json").write_text('{"caveats": []}')
         (job_dir / "qa.json").write_text("{}")
@@ -417,9 +422,9 @@ def test_api_cancel_terminates_subprocess(factory, db: Session, fake_engine) -> 
 # ── invariant: no student data in request file ───────────────────────────────
 
 
-def test_request_json_excludes_student_id(db: Session) -> None:
+def test_request_json_excludes_student_id(db: Session, world: World) -> None:
     """request_json stored in the DB (and dumped to the temp file) must never carry student_id."""
-    student_id = uuid.uuid4()
+    student_id = uuid.UUID(world.student_share_id)  # a real student: Postgres enforces the key
     job_id = uuid.uuid4()
     row = VideoJobRow(
         id=job_id,
