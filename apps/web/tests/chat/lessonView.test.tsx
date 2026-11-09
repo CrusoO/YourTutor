@@ -78,7 +78,7 @@ describe("LessonView content (the one-call path, when the fast opening is not av
     render(<LessonView />);
     expect(await screen.findByTestId("lesson-blocks")).toBeInTheDocument();
     expect(screen.getByTestId("block-hook")).toBeInTheDocument();
-    expect(screen.getByTestId("lesson-draft-note")).toHaveTextContent("An AI wrote this");
+    expect(screen.getByTestId("lesson-draft-note")).toHaveTextContent("Brownie is an AI and wrote this");
     expect(screen.getByTestId("lesson-video-card")).toBeInTheDocument();
     expect(api.explainQuestion).not.toHaveBeenCalled();
   });
