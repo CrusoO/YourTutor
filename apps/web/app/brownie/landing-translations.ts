@@ -59,11 +59,8 @@ const hi: LandingCopy = {
     label: "सवाल",
     headlineStart: "अगर सीखना विद्यार्थी को समझने से शुरू हो",
     headlineEmphasis: "सिर्फ़ विषय से नहीं?",
-    paragraphs: [
-      "Robin को याद है? उसे समझ न आने की बात कहने में डर लगता था। Brownie के साथ उसे दिखावा नहीं करना पड़ता।",
-      "Brownie यह नहीं मानता कि सब एक ही गति से सीखते हैं या सब कुछ पहले से जानते हैं। वही सवाल दोबारा पूछने पर भी वह आपको बुरा महसूस नहीं कराता।",
-      "सिखाने से पहले Brownie कुछ छोटे सवाल पूछता है, जैसे:",
-    ],
+    // English until a native reviewer supplies text for the shortened chapter.
+    paragraphs: [...landingContent.chapterTwo.paragraphs],
     questions: [
       "क्या आपने पहले भिन्न पढ़े हैं?",
       "भिन्नों का मतलब उलझाता है या उन्हें जोड़ना?",
@@ -89,10 +86,7 @@ const hi: LandingCopy = {
       thirdLegend: "2/6 (एक-तिहाई)",
       restart: "उदाहरण फिर से शुरू करें",
     },
-    afterPanel: [
-      "अब भी साफ़ नहीं? फिर पूछें। Brownie आपको ग़लत महसूस कराए बिना दूसरा तरीका आज़माएगा। वह किताब से आगे नहीं बढ़ता; वह आपकी तैयारी पर आगे बढ़ता है।",
-      "न समझने का मतलब यह नहीं कि आप सीख नहीं सकते। आपको बस अलग तरह से सिखाने वाले की ज़रूरत है।",
-    ],
+    afterPanel: [...landingContent.chapterTwo.afterPanel],
     questionAria: "भिन्न जोड़ने पर Brownie की नमूना बातचीत",
   },
   chapterThree: {
@@ -211,11 +205,8 @@ const ne: LandingCopy = {
     label: "प्रश्न",
     headlineStart: "यदि सिकाइ विद्यार्थीलाई बुझेर सुरु भयो भने",
     headlineEmphasis: "विषय मात्र होइन?",
-    paragraphs: [
-      "Robin याद छ? उसलाई आफूले नबुझेको भन्न डर लाग्थ्यो। Brownie सँग उसले नाटक गर्नुपर्दैन।",
-      "सबैले एउटै गतिमा सिक्छन् वा सबै कुरा पहिल्यै जान्नुपर्छ भन्ने Brownie मान्दैन। एउटै प्रश्न फेरि सोध्दा पनि उसले तपाईंलाई नराम्रो महसुस गराउँदैन।",
-      "सिकाउनुअघि Brownie केही साना प्रश्न सोध्छ, जस्तै:",
-    ],
+    // English until a native reviewer supplies text for the shortened chapter.
+    paragraphs: [...landingContent.chapterTwo.paragraphs],
     questions: [
       "तपाईंले पहिले भिन्न पढ्नुभएको छ?",
       "भिन्नको अर्थ अलमल हुन्छ कि जोड्न?",
@@ -241,10 +232,7 @@ const ne: LandingCopy = {
       thirdLegend: "2/6 (एक-तिहाइ)",
       restart: "उदाहरण फेरि सुरु गर्नुहोस्",
     },
-    afterPanel: [
-      "अझै स्पष्ट भएन? फेरि सोध्नुहोस्। Brownie ले तपाईंलाई गल्ती महसुस नगराई अर्को तरिका देखाउँछ। किताब अघि बढ्यो भन्दैमा ऊ अघि बढ्दैन; तपाईं तयार भएपछि मात्र अघि बढ्छ।",
-      "नबुझ्नुको अर्थ तपाईं सिक्न सक्नुहुन्न भन्ने होइन। तपाईंलाई फरक तरिकाले सिकाउने कोही चाहिन्छ।",
-    ],
+    afterPanel: [...landingContent.chapterTwo.afterPanel],
     questionAria: "भिन्न जोड्ने विषयमा Brownie सँगको नमुना कुराकानी",
   },
   chapterThree: {
