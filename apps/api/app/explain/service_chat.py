@@ -7,10 +7,6 @@ The same gate, safety screen and model selection as /explain apply.
 
 from __future__ import annotations
 
-import json
-import time
-import urllib.error
-import urllib.request
 from collections.abc import Generator
 from dataclasses import dataclass, replace
 from pathlib import Path
@@ -18,17 +14,12 @@ from typing import Any
 
 from app.ask.config import load_safety, message
 from app.ask.guard import clean_question, screen
-from app.config import key_for_model, settings
+from app.config import ANTHROPIC_PREFIX, key_for_model, settings
 from app.conversation.voice import Register, trim_to_words
-from app.explain.service import (
-    ENDPOINTS,
-    REQUEST_TIMEOUT_S,
-    Gate,
-    unavailable,
-)
+from app.explain.service import REQUEST_TIMEOUT_S, Gate, unavailable
 from app.llm import anthropic_client
 from app.llm.prompt import STUDENT_TAG
-from app.llm.provider import ProviderError
+from app.llm.provider import ProviderError, claude_model_name
 from app.safety import detection_from_verdict, distress_reply
 
 PROMPT_FILE = Path(__file__).parent / "prompts" / "tutor.v2.md"
@@ -37,8 +28,6 @@ MAX_TOKENS = 600
 MAX_QUESTION_CHARS = 500
 MAX_REPLY_CHARS = 1000
 MAX_HISTORY_TURNS = 8  # keep at most the last 4 full exchanges (8 messages)
-MAX_HTTP_ATTEMPTS = 2
-RETRY_CODES = (429, 500, 502, 503, 504)
 LANGUAGES = ("en", "hi")
 
 OPEN_SCOPE = (
@@ -89,50 +78,9 @@ def _turns(history: list[dict[str, Any]], user_message: str) -> list[dict[str, s
     return turns
 
 
-def _chat_request(
-    system: str,
-    history: list[dict[str, Any]],
-    user_message: str,
-    model: str,
-    api_key: str,
-    *,
-    stream: bool = False,
-) -> urllib.request.Request:
-    """The HTTP request for one OpenAI-style chat call. Claude goes through the SDK instead
-    (`app.llm.anthropic_client`). Raises ProviderError for an unknown provider."""
-    provider_id, _, name = model.partition("/")
-    url = ENDPOINTS.get(provider_id)
-    if url is None or not name or provider_id == "anthropic":
-        raise ProviderError("unknown provider")
-
-    messages = [{"role": "system", "content": system}, *_turns(history, user_message)]
-    body: dict[str, Any] = {"model": name, "messages": messages, "max_tokens": MAX_TOKENS}
-    if stream:
-        body["stream"] = True
-    headers = {
-        "Content-Type": "application/json",
-        "User-Agent": "yourtutor-api/0.1",
-        "Authorization": f"Bearer {api_key}",
-    }
-    return urllib.request.Request(  # noqa: S310  https URLs from ENDPOINTS table only
-        url, data=json.dumps(body).encode("utf-8"), headers=headers, method="POST"
-    )
-
-
-def _reply_text(data: dict[str, Any]) -> str:
-    """The reply text in an OpenAI-style response; a missing reply is ''."""
-    return str(data["choices"][0]["message"].get("content") or "")
-
-
-def _stream_piece(event: dict[str, Any]) -> str:
-    """The text in one OpenAI-style streamed event, or ''."""
-    return str(event["choices"][0]["delta"].get("content") or "")
-
-
 def can_stream(model: str) -> bool:
-    """True when this module can stream from the model's provider."""
-    provider_id, _, name = model.partition("/")
-    return bool(name) and provider_id in ENDPOINTS
+    """True when the model name is one this module can stream (Claude: "anthropic/<model>")."""
+    return model.startswith(ANTHROPIC_PREFIX) and len(model) > len(ANTHROPIC_PREFIX)
 
 
 def _chat_stream(
@@ -147,37 +95,14 @@ def _chat_stream(
     There is no retry once text may have been shown; the caller decides what to do on failure.
     The caller closes the generator to stop reading (that closes the connection).
     """
-    provider_id, _, name = model.partition("/")
-    if provider_id == "anthropic":
-        if not name:
-            raise ProviderError("unknown provider")
-        yield from anthropic_client.stream_text(
-            system,
-            _turns(history, user_message),
-            name,
-            api_key,
-            max_tokens=MAX_TOKENS,
-            timeout_s=REQUEST_TIMEOUT_S,
-        )
-        return
-    request = _chat_request(system, history, user_message, model, api_key, stream=True)
-    try:
-        with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
-            for raw in response:
-                line = raw.decode("utf-8", errors="replace").strip()
-                if not line.startswith("data:"):
-                    continue
-                payload = line[5:].strip()
-                if payload == "[DONE]":
-                    return
-                try:
-                    piece = _stream_piece(json.loads(payload))
-                except (ValueError, KeyError, IndexError, TypeError, AttributeError):
-                    continue
-                if piece:
-                    yield piece
-    except Exception as exc:  # noqa: BLE001
-        raise ProviderError(type(exc).__name__) from exc
+    yield from anthropic_client.stream_text(
+        system,
+        _turns(history, user_message),
+        claude_model_name(model),
+        api_key,
+        max_tokens=MAX_TOKENS,
+        timeout_s=REQUEST_TIMEOUT_S,
+    )
 
 
 def _chat_complete(
@@ -187,43 +112,15 @@ def _chat_complete(
     model: str,
     api_key: str,
 ) -> str:
-    """One multi-turn HTTP call to the provider.
-
-    Returns the assistant's text or raises ProviderError.
-    """
-    provider_id, _, name = model.partition("/")
-    if provider_id == "anthropic":
-        if not name:
-            raise ProviderError("unknown provider")
-        return anthropic_client.complete(
-            system,
-            _turns(history, user_message),
-            name,
-            api_key,
-            max_tokens=MAX_TOKENS,
-            timeout_s=REQUEST_TIMEOUT_S,
-        ).text
-    last: Exception | None = None
-    for attempt in range(MAX_HTTP_ATTEMPTS):
-        request = _chat_request(system, history, user_message, model, api_key)
-        try:
-            with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
-                data = json.loads(response.read().decode("utf-8"))
-            return _reply_text(data)
-        except urllib.error.HTTPError as exc:
-            last = exc
-            if exc.code not in RETRY_CODES or attempt == MAX_HTTP_ATTEMPTS - 1:
-                break
-            wait = exc.headers.get("retry-after") if exc.headers else None
-            try:
-                seconds = float(wait) if wait else 3.0 * (attempt + 1)
-            except ValueError:
-                seconds = 3.0 * (attempt + 1)
-            time.sleep(min(max(seconds, 1.0), 30.0))
-        except Exception as exc:  # noqa: BLE001
-            last = exc
-            break
-    raise ProviderError(type(last).__name__ if last else "ProviderError") from last
+    """One multi-turn call to Claude. Returns the assistant's text or raises ProviderError."""
+    return anthropic_client.complete(
+        system,
+        _turns(history, user_message),
+        claude_model_name(model),
+        api_key,
+        max_tokens=MAX_TOKENS,
+        timeout_s=REQUEST_TIMEOUT_S,
+    ).text
 
 
 @dataclass(frozen=True)

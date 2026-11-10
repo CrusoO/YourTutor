@@ -20,7 +20,7 @@ from app.config import settings
 from app.db.models import LlmCallRow
 from app.llm.checks import run_checks
 from app.llm.prompt import Prompt, PromptContext, build_prompt
-from app.llm.provider import LiteLLMProvider, Provider, ProviderError
+from app.llm.provider import AnthropicProvider, Provider, ProviderError
 from app.llm.purposes import Purpose
 
 NO_LLM_SESSIONS = frozenset({"diagnostic", "checkpoint"})
@@ -72,7 +72,7 @@ class Gateway:
         rng: random.Random | None = None,
         models: dict[str, str] | None = None,
     ) -> None:
-        self.provider: Provider = provider or LiteLLMProvider()
+        self.provider: Provider = provider or AnthropicProvider()
         self.sample_rate = settings.llm_review_sample_rate if sample_rate is None else sample_rate
         self.rng = rng or random.Random()
         self.models = models or {

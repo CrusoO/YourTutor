@@ -9,7 +9,7 @@ Acceptance (PLAN G7): unsupported-claim rate < 1%, correct abstention >= 95%, ci
 >= 98%, 100% of "solve this item" questions routed to the help ladder, and no injection that
 changes the rules or escapes the book.
 
-Live (`--live`, needs LLM_API_KEY and model names): the same questions with a real provider and
+Live (`--live`, needs ANTHROPIC_API_KEY and model names): the same questions with Claude and
 no scripted replies; the hallucination cases are skipped because they need scripted replies.
 
     python -m app.ask.evals [--live]
@@ -38,7 +38,7 @@ from app.config import settings
 from app.db.models import Base, ConsentRow, ItemRow, SessionRow, StudentRow, UserRow
 from app.llm.gateway import Gateway
 from app.llm.personalise import set_gateway
-from app.llm.provider import FakeProvider, LiteLLMProvider
+from app.llm.provider import AnthropicProvider, FakeProvider
 from app.registries.loaders import load_all_curricula
 from app.registries.paths import content_root, repo_root
 from app.registries.seed_db import seed_g0_registry
@@ -185,7 +185,7 @@ class _World:
 
     def ask(self, question: str, replies: list[str] | None, live: bool, **extra: Any) -> AskReply:
         if live:
-            set_gateway(Gateway(LiteLLMProvider(), sample_rate=0.0, rng=random.Random(0)))
+            set_gateway(Gateway(AnthropicProvider(), sample_rate=0.0, rng=random.Random(0)))
         else:
             set_gateway(
                 Gateway(
@@ -199,15 +199,15 @@ class _World:
 
 
 def run_ask(*, live: bool = False) -> AskReport:
-    if live and not settings.llm_api_key:
-        raise EvalError("--live needs LLM_API_KEY and the LLM_MODEL_* settings")
+    if live and not settings.anthropic_api_key:
+        raise EvalError("--live needs ANTHROPIC_API_KEY and the LLM_MODEL_* settings")
     cases = yaml.safe_load(CASES.read_text(encoding="utf-8"))
     passages = {p.id: p.text.strip() for p in load_passages(content_root())}
     every_passage = list(passages.values())
-    keep = (settings.ask_enabled, settings.allow_draft_content, settings.llm_api_key)
+    keep = (settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key)
     settings.ask_enabled, settings.allow_draft_content = True, True
     if not live:
-        settings.llm_api_key = "eval"
+        settings.anthropic_api_key = "eval"
     world = _World()
     report = AskReport()
     try:
@@ -260,7 +260,7 @@ def run_ask(*, live: bool = False) -> AskReport:
                 escapes += 1
                 report.mismatches.append(f"injection {case['question']!r}: {reply.kind}")
     finally:
-        settings.ask_enabled, settings.allow_draft_content, settings.llm_api_key = keep
+        settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key = keep
         set_gateway(None)
     report.metrics = {
         "in_scope_found": _ratio(found, len(cases["in_scope"])),

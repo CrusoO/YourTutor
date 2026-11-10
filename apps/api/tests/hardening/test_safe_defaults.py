@@ -17,7 +17,7 @@ RISKY = (
     "RESEARCH_MODULE",
     "ALLOW_DRAFT_CONTENT",
     "DEV_TOOLS",
-    "LLM_API_KEY",
+    "ANTHROPIC_API_KEY",
     "SMTP_HOST",
     "OTEL_ENABLED",
     "APP_ENV",
@@ -36,11 +36,11 @@ def test_risky_features_are_off_without_configuration(bare: Settings) -> None:
     assert bare.research_module is False
     assert bare.allow_draft_content is False and bare.dev_tools is False
     assert bare.otel_enabled is False
-    assert bare.llm_api_key == "" and bare.smtp_host == ""
+    assert bare.anthropic_api_key == "" and bare.smtp_host == ""
 
 
 def test_no_model_call_without_a_key_and_ai_processing(bare: Settings) -> None:
-    assert skip_reason(Gate("practice", True, bool(bare.llm_api_key))) == "no_key"
+    assert skip_reason(Gate("practice", True, bool(bare.anthropic_api_key))) == "no_key"
     assert skip_reason(Gate("practice", False, True)) == "consent"
     assert skip_reason(Gate("practice", True, True)) is None
 

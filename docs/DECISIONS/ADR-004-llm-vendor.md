@@ -28,4 +28,4 @@ Before children's text is sent, the founder confirms Anthropic's data-retention 
 
 ## Revisions
 
-- None yet.
+- 2026-11-11: the owner confirmed Claude as the only provider and the planned deletions were done: Groq, Gemini, OpenRouter, the `urllib` HTTP path and `litellm` are removed (see `REMOVED.md`). This ADR is otherwise unchanged.

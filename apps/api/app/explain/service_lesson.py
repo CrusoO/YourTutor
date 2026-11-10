@@ -28,10 +28,8 @@ log = logging.getLogger(__name__)
 PROMPT_FILE = Path(__file__).parent / "prompts" / "lesson.v4.md"
 PROMPT_VERSION = "lesson/v4"
 # A model that thinks before it answers spends part of this budget on the thinking (about 3,000 of
-# 4,000 tokens for Claude Haiku), which cut the JSON off mid-object. Groq's free tier counts the
-# whole budget against 8,000 tokens a minute, so it keeps the small one.
+# 4,000 tokens for Claude Haiku), which cut the JSON off mid-object.
 MAX_TOKENS = 8000
-MAX_TOKENS_GROQ = 4000
 MAX_QUESTION_CHARS = 300
 LANGUAGES = ("en", "hi")
 MAX_ATTEMPTS = 2
@@ -44,7 +42,6 @@ MIN_REST_BLOCKS = 3
 MAX_OPENING_BLOCKS = 2
 MAX_TAG_CHARS = 80
 OPENING_TOKENS = 2500
-OPENING_TOKENS_GROQ = 1500
 
 OPEN_SCOPE = (
     "Build a lesson on any topic a curious student might want to learn, in any subject. "
@@ -68,10 +65,6 @@ def _tags(raw: Any, count: int) -> list[str | None]:
     if not isinstance(raw, list) or len(raw) != count:
         return []
     return [_words(t, MAX_TAG_CHARS) or None if isinstance(t, str) else None for t in raw]
-
-
-def _max_tokens(model: str) -> int:
-    return MAX_TOKENS_GROQ if model.startswith("groq/") else MAX_TOKENS
 
 
 def _kind_of(raw: dict[str, Any]) -> str:
@@ -619,14 +612,11 @@ def _run(
     if cache_key is not None and (hit := lesson_cache.get(cache_key)) is not None:
         return hit
 
-    if part == "opening":
-        tokens = OPENING_TOKENS_GROQ if chosen.startswith("groq/") else OPENING_TOKENS
-    else:
-        tokens = _max_tokens(chosen)
+    tokens = OPENING_TOKENS if part == "opening" else MAX_TOKENS
     story_provider = ExplainProvider(
         json_mode=True,
         max_tokens=tokens,
-        api_key=settings.llm_story_api_key or settings.llm_api_key or None,
+        api_key=settings.llm_story_api_key or settings.anthropic_api_key or None,
         # A hook and a question need no hidden reasoning, and skipping it halves the wait.
         thinking_off=part == "opening",
     )

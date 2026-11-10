@@ -116,12 +116,6 @@ def test_unknown_and_malformed_blocks_are_dropped_and_too_few_rejects_the_lesson
     assert sl.clean_lesson(None) is None
 
 
-def test_the_token_budget_leaves_room_for_thinking_except_on_groq() -> None:
-    assert sl._max_tokens("anthropic/claude-haiku-5-5") == 8000
-    assert sl._max_tokens("openrouter/x/y") == 8000
-    assert sl._max_tokens("groq/openai/gpt-oss-120b") == 4000
-
-
 def test_the_prompt_names_the_block_key() -> None:
     system = sl.build_prompt("q", "en", restricted=False).system
     assert 'Never write "type" instead of "kind"' in system
@@ -294,7 +288,7 @@ def test_only_the_opening_skips_thinking_and_uses_a_small_budget(
             raise ProviderError("stop here")
 
     monkeypatch.setattr(sl, "ExplainProvider", Spy)
-    monkeypatch.setattr(settings, "llm_api_key", "k")
+    monkeypatch.setattr(settings, "anthropic_api_key", "k")
     monkeypatch.setattr(settings, "llm_story_model", "")
     monkeypatch.setattr(settings, "llm_model_strong", "anthropic/claude-haiku-5-5")
     opening = sl.clean_client_opening(_blocks()[:2])
@@ -306,41 +300,7 @@ def test_only_the_opening_skips_thinking_and_uses_a_small_budget(
     assert all(not p.thinking_off and p.max_tokens == sl.MAX_TOKENS for p in made[1:])
 
 
-def _sent_body(
-    monkeypatch: pytest.MonkeyPatch, provider: ExplainProvider, model: str
-) -> dict[str, Any]:
-    """Run one completion against a fake HTTP layer and return the JSON body that was sent."""
-    from app.explain import service as explain_service
-    from app.llm.prompt import Prompt
-
-    sent: dict[str, Any] = {}
-
-    class Response:
-        def __enter__(self) -> Response:
-            return self
-
-        def __exit__(self, *exc: object) -> None:
-            return None
-
-        def read(self) -> bytes:
-            return json.dumps(
-                {
-                    "content": [{"type": "text", "text": "{}"}],
-                    "choices": [{"message": {"content": "{}"}}],
-                    "usage": {},
-                }
-            ).encode()
-
-    def fake_urlopen(request: Any, timeout: float = 0) -> Response:
-        sent.update(json.loads(request.data.decode()))
-        return Response()
-
-    monkeypatch.setattr(explain_service.urllib.request, "urlopen", fake_urlopen)
-    provider.complete(Prompt(system="s", user="u", version="v", max_words=10), model)
-    return sent
-
-
-def test_anthropic_gets_the_no_thinking_switch_only_when_asked_and_others_never(
+def test_the_no_thinking_switch_is_sent_only_when_asked(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from types import SimpleNamespace
@@ -367,8 +327,9 @@ def test_anthropic_gets_the_no_thinking_switch_only_when_asked_and_others_never(
     assert calls[-1]["thinking"] == {"type": "disabled"}  # Claude goes through the SDK
     ExplainProvider(api_key="k").complete(prompt, anthropic)
     assert "thinking" not in calls[-1]
-    other = _sent_body(monkeypatch, ExplainProvider(api_key="k", thinking_off=True), "groq/m")
-    assert "thinking" not in other  # a provider with no such switch is never sent the field
+    with pytest.raises(ProviderError):  # no anthropic/ prefix: never routed anywhere
+        ExplainProvider(api_key="k").complete(prompt, "groq/m")
+    assert len(calls) == 2
 
 
 # ── the endpoints ────────────────────────────────────────────────────────────
@@ -447,7 +408,7 @@ def _counting_provider(monkeypatch: pytest.MonkeyPatch, reply: str) -> list[int]
             return FakeProvider([reply]).complete(prompt, model)
 
     monkeypatch.setattr(sl, "ExplainProvider", Counting)
-    monkeypatch.setattr(settings, "llm_api_key", "k")
+    monkeypatch.setattr(settings, "anthropic_api_key", "k")
     monkeypatch.setattr(settings, "llm_story_model", "")
     monkeypatch.setattr(settings, "llm_model_strong", "anthropic/claude-haiku-5-5")
     return calls

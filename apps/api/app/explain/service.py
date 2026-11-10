@@ -7,11 +7,7 @@ a key, a model name or consent the caller gets `unavailable` and nothing is sent
 
 from __future__ import annotations
 
-import json
 import re
-import time
-import urllib.error
-import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -22,7 +18,7 @@ from app.config import key_for_model, settings
 from app.explain.mathtext import plain_math
 from app.llm import anthropic_client
 from app.llm.prompt import STUDENT_TAG, Prompt
-from app.llm.provider import ProviderError, ProviderResult
+from app.llm.provider import ProviderError, ProviderResult, claude_model_name
 from app.llm.rules import default_rules
 from app.safety import detection_from_verdict, distress_reply
 
@@ -31,7 +27,6 @@ MAX_QUESTION_CHARS = 300
 PROMPT_VERSION = "explain/v1"
 MAX_TOKENS = 6000
 REQUEST_TIMEOUT_S = 90
-MAX_HTTP_ATTEMPTS = 3
 MIN_SECTIONS = 3
 LANGUAGES = ("en", "hi")
 
@@ -79,21 +74,11 @@ class Completer(Protocol):
     def complete(self, prompt: Prompt, model: str) -> ProviderResult: ...
 
 
-# The model setting is "<provider>/<model>", e.g. "openrouter/anthropic/claude-haiku-5.5".
-# "anthropic" speaks the native Messages API; the rest speak the OpenAI chat format.
-ENDPOINTS: dict[str, str] = {
-    "groq": "https://api.groq.com/openai/v1/chat/completions",
-    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-    "openrouter": "https://openrouter.ai/api/v1/chat/completions",
-    "anthropic": "https://api.anthropic.com/v1/messages",
-}
-
-
 class ExplainProvider:
-    """One HTTPS call to the configured provider; a failure carries no reply text.
+    """One call to Claude through the SDK; a failure carries no reply text.
 
-    `json_mode` asks for a JSON object (dropped if the provider refuses it). A rate-limit answer
-    (429) or a server error is retried after a short wait, as the provider asks."""
+    The model setting is "anthropic/<model>"; any other name is a ProviderError. `json_mode` is
+    kept for the callers that ask for JSON: the prompts say so in words, the SDK has no switch."""
 
     def __init__(
         self,
@@ -105,87 +90,23 @@ class ExplainProvider:
         self.json_mode = json_mode
         self.max_tokens = max_tokens
         self.api_key = api_key
-        # Skips the model's hidden thinking where the provider supports it: about twice as
-        # fast for a short, simple reply. Ignored by providers that have no such switch.
+        # Skips the model's hidden thinking: about twice as fast for a short, simple reply.
         self.thinking_off = thinking_off
 
     def complete(self, prompt: Prompt, model: str) -> ProviderResult:
-        provider, _, name = model.partition("/")
-        url = ENDPOINTS.get(provider)
-        if url is None or not name:
-            raise ProviderError("unknown provider")
-        api_key = self.api_key or key_for_model(model)
-        if provider == "anthropic":
-            # Claude goes through the official SDK (retries, errors and refusals handled there).
-            reply = anthropic_client.complete(
-                prompt.system,
-                [{"role": "user", "content": prompt.user}],
-                name,
-                api_key,
-                max_tokens=self.max_tokens,
-                timeout_s=REQUEST_TIMEOUT_S,
-                thinking_off=self.thinking_off,
-            )
-            return ProviderResult(
-                text=reply.text, tokens_in=reply.tokens_in, tokens_out=reply.tokens_out
-            )
-
-        body: dict[str, Any] = {
-            "model": name,
-            "messages": [
-                {"role": "system", "content": prompt.system},
-                {"role": "user", "content": prompt.user},
-            ],
-            "max_tokens": self.max_tokens,
-        }
-        if provider == "groq":
-            body["reasoning_effort"] = "low"  # reasoning tokens share the answer's budget
-        req_headers = {
-            "Content-Type": "application/json",
-            "User-Agent": "yourtutor-api/0.1",
-            "Authorization": f"Bearer {api_key}",
-        }
-
-        use_json = self.json_mode
-        retry_codes = (429, 500, 502, 503, 504)
-        last: Exception | None = None
-        for attempt in range(MAX_HTTP_ATTEMPTS):
-            payload = dict(body)
-            if use_json:
-                payload["response_format"] = {"type": "json_object"}
-            request = urllib.request.Request(  # noqa: S310  https URLs from the table above only
-                url,
-                data=json.dumps(payload).encode("utf-8"),
-                headers=req_headers,
-                method="POST",
-            )
-            try:
-                with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
-                    data = json.loads(response.read().decode("utf-8"))
-                usage = data.get("usage") or {}
-                text = str(data["choices"][0]["message"].get("content") or "")
-                return ProviderResult(
-                    text=text,
-                    tokens_in=int(usage.get("prompt_tokens") or 0),
-                    tokens_out=int(usage.get("completion_tokens") or 0),
-                )
-            except urllib.error.HTTPError as exc:
-                last = exc
-                if exc.code == 400 and use_json:
-                    use_json = False  # this model does not take a JSON mode: ask in words only
-                    continue
-                if exc.code not in retry_codes or attempt == MAX_HTTP_ATTEMPTS - 1:
-                    break
-                wait = exc.headers.get("retry-after") if exc.headers else None
-                try:
-                    seconds = float(wait) if wait else 15.0 * (attempt + 1)
-                except ValueError:
-                    seconds = 15.0 * (attempt + 1)
-                time.sleep(min(max(seconds, 1.0), 60.0))
-            except Exception as exc:  # noqa: BLE001  any provider failure becomes "unavailable"
-                last = exc
-                break
-        raise ProviderError(type(last).__name__ if last else "ProviderError") from last
+        name = claude_model_name(model)
+        reply = anthropic_client.complete(
+            prompt.system,
+            [{"role": "user", "content": prompt.user}],
+            name,
+            self.api_key or key_for_model(model),
+            max_tokens=self.max_tokens,
+            timeout_s=REQUEST_TIMEOUT_S,
+            thinking_off=self.thinking_off,
+        )
+        return ProviderResult(
+            text=reply.text, tokens_in=reply.tokens_in, tokens_out=reply.tokens_out
+        )
 
 
 OUT_OF_SCOPE_MESSAGE = {

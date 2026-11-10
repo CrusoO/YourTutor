@@ -3,7 +3,7 @@
 Cases for the LLM gateway (ARCHITECTURE section 14). Run from `apps/api`:
 
     python -m app.llm.evals                 # offline: scripted replies, what CI runs
-    python -m app.llm.evals phrasing --live # real model; needs LLM_API_KEY and LLM_MODEL_*
+    python -m app.llm.evals phrasing --live # real model; needs ANTHROPIC_API_KEY and LLM_MODEL_*
 
 - `cases/phrasing.yaml`: hints and encouragement across grade bands 3, 7, 9 and 12 and a
   non-English language. Each case lists scripted replies, some adversarial (answer leaks by digit

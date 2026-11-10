@@ -61,7 +61,7 @@ Both are normalised to `{"kind": "widget", "widget_kind": "<subtype>", …}` bef
 ### Model selection
 
 Uses `llm_story_model` first, falls back to `llm_model_strong`.  
-Uses `llm_story_api_key` first, falls back to `llm_api_key`.  
+Uses `llm_story_api_key` first, falls back to `anthropic_api_key` (renamed from `llm_api_key` on 2026-11-11).  
 Two attempts are made before returning `{"kind": "unavailable", "reason": "…"}`.
 
 ### Gate

@@ -107,3 +107,9 @@ def test_production_origins_leave_out_localhost() -> None:
         "https://app.example.org"
     ]
     assert "http://localhost:3000" in allowed_origins("")
+
+
+def test_a_model_name_for_another_provider_is_refused_in_production() -> None:
+    errors = production_config_errors(_s(llm_model_strong="groq/some-model"))
+    assert any(e.startswith("LLM_MODEL_STRONG") for e in errors)
+    assert production_config_errors(_s(llm_model_strong="anthropic/claude-haiku-5-5")) == []

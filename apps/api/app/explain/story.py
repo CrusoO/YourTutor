@@ -27,8 +27,6 @@ SCENES_FILE = PROMPTS / "story_scenes.v2.md"
 PROMPT_VERSION = "story/v3"
 MAX_SCENES = 7
 MIN_SCENES = 3
-PLAN_TOKENS = 1500  # on Groq the input plus the output budget must stay under 8,000 a minute
-SCENES_TOKENS = 5600
 ATTEMPTS = 2
 
 REFUSE = '{"refuse": true}'
@@ -339,10 +337,9 @@ def _candidates(default_model: str) -> list[tuple[str, str]]:
     """The (model, key) pairs to try, best first: the story model if set, then the general one."""
     pairs: list[tuple[str, str]] = []
     if settings.llm_story_model:
-        # Use provider-specific key (e.g. OPENROUTER_API_KEY for openrouter/* models)
         key = settings.llm_story_api_key or key_for_model(settings.llm_story_model)
         pairs.append((settings.llm_story_model, key))
-    key = key_for_model(default_model) if default_model else settings.llm_api_key
+    key = key_for_model(default_model) if default_model else settings.anthropic_api_key
     pairs.append((default_model, key))
     seen: set[tuple[str, str]] = set()
     result: list[tuple[str, str]] = []
@@ -351,11 +348,6 @@ def _candidates(default_model: str) -> list[tuple[str, str]]:
             seen.add(p)
             result.append(p)
     return result
-
-
-def _tokens(model: str, small: int, large: int) -> int:
-    """Groq's free tier counts the output budget against 8,000 tokens a minute; others do not."""
-    return small if model.startswith("groq/") else large
 
 
 def _plan(
@@ -518,8 +510,8 @@ def build_story(
         else [
             (
                 m,
-                ExplainProvider(True, _tokens(m, PLAN_TOKENS, 4000), key),
-                ExplainProvider(True, _tokens(m, SCENES_TOKENS, 14000), key),
+                ExplainProvider(True, 4000, key),
+                ExplainProvider(True, 14000, key),
             )
             for m, key in _candidates(chosen)
         ]

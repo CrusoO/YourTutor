@@ -44,10 +44,14 @@ def _reply(*items: dict) -> str:
 
 @pytest.fixture(autouse=True)
 def _dev() -> Generator[None, None, None]:
-    keep = (settings.app_env, settings.llm_api_key, settings.llm_model_strong)
-    settings.app_env, settings.llm_api_key, settings.llm_model_strong = "development", "k", "m"
+    keep = (settings.app_env, settings.anthropic_api_key, settings.llm_model_strong)
+    settings.app_env, settings.anthropic_api_key, settings.llm_model_strong = (
+        "development",
+        "k",
+        "m",
+    )
     yield
-    settings.app_env, settings.llm_api_key, settings.llm_model_strong = keep
+    settings.app_env, settings.anthropic_api_key, settings.llm_model_strong = keep
 
 
 def test_valid_items_are_written_as_drafts_with_placeholders_not_translations(
@@ -136,8 +140,8 @@ def test_the_cli_refuses_in_production_and_without_a_key(tmp_path: Path, capsys)
     argv = ["draft_content", "--skill", SKILL, "--passages", str(passages), "--out", str(out)]
     settings.app_env = "production"
     assert main(argv) == 2 and "production" in capsys.readouterr().err
-    settings.app_env, settings.llm_api_key = "development", ""
-    assert main(argv) == 2 and "LLM_API_KEY" in capsys.readouterr().err
+    settings.app_env, settings.anthropic_api_key = "development", ""
+    assert main(argv) == 2 and "ANTHROPIC_API_KEY" in capsys.readouterr().err
     assert not out.exists()
 
 
