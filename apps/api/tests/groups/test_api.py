@@ -235,6 +235,10 @@ def test_only_the_owner_or_an_admin_may_close(client: TestClient, world: World) 
 # ── the organiser's view ─────────────────────────────────────────────────────
 
 
+# A key no random join code or id can contain by chance (a short "p3" could, now and then).
+PARTICIPANT_PREFIX = "participant-key-"
+
+
 def add_people(db: Session, code: str, n: int, wrong: int) -> None:
     group = db.scalar(select(GroupLessonRow).where(GroupLessonRow.code == code))
     assert group is not None
@@ -244,7 +248,7 @@ def add_people(db: Session, code: str, n: int, wrong: int) -> None:
             GroupResultRow(
                 id=uuid.uuid4(),
                 group_id=group.id,
-                participant=f"p{i}",
+                participant=f"{PARTICIPANT_PREFIX}{i}",
                 submitted_at=now_utc(),
                 items=[
                     {
@@ -280,7 +284,7 @@ def test_the_organiser_sees_where_the_group_is_stuck_once_enough_have_answered(
     assert row["question"] == CHECK and row["answered"] == 9 and row["wrong"] == 6
     assert row["ideas"] == [{"idea": "thinks thicker helps", "count": 6}]
     assert "right" not in row
-    assert not any(f"p{i}" in str(body) for i in range(9))  # no stored participant key
+    assert PARTICIPANT_PREFIX not in str(body)  # no stored participant key
 
 
 def test_nobody_else_may_see_the_summary(client: TestClient, world: World, db: Session) -> None:
