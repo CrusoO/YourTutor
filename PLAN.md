@@ -4,6 +4,8 @@ A curriculum-matched, multilingual AI tutor for school maths (science later). A 
 
 v2 is region-neutral. The first curriculum, languages and pilot site are deployment choices made in config and content, not in code.
 
+**Where things are now (2026-11-10):** the release roadmap, version targets and gates are in [docs/ROADMAP.md](docs/ROADMAP.md); what has merged is in [CHANGELOG.md](CHANGELOG.md). This file is the pedagogy milestone list (M0 onwards) and its dated sections below are a record of that work, not the current release plan.
+
 This file is the working milestone list. After each milestone: run tests, tick checkboxes, summarise, and stop for review.
 
 ---
