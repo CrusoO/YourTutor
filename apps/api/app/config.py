@@ -175,6 +175,8 @@ def production_config_errors(
         errors.append("SMTP_HOST (empty: sign-in codes cannot be sent)")
     if llm_route_enabled(current) and not has_llm_key(current):
         errors.append("ANTHROPIC_API_KEY (no LLM key while ASK_ENABLED or EXPLAIN_ENABLED is on)")
+    if llm_route_enabled(current) and current.llm_daily_cap <= 0:
+        errors.append("LLM_DAILY_CAP (0 turns the daily model limit off while an AI route is on)")
     for origin in current.cors_extra_origins.split(","):
         if any(host in origin.strip().lower() for host in _LOCAL_HOSTS):
             errors.append("CORS_EXTRA_ORIGINS (contains a localhost origin)")
