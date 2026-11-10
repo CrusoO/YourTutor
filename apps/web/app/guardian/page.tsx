@@ -13,6 +13,7 @@ import {
   staffToken,
 } from "@/lib/api";
 
+import LegalLinks from "@/components/legal/LegalLinks";
 import { isLiveLocale, useCopy } from "@/lib/locale";
 
 type Child = { id: string; display_name: string };
@@ -183,6 +184,7 @@ export default function GuardianPage() {
       >
         {copy.staffSignOut}
       </button>
+      <LegalLinks />
     </main>
   );
 }
