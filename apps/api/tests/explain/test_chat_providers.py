@@ -1,8 +1,7 @@
-"""The tutor chat speaks OpenAI-style providers over HTTP and Claude through the Anthropic SDK."""
+"""The tutor chat speaks to Claude through the Anthropic SDK, and to nothing else."""
 
 from __future__ import annotations
 
-import json
 from types import SimpleNamespace
 from typing import Any
 
@@ -11,13 +10,7 @@ import pytest
 from app.config import settings
 from app.explain import service_chat
 from app.explain.service import Gate
-from app.explain.service_chat import (
-    ChatCall,
-    _chat_request,
-    _reply_text,
-    _stream_piece,
-    prepare_chat,
-)
+from app.explain.service_chat import ChatCall, prepare_chat
 from app.llm import anthropic_client
 from app.llm.provider import ProviderError
 
@@ -25,31 +18,18 @@ HISTORY = [{"role": "user", "content": "slope"}, {"role": "assistant", "content"
 OPEN = Gate(enabled=True, allowed=True)
 
 
-def _body(request: Any) -> dict[str, Any]:
-    return json.loads(request.data.decode("utf-8"))
+def test_a_model_name_without_the_anthropic_prefix_is_a_provider_error() -> None:
+    for name in ("groq/m", "mystery/x", "claude-haiku-5-5", "anthropic/"):
+        with pytest.raises(ProviderError):
+            service_chat._chat_complete("s", [], "q", name, "k")
+        with pytest.raises(ProviderError):
+            list(service_chat._chat_stream("s", [], "q", name, "k"))
 
 
-def test_an_openai_style_request_is_unchanged() -> None:
-    req = _chat_request("SYS", HISTORY, "why?", "groq/m", "k")
-    body = _body(req)
-    assert req.get_header("Authorization") == "Bearer k"
-    assert body["messages"][0] == {"role": "system", "content": "SYS"}
-    assert "stream" not in body
-
-
-def test_an_unknown_provider_is_a_provider_error() -> None:
-    with pytest.raises(ProviderError):
-        _chat_request("s", [], "q", "mystery/x", "k")
-
-
-def test_claude_never_goes_through_the_hand_built_http_request() -> None:
-    with pytest.raises(ProviderError):
-        _chat_request("s", [], "q", "anthropic/claude-haiku-5-5", "k")
-
-
-def test_the_openai_reply_is_read_as_before() -> None:
-    assert _reply_text({"choices": [{"message": {"content": "hi"}}]}) == "hi"
-    assert _stream_piece({"choices": [{"delta": {"content": "yo"}}]}) == "yo"
+def test_only_anthropic_models_can_stream() -> None:
+    assert service_chat.can_stream("anthropic/claude-haiku-5-5")
+    assert not service_chat.can_stream("groq/m")
+    assert not service_chat.can_stream("anthropic/")
 
 
 class _FakeStream:
@@ -107,20 +87,13 @@ def test_a_claude_chat_stream_goes_through_the_sdk(monkeypatch: pytest.MonkeyPat
     assert calls[0]["model"] == "claude-haiku-5-5"
 
 
-def test_a_claude_model_with_no_name_is_unknown() -> None:
-    with pytest.raises(ProviderError):
-        service_chat._chat_complete("s", [], "q", "anthropic/", "k")
-
-
 @pytest.fixture
 def _clean_keys(monkeypatch: pytest.MonkeyPatch) -> None:
-    for name in ("groq_api_key", "gemini_api_key", "openrouter_api_key", "anthropic_api_key"):
-        monkeypatch.setattr(settings, name, "")
-    monkeypatch.setattr(settings, "llm_api_key", "")
+    monkeypatch.setattr(settings, "anthropic_api_key", "")
 
 
 @pytest.mark.usefixtures("_clean_keys")
-def test_a_claude_model_uses_the_anthropic_key_not_llm_api_key(
+def test_a_claude_model_uses_the_anthropic_key(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(settings, "anthropic_api_key", "claude-key")
@@ -131,4 +104,13 @@ def test_a_claude_model_uses_the_anthropic_key_not_llm_api_key(
 @pytest.mark.usefixtures("_clean_keys")
 def test_without_the_models_own_key_the_chat_says_no_key() -> None:
     prepared = prepare_chat("why?", "en", [], OPEN, model="anthropic/claude-haiku-5-5")
+    assert prepared == {"kind": "unavailable", "reason": "no_key"}
+
+
+@pytest.mark.usefixtures("_clean_keys")
+def test_a_non_anthropic_model_has_no_key_even_when_a_key_is_set(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(settings, "anthropic_api_key", "claude-key")
+    prepared = prepare_chat("why?", "en", [], OPEN, model="groq/some-model")
     assert prepared == {"kind": "unavailable", "reason": "no_key"}

@@ -42,13 +42,9 @@ def test_no_consent_calls_nothing() -> None:
 
 
 def test_no_key_means_unavailable(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(settings, "llm_api_key", "")
-    monkeypatch.setattr(settings, "groq_api_key", "")
-    monkeypatch.setattr(settings, "gemini_api_key", "")
-    monkeypatch.setattr(settings, "openrouter_api_key", "")
     monkeypatch.setattr(settings, "anthropic_api_key", "")
     monkeypatch.setattr(
-        settings, "llm_model_strong", "groq/m"
+        settings, "llm_model_strong", "anthropic/m"
     )  # a model name from .env must not matter
     assert explain("what is a quadratic", "en", OPEN) == {"kind": "unavailable", "reason": "no_key"}
 

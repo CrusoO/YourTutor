@@ -22,7 +22,7 @@ from app.safety_classifier import Classification, use_classifier
 from tests.conftest import World, auth_header
 from tests.explain.test_answer_guard import SAFE, _session_on_item
 
-CALL = ChatCall("sys", [], "hi", "groq/test", "key", "en")
+CALL = ChatCall("sys", [], "hi", "anthropic/test", "key", "en")
 ACTIVE = ActiveItem("ITEM.G.1", ("12", "x=12"), ((1, {"en": SAFE}),), False)
 
 
@@ -96,7 +96,7 @@ def test_once_the_answer_may_be_said_nothing_is_held_back(monkeypatch: pytest.Mo
 def test_the_reply_is_cut_at_the_grade_bands_word_limit_while_reading(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    call = ChatCall("sys", [], "hi", "groq/test", "key", "en", register_for_grade(3))
+    call = ChatCall("sys", [], "hi", "anthropic/test", "key", "en", register_for_grade(3))
     limit = call.register.max_words  # type: ignore[union-attr]
     sentence = "One two three four five six seven eight. "
     wire = Wire([sentence] * 10)
@@ -128,10 +128,8 @@ def test_an_empty_stream_is_unavailable(monkeypatch: pytest.MonkeyPatch) -> None
 
 @pytest.fixture(autouse=True)
 def _keys(monkeypatch: pytest.MonkeyPatch) -> None:
-    for name in ("groq_api_key", "gemini_api_key", "openrouter_api_key", "anthropic_api_key"):
-        monkeypatch.setattr(settings, name, "")  # a developer's own .env must not change a test
-    monkeypatch.setattr(settings, "llm_api_key", "test-key")
-    monkeypatch.setattr(settings, "llm_model_strong", "groq/test-model")
+    monkeypatch.setattr(settings, "anthropic_api_key", "test-key")
+    monkeypatch.setattr(settings, "llm_model_strong", "anthropic/test-model")
     monkeypatch.setattr(settings, "explain_enabled", True)
 
 
@@ -212,7 +210,7 @@ def test_with_the_output_classifier_on_the_reply_is_not_streamed(
 def test_a_missing_key_is_a_final_unavailable_with_the_authored_line(
     client: TestClient, world: World, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(settings, "llm_api_key", "")
+    monkeypatch.setattr(settings, "anthropic_api_key", "")
     events = _stream(client, world)
     result = events[0]["result"]
     assert result["reason"] == "no_key" and result["fallback"]["text"]

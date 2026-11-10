@@ -1,12 +1,12 @@
-"""Model providers behind one small interface. LiteLLM is an optional dependency; tests and the
-offline evals use `FakeProvider`, so nothing here needs a network or an API key to be tested."""
+"""Model providers behind one small interface. Claude (Anthropic) is the only real provider; tests
+and the offline evals use `FakeProvider`, so nothing here needs a network or an API key."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Protocol
 
-from app.config import key_for_model
+from app.config import ANTHROPIC_PREFIX, key_for_model
 from app.llm.prompt import Prompt
 
 REQUEST_TIMEOUT_S = 20
@@ -49,40 +49,29 @@ class FakeProvider:
         )
 
 
-class LiteLLMProvider:
-    """Calls the model through LiteLLM. Imported lazily so the package stays optional."""
+def claude_model_name(model: str) -> str:
+    """The Claude model id inside "anthropic/<model>". Any other name is a configuration error:
+    Claude is the only provider, so nothing is routed anywhere else."""
+    if not model.startswith(ANTHROPIC_PREFIX) or not model[len(ANTHROPIC_PREFIX) :]:
+        raise ProviderError("model_must_be_anthropic")
+    return model[len(ANTHROPIC_PREFIX) :]
+
+
+class AnthropicProvider:
+    """Calls Claude through the official SDK (`app.llm.anthropic_client`)."""
 
     def complete(self, prompt: Prompt, model: str) -> ProviderResult:
-        try:
-            import litellm  # type: ignore[import-not-found,unused-ignore]
-        except ImportError as exc:
-            raise ProviderError("litellm is not installed") from exc
-        try:
-            extra: dict = {}
-            if prompt.output_schema:
-                extra["response_format"] = {
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": prompt.schema_name or "response",
-                        "schema": prompt.output_schema,
-                    },
-                }
-            response = litellm.completion(
-                model=model,
-                api_key=key_for_model(model),
-                messages=[
-                    {"role": "system", "content": prompt.system},
-                    {"role": "user", "content": prompt.user},
-                ],
-                max_tokens=MAX_TOKENS,
-                timeout=REQUEST_TIMEOUT_S,
-                **extra,
-            )
-            usage = getattr(response, "usage", None)
-            return ProviderResult(
-                text=str(response.choices[0].message.content or ""),
-                tokens_in=int(getattr(usage, "prompt_tokens", 0) or 0),
-                tokens_out=int(getattr(usage, "completion_tokens", 0) or 0),
-            )
-        except Exception as exc:  # noqa: BLE001  any provider failure falls back to authored text
-            raise ProviderError(type(exc).__name__) from exc
+        from app.llm import anthropic_client  # imported here: that module imports this one
+
+        name = claude_model_name(model)
+        reply = anthropic_client.complete(
+            prompt.system,
+            [{"role": "user", "content": prompt.user}],
+            name,
+            key_for_model(model),
+            max_tokens=MAX_TOKENS,
+            timeout_s=REQUEST_TIMEOUT_S,
+        )
+        return ProviderResult(
+            text=reply.text, tokens_in=reply.tokens_in, tokens_out=reply.tokens_out
+        )

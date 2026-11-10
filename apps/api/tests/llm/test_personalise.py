@@ -45,10 +45,10 @@ def _gateway(*replies: str | Exception) -> tuple[Gateway, FakeProvider]:
 
 @pytest.fixture(autouse=True)
 def _reset() -> Generator[None, None, None]:
-    keep = settings.llm_api_key
-    settings.llm_api_key = "test-key"
+    keep = settings.anthropic_api_key
+    settings.anthropic_api_key = "test-key"
     yield
-    settings.llm_api_key = keep
+    settings.anthropic_api_key = keep
     set_gateway(None)
 
 
@@ -153,7 +153,7 @@ def test_only_plain_ladder_hints_at_levels_1_and_2_are_personalised(
 def test_no_call_without_consent_key_or_in_assessment(
     db: Session, ai: bool, key: str, session_type: str
 ) -> None:
-    settings.llm_api_key = key
+    settings.anthropic_api_key = key
     state, item = _state(ai=ai, session_type=session_type)
     _item_row(db, item.id)
     gateway, provider = _gateway(GOOD)
@@ -335,7 +335,7 @@ def test_a_wrong_answer_in_a_real_session_gets_a_personalised_hint_and_no_master
 def test_the_same_session_without_a_key_serves_the_authored_hint(
     client: TestClient, world: World, db: Session
 ) -> None:
-    settings.llm_api_key = ""
+    settings.anthropic_api_key = ""
     _seed(db, world)
     gateway, provider = _gateway(GOOD)
     set_gateway(gateway)
@@ -386,7 +386,7 @@ def _play(client: TestClient, world: World, *, max_events: int = 40) -> list[dic
 def test_sessions_complete_end_to_end_without_a_key_and_the_model_is_never_needed(
     client: TestClient, world: World, db: Session, key: str
 ) -> None:
-    settings.llm_api_key = key
+    settings.anthropic_api_key = key
     _seed(db, world)
     gateway, provider = _gateway()  # no scripted replies: any model call would fail and fall back
     set_gateway(gateway)

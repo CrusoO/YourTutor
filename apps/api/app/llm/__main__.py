@@ -8,7 +8,7 @@ from pathlib import Path
 
 from app.config import settings
 from app.llm.draft import DraftRefused, draft_items
-from app.llm.provider import LiteLLMProvider, Provider
+from app.llm.provider import AnthropicProvider, Provider
 
 
 def main(argv: list[str] | None = None, provider: Provider | None = None) -> int:
@@ -27,10 +27,10 @@ def main(argv: list[str] | None = None, provider: Provider | None = None) -> int
         print("draft_content is disabled when APP_ENV=production", file=sys.stderr)
         return 2
     if provider is None:
-        if not settings.llm_api_key or not settings.llm_model_strong:
-            print("draft_content needs LLM_API_KEY and LLM_MODEL_STRONG", file=sys.stderr)
+        if not settings.anthropic_api_key or not settings.llm_model_strong:
+            print("draft_content needs ANTHROPIC_API_KEY and LLM_MODEL_STRONG", file=sys.stderr)
             return 2
-        provider = LiteLLMProvider()
+        provider = AnthropicProvider()
     try:
         report = draft_items(
             skill_id=args.skill,
