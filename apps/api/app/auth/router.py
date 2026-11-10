@@ -186,6 +186,17 @@ def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> di
     return guest.start_guest(db, body, client_ip(request))
 
 
+@router.get("/guest/{student_id}/export")
+def guest_export(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    return service.export_guest(db, actor, student_id)
+
+
+@router.delete("/guest/{student_id}")
+def guest_delete(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, str]:
+    service.delete_guest(db, actor, student_id)
+    return {"status": "deleted"}
+
+
 @router.post("/guest/{student_id}/upgrade")
 def guest_upgrade(
     student_id: uuid.UUID, body: guest.UpgradeIn, db: DbSession, actor: ActorDep
