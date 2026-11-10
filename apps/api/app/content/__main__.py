@@ -12,6 +12,66 @@ from app.content.review import export_sheet, import_sheet_report
 from app.content.validator import format_report, validate_path
 
 
+def _content_root(root: Path | None) -> Path:
+    from app.registries.paths import content_root
+
+    return root or content_root()
+
+
+def _rights_command(args: argparse.Namespace) -> int:
+    if args.command == "blueprint-import":
+        from app.content.blueprint import import_csv
+
+        imported = import_csv(
+            args.csv, _content_root(args.root), source_deleted=args.source_deleted == "true"
+        )
+        if not imported.ok:
+            for message in imported.errors:
+                print(f"ERROR: {message}", file=sys.stderr)
+            print("Nothing was imported.", file=sys.stderr)
+            return 1
+        assert imported.audit is not None
+        print(
+            f"Imported {imported.added} rows from {imported.audit['source_file']} "
+            f"(sha256 {imported.audit['sha256']}, source_deleted={args.source_deleted})"
+        )
+        return 0
+    if args.command == "blueprint-report":
+        from app.content.blueprint import format_report as blueprint_report
+        from app.content.blueprint import load_blueprint
+
+        print(blueprint_report(load_blueprint(_content_root(args.root))))
+        return 0
+    if args.command == "originality-index":
+        from app.content.originality import build_index
+
+        if not args.source.is_dir():
+            print(f"ERROR: {args.source} is not a folder", file=sys.stderr)
+            return 1
+        index, files = build_index(args.source)
+        args.out.write_text(index.to_json(), encoding="utf-8")
+        print(
+            f"Indexed {files} files, {index.units} units, {len(index.shingle_hashes)} hashes "
+            f"-> {args.out} (hashes only)"
+        )
+        return 0
+    from app.content.originality import ReferenceIndex, item_text, score_text
+    from app.content.validator import load_bundle
+
+    index = ReferenceIndex.from_json(args.index.read_text(encoding="utf-8"))
+    bundle = load_bundle(_content_root(args.root))
+    counts: dict[str, int] = {"pass": 0, "review": 0, "block": 0}
+    for item in bundle.items:
+        score = score_text(item_text(item.stem.en, (o.en for o in item.options)), index)
+        counts[score.status.value] += 1
+        print(
+            f"{score.status.value:6} {item.id} containment={score.containment:.2f} "
+            f"run={score.longest_run} structure={'match' if score.structure_match else 'no'}"
+        )
+    print(f"pass {counts['pass']}, review {counts['review']}, block {counts['block']}")
+    return 1 if counts["block"] else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m app.content")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -59,7 +119,42 @@ def main(argv: list[str] | None = None) -> int:
     generate = sub.add_parser("generate-from-templates")
     generate.add_argument("root", type=Path)
     generate.add_argument("--seed", type=int, default=42)
+    bp_import = sub.add_parser(
+        "blueprint-import",
+        help="Import a hand-filled facts-only CSV of past-paper rows into content/blueprint.",
+    )
+    bp_import.add_argument("csv", type=Path)
+    bp_import.add_argument("--root", type=Path, default=None)
+    bp_import.add_argument(
+        "--source-deleted",
+        choices=["true", "false"],
+        default="false",
+        help="Record in the audit log whether the source file has been deleted.",
+    )
+    bp_report = sub.add_parser(
+        "blueprint-report", help="Marks by chapter and type per year, and year-on-year drift."
+    )
+    bp_report.add_argument("--root", type=Path, default=None)
+    orig_index = sub.add_parser(
+        "originality-index",
+        help="Read local reference files and write a file of hashes only (never text).",
+    )
+    orig_index.add_argument("--from", dest="source", type=Path, required=True)
+    orig_index.add_argument("--out", type=Path, required=True)
+    orig_check = sub.add_parser(
+        "originality-check", help="Score the bank's items against a hash index: pass/review/block."
+    )
+    orig_check.add_argument("--index", type=Path, required=True)
+    orig_check.add_argument("--root", type=Path, default=None)
     args = parser.parse_args(argv)
+
+    if args.command in {
+        "blueprint-import",
+        "blueprint-report",
+        "originality-index",
+        "originality-check",
+    }:
+        return _rights_command(args)
 
     if args.command == "validate":
         report = validate_path(args.root)
