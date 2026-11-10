@@ -31,7 +31,7 @@ from app.orchestrator.types import CatalogItem
 RETEST_DAYS = 7  # a review this long after the last practice is a delayed retest
 LONG_RETEST_DAYS = 21
 MIN_SALT_CHARS = 16
-HELP_EVENTS = frozenset({"request_help", "request_hint", "stuck_choice", "stuck_step"})
+HELP_EVENTS = frozenset({"request_help", "request_hint", "dont_know", "stuck_choice", "stuck_step"})
 
 ATTEMPT_COLUMNS = (
     "pseudonym",
