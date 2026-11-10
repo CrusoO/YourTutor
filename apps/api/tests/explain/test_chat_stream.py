@@ -216,13 +216,13 @@ def test_a_missing_key_is_a_final_unavailable_with_the_authored_line(
     assert result["reason"] == "no_key" and result["fallback"]["text"]
 
 
-def test_a_provider_without_streaming_falls_back_to_the_plain_reply(
+def test_a_model_that_is_not_anthropic_is_never_called_and_reads_as_no_key(
     client: TestClient, world: World, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setattr(settings, "llm_model_strong", "mystery/model")
     events = _stream(client, world)
     assert [e["type"] for e in events] == ["final"]
-    assert events[0]["result"]["reason"] == "provider_error"
+    assert events[0]["result"]["reason"] == "no_key"
 
 
 def test_a_stream_failure_ends_with_an_unavailable_final_and_the_authored_line(
