@@ -43,6 +43,7 @@ T_LEVEL = 4  # T = first overlay skill with ladder level below this
 
 KIND_ANSWER = "answer"
 KIND_HINT = "request_hint"
+KIND_DONT_KNOW = "dont_know"  # help like a hint, but no BKT miss: see mastery_service
 KIND_LESSON = "lesson_complete"
 KIND_TEST_OUT = "test_out"  # skip ahead passed (ARCHITECTURE §9.7)
 
@@ -171,7 +172,7 @@ def apply_ladder_event(
         ladder.lesson_done = True
         ladder.post_lesson_item = None
         return ladder
-    if event.kind not in {KIND_ANSWER, KIND_HINT}:
+    if event.kind not in {KIND_ANSWER, KIND_HINT, KIND_DONT_KNOW}:
         return ladder
 
     first = event.item_id not in ladder.seen
@@ -182,7 +183,7 @@ def apply_ladder_event(
         ladder.post_lesson_item = event.item_id
     if first:
         ladder.seen.append(event.item_id)
-        if event.kind == KIND_HINT:
+        if event.kind in {KIND_HINT, KIND_DONT_KNOW}:
             ladder.hinted.append(event.item_id)
     # A right first answer that the learner called a guess is fragile, not evidence: it neither
     # counts as unhinted-correct nor breaks a streak or a review (see `_first_attempt`).
@@ -299,7 +300,7 @@ def compute(
         if event.kind in {KIND_LESSON, KIND_TEST_OUT}:
             apply_ladder_event(ladders, event, p_known=0.0)
             continue
-        if event.pool in LADDER_POOLS and event.kind in {KIND_ANSWER, KIND_HINT}:
+        if event.pool in LADDER_POOLS and event.kind in {KIND_ANSWER, KIND_HINT, KIND_DONT_KNOW}:
             skill_params = params.setdefault(event.skill_id, default)
             apply_event(
                 state,
