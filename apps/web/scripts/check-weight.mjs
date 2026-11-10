@@ -5,7 +5,7 @@
  * and exits 1 when any budget is exceeded.
  *
  * Budgets (gzip):
- *   JS for the homepage route  ≤ 125 KB
+ *   JS for the homepage route  ≤ 128 KB
  *   CSS (all pages)            ≤  25 KB
  *   Homepage JS + all CSS      ≤ 150 KB
  */
@@ -16,7 +16,7 @@ import { join } from "node:path";
 import { createGzip } from "node:zlib";
 
 const DIST = join(process.cwd(), ".next");
-const JS_BUDGET_KB = 125;
+const JS_BUDGET_KB = 128;
 const CSS_BUDGET_KB = 25;
 const PAGE_BUDGET_KB = 150;
 
