@@ -79,17 +79,17 @@ services:
       retries: 10
 
   web:
-    # DEVELOPMENT ONLY: this image runs `npm run dev:lan` (inside the container). For a pilot run `npm run build` and
-    # `npm run start` on the host (docs/OPERATOR.md sections 1 and 8) and do not start this service.
+    # A production build served by `next start`. NEXT_PUBLIC_* are compiled into the browser bundle, so they are
+    # build args: change one and rebuild (`docker compose build web`). The phone preview (`npm run dev:lan`) is
+    # run on the host, see docs/UI_PREVIEW.md.
     build:
       context: .
       dockerfile: apps/web/Dockerfile
-    environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
-      NEXT_PUBLIC_DEV_TOOLS: ${NEXT_PUBLIC_DEV_TOOLS:-false}
-      NEXT_ALLOWED_DEV_ORIGINS: ${NEXT_ALLOWED_DEV_ORIGINS:-}
-      NEXT_PUBLIC_PILOT_KEY: ${PILOT_KEY:-dev-pilot}
-      NEXT_PUBLIC_SKIP_LOGIN: "false"
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+        NEXT_PUBLIC_DEV_TOOLS: ${NEXT_PUBLIC_DEV_TOOLS:-false}
+        NEXT_PUBLIC_PILOT_KEY: ${PILOT_KEY:-dev-pilot}
+        NEXT_PUBLIC_SKIP_LOGIN: "false"
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:
