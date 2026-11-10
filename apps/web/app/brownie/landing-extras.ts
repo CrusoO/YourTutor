@@ -382,11 +382,13 @@ export const trust = {
       id: "remember",
       q: "What does it remember?",
       a: "Asking without an account starts a temporary guest with no name or email. The page does not keep the text of your question. The interactive lesson can keep a small note of your guesses on your own device, and you can clear it. If a video is made, it is stored on our server. What a signed-in account keeps is explained on the privacy page.",
+      pending: true,
     },
     {
       id: "child",
       q: "Is it safe for a child?",
       a: "Brownie is built for learners in classes 6 to 12 and for adults. It is not a replacement for a parent, a teacher or a counsellor. Details are on the privacy page.",
+      pending: true,
     },
     {
       id: "cannot",
