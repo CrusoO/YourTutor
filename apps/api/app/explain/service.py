@@ -20,6 +20,7 @@ from app.ask.config import load_safety, message
 from app.ask.guard import clean_question, screen
 from app.config import key_for_model, settings
 from app.explain.mathtext import plain_math
+from app.llm import anthropic_client
 from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError, ProviderResult
 from app.llm.rules import default_rules
@@ -114,44 +115,39 @@ class ExplainProvider:
         if url is None or not name:
             raise ProviderError("unknown provider")
         api_key = self.api_key or key_for_model(model)
-        is_anthropic = provider == "anthropic"
+        if provider == "anthropic":
+            # Claude goes through the official SDK (retries, errors and refusals handled there).
+            reply = anthropic_client.complete(
+                prompt.system,
+                [{"role": "user", "content": prompt.user}],
+                name,
+                api_key,
+                max_tokens=self.max_tokens,
+                timeout_s=REQUEST_TIMEOUT_S,
+                thinking_off=self.thinking_off,
+            )
+            return ProviderResult(
+                text=reply.text, tokens_in=reply.tokens_in, tokens_out=reply.tokens_out
+            )
 
-        if is_anthropic:
-            # Native Anthropic Messages API — different body shape, different headers, no json_mode.
-            body: dict[str, Any] = {
-                "model": name,
-                "max_tokens": self.max_tokens,
-                "system": prompt.system,
-                "messages": [{"role": "user", "content": prompt.user}],
-            }
-            if self.thinking_off:
-                body["thinking"] = {"type": "disabled"}
-            req_headers: dict[str, str] = {
-                "Content-Type": "application/json",
-                "User-Agent": "yourtutor-api/0.1",
-                "x-api-key": api_key,
-                "anthropic-version": "2023-06-01",
-            }
-        else:
-            body = {
-                "model": name,
-                "messages": [
-                    {"role": "system", "content": prompt.system},
-                    {"role": "user", "content": prompt.user},
-                ],
-                "max_tokens": self.max_tokens,
-            }
-            if provider == "groq":
-                body["reasoning_effort"] = "low"  # reasoning tokens share the answer's budget
-            req_headers = {
-                "Content-Type": "application/json",
-                "User-Agent": "yourtutor-api/0.1",
-                "Authorization": f"Bearer {api_key}",
-            }
+        body: dict[str, Any] = {
+            "model": name,
+            "messages": [
+                {"role": "system", "content": prompt.system},
+                {"role": "user", "content": prompt.user},
+            ],
+            "max_tokens": self.max_tokens,
+        }
+        if provider == "groq":
+            body["reasoning_effort"] = "low"  # reasoning tokens share the answer's budget
+        req_headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "yourtutor-api/0.1",
+            "Authorization": f"Bearer {api_key}",
+        }
 
-        # Anthropic has no response_format; its prompts already ask for JSON by text.
-        use_json = self.json_mode and not is_anthropic
-        retry_codes = (429, 500, 502, 503, 504, 529) if is_anthropic else (429, 500, 502, 503, 504)
+        use_json = self.json_mode
+        retry_codes = (429, 500, 502, 503, 504)
         last: Exception | None = None
         for attempt in range(MAX_HTTP_ATTEMPTS):
             payload = dict(body)
@@ -167,20 +163,12 @@ class ExplainProvider:
                 with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
                     data = json.loads(response.read().decode("utf-8"))
                 usage = data.get("usage") or {}
-                if is_anthropic:
-                    # content may have a leading "thinking" block — find the first "text" block.
-                    content_blocks = data.get("content") or []
-                    text_block: dict[str, Any] = next(
-                        (b for b in content_blocks if b.get("type") == "text"), {}
-                    )
-                    text = str(text_block.get("text") or "")
-                    tokens_in = int(usage.get("input_tokens") or 0)
-                    tokens_out = int(usage.get("output_tokens") or 0)
-                else:
-                    text = str(data["choices"][0]["message"].get("content") or "")
-                    tokens_in = int(usage.get("prompt_tokens") or 0)
-                    tokens_out = int(usage.get("completion_tokens") or 0)
-                return ProviderResult(text=text, tokens_in=tokens_in, tokens_out=tokens_out)
+                text = str(data["choices"][0]["message"].get("content") or "")
+                return ProviderResult(
+                    text=text,
+                    tokens_in=int(usage.get("prompt_tokens") or 0),
+                    tokens_out=int(usage.get("completion_tokens") or 0),
+                )
             except urllib.error.HTTPError as exc:
                 last = exc
                 if exc.code == 400 and use_json:

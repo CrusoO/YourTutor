@@ -343,11 +343,30 @@ def _sent_body(
 def test_anthropic_gets_the_no_thinking_switch_only_when_asked_and_others_never(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    from types import SimpleNamespace
+
+    from app.llm import anthropic_client
+    from app.llm.prompt import Prompt
+
+    calls: list[dict[str, Any]] = []
+
+    class Messages:
+        def create(self, **kwargs: Any) -> Any:
+            calls.append(kwargs)
+            return SimpleNamespace(
+                stop_reason="end_turn",
+                content=[SimpleNamespace(type="text", text="{}")],
+                usage=SimpleNamespace(input_tokens=1, output_tokens=1),
+            )
+
+    client = SimpleNamespace(messages=Messages())
+    monkeypatch.setattr(anthropic_client, "_client", lambda *_a: client)
+    prompt = Prompt(system="s", user="u", version="v", max_words=10)
     anthropic = "anthropic/claude-haiku-5-5"
-    off = _sent_body(monkeypatch, ExplainProvider(api_key="k", thinking_off=True), anthropic)
-    assert off["thinking"] == {"type": "disabled"}
-    default = _sent_body(monkeypatch, ExplainProvider(api_key="k"), anthropic)
-    assert "thinking" not in default
+    ExplainProvider(api_key="k", thinking_off=True).complete(prompt, anthropic)
+    assert calls[-1]["thinking"] == {"type": "disabled"}  # Claude goes through the SDK
+    ExplainProvider(api_key="k").complete(prompt, anthropic)
+    assert "thinking" not in calls[-1]
     other = _sent_body(monkeypatch, ExplainProvider(api_key="k", thinking_off=True), "groq/m")
     assert "thinking" not in other  # a provider with no such switch is never sent the field
 

@@ -26,6 +26,7 @@ from app.explain.service import (
     Gate,
     unavailable,
 )
+from app.llm import anthropic_client
 from app.llm.prompt import STUDENT_TAG
 from app.llm.provider import ProviderError
 from app.safety import detection_from_verdict, distress_reply
@@ -81,6 +82,13 @@ def _trim_history(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return valid[-MAX_HISTORY_TURNS:]
 
 
+def _turns(history: list[dict[str, Any]], user_message: str) -> list[dict[str, str]]:
+    """The conversation so far plus the new question, each message cut to the length limit."""
+    turns = [{"role": m["role"], "content": str(m["content"])[:MAX_REPLY_CHARS]} for m in history]
+    turns.append({"role": "user", "content": user_message})
+    return turns
+
+
 def _chat_request(
     system: str,
     history: list[dict[str, Any]],
@@ -90,54 +98,34 @@ def _chat_request(
     *,
     stream: bool = False,
 ) -> urllib.request.Request:
-    """The HTTP request for one chat call. Raises ProviderError for an unknown provider."""
+    """The HTTP request for one OpenAI-style chat call. Claude goes through the SDK instead
+    (`app.llm.anthropic_client`). Raises ProviderError for an unknown provider."""
     provider_id, _, name = model.partition("/")
     url = ENDPOINTS.get(provider_id)
-    if url is None or not name:
+    if url is None or not name or provider_id == "anthropic":
         raise ProviderError("unknown provider")
 
-    turns: list[dict[str, str]] = [
-        {"role": m["role"], "content": str(m["content"])[:MAX_REPLY_CHARS]} for m in history
-    ]
-    turns.append({"role": "user", "content": user_message})
-    headers = {"Content-Type": "application/json", "User-Agent": "yourtutor-api/0.1"}
-    body: dict[str, Any]
-    if provider_id == "anthropic":
-        # The native Messages API: the system prompt is its own field, the key its own header.
-        body = {"model": name, "max_tokens": MAX_TOKENS, "system": system, "messages": turns}
-        headers["x-api-key"] = api_key
-        headers["anthropic-version"] = "2023-06-01"
-    else:
-        messages = [{"role": "system", "content": system}, *turns]
-        body = {"model": name, "messages": messages, "max_tokens": MAX_TOKENS}
-        headers["Authorization"] = f"Bearer {api_key}"
+    messages = [{"role": "system", "content": system}, *_turns(history, user_message)]
+    body: dict[str, Any] = {"model": name, "messages": messages, "max_tokens": MAX_TOKENS}
     if stream:
         body["stream"] = True
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "yourtutor-api/0.1",
+        "Authorization": f"Bearer {api_key}",
+    }
     return urllib.request.Request(  # noqa: S310  https URLs from ENDPOINTS table only
         url, data=json.dumps(body).encode("utf-8"), headers=headers, method="POST"
     )
 
 
-def _reply_text(provider_id: str, data: dict[str, Any]) -> str:
-    """The reply text in a provider's plain response; a refusal or a missing reply is ''."""
-    if provider_id == "anthropic":
-        if data.get("stop_reason") == "refusal":
-            return ""
-        blocks = data.get("content") or []
-        return "".join(str(b.get("text") or "") for b in blocks if b.get("type") == "text")
+def _reply_text(data: dict[str, Any]) -> str:
+    """The reply text in an OpenAI-style response; a missing reply is ''."""
     return str(data["choices"][0]["message"].get("content") or "")
 
 
-def _stream_piece(provider_id: str, event: dict[str, Any]) -> str:
-    """The text in one streamed event, or ''. Raises ProviderError when the model refused."""
-    if provider_id == "anthropic":
-        kind = event.get("type")
-        if kind == "message_delta" and (event.get("delta") or {}).get("stop_reason") == "refusal":
-            raise ProviderError("refusal")
-        if kind == "content_block_delta":
-            delta = event.get("delta") or {}
-            return str(delta.get("text") or "") if delta.get("type") == "text_delta" else ""
-        return ""
+def _stream_piece(event: dict[str, Any]) -> str:
+    """The text in one OpenAI-style streamed event, or ''."""
     return str(event["choices"][0]["delta"].get("content") or "")
 
 
@@ -159,8 +147,20 @@ def _chat_stream(
     There is no retry once text may have been shown; the caller decides what to do on failure.
     The caller closes the generator to stop reading (that closes the connection).
     """
+    provider_id, _, name = model.partition("/")
+    if provider_id == "anthropic":
+        if not name:
+            raise ProviderError("unknown provider")
+        yield from anthropic_client.stream_text(
+            system,
+            _turns(history, user_message),
+            name,
+            api_key,
+            max_tokens=MAX_TOKENS,
+            timeout_s=REQUEST_TIMEOUT_S,
+        )
+        return
     request = _chat_request(system, history, user_message, model, api_key, stream=True)
-    provider_id = model.partition("/")[0]
     try:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
             for raw in response:
@@ -171,7 +171,7 @@ def _chat_stream(
                 if payload == "[DONE]":
                     return
                 try:
-                    piece = _stream_piece(provider_id, json.loads(payload))
+                    piece = _stream_piece(json.loads(payload))
                 except (ValueError, KeyError, IndexError, TypeError, AttributeError):
                     continue
                 if piece:
@@ -191,18 +191,28 @@ def _chat_complete(
 
     Returns the assistant's text or raises ProviderError.
     """
-    provider_id = model.partition("/")[0]
-    retry_codes = (429, 500, 502, 503, 504, 529) if provider_id == "anthropic" else RETRY_CODES
+    provider_id, _, name = model.partition("/")
+    if provider_id == "anthropic":
+        if not name:
+            raise ProviderError("unknown provider")
+        return anthropic_client.complete(
+            system,
+            _turns(history, user_message),
+            name,
+            api_key,
+            max_tokens=MAX_TOKENS,
+            timeout_s=REQUEST_TIMEOUT_S,
+        ).text
     last: Exception | None = None
     for attempt in range(MAX_HTTP_ATTEMPTS):
         request = _chat_request(system, history, user_message, model, api_key)
         try:
             with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:  # noqa: S310
                 data = json.loads(response.read().decode("utf-8"))
-            return _reply_text(provider_id, data)
+            return _reply_text(data)
         except urllib.error.HTTPError as exc:
             last = exc
-            if exc.code not in retry_codes or attempt == MAX_HTTP_ATTEMPTS - 1:
+            if exc.code not in RETRY_CODES or attempt == MAX_HTTP_ATTEMPTS - 1:
                 break
             wait = exc.headers.get("retry-after") if exc.headers else None
             try:
