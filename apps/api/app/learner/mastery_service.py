@@ -124,6 +124,10 @@ def _apply_one(
             bkt_done.add(event.item_id)
         return
 
+    if event.event_type == "dont_know":
+        hinted.add(event.item_id)  # help was given, so a later right answer is a hinted one
+        return  # but the learner's honesty is neither a miss nor evidence: no BKT update
+
     if event.event_type != "answer":
         return
 
