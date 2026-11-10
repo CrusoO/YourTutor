@@ -72,6 +72,8 @@ class ItemRow(Base):
     template_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     generator_version: Mapped[str | None] = mapped_column(String, nullable=True)
     template_hash: Mapped[str | None] = mapped_column(String, nullable=True)
+    tier: Mapped[str | None] = mapped_column(String(1), nullable=True)
+    provenance: Mapped[dict | None] = mapped_column(JSONType, nullable=True)
 
 
 class MisconceptionRow(Base):

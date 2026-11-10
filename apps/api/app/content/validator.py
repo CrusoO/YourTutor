@@ -193,6 +193,9 @@ def validate_path(root: Path) -> ValidationReport:
         report.errors.append(str(exc))
         return report
     report = validate_bundle(bundle, curricula_for(root))
+    from app.content.sources import rights_errors
+
+    report.errors.extend(rights_errors(root, bundle.items))
     from app.lessons.sources import approved_source_ids, source_errors
 
     report.errors.extend(source_errors(root))
