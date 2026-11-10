@@ -51,7 +51,7 @@ To refresh the API lock files, see [apps/api/README.md](apps/api/README.md).
 
 ## Model calls
 
-The tutor chat and the lessons call Claude through the official Anthropic SDK (`apps/api/app/llm/anthropic_client.py`, key `ANTHROPIC_API_KEY`). Groq, Gemini and OpenRouter keep a plain HTTP path (`app/explain/service.py`, `service_chat.py`). The chat withholds a practice item's answer (`app/explain/answer_guard.py`) and can stream (`POST /explain/chat/stream`). With no key, replies are authored text.
+The tutor chat and the lessons call Claude through the official Anthropic SDK (`apps/api/app/llm/anthropic_client.py`, key `ANTHROPIC_API_KEY`). Claude is the only LLM provider; a model name must start with `anthropic/`. The chat withholds a practice item's answer (`app/explain/answer_guard.py`) and can stream (`POST /explain/chat/stream`). With no key, replies are authored text.
 
 `ALLOW_DRAFT_CONTENT=true` is for local/demo only. Production must leave it unset or false.
 
