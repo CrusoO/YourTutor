@@ -117,10 +117,16 @@ Section titles and printed page numbers are shown to the student; no book text i
 
 ## 7. Book map
 
-`EduVideoEngine/knowledge/books/cbse-maths.json` is imported once as static data at  
-YourTutor startup (read-only, no copy into YourTutor's content directory).  
-It contains structure only: section titles, file chapter numbers, and printed page numbers.  
-No book text. Rights: all rights reserved (NCERT); permitted use: reference only (see engine ledger).
+YourTutor does **not** read the engine's `knowledge/books/cbse-maths.json` (checked 2026-11-10: no
+code, script, config or content file in this repository refers to it, and the two projects share no
+paths). The topic list and the section titles and printed page numbers come from the
+`chapters` and `sections` tables, which `app.content.load` fills from `content/curricula/`
+(`content/curricula/cbse/curriculum.yaml`). The engine's book map is the engine's own data and is
+not part of the package contract.
+
+An earlier version of this section said the file was imported at YourTutor startup; that was a plan
+that was never built. If a book map is ever shared, it goes through the engine package and
+`ENGINE_INTERFACE.md`, not through a path into the engine repository.
 
 ---
 
