@@ -17,6 +17,7 @@ GOOD = {
     "smtp_host": "smtp.example.org",
     "ask_enabled": True,
     "anthropic_api_key": "set",
+    "llm_daily_cap": 500,
     "cors_extra_origins": "https://app.example.org",
 }
 
@@ -47,6 +48,7 @@ def test_development_is_never_refused() -> None:
             {"anthropic_api_key": "", "ask_enabled": False, "explain_enabled": True},
             "ANTHROPIC_API_KEY",
         ),
+        ({"llm_daily_cap": 0}, "LLM_DAILY_CAP"),
         ({"cors_extra_origins": "http://localhost:3000"}, "CORS_EXTRA_ORIGINS"),
         (
             {"cors_extra_origins": "https://ok.example.org, http://127.0.0.1:3000"},
@@ -65,6 +67,10 @@ def test_pilot_key_is_only_checked_while_pilot_onboarding_is_on() -> None:
 
 def test_no_llm_key_is_fine_when_no_llm_route_is_enabled() -> None:
     assert production_config_errors(_s(anthropic_api_key="", ask_enabled=False)) == []
+
+
+def test_no_daily_cap_is_fine_when_no_llm_route_is_enabled() -> None:
+    assert production_config_errors(_s(llm_daily_cap=0, ask_enabled=False)) == []
 
 
 def test_unverified_helplines_are_refused_through_the_injected_hook() -> None:
