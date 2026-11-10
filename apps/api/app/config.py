@@ -89,7 +89,10 @@ class Settings(BaseSettings):
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
     anthropic_api_key: str = ""  # env: ANTHROPIC_API_KEY; no key means no LLM calls
-    llm_review_sample_rate: float = 1.0  # env: LLM_REVIEW_SAMPLE_RATE; 100% in the first pilot week
+    # env: LLM_REVIEW_SAMPLE_RATE, the share of AI replies whose text is stored for human review.
+    # Unset: 100% in development, 0% in production (reply text can repeat the learner's words), so
+    # production stores reply text only when someone sets a rate on purpose. See review_sample_rate.
+    llm_review_sample_rate: float | None = None
     cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
     trusted_proxies: str = (
         ""  # env: TRUSTED_PROXIES, addresses or CIDR ranges; empty ignores X-Forwarded-For
@@ -109,6 +112,13 @@ DEV_ONLY_FLAGS = (
     "next_public_dev_tools",
     "adult_learners_assumed",  # until there is an age gate, production must not assume adults
 )
+
+
+def review_sample_rate(current: Settings) -> float:
+    """The share of AI replies kept for review: the explicit setting, else 0 in production."""
+    if current.llm_review_sample_rate is not None:
+        return current.llm_review_sample_rate
+    return 0.0 if current.app_env.strip().lower() == PRODUCTION else 1.0
 
 
 def production_flag_errors(current: Settings) -> list[str]:

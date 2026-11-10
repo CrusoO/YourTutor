@@ -16,7 +16,7 @@ from datetime import UTC, datetime
 
 from sqlalchemy.orm import Session
 
-from app.config import settings
+from app.config import review_sample_rate, settings
 from app.db.models import LlmCallRow
 from app.llm.checks import run_checks
 from app.llm.prompt import Prompt, PromptContext, build_prompt
@@ -73,7 +73,7 @@ class Gateway:
         models: dict[str, str] | None = None,
     ) -> None:
         self.provider: Provider = provider or AnthropicProvider()
-        self.sample_rate = settings.llm_review_sample_rate if sample_rate is None else sample_rate
+        self.sample_rate = review_sample_rate(settings) if sample_rate is None else sample_rate
         self.rng = rng or random.Random()
         self.models = models or {
             "fast": settings.llm_model_fast,
