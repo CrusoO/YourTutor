@@ -9,6 +9,7 @@ Code for v0.9 Safe Base (target 12 Nov 2026) merged in PR #30 on 5 Nov 2026 (dis
 
 ### Added
 - Staff-only content review screen at `/staff/review` (teacher or admin): each draft item with its solver-checked answer, wrong options with their misconception labels and any Hindi text; Approve, Reject or Fix with a note, recorded per reviewer in the new `content_reviews` table (migration 0031). Two distinct approvals on the item's current content hash count as approved; `python -m app.content apply-reviews` then writes them into the YAML.
+- A production start now refuses to run with an AI route on (`ASK_ENABLED` or `EXPLAIN_ENABLED`) and `LLM_DAILY_CAP` at 0, so an open API cannot spend without a daily limit. Development is unchanged.
 - Tutor chat: a server-side answer-leak guard that holds back the practice item's answer until two hints and an attempt (digits, English number words and Devanagari digits are checked); a streamed reply (`POST /explain/chat/stream`); the chat can use Claude models (#31).
 - Lesson quizzes are checked with the maths verifier: a quiz whose marked answer disagrees with the solved value is dropped, and one the verifier cannot read is kept and marked `verified: false` (#34), with a "not checked" note under the question (#37).
 - Claude calls for the chat and the lessons go through the official Anthropic SDK, in `app/llm/anthropic_client.py` (#45).
