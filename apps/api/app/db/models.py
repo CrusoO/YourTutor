@@ -12,6 +12,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    Text,
     UniqueConstraint,
     Uuid,
 )
@@ -598,6 +599,29 @@ class LessonRecordRow(Base):
     topic: Mapped[str] = mapped_column(String(80))
     taken_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     items: Mapped[list] = mapped_column(JSONType)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class ContentReviewRow(Base):
+    """One staff member's decision on one content item at one content hash.
+
+    A reviewer's later decision on the same hash replaces the earlier one (unique key). Two distinct
+    `approve` rows on an item's current hash, and no `reject` or `fix`, make it approved; the
+    `apply-reviews` command then writes that into the YAML. No student data is held here.
+    """
+
+    __tablename__ = "content_reviews"
+    __table_args__ = (
+        UniqueConstraint("item_id", "content_hash", "reviewer_id", name="uq_content_review"),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    item_id: Mapped[str] = mapped_column(String(120), index=True)
+    content_hash: Mapped[str] = mapped_column(String(64))
+    reviewer_id: Mapped[uuid.UUID] = mapped_column(Uuid)
+    reviewer_label: Mapped[str] = mapped_column(String(120))
+    decision: Mapped[str] = mapped_column(String(10))  # approve | reject | fix
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 

@@ -19,6 +19,7 @@ from app.config import (
     production_secret_errors,
     settings,
 )
+from app.content_review.router import router as content_review_router
 from app.dev.router import router as dev_router
 from app.explain.router import router as explain_router
 from app.groups.router import router as groups_router
@@ -129,6 +130,7 @@ app.include_router(explain_router)
 app.include_router(actions_router)
 app.include_router(groups_router)
 app.include_router(records_router)
+app.include_router(content_review_router)
 
 
 def access_log_line(method: str, path: str, status: int) -> str:
