@@ -34,7 +34,7 @@ from app.content.validator import (
 )
 from app.lessons.loader import load_lessons
 from app.llm.draft import DraftRefused, draft_items
-from app.llm.provider import LiteLLMProvider, Provider
+from app.llm.provider import AnthropicProvider, Provider
 from app.registries.loaders import ChapterSpec, load_all_curricula
 
 DRAFT_FOLDER = "items/drafts"
@@ -261,10 +261,10 @@ def main(argv: list[str] | None = None, provider: Provider | None = None) -> int
                 return 2
             chosen = provider
             if chosen is None:
-                if not settings.llm_api_key or not settings.llm_model_strong:
-                    print("draft needs LLM_API_KEY and LLM_MODEL_STRONG", file=sys.stderr)
+                if not settings.anthropic_api_key or not settings.llm_model_strong:
+                    print("draft needs ANTHROPIC_API_KEY and LLM_MODEL_STRONG", file=sys.stderr)
                     return 2
-                chosen = LiteLLMProvider()
+                chosen = AnthropicProvider()
             for key, count in sorted(draft_missing(args.root, args.chapter, chosen).items()):
                 print(f"{key}: {count} drafted")
             return 0

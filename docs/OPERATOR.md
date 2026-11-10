@@ -36,7 +36,7 @@ The ones that matter:
 | `PUBLIC_WEB_URL` | the guardian page address | The link in weekly reports. |
 | `CORS_EXTRA_ORIGINS` | the web address | Where the browser app is served from. |
 | `TRUSTED_PROXIES` | empty, or `127.0.0.1` behind a proxy on this machine | Addresses or CIDR ranges whose `X-Forwarded-For` header is believed. See section 8.1. |
-| `LLM_API_KEY`, `LLM_MODEL_FAST`, `LLM_MODEL_STRONG` | optional | Without them every reply is authored text. |
+| `ANTHROPIC_API_KEY`, `LLM_MODEL_FAST`, `LLM_MODEL_STRONG` | optional | Without them every reply is authored text. Models are named `anthropic/<model>`; production refuses any other name. |
 | `ASK_ENABLED` | `false` until reviewed | Study Mode Ask. |
 
 Start the API with `python -m uvicorn app.main:app --host 127.0.0.1 --port 8000` from `apps/api`

@@ -158,3 +158,21 @@ def test_a_missing_sdk_is_a_provider_error(monkeypatch: pytest.MonkeyPatch) -> N
     with pytest.raises(ProviderError, match="sdk_missing"):
         anthropic_client._client("key", 5.0)
     anthropic_client._client.cache_clear()
+
+
+def test_the_gateway_provider_calls_claude_and_refuses_other_names(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.config import settings
+    from app.llm.prompt import Prompt
+    from app.llm.provider import AnthropicProvider
+
+    create = _Create(_message())
+    _install(monkeypatch, SimpleNamespace(create=create.create))
+    monkeypatch.setattr(settings, "anthropic_api_key", "k")
+    prompt = Prompt(system="s", user="u", version="v", max_words=10)
+    result = AnthropicProvider().complete(prompt, "anthropic/claude-haiku-5-5")
+    assert result.text == "Hello." and create.calls[0]["model"] == "claude-haiku-5-5"
+    with pytest.raises(ProviderError):
+        AnthropicProvider().complete(prompt, "groq/m")
+    assert len(create.calls) == 1

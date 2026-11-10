@@ -36,6 +36,12 @@ def main(argv: list[str] | None = None) -> int:
     imported.add_argument("csv", type=Path)
     imported.add_argument("root", type=Path)
     imported.add_argument("--reviewer", required=True)
+    apply = sub.add_parser(
+        "apply-reviews",
+        help="Write approvals from the review screen (2 distinct approvals on the current hash).",
+    )
+    apply.add_argument("root", type=Path)
+    apply.add_argument("--database-url", default=None)
     coverage = sub.add_parser("coverage")
     coverage.add_argument("root", type=Path)
     loc_export = sub.add_parser("export-locale-review")
@@ -110,6 +116,21 @@ def main(argv: list[str] | None = None) -> int:
         counts = locale_report(args.root, args.locale)
         print(", ".join(f"{key}: {value}" for key, value in counts.items()))
         return 0
+
+    if args.command == "apply-reviews":
+        from app.content_review.apply import apply_reviews
+        from app.db.session import session_factory
+
+        with session_factory(args.database_url)() as session:
+            applied = apply_reviews(session, args.root)
+        print(f"Approved: {len(applied.approved)}")
+        for approved_id in applied.approved:
+            print(f"  {approved_id}")
+        print(f"Waiting for a second approval: {len(applied.waiting)}")
+        print(f"Blocked by a reject or fix: {len(applied.blocked)}")
+        if applied.refused:
+            print("Refused (failed validation): " + ", ".join(applied.refused), file=sys.stderr)
+        return 1 if applied.refused else 0
 
     if args.command == "import-review":
         result = import_sheet_report(args.csv, args.root, args.reviewer)

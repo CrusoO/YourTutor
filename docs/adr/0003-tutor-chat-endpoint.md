@@ -59,7 +59,7 @@ The `{scope_rule}` placeholder is replaced with either the open-scope or syllabu
 
 ### Model
 
-Uses `llm_model_strong` and `llm_api_key`. No story-model override — the strong model is more appropriate for a pedagogic dialogue than a flash model.
+Uses `llm_model_strong` and `anthropic_api_key` (renamed from `llm_api_key` on 2026-11-11). No story-model override — the strong model is more appropriate for a pedagogic dialogue than a flash model.
 
 ### Gate
 

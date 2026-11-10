@@ -246,7 +246,7 @@ def _answer(
         source="\n".join(f"[{h.passage_id}] {h.text}" for h in hits),
         fields={"student_text": question, "passage_ids": ",".join(h.passage_id for h in hits)},
     )
-    gate = Gate(ASK_SESSION_TYPE, "ai_processing" in scopes, bool(settings.llm_api_key))
+    gate = Gate(ASK_SESSION_TYPE, "ai_processing" in scopes, bool(settings.anthropic_api_key))
     result = get_gateway().generate(ctx, fallback=fallback, gate=gate)
     if result.llm_called:
         record_call(db, result, ctx, session_id=session_id)

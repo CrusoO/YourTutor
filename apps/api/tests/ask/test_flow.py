@@ -33,12 +33,12 @@ ALL = ["tutoring", "free_text", "ai_processing"]
 
 @pytest.fixture(autouse=True)
 def _ask_on(db: Session) -> Generator[None, None, None]:
-    keep = (settings.ask_enabled, settings.allow_draft_content, settings.llm_api_key)
+    keep = (settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key)
     settings.ask_enabled, settings.allow_draft_content = True, True
     upsert_passages(db, content_root(), load_all_curricula())
     db.commit()
     yield
-    settings.ask_enabled, settings.allow_draft_content, settings.llm_api_key = keep
+    settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key = keep
     set_gateway(None)
 
 
@@ -61,7 +61,7 @@ def _ask(client: TestClient, world: World, question: str, **extra: object):
 
 def _model(client: TestClient, world: World, replies: list[str]) -> FakeProvider:
     _grant(client, world, ALL)
-    settings.llm_api_key = "test-key"
+    settings.anthropic_api_key = "test-key"
     provider = FakeProvider(list(replies))
     set_gateway(Gateway(provider, sample_rate=0.0, rng=random.Random(1)))
     return provider
@@ -102,7 +102,7 @@ def test_without_a_key_the_student_gets_the_passage_and_its_source(
     client: TestClient, world: World, db: Session
 ) -> None:
     _grant(client, world, ALL)
-    settings.llm_api_key = ""
+    settings.anthropic_api_key = ""
     body = _ask(client, world, "what do I do to both sides of a one step equation").json()
     assert body["kind"] == "answer" and body["llm_called"] is False
     assert "inverse operation" in body["text"]
@@ -139,7 +139,7 @@ def test_an_unsupported_model_answer_falls_back_to_the_passage(
 
 def test_without_ai_processing_the_model_is_never_called(client: TestClient, world: World) -> None:
     _grant(client, world, ["tutoring", "free_text"])
-    settings.llm_api_key = "test-key"
+    settings.anthropic_api_key = "test-key"
     provider = FakeProvider([GOOD])
     set_gateway(Gateway(provider, sample_rate=0.0, rng=random.Random(1)))
     body = _ask(client, world, "what do I do to both sides of a one step equation").json()
@@ -173,7 +173,7 @@ def test_an_ambiguous_question_asks_which_one_and_the_choice_is_answered(
     client: TestClient, world: World
 ) -> None:
     _grant(client, world, ALL)
-    settings.llm_api_key = ""
+    settings.anthropic_api_key = ""
     first = _ask(client, world, "how do I solve a step equation").json()
     assert first["kind"] in {"clarify", "answer"}
     if first["kind"] == "clarify":

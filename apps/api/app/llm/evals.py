@@ -5,7 +5,7 @@ through the real gateway, and the text that would reach the student is measured 
 written here, separate from the pipeline's own checks, so the suite cannot pass by agreeing with
 itself. Acceptance: leak 0%, tone violations 0%, word limits and language respected.
 
-Live (`--live`, needs LLM_API_KEY and model names): the same cases with a real provider and no
+Live (`--live`, needs ANTHROPIC_API_KEY and model names): the same cases with a real provider and no
 scripted replies. Explain-back agreement with the human labels must then be at least 80%.
 
     python -m app.llm.evals [phrasing|explain_back|all] [--live]
@@ -26,7 +26,7 @@ import yaml
 from app.config import settings
 from app.llm.gateway import Gate, Gateway
 from app.llm.prompt import PromptContext
-from app.llm.provider import FakeProvider, LiteLLMProvider, Provider
+from app.llm.provider import AnthropicProvider, FakeProvider, Provider
 from app.llm.purposes import Purpose
 from app.registries.grade_bands import band_for_grade
 from app.registries.loaders import load_locales_config
@@ -91,9 +91,9 @@ def detect(text: str, *, answer: str | None, max_words: int, language: str) -> l
 def _gateway(case: dict[str, Any], live: bool) -> Gateway:
     provider: Provider
     if live:
-        if not settings.llm_api_key:
-            raise EvalError("--live needs LLM_API_KEY and the LLM_MODEL_* settings")
-        provider = LiteLLMProvider()
+        if not settings.anthropic_api_key:
+            raise EvalError("--live needs ANTHROPIC_API_KEY and the LLM_MODEL_* settings")
+        provider = AnthropicProvider()
         return Gateway(provider, sample_rate=0.0, rng=random.Random(0))
     provider = FakeProvider(list(case.get("replies") or []))
     return Gateway(

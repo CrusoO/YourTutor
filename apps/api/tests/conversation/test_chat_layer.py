@@ -25,10 +25,8 @@ LONG = (
 
 @pytest.fixture(autouse=True)
 def _keys(monkeypatch: pytest.MonkeyPatch) -> None:
-    for name in ("groq_api_key", "gemini_api_key", "openrouter_api_key", "anthropic_api_key"):
-        monkeypatch.setattr(settings, name, "")  # a developer's own .env must not change a test
-    monkeypatch.setattr(settings, "llm_api_key", "test-key")
-    monkeypatch.setattr(settings, "llm_model_strong", "groq/test-model")
+    monkeypatch.setattr(settings, "anthropic_api_key", "test-key")
+    monkeypatch.setattr(settings, "llm_model_strong", "anthropic/test-model")
     monkeypatch.setattr(settings, "explain_enabled", True)
 
 
@@ -136,7 +134,7 @@ def test_switched_off_says_so_and_offers_practice_only(
 def test_no_key_is_treated_like_any_other_unavailable(
     client: TestClient, world: World, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(settings, "llm_api_key", "")
+    monkeypatch.setattr(settings, "anthropic_api_key", "")
     body = _ask(client, world)
     assert body["reason"] == "no_key" and body["fallback"]["reason"] == "unavailable"
 
@@ -144,7 +142,7 @@ def test_no_key_is_treated_like_any_other_unavailable(
 def test_the_fallback_line_changes_as_the_conversation_goes_on(
     client: TestClient, world: World, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(settings, "llm_api_key", "")
+    monkeypatch.setattr(settings, "anthropic_api_key", "")
     first = _ask(client, world)["fallback"]["text"]
     later = _ask(
         client, world, [{"role": "user", "content": "q"}, {"role": "assistant", "content": "a"}]

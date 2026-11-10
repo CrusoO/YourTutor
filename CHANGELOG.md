@@ -10,6 +10,7 @@ Code for v0.9 Safe Base (target 12 Nov 2026) merged in PR #30 on 5 Nov 2026 (dis
 ### Added
 - Draft `/privacy`, `/terms` and `/grievance` pages, each marked "Draft: under legal review. Not yet in force." The privacy page lists every kind of data the code keeps (what, why, where, who sees it, real retention, third parties) and says plainly where deletion is not automatic yet. Contact details, dates, the data fiduciary and the helpline are marked `[owner to supply]`. English only; vitest covers the banner, headings and placeholders. The copy is in `apps/web/lib/legal-copy.ts`.
 - Links to the three pages from the landing footer, the sign-in page, the guest start page and the guardian page. The "remember" and "child" landing answers now link to `/privacy` and stay marked pending.
+- Staff-only content review screen at `/staff/review` (teacher or admin): each draft item with its solver-checked answer, wrong options with their misconception labels and any Hindi text; Approve, Reject or Fix with a note, recorded per reviewer in the new `content_reviews` table (migration 0031). Two distinct approvals on the item's current content hash count as approved; `python -m app.content apply-reviews` then writes them into the YAML.
 - A production start now refuses to run with an AI route on (`ASK_ENABLED` or `EXPLAIN_ENABLED`) and `LLM_DAILY_CAP` at 0, so an open API cannot spend without a daily limit. Development is unchanged.
 - Tutor chat: a server-side answer-leak guard that holds back the practice item's answer until two hints and an attempt (digits, English number words and Devanagari digits are checked); a streamed reply (`POST /explain/chat/stream`); the chat can use Claude models (#31).
 - Lesson quizzes are checked with the maths verifier: a quiz whose marked answer disagrees with the solved value is dropped, and one the verifier cannot read is kept and marked `verified: false` (#34), with a "not checked" note under the question (#37).
@@ -26,6 +27,9 @@ Code for v0.9 Safe Base (target 12 Nov 2026) merged in PR #30 on 5 Nov 2026 (dis
 - The "remember" and "child" trust answers on the landing page are marked pending counsel approval again (#40). Hindi and Nepali show the English text for the shortened chapter two until reviewed text exists (#41).
 - The home-page JS sub-budget is 128 KB gzip, up from 125 KB (#47). The 150 KB page total is unchanged.
 - `.env.example` no longer lists `LLM_PROVIDER` or `OPENAI_API_KEY`, which no code reads (#44).
+
+### Removed
+- Groq, Gemini and OpenRouter support, the `LLM_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY` and `OPENROUTER_API_KEY` settings, the OpenAI-style HTTP path in the explain services, and `litellm` with the packages only it needed. Claude (Anthropic) is the only LLM provider; `ANTHROPIC_API_KEY` is the one key and model names must start with `anthropic/` (production refuses any other). The gateway provider is now `AnthropicProvider`. See `REMOVED.md`.
 
 ### Fixed
 - Six API tests that failed on Postgres in CI (#35); a mypy error in the safety classifier that appeared only with the Anthropic SDK installed (#36); a naive-versus-aware datetime comparison in `review_overdue` on SQLite (#38); a flaky groups test whose check collided with the random join code (#46).

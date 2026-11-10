@@ -86,13 +86,9 @@ class Settings(BaseSettings):
     llm_story_api_key: str = ""  # env: LLM_STORY_API_KEY; the key for that model
     voice_enabled: bool = False  # env: VOICE_ENABLED; the web mic is off until voice input exists
     story_voice: str = "kokoro"  # env: STORY_VOICE; kokoro (default, af_heart) or piper
-    llm_api_key: str = ""  # env: LLM_API_KEY; no key means no LLM calls
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
-    groq_api_key: str = ""  # env: GROQ_API_KEY
-    gemini_api_key: str = ""  # env: GEMINI_API_KEY
-    openrouter_api_key: str = ""  # env: OPENROUTER_API_KEY
-    anthropic_api_key: str = ""  # env: ANTHROPIC_API_KEY
+    anthropic_api_key: str = ""  # env: ANTHROPIC_API_KEY; no key means no LLM calls
     llm_review_sample_rate: float = 1.0  # env: LLM_REVIEW_SAMPLE_RATE; 100% in the first pilot week
     cors_extra_origins: str = ""  # env: CORS_EXTRA_ORIGINS, comma separated (LAN preview)
     trusted_proxies: str = (
@@ -130,6 +126,7 @@ def production_secret_errors(current: Settings) -> list[str]:
 
 
 MIN_SECRET_LENGTH = 32
+ANTHROPIC_PREFIX = "anthropic/"
 DEFAULT_TOKEN_PEPPER = "dev-only-change-me"
 DEFAULT_PILOT_KEY = "dev-pilot"
 _LOCAL_HOSTS = ("localhost", "127.0.0.1", "[::1]", "0.0.0.0")  # noqa: S104
@@ -141,16 +138,8 @@ def llm_route_enabled(current: Settings) -> bool:
 
 
 def has_llm_key(current: Settings) -> bool:
-    """Any provider key key_for_model() can return; ANTHROPIC_API_KEY or the shared LLM_API_KEY."""
-    return any(
-        (
-            current.anthropic_api_key,
-            current.llm_api_key,
-            current.groq_api_key,
-            current.gemini_api_key,
-            current.openrouter_api_key,
-        )
-    )
+    """Claude is the only provider: a key is set when ANTHROPIC_API_KEY is."""
+    return bool(current.anthropic_api_key)
 
 
 def production_config_errors(
@@ -175,6 +164,13 @@ def production_config_errors(
         errors.append("SMTP_HOST (empty: sign-in codes cannot be sent)")
     if llm_route_enabled(current) and not has_llm_key(current):
         errors.append("ANTHROPIC_API_KEY (no LLM key while ASK_ENABLED or EXPLAIN_ENABLED is on)")
+    for env_name, model in (
+        ("LLM_MODEL_FAST", current.llm_model_fast),
+        ("LLM_MODEL_STRONG", current.llm_model_strong),
+        ("LLM_STORY_MODEL", current.llm_story_model),
+    ):
+        if model.strip() and not model.strip().startswith(ANTHROPIC_PREFIX):
+            errors.append(f"{env_name} (Claude is the only provider: name it anthropic/<model>)")
     if llm_route_enabled(current) and current.llm_daily_cap <= 0:
         errors.append("LLM_DAILY_CAP (0 turns the daily model limit off while an AI route is on)")
     for origin in current.cors_extra_origins.split(","):
@@ -200,14 +196,6 @@ def adults_assumed(current: Settings | None = None) -> bool:
 
 
 def key_for_model(model: str) -> str:
-    """Return the API key for a model based on its provider prefix (e.g. 'groq/...')."""
-    provider, _, _ = model.partition("/")
-    if provider == "groq":
-        return settings.groq_api_key or settings.llm_api_key
-    if provider == "gemini":
-        return settings.gemini_api_key or settings.llm_api_key
-    if provider == "openrouter":
-        return settings.openrouter_api_key or settings.llm_api_key
-    if provider == "anthropic":
-        return settings.anthropic_api_key or settings.llm_api_key
-    return settings.llm_api_key
+    """The API key for a model name. Only "anthropic/<model>" names have one; any other name
+    (no prefix, or another provider) gets "" and so reads as "no key"."""
+    return settings.anthropic_api_key if model.startswith(ANTHROPIC_PREFIX) else ""

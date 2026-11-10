@@ -65,7 +65,7 @@ def _run(
     fallback: str,
     session_id: uuid.UUID | None,
 ) -> LlmResult:
-    gate = Gate(state.session_type, state.has_ai_processing, bool(settings.llm_api_key))
+    gate = Gate(state.session_type, state.has_ai_processing, bool(settings.anthropic_api_key))
     result = get_gateway().generate(ctx, fallback=fallback, gate=gate)
     if result.llm_called:
         record_call(db, result, ctx, session_id=session_id)
