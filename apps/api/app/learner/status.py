@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from datetime import datetime
+from datetime import UTC, datetime
 
 NOT_STARTED = "not_started"
 LEARNING = "learning"
@@ -30,8 +30,13 @@ def skill_status(level: int, *, review_overdue: bool = False) -> str:
     return CAN_DO_IT if level <= 6 else SOLID
 
 
+def _aware(moment: datetime) -> datetime:
+    """A time with no zone (SQLite drops it) is UTC, as every stored time here is."""
+    return moment if moment.tzinfo is not None else moment.replace(tzinfo=UTC)
+
+
 def review_overdue(due_at: datetime | None, now: datetime) -> bool:
-    return due_at is not None and due_at <= now
+    return due_at is not None and _aware(due_at) <= _aware(now)
 
 
 def chapter_status(statuses: Iterable[str]) -> str:

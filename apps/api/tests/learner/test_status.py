@@ -109,3 +109,11 @@ def test_review_due_appears_when_card_is_overdue_and_clears_on_correct_recall() 
     assert skill_status(
         ladders["S1"].level, review_overdue=review_overdue(rescheduled.due_at, later)
     ) == (CAN_DO_IT)
+
+
+def test_a_stored_time_without_a_zone_is_read_as_utc() -> None:
+    """SQLite returns naive datetimes; comparing them with an aware "now" must not raise."""
+    now = datetime(2026, 11, 10, 12, 0, tzinfo=UTC)
+    assert review_overdue(datetime(2026, 11, 9, 12, 0), now)
+    assert not review_overdue(datetime(2026, 11, 11, 12, 0), now)
+    assert review_overdue(now - timedelta(seconds=1), now.replace(tzinfo=None))
