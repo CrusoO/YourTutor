@@ -728,6 +728,34 @@ export const reviewQueue = () => staffReq("/teacher/review-queue");
 export const decideReview = (id: string, decision: "ok" | "bad") =>
   staffReq(`/teacher/review-queue/${id}`, { method: "POST", body: JSON.stringify({ decision }) });
 
+export type ReviewCard = {
+  id: string;
+  content_hash: string;
+  stem: string;
+  answer: string;
+  answer_text: string | null;
+  verification: { state: "verified" | "unchecked" | "mismatch"; detail: string };
+  wrong_options: { answer: string; text: string; misconceptions: string[] }[];
+  hindi: { stem: string | null; options: Record<string, string> };
+  approvals: number;
+  approvals_needed: number;
+  blocked: boolean;
+  notes: { reviewer: string; decision: string; note: string }[];
+  my_decision: { decision: string; note: string | null } | null;
+};
+export type ReviewDecision = "approve" | "reject" | "fix";
+/** Staff only: draft content items still waiting for review, one page at a time. */
+export const reviewItems = (offset = 0): Promise<{ total: number; items: ReviewCard[] }> =>
+  staffReq(`/staff/review/items?status=pending&limit=10&offset=${offset}`);
+export const decideItem = (
+  id: string,
+  body: { content_hash: string; decision: ReviewDecision; note?: string },
+): Promise<ReviewCard> =>
+  staffReq(`/staff/review/items/${encodeURIComponent(id)}/decision`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+
 /** Dev only: a token for a preview guardian or teacher (404 unless DEV_TOOLS is on). */
 export async function devStaffToken(role: "parent" | "teacher", scenario?: string) {
   const out = await staffReq("/dev/staff-token", {

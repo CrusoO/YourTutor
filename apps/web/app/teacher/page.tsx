@@ -173,6 +173,7 @@ export default function TeacherPage() {
           </div>
         ))}
       </section>
+      <a href="/staff/review">{copy.reviewLink}</a>
       <button
         type="button"
         className="secondary"
