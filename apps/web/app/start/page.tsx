@@ -6,6 +6,7 @@ import { getContextOptions, guestStart, type ContextOptions } from "@/lib/api";
 
 import { ADULT_GRADE, bookGrade, GUEST_GRADES } from "@/lib/chat/machine";
 import StorageNotice from "@/components/StorageNotice";
+import LegalLinks from "@/components/legal/LegalLinks";
 import { useCopy } from "@/lib/locale";
 
 /** Guest start: curriculum, grade, subject and language. Nothing personal is asked or stored. */
@@ -122,6 +123,7 @@ export default function StartPage() {
         {copy.startButton}
       </button>
       {error ? <p className="banner">{error}</p> : null}
+      <LegalLinks />
     </main>
   );
 }

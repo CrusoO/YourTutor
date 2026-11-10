@@ -12,6 +12,7 @@ import {
 import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import { ComingSoon, GuessChat, HowItWorks, LearningMapView, TrustStrip, VideoDemos } from "./LandingExtras";
 import { heroExtras, learningMap, videoUi, type SettingId, type StoryBeatId } from "./landing-extras";
+import { legalLinks, legalNavLabel } from "@/lib/legal-copy";
 import { StoryArt } from "./StoryArt";
 import styles from "./BrownieLanding.module.css";
 import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
@@ -269,6 +270,13 @@ function LandingPageContent() {
       <footer className={styles.footer}>
         <span>{copy.footer.brand}</span>
         <span>{copy.footer.line}</span>
+        <nav aria-label={legalNavLabel} className={styles.footerLinks} data-testid="footer-legal">
+          {legalLinks.map((link) => (
+            <a key={link.id} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </footer>
     </main>
   );
