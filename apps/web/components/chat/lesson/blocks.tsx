@@ -100,6 +100,7 @@ export function PredictBlock({ block, onResult, onWrong }: { block: AiPredict; o
   return (
     <section className="flex flex-col gap-3" data-testid="block-predict">
       <BlockTitle>{block.prompt}</BlockTitle>
+      {options && block.verified === false ? <p className="m-0 text-[0.75rem] text-muted" data-testid="not-checked">{copy.lessonNotChecked}</p> : null}
       {options && picked === null ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null}
       {options ? (
         <div className="flex flex-col gap-2" role="group" aria-label={block.prompt}>
@@ -179,6 +180,7 @@ export function CheckBlock({ block, onFirst, onSolved, onWrong }: { block: AiChe
     <section className="flex flex-col gap-3" data-testid="block-check">
       <p className="m-0 text-[0.75rem] text-muted">{copy.lessonCheckYourself}</p>
       <BlockTitle>{block.question}</BlockTitle>
+      {block.verified === false ? <p className="m-0 text-[0.75rem] text-muted" data-testid="not-checked">{copy.lessonNotChecked}</p> : null}
       {tried.length === 0 ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null}
       <div className="flex flex-col gap-2" role="group" aria-label={block.question}>
         {block.options.map((option, i) => (

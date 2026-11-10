@@ -199,3 +199,18 @@ describe("usableOpening and usableRest", () => {
     expect(usableRest([broken, explain, check, recap])?.map((b) => b.block.kind)).toEqual(["explain", "check", "recap"]);
   });
 });
+
+describe("the not-checked label", () => {
+  const withVerified = (verified: boolean | undefined) =>
+    blocks.map((entry) => (entry.block.kind === "predict" ? { ...entry, block: { ...entry.block, verified } } : entry));
+
+  it("says so on a quiz the maths verifier could not read, and only then", async () => {
+    for (const [verified, shown] of [[false, true], [true, false], [undefined, false]] as const) {
+      render(<LessonBlocks blocks={withVerified(verified)} prompt="q" language="en" />);
+      await userEvent.click(cont());
+      expect(screen.getByTestId("block-predict")).toBeInTheDocument();
+      expect(screen.queryByTestId("not-checked") !== null, String(verified)).toBe(shown);
+      cleanup();
+    }
+  });
+});
