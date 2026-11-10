@@ -1,9 +1,9 @@
-"""The tutor chat speaks both OpenAI-style providers and Anthropic's Messages API."""
+"""The tutor chat speaks OpenAI-style providers over HTTP and Claude through the Anthropic SDK."""
 
 from __future__ import annotations
 
-import io
 import json
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -18,6 +18,7 @@ from app.explain.service_chat import (
     _stream_piece,
     prepare_chat,
 )
+from app.llm import anthropic_client
 from app.llm.provider import ProviderError
 
 HISTORY = [{"role": "user", "content": "slope"}, {"role": "assistant", "content": "A ratio."}]
@@ -26,17 +27,6 @@ OPEN = Gate(enabled=True, allowed=True)
 
 def _body(request: Any) -> dict[str, Any]:
     return json.loads(request.data.decode("utf-8"))
-
-
-def test_an_anthropic_request_uses_the_messages_api() -> None:
-    req = _chat_request("SYS", HISTORY, "why?", "anthropic/claude-haiku-5-5", "k", stream=True)
-    body = _body(req)
-    assert req.full_url == "https://api.anthropic.com/v1/messages"
-    assert req.get_header("X-api-key") == "k" and req.get_header("Anthropic-version")
-    assert req.get_header("Authorization") is None
-    assert body["system"] == "SYS" and body["model"] == "claude-haiku-5-5"
-    assert [m["role"] for m in body["messages"]] == ["user", "assistant", "user"]
-    assert body["stream"] is True and "temperature" not in body
 
 
 def test_an_openai_style_request_is_unchanged() -> None:
@@ -52,63 +42,74 @@ def test_an_unknown_provider_is_a_provider_error() -> None:
         _chat_request("s", [], "q", "mystery/x", "k")
 
 
-def test_the_anthropic_reply_joins_text_blocks_and_skips_the_rest() -> None:
-    data = {
-        "content": [
-            {"type": "thinking", "thinking": "hmm"},
-            {"type": "text", "text": "Try "},
-            {"type": "text", "text": "this."},
-        ],
-        "stop_reason": "end_turn",
-    }
-    assert _reply_text("anthropic", data) == "Try this."
-
-
-def test_an_anthropic_refusal_is_no_reply() -> None:
-    assert (
-        _reply_text(
-            "anthropic", {"content": [{"type": "text", "text": "x"}], "stop_reason": "refusal"}
-        )
-        == ""
-    )
+def test_claude_never_goes_through_the_hand_built_http_request() -> None:
+    with pytest.raises(ProviderError):
+        _chat_request("s", [], "q", "anthropic/claude-haiku-5-5", "k")
 
 
 def test_the_openai_reply_is_read_as_before() -> None:
-    assert _reply_text("groq", {"choices": [{"message": {"content": "hi"}}]}) == "hi"
+    assert _reply_text({"choices": [{"message": {"content": "hi"}}]}) == "hi"
+    assert _stream_piece({"choices": [{"delta": {"content": "yo"}}]}) == "yo"
 
 
-def test_anthropic_stream_events_give_text_and_a_refusal_raises() -> None:
-    delta = {"type": "content_block_delta", "delta": {"type": "text_delta", "text": "Hi"}}
-    assert _stream_piece("anthropic", delta) == "Hi"
-    assert _stream_piece("anthropic", {"type": "message_start"}) == ""
-    thinking = {"type": "content_block_delta", "delta": {"type": "thinking_delta", "thinking": "x"}}
-    assert _stream_piece("anthropic", thinking) == ""
-    with pytest.raises(ProviderError):
-        _stream_piece("anthropic", {"type": "message_delta", "delta": {"stop_reason": "refusal"}})
+class _FakeStream:
+    def __init__(self, pieces: list[str]) -> None:
+        self.text_stream = iter(pieces)
 
-
-class _Wire(io.BytesIO):
-    def __enter__(self) -> _Wire:
+    def __enter__(self) -> _FakeStream:
         return self
 
     def __exit__(self, *_a: Any) -> None:
         return None
 
+    def get_final_message(self) -> Any:
+        return SimpleNamespace(stop_reason="end_turn")
 
-def test_the_anthropic_stream_is_read_end_to_end(monkeypatch: pytest.MonkeyPatch) -> None:
-    lines = [
-        "event: message_start",
-        'data: {"type":"message_start"}',
-        "",
-        'data: {"type":"content_block_delta","delta":{"type":"text_delta","text":"Think "}}',
-        "",
-        'data: {"type":"content_block_delta","delta":{"type":"text_delta","text":"first."}}',
-        'data: {"type":"message_stop"}',
-    ]
-    payload = ("\n".join(lines) + "\n").encode()
-    monkeypatch.setattr(service_chat.urllib.request, "urlopen", lambda *a, **k: _Wire(payload))
+
+class _FakeMessages:
+    def __init__(self, calls: list[dict[str, Any]]) -> None:
+        self.calls = calls
+
+    def create(self, **kwargs: Any) -> Any:
+        self.calls.append(kwargs)
+        return SimpleNamespace(
+            stop_reason="end_turn",
+            content=[SimpleNamespace(type="text", text="Try it.")],
+            usage=SimpleNamespace(input_tokens=3, output_tokens=2),
+        )
+
+    def stream(self, **kwargs: Any) -> Any:
+        self.calls.append(kwargs)
+        return _FakeStream(["Think ", "first."])
+
+
+def _fake_sdk(monkeypatch: pytest.MonkeyPatch) -> list[dict[str, Any]]:
+    calls: list[dict[str, Any]] = []
+    client = SimpleNamespace(messages=_FakeMessages(calls))
+    monkeypatch.setattr(anthropic_client, "_client", lambda *_a: client)
+    return calls
+
+
+def test_a_claude_chat_goes_through_the_sdk(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls = _fake_sdk(monkeypatch)
+    text = service_chat._chat_complete("SYS", HISTORY, "why?", "anthropic/claude-haiku-5-5", "k")
+    assert text == "Try it."
+    sent = calls[0]
+    assert sent["model"] == "claude-haiku-5-5" and sent["system"] == "SYS"
+    assert [m["role"] for m in sent["messages"]] == ["user", "assistant", "user"]
+    assert not {"temperature", "top_p", "top_k"} & sent.keys()
+
+
+def test_a_claude_chat_stream_goes_through_the_sdk(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls = _fake_sdk(monkeypatch)
     out = list(service_chat._chat_stream("s", [], "q", "anthropic/claude-haiku-5-5", "k"))
     assert out == ["Think ", "first."]
+    assert calls[0]["model"] == "claude-haiku-5-5"
+
+
+def test_a_claude_model_with_no_name_is_unknown() -> None:
+    with pytest.raises(ProviderError):
+        service_chat._chat_complete("s", [], "q", "anthropic/", "k")
 
 
 @pytest.fixture
