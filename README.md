@@ -24,30 +24,42 @@ docker compose up --build
 - Web: http://localhost:3000/api/health
 - Web UI: http://localhost:3000
 
+The web image is a production build served with `next start`. `NEXT_PUBLIC_*` values are compiled into the browser bundle, so they are build arguments in `docker-compose.yml`: change one and rebuild the image (`docker compose build web`).
+
 `.gitattributes` forces LF line endings so YAML, Python, and GitHub Actions do not pick up CRLF on Windows.
 
 ## Local checks (same as CI)
 
 ```bash
-# API
+# API (CI installs the pinned requirements-dev.lock: Linux, Python 3.12)
 cd apps/api
-pip install -r requirements-dev.txt
+pip install -r requirements-dev.lock   # on Windows or macOS use requirements-dev.txt
 ruff check .
-mypy app
+mypy .
 pytest
 
 # Web
 cd apps/web
 npm install
-npm run lint
-npm test
+npm run lint          # tsc --noEmit
+npm test              # vitest
+npm run build
+npm run check:weight  # page-weight budget (home JS 128 KB, CSS 25 KB, page 150 KB, gzip)
 ```
+
+To refresh the API lock files, see [apps/api/README.md](apps/api/README.md).
+
+## Model calls
+
+The tutor chat and the lessons call Claude through the official Anthropic SDK (`apps/api/app/llm/anthropic_client.py`, key `ANTHROPIC_API_KEY`). Groq, Gemini and OpenRouter keep a plain HTTP path (`app/explain/service.py`, `service_chat.py`). The chat withholds a practice item's answer (`app/explain/answer_guard.py`) and can stream (`POST /explain/chat/stream`). With no key, replies are authored text.
 
 `ALLOW_DRAFT_CONTENT=true` is for local/demo only. Production must leave it unset or false.
 
-## Milestone status
+## Status
 
-**M0** scaffold and **M1** content pipeline are in this repo. Auth and sessions start at M2.
+Versions, targets and gates are in [docs/ROADMAP.md](docs/ROADMAP.md); what has merged is in [CHANGELOG.md](CHANGELOG.md). Features kept behind flags are in [docs/parked.md](docs/parked.md).
+
+Validate the content:
 
 ```
 cd apps/api

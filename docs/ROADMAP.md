@@ -27,7 +27,11 @@ Dates are **targets**. A version ships **only when its gate passes**. If a date 
 
 ## Status
 
-- v0.9 Safe Base is in progress. See [CHANGELOG.md](../CHANGELOG.md).
+- v0.9 Safe Base: code merged (PR #30, 5 Nov 2026); gate not closed (helplines unverified, keys not rotated).
+- v0.95 Clean Base: in progress.
+- Later versions: not started.
+
+What has merged is in [CHANGELOG.md](../CHANGELOG.md).
 
 ## Law clock (from the plan)
 

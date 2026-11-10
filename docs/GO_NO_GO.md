@@ -11,7 +11,7 @@ own each gate fill the rest. Nothing here has been signed by anyone yet.
 | 4 | Grounding evals: unsupported < 1%, abstention at least 95%, citations at least 98%, guard 100%, injection 0 | Engineering | `python -m app.ask.evals` accepted; a live run once a key exists | |
 | 5 | Medium-locale strings reviewed by a native reviewer | Curriculum lead + reviewer | `python -m app.content locale-status content --locale <code>` shows no missing or unreviewed strings | |
 | 6 | Jurisdiction profile and consent wording reviewed | Legal | profile file in `config/jurisdictions/`, consent copy | |
-| 7 | Safety: distress pause and flag, PII stripping, rate limits | Engineering | `tests/hardening`, `tests/ask` | |
+| 7 | Safety: distress pause and flag, PII stripping, rate limits | Engineering | `tests/hardening`, `tests/ask`, `tests/safety` | |
 | 8 | Operator can install and run from the guide | Operations | a person other than the author follows `docs/OPERATOR.md`; `python -m app.operator check` prints no FAIL | |
 | 9 | A restore from backup has been tested | Operations | restore log | |
 | 10 | Pilot protocol approved, primary outcome pre-registered | Curriculum lead + engineering | `docs/PILOT_PROTOCOL.md` section 5 confirmed | |
@@ -19,8 +19,8 @@ own each gate fill the rest. Nothing here has been signed by anyone yet.
 
 ## Known gaps engineering is aware of
 
-* The live language-model path has never run against a real model, so its eval numbers are offline.
-* Moderation of student words is a word list.
+* The eval suites (gates 3 and 4) have not been run live, so their numbers are offline. The tutor chat and the lessons have had small manual checks against Claude (9 and 10 Nov 2026), which are not eval runs.
+* Moderation of student words is a word list (Layer 1 lexicon with a CI gate). A second layer, a Claude classifier (`app/safety_classifier.py`), exists but is off by default and has never run live.
 * The offline player does not show lesson beats; offline practice only.
 * Ask search is lexical; there is no embedding model.
 * Rate limits are per process; a gateway is needed in front of several API processes.
