@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     postgres_port: int = 5432
     redis_url: str = "redis://localhost:6379/0"
     allow_draft_content: bool = False
+    # env: SERVE_TIER_A_UNREVIEWED. Serve calculation-checked (Tier A) original items that have no
+    # human approval yet. Off until the owner switches it on; production does not force it.
+    serve_tier_a_unreviewed: bool = False
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     smtp_host: str = ""
