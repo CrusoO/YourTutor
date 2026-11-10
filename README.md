@@ -1,6 +1,6 @@
 # YourTutor
 
-Pedagogy-first AI tutor for Class 9–10 maths (Bhutan + Assam SEBA). The **orchestrator decides what to do next; the LLM only phrases it.**
+Pedagogy-first AI tutor for CBSE Class 10 maths (Board Sprint, algebra first). The **orchestrator decides what to do next; the LLM only phrases it.**
 
 See [PLAN.md](PLAN.md) and [ARCHITECTURE.md](ARCHITECTURE.md).
 
