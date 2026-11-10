@@ -348,6 +348,13 @@ export function TrustStrip() {
                 <span>{item.q}</span>
               </summary>
               <p>{item.a}</p>
+              {"link" in item ? (
+                <p>
+                  <a className={x.trustLink} href={item.link.href}>
+                    {item.link.label}
+                  </a>
+                </p>
+              ) : null}
             </details>
           </li>
         ))}

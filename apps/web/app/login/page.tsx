@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
 import StorageNotice from "@/components/StorageNotice";
+import LegalLinks from "@/components/legal/LegalLinks";
 import { LandingLanguages } from "../brownie/Interactions";
 import { LandingLanguageProvider, useLandingLanguage } from "../brownie/LandingLanguage";
 
@@ -73,6 +74,7 @@ function LoginPageContent() {
       <Link href="/start" className="muted" data-testid="try-guest">
         {copy.auth.tryAsGuest}
       </Link>
+      <LegalLinks />
     </main>
   );
 }
