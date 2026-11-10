@@ -419,4 +419,43 @@ describe("SessionPage action rendering", () => {
     render(<SessionPage />);
     expect(await screen.findByText(/go ahead and type your answer/i)).toBeInTheDocument();
   });
+
+  it("practice: 'I don't know' is its own event, keyboard reachable", async () => {
+    mockSession({ ...actionFixtures.show_item, dont_know_option: false });
+    render(<SessionPage />);
+    const button = await screen.findByTestId("dont-know");
+    expect(button).toHaveTextContent("I don't know");
+    expect(button).toHaveAttribute("type", "button");
+    expect(button.tagName).toBe("BUTTON"); // a real button: Tab reaches it, Enter and Space press it
+    button.focus();
+    expect(button).toHaveFocus();
+    await userEvent.keyboard("{Enter}");
+    await waitFor(() =>
+      expect(postEvent).toHaveBeenCalledWith("sess-test", "dont_know", expect.any(Object), "ITEM.FIX.1"),
+    );
+    const sent = vi.mocked(postEvent).mock.calls[0][2] as Record<string, unknown>;
+    expect(sent).not.toHaveProperty("response"); // never typed as an answer in practice
+  });
+
+  it("practice: no 'I don't know' when no help can be given (probe)", async () => {
+    mockSession({ ...actionFixtures.show_item, dont_know_option: false, can_request_help: false, can_request_hint: false, allow_hint: false });
+    render(<SessionPage />);
+    await screen.findByRole("main");
+    expect(screen.queryByTestId("dont-know")).not.toBeInTheDocument();
+  });
+
+  it("assessment keeps its answer-text 'I don't know'", async () => {
+    mockSession({ ...actionFixtures.show_item, dont_know_option: true, can_request_help: false, can_request_hint: false, allow_hint: false });
+    render(<SessionPage />);
+    await userEvent.click(await screen.findByTestId("dont-know"));
+    await waitFor(() =>
+      expect(postEvent).toHaveBeenCalledWith("sess-test", "answer", expect.objectContaining({ response: "i don't know" }), "ITEM.FIX.1"),
+    );
+  });
+
+  it("the hint screen offers 'I don't know' for the next hint", async () => {
+    mockSession({ ...actionFixtures.hint, can_request_help: true, can_request_hint: true });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("dont-know")).toBeInTheDocument();
+  });
 });
