@@ -14,6 +14,7 @@ import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import { ConfidenceTap, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
+import ItemLabels from "@/components/session/ItemLabels";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
 import { useCopy, useLocale } from "@/lib/locale";
 
@@ -432,6 +433,7 @@ export default function SessionPage() {
           ) : null}
           <p className="stem">{item?.stem}</p>
           <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
+          <ItemLabels labels={item?.labels} />
           {confidenceTap}
           {mcq ? (
             <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />

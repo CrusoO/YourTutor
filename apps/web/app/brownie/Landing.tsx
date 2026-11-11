@@ -13,6 +13,7 @@ import { LandingLanguageProvider, useLandingLanguage } from "./LandingLanguage";
 import { ComingSoon, GuessChat, HowItWorks, LearningMapView, TrustStrip, VideoDemos } from "./LandingExtras";
 import { heroExtras, learningMap, videoUi, type SettingId, type StoryBeatId } from "./landing-extras";
 import { legalLinks, legalNavLabel } from "@/lib/legal-copy";
+import { INDEPENDENCE_FOOTER } from "@/lib/independence";
 import { StoryArt } from "./StoryArt";
 import styles from "./BrownieLanding.module.css";
 import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
@@ -277,6 +278,9 @@ function LandingPageContent() {
             </a>
           ))}
         </nav>
+        <small data-testid="footer-independence" style={{ flexBasis: "100%" }}>
+          {INDEPENDENCE_FOOTER}
+        </small>
       </footer>
     </main>
   );

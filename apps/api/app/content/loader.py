@@ -70,6 +70,9 @@ def load_path(
     report = validate_bundle(bundle, curricula_for(root))
     report.warnings.extend(stale_approvals)
     _persist_hash_resets(root, report)
+    from app.content.sources import rights_errors
+
+    report.errors.extend(rights_errors(root, bundle.items))
     from app.lessons.sources import approved_source_ids, source_errors
 
     report.errors.extend(source_errors(root))
@@ -215,6 +218,8 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 template_id=item.template_id,
                 generator_version=item.generator_version,
                 template_hash=item.template_hash,
+                tier=item.tier.value if item.tier else None,
+                provenance=item.provenance.model_dump() if item.provenance else None,
             )
         )
     for mc in bundle.misconceptions:
