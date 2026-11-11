@@ -12,6 +12,7 @@ import {
   teacherClasses,
 } from "@/lib/api";
 
+import MistakeList from "@/components/staff/MistakeList";
 import { useCopy } from "@/lib/locale";
 
 type Heat = {
@@ -130,6 +131,8 @@ export default function TeacherPage() {
           </div>
         ) : null}
       </section>
+
+      {current ? <MistakeList classId={current} /> : null}
 
       <section className="stack" data-testid="teacher-stuck">
         <h2>{copy.teacherStuck}</h2>

@@ -733,6 +733,43 @@ export const setChildLanguage = (studentId: string, home_language: string) =>
 export const teacherClasses = () => staffReq("/teacher/classes");
 export const classView = (classId: string, kind: "heatmap" | "stuck" | "alerts") =>
   staffReq(`/teacher/classes/${classId}/${kind}`);
+export type Mistake = {
+  misconception_id: string;
+  label: string;
+  explanation: string;
+  students: number;
+  occurrences: number;
+  skill_title: string;
+  chapter: string;
+  example: { stem: string; steps: string[] } | null;
+};
+export type MistakeList = {
+  state: "ok" | "none" | "not_enough_students";
+  window_days: number;
+  minimum_students: number;
+  mistakes: Mistake[];
+};
+export type WarmupItem = {
+  item_id: string;
+  skill_title: string;
+  stem: string;
+  options: { id: string; text: string }[];
+  answer: string;
+  steps: string[];
+  targets: { misconception_id: string; label: string };
+};
+export type Warmup = {
+  state: "ok" | "no_items" | "none" | "not_enough_students";
+  seed: string;
+  size: number;
+  short_by: number;
+  items: WarmupItem[];
+  targets: { misconception_id: string; label: string }[];
+};
+export const classMistakes = (classId: string, days = 14): Promise<MistakeList> =>
+  staffReq(`/teacher/classes/${classId}/mistakes?days=${days}`);
+export const classWarmup = (classId: string, seed: string, days = 14): Promise<Warmup> =>
+  staffReq(`/teacher/classes/${classId}/warmup?days=${days}&seed=${encodeURIComponent(seed)}`);
 export const reviewQueue = () => staffReq("/teacher/review-queue");
 export const decideReview = (id: string, decision: "ok" | "bad") =>
   staffReq(`/teacher/review-queue/${id}`, { method: "POST", body: JSON.stringify({ decision }) });
