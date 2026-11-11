@@ -16,6 +16,7 @@ from app.learner.bkt import BktParams
 from app.learner.bktf_shadow import ShadowStep, replay_shadow
 from app.learner.ladder import (
     KIND_ANSWER,
+    KIND_DONT_KNOW,
     KIND_HINT,
     KIND_LESSON,
     KIND_TEST_OUT,
@@ -88,6 +89,8 @@ def ladder_events_from_rows(
                     options=list(item.options),
                 )
             out.append(make(KIND_ANSWER, correct=correct))
+        elif event.event_type == "dont_know":
+            out.append(make(KIND_DONT_KNOW))
         elif event.event_type in {"request_help", "request_hint"}:
             out.append(make(KIND_HINT))
         elif event.event_type == "continue" and event.state_before == "worked_example":
@@ -109,7 +112,7 @@ def learner_events_from_ladder(events: Sequence[LadderEvent]) -> list[LearnerEve
             at=event.at,
         )
         for event in events
-        if event.kind in {KIND_ANSWER, KIND_HINT}
+        if event.kind in {KIND_ANSWER, KIND_HINT, KIND_DONT_KNOW}
     ]
 
 

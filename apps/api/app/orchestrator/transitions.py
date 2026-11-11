@@ -25,12 +25,14 @@ TRANSITIONS: tuple[Transition, ...] = (
     Transition("R04", "predict", "predict_response", "worked_example", "worked_example", "advance"),
     Transition("R05", "worked_example", "continue", "practice", "show_item", "begin practice"),
     Transition("R06", "practice", "request_help", "practice", "hint", "hint 1 or 2"),
+    Transition("R06", "practice", "dont_know", "practice", "hint", "hint 1 or 2, no BKT"),
     Transition("R07", "practice", "answer", "practice", "hint", "wrong before hint 2"),
     Transition(
         "R08", "practice", "answer", "explain_back", "explain_back_prompt", "first unhinted"
     ),
     Transition("R09", "practice", "answer", "reveal", "reveal_solution", "wrong after hint 2"),
     Transition("R10", "practice", "show_solution", "reveal", "reveal_solution", "after two hints"),
+    Transition("R10", "practice", "dont_know", "reveal", "reveal_solution", "after two hints"),
     Transition("R11", "reveal", "continue", "practice", "similar_item", "same skill and tier"),
     Transition("R12", "reveal", "continue", "start", "content_gap", "no other item"),
     Transition("R13", "explain_back", "continue", "practice", "show_item", "skip explain"),

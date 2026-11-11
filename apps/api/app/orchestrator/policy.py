@@ -9,6 +9,7 @@ from app.checkpoint.score import score_answers
 from app.content.validator import item_tier
 from app.learner.ladder import (
     KIND_ANSWER,
+    KIND_DONT_KNOW,
     KIND_HINT,
     KIND_LESSON,
     T_LEVEL,
@@ -129,6 +130,8 @@ def _practice(learner: LearnerState, session: SessionState, event: Event | None)
         return _on_continue(learner, session)
     if event.type == "request_help":
         return _on_hint(learner, session)
+    if event.type == "dont_know":
+        return _on_dont_know(learner, session)
     if event.type == "break_choice":
         return _on_break_choice(learner, session, event)
     if event.type == "stuck_choice":
@@ -202,6 +205,31 @@ def _on_hint(learner: LearnerState, session: SessionState) -> Action:
             Action(type="show_item", item_id=item.id, skill_id=item.primary_skill),
         )
     return _deliver_hint(learner, session, item)
+
+
+_DONT_KNOW_PHASES = frozenset({"practice", "warmup", "stuck", "stuck_step"})
+
+
+def _on_dont_know(learner: LearnerState, session: SessionState) -> Action:
+    """The learner says "I don't know" on the item in front of them (FIX-PLAN B1-5).
+
+    It is honest data, not an attempt: no BKT update (not a miss, not evidence), no stuck-point
+    picker (they already said it), and the next hint comes at once: hint 1, then 2. After hint 2
+    the worked solution is the next step, exactly as for a wrong answer then. The ladder is the
+    only way forward, so repeats cannot loop: the third "I don't know" ends in the reveal, and
+    the reveal is the same one a wrong answer reaches, never earlier."""
+    if session.session_type != "practice":
+        return _flag(session, "no_dont_know_in_assessment")  # the assessment has its own option
+    item = session.item()
+    if item is None:
+        return _enter_practice_loop(learner, session)
+    if session.phase == "probe":
+        return _flag(session, "no_help_in_probe")
+    if session.phase not in _DONT_KNOW_PHASES:
+        return _flag(session, "illegal_dont_know")
+    if session.hint_level_shown >= 2:
+        return _reveal(session)
+    return _deliver_hint(learner, session, item, count_miss=False)
 
 
 _STUCK_CHOICES = ("start", "step", "restate", "might_be_right")
@@ -343,14 +371,24 @@ def _non_leaking_hint(item: CatalogItem, *, avoid: int) -> str:
     return GENERIC_SOCRATIC
 
 
-def _deliver_hint(learner: LearnerState, session: SessionState, item: CatalogItem) -> Action:
+def _deliver_hint(
+    learner: LearnerState,
+    session: SessionState,
+    item: CatalogItem,
+    *,
+    count_miss: bool = True,
+) -> Action:
     level = session.hint_level_shown + 1
     text = item.hint(level)
     if leak_check(text, item.answer_sympy, level=level):
         text = _non_leaking_hint(item, avoid=level)
-    _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
-    if session.last_event is not None and session.last_event.type == "request_help":
-        _maybe_ladder(learner, session, item, kind=KIND_HINT, correct=None)
+    if count_miss:
+        _maybe_bkt(learner, session, item, event_type="request_hint", correct=False)
+    else:  # "I don't know": the item counts as helped, but there is no BKT miss and no evidence
+        _maybe_bkt(learner, session, item, event_type="dont_know", correct=False)
+    if session.last_event is not None and session.last_event.type in {"request_help", "dont_know"}:
+        kind = KIND_HINT if count_miss else KIND_DONT_KNOW
+        _maybe_ladder(learner, session, item, kind=kind, correct=None)
     session.hint_level_shown = level
     session.phase = "practice"
     misconception = _match_misconception(item, session.last_wrong_response or "")

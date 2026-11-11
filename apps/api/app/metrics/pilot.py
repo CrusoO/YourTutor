@@ -56,7 +56,7 @@ def pilot_metrics(db: Session, since: datetime | None = None) -> dict[str, Any]:
     for event, session in rows:
         days_by_student[session.student_id].add(as_utc(event.created_at).date())
         key = (event.session_id, event.item_id or "")
-        if event.event_type in {"request_help", "request_hint"} and event.item_id:
+        if event.event_type in {"request_help", "request_hint", "dont_know"} and event.item_id:
             hinted.add(key)
         if event.event_type == "continue" and event.state_before == "worked_example":
             lessons += 1

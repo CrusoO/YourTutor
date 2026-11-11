@@ -87,8 +87,15 @@ Run these from cron or a scheduler (they are idempotent):
 ```bash
 cd apps/api
 python -m app.reports weekly            # the guardian report; once a week is enough, run it daily
-python -m app.retention purge_guests    # delete idle guests (default 90 days)
+python -m app.retention all --dry-run  # count what would go (nothing is deleted)
+python -m app.retention all             # purge_guests, otp, rate_events, auth_sessions, llm_calls, video_jobs
 ```
+
+`all` prints one line of counts per job (no personal data) and exits 1 only if a job failed. The
+periods are constants at the top of `apps/api/app/retention.py`; the guest window is
+`guest_retention_days` in the jurisdiction profile. Video files are deleted only inside
+`ENGINE_JOBS_DIR` (or `<ENGINE_DIR>/dist/jobs`). Run it daily from cron on the machine that sees that
+folder, with the same `.env` as the API: `20 3 * * * cd /srv/yourtutor/apps/api && set -a && . /srv/yourtutor/.env && set +a && python -m app.retention all >> /var/log/yourtutor-retention.log 2>&1`.
 
 The report waits for the profile's quiet hours to end, never sends a week twice, and sends nothing
 for a week without practice.
@@ -293,7 +300,7 @@ cd /srv/yourtutor/apps/api
 set -a; . /srv/yourtutor/.env; set +a
 
 python -m app.reports weekly                 # the guardian report, safe to run every day
-python -m app.retention purge_guests         # delete idle guests
+python -m app.retention all                  # retention: guests, sign-in codes, old rows, videos
 
 if ! python -m app.operator check > /tmp/operator-check.txt 2>&1; then
   mail -s "YourTutor check FAILED" you@example.org < /tmp/operator-check.txt   # (not tested)

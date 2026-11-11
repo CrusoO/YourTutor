@@ -6,7 +6,7 @@ import uuid
 from typing import Any
 
 from fastapi import HTTPException, status
-from sqlalchemy import delete, select
+from sqlalchemy import ColumnElement, delete, select
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
@@ -48,11 +48,15 @@ from app.checkpoint.study import (
 from app.config import settings
 from app.db.models import (
     AuthSessionRow,
+    CheckpointResultRow,
     CheckpointTokenRow,
     ClassMembershipRow,
     ClassRow,
     ConsentRow,
     EventRow,
+    GroupLessonRow,
+    GroupResultRow,
+    LessonRecordRow,
     LlmCallRow,
     LoopBRecordRow,
     LoopBSnapshotRow,
@@ -60,14 +64,18 @@ from app.db.models import (
     MisconceptionHitRow,
     OtpChallengeRow,
     OverlayRow,
+    PaperEntryRow,
     RateEventRow,
+    ReportLogRow,
     ReviewCardRow,
     ReviewQueueRow,
+    SafetyFlagRow,
     SessionRow,
     StudentRow,
     StudyParticipantRow,
     TeacherAlertRow,
     UserRow,
+    VideoJobRow,
 )
 from app.registries.startup import deployment_jurisdiction_profile
 from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
@@ -453,7 +461,8 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
     if user is None:
         raise HTTPException(status_code=404, detail="user not found")
     students = session.scalars(select(StudentRow).where(StudentRow.parent_id == parent_id)).all()
-    consents = session.scalars(select(ConsentRow).where(ConsentRow.parent_id == parent_id)).all()
+    from app.auth.export import learner_export
+
     return {
         "user": {"id": str(user.id), "email": user.email, "role": user.role, "locale": user.locale},
         "students": [
@@ -474,45 +483,145 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
                 "version": c.version,
                 "revoked_at": c.revoked_at.isoformat() if c.revoked_at else None,
             }
-            for c in consents
+            for c in session.scalars(select(ConsentRow).where(ConsentRow.parent_id == parent_id))
         ],
+        "learners": [learner_export(session, s) for s in students],
     }
 
 
+def _guest_student(session: Session, actor: Actor, student_id: uuid.UUID) -> StudentRow:
+    """The guest learner this bearer token belongs to; anything else is refused."""
+    require(actor.is_student and actor.student_id == student_id)
+    student = student_or_404(session, student_id)
+    require(is_guest(session, student_id))
+    return student
+
+
+def export_guest(session: Session, actor: Actor, student_id: uuid.UUID) -> dict[str, Any]:
+    """A guest's own records, for the guest holding the token. No email: a guest has none."""
+    from app.auth.export import learner_export
+
+    return {"learners": [learner_export(session, _guest_student(session, actor, student_id))]}
+
+
+def delete_guest(session: Session, actor: Actor, student_id: uuid.UUID) -> None:
+    """Delete a guest learner and the hidden guest owner, for the guest holding the token."""
+    student = _guest_student(session, actor, student_id)
+    owner = session.get(UserRow, student.parent_id)
+    purge_students(session, [student.id])
+    if owner is not None:
+        session.delete(owner)
+
+
+def _purge_research_rows(
+    session: Session, ids: list[uuid.UUID], codes: list[str], consent_ids: list[uuid.UUID]
+) -> None:
+    """Remove study rows tied to these students: by student, by consent, or by household code.
+
+    The foreign keys only SET NULL here, which would leave scores and the household code behind.
+    """
+    participant_filter: ColumnElement[bool] = StudyParticipantRow.student_id.in_(ids)
+    if codes:
+        participant_filter = participant_filter | StudyParticipantRow.household_id.in_(codes)
+    participants = session.scalars(select(StudyParticipantRow.id).where(participant_filter)).all()
+    result_filter: ColumnElement[bool] = CheckpointResultRow.student_id.in_(ids)
+    token_filter: ColumnElement[bool] | None = (
+        CheckpointTokenRow.consent_id.in_(consent_ids) if consent_ids else None
+    )
+    if participants:
+        result_filter = result_filter | CheckpointResultRow.participant_id.in_(participants)
+        by_participant = CheckpointTokenRow.participant_id.in_(participants)
+        token_filter = by_participant if token_filter is None else token_filter | by_participant
+        session.execute(delete(PaperEntryRow).where(PaperEntryRow.participant_id.in_(participants)))
+    session.execute(delete(CheckpointResultRow).where(result_filter))
+    if token_filter is not None:
+        session.execute(delete(CheckpointTokenRow).where(token_filter))
+    if participants:
+        session.execute(delete(StudyParticipantRow).where(StudyParticipantRow.id.in_(participants)))
+
+
+def _delete_video_jobs(session: Session, where: ColumnElement[bool]) -> list[tuple[Any, ...]]:
+    """Delete the matching video job rows; return (id, result_path, request_json) for the files."""
+    jobs = session.execute(
+        select(VideoJobRow.id, VideoJobRow.result_path, VideoJobRow.request_json).where(where)
+    ).all()
+    session.execute(delete(VideoJobRow).where(where))
+    return [tuple(j) for j in jobs]
+
+
+def _delete_job_files(jobs: list[tuple[Any, ...]]) -> None:
+    from app.video_jobs.files import delete_job_folder, job_folder_name
+
+    for job_id, result_path, request_json in jobs:
+        delete_job_folder(job_folder_name(job_id, result_path, request_json))
+
+
 def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
-    """Delete these students and everything recorded about them."""
+    """Delete these students and everything recorded about them.
+
+    Every table that refers to a student is cleared here by an explicit delete, so deletion does
+    not depend on the database cascade (SQLite does not enforce it; research rows only SET NULL).
+    The tests list the tables from the models and fail on one this function does not know.
+    """
     if not ids:
         return
+    owners = session.scalars(
+        select(UserRow.email)
+        .join(StudentRow, StudentRow.parent_id == UserRow.id)
+        .where(StudentRow.id.in_(ids))
+    ).all()
+    codes = [
+        c for c in session.scalars(select(StudentRow.family_code).where(StudentRow.id.in_(ids)))
+    ]
+    consent_ids = list(session.scalars(select(ConsentRow.id).where(ConsentRow.student_id.in_(ids))))
     session_ids = session.scalars(select(SessionRow.id).where(SessionRow.student_id.in_(ids))).all()
     if session_ids:
         session.execute(delete(EventRow).where(EventRow.session_id.in_(session_ids)))
         session.execute(delete(LlmCallRow).where(LlmCallRow.session_id.in_(session_ids)))
     session.execute(delete(SessionRow).where(SessionRow.student_id.in_(ids)))
+    _purge_research_rows(session, ids, [c for c in codes if c], consent_ids)
     for table in (
         MasteryRow,
         ReviewCardRow,
         MisconceptionHitRow,
         LoopBSnapshotRow,
         LoopBRecordRow,
+        LessonRecordRow,
+        SafetyFlagRow,
+        ReportLogRow,
+        ReviewQueueRow,
+        TeacherAlertRow,
+        ClassMembershipRow,
+        ConsentRow,
+        AuthSessionRow,
     ):
         session.execute(delete(table).where(table.student_id.in_(ids)))
-    session.execute(delete(ReviewQueueRow).where(ReviewQueueRow.student_id.in_(ids)))
-    session.execute(delete(TeacherAlertRow).where(TeacherAlertRow.student_id.in_(ids)))
-    session.execute(delete(ClassMembershipRow).where(ClassMembershipRow.student_id.in_(ids)))
-    session.execute(delete(ConsentRow).where(ConsentRow.student_id.in_(ids)))
-    session.execute(delete(AuthSessionRow).where(AuthSessionRow.student_id.in_(ids)))
+    jobs = _delete_video_jobs(session, VideoJobRow.student_id.in_(ids))
+    if owners:
+        session.execute(delete(OtpChallengeRow).where(OtpChallengeRow.email.in_(set(owners))))
     session.execute(delete(StudentRow).where(StudentRow.id.in_(ids)))
+    _delete_job_files(jobs)
 
 
 def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
     require(can_export_family(actor, parent_id))
     students = session.scalars(select(StudentRow).where(StudentRow.parent_id == parent_id)).all()
     purge_students(session, [s.id for s in students])
+    user = session.get(UserRow, parent_id)
+    if user is None:
+        return
+    owned = session.scalars(select(GroupLessonRow.id).where(GroupLessonRow.owner_id == parent_id))
+    lesson_ids = list(owned)
+    if lesson_ids:
+        session.execute(delete(GroupResultRow).where(GroupResultRow.group_id.in_(lesson_ids)))
+        session.execute(delete(GroupLessonRow).where(GroupLessonRow.id.in_(lesson_ids)))
+    session.execute(delete(OtpChallengeRow).where(OtpChallengeRow.email == user.email.lower()))
+    session.execute(delete(OtpChallengeRow).where(OtpChallengeRow.email == user.email))
     session.execute(delete(AuthSessionRow).where(AuthSessionRow.user_id == parent_id))
     session.execute(delete(ConsentRow).where(ConsentRow.parent_id == parent_id))
-    user = session.get(UserRow, parent_id)
-    if user:
-        session.delete(user)
+    session.execute(delete(ReportLogRow).where(ReportLogRow.parent_id == parent_id))
+    _delete_job_files(_delete_video_jobs(session, VideoJobRow.org_id == parent_id))
+    session.delete(user)
 
 
 def student_chapters(session: Session, actor: Actor, student_id: uuid.UUID) -> dict[str, Any]:

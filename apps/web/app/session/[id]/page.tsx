@@ -86,6 +86,25 @@ export default function SessionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
+  // Practice: "I don't know" is its own event (hint, no mastery change). The assessment keeps
+  // its answer-text form, which the server scores as "don't know" there.
+  const dontKnowButton =
+    action && (action.dont_know_option || canHelp(action) || action.can_show_solution) ? (
+      <button
+        type="button"
+        className="ghost"
+        data-testid="dont-know"
+        onClick={() =>
+          send(action.dont_know_option ? "answer" : "dont_know", {
+            ...(action.dont_know_option ? { response: "i don't know" } : {}),
+            latency_ms: elapsedMs(shownAt.current),
+          })
+        }
+      >
+        {copy.dontKnow}
+      </button>
+    ) : null;
+
   async function send(event_type: string, payload: Record<string, unknown> = {}, itemId?: string | null) {
     const view = await postEvent(params.id, event_type, payload, itemId ?? action?.item_id);
     const next = view.action;
@@ -362,6 +381,7 @@ export default function SessionPage() {
               onSubmit={() => send("answer", answerPayload(answer))}
             />
           )}
+          {dontKnowButton}
           {canHelp(action) ? (
             <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
               {copy.helpButton}
@@ -426,15 +446,7 @@ export default function SessionPage() {
               onSubmit={() => send("answer", answerPayload(answer))}
             />
           )}
-          {action.dont_know_option ? (
-            <button
-              type="button"
-              className="ghost"
-              onClick={() => send("answer", { response: "i don't know", latency_ms: elapsedMs(shownAt.current) })}
-            >
-              {copy.dontKnow}
-            </button>
-          ) : null}
+          {dontKnowButton}
           {extras.prompt_submit ? <p className="banner">{copy.promptSubmit}</p> : null}
           {canHelp(action) ? (
             <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
