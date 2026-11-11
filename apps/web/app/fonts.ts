@@ -1,23 +1,32 @@
-import { Instrument_Serif, Inter, Noto_Serif_Devanagari } from "next/font/google";
+import localFont from "next/font/local";
 
-export const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+/*
+ * Self-hosted (OFL-1.1, from @fontsource 5.3.0; licences and sources in app/font-files/). No request to Google at build or run time.
+ * Latin subset for Latin faces, Devanagari subset for Noto Serif Devanagari. Inter 400 reuses the file already shipped in public/fonts.
+ */
+export const instrumentSerif = localFont({
+  src: [
+    { path: "./font-files/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./font-files/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
+  ],
   display: "swap",
   variable: "--font-instrument-serif",
 });
 
-export const inter = Inter({
-  weight: ["400", "500"],
-  subsets: ["latin"],
+export const inter = localFont({
+  src: [
+    { path: "../public/fonts/inter-latin-400.woff2", weight: "400", style: "normal" },
+    { path: "./font-files/inter-latin-500-normal.woff2", weight: "500", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-inter",
 });
 
-export const notoSerifDevanagari = Noto_Serif_Devanagari({
-  weight: ["400", "500"],
-  subsets: ["devanagari"],
+export const notoSerifDevanagari = localFont({
+  src: [
+    { path: "./font-files/noto-serif-devanagari-devanagari-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./font-files/noto-serif-devanagari-devanagari-500-normal.woff2", weight: "500", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-noto-serif-deva",
 });
