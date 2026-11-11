@@ -45,6 +45,9 @@ export default function SubjectsPage() {
         <strong>{copy.subjectMath}</strong>
         <span className="muted">{copy.subjectMathHint}</span>
       </Link>
+      <Link href="/join" className="muted" data-testid="join-link">
+        {copy.joinLink}
+      </Link>
       <Link href="/offline" className="muted" data-testid="offline-link">
         {copy.offlineTitle}
       </Link>

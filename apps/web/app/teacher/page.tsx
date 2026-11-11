@@ -12,6 +12,7 @@ import {
   teacherClasses,
 } from "@/lib/api";
 
+import ClassCodePanel from "@/components/staff/ClassCodePanel";
 import { useCopy } from "@/lib/locale";
 
 type Heat = {
@@ -84,6 +85,8 @@ export default function TeacherPage() {
           ))}
         </div>
       ) : null}
+
+      {current ? <ClassCodePanel classId={current} /> : null}
 
       <section className="stack" data-testid="teacher-heatmap">
         <h2>{copy.teacherHeatmap}</h2>

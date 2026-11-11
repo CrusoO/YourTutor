@@ -775,3 +775,58 @@ export async function devStaffToken(role: "parent" | "teacher", scenario?: strin
   setStaffToken(out.token);
   return out as { token: string; email: string; role: string };
 }
+
+// ---- class codes -------------------------------------------------------------------------------
+
+export type JoinResult = { class_id: string; class_name: string; status: "pending" | "active" };
+export type MyClass = { class_id: string; name: string; status: "pending" | "active" };
+export type CodeStatus = { enabled: boolean; expired: boolean; expires_at: string | null; pending_count: number };
+export type ClassRequest = {
+  student_id: string;
+  student_name: string;
+  class_id: string;
+  class_name: string;
+  teacher: string;
+  requested_at: string | null;
+};
+
+/** Why a join failed, for one plain message: a wrong code, too many tries, or a guest. */
+export type JoinFailure = "bad_code" | "slow" | "guest" | "signed_out";
+
+export class JoinError extends Error {
+  constructor(readonly reason: JoinFailure) {
+    super(reason);
+  }
+}
+
+/** A student joins a class by code. The reply never says which of unknown, off or expired it was. */
+export async function joinClass(code: string, label: string): Promise<JoinResult> {
+  const response = await authedFetch("/classes/join", {
+    method: "POST",
+    body: JSON.stringify(label.trim() ? { code, label } : { code }),
+  });
+  if (response.ok) return response.json();
+  if (response.status === 429) throw new JoinError("slow");
+  if (response.status === 409) throw new JoinError("guest");
+  if (response.status === 401 || response.status === 403) throw new JoinError("signed_out");
+  throw new JoinError("bad_code");
+}
+export const myClasses = (): Promise<{ classes: MyClass[] }> => req("/students/me/classes");
+export const leaveClass = (classId: string) => req(`/students/me/classes/${classId}`, { method: "DELETE" });
+export const classCodeStatus = (classId: string): Promise<CodeStatus> =>
+  staffReq(`/classes/${classId}/join-code`);
+export const makeClassCode = (
+  classId: string,
+  expiresInDays: number | null,
+): Promise<{ code: string; expires_at: string | null }> =>
+  staffReq(`/classes/${classId}/join-code`, {
+    method: "POST",
+    body: JSON.stringify({ expires_in_days: expiresInDays }),
+  });
+export const disableClassCode = (classId: string) =>
+  staffReq(`/classes/${classId}/join-code`, { method: "DELETE" });
+export const joinRequests = (classId: string): Promise<{ requests: { label: string }[]; count: number }> =>
+  staffReq(`/classes/${classId}/join-requests`);
+export const classRequests = (): Promise<{ requests: ClassRequest[] }> => staffReq("/parents/me/class-requests");
+export const decideClassRequest = (classId: string, studentId: string, verb: "accept" | "decline") =>
+  staffReq(`/parents/me/class-requests/${classId}/${studentId}/${verb}`, { method: "POST" });
