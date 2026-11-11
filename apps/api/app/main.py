@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
 from app.auth.router import router as auth_router
+from app.classes.router import router as classes_router
 from app.config import (
     production_config_errors,
     production_flag_errors,
@@ -129,6 +130,7 @@ app.include_router(video_jobs_router)
 app.include_router(explain_router)
 app.include_router(actions_router)
 app.include_router(groups_router)
+app.include_router(classes_router)
 app.include_router(records_router)
 app.include_router(content_review_router)
 

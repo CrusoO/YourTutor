@@ -328,6 +328,17 @@ class ClassRow(Base):
     name: Mapped[str] = mapped_column(String)
     curriculum_id: Mapped[str] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    # Join code (app/classes): only a keyed hash is stored, so the code can be shown once, never
+    # read back. NULL means joining is off.
+    join_code_hash: Mapped[str | None] = mapped_column(
+        String, nullable=True, unique=True, index=True
+    )
+    join_code_expires_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    join_code_updated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
     teacher: Mapped[UserRow] = relationship(back_populates="classes")
     memberships: Mapped[list[ClassMembershipRow]] = relationship(back_populates="klass")
@@ -342,6 +353,11 @@ class ClassMembershipRow(Base):
     student_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("students.id", ondelete="CASCADE"), primary_key=True
     )
+    # "active": the teacher may see the student (still needs teacher_share). "pending": a join by
+    # code that waits for the guardian; nothing is shared and the student is not listed.
+    status: Mapped[str] = mapped_column(String, default="active", server_default="active")
+    label: Mapped[str | None] = mapped_column(String, nullable=True)  # what the student chose
+    requested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     klass: Mapped[ClassRow] = relationship(back_populates="memberships")
 
