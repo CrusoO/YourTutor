@@ -16,6 +16,15 @@
 
 export const PLACEHOLDER = "[owner to supply]";
 
+/**
+ * The clean-up jobs (`python -m app.retention all`, apps/api/app/retention.py) exist in code but the code
+ * schedules nothing: the owner adds a cron line on the server (docs/OPERATOR.md). Until the owner confirms the
+ * job is running, every period below is worded "when the clean-up runs", never "removed automatically".
+ * Remove this marker and reword to "removed automatically after X" only when that is confirmed.
+ */
+export const SCHEDULE_PLACEHOLDER = "[owner to confirm the scheduled job is running]";
+const WHEN_RUN = `The clean-up job exists but is not scheduled by the code: periods apply when it runs. ${SCHEDULE_PLACEHOLDER}.`;
+
 export const DRAFT_BANNER = "Draft: under legal review. Not yet in force.";
 export const DRAFT_NOTE =
   "This page describes what the product does today, written from the code. It has not been approved by a lawyer and does not create promises yet. Where the product does not yet do what a good notice would promise, this page says so.";
@@ -41,14 +50,13 @@ export type DataItem = {
   where: string;
   /** Who can see it. */
   who: string;
-  /** How long it is kept: the real current rule, or "no automatic deletion yet". */
+  /** How long it is kept: the real current rule, or "no time rule". */
   kept: string;
   /** Does it go to anyone outside us. */
   thirdParty: string;
 };
 
 const NONE_OUTSIDE = "No. It stays with us.";
-const NO_AUTO = "No automatic deletion yet.";
 
 export const inventory: readonly DataItem[] = [
   {
@@ -58,7 +66,7 @@ export const inventory: readonly DataItem[] = [
     why: "So a question can be answered and a lesson can be picked without asking who you are.",
     where: "Our database. The sign-in token for a guest stays in that browser tab.",
     who: "The guest. Staff who run the service can reach the database.",
-    kept: "A command that deletes guests idle for 90 days exists (the limit comes from the region profile). It is not run automatically by the code, so today it happens only when someone runs it.",
+    kept: `Guests idle for 90 days (the limit comes from the region profile) are deleted when the clean-up runs. ${WHEN_RUN} A guest can also download their data and delete it now, with their own token.`,
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -68,7 +76,7 @@ export const inventory: readonly DataItem[] = [
     why: "To sign in with an emailed code, and to link a guardian to the learners they look after.",
     where: "Our database.",
     who: "The account holder. For a learner linked to a school, that school's teacher sees the learner's progress. Staff who run the service can reach the database.",
-    kept: "Until the guardian deletes the family from the guardian page. No automatic deletion yet.",
+    kept: "Until the guardian deletes the family from the guardian page. There is no time rule. Teacher and class-owner accounts have no self-service export or delete yet: ask us (see the Grievance page) and it is done by hand.",
     thirdParty: "The email service that sends the sign-in code can see the address (see the sign-in code row).",
   },
   {
@@ -78,7 +86,7 @@ export const inventory: readonly DataItem[] = [
     why: "To pick the right lessons, to let a learner sign in with a family code and PIN, and to show a guardian how the learner is doing.",
     where: "Our database. The sign-in token and learner id are stored in the browser.",
     who: "The learner, the guardian, the learner's teacher if one is linked, and staff who run the service.",
-    kept: "Until the guardian deletes the family. No automatic deletion yet.",
+    kept: "Until the guardian deletes the family (this removes the learner and everything that refers to the learner). There is no time rule.",
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -98,7 +106,7 @@ export const inventory: readonly DataItem[] = [
     why: "To check that the person signing in controls the email address, and to slow down guessing.",
     where: "Our database. The code itself is emailed through an SMTP mail service we configure.",
     who: "Staff who run the service.",
-    kept: `Codes expire after a short time but the rows are not deleted. ${NO_AUTO}`,
+    kept: `Rows are removed 24 hours after they were made, when the clean-up runs. Deleting a family also removes the rows for that email. ${WHEN_RUN}`,
     thirdParty: "Yes. The mail service that delivers the email sees the address and the code. Provider: " + PLACEHOLDER + ".",
   },
   {
@@ -108,7 +116,7 @@ export const inventory: readonly DataItem[] = [
     why: "To stop one person from sending too many requests.",
     where: "Our database.",
     who: "Staff who run the service.",
-    kept: NO_AUTO,
+    kept: `Removed after 7 days, when the clean-up runs. ${WHEN_RUN}`,
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -118,7 +126,7 @@ export const inventory: readonly DataItem[] = [
     why: "So you stay signed in between pages.",
     where: "Our database holds the hash. The browser holds the token itself (local storage, or tab storage for a guest). One research link sets a cookie, described below.",
     who: "You, and staff who run the service.",
-    kept: `Each token has an expiry time. Expired rows are not deleted. ${NO_AUTO}`,
+    kept: `Each token has an expiry time. Expired rows are removed 30 days after expiry, when the clean-up runs (signing out removes the row at once). ${WHEN_RUN}`,
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -128,7 +136,7 @@ export const inventory: readonly DataItem[] = [
     why: "To choose the next question, to show progress, and to find the idea that slipped.",
     where: "Our database. The learning card is also kept on the learner's own device.",
     who: "The learner and the guardian. A teacher sees it only if a teacher is linked and sharing with the teacher was agreed. Staff who run the service can reach the database.",
-    kept: "Until the family is deleted (or, for a guest, the guest is deleted). No automatic deletion yet for signed-in accounts.",
+    kept: "Until the family is deleted (or, for a guest, the guest is deleted or the 90-day idle clean-up runs). There is no other time rule. A guardian can download these records in the export.",
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -138,7 +146,7 @@ export const inventory: readonly DataItem[] = [
     why: "To pause tutoring and show support information until a guardian looks.",
     where: "Our database.",
     who: "The guardian, and staff who run the service.",
-    kept: "Until the family is deleted. No automatic deletion yet.",
+    kept: "Until the family is deleted. There is no time rule: a distress flag is not removed after a set time. A guardian can download these records in the export.",
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -148,7 +156,7 @@ export const inventory: readonly DataItem[] = [
     why: "So a teacher can see where a class is stuck.",
     where: "Our database.",
     who: "The teacher who owns the class, and staff who run the service.",
-    kept: "Until the learner or family is deleted. No automatic deletion yet.",
+    kept: "Until the learner or family is deleted. There is no time rule. Classes are not deleted when a guardian deletes the family.",
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -158,7 +166,7 @@ export const inventory: readonly DataItem[] = [
     why: "So the same report is not sent twice.",
     where: "Our database. The report itself goes by email.",
     who: "The guardian, and staff who run the service.",
-    kept: "Until the family is deleted. No automatic deletion yet.",
+    kept: "Until the family is deleted. There is no time rule.",
     thirdParty: "Yes. The mail service that delivers the email. Provider: " + PLACEHOLDER + ".",
   },
   {
@@ -174,21 +182,21 @@ export const inventory: readonly DataItem[] = [
   {
     id: "llmlog",
     title: "Record of each AI call",
-    what: "For each call: the time, the purpose, the model, the class band, the language, the outcome, the number of tries, how long it took and how many tokens were used. A share of replies, set by a setting that defaults to 100%, also has the AI's reply text saved for human review. The reply can repeat words from the question.",
+    what: "For each call: the time, the purpose, the model, the class band, the language, the outcome, the number of tries, how long it took and how many tokens were used. The AI's reply text is saved for human review only if a review sample is switched on. In production it is off unless someone sets a rate on purpose; elsewhere (testing) it defaults to on. A reply can repeat words from the question.",
     why: "To pay attention to cost and quality, and to review replies.",
     where: "Our database.",
     who: "Staff who run the service and review replies.",
-    kept: `Deleted with the learner's sessions when a family or guest is deleted. ${NO_AUTO} The plan is 90 days for the metadata; that job does not exist yet.`,
+    kept: `Reply text, where saved, is blanked after 14 days; the rest of the record (metadata) is removed after 90 days. Both happen when the clean-up runs. ${WHEN_RUN} The records are also deleted when a family or guest is deleted, and are in the guardian's export.`,
     thirdParty: NONE_OUTSIDE,
   },
   {
     id: "video",
     title: "Videos made on request",
-    what: "A job record (which learner, status, steps, error code, file locations) and the finished video and its source list. A typed topic is held in the job only until the video program starts, then removed; a job cancelled before it starts has it removed too.",
+    what: "A job record (which learner, status, steps, error code, file locations), the finished video and its source list. A typed topic is held in the job only until the video program starts, then removed; a job cancelled before it starts has it removed too. The source and story text that Retry needs stay on the job until the job itself is deleted.",
     why: "To make and show a video.",
     where: "Our server: the database for the job and the server's disk for the files.",
     who: "The learner who asked, and staff who run the service.",
-    kept: `${NO_AUTO} A queued job holds the typed topic until it starts. The finished video files are not deleted automatically.`,
+    kept: `The job and its output files are removed 30 days after they finish (or 30 days after an abandoned queued or running job started), when the clean-up runs. ${WHEN_RUN} Deleting a family or guest removes the jobs and files at once.`,
     thirdParty: "The video program is our own software that runs on our server. Whether it calls any outside service (for example for speech) is " + PLACEHOLDER + " to confirm.",
   },
   {
@@ -198,7 +206,7 @@ export const inventory: readonly DataItem[] = [
     why: "So a group can see where it is stuck.",
     where: "Our database.",
     who: "The person who made the group lesson, and staff who run the service.",
-    kept: NO_AUTO,
+    kept: "No time rule: a group lesson and its results are removed only when the guardian who owns them deletes the account. A period still has to be decided.",
     thirdParty: "The topic is used to write the lesson. The lesson is written by the same lesson writer as other lessons, which can use the AI service (see the AI row).",
   },
   {
@@ -208,7 +216,7 @@ export const inventory: readonly DataItem[] = [
     why: "To measure whether learning improved.",
     where: "Our database. A link sets a cookie that is HTTP-only and expires with the session time.",
     who: "Research staff, and staff who run the service.",
-    kept: "Deleting a family does not remove these rows: the link to the learner is cut but the scores and household code remain. No automatic deletion yet.",
+    kept: "Deleted together with the learner when a family or guest is deleted (including by household code). There is no time rule. This may conflict with promises made to a study: " + PLACEHOLDER + " to confirm with the research lead.",
     thirdParty: NONE_OUTSIDE,
   },
   {
@@ -228,7 +236,7 @@ export const inventory: readonly DataItem[] = [
     why: "To keep the service working.",
     where: "Our servers and hosting provider. What the hosting provider keeps is " + PLACEHOLDER + " to confirm.",
     who: "Staff who run the service.",
-    kept: "Not set by the code. " + PLACEHOLDER + " to confirm.",
+    kept: "Not set by the code, and not covered by the clean-up job. Backups, and our database and file hosts (Neon, R2), may still hold deleted rows. " + PLACEHOLDER + " to confirm.",
     thirdParty: "Hosting provider: " + PLACEHOLDER + ".",
   },
 ];
@@ -247,7 +255,7 @@ export const privacy = {
         "You can ask without an account. A guest has no name or email.",
         "We do not sell your data and we found no advertising or analytics code in the product.",
         "Your questions go to an AI service (Anthropic) so it can write an answer. We do not send your name or email.",
-        "Some things are not deleted automatically yet. The list below says which.",
+        `We have written clean-up jobs that remove old records, but the code does not schedule them: ${SCHEDULE_PLACEHOLDER}. Some data has no time rule at all. The list below says which.`,
         "This is a draft and a lawyer has not approved it.",
       ],
     },
@@ -260,7 +268,7 @@ export const privacy = {
     },
     inventoryHeading: "What we keep, and why",
     inventoryIntro:
-      "This list was written from the program's code, not from a wish list. Each item says what it is, why, where it lives, who can see it, how long it is kept, and whether anyone outside gets it. Where it says there is no automatic deletion yet, that is the truth today.",
+      "This list was written from the program's code, not from a wish list. Each item says what it is, why, where it lives, who can see it, how long it is kept, and whether anyone outside gets it. Where it says \"when the clean-up runs\", the job exists in the code but we have not confirmed it is scheduled. Where it says there is no time rule, nothing removes that data except deleting the account.",
     children: {
       heading: "Children and guardians (under 18)",
       body: [
@@ -282,8 +290,8 @@ export const privacy = {
       heading: "Your rights",
       body: [
         "Under the Act you can ask to see what we hold, correct it, and have it erased, and you can complain to us first and then to the Data Protection Board. A guardian can use these rights for a child.",
-        "What works today: a signed-in guardian can download a short export of the account, its learners and their consents, and can delete the family, which removes the learners' practice, progress and AI-call records. A guest cannot download or delete from the app.",
-        "What does not work yet: the export does not include practice sessions, answers, progress or learning cards. Deleting does not yet remove sign-in code records for the email, research checkpoint results, or video files. See the list above. Until these are fixed, write to us and we will do it by hand: see the Grievance page.",
+        "What works today: a signed-in guardian can download an export for each learner: sessions, answers, progress and mastery, review cards, lesson records, safety flags, teacher alerts, reports sent, video jobs, AI call records and reply text, research rows and consents. It leaves out the PIN hash, the family code, server file paths and keys. A guardian can delete the family, which removes every record that refers to the learners, including sign-in code rows for the email, research rows, video jobs and their files, and the guardian's group lessons. A guest can download and delete their own data with that guest's own token; a guest who cleared the browser cannot prove ownership, so there is no recovery from the app.",
+        "What does not work yet: teacher and class-owner accounts have no self-service export or delete (admin only), and classes are not deleted with a guardian. Group lessons, distress flags and the source text of video requests have no time rule. Server logs, backups and our database and file hosts are not covered by these jobs. We have not confirmed how long Anthropic keeps what we send or whether it trains on it. Write to us and we will do these by hand: see the Grievance page.",
       ],
     },
     changes: {
@@ -425,7 +433,7 @@ export const grievance = {
   today: {
     heading: "Doing it by hand for now",
     body: [
-      "Some requests cannot be done from the app yet (a full export of practice records, a guest's data, or sign-in code and research records). We do them by hand. Tell us what you need and we will say honestly what we can and cannot do.",
+      "Some requests cannot be done from the app yet (an export or deletion for a teacher or class-owner account, a guest who has lost their browser, or anything held in logs and backups). We do them by hand. Tell us what you need and we will say honestly what we can and cannot do.",
     ],
   },
 } as const;

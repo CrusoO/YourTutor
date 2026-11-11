@@ -11,7 +11,7 @@ import { trust } from "../../app/brownie/landing-extras";
 import GrievancePage, { metadata as grievanceMeta } from "../../app/grievance/page";
 import PrivacyPage, { metadata as privacyMeta } from "../../app/privacy/page";
 import TermsPage, { metadata as termsMeta } from "../../app/terms/page";
-import { DRAFT_BANNER, PLACEHOLDER, grievance, inventory, legalLinks, privacy, terms } from "../../lib/legal-copy";
+import { DRAFT_BANNER, PLACEHOLDER, SCHEDULE_PLACEHOLDER, grievance, inventory, legalLinks, privacy, terms } from "../../lib/legal-copy";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -63,10 +63,52 @@ describe("the privacy page", () => {
     }
   });
 
-  it("states the gaps instead of promising deletion that does not exist", () => {
+  it("states each retention period, and says honestly that the clean-up is not scheduled", () => {
     const kept = (id: string) => inventory.find((i) => i.id === id)!.kept;
-    for (const id of ["code", "rate", "tokens", "video", "group"]) expect(kept(id), id).toMatch(/no automatic deletion yet/i);
+    expect(SCHEDULE_PLACEHOLDER).toBe("[owner to confirm the scheduled job is running]");
+    const periods: Record<string, RegExp> = {
+      guest: /90 days/,
+      code: /24 hours/,
+      rate: /7 days/,
+      tokens: /30 days after expiry/,
+      llmlog: /14 days[\s\S]*90 days/,
+      video: /30 days/,
+    };
+    for (const [id, re] of Object.entries(periods)) {
+      expect(kept(id), id).toMatch(re);
+      expect(kept(id), id).toContain(SCHEDULE_PLACEHOLDER);
+      expect(kept(id), id).not.toMatch(/removed automatically|deleted automatically/i);
+    }
+    expect(JSON.stringify(privacy.sections.short)).toContain(SCHEDULE_PLACEHOLDER);
+  });
+
+  it("keeps the schedule placeholder on the rendered page", () => {
+    render(<PrivacyPage />);
+    expect(screen.getAllByText(new RegExp(SCHEDULE_PLACEHOLDER.replace(/[[\]]/g, "\$&"))).length).toBeGreaterThanOrEqual(7);
+  });
+
+  it("states the data that has no time rule, and the gaps that remain", () => {
+    const kept = (id: string) => inventory.find((i) => i.id === id)!.kept;
+    for (const id of ["safety", "group", "report", "teacher", "learner"]) expect(kept(id), id).toMatch(/no time rule/i);
     expect(kept("ai")).toMatch(/do not store the text/i);
+    expect(kept("research")).toMatch(/deleted together with the learner/i);
+    expect(kept("research")).toContain(PLACEHOLDER);
+    expect(kept("logs")).toMatch(/backups/i);
+    expect(kept("logs")).toMatch(/Neon, R2/);
+    expect(inventory.find((i) => i.id === "video")!.what).toMatch(/source and story text/i);
+    expect(inventory.find((i) => i.id === "ai")!.thirdParty).toContain(PLACEHOLDER);
+  });
+
+  it("describes export and delete as they work, and says teacher accounts have no self-service", () => {
+    const rights = privacy.sections.rights.body.join(" ");
+    expect(rights).toMatch(/sessions, answers, progress and mastery, review cards, lesson records, safety flags/);
+    expect(rights).toMatch(/PIN hash, the family code, server file paths and keys/);
+    expect(rights).toMatch(/sign-in code rows[\s\S]*research rows[\s\S]*video jobs and their files/);
+    expect(rights).toMatch(/guest can download and delete their own data/);
+    expect(rights).toMatch(/teacher and class-owner accounts have no self-service export or delete/i);
+    expect(rights).toMatch(/Anthropic/);
+    expect(rights).not.toMatch(/export does not include/i);
+    expect(JSON.stringify(inventory.find((i) => i.id === "account"))).toMatch(/no self-service export or delete/);
   });
 
   it("does not claim compliance the code lacks", () => {
