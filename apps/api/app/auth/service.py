@@ -915,6 +915,27 @@ def teacher_class_view(
     raise HTTPException(status_code=404, detail="unknown view")
 
 
+def teacher_mistakes(
+    session: Session, actor: Actor, class_id: uuid.UUID, days: int
+) -> dict[str, Any]:
+    """Aggregate class mistake list: counts only, never a name or id (app.views.mistakes)."""
+    from app.content.gate import allow_draft_content
+    from app.views import mistakes
+
+    visible = _class_visible(session, actor, class_id)
+    return mistakes.mistake_list(session, visible, now_utc(), days, allow_draft_content(actor))
+
+
+def teacher_warmup(
+    session: Session, actor: Actor, class_id: uuid.UUID, days: int, seed: str
+) -> dict[str, Any]:
+    from app.content.gate import allow_draft_content
+    from app.views import mistakes
+
+    visible = _class_visible(session, actor, class_id)
+    return mistakes.warmup(session, visible, now_utc(), days, seed, allow_draft_content(actor))
+
+
 def guardian_view(
     session: Session, actor: Actor, student_id: uuid.UUID, lang: str | None
 ) -> dict[str, Any]:
