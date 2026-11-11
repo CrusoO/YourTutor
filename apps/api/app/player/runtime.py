@@ -116,12 +116,16 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
 
 
 def load_catalog(session: Session, *, allow_draft: bool) -> tuple[CatalogItem, ...]:
-    from app.content.gate import content_status_is_servable
+    from app.content.gate import row_is_servable
 
     rows = session.scalars(select(ItemRow)).all()
     out = []
     for row in rows:
-        if not content_status_is_servable(row.status, allow_draft=allow_draft):
+        if not row_is_servable(
+            row,
+            allow_draft=allow_draft,
+            serve_tier_a_unreviewed=settings.serve_tier_a_unreviewed,
+        ):
             continue
         out.append(_item_to_catalog(row))
     return tuple(out)
@@ -539,6 +543,22 @@ def _persist_state(row: SessionRow, state: SessionState) -> None:
         row.resumable = False
 
 
+def _item_labels(row: ItemRow) -> dict[str, str] | None:
+    """Rights labels: only a practice item that is original and Tier A carries them."""
+    from app.content.blueprint import pattern_tag_for_skill
+    from app.content.labels import item_labels
+
+    if row.tier != "A" or not (row.provenance or {}).get("original"):
+        return None
+    return item_labels(
+        pool=row.pool,
+        tier=row.tier,
+        original=True,
+        reviewed=row.status == "approved" and bool(row.reviewed_by),
+        pattern=pattern_tag_for_skill(row.skill_ids[0]) if row.skill_ids else None,
+    )
+
+
 def _item_payload(
     row: ItemRow | None, locale: str, *, reveal: bool, steps: bool
 ) -> dict[str, Any] | None:
@@ -558,6 +578,9 @@ def _item_payload(
             for opt in (row.options or [])
         ],
     }
+    labels = _item_labels(row)
+    if labels:
+        payload["labels"] = labels
     if steps:
         payload["steps"] = [_locale_value(step, locale) for step in (row.solution_steps or [])]
     if reveal:

@@ -35,6 +35,26 @@ class ItemPool(StrEnum):
     checkpoint = "checkpoint"
 
 
+class VerificationTier(StrEnum):
+    """How far an item's answer has been checked (not the same as difficulty `item_tier`)."""
+
+    a = "A"  # answer checked by calculation (sympy verify)
+    b = "B"  # grounded in a cited source, needs a recorded human reviewer to be served
+    c = "C"  # unverified: never served outside development
+
+
+class Provenance(BaseModel):
+    """Where an item came from. `source_id` must be a row in the rights register."""
+
+    model_config = {"extra": "forbid"}
+
+    source_id: str | None = None
+    licence: str | None = None
+    author: str | None = None
+    reviewers: list[str] = []
+    original: bool = False  # written for this product, not derived from a source
+
+
 class LocalizedText(BaseModel):
     en: str
     ne: str | None = None
@@ -157,6 +177,9 @@ class Item(BaseModel):
     template_id: str | None = None
     generator_version: str | None = None
     template_hash: str | None = None
+    # Rights and verification (question-bank plan, week 1). Not part of the approval hash.
+    tier: VerificationTier | None = None  # None: legacy item, the status rule alone decides
+    provenance: Provenance | None = None
 
     @property
     def primary_skill(self) -> str:

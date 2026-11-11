@@ -1,4 +1,5 @@
 import localeRegistry from "../../../packages/shared/generated/locales.json";
+import { INDEPENDENCE_FOOTER } from "./independence";
 import hiFile from "../locales/hi.json";
 
 type RegistryLocale = (typeof localeRegistry.locales)[number]["code"];
@@ -539,6 +540,7 @@ const en = {
   homeContinueLabel: "Continue learning",
   homeResume: "Resume",
   homeToday: "Today",
+  independenceFooter: INDEPENDENCE_FOOTER,
   homeMastery: "Topic mastery",
 };
 

@@ -45,7 +45,16 @@ export type ActionPayload = {
     options?: { id: string; label: string }[];
     steps?: string[];
     answer?: string;
+    /** Rights labels, sent only for an original, calculation-checked practice question. */
+    labels?: ItemLabels;
   } | null;
+};
+
+export type ItemLabels = {
+  question: string;
+  badge: string;
+  reviewed?: string;
+  pattern?: string;
 };
 
 export type SessionView = {
