@@ -815,7 +815,7 @@ export async function devStaffToken(role: "parent" | "teacher", scenario?: strin
 
 // ---- class codes -------------------------------------------------------------------------------
 
-export type JoinResult = { class_id: string; class_name: string; status: "pending" | "active" };
+export type JoinResult = { class_id: string; class_name: string; status: "pending" | "active"; shared: boolean };
 export type MyClass = { class_id: string; name: string; status: "pending" | "active" };
 export type CodeStatus = { enabled: boolean; expired: boolean; expires_at: string | null; pending_count: number };
 export type ClassRequest = {

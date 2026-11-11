@@ -1,7 +1,9 @@
 """Class join codes: a teacher opens a code, a student asks to join, a guardian decides.
 
 Consent rule (minors; DPDP s.9 and the 2025 Rules, counsel to confirm): a join by code makes a
-PENDING membership. It is active, so the student is listed and the teacher can see anything, only
+PENDING membership (unless the guardian already agreed to `teacher_share`: the guardian is asked
+only once, so then it is active at once). A membership is active, so the student is listed and
+the teacher can see anything, only
 once the guardian says yes (which records the existing `teacher_share` consent) or the learner is
 recorded as an adult. Until then nothing is shared and the teacher sees only a label the student
 chose. Visibility itself is still decided by `teacher_can_see` and `teacher_visible_student_ids`,
@@ -173,17 +175,26 @@ def join_class(
     ):
         raise HTTPException(status_code=404, detail=NOT_VALID)
     row = session.get(ClassMembershipRow, (klass.id, student.id))
+    shared = has_scope(session, student.id, "teacher_share")
     if row is None:
         row = ClassMembershipRow(
             class_id=klass.id,
             student_id=student.id,
-            status=codes.join_status(adult=learner_is_adult(session, student)),
+            status=codes.join_status(
+                adult=learner_is_adult(session, student), guardian_shared=shared
+            ),
             label=codes.clean_label(raw_label),
             requested_at=now,
         )
         session.add(row)
         session.flush()
-    return {"class_id": str(klass.id), "class_name": klass.name, "status": row.status}
+    # `shared`: the guardian has already agreed, so the teacher can see progress now.
+    return {
+        "class_id": str(klass.id),
+        "class_name": klass.name,
+        "status": row.status,
+        "shared": shared,
+    }
 
 
 def my_classes(session: Session, actor: Actor) -> dict[str, Any]:

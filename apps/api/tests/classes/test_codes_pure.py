@@ -59,6 +59,7 @@ def test_usable_means_enabled_and_not_expired() -> None:
 def test_only_an_adult_is_active_at_once() -> None:
     assert codes.join_status(adult=True) == "active"
     assert codes.join_status(adult=False) == "pending"
+    assert codes.join_status(adult=False, guardian_shared=True) == "active"
 
 
 def test_label_is_a_nickname_never_an_identifier() -> None:

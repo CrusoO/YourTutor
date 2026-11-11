@@ -58,10 +58,11 @@ def code_usable(code_hash_value: str | None, expires_at: datetime | None, now: d
     return code_hash_value is not None and not is_expired(expires_at, now)
 
 
-def join_status(*, adult: bool) -> str:
-    """A join is active at once only for a learner recorded as an adult; a minor waits for the
-    guardian. The one place the later age question plugs in (see app/classes/service.py)."""
-    return ACTIVE if adult else PENDING
+def join_status(*, adult: bool, guardian_shared: bool = False) -> str:
+    """A join is active at once for a learner recorded as an adult, or when the guardian already
+    agreed to share with teachers (asked only once); otherwise it waits for the guardian. The age
+    part plugs in through `learner_is_adult` in app/classes/service.py."""
+    return ACTIVE if adult or guardian_shared else PENDING
 
 
 def clean_label(raw: str | None) -> str | None:

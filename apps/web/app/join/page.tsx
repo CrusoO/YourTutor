@@ -35,7 +35,9 @@ export default function JoinPage() {
     setMessage("");
     try {
       const out = await joinClass(code, label);
-      setMessage(out.status === "pending" ? copy.joinPending : copy.joinActive);
+      setMessage(
+        out.status === "pending" ? copy.joinPending : out.shared ? copy.joinActiveShared : copy.joinActive,
+      );
       setCode("");
       await refresh();
     } catch (error) {

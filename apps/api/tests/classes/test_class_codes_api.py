@@ -334,3 +334,27 @@ def test_deleting_the_family_removes_the_membership(kit: Kit) -> None:
     assert kit.client.delete("/parents/me", headers=auth_header(guardian)).status_code == 200
     kit.db.expire_all()
     assert kit.db.scalars(select(ClassMembershipRow)).all() == []
+
+
+def test_a_guardian_who_already_shared_is_not_asked_again(kit: Kit) -> None:
+    code = kit.code()
+    guardian, sid, token = kit.family("g1@example.com")
+    kit.client.post(
+        f"/students/{sid}/consent",
+        json={"version": "v1", "scopes": SHARE},
+        headers=auth_header(guardian),
+    )
+    res = kit.join(token, code)
+    assert res.status_code == 200
+    assert res.json()["status"] == "active" and res.json()["shared"] is True
+    assert kit.status(sid) == "active"
+    assert [s["display_name"] for s in kit.view()["students"]] == ["Riya"]
+    waiting = kit.client.get("/parents/me/class-requests", headers=auth_header(guardian)).json()
+    assert waiting == {"requests": []}
+
+
+def test_without_teacher_share_the_join_reports_that_nothing_is_shared(kit: Kit) -> None:
+    code = kit.code()
+    _, _, token = kit.family("g1@example.com")
+    res = kit.join(token, code)
+    assert res.json()["status"] == "pending" and res.json()["shared"] is False

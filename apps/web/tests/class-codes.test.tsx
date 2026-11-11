@@ -28,7 +28,7 @@ afterEach(cleanup);
 
 describe("join box", () => {
   it("has a labelled code field and says a guardian must agree when the join is pending", async () => {
-    vi.mocked(api.joinClass).mockResolvedValue({ class_id: "c1", class_name: "10A", status: "pending" });
+    vi.mocked(api.joinClass).mockResolvedValue({ class_id: "c1", class_name: "10A", status: "pending", shared: false });
     render(<JoinPage />);
     const box = screen.getByLabelText("Class code");
     await userEvent.type(box, "abcd-2345");
@@ -39,6 +39,18 @@ describe("join box", () => {
       ),
     );
     expect(api.joinClass).toHaveBeenCalledWith("abcd-2345", "");
+  });
+
+  it("says truthfully when the guardian had already agreed", async () => {
+    vi.mocked(api.joinClass).mockResolvedValue({ class_id: "c1", class_name: "10A", status: "active", shared: true });
+    render(<JoinPage />);
+    await userEvent.type(screen.getByLabelText("Class code"), "abcd-2345");
+    await userEvent.click(screen.getByRole("button", { name: "Join" }));
+    await waitFor(() =>
+      expect(screen.getByTestId("join-message").textContent).toBe(
+        "You are in this class. Your guardian already agreed to share your progress with teachers.",
+      ),
+    );
   });
 
   it("gives one plain message for a wrong code and does not say why", async () => {
