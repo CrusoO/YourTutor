@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from typing import Any, Literal
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Query, Request
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.auth import guest, service
@@ -457,6 +457,27 @@ def class_alerts(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[st
 @router.get("/teacher/classes/{class_id}/stuck")
 def stuck(class_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return service.teacher_class_view(db, actor, class_id, "stuck")
+
+
+@router.get("/teacher/classes/{class_id}/mistakes")
+def class_mistakes(
+    class_id: uuid.UUID,
+    db: DbSession,
+    actor: ActorDep,
+    days: int = Query(14, ge=1, le=90),
+) -> dict[str, Any]:
+    return service.teacher_mistakes(db, actor, class_id, days)
+
+
+@router.get("/teacher/classes/{class_id}/warmup")
+def class_warmup(
+    class_id: uuid.UUID,
+    db: DbSession,
+    actor: ActorDep,
+    days: int = Query(14, ge=1, le=90),
+    seed: str = Query("1", pattern=r"^[A-Za-z0-9_-]{1,32}$"),
+) -> dict[str, Any]:
+    return service.teacher_warmup(db, actor, class_id, days, seed)
 
 
 class ReviewDecisionIn(BaseModel):
