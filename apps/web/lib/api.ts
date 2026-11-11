@@ -195,14 +195,17 @@ export async function studentLogin(family_code: string, pin: string) {
   const asName = { username: name.toLowerCase() };
   const order = name.length === 8 ? [asName, asCode] : [asCode, asName];
   let body: { access_token: string } | null = null;
-  let failure: unknown = null;
+  let failure: Error = new Error("login failed");
   for (const who of order) {
-    try {
-      body = await req("/auth/student-login", { method: "POST", body: JSON.stringify({ ...who, pin }) });
+    const response = await authedFetch("/auth/student-login", { method: "POST", body: JSON.stringify({ ...who, pin }) });
+    if (response.ok) {
+      body = await response.json();
       break;
-    } catch (error) {
-      failure = error;
     }
+    failure = new Error((await response.text()) || response.statusText);
+    // Only a plain "no such login" (401, 404) tries the other name form. A lockout (423), a rate limit (429)
+    // or any other error is surfaced as it is, never retried.
+    if (response.status !== 401 && response.status !== 404) break;
   }
   if (!body) throw failure;
   setStaffToken(""); // one role per device: a student sign-in replaces any guardian or teacher sign-in
