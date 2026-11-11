@@ -123,6 +123,7 @@ export default function StartPage() {
         {copy.startButton}
       </button>
       {error ? <p className="banner">{error}</p> : null}
+      <a href="/join">{copy.joinLink}</a>
       <LegalLinks />
     </main>
   );

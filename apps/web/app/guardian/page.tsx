@@ -13,6 +13,7 @@ import {
   staffToken,
 } from "@/lib/api";
 
+import ClassRequests from "@/components/staff/ClassRequests";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { isLiveLocale, useCopy } from "@/lib/locale";
 
@@ -109,6 +110,8 @@ export default function GuardianPage() {
           ))}
         </div>
       ) : null}
+
+      <ClassRequests />
 
       <section className="card stack" data-testid="guardian-week">
         <h2>{copy.guardianWeek}</h2>

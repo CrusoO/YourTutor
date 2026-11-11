@@ -39,6 +39,7 @@ def teacher_can_see(session: Session, actor: Actor, student_id: uuid.UUID) -> bo
         .where(
             ClassMembershipRow.student_id == student_id,
             ClassRow.teacher_id == actor.user_id,
+            ClassMembershipRow.status == "active",  # a waiting join request shares nothing
         )
     )
     return bool(in_class) and has_scope(session, student_id, "teacher_share")
@@ -92,7 +93,7 @@ def teacher_visible_student_ids(session: Session, teacher_id: uuid.UUID) -> list
     rows = session.execute(
         select(ClassMembershipRow.student_id)
         .join(ClassRow, ClassRow.id == ClassMembershipRow.class_id)
-        .where(ClassRow.teacher_id == teacher_id)
+        .where(ClassRow.teacher_id == teacher_id, ClassMembershipRow.status == "active")
     ).all()
     visible: list[uuid.UUID] = []
     for (student_id,) in rows:

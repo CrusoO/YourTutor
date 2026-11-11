@@ -890,7 +890,9 @@ def _class_visible(session: Session, actor: Actor, class_id: uuid.UUID) -> set[u
     member_ids = [
         mid
         for (mid,) in session.execute(
-            select(ClassMembershipRow.student_id).where(ClassMembershipRow.class_id == class_id)
+            select(ClassMembershipRow.student_id).where(
+                ClassMembershipRow.class_id == class_id, ClassMembershipRow.status == "active"
+            )
         ).all()
     ]
     if actor.is_admin:

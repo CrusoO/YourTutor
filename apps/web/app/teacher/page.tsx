@@ -12,6 +12,7 @@ import {
   teacherClasses,
 } from "@/lib/api";
 
+import ClassCodePanel from "@/components/staff/ClassCodePanel";
 import MistakeList from "@/components/staff/MistakeList";
 import { useCopy } from "@/lib/locale";
 
@@ -85,6 +86,8 @@ export default function TeacherPage() {
           ))}
         </div>
       ) : null}
+
+      {current ? <ClassCodePanel classId={current} /> : null}
 
       <section className="stack" data-testid="teacher-heatmap">
         <h2>{copy.teacherHeatmap}</h2>
