@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 from app.auth.security import now_utc
 from app.auth.sender import MemoryOtpSender
 from app.db.models import (
+    AgreementRow,
     AuthSessionRow,
     Base,
     CheckpointResultRow,
@@ -28,6 +29,7 @@ from app.db.models import (
     EventRow,
     GroupLessonRow,
     GroupResultRow,
+    GuardianApprovalRow,
     ItemRow,
     LessonRecordRow,
     LlmCallRow,
@@ -57,6 +59,7 @@ from tests.conftest import auth_header, seed_user, signup
 # holds the learner's data, then add it here.
 HANDLED = frozenset(
     {
+        "agreement_acceptances",
         "auth_sessions",
         "checkpoint_results",
         "checkpoint_tokens",
@@ -65,6 +68,7 @@ HANDLED = frozenset(
         "events",
         "group_lessons",
         "group_results",
+        "guardian_approvals",
         "lesson_records",
         "llm_calls",
         "loop_b_records",
@@ -358,6 +362,19 @@ def seed_learner(
         db.add(klass)
         db.flush()
     db.add(ClassMembershipRow(class_id=klass.id, student_id=sid))
+    if first:
+        db.add(
+            GuardianApprovalRow(
+                id=uuid.uuid4(),
+                student_id=sid,
+                token_hash=f"approval-{uuid.uuid4().hex}",
+                nickname=f"nick-{tag}",
+                contact=f"guardian-contact-{tag}",
+                contact_kind="email",
+                created_at=now,
+                expires_at=now + timedelta(days=7),
+            )
+        )
     video_name = f"job-{uuid.uuid4().hex[:12]}"
     result_path = str((jobs or Path("jobs")) / video_name)
     if jobs is not None:
@@ -377,6 +394,16 @@ def seed_learner(
         )
     )
     if first:
+        db.add(
+            AgreementRow(
+                id=uuid.uuid4(),
+                user_id=account.user_id,
+                role="guardian",
+                version="agreement-v1",
+                items=["confirm_guardian", "tutoring", "ai_processing"],
+                granted_at=now,
+            )
+        )
         db.add(
             OtpChallengeRow(
                 id=uuid.uuid4(),

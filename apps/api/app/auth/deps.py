@@ -6,12 +6,13 @@ from fastapi import Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
-from app.auth.sender import OtpSender, get_otp_sender
+from app.auth.sender import OtpSender, get_otp_sender, get_sms_otp_sender
 from app.auth.service import resolve_token
 from app.db.session import get_db
 
 DbSession = Annotated[Session, Depends(get_db)]
 OtpDep = Annotated[OtpSender, Depends(get_otp_sender)]
+SmsOtpDep = Annotated[OtpSender, Depends(get_sms_otp_sender)]
 
 
 def optional_actor(

@@ -20,6 +20,7 @@ from fastapi import HTTPException
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
+from app.auth import agreements
 from app.auth import service as auth_service
 from app.auth.actor import Actor
 from app.auth.authz import owns_child, require, student_or_404
@@ -39,9 +40,12 @@ CONSENT_VERSION = "class-code-v1"  # used only when a guardian has no consent on
 
 
 def learner_is_adult(session: Session, student: StudentRow) -> bool:
-    """Whether this learner is recorded as an adult. For now the deployment-wide stand-in
-    (`adults_assumed`: yes in development, no in production). The later age question replaces the
-    body of this one function; nothing else in the class-code flow reads age."""
+    """Whether this learner is recorded as an adult: the one place the answer is read. The answer
+    is `StudentRow.is_adult`, set by the age question (app/auth/age.py). A learner never asked
+    (an older record, or one a guardian made) falls back to the deployment-wide stand-in
+    (`adults_assumed`: yes in development, never in production)."""
+    if student.is_adult is not None:
+        return student.is_adult
     return adults_assumed()
 
 
@@ -50,6 +54,7 @@ def _owned_class(session: Session, actor: Actor, class_id: uuid.UUID) -> ClassRo
     if klass is None:
         raise HTTPException(status_code=404, detail="class not found")
     require(actor.is_admin or (actor.is_teacher and actor.user_id == klass.teacher_id))
+    agreements.require_teacher_terms(session, actor)
     return klass
 
 

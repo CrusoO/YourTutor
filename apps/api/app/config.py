@@ -34,6 +34,22 @@ class Settings(BaseSettings):
     otp_verify_max_delay_seconds: int = 300
     otp_challenge_max_attempts: int = 5  # wrong tries on one code before that code dies
     rate_window_seconds: int = 900
+    # env: PHONE_SIGNIN_ENABLED. Phone number + one-time code as a sign-in route. Off until an SMS
+    # vendor is set (SMS_PROVIDER); the `console` and `fake` providers never send anything.
+    phone_signin_enabled: bool = False
+    sms_provider: str = "console"  # env: SMS_PROVIDER: console (default), fake, or vendor
+    # env: PHONE_DEFAULT_CALLING_CODE, digits only, no "+". A number typed without "+" gets this
+    # prefix; empty means a number must be typed with its country code.
+    phone_default_calling_code: str = ""
+    # env: CHILD_PROFILES_ENABLED. A child starts a limited-mode profile; a guardian approves it by
+    # a link sent to the contact the child gave. Off until the owner has chosen to launch it.
+    child_profiles_enabled: bool = False
+    # env: ROLE_AGREEMENTS_REQUIRED. When on, a teacher's class views and join codes refuse (403
+    # agreement_required) until the teacher has accepted the teacher terms. The web app asks for
+    # every role's agreement at sign-up whatever this says; this makes the server enforce it too.
+    role_agreements_required: bool = False
+    approval_ttl_seconds: int = 604_800  # a guardian approval link lives 7 days
+    approval_send_limit_contact: int = 3  # links to one guardian contact per rate window
     pin_max_attempts: int = 5
     guest_start_limit_ip: int = 20  # guest starts per IP per rate window
     pin_lockout_seconds: int = 900
@@ -175,6 +191,12 @@ def production_config_errors(
         errors.append("PILOT_KEY (default or shorter than 32 characters while PILOT_ONBOARDING)")
     if not current.smtp_host.strip():
         errors.append("SMTP_HOST (empty: sign-in codes cannot be sent)")
+    if current.phone_signin_enabled and current.sms_provider.strip().lower() in {"console", "fake"}:
+        errors.append("SMS_PROVIDER (console or fake while PHONE_SIGNIN_ENABLED: nothing is sent)")
+    if current.child_profiles_enabled and any(
+        host in current.public_web_url.lower() for host in _LOCAL_HOSTS
+    ):
+        errors.append("PUBLIC_WEB_URL (localhost while CHILD_PROFILES_ENABLED: links go nowhere)")
     if llm_route_enabled(current) and not has_llm_key(current):
         errors.append("ANTHROPIC_API_KEY (no LLM key while ASK_ENABLED or EXPLAIN_ENABLED is on)")
     for env_name, model in (

@@ -6,20 +6,30 @@ from typing import Any, Literal
 from fastapi import APIRouter, HTTPException, Query, Request
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from app.auth import guest, service
-from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep
+from app.auth import agreements, guest, phone, service
+from app.auth.deps import ActorDep, DbSession, OptionalActorDep, OtpDep, SmsOtpDep
 from app.auth.sender import EmailUnavailable
+from app.auth.sms import SmsUnavailable
+from app.config import settings
 from app.proxy import client_ip
 
 router = APIRouter()
 
 
 class EmailIn(BaseModel):
-    email: str
+    """Sign-in contact: an email, or (when phone sign-in is on) a phone number."""
+
+    email: str | None = None
+    phone: str | None = None
+
+    @model_validator(mode="after")
+    def _one_contact(self) -> EmailIn:
+        if bool(self.email) == bool(self.phone):
+            raise ValueError("give an email or a phone number, not both")
+        return self
 
 
-class VerifyOtpIn(BaseModel):
-    email: str
+class VerifyOtpIn(EmailIn):
     code: str
 
 
@@ -42,8 +52,17 @@ class ConsentIn(BaseModel):
 
 
 class FamilyLoginIn(BaseModel):
-    family_code: str
+    """A child signs in with the family code, or with the short username a guardian made."""
+
+    family_code: str | None = None
+    username: str | None = None
     pin: str = Field(min_length=4, max_length=6)
+
+    @model_validator(mode="after")
+    def _one_name(self) -> FamilyLoginIn:
+        if bool(self.family_code) == bool(self.username):
+            raise ValueError("give a family code or a username, not both")
+        return self
 
 
 class PinIn(BaseModel):
@@ -116,25 +135,49 @@ def request_otp(
     request: Request,
     db: DbSession,
     sender: OtpDep,
+    sms_sender: SmsOtpDep,
     actor: OptionalActorDep,
 ) -> dict[str, str]:
     try:
-        service.request_otp(db, sender, email=body.email, ip=client_ip(request), actor=actor)
+        if body.phone:
+            phone.request_phone_otp(
+                db, sms_sender, phone=body.phone, ip=client_ip(request), actor=actor
+            )
+        else:
+            service.request_otp(
+                db, sender, email=body.email or "", ip=client_ip(request), actor=actor
+            )
     except EmailUnavailable:
         db.commit()  # keep the rate-limit hits so an outage cannot be used to spam requests
         raise HTTPException(
             status_code=503, detail={"code": "email_unavailable", "message": "email unavailable"}
         ) from None
+    except SmsUnavailable:
+        db.commit()
+        raise HTTPException(
+            status_code=503, detail={"code": "sms_unavailable", "message": "sms unavailable"}
+        ) from None
     return {"status": "sent"}
 
 
+@router.get("/auth/options")
+def auth_options() -> dict[str, bool]:
+    """Which sign-in and sign-up routes this deployment has switched on (for the web screens)."""
+    return {
+        "phone_signin": settings.phone_signin_enabled,
+        "child_profiles": settings.child_profiles_enabled,
+    }
+
+
 @router.get("/auth/me")
-def whoami(actor: ActorDep) -> dict[str, str | None]:
-    """Who the token belongs to, so a page can send each role to its own screen."""
+def whoami(actor: ActorDep, db: DbSession) -> dict[str, Any]:
+    """Who the token belongs to, so a page can send each role to its own screen. `agreements`
+    lists the role agreements still to complete (empty: none)."""
     return {
         "role": actor.role,
         "email": actor.email,
         "user_id": str(actor.user_id) if actor.user_id else None,
+        "agreements": agreements.needed(db, actor),
     }
 
 
@@ -145,9 +188,14 @@ def verify_otp(
     db: DbSession,
     actor: OptionalActorDep,
 ) -> dict[str, str]:
-    token = service.verify_otp(
-        db, email=body.email, code=body.code, ip=client_ip(request), actor=actor
-    )
+    if body.phone:
+        token = phone.verify_phone_otp(
+            db, phone=body.phone, code=body.code, ip=client_ip(request), actor=actor
+        )
+    else:
+        token = service.verify_otp(
+            db, email=body.email or "", code=body.code, ip=client_ip(request), actor=actor
+        )
     return _token_body(token)
 
 
@@ -217,6 +265,8 @@ def create_student(body: StudentIn, db: DbSession, actor: ActorDep) -> dict[str,
         parent_id=body.parent_id,
         current_chapter_id=body.current_chapter_id,
     )
+    # a guardian who already agreed does not tick again for the next child
+    agreements.apply_to_new_child(db, actor, student)
     return {"id": str(student.id), "family_code": student.family_code or ""}
 
 
@@ -267,10 +317,17 @@ def verify_pin(student_id: uuid.UUID, body: PinIn, db: DbSession) -> dict[str, s
     return _token_body(token)
 
 
+@router.post("/students/{student_id}/login-details")
+def login_details(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, str]:
+    """Guardian: a short username and a new PIN for a child (the PIN is shown once)."""
+    return service.create_login_details(db, actor, student_id)
+
+
 @router.post("/auth/student-login")
 def student_login(body: FamilyLoginIn, db: DbSession) -> dict[str, str]:
-    token = service.verify_family_pin(db, body.family_code, body.pin)
-    return _token_body(token)
+    if body.username:
+        return _token_body(service.verify_username_pin(db, body.username, body.pin))
+    return _token_body(service.verify_family_pin(db, body.family_code or "", body.pin))
 
 
 @router.get("/students/me/today")
