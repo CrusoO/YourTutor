@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 
 from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
+from app.auth.agreements_router import router as agreements_router
 from app.auth.router import router as auth_router
 from app.classes.router import router as classes_router
 from app.config import (
@@ -121,6 +122,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(auth_router)
+app.include_router(agreements_router)
 app.include_router(research_router)
 app.include_router(offline_router)
 app.include_router(metrics_router)

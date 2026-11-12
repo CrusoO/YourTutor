@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { locale, setLocale, setStudentId, studentLogin, today } from "@/lib/api";
+import { login } from "@/lib/agreement-copy";
 import StorageNotice from "@/components/StorageNotice";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { LandingLanguages } from "../brownie/Interactions";
@@ -69,6 +70,7 @@ function LoginPageContent() {
           />
         </label>
         {error ? <p className="banner">{error}</p> : null}
+        <p className="muted">{login.usernameHint}</p>
         <button type="submit">{copy.auth.signIn}</button>
       </form>
       <Link href="/start" className="muted" data-testid="try-guest">

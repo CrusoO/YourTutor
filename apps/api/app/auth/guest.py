@@ -75,9 +75,8 @@ def context_options(db: Session) -> dict[str, Any]:
     }
 
 
-def start_guest(db: Session, body: GuestStartIn, ip: str) -> dict[str, Any]:
-    if _count_rate(db, f"guest_start:ip:{ip}") >= settings.guest_start_limit_ip:
-        raise TOO_MANY
+def create_guest_student(db: Session, body: GuestStartIn) -> StudentRow:
+    """The hidden guest owner and the guest learner, flushed but not committed."""
     curriculum_id = resolve_curriculum_id(body.curriculum_id)
     spec = load_all_curricula()[curriculum_id]
     book = next(
@@ -93,7 +92,6 @@ def start_guest(db: Session, body: GuestStartIn, ip: str) -> dict[str, Any]:
         current_chapter_id=None,
         device_timezone=body.device_timezone,
     )
-    _hit_rate(db, f"guest_start:ip:{ip}")
     owner = UserRow(
         id=uuid.uuid4(),
         role=GUEST_ROLE,
@@ -120,13 +118,21 @@ def start_guest(db: Session, body: GuestStartIn, ip: str) -> dict[str, Any]:
     )
     db.add(student)
     db.flush()
+    return student
+
+
+def start_guest(db: Session, body: GuestStartIn, ip: str) -> dict[str, Any]:
+    if _count_rate(db, f"guest_start:ip:{ip}") >= settings.guest_start_limit_ip:
+        raise TOO_MANY
+    student = create_guest_student(db, body)
+    _hit_rate(db, f"guest_start:ip:{ip}")
     token = issue_auth_token(db, role="student", student_id=student.id)
     db.commit()
     return {
         "student_id": str(student.id),
         "token": token,
         "display_name": GUEST_NAME,
-        "curriculum_id": curriculum_id,
+        "curriculum_id": student.curriculum_id,
         "grade": body.grade,
     }
 

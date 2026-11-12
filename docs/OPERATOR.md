@@ -32,6 +32,8 @@ The ones that matter:
 | `POSTGRES_PASSWORD` | a long random string | Required. No default. Change it before any real data; production refuses `tutor`. Postgres reads it only on first start, so changing it later needs `ALTER USER` or a recreated volume (see 8.3). |
 | `TOKEN_PEPPER` | a long random string | Hashes tokens and codes. Changing it signs everyone out. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `OTP_FROM_EMAIL` | your mail server | Sign-in codes and weekly reports. Without `SMTP_HOST` they only go to the log. |
+| `SMS_PROVIDER`, `PHONE_SIGNIN_ENABLED`, `PHONE_DEFAULT_CALLING_CODE` | `console` / `false` / your country code | Phone sign-in. `SMS_PROVIDER=console` and `fake` send nothing (the code is never logged); `vendor` is a stub until the owner picks an SMS vendor and an adapter is written in `apps/api/app/auth/sms.py`. Production refuses `PHONE_SIGNIN_ENABLED=true` with console or fake. |
+| `CHILD_PROFILES_ENABLED`, `ROLE_AGREEMENTS_REQUIRED`, `APPROVAL_TTL_SECONDS` | `false` / `false` / `604800` | A child's limited-mode profile with a guardian approval link (needs `PUBLIC_WEB_URL` set to the real site); make teacher routes refuse until the teacher terms are accepted; how long an approval link lives. |
 | `JURISDICTION_PROFILE` | `default_strict` | Consent scopes, quiet hours, retention, report channels (`config/jurisdictions/`). |
 | `PUBLIC_WEB_URL` | the guardian page address | The link in weekly reports. |
 | `CORS_EXTRA_ORIGINS` | the web address | Where the browser app is served from. |
@@ -88,7 +90,7 @@ Run these from cron or a scheduler (they are idempotent):
 cd apps/api
 python -m app.reports weekly            # the guardian report; once a week is enough, run it daily
 python -m app.retention all --dry-run  # count what would go (nothing is deleted)
-python -m app.retention all             # purge_guests, otp, rate_events, auth_sessions, llm_calls, video_jobs
+python -m app.retention all             # purge_guests, approvals (expired child profiles), otp, rate_events, auth_sessions, llm_calls, video_jobs
 ```
 
 `all` prints one line of counts per job (no personal data) and exits 1 only if a job failed. The

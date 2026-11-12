@@ -14,7 +14,13 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from app.auth.security import now_utc
-from app.auth.sender import EmailOtpSender, MemoryOtpSender, get_otp_sender, set_otp_sender
+from app.auth.sender import (
+    EmailOtpSender,
+    MemoryOtpSender,
+    get_otp_sender,
+    get_sms_otp_sender,
+    set_otp_sender,
+)
 from app.config import settings
 from app.db.models import Base, UserRow
 from app.db.session import get_db
@@ -111,6 +117,7 @@ def client(engine: Engine, sender: MemoryOtpSender) -> Generator[TestClient, Non
 
     app.dependency_overrides[get_db] = _get_db
     app.dependency_overrides[get_otp_sender] = lambda: sender
+    app.dependency_overrides[get_sms_otp_sender] = lambda: sender
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()

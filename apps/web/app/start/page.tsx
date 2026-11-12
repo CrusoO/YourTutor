@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getContextOptions, guestStart, type ContextOptions } from "@/lib/api";
 
 import { ADULT_GRADE, bookGrade, GUEST_GRADES } from "@/lib/chat/machine";
+import { child } from "@/lib/agreement-copy";
 import StorageNotice from "@/components/StorageNotice";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { useCopy } from "@/lib/locale";
@@ -124,6 +125,7 @@ export default function StartPage() {
       </button>
       {error ? <p className="banner">{error}</p> : null}
       <a href="/join">{copy.joinLink}</a>
+      <a href="/start/child">{child.linkText}</a>
       <LegalLinks />
     </main>
   );

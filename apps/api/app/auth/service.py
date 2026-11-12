@@ -9,6 +9,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import ColumnElement, delete, select
 from sqlalchemy.orm import Session
 
+from app.auth import agreements
 from app.auth.actor import Actor
 from app.auth.authz import (
     can_export_family,
@@ -21,6 +22,7 @@ from app.auth.authz import (
     teacher_visible_student_ids,
 )
 from app.auth.consent import active_consent, available_scopes, has_scope, is_guest
+from app.auth.contact import challenge_key, is_synthetic
 from app.auth.scopes import scope_error
 from app.auth.security import (
     as_utc,
@@ -47,6 +49,7 @@ from app.checkpoint.study import (
 )
 from app.config import settings
 from app.db.models import (
+    AgreementRow,
     AuthSessionRow,
     CheckpointResultRow,
     CheckpointTokenRow,
@@ -56,6 +59,7 @@ from app.db.models import (
     EventRow,
     GroupLessonRow,
     GroupResultRow,
+    GuardianApprovalRow,
     LessonRecordRow,
     LlmCallRow,
     LoopBRecordRow,
@@ -158,23 +162,13 @@ def request_otp(
     sender.send(email, code)
 
 
-def verify_otp(
-    session: Session,
-    *,
-    email: str,
-    code: str,
-    ip: str,
-    actor: Actor | None,
-) -> str:
-    if actor is not None and actor.role in {"student", "comparison"}:
-        raise HTTPException(status_code=403, detail="forbidden")
-    email = email.strip().lower()
-    if actor is not None and actor.email and actor.email != email:
-        raise HTTPException(status_code=403, detail="forbidden")
+def consume_challenge(session: Session, key: str, code: str, ip: str) -> None:
+    """Check a sign-in code for `key` (an email, or "tel:" + a phone number) and use it up.
+    Raises 401 for a wrong, expired or used code, 429 when this address is trying too often."""
     _check_verify_ip(session, ip)
     challenge = session.scalar(
         select(OtpChallengeRow)
-        .where(OtpChallengeRow.email == email, OtpChallengeRow.consumed_at.is_(None))
+        .where(OtpChallengeRow.email == key, OtpChallengeRow.consumed_at.is_(None))
         .order_by(OtpChallengeRow.created_at.desc())
     )
     if challenge is None or as_utc(challenge.expires_at) < now_utc():
@@ -194,6 +188,22 @@ def verify_otp(
         session.commit()  # the failure must survive the 401 below
         raise HTTPException(status_code=401, detail="invalid otp")
     challenge.consumed_at = now_utc()
+
+
+def verify_otp(
+    session: Session,
+    *,
+    email: str,
+    code: str,
+    ip: str,
+    actor: Actor | None,
+) -> str:
+    if actor is not None and actor.role in {"student", "comparison"}:
+        raise HTTPException(status_code=403, detail="forbidden")
+    email = email.strip().lower()
+    if actor is not None and actor.email and actor.email != email:
+        raise HTTPException(status_code=403, detail="forbidden")
+    consume_challenge(session, email, code, ip)
     user = session.scalar(select(UserRow).where(UserRow.email == email))
     if user is None:
         user = UserRow(
@@ -403,6 +413,52 @@ def new_student_pin() -> str:
     return "".join(secrets.choice(string.digits) for _ in range(4))
 
 
+_USERNAME_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789"  # no 0/o/1/l/i
+
+
+def new_username(session: Session) -> str:
+    """A short random login name, unique among learners. It carries no part of a real name."""
+    for _ in range(20):
+        name = "".join(secrets.choice(_USERNAME_ALPHABET) for _ in range(8))
+        if session.scalar(select(StudentRow.id).where(StudentRow.username == name)) is None:
+            return name
+    raise HTTPException(status_code=503, detail="try again")  # pragma: no cover
+
+
+def create_login_details(session: Session, actor: Actor, student_id: uuid.UUID) -> dict[str, str]:
+    """A guardian gives a child a short username and a new 4-digit PIN (shown once; the PIN is
+    stored hashed). Calling it again keeps the username and replaces the PIN."""
+    student = student_or_404(session, student_id)
+    require(can_manage_student(actor, student))
+    if is_guest(session, student_id):
+        raise HTTPException(status_code=409, detail="a guest has no login")
+    if student.username is None:
+        student.username = new_username(session)
+    pin = new_student_pin()
+    student.pin_hash = hash_pin(pin)
+    student.pin_failed_attempts = 0
+    student.pin_locked_until = None
+    return {"username": student.username, "pin": pin}
+
+
+def verify_username_pin(session: Session, username: str, pin: str) -> str:
+    student = session.scalar(
+        select(StudentRow).where(StudentRow.username == username.strip().lower())
+    )
+    if student is None or student.pin_hash is None:
+        raise HTTPException(status_code=401, detail="invalid login")
+    if student.pin_locked_until and as_utc(student.pin_locked_until) > now_utc():
+        raise LOCKED
+    if not verify_pin(pin, student.pin_hash):
+        student.pin_failed_attempts += 1
+        if student.pin_failed_attempts >= settings.pin_max_attempts:
+            student.pin_locked_until = expires_after(settings.pin_lockout_seconds)
+        raise HTTPException(status_code=401, detail="invalid login")
+    student.pin_failed_attempts = 0
+    student.pin_locked_until = None
+    return issue_auth_token(session, role="student", student_id=student.id)
+
+
 def _family_code_for_parent(session: Session, parent_id: uuid.UUID) -> str:
     sibling = session.scalar(select(StudentRow).where(StudentRow.parent_id == parent_id))
     if sibling and sibling.family_code:
@@ -464,7 +520,28 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
     from app.auth.export import learner_export
 
     return {
-        "user": {"id": str(user.id), "email": user.email, "role": user.role, "locale": user.locale},
+        "user": {
+            "id": str(user.id),
+            # a phone-only account has a made-up address: not shown as if it were the person's
+            "email": None if is_synthetic(user.email) else user.email,
+            "phone": user.phone,
+            "role": user.role,
+            "locale": user.locale,
+        },
+        "agreements": [
+            {
+                "role": a.role,
+                "version": a.version,
+                "items": list(a.items or []),
+                "granted_at": a.granted_at.isoformat(),
+                "revoked_at": a.revoked_at.isoformat() if a.revoked_at else None,
+            }
+            for a in session.scalars(
+                select(AgreementRow)
+                .where(AgreementRow.user_id == parent_id)
+                .order_by(AgreementRow.granted_at)
+            )
+        ],
         "students": [
             {
                 "id": str(s.id),
@@ -472,6 +549,9 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
                 "grade": s.grade,
                 "curriculum_id": s.curriculum_id,
                 "timezone": s.timezone,
+                "username": s.username,
+                "is_adult": s.is_adult,
+                "birth_year": s.birth_year,
             }
             for s in students
         ],
@@ -594,6 +674,7 @@ def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
         ClassMembershipRow,
         ConsentRow,
         AuthSessionRow,
+        GuardianApprovalRow,
     ):
         session.execute(delete(table).where(table.student_id.in_(ids)))
     jobs = _delete_video_jobs(session, VideoJobRow.student_id.in_(ids))
@@ -617,6 +698,11 @@ def delete_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> None:
         session.execute(delete(GroupLessonRow).where(GroupLessonRow.id.in_(lesson_ids)))
     session.execute(delete(OtpChallengeRow).where(OtpChallengeRow.email == user.email.lower()))
     session.execute(delete(OtpChallengeRow).where(OtpChallengeRow.email == user.email))
+    if user.phone:
+        session.execute(
+            delete(OtpChallengeRow).where(OtpChallengeRow.email == challenge_key(user.phone))
+        )
+    session.execute(delete(AgreementRow).where(AgreementRow.user_id == parent_id))
     session.execute(delete(AuthSessionRow).where(AuthSessionRow.user_id == parent_id))
     session.execute(delete(ConsentRow).where(ConsentRow.parent_id == parent_id))
     session.execute(delete(ReportLogRow).where(ReportLogRow.parent_id == parent_id))
@@ -801,6 +887,7 @@ def post_session_event(
 
 def create_class(session: Session, actor: Actor, *, name: str, curriculum_id: str) -> ClassRow:
     require(actor.is_teacher or actor.is_admin)
+    agreements.require_teacher_terms(session, actor)
     teacher_id = actor.user_id
     if teacher_id is None:
         raise HTTPException(status_code=403, detail="forbidden")
@@ -882,6 +969,7 @@ def _class_visible(session: Session, actor: Actor, class_id: uuid.UUID) -> set[u
     """The class members this staff member may see: all for an admin, only those whose guardian
     shared with the teacher otherwise."""
     require(can_teacher_query(actor))
+    agreements.require_teacher_terms(session, actor)
     klass = session.get(ClassRow, class_id)
     if klass is None:
         raise HTTPException(status_code=404, detail="class not found")

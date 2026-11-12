@@ -185,11 +185,29 @@ async function req(path: string, init: RequestInit = {}) {
   return response.json();
 }
 
+/**
+ * A child signs in with the family code, or the short username a guardian made, and a PIN. The two look
+ * alike on a keyboard, so the likelier one is tried first and the other once if the answer is "no".
+ */
 export async function studentLogin(family_code: string, pin: string) {
-  const body = await req("/auth/student-login", {
-    method: "POST",
-    body: JSON.stringify({ family_code, pin }),
-  });
+  const name = family_code.trim();
+  const asCode = { family_code: name.toUpperCase() };
+  const asName = { username: name.toLowerCase() };
+  const order = name.length === 8 ? [asName, asCode] : [asCode, asName];
+  let body: { access_token: string } | null = null;
+  let failure: Error = new Error("login failed");
+  for (const who of order) {
+    const response = await authedFetch("/auth/student-login", { method: "POST", body: JSON.stringify({ ...who, pin }) });
+    if (response.ok) {
+      body = await response.json();
+      break;
+    }
+    failure = new Error((await response.text()) || response.statusText);
+    // Only a plain "no such login" (401, 404) tries the other name form. A lockout (423), a rate limit (429)
+    // or any other error is surfaced as it is, never retried.
+    if (response.status !== 401 && response.status !== 404) break;
+  }
+  if (!body) throw failure;
   setStaffToken(""); // one role per device: a student sign-in replaces any guardian or teacher sign-in
   setToken(body.access_token);
   return body;
@@ -236,6 +254,14 @@ export async function guestStart(body: GuestStartBody) {
   tab()?.setItem("yt_student", out.student_id);
   setLocale(body.home_language);
   return out;
+}
+
+/** Keep a learner session (a limited-mode child's, or an adult's) for this tab, as a guest's is. */
+export function keepTabSession(token: string, studentId: string) {
+  store()?.removeItem("yt_token");
+  store()?.removeItem("yt_student");
+  tab()?.setItem("yt_token", token);
+  tab()?.setItem("yt_student", studentId);
 }
 
 /** Answer the first-run or warm-up re-offer. Resolves with the kind of session to start. */
@@ -671,7 +697,7 @@ export function setStaffToken(value: string) {
   else store()?.removeItem(STAFF_KEY);
 }
 
-async function staffReq(path: string, init: RequestInit = {}) {
+export async function staffReq(path: string, init: RequestInit = {}) {
   const headers = new Headers(init.headers);
   headers.set("Content-Type", "application/json");
   const auth = staffToken();
@@ -709,14 +735,24 @@ export function isEmailUnavailable(error: unknown): boolean {
   return error instanceof ApiError && error.code === "email_unavailable";
 }
 
-export async function requestStaffCode(email: string) {
-  return staffReq("/auth/request-otp", { method: "POST", body: JSON.stringify({ email }) });
+/** True when a text-message code could not be sent (503 sms_unavailable). */
+export function isSmsUnavailable(error: unknown): boolean {
+  return error instanceof ApiError && error.code === "sms_unavailable";
 }
 
-export async function verifyStaffCode(email: string, code: string) {
+/** A sign-in contact: an email, or a phone number. */
+export type Contact = { email: string } | { phone: string };
+
+export async function requestStaffCode(contact: string | Contact) {
+  const body = typeof contact === "string" ? { email: contact } : contact;
+  return staffReq("/auth/request-otp", { method: "POST", body: JSON.stringify(body) });
+}
+
+export async function verifyStaffCode(contact: string | Contact, code: string) {
+  const who = typeof contact === "string" ? { email: contact } : contact;
   const out = await staffReq("/auth/verify-otp", {
     method: "POST",
-    body: JSON.stringify({ email, code }),
+    body: JSON.stringify({ ...who, code }),
   });
   clearStudent(); // one role per device: a guardian or teacher sign-in replaces any student sign-in
   setStaffToken(out.access_token);

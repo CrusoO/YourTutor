@@ -41,6 +41,17 @@ class EmailOtpSender:
             raise EmailUnavailable(type(error).__name__) from None
 
 
+class SmsOtpSender:
+    """Phone OTP through the configured SMS provider (app/auth/sms.py). `destination` is E.164."""
+
+    def send(self, destination: str, code: str) -> None:
+        from app.auth.sms import get_sms_provider
+
+        get_sms_provider().send_sms(
+            destination, f"Your YourTutor sign-in code is {code}. It expires in 10 minutes."
+        )
+
+
 class MemoryOtpSender:
     """Test double that records the last code per destination."""
 
@@ -56,6 +67,10 @@ _sender: OtpSender = EmailOtpSender()
 
 def get_otp_sender() -> OtpSender:
     return _sender
+
+
+def get_sms_otp_sender() -> OtpSender:
+    return SmsOtpSender()
 
 
 def set_otp_sender(sender: OtpSender) -> None:

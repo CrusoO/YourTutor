@@ -267,6 +267,8 @@ class UserRow(Base):
     email: Mapped[str] = mapped_column(String, unique=True)
     locale: Mapped[str] = mapped_column(String, ForeignKey("locales.code"), default="en")
     site_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)  # staff only
+    # E.164 phone number for phone sign-in. A phone-only account has a made-up `.invalid` email.
+    phone: Mapped[str | None] = mapped_column(String, nullable=True, unique=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     students: Mapped[list[StudentRow]] = relationship(back_populates="parent")
@@ -299,6 +301,13 @@ class StudentRow(Base):
     onboarding: Mapped[dict | None] = mapped_column(
         JSONType, nullable=True
     )  # warm-up offer answers
+    # The age answer, kept as little as possible: whether the learner is 18 or over (None: not
+    # asked yet) and, only when a birth year was the input, that year. learner_is_adult reads it.
+    is_adult: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    birth_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    username: Mapped[str | None] = mapped_column(
+        String, nullable=True, unique=True, index=True
+    )  # short login, made by the guardian side
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     parent: Mapped[UserRow] = relationship(back_populates="students")
@@ -318,6 +327,42 @@ class ConsentRow(Base):
     paper_ref: Mapped[str | None] = mapped_column(String, nullable=True)
 
     student: Mapped[StudentRow] = relationship(back_populates="consents")
+
+
+class AgreementRow(Base):
+    """One person's role agreement: which items they ticked. A change adds a row and closes the
+    previous one, as ConsentRow does, so the history of what was agreed and when is kept."""
+
+    __tablename__ = "agreement_acceptances"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    role: Mapped[str] = mapped_column(String)  # guardian, teacher or adult
+    version: Mapped[str] = mapped_column(String)
+    items: Mapped[list[str]] = mapped_column(TextArray)
+    granted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class GuardianApprovalRow(Base):
+    """A limited-mode child profile waiting for a guardian. The only personal data held about the
+    child until approval is the nickname here; the guardian's contact is kept only to send the
+    link. The row is deleted when the guardian approves or declines, or when it expires."""
+
+    __tablename__ = "guardian_approvals"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), unique=True, index=True
+    )
+    token_hash: Mapped[str] = mapped_column(String, unique=True, index=True)
+    nickname: Mapped[str] = mapped_column(String)
+    contact: Mapped[str] = mapped_column(String)
+    contact_kind: Mapped[str] = mapped_column(String)  # email or phone
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
 class ClassRow(Base):

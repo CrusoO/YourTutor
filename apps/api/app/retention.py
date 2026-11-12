@@ -1,6 +1,6 @@
 """Retention jobs: `python -m app.retention <job> [--dry-run]`, the one entrypoint for all of them.
 
-Jobs: purge_guests, otp, rate_events, auth_sessions, llm_calls, video_jobs, or `all`.
+Jobs: purge_guests, approvals, otp, rate_events, auth_sessions, llm_calls, video_jobs, or `all`.
 Nothing here is scheduled by the code; see docs/OPERATOR.md for the cron line.
 
 Every job is idempotent (a second run finds nothing to do), deletes in batches so one run never
@@ -192,6 +192,10 @@ def run_job(db: Session, job: str, dry_run: bool = False, now: datetime | None =
     mode = "would delete" if dry_run else "deleted"
     if job == "purge_guests":
         return f"purge_guests: {mode} {purge_guests(db, now, dry_run)} guest(s)"
+    if job == "approvals":
+        from app.auth.children import purge_expired
+
+        return f"approvals: {mode} {purge_expired(db, now, dry_run)} expired child profile(s)"
     if job == "otp":
         return f"otp: {mode} {purge_otp(db, now, dry_run)} sign-in code row(s)"
     if job == "rate_events":
@@ -211,6 +215,7 @@ def run_job(db: Session, job: str, dry_run: bool = False, now: datetime | None =
 
 JOBS: tuple[str, ...] = (
     "purge_guests",
+    "approvals",
     "otp",
     "rate_events",
     "auth_sessions",

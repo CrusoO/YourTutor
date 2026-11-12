@@ -17,6 +17,7 @@ from app.db.models import (
     CheckpointResultRow,
     ConsentRow,
     EventRow,
+    GuardianApprovalRow,
     LessonRecordRow,
     LlmCallRow,
     LoopBRecordRow,
@@ -38,6 +39,8 @@ STUDENT_HIDDEN = frozenset({"pin_hash", "pin_failed_attempts", "pin_locked_until
 VIDEO_HIDDEN = frozenset(
     {"result_path", "sources_json_path", "qa_json_path", "idempotency_key", "org_id"}
 )
+# A pending child profile shows the nickname and dates; the guardian's contact is the guardian's.
+APPROVAL_HIDDEN = frozenset({"token_hash", "contact"})
 PARTICIPANT_HIDDEN = frozenset({"assignment_seed", "household_id"})
 
 
@@ -124,4 +127,8 @@ def learner_export(session: Session, student: StudentRow) -> dict[str, Any]:
             "paper_entries": [row_dict(r) for r in papers],
         },
         "consents": [row_dict(r) for r in _rows(session, ConsentRow, ConsentRow.student_id, sid)],
+        "guardian_approval": [
+            row_dict(r, APPROVAL_HIDDEN)
+            for r in _rows(session, GuardianApprovalRow, GuardianApprovalRow.student_id, sid)
+        ],
     }

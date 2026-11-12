@@ -14,6 +14,7 @@ import {
 } from "@/lib/api";
 
 import ClassRequests from "@/components/staff/ClassRequests";
+import LoginDetails from "@/components/agreement/LoginDetails";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { isLiveLocale, useCopy } from "@/lib/locale";
 
@@ -112,6 +113,7 @@ export default function GuardianPage() {
       ) : null}
 
       <ClassRequests />
+      <LoginDetails studentId={current} />
 
       <section className="card stack" data-testid="guardian-week">
         <h2>{copy.guardianWeek}</h2>
