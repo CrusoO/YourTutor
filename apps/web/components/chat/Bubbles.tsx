@@ -48,7 +48,9 @@ export function Replies() {
             : reply.kind === "matches"
             ? copy.chatFinderDidYouMean
             : reply.kind === "none"
-              ? copy.chatFinderNone
+              ? reply.topics?.length
+                ? copy.chatFinderNone
+                : copy.chatFinderNoneEmpty
               : reply.kind === "blocked"
                 ? copy.chatFinderBlocked
                 : reply.kind === "distress"

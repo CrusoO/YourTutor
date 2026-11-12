@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
-import { setStudentId, startSession, studentId, today } from "@/lib/api";
+import { getChapters, setStudentId, startSession, studentId, today } from "@/lib/api";
 
 import { useCopy } from "@/lib/locale";
 
@@ -37,6 +37,14 @@ export default function TodayPage() {
     setError("");
     try {
       const sid = data?.student_id || studentId();
+      if (type === "practice") {
+        // Practice follows the student's chapter; say so plainly when none is ready instead of starting nothing.
+        const chapters = await getChapters(sid).then((r) => r.chapters).catch(() => null);
+        if (chapters && chapters.length > 0 && !chapters.some((c) => c.live)) {
+          setError(copy.chapterNotReady);
+          return;
+        }
+      }
       const session = await startSession(type, sid);
       router.push(`/session/${session.id}`);
     } catch (err) {
