@@ -14,7 +14,7 @@ vi.mock("@/lib/agreements-api", async (importOriginal) => ({
 }));
 vi.mock("@/lib/api", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/api")>()),
-  getContextOptions: vi.fn().mockResolvedValue({ curricula: [{ id: "bhutan", grades: [{ grade: 9, subjects: [] }] }], languages: [] }),
+  getContextOptions: vi.fn().mockResolvedValue({ curricula: [{ id: "board-x", grades: [{ grade: 9, subjects: [] }] }], languages: [] }),
   setStaffToken: vi.fn(),
   staffToken: () => "t",
 }));
@@ -129,7 +129,7 @@ describe("settings", () => {
 });
 
 describe("the guardian's approval screen", () => {
-  const view: api.ApprovalView = { nickname: "Tiger", grade: 9, curriculum_id: "bhutan", expires_at: "x", agreement: guardian };
+  const view: api.ApprovalView = { nickname: "Tiger", grade: 9, curriculum_id: "board-x", expires_at: "x", agreement: guardian };
 
   it("says the link is not valid when there is none", async () => {
     window.location.hash = "";
