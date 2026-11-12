@@ -202,7 +202,7 @@ export async function studentLogin(family_code: string, pin: string) {
       body = await response.json();
       break;
     }
-    failure = new Error((await response.text()) || response.statusText);
+    failure = Object.assign(new Error((await response.text()) || response.statusText), { status: response.status });
     // Only a plain "no such login" (401, 404) tries the other name form. A lockout (423), a rate limit (429)
     // or any other error is surfaced as it is, never retried.
     if (response.status !== 401 && response.status !== 404) break;

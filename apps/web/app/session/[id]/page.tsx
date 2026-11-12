@@ -13,6 +13,7 @@ import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import { ConfidenceTap, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
+import BlockedState, { hasNoQuestion } from "@/components/session/BlockedState";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import ItemLabels from "@/components/session/ItemLabels";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
@@ -215,6 +216,9 @@ export default function SessionPage() {
       />
     );
   }
+
+  if (hasNoQuestion(action)) return <BlockedState kind="no_question" />;
+  if (action.type === "content_gap") return <BlockedState kind="content_gap" />;
 
   const item = action.item;
   const mcq = item?.type === "mcq";

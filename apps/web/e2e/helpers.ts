@@ -36,9 +36,13 @@ export async function enrolStudent(request: APIRequestContext, firstName = "E2E"
 
 export async function loginStudent(page: Page, family_code: string, pin: string) {
   await page.goto("/login");
+  await page.getByTestId("role-student").click();
   await page.getByLabel(/family code/i).fill(family_code);
   await page.getByLabel(/^pin$/i).fill(pin);
-  await page.getByRole("button", { name: /sign in/i }).click();
+  await page.getByRole("button", { name: /^sign in$/i }).click();
+  // Sign-in lands in the chat; the practice flow specs then carry on from the Today screen.
+  await expect(page).toHaveURL(/\/brownie-chat/);
+  await page.goto("/today");
   await expect(page.getByRole("heading", { name: /today/i })).toBeVisible();
 }
 

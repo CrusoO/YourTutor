@@ -42,6 +42,10 @@ export type AdultStart = {
 export const startAdult = (body: AdultStart): Promise<{ student_id: string; token: string }> =>
   staffReq("/adult/start", { method: "POST", body: JSON.stringify(body) });
 
+/** A returning adult learner: a learner session for their own profile (404 when they have not set one up yet). */
+export const adultSession = (): Promise<{ student_id: string; token: string }> =>
+  staffReq("/adult/session", { method: "POST" });
+
 export type ChildStart = {
   nickname: string;
   curriculum_id: string;

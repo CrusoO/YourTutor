@@ -98,9 +98,12 @@ test("diagnostic, practice with hint, then checkpoint", async ({ page, request }
   const card = await enrol.json();
 
   await page.goto("/login");
+  await page.getByTestId("role-student").click();
   await page.getByLabel(/family code/i).fill(card.family_code);
   await page.getByLabel(/^pin$/i).fill(card.pin);
-  await page.getByRole("button", { name: /sign in/i }).click();
+  await page.getByRole("button", { name: /^sign in$/i }).click();
+  await expect(page).toHaveURL(/\/brownie-chat/);
+  await page.goto("/today");
   await expect(page.getByRole("heading", { name: /today/i })).toBeVisible();
 
   await page.getByRole("button", { name: /start diagnostic/i }).click();
