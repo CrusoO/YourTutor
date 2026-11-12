@@ -216,6 +216,7 @@ def finder_rules_route(language: str = "en") -> dict[str, Any]:
     from app.ask.guard import EMAIL, PHONE, URL
     from app.helplines import helplines_for
     from app.llm.rules import default_rules
+    from app.topic_aliases import load_topic_aliases
 
     lists = load_safety(language)
     return {
@@ -227,6 +228,9 @@ def finder_rules_route(language: str = "en") -> dict[str, Any]:
         # The device answers a distress phrase itself and never posts the text, so the numbers it
         # shows travel with the rules (verified-or-not as in config/helplines.yaml).
         "helplines": [h.public() for h in helplines_for(("mental_health", "child_protection"))],
+        # Everyday words (algebra, trig, AP) the device maps to the student's own chapters
+        # and skills. Data only, from config/topic_aliases.yaml; typed text stays on the device.
+        "topic_aliases": [a.public() for a in load_topic_aliases(language)],
     }
 
 

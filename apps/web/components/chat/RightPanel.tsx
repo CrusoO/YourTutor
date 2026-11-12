@@ -11,9 +11,11 @@ type Props = {
   onContinue: () => void;
   onReview: () => void;
   onToday: () => void;
+  /** A session is being started: the review button waits so a second tap cannot start another. */
+  busy?: boolean;
 };
 
-export function RightPanel({ student, reviewEnabled, onContinue, onReview, onToday }: Props) {
+export function RightPanel({ student, reviewEnabled, onContinue, onReview, onToday, busy = false }: Props) {
   const copy = useCopy();
   const progress = student.current?.chapter;
   const percent = progress && progress.skills_total > 0
@@ -64,11 +66,11 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
         <button
           type="button"
           onClick={onReview}
-          disabled={student.due === 0 || !reviewEnabled}
+          disabled={student.due === 0 || !reviewEnabled || busy}
           className={`mt-3 flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 border-0 border-b border-line bg-transparent px-0 py-2 text-left text-[0.75rem] text-ink disabled:cursor-default disabled:text-muted ${styles.panelReview}`}
           data-testid="panel-review"
         >
-          <span>{copy.chatReviewDue}</span>
+          <span>{busy && student.due > 0 && reviewEnabled ? copy.starting : copy.chatReviewDue}</span>
           <span>{student.due > 0 ? copy.chatReviewDueN.replace("{n}", String(student.due)) : copy.chatNothingDue}</span>
         </button>
         {student.minutesLeft !== null ? (

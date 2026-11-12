@@ -4,7 +4,8 @@ import { Brand } from "@/components/ui/brand";
 import { Choice } from "@/components/ui/choice";
 import { Helplines } from "./Helplines";
 import { locale } from "@/lib/api";
-import { messageText } from "@/lib/chat/labels";
+import { messageText, prettify } from "@/lib/chat/labels";
+import { introCopy, liveSubjects } from "@/lib/chat/intro";
 import { useChatApi } from "./ChatProvider";
 
 /** The small pieces the first screen needs (a chat bubble, finder replies, the last summary). The conversation
@@ -37,7 +38,8 @@ export function Bubble({ from, text }: { from: "tutor" | "user"; text: string })
 
 /** Replies from the finder: Did you mean chips, "not in your syllabus yet", and gentle notices. */
 export function Replies() {
-  const { replies, copy, pickTopic, mode, confirmStep, dismissReplies } = useChatApi();
+  const { replies, copy, pickTopic, mode, confirmStep, dismissReplies, busy, ctx, openWorkspace } = useChatApi();
+  const subjects = liveSubjects(ctx ?? null, (n) => copy.chatClassN.replace("{n}", String(n)), (id) => (id === "math" ? "Maths" : prettify(id)));
   if (!replies.length) return null;
   return (
     <div className="flex flex-col gap-3" aria-live="polite" data-testid="replies">
@@ -50,7 +52,9 @@ export function Replies() {
             : reply.kind === "none"
               ? reply.topics?.length
                 ? copy.chatFinderNone
-                : copy.chatFinderNoneEmpty
+                : subjects.length
+                  ? `${copy.chatFinderNoneEmpty} ${copy.chatFinderAvailable.replace("{subjects}", subjects.join(", "))}`
+                  : copy.chatFinderNoneEmpty
               : reply.kind === "blocked"
                 ? copy.chatFinderBlocked
                 : reply.kind === "distress"
@@ -82,10 +86,17 @@ export function Replies() {
             {reply.topics?.length ? (
               <div className="flex flex-wrap gap-2 pl-11">
                 {reply.topics.map((topic) => (
-                  <Choice key={topic.id} onClick={() => void pickTopic(topic, reply.mode ?? mode)} data-testid={`topic-${topic.id}`}>
+                  <Choice key={topic.id} onClick={() => void pickTopic(topic, reply.mode ?? mode)} disabled={busy} data-testid={`topic-${topic.id}`}>
                     {topic.title}
                   </Choice>
                 ))}
+              </div>
+            ) : null}
+            {reply.kind === "none" && reply.topics?.length ? (
+              <div className="pl-11">
+                <Choice onClick={() => openWorkspace("/chapters", copy.chatChapters)} disabled={busy} data-testid="none-pick-chapter">
+                  {introCopy.chipChapters}
+                </Choice>
               </div>
             ) : null}
           </div>

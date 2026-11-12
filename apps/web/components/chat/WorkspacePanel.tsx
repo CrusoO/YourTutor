@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icons";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
@@ -8,15 +8,26 @@ import { useChatApi } from "./ChatProvider";
 
 /** The existing screens run unchanged inside a frame: one source of truth, no behaviour change. */
 function Frame({ src, title }: { src: string; title: string }) {
+  const { copy } = useChatApi();
+  const [loaded, setLoaded] = useState(false);
   return (
-    <iframe
-      key={src}
-      name="yt-embed"
-      title={title}
-      src={src}
-      className="h-full w-full flex-1 border-0 bg-white"
-      data-testid="workspace-frame"
-    />
+    <div className="relative flex min-h-0 flex-1 flex-col">
+      {/* A page can take a while to open the first time; say so instead of showing a blank white frame. */}
+      {loaded ? null : (
+        <p role="status" aria-live="polite" className="absolute inset-0 m-0 flex items-center justify-center bg-surface text-base text-muted" data-testid="workspace-loading">
+          {copy.starting}
+        </p>
+      )}
+      <iframe
+        key={src}
+        name="yt-embed"
+        title={title}
+        src={src}
+        onLoad={() => setLoaded(true)}
+        className="h-full w-full flex-1 border-0 bg-white"
+        data-testid="workspace-frame"
+      />
+    </div>
   );
 }
 
