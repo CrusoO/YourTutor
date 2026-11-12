@@ -1,18 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import {
   devStaffToken,
   isEmailUnavailable,
   isSmsUnavailable,
+  keepTabSession,
   requestStaffCode,
   setStaffToken,
+  setStudentId,
   verifyStaffCode,
   whoAmI,
   type Contact,
 } from "@/lib/api";
-import { getAuthOptions } from "@/lib/agreements-api";
+import { adultSession, getAuthOptions } from "@/lib/agreements-api";
+import { signin } from "@/app/login/loginCopy";
 import { login } from "@/lib/agreement-copy";
 
 import EmailUnavailable from "@/components/EmailUnavailable";
@@ -26,9 +30,12 @@ const DEV = process.env.NEXT_PUBLIC_DEV_TOOLS === "true";
  * sent to it come first and email stays an option; otherwise it is email only. A new account, or one that has
  * not yet agreed, goes on to the role agreement.
  */
-export default function StaffLogin() {
+function StaffLoginForm() {
   const router = useRouter();
   const copy = useCopy();
+  const asParam = useSearchParams().get("as");
+  const who: "guardian" | "teacher" | "adult" | "any" =
+    asParam === "guardian" || asParam === "teacher" || asParam === "adult" ? asParam : "any";
   const [phoneOn, setPhoneOn] = useState(false);
   const [mode, setMode] = useState<"phone" | "email">("email");
   const [email, setEmail] = useState("");
@@ -53,7 +60,20 @@ export default function StaffLogin() {
   async function go(askAgreement = true) {
     const me = await whoAmI();
     if (askAgreement && me.agreements && me.agreements.length > 0) router.push("/agreement");
+    else if (askAgreement && who === "adult" && me.role === "parent" && (await enterAsAdult())) router.push("/brownie-chat");
     else router.push(me.role === "teacher" || me.role === "admin" ? "/teacher" : "/guardian");
+  }
+
+  /** A returning adult learner goes straight to the chat on their own profile; no profile yet means the guardian page. */
+  async function enterAsAdult(): Promise<boolean> {
+    try {
+      const out = await adultSession();
+      keepTabSession(out.token, out.student_id);
+      setStudentId(out.student_id);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async function send() {
@@ -86,8 +106,14 @@ export default function StaffLogin() {
 
   return (
     <main className="stack" data-testid="staff-login">
+      <Link href="/login" className="muted" style={{ display: "inline-flex", alignItems: "center", minHeight: 44 }}>
+        ← {signin.back}
+      </Link>
       <StorageNotice />
-      <h1>{copy.staffLoginTitle}</h1>
+      <h1>{who === "any" ? copy.staffLoginTitle : signin.staffTitles[who]}</h1>
+      {who === "teacher" ? <p className="muted" data-testid="teacher-note">{signin.teacherNote}</p> : null}
+      {who === "guardian" ? <p className="muted">{signin.guardianNote}</p> : null}
+      {who === "adult" ? <p className="muted">{signin.adultNote}</p> : null}
       {mode === "phone" ? (
         <label className="stack">
           {login.phoneLabel}
@@ -138,7 +164,9 @@ export default function StaffLogin() {
           {mode === "phone" ? login.useEmail : login.usePhone}
         </button>
       ) : null}
-      {error ? <p className="banner">{error}</p> : null}
+      <div aria-live="polite" role="status">
+        {error ? <p className="banner">{error}</p> : null}
+      </div>
       {mailDown ? <EmailUnavailable /> : null}
       {DEV ? (
         <div className="stack" data-testid="staff-dev">
@@ -152,5 +180,13 @@ export default function StaffLogin() {
         </div>
       ) : null}
     </main>
+  );
+}
+
+export default function StaffLogin() {
+  return (
+    <Suspense fallback={null}>
+      <StaffLoginForm />
+    </Suspense>
   );
 }

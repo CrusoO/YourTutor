@@ -132,7 +132,9 @@ test("Hindi and Nepali translate the complete landing, interactions, and sign-in
   await expect(page.getByPlaceholder("अभी सीखने में क्या मुश्किल है? किससे बात समझ आएगी?")).toBeVisible();
   await page.getByRole("link", { name: "साइन इन करें" }).click();
   await expect(page.getByRole("heading", { name: "Brownie में साइन इन करें" })).toBeVisible();
+  await page.getByTestId("role-student").click();
   await expect(page.getByLabel("परिवार कोड")).toBeVisible();
+  await page.getByTestId("back-to-roles").click();
   await page.getByRole("button", { name: "English" }).click();
   await expect(page.getByRole("heading", { name: "Sign in to Brownie" })).toBeVisible();
   await page.reload();
@@ -149,6 +151,7 @@ test("Hindi and Nepali translate the complete landing, interactions, and sign-in
   await expect(page.getByPlaceholder("अहिले सिक्न के गाह्रो छ? के गर्दा कुरा बुझिन्छ?")).toBeVisible();
   await page.getByRole("link", { name: "साइन इन गर्नुहोस्" }).click();
   await expect(page.getByRole("heading", { name: "Brownie मा साइन इन गर्नुहोस्" })).toBeVisible();
+  await page.getByTestId("role-student").click();
   await expect(page.getByLabel("परिवार कोड")).toBeVisible();
 
   await page.goto("/");

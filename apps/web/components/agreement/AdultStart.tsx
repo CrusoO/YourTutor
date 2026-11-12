@@ -41,7 +41,7 @@ export default function AdultStart({ accepted, version }: { accepted: string[]; 
       });
       keepTabSession(out.token, out.student_id);
       setStudentId(out.student_id);
-      router.push("/subjects");
+      router.push("/brownie-chat");
     } catch (caught) {
       setError(caught instanceof ApiError && caught.status === 403 ? ui.adultNotAdult : ui.failed);
       setBusy(false);

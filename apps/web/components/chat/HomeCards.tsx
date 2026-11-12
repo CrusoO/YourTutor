@@ -16,6 +16,7 @@ import { memoryLine } from "@/lib/chat/memory";
 import { useChatApi } from "./ChatProvider";
 import { TopicMastery } from "./TopicMastery";
 import { WelcomeBack } from "./WelcomeBack";
+import { SignedInIntro } from "./SignedInIntro";
 import { RightPanel } from "./RightPanel";
 import styles from "./ChatHome.module.css";
 
@@ -155,6 +156,15 @@ export function HomeCards() {
     const memory = hasProgress ? memoryLine(copy, student.data, identity?.name, role !== "guest") : null;
     return (
       <>
+        {role === "student" ? (
+          <SignedInIntro
+            role="student"
+            hasProgress={hasProgress}
+            chapterPath={current ? `/chapters/${encodeURIComponent(current.chapter.id)}` : "/chapters"}
+            chapterTitle={current?.chapter.title}
+            topics={student.data.topics.map((topic) => topic.title)}
+          />
+        ) : null}
         {memory ? <WelcomeBack memory={memory} onGo={(kind) => (kind === "review" ? void startMode("revise") : goOn())} /> : null}
         {student.failed ? (
           <p role="alert" className={`text-sm ${styles.staleNotice}`} data-testid="stale-home-cache">
@@ -214,19 +224,25 @@ export function HomeCards() {
       );
     }
     return (
+      <>
+      <SignedInIntro role="teacher" />
       <Row>
         <SuggestionCard tone="accent" icon="grid" title={copy.chatHeatmap} tag={String(teacher.data.classes)} onClick={() => openWorkspace("/teacher", copy.chatHeatmap)} data-testid="card-heatmap" />
         <SuggestionCard tone={teacher.data.stuck ? "warning" : "neutral"} icon="alert" title={copy.chatStuckNow} tag={String(teacher.data.stuck)} onClick={() => openWorkspace("/teacher", copy.chatStuckNow)} data-testid="card-stuck" />
         <SuggestionCard tone="neutral" icon="inbox" title={copy.chatReviewQueue} tag={String(teacher.data.review)} onClick={() => openWorkspace("/teacher", copy.chatReviewQueue)} data-testid="card-queue" />
       </Row>
+      </>
     );
   }
 
   return (
+    <>
+    <SignedInIntro role="parent" />
     <Row>
       <SuggestionCard tone="accent" icon="chart" title={copy.chatThisWeek} onClick={() => openWorkspace("/guardian", copy.chatThisWeek)} data-testid="card-week" />
       <SuggestionCard tone="success" icon="shield" title={copy.chatConsent} onClick={() => openWorkspace("/guardian", copy.chatConsent)} data-testid="card-consent" />
       <SuggestionCard tone="neutral" icon="plus" title={copy.chatAddChild} onClick={() => openWorkspace("/guardian", copy.chatAddChild)} data-testid="card-add-child" />
     </Row>
+    </>
   );
 }

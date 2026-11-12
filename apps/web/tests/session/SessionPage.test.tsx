@@ -221,10 +221,31 @@ describe("SessionPage action rendering", () => {
     );
   });
 
-  it("content_gap navigates to today", async () => {
+  it("a worked example with nothing to show (no item, no lesson) is the blocked state too", async () => {
+    mockSession({ ...actionFixtures.worked_example, item: null, text: null });
+    render(<SessionPage />);
+    expect(await screen.findByTestId("blocked-state")).toHaveAttribute("data-kind", "no_question");
+  });
+
+  it("content_gap explains itself and links back to the chat and the chapters", async () => {
     await renderAction("content_gap");
-    await userEvent.click(screen.getByRole("button", { name: /back to today/i }));
-    expect(push).toHaveBeenCalledWith("/today");
+    expect(screen.getByTestId("blocked-state")).toHaveAttribute("data-kind", "content_gap");
+    expect(screen.getByRole("link", { name: /back to the chat/i })).toHaveAttribute("href", "/brownie-chat");
+    expect(screen.getByRole("link", { name: /see the chapters/i })).toHaveAttribute("href", "/chapters");
+  });
+
+  it.each([
+    ["no item", null],
+    ["an empty question", { ...actionFixtures.show_item.item!, stem: "", options: [] }],
+  ])("a practice step with %s shows the blocked state, not a bare answer box", async (_name, item) => {
+    mockSession({ ...actionFixtures.show_item, item });
+    render(<SessionPage />);
+    await screen.findByTestId("blocked-state");
+    expect(screen.getByTestId("blocked-state")).toHaveAttribute("data-kind", "no_question");
+    expect(screen.getByRole("heading", { name: /did not load/i })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /check/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /back to the chat/i })).toHaveAttribute("href", "/brownie-chat");
   });
 
   it("explain_back_result continue", async () => {
