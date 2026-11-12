@@ -36,4 +36,4 @@ Write-Host ""
 
 # Run from apps/api/ so pydantic-settings reads apps/api/.env
 Set-Location $apiDir
-python -m app.video_jobs.worker
+python -m app.video_jobs
