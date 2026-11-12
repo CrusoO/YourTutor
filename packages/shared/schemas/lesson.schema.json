@@ -488,6 +488,17 @@
           "title": "Steps",
           "type": "array"
         },
+        "number_line": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NumberLineFigure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "blank_prompt": {
           "$ref": "#/$defs/LocalizedText"
         },
@@ -721,6 +732,37 @@
       "title": "LocalizedText",
       "type": "object"
     },
+    "NumberLineFigure": {
+      "additionalProperties": false,
+      "description": "An integer move on a number line: start at `start`, move `delta` (right when positive).\n`answer` is the authored landing point; the rules check it equals start + delta and the\nbeat's own authored result.",
+      "properties": {
+        "kind": {
+          "const": "number_line",
+          "title": "Kind",
+          "type": "string"
+        },
+        "start": {
+          "title": "Start",
+          "type": "integer"
+        },
+        "delta": {
+          "title": "Delta",
+          "type": "integer"
+        },
+        "answer": {
+          "title": "Answer",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "start",
+        "delta",
+        "answer"
+      ],
+      "title": "NumberLineFigure",
+      "type": "object"
+    },
     "PauseAndAsk": {
       "additionalProperties": false,
       "properties": {
@@ -764,6 +806,17 @@
           "anyOf": [
             {
               "$ref": "#/$defs/BalanceScaleParams"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "number_line": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NumberLineFigure"
             },
             {
               "type": "null"
@@ -928,6 +981,25 @@
           },
           "minItems": 2,
           "title": "Steps",
+          "type": "array"
+        },
+        "number_line": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NumberLineFigure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "more_number_lines": {
+          "items": {
+            "$ref": "#/$defs/NumberLineFigure"
+          },
+          "maxItems": 3,
+          "title": "More Number Lines",
           "type": "array"
         }
       },

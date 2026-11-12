@@ -8,6 +8,11 @@ beats:
 - kind: predict
   prompt:
     en: What is −6 + 15?
+  number_line:
+    kind: number_line
+    start: -6
+    delta: 15
+    answer: 9
   choices:
   - value: '9'
     text:
@@ -78,6 +83,20 @@ beats:
   steps:
   - en: Start at −8. Adding 5 moves 5 steps to the right.
   - en: −8 → −3, so −8 + 5 = −3.
+  number_line:
+    kind: number_line
+    start: -8
+    delta: 5
+    answer: -3
+  more_number_lines:
+  - kind: number_line
+    start: 3
+    delta: -7
+    answer: -4
+  - kind: number_line
+    start: -5
+    delta: 9
+    answer: 4
 - kind: faded_example
   title:
     en: Now you finish one
@@ -85,6 +104,11 @@ beats:
     en: Work out −9 + 4.
   steps:
   - en: Start at −9. Adding 4 moves 4 steps to the right.
+  number_line:
+    kind: number_line
+    start: -9
+    delta: 4
+    answer: -5
   blank_prompt:
     en: Where do you land?
   answer: '-5'

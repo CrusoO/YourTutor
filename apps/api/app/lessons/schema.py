@@ -7,14 +7,16 @@ then specific rule codes (e.g. "lesson.first_beat_not_predict") that the TS vali
 
 from __future__ import annotations
 
+import re
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, TypeAdapter, ValidationError
 
 from app.content.schema import ContentStatus, LocalizedText
 
 Color = Literal["ink", "muted", "red", "blue", "green"]
 SCENE_CANVAS_DEFAULT = (340, 290)
+NUMBER_LINE_LIMIT = 20  # the figure draws -20..20 and refuses anything outside it
 
 
 class _Strict(BaseModel):
@@ -149,6 +151,17 @@ WidgetSpec = Annotated[BalanceScaleWidget | FunctionGraphWidget, Field(discrimin
 # ---------------------------------------------------------------- lesson
 
 
+class NumberLineFigure(_Strict):
+    """An integer move on a number line: start at `start`, move `delta` (right when positive).
+    `answer` is the authored landing point; the rules check it equals start + delta and the
+    beat's own authored result."""
+
+    kind: Literal["number_line"]
+    start: StrictInt
+    delta: StrictInt
+    answer: StrictInt
+
+
 class PredictChoice(_Strict):
     value: str = Field(min_length=1)
     text: LocalizedText
@@ -158,6 +171,7 @@ class PredictBeat(_Strict):
     kind: Literal["predict"]
     prompt: LocalizedText
     figure: BalanceScaleParams | None = None
+    number_line: NumberLineFigure | None = None
     choices: list[PredictChoice] = Field(min_length=2)
     reveal: LocalizedText | None = None
 
@@ -181,6 +195,8 @@ class WorkedExampleBeat(_Strict):
     title: LocalizedText
     problem: LocalizedText
     steps: list[LocalizedText] = Field(min_length=2)
+    number_line: NumberLineFigure | None = None
+    more_number_lines: list[NumberLineFigure] = Field(default_factory=list, max_length=3)
 
 
 class FadedExampleBeat(_Strict):
@@ -190,6 +206,7 @@ class FadedExampleBeat(_Strict):
     title: LocalizedText
     problem: LocalizedText
     steps: list[LocalizedText] = Field(min_length=1)  # the steps still shown
+    number_line: NumberLineFigure | None = None
     blank_prompt: LocalizedText  # asks for the missing last step or value
     answer: str  # blank is a rule error so authors get a clear code
     accept: list[str] = Field(default_factory=list)
@@ -284,6 +301,60 @@ def widget_rule_errors(widget: BalanceScaleWidget | FunctionGraphWidget) -> list
     return []
 
 
+def _plain_minus(text: str) -> str:
+    """The typographic minus (U+2212) and en dash as an ASCII hyphen-minus."""
+    return text.replace("−", "-").replace("–", "-")
+
+
+def _as_int(text: str) -> int | None:
+    """An integer from authored text; accepts the typographic minus (U+2212) and en dash."""
+    cleaned = _plain_minus(text.strip())
+    return int(cleaned) if re.fullmatch(r"-?\d+", cleaned) else None
+
+
+def _ends_with_number(text: str, value: int) -> bool:
+    """Whether `value` appears as a whole signed number in the text (minus signs normalised)."""
+    cleaned = _plain_minus(text)
+    return re.search(rf"(?<![\d-]){re.escape(str(value))}(?!\d)", cleaned) is not None
+
+
+def _figure_errors(fig: NumberLineFigure) -> list[str]:
+    """Range and arithmetic rules every figure obeys, wherever it sits."""
+    limit = NUMBER_LINE_LIMIT
+    landing = fig.start + fig.delta
+    if (
+        abs(fig.start) > limit
+        or abs(fig.delta) > limit
+        or fig.delta == 0
+        or abs(landing) > limit
+        or abs(fig.answer) > limit
+    ):
+        return ["figure.out_of_range"]
+    return ["figure.answer_mismatch"] if fig.answer != landing else []
+
+
+def number_line_rule_errors(beat: PredictBeat | WorkedExampleBeat | FadedExampleBeat) -> list[str]:
+    errors: list[str] = []
+    if isinstance(beat, WorkedExampleBeat):
+        for extra in beat.more_number_lines:
+            errors.extend(_figure_errors(extra))
+    fig = beat.number_line
+    if fig is None:
+        return errors
+    errors.extend(_figure_errors(fig))
+    if "figure.out_of_range" in errors:
+        return errors
+    if isinstance(beat, PredictBeat):
+        ok = any(_as_int(c.value) == fig.answer for c in beat.choices)
+    elif isinstance(beat, WorkedExampleBeat):
+        ok = _ends_with_number(beat.steps[-1].en, fig.answer)
+    else:
+        ok = _as_int(beat.answer) == fig.answer
+    if not ok:
+        errors.append("figure.result_mismatch")
+    return errors
+
+
 def lesson_rule_errors(lesson: Lesson) -> list[str]:
     errors: list[str] = []
     kinds = [beat.kind for beat in lesson.beats]
@@ -307,6 +378,9 @@ def lesson_rule_errors(lesson: Lesson) -> list[str]:
     widget_ids = [w.widget_id for w in lesson.widgets()]
     if len(set(widget_ids)) != len(widget_ids):
         errors.append("lesson.duplicate_widget_id")
+    for beat in lesson.beats:
+        if isinstance(beat, PredictBeat | WorkedExampleBeat | FadedExampleBeat):
+            errors.extend(number_line_rule_errors(beat))
     for scene in lesson.scenes():
         errors.extend(scene_rule_errors(scene, lesson.skill_id))
     for widget in lesson.widgets():

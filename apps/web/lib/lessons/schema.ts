@@ -3,7 +3,7 @@
  * apps/api/app/lessons/schema.py: the same fixtures (packages/shared/fixtures/lessons) must give
  * the same codes in both languages. Unknown keys are tolerated here (Python rejects them at load).
  */
-import type { Lesson } from "./types";
+import type { Beat, Lesson, NumberLineFigure } from "./types";
 
 type Obj = Record<string, unknown>;
 const isObj = (v: unknown): v is Obj => typeof v === "object" && v !== null && !Array.isArray(v);
@@ -18,6 +18,7 @@ const STATUSES = ["draft", "approved", "retired"];
 const l10n = (v: unknown): boolean => isObj(v) && isStr(v.en) && v.en.length > 0 && optional(v.ne, isStr) && optional(v.as, isStr);
 const color = (v: unknown) => optional(v, (c) => isStr(c) && COLORS.includes(c));
 const nums = (o: Obj, keys: string[]) => keys.every((k) => optional(o[k], isNum));
+const isInt = (v: unknown): v is number => isNum(v) && Number.isInteger(v);
 const posInt = (v: unknown, min: number) => isNum(v) && Number.isInteger(v) && v >= min;
 
 function action(v: unknown): boolean {
@@ -66,6 +67,10 @@ function balanceParams(v: unknown): boolean {
   );
 }
 
+function numberLine(v: unknown): boolean {
+  return isObj(v) && v.kind === "number_line" && isInt(v.start) && isInt(v.delta) && isInt(v.answer);
+}
+
 function widget(v: unknown): boolean {
   if (!isObj(v) || !isStr(v.widget_id) || v.widget_id.length === 0) return false;
   if (!l10n(v.prompt) || !l10n(v.success) || !optional(v.hint, l10n)) return false;
@@ -86,7 +91,7 @@ function beat(v: unknown): boolean {
   switch (v.kind) {
     case "predict":
       return (
-        l10n(v.prompt) && optional(v.figure, balanceParams) && isArr(v.choices) && v.choices.length >= 2 &&
+        l10n(v.prompt) && optional(v.figure, balanceParams) && optional(v.number_line, numberLine) && isArr(v.choices) && v.choices.length >= 2 &&
         v.choices.every((c) => isObj(c) && isStr(c.value) && c.value.length > 0 && l10n(c.text)) && optional(v.reveal, l10n)
       );
     case "explore":
@@ -94,11 +99,15 @@ function beat(v: unknown): boolean {
     case "explain_scene":
       return l10n(v.title) && scene(v.scene) && l10n(v.final_caption);
     case "worked_example":
-      return l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 2 && v.steps.every(l10n);
+      return (
+        l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 2 && v.steps.every(l10n) &&
+        optional(v.number_line, numberLine) &&
+        optional(v.more_number_lines, (a) => isArr(a) && a.length <= 3 && a.every(numberLine))
+      );
     case "faded_example":
       return (
         l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 1 && v.steps.every(l10n) &&
-        l10n(v.blank_prompt) && isStr(v.answer) && optional(v.accept, (a) => isArr(a) && a.every(isStr)) &&
+        optional(v.number_line, numberLine) && l10n(v.blank_prompt) && isStr(v.answer) && optional(v.accept, (a) => isArr(a) && a.every(isStr)) &&
         optional(v.hint, l10n) && l10n(v.success)
       );
     case "check":
@@ -165,6 +174,45 @@ function sceneRuleErrors(s: Lesson["beats"][number] & { kind: "explain_scene" },
   return errors;
 }
 
+const plainMinus = (text: string) => text.replace(/[−–]/g, "-");
+const asInt = (text: string): number | null => {
+  const c = plainMinus(text.trim());
+  return /^-?\d+$/.test(c) ? Number(c) : null;
+};
+const hasNumber = (text: string, value: number): boolean => {
+  const re = new RegExp(String.raw`(?<![\d-])` + String(value).replace("-", String.raw`\-`) + String.raw`(?!\d)`);
+  return re.test(plainMinus(text));
+};
+
+const LINE_LIMIT = 20;
+
+function figureErrors(f: NumberLineFigure): string[] {
+  const landing = f.start + f.delta;
+  if (
+    Math.abs(f.start) > LINE_LIMIT || Math.abs(f.delta) > LINE_LIMIT || f.delta === 0 ||
+    Math.abs(landing) > LINE_LIMIT || Math.abs(f.answer) > LINE_LIMIT
+  ) {
+    return ["figure.out_of_range"];
+  }
+  return f.answer !== landing ? ["figure.answer_mismatch"] : [];
+}
+
+function numberLineRuleErrors(b: Beat): string[] {
+  if (b.kind !== "predict" && b.kind !== "worked_example" && b.kind !== "faded_example") return [];
+  const errors: string[] = [];
+  if (b.kind === "worked_example") for (const extra of b.more_number_lines ?? []) errors.push(...figureErrors(extra));
+  const f = b.number_line;
+  if (!f) return errors;
+  errors.push(...figureErrors(f));
+  if (errors.includes("figure.out_of_range")) return errors;
+  let ok: boolean;
+  if (b.kind === "predict") ok = b.choices.some((c) => asInt(c.value) === f.answer);
+  else if (b.kind === "worked_example") ok = hasNumber(b.steps[b.steps.length - 1].en, f.answer);
+  else ok = asInt(b.answer) === f.answer;
+  if (!ok) errors.push("figure.result_mismatch");
+  return errors;
+}
+
 /** Returns [] for a valid lesson, otherwise stable error codes (same as the Python validator). */
 export function validateLesson(data: unknown): string[] {
   if (!isStructurallyValid(data)) return ["schema.invalid"];
@@ -182,6 +230,7 @@ export function validateLesson(data: unknown): string[] {
   if (data.beats.some((b) => b.kind === "faded_example" && b.answer.trim() === "")) errors.push("faded.answer_blank");
   const ids = data.beats.flatMap((b) => (b.kind === "explore" ? [b.widget.widget_id] : []));
   if (new Set(ids).size !== ids.length) errors.push("lesson.duplicate_widget_id");
+  for (const b of data.beats) errors.push(...numberLineRuleErrors(b));
   for (const b of data.beats) {
     if (b.kind === "explain_scene") errors.push(...sceneRuleErrors(b, data.skill_id));
   }

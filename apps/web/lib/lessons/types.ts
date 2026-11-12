@@ -72,10 +72,14 @@ export type BalanceScaleWidget = WidgetBase & { type: "balance_scale"; params: B
 export type FunctionGraphWidget = WidgetBase & { type: "function_graph"; params: FunctionGraphParams };
 export type WidgetSpec = BalanceScaleWidget | FunctionGraphWidget;
 
+/** An integer move on a number line: start at `start`, move `delta` (right when positive); `answer` is the authored landing. */
+export type NumberLineFigure = { kind: "number_line"; start: number; delta: number; answer: number };
+
 export type PredictBeat = {
   kind: "predict";
   prompt: L10n;
   figure?: BalanceScaleParams | null;
+  number_line?: NumberLineFigure | null;
   choices: { value: string; text: L10n }[];
   reveal?: L10n | null;
 };
@@ -91,12 +95,15 @@ export type WorkedExampleBeat = {
   title: L10n;
   problem: L10n;
   steps: L10n[];
+  number_line?: NumberLineFigure | null;
+  more_number_lines?: NumberLineFigure[];
 };
 export type FadedExampleBeat = {
   kind: "faded_example";
   title: L10n;
   problem: L10n;
   steps: L10n[];
+  number_line?: NumberLineFigure | null;
   blank_prompt: L10n;
   answer: string;
   accept?: string[];
