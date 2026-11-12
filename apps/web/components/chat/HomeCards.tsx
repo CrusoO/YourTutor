@@ -185,6 +185,7 @@ export function HomeCards() {
               }}
               onReview={() => void startMode("revise")}
               onToday={() => openWorkspace("/today", copy.chatToday)}
+              busy={busy}
             />
           </div>
         ) : null}

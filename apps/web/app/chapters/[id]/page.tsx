@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { prefetchSession, useStarting } from "@/lib/useStarting";
 import {
   getChapterSkills,
   locale,
@@ -26,6 +27,11 @@ export default function ChapterPage() {
   const [chapter, setChapter] = useState<Omit<ChapterCard, "recommended"> | null>(null);
   const [skills, setSkills] = useState<PathSkill[]>([]);
   const [error, setError] = useState("");
+  const starting = useStarting();
+
+  useEffect(() => {
+    prefetchSession(router);
+  }, [router]);
 
   useEffect(() => {
     if (!student) return;
@@ -38,26 +44,26 @@ export default function ChapterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [student, chapterId]);
 
-  async function start() {
+  function start() {
     if (!student) return;
     setError("");
-    try {
+    void starting.run("chapter", async () => {
       const session = await startSession("practice", student.student_id, chapterId);
       router.push(`/session/${session.id}`);
-    } catch {
-      setError(copy.loadError);
-    }
+    });
   }
 
-  async function skip(skillId: string) {
+  function skip(skillId: string) {
     if (!student) return;
     setError("");
-    try {
-      const session = await startSkipAhead(student.student_id, chapterId, skillId);
-      router.push(`/session/${session.id}`);
-    } catch (err) {
-      setError(String(err).includes("test_out_unavailable") ? copy.skipAheadUnavailable : copy.loadError);
-    }
+    void starting.run(
+      `skip:${skillId}`,
+      async () => {
+        const session = await startSkipAhead(student.student_id, chapterId, skillId);
+        router.push(`/session/${session.id}`);
+      },
+      (err) => (String(err).includes("test_out_unavailable") ? copy.skipAheadUnavailable : copy.loadError),
+    );
   }
 
   if (!student || (!chapter && !error)) return <p>…</p>;
@@ -71,8 +77,8 @@ export default function ChapterPage() {
         <>
           <h1>{chapter.title}</h1>
           <StatusChip status={chapter.status} copy={copy} />
-          <button type="button" onClick={start}>
-            {copy.startChapter}
+          <button type="button" onClick={start} {...starting.buttonProps("chapter")} data-testid="start-chapter">
+            {starting.label("chapter", copy.startChapter)}
           </button>
           <h2>{copy.skillPathTitle}</h2>
           <ol className="path plain stack">
@@ -93,8 +99,8 @@ export default function ChapterPage() {
                   {skill.has_lesson ? copy.hasLesson : copy.practiceOnly}
                 </span>
                 {skill.level < 4 ? (
-                  <button type="button" className="ghost" onClick={() => skip(skill.id)}>
-                    {copy.skipAhead}
+                  <button type="button" className="ghost" onClick={() => skip(skill.id)} {...starting.buttonProps(`skip:${skill.id}`)}>
+                    {starting.label(`skip:${skill.id}`, copy.skipAhead)}
                   </button>
                 ) : null}
               </li>
@@ -103,9 +109,10 @@ export default function ChapterPage() {
           <p className="muted">{copy.skipAheadWhy}</p>
         </>
       ) : null}
-      {error ? (
+      {starting.status}
+      {error || starting.error ? (
         <p className="banner" role="alert">
-          {error}
+          {error || starting.error}
         </p>
       ) : null}
     </main>

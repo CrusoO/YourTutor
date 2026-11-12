@@ -24,7 +24,7 @@ export function SignedInIntro({
   /** Titles of the chapters that are live for this learner right now. */
   topics?: string[];
 }) {
-  const { copy, ctx, identity, openWorkspace, startMode } = useChatApi();
+  const { copy, ctx, identity, openWorkspace, startMode, busy } = useChatApi();
   const c = introCopy;
   const subjects = liveSubjects(ctx, (n) => copy.chatClassN.replace("{n}", String(n)), (id) => (id === "math" ? "Maths" : prettify(id)));
   const name = identity?.name?.trim();
@@ -68,8 +68,8 @@ export function SignedInIntro({
       {chips.length > 0 ? (
         <div className="flex flex-wrap gap-2" role="group" aria-label={who} data-testid="intro-chips">
           {chips.map((chip) => (
-            <Choice key={chip.id} onClick={chip.go} data-testid={`intro-chip-${chip.id}`}>
-              {chip.label}
+            <Choice key={chip.id} onClick={chip.go} disabled={busy} aria-busy={busy && chip.id === "revise"} data-testid={`intro-chip-${chip.id}`}>
+              {busy && chip.id === "revise" ? copy.starting : chip.label}
             </Choice>
           ))}
         </div>

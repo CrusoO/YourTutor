@@ -288,8 +288,13 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     [openWorkspace],
   );
 
+  // One start at a time: a slow session page must not turn repeated taps into several sessions.
+  const startFlight = useRef(false);
+
   const pickTopic = useCallback(
     async (topic: Topic, forMode: Mode) => {
+      if (startFlight.current) return;
+      startFlight.current = true;
       setBusy(true);
       setError("");
       try {
@@ -299,6 +304,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       } catch {
         setError(copy.chatCouldNotLoad);
       } finally {
+        startFlight.current = false;
         setBusy(false);
       }
     },
@@ -307,6 +313,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   const startMode = useCallback(
     async (target: Mode) => {
+      if (startFlight.current) return;
+      startFlight.current = true;
       setBusy(true);
       setError("");
       try {
@@ -316,6 +324,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       } catch {
         setError(copy.chatCouldNotLoad);
       } finally {
+        startFlight.current = false;
         setBusy(false);
       }
     },
@@ -397,8 +406,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       if (prepared.kind === "distress") return addReply({ kind: "distress", helplines: rules.current.helplines });
       if (prepared.kind === "blocked") return addReply({ kind: "blocked" });
       const list = await loadTopics();
-      const found = findTopics(prepared.text, list);
-      if (found.kind === "none") return addReply({ kind: "none", topics: list.filter((x) => x.kind === "chapter").slice(0, 3), piiRemoved: prepared.piiRemoved });
+      const found = findTopics(prepared.text, list, 3, rules.current.topic_aliases ?? []);
+      if (found.kind === "none") return addReply({ kind: "none", topics: list.filter((x) => x.kind === "chapter").slice(0, 6), piiRemoved: prepared.piiRemoved });
       // Not signed in (a visitor or a guest): teach straight away from the best match instead of asking to choose.
       if (found.topics[0]) {
         await pickTopic(found.topics[0], mode);

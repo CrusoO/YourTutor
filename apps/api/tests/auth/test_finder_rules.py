@@ -47,3 +47,18 @@ def test_finder_rules_carry_the_helplines_so_the_device_can_show_them(client: Te
     assert helplines and all(h["number"] for h in helplines)
     assert {h["kind"] for h in helplines} <= {"mental_health", "child_protection"}
     assert set(helplines[0]) == {"id", "kind", "name", "number", "hours", "verified"}
+
+
+def test_finder_rules_carry_the_topic_aliases_as_data(client: TestClient) -> None:
+    rules = client.get("/context/finder-rules").json()
+    aliases = rules["topic_aliases"]
+    assert aliases and all(set(a) == {"say", "words", "skill_prefixes"} for a in aliases)
+    said = {phrase for a in aliases for phrase in a["say"]}
+    assert {"algebra", "trig", "ap", "maths", "quadratic"} <= said
+    assert any("MATH.ALG" in a["skill_prefixes"] for a in aliases if "algebra" in a["say"])
+
+
+def test_aliases_for_a_language_without_a_list_fall_back_to_english(client: TestClient) -> None:
+    english = client.get("/context/finder-rules").json()["topic_aliases"]
+    hindi = client.get("/context/finder-rules", params={"language": "hi"}).json()["topic_aliases"]
+    assert hindi == english  # hi/ne lists are empty until a native speaker writes them

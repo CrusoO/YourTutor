@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { findTopics, prepare, type FinderRules, type Topic } from "@/lib/chat/finder";
+import { findTopics, prepare, type FinderRules, type Topic, type TopicAlias } from "@/lib/chat/finder";
 
 const rules: FinderRules = {
   max_chars: 60,
@@ -104,5 +104,45 @@ describe("topic finder: nothing leaves the device", () => {
     expect(log).not.toHaveBeenCalled();
     expect(setItem).not.toHaveBeenCalled();
     expect(document.cookie).not.toContain("marker-7731");
+  });
+});
+
+describe("topic finder: everyday-word aliases", () => {
+  const live: Topic[] = [
+    { id: "ch.poly", title: "Polynomials", chapterId: "ch.poly", kind: "chapter" },
+    { id: "ch.tri", title: "Triangles", chapterId: "ch.tri", kind: "chapter" },
+    { id: "MATH.ALG.POLY.ZEROES", title: "Find the zeroes", chapterId: "ch.poly", kind: "skill" },
+    { id: "MATH.GEO.SIM", title: "Similar shapes", chapterId: "ch.tri", kind: "skill" },
+  ];
+  const aliases: TopicAlias[] = [
+    { say: ["algebra"], words: ["equation"], skill_prefixes: ["MATH.ALG"] },
+    { say: ["trig", "trigonometry"], words: ["trigonometry"], skill_prefixes: ["MATH.TRIG"] },
+    { say: ["linear equation"], words: ["lines"], skill_prefixes: [] },
+  ];
+
+  it("teach me algebra finds the chapter whose skills carry the prefix, chapters first", () => {
+    const hit = findTopics("teach me algebra", live, 3, aliases);
+    expect(hit).toEqual({ kind: "matches", topics: [live[0], live[2]] });
+  });
+
+  it("finds nothing without the table, so older servers behave as before", () => {
+    expect(findTopics("teach me algebra", live)).toEqual({ kind: "none" });
+  });
+
+  it("matches a topic word in a title, with a plural", () => {
+    const words: TopicAlias[] = [{ say: ["polynomial"], words: ["polynomial"], skill_prefixes: [] }];
+    expect(findTopics("what is a polynomial", live, 3, words)).toEqual({ kind: "matches", topics: [live[0]] });
+  });
+
+  it("a word the student's chapters do not cover is still none, and a prefix needs a dot boundary", () => {
+    expect(findTopics("trig please", live, 3, aliases)).toEqual({ kind: "none" });
+    const near: TopicAlias[] = [{ say: ["alg"], words: [], skill_prefixes: ["MATH.AL"] }];
+    expect(findTopics("alg", live, 3, near)).toEqual({ kind: "none" });
+  });
+
+  it("multi-word phrases must appear in order", () => {
+    const eq: Topic[] = [{ id: "c", title: "Straight lines", chapterId: "c", kind: "chapter" }];
+    expect(findTopics("equation linear", eq, 3, aliases).kind).toBe("none");
+    expect(findTopics("a linear equation", eq, 3, aliases).kind).toBe("matches");
   });
 });
