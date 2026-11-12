@@ -25,9 +25,6 @@ function LoginPageContent() {
   const [family, setFamily] = useState("");
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
-  // The button stays off until the page is interactive, so an early submit can never reach the browser's own form post.
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -51,7 +48,7 @@ function LoginPageContent() {
       <StorageNotice />
       <h1>{copy.auth.title}</h1>
       <LandingLanguages />
-      <form className="stack" method="post" onSubmit={onSubmit}>
+      <form className="stack" onSubmit={onSubmit}>
         <label>
           {copy.auth.familyCode}
           <input
@@ -74,7 +71,7 @@ function LoginPageContent() {
         </label>
         {error ? <p className="banner">{error}</p> : null}
         <p className="muted">{login.usernameHint}</p>
-        <button type="submit" disabled={!ready}>{copy.auth.signIn}</button>
+        <button type="submit">{copy.auth.signIn}</button>
       </form>
       <Link href="/start" className="muted" data-testid="try-guest">
         {copy.auth.tryAsGuest}
