@@ -1,13 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
-import { pick, type Beat, type Lesson } from "@/lib/lessons/types";
+import { pick, type Beat, type Lesson, type NumberLineFigure } from "@/lib/lessons/types";
+import { choiceValueToNumber, expression, guessToChoiceValue } from "@/lib/lessons/numberline";
 import { balanceStart } from "@/lib/lessons/widgets";
 import { t, type Messages } from "@/lib/messages";
 import SourceChips, { type SourceChip } from "@/components/flow/SourceChips";
 import BalanceScale, { BalanceFigure } from "./BalanceScale";
 import FunctionGraph from "./FunctionGraph";
 import ScenePlayer, { type Delay, type SceneAskInfo } from "./ScenePlayer";
+
+// The number line is only needed on lessons that carry a figure, so it loads on demand and stays
+// out of every other route's bundle.
+const NumberLine = dynamic(() => import("./NumberLine"), {
+  ssr: false,
+  loading: () => <div aria-hidden="true" style={{ minHeight: 320 }} />,
+});
 
 /** The player's own words come from the locale files (English wherever a Hindi string is missing or unreviewed). */
 function lessonCopy(m: Messages) {
@@ -24,6 +33,7 @@ function lessonCopy(m: Messages) {
     source: m.lessonSource,
     check: m.lessonCheck,
     fadedPreviewNote: m.lessonFadedPreviewNote,
+    another: m.numberLineAnother,
     steps: {
       predict: m.lessonStepGuess,
       explore: m.lessonStepTry,
@@ -84,6 +94,8 @@ export default function LessonPlayer({
   const [busy, setBusy] = useState(false);
   const [fadedText, setFadedText] = useState("");
   const [faded, setFaded] = useState<"idle" | "pending" | "ok" | "bad">("idle");
+  const [exampleLocked, setExampleLocked] = useState(false);
+  const [extraIdx, setExtraIdx] = useState<number | null>(null);
   const started = useRef(Date.now());
   const beats = lesson.beats;
   const beat = beats[cur];
@@ -96,6 +108,8 @@ export default function LessonPlayer({
     setStepsShown(1);
     setFadedText("");
     setFaded("idle");
+    setExampleLocked(false);
+    setExtraIdx(null);
     window.scrollTo?.(0, 0);
   }
 
@@ -134,16 +148,28 @@ export default function LessonPlayer({
     }
   }
 
-  async function checkFaded() {
-    if (!onFadedAnswer || fadedText.trim() === "" || faded === "pending") return;
+  async function checkFaded(typed?: string) {
+    const text = (typed ?? fadedText).trim();
+    if (!onFadedAnswer || text === "" || faded === "pending") return;
     const index = beats.slice(0, cur).filter((b) => b.kind === "faded_example").length;
     setFaded("pending");
     try {
-      setFaded((await onFadedAnswer(index, fadedText.trim())) ? "ok" : "bad");
+      setFaded((await onFadedAnswer(index, text)) ? "ok" : "bad");
     } catch {
       setFaded("bad");
     }
   }
+
+  // The Guess step's figure is shown again, hopping, on the Watch step so the guess can be checked.
+  const guessFigure: NumberLineFigure | null =
+    (beats.find((b) => b.kind === "predict") as Extract<Beat, { kind: "predict" }> | undefined)?.number_line ?? null;
+  const workedFigure: NumberLineFigure | null =
+    beat.kind === "worked_example" && beat.number_line
+      ? extraIdx === null
+        ? beat.number_line
+        : (beat.more_number_lines?.[extraIdx] ?? beat.number_line)
+      : null;
+  const showWrittenSteps = beat.kind === "worked_example" && (!beat.number_line || (exampleLocked && extraIdx === null));
 
   const primary = beat.kind === "check" ? (mode === "session" ? COPY.start : null) : COPY.continue;
 
@@ -175,6 +201,19 @@ export default function LessonPlayer({
         {beat.kind === "predict" ? (
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.prompt, locale)}</h2>
+            {beat.number_line ? (
+              <NumberLine
+                key={`${beat.number_line.start}:${beat.number_line.delta}`}
+                start={beat.number_line.start}
+                delta={beat.number_line.delta}
+                mode="predict"
+                after="hold"
+                locale={locale}
+                reducedMotion={reducedMotion}
+                externalGuess={guess === null ? null : choiceValueToNumber(guess)}
+                onGuess={(v) => setGuess(guessToChoiceValue(v, beat.choices))}
+              />
+            ) : null}
             {beat.figure ? (
               <div className="lp-panel">
                 <BalanceFigure
@@ -236,6 +275,18 @@ export default function LessonPlayer({
         {beat.kind === "explain_scene" ? (
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            {guessFigure ? (
+              <NumberLine
+                key={`reveal:${guessFigure.start}:${guessFigure.delta}`}
+                start={guessFigure.start}
+                delta={guessFigure.delta}
+                mode="reveal"
+                autoPlay={false}
+                priorGuess={guess === null ? null : choiceValueToNumber(guess)}
+                locale={locale}
+                reducedMotion={reducedMotion}
+              />
+            ) : null}
             <ScenePlayer
               key={beat.scene.id}
               scene={beat.scene}
@@ -252,12 +303,43 @@ export default function LessonPlayer({
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
             <p className="lp-problem">{pick(beat.problem, locale)}</p>
-            <ol className="lp-steps">
-              {beat.steps.slice(0, stepsShown).map((s, i) => (
-                <li key={i}>{pick(s, locale)}</li>
-              ))}
-            </ol>
-            {stepsShown < beat.steps.length ? (
+            {beat.number_line && workedFigure ? (
+              <>
+                {beat.more_number_lines && beat.more_number_lines.length > 0 ? (
+                  <div className="lp-ctrl chips" role="group" aria-label={COPY.another}>
+                    {[beat.number_line, ...beat.more_number_lines].map((f, i) => (
+                      <button
+                        key={`${f.start}:${f.delta}`}
+                        type="button"
+                        className="lp-btn"
+                        aria-pressed={(extraIdx === null ? 0 : extraIdx + 1) === i}
+                        onClick={() => setExtraIdx(i === 0 ? null : i - 1)}
+                      >
+                        {expression(f.start, f.delta)}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+                <NumberLine
+                  key={`ex:${workedFigure.start}:${workedFigure.delta}`}
+                  start={workedFigure.start}
+                  delta={workedFigure.delta}
+                  mode="predict"
+                  after="reveal"
+                  locale={locale}
+                  reducedMotion={reducedMotion}
+                  onLocked={() => setExampleLocked(true)}
+                />
+              </>
+            ) : null}
+            {showWrittenSteps ? (
+              <ol className="lp-steps">
+                {beat.steps.slice(0, stepsShown).map((s, i) => (
+                  <li key={i}>{pick(s, locale)}</li>
+                ))}
+              </ol>
+            ) : null}
+            {showWrittenSteps && stepsShown < beat.steps.length ? (
               <button type="button" className="lp-btn" onClick={() => setStepsShown((n) => n + 1)}>
                 {COPY.nextStep}
               </button>
@@ -274,6 +356,21 @@ export default function LessonPlayer({
                 <li key={i}>{pick(st, locale)}</li>
               ))}
             </ol>
+            {beat.number_line ? (
+              <NumberLine
+                key={`faded:${beat.number_line.start}:${beat.number_line.delta}`}
+                start={beat.number_line.start}
+                delta={beat.number_line.delta}
+                mode="predict"
+                after="check"
+                locale={locale}
+                reducedMotion={reducedMotion}
+                onLocked={(r) => {
+                  setFadedText(String(r.guess));
+                  void checkFaded(String(r.guess));
+                }}
+              />
+            ) : null}
             <p className="lp-problem">{pick(beat.blank_prompt, locale)}</p>
             {onFadedAnswer ? (
               <form
