@@ -58,12 +58,16 @@ def withdraw_item(role: str, body: WithdrawIn, db: DbSession, actor: ActorDep) -
 
 @router.post("/adult/start")
 def adult_start(body: adults.AdultStartIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    return adults.start_adult(db, actor, body)
+    out = adults.start_adult(db, actor, body)
+    db.commit()  # token readable before the response is sent
+    return out
 
 
 @router.post("/adult/session")
 def adult_session(db: DbSession, actor: ActorDep) -> dict[str, str]:
-    return adults.adult_session(db, actor)
+    out = adults.adult_session(db, actor)
+    db.commit()
+    return out
 
 
 # ---- a child's limited-mode profile, and the guardian's approval -------------------------------
@@ -71,7 +75,9 @@ def adult_session(db: DbSession, actor: ActorDep) -> dict[str, str]:
 
 @router.post("/children/start")
 def child_start(body: children.ChildStartIn, request: Request, db: DbSession) -> dict[str, Any]:
-    return children.start_child(db, body, client_ip(request))
+    out = children.start_child(db, body, client_ip(request))
+    db.commit()
+    return out
 
 
 @router.get("/children/me/status")

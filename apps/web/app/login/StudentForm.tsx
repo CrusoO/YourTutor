@@ -42,12 +42,20 @@ export default function StudentForm({
     setBusy(true);
     try {
       await studentLogin(family.trim(), pin.trim());
+    } catch (caught) {
+      setError(loginErrorText(caught, mismatch));
+      setBusy(false);
+      return;
+    }
+    try {
       const me = await today();
       setStudentId(me.student_id);
       if (me.locale) setLocale(me.locale);
       router.push("/brownie-chat");
     } catch (caught) {
-      setError(loginErrorText(caught, mismatch));
+      // The code and PIN were accepted; only the step after failed. Say which, so a server problem is not a "wrong PIN".
+      const status = (caught as { status?: number } | null)?.status;
+      setError(status === 401 ? signin.errors.afterRejected : signin.errors.afterFailed);
       setBusy(false);
     }
   }

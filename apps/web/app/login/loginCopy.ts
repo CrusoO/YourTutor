@@ -30,6 +30,8 @@ export const signin = {
     locked: "Too many wrong tries, so this login is paused for a while. Ask your guardian or teacher for help, or try again later.",
     slowDown: "Too many tries just now. Please wait a minute, then try again.",
     other: "We could not sign you in just now. Please try again in a moment.",
+    afterRejected: "Your code and PIN were right, but your sign-in was not accepted on the next step. Please press Sign in once more.",
+    afterFailed: "You are signed in, but we could not load your page just now. Please try again in a moment.",
   },
   teacherNote: "Teacher accounts are made by your school or an admin. If you cannot sign in, ask them to add you.",
   guardianNote: "New here? Your first sign-in makes your account, then you choose what to agree to.",

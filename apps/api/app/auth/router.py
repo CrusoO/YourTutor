@@ -196,6 +196,7 @@ def verify_otp(
         token = service.verify_otp(
             db, email=body.email or "", code=body.code, ip=client_ip(request), actor=actor
         )
+    db.commit()  # token readable before the response is sent (see student_login)
     return _token_body(token)
 
 
@@ -231,7 +232,9 @@ def finder_rules_route(language: str = "en") -> dict[str, Any]:
 
 @router.post("/guest/start")
 def guest_start(body: guest.GuestStartIn, request: Request, db: DbSession) -> dict[str, Any]:
-    return guest.start_guest(db, body, client_ip(request))
+    out = guest.start_guest(db, body, client_ip(request))
+    db.commit()  # token readable before the response is sent
+    return out
 
 
 @router.get("/guest/{student_id}/export")
@@ -314,6 +317,7 @@ def set_pin(student_id: uuid.UUID, body: PinIn, db: DbSession, actor: ActorDep) 
 @router.post("/students/{student_id}/pin/verify")
 def verify_pin(student_id: uuid.UUID, body: PinIn, db: DbSession) -> dict[str, str]:
     token = service.verify_student_pin(db, student_id, body.pin)
+    db.commit()
     return _token_body(token)
 
 
@@ -325,9 +329,14 @@ def login_details(student_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict
 
 @router.post("/auth/student-login")
 def student_login(body: FamilyLoginIn, db: DbSession) -> dict[str, str]:
+    # Commit before answering: the token's row is otherwise written only after the response is sent,
+    # and a fast follow-up call (GET /students/me/today) could arrive first and get a 401.
     if body.username:
-        return _token_body(service.verify_username_pin(db, body.username, body.pin))
-    return _token_body(service.verify_family_pin(db, body.family_code or "", body.pin))
+        token = service.verify_username_pin(db, body.username, body.pin)
+    else:
+        token = service.verify_family_pin(db, body.family_code or "", body.pin)
+    db.commit()
+    return _token_body(token)
 
 
 @router.get("/students/me/today")

@@ -121,6 +121,33 @@ describe("student form", () => {
   });
 });
 
+describe("after the code and PIN were accepted", () => {
+  async function submit() {
+    await openStudent();
+    await userEvent.type(screen.getByLabelText(/family code/i), "abcd2345");
+    await userEvent.type(screen.getByLabelText(/^pin$/i), "1234");
+    fireEvent.submit(screen.getByLabelText(/^pin$/i).closest("form")!);
+    return screen.findByTestId("login-error");
+  }
+
+  it("a 401 on the next call is not called a wrong PIN or a server fault", async () => {
+    vi.mocked(studentLogin).mockResolvedValue({ access_token: "t" });
+    vi.mocked(today).mockRejectedValue(failure(401));
+    const error = await submit();
+    expect(error).toHaveTextContent(/were right, but your sign-in was not accepted/i);
+    expect(error).not.toHaveTextContent(/did not match|could not sign you in/i);
+    expect(push).not.toHaveBeenCalled();
+  });
+
+  it("a real server error on the next call says so, differently", async () => {
+    vi.mocked(studentLogin).mockResolvedValue({ access_token: "t" });
+    vi.mocked(today).mockRejectedValue(failure(500));
+    const error = await submit();
+    expect(error).toHaveTextContent(/signed in, but we could not load your page/i);
+    expect(error).not.toHaveTextContent(/not accepted/i);
+  });
+});
+
 describe("before hydration", () => {
   it("the server-rendered form already posts and has a disabled submit button", async () => {
     const { renderToString } = await import("react-dom/server");

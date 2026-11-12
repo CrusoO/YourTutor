@@ -176,7 +176,7 @@ async function req(path: string, init: RequestInit = {}) {
   const response = await authedFetch(path, init);
   if (!response.ok) {
     const detail = await response.text();
-    throw new Error(detail || response.statusText);
+    throw Object.assign(new Error(detail || response.statusText), { status: response.status });
   }
   const ctype = response.headers.get("content-type") || "";
   if (ctype.includes("text/html")) {
