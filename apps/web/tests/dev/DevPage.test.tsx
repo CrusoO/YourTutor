@@ -1,8 +1,8 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import DevPage from "@/app/dev/page";
-import DevLessonsPage from "@/app/dev/lessons/page";
+import DevPage from "@/app/dev/page.dev";
+import DevLessonsPage from "@/app/dev/lessons/page.dev";
 import { devStaffToken, listDevLessons, listDevScenarios, seedDevScenarios, setStudentId, studentLogin, today } from "@/lib/api";
 
 const push = vi.fn();

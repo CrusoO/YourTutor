@@ -10,7 +10,6 @@ import type {
 export const GRAPH_TOLERANCE = 1e-6;
 
 export type BalanceState = { lb: number; lw: number; rb: number; rw: number };
-export type GraphState = { x: number };
 
 const isInt = (v: unknown): v is number => typeof v === "number" && Number.isInteger(v);
 const isNum = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);

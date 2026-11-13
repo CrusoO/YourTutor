@@ -22,14 +22,6 @@ export function saveSetup(setup: Setup): void {
   }
 }
 
-export function clearSetup(): void {
-  try {
-    safeStorage()?.removeItem(SETUP_KEY);
-  } catch {
-    /* storage is optional */
-  }
-}
-
 export function tipDismissed(): boolean {
   try {
     return safeStorage()?.getItem(TIP_KEY) === "1";
