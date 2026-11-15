@@ -94,7 +94,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
               className={`inline-flex min-h-8 w-auto cursor-pointer items-center gap-1.5 border-0 text-[0.75rem] font-normal disabled:cursor-not-allowed disabled:opacity-60 ${mode === m ? "bg-surface-2 text-ink" : "bg-transparent text-muted hover:text-ink"} ${styles.modeButton}`}
             >
               {copy[MODE_LABEL[m]]}
-              {SOON.includes(m) ? <span className="rounded-full bg-neutral-soft px-1.5 py-0.5 text-[0.625rem] text-muted">{copy.chatSoon}</span> : null}
+              {SOON.includes(m) ? <span className="rounded-full bg-neutral-soft px-1.5 py-0.5 text-[0.75rem] text-muted">{copy.chatSoon}</span> : null}
             </button>
           ))}
         </div>

@@ -39,7 +39,7 @@ export function TopicMastery({ topics }: { topics: TopicProgress[] }) {
     <section className={`w-full border px-[22px] pb-0 pt-[18px] ${styles.masteryCard}`} aria-label={copy.homeMastery} data-testid="topic-mastery">
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="m-0 text-[0.8125rem] font-medium text-ink">{copy.homeMastery}</h2>
-        <span className="text-[0.6875rem] text-muted">{copy.chatTopics}</span>
+        <span className="text-[0.75rem] text-muted">{copy.chatTopics}</span>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-5 overflow-hidden sm:grid-cols-4">
         {topics.slice(0, 4).map((topic) => (

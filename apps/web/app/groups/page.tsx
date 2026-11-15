@@ -207,7 +207,7 @@ function Review({ draft, onPublish, onDiscard }: { draft: { prompt: string; bloc
       <ol className="m-0 flex list-none flex-col gap-4 p-0">
         {draft.blocks.map((block, i) => (
           <li key={i} className="flex flex-col gap-1 text-[0.875rem] text-ink">
-            <span className="text-[0.6875rem] uppercase tracking-wide text-muted">{block.kind === "widget" ? block.widget_kind : block.kind}</span>
+            <span className="text-[0.75rem] uppercase tracking-wide text-muted">{block.kind === "widget" ? block.widget_kind : block.kind}</span>
             {block.kind === "hook" ? <span>{block.text} <strong>{block.question}</strong></span> : null}
             {block.kind === "explain" ? <span>{block.text}</span> : null}
             {block.kind === "transfer" ? <span>{block.scenario} <strong>{block.question}</strong></span> : null}

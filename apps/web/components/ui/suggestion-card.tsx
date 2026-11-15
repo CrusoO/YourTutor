@@ -41,9 +41,9 @@ export function SuggestionCard(props: AsButton | AsLink) {
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-[0.8125rem] font-medium leading-snug">{title}</span>
-        {description ? <span className="text-[0.6875rem] leading-snug text-muted">{description}</span> : null}
+        {description ? <span className="text-[0.75rem] leading-snug text-muted">{description}</span> : null}
       </span>
-      {tag ? <span className={cn("shrink-0 rounded-full px-2.5 py-0.5 text-[0.6875rem] font-medium", TONE[tone].tag)}>{tag}</span> : null}
+      {tag ? <span className={cn("shrink-0 rounded-full px-2.5 py-0.5 text-[0.75rem] font-medium", TONE[tone].tag)}>{tag}</span> : null}
       <Icon name="arrowUp" size={13} className="shrink-0 rotate-45 text-muted transition-colors group-hover:text-ink" />
     </span>
   );

@@ -122,7 +122,7 @@ function Shell() {
             <Button variant="ghost" size="icon" className="size-11 min-h-11 min-w-11 text-muted lg:hidden" onClick={() => { setDrawerLoaded(true); setDrawer(true); }} aria-label={copy.chatOpenMenu} title={copy.chatOpenMenu} data-testid="menu-open">
               <Icon name="menu" />
             </Button>
-            <span className="lg:hidden">
+            <span className={styles.brandMark}>
               <Brand />
             </span>
             <span className="ml-auto flex items-center gap-2">
