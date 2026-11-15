@@ -18,7 +18,7 @@ from app.registries.loaders import (
     load_notation_profiles,
 )
 from app.registries.locale_resolve import locale_text_missing, resolve_locale_chain
-from app.registries.paths import repo_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 
 def test_locales_and_grade_bands_load() -> None:
@@ -87,7 +87,7 @@ def test_locale_rows_seeded_with_metadata(db: Session) -> None:
 
 def test_content_load_syncs_registry_and_overlay_sections(tmp_path: Path) -> None:
     url = f"sqlite:///{tmp_path / 'sync.db'}"
-    load_path(repo_root() / "content", database_url=url)
+    load_path(LEGACY_CONTENT_ROOT, database_url=url)
     with session_factory(url)() as session:
         expected = sum(
             len(chapter.sections)

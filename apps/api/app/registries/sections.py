@@ -26,6 +26,26 @@ def overlay_curriculum_errors(
     ]
 
 
+def dangling_overlay_warnings(
+    overlays: Iterable[OverlayLike],
+    curricula: Mapping[str, CurriculumSpec],
+) -> list[str]:
+    """Warnings for chapters whose `overlay_id` has no overlay file in the content root.
+
+    Not an error: a curriculum may list chapters the content factory has not produced yet. The
+    warning keeps the gap visible so nobody assumes the chapter can be served.
+    """
+    present = {overlay.id for overlay in overlays}
+    return [
+        f"chapter {chapter.id} (curriculum {curriculum.id}) names overlay_id "
+        f"{chapter.overlay_id!r} but no overlay file with that id exists"
+        for curriculum in curricula.values()
+        for book in curriculum.books
+        for chapter in book.chapters
+        if chapter.overlay_id not in present
+    ]
+
+
 def section_map_errors(
     overlays: Iterable[OverlayLike],
     curricula: Mapping[str, CurriculumSpec],

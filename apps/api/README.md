@@ -11,6 +11,8 @@ python -m app.content.validate ../../content
 python -m app.content.load ../../content --database-url sqlite:///content.db
 ```
 
+`content/` is the near-empty production root. The legacy draft pack the tests and CI use is `tests/fixtures/legacy_content` (`python -m tests.legacy_content` prints its path).
+
 CI and the Docker image install from the pinned `requirements.lock` and `requirements-dev.lock` (Linux, Python 3.12). To refresh them after changing a requirements file or to take upgrades, run from this directory with [uv](https://docs.astral.sh/uv/):
 
 ```

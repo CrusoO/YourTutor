@@ -11,7 +11,7 @@ from app.config import settings
 from app.content.loader import LoadError, load_path
 from app.db.models import ItemRow, SkillRow
 from app.db.session import session_factory
-from app.registries.paths import repo_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 
 def _counts(url: str) -> tuple[int, int]:
@@ -23,7 +23,7 @@ def _counts(url: str) -> tuple[int, int]:
 
 def test_missing_content_root_is_refused_and_nothing_is_deleted(tmp_path: Path) -> None:
     url = f"sqlite:///{tmp_path / 'guard.db'}"
-    load_path(repo_root() / "content", database_url=url)
+    load_path(LEGACY_CONTENT_ROOT, database_url=url)
     before = _counts(url)
     assert before[0] > 0
     settings.allow_draft_content = True  # the mode that hard-deletes orphans
@@ -34,7 +34,7 @@ def test_missing_content_root_is_refused_and_nothing_is_deleted(tmp_path: Path) 
 
 def test_empty_content_root_is_refused_and_nothing_is_deleted(tmp_path: Path) -> None:
     url = f"sqlite:///{tmp_path / 'guard2.db'}"
-    load_path(repo_root() / "content", database_url=url)
+    load_path(LEGACY_CONTENT_ROOT, database_url=url)
     before = _counts(url)
     empty = tmp_path / "empty"
     empty.mkdir()

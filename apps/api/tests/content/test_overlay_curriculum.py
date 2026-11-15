@@ -8,12 +8,13 @@ from pydantic import ValidationError
 
 from app.content.loader import load_path
 from app.content.schema import Overlay
-from app.content.validator import curricula_for, load_bundle, validate_bundle
+from app.content.validator import load_bundle, validate_bundle
 from app.db.models import OverlayRow
 from app.db.session import session_factory
-from app.registries.paths import repo_root
+from app.registries.loaders import load_all_curricula
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-CONTENT = repo_root() / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 OVERLAY = {
     "id": "ov",
     "curriculum_id": "bhutan",
@@ -55,12 +56,12 @@ def test_seed_overlay_files_use_curriculum_id_not_board() -> None:
 def test_unknown_curriculum_id_is_a_validation_error() -> None:
     bundle = load_bundle(CONTENT)
     bundle.overlays[0].curriculum_id = "no_such_curriculum"
-    report = validate_bundle(bundle, curricula_for(CONTENT))
+    report = validate_bundle(bundle, load_all_curricula())
     assert any("no_such_curriculum" in error for error in report.errors)
 
 
 def test_known_curriculum_ids_pass_validation() -> None:
-    report = validate_bundle(load_bundle(CONTENT), curricula_for(CONTENT))
+    report = validate_bundle(load_bundle(CONTENT), load_all_curricula())
     assert not [e for e in report.errors if "curriculum" in e]
 
 

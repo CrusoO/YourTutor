@@ -8,10 +8,10 @@ import yaml
 
 from app.lessons.loader import lesson_errors
 from app.lessons.sources import approved_source_ids, source_errors
-from app.registries.paths import repo_root
 from tests.content.conftest import write_yaml
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-CONTENT = repo_root() / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 SKILLS = {path.stem for path in (CONTENT / "skills").rglob("*.yaml")}
 
 

@@ -1,12 +1,12 @@
 import os
-from pathlib import Path
 
 import pytest
 
 from app.content.bundle_merge import load_content_bundle, merge_bundles
 from app.content.validator import load_bundle
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-REPO_CONTENT = Path(__file__).resolve().parents[4] / "content"
+REPO_CONTENT = LEGACY_CONTENT_ROOT
 
 
 def test_merge_adds_mini_skills_and_items() -> None:

@@ -27,7 +27,11 @@ from app.content.signatures import has_one_x, item_content_hash, structure_signa
 from app.content.stem_solve import check_item_stem_answer
 from app.content.templates import GENERATOR_VERSION, load_templates, template_hash
 from app.registries.loaders import CurriculumSpec, load_all_curricula
-from app.registries.sections import overlay_curriculum_errors, section_map_errors
+from app.registries.sections import (
+    dangling_overlay_warnings,
+    overlay_curriculum_errors,
+    section_map_errors,
+)
 
 LIVE_MIN_PRACTICE = 5
 LIVE_MIN_DIAGNOSTIC = 2
@@ -170,6 +174,7 @@ def validate_bundle(
     if curricula is not None:
         report.errors.extend(overlay_curriculum_errors(bundle.overlays, curricula))
         report.errors.extend(section_map_errors(bundle.overlays, curricula))
+        report.warnings.extend(dangling_overlay_warnings(bundle.overlays, curricula))
     _build_report(bundle, report)
     return report
 

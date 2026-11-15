@@ -14,8 +14,8 @@ from app.author import main as author_main
 from app.content.review import export_sheet, import_sheet_report
 from app.content.validator import validate_path
 from app.llm.provider import FakeProvider
-from app.registries.paths import content_root as shipped_root
 from tests.content.conftest import loc, minimal_item, minimal_skill, write_yaml
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 CHAPTER = "bhutan_class9"  # a chapter of the curriculum registry
 SKILL = "MATH.S1"
@@ -155,7 +155,7 @@ def root(tmp_path: Path) -> Path:
             ]
         },
     )
-    lesson = (shipped_root() / "lessons" / "brackets.yaml").read_text(encoding="utf-8")
+    lesson = (LEGACY_CONTENT_ROOT / "lessons" / "brackets.yaml").read_text(encoding="utf-8")
     lesson = lesson.replace("MATH.ALG.LIN1.BRACKETS", SKILL).replace(
         "NOTE.LIN1.BRACKETS", "NOTE.MINI"
     )

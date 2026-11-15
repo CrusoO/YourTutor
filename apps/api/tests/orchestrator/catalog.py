@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from app.content.signatures import structure_signature
 from app.content.validator import load_bundle
 from app.learner.bkt import BktParams
 from app.orchestrator.types import CatalogItem, SessionState, default_params
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 from tests.orchestrator.conftest import NOW
 
-CONTENT = Path(__file__).resolve().parents[4] / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 
 
 def seed_catalog() -> tuple[CatalogItem, ...]:

@@ -30,7 +30,7 @@ from app.dev.scenarios import PIN, SCENARIOS, seed_scenarios
 from app.learner.bkt import BktParams
 from app.learner.status import REVIEW_DUE, review_overdue, skill_status
 from app.player.runtime import load_catalog, recompute_ladders
-from app.registries.paths import repo_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 NAMES = [
     "new_student",
@@ -46,7 +46,7 @@ NAMES = [
 @pytest.fixture(scope="module")
 def seeded(tmp_path_factory: pytest.TempPathFactory) -> Iterator[tuple[str, list[dict]]]:
     url = f"sqlite:///{tmp_path_factory.mktemp('scenarios') / 'preview.db'}"
-    load_path(repo_root() / "content", database_url=url)
+    load_path(LEGACY_CONTENT_ROOT, database_url=url)
     previous = settings.allow_draft_content
     settings.allow_draft_content = True
     try:

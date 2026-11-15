@@ -17,7 +17,8 @@ from app.lessons.schema import (
     WorkedExampleBeat,
     validate_lesson_dict,
 )
-from app.registries.paths import content_root, repo_root
+from app.registries.paths import repo_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 FIXTURES = repo_root() / "packages" / "shared" / "fixtures" / "lessons"
 FIXTURE = FIXTURES / "valid_number_line_lesson.json"
@@ -112,7 +113,7 @@ def test_the_typographic_minus_counts_as_a_minus() -> None:
 
 
 def test_the_pilot_lesson_carries_checked_figures() -> None:
-    lessons = load_lessons(content_root())  # raises when a rule fails
+    lessons = load_lessons(LEGACY_CONTENT_ROOT)  # raises when a rule fails
     pilot = lessons["LESSON.INTEGERS.OPERATIONS"]
     figs = [
         fig
@@ -128,7 +129,7 @@ def test_the_pilot_lesson_carries_checked_figures() -> None:
 
 
 def test_the_served_lesson_json_carries_the_figure() -> None:
-    pilot = load_lessons(content_root())["LESSON.INTEGERS.OPERATIONS"]
+    pilot = load_lessons(LEGACY_CONTENT_ROOT)["LESSON.INTEGERS.OPERATIONS"]
     served = pilot.model_dump(mode="json", by_alias=True, exclude_none=True)
     worked = next(b for b in served["beats"] if b["kind"] == "worked_example")
     assert worked["number_line"] == {"kind": "number_line", "start": -8, "delta": 5, "answer": -3}

@@ -20,8 +20,8 @@ from app.llm.gateway import Gateway
 from app.llm.personalise import set_gateway
 from app.llm.provider import FakeProvider
 from app.registries.loaders import load_all_curricula
-from app.registries.paths import content_root
 from tests.conftest import World, auth_header
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 P_ONE = "PSG.LIN1.ONE_STEP.1"
 GOOD = (
@@ -35,7 +35,7 @@ ALL = ["tutoring", "free_text", "ai_processing"]
 def _ask_on(db: Session) -> Generator[None, None, None]:
     keep = (settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key)
     settings.ask_enabled, settings.allow_draft_content = True, True
-    upsert_passages(db, content_root(), load_all_curricula())
+    upsert_passages(db, LEGACY_CONTENT_ROOT, load_all_curricula())
     db.commit()
     yield
     settings.ask_enabled, settings.allow_draft_content, settings.anthropic_api_key = keep

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from sqlalchemy import func, select
+from sqlalchemy import func, inspect, select
 from sqlalchemy.orm import Session
 
 from app.config import settings
@@ -64,7 +64,8 @@ def load_path(
         bundle = load_content_bundle(root) if include_e2e_mini else load_bundle(root)
     except Exception as exc:
         raise LoadError(str(exc)) from exc
-    if not bundle.skills or not bundle.items:
+    empty = not bundle.skills or not bundle.items
+    if empty and _database_has_content(database_url):
         # An empty bundle would retire (or, in dev, hard-delete) everything already loaded.
         raise LoadError(f"content root {root} has no skills or items; refusing to load")
     report = validate_bundle(bundle, curricula_for(root))
@@ -118,6 +119,25 @@ def load_path(
             session.rollback()
             raise
     return report
+
+
+def _database_has_content(database_url: str | None) -> bool:
+    """True when skills or items are already loaded (so an empty bundle must not replace them).
+
+    A fresh database has nothing to lose, so an empty content root (the production skeleton
+    before the factory stamps anything) loads as a no-op that still seeds the registries.
+    """
+    engine = make_engine(database_url)
+    try:
+        names = set(inspect(engine).get_table_names())
+        if not {SkillRow.__tablename__, ItemRow.__tablename__} <= names:
+            return False
+        with Session(engine) as session:
+            skills = session.scalar(select(func.count()).select_from(SkillRow)) or 0
+            items = session.scalar(select(func.count()).select_from(ItemRow)) or 0
+    finally:
+        engine.dispose()
+    return bool(skills or items)
 
 
 def _upsert_lessons(session: Session, root: Path) -> None:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import uuid
 from datetime import UTC, datetime
 
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -20,6 +21,7 @@ from app.db.models import (
     StudentRow,
 )
 from tests.conftest import World, auth_header
+from tests.legacy_content import point_app_defaults_at_legacy_content
 
 LESSON_SKILL = "MATH.ALG.LIN1.SOLVE_TWO_STEP"
 PLAIN_SKILL = "MATH.PLAIN.NO_LESSON"
@@ -32,6 +34,11 @@ STEMS = {
     "LES.P2": "Find x if x - 3 = 5",
     "LES.P3": "What number x makes 2x = 14 true?",
 }
+
+
+@pytest.fixture(autouse=True)
+def _legacy_content(monkeypatch: pytest.MonkeyPatch) -> None:
+    point_app_defaults_at_legacy_content(monkeypatch)
 
 
 def _skill(db: Session, skill_id: str) -> None:
