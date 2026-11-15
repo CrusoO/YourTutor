@@ -61,7 +61,8 @@ export function applyComfort(c: Comfort, root: HTMLElement = document.documentEl
   set("data-theme", c.theme === "auto" ? null : c.theme);
   set("data-text", c.text === "m" ? null : c.text);
   set("data-spacing", c.spacing === "normal" ? null : c.spacing);
-  set("data-motion", c.motion === "auto" ? null : c.motion);
+  // Auto keeps the calm motion an audience theme may have set (lib/audience.ts); reduce always wins.
+  set("data-motion", c.motion === "auto" ? (root.getAttribute("data-motion") === "calm" ? "calm" : null) : c.motion);
   set("data-paper", c.paper === "plain" ? null : c.paper);
   const reduced = c.effects === "reduce" || (typeof navigator !== "undefined" && deviceWantsReducedEffects(navigator as never));
   set("data-effects", reduced ? "reduce" : null);
@@ -80,7 +81,7 @@ export function saveComfort(c: Comfort): void {
  * from the saved choice (so the right type rules apply on the first paint) and preloads only the Latin font files
  * used above the fold; a Hindi reader skips them (the Devanagari faces load later, see components/FontLoader).
  */
-export const COMFORT_INIT_SCRIPT = `(function(){var d=document.documentElement;try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce");if(c.paper==="grid")d.setAttribute("data-paper","grid");var n=navigator,k=n.connection;if(c.effects==="reduce"||(k&&k.saveData===true)||(typeof n.deviceMemory==="number"&&n.deviceMemory<=1))d.setAttribute("data-effects","reduce")}catch(e){}try{var l=localStorage.getItem("yt_locale");if(l==="hi")d.lang="hi";else{["geist-latin-300","geist-latin-400","geist-latin-500"].forEach(function(f){var a=document.createElement("link");a.rel="preload";a.setAttribute("as","font");a.type="font/woff2";a.setAttribute("crossorigin","anonymous");a.href="/fonts/"+f+".woff2";document.head.appendChild(a)})}}catch(e){}})();`;
+export const COMFORT_INIT_SCRIPT = `(function(){var d=document.documentElement;try{var c=JSON.parse(localStorage.getItem("${COMFORT_KEY}")||"{}");if(c.theme==="light"||c.theme==="dark")d.setAttribute("data-theme",c.theme);if(c.text==="s"||c.text==="l")d.setAttribute("data-text",c.text);if(c.spacing==="relaxed")d.setAttribute("data-spacing","relaxed");if(c.motion==="reduce")d.setAttribute("data-motion","reduce");if(c.paper==="grid")d.setAttribute("data-paper","grid");var a=localStorage.getItem("yt.audience");if(a==="college"||a==="work"){d.setAttribute("data-audience",a);d.setAttribute("data-density","compact");d.setAttribute("data-mascot","off");if(c.motion!=="reduce")d.setAttribute("data-motion","calm")}var n=navigator,k=n.connection;if(c.effects==="reduce"||(k&&k.saveData===true)||(typeof n.deviceMemory==="number"&&n.deviceMemory<=1))d.setAttribute("data-effects","reduce")}catch(e){}try{var l=localStorage.getItem("yt_locale");if(l==="hi")d.lang="hi";else{["geist-latin-300","geist-latin-400","geist-latin-500"].forEach(function(f){var a=document.createElement("link");a.rel="preload";a.setAttribute("as","font");a.type="font/woff2";a.setAttribute("crossorigin","anonymous");a.href="/fonts/"+f+".woff2";document.head.appendChild(a)})}}catch(e){}})();`;
 
 // One store for the whole page: every control (sidebar switch, Settings dialog) reads and writes the same
 // value, so changing one setting never undoes another.

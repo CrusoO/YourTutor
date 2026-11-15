@@ -183,7 +183,7 @@ function LandingPageContent() {
                   <span className={styles.storyBeatNumber} aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className={styles.storyBeatArt} aria-hidden={english ? undefined : true}>
+                  <div className={styles.storyBeatArt} data-mascot aria-hidden={english ? undefined : true}>
                     {english ? <StoryArt beat={storyBeatIds[index]!} setting={setting} /> : <StoryBeatIllustration index={index} />}
                   </div>
                   <div className={styles.storyBeatCopy}>

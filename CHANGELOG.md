@@ -34,6 +34,7 @@ Code for v0.9 Safe Base (target 12 Nov 2026) merged in PR #30 on 5 Nov 2026 (dis
 - `REMOVED.md` (deletion log) and `docs/parked.md` (features kept behind flags; flags and entry points checked in #42).
 
 ### Changed
+- Design tokens now have a semantic layer and audience themes: `apps/web/app/semantic.css` names colours by purpose (`--s-text-subtle`, `--s-action-primary`, `--s-focus-ring`, status pairs, `--s-control-min`) as aliases of the palette, and `<html>` carries `data-audience` (school, college, work), `data-density`, `data-motion` and `data-mascot`. School is the default and overrides nothing, so the look is unchanged (screenshots at 360 and 1280 are pixel-identical). College and work are denser, calmer and have no mascot; they are data in `lib/audience.ts` plus a few colour overrides. `useAudience()` (mounted once in `AppFrame`) reads a stored device choice or the signed-in student's grade band and defaults to school; there is no visible switch. `tests/ui/semantic.test.ts` fails if any token pair in any audience, light or dark, drops below 4.5:1 (text, 7:1 for body and muted) or 3:1 (borders, focus rings, icons).
 - The practice policy no longer shows a hint that gives the answer away; it falls back to a neutral guiding question (#32). The offline policy in `apps/web/lib/offline/policy.ts` mirrors it (#34).
 - The two video styles are named neutrally in the story prompts (#33).
 - The web image is built in stages and runs `next start` instead of the dev server; `NEXT_PUBLIC_*` values are build arguments (#39).

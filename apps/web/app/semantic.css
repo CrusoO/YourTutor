@@ -1,0 +1,114 @@
+/* Semantic token layer and audience themes (web foundation).
+   tokens.css holds the palette. This file names what a colour is FOR (domain, then context, then intensity) so a
+   component says "text subtle" and never "grey 600": the same names serve every audience theme and both colour
+   schemes. Every --s-* below is an alias (var(--c-*)), so the default theme (data-audience="school") looks exactly as
+   before. A theme changes only the --c-* values it lists; tests/ui/semantic.test.ts reads this file and fails if any
+   audience in light or dark drops under 4.5:1 for text or 3:1 for borders, focus rings and meaningful icons.
+
+   Axes on <html> (set by lib/audience.ts, before first paint when a choice is stored):
+     data-audience  school | college | work   tone and colour
+     data-density   regular | compact         spacing and line height
+     data-motion    (absent) | calm | reduce  reduce comes from Comfort or the device and always wins
+     data-mascot    on | off                  Brownie art and the friendly illustrations (data-mascot on an element)
+   Theme values live in lib/audience.ts (AUDIENCE_THEMES) as data. */
+
+:root {
+  /* surface */
+  --s-surface-page: var(--c-bg);
+  --s-surface-card: var(--c-surface);
+  --s-surface-raised: var(--c-surface-2);
+  --s-surface-lesson: var(--c-lesson);
+  /* text */
+  --s-text-default: var(--c-text);
+  --s-text-subtle: var(--c-muted);
+  --s-text-action: var(--c-accent-ink);
+  /* action */
+  --s-action-primary: var(--c-accent);
+  --s-action-primary-fg: var(--c-accent-fg);
+  --s-action-soft: var(--c-accent-soft);
+  /* border and focus */
+  --s-border-control: var(--c-input-line);
+  --s-border-subtle: var(--c-line);
+  --s-focus-ring: var(--c-focus);
+  /* status: fg is text or icon, bg is its tint */
+  --s-status-success-fg: var(--c-success);
+  --s-status-success-bg: var(--c-success-soft);
+  --s-status-warning-fg: var(--c-warning);
+  --s-status-warning-bg: var(--c-warning-soft);
+  --s-status-info-fg: var(--c-info);
+  --s-status-info-bg: var(--c-info-soft);
+  --s-status-danger-fg: var(--c-danger);
+  --s-status-danger-bg: var(--c-danger-soft);
+  /* density and touch (WCAG 2.2 target size: 24 px is the floor, 44 px is ours) */
+  --s-control-min: 44px;
+  --s-pad-card: 1rem;
+  --s-gap-stack: 0.75rem;
+  --s-dur: var(--dur);
+}
+
+/* density */
+html[data-density="compact"] {
+  --s-pad-card: 0.75rem;
+  --s-gap-stack: 0.5rem;
+  --lh-body: 1.4;
+}
+
+/* motion: calm shortens transitions; reduce is handled in tokens.css and below */
+html[data-motion="calm"] {
+  --dur: 120ms;
+}
+
+/* mascot: elements that carry a friendly illustration say so with data-mascot */
+html[data-mascot="off"] [data-mascot] {
+  display: none !important;
+}
+
+/* college: calm blue, no mascot */
+html[data-audience="college"]:not([data-theme="dark"]) {
+  --c-accent: #1f4e8c;
+  --c-accent-fg: #ffffff;
+  --c-accent-ink: #1f4e8c;
+  --c-accent-soft: #e4ecf6;
+  --c-focus: #1f4e8c;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-audience="college"]:not([data-theme="light"]) {
+    --c-accent: #7ab0ee;
+    --c-accent-fg: #0b1b33;
+    --c-accent-ink: #8fbcf0;
+    --c-accent-soft: #14263f;
+    --c-focus: #9cc6f5;
+  }
+}
+html[data-audience="college"][data-theme="dark"] {
+  --c-accent: #7ab0ee;
+  --c-accent-fg: #0b1b33;
+  --c-accent-ink: #8fbcf0;
+  --c-accent-soft: #14263f;
+  --c-focus: #9cc6f5;
+}
+
+/* work: calm slate teal, no mascot */
+html[data-audience="work"]:not([data-theme="dark"]) {
+  --c-accent: #2f5d62;
+  --c-accent-fg: #ffffff;
+  --c-accent-ink: #2f5d62;
+  --c-accent-soft: #e3eeee;
+  --c-focus: #2f5d62;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-audience="work"]:not([data-theme="light"]) {
+    --c-accent: #6fbfc4;
+    --c-accent-fg: #06201f;
+    --c-accent-ink: #86cdd1;
+    --c-accent-soft: #12302f;
+    --c-focus: #9ad8dc;
+  }
+}
+html[data-audience="work"][data-theme="dark"] {
+  --c-accent: #6fbfc4;
+  --c-accent-fg: #06201f;
+  --c-accent-ink: #86cdd1;
+  --c-accent-soft: #12302f;
+  --c-focus: #9ad8dc;
+}
