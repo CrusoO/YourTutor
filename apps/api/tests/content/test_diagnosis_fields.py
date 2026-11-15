@@ -12,7 +12,7 @@ from app.content.leak import hint_leaks_answer
 from app.content.schema import Item
 from app.content.signatures import item_content_hash
 from app.content.validator import validate_path
-from app.registries.paths import content_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 
 def _payload(**extra: Any) -> dict[str, Any]:
@@ -200,7 +200,7 @@ def test_drafts_are_deterministic() -> None:
 
 
 def test_every_seed_practice_item_has_clean_diagnosis_fields() -> None:
-    report = validate_path(content_root())
+    report = validate_path(LEGACY_CONTENT_ROOT)
     assert report.bundle is not None
     problems: list[str] = []
     practice = [i for i in report.bundle.items if i.pool.value == "practice"]

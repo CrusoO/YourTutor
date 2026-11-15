@@ -12,9 +12,18 @@ cd apps/api
 python -m pip install -e .                           # or the packages in pyproject.toml
 python -m alembic upgrade head                       # create the tables
 python -m app.content validate ../../content/        # must print OK
-python -m app.content load ../../content/            # load skills, items, lessons, passages
+python -m app.content load ../../content/            # sync registries, then load whatever content exists
 cd ../web && npm install && npm run build
 ```
+
+`content/` is the production content root and is a near-empty skeleton: the validate and load
+commands succeed with `OK: 0 skills, 0 items`, and **production serves nothing until the content
+factory stamps content** under `content/cbse/<class>/<subject>/`. Only the factory CLI writes
+there. `validate` warns about every curriculum chapter whose overlay file does not exist yet. The
+old Class 9 linear-equations draft pack is a test fixture in `apps/api/tests/fixtures/legacy_content/`
+(draft, never for production); to try the app with it on a throwaway database use
+`python -m app.content load tests/fixtures/legacy_content` with `ALLOW_DRAFT_CONTENT=true`. See
+`content/README.md`.
 
 Settings are environment variables (a `.env` file next to `apps/api` works; never commit it).
 The API run on the host does not read the repository-root `.env` (the one `docker compose` uses). It needs

@@ -3,9 +3,9 @@ from __future__ import annotations
 from app.content.schema import ContentStatus
 from app.content.stem_solve import check_item_stem_answer
 from app.content.validator import load_bundle, validate_path
-from app.registries.paths import repo_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-CONTENT = repo_root() / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 NEW_ROLES = {"explain", "apply", "transfer"}
 # Reason-choice explain items cannot be machine-verified; a teacher signs them off.
 TEACHER_CHECKED = {"ITEM.LIN1.R.0001", "ITEM.LIN1.R.0004", "ITEM.LIN1.R.0007", "ITEM.LIN1.R.0031"}

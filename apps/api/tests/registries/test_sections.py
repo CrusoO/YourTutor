@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.content.validator import curricula_for, load_bundle, validate_bundle, validate_path
+from app.content.validator import load_bundle, validate_bundle, validate_path
 from app.db.models import SectionRow
 from app.registries.loaders import (
     BookSpec,
@@ -14,8 +14,8 @@ from app.registries.loaders import (
     SectionSpec,
     load_all_curricula,
 )
-from app.registries.paths import repo_root
 from app.registries.sections import section_map_errors
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 
 @dataclass
@@ -84,7 +84,7 @@ def test_seed_curricula_have_three_placeholder_sections_each() -> None:
 
 
 def test_seed_content_validates_with_section_maps() -> None:
-    report = validate_path(repo_root() / "content")
+    report = validate_path(LEGACY_CONTENT_ROOT)
     assert not [e for e in report.errors if "section" in e], report.errors
     assert report.bundle is not None
     overlay = next(o for o in report.bundle.overlays if o.id == "bhutan_class9")
@@ -126,10 +126,10 @@ def test_sections_seeded_in_db(db: Session) -> None:
 
 
 def test_validator_reports_broken_section_map_in_real_bundle() -> None:
-    root = repo_root() / "content"
+    root = LEGACY_CONTENT_ROOT
     bundle = load_bundle(root)
     overlay = next(o for o in bundle.overlays if o.id == "bhutan_class9")
     overlay.section_map["s9"] = ["MATH.NOT.REAL"]
-    report = validate_bundle(bundle, curricula_for(root))
+    report = validate_bundle(bundle, load_all_curricula())
     assert any("'s9'" in e for e in report.errors)
     assert any("MATH.NOT.REAL" in e for e in report.errors)

@@ -10,7 +10,7 @@ import yaml
 from app.ask.passages import load_passages
 from app.content.approval import lesson_hash, passage_hash, reset_stale_approvals
 from app.lessons.loader import load_lessons
-from app.registries.paths import content_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 LESSON_FILE = "brackets.yaml"
 
@@ -25,7 +25,7 @@ def _approve_lesson(path: Path, reviewer: str = "curriculum.lead") -> None:
 def _lesson_root(tmp_path: Path) -> tuple[Path, Path]:
     (tmp_path / "lessons").mkdir()
     path = tmp_path / "lessons" / LESSON_FILE
-    shutil.copy(content_root() / "lessons" / LESSON_FILE, path)
+    shutil.copy(LEGACY_CONTENT_ROOT / "lessons" / LESSON_FILE, path)
     return tmp_path, path
 
 
@@ -79,7 +79,7 @@ def test_drafts_are_left_alone(tmp_path: Path) -> None:
 def _passage_root(tmp_path: Path) -> Path:
     (tmp_path / "passages").mkdir()
     shutil.copy(
-        content_root() / "passages" / "linear_equations.yaml",
+        LEGACY_CONTENT_ROOT / "passages" / "linear_equations.yaml",
         tmp_path / "passages" / "linear_equations.yaml",
     )
     return tmp_path

@@ -29,8 +29,10 @@ jobs:
         run: mypy .
       - name: Pytest
         run: pytest
-      - name: Validate seed content
-        run: python -m app.content.validate ../../content
+      - name: Validate production content root (near-empty skeleton)
+        run: python -m app.content validate ../../content
+      - name: Validate legacy content fixture
+        run: python -m app.content validate "$(python -m tests.legacy_content)"
       - name: Factory ledger is intact
         run: python -m app.factory --root ../../content ledger-verify
 
@@ -72,8 +74,10 @@ jobs:
         run: alembic upgrade head
       - name: Pytest against Postgres
         run: pytest
-      - name: Load seed into Postgres
-        run: python -m app.content.load ../../content --database-url "$TEST_DATABASE_URL"
+      - name: Load production content root into Postgres (empty database, zero items)
+        run: python -m app.content load ../../content --database-url "$TEST_DATABASE_URL"
+      - name: Load legacy content fixture into Postgres
+        run: python -m app.content load "$(python -m tests.legacy_content)" --database-url "$TEST_DATABASE_URL"
 
   web:
     runs-on: ubuntu-latest
