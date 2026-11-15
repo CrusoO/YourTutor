@@ -69,3 +69,9 @@ only at launch).
   independence groups, golden vectors written by a different author, a pinned constants hash and the
   audit loop. The ledger is evidence, not a secret: it can be forged by someone who rewrites it and
   the git history.
+
+## Rule for hint and worked-step writing (all lanes)
+
+Hint ladders and worked steps teach "do the same operation to both sides" (inverse operations). They
+never teach the "move it across and flip the sign" shortcut, because it hides why the step is valid
+and produces sign slips. Lane reviewers and the wording audit reject a hint that uses it.

@@ -247,3 +247,17 @@ def test_admin_replay_resolves_retired_item(client: TestClient, world: World, db
     assert ev["item"]["id"] == "ITEM.REPLAY"
     assert ev["item"]["status"] == RETIRED_STATUS
     assert ev["item"]["stem_en"] == "Retired stem"
+
+
+def test_suspended_items_not_in_offline_pack(content_root: Path, tmp_path: Path) -> None:
+    from datetime import UTC, datetime
+
+    url = f"sqlite:///{tmp_path / 'pack_susp.db'}"
+    load_path(content_root, database_url=url)
+    with session_factory(url)() as session:
+        row = session.get(ItemRow, "ITEM.P0")
+        assert row is not None
+        row.status = "approved"
+        assert item_row_offline_pack_eligible(row, allow_draft=False)
+        row.suspended_at = datetime.now(UTC)
+        assert not item_row_offline_pack_eligible(row, allow_draft=True)

@@ -32,6 +32,8 @@ def item_is_offline_verifiable(
 
 
 def item_row_offline_pack_eligible(row: ItemRow, *, allow_draft: bool) -> bool:
+    if getattr(row, "suspended_at", None) is not None:
+        return False
     if row.pool != "practice":
         return False
     if not content_status_is_servable(row.status, allow_draft=allow_draft):
