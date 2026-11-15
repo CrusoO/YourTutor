@@ -12,7 +12,12 @@ from app.ask import evals
 from app.ask.evals import run_ask, supported_by
 from app.content.validator import validate_path
 from app.llm.checks import Checked
-from tests.legacy_content import LEGACY_CONTENT_ROOT
+from tests.legacy_content import LEGACY_CONTENT_ROOT, point_app_defaults_at_legacy_content
+
+
+@pytest.fixture(autouse=True)
+def _legacy_content(monkeypatch: pytest.MonkeyPatch) -> None:
+    point_app_defaults_at_legacy_content(monkeypatch)
 
 
 def test_the_ask_suite_meets_the_acceptance_numbers() -> None:
