@@ -20,7 +20,7 @@ def build_item(
     lane: Lane, template: Mapping[str, Any], params: Mapping[str, Any], **bank: Any
 ) -> ItemContext:
     ctx = lane.render(template, params)
-    for name, value in bank.items():  # reference_index, bank_signatures, known_chapters, ...
+    for name, value in bank.items():  # reference_index, bank_stems, known_chapters, ...
         setattr(ctx, name, value)
     return ctx
 

@@ -546,16 +546,20 @@ def _persist_state(row: SessionRow, state: SessionState) -> None:
 def _item_labels(row: ItemRow) -> dict[str, str] | None:
     """Rights labels: only a practice item that is original and Tier A carries them."""
     from app.content.blueprint import pattern_tag_for_skill
+    from app.content.gate import row_tier_backed
     from app.content.labels import item_labels
 
     if row.tier != "A" or not (row.provenance or {}).get("original"):
         return None
+    if row_tier_backed(row) is False:
+        return None  # a hand-written tier A carries no label
     return item_labels(
         pool=row.pool,
         tier=row.tier,
         original=True,
         reviewed=row.status == "approved" and bool(row.reviewed_by),
         pattern=pattern_tag_for_skill(row.skill_ids[0]) if row.skill_ids else None,
+        verification_label=(row.verification or {}).get("label"),
     )
 
 

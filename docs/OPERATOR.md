@@ -360,3 +360,23 @@ not survive that disk failing.
       it is back.
    5. If Postgres lost its data or will not start, restore the latest file in `backups/` as in
       8.4, into the real database name only after you have stopped the API.
+
+## 9. The content factory (verified questions)
+
+Run from `apps/api`. Nothing here calls a model or a paid service. Design: `docs/adr/0004-content-factory-kernel.md`.
+All commands take `--root <content folder>` (default: the repo's `content/`) before the command name.
+
+| Command | What it does |
+| --- | --- |
+| `python -m app.factory certify TEMPLATE.yaml --reference-index FILE` | Runs every tuple of the template's parameter box through the full checker stack and, with zero failures, writes `factory/certificates/<id>.json` and a ledger entry. Use `--no-reference-index` only to say plainly that originality compares against nothing. Exit 1 means not certified; the failing tuples are printed. |
+| `python -m app.factory stamp TEMPLATE.yaml --count N` | The only writer of tier A. Needs a current certificate for the same template hash. Writes stamped draft items to `items/factory/<lane>/` with a `verification` record and logs each stamp. |
+| `python -m app.factory audit-sample --rate 0.02 [--exposure FILE]` | Lists a uniform random and a PPS sample of stamped items for a human to check (the exposure file is `{item_id: times shown}`). |
+| `python -m app.factory report` | Stamped items per chapter and pass, fail, skip counts per checker. |
+| `python -m app.factory ledger-verify` | Checks the hash chain of `factory/ledger.jsonl`. Run it in CI; any edit to an earlier line is reported. |
+| `python -m app.factory suspend ITEM_ID --reason "..." [--undo]` | Switches an item off (or back on) in the database and the ledger. A suspended item is never served. |
+
+Then `python -m app.content load content/` as usual. A hand-written `tier: A` is ignored with a warning
+unless an intact record in the ledger backs it. Stamped items are served only when the owner sets
+`SERVE_TIER_A_UNREVIEWED=true` in the production environment (the code default stays off) and the item is original.
+A tampered ledger makes `content validate` and `content load` fail. Migration `0035` adds the item columns
+(`alembic upgrade head`, safe to run twice).

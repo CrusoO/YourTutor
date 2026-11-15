@@ -74,6 +74,12 @@ class ItemRow(Base):
     template_hash: Mapped[str | None] = mapped_column(String, nullable=True)
     tier: Mapped[str | None] = mapped_column(String(1), nullable=True)
     provenance: Mapped[dict | None] = mapped_column(JSONType, nullable=True)
+    # Factory verification (migration 0035). The record backs a tier A/B; suspension switches an
+    # item off whatever its tier or status.
+    verification: Mapped[dict | None] = mapped_column(JSONType, nullable=True)
+    certificate_hash: Mapped[str | None] = mapped_column(String, nullable=True)
+    suspended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    suspension_reason: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
 class MisconceptionRow(Base):

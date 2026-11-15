@@ -31,6 +31,8 @@ jobs:
         run: pytest
       - name: Validate seed content
         run: python -m app.content.validate ../../content
+      - name: Factory ledger is intact
+        run: python -m app.factory --root ../../content ledger-verify
 
   api-postgres:
     runs-on: ubuntu-latest
