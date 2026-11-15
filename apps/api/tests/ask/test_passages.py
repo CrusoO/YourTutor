@@ -15,7 +15,7 @@ from app.ask.passages import ALLOWED_LICENCES, load_passages
 from app.db.models import PassageRow
 from app.lessons.sources import approved_source_ids
 from app.registries.loaders import load_all_curricula
-from app.registries.paths import content_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 SKILLS = {"MATH.ALG.INVERSE_OPERATIONS"}
 GOOD = {
@@ -35,7 +35,7 @@ def _errors(tmp_path: Path, *rows: dict) -> list[str]:
     folder.mkdir(exist_ok=True)
     (folder / "t.yaml").write_text(yaml.safe_dump({"passages": list(rows)}), encoding="utf-8")
     return validate_passages(
-        tmp_path, load_all_curricula(), SKILLS, approved_source_ids(content_root())
+        tmp_path, load_all_curricula(), SKILLS, approved_source_ids(LEGACY_CONTENT_ROOT)
     )
 
 
@@ -87,14 +87,14 @@ def test_duplicate_ids_and_unknown_fields_are_refused(tmp_path: Path) -> None:
 
 
 def test_the_content_hash_follows_the_text() -> None:
-    root = content_root()
+    root = LEGACY_CONTENT_ROOT
     first = load_passages(root)[0]
     changed = first.model_copy(update={"text": first.text + " More."})
     assert first.content_hash != changed.content_hash and len(first.content_hash) == 64
 
 
 def test_shipped_passages_are_valid_draft_and_cover_every_live_skill(tmp_path: Path) -> None:
-    root = content_root()
+    root = LEGACY_CONTENT_ROOT
     passages = load_passages(root)
     assert passages and all(p.status == "draft" for p in passages)
     skills = {s for p in passages for s in p.skill_ids}
@@ -103,7 +103,7 @@ def test_shipped_passages_are_valid_draft_and_cover_every_live_skill(tmp_path: P
 
 
 def test_loading_stores_section_book_hash_and_an_embedding(db: Session) -> None:
-    n = upsert_passages(db, content_root(), load_all_curricula())
+    n = upsert_passages(db, LEGACY_CONTENT_ROOT, load_all_curricula())
     db.flush()
     rows = db.scalars(select(PassageRow)).all()
     assert n == len(rows) > 0

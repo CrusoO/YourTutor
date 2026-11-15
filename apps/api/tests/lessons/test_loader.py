@@ -18,10 +18,10 @@ from app.lessons.loader import (
     servable,
 )
 from app.lessons.schema import Lesson
-from app.registries.paths import repo_root
 from tests.content.conftest import write_yaml
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-CONTENT = repo_root() / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 SEED_SKILLS = {path.stem for path in (CONTENT / "skills").rglob("*.yaml")}
 EXPECTED_SKILLS = {
     "MATH.ALG.LIN1.SOLVE_TWO_STEP",

@@ -12,7 +12,7 @@ from app.ask import evals
 from app.ask.evals import run_ask, supported_by
 from app.content.validator import validate_path
 from app.llm.checks import Checked
-from app.registries.paths import content_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 
 def test_the_ask_suite_meets_the_acceptance_numbers() -> None:
@@ -51,7 +51,7 @@ def test_with_the_layer_d_checks_off_the_suite_fails(monkeypatch: pytest.MonkeyP
 
 def test_a_passage_with_an_unknown_licence_cannot_be_loaded(tmp_path: Path) -> None:
     root = tmp_path / "content"
-    shutil.copytree(content_root(), root)
+    shutil.copytree(LEGACY_CONTENT_ROOT, root)
     path = root / "passages" / "linear_equations.yaml"
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     data["passages"][0]["licence_status"] = "unknown"
@@ -61,4 +61,4 @@ def test_a_passage_with_an_unknown_licence_cannot_be_loaded(tmp_path: Path) -> N
 
 
 def test_the_shipped_content_validates_with_passages() -> None:
-    assert validate_path(content_root()).errors == []
+    assert validate_path(LEGACY_CONTENT_ROOT).errors == []

@@ -12,10 +12,11 @@ from sqlalchemy.exc import OperationalError
 from app.content.loader import load_path
 from app.db.models import ItemRow, LessonRow, SceneRow, SkillRow, WidgetRow
 from app.db.session import session_factory
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 API_ROOT = Path(__file__).resolve().parents[2]
 
-CONTENT = Path(__file__).resolve().parents[4] / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 
 
 def _postgres_url() -> str | None:

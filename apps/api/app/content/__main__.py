@@ -171,6 +171,8 @@ def main(argv: list[str] | None = None) -> int:
             f"OK: {len(bundle.skills)} skills, {len(bundle.items)} items, "
             f"{len(bundle.misconceptions)} misconceptions, {len(bundle.overlays)} overlays"
         )
+        if not bundle.items:
+            print("Nothing to serve yet: this root has no items. The content factory fills it.")
         return 0
 
     if args.command == "generate-from-templates":
@@ -254,7 +256,10 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     for warning in report.warnings:
         print(f"WARNING: {warning}")
-    print("Loaded content.")
+    if report.bundle is not None and not report.bundle.items:
+        print("Loaded content: nothing to load (no skills or items). Registries were synced.")
+    else:
+        print("Loaded content.")
     return 0
 
 

@@ -37,7 +37,7 @@ Environment actually used: Windows 11, Git Bash, Docker Desktop (compose stack r
 - Web: `cd apps/web && npx vitest run && npx tsc --noEmit`
 - Region check: `cd apps/api && python scripts/check_region_literals.py`
 - Locales: `cd apps/api && PYTHONPATH=. python scripts/generate_web_locales.py` (writes `packages/shared/generated/locales.json`; expect no git diff)
-- Content: `cd apps/api && python -m app.content validate ../../content/` then `python -m app.content load ../../content/`
+- Content: `cd apps/api && python -m app.content validate ../../content/` then `python -m app.content load ../../content/`; the legacy draft pack (the test fixture) is `python -m app.content validate tests/fixtures/legacy_content`
 - UI preview: `cd apps/api && ALLOW_DRAFT_CONTENT=true python -m app.dev seed_scenarios` (needs a migrated, content-loaded database; the preview uses `POSTGRES_DB=yourtutor_preview`); `cd apps/web && npm run test:ui -- --workers=1` (API with `DEV_TOOLS=true`; screenshots in `apps/web/test-results/screens/`). Details: docs/UI_PREVIEW.md.
 - Python edits on Windows: pass `encoding="utf-8"` to `open()` (or set `PYTHONUTF8=1`); the working tree may be CRLF while git stores LF.
 

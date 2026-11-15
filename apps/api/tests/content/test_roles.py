@@ -12,10 +12,10 @@ from app.content.validator import load_bundle, validate_path
 from app.db.models import ItemRow
 from app.db.session import session_factory
 from app.orchestrator.types import CatalogItem
-from app.registries.paths import repo_root
 from tests.content.conftest import minimal_item, write_yaml
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
-CONTENT = repo_root() / "content"
+CONTENT = LEGACY_CONTENT_ROOT
 WORD_SKILL = "MATH.ALG.LIN1.WORD_PROBLEMS"
 
 

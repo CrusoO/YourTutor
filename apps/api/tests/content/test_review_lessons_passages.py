@@ -12,7 +12,7 @@ import yaml
 from app.ask.passages import load_passages
 from app.content.review import export_sheet, import_sheet, import_sheet_report
 from app.lessons.loader import load_lessons
-from app.registries.paths import content_root as shipped_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 REVIEWER = "teacher.demo"
 
@@ -20,9 +20,11 @@ REVIEWER = "teacher.demo"
 @pytest.fixture
 def root(content_root: Path) -> Path:
     (content_root / "lessons").mkdir()
-    shutil.copy(shipped_root() / "lessons" / "brackets.yaml", content_root / "lessons")
+    shutil.copy(LEGACY_CONTENT_ROOT / "lessons" / "brackets.yaml", content_root / "lessons")
     (content_root / "passages").mkdir()
-    shutil.copy(shipped_root() / "passages" / "linear_equations.yaml", content_root / "passages")
+    shutil.copy(
+        LEGACY_CONTENT_ROOT / "passages" / "linear_equations.yaml", content_root / "passages"
+    )
     return content_root
 
 
@@ -137,7 +139,9 @@ def test_an_unknown_row_id_is_reported_not_silently_ignored(root: Path, tmp_path
 
 
 def test_several_templates_are_approved_in_one_pass(root: Path, tmp_path: Path) -> None:
-    source = yaml.safe_load((shipped_root() / "templates" / "tpl_one_add.yaml").read_text("utf-8"))
+    source = yaml.safe_load(
+        (LEGACY_CONTENT_ROOT / "templates" / "tpl_one_add.yaml").read_text("utf-8")
+    )
     for name, offset in (("A", 3), ("B", 5)):
         data = {**source, "id": f"TPL.T.{name}", "skill_id": "MATH.S1", "misconceptions": []}
         data["parameters"] = {"b": {"min": offset, "max": offset + 4}, "x": {"min": 2, "max": 18}}

@@ -11,14 +11,15 @@ from app.ask.load import upsert_passages
 from app.ask.search import Hit, candidates_for, keyword_score, rank
 from app.db.models import PassageRow
 from app.registries.loaders import load_all_curricula
-from app.registries.paths import config_dir, content_root
+from app.registries.paths import config_dir
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 CTX = {"curriculum_id": "bhutan", "book_id": "bhutan_class9", "chapter_id": "bhutan_class9"}
 
 
 @pytest.fixture
 def loaded(db: Session) -> Session:
-    upsert_passages(db, content_root(), load_all_curricula())
+    upsert_passages(db, LEGACY_CONTENT_ROOT, load_all_curricula())
     db.commit()
     return db
 

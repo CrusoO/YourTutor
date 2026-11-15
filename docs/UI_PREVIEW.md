@@ -31,6 +31,11 @@ Then create the tables, load the content and seed the five scenarios (about a mi
 docker compose exec api sh -c "alembic upgrade head && python -m app.content load /content && python -m app.dev seed_scenarios"
 ```
 
+`/content` is now the empty production skeleton, so the scenarios need the legacy draft pack. From
+the repository root, with the preview database settings above and `ALLOW_DRAFT_CONTENT=true`, load
+it from the host first: `cd apps/api && python -m app.content load tests/fixtures/legacy_content`
+(then run `python -m app.dev seed_scenarios`). Databases that already hold it are not affected.
+
 It prints the family code and PIN of each scenario. They are always the same:
 
 | Scenario | Family code | PIN | What you see |

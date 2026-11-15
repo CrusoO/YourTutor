@@ -10,8 +10,8 @@ from app.content.leak import hint_leaks_answer
 from app.content.schema import Item, ItemTemplate
 from app.content.stem_solve import check_item_stem_answer
 from app.content.templates import load_templates
-from app.registries.paths import content_root
 from app.verifier.check import verify_response
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 NEW = {
     "TPL.ONE.APPLY.MARBLES": ("MATH.ALG.LIN1.SOLVE_ONE_STEP", "apply"),
@@ -23,7 +23,7 @@ NEW = {
 
 @pytest.fixture(scope="module")
 def templates() -> list[ItemTemplate]:
-    return load_templates(content_root())
+    return load_templates(LEGACY_CONTENT_ROOT)
 
 
 def _template(skill: str, role: str) -> ItemTemplate:

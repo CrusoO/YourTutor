@@ -20,6 +20,7 @@ from app.content.locale_review import (
 )
 from app.lessons.loader import load_lessons
 from app.registries.paths import content_root as shipped_root
+from tests.legacy_content import LEGACY_CONTENT_ROOT
 
 REVIEWER = "teacher.demo"
 COPY = "copy/encouragement.yaml"
@@ -30,7 +31,7 @@ def root(tmp_path: Path) -> Path:
     (tmp_path / "copy").mkdir()
     shutil.copy(shipped_root() / COPY, tmp_path / COPY)
     (tmp_path / "lessons").mkdir()
-    shutil.copy(shipped_root() / "lessons" / "brackets.yaml", tmp_path / "lessons")
+    shutil.copy(LEGACY_CONTENT_ROOT / "lessons" / "brackets.yaml", tmp_path / "lessons")
     return tmp_path
 
 
