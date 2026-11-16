@@ -8,7 +8,7 @@
    Glass: --c-surface is the SOLID colour a frosted card has in the worst case (white at 62 % over the darkest zone of
    the page gradient), so every contrast pair is measured against the colour a card really shows, and it is also the
    fallback when blur is unavailable or switched off. */
-@import "./fonts-latin.css"; /* Geist Mono, Inter (OFL-1.1, self-hosted in public/fonts). Hindi adds Noto Sans Devanagari later. */
+@import "./fonts-latin.css"; /* Geist, Geist Mono, Inter (OFL-1.1, self-hosted in public/fonts). */
 
 :root,
 [data-theme="light"] {
@@ -179,16 +179,26 @@ html[data-motion="reduce"] * {
 }
 
 /* Type families. English: Geist Mono for short display and label strings, Inter for everything that is read.
-   Hindi: Noto Sans Devanagari for both (its Latin subset keeps Class 12 and Maths in the same family). The
-   Devanagari faces load only when the language is hi (components/FontLoader), so English never pays for them. */
+   Hindi and Nepali: Noto Sans Devanagari (self-hosted, app/fonts.ts) for interface text; Latin letters in a Hindi
+   screen (Class 12, Maths) come from Geist. The serif Devanagari is for large display greetings only. The font file
+   is fetched only when a Devanagari glyph is drawn, so English never pays for it. */
 :root {
   --ff-display: "Geist Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
   --ff-body: "Geist", "Inter", system-ui, "Segoe UI", "Noto Sans", Roboto, sans-serif;
   --ff-sans: var(--ff-body);
 }
-:lang(hi) {
-  --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
-  --ff-body: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
+:lang(hi),
+:lang(ne) {
+  --ff-display: var(--font-noto-sans-deva), "Geist", "Nirmala UI", "Mangal", system-ui, sans-serif;
+  --ff-body: var(--font-noto-sans-deva), "Geist", "Nirmala UI", "Mangal", system-ui, sans-serif;
+}
+
+/* The "हिन्दी" button on an English screen is one word: draw it with the device's own Devanagari font so an English
+   reader never downloads the Noto Sans Devanagari file for it. */
+html:lang(en) [lang="hi"] {
+  --ff-display: "Nirmala UI", "Mangal", "Noto Sans Devanagari", system-ui, sans-serif;
+  --ff-body: "Nirmala UI", "Mangal", "Noto Sans Devanagari", system-ui, sans-serif;
+  font-family: var(--ff-body);
 }
 
 /* Tailwind utilities read the same variables (bg-surface, text-muted, border-line, ...). */
