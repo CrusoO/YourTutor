@@ -1,0 +1,170 @@
+{
+  "limits": {
+    "maxChars": 200,
+    "maxDigits": 9,
+    "maxExponent": 12,
+    "maxNodes": 40,
+    "maxDepth": 8,
+    "maxDegree": 4,
+    "maxCoeffDigits": 18
+  },
+  "item": [
+    {
+      "question": "2x+3 = 7",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": "stem_expression"
+    },
+    {
+      "question": "2x+3 = 7",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "2x+3 = 7",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "what is 2 and 3 and 7",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": "stem_numbers"
+    },
+    {
+      "question": "what is 2 and 3 and 7",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "what is 2 and 3 and 7",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "x + 1 = 5",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": null
+    },
+    {
+      "question": "x + 1 = 5",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "x + 1 = 5",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "solve 2x + 3 = 7 please",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": "stem_expression"
+    },
+    {
+      "question": "solve 2x + 3 = 7 please",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "solve 2x + 3 = 7 please",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "7 = 2x + 3",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": "stem_numbers"
+    },
+    {
+      "question": "7 = 2x + 3",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "7 = 2x + 3",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "hello",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": null
+    },
+    {
+      "question": "hello",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "hello",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    },
+    {
+      "question": "3 and 7 together",
+      "stem": "Solve 2x + 3 = 7. Show your working.",
+      "expect": "stem_numbers"
+    },
+    {
+      "question": "3 and 7 together",
+      "stem": "Find the value of 3 apples.",
+      "expect": null
+    },
+    {
+      "question": "3 and 7 together",
+      "stem": "Solve x^2 - 5x + 6 = 0.",
+      "expect": null
+    }
+  ],
+  "text": [
+    {
+      "text": "2x + 3 = 7",
+      "ok": true,
+      "why": null
+    },
+    {
+      "text": "x^2 - 5x + 6 = 0",
+      "ok": true,
+      "why": null
+    },
+    {
+      "text": "2^10",
+      "ok": true,
+      "why": null
+    },
+    {
+      "text": "1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+",
+      "ok": false,
+      "why": "too_long"
+    },
+    {
+      "text": "1234567890 + 1",
+      "ok": false,
+      "why": "too_big_number"
+    },
+    {
+      "text": "2^99999999",
+      "ok": false,
+      "why": "huge_exponent"
+    },
+    {
+      "text": "2^13",
+      "ok": false,
+      "why": "huge_exponent"
+    },
+    {
+      "text": "2^(9^9)",
+      "ok": false,
+      "why": "huge_exponent"
+    },
+    {
+      "text": "x^x",
+      "ok": false,
+      "why": "huge_exponent"
+    },
+    {
+      "text": "9**99",
+      "ok": false,
+      "why": "huge_exponent"
+    }
+  ]
+}
