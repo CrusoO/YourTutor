@@ -1342,7 +1342,7 @@ def _eligible_items(session: SessionState, skill: str, skip: set[str]) -> list[C
         and row.primary_skill == skill
         and row.id not in skip
         and row.status != "retired"
-        and (row.status == "approved" or session.allow_draft)
+        and (row.status == "approved" or session.allow_draft or row.served_by_tier)
     ]
 
 

@@ -81,7 +81,7 @@ def diagnostic_pool(session: SessionState, skill_id: str) -> list[CatalogItem]:
         if row.pool == "diagnostic"
         and row.primary_skill == skill_id
         and row.status != "retired"
-        and (row.status == "approved" or session.allow_draft)
+        and (row.status == "approved" or session.allow_draft or row.served_by_tier)
     ]
 
 
