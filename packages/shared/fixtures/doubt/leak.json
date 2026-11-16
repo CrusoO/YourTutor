@@ -1,0 +1,314 @@
+[
+  {
+    "id": "f01",
+    "problem": "3x + 4 = 10",
+    "level": 1,
+    "text": "So x is 2 and you are done.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "digits",
+    "leaks": true
+  },
+  {
+    "id": "f02",
+    "problem": "3x + 4 = 10",
+    "level": 2,
+    "text": "Just write x = 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "solved form",
+    "leaks": true
+  },
+  {
+    "id": "f03",
+    "problem": "3x + 4 = 10",
+    "level": 1,
+    "text": "The answer is two.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "word form",
+    "leaks": true
+  },
+  {
+    "id": "f04",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "Think of 6/3 here.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "derived fraction span",
+    "leaks": true
+  },
+  {
+    "id": "f05",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "The value you want is 2.0 exactly.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "trailing .0",
+    "leaks": true
+  },
+  {
+    "id": "f06",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "It is 200% of one.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "percent",
+    "leaks": true
+  },
+  {
+    "id": "f07",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "So x = २.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "Devanagari digit",
+    "leaks": true
+  },
+  {
+    "id": "f08",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "So x  =  2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "spacing tricks",
+    "leaks": true
+  },
+  {
+    "id": "f09",
+    "problem": "x^2 - 5x + 6 = 0",
+    "level": 2,
+    "text": "Try (x - 2)(x - 3) = 0.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "factored form",
+    "leaks": true
+  },
+  {
+    "id": "f10",
+    "problem": "x^2 + x - 1 = 0",
+    "level": 3,
+    "text": "So x = (-1 + √5)/2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "surd form",
+    "leaks": true
+  },
+  {
+    "id": "f11",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "So $x = \\frac{4}{2}$.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "LaTeX fraction",
+    "leaks": true
+  },
+  {
+    "id": "f12",
+    "problem": "x^2 - 5x + 6 = 0",
+    "level": 3,
+    "text": "So x = 3 or x = 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "two roots, other order",
+    "leaks": true
+  },
+  {
+    "id": "f13",
+    "problem": "x + 5 = 3",
+    "level": 3,
+    "text": "So x = −2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "unicode minus",
+    "leaks": true
+  },
+  {
+    "id": "f14",
+    "problem": "x + 5 = 3",
+    "level": 3,
+    "text": "The value is minus two.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "negative word form",
+    "leaks": true
+  },
+  {
+    "id": "f15",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "Notice 2^1 here.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "power as a derived span",
+    "leaks": true
+  },
+  {
+    "id": "f16",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "It is √4.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "root of a square",
+    "leaks": true
+  },
+  {
+    "id": "f17",
+    "problem": "x^2 + x - 1 = 0",
+    "level": 3,
+    "text": "It is about 0.62.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "decimal approximation of a surd",
+    "leaks": true
+  },
+  {
+    "id": "f18",
+    "problem": "3x + 4 = 10",
+    "level": 2,
+    "text": "Check that x - 2 = 0.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "later state true at the root",
+    "leaks": true
+  },
+  {
+    "id": "f19",
+    "problem": "x + 2 = 4",
+    "level": 3,
+    "text": "So x = 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "given literal inside a solved form",
+    "leaks": true
+  },
+  {
+    "id": "f20",
+    "problem": "x + 2 = 4",
+    "level": 3,
+    "text": "The solution is 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "given literal in a phrase",
+    "leaks": true
+  },
+  {
+    "id": "f21",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "So x equals 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "equals in words",
+    "leaks": true
+  },
+  {
+    "id": "f22",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "So x = 4/2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "derived span inside an assertion",
+    "leaks": true
+  },
+  {
+    "id": "f23",
+    "problem": "x + 5 = 3",
+    "level": 3,
+    "text": "So x=- 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "split minus sign",
+    "leaks": true
+  },
+  {
+    "id": "f24",
+    "problem": "3x + 4 = 10",
+    "level": 1,
+    "text": "Subtract 4, which leaves 6, then divide to get 2.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "reasoned walk to the number",
+    "leaks": true
+  },
+  {
+    "id": "f25",
+    "problem": "x^2 - 5x + 6 = 0",
+    "level": 3,
+    "text": "The roots are 2 and 3.",
+    "allowedStates": [],
+    "expect": "leak",
+    "note": "roots phrase",
+    "leaks": true
+  },
+  {
+    "id": "c01",
+    "problem": "3x + 4 = 10",
+    "level": 2,
+    "text": "Next, do the same thing to both sides: subtract 4 from both sides.",
+    "allowedStates": [],
+    "expect": "clean",
+    "note": "given amount",
+    "leaks": false
+  },
+  {
+    "id": "c02",
+    "problem": "x + 2 = 4",
+    "level": 1,
+    "text": "Look at the 2 that is added to x and undo it.",
+    "allowedStates": [],
+    "expect": "clean",
+    "note": "given literal that is also the root",
+    "leaks": false
+  },
+  {
+    "id": "c03",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "After that step you have 3x = 6. What is the next step?",
+    "allowedStates": [
+      "3x = 6"
+    ],
+    "expect": "clean",
+    "note": "allowed first state",
+    "leaks": false
+  },
+  {
+    "id": "c04",
+    "problem": "3x + 4 = 10",
+    "level": 1,
+    "text": "Your aim is to get x on its own, doing the same thing to both sides.",
+    "allowedStates": [],
+    "expect": "clean",
+    "note": "strategy",
+    "leaks": false
+  },
+  {
+    "id": "c05",
+    "problem": "x^2 - 5x + 6 = 0",
+    "level": 3,
+    "text": "Start from x^2 - 5x + 6 = 0 and work on it.",
+    "allowedStates": [],
+    "expect": "clean",
+    "note": "problem restated",
+    "leaks": false
+  },
+  {
+    "id": "c06",
+    "problem": "3x + 4 = 10",
+    "level": 3,
+    "text": "Do you want to check your thinking? Put your value back into 3x + 4.",
+    "allowedStates": [],
+    "expect": "clean",
+    "note": "no value",
+    "leaks": false
+  }
+]
