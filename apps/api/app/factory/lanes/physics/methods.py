@@ -14,6 +14,7 @@ house constants table, never as a typed number.
 
 from __future__ import annotations
 
+import ast
 from collections.abc import Mapping
 from fractions import Fraction
 from functools import lru_cache
@@ -176,17 +177,46 @@ def _dim_of(expr: sympy.Expr, dims: Mapping[sympy.Symbol, Dim]) -> Dim:
     raise ValueError(f"unsupported term {expr!r}")
 
 
+def _law(text: str, symbols: Mapping[str, sympy.Symbol]) -> sympy.Expr:
+    """Build a SymPy expression from a law string with the ast module (no eval, no sympify)."""
+
+    def build(node: ast.AST) -> sympy.Expr:
+        if isinstance(node, ast.Expression):
+            return build(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, int):
+            return sympy.Integer(node.value)
+        if isinstance(node, ast.Name):
+            return symbols[node.id]
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -build(node.operand)
+        if isinstance(node, ast.BinOp):
+            a, b = build(node.left), build(node.right)
+            if isinstance(node.op, ast.Add):
+                return a + b
+            if isinstance(node.op, ast.Sub):
+                return a - b
+            if isinstance(node.op, ast.Mult):
+                return a * b
+            if isinstance(node.op, ast.Div):
+                return a / b
+            if isinstance(node.op, ast.Pow) and isinstance(node.right, ast.Constant):
+                return a**b
+        raise ValueError(f"unsupported law syntax: {text!r}")
+
+    return build(ast.parse(text, mode="eval"))
+
+
 @lru_cache(maxsize=256)
 def _prepared(model_id: str, variant_id: str) -> tuple[Any, ...]:
     model = ALL_MODELS[model_id]
     variant = model.variants[variant_id]
     laws = variant.laws if variant.laws is not None else model.laws
-    names = {n for law in laws for n in sympy.sympify(law, locals=_syms(model)).free_symbols}
+    names = {n for law in laws for n in _law(law, _syms(model)).free_symbols}
     symbols = _syms(model)
     sym_dims = {
         symbols[s]: tuple(Fraction(x) for x in unit_si(u)[1]) for s, u in model.syms.items()
     }
-    exprs = [sympy.sympify(law, locals=symbols) for law in laws]
+    exprs = [_law(law, symbols) for law in laws]
     for e in exprs:
         _dim_of(e, sym_dims)
     given_names = set(variant.needs) | set(model.consts)
