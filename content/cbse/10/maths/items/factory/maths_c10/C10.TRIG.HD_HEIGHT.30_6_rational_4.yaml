@@ -1,0 +1,125 @@
+id: C10.TRIG.HD_HEIGHT.30_6_rational_4
+skill_ids:
+- MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
+difficulty: 0.39
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A factory chimney stands on level ground. From a point on the ground 6√3 m from
+    the foot, the angle of elevation of the top is 30°. Find the height of the chimney
+    in metres.
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '9'
+- id: c
+  en: 3√3
+- id: d
+  en: '18'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Sketch a right triangle: the chimney is the side opposite the 30° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 30°: height = 6√3 x tan 30°.'
+- en: With tan 30° taken from the table, the height is 6 m.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Decide which side is opposite the angle and which is next to it.
+- level: 2
+  en: The ratio that links the opposite side to the adjacent side is the tangent.
+    Write it as one relation and undo the division by doing the same thing to each
+    side.
+- level: 3
+  en: 'Full method: sketch and label the triangle, name the two sides involved, write
+    the tangent ratio for the stated angle, replace the tangent by its exact value,
+    and solve for the height.'
+prediction_prompt:
+  en: Is the height larger or smaller than the distance from the foot?
+status: draft
+template_id: TPL.C10.TRIG.HD_HEIGHT
+generator_version: factory-1
+template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 33d0d070e2b08b58595461a56e88c04dfcf2c72ba36e988cdf2c3a2ccf1c7296
+  template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+  certificate_hash: dd7b0d25290c5b11d1e828fcdab2f0e3b302eefd34ec3a748c0e34a00c4866ba
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:59:38+00:00'
+  record_hash: c4fbcfaf335896f99d9c16584b3fecf6e50152b02948b95ab542438b735756a8

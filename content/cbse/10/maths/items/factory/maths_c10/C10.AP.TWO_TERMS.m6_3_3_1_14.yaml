@@ -1,0 +1,123 @@
+id: C10.AP.TWO_TERMS.m6_3_3_1_14
+skill_ids:
+- MATH.ALG.AP.TERMS_FROM_TWO_TERMS
+difficulty: 0.59
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: An AP has 0 as its 3rd term and 3 as its 4th term. What is its 14th term?
+options:
+- id: a
+  en: '39'
+- id: b
+  en: '33'
+- id: c
+  en: '-45'
+- id: d
+  en: '36'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: Going from term 3 to term 4 takes 1 equal steps, and the terms change by 3.
+- en: So the common difference is 3 / 1 = 3.
+- en: 'Go back to the first term: a = 0 - (3 - 1)(3) = -6.'
+- en: Then a_14 = -6 + (14 - 1)(3) = 33.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Use the two given terms to find the first term and the difference before anything
+    else.
+- level: 2
+  en: Share the total change between the two terms equally over the number of steps
+    between them, then work back to the first term.
+- level: 3
+  en: 'Full method: divide the change in value by the change in position to get the
+    difference, use one given term to find the first term, then apply the rule for
+    the term you are asked for.'
+prediction_prompt:
+  en: Is the common difference positive or negative?
+status: draft
+template_id: TPL.C10.AP.TWO_TERMS
+generator_version: factory-1
+template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8804577536f7e94d9e8aa3b5c098a0098dd6ef2a7658a34681801491f3ddd74d
+  template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
+  certificate_hash: a0b9c99e07299a605e483b8559f1e3aa6dc76286017cc8dd381565ae01a4021e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:23:03+00:00'
+  record_hash: e4af98c50824d4260a99447caa1ed0764f4328d3c229a950e04a0ab12841ab83

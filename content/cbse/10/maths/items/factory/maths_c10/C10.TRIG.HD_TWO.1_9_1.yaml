@@ -1,0 +1,125 @@
+id: C10.TRIG.HD_TWO.1_9_1
+skill_ids:
+- MATH.TRIG.HD.TWO_POSITIONS
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: From a point on level ground close to a tower the angle of elevation of its
+    top is 60°. After walking 18 m directly away from the tower, the angle of elevation
+    becomes 45°. How tall is the tower, in metres?
+options:
+- id: a
+  en: 27 + 9√3
+- id: b
+  en: 27 - 9√3
+- id: c
+  en: '18'
+- id: d
+  en: 18√3
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Let the tower be h m high. Seen at 45° the ground distance is h / tan 45°; seen
+    at 60° it is h / tan 60°.
+- en: 'The two distances differ by the 18 m walked: h / tan 45° - h / tan 60° = 18.'
+- en: 'Put in the exact values of the tangents and solve for h: h = 27 + 9√3 m.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: You get two right triangles that share the tower as one side.
+- level: 2
+  en: Write the ground distance from each position in terms of the height. Their difference
+    equals the distance walked. Then undo each operation by doing the same thing to
+    each side to get the height.
+- level: 3
+  en: 'Full method: draw the figure, write each ground distance using the tangent
+    of the angle, subtract to match the distance walked, replace tangents by exact
+    values, collect the height terms, and divide each side to isolate the height.'
+prediction_prompt:
+  en: Is the tower taller or shorter than the distance walked?
+status: draft
+template_id: TPL.C10.TRIG.HD_TWO
+generator_version: factory-1
+template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3537795ca37e7cb045396160740719eed1bc35cd8ffee9654392c27818f763c2
+  template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
+  certificate_hash: c3885df34d76a0f73bc3f85b41115d34056d9a50279db22646073de961d268c0
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd2.closed
+  - maths.hd2.sympy
+  - maths.hd2.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T14:01:03+00:00'
+  record_hash: c992d3004c098c9c9085b46f5fff42435d44c7f0888355651905881925635da0

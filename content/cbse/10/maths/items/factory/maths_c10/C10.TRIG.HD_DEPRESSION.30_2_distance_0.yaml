@@ -1,0 +1,126 @@
+id: C10.TRIG.HD_DEPRESSION.30_2_distance_0
+skill_ids:
+- MATH.TRIG.HD.ANGLE_OF_DEPRESSION
+difficulty: 0.54
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: From the top of a lighthouse 2 m high, the angle of depression of a boat on
+    the sea is 30°. Find the horizontal distance of a boat from the foot of the lighthouse
+    in metres.
+options:
+- id: a
+  en: 2√3/3
+- id: b
+  en: 2√3
+- id: c
+  en: '4'
+- id: d
+  en: '1'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a boat.
+- en: So in the right triangle the 30° angle is at a boat, and height and ground distance
+    are opposite and adjacent to it.
+- en: 'Use tan 30° = height / distance and solve: the answer is 2√3 m.'
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Draw the horizontal line at the top and measure the angle downward from it.
+- level: 2
+  en: After placing the angle inside the right triangle, decide which side is opposite
+    it and which is adjacent, then use the matching ratio and undo it by doing the
+    same thing to each side.
+- level: 3
+  en: 'Full method: sketch the horizontal line from the top, mark the angle below
+    it, copy that angle into the right triangle using alternate angles, pick the ratio
+    for the two sides involved, and solve.'
+prediction_prompt:
+  en: Does the sight line make a steep or a shallow angle with the horizontal?
+status: draft
+template_id: TPL.C10.TRIG.HD_DEPRESSION
+generator_version: factory-1
+template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c998ecde27f1e9ec558865653f50eeb3451f3841deeebafb4fb4d0412747d646
+  template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
+  certificate_hash: 6b8d05ce3a02f81dc7c645eb1ff661e5165bcd79ae606e45710b811c620b42bb
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:57:29+00:00'
+  record_hash: 13862d5ee6c45ec4908754d88b051197ba23ad65ef2ce8df07237f685ed6597f

@@ -1,0 +1,121 @@
+id: C10.TRIG.FROM_RATIO.3_2_1_tan_cos
+skill_ids:
+- MATH.TRIG.RATIO_FROM_RATIO
+difficulty: 0.51
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A is an acute angle and tan A = 12/5. Find the value of cos A.
+options:
+- id: a
+  en: 5/13
+- id: b
+  en: 13/5
+- id: c
+  en: 25/169
+- id: d
+  en: 12/5
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Draw a right triangle with angle A and mark the sides so that tan A = 12/5.
+- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
+    missing ratio.
+- en: 'Since A is acute, take the positive root: cos A = 5/13.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Sketch the right triangle and mark the sides that the given ratio tells you.
+- level: 2
+  en: Find the third side of your triangle with the rule for right triangles, then
+    form the ratio you need as one fraction of the sides.
+- level: 3
+  en: 'Full method: choose side lengths that fit the given ratio, find the missing
+    side, write the asked ratio from the sides, and simplify.'
+prediction_prompt:
+  en: Is the asked ratio bigger or smaller than the given one?
+status: draft
+template_id: TPL.C10.TRIG.FROM_RATIO
+generator_version: factory-1
+template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 36d16c6bec6ad0bcf40803c1d72dcd2cfad9152cefd8016ad4e03dab8aeb2982
+  template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
+  certificate_hash: 3f98008a19b5697b5b4bed97f44dfb8376fdaa5c6b0f4ee685fc5e91e6d9597d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch10
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ratio.identity
+  - maths.ratio.sympy
+  - maths.ratio.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:56:26+00:00'
+  record_hash: aefc805c051b5f66509941aa2c6c5c280c94693e1e41c22666ef42974fc2ce76

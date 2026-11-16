@@ -1,0 +1,125 @@
+id: C10.QUAD.FORMULA_SURD.2_4_m2
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FORMULA
+difficulty: 0.72
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Use the quadratic formula to solve 2x² + 4x - 2 = 0. Leave surds in simplest
+    form.
+options:
+- id: a
+  en: x = 1 ± √2
+- id: b
+  en: x = -1 ± √2
+- id: c
+  en: x = -4 ± √2
+- id: d
+  en: x = -2 ± 2√2
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The coefficients are 2, 4 and -2.
+- en: The discriminant is 4² - 4 x 2 x -2 = 32, which is positive but not a perfect
+    square.
+- en: So x = (-(4) ± √32) / 4, and the square root is simplified as far as it will
+    go.
+- en: x = -1 ± √2.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Write down the three coefficients with their signs, then compute the discriminant.
+- level: 2
+  en: Put the numbers into the formula once with the plus sign and once with the minus
+    sign. Simplify the square root by pulling out any square factor.
+- level: 3
+  en: 'Full method: list the coefficients, compute the discriminant, simplify its
+    square root, write both roots over twice the leading coefficient, and cancel any
+    common factor from every term of the top and the bottom.'
+prediction_prompt:
+  en: Is the discriminant a perfect square? What does that say about the roots?
+status: draft
+template_id: TPL.C10.QUAD.FORMULA_SURD
+generator_version: factory-1
+template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 353a9de2c940b87024900171c4d1cabbbd72c8ed88cbeb73c6fd8480e84f0de3
+  template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
+  certificate_hash: ca3eb4fa2cbad47c5327c7ca25631eb346e8a2f378197e68ce56769cf6fb8b30
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:44:45+00:00'
+  record_hash: f0a925cb417c9dff3106c584b8fd331b7fd0ae1555999791238e6012814d42b3

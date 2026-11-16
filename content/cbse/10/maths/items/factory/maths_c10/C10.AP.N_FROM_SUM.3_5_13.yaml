@@ -1,0 +1,122 @@
+id: C10.AP.N_FROM_SUM.3_5_13
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.77
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: How many terms of the AP 3, 8, 13, ... must be added to make the sum 429?
+options:
+- id: a
+  en: '143'
+- id: b
+  en: '14'
+- id: c
+  en: '13'
+- id: d
+  en: -66/5
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: Here a = 3, d = 5 and S_n = 429.
+- en: '(n/2)(2 x 3 + (n - 1) x 5) = 429. Multiply both sides by 2 and expand: 5n²
+    + 1n = 858.'
+- en: 'Rearranged: 5n² + (1)n - 858 = 0, whose solutions are n = 13 and n = -66/5.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Use the sum formula, but this time the unknown is the number of terms.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM
+generator_version: factory-1
+template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6121359516bcc251e95df37785e05861213a2a0a66a61f10dd1ed082ecf61c9c
+  template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+  certificate_hash: 4b54104549c8c89d2fd59d8fc3634a3a6f454219a193b8b2a8ec1313d23be7fd
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:16:31+00:00'
+  record_hash: a7be46a8e7d35f80eddc4bfde4d0b2770efcc7bf2f28ab7078450a378427b119

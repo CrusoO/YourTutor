@@ -1,0 +1,121 @@
+id: C10.AP.SUM_N.2_m5_20
+skill_ids:
+- MATH.ALG.AP.SUM_FIRST_N
+difficulty: 0.41
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: What is the total when the first 20 terms of 2, -3, -8, ... are added?
+options:
+- id: a
+  en: '-910'
+- id: b
+  en: '-1820'
+- id: c
+  en: '-960'
+- id: d
+  en: '-930'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The first term is 2, the common difference is -5 and the number of terms is
+    20.
+- en: S_n = (n/2)(2a + (n - 1)d) = (20/2)(2 x 2 + (20 - 1) x -5).
+- en: = (20/2)(-91) = -910.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: There is one formula for the sum of the first n terms of an AP.
+- level: 2
+  en: Work out twice the first term plus one fewer than n times the difference, then
+    multiply by n and halve.
+- level: 3
+  en: 'Full method: read off the first term and difference, compute twice the first
+    term plus (n - 1) times the difference, multiply by n, then divide by 2.'
+prediction_prompt:
+  en: Roughly how big do you expect the total to be?
+status: draft
+template_id: TPL.C10.AP.SUM_N
+generator_version: factory-1
+template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f95a4e4079e57f5f997a58a250f4edd554be0d982225795c8837ea91a8a727f9
+  template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+  certificate_hash: 6ad8aa9fe78fba4eb6c7b30e24eed422b25a22410f3380a27425e8bb81fbe5a9
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:20:16+00:00'
+  record_hash: 2fa25af9bebff3b5f099cfe6e28dde9be891d4815d381f1257ea6e7933f929fb

@@ -1,0 +1,120 @@
+id: C10.QUAD.NATURE.3_5_2
+skill_ids:
+- MATH.ALG.QUAD.NATURE_OF_ROOTS
+difficulty: 0.44
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Describe the roots of the equation 3x² + 5x + 2 = 0 using the discriminant.
+options:
+- id: a
+  en: Two distinct real roots
+- id: b
+  en: One real root and one non-real root
+- id: c
+  en: Two equal real roots
+- id: d
+  en: No real roots
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The coefficients are 3, 5 and 2.
+- en: The discriminant is b² - 4ac = 1.
+- en: 'The discriminant is positive, so the equation has: two distinct real roots.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Compare that quantity with zero to decide.
+- level: 2
+  en: Work out the discriminant from the three coefficients, then see whether it is
+    positive, zero or negative.
+- level: 3
+  en: 'Full method: write the coefficients with signs, compute the discriminant, and
+    match its sign to the three possible cases for the roots.'
+prediction_prompt:
+  en: Which sign do you expect the discriminant to have?
+status: draft
+template_id: TPL.C10.QUAD.NATURE
+generator_version: factory-1
+template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0a25f80028ae27fda9704d00eacc50f0bf4c107fc66447a425ae8638f17a7b4e
+  template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
+  certificate_hash: 39e70e1641d8e18b34a3e250584ffd49419bc58d0d83d476295f58b74bf8fc89
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:48:18+00:00'
+  record_hash: 293dd283be1fd811308b0f60ca9f8ae34f1e9f5cddecd09df4394b09acb74f8b

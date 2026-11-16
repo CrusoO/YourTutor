@@ -1,0 +1,122 @@
+id: C10.TRIG.HD_LADDER.60_7_reach
+skill_ids:
+- MATH.TRIG.HD.LADDER_AND_WALL
+difficulty: 0.49
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A ladder 14 m long leans against a vertical wall and makes an angle of 60° with
+    the level ground. How high up the wall does the ladder reach, in metres?
+options:
+- id: a
+  en: '7'
+- id: b
+  en: 14√3
+- id: c
+  en: 7√3
+- id: d
+  en: 28√3/3
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: The ladder is the hypotenuse. The wall height is opposite the 60° angle and
+    the foot distance is adjacent to it.
+- en: Height = ladder x sine 60° = 14 x (√3/2).
+- en: 'Simplify: 7√3 m.'
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Sketch the wall, the ground and the ladder as the right triangle.
+- level: 2
+  en: 'Choose between sine and cosine by asking which side the question wants: the
+    side opposite the angle goes with sine, the side next to it with cosine.'
+- level: 3
+  en: 'Full method: sketch and label the triangle, identify which two sides are involved,
+    pick sine or cosine for them, replace the ratio by its exact value, and solve.'
+prediction_prompt:
+  en: Is the answer more or less than the length of the ladder?
+status: draft
+template_id: TPL.C10.TRIG.HD_LADDER
+generator_version: factory-1
+template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b6ed6f6fdb52cc9633dc17b1f36a5a595ea5d41aa1aee06019a0c1e3945852e6
+  template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
+  certificate_hash: ff52c804ce5abfefc2f1b3aa90e3072fdcd0f1ffc213c384ccc2957f9a2907d8
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T14:00:20+00:00'
+  record_hash: 7e88f2523ddc38f37fe43a11cc179fa9776ab3866c2561f7cf47321ba77da7c9

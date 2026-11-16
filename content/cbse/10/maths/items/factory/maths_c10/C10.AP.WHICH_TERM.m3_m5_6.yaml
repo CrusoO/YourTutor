@@ -1,0 +1,124 @@
+id: C10.AP.WHICH_TERM.m3_m5_6
+skill_ids:
+- MATH.ALG.AP.POSITION_OF_TERM
+difficulty: 0.42
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: In the progression -3, -8, -13, ... the number -28 appears. Which term is it?
+options:
+- id: a
+  en: '-25'
+- id: b
+  en: '6'
+- id: c
+  en: '5'
+- id: d
+  en: '7'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The first term is -3 and the common difference is -5.
+- en: 'Set the nth term equal to -28: -3 + (n - 1)(-5) = -28.'
+- en: 'Take -3 away from both sides: (n - 1)(-5) = -25. Divide both sides by -5: n
+    - 1 = 5.'
+- en: 'Add 1 to both sides: n = 6.'
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Use the rule for the nth term, but this time n is the thing you do not know.
+- level: 2
+  en: 'Undo each operation in the rule by doing the same thing to each side: first
+    take away the first term, then divide by the difference, then deal with the minus
+    one.'
+- level: 3
+  en: 'Full method: write first term + (n - 1) x difference, set it equal to the target,
+    take away the first term from each side, divide each side by the difference, and
+    add one to each side.'
+prediction_prompt:
+  en: Roughly how many steps from the first term will it take to reach this number?
+status: draft
+template_id: TPL.C10.AP.WHICH_TERM
+generator_version: factory-1
+template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 947c08fc91cd6d9b6d4c517b0f4f81486fe01e7fc666cf2335780c76eefb3a18
+  template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
+  certificate_hash: 1e677e8811c83e53063cee0e36412a0311d487471af3877b25c77e373e1f9e8b
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:24:22+00:00'
+  record_hash: 4229611de78140ce7d48c3abe836a20982893686f9bbe624a552eecf73ba3520

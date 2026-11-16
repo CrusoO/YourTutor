@@ -1,0 +1,125 @@
+id: C10.TRIG.HD_HEIGHT.60_12_surd_3
+skill_ids:
+- MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
+difficulty: 0.39
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A flagpole stands upright on level ground. From a point on the ground 12 m from
+    the foot, the angle of elevation of the top is 60°. Find the height of the flagpole
+    in metres.
+options:
+- id: a
+  en: 6√3
+- id: b
+  en: 12√3
+- id: c
+  en: '6'
+- id: d
+  en: 4√3
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Sketch a right triangle: the flagpole is the side opposite the 60° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 12 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 12√3 m.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Decide which side is opposite the angle and which is next to it.
+- level: 2
+  en: The ratio that links the opposite side to the adjacent side is the tangent.
+    Write it as one relation and undo the division by doing the same thing to each
+    side.
+- level: 3
+  en: 'Full method: sketch and label the triangle, name the two sides involved, write
+    the tangent ratio for the stated angle, replace the tangent by its exact value,
+    and solve for the height.'
+prediction_prompt:
+  en: Is the height larger or smaller than the distance from the foot?
+status: draft
+template_id: TPL.C10.TRIG.HD_HEIGHT
+generator_version: factory-1
+template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a504b2bba778ffae5d9264dfd66204205c7740988f6fd618897691dacd6b5c1f
+  template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+  certificate_hash: f0568beab2975c0c0d8e604191d3446547536e5c1362cb805388d5ec1edae42a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:59:39+00:00'
+  record_hash: af741e1cea87f15841c27985df6469eba2c18ed3eff3e34c8e71e5835acd1566

@@ -1,0 +1,124 @@
+id: C10.AP.WORD_TOTAL.2_50_5_12_total
+skill_ids:
+- MATH.ALG.AP.MODEL_SITUATION
+difficulty: 0.71
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A library puts books on display. On day 1 it shows 50 books and each day it
+    shows 5 more than the day before, for 12 days. How many books are shown over all
+    the days together?
+options:
+- id: a
+  en: '960'
+- id: b
+  en: '930'
+- id: c
+  en: '1860'
+- id: d
+  en: '105'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The amounts form an AP with first term 50 and common difference 5.
+- en: The last amount is 105, so the total is S = (12/2)(50 + 105).
+- en: S = 930.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Write the amounts as one list and look at what changes from one step to the
+    next.
+- level: 2
+  en: Decide whether the question asks for one term or for the sum of all the terms,
+    then choose the matching rule. Work through it one operation after another.
+- level: 3
+  en: 'Full method: identify the first term, the common difference and the number
+    of rows or days, pick the rule for one term or for the sum, substitute carefully,
+    and give the answer with its unit.'
+prediction_prompt:
+  en: Is the pattern growing or shrinking from one step to the next?
+status: draft
+template_id: TPL.C10.AP.WORD_TOTAL
+generator_version: factory-1
+template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4b9e4dfb7558ff610d794f9cbe11e82fd91f02c7331c600cd645c7196068a424
+  template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+  certificate_hash: 137716310790114e28614edaf7d10b16b538367108b0b7e420a9a4e3d22c0ed6
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:27:18+00:00'
+  record_hash: 24419e7f7d4597dedc71a2f3ae396e5814a7889b464590ac2fc47046ca1a8d9a

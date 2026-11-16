@@ -1,0 +1,124 @@
+id: C10.QUAD.WORD_RECT.3_15_breadth_0
+skill_ids:
+- MATH.ALG.QUAD.MODEL_GEOMETRY
+difficulty: 0.54
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: The length of a rectangular field is 3 m more than its breadth. Its area is
+    270 m². Find the breadth of the field in metres.
+options:
+- id: a
+  en: '33'
+- id: b
+  en: '18'
+- id: c
+  en: '-18'
+- id: d
+  en: '15'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 3 metres.
+- en: The area gives x(x + 3) = 270, so x² + 3x - 270 = 0.
+- en: 'Factorise: (x - 15)(x + 18) = 0, so x = 15 or x = -18; a length is positive,
+    so the breadth is 15 m and the length is 18 m.'
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Let x be the unknown side, express the other side with x, then use the area.
+- level: 2
+  en: Write the area as one relation in x, rearrange so the right side is zero, and
+    solve it. Discard any solution that makes the length negative. Undo each step
+    by doing the same thing to each side.
+- level: 3
+  en: 'Full method: name the breadth, write the length, form the area relation, rearrange
+    to zero, factorise, keep the positive solution, then answer exactly what is asked
+    (breadth, length or cost).'
+prediction_prompt:
+  en: About how long do you think the shorter side is?
+status: draft
+template_id: TPL.C10.QUAD.WORD_RECT
+generator_version: factory-1
+template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8b6a38db74d3dde6e79c60dad96c0a361ed8e6a837dd25450dbbccd329a549fe
+  template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
+  certificate_hash: 782254a88ac1e0755ef40c57af01e9228fa636acb84b220ac5c2565dca6f657c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:52:42+00:00'
+  record_hash: bfbb9432aa4aa701a58de86ba7ea6b787e072247dab6312fa422e128d8d2199c

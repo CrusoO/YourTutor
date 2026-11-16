@@ -1,0 +1,122 @@
+id: C10.AP.N_FROM_SUM.3_m3_17
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.77
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: The sum of the first n terms of the AP 3, 0, -3, ... is -357. Find n.
+options:
+- id: a
+  en: '-14'
+- id: b
+  en: '-119'
+- id: c
+  en: '18'
+- id: d
+  en: '17'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Here a = 3, d = -3 and S_n = -357.
+- en: '(n/2)(2 x 3 + (n - 1) x -3) = -357. Multiply both sides by 2 and expand: -3n²
+    + 9n = -714.'
+- en: 'Rearranged: -3n² + (9)n - -714 = 0, whose solutions are n = 17 and n = -14.'
+- en: The number of terms is a positive whole number, so n = 17.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Write the sum formula with n as the unknown and make it equal to the target.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM
+generator_version: factory-1
+template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a2e5c4f0accbcfc4f5eda5c5fe2cd1de04aa9f68d16d93963423fcb322a901db
+  template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+  certificate_hash: 9652a704d08066e5cef70ac6890ca18772d92cfafd46091588646ce5ac24d5f4
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:16:29+00:00'
+  record_hash: af9ecbd6c41cb14d8f337c9bbd50a889c1c10450c1f93f81d4c19dc2d314c04b

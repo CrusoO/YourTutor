@@ -1,0 +1,125 @@
+id: C10.QUAD.STD_FORM.1_m1_1_m2_m4_c
+skill_ids:
+- MATH.ALG.QUAD.STANDARD_FORM
+difficulty: 0.24
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Rearrange x² - 2x - 5 = -2x - 4 into the form ax² + bx + c = 0. What is the
+    value of c?
+options:
+- id: a
+  en: '-5'
+- id: b
+  en: '-9'
+- id: c
+  en: '1'
+- id: d
+  en: '-1'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Take the whole right-hand side away from both sides, so the right-hand side
+    is 0.
+- en: The left-hand side becomes x² - 1, so the equation is x² - 1 = 0.
+- en: Comparing with ax² + bx + c = 0 gives c = -1.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: The standard form has zero on the right, so deal with the terms on the right
+    first.
+- level: 2
+  en: 'Undo each term on the right by doing the same operation to both sides: take
+    the term away from both sides, then combine like terms. Start with the plain number
+    on the right: take it away from both sides first.'
+- level: 3
+  en: 'Full method: take the x term on the right from both sides, take the plain number
+    on the right from both sides, combine the x terms, combine the plain numbers,
+    then read the coefficient you need, keeping its sign.'
+prediction_prompt:
+  en: Before you work it out, will the coefficient be positive or negative?
+status: draft
+template_id: TPL.C10.QUAD.STD_FORM
+generator_version: factory-1
+template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6830f5b75cc32617b6daff3e4a5ac4577ce9e037d34cb832b5aea0ae19dfba78
+  template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
+  certificate_hash: dff6b53043e588fc581ea8c5d198d4228006efd0c8484b1045b0657d37246345
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:50:13+00:00'
+  record_hash: bb5ab20543956b06e04016abad418f17b7c1e30cecc3e9153a137cf5d33be47c

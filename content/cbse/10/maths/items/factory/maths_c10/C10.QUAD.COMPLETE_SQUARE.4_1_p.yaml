@@ -1,0 +1,121 @@
+id: C10.QUAD.COMPLETE_SQUARE.4_1_p
+skill_ids:
+- MATH.ALG.QUAD.COMPLETE_SQUARE
+difficulty: 0.59
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Complete the square on x² + 8x + 1 = 0 to reach (x + p)² = q. What is p?
+options:
+- id: a
+  en: '-4'
+- id: b
+  en: '16'
+- id: c
+  en: '4'
+- id: d
+  en: '8'
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: Half of the x coefficient 8 is 4, so the square is (x + 4)².
+- en: (x + 4)² = x² + 8x + 16, so add 16 to both sides and subtract 1 from both sides.
+- en: This gives (x + 4)² = 15. So p = 4 and q = 15.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Think of one bracket squared; match the x term first.
+- level: 2
+  en: Whatever you add to one side you must add to both sides. Compare the expanded
+    bracket with the original to see what is missing.
+- level: 3
+  en: 'Full method: halve the x coefficient, square it, add that square to both sides
+    after taking the plain number away from both sides, write the left side as a bracket
+    squared, and read off the two values.'
+prediction_prompt:
+  en: Will p have the same sign as the x coefficient?
+status: draft
+template_id: TPL.C10.QUAD.COMPLETE_SQUARE
+generator_version: factory-1
+template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e9be6a40eab6983b10dba1fce8a10ab60dfb98f83d82a762165aa467c9f7376a
+  template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
+  certificate_hash: 68163bf7d20da697098db86cd7fb66b5cf4ae266a9a963e62a20d17c79edd9ae
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.cs.closed
+  - maths.cs.sympy
+  - maths.cs.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:32:42+00:00'
+  record_hash: 617d171c45d31bd0755e1e447fd6ee9cc530fed9750acf853c2debf74411b1e8

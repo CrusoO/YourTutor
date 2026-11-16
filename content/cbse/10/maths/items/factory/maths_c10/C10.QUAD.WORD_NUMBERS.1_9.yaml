@@ -1,0 +1,122 @@
+id: C10.QUAD.WORD_NUMBERS.1_9
+skill_ids:
+- MATH.ALG.QUAD.MODEL_NUMBERS
+difficulty: 0.59
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: The product of two consecutive positive integers is 90. Find the smaller one.
+options:
+- id: a
+  en: '-10'
+- id: b
+  en: '8'
+- id: c
+  en: '10'
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Let x be the smaller number. The other is x + 1.
+- en: Their product is 90, so x(x + 1) = 90, which is x² + 1x - 90 = 0.
+- en: 'Factorise: (x - 9)(x + 10) = 0, so x = 9 or x = -10.'
+- en: The numbers must be positive, so the smaller number is 9.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Let x be the smaller number and write the other number using x.
+- level: 2
+  en: Write the product as one relation in x, bring every term to one side, then factorise
+    or use the formula. Check which solution fits the words of the question.
+- level: 3
+  en: 'Full method: name the smaller number, write the larger one, form the product
+    relation, rearrange so the right side is zero, solve, and reject any solution
+    that is not positive.'
+prediction_prompt:
+  en: Roughly how big do you expect the smaller number to be?
+status: draft
+template_id: TPL.C10.QUAD.WORD_NUMBERS
+generator_version: factory-1
+template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fc77e9acc1f44232a3bab7fa5795592638172436608c362100398ae2c635a18e
+  template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
+  certificate_hash: 34680dac3f5d4d8c236f36424d5d5b54684ffa2511585abf6b69065c6f17c69f
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:51:38+00:00'
+  record_hash: af289465d7d73f37f4d19fc20001b2116a5db568b484bb3dd621c2086d10b4aa

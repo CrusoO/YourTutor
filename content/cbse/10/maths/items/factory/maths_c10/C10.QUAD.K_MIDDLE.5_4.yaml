@@ -1,0 +1,120 @@
+id: C10.QUAD.K_MIDDLE.5_4
+skill_ids:
+- MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
+difficulty: 0.59
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: For which values of k does 5x² + kx + 80 = 0 have equal roots?
+options:
+- id: a
+  en: k = -40 or k = 40
+- id: b
+  en: k = -1600 or k = 1600
+- id: c
+  en: k = -20 or k = 20
+- id: d
+  en: k = 40
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(5)(80) = 0.'
+- en: So k² = 1600.
+- en: 'Take the square root of both sides, keeping both signs: k = -40 or k = 40.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Set the discriminant equal to zero and treat k as the unknown.
+- level: 2
+  en: After writing the discriminant, undo the subtraction by adding the same number
+    to both sides, then undo the square by taking the square root of both sides.
+- level: 3
+  en: 'Full method: write the discriminant with k in it, set it to zero, add the same
+    number to both sides, take the square root of both sides, and remember both signs.'
+prediction_prompt:
+  en: Should k be allowed to be negative as well as positive?
+status: draft
+template_id: TPL.C10.QUAD.K_MIDDLE
+generator_version: factory-1
+template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dd1975c552f81170a1b6a0c6f673e61ff20267b2800424740359f673d05e1a47
+  template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
+  certificate_hash: df4af93f1c3d3cb7346930b110370fa34353083aa46d869cc36bb088e7af130b
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.k_closed
+  - maths.quad.k_sympy
+  - maths.quad.k_scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:46:11+00:00'
+  record_hash: 76a8dbfa4ff22cb5b2cb91c1bf278b42596249d99549f2dbb6d94ea34b1dc88c

@@ -1,0 +1,124 @@
+id: C10.TRIG.HD_HEIGHT.60_5_surd_2
+skill_ids:
+- MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
+difficulty: 0.39
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A building stands on a flat plot. From a point on the ground 5 m from the foot,
+    the angle of elevation of the top is 60°. Find the height of the building in metres.
+options:
+- id: a
+  en: 5/2
+- id: b
+  en: 5√3/2
+- id: c
+  en: 5√3
+- id: d
+  en: 5√3/3
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Sketch a right triangle: the building is the side opposite the 60° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 5 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 5√3 m.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Draw the right triangle first and label what is known and what is wanted.
+- level: 2
+  en: The ratio that links the opposite side to the adjacent side is the tangent.
+    Write it as one relation and undo the division by doing the same thing to each
+    side.
+- level: 3
+  en: 'Full method: sketch and label the triangle, name the two sides involved, write
+    the tangent ratio for the stated angle, replace the tangent by its exact value,
+    and solve for the height.'
+prediction_prompt:
+  en: Is the height larger or smaller than the distance from the foot?
+status: draft
+template_id: TPL.C10.TRIG.HD_HEIGHT
+generator_version: factory-1
+template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f4c7ce683dc76b399a56311359c12d3f700961b1a570aeb96fe24d6ff676141b
+  template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
+  certificate_hash: c9117e6636a4d82feead3ae4a106ed80d1aa1c750a04eeeb7503298862c7e3bf
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:59:38+00:00'
+  record_hash: 05c41caf9d3fdbadcc5e03f785c5d82cc68c3c11538c6d11d2051a22e31015df

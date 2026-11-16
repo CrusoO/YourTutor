@@ -1,0 +1,121 @@
+id: C10.QUAD.PURE.2_3_0_1
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_INCOMPLETE
+difficulty: 0.44
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Find every real solution of 2x² + 18 = 0.
+options:
+- id: a
+  en: x = -3
+- id: b
+  en: x = -3 or x = 3
+- id: c
+  en: no real roots
+- id: d
+  en: x = 3
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Take 18 away from both sides and then divide both sides by 2: x² = -9.'
+- en: A square is never negative, so no real number satisfies this.
+- en: The equation has no real roots.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Get the squared term on its own by undoing the other operations.
+- level: 2
+  en: Undo the addition or subtraction by doing the same thing to both sides, then
+    undo the multiplication by dividing both sides by the same number.
+- level: 3
+  en: 'Full method: take the plain number off one side by adding or subtracting it
+    on both sides, divide both sides by the coefficient of the squared term, then
+    take the square root of both sides if the result is positive, keeping both signs.'
+prediction_prompt:
+  en: Will this equation have two answers, one answer or none?
+status: draft
+template_id: TPL.C10.QUAD.PURE
+generator_version: factory-1
+template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dcae4ef7e87d28e6e6e9a753b1d44b8fab1dd63594e40d0eb0e11777e9a35524
+  template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
+  certificate_hash: 3ce72b3ec14a0f0845511e44288651fdedc2ba9aa59dc68e514ef739b094a93c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:49:09+00:00'
+  record_hash: b92ac21b326164fba01f21c92688fcdb97ad43e3d8c5a6658a59e6077fcf7df5

@@ -1,0 +1,122 @@
+id: C10.AP.N_FROM_SUM.3_m2_9
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.75
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: How many terms of the AP 3, 1, -1, ... must be added to make the sum -45?
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '-15'
+- id: c
+  en: '10'
+- id: d
+  en: '-5'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Here a = 3, d = -2 and S_n = -45.
+- en: '(n/2)(2 x 3 + (n - 1) x -2) = -45. Multiply both sides by 2 and expand: -2n²
+    + 8n = -90.'
+- en: 'Rearranged: -2n² + (8)n - -90 = 0, whose solutions are n = 9 and n = -5.'
+- en: The number of terms is a positive whole number, so n = 9.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Use the sum formula, but this time the unknown is the number of terms.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM
+generator_version: factory-1
+template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9c96857abc4399447d48c6c9c40860a738b6feff66285d4690e6b6e00896a009
+  template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+  certificate_hash: 8f226673e6bf38408efbab18590f5fc30f9bd8596bb8e9e7baaf7274013a3c5e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:16:30+00:00'
+  record_hash: 1f7fd3fb283a394747df859ffc63dac1189a0bb8140a0446b1f50da2f7d6cae1

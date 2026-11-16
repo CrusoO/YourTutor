@@ -1,0 +1,121 @@
+id: C10.QUAD.CHECK_ROOT.2_2_5_0
+skill_ids:
+- MATH.ALG.QUAD.CHECK_ROOT
+difficulty: 0.16
+type: mcq
+pool: practice
+role: recall
+stem:
+  en: Which number makes the left side of 2x² - 14x + 20 = 0 equal to zero?
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-2'
+- id: c
+  en: '3'
+- id: d
+  en: '20'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 2: 2(2)² + (-14)(2) + (20) = 0.'
+- en: The left side is 0, so x = 2 satisfies the equation.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: You can check an answer without solving anything.
+- level: 2
+  en: Substitute the choices one after another, work out the left side carefully with
+    its signs, and see whether it comes to zero.
+- level: 3
+  en: 'Full method: replace x by the choice, square first, then multiply by the coefficients,
+    add the terms, and keep only the choice that gives zero.'
+prediction_prompt:
+  en: Which choice looks most likely to work?
+status: draft
+template_id: TPL.C10.QUAD.CHECK_ROOT
+generator_version: factory-1
+template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fcfa946621664bbf91dc6e18f1bce38115e494c7e3797a5b25d10dbebb660894
+  template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
+  certificate_hash: 66e6d483d5d1327c5d4c37a49a23d4c9b09e8b9a31b0d09b71d90b3abcc12122
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:29:29+00:00'
+  record_hash: ed4254539e896c0438ad1cfd0a979bdaea037528c9d6447f021c970b226b5f50

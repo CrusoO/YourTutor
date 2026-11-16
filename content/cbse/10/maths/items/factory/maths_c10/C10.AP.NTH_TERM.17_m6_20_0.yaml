@@ -1,0 +1,122 @@
+id: C10.AP.NTH_TERM.17_m6_20_0
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.33
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: What is the 20th term of the progression 17, 11, 5, ...?
+options:
+- id: a
+  en: '-103'
+- id: b
+  en: '-97'
+- id: c
+  en: '30'
+- id: d
+  en: '131'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The first term is 17 and the common difference is -6.
+- en: The nth term is first term + (n - 1) x difference, so a_20 = 17 + (20 - 1)(-6).
+- en: a_20 = 17 + -114 = -97.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Start at the first term and count how many jumps you need to reach the one asked
+    for.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM
+generator_version: factory-1
+template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7bc92f4b13717b970c5f689dd09743c6d7c63d7048d833e54d6411ae887ffd91
+  template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+  certificate_hash: abffa5fb7fd12d67e3662d1848c3db91a1acf93c08c4694964fd6483f4bf7bf7
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:18:20+00:00'
+  record_hash: b72de2a81ecd93db5e16c0b23a509413b23f1032a96b97a12597f53c3affaffb

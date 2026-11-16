@@ -1,0 +1,121 @@
+id: C10.TRIG.COMPLEMENT.ratio_52
+skill_ids:
+- MATH.TRIG.COMPLEMENTARY_ANGLES
+difficulty: 0.39
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Find the value of sin 52° ÷ cos 38°.
+options:
+- id: a
+  en: '0'
+- id: b
+  en: '1'
+- id: c
+  en: '2'
+- id: d
+  en: '-1'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The angles 52° and 38° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Look at the two angles: what do they add up to?'
+- level: 2
+  en: A ratio of an angle equals the matching co-ratio of its complement. Use that
+    to rewrite one term so both terms involve the same angle.
+- level: 3
+  en: 'Full method: confirm the angles add to ninety, convert one term to the other
+    angle with the complement rule, then simplify the expression.'
+prediction_prompt:
+  en: Without a calculator, do you think the answer is a surprise number?
+status: draft
+template_id: TPL.C10.TRIG.COMPLEMENT
+generator_version: factory-1
+template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5f75b692f3bc4c7bfcd53fb78b3beaa1e4b7553e0d787e1f6bbe7a1d0353b4e4
+  template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
+  certificate_hash: 7b4b612f85a9dc25cea9fa5d3f8619bdea757b3bd3e3d2c571d334e14d3bd306
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.comp.specialise
+  - maths.comp.symbolic
+  - maths.comp.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:55:42+00:00'
+  record_hash: 86acca7d0310a9c32cbc58c44a5935f1d2406f4c0dd591ffdcd16068cfc60157

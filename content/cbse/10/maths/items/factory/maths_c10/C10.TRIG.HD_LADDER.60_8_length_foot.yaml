@@ -1,0 +1,121 @@
+id: C10.TRIG.HD_LADDER.60_8_length_foot
+skill_ids:
+- MATH.TRIG.HD.LADDER_AND_WALL
+difficulty: 0.49
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A ladder leans against a vertical wall and makes an angle of 60° with the level
+    ground. Its foot is 8 m from the wall. Find the length of the ladder in metres.
+options:
+- id: a
+  en: 16√3/3
+- id: b
+  en: '4'
+- id: c
+  en: 8√3/3
+- id: d
+  en: '16'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: The ladder is the hypotenuse of the right triangle.
+- en: Known side = ladder x cosine 60°, so ladder = 8 / (1/2).
+- en: 'Simplify: 16 m.'
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Mark the angle with the ground and name the three sides.
+- level: 2
+  en: The ladder is the unknown and it is the hypotenuse. Undo the multiplication
+    by doing the same thing to each side, dividing by the ratio.
+- level: 3
+  en: 'Full method: sketch and label the triangle, identify which two sides are involved,
+    pick sine or cosine for them, replace the ratio by its exact value, and solve.'
+prediction_prompt:
+  en: Will the ladder be longer than the given side?
+status: draft
+template_id: TPL.C10.TRIG.HD_LADDER
+generator_version: factory-1
+template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7a994c956284a61f08ebbe440dadcfe4ac66e8f1aaabd6b56811b1a56d1d1362
+  template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
+  certificate_hash: adc9307f07b184126c086200f55343f7e0045bc5fc25db6b07aa0ddda300d6aa
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T14:00:20+00:00'
+  record_hash: 8cb082fba85b2f52f635e5ca646e8ed0a796b5ed59d52f07587a2dcb7171b548

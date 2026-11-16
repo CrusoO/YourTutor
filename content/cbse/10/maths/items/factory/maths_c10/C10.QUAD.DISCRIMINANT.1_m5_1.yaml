@@ -1,0 +1,121 @@
+id: C10.QUAD.DISCRIMINANT.1_m5_1
+skill_ids:
+- MATH.ALG.QUAD.DISCRIMINANT
+difficulty: 0.29
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Calculate the discriminant for x² - 5x + 1 = 0.
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '-14'
+- id: c
+  en: '29'
+- id: d
+  en: '24'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Here the coefficients are 1, -5 and 1.
+- en: The discriminant is b² - 4ac = (-5)² - 4(1)(1).
+- en: This equals 25 - (4) = 21.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: The discriminant uses only the three coefficients, not x itself.
+- level: 2
+  en: Square the x coefficient first, then work out four times the product of the
+    other two coefficients, and subtract.
+- level: 3
+  en: 'Full method: write the three coefficients with signs, square the middle one,
+    multiply the outer two together and then by four, and subtract the second result
+    from the first.'
+prediction_prompt:
+  en: Will the discriminant be positive, zero or negative?
+status: draft
+template_id: TPL.C10.QUAD.DISCRIMINANT
+generator_version: factory-1
+template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ea7d664dee5da18cba7afea07a7d0fabdb1381873e0962572a0e58cdb8a8c644
+  template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
+  certificate_hash: dae585abaecf7ee2879932669cfcdf34ca28a2e8c9f8e0747414780b1a8560de
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:35:40+00:00'
+  record_hash: 0c5c475aa6e640404eb2e213e994811a9f5cc938fd5dc039dbbe5fd98b3a7107

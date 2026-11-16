@@ -1,0 +1,121 @@
+id: C10.QUAD.K_LEAD.m3_3
+skill_ids:
+- MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
+difficulty: 0.56
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Find the value of k for which kx² - 18x - 3 = 0 has two equal real roots.
+options:
+- id: a
+  en: k = -27
+- id: b
+  en: k = -54
+- id: c
+  en: k = -108
+- id: d
+  en: k = 27
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (-18)² - 4(k)(-3) = 0.
+- en: 'This gives 324 - -12k = 0. Add -12k to both sides: -12k = 324.'
+- en: 'Divide both sides by -12: k = -27.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Equal roots mean the discriminant is zero. Put the unknown k into it.
+- level: 2
+  en: You will get an equation that is linear in k. Undo each operation by doing the
+    same thing to both sides.
+- level: 3
+  en: 'Full method: write the discriminant using k as the leading coefficient, set
+    it to zero, collect the k term on one side by adding the same amount to both sides,
+    then divide both sides by the number multiplying k.'
+prediction_prompt:
+  en: Will k have the same sign as the plain number?
+status: draft
+template_id: TPL.C10.QUAD.K_LEAD
+generator_version: factory-1
+template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6225fc21b637ea2a2d572084cc5e530f7efbf6ce3f180f9a86b0a4deef9596c7
+  template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
+  certificate_hash: 7d6b4018e08fcad6dcd7df002bb964bc029bf78ddb19e78d2749c40ac796f5d8
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.k_closed
+  - maths.quad.k_sympy
+  - maths.quad.k_scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:45:28+00:00'
+  record_hash: 79dde78ccbf6d533a729845fdbf6fb96754bd9d688183f93de2c6cc68ef24ab1
