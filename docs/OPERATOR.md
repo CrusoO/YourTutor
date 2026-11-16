@@ -389,3 +389,41 @@ unless an intact record in the ledger backs it. Stamped items are served only wh
 `SERVE_TIER_A_UNREVIEWED=true` in the production environment (the code default stays off) and the item is original.
 A tampered ledger makes `content validate` and `content load` fail. Migration `0035` adds the item columns
 (`alembic upgrade head`, safe to run twice).
+
+### 9.1 Where factory content lives and how it is read
+
+Each lane owns one folder, `content/<board>/<class>/<subject>/` (for example `content/cbse/10/physics/`),
+holding `skills/`, `misconceptions/`, `overlays/`, `items/factory/<lane>/` and its own `factory/`
+(ledger, certificates, `factory/templates/*.yaml`). Run the factory commands with
+`--root content/cbse/10/physics`. `python -m app.content validate content/` and `load content/` read the root
+itself and every such subject folder; a root with no subject folders behaves as before.
+
+- Items stamped by the factory (a verification record and a `factory-N` generator) are not checked
+  against legacy item templates and are not queued for a teacher's stem check: the certificate is the
+  check. A hand-edited stamped item loses that treatment and its tier.
+- `factory-template/1` files have no schema in the content package. `validate` skips them with a
+  warning; `python -m app.factory certify` is what checks a template.
+- Every intact ledger under the root counts. A broken ledger is an error that names its folder.
+- Stamped types: multiple choice (distractor procedures become `misconception_rules`, so each
+  procedure must be a misconception id in the bank), numeric and expression (the lane supplies
+  `item_type`, `answer_text`, optional `accept`, `verify` and `wrong_answers`).
+- From generator `factory-2` the content hash covers option text and the item type. Items stamped
+  under `factory-1` (the first physics pass) keep their old hash and `validate` warns to re-stamp them.
+
+### 9.2 When is a stamped item served?
+
+All of these must hold (the gate is `app/content/gate.py`; nothing here changes a default):
+
+1. The item is loaded with an intact, ledger-listed record naming its current content (a stored row
+   is re-hashed when read, so an edit in the database also removes the tier).
+2. `SERVE_TIER_A_UNREVIEWED=true` (default false) and the item is original; or `ALLOW_DRAFT_CONTENT=true`
+   in development.
+3. The item is not suspended (`python -m app.factory suspend`); suspension beats every other switch.
+4. The student's chapter overlay is `live: true`. `validate` refuses `live: true` until the thresholds
+   hold, and those thresholds count **approved** items, lessons and checkpoint forms, so a chapter
+   with only stamped (draft) items cannot be made live by the validator today. That is the owner's
+   lessons and passages decision, not a switch to flip quietly.
+
+Other surfaces (offline packs, mistake list, ask search) use the status rule only: a draft stamped
+item never appears there. The label learners see stays `Answer checked by calculation`; the factory
+cannot emit `human-reviewed` or `teacher-approved`.
