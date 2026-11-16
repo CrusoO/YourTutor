@@ -381,6 +381,24 @@ def test_cli_index_and_check_never_print_reference_text(
 # --- labels on a served row ------------------------------------------------------------------
 
 
+def _stamp() -> dict[str, object]:
+    from app.content.verification import record_hash
+
+    record: dict[str, object] = {
+        "schema": "vrec/1",
+        "item_hash": "h",
+        "certificate_hash": "c",
+        "label": "calculation-checked",
+        "tier": "A",
+        "stamped_at": "2026-11-16T00:00:00+00:00",
+    }
+    record["record_hash"] = record_hash(record)
+    return record
+
+
+_STAMP = _stamp()
+
+
 def row(**over: object) -> ItemRow:
     base: dict[str, object] = {
         "id": "ITEM.1",
@@ -390,6 +408,7 @@ def row(**over: object) -> ItemRow:
         "reviewed_by": None,
         "tier": "A",
         "provenance": {"original": True},
+        "verification": _STAMP,  # a tier A is honoured only with an intact record (PR 2)
     }
     base.update(over)
     return ItemRow(**base)
@@ -397,7 +416,9 @@ def row(**over: object) -> ItemRow:
 
 def test_row_labels_follow_the_rule() -> None:
     labels = _item_labels(row())
-    assert labels is not None and set(labels) == {"question", "badge"}
+    assert labels is not None and set(labels) == {"question", "badge", "verification"}
+    # changed in the factory PR: a tier A typed by hand (no record) no longer earns the label
+    assert _item_labels(row(verification=None)) is None
     reviewed = _item_labels(row(status="approved", reviewed_by="t1"))
     assert reviewed is not None and "reviewed" in reviewed
     assert _item_labels(row(tier="B")) is None

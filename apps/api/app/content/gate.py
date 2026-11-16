@@ -41,9 +41,15 @@ def tier_is_servable(
     original: bool,
     allow_draft: bool,
     serve_tier_a_unreviewed: bool,
+    suspended: bool = False,
+    tier_backed: bool | None = None,
 ) -> bool:
     """The serving rule that adds verification tiers on top of the approval status.
 
+    - suspended (telemetry or a person switched it off): never, even in development.
+    - a tier A (or B without a recorded reviewer) that is not backed by an intact stamped
+      verification record (`tier_backed is False`) is ignored: the item is treated as having no
+      tier. `tier_backed=None` is the legacy call and trusts the tier as before.
     - retired: never.
     - ALLOW_DRAFT_CONTENT (development): everything else, Tier C included.
     - Tier C: never otherwise.
@@ -52,10 +58,12 @@ def tier_is_servable(
     - draft: only a Tier A original, and only when SERVE_TIER_A_UNREVIEWED is on; or a Tier B
       with a recorded reviewer.
     """
-    if status == RETIRED_STATUS:
+    if suspended or status == RETIRED_STATUS:
         return False
     if allow_draft:
         return True
+    if tier_backed is False and tier in ("A", "B") and not (tier == "B" and reviewed_by):
+        tier = None
     if tier == "C":
         return False
     if tier == "B" and not reviewed_by:
@@ -70,14 +78,27 @@ def tier_is_servable(
 def row_is_servable(row: Any, *, allow_draft: bool, serve_tier_a_unreviewed: bool) -> bool:
     """`tier_is_servable` for an ItemRow (kept untyped so this module stays free of the db)."""
     provenance = getattr(row, "provenance", None) or {}
+    tier = getattr(row, "tier", None)
     return tier_is_servable(
         status=row.status,
-        tier=getattr(row, "tier", None),
+        tier=tier,
         reviewed_by=row.reviewed_by,
         original=bool(provenance.get("original")),
         allow_draft=allow_draft,
         serve_tier_a_unreviewed=serve_tier_a_unreviewed,
+        suspended=getattr(row, "suspended_at", None) is not None,
+        tier_backed=row_tier_backed(row),
     )
+
+
+def row_tier_backed(row: Any) -> bool | None:
+    """Whether the row's tier A/B is backed by an intact verification record (None: no tier)."""
+    from app.content.verification import tier_backed
+
+    tier = getattr(row, "tier", None)
+    if tier not in ("A", "B"):
+        return None
+    return tier_backed(getattr(row, "verification", None), tier)
 
 
 def overlay_is_targetable(

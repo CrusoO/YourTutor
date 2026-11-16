@@ -101,6 +101,7 @@ def load_path(
     from app.content.copy import copy_errors  # lazy: copy imports the orchestrator's variant table
 
     report.errors.extend(copy_errors(root))
+    backing, suspended_ids = _factory_backing(root, report)
     if not report.ok or report.bundle is None:
         raise LoadError("validation failed:\n" + "\n".join(report.errors))
     engine = make_engine(database_url)
@@ -108,7 +109,8 @@ def load_path(
     factory = session_factory(database_url)
     with factory() as session:
         try:
-            _upsert(session, report.bundle, prune=prune)
+            _upsert(session, report.bundle, prune=prune, backing=backing)
+            _suspend_from_ledger(session, suspended_ids)
             _upsert_lessons(session, root)
             from app.ask.load import upsert_passages
 
@@ -119,6 +121,52 @@ def load_path(
             session.rollback()
             raise
     return report
+
+
+def _factory_backing(
+    root: Path, report: ValidationReport
+) -> tuple[dict[str, tuple[str | None, dict | None]], set[str]]:
+    """Per item: (tier to store, verification record to keep). A hand-written tier A is ignored
+    unless an intact record in the stamp ledger backs it (warning says so). Also returns the item
+    ids the ledger records as suspended."""
+    from app.content.ledger import Ledger, ledger_path
+    from app.content.signatures import item_content_hash
+    from app.content.verification import effective_tier
+
+    ledger = Ledger(ledger_path(root))
+    problems = ledger.verify()
+    report.errors.extend(f"factory ledger: {p}" for p in problems)
+    stamped = ledger.stamped_record_hashes()
+    out: dict[str, tuple[str | None, dict | None]] = {}
+    if report.bundle is None:
+        return out, set()
+    for item in report.bundle.items:
+        record = item.verification.as_record() if item.verification else None
+        tier, warning = effective_tier(
+            item.tier.value if item.tier else None,
+            record,
+            item_hash=item_content_hash(item),
+            stamped_hashes=stamped,
+            reviewed_by=item.reviewed_by,
+        )
+        if warning:
+            report.warnings.append(
+                f"{item.id}: tier {item.tier.value if item.tier else ''} ignored ({warning})"
+            )
+        out[item.id] = (tier, record if tier in ("A", "B") and record else None)
+    return out, ledger.suspended_ids() if not problems else set()
+
+
+def _suspend_from_ledger(session: Session, item_ids: set[str]) -> None:
+    from datetime import UTC, datetime
+
+    session.flush()  # the rows merged just now must be visible to the select below
+    for row in (
+        session.scalars(select(ItemRow).where(ItemRow.id.in_(item_ids))).all() if item_ids else []
+    ):
+        if row.suspended_at is None:
+            row.suspended_at = datetime.now(UTC)
+            row.suspension_reason = row.suspension_reason or "suspended in the factory ledger"
 
 
 def _database_has_content(database_url: str | None) -> bool:
@@ -188,7 +236,17 @@ def _upsert_lessons(session: Session, root: Path) -> None:
             )
 
 
-def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
+def _upsert(
+    session: Session,
+    bundle: ContentBundle,
+    *,
+    prune: bool,
+    backing: dict[str, tuple[str | None, dict | None]] | None = None,
+) -> None:
+    from app.content.signatures import item_content_hash
+    from app.content.verification import effective_tier
+
+    backing = backing or {}
     session.query(GlossaryTermRow).delete()
     keep_skills = {skill.id for skill in bundle.skills}
     for skill in bundle.skills:
@@ -207,6 +265,15 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
         )
     keep_items = {item.id for item in bundle.items}
     for item in bundle.items:
+        # No ledger passed (a direct _upsert call): nothing can back a tier, so a hand-written A is
+        # dropped here too.
+        tier_value, record = backing.get(item.id) or effective_tier(
+            item.tier.value if item.tier else None,
+            item.verification.as_record() if item.verification else None,
+            item_hash=item_content_hash(item),
+            stamped_hashes=set(),
+            reviewed_by=item.reviewed_by,
+        )[:1] + (None,)
         session.merge(
             ItemRow(
                 id=item.id,
@@ -238,8 +305,10 @@ def _upsert(session: Session, bundle: ContentBundle, *, prune: bool) -> None:
                 template_id=item.template_id,
                 generator_version=item.generator_version,
                 template_hash=item.template_hash,
-                tier=item.tier.value if item.tier else None,
+                tier=tier_value,
                 provenance=item.provenance.model_dump() if item.provenance else None,
+                verification=record,
+                certificate_hash=record.get("certificate_hash") if record else None,
             )
         )
     for mc in bundle.misconceptions:

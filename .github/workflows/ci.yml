@@ -33,6 +33,8 @@ jobs:
         run: python -m app.content validate ../../content
       - name: Validate legacy content fixture
         run: python -m app.content validate "$(python -m tests.legacy_content)"
+      - name: Factory ledger is intact
+        run: python -m app.factory --root ../../content ledger-verify
 
   api-postgres:
     runs-on: ubuntu-latest

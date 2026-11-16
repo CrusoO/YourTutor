@@ -17,6 +17,13 @@ PATTERN_TAG_TEMPLATE = (
 )
 VERIFICATION_BADGE = "Answer checked by calculation"
 REVIEWED_BADGE = "Reviewed by a teacher"
+# What a stamped item may say about itself: one sentence per honest label. The factory has no
+# wording for "human-reviewed" or "teacher-approved" because it can never earn them.
+FACTORY_LABEL_TEXT = {
+    "calculation-checked": "Answer checked by calculation: two independent methods agree.",
+    "fact-checked-against-sources": "Facts checked against two independent sources.",
+    "diagram-spec-checked": "Diagram labels checked against the figure specification.",
+}
 FOOTER_DISCLAIMER = (
     "Brownie is independent and is not affiliated with, endorsed by or approved by CBSE, NCERT, "
     "or Nepal's CDC or NEB. These names are used only to describe syllabus alignment. "
@@ -39,6 +46,7 @@ def item_labels(
     original: bool,
     reviewed: bool,
     pattern: str | None,
+    verification_label: str | None = None,
 ) -> dict[str, str] | None:
     """Labels for one item, or None. Only practice items that are original and Tier A get them."""
     if pool != "practice" or tier != "A" or not original:
@@ -48,4 +56,6 @@ def item_labels(
         labels["reviewed"] = REVIEWED_BADGE
     if pattern:
         labels["pattern"] = pattern
+    if verification_label in FACTORY_LABEL_TEXT:
+        labels["verification"] = FACTORY_LABEL_TEXT[verification_label]
     return labels

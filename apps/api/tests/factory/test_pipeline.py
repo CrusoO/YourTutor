@@ -3,7 +3,7 @@ import copy
 import pytest
 
 from app.content.originality import ReferenceIndex
-from app.factory.checkers import ORDER
+from app.factory.checkers import ORDER, stem_identity
 from app.factory.kernel.exact import chash
 from app.factory.pipeline import default_checkers, run
 from app.factory.registry import FAIL, PASS, REGISTRY, SKIP, Checker, Lane, Method
@@ -136,11 +136,10 @@ def test_dedupe_rejects_a_repeat_of_the_same_problem():
     twin = quadratic(1, -2, 3)
     twin.bank_spec_hashes = {chash(first.spec)}
     assert run(twin).first_failure.code == "same_problem_already_in_bank"
-    from app.content.signatures import structure_signature
-
     sib = quadratic(1, -2, 4)
-    sib.bank_signatures = {structure_signature(sib.stem)}
-    assert run(sib).first_failure.code == "same_stem_structure_already_in_bank"
+    sib.bank_stems = {stem_identity(sib.stem.upper() + "  ")}
+    assert run(sib).first_failure.code == "same_stem_already_in_bank"
+    assert run(quadratic(1, -2, 4)).stampable  # a different stem of the same shape is fine
 
 
 def test_originality_blocks_copied_text():

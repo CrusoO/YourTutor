@@ -43,6 +43,43 @@ class VerificationTier(StrEnum):
     c = "C"  # unverified: never served outside development
 
 
+class VerificationRecord(BaseModel):
+    """vrec/1: written only by the factory's stamp step (app.factory.stamp), never by hand.
+
+    `label` is limited to the three honest labels, so `human-reviewed` and `teacher-approved`
+    cannot even be parsed. `extra="forbid"` also blocks a made-up reviewer field. The tier is
+    derived from the label and checked again in app.content.verification.
+    """
+
+    schema_: Literal["vrec/1"] = Field(default="vrec/1", alias="schema")
+    item_hash: str
+    template_hash: str | None = None
+    certificate_hash: str
+    label: Literal["calculation-checked", "fact-checked-against-sources", "diagram-spec-checked"]
+    tier: Literal["A", "B"]
+    lane: str | None = None
+    chapter_ref: str | None = None
+    methods_agreeing: list[str] = []
+    checks: list[dict[str, str]] = []
+    generated_by: dict[str, str] = {}
+    llm_involved: bool = False
+    stamped_at: str
+    record_hash: str
+
+    model_config = {"extra": "forbid", "populate_by_name": True}
+
+    @model_validator(mode="after")
+    def tier_follows_label(self) -> VerificationRecord:
+        from app.content.verification import LABEL_TIER
+
+        if LABEL_TIER[self.label] != self.tier:
+            raise ValueError("tier does not match the label")
+        return self
+
+    def as_record(self) -> dict[str, Any]:
+        return self.model_dump(by_alias=True)
+
+
 class Provenance(BaseModel):
     """Where an item came from. `source_id` must be a row in the rights register."""
 
@@ -180,6 +217,9 @@ class Item(BaseModel):
     # Rights and verification (question-bank plan, week 1). Not part of the approval hash.
     tier: VerificationTier | None = None  # None: legacy item, the status rule alone decides
     provenance: Provenance | None = None
+    # Written only by the factory stamp step. A tier A or factory tier B is honoured only when
+    # this record is intact, names this item's content hash and is in the stamp ledger.
+    verification: VerificationRecord | None = None
 
     @property
     def primary_skill(self) -> str:

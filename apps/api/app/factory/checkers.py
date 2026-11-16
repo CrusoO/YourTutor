@@ -280,16 +280,19 @@ class Originality(BaseChecker):
         return self.ok()
 
 
+def stem_identity(stem: str) -> str:
+    """What the content validator calls a duplicate stem: same words, case and spacing aside."""
+    return " ".join(stem.lower().split())
+
+
 class Dedupe(BaseChecker):
     id = "dedupe"
 
     def check(self, ctx: ItemContext) -> CheckResult:
-        from app.content.signatures import structure_signature
-
         if chash(ctx.spec) in ctx.bank_spec_hashes:
             return self.bad("same_problem_already_in_bank")
-        if structure_signature(ctx.stem) in ctx.bank_signatures:
-            return self.bad("same_stem_structure_already_in_bank")
+        if stem_identity(ctx.stem) in ctx.bank_stems:
+            return self.bad("same_stem_already_in_bank")
         return self.ok()
 
 

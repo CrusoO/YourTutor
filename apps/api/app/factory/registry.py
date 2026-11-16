@@ -36,6 +36,11 @@ class ItemContext:
     answer: dict[str, Any]
     witness: dict[str, Any]
     stem: str = ""
+    skill_ids: list[str] = field(default_factory=list)  # defaults to [syllabus["skill_id"]]
+    difficulty: float = 0.5
+    role: str = "apply"
+    steps: list[str] = field(default_factory=list)  # worked solution, without the final line
+    prediction: str = ""
     hints: list[str] = field(default_factory=list)
     options: list[dict[str, Any]] = field(default_factory=list)  # {id, value, procedure}
     key_option: str | None = None
@@ -51,7 +56,7 @@ class ItemContext:
     # Bank-level inputs supplied by the caller
     known_chapters: set[str] | None = None
     reference_index: Any = None  # app.content.originality.ReferenceIndex
-    bank_signatures: set[str] = field(default_factory=set)
+    bank_stems: set[str] = field(default_factory=set)  # checkers.stem_identity() of bank stems
     bank_spec_hashes: set[str] = field(default_factory=set)
     # Filled in by the pipeline
     verdict: Verdict | None = None
