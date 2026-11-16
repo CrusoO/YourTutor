@@ -48,6 +48,8 @@ import {
   bookGrade,
 } from "@/lib/chat/machine";
 import { type Messages } from "@/lib/messages";
+import { doubtDeviceEnabled } from "@/lib/flags";
+import type { DoubtPayload } from "./doubt/types";
 
 export type Lesson = { id: number; prompt: string; /** A shared group lesson: opened by this code, not asked of the model. */ group?: string };
 
@@ -73,7 +75,9 @@ export const MODES_BY_ROLE: Record<Role | "visitor", Mode[]> = {
 /** A reply the finder or a mode produced. Memory only: never stored, never sent, gone on refresh. */
 export type Reply = {
   id: number;
-  kind: "matches" | "none" | "blocked" | "distress" | "pick_class" | "off" | "too_long" | "notice";
+  kind: "matches" | "none" | "blocked" | "distress" | "pick_class" | "off" | "too_long" | "notice" | "doubt";
+  /** A "doubt" reply: a maths question read on this device. Memory only. */
+  doubt?: DoubtPayload;
   topics?: Topic[];
   /** Support lines for a "distress" reply, from the finder rules the device already holds. */
   helplines?: Helpline[];
@@ -113,6 +117,11 @@ export type ChatApi = {
   /** The student said yes to a notice that asked first. */
   confirmStep: (step: Step, after: string) => void;
   dismissReplies: () => void;
+  /** Doubt card: put the typed text back in the composer (Edit), or hand it to the explain path after a tap. */
+  editDoubt: (text: string) => void;
+  explainInstead: (text: string) => void;
+  /** Text for the composer to take (Edit). In memory only. */
+  draft: { n: number; text: string } | null;
   workspace: Workspace | null;
   /** The question a signed-out visitor just asked: shown as an in-depth explanation with a video. In memory only. */
   lesson: Lesson | null;
@@ -147,6 +156,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const lessonSeq = useRef(1);
+  const [draft, setDraft] = useState<{ n: number; text: string } | null>(null);
+  const repliesRef = useRef<Reply[]>([]);
+  const skipDoubt = useRef(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const topics = useRef<Topic[] | null>(null);
@@ -167,6 +179,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     ctxRef.current = ctx;
   }, [ctx]);
+  repliesRef.current = replies;
 
   const dispatch = useCallback(
     (event: ChatEvent) => {
@@ -372,6 +385,28 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       }
       // A short command ("practice", "switch to Hindi") is done at once and costs nothing; anything else is a question.
       if ((role === "guest" || role === "student") && (await actionRef.current(text))) return;
+      // On-device maths (ADR 0005, Stage 0): a confirmed reading is worked out here, after the finder's own screen.
+      // Not maths, or the flag is off: carry on exactly as before. Nothing about this leaves the device.
+      if (doubtDeviceEnabled()) {
+        if (skipDoubt.current) skipDoubt.current = false;
+        else {
+          try {
+            if (!rules.current) rules.current = await getFinderRules(locale());
+            const open = repliesRef.current.find((r) => r.kind === "doubt");
+            const hit = await (await import("./doubt/pipeline")).handle(text, rules.current, open?.doubt);
+            if (hit) {
+              if (!hit.same) {
+                setWorkspace(null);
+                setLesson(null);
+              }
+              setReplies([{ kind: "doubt", doubt: hit.doubt, id: hit.same && open ? open.id : replySeq.current++ }]);
+              return;
+            }
+          } catch {
+            /* the maths path must never block a question: fall through to the usual route */
+          }
+        }
+      }
       if (role === "visitor") {
         // Nobody is signed in: no questions first. A guest starts quietly on the default class and the prompt is answered below.
         setBusy(true);
@@ -513,6 +548,21 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   );
 
   const dismissReplies = useCallback(() => setReplies([]), []);
+  const editDoubt = useCallback((text: string) => {
+    setReplies([]);
+    setDraft((d) => ({ n: (d?.n ?? 0) + 1, text }));
+  }, []);
+  /** The student tapped "Ask Brownie to explain it": the usual route, once, without the maths step. */
+  const explainInstead = useCallback(
+    (text: string) => {
+      setReplies([]);
+      skipDoubt.current = true;
+      void submitText(text).finally(() => {
+        skipDoubt.current = false;
+      });
+    },
+    [submitText],
+  );
 
   /**
    * Is the typed text a command? Decided here, on the device: the phrase table is fetched (a GET with no user text)
@@ -564,6 +614,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     newChat,
     confirmStep,
     dismissReplies,
+    editDoubt,
+    explainInstead,
+    draft,
     workspace,
     lesson,
     closeLesson,

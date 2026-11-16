@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Brand } from "@/components/ui/brand";
 import { Choice } from "@/components/ui/choice";
 import { Helplines } from "./Helplines";
@@ -7,6 +8,9 @@ import { locale } from "@/lib/api";
 import { messageText, prettify } from "@/lib/chat/labels";
 import { introCopy, liveSubjects } from "@/lib/chat/intro";
 import { useChatApi } from "./ChatProvider";
+
+// The maths card and everything behind it load only when a doubt is shown (never in the first-load chunks).
+const DoubtCard = dynamic(() => import("./doubt/DoubtCard"), { ssr: false });
 
 /** The small pieces the first screen needs (a chat bubble, finder replies, the last summary). The conversation
     itself lives in Thread.tsx, which loads only once there is a conversation to show. */
@@ -38,12 +42,19 @@ export function Bubble({ from, text }: { from: "tutor" | "user"; text: string })
 
 /** Replies from the finder: Did you mean chips, "not in your syllabus yet", and gentle notices. */
 export function Replies() {
-  const { replies, copy, pickTopic, mode, confirmStep, dismissReplies, busy, ctx, openWorkspace } = useChatApi();
+  const { replies, copy, pickTopic, mode, confirmStep, dismissReplies, busy, ctx, openWorkspace, editDoubt, explainInstead } = useChatApi();
   const subjects = liveSubjects(ctx ?? null, (n) => copy.chatClassN.replace("{n}", String(n)), (id) => (id === "math" ? "Maths" : prettify(id)));
   if (!replies.length) return null;
   return (
     <div className="flex flex-col gap-3" aria-live="polite" data-testid="replies">
       {replies.map((reply) => {
+        if (reply.kind === "doubt" && reply.doubt) {
+          return (
+            <div key={reply.id} className="pl-0 md:pl-11" data-testid="reply-doubt">
+              <DoubtCard doubt={reply.doubt} onEdit={editDoubt} onClose={dismissReplies} onExplain={explainInstead} />
+            </div>
+          );
+        }
         const text =
           reply.kind === "notice"
             ? (reply.text ?? "")
