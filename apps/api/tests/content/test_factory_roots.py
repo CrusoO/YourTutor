@@ -115,4 +115,5 @@ def test_a_suspension_in_the_subject_ledger_is_applied_on_load(tmp_path: Path):
     url = f"sqlite:///{tmp_path / 'sus.db'}"
     load_path(root, database_url=url)
     with session_factory(url)() as db:
-        assert db.get(ItemRow, victim).suspended_at is not None
+        row = db.get(ItemRow, victim)
+        assert row is not None and row.suspended_at is not None

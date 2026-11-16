@@ -283,12 +283,25 @@ def cmd_report(args: argparse.Namespace) -> int:
 
 
 def cmd_ledger_verify(args: argparse.Namespace) -> int:
-    ledger = Ledger(ledger_path(_root(args.root)))
-    problems = ledger.verify()
-    for problem in problems:
-        print(problem)
-    print(f"{len(ledger.entries())} entries, " + ("intact" if not problems else "BROKEN"))
-    return 0 if not problems else 1
+    from app.content.factory_roots import content_roots
+
+    root = _root(args.root)
+    bad = 0
+    # the root's own ledger and every lane ledger under <board>/<class>/<subject>
+    for base in content_roots(root):
+        path = ledger_path(base)
+        if base != root and not path.is_file():
+            continue
+        ledger = Ledger(path)
+        problems = ledger.verify()
+        for problem in problems:
+            print(f"{path.relative_to(root).as_posix()}: {problem}")
+        bad += len(problems)
+        label = "" if base == root else f" ({path.relative_to(root).as_posix()})"
+        print(
+            f"{len(ledger.entries())} entries, " + ("intact" if not problems else "BROKEN") + label
+        )
+    return 0 if not bad else 1
 
 
 def cmd_suspend(args: argparse.Namespace) -> int:
