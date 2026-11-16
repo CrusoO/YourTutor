@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.num2.3308292d
+skill_ids:
+- PHY.ELEC.CHARGE_CURRENT
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about charge flowing in a wire. The charge, Q, is 0.1 C and
+    the time, t, is 2 s. What is the current?
+options:
+- id: a
+  en: 50000 mA
+- id: b
+  en: 200 mA
+- id: c
+  en: 50 mA
+- id: d
+  en: 20000 mA
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 0.1 / 2.'
+- en: 'Calculate: I = 0.05 A.'
+- en: 'Give it in mA: 50 mA.'
+- en: So the current is 50 mA.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: charge Q = current I x time t.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of Q
+    = I x t by t. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write I = Q / t, where I is the current, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
+generator_version: factory-1
+template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ae78fefc72deac4957d27031baafce0e09e24521e0c53511cde6c1fd4a2633a1
+  template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+  certificate_hash: 3f09749489a4693012e8fef9785244ab0c4197b05703a40f912c442e6c612155
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:37+00:00'
+  record_hash: f2b3d7feef564417e377fda6f3aaf59136f1859f830a5e25cb71e8848f9a45b6

@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.PARALLEL.Rp_two.case4.927d7add
+skill_ids:
+- PHY.ELEC.PARALLEL
+difficulty: 0.7
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates resistors joined in parallel and records the following.
+    The first resistor, R1, is 10 Ω and the second resistor, R2, is 15 Ω. Find the
+    combined resistance.'
+options:
+- id: a
+  en: 6 Ω
+- id: b
+  en: 0.167 Ω
+- id: c
+  en: 12.5 Ω
+- id: d
+  en: 25 Ω
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Substitute: Rp = 10 x 15 / (10 + 15).'
+- en: 'Calculate: Rp = 6 Ω.'
+- en: So the total resistance is 6 Ω.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
+- level: 2
+  en: The relation already gives the total resistance directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Rp = R1 x R2 / (R1 + R2), where Rp is the total resistance,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the total resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL
+generator_version: factory-1
+template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f2cc139996cec75cf60d9dfd36139e7cd4dd339e5a9e2b7dac2be55f84a60fd0
+  template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
+  certificate_hash: d49dccb47cbd523a933c8a91961a4b662c78cba56b9e143f9c62457d3ef59836
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:01+00:00'
+  record_hash: e0967a3e715d16dbd8160ec03899cc4697bb3126d039eef569a6dcba87375a82

@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.It_two.num3.e722392e
+skill_ids:
+- PHY.ELEC.PARALLEL_CIRCUIT
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying a battery connected to resistors in parallel. The battery
+    gives 30 V, the first resistor, R1, is 12 Ω and the second resistor, R2, is 4
+    Ω. Find the total current drawn from the battery.
+options:
+- id: a
+  en: 10 A
+- id: b
+  en: 2.5 A
+- id: c
+  en: 1.875 A
+- id: d
+  en: 480 A
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: each branch has the full battery voltage: I = V / R for
+    each, and the branch currents add.'
+- en: 'Substitute: It = 30 / 12 + 30 / 4.'
+- en: 'Calculate: It = 10 A.'
+- en: So the total current is 10 A.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: each branch has the full battery voltage: I = V / R for each,
+    and the branch currents add.'
+- level: 2
+  en: The relation already gives the total current directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write It = V / R1 + V / R2, where It is the total current, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the total current have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
+generator_version: factory-1
+template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 96789b795700032f51734a3e1308a274d34a4bafd350739e6f1bbe62d7041e9a
+  template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
+  certificate_hash: bf2dca9696103715c226ee5ced4c813ec5035bdda4393e4277277f68bb33f084
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:12+00:00'
+  record_hash: 9aa9d4f9240fdb6959129b4930497ef6c73551d46a1f1ba3c3023748321ee1e5

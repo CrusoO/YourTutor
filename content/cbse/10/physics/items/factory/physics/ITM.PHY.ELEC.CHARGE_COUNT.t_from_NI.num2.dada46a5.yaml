@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.CHARGE_COUNT.t_from_NI.num2.dada46a5
+skill_ids:
+- PHY.ELEC.CHARGE_COUNT
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about electrons passing a point in a wire. The number of electrons,
+    N, is 2 x 10^19, the current, I, is 1.6 A and the charge of one electron is 1.6
+    x 10^-19 C. How long does this many electrons take to pass?
+options:
+- id: a
+  en: 2 s
+- id: b
+  en: 7.8125 x 10^37 s
+- id: c
+  en: 0.5 s
+- id: d
+  en: 1.25 x 10^19 s
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: charge Q = N x e, and Q = I x t, so t = N x e / I.'
+- en: 'Get the time alone: divide each side of I x t = N x e by I.'
+- en: 'Substitute: t = (2 x 10^19) x (1.6 x 10^-19) / 1.6.'
+- en: 'Calculate: t = 2 s.'
+- en: So the time is 2 s.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: charge Q = N x e, and Q = I x t, so t = N x e / I.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: divide each side of I x
+    t = N x e by I. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write t = N x e / I, where t is the time, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_COUNT
+generator_version: factory-1
+template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: cb768d285047b786af928d785602397f137e082609d70a4d106c7ce5b55ac8ba
+  template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
+  certificate_hash: 2ae9378e965e9587f8fec55021c185ed500351e61db62b2e3ee3323b0c9cbc3a
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:39+00:00'
+  record_hash: 57f850a43201971f2528e69f69c59b872741f0197eb822c798bce2dbd6b0a50f

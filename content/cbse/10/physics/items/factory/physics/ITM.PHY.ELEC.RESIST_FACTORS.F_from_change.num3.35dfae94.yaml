@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.RESIST_FACTORS.F_from_change.num3.35dfae94
+skill_ids:
+- PHY.ELEC.RESIST_FACTORS
+difficulty: 0.6
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student is studying how a wire's resistance changes. A uniform wire is stretched
+    evenly to 4 times its original length, so its volume stays the same. By what number
+    is the resistance multiplied?
+options:
+- id: a
+  en: '0.0625'
+- id: b
+  en: '2'
+- id: c
+  en: '16'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Plan: R is proportional to length and inversely proportional to area, so the
+    new resistance divided by the old one equals the length factor divided by the
+    area factor.'
+- en: 'Combine the numbers: 4 / 0.25 = 16.'
+- en: So the number the resistance is multiplied by is 16.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Plan the steps: R
+    is proportional to length and inversely proportional to area, so the new resistance
+    divided by the old one equals the length factor divided by the area factor.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.RESIST_FACTORS
+generator_version: factory-1
+template_hash: 14ea547ee35a5659f4b116ffe600f54a88511393c565a2c62ab3a6c6bf1f2131
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bf147da3e0e6fd1c9a1421e84a2cbb2ed48546ffdc5629a3e54fbf9e14fe10e6
+  template_hash: 14ea547ee35a5659f4b116ffe600f54a88511393c565a2c62ab3a6c6bf1f2131
+  certificate_hash: 39f5cd3f81bc8b145a4610d608461fb64a16078d06443b9344feabd6ff01baaf
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:52+00:00'
+  record_hash: c7196dcc64531f7f99baf44b42474691c20f52cfe572b63476762e5fe601a744

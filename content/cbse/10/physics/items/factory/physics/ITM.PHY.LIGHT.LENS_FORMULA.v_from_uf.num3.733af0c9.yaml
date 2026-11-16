@@ -1,0 +1,133 @@
+id: ITM.PHY.LIGHT.LENS_FORMULA.v_from_uf.num3.733af0c9
+skill_ids:
+- PHY.LIGHT.LENS_FORMULA
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying image formation by a thin lens. The object, u, is 40 cm
+    from the concave lens and the focal length of the concave lens, f, is 10 cm. Using
+    the Cartesian sign convention, find the image distance v.
+options:
+- id: a
+  en: -13.3 cm
+- id: b
+  en: -8 cm
+- id: c
+  en: -1250 cm
+- id: d
+  en: 13.3 cm
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and f signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.4 m; f = -0.1 m.'
+- en: 'Get the image distance alone: add 1/u to each side of 1/v - 1/u = 1/f, then
+    take the reciprocal of each side.'
+- en: 'Substitute: v = (-0.4) x (-0.1) / ((-0.4) + (-0.1)).'
+- en: 'Calculate: v = -0.08 m.'
+- en: 'Give it in cm: -8 cm.'
+- en: So the image distance is -8 cm.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: lens formula 1/v - 1/u = 1/f, with u and f signed by the convention.'
+- level: 2
+  en: 'Get the image distance on its own before you put numbers in: add 1/u to each
+    side of 1/v - 1/u = 1/f, then take the reciprocal of each side. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked. Give each distance its sign by the Cartesian convention
+    before you substitute.'
+- level: 3
+  en: 'First step: Write 40 cm as -0.4 m and 10 cm as -0.1 m, then write v = u x f
+    / (u + f), where v is the image distance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_FORMULA
+generator_version: factory-1
+template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 46dbe87d2ac8c4cbd3778f1b976d63b17d7e3ae155347e132c84733bddc2857e
+  template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
+  certificate_hash: 9dc363917822b5e7d310dd068ebd4a10218a9a272369dabb47186ea2b6821a04
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:31+00:00'
+  record_hash: c5b8349553d2771d70de9bb60943b2396278e5545ccfe7cf12605c555d69c228

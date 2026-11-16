@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.POWER_SCALING.P_V_scaled.mcq1.eac30427
+skill_ids:
+- PHY.ELEC.POWER_SCALING
+difficulty: 0.3
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: The potential difference across a fixed resistor is tripled. By what number
+    is the power multiplied?
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '0.111'
+- id: c
+  en: '3'
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = V x V / R, so P changes with the
+    square of V.'
+- en: 'Combine the numbers: 3^2 = 9.'
+- en: So the number the power is multiplied by is 9.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: for a fixed resistor P = V x V / R, so P changes with the square
+    of V.'
+- level: 2
+  en: The relation already gives the number the power is multiplied by directly, so
+    decide what to substitute.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.POWER_SCALING
+generator_version: factory-1
+template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: baf4d6ff165e92a4d3fa5df66c2256b35cbc2697764f99f35130774447f80974
+  template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
+  certificate_hash: 0f4bc45ddcb1c73cb9329e79f3df492171992f9ae0bcbf993a21e66e89aa4a19
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:28+00:00'
+  record_hash: 81bfd0ab74f00c0d336cb63200a85e148b8841f676f216284c95de8ce45187aa

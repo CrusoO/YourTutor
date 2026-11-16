@@ -1,0 +1,132 @@
+id: ITM.PHY.LIGHT.MIRROR_MAGNIFICATION.hi_from_uvh.num3.158dd142
+skill_ids:
+- PHY.LIGHT.MIRROR_MAGNIFICATION
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying the magnification of a spherical mirror. The object, u,
+    is 60 cm from the concave mirror, the image, which is real, is 12 cm from the
+    concave mirror and the object, h, is 2 cm tall. Find the height of the image,
+    with its sign.
+options:
+- id: a
+  en: 10 cm
+- id: b
+  en: 0.4 cm
+- id: c
+  en: -0.4 cm
+- id: d
+  en: -10 cm
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: m = -v / u and m = image height / object height.'
+- en: 'Put each quantity in SI units with its sign: u = -0.6 m; v = -0.12 m; h = 0.02
+    m.'
+- en: 'Get the image height alone: multiply each side of m = hi / h by h.'
+- en: 'Substitute: hi = -(-0.12) x 0.02 / (-0.6).'
+- en: 'Calculate: hi = -0.004 m.'
+- en: 'Give it in cm: -0.4 cm.'
+- en: So the image height is -0.4 cm.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: m = -v / u and m = image height / object height.'
+- level: 2
+  en: 'Get the image height on its own before you put numbers in: multiply each side
+    of m = hi / h by h. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked. Give each
+    distance its sign by the Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 60 cm as -0.6 m, 12 cm as -0.12 m and 2 cm as 0.02 m, then
+    write hi = -v x h / u, where hi is the image height, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image height have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_MAGNIFICATION
+generator_version: factory-1
+template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 05edb0099cb92f41bd9d3cd1e13314e96e85cb66d235809012498a633c6cefe0
+  template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
+  certificate_hash: ad28b89622d5d72d42ee4e97d4d3629ebfcd71150c52a90fbdaadb2b77fc7950
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:14+00:00'
+  record_hash: 89ba4c91a2689b9341c60d5d7bd56afd4b2b846000e6e9206445e04eed651dfb

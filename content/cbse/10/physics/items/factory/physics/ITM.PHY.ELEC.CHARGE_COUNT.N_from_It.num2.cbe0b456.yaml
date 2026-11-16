@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.CHARGE_COUNT.N_from_It.num2.cbe0b456
+skill_ids:
+- PHY.ELEC.CHARGE_COUNT
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about electrons passing a point in a wire. The current, I,
+    is 0.4 A, the time, t, is 5 s and the charge of one electron is 1.6 x 10^-19 C.
+    How many electrons pass a point of the wire in this time?
+options:
+- id: a
+  en: 1.25 x 10^19
+- id: b
+  en: '2'
+- id: c
+  en: 1.25 x 10^20
+- id: d
+  en: 3.2 x 10^-19
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
+- en: 'Substitute: N = 0.4 x 5 / (1.6 x 10^-19).'
+- en: 'Calculate: N = 1.25 x 10^19.'
+- en: So the number of electrons is 1.25 x 10^19.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- level: 2
+  en: 'Get the number of electrons on its own before you put numbers in: divide each
+    side of Q = N x e by e. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write N = I x t / e, where N is the number of electrons, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of electrons be?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_COUNT
+generator_version: factory-1
+template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 519235fd6eadf9875557218e867e069f0960b26bea9923c40c080235bb9aadf7
+  template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
+  certificate_hash: ac8c85218798d2c528cee7799d0a5779d0eaa23a207b745569970d2bf32c6e93
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:39+00:00'
+  record_hash: db6b253bce0a2a97cc797f7ac4b53e029e07368274a867bfc7c8bc106af81a8b

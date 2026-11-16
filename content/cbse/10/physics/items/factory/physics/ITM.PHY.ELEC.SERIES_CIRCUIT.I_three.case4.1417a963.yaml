@@ -1,0 +1,128 @@
+id: ITM.PHY.ELEC.SERIES_CIRCUIT.I_three.case4.1417a963
+skill_ids:
+- PHY.ELEC.SERIES_CIRCUIT
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a battery connected to resistors in series and
+    records the following. The battery gives 30 V, the first resistor, R1, is 10 Ω,
+    the second resistor, R2, is 20 Ω and the third resistor, R3, is 30 Ω. Find the
+    current in the circuit.'
+options:
+- id: a
+  en: 1800 A
+- id: b
+  en: 3 A
+- id: c
+  en: 5.5 A
+- id: d
+  en: 0.5 A
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Plan: the same current flows through every resistor in series.'
+- en: 'Get the current alone: divide each side of V = I x (R1 + R2 + R3) by (R1 +
+    R2 + R3).'
+- en: 'Substitute: I = 30 / (10 + 20 + 30).'
+- en: 'Calculate: I = 0.5 A.'
+- en: So the current is 0.5 A.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Plan the steps: the
+    same current flows through every resistor in series.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of V
+    = I x (R1 + R2 + R3) by (R1 + R2 + R3). Do the same operation to each side of
+    the formula.'
+- level: 3
+  en: 'First step: write I = V / (R1 + R2 + R3), where I is the current, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES_CIRCUIT
+generator_version: factory-1
+template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: cf7963d935e8e0f97bdd87552d4c5f9a82ebc9580853e50c66ec097a175d9ae8
+  template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
+  certificate_hash: 815233dfc7d70c0dc27aaacd082c4076268a8470fdd5d39a77ae69f082a2b6f5
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:06+00:00'
+  record_hash: afc445cfa7e9348fdebb87da604342985edddbee268534ea5cb65fbf3b4a21d8
