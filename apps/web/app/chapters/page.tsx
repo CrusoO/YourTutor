@@ -28,7 +28,7 @@ export default function ChaptersPage() {
         <p className="banner" role="alert">
           {copy.loadError}
         </p>
-        <Link href="/subjects">{copy.chaptersBack}</Link>
+        <Link href="/subjects" className="back-link">{copy.chaptersBack}</Link>
       </main>
     );
   }
@@ -37,7 +37,7 @@ export default function ChaptersPage() {
   return (
     <main className="stack">
       <p>
-        <Link href="/subjects">← {copy.chaptersBack}</Link>
+        <Link href="/subjects" className="back-link">← {copy.chaptersBack}</Link>
       </p>
       <h1>{copy.chaptersTitle}</h1>
       <ul className="plain stack grid-cards">

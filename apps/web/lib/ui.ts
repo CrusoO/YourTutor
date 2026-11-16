@@ -49,7 +49,10 @@ const UI_KEY = "yt.ui";
 
 export function saveUi(ui: BandUi | undefined): void {
   try {
-    if (ui) window.sessionStorage.setItem(UI_KEY, JSON.stringify(ui));
+    if (ui) {
+      window.sessionStorage.setItem(UI_KEY, JSON.stringify(ui));
+      window.dispatchEvent(new Event("yt:ui")); // useAudience re-reads the grade band
+    }
   } catch {
     /* storage blocked: pages fall back to the normal style */
   }

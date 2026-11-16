@@ -127,7 +127,7 @@ export function JobCard({ jobId, title, onDone }: JobCardProps) {
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="truncate text-sm font-medium text-[var(--c-text)]">{title}</p>
-          <p className="mt-0.5 text-xs text-[var(--c-muted)]">{statusLabel(job)}</p>
+          <p role="status" className="mt-0.5 text-xs text-[var(--c-muted)]">{statusLabel(job)}</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {isActive && (

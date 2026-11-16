@@ -1,12 +1,7 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@assistant-ui/react", () => ({
-  ComposerPrimitive: {
-    Root: ({ children }: { children: React.ReactNode }) => <form>{children}</form>,
-    Input: () => <textarea data-testid="composer-input" />,
-  },
-}));
+const submitText = vi.fn();
 vi.mock("@/components/chat/ChatProvider", () => ({
   MODES_BY_ROLE: { visitor: ["learn"] },
   useChatApi: () => ({
@@ -16,7 +11,7 @@ vi.mock("@/components/chat/ChatProvider", () => ({
     setMode: vi.fn(),
     busy: false,
     ctx: null,
-    dispatch: vi.fn(),
+    submitText: (text: string) => submitText(text),
   }),
 }));
 
@@ -24,6 +19,7 @@ import { Composer } from "@/components/chat/Composer";
 
 afterEach(() => {
   cleanup();
+  submitText.mockReset();
   vi.unstubAllEnvs();
 });
 
@@ -44,5 +40,26 @@ describe("the composer mic", () => {
     vi.stubEnv("NEXT_PUBLIC_VOICE_ENABLED", "true");
     render(<Composer />);
     expect(screen.getByTestId("composer-mic")).toBeTruthy();
+  });
+});
+
+describe("the composer without the chat runtime", () => {
+  it("sends the trimmed text once on Enter, clears the box and keeps Shift+Enter for a new line", () => {
+    render(<Composer />);
+    const box = screen.getByTestId("composer-input") as HTMLTextAreaElement;
+    fireEvent.change(box, { target: { value: "  what is a quadratic  " } });
+    fireEvent.keyDown(box, { key: "Enter", shiftKey: true });
+    expect(submitText).not.toHaveBeenCalled();
+    fireEvent.keyDown(box, { key: "Enter" });
+    expect(submitText).toHaveBeenCalledTimes(1);
+    expect(submitText).toHaveBeenCalledWith("what is a quadratic");
+    expect(box.value).toBe("");
+  });
+
+  it("says what to do on an empty send instead of sending", () => {
+    render(<Composer />);
+    fireEvent.click(screen.getByTestId("composer-send"));
+    expect(submitText).not.toHaveBeenCalled();
+    expect(screen.getByTestId("composer-hint").textContent).toBe("chatSendEmptyHint");
   });
 });

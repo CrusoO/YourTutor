@@ -96,3 +96,71 @@ export function readTheme(css: string, theme: Theme, dark: "auto" | "forced" = "
   for (const m of block.matchAll(/(--c-[a-z0-9-]+):\s*(#[0-9a-fA-F]{3,6})\s*;/g)) out[m[1]] = m[2].toLowerCase();
   return out;
 }
+
+/** The semantic layer (app/semantic.css): the same promises, written with the names components use. */
+export const SEMANTIC_PAIRS: Pair[] = [
+  { fg: "--s-text-default", bg: "--s-surface-page", min: 7, label: "text default on page" },
+  { fg: "--s-text-default", bg: "--s-surface-card", min: 7, label: "text default on card" },
+  { fg: "--s-text-default", bg: "--s-surface-raised", min: 7, label: "text default on raised" },
+  { fg: "--s-text-subtle", bg: "--s-surface-page", min: 7, label: "text subtle on page" },
+  { fg: "--s-text-subtle", bg: "--s-surface-card", min: 7, label: "text subtle on card" },
+  { fg: "--s-text-subtle", bg: "--s-surface-raised", min: 7, label: "text subtle on raised" },
+  { fg: "--s-text-default", bg: "--s-surface-lesson", min: 7, label: "text default on lesson" },
+  { fg: "--s-text-action", bg: "--s-surface-page", min: 4.5, label: "action text on page" },
+  { fg: "--s-text-action", bg: "--s-surface-card", min: 4.5, label: "action text on card" },
+  { fg: "--s-text-action", bg: "--s-surface-lesson", min: 4.5, label: "action text on lesson" },
+  { fg: "--s-text-action", bg: "--s-action-soft", min: 4.5, label: "action text on its tint" },
+  { fg: "--s-action-primary-fg", bg: "--s-action-primary", min: 4.5, label: "primary button label" },
+  { fg: "--s-border-control", bg: "--s-surface-page", min: 3, label: "control border on page" },
+  { fg: "--s-border-control", bg: "--s-surface-card", min: 3, label: "control border on card" },
+  { fg: "--s-focus-ring", bg: "--s-surface-page", min: 3, label: "focus ring on page" },
+  { fg: "--s-focus-ring", bg: "--s-surface-card", min: 3, label: "focus ring on card" },
+  { fg: "--s-focus-ring", bg: "--s-surface-raised", min: 3, label: "focus ring on raised" },
+  { fg: "--s-focus-ring", bg: "--s-surface-lesson", min: 3, label: "focus ring on lesson" },
+  { fg: "--s-action-primary", bg: "--s-surface-page", min: 3, label: "primary fill on page (non-text)" },
+  ...(["success", "warning", "info", "danger"] as const).flatMap((k): Pair[] => [
+    { fg: `--s-status-${k}-fg`, bg: `--s-status-${k}-bg`, min: 4.5, label: `${k} text on its tint` },
+    { fg: `--s-status-${k}-fg`, bg: "--s-surface-card", min: 4.5, label: `${k} text on card` },
+  ]),
+];
+
+/** Audience themes in app/semantic.css, in the order school (no overrides), college, work. */
+export const AUDIENCE_NAMES = ["school", "college", "work"] as const;
+export type AudienceName = (typeof AUDIENCE_NAMES)[number];
+
+function declarations(block: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const m of block.matchAll(/(--[a-z0-9-]+):\s*([^;]+);/g)) out[m[1]] = m[2].trim().toLowerCase();
+  return out;
+}
+
+/** The --c-* values an audience overrides for one theme, read from semantic.css. School overrides nothing. */
+export function readAudienceOverrides(semanticCss: string, audience: AudienceName, theme: Theme): Record<string, string> {
+  if (audience === "school") return {};
+  const sel = `html[data-audience="${audience}"]`;
+  const open = theme === "light" ? `${sel}:not([data-theme="dark"]) {` : `${sel}[data-theme="dark"] {`;
+  const at = semanticCss.indexOf(open);
+  if (at < 0) throw new Error(`semantic.css has no ${theme} block for ${audience}`);
+  const body = semanticCss.slice(at + open.length, semanticCss.indexOf("}", at));
+  const own = declarations(body);
+  if (theme === "dark") {
+    // The OS-dark copy inside the media query must hold the same values as the forced dark block.
+    const auto = `@media (prefers-color-scheme: dark) {\n  ${sel}:not([data-theme="light"]) {`;
+    const aAt = semanticCss.indexOf(auto);
+    if (aAt < 0) throw new Error(`semantic.css has no auto-dark block for ${audience}`);
+    const autoOwn = declarations(semanticCss.slice(aAt + auto.length, semanticCss.indexOf("}", aAt + auto.length)));
+    if (JSON.stringify(autoOwn) !== JSON.stringify(own)) throw new Error(`${audience}: auto dark and forced dark differ`);
+  }
+  return own;
+}
+
+/** Every token of a theme with the semantic aliases resolved to hex. */
+export function resolveTokens(base: Record<string, string>, overrides: Record<string, string>, semanticCss: string): Record<string, string> {
+  const merged = { ...base, ...overrides };
+  const root = semanticCss.slice(semanticCss.indexOf(":root {"), semanticCss.indexOf("}", semanticCss.indexOf(":root {")));
+  for (const [name, value] of Object.entries(declarations(root))) {
+    const ref = /^var\((--[a-z0-9-]+)\)$/.exec(value);
+    if (ref && merged[ref[1]]) merged[name] = merged[ref[1]];
+  }
+  return merged;
+}

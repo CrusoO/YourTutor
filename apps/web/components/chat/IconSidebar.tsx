@@ -38,7 +38,7 @@ export function IconSidebar() {
       <Link
         href="/brownie-chat"
         aria-label={copy.homeNavNew}
-        className="mb-5 grid size-7 place-items-center rounded-full bg-accent text-accent-fg shadow-[0_0_18px_color-mix(in_srgb,var(--c-accent)_45%,transparent)] transition-opacity hover:opacity-85"
+        className="mb-5 grid size-11 place-items-center rounded-full bg-accent text-accent-fg shadow-[0_0_18px_color-mix(in_srgb,var(--c-accent)_45%,transparent)] transition-opacity hover:opacity-85"
       >
         <Icon name="sparkle" size={13} />
       </Link>
@@ -54,7 +54,7 @@ export function IconSidebar() {
               title={copy[label]}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "grid size-8 place-items-center rounded-[10px] transition-colors",
+                "grid size-11 place-items-center rounded-[10px] transition-colors",
                 active ? "bg-accent-soft text-accent-ink" : "text-muted hover:bg-surface-2 hover:text-ink",
               )}
             >
@@ -68,7 +68,7 @@ export function IconSidebar() {
         <button
           type="button"
           onClick={toggleTheme}
-          className="grid size-8 cursor-pointer place-items-center rounded-[10px] border-0 bg-transparent text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+          className="grid size-11 cursor-pointer place-items-center rounded-[10px] border-0 bg-transparent text-muted transition-colors hover:bg-surface-2 hover:text-ink"
           aria-label={copy.homeThemeToggle}
           title={copy.homeThemeToggle}
         >
@@ -82,7 +82,7 @@ export function IconSidebar() {
             <button
               type="button"
               onClick={signOut}
-              className="grid size-8 cursor-pointer place-items-center rounded-[10px] border-0 bg-transparent text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+              className="grid size-11 cursor-pointer place-items-center rounded-[10px] border-0 bg-transparent text-muted transition-colors hover:bg-surface-2 hover:text-ink"
               aria-label={copy.chatSignOut}
               title={copy.chatSignOut}
               data-testid="sign-out"
@@ -91,7 +91,7 @@ export function IconSidebar() {
                 <path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9" />
               </svg>
             </button>
-            <span className="grid size-7 place-items-center rounded-full bg-surface-2 text-[0.6875rem] font-medium text-ink" title={identity.name ?? undefined} data-testid="who">
+            <span className="grid size-7 place-items-center rounded-full bg-surface-2 text-[0.75rem] font-medium text-ink" title={identity.name ?? undefined} data-testid="who">
               {initial}
             </span>
           </>
@@ -99,7 +99,7 @@ export function IconSidebar() {
           <button
             type="button"
             onClick={() => dispatch({ type: "identity", view: "choices" })}
-            className="grid size-8 cursor-pointer place-items-center rounded-full border-0 bg-accent text-accent-fg transition-opacity hover:opacity-90"
+            className="grid size-11 cursor-pointer place-items-center rounded-full border-0 bg-accent text-accent-fg transition-opacity hover:opacity-90"
             aria-label={copy.chatSignIn}
             title={copy.chatSignIn}
             data-testid="nav-sign-in"

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { AiCheck, AiPredict, UsableBlock } from "@/lib/lessons/ai-lesson";
 import type { Evidence } from "@/lib/lessons/learning-map";
 import { useCopy } from "@/lib/locale";
+import { scrollBehavior } from "@/lib/motion";
 import { AskAbout } from "./AskAbout";
 import { CheckBlock, ExplainBlock, HookBlock, PredictBlock, RecapBlock, TransferBlock, type AnswerInfo } from "./blocks";
 import { LearningCard, type KeepCard } from "./LearningCard";
@@ -95,7 +96,7 @@ export function LessonBlocks({
       first.current = false;
       return;
     }
-    lastRef.current?.scrollIntoView?.({ block: "start", behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    lastRef.current?.scrollIntoView?.({ block: "start", behavior: scrollBehavior() });
   }, [shown]);
 
   return (

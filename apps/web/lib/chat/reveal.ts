@@ -1,5 +1,6 @@
 "use client";
 
+import { reducedMotion } from "../motion";
 import { useEffect, useState } from "react";
 
 /** How long each word takes to appear. Fast enough not to make anyone wait, slow enough to read along. */
@@ -28,8 +29,6 @@ export function wordCount(text: string): number {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-const reducedMotion = () =>
-  typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
  * A reply that appears word by word, like someone talking it through. Nothing is delayed for someone who asks

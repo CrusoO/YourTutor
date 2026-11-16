@@ -25,7 +25,7 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
   return (
     <aside className={`flex w-full min-w-0 flex-col ${styles.rightPanel} ${styles.panel}`} aria-label={copy.homePanelLabel} data-testid="right-panel">
       <section className={`border p-[18px] ${styles.panelCard} ${styles.continueCard}`}>
-        <p className="m-0 text-[0.6875rem] text-muted">{copy.homeContinueLabel}</p>
+        <p className="m-0 text-[0.75rem] text-muted">{copy.homeContinueLabel}</p>
         {percent !== null ? (
           <>
             <p className="home-stat m-0 mt-2 flex items-start font-extralight leading-none tracking-[-0.045em] text-accent-ink" style={{ fontSize: "2.9rem", fontWeight: 200 }}>
@@ -48,12 +48,12 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
           {progress?.title ?? copy.chatContinue}
         </p>
         {student.current?.skill ? (
-          <p className="m-0 mt-1 text-[0.6875rem] text-muted">{student.current.skill}</p>
+          <p className="m-0 mt-1 text-[0.75rem] text-muted">{student.current.skill}</p>
         ) : null}
         <button
           type="button"
           onClick={onContinue}
-          className={`mt-4 inline-flex min-h-9 cursor-pointer items-center gap-1.5 border-0 bg-accent px-3.5 text-[0.75rem] font-medium text-accent-fg transition-opacity hover:opacity-90 ${styles.continueButton}`}
+          className={`mt-4 inline-flex min-h-11 cursor-pointer items-center gap-1.5 border-0 bg-accent px-3.5 text-[0.75rem] font-medium text-accent-fg transition-opacity hover:opacity-90 ${styles.continueButton}`}
           data-testid="panel-continue"
         >
           {student.resume ? copy.homeResume : copy.chatContinue}
@@ -81,7 +81,7 @@ export function RightPanel({ student, reviewEnabled, onContinue, onReview, onTod
         <button
           type="button"
           onClick={onToday}
-          className={`mt-2 inline-flex min-h-9 cursor-pointer items-center gap-1.5 border border-input-line bg-transparent px-3.5 text-[0.75rem] font-medium text-ink hover:bg-surface-2 ${styles.panelToday}`}
+          className={`mt-2 inline-flex min-h-11 cursor-pointer items-center gap-1.5 border border-input-line bg-transparent px-3.5 text-[0.75rem] font-medium text-ink hover:bg-surface-2 ${styles.panelToday}`}
           data-testid="panel-today"
         >
           {copy.chatTodayPlan}
