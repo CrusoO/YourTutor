@@ -1,0 +1,123 @@
+id: C10.AP.N_FROM_SUM.17_4_13
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.79
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: For the progression 17, 21, 25, ..., how many terms from the start give a total
+    of 533?
+options:
+- id: a
+  en: -41/2
+- id: b
+  en: 533/17
+- id: c
+  en: '13'
+- id: d
+  en: '14'
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: Here a = 17, d = 4 and S_n = 533.
+- en: '(n/2)(2 x 17 + (n - 1) x 4) = 533. Multiply both sides by 2 and expand: 4n²
+    + 30n = 1066.'
+- en: 'Rearranged: 4n² + (30)n - 1066 = 0, whose solutions are n = 13 and n = -41/2.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: This leads to quadratic working in n.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM
+generator_version: factory-1
+template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0c0a9eda36e4f7187662fd0a82058285f4e51a1a27101e73ff7e0c9c66f45fc2
+  template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
+  certificate_hash: b2ed24525301f4ee824b45914cb14a86e6e9665d46b3c95b605b46805b6ecb28
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:16:30+00:00'
+  record_hash: d033b4838709baefaf1ac4b4754a8ec29248d36fcda8d4127edf17d85456d4b4

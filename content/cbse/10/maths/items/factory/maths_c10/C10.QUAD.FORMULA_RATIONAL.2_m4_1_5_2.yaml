@@ -1,0 +1,123 @@
+id: C10.QUAD.FORMULA_RATIONAL.2_m4_1_5_2
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FORMULA
+difficulty: 0.57
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Use the quadratic formula to solve 4x² + 6x - 40 = 0.
+options:
+- id: a
+  en: x = -37/4 or x = -11/4
+- id: b
+  en: x = -4 or x = 5/2
+- id: c
+  en: x = -8 or x = 5
+- id: d
+  en: x = -5/2 or x = 4
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 4, of x is 6, plain number
+    is -40.'
+- en: The discriminant is 6² - 4 x 4 x -40 = 676, and its square root is 26.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 4).
+- en: 'Work out both signs: x = -4 or x = 5/2.'
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Identify the three coefficients carefully before you substitute anything.
+- level: 2
+  en: Work out the discriminant first, then its square root. Keep the minus sign of
+    the x coefficient when you write the opposite of it.
+- level: 3
+  en: 'Full method: list the coefficients, compute the discriminant, take its square
+    root, put the numbers into the formula once with the plus sign and once with the
+    minus sign, divide each by twice the leading coefficient, and check by substitution.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FORMULA_RATIONAL
+generator_version: factory-1
+template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7bd947309324603188efcbc82d765074ba57d25f9a7efca94801ae97027f8851
+  template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
+  certificate_hash: 818443a110964510dc9d8389ab80be9558b0386e9f2c35bfcf74fe60ee13c8e5
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:42:20+00:00'
+  record_hash: cef9c3cb0f12217a67c3a4ccc6ff35686ba58dfee8ac515014fe7769c569a1a5

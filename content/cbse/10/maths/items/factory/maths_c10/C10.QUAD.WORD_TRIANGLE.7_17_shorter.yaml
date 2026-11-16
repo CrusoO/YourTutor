@@ -1,0 +1,127 @@
+id: C10.QUAD.WORD_TRIANGLE.7_17_shorter
+skill_ids:
+- MATH.ALG.QUAD.MODEL_GEOMETRY
+difficulty: 0.72
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A triangular park has a right angle. The two sides that meet at the right angle
+    differ in length by 17 m, and the longest side is 25 m. Find the length of the
+    shorter of the two sides in metres.
+options:
+- id: a
+  en: '24'
+- id: b
+  en: '7'
+- id: c
+  en: '-24'
+- id: d
+  en: '8'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 17 metres.
+- en: By Pythagoras, x² + (x + 17)² = 25², so 2x² + 34x - 336 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 7)(x + 24) = 0, so x = 7 (a length
+    cannot be negative).'
+- en: The shorter side is 7 m and the longer side is 24 m.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Let x be the shorter side and write the other side using x. The longest side
+    is opposite the right angle.
+- level: 2
+  en: Use the relation for the sides of this triangle, expand the bracket carefully,
+    bring every term to one side, then solve. Undo each step by doing the same thing
+    to each side.
+- level: 3
+  en: 'Full method: name the shorter side, write the longer one, apply the rule linking
+    the three sides, expand, rearrange to zero, divide out any common factor, solve,
+    and keep the positive solution.'
+prediction_prompt:
+  en: Is the shorter side more or less than half the longest side?
+status: draft
+template_id: TPL.C10.QUAD.WORD_TRIANGLE
+generator_version: factory-1
+template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ebdd5187a466e3fc7c191badcfed3103e5c68291aa6b3387e4e69f20aa2867fe
+  template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
+  certificate_hash: b7005238e6ced308e037f2e2b65a6643fe041851cb00d3803ce4a7483c09d6b6
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:55:01+00:00'
+  record_hash: c2690fe835df40f4bb8fd1890fb7b3dd0b6ba1086bfbe8e24ed00fda3c431a02

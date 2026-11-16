@@ -1,0 +1,120 @@
+id: C10.QUAD.K_MIDDLE.4_4
+skill_ids:
+- MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
+difficulty: 0.59
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: The equation 4x² + kx + 64 = 0 has repeated roots. Find k.
+options:
+- id: a
+  en: k = -16 or k = 16
+- id: b
+  en: k = -32 or k = 32
+- id: c
+  en: k = 32
+- id: d
+  en: k = -1024 or k = 1024
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(4)(64) = 0.'
+- en: So k² = 1024.
+- en: 'Take the square root of both sides, keeping both signs: k = -32 or k = 32.'
+- en: The correct option is b.
+hints:
+- level: 1
+  en: The discriminant will contain k; make it zero.
+- level: 2
+  en: After writing the discriminant, undo the subtraction by adding the same number
+    to both sides, then undo the square by taking the square root of both sides.
+- level: 3
+  en: 'Full method: write the discriminant with k in it, set it to zero, add the same
+    number to both sides, take the square root of both sides, and remember both signs.'
+prediction_prompt:
+  en: Should k be allowed to be negative as well as positive?
+status: draft
+template_id: TPL.C10.QUAD.K_MIDDLE
+generator_version: factory-1
+template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5d6ecc15b4ebbccd37f32af04efe152efc112b8b6a920dd16f4489817ff9d220
+  template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
+  certificate_hash: e381bb737c2574cc4dd8b2a43014a71392382c05fbb2a7ada593ecd4f748774c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.k_closed
+  - maths.quad.k_sympy
+  - maths.quad.k_scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:46:11+00:00'
+  record_hash: b7f4a4b0f20bec56a02123649755a8baaa6b4138e9b5c73edc071db95e2fb60b

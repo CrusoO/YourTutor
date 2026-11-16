@@ -1,0 +1,124 @@
+id: C10.AP.WORD_TOTAL.2_12_3_24_total
+skill_ids:
+- MATH.ALG.AP.MODEL_SITUATION
+difficulty: 0.71
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A library puts books on display. On day 1 it shows 12 books and each day it
+    shows 3 more than the day before, for 24 days. How many books are shown over all
+    the days together?
+options:
+- id: a
+  en: '1116'
+- id: b
+  en: '1152'
+- id: c
+  en: '2232'
+- id: d
+  en: '81'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The amounts form an AP with first term 12 and common difference 3.
+- en: The last amount is 81, so the total is S = (24/2)(12 + 81).
+- en: S = 1116.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Let the amounts in order be the terms of an AP: name its first term and its
+    common difference.'
+- level: 2
+  en: Decide whether the question asks for one term or for the sum of all the terms,
+    then choose the matching rule. Work through it one operation after another.
+- level: 3
+  en: 'Full method: identify the first term, the common difference and the number
+    of rows or days, pick the rule for one term or for the sum, substitute carefully,
+    and give the answer with its unit.'
+prediction_prompt:
+  en: Is the pattern growing or shrinking from one step to the next?
+status: draft
+template_id: TPL.C10.AP.WORD_TOTAL
+generator_version: factory-1
+template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d1f700379fc1279d5ea654a92889d98ffdcf4438b5b73c3864e2c9b14fb10bcc
+  template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+  certificate_hash: ccd8ba27fd04fc80b4e330fdfa1a2ae0d36cd87ba02937f98a841ffe9f657436
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:27:18+00:00'
+  record_hash: 364761c55e8f0b3733fa1aa53a14317a492337b975a0e6660de2422ed5b736f2

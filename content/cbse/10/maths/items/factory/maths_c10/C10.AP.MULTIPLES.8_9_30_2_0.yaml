@@ -1,0 +1,122 @@
+id: C10.AP.MULTIPLES.8_9_30_2_0
+skill_ids:
+- MATH.ALG.AP.SUM_OF_MULTIPLES
+difficulty: 0.64
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: What is the sum of the multiples of 8 that lie between 70 and 304, ends included?
+options:
+- id: a
+  en: '5610'
+- id: b
+  en: '5640'
+- id: c
+  en: '5452'
+- id: d
+  en: '11280'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The first multiple of 8 in the range is 72 and the last is 304.
+- en: 'They form an AP with common difference 8. Number of terms: (304 - 72)/8 + 1
+    = 30.'
+- en: S = (30/2)(72 + 304) = 5640.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: List the first multiple inside the range and the last multiple inside it.
+- level: 2
+  en: Work out how many multiples lie between the first and last, remembering to add
+    one to the count, then use the sum rule with the first and last multiples.
+- level: 3
+  en: 'Full method: find the first and last multiples inside the range, count them
+    using the difference between multiples, then multiply the count by half the sum
+    of the first and last multiples.'
+prediction_prompt:
+  en: About how many multiples do you expect in the range?
+status: draft
+template_id: TPL.C10.AP.MULTIPLES
+generator_version: factory-1
+template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f5026c55a234736a19d19674d312a8cf38a61cd00ef903a611812f79c64fb673
+  template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
+  certificate_hash: 1d1c7d2400505c9118997fa27d72cfe2877328cd292f4848d046e28e80429b46
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:15:12+00:00'
+  record_hash: 7e360bb0b8dbcb994f51b8075bda5de9b3ebf22468c0f6cacd889eda9a36caeb

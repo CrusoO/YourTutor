@@ -1,0 +1,124 @@
+id: C10.QUAD.STD_FORM.2_m2_0_3_m4_c
+skill_ids:
+- MATH.ALG.QUAD.STANDARD_FORM
+difficulty: 0.24
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Rearrange 2x² + 7x - 4 = 3x - 4 into the form ax² + bx + c = 0. What is the
+    value of c?
+options:
+- id: a
+  en: '-8'
+- id: b
+  en: '0'
+- id: c
+  en: '4'
+- id: d
+  en: '-4'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: Take the whole right-hand side away from both sides, so the right-hand side
+    is 0.
+- en: The left-hand side becomes 2x² + 4x, so the equation is 2x² + 4x = 0.
+- en: Comparing with ax² + bx + c = 0 gives c = 0.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Get everything onto one side so that the other side is exactly zero.
+- level: 2
+  en: 'Undo each term on the right by doing the same operation to both sides: take
+    the term away from both sides, then combine like terms. Start with the plain number
+    on the right: take it away from both sides first.'
+- level: 3
+  en: 'Full method: take the x term on the right from both sides, take the plain number
+    on the right from both sides, combine the x terms, combine the plain numbers,
+    then read the coefficient you need, keeping its sign.'
+prediction_prompt:
+  en: Before you work it out, will the coefficient be positive or negative?
+status: draft
+template_id: TPL.C10.QUAD.STD_FORM
+generator_version: factory-1
+template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 29870b9bf61bc8249503a0e5e883eb3c48d5ab753d1169bc931dc570de6e93d2
+  template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
+  certificate_hash: 58fc32247e62aff999be4c534932bc71849877a544776db11e04891c9740032b
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:50:12+00:00'
+  record_hash: 75ddc31e462edb0242991eac5ebf3b1a08f636fa7e555ea35f4ced7238a6c192

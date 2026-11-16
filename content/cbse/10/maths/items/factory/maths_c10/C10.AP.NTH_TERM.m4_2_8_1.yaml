@@ -1,0 +1,121 @@
+id: C10.AP.NTH_TERM.m4_2_8_1
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.29
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: An AP starts at -4 and changes by 2 at every step. What is its 8th term?
+options:
+- id: a
+  en: '-18'
+- id: b
+  en: '10'
+- id: c
+  en: '12'
+- id: d
+  en: '5'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The first term is -4 and the common difference is 2.
+- en: The nth term is first term + (n - 1) x difference, so a_8 = -4 + (8 - 1)(2).
+- en: a_8 = -4 + 14 = 10.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: To reach the nth term you make one fewer jump than n.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM
+generator_version: factory-1
+template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a0bcfa7ba044350139434075bb94d37790aca0a8fdd201243431b9ddf6d506e4
+  template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+  certificate_hash: aa2c0cf25113006a7ebc385a4ac93dba3fda39fbcf70e05f0f932852b1858572
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:18:20+00:00'
+  record_hash: 03acf7ef0359aaf9c2d8c486597bcb0b1f7489f551e444017aeaddc2c92b747c

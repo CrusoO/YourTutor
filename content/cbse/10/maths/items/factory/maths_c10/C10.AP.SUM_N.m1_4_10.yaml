@@ -1,0 +1,121 @@
+id: C10.AP.SUM_N.m1_4_10
+skill_ids:
+- MATH.ALG.AP.SUM_FIRST_N
+difficulty: 0.41
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Find the sum of the first 10 terms of the AP -1, 3, 7, ...
+options:
+- id: a
+  en: '175'
+- id: b
+  en: '340'
+- id: c
+  en: '170'
+- id: d
+  en: '190'
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: The first term is -1, the common difference is 4 and the number of terms is
+    10.
+- en: S_n = (n/2)(2a + (n - 1)d) = (10/2)(2 x -1 + (10 - 1) x 4).
+- en: = (10/2)(34) = 170.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: You need the first term, the common difference and how many terms are added.
+- level: 2
+  en: Work out twice the first term plus one fewer than n times the difference, then
+    multiply by n and halve.
+- level: 3
+  en: 'Full method: read off the first term and difference, compute twice the first
+    term plus (n - 1) times the difference, multiply by n, then divide by 2.'
+prediction_prompt:
+  en: Roughly how big do you expect the total to be?
+status: draft
+template_id: TPL.C10.AP.SUM_N
+generator_version: factory-1
+template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c17fe524ca9ddc5529af78e5cf2307b9a63b869948ba41adaac8a4143caa9494
+  template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+  certificate_hash: 89b725c0bce6130b5aeb482039d96c5c6dbe69e9d345894d7ccf98fac8e16113
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:20:17+00:00'
+  record_hash: 1a1f78e02588d86f07b281949ad8ca26b2e1d04491f10de2aed1a621e01e6af9

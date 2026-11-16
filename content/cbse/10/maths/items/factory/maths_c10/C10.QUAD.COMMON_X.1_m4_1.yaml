@@ -1,0 +1,124 @@
+id: C10.QUAD.COMMON_X.1_m4_1
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_INCOMPLETE
+difficulty: 0.42
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Solve x² = -4x.
+options:
+- id: a
+  en: x = 0
+- id: b
+  en: x = 0 or x = 4
+- id: c
+  en: x = -4
+- id: d
+  en: x = -4 or x = 0
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(x + 4) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add -4 to both sides, then divide both sides by 1: x = -4.'
+- en: The solutions are x = -4 or x = 0.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Both terms share an x, so take it out as the common factor instead of dividing.
+- level: 2
+  en: Set each factor to zero. For the bracket, undo each operation by doing the same
+    thing to both sides.
+- level: 3
+  en: 'Full method: bring all terms to one side, take out the common factor x, set
+    each factor to zero, add the same number to both sides, divide both sides by the
+    coefficient, and write both solutions.'
+prediction_prompt:
+  en: Will x = 0 be one of the answers?
+status: draft
+template_id: TPL.C10.QUAD.COMMON_X
+generator_version: factory-1
+template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b24d9aee7f982ed294df4e8583574fb0548b5e4c86221fceabe8e7d724cbcc28
+  template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
+  certificate_hash: 16eb481da05251702ac8315fc58aafaaa8594e3df026d337dd86aa9326e660b9
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:30:47+00:00'
+  record_hash: bf274065c1529c0f3e71400ffb92ce6540c0896df7ec5b8d44a05977dd8ccb68

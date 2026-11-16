@@ -1,0 +1,124 @@
+id: C10.QUAD.COMMON_X.2_m3_0
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_INCOMPLETE
+difficulty: 0.42
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Solve 2x² + 6x = 0.
+options:
+- id: a
+  en: x = 0
+- id: b
+  en: x = 0 or x = 3
+- id: c
+  en: x = -3
+- id: d
+  en: x = -3 or x = 0
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(2x + 6) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add -6 to both sides, then divide both sides by 2: x = -3.'
+- en: The solutions are x = -3 or x = 0.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: Both terms share an x, so take it out as the common factor instead of dividing.
+- level: 2
+  en: Set each factor to zero. For the bracket, undo each operation by doing the same
+    thing to both sides.
+- level: 3
+  en: 'Full method: bring all terms to one side, take out the common factor x, set
+    each factor to zero, add the same number to both sides, divide both sides by the
+    coefficient, and write both solutions.'
+prediction_prompt:
+  en: Will x = 0 be one of the answers?
+status: draft
+template_id: TPL.C10.QUAD.COMMON_X
+generator_version: factory-1
+template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3d15a95e281debd67ae25b698b9b22dd0d1dfb4917e211e5dec2d2b64b25e32c
+  template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
+  certificate_hash: 56ba21301f52962d8510bbd929ddc8cdc8fb38f6e8c433110d34c8dfcba0a427
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:30:45+00:00'
+  record_hash: afc4fa227063d32c9e3f34420dae2491faac013a10d66232651ef3ae37272ef5

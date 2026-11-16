@@ -1,0 +1,126 @@
+id: C10.QUAD.WORD_RECT_COST.10_3_cost_10
+skill_ids:
+- MATH.ALG.QUAD.MODEL_GEOMETRY
+difficulty: 0.77
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A school garden is rectangular. Its length is 10 m more than its breadth and
+    it covers 39 m². The garden is to be fenced all the way round and the fencing
+    costs 10 rupees per metre. Find the total cost of the fencing in rupees.
+options:
+- id: a
+  en: '720'
+- id: b
+  en: '320'
+- id: c
+  en: '390'
+- id: d
+  en: '160'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 10 metres.
+- en: The area gives x(x + 10) = 39, so x² + 10x - 39 = 0.
+- en: 'Factorise: (x - 3)(x + 13) = 0, so x = 3 or x = -13; a length is positive,
+    so the breadth is 3 m and the length is 13 m.'
+- en: The perimeter is 2(3 + 13) = 32 m, and the cost is 32 x 10.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Let x be the breadth and write the length using x, then use the area.
+- level: 2
+  en: Write the area as one relation in x, rearrange so the right side is zero, and
+    solve it. Discard any solution that makes the length negative. Undo each step
+    by doing the same thing to each side.
+- level: 3
+  en: 'Full method: name the breadth, write the length, form the area relation, rearrange
+    to zero, factorise, keep the positive solution, then answer exactly what is asked
+    (breadth, length or cost).'
+prediction_prompt:
+  en: About how long do you think the shorter side is?
+status: draft
+template_id: TPL.C10.QUAD.WORD_RECT_COST
+generator_version: factory-1
+template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3073a000db72fd09550f3469c17ccca13bbb35d41310671422a854f88b4f3969
+  template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
+  certificate_hash: c5353709d08ac81fb1d013075a295a4f70cbb2a8b70514ae89ceef3ea923e534
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:54:14+00:00'
+  record_hash: b58500d06e54cc5da13e7ae728ecc08b30a84deb6a275942719bdbd92f1a8780

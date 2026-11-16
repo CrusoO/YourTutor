@@ -1,0 +1,120 @@
+id: C10.QUAD.NATURE.m1_4_m4
+skill_ids:
+- MATH.ALG.QUAD.NATURE_OF_ROOTS
+difficulty: 0.44
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Without solving it, decide the nature of the roots of -x² + 4x - 4 = 0.
+options:
+- id: a
+  en: Two equal real roots
+- id: b
+  en: No real roots
+- id: c
+  en: Two distinct real roots
+- id: d
+  en: One real root and one non-real root
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The coefficients are -1, 4 and -4.
+- en: The discriminant is b² - 4ac = 0.
+- en: 'The discriminant is zero, so the equation has: two equal real roots.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Look for one number that decides the nature of the roots.
+- level: 2
+  en: Work out the discriminant from the three coefficients, then see whether it is
+    positive, zero or negative.
+- level: 3
+  en: 'Full method: write the coefficients with signs, compute the discriminant, and
+    match its sign to the three possible cases for the roots.'
+prediction_prompt:
+  en: Which sign do you expect the discriminant to have?
+status: draft
+template_id: TPL.C10.QUAD.NATURE
+generator_version: factory-1
+template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d01f89f383657a9d3b91a1f3952da469aa2e440a9e6d9c180e01cd36427ad220
+  template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
+  certificate_hash: 08f4eac5d1cac86dc648f4b307d3c63aeb7c39cead81887f1b039d22fa4b0399
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:48:18+00:00'
+  record_hash: 332dab6c149800720f02d6dabe596fadef66bd37dd9f0d8808b2b8cdda134068

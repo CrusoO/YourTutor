@@ -1,0 +1,120 @@
+id: C10.AP.SUM_N.5_3_12
+skill_ids:
+- MATH.ALG.AP.SUM_FIRST_N
+difficulty: 0.41
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Add up the first 12 terms of the progression 5, 8, 11, ...
+options:
+- id: a
+  en: '258'
+- id: b
+  en: '276'
+- id: c
+  en: '516'
+- id: d
+  en: '228'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The first term is 5, the common difference is 3 and the number of terms is 12.
+- en: S_n = (n/2)(2a + (n - 1)d) = (12/2)(2 x 5 + (12 - 1) x 3).
+- en: = (12/2)(43) = 258.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Pair the first term with the last, the second with the second last, and so on.
+- level: 2
+  en: Work out twice the first term plus one fewer than n times the difference, then
+    multiply by n and halve.
+- level: 3
+  en: 'Full method: read off the first term and difference, compute twice the first
+    term plus (n - 1) times the difference, multiply by n, then divide by 2.'
+prediction_prompt:
+  en: Roughly how big do you expect the total to be?
+status: draft
+template_id: TPL.C10.AP.SUM_N
+generator_version: factory-1
+template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 10ca30f89972a9df9022efd9a287c5163367394e431c06c89028653cd163221d
+  template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
+  certificate_hash: 109a284c8e4b5b02c5d2e90026d7794beeff694d7d25cc7a3976eb91dc9e29d7
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:20:18+00:00'
+  record_hash: ae20118740700bae4de2992d848f704ddc19f12ea5018b3a6a5a22f8da673cd6

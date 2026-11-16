@@ -1,0 +1,124 @@
+id: C10.QUAD.FACTOR_MONIC.1_1_1_6_1
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC
+difficulty: 0.42
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Find the roots of the equation x² - 7x + 6 = 0.
+options:
+- id: a
+  en: x = 1 or x = 6
+- id: b
+  en: x = -6 or x = 1
+- id: c
+  en: x = -6 or x = -1
+- id: d
+  en: x = 1
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Look for two numbers with product 6 and sum -7: they are -1 and -6.'
+- en: 'Factorise: (x - 1)(x - 6) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x - 1 = 0 gives x
+    = 1 and x - 6 = 0 gives x = 6.'
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Aim to turn the left side into two simpler expressions multiplied together.
+- level: 2
+  en: Find two numbers that multiply to the plain number and add to the x coefficient.
+    Then set each bracket to zero and undo it by doing the same thing to both sides.
+- level: 3
+  en: 'Full method: factorise the left side, set each bracket to zero, add or subtract
+    the same number on both sides, divide both sides by the coefficient of x, then
+    check each solution by substituting it back.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FACTOR_MONIC
+generator_version: factory-1
+template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7e097f4c30f468d00b28aff9a7d77c3a25fa46c2f734cc143ba5841d6cd3cfc1
+  template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
+  certificate_hash: 55aac7eb0b26a0cc2472707dcd57c35eba9042155ef50d30645050e30bd4616f
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:39:06+00:00'
+  record_hash: 768f25d17b1b6c31c1bcfb0b4df2c3503d2626e395682dfab4b1c5c2113d0586

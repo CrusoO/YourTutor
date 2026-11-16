@@ -1,0 +1,126 @@
+id: C10.QUAD.FACTOR_GENERAL.2_m5_1_m3_1
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
+difficulty: 0.65
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Solve 2x² + 16x + 30 = 0.
+options:
+- id: a
+  en: x = -5 or x = 3
+- id: b
+  en: x = 3 or x = 5
+- id: c
+  en: x = -5 or x = -3
+- id: d
+  en: x = -5
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get x² + 8x + 15 = 0.
+- en: 'Look for two numbers with product 15 and sum 8: they are 5 and 3.'
+- en: 'Factorise: (x + 5)(x + 3) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
+    = -5 and x + 3 = 0 gives x = -3.'
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Try writing the left side as two brackets multiplied together.
+- level: 2
+  en: Divide out any common factor, split the middle term into two parts, and group
+    in pairs to find the brackets. Then set each bracket to zero and undo it by doing
+    the same thing to both sides.
+- level: 3
+  en: 'Full method: factorise the left side, set each bracket to zero, add or subtract
+    the same number on both sides, divide both sides by the coefficient of x, then
+    check each solution by substituting it back.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FACTOR_GENERAL
+generator_version: factory-1
+template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 93d44b4a5b36b9993ce3d56ba2235cff3583416fb22158653d55360ed604d43c
+  template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
+  certificate_hash: 71f060d224b4d06af38442b0d3301a8cafdc4cad55492fbfd4191bb9f2a3b36e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:37:53+00:00'
+  record_hash: 06777812cded4a27cb69a8a9d984774518bdebac794a614203e0f1830f05d73a

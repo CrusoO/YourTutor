@@ -1,0 +1,120 @@
+id: C10.AP.TERM_FROM_SUM.5_m5_3_kth
+skill_ids:
+- MATH.ALG.AP.TERM_FROM_SUM_FORMULA
+difficulty: 0.67
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: The sum of the first n terms of an AP is S_n = 5n² - 5n. Find the 3rd term.
+options:
+- id: a
+  en: '30'
+- id: b
+  en: '10'
+- id: c
+  en: '50'
+- id: d
+  en: '20'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 5n² - 5n - (5(n - 1)² - 5(n - 1)) = 10n - 10.
+- en: 'Put n = 3: a_3 = 20.'
+- en: The correct option is d.
+hints:
+- level: 1
+  en: A single term is the difference between two consecutive sums.
+- level: 2
+  en: Write the sum with n replaced by n minus one, subtract it from the original
+    sum, and simplify the result.
+- level: 3
+  en: 'Full method: find S_n minus S_(n-1) in terms of n, simplify to get the rule
+    for the nth term, then substitute the position you need or read off the difference.'
+prediction_prompt:
+  en: Will the term be larger or smaller than the sum for the same n?
+status: draft
+template_id: TPL.C10.AP.TERM_FROM_SUM
+generator_version: factory-1
+template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b17636ce50864f0c8706bc9f6e86daa3a7c0edd16a56fe0c77ab3b97bdc10de1
+  template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
+  certificate_hash: 9f7abcbcee1c2443ef2924ad50ab5b7d9bb899d17743980e4a58d4a4abdb9d49
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:20:57+00:00'
+  record_hash: 9a6a825618c8148284cfd08b0231b3beb33c93c696055ce88b2056ffa3db6370

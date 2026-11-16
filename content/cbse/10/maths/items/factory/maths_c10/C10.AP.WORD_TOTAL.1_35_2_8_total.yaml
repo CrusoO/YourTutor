@@ -1,0 +1,124 @@
+id: C10.AP.WORD_TOTAL.1_35_2_8_total
+skill_ids:
+- MATH.ALG.AP.MODEL_SITUATION
+difficulty: 0.69
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A runner trains for 8 weeks. In week 1 she runs 35 km and each week she runs
+    2 km more than the week before. How far does she run in all the weeks together,
+    in km?
+options:
+- id: a
+  en: '336'
+- id: b
+  en: '49'
+- id: c
+  en: '672'
+- id: d
+  en: '344'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The amounts form an AP with first term 35 and common difference 2.
+- en: The last amount is 49, so the total is S = (8/2)(35 + 49).
+- en: S = 336.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Let the amounts in order be the terms of an AP: name its first term and its
+    common difference.'
+- level: 2
+  en: Decide whether the question asks for one term or for the sum of all the terms,
+    then choose the matching rule. Work through it one operation after another.
+- level: 3
+  en: 'Full method: identify the first term, the common difference and the number
+    of rows or days, pick the rule for one term or for the sum, substitute carefully,
+    and give the answer with its unit.'
+prediction_prompt:
+  en: Is the pattern growing or shrinking from one step to the next?
+status: draft
+template_id: TPL.C10.AP.WORD_TOTAL
+generator_version: factory-1
+template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e7a6f670e4b815a70795c51bbda2adc4bfb48b3c9460cef0634181039a0bad19
+  template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
+  certificate_hash: caf18f5552bad70e52aa41856f57f89cba5412577e0a3151ced03275d8cadd7e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:27:19+00:00'
+  record_hash: f31ce98f794cf3830a0303cf49414b451c916365fc4d144461867a2a8f261042

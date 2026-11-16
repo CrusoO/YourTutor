@@ -1,0 +1,124 @@
+id: C10.QUAD.FACTOR_MONIC.1_m6_1_2_1
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC
+difficulty: 0.42
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: Solve x² + 4x - 12 = 0.
+options:
+- id: a
+  en: x = -6
+- id: b
+  en: x = -6 or x = -2
+- id: c
+  en: x = -6 or x = 2
+- id: d
+  en: x = -2 or x = 6
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Look for two numbers with product -12 and sum 4: they are 6 and -2.'
+- en: 'Factorise: (x + 6)(x - 2) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 6 = 0 gives x
+    = -6 and x - 2 = 0 gives x = 2.'
+- en: The correct option is c.
+hints:
+- level: 1
+  en: Try writing the left side as two brackets multiplied together.
+- level: 2
+  en: Find two numbers that multiply to the plain number and add to the x coefficient.
+    Then set each bracket to zero and undo it by doing the same thing to both sides.
+- level: 3
+  en: 'Full method: factorise the left side, set each bracket to zero, add or subtract
+    the same number on both sides, divide both sides by the coefficient of x, then
+    check each solution by substituting it back.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FACTOR_MONIC
+generator_version: factory-1
+template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5f79028af837d589a5a0edccaf7d106bb71e0e16bbb131a3d6bf77ec4410d691
+  template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
+  certificate_hash: 54edc07a3b0cb04a401f1a3e53c28e3c61d54ed1d88ec38ad37f9eeaa08c219a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:39:05+00:00'
+  record_hash: 9c51fba515525bb8e3ae293761d2add71d1deb024cb2b41030cb1ced45fec587

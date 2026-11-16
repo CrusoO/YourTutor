@@ -1,0 +1,120 @@
+id: C10.AP.SUM_LAST.1_4_18
+skill_ids:
+- MATH.ALG.AP.SUM_USING_LAST_TERM
+difficulty: 0.54
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: Add every term of the progression that begins 1, 5, 9 and ends at 69.
+options:
+- id: a
+  en: '595'
+- id: b
+  en: '630'
+- id: c
+  en: '1260'
+- id: d
+  en: '2415'
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: The first term is 1, the last term is 69 and the difference is 4.
+- en: 'Number of terms: n = (69 - 1)/4 + 1 = 18.'
+- en: S = (n/2)(first + last) = (18/2)(1 + 69) = 630.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: Before you can add, you need the number of terms.
+- level: 2
+  en: The number of terms is the distance from first to last divided by the difference,
+    plus one. Then average the first and last terms and multiply by the count.
+- level: 3
+  en: 'Full method: subtract the first term from the last, divide by the difference,
+    add one to get n, then multiply n by half of (first + last).'
+prediction_prompt:
+  en: Is the number of terms more or less than ten?
+status: draft
+template_id: TPL.C10.AP.SUM_LAST
+generator_version: factory-1
+template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f8ec3ed93ed7388d9d354a533d1d67e391688a9f743c7acfdf4c97822a69a3dd
+  template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
+  certificate_hash: 9e9226b8bb30bae97c1a40daf33810fb5c724c3c536d9d894853b2043adb0d8b
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:19:10+00:00'
+  record_hash: 6bbcd868bf0a8c3291ab85d0a3237fd925a5d1a402441daaf940eaf7e5c3364b

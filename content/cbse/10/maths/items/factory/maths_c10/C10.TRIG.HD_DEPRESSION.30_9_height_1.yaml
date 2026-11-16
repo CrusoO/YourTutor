@@ -1,0 +1,126 @@
+id: C10.TRIG.HD_DEPRESSION.30_9_height_1
+skill_ids:
+- MATH.TRIG.HD.ANGLE_OF_DEPRESSION
+difficulty: 0.54
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: A swimmer on the water is 9√3 m from the foot of a cliff. From the top of the
+    cliff the angle of depression of a swimmer is 30°. Find the height of the cliff
+    in metres.
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '27'
+- id: c
+  en: 9√3/2
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a swimmer.
+- en: So in the right triangle the 30° angle is at a swimmer, and height and ground
+    distance are opposite and adjacent to it.
+- en: 'Use tan 30° = height / distance and solve: the answer is 9 m.'
+- en: The correct option is d.
+hints:
+- level: 1
+  en: The angle of depression is measured from the horizontal, not from the vertical.
+- level: 2
+  en: After placing the angle inside the right triangle, decide which side is opposite
+    it and which is adjacent, then use the matching ratio and undo it by doing the
+    same thing to each side.
+- level: 3
+  en: 'Full method: sketch the horizontal line from the top, mark the angle below
+    it, copy that angle into the right triangle using alternate angles, pick the ratio
+    for the two sides involved, and solve.'
+prediction_prompt:
+  en: Does the sight line make a steep or a shallow angle with the horizontal?
+status: draft
+template_id: TPL.C10.TRIG.HD_DEPRESSION
+generator_version: factory-1
+template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0637677a69635854021c29f1008dd04846649b85cd646ade052bf544205b895e
+  template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
+  certificate_hash: c618a8782d2370bc11eaac202b1623dda449545aa1922af6c80b677dcbfaf974
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:57:30+00:00'
+  record_hash: 7fb579b6597a67d0741003a74f170ee6f9c61164651a0c0ee679f07b2cec7ca1

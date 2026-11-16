@@ -1,0 +1,122 @@
+id: C10.AP.NTH_TERM.12_m6_30_0
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.33
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: What is the 30th term of the progression 12, 6, 0, ...?
+options:
+- id: a
+  en: '-162'
+- id: b
+  en: '186'
+- id: c
+  en: '35'
+- id: d
+  en: '-168'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: The first term is 12 and the common difference is -6.
+- en: The nth term is first term + (n - 1) x difference, so a_30 = 12 + (30 - 1)(-6).
+- en: a_30 = 12 + -174 = -162.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Start at the first term and count how many jumps you need to reach the one asked
+    for.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM
+generator_version: factory-1
+template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 610cf2605186d3a97429682a92fcc4e396c2d0182de23994623ceffb7977b6fd
+  template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
+  certificate_hash: 45632fc36273298646e6197234460fca6e0e863c479cfcdb646ef3e0fc123b57
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:18:20+00:00'
+  record_hash: f6adf781fac08a69e9f8ca8883c18388c8ca46ab3c470c2fd8be30da5bdcab68

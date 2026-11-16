@@ -1,0 +1,120 @@
+id: C10.AP.DIFFERENCE.0_9_1
+skill_ids:
+- MATH.ALG.AP.COMMON_DIFFERENCE
+difficulty: 0.16
+type: mcq
+pool: practice
+role: recall
+stem:
+  en: What is the common difference of the AP 0, 9, 18, 27, ...?
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '0'
+- id: c
+  en: '-9'
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: In an AP every term is the previous term plus the same number, the common difference.
+- en: 'Subtract a term from the one after it: 9 - (0) = 9.'
+- en: 'Check with another pair: 18 - (9) = 9. The common difference is 9.'
+- en: The correct option is d.
+hints:
+- level: 1
+  en: The common difference is the same jump between every pair of neighbours.
+- level: 2
+  en: Take the later term and subtract the earlier one, keeping the order and the
+    sign. Then try another pair to be sure the jump is the same.
+- level: 3
+  en: 'Full method: pick two neighbouring terms, subtract the earlier from the later,
+    check with another pair, and keep the sign: a falling list has a negative difference.'
+prediction_prompt:
+  en: Is the list going up or down, and by roughly how much each step?
+status: draft
+template_id: TPL.C10.AP.DIFFERENCE
+generator_version: factory-1
+template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 51a059398a262132439ca03f67d9d35b5a4cfc32d5a17a9b38a1f243bd113e42
+  template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
+  certificate_hash: a3b87d92c8a363636f0b93835a20478ff3a1db0c5df3d8feacfaada7b25314d2
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:12:36+00:00'
+  record_hash: cfcf9fb9d094702cf8e02c6d1a1a28edba055492a4adbcd9d3742dc8afb620f3

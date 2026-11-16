@@ -1,0 +1,121 @@
+id: C10.QUAD.DISCRIMINANT.m2_2_2
+skill_ids:
+- MATH.ALG.QUAD.DISCRIMINANT
+difficulty: 0.29
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: What is the value of the discriminant of -2x² + 2x + 2 = 0?
+options:
+- id: a
+  en: '20'
+- id: b
+  en: '8'
+- id: c
+  en: '12'
+- id: d
+  en: '-12'
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: Here the coefficients are -2, 2 and 2.
+- en: The discriminant is b² - 4ac = (2)² - 4(-2)(2).
+- en: This equals 4 - (-16) = 20.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: Be careful with brackets around negative numbers when you square.
+- level: 2
+  en: Square the x coefficient first, then work out four times the product of the
+    other two coefficients, and subtract.
+- level: 3
+  en: 'Full method: write the three coefficients with signs, square the middle one,
+    multiply the outer two together and then by four, and subtract the second result
+    from the first.'
+prediction_prompt:
+  en: Will the discriminant be positive, zero or negative?
+status: draft
+template_id: TPL.C10.QUAD.DISCRIMINANT
+generator_version: factory-1
+template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1adf1643e7b1b29e25428cdf6d61a29c5e4b1fdb86f8797701e6d2f7403be3ea
+  template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
+  certificate_hash: 2e1f3edb322bdd1f8a712da387867e62ab658d3284e200a07436a981949d36e3
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T13:35:39+00:00'
+  record_hash: 6e11ce066d93e96b6b153d560e02ce501929e536f068c7b803cf740e2a53ad94
