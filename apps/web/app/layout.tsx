@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import "./globals.css";
 import AppFrame from "@/components/AppFrame";
-import FontLoader from "@/components/FontLoader";
+import { notoSansDevanagari } from "./fonts";
 import { COMFORT_INIT_SCRIPT } from "@/lib/comfort";
 
 export const metadata = {
@@ -11,12 +11,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-audience="school" data-density="regular" data-mascot="on" suppressHydrationWarning>
+    <html lang="en" className={notoSansDevanagari.variable} data-audience="school" data-density="regular" data-mascot="on" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: COMFORT_INIT_SCRIPT }} />
       </head>
       <body>
-        <FontLoader />
         <AppFrame>{children}</AppFrame>
       </body>
     </html>

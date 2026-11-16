@@ -47,10 +47,21 @@ describe("accessibility stylesheet", () => {
   });
   it("uses a line height of at least 1.8 for every Indic language and never a forced Latin face", () => {
     expect(A11Y).toMatch(/:lang\(hi\), :lang\(ne\), :lang\(mr\), :lang\(bn\), :lang\(as\)\) \{\s*--lh-body: 1\.8/);
-    expect(A11Y).toMatch(/"Noto Sans Devanagari"/);
+    expect(A11Y).toMatch(/--font-noto-sans-deva/); // self-hosted via app/fonts.ts
     expect(A11Y).toMatch(/"Noto Sans Bengali"/);
     expect(A11Y).not.toMatch(/font-family:[^;]*(Inter|Geist|Georgia|Instrument)/);
     expect(A11Y).not.toMatch(/@font-face/); // no new web-font download
+  });
+});
+
+describe("text size floor", () => {
+  const files = ["app/globals.css", "app/identity.css", "app/tokens.css", "app/semantic.css", "app/a11y.css", "app/brownie/BrownieLanding.module.css", "app/brownie/LandingExtras.module.css", "components/chat/ChatHome.module.css"];
+  it("no font-size below 12 px in the shared and landing stylesheets", () => {
+    for (const f of files) {
+      const css = read(f);
+      for (const m of css.matchAll(/font-size:\s*(\d+(?:\.\d+)?)px/g)) expect(Number(m[1]), `${f}: ${m[0]}`).toBeGreaterThanOrEqual(12);
+      for (const m of css.matchAll(/font-size:\s*(0?\.\d+)rem/g)) expect(Number(m[1]) * 16, `${f}: ${m[0]}`).toBeGreaterThanOrEqual(12);
+    }
   });
 });
 
