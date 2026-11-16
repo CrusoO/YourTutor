@@ -15,7 +15,7 @@ from app.content.ledger import Ledger
 from app.content.loader import _factory_backing, _upsert
 from app.content.math_parse import parse_math
 from app.content.originality import ReferenceIndex
-from app.content.schema import ContentBundle, Item, Skill
+from app.content.schema import ContentBundle, Item, ItemType, Skill, VerificationTier, VerifySpec
 from app.content.signatures import hash_covers_option_text, item_content_hash
 from app.content.validator import ValidationReport, last_step_matches_answer, validate_bundle
 from app.content.verification import record_errors, tier_backed
@@ -83,7 +83,7 @@ def test_two_options_with_one_procedure_share_one_rule(tmp_path: Path):
 @pytest.mark.parametrize("kind", ["numeric", "expression"])
 def test_numeric_and_expression_items_stamp_with_the_schema_fields(tmp_path: Path, kind: str):
     item, ledger = _stamped(tmp_path, _to_numeric(kind))
-    assert item.type.value == kind and item.tier.value == "A" and item.options == []
+    assert item.type.value == kind and item.tier == VerificationTier.a and item.options == []
     parse_math(item.answer.sympy)  # the allowlist parser accepts it, as the validator requires
     assert last_step_matches_answer(
         item.solution_steps[-1].en, item.answer.sympy, item_type=item.type
@@ -94,9 +94,10 @@ def test_numeric_and_expression_items_stamp_with_the_schema_fields(tmp_path: Pat
         "one_root_only": ["2"],
         "sum_product_confusion": ["10"],
     }
+    record = item.verification.as_record() if item.verification else {}
     assert (
         record_errors(
-            item.verification.as_record(),
+            record,
             item_hash=item_content_hash(item),
             stamped_hashes=ledger.stamped_record_hashes(),
         )
@@ -131,6 +132,7 @@ def test_a_numeric_item_can_carry_a_verify_spec(tmp_path: Path):
         ctx.verify = {"kind": "equation", "expr": "x - 2 = 5", "unknown": "x"}
 
     item, _ = _stamped(tmp_path, mutate)
+    assert isinstance(item.verify, VerifySpec)
     assert item.verify.kind == "equation" and item.verify.unknown == "x"
 
 
@@ -156,7 +158,7 @@ def test_item_hash_covers_option_text_for_factory_items(tmp_path: Path):
     edited = item.model_copy(deep=True)
     edited.options[0].en = edited.options[0].en + " (edited)"
     assert item_content_hash(edited) != item_content_hash(item)
-    edited_type = item.model_copy(update={"type": Item.model_fields["type"].annotation("numeric")})
+    edited_type = item.model_copy(update={"type": ItemType.numeric})
     assert item_content_hash(edited_type) != item_content_hash(item)
 
 
