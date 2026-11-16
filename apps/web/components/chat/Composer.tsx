@@ -1,10 +1,14 @@
 "use client";
 
-import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { Icon } from "@/components/ui/icons";
-import { voiceEnabled } from "@/lib/flags";
+import { doubtDeviceEnabled, voiceEnabled } from "@/lib/flags";
 import { MODES_BY_ROLE, useChatApi, type Mode } from "./ChatProvider";
 import styles from "./ChatHome.module.css";
+
+// The equation keypad loads only when it is opened.
+const Keypad = dynamic(() => import("./doubt/Keypad"), { ssr: false });
 
 const MODE_LABEL = {
   learn: "chatModeLearn",
@@ -41,7 +45,9 @@ const SOON: Mode[] = ["notes", "content"];
  * a deterministic finder, not a chatbot: what is typed is matched against topics on this device and dropped.
  */
 export function Composer({ docked = false }: { docked?: boolean }) {
-  const { copy, role, mode, setMode, busy, submitText } = useChatApi();
+  const { copy, role, mode, setMode, busy, submitText, draft } = useChatApi();
+  const doubtOn = doubtDeviceEnabled();
+  const [keypad, setKeypad] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [emptyHint, setEmptyHint] = useState(false);
   const [micHint, setMicHint] = useState(false);
@@ -57,6 +63,15 @@ export function Composer({ docked = false }: { docked?: boolean }) {
     const line = parseFloat(getComputedStyle(el).lineHeight) || 24;
     el.style.height = `${Math.min(el.scrollHeight, line * 5 + 16)}px`;
   }
+
+  // "Edit" on a doubt card puts the text back here.
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!draft || !el) return;
+    el.value = draft.text;
+    grow();
+    el.focus();
+  }, [draft]);
 
   // The typed text goes to the local finder and is dropped: it is never stored or sent.
   function send(e?: FormEvent) {
@@ -119,6 +134,18 @@ export function Composer({ docked = false }: { docked?: boolean }) {
           />
           {/* Send always looks ready. It is disabled only when sending is impossible (a mode that is not built
               yet), and then the reason is shown in words below. An empty box gets a gentle hint instead. */}
+          {doubtOn ? (
+            <button
+              type="button"
+              aria-expanded={keypad}
+              aria-label="Equation keypad"
+              onClick={() => setKeypad((k) => !k)}
+              className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-sm text-muted hover:text-ink"
+              data-testid="composer-keypad"
+            >
+              <span aria-hidden="true">x²</span>
+            </button>
+          ) : null}
           {voiceEnabled() ? (
             <button
               type="button"
@@ -144,6 +171,7 @@ export function Composer({ docked = false }: { docked?: boolean }) {
           </button>
         </div>
       </form>
+      {doubtOn && keypad ? <Keypad box={inputRef} onChange={grow} /> : null}
       {disabled || emptyHint || micHint ? (
         <p role="status" className="m-0 mt-2 pl-5 text-sm text-muted" data-testid="composer-hint">
           {disabled ? copy.chatSendReasonSoon : micHint ? copy.chatMicSoon : copy.chatSendEmptyHint}
