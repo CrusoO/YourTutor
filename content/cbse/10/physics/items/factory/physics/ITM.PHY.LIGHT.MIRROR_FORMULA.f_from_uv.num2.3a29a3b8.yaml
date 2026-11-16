@@ -1,0 +1,134 @@
+id: ITM.PHY.LIGHT.MIRROR_FORMULA.f_from_uv.num2.3a29a3b8
+skill_ids:
+- PHY.LIGHT.MIRROR_FORMULA
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about image formation by a spherical mirror. The object, u,
+    is 20 cm from the convex mirror and the image, which is virtual, is 12 cm from
+    the convex mirror. Using the Cartesian sign convention, find the focal length
+    f.
+options:
+- id: a
+  en: -30 cm
+- id: b
+  en: 30 cm
+- id: c
+  en: 7.5 cm
+- id: d
+  en: 333 cm
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with u and v signed by
+    the convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.2 m; v = 0.12 m.'
+- en: 'Get the focal length alone: add 1/v and 1/u, then take the reciprocal of each
+    side of 1/f = 1/v + 1/u.'
+- en: 'Substitute: f = (-0.2) x 0.12 / ((-0.2) + 0.12).'
+- en: 'Calculate: f = 0.3 m.'
+- en: 'Give it in cm: 30 cm.'
+- en: So the focal length is 30 cm.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: mirror formula 1/v + 1/u = 1/f, with u and v signed by the convention.'
+- level: 2
+  en: 'Get the focal length on its own before you put numbers in: add 1/v and 1/u,
+    then take the reciprocal of each side of 1/f = 1/v + 1/u. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked. Give each distance its sign by the Cartesian convention
+    before you substitute.'
+- level: 3
+  en: 'First step: Write 20 cm as -0.2 m and 12 cm as 0.12 m, then write f = u x v
+    / (u + v), where f is the focal length, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_FORMULA
+generator_version: factory-1
+template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b429b7dd2829dbd30000136e52a97e1b3ced1ab7657c8f17742b4eff9af8ad1f
+  template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
+  certificate_hash: 0b85a895bfca2746154472455ca9caa27ef46f278f6705b0cb773dc4dbd3a104
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:04+00:00'
+  record_hash: 9a140ba3f0364e7f6aaedbd776d0e06438fb38ab0e5838163807042d2801fe85

@@ -1,0 +1,131 @@
+id: ITM.PHY.LIGHT.MIRROR_FOCAL.f_from_R.num2.d5de8541
+skill_ids:
+- PHY.LIGHT.MIRROR_FOCAL
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about radius of curvature and focal length of a spherical mirror.
+    The radius of curvature of the concave mirror, R, is 20 cm. Find the focal length,
+    with its sign.
+options:
+- id: a
+  en: -10 cm
+- id: b
+  en: 10 cm
+- id: c
+  en: -1000 cm
+- id: d
+  en: -20 cm
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: the focal length is half the radius of curvature: f = R
+    / 2, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: R = -0.2 m.'
+- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
+- en: 'Substitute: f = (-0.2) / 2.'
+- en: 'Calculate: f = -0.1 m.'
+- en: 'Give it in cm: -10 cm.'
+- en: So the focal length is -10 cm.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: the focal length is half the radius of curvature: f = R / 2, with
+    signs from the convention.'
+- level: 2
+  en: 'Get the focal length on its own before you put numbers in: divide each side
+    of R = 2f by 2. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked. Give each distance
+    its sign by the Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 20 cm as -0.2 m, then write f = R / 2, where f is the focal
+    length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
+generator_version: factory-1
+template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5f729a0446934ea9cbed04f0d0e3a1eb50d8908c3ae2d0a528bcf66af40eab53
+  template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
+  certificate_hash: 7fedbfd0045ed8ebab0a7dd54042579618a18a721ef3f154e6419416ffc66635
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:56+00:00'
+  record_hash: fa56ded4ab3da86516bda1c5c1a12b0db742ffb9f50e636a2225ef6184a1b177

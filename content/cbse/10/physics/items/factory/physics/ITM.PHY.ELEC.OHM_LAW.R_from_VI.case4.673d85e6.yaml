@@ -1,0 +1,128 @@
+id: ITM.PHY.ELEC.OHM_LAW.R_from_VI.case4.673d85e6
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a resistor in a circuit and records the following.
+    The potential difference across it, V, is 50 V and the current through it, I,
+    is 5 mA. Find the resistance of the resistor.'
+options:
+- id: a
+  en: 1 x 10^-7 kΩ
+- id: b
+  en: 2.5 x 10^-4 kΩ
+- id: c
+  en: 0.01 kΩ
+- id: d
+  en: 10 kΩ
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 5 mA = 0.005 A.'
+- en: 'Get the resistance alone: divide each side of V = I x R by I.'
+- en: 'Substitute: R = 50 / 0.005.'
+- en: 'Calculate: R = 10000 Ω.'
+- en: 'Give it in kΩ: 10 kΩ.'
+- en: So the resistance is 10 kΩ.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: V = I x R.'
+- level: 2
+  en: 'Get the resistance on its own before you put numbers in: divide each side of
+    V = I x R by I. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 5 mA as 0.005 A, then write R = V / I, where R is the resistance,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW
+generator_version: factory-1
+template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 51ae7ab80fcf11d729315cb100cb3cc2ae71804c76e8ae4acab1b7d0229bda91
+  template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+  certificate_hash: 789bf766b3e746b5ed155be881a957b46fc76a5c5c56ccff708909063f396f09
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:44+00:00'
+  record_hash: df510f447a689847ddbc4cd21ab386ec390189974bf1cff389b8e964bb825b7f

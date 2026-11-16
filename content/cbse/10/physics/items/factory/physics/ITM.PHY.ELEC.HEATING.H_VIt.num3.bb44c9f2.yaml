@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.HEATING.H_VIt.num3.bb44c9f2
+skill_ids:
+- PHY.ELEC.HEATING
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying the heat produced by a current. The voltage, V, is 250
+    V, the current, I, is 5 A and the time, t, is 2 min. How much heat is produced?
+options:
+- id: a
+  en: 150000 J
+- id: b
+  en: 2500 J
+- id: c
+  en: 1250 J
+- id: d
+  en: 6000 J
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: heat H = V x I x t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Substitute: H = 250 x 5 x 120.'
+- en: 'Calculate: H = 150000 J.'
+- en: So the heat produced is 150000 J.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: heat H = V x I x t.'
+- level: 2
+  en: The relation already gives the heat produced directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2 min as 120 s, then write H = V x I x t, where H is the
+    heat produced, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the heat produced have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.HEATING
+generator_version: factory-1
+template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8ec1c735e6e0c83a957f6abb3f186aaaa7bb1b8ba85a6229626a531e54840135
+  template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
+  certificate_hash: a9d5b3994d76abea223795ee96f592631b69457f0715b145fb5dd139e8caea1b
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:41+00:00'
+  record_hash: 80ed6d1d5805f973f7a447b581b98d395233f8c0c271cbced2317a09ccad5da6

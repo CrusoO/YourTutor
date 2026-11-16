@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.POT_DIFF.W_from_VQ.num2.85ecc2d9
+skill_ids:
+- PHY.ELEC.POT_DIFF
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about work done in moving charge. The potential difference,
+    V, is 3 V and the charge moved, Q, is 0.5 C. How much work is done?
+options:
+- id: a
+  en: 3.5 J
+- id: b
+  en: 1.5 J
+- id: c
+  en: 6 J
+- id: d
+  en: 0.167 J
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: V = W / Q, so W = V x Q.'
+- en: 'Get the work done alone: multiply each side of V = W / Q by Q.'
+- en: 'Substitute: W = 3 x 0.5.'
+- en: 'Calculate: W = 1.5 J.'
+- en: So the work done is 1.5 J.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: V = W / Q, so W = V x Q.'
+- level: 2
+  en: 'Get the work done on its own before you put numbers in: multiply each side
+    of V = W / Q by Q. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write W = V x Q, where W is the work done, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the work done have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POT_DIFF
+generator_version: factory-1
+template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7b1540bcfd93f12267037a4733a5ec3dabf7b2668b73798a84dcc78cdc9b49db
+  template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
+  certificate_hash: 3888c1777d25b008bbc10f9d45efe2e4f82b533795b6ea055ef97ba8ef401b32
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:41+00:00'
+  record_hash: 54d89b29a317ff4e35227a31be35a1febc4bd805178d8538dd32db1e24204c75

@@ -1,0 +1,121 @@
+id: ITM.PHY.ELEC.POWER.P_from_IR.mcq1.44d8836d
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.25
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: The current through it, I, is 5 A and its resistance, R, is 40 Ω. Find the power.
+options:
+- id: a
+  en: 1000 W
+- id: b
+  en: 200 W
+- id: c
+  en: 40000 W
+- id: d
+  en: 0.625 W
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
+- en: 'Substitute: P = 5 x 5 x 40.'
+- en: 'Calculate: P = 1000 W.'
+- en: So the power is 1000 W.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: P = I x I x R (from P = V x I and V = I x R).'
+- level: 2
+  en: The relation already gives the power directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write P = I x I x R, where P is the power, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the power have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER
+generator_version: factory-1
+template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bbd6876a9b90bc11e0b8ef1a6f4c87f774940ecf6c089f24999f84f0e265000a
+  template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+  certificate_hash: 294b06f60bfaaa6129c8bc6999fa8d571b8c509d9274772c8d7ab1f14a5c3692
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:23+00:00'
+  record_hash: 31997e211f37ac276427d0671018223f57997e6cd867fcf3636876608befb072

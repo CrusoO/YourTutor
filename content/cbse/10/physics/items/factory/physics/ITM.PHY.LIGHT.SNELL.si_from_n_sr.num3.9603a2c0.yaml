@@ -1,0 +1,124 @@
+id: ITM.PHY.LIGHT.SNELL.si_from_n_sr.num3.9603a2c0
+skill_ids:
+- PHY.LIGHT.SNELL
+difficulty: 0.55
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying light entering a transparent medium from air. The refractive
+    index of the medium, n, is 1.6 and the sine of the angle of refraction is 0.5.
+    Find the sine of the angle of incidence.
+options:
+- id: a
+  en: '3.2'
+- id: b
+  en: '0.3125'
+- id: c
+  en: '1.1'
+- id: d
+  en: '0.8'
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
+- en: 'Substitute: si = 1.6 x 0.5.'
+- en: 'Calculate: si = 0.8.'
+- en: So the sine of the angle of incidence is 0.8.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: from air into a medium, sin i = n x sin r.'
+- level: 2
+  en: The relation already gives the sine of the angle of incidence directly, so decide
+    what to substitute.
+- level: 3
+  en: 'First step: write si = n x sr, where si is the sine of the angle of incidence,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the sine of the angle of incidence
+    be?
+status: draft
+template_id: TPL2.PHY.LIGHT.SNELL
+generator_version: factory-1
+template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d9d3d72f7e5d5f075fcffae492bbfabb03af0812e53ed0ef897d4846a7e13030
+  template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
+  certificate_hash: a7fdf9f51d8c8a8565c5569436f99d34d226953ac200046a898223d4f2b0c9b3
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:49:26+00:00'
+  record_hash: bb7fb3af8b2795082b4ea572f380a8c6acbd3f999257ecfa564f1d844997ba70

@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.mcq1.1eb38fc5
+skill_ids:
+- PHY.ELEC.CHARGE_CURRENT
+difficulty: 0.35
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: The charge, Q, is 30 C and the time, t, is 10 min. What is the current?
+options:
+- id: a
+  en: 1.8 x 10^7 mA
+- id: b
+  en: 3000 mA
+- id: c
+  en: 50 mA
+- id: d
+  en: 20000 mA
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 10 min = 600 s.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 30 / 600.'
+- en: 'Calculate: I = 0.05 A.'
+- en: 'Give it in mA: 50 mA.'
+- en: So the current is 50 mA.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: charge Q = current I x time t.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of Q
+    = I x t by t. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 10 min as 600 s, then write I = Q / t, where I is the current,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
+generator_version: factory-1
+template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 46a6dba33318889c4aedf671a6c02d9e6f69574cb9adadf49d0cfe7f0ac0953a
+  template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+  certificate_hash: 896f1c757a561c707c2ecf0e086d56f63f7c8bb9bae49184dff9f8047536ec30
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:36+00:00'
+  record_hash: 863ba00ce2870414ca47e591e86b05f8b2db7ae100f6d2319f87ef62ad64a46b

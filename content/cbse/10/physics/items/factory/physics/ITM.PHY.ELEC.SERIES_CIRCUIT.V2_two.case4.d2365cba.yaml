@@ -1,0 +1,127 @@
+id: ITM.PHY.ELEC.SERIES_CIRCUIT.V2_two.case4.d2365cba
+skill_ids:
+- PHY.ELEC.SERIES_CIRCUIT
+difficulty: 0.75
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a battery connected to resistors in series and
+    records the following. The battery gives 12.5 V, the first resistor, R1, is 10
+    Ω and the second resistor, R2, is 15 Ω. Find the potential difference across the
+    second resistor.'
+options:
+- id: a
+  en: 6.25 V
+- id: b
+  en: 12.5 V
+- id: c
+  en: 7.5 V
+- id: d
+  en: 5 V
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: find the current from the whole circuit, then use V = I
+    x R on one resistor.'
+- en: 'Substitute: V2 = 12.5 x 15 / (10 + 15).'
+- en: 'Calculate: V2 = 7.5 V.'
+- en: So the potential difference across the second resistor is 7.5 V.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: find the current from the whole circuit, then use V = I x R on
+    one resistor.'
+- level: 2
+  en: The relation already gives the potential difference across the second resistor
+    directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write V2 = V x R2 / (R1 + R2), where V2 is the potential difference
+    across the second resistor, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the potential difference across the second
+    resistor have, and roughly how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES_CIRCUIT
+generator_version: factory-1
+template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fe7d4f360dc77fc72c131e13692e8700d2bd9986d744161d4269b2e7d10feab1
+  template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
+  certificate_hash: b6a95edb6bf733c2a527144cce77b07d7ddf8a686cbadb138c22dbf31531dce2
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:06+00:00'
+  record_hash: f13157786f752324edf5ac8221e954dd1c68583376569ac2df5dcbfe75556258

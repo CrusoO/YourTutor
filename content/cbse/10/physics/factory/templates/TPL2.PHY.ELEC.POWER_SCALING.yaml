@@ -1,0 +1,44 @@
+id: TPL2.PHY.ELEC.POWER_SCALING
+schema: factory-template/1
+lane: physics
+model: ELEC.POWER_SCALE
+skill_id: PHY.ELEC.POWER_SCALING
+box:
+  variant:
+    choices:
+    - P_V_scaled
+    - P_R_scaled
+    - P_I_scaled
+    - P_VR_scaled
+    - H_It_scaled
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  k:
+    choices:
+    - '2'
+    - '3'
+    - '4'
+    - 1/2
+  k2:
+    choices:
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - 1/2
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.POWER_SCALING
+  allowed_methods:
+  - power_proportionality
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason

@@ -1,0 +1,129 @@
+id: ITM.PHY.ELEC.ENERGY_KWH.E_two.num3.9c653792
+skill_ids:
+- PHY.ELEC.ENERGY_KWH
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying the electrical energy an appliance uses. The power rating
+    of the first appliance, P1, is 1000 W, the time it is used each day, t1, is 5
+    h, the power rating of the second appliance, P2, is 100 W, the time the second
+    one is used each day, t2, is 3 h and the number of days, d, is 10. How much electrical
+    energy is used in all, in kWh?
+options:
+- id: a
+  en: 11 kWh
+- id: b
+  en: 53 kWh
+- id: c
+  en: 5.3 kWh
+- id: d
+  en: 50 kWh
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Plan: add the energy of each appliance for one day, power times time, then
+    multiply by the days.'
+- en: 'Substitute: E2 = (1000 x 18000 + 100 x 10800) x 10.'
+- en: 'Calculate: E2 = 1.908 x 10^8 J.'
+- en: 'Give it in kWh: 53 kWh.'
+- en: So the energy is 53 kWh.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Plan the steps: add
+    the energy of each appliance for one day, power times time, then multiply by the
+    days.'
+- level: 2
+  en: Work through the plan one step at a time. Change every quantity to SI units
+    first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write E2 = (P1 x t1 + P2 x t2) x d, where E2 is the energy, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the energy have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.ENERGY_KWH
+generator_version: factory-1
+template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c0b875b1c4764d69ff6be4e33e36ff7554eefe63d9c884c47f14f046889257df
+  template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
+  certificate_hash: c257e9b04781d29de3a45fbbbbdb2699f4d223dcbb786354f5afee6a77532acc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:34+00:00'
+  record_hash: cf9228113c21853e818e605dede7f64f078b201a8050c02e6d6b011fcbac6f82

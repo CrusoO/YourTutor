@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.SERIES.Rs_three.num3.b7f18b73
+skill_ids:
+- PHY.ELEC.SERIES
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying resistors joined in series. The first resistor, R1, is
+    12 Ω, the second resistor, R2, is 6 Ω and the third resistor, R3, is 4 Ω. Find
+    the total resistance.
+options:
+- id: a
+  en: 288 Ω
+- id: b
+  en: 2 Ω
+- id: c
+  en: 22 Ω
+- id: d
+  en: 0.5 Ω
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: in series the resistances add: Rs = R1 + R2 + R3.'
+- en: 'Substitute: Rs = 12 + 6 + 4.'
+- en: 'Calculate: Rs = 22 Ω.'
+- en: So the total resistance is 22 Ω.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: in series the resistances add: Rs = R1 + R2 + R3.'
+- level: 2
+  en: The relation already gives the total resistance directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Rs = R1 + R2 + R3, where Rs is the total resistance, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the total resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES
+generator_version: factory-1
+template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 43b9f14f3955b77d6a8edc9caaeac1f5aa91f103012787775e5b619b0e3cf60c
+  template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
+  certificate_hash: 2faa6c4bd21a2dea9460f2be1b68269f264fa2ee19536ef2356a461967960f40
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:55+00:00'
+  record_hash: c6c38bded6cf82bc8b7ecda2c912b44240e62f4ad4cc0d08795dd95549c719b6

@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.I2_split.num3.28f53da4
+skill_ids:
+- PHY.ELEC.PARALLEL_CIRCUIT
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying a battery connected to resistors in parallel. The total
+    current from the battery, It, is 4 A, the first resistor, R1, is 10 Ω and the
+    second resistor, R2, is 15 Ω. Find the current in the second resistor.
+options:
+- id: a
+  en: 1.6 A
+- id: b
+  en: 2 A
+- id: c
+  en: 4 A
+- id: d
+  en: 2.4 A
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: the branches share one voltage, so the larger resistor
+    takes the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
+- en: 'Substitute: I2 = 4 x 10 / (10 + 15).'
+- en: 'Calculate: I2 = 1.6 A.'
+- en: So the current in the second resistor is 1.6 A.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: the branches share one voltage, so the larger resistor takes
+    the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
+- level: 2
+  en: The relation already gives the current in the second resistor directly, so decide
+    what to substitute.
+- level: 3
+  en: 'First step: write I2 = It x R1 / (R1 + R2), where I2 is the current in the
+    second resistor, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current in the second resistor have,
+    and roughly how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
+generator_version: factory-1
+template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 37af65f1db3f56524b2af6afe2367a5c8de74e1e05e04b18a2be8f35f8c16702
+  template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
+  certificate_hash: 6be4164653090845955de18927339ecb7d4eb3ab1d219a19fb3ecb0edd0f9489
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:11+00:00'
+  record_hash: 844e0f8b0c3295223628d54a4b1d72060f07704752fe27f31a0911f4587f14aa

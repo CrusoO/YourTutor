@@ -1,0 +1,134 @@
+id: ITM.PHY.LIGHT.MIRROR_FORMULA.u_from_vf.case4.dba670ce
+skill_ids:
+- PHY.LIGHT.MIRROR_FORMULA
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates image formation by a spherical mirror and records
+    the following. The image, which is virtual, is 20 cm from the concave mirror and
+    the focal length of the concave mirror, f, is 30 cm. Using the Cartesian sign
+    convention, find the object distance u.'
+options:
+- id: a
+  en: -833 cm
+- id: b
+  en: -60 cm
+- id: c
+  en: -12 cm
+- id: d
+  en: 60 cm
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with v and f signed by
+    the convention.'
+- en: 'Put each quantity in SI units with its sign: v = 0.2 m; f = -0.3 m.'
+- en: 'Get the object distance alone: subtract 1/v from each side of 1/v + 1/u = 1/f,
+    then take the reciprocal of each side.'
+- en: 'Substitute: u = 0.2 x (-0.3) / (0.2 - (-0.3)).'
+- en: 'Calculate: u = -0.12 m.'
+- en: 'Give it in cm: -12 cm.'
+- en: So the object distance is -12 cm.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: mirror formula 1/v + 1/u = 1/f, with v and f signed by the convention.'
+- level: 2
+  en: 'Get the object distance on its own before you put numbers in: subtract 1/v
+    from each side of 1/v + 1/u = 1/f, then take the reciprocal of each side. Do the
+    same operation to each side of the formula. Change every quantity to SI units
+    first, and change back at the end if asked. Give each distance its sign by the
+    Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 20 cm as 0.2 m and 30 cm as -0.3 m, then write u = v x f
+    / (v - f), where u is the object distance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the object distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_FORMULA
+generator_version: factory-1
+template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a28215b2b49dfb7524a9dc06bf8c5d42260beb819ec110e8cf71d80fb2e1b7fc
+  template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
+  certificate_hash: e0ce91a287303e5e9a1df3c07f4c9848188f8a38e98b20058b5d026b81a9b5bc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:05+00:00'
+  record_hash: 5d93093a555ad96bff60ade4fc688293a9307cf15425d5a9a9c3d261dc4eb07d

@@ -51,8 +51,8 @@ html:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) {
   font-synthesis: none;
 }
 :is(:lang(ne), :lang(mr)) {
-  --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
-  --ff-body: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
+  --ff-display: var(--font-noto-sans-deva), "Geist", "Nirmala UI", "Mangal", system-ui, sans-serif;
+  --ff-body: var(--font-noto-sans-deva), "Geist", "Nirmala UI", "Mangal", system-ui, sans-serif;
 }
 :is(:lang(bn), :lang(as)) {
   --ff-display: "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Noto Sans", system-ui, sans-serif;
@@ -80,4 +80,5 @@ html:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) {
 :is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) [data-testid="composer-input"] {
   font-family: var(--ff-body) !important;
   font-style: normal !important;
+  min-height: 4.75rem; /* the placeholder wraps to two lines in the sans face on a narrow phone */
 }

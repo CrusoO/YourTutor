@@ -1,0 +1,127 @@
+id: ITM.PHY.ELEC.MIXED_NETWORK.Rt_mixed.num3.a51106f0
+skill_ids:
+- PHY.ELEC.MIXED_NETWORK
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying a resistor in series with two resistors in parallel. The
+    resistor in series with the pair, R1, is 6 Ω, one resistor of the parallel pair,
+    R2, is 9 Ω and the other resistor of the pair, R3, is 18 Ω. Find the total resistance
+    of the network.
+options:
+- id: a
+  en: 33 Ω
+- id: b
+  en: 3 Ω
+- id: c
+  en: 6.17 Ω
+- id: d
+  en: 12 Ω
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: combine the parallel pair first (1/Rp = 1/R2 + 1/R3), then
+    add the series resistor.'
+- en: 'Substitute: Rt = 6 + 9 x 18 / (9 + 18).'
+- en: 'Calculate: Rt = 12 Ω.'
+- en: So the total resistance is 12 Ω.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: combine the parallel pair first (1/Rp = 1/R2 + 1/R3), then add the
+    series resistor.'
+- level: 2
+  en: The relation already gives the total resistance directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Rt = R1 + R2 x R3 / (R2 + R3), where Rt is the total resistance,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the total resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.MIXED_NETWORK
+generator_version: factory-1
+template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 95a8f4ba3b2c26f1d73362d483730640a199c1809f424890ff970b70d49ee262
+  template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
+  certificate_hash: 90d984fc4da2e774f54846a95cec01a938032a798437ef5c3150793dd2c2f0b9
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:17+00:00'
+  record_hash: 175a4e49d2cde97f78b842d506d9a5f95e93ba50f6a9985d5e55d06e7dcbcb15

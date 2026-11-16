@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.PARALLEL.Rp_three.case4.7040c2bd
+skill_ids:
+- PHY.ELEC.PARALLEL
+difficulty: 0.75
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates resistors joined in parallel and records the following.
+    The first resistor, R1, is 60 Ω, the second resistor, R2, is 30 Ω and the third
+    resistor, R3, is 20 Ω. Find the combined resistance.'
+options:
+- id: a
+  en: 0.1 Ω
+- id: b
+  en: 20 Ω
+- id: c
+  en: 110 Ω
+- id: d
+  en: 10 Ω
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- en: 'Substitute: Rp = 1 / (1 / 60 + 1 / 30 + 1 / 20).'
+- en: 'Calculate: Rp = 10 Ω.'
+- en: So the total resistance is 10 Ω.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- level: 2
+  en: The relation already gives the total resistance directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Rp = 1 / (1 / R1 + 1 / R2 + 1 / R3), where Rp is the total
+    resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the total resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL
+generator_version: factory-1
+template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e80017ab96b76a6977b6df00fe0002fef0faa21eda0be6479eaf70b35fbf6192
+  template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
+  certificate_hash: b7d42f0144db026dbe0a78e220ffd6069efc7abc60e753468df43ba35bcded26
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:01+00:00'
+  record_hash: 6ba7a60481a0a6a65e857e72b59af538a6d96cb85c323419c981df8dafe75b6a

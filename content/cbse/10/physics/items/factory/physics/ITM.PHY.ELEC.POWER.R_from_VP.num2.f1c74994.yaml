@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.POWER.R_from_VP.num2.f1c74994
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about an electrical appliance. The voltage across it, V, is
+    200 V and its power, P, is 100 W. Find the resistance of the appliance.
+options:
+- id: a
+  en: 4 x 10^6 Ω
+- id: b
+  en: 400 Ω
+- id: c
+  en: 2 Ω
+- id: d
+  en: 0.0025 Ω
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: P = V x V / R.'
+- en: 'Get the resistance alone: multiply each side of P = V x V / R by R, then divide
+    each side by P.'
+- en: 'Substitute: R = 200 x 200 / 100.'
+- en: 'Calculate: R = 400 Ω.'
+- en: So the resistance is 400 Ω.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: P = V x V / R.'
+- level: 2
+  en: 'Get the resistance on its own before you put numbers in: multiply each side
+    of P = V x V / R by R, then divide each side by P. Do the same operation to each
+    side of the formula.'
+- level: 3
+  en: 'First step: write R = V x V / P, where R is the resistance, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER
+generator_version: factory-1
+template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1e90af2f4213f4bfc0794061a097056f230b153f3238bdc394aefc4ae7de8ab5
+  template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+  certificate_hash: 24f37b7761ee765f952bd08b0b982feb7d6958a51531cd7d2cd439e7bd2402f5
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:22+00:00'
+  record_hash: 805d0c6386ec85be97bc499c1bb94b9cba85b8ecb19748a163083ac4f2ba8df6

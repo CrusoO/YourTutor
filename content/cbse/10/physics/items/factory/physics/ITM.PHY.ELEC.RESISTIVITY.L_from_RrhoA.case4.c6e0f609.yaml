@@ -1,0 +1,129 @@
+id: ITM.PHY.ELEC.RESISTIVITY.L_from_RrhoA.case4.c6e0f609
+skill_ids:
+- PHY.ELEC.RESISTIVITY
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a uniform wire and records the following. Its
+    resistance, R, is 0.25 Ω, the resistivity of its material, rho, is 1 x 10^-7 Ω
+    m and its cross-section area, A, is 2 mm². Find the length of the wire.'
+options:
+- id: a
+  en: 0.0125 m
+- id: b
+  en: 5 m
+- id: c
+  en: 5 x 10^6 m
+- id: d
+  en: 5 x 10^-14 m
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 2 mm² = 2 x 10^-6 m².'
+- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
+    divide each side by the resistivity.'
+- en: 'Substitute: L = 0.25 x (2 x 10^-6) / (1 x 10^-7).'
+- en: 'Calculate: L = 5 m.'
+- en: So the length is 5 m.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: R = resistivity x length / area.'
+- level: 2
+  en: 'Get the length on its own before you put numbers in: multiply each side of
+    R = resistivity x L / A by A, then divide each side by the resistivity. Do the
+    same operation to each side of the formula. Change every quantity to SI units
+    first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 mm² as 2 x 10^-6 m², then write L = R x A / rho, where
+    L is the length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the length have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.RESISTIVITY
+generator_version: factory-1
+template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 01f8f54a545300a1a979e8c69fd3e225a2c67808bf66aca7599d1645dbfbac29
+  template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
+  certificate_hash: c56172ea91cac18e956ec00f532e30d23191ce124f8b8aa030c61ed8a7a4f3a8
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:50+00:00'
+  record_hash: a093811a349b8faa3c4ee6a51ee716c6fb19c596cd7b9790e510cc8e84687159

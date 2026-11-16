@@ -1,0 +1,133 @@
+id: ITM.PHY.LIGHT.IMAGE_NATURE.nature_mirror.num3.d7435065
+skill_ids:
+- PHY.LIGHT.IMAGE_NATURE
+difficulty: 0.65
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student is studying the nature of the image from the mirror and lens formulas.
+    The object, u, is 15 cm from the convex mirror and the focal length of the convex
+    mirror, f, is 10 cm. What is the nature of the image?
+options:
+- id: a
+  en: real, erect, diminished
+- id: b
+  en: virtual, inverted, diminished
+- id: c
+  en: virtual, erect, diminished
+- id: d
+  en: virtual, erect, magnified
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: find v from the mirror formula, then m = -v / u; a negative
+    v is a real image in front of the mirror, a negative m is inverted, |m| above
+    1 is magnified.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = 0.1 m.'
+- en: 'Substitute: v = (-0.15) x 0.1 / ((-0.15) - 0.1).'
+- en: 'Calculate: v = 0.06 m.'
+- en: 'Give it in cm: 6 cm.'
+- en: 'Read the sign of v and of m = -v / u: the image is virtual, erect, diminished.'
+- en: So the image is virtual, erect, diminished.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: find v from the mirror formula, then m = -v / u; a negative v
+    is a real image in front of the mirror, a negative m is inverted, |m| above 1
+    is magnified.'
+- level: 2
+  en: Work out v first, then m, and only then read what their signs say. Change every
+    quantity to SI units first, and change back at the end if asked. Give each distance
+    its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 15 cm as -0.15 m and 10 cm as 0.1 m, then write v = u x f
+    / (u - f), where v is the image distance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.LIGHT.IMAGE_NATURE
+generator_version: factory-1
+template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8a040d957dbfe9b03958cea125398d54a1f979296ed312451f9d694135f4f622
+  template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
+  certificate_hash: 0d12b3b40ecb03a5144a0aaacb514fd0c3dcdf8565940bdc3dbfb1bfa8c58f34
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:22+00:00'
+  record_hash: 5240ab65a89524bf574901ce5cf3e429864a880119b4f916411a3907f09f31a3

@@ -1,0 +1,53 @@
+id: TPL2.PHY.ELEC.OHM_LAW
+schema: factory-template/1
+lane: physics
+model: ELEC.OHM
+skill_id: PHY.ELEC.OHM_LAW
+box:
+  variant:
+    choices:
+    - V_from_IR
+    - I_from_VR
+    - R_from_VI
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  I:
+    choices:
+    - '0.25'
+    - '0.5'
+    - '2'
+    - '5'
+    - '20'
+    - '50'
+  iu:
+    choices:
+    - A
+    - mA
+  R:
+    choices:
+    - '2'
+    - '4'
+    - '5'
+    - '10'
+    - '25'
+    - '100'
+  ru:
+    choices:
+    - ohm
+    - kohm
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.OHM_LAW
+  allowed_methods:
+  - ohms_law
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
