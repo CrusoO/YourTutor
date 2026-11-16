@@ -114,9 +114,21 @@ def test_tier_c_still_blocks():
 
 
 def row(**over):
+    """A stored row: the content columns of BASE_ITEM plus the serving columns."""
+    item = Item.model_validate(BASE_ITEM)
+    content = {
+        "id": item.id, "skill_ids": item.skill_ids, "difficulty": item.difficulty,
+        "type": item.type.value, "pool": item.pool.value, "role": item.role.value,
+        "stem": item.stem.as_dict(), "verify": item.verify,
+        "options": [o.model_dump(by_alias=True) for o in item.options],
+        "answer": item.answer.model_dump(), "step_hints": [], "hint_restate": None,
+        "solution_steps": [s.as_dict() for s in item.solution_steps],
+        "hints": [h.model_dump(by_alias=True) for h in item.hints],
+        "prediction_prompt": item.prediction_prompt.as_dict(), "generator_version": None,
+    }  # fmt: skip
     base = {
         "status": "draft", "tier": "A", "reviewed_by": None, "provenance": {"original": True},
-        "verification": None, "suspended_at": None,
+        "verification": None, "suspended_at": None, **content,
     }  # fmt: skip
     return SimpleNamespace(**{**base, **over})
 
