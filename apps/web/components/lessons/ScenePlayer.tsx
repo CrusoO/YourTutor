@@ -1,5 +1,6 @@
 "use client";
 
+import { reducedMotion } from "@/lib/motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { pick, type L10n, type PauseAndAsk, type Scene, type SceneAction } from "@/lib/lessons/types";
 
@@ -11,11 +12,7 @@ type Drawn = { key: number; action: DrawAction };
 const realDelay: Delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  return reducedMotion();
 }
 
 /** How long a piece of text takes to be "written", and how long a caption stays before moving on. */

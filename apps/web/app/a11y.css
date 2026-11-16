@@ -1,0 +1,83 @@
+/* Accessibility foundations (WCAG 2.2): focus, reduced motion, touch targets, Indic typography. Loaded last, so these
+   rules win ties. Colours come from the semantic tokens (app/semantic.css). */
+
+/* Visible focus on every interactive element, 3 px, 3:1 against its background in every theme. :where keeps the
+   specificity at zero so a component can still choose its own ring, but it beats a bare "outline-none". Elements
+   focused by script (tabindex="-1", for example a lesson heading) get no ring. */
+:where(a[href], button, input, select, textarea, summary, [role="button"], [role="tab"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid var(--s-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Reduced motion: from the device (prefers-reduced-motion) or from Comfort (data-motion="reduce"). Durations are
+   already near zero in tokens.css; a looping animation (a skeleton pulse) would still flicker, so it runs once. Components
+   that move on their own (autoplay, rotating text, hops, smooth scroll) ask lib/motion.ts and show a still version. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  /* tokens.css switches durations off only when data-motion is absent; the calm audience motion sets it, so the
+     device preference is repeated here for it. */
+  html[data-motion="calm"] *,
+  html[data-motion="calm"] *::before,
+  html[data-motion="calm"] *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation-iteration-count: 1 !important;
+}
+
+/* Touch targets: 44 px floor (48 px on touch screens for primary controls). Text links that stand alone (a back
+   link, the legal links) get the height; links inside a sentence keep the WCAG inline exception. */
+.back-link,
+[data-testid="legal-links"] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--s-control-min);
+}
+
+/* Indic typography. Line height about 1.8 for Devanagari and Bengali-Assamese, so stacked matras and conjuncts are
+   never clipped; no synthetic bold or italic; labels are not upper-cased or letter-spaced; and the font stack never
+   forces a Latin face onto Indic glyphs (Noto first, then the system's own Indic fonts; no new download). */
+html:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) {
+  --lh-body: 1.8;
+  font-synthesis: none;
+}
+:is(:lang(ne), :lang(mr)) {
+  --ff-display: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
+  --ff-body: "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", system-ui, sans-serif;
+}
+:is(:lang(bn), :lang(as)) {
+  --ff-display: "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Noto Sans", system-ui, sans-serif;
+  --ff-body: "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Noto Sans", system-ui, sans-serif;
+}
+:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) body {
+  line-height: 1.8;
+}
+:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) :where(p, li, label, span, a, td, th, dd, dt, input, textarea, select, button, small, blockquote, figcaption, summary) {
+  line-height: 1.8;
+}
+:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) :where(h1, h2, h3, h4) {
+  line-height: 1.5;
+}
+:is(:lang(ne), :lang(mr), :lang(bn), :lang(as)) :is(.display, .label, .glow-btn, .sphere, .home-title) {
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  font-size: max(0.875rem, 1em);
+}
+:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) :is(i, em, cite) {
+  font-style: normal;
+}
+/* The composer and headline use a Latin italic serif; in an Indic language the box reads in the body face. */
+:is(:lang(hi), :lang(ne), :lang(mr), :lang(bn), :lang(as)) [data-testid="composer-input"] {
+  font-family: var(--ff-body) !important;
+  font-style: normal !important;
+}

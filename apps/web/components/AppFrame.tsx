@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { useAudience } from "@/lib/useAudience";
 
 /** Routes that bring their own full-width layout (the new chat shell and the design gallery). */
 const BARE = [/^\/$/, /^\/brownie-chat(\/|$)/, /^\/login(\/|$)/, /^\/brownie(\/|$)/, /^\/dev\/ui(\/|$)/];
@@ -13,6 +14,7 @@ const BARE = [/^\/$/, /^\/brownie-chat(\/|$)/, /^\/login(\/|$)/, /^\/brownie(\/|
  */
 export default function AppFrame({ children }: { children: ReactNode }) {
   const path = usePathname() ?? "/";
+  useAudience(); // sets the audience attributes on <html>; school unless a device choice or grade band says otherwise
   const [embedded, setEmbedded] = useState(false);
 
   useEffect(() => {

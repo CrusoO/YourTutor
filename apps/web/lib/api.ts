@@ -449,14 +449,6 @@ export async function createVideoJob(
   });
 }
 
-/** A video for a typed question: the engine matches the words to a topic and may answer "not available". */
-export async function createPromptVideoJob(prompt: string, idempotencyKey: string): Promise<VideoJob> {
-  return req("/video-jobs", {
-    method: "POST",
-    body: JSON.stringify({ prompt, idempotency_key: idempotencyKey }),
-  });
-}
-
 export type VideoSource = { title: string; sections: { heading: string; body: string }[] };
 
 /** A video made from the explanation just written: the API accepts only text it signed for this student. */

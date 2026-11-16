@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { reducedMotion } from "@/lib/motion";
 
 /** The video that was built beforehand for a common question. It opens at once and says so; there is no progress bar. */
 export function PreparedVideo({ src, title, poster }: { src: string; title: string; poster?: string }) {
@@ -41,7 +42,7 @@ export function VideoDialog({ src, title, poster, startAt = 0, onClose }: { src:
           src={src}
           poster={poster}
           controls
-          autoPlay
+          autoPlay={!reducedMotion()}
           playsInline
           className="max-h-[78vh] w-full rounded-xl bg-black"
           data-testid="video-dialog-player"

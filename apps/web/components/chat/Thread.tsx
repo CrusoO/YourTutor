@@ -36,7 +36,7 @@ export function Thread() {
   return (
     <ThreadPrimitive.Root className="flex min-h-0 flex-1 flex-col">
       <ThreadPrimitive.Viewport className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 py-6 md:px-8" data-testid="thread">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-4">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-4" role="log" aria-live="polite" aria-relevant="additions" data-testid="thread-log">
           <ThreadPrimitive.Messages>{({ message }) => <ChatMessage message={message as ThreadMessage} />}</ThreadPrimitive.Messages>
           <Replies />
         </div>

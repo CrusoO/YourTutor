@@ -1,28 +1,25 @@
 "use client";
 
-import { AssistantRuntimeProvider, useExternalStoreRuntime, type ThreadMessageLike } from "@assistant-ui/react";
 import { useMemo, useState } from "react";
 import { useLocale } from "@/lib/locale";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icons";
 import { Brand } from "@/components/ui/brand";
 import { LanguageSwitch } from "@/components/ui/language-switch";
-import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
-import { locale } from "@/lib/api";
 import { dismissTip, tipDismissed } from "@/lib/chat/device";
 import { greeting } from "@/lib/chat/greeting";
-import { messageText } from "@/lib/chat/labels";
 import { useLinkStart } from "@/lib/chat/useLinkStart";
 import { ChatProvider, useChatApi } from "./ChatProvider";
 import { Composer } from "./Composer";
 import { HomeCards } from "./HomeCards";
 import { IconSidebar } from "./IconSidebar";
-import { LessonView } from "./LessonView";
 import dynamic from "next/dynamic";
 import { LatestSummary, Replies } from "./Bubbles";
 // The conversation (setup chips, sign-in forms) loads only when there is one: the first screen is the hero.
-const Thread = dynamic(() => import("./Thread").then((m) => m.Thread), { ssr: false });
-import { SidebarContent } from "./Sidebar";
+// The chat runtime is ~100 KB, so the conversation, the lesson and the phone drawer are separate chunks.
+const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false });
+const LessonView = dynamic(() => import("./LessonView").then((m) => m.LessonView), { ssr: false });
+const MobileDrawer = dynamic(() => import("./MobileDrawer"), { ssr: false });
 import { instrumentSerif, inter, notoSerifDevanagari } from "@/app/fonts";
 import styles from "./ChatHome.module.css";
 const WorkspacePanel = dynamic(
@@ -90,32 +87,9 @@ function Hero() {
 
 function Shell() {
   const api = useChatApi();
-  const { chat, ctx, copy, busy, submitText, workspace, lesson } = api;
+  const { chat, copy, submitText, workspace, lesson } = api;
   const [drawer, setDrawer] = useState(false);
-
-  const threadMessages = useMemo<ThreadMessageLike[]>(
-    () =>
-      chat.messages
-        .filter((m) => m.from !== "system")
-        .map((m) => ({
-          id: String(m.id),
-          role: m.from === "user" ? ("user" as const) : ("assistant" as const),
-          content: [{ type: "text" as const, text: messageText(copy, ctx, m, locale()) }],
-          metadata: { custom: { msg: m } },
-        })),
-    [chat.messages, copy, ctx],
-  );
-
-  const runtime = useExternalStoreRuntime<ThreadMessageLike>({
-    messages: threadMessages,
-    isRunning: busy,
-    convertMessage: (message) => message,
-    // The typed text goes to the local finder and is dropped: it is never added to the thread, stored or sent.
-    onNew: async (message) => {
-      const text = message.content.map((part) => (part.type === "text" ? part.text : "")).join(" ");
-      await submitText(text);
-    },
-  });
+  const [drawerLoaded, setDrawerLoaded] = useState(false);
 
   const hero = chat.phase === "welcome" || chat.phase === "home";
 
@@ -123,7 +97,7 @@ function Shell() {
   useLinkStart({ role: api.role, identityReady: api.identityReady, contextReady: api.ctx, lessonOpen: Boolean(lesson), submitText });
 
   return (
-    <AssistantRuntimeProvider runtime={runtime}>
+    <>
       <div
         className={`${instrumentSerif.variable} ${inter.variable} ${notoSerifDevanagari.variable} ui-root home-flat flex h-dvh w-full overflow-hidden ${styles.app}`}
         data-testid="app-shell"
@@ -132,13 +106,7 @@ function Shell() {
           {copy.chatBackToChat}
         </a>
         <IconSidebar />
-        <Sheet open={drawer} onOpenChange={setDrawer}>
-          <SheetContent side="left" className="p-0">
-            <SheetTitle className="sr-only">{copy.appName}</SheetTitle>
-            <SheetDescription className="sr-only">{copy.appName}</SheetDescription>
-            <SidebarContent onDone={() => setDrawer(false)} />
-          </SheetContent>
-        </Sheet>
+        {drawerLoaded ? <MobileDrawer open={drawer} onOpenChange={setDrawer} /> : null}
 
         <main id="chat-main" className="@container relative flex min-h-0 min-w-0 flex-1 flex-col" data-testid="chat-main">
           <header className={`flex items-center gap-3 px-3 py-2 ${styles.header} ${hero ? "lg:absolute lg:right-3 lg:top-2 lg:z-10 lg:p-0" : ""}`}>
@@ -151,10 +119,10 @@ function Shell() {
             >
               <span aria-hidden="true">←</span>
             </a>
-            <Button variant="ghost" size="icon" className="size-11 min-h-11 min-w-11 text-muted lg:hidden" onClick={() => setDrawer(true)} aria-label={copy.chatOpenMenu} title={copy.chatOpenMenu} data-testid="menu-open">
+            <Button variant="ghost" size="icon" className="size-11 min-h-11 min-w-11 text-muted lg:hidden" onClick={() => { setDrawerLoaded(true); setDrawer(true); }} aria-label={copy.chatOpenMenu} title={copy.chatOpenMenu} data-testid="menu-open">
               <Icon name="menu" />
             </Button>
-            <span className="lg:hidden">
+            <span className={styles.brandMark}>
               <Brand />
             </span>
             <span className="ml-auto flex items-center gap-2">
@@ -177,7 +145,7 @@ function Shell() {
             <Hero />
           ) : (
             <>
-              <Thread />
+              <ThreadScreen />
               <div className="mx-auto w-full max-w-3xl px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2" data-testid="docked-composer">
                 <Composer docked />
               </div>
@@ -186,7 +154,7 @@ function Shell() {
         </main>
         {workspace ? <WorkspacePanel /> : null}
       </div>
-    </AssistantRuntimeProvider>
+    </>
   );
 }
 

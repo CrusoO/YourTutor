@@ -40,7 +40,7 @@
   margin: 0;
   color: var(--c-muted);
   font-family: var(--ff-display);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   line-height: 1.4;
   text-transform: uppercase;
@@ -79,15 +79,30 @@
   gap: 0.4rem;
 }
 
+/* On a narrow phone the menu button already names the product; the mark would push the language switch off screen. */
+.brandMark {
+  display: none;
+}
+@media (min-width: 400px) {
+  .brandMark {
+    display: inline;
+  }
+}
+@media (min-width: 1024px) {
+  .brandMark {
+    display: none;
+  }
+}
+
 .headerButton {
-  min-width: 4rem;
-  min-height: 2rem !important;
+  min-width: var(--s-control-min);
+  min-height: var(--s-control-min) !important;
   border-radius: 0 !important;
   border-color: var(--c-line) !important;
-  padding-inline: 0.85rem !important;
+  padding-inline: 0.5rem !important;
   font-family: var(--ff-display);
-  font-size: 0.62rem !important;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem !important; /* 12 px floor */
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -101,13 +116,13 @@
 }
 
 .languageSwitcher :global(button[data-testid^="language-"]) {
-  min-height: 2rem;
-  min-width: 2.6rem;
+  min-height: var(--s-control-min);
+  min-width: var(--s-control-min);
   border-radius: 0;
-  padding-inline: 0.35rem;
+  padding-inline: 0.3rem;
   font-family: var(--ff-display);
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  letter-spacing: 0;
 }
 
 .composerRoot {
@@ -120,18 +135,19 @@
 }
 
 .modeGroup {
-  min-height: 1.8rem;
+  min-height: var(--s-control-min);
   border-bottom: 1px solid var(--c-line);
 }
 
 .modeButton {
-  min-height: 1.8rem !important;
+  min-height: var(--s-control-min) !important;
+  min-width: var(--s-control-min);
   border-radius: 0 !important;
   border-bottom: 2px solid transparent !important;
   padding-inline: 0.7rem !important;
   font-family: var(--ff-display);
-  font-size: 0.58rem !important;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -141,6 +157,15 @@
   color: var(--c-text) !important;
 }
 
+.composerRoot:focus-within {
+  outline: 3px solid var(--s-focus-ring);
+  outline-offset: 2px;
+}
+
+.composerInput:focus-visible {
+  outline: none; /* the whole composer box shows the ring (see .composerRoot:focus-within) */
+}
+
 .composerInput {
   font-family: var(--font-instrument-serif), var(--font-noto-serif-deva), Georgia, serif !important;
   font-size: 1.08rem !important;
@@ -148,8 +173,9 @@
 }
 
 .sendButton {
-  width: 2.45rem !important;
-  height: 2.45rem !important;
+  width: var(--s-control-min) !important;
+  height: var(--s-control-min) !important;
+  margin-bottom: 0 !important;
   border-radius: 0.12rem !important;
 }
 
@@ -174,7 +200,7 @@
 
 .masteryCard :global(h2) {
   font-family: var(--ff-display);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.17em;
   text-transform: uppercase;
 }
@@ -187,7 +213,7 @@
 
 .topicLabel {
   font-family: var(--font-inter), var(--ff-body);
-  font-size: 0.62rem !important;
+  font-size: 0.75rem !important;
 }
 
 .startCard {
@@ -227,29 +253,30 @@
   justify-content: center;
   border-radius: 0.15rem !important;
   font-family: var(--ff-display);
-  font-size: 0.6rem !important;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em;
+  min-height: var(--s-control-min) !important;
   text-transform: uppercase;
 }
 
 .panelReview {
-  min-height: 2.4rem !important;
+  min-height: var(--s-control-min) !important;
   font-family: var(--font-inter), var(--ff-body);
 }
 
 .panelToday {
-  min-height: 2.2rem !important;
+  min-height: var(--s-control-min) !important;
   border-radius: 0.15rem !important;
   font-family: var(--ff-display);
-  font-size: 0.58rem !important;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .panelCard > p:first-child {
   color: var(--c-accent-ink);
   font-family: var(--ff-display);
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   letter-spacing: 0.17em;
   text-transform: uppercase;
 }
@@ -263,7 +290,7 @@
 
 .panel :global(h2) {
   font-family: var(--ff-display);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.17em;
   text-transform: uppercase;
 }

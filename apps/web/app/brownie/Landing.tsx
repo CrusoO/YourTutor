@@ -16,6 +16,7 @@ import { legalLinks, legalNavLabel } from "@/lib/legal-copy";
 import { INDEPENDENCE_FOOTER } from "@/lib/independence";
 import { StoryArt } from "./StoryArt";
 import styles from "./BrownieLanding.module.css";
+import { reducedMotion } from "@/lib/motion";
 import { instrumentSerif, inter, notoSerifDevanagari } from "../fonts";
 
 const storyBeatParagraphs = [[0], [1], [2], [3, 4], [5]];
@@ -93,6 +94,7 @@ function LandingPageContent() {
   useEffect(() => setPreview(new URLSearchParams(window.location.search).get("preview") === "1"), []);
 
   useEffect(() => {
+    if (reducedMotion()) return; // the first line stays; nothing rotates on its own
     const timer = window.setInterval(() => {
       setAudienceIndex((index) => (index + 1) % copy.hero.audiences.length);
     }, 3200);
@@ -183,7 +185,7 @@ function LandingPageContent() {
                   <span className={styles.storyBeatNumber} aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className={styles.storyBeatArt} aria-hidden={english ? undefined : true}>
+                  <div className={styles.storyBeatArt} data-mascot aria-hidden={english ? undefined : true}>
                     {english ? <StoryArt beat={storyBeatIds[index]!} setting={setting} /> : <StoryBeatIllustration index={index} />}
                   </div>
                   <div className={styles.storyBeatCopy}>

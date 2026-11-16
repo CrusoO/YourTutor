@@ -71,7 +71,7 @@ export default function ChapterPage() {
   return (
     <main className="stack">
       <p>
-        <Link href="/chapters">← {copy.chapterBack}</Link>
+        <Link href="/chapters" className="back-link">← {copy.chapterBack}</Link>
       </p>
       {chapter ? (
         <>

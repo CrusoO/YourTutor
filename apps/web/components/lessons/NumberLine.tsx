@@ -367,7 +367,7 @@ function Line({
             aria-valuetext={canDrag ? valueText(position) : undefined}
             onKeyDown={onKey}
           >
-            <circle cx={0} cy={AXIS_Y} r={22} className={styles.hit} />
+            <circle cx={0} cy={AXIS_Y} r={26} className={styles.hit} />
             <circle cx={0} cy={AXIS_Y} r={14} className={`${styles.ring} `} />
             <circle cx={0} cy={AXIS_Y} r={10} className={`${styles.dot} ${tokenColor}`} />
           </g>
