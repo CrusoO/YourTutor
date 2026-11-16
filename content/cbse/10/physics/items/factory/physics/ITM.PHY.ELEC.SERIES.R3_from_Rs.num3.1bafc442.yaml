@@ -1,0 +1,127 @@
+id: ITM.PHY.ELEC.SERIES.R3_from_Rs.num3.1bafc442
+skill_ids:
+- PHY.ELEC.SERIES
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying resistors joined in series. The first resistor, R1, is
+    5 Ω, the second resistor, R2, is 5 Ω and the total resistance, Rs, is 20 Ω. Find
+    the third resistance.
+options:
+- id: a
+  en: 30 Ω
+- id: b
+  en: 2 Ω
+- id: c
+  en: 500 Ω
+- id: d
+  en: 10 Ω
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: in series Rs = R1 + R2 + R3.'
+- en: 'Get the third resistance alone: subtract R1 and R2 from each side of Rs = R1
+    + R2 + R3.'
+- en: 'Substitute: R3 = 20 - 5 - 5.'
+- en: 'Calculate: R3 = 10 Ω.'
+- en: So the third resistance is 10 Ω.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: in series Rs = R1 + R2 + R3.'
+- level: 2
+  en: 'Get the third resistance on its own before you put numbers in: subtract R1
+    and R2 from each side of Rs = R1 + R2 + R3. Do the same operation to each side
+    of the formula.'
+- level: 3
+  en: 'First step: write R3 = Rs - R1 - R2, where R3 is the third resistance, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the third resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES
+generator_version: factory-1
+template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e13d9bb04a00559d3713cec45f12c8e4351955215006bd782555b7d870d228c1
+  template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
+  certificate_hash: b34da09b64333a01f7a0fb5bce6db2286e57990ab03e6209f9453e26427a5579
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:56+00:00'
+  record_hash: f1215fa7cf78ac78c098c28b458c70f6cc45692693a3d9875d53a5e9466f5dcb

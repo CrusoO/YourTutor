@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.POWER_SCALING.H_It_scaled.num3.07a0866b
+skill_ids:
+- PHY.ELEC.POWER_SCALING
+difficulty: 0.6
+type: mcq
+pool: practice
+role: explain
+stem:
+  en: A student is studying how power changes when a quantity changes. The current
+    through a fixed resistor is multiplied by 4 and the time it flows is multiplied
+    by 4. By what number is the heat produced multiplied?
+options:
+- id: a
+  en: '0.25'
+- id: b
+  en: '16'
+- id: c
+  en: '64'
+- id: d
+  en: '32'
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t: it changes with the square of I
+    and directly with t.'
+- en: 'Combine the numbers: 4^2 x 4 = 64.'
+- en: So the number the heat is multiplied by is 64.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: heat H = I x I x R x t: it changes with the square of I and directly
+    with t.'
+- level: 2
+  en: The relation already gives the number the heat is multiplied by directly, so
+    decide what to substitute.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.POWER_SCALING
+generator_version: factory-1
+template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 2dc6215e8e34ccf1836f4704872c68603318d0968870daf87e65863005c69873
+  template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
+  certificate_hash: 6fc95eef77b3ddf662c0d4014ef74fb9134a022119745d925b67edc5f8959f65
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:27+00:00'
+  record_hash: a9bf744f546fdf28ce35a754abcb5e71fddd73b98cba2ccff92dfa699fe2c0c9

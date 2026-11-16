@@ -1,0 +1,122 @@
+id: ITM.PHY.ELEC.POWER.P_from_IR.num2.6c4de62b
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.4
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about an electrical appliance. The current through it, I, is
+    0.5 A and its resistance, R, is 40 Ω. Find the power.
+options:
+- id: a
+  en: 400 W
+- id: b
+  en: 0.00625 W
+- id: c
+  en: 10 W
+- id: d
+  en: 20 W
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
+- en: 'Substitute: P = 0.5 x 0.5 x 40.'
+- en: 'Calculate: P = 10 W.'
+- en: So the power is 10 W.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: P = I x I x R (from P = V x I and V = I x R).'
+- level: 2
+  en: The relation already gives the power directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write P = I x I x R, where P is the power, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the power have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER
+generator_version: factory-1
+template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b4a0f453fe0f5931ade2f7cf06917bb6e2d609c1ca4a015ce75cb5644fcb98f5
+  template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+  certificate_hash: 0deec56bb884c722871c68262f1fe1b2a88517e106a8262959c87d9469af3644
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:22+00:00'
+  record_hash: 3875c0e8414dfca862271048957393663bac4e9f7c339eb91198ecb2eb54b3ad

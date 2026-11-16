@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.CHARGE_CURRENT.t_from_QI.mcq1.063d9a53
+skill_ids:
+- PHY.ELEC.CHARGE_CURRENT
+difficulty: 0.35
+type: mcq
+pool: practice
+role: procedure
+stem:
+  en: The charge, Q, is 0.15 C and the current, I, is 5 mA. For how long does the
+    current flow?
+options:
+- id: a
+  en: 7.5 x 10^-4 s
+- id: b
+  en: 0.0333 s
+- id: c
+  en: 0.03 s
+- id: d
+  en: 30 s
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 5 mA = 0.005 A.'
+- en: 'Get the time alone: divide each side of Q = I x t by I.'
+- en: 'Substitute: t = 0.15 / 0.005.'
+- en: 'Calculate: t = 30 s.'
+- en: So the time is 30 s.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: charge Q = current I x time t.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: divide each side of Q =
+    I x t by I. Do the same operation to each side of the formula. Change every quantity
+    to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 5 mA as 0.005 A, then write t = Q / I, where t is the time,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
+generator_version: factory-1
+template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: caab097b7ee33404d1bdb35f3279cddd3fad9c99a596c793e94b14834eda357b
+  template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
+  certificate_hash: 20fbf8300611feb56ab19bc290946789f532f94bd5c2999b0bc3762f25a790cc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:37+00:00'
+  record_hash: 64c8fd2bc854c1385e1154afce31c70a7085cdd4827fafdc7504148d5818e678

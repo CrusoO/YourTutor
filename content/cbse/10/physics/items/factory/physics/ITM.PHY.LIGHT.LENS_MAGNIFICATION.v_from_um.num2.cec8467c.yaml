@@ -1,0 +1,129 @@
+id: ITM.PHY.LIGHT.LENS_MAGNIFICATION.v_from_um.num2.cec8467c
+skill_ids:
+- PHY.LIGHT.LENS_MAGNIFICATION
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about the magnification of a thin lens. The object, u, is 60
+    cm from the convex lens and the magnification, m, is -0.2. Find the image distance,
+    with its sign.
+options:
+- id: a
+  en: 12 cm
+- id: b
+  en: -12 cm
+- id: c
+  en: 300 cm
+- id: d
+  en: -300 cm
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: magnification of a lens m = v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.6 m.'
+- en: 'Get the image distance alone: multiply each side of m = v / u by u.'
+- en: 'Substitute: v = (-0.2) x (-0.6).'
+- en: 'Calculate: v = 0.12 m.'
+- en: 'Give it in cm: 12 cm.'
+- en: So the image distance is 12 cm.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: magnification of a lens m = v / u.'
+- level: 2
+  en: 'Get the image distance on its own before you put numbers in: multiply each
+    side of m = v / u by u. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked. Give each
+    distance its sign by the Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 60 cm as -0.6 m, then write v = m x u, where v is the image
+    distance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_MAGNIFICATION
+generator_version: factory-1
+template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bf2830772864c504a2e0c01d64b7921c8f28cb76b444163d207bb4aba46ea872
+  template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
+  certificate_hash: ee87cab470744bad906279c2c05c3526eac881f2414ead11746baabde8eb8272
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:48:42+00:00'
+  record_hash: 50e06675d993e6b96fd97ba23e2071bfdd85506913dd6114afa0c20cce333381

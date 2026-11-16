@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.OHM_LAW.R_from_VI.num2.2cd7525a
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about a resistor in a circuit. The potential difference across
+    it, V, is 200 V and the current through it, I, is 2 A. Find the resistance of
+    the resistor.
+options:
+- id: a
+  en: 100 Ω
+- id: b
+  en: 0.01 Ω
+- id: c
+  en: 400 Ω
+- id: d
+  en: 198 Ω
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Get the resistance alone: divide each side of V = I x R by I.'
+- en: 'Substitute: R = 200 / 2.'
+- en: 'Calculate: R = 100 Ω.'
+- en: So the resistance is 100 Ω.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: V = I x R.'
+- level: 2
+  en: 'Get the resistance on its own before you put numbers in: divide each side of
+    V = I x R by I. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write R = V / I, where R is the resistance, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW
+generator_version: factory-1
+template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7dff7039944313ca7b2a9a85dc5158186b46afc40b3d34738c34df04cd0ee40f
+  template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+  certificate_hash: c70a9eaac4c8428dd83f97f58bbb00eca6a75bfabf220dc396d53b699b2ed2ac
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:45+00:00'
+  record_hash: 30eb58ed5f288f94168b34ea3a611786856244986caca0e27ad68f0335b45736

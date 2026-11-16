@@ -1,0 +1,127 @@
+id: ITM.PHY.ELEC.OHM_LAW.V_from_IR.num2.edeae703
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.45
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about a resistor in a circuit. The current through it, I, is
+    0.25 mA and its resistance, R, is 100 kΩ. Find the potential difference across
+    the resistor.
+options:
+- id: a
+  en: 25 V
+- id: b
+  en: 2.5 x 10^-9 V
+- id: c
+  en: 100000.00025 V
+- id: d
+  en: 4 x 10^8 V
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 0.25 mA = 2.5 x 10^-4 A; 100 kΩ = 100000 Ω.'
+- en: 'Substitute: V = (2.5 x 10^-4) x 100000.'
+- en: 'Calculate: V = 25 V.'
+- en: So the potential difference is 25 V.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: V = I x R.'
+- level: 2
+  en: The relation already gives the potential difference directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 0.25 mA as 2.5 x 10^-4 A and 100 kΩ as 100000 Ω, then write
+    V = I x R, where V is the potential difference, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the potential difference have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW
+generator_version: factory-1
+template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ac9d958af985bcca85484529b93769d36d8e0d8a6c6c77f7f60a79456eb7f4c7
+  template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+  certificate_hash: d67a6b1c4ae26563950a8c28e04b5b7a09a6cf4a400f13142b7c1721e5127dc5
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:45+00:00'
+  record_hash: 3364ec073968aaaccb9b71fc015c3aa061a4af6bd9d3ca6ee45e5c1a3d75e91c

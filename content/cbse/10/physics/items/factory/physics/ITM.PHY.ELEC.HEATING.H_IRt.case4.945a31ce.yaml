@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.HEATING.H_IRt.case4.945a31ce
+skill_ids:
+- PHY.ELEC.HEATING
+difficulty: 0.8
+type: mcq
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the heat produced by a current and records the
+    following. The current, I, is 4 A, the resistance, R, is 50 Ω and the time, t,
+    is 2 min. How much heat is produced?'
+options:
+- id: a
+  en: 800 J
+- id: b
+  en: 1600 J
+- id: c
+  en: 24000 J
+- id: d
+  en: 96000 J
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Substitute: H = 4 x 4 x 50 x 120.'
+- en: 'Calculate: H = 96000 J.'
+- en: So the heat produced is 96000 J.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: heat H = I x I x R x t.'
+- level: 2
+  en: The relation already gives the heat produced directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2 min as 120 s, then write H = I x I x R x t, where H is
+    the heat produced, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the heat produced have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.HEATING
+generator_version: factory-1
+template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8662c118adf42ce1d7c2468134cfe9725ca8c6c74d3420aeb0f5e32cb47b8f8a
+  template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
+  certificate_hash: 9c902f4f392dee536e265d7e86eacd1e489b9b6285c1da39cbfb5407df770c76
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:43+00:00'
+  record_hash: 4a0a47ba2e3d601c1c73a2bb327daa6b87cc10ae7fd5420669c5e0537f32788d

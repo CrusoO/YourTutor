@@ -1,0 +1,124 @@
+id: ITM.PHY.ELEC.POWER.I_from_PV.num3.b5413e44
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.6
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying an electrical appliance. Its power, P, is 250 W and the
+    voltage across it, V, is 50 V. Find the current drawn.
+options:
+- id: a
+  en: 0.2 A
+- id: b
+  en: 5 A
+- id: c
+  en: 12500 A
+- id: d
+  en: 0.1 A
+answer:
+  sympy: b
+  accept: []
+solution_steps:
+- en: 'Write the relation: P = V x I.'
+- en: 'Get the current alone: divide each side of P = V x I by V.'
+- en: 'Substitute: I = 250 / 50.'
+- en: 'Calculate: I = 5 A.'
+- en: So the current is 5 A.
+- en: The correct option is b.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: P = V x I.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of P
+    = V x I by V. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write I = P / V, where I is the current, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER
+generator_version: factory-1
+template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 76126b6442ad9d03bdc2f31579eb7044e32cc5ead92b632493a374ef3dbed842
+  template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
+  certificate_hash: 2fa4fe4657b12174485884784501c3fbd9213206c7647d9f9ab71851c836ca1e
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:23+00:00'
+  record_hash: 0b3fe48a4775afefcefaee1cc89e04016f92745ca69f066b76a5af935000ac0e

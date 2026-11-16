@@ -1,0 +1,125 @@
+id: ITM.PHY.ELEC.RESISTIVITY.R_from_rhoLA.num2.588fa7c5
+skill_ids:
+- PHY.ELEC.RESISTIVITY
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about a uniform wire. The resistivity of its material, rho,
+    is 1 x 10^-7 Ω m, its length, L, is 1 m and its cross-section area, A, is 1 mm².
+    Find the resistance of the wire.
+options:
+- id: a
+  en: 1 x 10^-7 Ω
+- id: b
+  en: 1 x 10^-13 Ω
+- id: c
+  en: 0.1 Ω
+- id: d
+  en: 10 Ω
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 1 mm² = 1 x 10^-6 m².'
+- en: 'Substitute: R = (1 x 10^-7) x 1 / (1 x 10^-6).'
+- en: 'Calculate: R = 0.1 Ω.'
+- en: So the resistance is 0.1 Ω.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: R = resistivity x length / area.'
+- level: 2
+  en: The relation already gives the resistance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 1 mm² as 1 x 10^-6 m², then write R = rho x L / A, where
+    R is the resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.RESISTIVITY
+generator_version: factory-1
+template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 86978792b35d9b5eccd5e57235f037f70972afe031e56d475966d561a4c5e082
+  template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
+  certificate_hash: 0c151f9b4c59c4acbe03ac0e644f2ec4e6fc22b3ff7d6566a897b65c61f8c12b
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:49+00:00'
+  record_hash: c971eb665522bb9ce6361bf83e0bfd8fb2a9f8a0777105b81ef21478dd3192a8

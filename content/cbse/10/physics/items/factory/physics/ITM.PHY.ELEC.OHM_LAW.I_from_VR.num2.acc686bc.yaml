@@ -1,0 +1,126 @@
+id: ITM.PHY.ELEC.OHM_LAW.I_from_VR.num2.acc686bc
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.5
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: This question is about a resistor in a circuit. The potential difference across
+    it, V, is 0.5 V and its resistance, R, is 10 Ω. Find the current through the resistor.
+options:
+- id: a
+  en: 5000 mA
+- id: b
+  en: 20000 mA
+- id: c
+  en: 50 mA
+- id: d
+  en: 50000 mA
+answer:
+  sympy: c
+  accept: []
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Get the current alone: divide each side of V = I x R by R.'
+- en: 'Substitute: I = 0.5 / 10.'
+- en: 'Calculate: I = 0.05 A.'
+- en: 'Give it in mA: 50 mA.'
+- en: So the current is 50 mA.
+- en: The correct option is c.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: V = I x R.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of V
+    = I x R by R. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write I = V / R, where I is the current, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW
+generator_version: factory-1
+template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ab37a0dccb4027e75a6652cfd5a5a7abe8a51b7da1c80c01125c749be5454abc
+  template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
+  certificate_hash: 72b3bd1cf6594a075f2d01918f61b19b5b5f88d98e79eba2a3c52c7f47363f20
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:46:44+00:00'
+  record_hash: f5e303b682fa72cafefcad86471a244a29919abe6b74df135cf6e5c0d21843fe

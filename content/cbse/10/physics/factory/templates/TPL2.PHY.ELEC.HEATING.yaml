@@ -1,0 +1,53 @@
+id: TPL2.PHY.ELEC.HEATING
+schema: factory-template/1
+lane: physics
+model: ELEC.HEATING
+skill_id: PHY.ELEC.HEATING
+box:
+  variant:
+    choices:
+    - H_IRt
+    - H_VRt
+    - H_VIt
+    - I_from_HRt
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  I:
+    choices:
+    - '0.5'
+    - '1'
+    - '2'
+    - '4'
+    - '5'
+  R:
+    choices:
+    - '10'
+    - '20'
+    - '40'
+    - '50'
+    - '100'
+  t:
+    choices:
+    - '2'
+    - '5'
+    - '10'
+  tu:
+    choices:
+    - s
+    - min
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.HEATING
+  allowed_methods:
+  - joule_heating
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason

@@ -1,0 +1,128 @@
+id: ITM.PHY.ELEC.ENERGY_KWH.t_from_EP.num3.4ca52f6c
+skill_ids:
+- PHY.ELEC.ENERGY_KWH
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying the electrical energy an appliance uses. The energy used,
+    E1, is 6 kWh and the power rating of the first appliance, P1, is 1500 W. For how
+    many hours can it run?
+options:
+- id: a
+  en: 4 h
+- id: b
+  en: 9000 h
+- id: c
+  en: 0.25 h
+- id: d
+  en: 6000 h
+answer:
+  sympy: a
+  accept: []
+solution_steps:
+- en: 'Write the relation: energy E = power P x time t.'
+- en: 'Put each quantity in SI units: 6 kWh = 2.16 x 10^7 J.'
+- en: 'Get the time alone: divide each side of E = P x t by P.'
+- en: 'Substitute: t1 = (2.16 x 10^7) / 1500.'
+- en: 'Calculate: t1 = 14400 h.'
+- en: 'Give it in h: 4 h.'
+- en: So the time is 4 h.
+- en: The correct option is a.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: energy E = power P x time t.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: divide each side of E =
+    P x t by P. Do the same operation to each side of the formula. Change every quantity
+    to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 6 kWh as 2.16 x 10^7 J, then write t1 = E1 / P1, where t1
+    is the time, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.ENERGY_KWH
+generator_version: factory-1
+template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6d0ada97a89821257065a364a8c48b29ec90924e512dd2542e0529ad4e172b92
+  template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
+  certificate_hash: 5ca1a4b56ec4cd0036ee644e3e7dc78c8cca4fe789964cd8ed7a8ad1b61c13ee
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:47:35+00:00'
+  record_hash: 9f7188d9dad4fb870c3852fbab2c7ea84c2a3583a6cea913ae0503c8dcbeb9c5

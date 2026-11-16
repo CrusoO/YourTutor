@@ -1,0 +1,130 @@
+id: ITM.PHY.LIGHT.LENS_COMBINATION.P_from_f1f2.num3.aa168b46
+skill_ids:
+- PHY.LIGHT.LENS_COMBINATION
+difficulty: 0.65
+type: mcq
+pool: practice
+role: apply
+stem:
+  en: A student is studying two thin lenses in contact. The first lens is a concave
+    lens with focal length of magnitude 100 cm and the second lens is a concave lens
+    with focal length of magnitude 50 cm. Find the power of the combination in dioptres,
+    with its sign.
+options:
+- id: a
+  en: 3 D
+- id: b
+  en: -0.667 D
+- id: c
+  en: 2 D
+- id: d
+  en: -3 D
+answer:
+  sympy: d
+  accept: []
+solution_steps:
+- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
+    (f in metres, with signs).'
+- en: 'Put each quantity in SI units with its sign: f1 = -1 m; f2 = -0.5 m.'
+- en: 'Substitute: P = 1 / (-1) + 1 / (-0.5).'
+- en: 'Calculate: P = -3 D.'
+- en: So the combined power is -3 D.
+- en: The correct option is d.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: for thin lenses in contact the powers add: P = 1/f1 + 1/f2 (f in metres,
+    with signs).'
+- level: 2
+  en: The relation already gives the combined power directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+    Give each distance its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 100 cm as -1 m and 50 cm as -0.5 m, then write P = 1 / f1
+    + 1 / f2, where P is the combined power, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the combined power have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_COMBINATION
+generator_version: factory-1
+template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
+provenance:
+  original: true
+  author: app.factory
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3827cc039b8592b5e5aecfdd9dc06b2fa11d31f334e25472ae774aa061e18f22
+  template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
+  certificate_hash: 8e536958cbd1b013aeedf55d47196abda0ad9135fe1a539a529b06a23800f074
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-1
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: fb49396
+  llm_involved: false
+  stamped_at: '2026-11-16T12:49:02+00:00'
+  record_hash: e19f302da7036392185926e71c65cb80dc4eb9cc18c0436260ef253ba32d0e9f
