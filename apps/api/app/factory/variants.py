@@ -66,7 +66,7 @@ def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
     out["variant"] = kind
     box = out.get("box", {})
     form = box.get("form")
-    if isinstance(form, dict) and "mcq1" in (form.get("choices") or []):
+    if kind == "explain" and isinstance(form, dict) and "mcq1" in (form.get("choices") or []):
         form["choices"] = ["mcq1"]  # options are needed to name the wrong answer and to key it
     out["box"] = shrink_box(box)
     return out

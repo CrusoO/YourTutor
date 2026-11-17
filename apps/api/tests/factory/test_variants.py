@@ -36,6 +36,7 @@ def test_shrink_keeps_the_ends_and_the_original_values() -> None:
 def test_derive_restricts_a_physics_style_form_axis_to_mcq() -> None:
     template = {**SMALL, "box": {**SMALL["box"], "form": {"choices": ["num2", "mcq1", "case4"]}}}
     assert derive(template, "explain")["box"]["form"]["choices"] == ["mcq1"]
+    assert derive(template, "diagnostic")["box"]["form"]["choices"] == ["num2", "mcq1", "case4"]
 
 
 def test_one_per_skill_is_stable_and_skips_variants() -> None:
