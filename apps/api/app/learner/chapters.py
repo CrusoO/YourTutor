@@ -19,6 +19,7 @@ from app.auth.security import as_utc
 from app.config import settings
 from app.db.models import (
     ChapterRow,
+    ItemRow,
     MasteryRow,
     OverlayRow,
     ReviewCardRow,
@@ -92,10 +93,24 @@ def skill_path(skills: Sequence[tuple[str, int, bool]]) -> list[dict[str, Any]]:
     return out
 
 
-def _is_live(overlay: OverlayRow | None) -> bool:
+def _is_live(session: Session, overlay: OverlayRow | None) -> bool:
+    """Live by the overlay's own flag, in development, or (owner switch on) because every skill of
+    the chapter is covered by items the serving gate admits on their verification tier."""
+    from app.content.gate import overlay_is_live_for_serving
+
     if overlay is None or not (overlay.skill_ids or []):
         return False
-    return bool(overlay.live) or settings.allow_draft_content
+    skills = list(overlay.skill_ids or [])
+    rows: list[ItemRow] = []
+    if not overlay.live and not settings.allow_draft_content and settings.serve_tier_a_unreviewed:
+        rows = list(session.scalars(select(ItemRow).where(ItemRow.primary_skill.in_(skills))))
+    return overlay_is_live_for_serving(
+        bool(overlay.live),
+        skills,
+        rows,
+        allow_draft=settings.allow_draft_content,
+        serve_tier_a_unreviewed=settings.serve_tier_a_unreviewed,
+    )
 
 
 def _mastery_levels(
@@ -141,7 +156,7 @@ def _summary(
 ) -> ChapterSummary:
     overlay = session.get(OverlayRow, chapter.overlay_id)
     title = pick_localized_field(dict(chapter.titles or {}), locale) or chapter.chapter_key
-    live = _is_live(overlay)
+    live = _is_live(session, overlay)
     skills = list(overlay.skill_ids or []) if overlay else []
     rows = _mastery_levels(session, student.id, skills, now)
     statuses = [skill_status(level, review_overdue=overdue) for _, level, overdue in rows]
@@ -204,7 +219,7 @@ def find_chapter(session: Session, student: StudentRow, chapter_id: str) -> Chap
 
 
 def chapter_is_live(session: Session, chapter: ChapterRow) -> bool:
-    return _is_live(session.get(OverlayRow, chapter.overlay_id))
+    return _is_live(session, session.get(OverlayRow, chapter.overlay_id))
 
 
 def student_chapter_skills(

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import Counter
+from collections.abc import Iterable, Sequence
 from typing import Any
 
 from app.auth.actor import Actor
@@ -148,3 +150,61 @@ def overlay_is_targetable(
     if allow_draft is None:
         allow_draft = allow_draft_content(actor)
     return allow_draft
+
+
+# What a chapter must hold, counting only items the serving gate admits, before it counts as live
+# without a human-approved overlay. Practice matches the approval rule; one diagnostic item per
+# skill is enough for the probe warm-up; every role that gives the ladder evidence is present.
+TIER_LIVE_MIN_PRACTICE = 5
+TIER_LIVE_MIN_DIAGNOSTIC = 1
+TIER_LIVE_ROLES = ("explain", "apply", "transfer")
+
+
+def tier_live_gaps(
+    skill_ids: Sequence[str], rows: Iterable[Any], *, allow_draft: bool
+) -> list[str]:
+    """What is still missing for a chapter to count as live by tier ([] means nothing is).
+
+    Only rows that `row_is_servable` admits count, with SERVE_TIER_A_UNREVIEWED treated as on:
+    the caller decides whether the switch is actually on. Nothing is read from the overlay file,
+    so a chapter that is `live: false` there can still be live here once its items qualify.
+    """
+    practice: Counter[str] = Counter()
+    diagnostic: Counter[str] = Counter()
+    roles: Counter[tuple[str, str]] = Counter()
+    for row in rows:
+        if not row_is_servable(row, allow_draft=allow_draft, serve_tier_a_unreviewed=True):
+            continue
+        skill = str(getattr(row, "primary_skill", ""))
+        if getattr(row, "pool", None) == "practice":
+            practice[skill] += 1
+            roles[(skill, getattr(row, "role", None) or "procedure")] += 1
+        elif getattr(row, "pool", None) == "diagnostic":
+            diagnostic[skill] += 1
+    gaps: list[str] = []
+    for skill_id in skill_ids:
+        if practice[skill_id] < TIER_LIVE_MIN_PRACTICE:
+            gaps.append(f"{skill_id} practice {practice[skill_id]}/{TIER_LIVE_MIN_PRACTICE}")
+        if diagnostic[skill_id] < TIER_LIVE_MIN_DIAGNOSTIC:
+            gaps.append(f"{skill_id} diagnostic {diagnostic[skill_id]}/{TIER_LIVE_MIN_DIAGNOSTIC}")
+        gaps.extend(
+            f"{skill_id} role {role} 0/1" for role in TIER_LIVE_ROLES if roles[(skill_id, role)] < 1
+        )
+    return gaps
+
+
+def overlay_is_live_for_serving(
+    overlay_live: bool,
+    skill_ids: Sequence[str],
+    rows: Iterable[Any],
+    *,
+    allow_draft: bool,
+    serve_tier_a_unreviewed: bool,
+) -> bool:
+    """Live when the overlay says so, in development, or when the owner's tier switch is on and
+    every skill of the chapter is covered by items the gate serves on their tier."""
+    if overlay_live or allow_draft:
+        return True
+    if not serve_tier_a_unreviewed or not skill_ids:
+        return False
+    return not tier_live_gaps(skill_ids, rows, allow_draft=False)
