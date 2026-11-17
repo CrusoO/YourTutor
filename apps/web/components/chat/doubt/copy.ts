@@ -25,4 +25,14 @@ export const DOUBT_COPY = {
   keypadOpen: "Equation keypad",
   keypadClose: "Close keypad",
   keypadLabel: "Equation keypad",
+  serverNote: "Brownie's server can check this one. Only the numbers of this problem are sent, nothing else, and nothing is saved.",
+  serverCheck: "Check on Brownie's server",
+  serverUnchecked: "I could not check this one by code. Ask your teacher to check the answer.",
+  serverRefusal: {
+    disabled: "The server check is not available right now.",
+    consent: "Ask your guardian to switch on 'Check maths on the server' in Settings.",
+    rate: "That is a lot of checks. Try again in a little while.",
+    invalid: "I could not send this one. It was not sent.",
+    failed: "I could not reach the server. Nothing was saved.",
+  },
 } as const;

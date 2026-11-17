@@ -470,6 +470,21 @@ export async function explainStory(prompt: string, language: "en" | "hi"): Promi
   return req("/explain/story", { method: "POST", body: JSON.stringify({ prompt, language }) });
 }
 
+/**
+ * The one network call of the optional doubt server check (ADR 0005). `body` is the JSON text of a `doubt-expr/1`
+ * built by lib/doubt/send.ts; nothing else may be passed. Never logged; errors carry no body.
+ */
+export async function doubtSolve(body: string): Promise<{ status: number; json: unknown }> {
+  const response = await authedFetch("/doubt/solve", { method: "POST", body });
+  let json: unknown = null;
+  try {
+    json = await response.json();
+  } catch {
+    json = null;
+  }
+  return { status: response.status, json };
+}
+
 /** A video from a story this API wrote and signed for this student: the engine draws and animates it. */
 export async function createStoryVideoJob(story: Record<string, unknown>, proof: string, idempotencyKey: string): Promise<VideoJob> {
   return req("/video-jobs", {

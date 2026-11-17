@@ -23,6 +23,7 @@ from app.config import (
 )
 from app.content_review.router import router as content_review_router
 from app.dev.router import router as dev_router
+from app.doubt.router import router as doubt_router
 from app.explain.router import router as explain_router
 from app.groups.router import router as groups_router
 from app.health import database_ready, ping_redis
@@ -130,6 +131,7 @@ app.include_router(admin_router)
 app.include_router(dev_router)
 app.include_router(video_jobs_router)
 app.include_router(explain_router)
+app.include_router(doubt_router)
 app.include_router(actions_router)
 app.include_router(groups_router)
 app.include_router(classes_router)
