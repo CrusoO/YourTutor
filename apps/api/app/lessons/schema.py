@@ -225,6 +225,15 @@ Beat = Annotated[
 ]
 
 
+class GeneratedFrom(_Strict):
+    """Where a generated worked-example lesson came from (see `app.lessons.generated`)."""
+
+    kind: Literal["worked_example_trace"]
+    trace_item_ids: list[str] = Field(min_length=1)  # stamped items whose solution steps it shows
+    wording_template_id: str = Field(min_length=1)  # the authored template the text came from
+    wording_reviewed_by: str  # who reviewed that template once; blank means nobody yet
+
+
 class Lesson(_Strict):
     id: str = Field(min_length=1)
     skill_id: str = Field(min_length=1)
@@ -233,6 +242,7 @@ class Lesson(_Strict):
     status: ContentStatus = ContentStatus.draft
     reviewed_by: str | None = None  # set with the approval, together with content_hash
     content_hash: str | None = None
+    generated: GeneratedFrom | None = None
     beats: list[Beat] = Field(min_length=3)
 
     def scenes(self) -> list[Scene]:
