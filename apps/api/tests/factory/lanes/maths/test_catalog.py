@@ -152,3 +152,21 @@ def test_checking_a_typed_answer():
     ctx = LANE.render(t, {"ang": 60, "k": 10, "kind": "surd", "ctx": 0})
     assert ctx.answer["value"] == "10√3"
     assert LANE.check_student_answer(ctx, "10 sqrt3") and not LANE.check_student_answer(ctx, "10")
+
+
+def test_every_curriculum_chapter_of_the_maths_book_has_an_overlay_with_skills():
+    from app.factory.lanes.maths.catalog import overlay_records
+    from app.registries.loaders import load_all_curricula
+
+    overlays = {o["id"]: o for o in overlay_records()}
+    book = next(
+        b for c in load_all_curricula().values() for b in c.books if b.id == "cbse.10.maths"
+    )
+    for chapter in book.chapters:
+        if chapter.overlay_id in {
+            "cbse.10.maths.quadratic",
+            "cbse.10.maths.ap",
+            "cbse.10.maths.trig_applications",
+        }:
+            assert overlays[chapter.overlay_id]["skill_ids"], chapter.overlay_id
+            assert (CONTENT / "overlays" / f"{chapter.overlay_id.replace('.', '_')}.yaml").is_file()

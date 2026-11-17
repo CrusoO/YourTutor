@@ -16,6 +16,15 @@ from app.factory.kernel.exact import chash
 from app.factory.lanes.maths import catalog_ap, catalog_quad, catalog_trig
 from app.factory.lanes.maths.core import IllPosed, distinct_wrong
 
+# The lane's chapter refs (kept: they sit inside every template hash and certificate) name chapters
+# by book number. A student reaches a chapter through the curriculum registry, whose overlay ids
+# are below; chapters without an entry have no curriculum chapter yet and keep their own id.
+OVERLAY_IDS: dict[str, str] = {
+    "cbse.10.maths.ch04": "cbse.10.maths.quadratic",
+    "cbse.10.maths.ch05": "cbse.10.maths.ap",
+    "cbse.10.maths.ch11": "cbse.10.maths.trig_applications",
+}
+
 CHAPTERS: dict[str, dict[str, str]] = {
     "cbse.10.maths.ch04": {"key": "quadratic_equations", "title": "Quadratic Equations"},
     "cbse.10.maths.ch05": {"key": "arithmetic_progressions", "title": "Arithmetic Progressions"},
@@ -184,7 +193,7 @@ def overlay_records() -> list[dict[str, Any]]:
     for ref, info in CHAPTERS.items():
         out.append(
             {
-                "id": ref,
+                "id": OVERLAY_IDS.get(ref, ref),
                 "curriculum_id": "cbse",
                 "grade": 10,
                 "chapter": info["key"],
