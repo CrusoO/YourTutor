@@ -59,7 +59,8 @@ def test_server_agrees_with_the_web_solver(case: dict) -> None:
 
 
 def test_most_shared_cases_are_verified() -> None:
-    verified = sum(1 for c in SHARED if solve_doubt(request_of(c))["verified"])  # type: ignore[arg-type]
+    outs = [solve_doubt(r) for r in map(request_of, SHARED) if r is not None]
+    verified = len([o for o in outs if o["verified"]])
     assert verified >= 35
 
 
