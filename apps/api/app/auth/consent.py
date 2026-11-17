@@ -5,6 +5,7 @@ import uuid
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.scopes import read_scopes
 from app.db.models import ConsentRow, StudentRow, UserRow
 from app.registries.loaders import load_all_curricula
 from app.registries.startup import deployment_jurisdiction_profile
@@ -48,7 +49,7 @@ def available_scopes(session: Session, student_id: uuid.UUID) -> set[str]:
 def active_scopes(session: Session, student_id: uuid.UUID) -> set[str]:
     row = active_consent(session, student_id)
     if row is not None:
-        return set(row.scopes or []) & available_scopes(session, student_id)
+        return read_scopes(row.scopes or []) & available_scopes(session, student_id)
     return set(GUEST_SCOPES) if is_guest(session, student_id) else set()
 
 

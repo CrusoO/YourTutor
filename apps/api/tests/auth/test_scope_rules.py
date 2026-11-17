@@ -9,11 +9,19 @@ from fastapi import HTTPException
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from app.auth.scopes import CONSENT_SCOPES, GUARDIAN_ONLY_SCOPES, scope_error
+from app.auth.scopes import (
+    CONSENT_SCOPES,
+    GUARDIAN_ONLY_SCOPES,
+    NEW_SCOPES,
+    SCOPE_REGISTRY,
+    scope_error,
+)
 from app.auth.service import check_scopes
 from tests.conftest import World, auth_header
 
 GUARDIAN_SCOPES = sorted(GUARDIAN_ONLY_SCOPES)
+# New scopes are not in the default jurisdiction profile and their flags are off: not grantable yet.
+GRANTABLE_TODAY = sorted(GUARDIAN_ONLY_SCOPES - NEW_SCOPES)
 
 
 def test_uploads_is_a_known_guardian_only_scope() -> None:
@@ -63,7 +71,7 @@ def test_a_guest_token_cannot_call_the_consent_endpoint(client: TestClient, scop
     assert res.status_code in (401, 403)
 
 
-@pytest.mark.parametrize("scope", GUARDIAN_SCOPES)
+@pytest.mark.parametrize("scope", GRANTABLE_TODAY)
 def test_a_guardian_can_grant_each_scope_the_default_profile_allows(
     client: TestClient, world: World, scope: str
 ) -> None:
@@ -73,3 +81,25 @@ def test_a_guardian_can_grant_each_scope_the_default_profile_allows(
         headers=auth_header(world.parent_token),
     )
     assert res.status_code == 200, res.text
+
+
+def test_the_registry_keeps_the_existing_seven_and_adds_three_guardian_only_scopes() -> None:
+    existing = {
+        "tutoring",
+        "teacher_share",
+        "research_pseudonymised",
+        "ai_processing",
+        "free_text",
+        "uploads",
+        "learning_profile",
+    }
+    assert CONSENT_SCOPES == existing | NEW_SCOPES
+    assert GUARDIAN_ONLY_SCOPES == CONSENT_SCOPES - {"tutoring"}
+    for scope in NEW_SCOPES:
+        assert SCOPE_REGISTRY[scope].guardian_only and not SCOPE_REGISTRY[scope].guest_allowed
+    assert [s for s in SCOPE_REGISTRY.values() if s.guest_allowed] == [SCOPE_REGISTRY["tutoring"]]
+
+
+@pytest.mark.parametrize("scope", sorted(NEW_SCOPES))
+def test_a_guest_can_never_grant_a_new_scope(scope: str) -> None:
+    assert scope_error(["tutoring", scope], guest=True, available=CONSENT_SCOPES)
