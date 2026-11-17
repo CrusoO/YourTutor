@@ -11,6 +11,7 @@ import app.orchestrator.support as support_mod
 from app.orchestrator.support import (
     DEFAULT_CONFIG,
     AttemptOutcome,
+    Support,
     SupportConfig,
     hidden_steps,
     initial_support,
@@ -94,10 +95,11 @@ def test_hysteresis_one_change_per_two_items() -> None:
 
 
 def test_support_after_three_items_forgets_the_start() -> None:
+    starts: tuple[Support, ...] = ("full", "partial", "problems")
     history = [CLEAN, CLEAN, CLEAN]
-    assert {support_after(s, history) for s in ("full", "partial", "problems")} == {"problems"}
+    assert {support_after(s, history) for s in starts} == {"problems"}
     history = [CLEAN, MISS, MISS]
-    assert {support_after(s, history) for s in ("full", "partial", "problems")} == {"full"}
+    assert {support_after(s, history) for s in starts} == {"full"}
 
 
 def test_support_from_recent_cases() -> None:
