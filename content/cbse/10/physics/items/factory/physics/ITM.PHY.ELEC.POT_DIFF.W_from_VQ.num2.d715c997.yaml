@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.POT_DIFF.W_from_VQ.num2.d715c997
 skill_ids:
 - PHY.ELEC.POT_DIFF
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about work done in moving charge. The potential difference,
     V, is 24 V and the charge moved, Q, is 20 C. How much work is done?
-options:
-- id: a
-  en: 0.833 J
-- id: b
-  en: 1.2 J
-- id: c
-  en: 44 J
-- id: d
-  en: 480 J
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = W / Q, so W = V x Q.'
-- en: 'Get the work done alone: multiply each side of V = W / Q by Q.'
-- en: 'Substitute: W = 24 x 20.'
-- en: 'Calculate: W = 480 J.'
-- en: So the work done is 480 J.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POT_DIFF
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.833 J
+- id: b
+  en: 1.2 J
+- id: c
+  en: 44 J
+- id: d
+  en: 480 J
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: V = W / Q, so W = V x Q.'
+- en: 'Get the work done alone: multiply each side of V = W / Q by Q.'
+- en: 'Substitute: W = 24 x 20.'
+- en: 'Calculate: W = 480 J.'
+- en: So the work done is 480 J.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 94df1eac0a71e028ff5adf0fd4d5343df808da8920eaaa4de062be88f10d208a
+  item_hash: 5897c57cd84cfa07dc67fc3a875b60506d2e838c86e2a84f30a88e10bff8f8a2
   template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
   certificate_hash: 4f1b5fba9aa562b55f400b88302b17dc5ce698e9b927c9ca8c36e9d0bf07e211
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:41+00:00'
-  record_hash: 8848670b6bf2cdea31eb6c7637eebe951e2cd4d1c2eb410da243b9ddee2e1801
+  stamped_at: '2026-11-17T19:37:20+00:00'
+  record_hash: 7b9bfa8f988f28989c0353b695fe48804e0ef8fd604eda89d4c777b83f01f6e3

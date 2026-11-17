@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.MIRROR_FOCAL.R_from_f.num2.39693183
 skill_ids:
 - PHY.LIGHT.MIRROR_FOCAL
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about radius of curvature and focal length of a spherical mirror.
     The focal length of the concave mirror, f, is 25 cm. Find the radius of curvature,
     with its sign.
-options:
-- id: a
-  en: 50 cm
-- id: b
-  en: -25 cm
-- id: c
-  en: -5000 cm
-- id: d
-  en: -50 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: the radius of curvature is twice the focal length: R =
-    2f, with signs from the convention.'
-- en: 'Put each quantity in SI units with its sign: f = -0.25 m.'
-- en: 'Substitute: R = 2 x (-0.25).'
-- en: 'Calculate: R = -0.5 m.'
-- en: 'Give it in cm: -50 cm.'
-- en: So the radius of curvature is -50 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -48,15 +26,47 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 50 cm
+- id: b
+  en: -25 cm
+- id: c
+  en: -5000 cm
+- id: d
+  en: -50 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: the radius of curvature is twice the focal length: R =
+    2f, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: f = -0.25 m.'
+- en: 'Substitute: R = 2 x (-0.25).'
+- en: 'Calculate: R = -0.5 m.'
+- en: 'Give it in cm: -50 cm.'
+- en: So the radius of curvature is -50 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5811c48d0f359c111725cd5d60cdb17f5849803c6c407e93d065e2e2cdbea17d
+  item_hash: 969dd28834268c198182fa118eee9e22f60d6580f9f1e885c57892414529a3e2
   template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
   certificate_hash: 7ac1a71a9e64b329cdb92dae8ebdd592b7a2a6103a520639e5871028ad575feb
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:56+00:00'
-  record_hash: b911b407865e0389f59e82c23b57ca3c97101e74f33b2051caeab886250bb516
+  stamped_at: '2026-11-17T19:39:25+00:00'
+  record_hash: 0500a310f945ab60a5d83e6f1219aaf84cc0a6c5393d418f7a0a1e781b289efb

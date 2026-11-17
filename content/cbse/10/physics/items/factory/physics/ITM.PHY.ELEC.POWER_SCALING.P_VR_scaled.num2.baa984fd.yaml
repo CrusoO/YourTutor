@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.POWER_SCALING.P_VR_scaled.num2.baa984fd
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.45
-type: mcq
 pool: practice
 role: explain
 stem:
   en: This question is about how power changes when a quantity changes. The potential
     difference across a resistor is tripled and its resistance is multiplied by 4.
     By what number is the power multiplied?
-options:
-- id: a
-  en: '0.444'
-- id: b
-  en: '12'
-- id: c
-  en: '0.75'
-- id: d
-  en: '2.25'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x V / R, so combine the effect of V, which is squared,
-    with the effect of R, which is inverse.'
-- en: 'Combine the numbers: 3^2 / 4 = 2.25.'
-- en: So the number the power is multiplied by is 2.25.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -43,15 +24,44 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.444'
+- id: b
+  en: '12'
+- id: c
+  en: '0.75'
+- id: d
+  en: '2.25'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: P = V x V / R, so combine the effect of V, which is squared,
+    with the effect of R, which is inverse.'
+- en: 'Combine the numbers: 3^2 / 4 = 2.25.'
+- en: So the number the power is multiplied by is 2.25.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f7829c1fdc97011aa5cf0fd0470479231bea4d8a89723d77b863f4c54172f8b7
+  item_hash: c8b3c18c2cb5b22580ea281c4022b2ed3911d5ea05be9579d61cc661ed58467f
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: 0b75364b0fbd24f397bc83dafb3947c428dec2738bd2b6b5dcfe1647769f2780
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:29+00:00'
-  record_hash: 208528c9e2761041400f35206fd86665d99bcd2f2676ce3f482cf849f189e902
+  stamped_at: '2026-11-17T19:38:42+00:00'
+  record_hash: 5cb1e1680e17615ec4c6d0d8934400a7374c846a807ce272a910195f7c6af507

@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.RESISTIVITY.R_from_rhoLA.num3.fac698fe
 skill_ids:
 - PHY.ELEC.RESISTIVITY
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying a uniform wire. The resistivity of its material, rho,
     is 1 x 10^-7 Ω m, its length, L, is 10 cm and its cross-section area, A, is 0.25
     mm². Find the resistance of the wire.
-options:
-- id: a
-  en: 2.5 x 10^-15 Ω
-- id: b
-  en: 2.5 x 10^-13 Ω
-- id: c
-  en: 4 x 10^-8 Ω
-- id: d
-  en: 0.04 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: R = resistivity x length / area.'
-- en: 'Put each quantity in SI units: 10 cm = 0.1 m; 0.25 mm² = 2.5 x 10^-7 m².'
-- en: 'Substitute: R = (1 x 10^-7) x 0.1 / (2.5 x 10^-7).'
-- en: 'Calculate: R = 0.04 Ω.'
-- en: So the resistance is 0.04 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -44,15 +24,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.RESISTIVITY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2.5 x 10^-15 Ω
+- id: b
+  en: 2.5 x 10^-13 Ω
+- id: c
+  en: 4 x 10^-8 Ω
+- id: d
+  en: 0.04 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 10 cm = 0.1 m; 0.25 mm² = 2.5 x 10^-7 m².'
+- en: 'Substitute: R = (1 x 10^-7) x 0.1 / (2.5 x 10^-7).'
+- en: 'Calculate: R = 0.04 Ω.'
+- en: So the resistance is 0.04 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7079c30da61bb3bb3a3b433777116276d0f57f4cf87895898e7b3277c0112098
+  item_hash: 9fb5bc89e8d67c847a75375800fa894a8a009b66b9bffeffac6244fbef553c1b
   template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
   certificate_hash: 272d351390878ba7c156c8477fbd81a021556d7b39b5fddfecb41d4ed3417920
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:49+00:00'
-  record_hash: cdb489c93c067aa8fcdcb8ca1a0097cb8f04820de379fa3745b45be9c70673a5
+  stamped_at: '2026-11-17T19:37:31+00:00'
+  record_hash: 9c27f89011a7bb32722f378a55a19684dce40c4488f59a34522ec44f833e3134

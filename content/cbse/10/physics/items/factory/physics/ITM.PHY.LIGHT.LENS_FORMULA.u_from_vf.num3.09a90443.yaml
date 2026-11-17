@@ -2,36 +2,12 @@ id: ITM.PHY.LIGHT.LENS_FORMULA.u_from_vf.num3.09a90443
 skill_ids:
 - PHY.LIGHT.LENS_FORMULA
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying image formation by a thin lens. The image, which is real,
     is 120 cm from the convex lens and the focal length of the convex lens, f, is
     30 cm. Using the Cartesian sign convention, find the object distance u.
-options:
-- id: a
-  en: -24 cm
-- id: b
-  en: -40 cm
-- id: c
-  en: 40 cm
-- id: d
-  en: 24 cm
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with v and f signed by the
-    convention.'
-- en: 'Put each quantity in SI units with its sign: v = 1.2 m; f = 0.3 m.'
-- en: 'Get the object distance alone: subtract 1/f from each side of 1/v - 1/u = 1/f,
-    then rearrange for 1/u and take the reciprocal.'
-- en: 'Substitute: u = 1.2 x 0.3 / (0.3 - 1.2).'
-- en: 'Calculate: u = -0.4 m.'
-- en: 'Give it in cm: -40 cm.'
-- en: So the object distance is -40 cm.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -51,15 +27,49 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_FORMULA
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -24 cm
+- id: b
+  en: -40 cm
+- id: c
+  en: 40 cm
+- id: d
+  en: 24 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.V_SIGN_DROPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MIRROR_LENS_FORMULA_MIXED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with v and f signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: v = 1.2 m; f = 0.3 m.'
+- en: 'Get the object distance alone: subtract 1/f from each side of 1/v - 1/u = 1/f,
+    then rearrange for 1/u and take the reciprocal.'
+- en: 'Substitute: u = 1.2 x 0.3 / (0.3 - 1.2).'
+- en: 'Calculate: u = -0.4 m.'
+- en: 'Give it in cm: -40 cm.'
+- en: So the object distance is -40 cm.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7fa2bcf3231f360c8df47975cfbb827026f6a06afdfe5f1a686950085537ff6f
+  item_hash: 70a96e989e70a750f7f7ee7dfa2994f43151dfee42e07baa10b1ddc6c54a52ec
   template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
   certificate_hash: 1b30df7eb5c611ec3bcd5497a41e4e30a017068a541de507b574d13ad835c19d
   label: calculation-checked
@@ -124,10 +134,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:31+00:00'
-  record_hash: 67365d79ab01c120c80990e72d5bf0771a0a7b5097d777a38d5dc8824ffb799e
+  stamped_at: '2026-11-17T19:40:15+00:00'
+  record_hash: aca30ee39e8924e6f51fb83d067491923e35831edcc2f244b82004b39e361f3f

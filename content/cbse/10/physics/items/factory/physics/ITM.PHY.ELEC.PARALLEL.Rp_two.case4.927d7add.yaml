@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL.Rp_two.case4.927d7add
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.7
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates resistors joined in parallel and records the following.
     The first resistor, R1, is 10 Ω and the second resistor, R2, is 15 Ω. Find the
     combined resistance.'
-options:
-- id: a
-  en: 6 Ω
-- id: b
-  en: 0.167 Ω
-- id: c
-  en: 12.5 Ω
-- id: d
-  en: 25 Ω
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
-- en: 'Substitute: Rp = 10 x 15 / (10 + 15).'
-- en: 'Calculate: Rp = 6 Ω.'
-- en: So the total resistance is 6 Ω.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -42,15 +23,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 Ω
+- id: b
+  en: 0.167 Ω
+- id: c
+  en: 12.5 Ω
+- id: d
+  en: 25 Ω
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.PARALLEL_AVERAGED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.PARALLEL_RESISTANCES_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Substitute: Rp = 10 x 15 / (10 + 15).'
+- en: 'Calculate: Rp = 6 Ω.'
+- en: So the total resistance is 6 Ω.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f2cc139996cec75cf60d9dfd36139e7cd4dd339e5a9e2b7dac2be55f84a60fd0
+  item_hash: 49600caa7f6b5ea0cbbdf199f50298d9b7ca289ae23dd4f57a102f74049baea6
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: d49dccb47cbd523a933c8a91961a4b662c78cba56b9e143f9c62457d3ef59836
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:01+00:00'
-  record_hash: e0967a3e715d16dbd8160ec03899cc4697bb3126d039eef569a6dcba87375a82
+  stamped_at: '2026-11-17T19:37:53+00:00'
+  record_hash: c0502510239fca84841f788ea0cf349247ea365e348c1eb806d1da8e92bf7d65

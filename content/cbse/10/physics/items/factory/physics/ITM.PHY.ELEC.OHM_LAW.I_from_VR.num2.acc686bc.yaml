@@ -2,32 +2,11 @@ id: ITM.PHY.ELEC.OHM_LAW.I_from_VR.num2.acc686bc
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about a resistor in a circuit. The potential difference across
     it, V, is 0.5 V and its resistance, R, is 10 Ω. Find the current through the resistor.
-options:
-- id: a
-  en: 5000 mA
-- id: b
-  en: 20000 mA
-- id: c
-  en: 50 mA
-- id: d
-  en: 50000 mA
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Get the current alone: divide each side of V = I x R by R.'
-- en: 'Substitute: I = 0.5 / 10.'
-- en: 'Calculate: I = 0.05 A.'
-- en: 'Give it in mA: 50 mA.'
-- en: So the current is 50 mA.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -44,15 +23,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5000 mA
+- id: b
+  en: 20000 mA
+- id: c
+  en: 50 mA
+- id: d
+  en: 50000 mA
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Get the current alone: divide each side of V = I x R by R.'
+- en: 'Substitute: I = 0.5 / 10.'
+- en: 'Calculate: I = 0.05 A.'
+- en: 'Give it in mA: 50 mA.'
+- en: So the current is 50 mA.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ab37a0dccb4027e75a6652cfd5a5a7abe8a51b7da1c80c01125c749be5454abc
+  item_hash: e3e8805437f8fcf8a1e48b3e70ee8c7710115e6df9ba953cfd2711ce3c6de984
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: 72b3bd1cf6594a075f2d01918f61b19b5b5f88d98e79eba2a3c52c7f47363f20
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:44+00:00'
-  record_hash: f5e303b682fa72cafefcad86471a244a29919abe6b74df135cf6e5c0d21843fe
+  stamped_at: '2026-11-17T19:37:24+00:00'
+  record_hash: 1aa66c2ce084965fe06aa33ad7f41d22cb11c9a4904cde6cf9c266cc585e0a1b

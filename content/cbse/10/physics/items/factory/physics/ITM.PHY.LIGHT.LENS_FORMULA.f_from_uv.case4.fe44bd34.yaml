@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.LENS_FORMULA.f_from_uv.case4.fe44bd34
 skill_ids:
 - PHY.LIGHT.LENS_FORMULA
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,29 +9,6 @@ stem:
     following. The object, u, is 30 cm from the concave lens and the image, which
     is virtual, is 10 cm from the concave lens. Using the Cartesian sign convention,
     find the focal length f.'
-options:
-- id: a
-  en: 15 cm
-- id: b
-  en: -7.5 cm
-- id: c
-  en: -667 cm
-- id: d
-  en: -15 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and v signed by the
-    convention.'
-- en: 'Put each quantity in SI units with its sign: u = -0.3 m; v = -0.1 m.'
-- en: 'Get the focal length alone: subtract 1/u from 1/v, then take the reciprocal
-    of each side of 1/f = 1/v - 1/u.'
-- en: 'Substitute: f = (-0.3) x (-0.1) / ((-0.3) - (-0.1)).'
-- en: 'Calculate: f = -0.15 m.'
-- en: 'Give it in cm: -15 cm.'
-- en: So the focal length is -15 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -52,15 +28,49 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_FORMULA
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15 cm
+- id: b
+  en: -7.5 cm
+- id: c
+  en: -667 cm
+- id: d
+  en: -15 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.U_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and v signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.3 m; v = -0.1 m.'
+- en: 'Get the focal length alone: subtract 1/u from 1/v, then take the reciprocal
+    of each side of 1/f = 1/v - 1/u.'
+- en: 'Substitute: f = (-0.3) x (-0.1) / ((-0.3) - (-0.1)).'
+- en: 'Calculate: f = -0.15 m.'
+- en: 'Give it in cm: -15 cm.'
+- en: So the focal length is -15 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a29472cbd04a4a7af2b22df1219c95a8d906a3b5e8c49171c3491f887342b556
+  item_hash: 6d69c3e517ea74f4601adde5b1018e19464367d886840c9006b8f307b9356083
   template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
   certificate_hash: 55063976713751f25647624fbf9a65efddf74ff2182b36342918761b4ed416d8
   label: calculation-checked
@@ -125,10 +135,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:31+00:00'
-  record_hash: 6f3d525fd4746084c2f2c0520d5062c55c87d0938a8620f33b113f3538058375
+  stamped_at: '2026-11-17T19:40:16+00:00'
+  record_hash: d11747b3a2e4c4574d66935881c0b2865ae913e76a4038003ce0bb2e09d9b966

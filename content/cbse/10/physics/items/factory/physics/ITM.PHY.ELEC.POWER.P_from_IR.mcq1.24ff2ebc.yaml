@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_IR.mcq1.24ff2ebc
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.25
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The current through it, I, is 0.25 A and its resistance, R, is 400 Ω. Find the
     power.
-options:
-- id: a
-  en: 25 W
-- id: b
-  en: 100 W
-- id: c
-  en: 10000 W
-- id: d
-  en: 1.5625 x 10^-4 W
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
-- en: 'Substitute: P = 0.25 x 0.25 x 400.'
-- en: 'Calculate: P = 25 W.'
-- en: So the power is 25 W.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 25 W
+- id: b
+  en: 100 W
+- id: c
+  en: 10000 W
+- id: d
+  en: 1.5625 x 10^-4 W
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.WRONG_QUANTITY_SQUARED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.POWER_FORMULA_MISMATCH
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
+- en: 'Substitute: P = 0.25 x 0.25 x 400.'
+- en: 'Calculate: P = 25 W.'
+- en: So the power is 25 W.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b36186313a5e04d83186e9bb1589d2d13ee8d1c42473b2fe6b3c33d82a8472d2
+  item_hash: 8a921c429ab231371da90d907092c29a187ec07e6c44df94045c1d5807a68d43
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 924183a353b02e157b2b2d9b3bb2eff89e192fae4a2c14ca8167a23b53d9cb2b
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:22+00:00'
-  record_hash: 98ff8a87d5f0aad4980dc09b4978c344c4e801543a11c270d00614bf6a73dcec
+  stamped_at: '2026-11-17T19:38:29+00:00'
+  record_hash: 5d82c52b2a0afd4ff5397f65075d465953ec36c54d9df505999eac39d5d78816

@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.LENS_MAGNIFICATION.v_from_um.num3.bd2a9f1f
 skill_ids:
 - PHY.LIGHT.LENS_MAGNIFICATION
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying the magnification of a thin lens. The object, u, is 15
     cm from the concave lens and the magnification, m, is 0.5. Find the image distance,
     with its sign.
-options:
-- id: a
-  en: 30 cm
-- id: b
-  en: -7.5 cm
-- id: c
-  en: -30 cm
-- id: d
-  en: 7.5 cm
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: magnification of a lens m = v / u.'
-- en: 'Put each quantity in SI units with its sign: u = -0.15 m.'
-- en: 'Get the image distance alone: multiply each side of m = v / u by u.'
-- en: 'Substitute: v = 0.5 x (-0.15).'
-- en: 'Calculate: v = -0.075 m.'
-- en: 'Give it in cm: -7.5 cm.'
-- en: So the image distance is -7.5 cm.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -47,15 +25,47 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_MAGNIFICATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 30 cm
+- id: b
+  en: -7.5 cm
+- id: c
+  en: -30 cm
+- id: d
+  en: 7.5 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.MIRROR_LENS_FORMULA_MIXED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: magnification of a lens m = v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m.'
+- en: 'Get the image distance alone: multiply each side of m = v / u by u.'
+- en: 'Substitute: v = 0.5 x (-0.15).'
+- en: 'Calculate: v = -0.075 m.'
+- en: 'Give it in cm: -7.5 cm.'
+- en: So the image distance is -7.5 cm.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9c4ad6402b20f3f4e9479026bdf518a6a826f81d2d3b9ead0dcd54edb4a863b3
+  item_hash: f5ddaf9f210848bf4539bd5b02c9ff7ccb04f7409292656bbf0590512324d0c4
   template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
   certificate_hash: 4f925ef7b89c0ed5f1d1354760330e81e707d010177d2a4956c5fe8b1a767211
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:42+00:00'
-  record_hash: bc5d5ca29f93a220d1e0bc434473bdb769d37ab09825ea504d51ea4f21668a19
+  stamped_at: '2026-11-17T19:40:33+00:00'
+  record_hash: 1df9b0f9596baf5545c853cff418768264af07d64034ddb75f1e36af85b93937

@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.POWER.R_from_VP.case4.8bd19eb0
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates an electrical appliance and records the following.
     The voltage across it, V, is 80 V and its power, P, is 160 W. Find the resistance
     of the appliance.'
-options:
-- id: a
-  en: 0.025 Ω
-- id: b
-  en: 1.024 x 10^6 Ω
-- id: c
-  en: 40 Ω
-- id: d
-  en: 0.5 Ω
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x V / R.'
-- en: 'Get the resistance alone: multiply each side of P = V x V / R by R, then divide
-    each side by P.'
-- en: 'Substitute: R = 80 x 80 / 160.'
-- en: 'Calculate: R = 40 Ω.'
-- en: So the resistance is 40 Ω.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -45,15 +24,46 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.025 Ω
+- id: b
+  en: 1.024 x 10^6 Ω
+- id: c
+  en: 40 Ω
+- id: d
+  en: 0.5 Ω
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = V x V / R.'
+- en: 'Get the resistance alone: multiply each side of P = V x V / R by R, then divide
+    each side by P.'
+- en: 'Substitute: R = 80 x 80 / 160.'
+- en: 'Calculate: R = 40 Ω.'
+- en: So the resistance is 40 Ω.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 85de068f1a17c37a66d1830dfa3211af2f35f4c63c634e9b1e29f2509f00ebca
+  item_hash: 2bcb08db7cdda3a596a8d1a61ee6e926838e315420560c7acaa6feffa3de989f
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 7bea4a0ed79a181ceccfc6b34399facde2b69c76031ce92c76e4b07d8b5ed1a1
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:23+00:00'
-  record_hash: dee317cfe33e3fa7225116088e639cb1c00a768b2cca351bed46da180c6cf96c
+  stamped_at: '2026-11-17T19:38:30+00:00'
+  record_hash: 4e4a039fbcf7c203634096a79f08ae8a18bf19fe1e08452273b2cc11712e9483

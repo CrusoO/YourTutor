@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.LENS_COMBINATION.P_from_f1f2.case4.100e259c
 skill_ids:
 - PHY.LIGHT.LENS_COMBINATION
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,26 +9,6 @@ stem:
     The first lens is a convex lens with focal length of magnitude 50 cm and the second
     lens is a concave lens with focal length of magnitude 20 cm. Find the power of
     the combination in dioptres, with its sign.'
-options:
-- id: a
-  en: 7 D
-- id: b
-  en: -10 D
-- id: c
-  en: -3 D
-- id: d
-  en: 3.33 D
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
-    (f in metres, with signs).'
-- en: 'Put each quantity in SI units with its sign: f1 = 0.5 m; f2 = -0.2 m.'
-- en: 'Substitute: P = 1 / 0.5 + 1 / (-0.2).'
-- en: 'Calculate: P = -3 D.'
-- en: So the combined power is -3 D.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -48,15 +27,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_COMBINATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7 D
+- id: b
+  en: -10 D
+- id: c
+  en: -3 D
+- id: d
+  en: 3.33 D
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_SIGN_IGNORED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWERS_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
+    (f in metres, with signs).'
+- en: 'Put each quantity in SI units with its sign: f1 = 0.5 m; f2 = -0.2 m.'
+- en: 'Substitute: P = 1 / 0.5 + 1 / (-0.2).'
+- en: 'Calculate: P = -3 D.'
+- en: So the combined power is -3 D.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: baa7ef939424ec9cd151f922458d5d41153ed47871f3689e056e8be4642e1a04
+  item_hash: d14f2c4af34d0107255edabe038ab3f1379551bb139e420cdfc79e1bb3ff9128
   template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
   certificate_hash: d6fdd3d3598246b869cf0a4801a0c599f14064a7ee6e438ea0178d3c032f53ee
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:02+00:00'
-  record_hash: f57cbbcbca00d100422a0d111644e08dcbbce60d7e6366350ec32cbfc83a63a2
+  stamped_at: '2026-11-17T19:41:06+00:00'
+  record_hash: a9306d9aaa202bb269de300e1bac1ed0aef8197caf42dbda92c42f048d24e6d1

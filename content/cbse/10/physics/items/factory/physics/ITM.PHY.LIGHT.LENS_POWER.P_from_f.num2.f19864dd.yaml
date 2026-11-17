@@ -2,32 +2,11 @@ id: ITM.PHY.LIGHT.LENS_POWER.P_from_f.num2.f19864dd
 skill_ids:
 - PHY.LIGHT.LENS_POWER
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about the power of a lens. The focal length of the convex lens,
     f, is 50 cm. Find the power of the lens in dioptres, with its sign.
-options:
-- id: a
-  en: 0.5 D
-- id: b
-  en: 0.02 D
-- id: c
-  en: 2 D
-- id: d
-  en: -2 D
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: power P = 1 / f, with f in metres and its sign from the
-    convention.'
-- en: 'Put each quantity in SI units with its sign: f = 0.5 m.'
-- en: 'Substitute: P = 1 / 0.5.'
-- en: 'Calculate: P = 2 D.'
-- en: So the power is 2 D.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -44,15 +23,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.5 D
+- id: b
+  en: 0.02 D
+- id: c
+  en: 2 D
+- id: d
+  en: -2 D
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_NOT_RECIPROCAL
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWER_SIGN_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: power P = 1 / f, with f in metres and its sign from the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: f = 0.5 m.'
+- en: 'Substitute: P = 1 / 0.5.'
+- en: 'Calculate: P = 2 D.'
+- en: So the power is 2 D.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7a43f25b989b65202074dc1f2c4645975445d3ae64344cf111b7834761425da2
+  item_hash: 15a6c083a962696c68f49750922e263da8ccc799062e863d6e7aee17e472107c
   template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
   certificate_hash: 05afb6ea9c6a26716d72847526f0a6032fb3e79a10fcc4f4adcff42b1cc63cef
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:53+00:00'
-  record_hash: a5253e4fa8ee852810df32c69ab86e5ac426692551bd78a373fc1a7cba9ee89e
+  stamped_at: '2026-11-17T19:40:51+00:00'
+  record_hash: fcb33d6935729a87a22f6d559b0d9b426935aa42eb36c6ed435354c3c2c4ee2f

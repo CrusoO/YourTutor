@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.OHM_LAW.V_from_IR.case4.634ef336
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.7
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates a resistor in a circuit and records the following.
     The current through it, I, is 0.5 A and its resistance, R, is 100 Ω. Find the
     potential difference across the resistor.'
-options:
-- id: a
-  en: 200 V
-- id: b
-  en: 0.005 V
-- id: c
-  en: 50 V
-- id: d
-  en: 100.5 V
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Substitute: V = 0.5 x 100.'
-- en: 'Calculate: V = 50 V.'
-- en: So the potential difference is 50 V.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -42,15 +23,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 200 V
+- id: b
+  en: 0.005 V
+- id: c
+  en: 50 V
+- id: d
+  en: 100.5 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Substitute: V = 0.5 x 100.'
+- en: 'Calculate: V = 50 V.'
+- en: So the potential difference is 50 V.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 64088190214b37a2dd28016c37c3d58e34dc653044cbfe9a79c23fca2026e58d
+  item_hash: 7fa7a6d841515b4e4c819d5999134e0712f0dd9f1601d438d5a40d10a7816fd8
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: 33809332603cd1e8b37778a65e2c08347fcfbda8f28158d45f3173883c6d1f5a
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:45+00:00'
-  record_hash: 17313eae286f147e973d49a6510aceb752af9947643dd7dec173730da358e800
+  stamped_at: '2026-11-17T19:37:26+00:00'
+  record_hash: 34841f053a4eda2fd423dd06067ff0b15551dba894e2a8bd02a4101e2b1074c1

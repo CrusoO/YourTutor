@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.It_three.num3.d146bbc0
 skill_ids:
 - PHY.ELEC.PARALLEL_CIRCUIT
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying a battery connected to resistors in parallel. The battery
     gives 24 V, the first resistor, R1, is 9 Ω, the second resistor, R2, is 18 Ω and
     the third resistor, R3, is 6 Ω. Find the total current drawn from the battery.
-options:
-- id: a
-  en: 792 A
-- id: b
-  en: 2.67 A
-- id: c
-  en: 8 A
-- id: d
-  en: 0.727 A
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: each branch has the full battery voltage: I = V / R for
-    each, and the branch currents add.'
-- en: 'Substitute: It = 24 / 9 + 24 / 18 + 24 / 6.'
-- en: 'Calculate: It = 8 A.'
-- en: So the total current is 8 A.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -43,15 +23,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 792 A
+- id: b
+  en: 2.67 A
+- id: c
+  en: 8 A
+- id: d
+  en: 0.727 A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.ONE_RESISTOR_ONLY
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: each branch has the full battery voltage: I = V / R for
+    each, and the branch currents add.'
+- en: 'Substitute: It = 24 / 9 + 24 / 18 + 24 / 6.'
+- en: 'Calculate: It = 8 A.'
+- en: So the total current is 8 A.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 3ef3e6d051e11fdc1aa694fc711764effa560b40a94f92e12ea18241c1dd4517
+  item_hash: 360bcf535ad88ee03d798cd27afb9731cbdaf0d4c9f190eccd3fb0a84f523676
   template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
   certificate_hash: 213230f5f95e9e4b8fc0cf4ab27a29c0ccde90e12bf605b9657a7983abc62f8f
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:12+00:00'
-  record_hash: 152695f107b09fd5ad104d39787e6bae3e33abc438598865eb3b1c4c7b724d90
+  stamped_at: '2026-11-17T19:38:11+00:00'
+  record_hash: 8a2e90d2dd5a5aea860473379214f9bb24ea02ffe813e621f3002dc3c4e1450c

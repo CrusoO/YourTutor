@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL.R2_from_Rp.case4.a9b47d43
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates resistors joined in parallel and records the following.
     The first resistor, R1, is 30 Ω and the combined resistance, Rp, is 12 Ω. Find
     the second resistance.'
-options:
-- id: a
-  en: 360 Ω
-- id: b
-  en: 0.05 Ω
-- id: c
-  en: 42 Ω
-- id: d
-  en: 20 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2.'
-- en: 'Get the second resistance alone: subtract 1/R1 from each side of 1/Rp = 1/R1
-    + 1/R2, then take the reciprocal of each side.'
-- en: 'Substitute: R2 = 1 / (1 / 12 - 1 / 30).'
-- en: 'Calculate: R2 = 20 Ω.'
-- en: So the second resistance is 20 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 360 Ω
+- id: b
+  en: 0.05 Ω
+- id: c
+  en: 42 Ω
+- id: d
+  en: 20 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Get the second resistance alone: subtract 1/R1 from each side of 1/Rp = 1/R1
+    + 1/R2, then take the reciprocal of each side.'
+- en: 'Substitute: R2 = 1 / (1 / 12 - 1 / 30).'
+- en: 'Calculate: R2 = 20 Ω.'
+- en: So the second resistance is 20 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 654b644262638f79a11237b003d382697a10737d834235c138aea5f9c05f8dd4
+  item_hash: 97ca3514d392ddb3e1264dc9057d849cfbf968477e39d71ad248c6f094aa3ea4
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: 80fbf3e44ca000b5605d42aff219970693f4f4773b1314c3c27bd5b52950c1f8
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:02+00:00'
-  record_hash: b36f3005a5e1082569ff3b64162639a85d6aaab882ccc60acdee10387e6b07b9
+  stamped_at: '2026-11-17T19:37:54+00:00'
+  record_hash: 35de7e149476a6ecbc8731bb6746edd8c97cfdf7d60a855776a6c21d61d1b239

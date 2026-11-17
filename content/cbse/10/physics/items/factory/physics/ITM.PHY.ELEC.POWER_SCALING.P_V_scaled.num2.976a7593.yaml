@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER_SCALING.P_V_scaled.num2.976a7593
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.45
-type: mcq
 pool: practice
 role: explain
 stem:
   en: This question is about how power changes when a quantity changes. The potential
     difference across a fixed resistor is doubled. By what number is the power multiplied?
-options:
-- id: a
-  en: '8'
-- id: b
-  en: '0.25'
-- id: c
-  en: '2'
-- id: d
-  en: '4'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: for a fixed resistor P = V x V / R, so P changes with the
-    square of V.'
-- en: 'Combine the numbers: 2^2 = 4.'
-- en: So the number the power is multiplied by is 4.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -42,15 +23,42 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '8'
+- id: b
+  en: '0.25'
+- id: c
+  en: '2'
+- id: d
+  en: '4'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - a
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = V x V / R, so P changes with the
+    square of V.'
+- en: 'Combine the numbers: 2^2 = 4.'
+- en: So the number the power is multiplied by is 4.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d644315d8853ca26ae121439609ffe44e482ba475a2c725be6cbe177a8f45ad2
+  item_hash: a4d52a553d8f11e1d1529866f2b833b6f7c4203f63e4b6cfe2757dcbc3929478
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: ad06d15eb94aa8551663eeee548b9cbf69ea691331367f932d66ab2595954442
   label: calculation-checked
@@ -115,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:28+00:00'
-  record_hash: 959a0314e70646b5cc1a92c4d7000eda036e0601c918fdac659d0b8ea0917554
+  stamped_at: '2026-11-17T19:38:40+00:00'
+  record_hash: c427736df33c73c3a0d0ee70bc8688419c8443c9c75f91d6e61f885586511254

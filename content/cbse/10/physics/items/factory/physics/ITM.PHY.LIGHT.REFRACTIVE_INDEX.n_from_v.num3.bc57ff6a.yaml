@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.REFRACTIVE_INDEX.n_from_v.num3.bc57ff6a
 skill_ids:
 - PHY.LIGHT.REFRACTIVE_INDEX
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying light travelling in a transparent medium. Light travels
     in the medium at 1.25 x 10^8 m/s and the speed of light in vacuum is 3 x 10^8
     m/s. Find the refractive index of the medium.
-options:
-- id: a
-  en: '0.583'
-- id: b
-  en: '0.417'
-- id: c
-  en: '24'
-- id: d
-  en: '2.4'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
-    the medium.'
-- en: 'Get the refractive index alone: multiply each side of n = c / v by v, then
-    divide each side by n.'
-- en: 'Substitute: n = (3 x 10^8) / (1.25 x 10^8).'
-- en: 'Calculate: n = 2.4.'
-- en: So the refractive index is 2.4.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +23,47 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the refractive index be?
 status: draft
 template_id: TPL2.PHY.LIGHT.REFRACTIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.583'
+- id: b
+  en: '0.417'
+- id: c
+  en: '24'
+- id: d
+  en: '2.4'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SPEED_INCREASES_IN_DENSER_MEDIUM
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.INDEX_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
+    the medium.'
+- en: 'Get the refractive index alone: multiply each side of n = c / v by v, then
+    divide each side by n.'
+- en: 'Substitute: n = (3 x 10^8) / (1.25 x 10^8).'
+- en: 'Calculate: n = 2.4.'
+- en: So the refractive index is 2.4.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b3e73714de336dd2640de24229ab24f0f51356affc074fa26fa6be918975c6b5
+  item_hash: 92dfce630ae955e4f944e3a8cca62e6a983e5747806d346dd72db2521d8b2f78
   template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
   certificate_hash: 6c59631f07bc759e9495db6bde69c0fffdbbae3703fa1ef4ffd06fb34617562c
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:13+00:00'
-  record_hash: 69c58a104c65e36eb80c2609ed9ff5e55641d01adcf25388d4bc8c7c99a766ae
+  stamped_at: '2026-11-17T19:41:23+00:00'
+  record_hash: 752c8fcd0bd0b174c0ef402e9f39bc9ecdd956520f001e6e46ad40e7f74498c3

@@ -2,31 +2,10 @@ id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.mcq1.290d0b1a
 skill_ids:
 - PHY.ELEC.CHARGE_CURRENT
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The charge, Q, is 60 C and the time, t, is 2 min. What is the current?
-options:
-- id: a
-  en: 30 A
-- id: b
-  en: 7200 A
-- id: c
-  en: 2 A
-- id: d
-  en: 0.5 A
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = current I x time t.'
-- en: 'Put each quantity in SI units: 2 min = 120 s.'
-- en: 'Get the current alone: divide each side of Q = I x t by t.'
-- en: 'Substitute: I = 60 / 120.'
-- en: 'Calculate: I = 0.5 A.'
-- en: So the current is 0.5 A.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -43,15 +22,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 30 A
+- id: b
+  en: 7200 A
+- id: c
+  en: 2 A
+- id: d
+  en: 0.5 A
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 60 / 120.'
+- en: 'Calculate: I = 0.5 A.'
+- en: So the current is 0.5 A.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 873a8ce759965117ef0e378b2b2be9260ba1a0247a587603c275f6b87c7f5477
+  item_hash: 014e53796577e854f12cb020169aa0efe3c739cd7ecfeb70de4aff3481d265be
   template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
   certificate_hash: 47a8d373951c49fe3b925b26a5f81eedf0928829976e5528add748eaa7097214
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:37+00:00'
-  record_hash: 6e30de209d441d69d8045c314043593cce7278e4e8a0e5da0bc12cca6134ad1c
+  stamped_at: '2026-11-17T19:37:12+00:00'
+  record_hash: 84b76669ae0eb82d8b1364c258762badf3ae0fa2f090ace4ab3e574909f2e2ea

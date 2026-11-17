@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_VR.num3.50cac1e5
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.55
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying an electrical appliance. The voltage across it, V, is
     100 V and its resistance, R, is 200 Ω. Find the power.
-options:
-- id: a
-  en: 0.02 W
-- id: b
-  en: 0.5 W
-- id: c
-  en: 20000 W
-- id: d
-  en: 50 W
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
-- en: 'Substitute: P = 100 x 100 / 200.'
-- en: 'Calculate: P = 50 W.'
-- en: So the power is 50 W.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.02 W
+- id: b
+  en: 0.5 W
+- id: c
+  en: 20000 W
+- id: d
+  en: 50 W
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
+- en: 'Substitute: P = 100 x 100 / 200.'
+- en: 'Calculate: P = 50 W.'
+- en: So the power is 50 W.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ba33112ef1b0e63f98d671329699cf87ea4aba86f6f2f5732ec524ef0f180bf4
+  item_hash: c047dddfc2544b9a695c6fecb24cf32409ef89342705a790679373c0d10aac70
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: eed57a4bd2f54a971c9e25dce5a550e1e56d1d0ca672719a9cf0e9c1258fb150
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:23+00:00'
-  record_hash: 8409e59033e8fd8d41640333ba923f7e6fc1751e063ad5ae30a2eac0cc95de70
+  stamped_at: '2026-11-17T19:38:29+00:00'
+  record_hash: 0ed7a9791d094e245f621b36afd675c2cc74661ff13d69c4afc83f09a86c2186

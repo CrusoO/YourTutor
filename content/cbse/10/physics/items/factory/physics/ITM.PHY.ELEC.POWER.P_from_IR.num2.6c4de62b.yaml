@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_IR.num2.6c4de62b
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.4
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about an electrical appliance. The current through it, I, is
     0.5 A and its resistance, R, is 40 Ω. Find the power.
-options:
-- id: a
-  en: 400 W
-- id: b
-  en: 0.00625 W
-- id: c
-  en: 10 W
-- id: d
-  en: 20 W
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
-- en: 'Substitute: P = 0.5 x 0.5 x 40.'
-- en: 'Calculate: P = 10 W.'
-- en: So the power is 10 W.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 400 W
+- id: b
+  en: 0.00625 W
+- id: c
+  en: 10 W
+- id: d
+  en: 20 W
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.WRONG_QUANTITY_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.POWER_FORMULA_MISMATCH
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = I x I x R (from P = V x I and V = I x R).'
+- en: 'Substitute: P = 0.5 x 0.5 x 40.'
+- en: 'Calculate: P = 10 W.'
+- en: So the power is 10 W.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b4a0f453fe0f5931ade2f7cf06917bb6e2d609c1ca4a015ce75cb5644fcb98f5
+  item_hash: f5691c06320a18a0e322985183703edae434ca783a216ed533cc3609713bc28a
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 0deec56bb884c722871c68262f1fe1b2a88517e106a8262959c87d9469af3644
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:22+00:00'
-  record_hash: 3875c0e8414dfca862271048957393663bac4e9f7c339eb91198ecb2eb54b3ad
+  stamped_at: '2026-11-17T19:38:28+00:00'
+  record_hash: b33aee98f7480834c762032e20b15ad5cdd6b1faa8009bf511b695d131cf127d

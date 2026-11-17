@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.POWER_SCALING.H_It_scaled.num3.a9ada96f
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.6
-type: mcq
 pool: practice
 role: explain
 stem:
   en: A student is studying how power changes when a quantity changes. The current
     through a fixed resistor is doubled and the time it flows is multiplied by 4.
     By what number is the heat produced multiplied?
-options:
-- id: a
-  en: '1'
-- id: b
-  en: '16'
-- id: c
-  en: '8'
-- id: d
-  en: '4'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = I x I x R x t: it changes with the square of I
-    and directly with t.'
-- en: 'Combine the numbers: 2^2 x 4 = 16.'
-- en: So the number the heat is multiplied by is 16.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -43,15 +24,44 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '16'
+- id: c
+  en: '8'
+- id: d
+  en: '4'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t: it changes with the square of I
+    and directly with t.'
+- en: 'Combine the numbers: 2^2 x 4 = 16.'
+- en: So the number the heat is multiplied by is 16.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9d280557e5bdb01be95300aeaea3c800a0c55062910e7be087903ef11df3737e
+  item_hash: 6307933b0f148419518000e59f42f63f9555556fdfdbecae9d453294eedf1b68
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: ee5541bf2b52f72fafe10aa80e8e7e429890fd4c9fd4868e3e7ef63920360e3f
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:28+00:00'
-  record_hash: 91cb331f9ca40d510df3ee817ef456e130f4a72909bdf2cabd1fc04c8a0d0cf9
+  stamped_at: '2026-11-17T19:38:39+00:00'
+  record_hash: 90b364ca019ab46321c74780c7dd97c5b29020647fc58248a06f3f0ca320a90d

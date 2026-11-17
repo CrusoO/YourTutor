@@ -2,34 +2,12 @@ id: ITM.PHY.ELEC.RESISTIVITY.L_from_RrhoA.num3.2b44df25
 skill_ids:
 - PHY.ELEC.RESISTIVITY
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying a uniform wire. Its resistance, R, is 16 Ω, the resistivity
     of its material, rho, is 2 x 10^-6 Ω m and its cross-section area, A, is 0.25
     mm². Find the length of the wire.
-options:
-- id: a
-  en: 2 x 10^6 m
-- id: b
-  en: 128 m
-- id: c
-  en: 2 m
-- id: d
-  en: 8 x 10^-12 m
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: R = resistivity x length / area.'
-- en: 'Put each quantity in SI units: 0.25 mm² = 2.5 x 10^-7 m².'
-- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
-    divide each side by the resistivity.'
-- en: 'Substitute: L = 16 x (2.5 x 10^-7) / (2 x 10^-6).'
-- en: 'Calculate: L = 2 m.'
-- en: So the length is 2 m.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -47,15 +25,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.RESISTIVITY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^6 m
+- id: b
+  en: 128 m
+- id: c
+  en: 2 m
+- id: d
+  en: 8 x 10^-12 m
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 0.25 mm² = 2.5 x 10^-7 m².'
+- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
+    divide each side by the resistivity.'
+- en: 'Substitute: L = 16 x (2.5 x 10^-7) / (2 x 10^-6).'
+- en: 'Calculate: L = 2 m.'
+- en: So the length is 2 m.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d5b44da82ef060820959591ad91858afb4bf3d29ae4dcf6613132c88b9b54000
+  item_hash: 43f2eaeeed9382fcbc8b86903bede55c0053849cca94615a7bea451828593cd3
   template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
   certificate_hash: 15e5e913b16facff3781a0757b793f6ac82afb7ec5d4f90e6396810eef5e0839
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:49+00:00'
-  record_hash: 783982ddebcdc4d6e8a7015d40cb9fe72766b563541736f248c25594d0bd8871
+  stamped_at: '2026-11-17T19:37:31+00:00'
+  record_hash: eb205946d607365c6a445357b961f97bb123a932d28b91bd8410e1a21004ecdd

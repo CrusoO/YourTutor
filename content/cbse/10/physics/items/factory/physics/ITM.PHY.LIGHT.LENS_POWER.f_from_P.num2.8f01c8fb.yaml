@@ -2,34 +2,11 @@ id: ITM.PHY.LIGHT.LENS_POWER.f_from_P.num2.8f01c8fb
 skill_ids:
 - PHY.LIGHT.LENS_POWER
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about the power of a lens. The power of the lens, P, is 2.5
     D. Find the focal length in cm, with its sign.
-options:
-- id: a
-  en: -0.4 cm
-- id: b
-  en: 40 cm
-- id: c
-  en: 2.5 cm
-- id: d
-  en: -40 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: power P = 1 / f, so f = 1 / P in metres.'
-- en: 'Put each quantity in SI units with its sign: P = -2.5 D.'
-- en: 'Get the focal length alone: multiply each side of P = 1 / f by f, then divide
-    each side by P.'
-- en: 'Substitute: f = 1 / (-2.5).'
-- en: 'Calculate: f = -0.4 m.'
-- en: 'Give it in cm: -40 cm.'
-- en: So the focal length is -40 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -48,15 +25,48 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -0.4 cm
+- id: b
+  en: 40 cm
+- id: c
+  en: 2.5 cm
+- id: d
+  en: -40 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_SIGN_IGNORED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWER_NOT_RECIPROCAL
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: power P = 1 / f, so f = 1 / P in metres.'
+- en: 'Put each quantity in SI units with its sign: P = -2.5 D.'
+- en: 'Get the focal length alone: multiply each side of P = 1 / f by f, then divide
+    each side by P.'
+- en: 'Substitute: f = 1 / (-2.5).'
+- en: 'Calculate: f = -0.4 m.'
+- en: 'Give it in cm: -40 cm.'
+- en: So the focal length is -40 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 166dd08b7e08dfe2ca81ad0fba9c04e23e9164181ab9c1474d297fa6049ca950
+  item_hash: 2f1592ed4a6f6a8b9aad0161ceac76d693ba5796c4087a3ced7c5413574af6f5
   template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
   certificate_hash: 2a1f94d4c8e617d72153614f33a1c4d5fdf43bc371a20bcb4736e7d8d6da7cda
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:51+00:00'
-  record_hash: 659de6152b5eb025bfb6fcab3c5b1c694b04b0aecb6327f52b704c84fb11bf7d
+  stamped_at: '2026-11-17T19:40:47+00:00'
+  record_hash: 86df852be43697abb29a61a33844fdaebbb4d844be54c31273e12a1cee77d770

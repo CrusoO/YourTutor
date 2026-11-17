@@ -2,33 +2,12 @@ id: ITM.PHY.LIGHT.RELATIVE_INDEX.n2_from_n21.num3.7405b447
 skill_ids:
 - PHY.LIGHT.RELATIVE_INDEX
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying light passing from one medium into another. The second
     medium relative to the first has refractive index 1.6 and the first medium has
     refractive index 1.5. Find the refractive index of the second medium.
-options:
-- id: a
-  en: '0.9375'
-- id: b
-  en: '3.1'
-- id: c
-  en: '2.4'
-- id: d
-  en: '1.07'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: n21 = n2 / n1.'
-- en: 'Get the refractive index of the second medium alone: multiply each side of
-    n21 = n2 / n1 by n1.'
-- en: 'Substitute: n2 = 1.6 x 1.5.'
-- en: 'Calculate: n2 = 2.4.'
-- en: So the refractive index of the second medium is 2.4.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     medium be?
 status: draft
 template_id: TPL2.PHY.LIGHT.RELATIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.9375'
+- id: b
+  en: '3.1'
+- id: c
+  en: '2.4'
+- id: d
+  en: '1.07'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.RELATIVE_INDEX_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.INDEX_DIFFERENCE_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.INDEX_PRODUCT_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n21 = n2 / n1.'
+- en: 'Get the refractive index of the second medium alone: multiply each side of
+    n21 = n2 / n1 by n1.'
+- en: 'Substitute: n2 = 1.6 x 1.5.'
+- en: 'Calculate: n2 = 2.4.'
+- en: So the refractive index of the second medium is 2.4.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7610d5e516eeef723d3b551f3a6052263811a5ab5cb416bc56f58a9d0cda452f
+  item_hash: a495dddaf8e2466853cc0ce833fae215869bf292bb032f2dd756429f316cb487
   template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
   certificate_hash: 0175149e41f409513a075a189640be4b537e7c68728628d7a3bb4aad10e8d903
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:37+00:00'
-  record_hash: 78aa1393dd0d97b03ac075e0d7811ba762a9cf8bf90600e61ba19cceaa73b03a
+  stamped_at: '2026-11-17T19:42:01+00:00'
+  record_hash: 82088a1d7634b698b38683785318e3c0f35d76acd1b09138a9905996e3444872

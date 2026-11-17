@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.MIXED_NETWORK.Vp_mixed.case4.94cf8054
 skill_ids:
 - PHY.ELEC.MIXED_NETWORK
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -11,25 +10,6 @@ stem:
     the pair, R1, is 2 Ω, one resistor of the parallel pair, R2, is 12 Ω and the other
     resistor of the pair, R3, is 4 Ω. Find the potential difference across the parallel
     pair.'
-options:
-- id: a
-  en: 7.5 V
-- id: b
-  en: 6 V
-- id: c
-  en: 9 V
-- id: d
-  en: 15 V
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: find the battery current, then use V = I x R on the parallel
-    pair alone.'
-- en: 'Substitute: Vp = 15 x 12 x 4 / (2 x (12 + 4) + 12 x 4).'
-- en: 'Calculate: Vp = 9 V.'
-- en: So the potential difference across the pair is 9 V.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -47,15 +27,45 @@ prediction_prompt:
     have, and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.MIXED_NETWORK
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7.5 V
+- id: b
+  en: 6 V
+- id: c
+  en: 9 V
+- id: d
+  en: 15 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.EQUAL_SHARE_ASSUMED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.WRONG_RESISTOR_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.SERIES_VOLTAGE_NOT_SHARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: find the battery current, then use V = I x R on the parallel
+    pair alone.'
+- en: 'Substitute: Vp = 15 x 12 x 4 / (2 x (12 + 4) + 12 x 4).'
+- en: 'Calculate: Vp = 9 V.'
+- en: So the potential difference across the pair is 9 V.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4861c197ae2bdf921c858bf60b5652061ca10d896bdd8b67dd175867e9224a14
+  item_hash: e4793924e16a605b3cbeff00f3f83e2535921db5f23e1a9bf6e8f38b0c6b886a
   template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
   certificate_hash: d105ad805add8b19c6177efa4b9a716b210ca3e4ffcf75171c5489485d74bd04
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:17+00:00'
-  record_hash: f37d64e90116a3075bfe465b341d686aa789692e2ab757cae495417602966508
+  stamped_at: '2026-11-17T19:38:20+00:00'
+  record_hash: a5a416a4f42b7355c56596ca5f588d74419b4875436e7db7caba8426de84fbeb

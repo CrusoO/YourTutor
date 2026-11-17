@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.SERIES_CIRCUIT.V2_three.case4.89c245c3
 skill_ids:
 - PHY.ELEC.SERIES_CIRCUIT
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,25 +9,6 @@ stem:
     records the following. The battery gives 12 V, the first resistor, R1, is 10 Ω,
     the second resistor, R2, is 20 Ω and the third resistor, R3, is 30 Ω. Find the
     potential difference across the second resistor.'
-options:
-- id: a
-  en: 4 V
-- id: b
-  en: 2 V
-- id: c
-  en: 10 V
-- id: d
-  en: 12 V
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: find the current from the whole circuit, then use V = I
-    x R on one resistor.'
-- en: 'Substitute: V2 = 12 x 20 / (10 + 20 + 30).'
-- en: 'Calculate: V2 = 4 V.'
-- en: So the potential difference across the second resistor is 4 V.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -45,15 +25,43 @@ prediction_prompt:
     resistor have, and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.SERIES_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4 V
+- id: b
+  en: 2 V
+- id: c
+  en: 10 V
+- id: d
+  en: 12 V
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.WRONG_RESISTOR_USED
+  when_answer_equals:
+  - b
+  - c
+- id: PHY.MC.ELEC.SERIES_VOLTAGE_NOT_SHARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: find the current from the whole circuit, then use V = I
+    x R on one resistor.'
+- en: 'Substitute: V2 = 12 x 20 / (10 + 20 + 30).'
+- en: 'Calculate: V2 = 4 V.'
+- en: So the potential difference across the second resistor is 4 V.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d42268724ee6b69d55d195f57e27a97b37f20ab58d3c627efd8778b4310a2558
+  item_hash: 56363c7fcc62fefc7de8437e008461e9431f6e2c2c88a239c949f8e95cfea743
   template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
   certificate_hash: 0af55ce047671d8a675ac2e25e249a4dca6a458d34fdcf57fee9d758effca884
   label: calculation-checked
@@ -118,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:06+00:00'
-  record_hash: 987e087d838f5a68c4be4543182b90b83e0513bdc41d8047948dc2bbbebf933e
+  stamped_at: '2026-11-17T19:38:01+00:00'
+  record_hash: bdd370e3471b2eef311a2e53f56e501c3b3f728a10c2416ce8782bb37a920113

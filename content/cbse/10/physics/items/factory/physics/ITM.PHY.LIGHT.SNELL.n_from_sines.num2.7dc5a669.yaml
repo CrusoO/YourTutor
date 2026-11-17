@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.SNELL.n_from_sines.num2.7dc5a669
 skill_ids:
 - PHY.LIGHT.SNELL
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about light entering a transparent medium from air. The sine
     of the angle of incidence is 0.6 and the sine of the angle of refraction is 0.375.
     Find the refractive index of the medium.
-options:
-- id: a
-  en: '0.225'
-- id: b
-  en: '0.975'
-- id: c
-  en: '0.625'
-- id: d
-  en: '1.6'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: from air into a medium, n = sine of the angle of incidence
-    / sine of the angle of refraction.'
-- en: 'Get the refractive index alone: divide each side of sin i = n x sin r by sin
-    r.'
-- en: 'Substitute: n = 0.6 / 0.375.'
-- en: 'Calculate: n = 1.6.'
-- en: So the refractive index is 1.6.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -46,15 +24,45 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the refractive index be?
 status: draft
 template_id: TPL2.PHY.LIGHT.SNELL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.225'
+- id: b
+  en: '0.975'
+- id: c
+  en: '0.625'
+- id: d
+  en: '1.6'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SINES_SUBTRACTED
+  when_answer_equals:
+  - a
+  - b
+- id: PHY.MC.LIGHT.SNELL_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: from air into a medium, n = sine of the angle of incidence
+    / sine of the angle of refraction.'
+- en: 'Get the refractive index alone: divide each side of sin i = n x sin r by sin
+    r.'
+- en: 'Substitute: n = 0.6 / 0.375.'
+- en: 'Calculate: n = 1.6.'
+- en: So the refractive index is 1.6.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 818456adba6b44ecb005c8f540236fb6cf32eff0b710c228d4433031c8111e44
+  item_hash: b2f42be9b5f90d9a2ee8a323bfabf83bf148f6ef8d522d7d03482b4cf1cac7ae
   template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
   certificate_hash: 1e36a03513c7c36542b86b77358c148d754b935933ec928de0351155a2ec9e80
   label: calculation-checked
@@ -119,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:25+00:00'
-  record_hash: c9ff5c151434b0e38ae405bb71ff0a193b5b05c09580af6f7e90655871504ae2
+  stamped_at: '2026-11-17T19:41:41+00:00'
+  record_hash: ef875333d42a6ce385f2ec93d46c30802901e8e80b03d7353d9d04df39d1e4b5

@@ -2,30 +2,12 @@ id: ITM.PHY.LIGHT.SIGN_CONVENTION.x_signed.num2.534d6ae1
 skill_ids:
 - PHY.LIGHT.SIGN_CONVENTION
 difficulty: 0.5
-type: mcq
 pool: practice
 role: explain
 stem:
   en: This question is about the sign convention for mirrors and lenses. A concave
     lens has a focal length of magnitude 12 cm. Using the Cartesian sign convention,
     what is the value of f in cm?
-options:
-- id: a
-  en: -24 cm
-- id: b
-  en: 12 cm
-- id: c
-  en: -6 cm
-- id: d
-  en: -12 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: A concave lens has a negative focal length.
-- en: 'Give it in cm: -12 cm.'
-- en: So the signed value is -12 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Plan the steps: decide which side of the pole or centre the quantity is on,
@@ -41,15 +23,41 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.LIGHT.SIGN_CONVENTION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: ffa9817761d03e548d1a11d697c40312f6bff743942242544877532ae31497e4
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -24 cm
+- id: b
+  en: 12 cm
+- id: c
+  en: -6 cm
+- id: d
+  en: -12 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - a
+  - c
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A concave lens has a negative focal length.
+- en: 'Give it in cm: -12 cm.'
+- en: So the signed value is -12 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: aba3924a36512e7bfe4f8ec04e953f7497d4bf79f1091fe0c85bd68013025957
+  item_hash: 13e4bf88bf8c327903868c71ad697f8b4fc16d42dd03aae8f8745b6ead65cefc
   template_hash: ffa9817761d03e548d1a11d697c40312f6bff743942242544877532ae31497e4
   certificate_hash: 47d358446ae7ee4f5629533a2fe0254d7bd3c99624f54c626042dd15ab89fa15
   label: calculation-checked
@@ -114,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:50+00:00'
-  record_hash: 491c7c117ed33b00b66261b6ea367b60348c0dce10267fa258925bf91d5add4c
+  stamped_at: '2026-11-17T19:39:15+00:00'
+  record_hash: 8ccdced125a56d29a3074673f36591b920ff41b5ece41d6d96ccd32cf1c77cbc

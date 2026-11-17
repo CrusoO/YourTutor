@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.RESIST_FACTORS.F_from_change.num3.35dfae94
 skill_ids:
 - PHY.ELEC.RESIST_FACTORS
 difficulty: 0.6
-type: mcq
 pool: practice
 role: explain
 stem:
   en: A student is studying how a wire's resistance changes. A uniform wire is stretched
     evenly to 4 times its original length, so its volume stays the same. By what number
     is the resistance multiplied?
-options:
-- id: a
-  en: '0.0625'
-- id: b
-  en: '2'
-- id: c
-  en: '16'
-- id: d
-  en: '4'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Plan: R is proportional to length and inversely proportional to area, so the
-    new resistance divided by the old one equals the length factor divided by the
-    area factor.'
-- en: 'Combine the numbers: 4 / 0.25 = 16.'
-- en: So the number the resistance is multiplied by is 16.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Plan the steps: R
@@ -43,15 +23,45 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.RESIST_FACTORS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 14ea547ee35a5659f4b116ffe600f54a88511393c565a2c62ab3a6c6bf1f2131
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.0625'
+- id: b
+  en: '2'
+- id: c
+  en: '16'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.DIAMETER_AS_AREA
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ONLY_LENGTH_COUNTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: R is proportional to length and inversely proportional to area, so the
+    new resistance divided by the old one equals the length factor divided by the
+    area factor.'
+- en: 'Combine the numbers: 4 / 0.25 = 16.'
+- en: So the number the resistance is multiplied by is 16.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: bf147da3e0e6fd1c9a1421e84a2cbb2ed48546ffdc5629a3e54fbf9e14fe10e6
+  item_hash: 79722c5f86525f875120f34abf8846f6d27de313486c0919069133741f1777cc
   template_hash: 14ea547ee35a5659f4b116ffe600f54a88511393c565a2c62ab3a6c6bf1f2131
   certificate_hash: 39f5cd3f81bc8b145a4610d608461fb64a16078d06443b9344feabd6ff01baaf
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:52+00:00'
-  record_hash: c7196dcc64531f7f99baf44b42474691c20f52cfe572b63476762e5fe601a744
+  stamped_at: '2026-11-17T19:37:37+00:00'
+  record_hash: 735ed623d0fcb1bfedc2e8521e20607b12689f801565940c5728429531016c71

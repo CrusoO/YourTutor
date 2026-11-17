@@ -2,34 +2,11 @@ id: ITM.PHY.LIGHT.MIRROR_FOCAL.f_from_R.mcq1.12b3e666
 skill_ids:
 - PHY.LIGHT.MIRROR_FOCAL
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The radius of curvature of the concave mirror, R, is 30 cm. Find the focal length,
     with its sign.
-options:
-- id: a
-  en: -1500 cm
-- id: b
-  en: 15 cm
-- id: c
-  en: -15 cm
-- id: d
-  en: -30 cm
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: the focal length is half the radius of curvature: f = R
-    / 2, with signs from the convention.'
-- en: 'Put each quantity in SI units with its sign: R = -0.3 m.'
-- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
-- en: 'Substitute: f = (-0.3) / 2.'
-- en: 'Calculate: f = -0.15 m.'
-- en: 'Give it in cm: -15 cm.'
-- en: So the focal length is -15 cm.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -48,15 +25,48 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -1500 cm
+- id: b
+  en: 15 cm
+- id: c
+  en: -15 cm
+- id: d
+  en: -30 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the focal length is half the radius of curvature: f = R
+    / 2, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: R = -0.3 m.'
+- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
+- en: 'Substitute: f = (-0.3) / 2.'
+- en: 'Calculate: f = -0.15 m.'
+- en: 'Give it in cm: -15 cm.'
+- en: So the focal length is -15 cm.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9288e56eb77c76df895b4bcea74911578570de8d316e9596f8dd90c1c0a8faec
+  item_hash: 4664cb3c944a192b805d9fa790e696765ca3c9603bc41e91b49bd479bb479523
   template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
   certificate_hash: e1dbd5654e545d13f40208bad16d36cc3fc47c5f88dcc9ec6faf9a5a9e9f0ebc
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:57+00:00'
-  record_hash: a6a602cbcc4b2cb14e1e0c24e7b7966e9d85ee43406ac3b0d0c9f96a095c93d0
+  stamped_at: '2026-11-17T19:39:26+00:00'
+  record_hash: 4336b35d16ee94dc7215b8a51e94cb46d3101d78ffe4bc0192cb2291469427a5

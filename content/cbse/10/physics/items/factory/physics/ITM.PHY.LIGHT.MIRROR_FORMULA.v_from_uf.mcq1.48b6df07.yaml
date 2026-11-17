@@ -2,36 +2,12 @@ id: ITM.PHY.LIGHT.MIRROR_FORMULA.v_from_uf.mcq1.48b6df07
 skill_ids:
 - PHY.LIGHT.MIRROR_FORMULA
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The object, u, is 10 cm from the convex mirror and the focal length of the convex
     mirror, f, is 15 cm. Using the Cartesian sign convention, find the image distance
     v.
-options:
-- id: a
-  en: 6 cm
-- id: b
-  en: -30 cm
-- id: c
-  en: 1.67e+03 cm
-- id: d
-  en: 30 cm
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with u and f signed by
-    the convention.'
-- en: 'Put each quantity in SI units with its sign: u = -0.1 m; f = 0.15 m.'
-- en: 'Get the image distance alone: subtract 1/u from each side of 1/v + 1/u = 1/f,
-    then take the reciprocal of each side.'
-- en: 'Substitute: v = (-0.1) x 0.15 / ((-0.1) - 0.15).'
-- en: 'Calculate: v = 0.06 m.'
-- en: 'Give it in cm: 6 cm.'
-- en: So the image distance is 6 cm.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -51,15 +27,49 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FORMULA
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 cm
+- id: b
+  en: -30 cm
+- id: c
+  en: 1.67e+03 cm
+- id: d
+  en: 30 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.U_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with u and f signed by
+    the convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.1 m; f = 0.15 m.'
+- en: 'Get the image distance alone: subtract 1/u from each side of 1/v + 1/u = 1/f,
+    then take the reciprocal of each side.'
+- en: 'Substitute: v = (-0.1) x 0.15 / ((-0.1) - 0.15).'
+- en: 'Calculate: v = 0.06 m.'
+- en: 'Give it in cm: 6 cm.'
+- en: So the image distance is 6 cm.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 11f0393b0055edde19967439fdfe2faa5f401dcee897b570121edae541fd9616
+  item_hash: 6fbf19fdb7298d3afa4291d2ff94f7c69de0c19b71d68df7430d1a04e03c2d77
   template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
   certificate_hash: 57331daed0ba804f8546edc886a2e934cfc74788c19e08187b302fbe4e10f95d
   label: calculation-checked
@@ -124,10 +134,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:04+00:00'
-  record_hash: 6b48a7bbd9c33cf587d3999a3f714b9d79748d36d79792a90b4b5a60f4768e13
+  stamped_at: '2026-11-17T19:39:37+00:00'
+  record_hash: 4cde2c043d83700c18fc13e4dbf7b34cb85b5c9ab54a707ead1990dd5109a388

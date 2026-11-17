@@ -2,32 +2,12 @@ id: ITM.PHY.LIGHT.RELATIVE_INDEX.n21_from_n.num2.5dc03a3a
 skill_ids:
 - PHY.LIGHT.RELATIVE_INDEX
 difficulty: 0.4
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about light passing from one medium into another. The first
     medium has refractive index 1.25 and the second medium has refractive index 2.4.
     Find the refractive index of the second medium relative to the first.
-options:
-- id: a
-  en: '1.15'
-- id: b
-  en: '3'
-- id: c
-  en: '0.521'
-- id: d
-  en: '1.92'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: relative refractive index of medium 2 with respect to medium
-    1: n21 = n2 / n1.'
-- en: 'Substitute: n21 = 2.4 / 1.25.'
-- en: 'Calculate: n21 = 1.92.'
-- en: So the refractive index of the second medium relative to the first is 1.92.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -44,15 +24,45 @@ prediction_prompt:
     medium relative to the first be?
 status: draft
 template_id: TPL2.PHY.LIGHT.RELATIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1.15'
+- id: b
+  en: '3'
+- id: c
+  en: '0.521'
+- id: d
+  en: '1.92'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.INDEX_DIFFERENCE_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.INDEX_PRODUCT_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.RELATIVE_INDEX_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: relative refractive index of medium 2 with respect to medium
+    1: n21 = n2 / n1.'
+- en: 'Substitute: n21 = 2.4 / 1.25.'
+- en: 'Calculate: n21 = 1.92.'
+- en: So the refractive index of the second medium relative to the first is 1.92.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c7f3ed75e1da40d319fa02fcbe493fada4858b23fcca47062cef15ee9dd3e2ae
+  item_hash: 6e7205ccc0b94171e2bf33ba09d71b8dd361b91d97eefa130de991a524b868d7
   template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
   certificate_hash: a51f34c2dfd1208a10dfe2c585ce09fa7c6b3341bad093a45a5519da74cbc41f
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:38+00:00'
-  record_hash: 4763c2464c3677a2972bdeb2804e5581c447493a4ba657d480943e7aa1881d26
+  stamped_at: '2026-11-17T19:42:03+00:00'
+  record_hash: c63185c89c21eb7d1723c8fa9855621b1889aebf518e13f11d6a0a9944563d43

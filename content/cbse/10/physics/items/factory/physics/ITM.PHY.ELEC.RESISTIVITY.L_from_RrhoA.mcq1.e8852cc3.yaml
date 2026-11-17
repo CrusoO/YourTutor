@@ -2,34 +2,11 @@ id: ITM.PHY.ELEC.RESISTIVITY.L_from_RrhoA.mcq1.e8852cc3
 skill_ids:
 - PHY.ELEC.RESISTIVITY
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Its resistance, R, is 0.02 Ω, the resistivity of its material, rho, is 1 x 10^-7
     Ω m and its cross-section area, A, is 0.25 mm². Find the length of the wire.
-options:
-- id: a
-  en: 0.8 cm
-- id: b
-  en: 5 x 10^-14 cm
-- id: c
-  en: 5 x 10^6 cm
-- id: d
-  en: 5 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: R = resistivity x length / area.'
-- en: 'Put each quantity in SI units: 0.25 mm² = 2.5 x 10^-7 m².'
-- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
-    divide each side by the resistivity.'
-- en: 'Substitute: L = 0.02 x (2.5 x 10^-7) / (1 x 10^-7).'
-- en: 'Calculate: L = 0.05 m.'
-- en: 'Give it in cm: 5 cm.'
-- en: So the length is 5 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -47,15 +24,48 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.RESISTIVITY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.8 cm
+- id: b
+  en: 5 x 10^-14 cm
+- id: c
+  en: 5 x 10^6 cm
+- id: d
+  en: 5 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 0.25 mm² = 2.5 x 10^-7 m².'
+- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
+    divide each side by the resistivity.'
+- en: 'Substitute: L = 0.02 x (2.5 x 10^-7) / (1 x 10^-7).'
+- en: 'Calculate: L = 0.05 m.'
+- en: 'Give it in cm: 5 cm.'
+- en: So the length is 5 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ad21782590f64652335934bf6dd93e523bcde16859205771e4881f09599580da
+  item_hash: 0ce6549f89fa83862ae05ed39cb978f1689b07dc663fc78474aa29cb058f431f
   template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
   certificate_hash: f4cdfe07dc71995a61752419a5ddc8322762b8d52c9f0f783b5a0c7b6a3e4919
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:50+00:00'
-  record_hash: 7a3e225632b49b9a0aa435479a7b03ff80085c2861a5899c53f919fd727c94aa
+  stamped_at: '2026-11-17T19:37:32+00:00'
+  record_hash: 2919481fb75c2b5e5a0b0538af47f5680d2426748f13b6da3ae046c669b978cc

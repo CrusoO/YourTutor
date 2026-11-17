@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.OHM_LAW.V_from_IR.num2.edeae703
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about a resistor in a circuit. The current through it, I, is
     0.25 mA and its resistance, R, is 100 kΩ. Find the potential difference across
     the resistor.
-options:
-- id: a
-  en: 25 V
-- id: b
-  en: 2.5 x 10^-9 V
-- id: c
-  en: 100000.00025 V
-- id: d
-  en: 4 x 10^8 V
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Put each quantity in SI units: 0.25 mA = 2.5 x 10^-4 A; 100 kΩ = 100000 Ω.'
-- en: 'Substitute: V = (2.5 x 10^-4) x 100000.'
-- en: 'Calculate: V = 25 V.'
-- en: So the potential difference is 25 V.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -45,15 +25,45 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 25 V
+- id: b
+  en: 2.5 x 10^-9 V
+- id: c
+  en: 100000.00025 V
+- id: d
+  en: 4 x 10^8 V
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 0.25 mA = 2.5 x 10^-4 A; 100 kΩ = 100000 Ω.'
+- en: 'Substitute: V = (2.5 x 10^-4) x 100000.'
+- en: 'Calculate: V = 25 V.'
+- en: So the potential difference is 25 V.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ac9d958af985bcca85484529b93769d36d8e0d8a6c6c77f7f60a79456eb7f4c7
+  item_hash: ce2a6f93fd71584a49dd56ccf767e9191cfaca69fb635737979043800da22c32
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: d67a6b1c4ae26563950a8c28e04b5b7a09a6cf4a400f13142b7c1721e5127dc5
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:45+00:00'
-  record_hash: 3364ec073968aaaccb9b71fc015c3aa061a4af6bd9d3ca6ee45e5c1a3d75e91c
+  stamped_at: '2026-11-17T19:37:27+00:00'
+  record_hash: d6afa32a6151c90c901f0de4cdf5eae8b604840fb254f8630365f94c4cdf3707

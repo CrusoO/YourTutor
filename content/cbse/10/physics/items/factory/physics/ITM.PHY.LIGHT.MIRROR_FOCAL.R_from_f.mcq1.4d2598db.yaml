@@ -2,33 +2,11 @@ id: ITM.PHY.LIGHT.MIRROR_FOCAL.R_from_f.mcq1.4d2598db
 skill_ids:
 - PHY.LIGHT.MIRROR_FOCAL
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The focal length of the concave mirror, f, is 15 cm. Find the radius of curvature,
     with its sign.
-options:
-- id: a
-  en: -15 cm
-- id: b
-  en: -30 cm
-- id: c
-  en: 30 cm
-- id: d
-  en: -3000 cm
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: the radius of curvature is twice the focal length: R =
-    2f, with signs from the convention.'
-- en: 'Put each quantity in SI units with its sign: f = -0.15 m.'
-- en: 'Substitute: R = 2 x (-0.15).'
-- en: 'Calculate: R = -0.3 m.'
-- en: 'Give it in cm: -30 cm.'
-- en: So the radius of curvature is -30 cm.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -47,15 +25,47 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -15 cm
+- id: b
+  en: -30 cm
+- id: c
+  en: 30 cm
+- id: d
+  en: -3000 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the radius of curvature is twice the focal length: R =
+    2f, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: f = -0.15 m.'
+- en: 'Substitute: R = 2 x (-0.15).'
+- en: 'Calculate: R = -0.3 m.'
+- en: 'Give it in cm: -30 cm.'
+- en: So the radius of curvature is -30 cm.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6c7a8c543fdc386feb22a3385ab5f0bd84c448e80ff3b4c60822d3943219ed35
+  item_hash: 5947ad1616f2c788c4dc56a92724e98bd686d0cb182d13b2ae6d313de82d7182
   template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
   certificate_hash: f656ac0f828fc1a55c4d4649410577fcc057e2279b198431a3c03cdcc444c1ff
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:57+00:00'
-  record_hash: d1dfaeeadbce44c5783831bb759815fdc3dea806e59053533a88f7e4489402ac
+  stamped_at: '2026-11-17T19:39:26+00:00'
+  record_hash: accd6028053cd6ee5eaf37325c2515cb07ca009240e58d574d83410704571dce

@@ -2,35 +2,12 @@ id: ITM.PHY.LIGHT.IMAGE_NATURE.nature_lens.num3.401364a8
 skill_ids:
 - PHY.LIGHT.IMAGE_NATURE
 difficulty: 0.65
-type: mcq
 pool: practice
 role: explain
 stem:
   en: A student is studying the nature of the image from the mirror and lens formulas.
     The object, u, is 30 cm from the concave lens and the focal length of the concave
     lens, f, is 10 cm. What is the nature of the image?
-options:
-- id: a
-  en: virtual, erect, diminished
-- id: b
-  en: virtual, erect, magnified
-- id: c
-  en: real, erect, diminished
-- id: d
-  en: virtual, inverted, diminished
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: find v from the lens formula, then m = v / u; a positive
-    v is a real image on the far side, a negative m is inverted, |m| above 1 is magnified.'
-- en: 'Put each quantity in SI units with its sign: u = -0.3 m; f = -0.1 m.'
-- en: 'Substitute: v = (-0.3) x (-0.1) / ((-0.3) + (-0.1)).'
-- en: 'Calculate: v = -0.075 m.'
-- en: 'Give it in cm: -7.5 cm.'
-- en: 'Read the sign of v and of m = v / u: the image is virtual, erect, diminished.'
-- en: So the image is virtual, erect, diminished.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -49,15 +26,48 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.LIGHT.IMAGE_NATURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: virtual, erect, diminished
+- id: b
+  en: virtual, erect, magnified
+- id: c
+  en: real, erect, diminished
+- id: d
+  en: virtual, inverted, diminished
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SIZE_MEANING_REVERSED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.V_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.MAG_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: find v from the lens formula, then m = v / u; a positive
+    v is a real image on the far side, a negative m is inverted, |m| above 1 is magnified.'
+- en: 'Put each quantity in SI units with its sign: u = -0.3 m; f = -0.1 m.'
+- en: 'Substitute: v = (-0.3) x (-0.1) / ((-0.3) + (-0.1)).'
+- en: 'Calculate: v = -0.075 m.'
+- en: 'Give it in cm: -7.5 cm.'
+- en: 'Read the sign of v and of m = v / u: the image is virtual, erect, diminished.'
+- en: So the image is virtual, erect, diminished.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 81d2051319f55bbd3e79123410afd7bbd7febd5be17386df7eeb3593f9a65ac4
+  item_hash: 4d4788d4bf7aa6334c95f246e2621bcac16ca25c885b0f4c1f9a08ea3c356adf
   template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
   certificate_hash: bcfb4a14b65e45d59aed65630cdf4e597f4a4bb0294956997627ea19d10b005e
   label: calculation-checked
@@ -122,10 +132,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:23+00:00'
-  record_hash: 74195b3beab1c6c4eba49bddb25ce7709a28f00ea040aa2a725276e45e4d38ba
+  stamped_at: '2026-11-17T19:40:04+00:00'
+  record_hash: b16d87167fe7f557525145301cb986bdba2a27e0d087086241039dc06293fad4

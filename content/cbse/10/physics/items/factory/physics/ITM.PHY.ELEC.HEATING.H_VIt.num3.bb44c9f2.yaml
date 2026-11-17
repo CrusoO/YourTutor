@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.HEATING.H_VIt.num3.bb44c9f2
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying the heat produced by a current. The voltage, V, is 250
     V, the current, I, is 5 A and the time, t, is 2 min. How much heat is produced?
-options:
-- id: a
-  en: 150000 J
-- id: b
-  en: 2500 J
-- id: c
-  en: 1250 J
-- id: d
-  en: 6000 J
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = V x I x t.'
-- en: 'Put each quantity in SI units: 2 min = 120 s.'
-- en: 'Substitute: H = 250 x 5 x 120.'
-- en: 'Calculate: H = 150000 J.'
-- en: So the heat produced is 150000 J.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 150000 J
+- id: b
+  en: 2500 J
+- id: c
+  en: 1250 J
+- id: d
+  en: 6000 J
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.POWER_AS_V_OVER_I
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = V x I x t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Substitute: H = 250 x 5 x 120.'
+- en: 'Calculate: H = 150000 J.'
+- en: So the heat produced is 150000 J.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8ec1c735e6e0c83a957f6abb3f186aaaa7bb1b8ba85a6229626a531e54840135
+  item_hash: 48f7267f07c1b5ffb3caf3e679e74a3e2989f1283ea7c38e353f15b4d50e8891
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: a9d5b3994d76abea223795ee96f592631b69457f0715b145fb5dd139e8caea1b
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:41+00:00'
-  record_hash: 80ed6d1d5805f973f7a447b581b98d395233f8c0c271cbced2317a09ccad5da6
+  stamped_at: '2026-11-17T19:39:01+00:00'
+  record_hash: da102d2ae2bf08a1b35ef4ed580ea37ffcf6737be6364c89e89d64a9cd72fcac

@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.PARALLEL.Rp_two.mcq1.4998d303
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.25
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The first resistor, R1, is 9 Ω and the second resistor, R2, is 18 Ω. Find the
     combined resistance.
-options:
-- id: a
-  en: 27 Ω
-- id: b
-  en: 6 Ω
-- id: c
-  en: 13.5 Ω
-- id: d
-  en: 0.167 Ω
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
-- en: 'Substitute: Rp = 9 x 18 / (9 + 18).'
-- en: 'Calculate: Rp = 6 Ω.'
-- en: So the total resistance is 6 Ω.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -41,15 +22,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 27 Ω
+- id: b
+  en: 6 Ω
+- id: c
+  en: 13.5 Ω
+- id: d
+  en: 0.167 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.PARALLEL_RESISTANCES_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.PARALLEL_AVERAGED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Substitute: Rp = 9 x 18 / (9 + 18).'
+- en: 'Calculate: Rp = 6 Ω.'
+- en: So the total resistance is 6 Ω.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4c0fda32f343ebf79af23940691431afa09c1d8f15f969dd3c786454e6328540
+  item_hash: 7504067d8d5946673ac29c11ed71d80a28a86cac5d87f0f4485aaccbe3f8f806
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: 2928e1f8c0a58e8c2cefb4730f6a75968edefb60ed8a7fe836dcd46330e42a80
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:00+00:00'
-  record_hash: 374663043e1a5904180fd504b9cfcd74d73f44203fb143efad24417d32fd0b0f
+  stamped_at: '2026-11-17T19:37:52+00:00'
+  record_hash: b49f4c52a8064ffa56233e30c543505f860c7635dce8b9a903b380fd4ad9f9c4

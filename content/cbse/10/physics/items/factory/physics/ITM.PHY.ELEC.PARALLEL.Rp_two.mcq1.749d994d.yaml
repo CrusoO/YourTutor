@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.PARALLEL.Rp_two.mcq1.749d994d
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.25
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The first resistor, R1, is 12 Ω and the second resistor, R2, is 4 Ω. Find the
     combined resistance.
-options:
-- id: a
-  en: 16 Ω
-- id: b
-  en: 8 Ω
-- id: c
-  en: 0.333 Ω
-- id: d
-  en: 3 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
-- en: 'Substitute: Rp = 12 x 4 / (12 + 4).'
-- en: 'Calculate: Rp = 3 Ω.'
-- en: So the total resistance is 3 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -41,15 +22,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16 Ω
+- id: b
+  en: 8 Ω
+- id: c
+  en: 0.333 Ω
+- id: d
+  en: 3 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.PARALLEL_RESISTANCES_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.PARALLEL_AVERAGED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: in parallel the reciprocals add: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Substitute: Rp = 12 x 4 / (12 + 4).'
+- en: 'Calculate: Rp = 3 Ω.'
+- en: So the total resistance is 3 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5e404f1d2534e22b32f84b33da2b0f0ef72e9b82fe75f9625a0e375c89b4a24c
+  item_hash: c48b79e7633b7adf297976622513f029f59e571bb4a6a309a896798009fbfa4c
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: 831ec96aa234635a638b72bc7ffa02db33f22c7854f6bfd5ca9e0f3032d49703
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:00+00:00'
-  record_hash: e0e1c4867f2f8bd1235dacb8a519e948b37d08eafcde29f03b647b196977353b
+  stamped_at: '2026-11-17T19:37:52+00:00'
+  record_hash: e3ba1c4132afd71e5c1fbd615b1d1c4b0b6e79bff988b8b9dba0af24ab24f112

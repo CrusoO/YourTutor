@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.ENERGY_KWH.E_one.num2.1f096d8b
 skill_ids:
 - PHY.ELEC.ENERGY_KWH
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about the electrical energy an appliance uses. The power rating
     of the first appliance, P1, is 60 W and the time it is used each day, t1, is 5
     h. How much electrical energy is used, in kWh?
-options:
-- id: a
-  en: 0.012 kWh
-- id: b
-  en: 0.3 kWh
-- id: c
-  en: 0.06 kWh
-- id: d
-  en: 0.065 kWh
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: energy E = power P x time t; 1 kWh = 1000 W for 1 hour.'
-- en: 'Substitute: E1 = 60 x 18000.'
-- en: 'Calculate: E1 = 1.08 x 10^6 J.'
-- en: 'Give it in kWh: 0.3 kWh.'
-- en: So the energy is 0.3 kWh.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -43,15 +23,45 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.ENERGY_KWH
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.012 kWh
+- id: b
+  en: 0.3 kWh
+- id: c
+  en: 0.06 kWh
+- id: d
+  en: 0.065 kWh
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: energy E = power P x time t; 1 kWh = 1000 W for 1 hour.'
+- en: 'Substitute: E1 = 60 x 18000.'
+- en: 'Calculate: E1 = 1.08 x 10^6 J.'
+- en: 'Give it in kWh: 0.3 kWh.'
+- en: So the energy is 0.3 kWh.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 15023362360ab152c75e59217cfd5fd837c66a3523aa18924cb867478f4fd340
+  item_hash: d3e6045aec8c5bccae92f36e3225f87c309787ab42f1848b86da430538aeee62
   template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
   certificate_hash: 594903a72fa4c82d12633d81869951721c753e2b752f7af8b0e59a3dbbfe9710
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:34+00:00'
-  record_hash: fb6c66c9d0565409cfddf5fe3e9a1770c2fd92187bb5389213839be9a54589ef
+  stamped_at: '2026-11-17T19:38:51+00:00'
+  record_hash: 9d2f2c5ae7315063bb995f6e744d14f0c48f1f84a9a062c6a3fbcda09af5289e
