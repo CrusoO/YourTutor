@@ -383,6 +383,8 @@ All commands take `--root <content folder>` (default: the repo's `content/`) bef
 | `python -m app.factory report` | Stamped items per chapter and pass, fail, skip counts per checker. |
 | `python -m app.factory ledger-verify` | Checks the hash chain of `factory/ledger.jsonl`. Run it in CI; any edit to an earlier line is reported. |
 | `python -m app.factory suspend ITEM_ID --reason "..." [--undo]` | Switches an item off (or back on) in the database and the ledger. A suspended item is never served. |
+| `python -m app.factory variants --source TEMPLATES_DIR [--kind diagnostic explain checkpoint] [--count N]` | Derives, certifies and stamps variants of one template per skill (resumable). `diagnostic` fills the diagnostic pool (probe warm-up), `explain` is role explain framed as "a classmate says X, choose the correct answer" (calculation-checked; it does not check a reason), `checkpoint` fills the checkpoint pool. Variant boxes are shrunk (at most 120 tuples) so each certifies in seconds. |
+| `python -m app.factory forms` | Builds the matched A/B checkpoint forms of each chapter from stamped checkpoint items (same skill, difficulty within 0.1; at least 10 pairs or no form). Writes `checkpoints/<id>.yaml`. |
 
 Then `python -m app.content load content/` as usual. A hand-written `tier: A` is ignored with a warning
 unless an intact record in the ledger backs it. Stamped items are served only when the owner sets
@@ -419,10 +421,19 @@ All of these must hold (the gate is `app/content/gate.py`; nothing here changes 
 2. `SERVE_TIER_A_UNREVIEWED=true` (default false) and the item is original; or `ALLOW_DRAFT_CONTENT=true`
    in development.
 3. The item is not suspended (`python -m app.factory suspend`); suspension beats every other switch.
-4. The student's chapter overlay is `live: true`. `validate` refuses `live: true` until the thresholds
-   hold, and those thresholds count **approved** items, lessons and checkpoint forms, so a chapter
-   with only stamped (draft) items cannot be made live by the validator today. That is the owner's
-   lessons and passages decision, not a switch to flip quietly.
+4. The student's chapter is live. Either the overlay says `live: true` (the validator refuses that
+   until approved counts hold), or, with `SERVE_TIER_A_UNREVIEWED=true`, every skill of the chapter
+   has at least 5 practice and 1 diagnostic item that the gate serves on their tier
+   (`gate.overlay_is_live_for_serving`). The overlay file stays `live: false`; nothing is flipped
+   quietly. A missing role (explain, apply, transfer) lowers quality, not safety: the policy falls
+   back and logs a content gap. `validate` says so: "not live by approval, but every skill is
+   covered by calculation-checked items".
+
+Lessons: a lesson that carries a `generated` block (worked-example lesson built from stamped
+solution traces, wording template reviewed once by a person, no hand-built widget) is servable
+under the same switch while every trace item stays backed by its stamp (`app/lessons/generated.py`).
+Every other draft lesson still needs `status: approved`. No lesson uses this yet: the generator and
+the one-time wording review are not built.
 
 Other surfaces (offline packs, mistake list, ask search) use the status rule only: a draft stamped
 item never appears there. The label learners see stays `Answer checked by calculation`; the factory
