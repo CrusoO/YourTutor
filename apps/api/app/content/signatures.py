@@ -20,6 +20,19 @@ def has_one_x(text: str) -> bool:
     return bool(_ONE_X.search(text))
 
 
+OPTION_TEXT_FROM = 2  # generator "factory-N" with N >= 2 hashes the option text and the type
+
+
+def hash_covers_option_text(item: Item) -> bool:
+    """True for items stamped by factory-2 or later. Items stamped under factory-1 (and every
+    legacy item) keep the hash they were approved or stamped with, which covers option ids only."""
+    version = item.generator_version or ""
+    if not version.startswith("factory-"):
+        return False
+    tail = version.removeprefix("factory-")
+    return tail.isdigit() and int(tail) >= OPTION_TEXT_FROM
+
+
 def item_content_hash(item: Item) -> str:
     payload = {
         "id": item.id,
@@ -38,5 +51,10 @@ def item_content_hash(item: Item) -> str:
         payload["step_hints"] = [s.en for s in item.step_hints]
     if item.hint_restate is not None:
         payload["hint_restate"] = item.hint_restate.en
+    # Added with factory-2: a changed option text (or type) must invalidate a stamp.
+    if hash_covers_option_text(item):
+        payload["option_text"] = [o.en for o in item.options]
+        payload["type"] = item.type.value
+        payload["generator_version"] = item.generator_version
     blob = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()

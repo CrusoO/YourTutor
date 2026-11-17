@@ -38,6 +38,8 @@ def load_templates(root: Path) -> list[ItemTemplate]:
         raw = yaml.safe_load(path.read_text(encoding="utf-8"))
         if not isinstance(raw, dict):
             raise ValueError(f"{path} must contain a mapping")
+        if raw.get("schema") == "factory-template/1":
+            continue  # a factory model: certified by `python -m app.factory`, not an ItemTemplate
         templates.append(ItemTemplate.model_validate(raw))
     return templates
 

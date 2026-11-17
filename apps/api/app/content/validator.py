@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
-from collections.abc import Mapping
+from collections.abc import Collection, Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -96,13 +96,18 @@ def _read_yaml(path: Path) -> dict:
     return data
 
 
+def _rglob_yaml(root: Path, folder: str) -> list[Path]:
+    """`<folder>` under the root and under each content/<board>/<class>/<subject> folder."""
+    from app.content.factory_roots import content_roots
+
+    return [p for base in content_roots(root) for p in sorted((base / folder).rglob("*.yaml"))]
+
+
 def load_bundle(root: Path) -> ContentBundle:
-    skills = [_model(Skill, p) for p in sorted((root / "skills").rglob("*.yaml"))]
-    items = [_model(Item, p) for p in sorted((root / "items").rglob("*.yaml"))]
-    misconceptions = [
-        _model(Misconception, p) for p in sorted((root / "misconceptions").rglob("*.yaml"))
-    ]
-    overlays = [_model(Overlay, p) for p in sorted((root / "overlays").rglob("*.yaml"))]
+    skills = [_model(Skill, p) for p in _rglob_yaml(root, "skills")]
+    items = [_model(Item, p) for p in _rglob_yaml(root, "items")]
+    misconceptions = [_model(Misconception, p) for p in _rglob_yaml(root, "misconceptions")]
+    overlays = [_model(Overlay, p) for p in _rglob_yaml(root, "overlays")]
     glossaries: list[GlossaryFile] = []
     glossary_dir = root / "glossary"
     if glossary_dir.exists():
@@ -145,9 +150,39 @@ def last_step_matches_answer(
     return False
 
 
+def is_factory_stamped(item: Item) -> bool:
+    """Written by the factory stamp step: a verification record and a factory template id."""
+    return (
+        item.verification is not None
+        and bool(item.template_id)
+        and (item.generator_version or "").startswith("factory-")
+    )
+
+
+def _factory_certified(item: Item, stamped_hashes: Collection[str] | None) -> bool:
+    """A factory item whose record is intact, names this content and (when the ledgers are known)
+    is in a stamp ledger. Its answer was checked by the kernel plus an independent method, which
+    replaces the legacy stem-solve check."""
+    from app.content.verification import record_errors
+
+    if not is_factory_stamped(item) or item.verification is None:
+        return False
+    return not record_errors(
+        item.verification.as_record(),
+        item_hash=item_content_hash(item),
+        stamped_hashes=stamped_hashes,
+    )
+
+
 def validate_bundle(
-    bundle: ContentBundle, curricula: Mapping[str, CurriculumSpec] | None = None
+    bundle: ContentBundle,
+    curricula: Mapping[str, CurriculumSpec] | None = None,
+    *,
+    stamped_hashes: Collection[str] | None = None,
+    factory_templates: Collection[str] | None = None,
 ) -> ValidationReport:
+    """`stamped_hashes`: record hashes from the stamp ledgers (None: the ledger is not checked
+    here). `factory_templates`: ids of factory-template/1 files found next to the content."""
     report = ValidationReport(bundle=bundle)
     _unique_ids(bundle, report)
     _refs_and_cycles(bundle, report)
@@ -155,7 +190,7 @@ def validate_bundle(
     _distractor_rationales(bundle, report)
     _checkpoint_isolation(bundle, report)
     _checkpoint_forms(bundle, report)
-    _stem_answers(bundle, report)
+    _stem_answers(bundle, report, stamped_hashes)
     _stem_uniqueness(bundle, report)
     _bkt_params(bundle, report)
     _mcq_and_word_warnings(bundle, report)
@@ -165,7 +200,8 @@ def validate_bundle(
     _hint_language(bundle, report)
     _language_quality(bundle, report)
     _approval_hashes(bundle, report)
-    _template_approval(bundle, report)
+    _template_approval(bundle, report, factory_templates)
+    _factory_notes(bundle, report)
     _checkpoint_practice_stems(bundle, report)
     _live_chapter(bundle, report)
     from app.content.coverage import coverage_gaps
@@ -176,6 +212,28 @@ def validate_bundle(
         report.errors.extend(section_map_errors(bundle.overlays, curricula))
         report.warnings.extend(dangling_overlay_warnings(bundle.overlays, curricula))
     _build_report(bundle, report)
+    return report
+
+
+def _validate_with_factory(root: Path, bundle: ContentBundle) -> ValidationReport:
+    """validate_bundle plus what only the root knows: the stamp ledgers and factory templates."""
+    from app.content.factory_roots import factory_template_ids, read_ledgers
+
+    ledgers = read_ledgers(root)
+    templates = factory_template_ids(root)
+    has_factory = any(is_factory_stamped(i) for i in bundle.items)
+    report = validate_bundle(
+        bundle,
+        curricula_for(root),
+        stamped_hashes=ledgers.stamped if has_factory else None,
+        factory_templates=templates,
+    )
+    report.errors.extend(f"factory ledger: {p}" for p in ledgers.problems)
+    if templates:
+        report.warnings.append(
+            f"{len(templates)} factory-template/1 files are not validated here (no schema in the "
+            "content package); `python -m app.factory certify` checks each one over its whole box"
+        )
     return report
 
 
@@ -197,7 +255,7 @@ def validate_path(root: Path) -> ValidationReport:
         report = ValidationReport()
         report.errors.append(str(exc))
         return report
-    report = validate_bundle(bundle, curricula_for(root))
+    report = _validate_with_factory(root, bundle)
     from app.content.sources import rights_errors
 
     report.errors.extend(rights_errors(root, bundle.items))
@@ -239,11 +297,13 @@ def _persist_hash_resets(root: Path, report: ValidationReport) -> None:
     }
     if not reset_ids:
         return
-    folders = [root / "items"]
+    from app.content.factory_roots import content_roots
+
+    folders = [base / "items" for base in content_roots(root)]
     if (root / "templates").exists():
         folders.append(root / "templates")
     for folder in folders:
-        for path in folder.rglob("*.yaml"):
+        for path in folder.rglob("*.yaml") if folder.is_dir() else []:
             data = yaml.safe_load(path.read_text(encoding="utf-8"))
             if not isinstance(data, dict) or data.get("id") not in reset_ids:
                 continue
@@ -336,10 +396,16 @@ def _items(bundle: ContentBundle, report: ValidationReport) -> None:
             report.errors.append(
                 f"{item.id} final solution step is not equivalent to answer {item.answer.sympy!r}"
             )
+        # A stamped factory item shuffles its option letters, so the letter ("a") is not the
+        # answer: check the hints against the text of the key option instead.
+        forbidden = item.answer.sympy
+        if is_factory_stamped(item) and item.type == ItemType.mcq:
+            key = next((o.en for o in item.options if o.id == item.answer.sympy), None)
+            forbidden = key or forbidden
         for hint in item.hints:
             if hint.level >= 3:
                 continue
-            if hint_leaks_answer(hint.en, item.answer.sympy):
+            if hint_leaks_answer(hint.en, forbidden):
                 report.errors.append(f"{item.id} hint level {hint.level} leaks the answer")
             for accept in item.answer.accept:
                 if hint_leaks_answer(hint.en, accept):
@@ -517,10 +583,15 @@ def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
             continue
         distinct = {next(h.en for h in item.hints if h.level == 1) for item in items}
         if len(distinct) < MIN_HINT1_PRACTICE:
-            report.errors.append(
+            message = (
                 f"{skill_id} has {len(distinct)} distinct hint-1 strings; "
                 f"minimum is {MIN_HINT1_PRACTICE}"
             )
+            if all(is_factory_stamped(item) for item in items):
+                # generated from one model: advisory for factory skills, the lane should vary it
+                report.warnings.append(message)
+            else:
+                report.errors.append(message)
 
 
 def _structure_and_tiers(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -626,7 +697,27 @@ def _approval_hashes(bundle: ContentBundle, report: ValidationReport) -> None:
             )
 
 
-def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
+def _factory_notes(bundle: ContentBundle, report: ValidationReport) -> None:
+    from app.content.signatures import hash_covers_option_text
+
+    old = [
+        i.id
+        for i in bundle.items
+        if is_factory_stamped(i) and i.options and not hash_covers_option_text(i)
+    ]
+    if old:
+        report.warnings.append(
+            f"{len(old)} factory items were stamped under factory-1, whose content hash does not "
+            "cover option text; re-stamp them (factory-2) so an edited option invalidates the "
+            f"stamp (first: {old[0]})"
+        )
+
+
+def _template_approval(
+    bundle: ContentBundle,
+    report: ValidationReport,
+    factory_templates: Collection[str] | None = None,
+) -> None:
     for tpl in bundle.templates:
         digest = template_hash(tpl)
         if tpl.status.value == "approved" and tpl.content_hash and tpl.content_hash != digest:
@@ -634,8 +725,14 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
             tpl.reviewed_by = None
             report.warnings.append(f"{tpl.id} approved template changed; reset to draft")
     templates = {tpl.id: tpl for tpl in bundle.templates}
+    missing_factory: set[str] = set()
     for item in bundle.items:
         if not item.template_id:
+            continue
+        if is_factory_stamped(item) and item.template_id not in templates:
+            # a factory model, not a legacy ItemTemplate: its certificate is what backs the item
+            if factory_templates is not None and item.template_id not in factory_templates:
+                missing_factory.add(item.template_id)
             continue
         linked = templates.get(item.template_id)
         if linked is None:
@@ -655,6 +752,11 @@ def _template_approval(bundle: ContentBundle, report: ValidationReport) -> None:
             item.reviewed_by = linked.reviewed_by
             if not item.content_hash:
                 item.content_hash = item_content_hash(item)
+    if missing_factory:
+        report.warnings.append(
+            "factory items name templates with no factory-template/1 file next to the content: "
+            + ", ".join(sorted(missing_factory)[:5])
+        )
 
 
 def _checkpoint_practice_stems(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -664,8 +766,14 @@ def _checkpoint_practice_stems(bundle: ContentBundle, report: ValidationReport) 
             report.errors.append(f"{item.id} checkpoint stem collides with a practice stem")
 
 
-def _stem_answers(bundle: ContentBundle, report: ValidationReport) -> None:
+def _stem_answers(
+    bundle: ContentBundle,
+    report: ValidationReport,
+    stamped_hashes: Collection[str] | None = None,
+) -> None:
     for item in bundle.items:
+        if _factory_certified(item, stamped_hashes):
+            continue  # certified by the kernel and an independent method (see ADR 0004)
         result = check_item_stem_answer(item)
         if result is None:
             continue

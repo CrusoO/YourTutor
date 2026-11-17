@@ -44,6 +44,14 @@ class ItemContext:
     hints: list[str] = field(default_factory=list)
     options: list[dict[str, Any]] = field(default_factory=list)  # {id, value, procedure}
     key_option: str | None = None
+    # Numeric and expression items (no options): the type to stamp, the answer string the learner
+    # types (must parse through app.content.math_parse), extra accepted spellings, an optional
+    # `verify` spec for the schema, and the named wrong answers: {text, procedure}.
+    item_type: str = ""  # "" or "mcq" with options; "numeric" | "expression" without
+    answer_text: str = ""
+    accept: list[str] = field(default_factory=list)
+    verify: Any = None
+    wrong_answers: list[dict[str, Any]] = field(default_factory=list)
     answer_tokens: list[str] = field(default_factory=list)  # strings a hint must not reveal
     provenance: dict[str, Any] = field(default_factory=dict)
     syllabus: dict[str, Any] = field(default_factory=dict)

@@ -48,6 +48,9 @@ class CatalogItem:
     min_plausible_ms: int | None = None
     step_hints: tuple[str, ...] = ()
     hint_restate: str = ""
+    # A draft item the serving gate admitted on its verification tier (a stamped tier A with
+    # SERVE_TIER_A_UNREVIEWED on, or a reviewed tier B). The gate already checked it.
+    served_by_tier: bool = False
 
     @property
     def primary_skill(self) -> str:

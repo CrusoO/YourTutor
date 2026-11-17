@@ -11,9 +11,9 @@ from app.content.schema import ContentBundle
 from app.content.validator import (
     ValidationReport,
     _persist_hash_resets,
+    _validate_with_factory,
     curricula_for,
     load_bundle,
-    validate_bundle,
 )
 from app.db.models import (
     Base,
@@ -68,7 +68,7 @@ def load_path(
     if empty and _database_has_content(database_url):
         # An empty bundle would retire (or, in dev, hard-delete) everything already loaded.
         raise LoadError(f"content root {root} has no skills or items; refusing to load")
-    report = validate_bundle(bundle, curricula_for(root))
+    report = _validate_with_factory(root, bundle)
     report.warnings.extend(stale_approvals)
     _persist_hash_resets(root, report)
     from app.content.sources import rights_errors
@@ -129,14 +129,17 @@ def _factory_backing(
     """Per item: (tier to store, verification record to keep). A hand-written tier A is ignored
     unless an intact record in the stamp ledger backs it (warning says so). Also returns the item
     ids the ledger records as suspended."""
-    from app.content.ledger import Ledger, ledger_path
+    from app.content.factory_roots import read_ledgers
     from app.content.signatures import item_content_hash
     from app.content.verification import effective_tier
 
-    ledger = Ledger(ledger_path(root))
-    problems = ledger.verify()
-    report.errors.extend(f"factory ledger: {p}" for p in problems)
-    stamped = ledger.stamped_record_hashes()
+    ledgers = read_ledgers(root)
+    problems = ledgers.problems
+    for p in problems:
+        message = f"factory ledger: {p}"
+        if message not in report.errors:  # validate already reported it
+            report.errors.append(message)
+    stamped = ledgers.stamped
     out: dict[str, tuple[str | None, dict | None]] = {}
     if report.bundle is None:
         return out, set()
@@ -154,7 +157,7 @@ def _factory_backing(
                 f"{item.id}: tier {item.tier.value if item.tier else ''} ignored ({warning})"
             )
         out[item.id] = (tier, record if tier in ("A", "B") and record else None)
-    return out, ledger.suspended_ids() if not problems else set()
+    return out, ledgers.suspended
 
 
 def _suspend_from_ledger(session: Session, item_ids: set[str]) -> None:

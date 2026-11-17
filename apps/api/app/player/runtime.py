@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import uuid
 from collections import defaultdict
+from dataclasses import replace
 from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -127,7 +128,10 @@ def load_catalog(session: Session, *, allow_draft: bool) -> tuple[CatalogItem, .
             serve_tier_a_unreviewed=settings.serve_tier_a_unreviewed,
         ):
             continue
-        out.append(_item_to_catalog(row))
+        item = _item_to_catalog(row)
+        if row.status != "approved" and row.tier in ("A", "B"):
+            item = replace(item, served_by_tier=True)  # the gate above admitted it on its tier
+        out.append(item)
     return tuple(out)
 
 

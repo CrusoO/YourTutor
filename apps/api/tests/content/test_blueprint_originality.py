@@ -381,12 +381,31 @@ def test_cli_index_and_check_never_print_reference_text(
 # --- labels on a served row ------------------------------------------------------------------
 
 
+def _content() -> dict[str, object]:
+    return {
+        "difficulty": 0.5,
+        "type": "mcq",
+        "role": "apply",
+        "stem": {"en": "Which is right?"},
+        "options": [{"id": "a", "en": "x"}, {"id": "b", "en": "y"}],
+        "answer": {"sympy": "a"},
+        "solution_steps": [{"en": "Think."}, {"en": "The correct option is a."}],
+        "hints": [{"level": i, "en": f"hint {i}"} for i in (1, 2, 3)],
+        "prediction_prompt": {"en": "Guess?"},
+    }
+
+
 def _stamp() -> dict[str, object]:
+    from app.content.schema import Item
+    from app.content.signatures import item_content_hash
     from app.content.verification import record_hash
 
+    item = Item.model_validate(
+        {"id": "ITEM.1", "skill_ids": [SKILL], "pool": "practice", **_content()}
+    )
     record: dict[str, object] = {
         "schema": "vrec/1",
-        "item_hash": "h",
+        "item_hash": item_content_hash(item),
         "certificate_hash": "c",
         "label": "calculation-checked",
         "tier": "A",
@@ -408,7 +427,8 @@ def row(**over: object) -> ItemRow:
         "reviewed_by": None,
         "tier": "A",
         "provenance": {"original": True},
-        "verification": _STAMP,  # a tier A is honoured only with an intact record (PR 2)
+        "verification": _STAMP,  # honoured only with an intact record
+        **_content(),
     }
     base.update(over)
     return ItemRow(**base)

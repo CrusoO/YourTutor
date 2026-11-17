@@ -53,6 +53,14 @@ def _curriculum(keys: tuple[str, ...], overlay_id: str = "OV") -> dict[str, Curr
 COMING_SOON_CHAPTER = "bhutan_class9_quadratics"
 # A chapter with named sections from the book's contents, not the three placeholders.
 REAL_SECTIONS_CHAPTER = "cbse.10.maths.ch02"
+# Class 10 lane chapters: names only (no section list or page range until a source is approved)
+LANE_CHAPTERS = {
+    "cbse.10.maths.quadratic",
+    "cbse.10.maths.ap",
+    "cbse.10.maths.trig_applications",
+    "cbse.10.physics.electricity",
+    "cbse.10.physics.light",
+}
 
 
 def _seeded_section_count() -> int:
@@ -70,6 +78,9 @@ def test_seed_curricula_have_three_placeholder_sections_each() -> None:
             for chapter in book.chapters:
                 if chapter.id == COMING_SOON_CHAPTER:  # S1b placeholder: no content, no sections
                     assert chapter.sections == ()
+                    continue
+                if chapter.id in LANE_CHAPTERS:
+                    assert chapter.sections == ()  # the overlay's section_map is {} to match
                     continue
                 if chapter.id == REAL_SECTIONS_CHAPTER:
                     assert chapter.sections, "a real chapter lists its sections"

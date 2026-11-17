@@ -92,13 +92,52 @@ def row_is_servable(row: Any, *, allow_draft: bool, serve_tier_a_unreviewed: boo
 
 
 def row_tier_backed(row: Any) -> bool | None:
-    """Whether the row's tier A/B is backed by an intact verification record (None: no tier)."""
+    """Whether the row's tier A/B is backed by an intact verification record (None: no tier).
+
+    The record must be intact and carry this tier, and it must name the content the row holds now:
+    the item hash is recomputed from the stored columns, so a row edited after the stamp (a stem,
+    an option text under factory-2) stops being backed.
+    """
     from app.content.verification import tier_backed
 
     tier = getattr(row, "tier", None)
     if tier not in ("A", "B"):
         return None
-    return tier_backed(getattr(row, "verification", None), tier)
+    record = getattr(row, "verification", None)
+    if not tier_backed(record, tier):
+        return False
+    return _row_matches_record(row, record or {})
+
+
+def _row_matches_record(row: Any, record: dict[str, Any]) -> bool:
+    from pydantic import ValidationError
+
+    from app.content.signatures import item_content_hash
+
+    try:
+        item = Item.model_validate(
+            {
+                "id": row.id,
+                "skill_ids": list(row.skill_ids or []),
+                "difficulty": row.difficulty,
+                "type": row.type,
+                "pool": row.pool,
+                "role": row.role or "procedure",
+                "stem": row.stem,
+                "verify": row.verify,
+                "options": list(row.options or []),
+                "answer": row.answer,
+                "solution_steps": list(row.solution_steps or []),
+                "hints": list(row.hints or []),
+                "prediction_prompt": row.prediction_prompt or {"en": ""},
+                "step_hints": list(row.step_hints or []),
+                "hint_restate": row.hint_restate,
+                "generator_version": row.generator_version,
+            }
+        )
+    except (ValidationError, ValueError, TypeError):
+        return False
+    return item_content_hash(item) == record.get("item_hash")
 
 
 def overlay_is_targetable(
