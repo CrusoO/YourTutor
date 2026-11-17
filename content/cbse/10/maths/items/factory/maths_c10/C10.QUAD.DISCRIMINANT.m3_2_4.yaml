@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.m3_2_4
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the discriminant of the equation -3x² + 2x + 4 = 0.
-options:
-- id: a
-  en: '-44'
-- id: b
-  en: '52'
-- id: c
-  en: '44'
-- id: d
-  en: '16'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Here the coefficients are -3, 2 and 4.
-- en: The discriminant is b² - 4ac = (2)² - 4(-3)(4).
-- en: This equals 4 - (-48) = 52.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Name the three coefficients first, keeping each sign.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-44'
+- id: b
+  en: '52'
+- id: c
+  en: '44'
+- id: d
+  en: '16'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - a
+- id: MC.QUAD.DISC_NEGATIVE_B_SQUARED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are -3, 2 and 4.
+- en: The discriminant is b² - 4ac = (2)² - 4(-3)(4).
+- en: This equals 4 - (-48) = 52.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4e590b9ec1d6ab05480e4c011129466a48b2d021d4848f407c96b28efd21f8fa
+  item_hash: 0e6929c59078d329376c5eeadb298e74e8f58aedf29165bdb9c49992e5aa6146
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: 977171dc762f1a1a0a68918e4aab98a26dd482556393bdb0c3fc9170c3897e3b
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:39+00:00'
-  record_hash: 70a56250dc2f6868a84a03986dedfbb22f6478ff98bfd3615143f046bba2beb8
+  stamped_at: '2026-11-17T17:41:53+00:00'
+  record_hash: b0d58604fa22dc740df37e03d7c93e71c789029a5c6caa232f304329601ac12c

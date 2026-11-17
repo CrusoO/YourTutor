@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.m2_6_8
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.54
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The AP -2, 4, 10, ..., 40 stops at 40. What is the sum of all its terms?
-options:
-- id: a
-  en: '304'
-- id: b
-  en: '133'
-- id: c
-  en: '152'
-- id: d
-  en: '760'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is -2, the last term is 40 and the difference is 6.
-- en: 'Number of terms: n = (40 - -2)/6 + 1 = 8.'
-- en: S = (n/2)(first + last) = (8/2)(-2 + 40) = 152.
-- en: The correct option is c.
 hints:
 - level: 1
   en: The count of terms is not given, so work it out from the first and last terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '304'
+- id: b
+  en: '133'
+- id: c
+  en: '152'
+- id: d
+  en: '760'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -2, the last term is 40 and the difference is 6.
+- en: 'Number of terms: n = (40 - -2)/6 + 1 = 8.'
+- en: S = (n/2)(first + last) = (8/2)(-2 + 40) = 152.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4742084e07713c351ecdd219a0f70d1ed78a7f79df47106a9480d664ad63123e
+  item_hash: 35fb2eea612593a49851a1a8323184a609e008940efd404c62abe240f422c08e
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: 0494748f83a6f6457cab23f0ccbd8e8709110ce2819a0ddad6b28b04a4443ff8
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:09+00:00'
-  record_hash: 3abd2b2ef036b53588e111a11e0976da4debaec740203c7ea01597c630b6dff2
+  stamped_at: '2026-11-17T17:39:15+00:00'
+  record_hash: 95d76f46d268ac0daff41becd3c40bef4ff46f1706e654721076ab5d06ab2af3

@@ -2,32 +2,12 @@ id: C10.TRIG.HD_DEPRESSION.60_3_distance_0
 skill_ids:
 - MATH.TRIG.HD.ANGLE_OF_DEPRESSION
 difficulty: 0.54
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: From the top of a lighthouse 3√3 m high, the angle of depression of a boat on
     the sea is 60°. Find the horizontal distance of a boat from the foot of the lighthouse
     in metres.
-options:
-- id: a
-  en: '3'
-- id: b
-  en: '6'
-- id: c
-  en: 9/2
-- id: d
-  en: '9'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The angle of depression is measured downward from the horizontal at the top;
-    by alternate angles it equals the angle of elevation of the top seen from a boat.
-- en: So in the right triangle the 60° angle is at a boat, and height and ground distance
-    are opposite and adjacent to it.
-- en: 'Use tan 60° = height / distance and solve: the answer is 3 m.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: The angle of depression is measured from the horizontal, not from the vertical.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Does the sight line make a steep or a shallow angle with the horizontal?
 status: draft
 template_id: TPL.C10.TRIG.HD_DEPRESSION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '6'
+- id: c
+  en: 9/2
+- id: d
+  en: '9'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a boat.
+- en: So in the right triangle the 60° angle is at a boat, and height and ground distance
+    are opposite and adjacent to it.
+- en: 'Use tan 60° = height / distance and solve: the answer is 3 m.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5ddeb0c9189d11bc9fa4ca997bd26d397a0c828e98b52d82918907dd1d1242b8
+  item_hash: 7483b56426cebf123255157709120788a22665515d0fdcb811e6313eeffa9a85
   template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
   certificate_hash: bf28de155a6024e9330c90a49fe7316394b7cf6bdd7e02164704f8038a8e493d
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:57:31+00:00'
-  record_hash: 6e70f48634b1352f8e484004e7e09292ba17fac48e20404ac2ef48c291bfe1b3
+  stamped_at: '2026-11-17T17:49:19+00:00'
+  record_hash: bb0b01c2808003487a5f6e7dad56b9ed38c3209c8fa186dc7476a0f43b067f9b

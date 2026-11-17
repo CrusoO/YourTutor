@@ -2,29 +2,11 @@ id: C10.QUAD.K_MIDDLE.2_3
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the values of k for which the equation 2x² + kx + 18 = 0 has two equal
     real roots.
-options:
-- id: a
-  en: k = -6 or k = 6
-- id: b
-  en: k = 12
-- id: c
-  en: k = -12 or k = 12
-- id: d
-  en: k = -144 or k = 144
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Equal roots need the discriminant to be zero: k² - 4(2)(18) = 0.'
-- en: So k² = 144.
-- en: 'Take the square root of both sides, keeping both signs: k = -12 or k = 12.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Equal roots happen when the discriminant is exactly zero.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Should k be allowed to be negative as well as positive?
 status: draft
 template_id: TPL.C10.QUAD.K_MIDDLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -6 or k = 6
+- id: b
+  en: k = 12
+- id: c
+  en: k = -12 or k = 12
+- id: d
+  en: k = -144 or k = 144
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_POSITIVE_ONLY
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_SQRT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(2)(18) = 0.'
+- en: So k² = 144.
+- en: 'Take the square root of both sides, keeping both signs: k = -12 or k = 12.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5a347b258e22db5a926bca48d14e5d2c763aae3e2139220cf96c8d1a0e361441
+  item_hash: df92272e2fa73039236b06e52a499701c790538aec742f8b3bd1122cec9626b6
   template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
   certificate_hash: 834e0a3960a09a61b61ed818261df144fbba2d1a05f04153450176963f229dc7
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:46:12+00:00'
-  record_hash: 80db6f4e5c4f5177d44d792211e321dac15924d509035c3cc18b065998511f6a
+  stamped_at: '2026-11-17T17:44:28+00:00'
+  record_hash: 913e10c3bd985b2b5c8437d37f9726525a7c82b20afbd1da279dc5f7d33d4814

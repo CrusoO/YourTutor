@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.1_4_2
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve x² + 4x + 2 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = -4 ± 2√2
-- id: b
-  en: x = 2 ± √2
-- id: c
-  en: x = -4 ± √2
-- id: d
-  en: x = -2 ± √2
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The coefficients are 1, 4 and 2.
-- en: The discriminant is 4² - 4 x 1 x 2 = 8, which is positive but not a perfect
-    square.
-- en: So x = (-(4) ± √8) / 2, and the square root is simplified as far as it will
-    go.
-- en: x = -2 ± √2.
-- en: The correct option is d.
 hints:
 - level: 1
   en: This one will not factorise nicely, so the formula is the right tool.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -4 ± 2√2
+- id: b
+  en: x = 2 ± √2
+- id: c
+  en: x = -4 ± √2
+- id: d
+  en: x = -2 ± √2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The coefficients are 1, 4 and 2.
+- en: The discriminant is 4² - 4 x 1 x 2 = 8, which is positive but not a perfect
+    square.
+- en: So x = (-(4) ± √8) / 2, and the square root is simplified as far as it will
+    go.
+- en: x = -2 ± √2.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 97eca4151fe7d26a611835f99b9a642b7395eef5945e5b14c6df519a0d57fb31
+  item_hash: f016157e018c19517cd941769e8c94055df8a5a1032055c5e922317a62ac4603
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 6f0377cb895efc01cf041002da5e233d8798b06e1945eb757e0c8684d5a84b2f
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:46+00:00'
-  record_hash: 337a21906166034cc75e459e019cd413e15a2063d6c7616075558eaffc746ad3
+  stamped_at: '2026-11-17T17:43:45+00:00'
+  record_hash: 62433fbc85863fe48286ae7a013a86855c40d351ae286fe7dd2666bc579cdd4c

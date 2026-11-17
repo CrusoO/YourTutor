@@ -2,30 +2,10 @@ id: C10.AP.IDENTIFY.9_3_2_m2
 skill_ids:
 - MATH.ALG.AP.IDENTIFY_AP
 difficulty: 0.34
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Every list starts at 9. Which of these lists is an arithmetic progression?
-options:
-- id: a
-  en: 9, 12, 15, 18
-- id: b
-  en: 9, 18, 36, 72
-- id: c
-  en: 9, 12, 15, 16
-- id: d
-  en: 9, 12, 16, 21
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: A list is an AP when the difference between every pair of neighbouring terms
-    is the same.
-- en: In 9, 12, 15, 18 each step is 3, and it stays 3 all the way along.
-- en: In each of the other lists, at least one pair of neighbours has a different
-    difference.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Work out the gaps between neighbours for each list and compare them.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Which list do you suspect, and why?
 status: draft
 template_id: TPL.C10.AP.IDENTIFY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 9, 12, 15, 18
+- id: b
+  en: 9, 18, 36, 72
+- id: c
+  en: 9, 12, 15, 16
+- id: d
+  en: 9, 12, 16, 21
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.RATIO_FOR_DIFFERENCE
+  when_answer_equals:
+  - b
+- id: MC.AP.CHECKED_TWO_TERMS_ONLY
+  when_answer_equals:
+  - c
+- id: MC.AP.DIFFERENCES_INCREASING_ACCEPTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A list is an AP when the difference between every pair of neighbouring terms
+    is the same.
+- en: In 9, 12, 15, 18 each step is 3, and it stays 3 all the way along.
+- en: In each of the other lists, at least one pair of neighbours has a different
+    difference.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 40c0713bb722645924a3ca641fe6d04922844ceea0797a60a7a93f0d613f1119
+  item_hash: a97cd998d85f7e0335b6348b78fe4c77ec95a795a9123670c5531c56618c4d59
   template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
   certificate_hash: 110d37bff9a4a47e619ed4da3124ec187a190e32e104db983815196b5d8d42b1
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:14:03+00:00'
-  record_hash: 2575d4b2f384dd064ec2a307f4e5b83d8da290829dff624ece3dbbd3b32b1d9b
+  stamped_at: '2026-11-17T17:38:32+00:00'
+  record_hash: 3b916ed3fa12e7e0d10b07b00e182bfb8921aeb897c76632107529ef1e690ac2

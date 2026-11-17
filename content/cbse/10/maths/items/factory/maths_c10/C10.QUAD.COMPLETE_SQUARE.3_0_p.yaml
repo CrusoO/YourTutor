@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.3_0_p
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Complete the square on x² + 6x = 0 to reach (x + p)² = q. What is p?
-options:
-- id: a
-  en: '9'
-- id: b
-  en: '6'
-- id: c
-  en: '3'
-- id: d
-  en: '-3'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Half of the x coefficient 6 is 3, so the square is (x + 3)².
-- en: (x + 3)² = x² + 6x + 9, so add 9 to both sides and subtract 0 from both sides.
-- en: This gives (x + 3)² = 9. So p = 3 and q = 9.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Think of one bracket squared; match the x term first.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '6'
+- id: c
+  en: '3'
+- id: d
+  en: '-3'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_SQUARED_INSTEAD
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CS_SIGN_OF_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 6 is 3, so the square is (x + 3)².
+- en: (x + 3)² = x² + 6x + 9, so add 9 to both sides and subtract 0 from both sides.
+- en: This gives (x + 3)² = 9. So p = 3 and q = 9.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e75c7e4aca4fed60629104ec1710cde631c19cb87f5dea1be42f81559aae3863
+  item_hash: bf2d4e2249b1f9877d16a8ecac0b1e32120f20c331ad6c0df494c078d9e730e7
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: 290875d0d2af9c0ba78725c98467f6a058ffe728b40055211676ea1402c7a346
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:40+00:00'
-  record_hash: 1feafd17c319190d6c404a659eadf3d0193a1b509b3c6fb82dacbd3b6aa752dd
+  stamped_at: '2026-11-17T17:41:34+00:00'
+  record_hash: fbe5f9622653f8b718d105c467a5bac25866557b28352f38d8cd51ed052891a3

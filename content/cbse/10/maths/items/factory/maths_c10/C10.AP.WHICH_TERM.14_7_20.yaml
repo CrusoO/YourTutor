@@ -2,30 +2,10 @@ id: C10.AP.WHICH_TERM.14_7_20
 skill_ids:
 - MATH.ALG.AP.POSITION_OF_TERM
 difficulty: 0.46
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which term of the AP 14, 21, 28, ... is 147?
-options:
-- id: a
-  en: '21'
-- id: b
-  en: '20'
-- id: c
-  en: '133'
-- id: d
-  en: '19'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is 14 and the common difference is 7.
-- en: 'Set the nth term equal to 147: 14 + (n - 1)(7) = 147.'
-- en: 'Take 14 away from both sides: (n - 1)(7) = 133. Divide both sides by 7: n -
-    1 = 19.'
-- en: 'Add 1 to both sides: n = 20.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Write the rule for the nth term and make it equal to the given number.
@@ -41,15 +21,45 @@ prediction_prompt:
   en: Roughly how many steps from the first term will it take to reach this number?
 status: draft
 template_id: TPL.C10.AP.WHICH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '20'
+- id: c
+  en: '133'
+- id: d
+  en: '19'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - a
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 14 and the common difference is 7.
+- en: 'Set the nth term equal to 147: 14 + (n - 1)(7) = 147.'
+- en: 'Take 14 away from both sides: (n - 1)(7) = 133. Divide both sides by 7: n -
+    1 = 19.'
+- en: 'Add 1 to both sides: n = 20.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2e3a187372ddc07de977d8697eea2832aede4bdbb0baf35c5149efd2a75083c4
+  item_hash: b16c5ce5ec95dd47fa0a16e50634f6054f2868fc41fd25d65c920bed26531336
   template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
   certificate_hash: 2f138ce3b3aeccbdb91f5a28aa765060a77d9fbbba90bae8c477e382bfcc084d
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:24:20+00:00'
-  record_hash: bff9cc082372ce0b8a2e52541a24a3d93f3715a1fe7ebdb7ee76f2a1cafc70de
+  stamped_at: '2026-11-17T17:40:14+00:00'
+  record_hash: 38b77e13c7f7a83e9d482118550b854d87817871e59c97a9fb8db84cd289494a

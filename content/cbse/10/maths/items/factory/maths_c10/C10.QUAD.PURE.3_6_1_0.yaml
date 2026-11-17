@@ -2,27 +2,10 @@ id: C10.QUAD.PURE.3_6_1_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.26
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 3x² = 108.
-options:
-- id: a
-  en: x = -6 or x = 6
-- id: b
-  en: x = -18 or x = 18
-- id: c
-  en: x = -36 or x = 36
-- id: d
-  en: x = 6
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Add 108 to both sides and divide both sides by 3: x² = 36.'
-- en: 'Take the square root of both sides, remembering both signs: x = -6 or x = 6.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -37,15 +20,42 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -6 or x = 6
+- id: b
+  en: x = -18 or x = 18
+- id: c
+  en: x = -36 or x = 36
+- id: d
+  en: x = 6
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.PURE_FORGOT_SQRT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_PLUS_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Add 108 to both sides and divide both sides by 3: x² = 36.'
+- en: 'Take the square root of both sides, remembering both signs: x = -6 or x = 6.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fbb200ba98c6f56b49dd969a58febca8fb0e2350990ff7506fa790d76d8428c9
+  item_hash: 87ccc9a91b0bd2d3a2f0175be2063e8301ac084583cbe3f743f6677d8ebce7c4
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: d8b3ac040b3bc8fd056da3274bb3bc87e50792e73158483882750869b77e57a6
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:11+00:00'
-  record_hash: e71580fa28c4613b28debcb86b9332309e77a31ae25679e630cfe6ce706113b5
+  stamped_at: '2026-11-17T17:45:32+00:00'
+  record_hash: 0759759c2a0613808e84a8fc2476046ee4a0774b2f09a0ae4cebe35dd475a2f0

@@ -2,35 +2,12 @@ id: C10.QUAD.WORD_MOTION.70_20_1_faster
 skill_ids:
 - MATH.ALG.QUAD.MODEL_MOTION
 difficulty: 0.86
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A bus travels 315 km along a fixed route at a steady speed. If it travelled
     20 km/h faster, the journey would take 1 hour less. Find the speed of the bus
     on the faster run in km/h.
-options:
-- id: a
-  en: '-90'
-- id: b
-  en: '90'
-- id: c
-  en: '50'
-- id: d
-  en: '70'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let x km/h be the usual speed. The time taken is 315/x hours, and at the higher
-    speed it is 315/(x + 20) hours.
-- en: 'The saving is 1: 315/x - 315/(x + 20) = 1. Multiply every term by x(x + 20)
-    to clear the fractions.'
-- en: This gives 1x² + 20x - 6300 = 0, which factorises as (x - 70)(x + 90) = 0 after
-    dividing by 1.
-- en: A speed is positive, so the usual speed is 70 km/h and the faster speed is 90
-    km/h.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Let x be the usual speed. Time equals distance divided by speed, so write both
@@ -47,15 +24,48 @@ prediction_prompt:
   en: Will the usual speed be more or less than the increase in speed?
 status: draft
 template_id: TPL.C10.QUAD.WORD_MOTION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-90'
+- id: b
+  en: '90'
+- id: c
+  en: '50'
+- id: d
+  en: '70'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_INCREASE_SUBTRACTED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_OTHER_SPEED_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x km/h be the usual speed. The time taken is 315/x hours, and at the higher
+    speed it is 315/(x + 20) hours.
+- en: 'The saving is 1: 315/x - 315/(x + 20) = 1. Multiply every term by x(x + 20)
+    to clear the fractions.'
+- en: This gives 1x² + 20x - 6300 = 0, which factorises as (x - 70)(x + 90) = 0 after
+    dividing by 1.
+- en: A speed is positive, so the usual speed is 70 km/h and the faster speed is 90
+    km/h.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 041fbd578f35b68677bb2218315ff7831f4eff464cfd152363d8eee860b77437
+  item_hash: a7d9a3040c1da27044afe41f8e1a8fc0bd01af95575455e26b51a1871d40d62f
   template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
   certificate_hash: 495a92013ab8c72b4ab1f1dcebd509764ead7588bd41d44722bd0229860f7d07
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:07+00:00'
-  record_hash: 6c351b9ece7637510c9223b3a11f842c68b4eeea3356ab65ea7c05acec542b8c
+  stamped_at: '2026-11-17T17:46:21+00:00'
+  record_hash: 90ecb1d15600d42db1bd8b6449d9c9de9fba41ca0aba9f6bf6b4490b2441b373

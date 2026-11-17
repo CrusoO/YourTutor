@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.m6_5_30
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The AP -6, -1, 4, ..., 139 stops at 139. What is the sum of all its terms?
-options:
-- id: a
-  en: 18487/2
-- id: b
-  en: '3990'
-- id: c
-  en: '1995'
-- id: d
-  en: 3857/2
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is -6, the last term is 139 and the difference is 5.
-- en: 'Number of terms: n = (139 - -6)/5 + 1 = 30.'
-- en: S = (n/2)(first + last) = (30/2)(-6 + 139) = 1995.
-- en: The correct option is c.
 hints:
 - level: 1
   en: The count of terms is not given, so work it out from the first and last terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 18487/2
+- id: b
+  en: '3990'
+- id: c
+  en: '1995'
+- id: d
+  en: 3857/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -6, the last term is 139 and the difference is 5.
+- en: 'Number of terms: n = (139 - -6)/5 + 1 = 30.'
+- en: S = (n/2)(first + last) = (30/2)(-6 + 139) = 1995.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e3fecf345d2b893e17b970a42e0406210c7c4ea65dee1b404c4ae1463d35e0f0
+  item_hash: ef685ea7541bb6e3010732740d695203428eaa03e8f0f5f7eb462fb940c2a1d1
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: ebd76e2766805806fa4a9c363787908cf459ff53cbaf4918262d70fe615d0f8a
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:11+00:00'
-  record_hash: ecf8fd7edbb4dc50c5a6f6c39bd8fa4fe376f1637fbb89b5f4314966cc0ea685
+  stamped_at: '2026-11-17T17:39:16+00:00'
+  record_hash: 23d76d4ee3d7d6ce910923043681f82a9b1eaeb1547de7faa9f9153b76c9d650

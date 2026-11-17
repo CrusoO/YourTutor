@@ -2,28 +2,11 @@ id: C10.AP.WORD_LAST.1_35_8_24_last
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.51
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A runner trains for 24 weeks. In week 1 she runs 35 km and each week she runs
     8 km more than the week before. How far does she run in the last week, in km?
-options:
-- id: a
-  en: '211'
-- id: b
-  en: '66'
-- id: c
-  en: '227'
-- id: d
-  en: '219'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 35 and common difference 8.
-- en: The last amount is a_24 = 35 + (24 - 1)(8) = 219.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -39,15 +22,42 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '211'
+- id: b
+  en: '66'
+- id: c
+  en: '227'
+- id: d
+  en: '219'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The amounts form an AP with first term 35 and common difference 8.
+- en: The last amount is a_24 = 35 + (24 - 1)(8) = 219.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 36770c09fcaacce858163fe24cb1077f82afd8348660643cd094e16e686f5602
+  item_hash: 14f620fa20bddfc074c066ea1ac8d82d7bf17049ea12c71049691d68417f38a1
   template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
   certificate_hash: 72cdc85832e34d53db54f0dd7bf8c04cb356eb3be3b8b9b132d66559f54c366e
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:25:33+00:00'
-  record_hash: ecd4bd514b7e50d0b9e6d254e4d04882d5b94a965d6c655d1fee2949bf81bc15
+  stamped_at: '2026-11-17T17:40:31+00:00'
+  record_hash: 103a7aeadfaf00a13f0d1470b77e0edb32caed4628a9fc56bacfa654e98461e7

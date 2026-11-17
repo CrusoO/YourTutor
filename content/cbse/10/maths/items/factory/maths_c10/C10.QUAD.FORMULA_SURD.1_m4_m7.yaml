@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.1_m4_m7
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve x² - 4x - 7 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = 4 ± √11
-- id: b
-  en: x = -2 ± √11
-- id: c
-  en: x = 4 ± 2√11
-- id: d
-  en: x = 2 ± √11
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The coefficients are 1, -4 and -7.
-- en: The discriminant is -4² - 4 x 1 x -7 = 44, which is positive but not a perfect
-    square.
-- en: So x = (-(-4) ± √44) / 2, and the square root is simplified as far as it will
-    go.
-- en: x = 2 ± √11.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Write down the three coefficients with their signs, then compute the discriminant.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 4 ± √11
+- id: b
+  en: x = -2 ± √11
+- id: c
+  en: x = 4 ± 2√11
+- id: d
+  en: x = 2 ± √11
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The coefficients are 1, -4 and -7.
+- en: The discriminant is -4² - 4 x 1 x -7 = 44, which is positive but not a perfect
+    square.
+- en: So x = (-(-4) ± √44) / 2, and the square root is simplified as far as it will
+    go.
+- en: x = 2 ± √11.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2fe507ccbd4a80ddfb4a3ce92f0164a257db9df6397af3c1b5345f72b043c17b
+  item_hash: 788c60f4ec705c5b6ad43922c9fb7ec427e7e879dac4541107521ed2403f649d
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 38827f431c95a37ea90433429ebc2a051c0135f5f302d7cddb217484edd66d57
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:44+00:00'
-  record_hash: 3889c1eb17ad1dbf72334e94e67608b1c974040fb3149c88af10aebdd5601aab
+  stamped_at: '2026-11-17T17:43:43+00:00'
+  record_hash: 318b4aecfe7f036f794b98e19545ef6d6dd3faffb1c4c54e8237dff2e47cc803

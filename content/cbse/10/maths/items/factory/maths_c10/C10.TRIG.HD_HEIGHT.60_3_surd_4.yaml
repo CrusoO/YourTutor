@@ -2,31 +2,12 @@ id: C10.TRIG.HD_HEIGHT.60_3_surd_4
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A factory chimney stands on level ground. From a point on the ground 3 m from
     the foot, the angle of elevation of the top is 60°. Find the height of the chimney
     in metres.
-options:
-- id: a
-  en: √3
-- id: b
-  en: 3√3/2
-- id: c
-  en: 3/2
-- id: d
-  en: 3√3
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the chimney is the side opposite the 60° angle and
-    the ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 60°: height = 3 x tan 60°.'
-- en: With tan 60° taken from the table, the height is 3√3 m.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Choose the ratio that links the two sides you care about.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: √3
+- id: b
+  en: 3√3/2
+- id: c
+  en: 3/2
+- id: d
+  en: 3√3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Sketch a right triangle: the chimney is the side opposite the 60° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 3 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 3√3 m.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 195fa712889b83ae793256b5a1b6a495b09a2f9eeb1f24530c92ce550cd473cf
+  item_hash: a242d2c358590a55b3722f419d0e31174ad133168cd3295d011d613065f1ef40
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: b0868d4f932da35efddfc56f1e7452dad1b941e7c7685e6d2464f2812e580495
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:41+00:00'
-  record_hash: db9e066b903534b252f41cb97a006fd9fc6ea3437debeb325e43f4f0170d1774
+  stamped_at: '2026-11-17T17:50:22+00:00'
+  record_hash: e56d55b0adba62171f4484b1e11c7cce1a01cc3dc39bfd5afe7ed898fcc82a40

@@ -2,28 +2,10 @@ id: C10.AP.TERM_FROM_SUM.1_7_3_d
 skill_ids:
 - MATH.ALG.AP.TERM_FROM_SUM_FORMULA
 difficulty: 0.67
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The sum of the first n terms of an AP is S_n = 1n² + 7n. Find the common difference.
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '1'
-- id: c
-  en: '8'
-- id: d
-  en: '10'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
-- en: S_n - S_(n-1) = 1n² + 7n - (1(n - 1)² + 7(n - 1)) = 2n + 6.
-- en: The coefficient of n is 2, so the common difference is 2.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Think about what is left when you remove the earlier sum from the later sum.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Will the term be larger or smaller than the sum for the same n?
 status: draft
 template_id: TPL.C10.AP.TERM_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '1'
+- id: c
+  en: '8'
+- id: d
+  en: '10'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.D_FROM_SUM_COEFF_NOT_DOUBLED
+  when_answer_equals:
+  - b
+- id: MC.AP.D_FROM_SUM_FIRST_TERM
+  when_answer_equals:
+  - c
+- id: MC.AP.D_FROM_SUM_SECOND_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 1n² + 7n - (1(n - 1)² + 7(n - 1)) = 2n + 6.
+- en: The coefficient of n is 2, so the common difference is 2.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 70a382ffe247ffa8cafc86f09bed161c5076caac79109a1550d0ad2ebaba90ea
+  item_hash: 04fafd1a14bd5ce8bbf4ff0e6682e4039aeb55c5fc1181cdb7b4cf2299a0d5d9
   template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
   certificate_hash: 80aa3bb871fdcdea10584300db877ce4ade01bb3c96b3226221470fbf99a2909
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:55+00:00'
-  record_hash: 4a022ed92d1bdaac49018a3cea78e0cb1ccf0f4f2a8b88c55b7477c1978f700b
+  stamped_at: '2026-11-17T17:39:48+00:00'
+  record_hash: 15bf959ced9bb8173f7b8cfa75637bf8a6ebe76c1f61c8ae5fab2a86fc0f207f

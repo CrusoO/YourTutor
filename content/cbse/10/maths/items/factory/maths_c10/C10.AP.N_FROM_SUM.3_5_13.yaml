@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.3_5_13
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: How many terms of the AP 3, 8, 13, ... must be added to make the sum 429?
-options:
-- id: a
-  en: '143'
-- id: b
-  en: '14'
-- id: c
-  en: '13'
-- id: d
-  en: -66/5
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Here a = 3, d = 5 and S_n = 429.
-- en: '(n/2)(2 x 3 + (n - 1) x 5) = 429. Multiply both sides by 2 and expand: 5n²
-    + 1n = 858.'
-- en: 'Rearranged: 5n² + (1)n - 858 = 0, whose solutions are n = 13 and n = -66/5.'
-- en: The number of terms is a positive whole number, so n = 13.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Use the sum formula, but this time the unknown is the number of terms.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '143'
+- id: b
+  en: '14'
+- id: c
+  en: '13'
+- id: d
+  en: -66/5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - a
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 3, d = 5 and S_n = 429.
+- en: '(n/2)(2 x 3 + (n - 1) x 5) = 429. Multiply both sides by 2 and expand: 5n²
+    + 1n = 858.'
+- en: 'Rearranged: 5n² + (1)n - 858 = 0, whose solutions are n = 13 and n = -66/5.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6121359516bcc251e95df37785e05861213a2a0a66a61f10dd1ed082ecf61c9c
+  item_hash: 2852255e6c5dd4422c0e5e14b7900c035ea8c265dce7ef913ed8b549223490f1
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: 4b54104549c8c89d2fd59d8fc3634a3a6f454219a193b8b2a8ec1313d23be7fd
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:31+00:00'
-  record_hash: a7be46a8e7d35f80eddc4bfde4d0b2770efcc7bf2f28ab7078450a378427b119
+  stamped_at: '2026-11-17T17:38:53+00:00'
+  record_hash: 7d552ae84705374afeab960bdfdf6a3b958d93f08fc4bcd5c31c9e7a30182a26

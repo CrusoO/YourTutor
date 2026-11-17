@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.3_m3_2_0
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Which of these values of x satisfies the equation 3x² + 3x - 18 = 0?
-options:
-- id: a
-  en: '-2'
-- id: b
-  en: '-18'
-- id: c
-  en: '-3'
-- id: d
-  en: '3'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = -3: 3(-3)² + (3)(-3) + (-18) = 0.'
-- en: The left side is 0, so x = -3 satisfies the equation.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Test each choice by putting it in place of x.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-2'
+- id: b
+  en: '-18'
+- id: c
+  en: '-3'
+- id: d
+  en: '3'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = -3: 3(-3)² + (3)(-3) + (-18) = 0.'
+- en: The left side is 0, so x = -3 satisfies the equation.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 47e0f9b461d502783a92e83257c4d1fb0289429468516dee91cc05da16d3b09f
+  item_hash: 5aac8db3240d7aefbe9baa2c49b1b2ab2c7c2a0cb21ee045726ae32f13ad9c0d
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: 320ab3a946c29144266805db353c5c19fc12a73021373dbea9b5d016f08cfba3
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:31+00:00'
-  record_hash: fbcb32b24d8ecd9ad74bb4436563cbd05e0979b6a1ec863a327c6e770b2f313a
+  stamped_at: '2026-11-17T17:41:03+00:00'
+  record_hash: 8b1332014ec80c303287248190d6235e17749e99c515c9c44592a405b6be4c74

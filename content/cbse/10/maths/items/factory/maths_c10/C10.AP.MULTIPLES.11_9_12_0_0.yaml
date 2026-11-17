@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.11_9_12_0_0
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.66
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every multiple of 11 from 99 up to 220, counting both ends if they qualify.
-options:
-- id: a
-  en: 3509/2
-- id: b
-  en: '1914'
-- id: c
-  en: '3828'
-- id: d
-  en: '2310'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first multiple of 11 in the range is 99 and the last is 220.
-- en: 'They form an AP with common difference 11. Number of terms: (220 - 99)/11 +
-    1 = 12.'
-- en: S = (12/2)(99 + 220) = 1914.
-- en: The correct option is b.
 hints:
 - level: 1
   en: The end numbers of the range may not themselves be multiples.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3509/2
+- id: b
+  en: '1914'
+- id: c
+  en: '3828'
+- id: d
+  en: '2310'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - c
+- id: MC.AP.MULTIPLES_STARTED_FROM_FIRST
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 11 in the range is 99 and the last is 220.
+- en: 'They form an AP with common difference 11. Number of terms: (220 - 99)/11 +
+    1 = 12.'
+- en: S = (12/2)(99 + 220) = 1914.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 3be7439198ab1673a5cf8642691f0567adb16fe40ee6a384f1bec9738bd33e4c
+  item_hash: c1393e9b53a6d42e234aadefaf7db8ececfaa8c7db9697399bc5aa6f49ff5f60
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: 60de743a66c09f6aec9bdd4a172aae46074754d47e7b9521d1056236af909e68
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: 1493d96db6a73b0c5e153e0d4c60a56a7966946d4672d4593d63dd274ea382ae
+  stamped_at: '2026-11-17T17:38:42+00:00'
+  record_hash: 56efcca4ff16ca8fd77d932a2339fcc72faa1b39f6772ab2d1f4a41ce6ec6e6e

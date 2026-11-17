@@ -2,28 +2,10 @@ id: C10.AP.DIFFERENCE.m4_m7_1
 skill_ids:
 - MATH.ALG.AP.COMMON_DIFFERENCE
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Find the common difference of the list -4, -11, -18, -25, ...
-options:
-- id: a
-  en: 11/4
-- id: b
-  en: '7'
-- id: c
-  en: '-4'
-- id: d
-  en: '-7'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: In an AP every term is the previous term plus the same number, the common difference.
-- en: 'Subtract a term from the one after it: -11 - (-4) = -7.'
-- en: 'Check with another pair: -18 - (-11) = -7. The common difference is -7.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Subtract each term from the one after it and see what you get.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the list going up or down, and by roughly how much each step?
 status: draft
 template_id: TPL.C10.AP.DIFFERENCE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 11/4
+- id: b
+  en: '7'
+- id: c
+  en: '-4'
+- id: d
+  en: '-7'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_AS_RATIO
+  when_answer_equals:
+  - a
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.AP.DIFF_FIRST_TERM_GIVEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In an AP every term is the previous term plus the same number, the common difference.
+- en: 'Subtract a term from the one after it: -11 - (-4) = -7.'
+- en: 'Check with another pair: -18 - (-11) = -7. The common difference is -7.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 57381b8fb92f9e49c781a634cad82c4901bab2ed90c14a552ec54cc0885374a7
+  item_hash: 923243df016840b640b443e8368370858c09f1b05a0de52efdbf7ca7fb77a1f6
   template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
   certificate_hash: f7ebfc93c2eb57e9a153f77224adafcf378a2e06b3acb23cb185273c4060bae4
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:12:38+00:00'
-  record_hash: 07b4dd37e121b782c13d6c4f594edd3724adf71f133282cfc042dba0308a7a57
+  stamped_at: '2026-11-17T17:38:22+00:00'
+  record_hash: 32d8b6cffd0fafa1273602ab5c6303bf2f9eb6296b2de30154f554c811033a3a

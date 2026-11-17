@@ -2,30 +2,10 @@ id: C10.QUAD.FORMULA_RATIONAL.3_m5_2_m2_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.57
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Use the quadratic formula to solve 6x² + 27x + 30 = 0.
-options:
-- id: a
-  en: x = -5/2 or x = -2
-- id: b
-  en: x = -5 or x = -4
-- id: c
-  en: x = 2 or x = 5/2
-- id: d
-  en: x = -109/4 or x = -107/4
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Read off the coefficients: coefficient of x² is 6, of x is 27, plain number
-    is 30.'
-- en: The discriminant is 27² - 4 x 6 x 30 = 9, and its square root is 3.
-- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 6).
-- en: 'Work out both signs: x = -5/2 or x = -2.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Identify the three coefficients carefully before you substitute anything.
@@ -40,15 +20,45 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_RATIONAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5/2 or x = -2
+- id: b
+  en: x = -5 or x = -4
+- id: c
+  en: x = 2 or x = 5/2
+- id: d
+  en: x = -109/4 or x = -107/4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 6, of x is 27, plain number
+    is 30.'
+- en: The discriminant is 27² - 4 x 6 x 30 = 9, and its square root is 3.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 6).
+- en: 'Work out both signs: x = -5/2 or x = -2.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f0fb6c861c4cfe54b908be34817227d4ede96b943a5b985f3d3f1df750424074
+  item_hash: df27cdde9eb2151814c423cf9348853f07b2a8e87443337de9c413798fcf83a4
   template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
   certificate_hash: 0031576172ec186428b09bf701c5977410df6da60bf67775e019125ed58548e2
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:42:21+00:00'
-  record_hash: 244c5786ddb24103ac93d8f2120e563997d2f4a1e09e7646f243c06dac247616
+  stamped_at: '2026-11-17T17:43:19+00:00'
+  record_hash: 7b9cb1fbac3b7c3edc641e9b41757454983aaa29093342eac7b0ea8b95b0af97

@@ -2,28 +2,10 @@ id: C10.QUAD.PURE.2_5_0_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Solve 2x² + 50 = 0.
-options:
-- id: a
-  en: x = -5
-- id: b
-  en: no real roots
-- id: c
-  en: x = 5
-- id: d
-  en: x = -5 or x = 5
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Take 50 away from both sides and then divide both sides by 2: x² = -25.'
-- en: A square is never negative, so no real number satisfies this.
-- en: The equation has no real roots.
-- en: The correct option is b.
 hints:
 - level: 1
   en: There is no x term, so isolate the squared term instead of factorising.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5
+- id: b
+  en: no real roots
+- id: c
+  en: x = 5
+- id: d
+  en: x = -5 or x = 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_ONE_NEGATIVE_ROOT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.PURE_ONE_POSITIVE_ROOT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_SIGN_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Take 50 away from both sides and then divide both sides by 2: x² = -25.'
+- en: A square is never negative, so no real number satisfies this.
+- en: The equation has no real roots.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8ddeb85d79cfb8a59ab1b5f1f35db019fb7e758d9c8fbc2fa65b8aecbfab4326
+  item_hash: e48005c9a12b5c8d2e80329fa9a200a34c8fee6029ba9423dd75499f1570c191
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: 04089779dd1fce8007a0105e94cf9599ff00cfd03b640c162b6b84b594ec2aef
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:11+00:00'
-  record_hash: e34224227811c223b81a55c781c22d1e993be69302836b9a37e562ffe110fee5
+  stamped_at: '2026-11-17T17:45:32+00:00'
+  record_hash: c69a6915bf225e2cbc493c75e007e0716ff3486f80a190dfb368a2512f9fb29b

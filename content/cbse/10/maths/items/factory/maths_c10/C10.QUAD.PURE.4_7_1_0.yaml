@@ -2,27 +2,10 @@ id: C10.QUAD.PURE.4_7_1_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.26
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 4x² = 196.
-options:
-- id: a
-  en: x = -49 or x = 49
-- id: b
-  en: x = -7 or x = 7
-- id: c
-  en: x = -28 or x = 28
-- id: d
-  en: x = 7
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Add 196 to both sides and divide both sides by 4: x² = 49.'
-- en: 'Take the square root of both sides, remembering both signs: x = -7 or x = 7.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -37,15 +20,42 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -49 or x = 49
+- id: b
+  en: x = -7 or x = 7
+- id: c
+  en: x = -28 or x = 28
+- id: d
+  en: x = 7
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_FORGOT_SQRT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.PURE_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_PLUS_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Add 196 to both sides and divide both sides by 4: x² = 49.'
+- en: 'Take the square root of both sides, remembering both signs: x = -7 or x = 7.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cb4e1ed8ff1d60d4da3754e109a9b10830647f007eb7faba6b3723e26ee248f6
+  item_hash: 8e4b3d7ae149b5a46b25dcb77659466fd2f0c725b5020c3594d1f1573c3d552b
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: 492c61e4d4918a1f303d141785524f8d376ceb23a6952671a5598e31dc829627
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:10+00:00'
-  record_hash: cf08179fb895b419cabe340e25b1cbc9f4a5de6ad43b244872dc1a140eb369be
+  stamped_at: '2026-11-17T17:45:31+00:00'
+  record_hash: c1372d7541079378e8fffecf0fea7c7149de6c025833871227bb49591d2b7e6e

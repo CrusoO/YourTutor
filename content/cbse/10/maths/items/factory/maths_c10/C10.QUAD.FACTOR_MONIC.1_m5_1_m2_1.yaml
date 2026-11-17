@@ -2,31 +2,10 @@ id: C10.QUAD.FACTOR_MONIC.1_m5_1_m2_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC
 difficulty: 0.42
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find all values of x that satisfy x² + 7x + 10 = 0.
-options:
-- id: a
-  en: x = 2 or x = 5
-- id: b
-  en: x = -5 or x = -2
-- id: c
-  en: x = -5
-- id: d
-  en: x = -5 or x = 2
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Look for two numbers with product 10 and sum 7: they are 5 and 2.'
-- en: 'Factorise: (x + 5)(x + 2) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
-    = -5 and x + 2 = 0 gives x = -2.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Try writing the left side as two brackets multiplied together.
@@ -41,15 +20,46 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_MONIC
-generator_version: factory-1
+generator_version: factory-2
 template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 2 or x = 5
+- id: b
+  en: x = -5 or x = -2
+- id: c
+  en: x = -5
+- id: d
+  en: x = -5 or x = 2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_ONE_ROOT_ONLY
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Look for two numbers with product 10 and sum 7: they are 5 and 2.'
+- en: 'Factorise: (x + 5)(x + 2) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
+    = -5 and x + 2 = 0 gives x = -2.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 283281dd7f5d1c2ff6f9f2a2a46952f83fc40462b627f1360d7df71e4745f36e
+  item_hash: 1505dbd934f313402e7c4904836c526416c83693dbd82814d625c67eb79260fe
   template_hash: ff92e2eff9e71ef108d17ce7dc477ebf630edf27c2fcfaed50d945b649ee2dc8
   certificate_hash: b712c4f411a81d9b15b6ce3499fda20d65a666f63bbb449a55d76301b18c564c
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:39:05+00:00'
-  record_hash: c4fdc1e1931ee303449f702afa20b9fa19255576406a8f1f1a04bc94b25f5116
+  stamped_at: '2026-11-17T17:42:32+00:00'
+  record_hash: 9127f3a9ad0adab831ec89fea274eaaaca457eadc7051f9571c5344d5028024e

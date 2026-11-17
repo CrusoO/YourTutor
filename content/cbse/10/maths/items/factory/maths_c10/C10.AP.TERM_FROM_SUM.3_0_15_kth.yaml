@@ -2,28 +2,10 @@ id: C10.AP.TERM_FROM_SUM.3_0_15_kth
 skill_ids:
 - MATH.ALG.AP.TERM_FROM_SUM_FORMULA
 difficulty: 0.69
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The sum of the first n terms of an AP is S_n = 3n². Find the 15th term.
-options:
-- id: a
-  en: '168'
-- id: b
-  en: '45'
-- id: c
-  en: '87'
-- id: d
-  en: '675'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
-- en: S_n - S_(n-1) = 3n² - (3(n - 1)² + 0(n - 1)) = 6n - 3.
-- en: 'Put n = 15: a_15 = 87.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: The sum up to one term and the sum up to the term before it differ by exactly
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be larger or smaller than the sum for the same n?
 status: draft
 template_id: TPL.C10.AP.TERM_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '168'
+- id: b
+  en: '45'
+- id: c
+  en: '87'
+- id: d
+  en: '675'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.TERM_FROM_SUM_WRONG_INDEX
+  when_answer_equals:
+  - a
+- id: MC.AP.TERM_FROM_SUM_AVERAGE
+  when_answer_equals:
+  - b
+- id: MC.AP.TERM_IS_SUM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 3n² - (3(n - 1)² + 0(n - 1)) = 6n - 3.
+- en: 'Put n = 15: a_15 = 87.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2ee80d9f261cc1d5b034d90410f05d12b8452ff48086ca316dd42602f591310c
+  item_hash: a63ba02433901956eaf7016fc2ce57f7664dc0b7984de4aec55ce45b13ab292a
   template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
   certificate_hash: 1e5f655f06daed3b310e29b37b387df15a99abd6028fd0368162b279a215952a
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:56+00:00'
-  record_hash: c4fa63038d15f56f215157880320a34c9606050e2dd0e0adf174edd91b4ec728
+  stamped_at: '2026-11-17T17:39:49+00:00'
+  record_hash: 5329f54f15183bec0bbecb94a6d90d1c4756d3324975291b7c87be2c55dae639

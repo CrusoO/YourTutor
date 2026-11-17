@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.80_4_longer
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.72
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 4 m, and the longest side is 116 m. Find the length of the
     longer of the two sides in metres.
-options:
-- id: a
-  en: '80'
-- id: b
-  en: '84'
-- id: c
-  en: '-84'
-- id: d
-  en: '112'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 4 metres.
-- en: By Pythagoras, x² + (x + 4)² = 116², so 2x² + 8x - 13440 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 80)(x + 84) = 0, so x = 80 (a length
-    cannot be negative).'
-- en: The shorter side is 80 m and the longer side is 84 m.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Let x be the unknown short side and give the other side in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '80'
+- id: b
+  en: '84'
+- id: c
+  en: '-84'
+- id: d
+  en: '112'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_HYPOTENUSE_MINUS_DIFFERENCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 4 metres.
+- en: By Pythagoras, x² + (x + 4)² = 116², so 2x² + 8x - 13440 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 80)(x + 84) = 0, so x = 80 (a length
+    cannot be negative).'
+- en: The shorter side is 80 m and the longer side is 84 m.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4d64e3b9178abfefd011f1488930e6db16126ff4363887f5ab954fa8cd7b5bf3
+  item_hash: 3f67d757c841db7228b80813b574dc236117ff557853ad9c68e838201e37ede6
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 4407d38d00c6e6c93277d758f9cf45c354bd03eb8d8dac57d3242d396ee67ed7
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:00+00:00'
-  record_hash: 601e7efb3f6e1dfc32729e11144cfbbc9962666c777f0fc2e37997a1b32b52c3
+  stamped_at: '2026-11-17T17:47:53+00:00'
+  record_hash: 96a807c6db2f6fd4d05e33c464580edaa605bc94785e83032f7a70fbd119e6be

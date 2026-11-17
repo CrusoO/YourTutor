@@ -2,29 +2,12 @@ id: C10.AP.WORD_LAST.2_12_3_24_last
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.51
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A library puts books on display. On day 1 it shows 12 books and each day it
     shows 3 more than the day before, for 24 days. How many books are on display on
     the last day?
-options:
-- id: a
-  en: '38'
-- id: b
-  en: '81'
-- id: c
-  en: '84'
-- id: d
-  en: '78'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 12 and common difference 3.
-- en: The last amount is a_24 = 12 + (24 - 1)(3) = 81.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -40,15 +23,42 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '38'
+- id: b
+  en: '81'
+- id: c
+  en: '84'
+- id: d
+  en: '78'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 12 and common difference 3.
+- en: The last amount is a_24 = 12 + (24 - 1)(3) = 81.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4e25be62ae366d0a7cdeba8c8fbc042f6b4cda8dc16a7065277a1ecf08c32055
+  item_hash: ec042b95d734c5876cfc79a6a259ad1656aaebfe8feee45a0e8c07e36f935c0b
   template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
   certificate_hash: 27e9abdbc8daeba378d406bc17281e74cbbadcee373dd0e80e4fe595b469ee29
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:25:31+00:00'
-  record_hash: 954900ccb326acbefc9267f9c36500eaa34e1c50b4dedf438d3687be01ca477c
+  stamped_at: '2026-11-17T17:40:30+00:00'
+  record_hash: eec256b44dab72dd71b405afc005d7f0f054040942422c4cc914d5c651450028

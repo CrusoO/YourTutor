@@ -2,28 +2,10 @@ id: C10.QUAD.PURE.1_3_1_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which real values of x satisfy x² = -9?
-options:
-- id: a
-  en: no real roots
-- id: b
-  en: x = -3
-- id: c
-  en: x = -3 or x = 3
-- id: d
-  en: x = 3
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Take 9 away from both sides and then divide both sides by 1: x² = -9.'
-- en: A square is never negative, so no real number satisfies this.
-- en: The equation has no real roots.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Undo the operations around the squared term one after another.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: no real roots
+- id: b
+  en: x = -3
+- id: c
+  en: x = -3 or x = 3
+- id: d
+  en: x = 3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_ONE_NEGATIVE_ROOT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.PURE_SIGN_IGNORED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_ONE_POSITIVE_ROOT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Take 9 away from both sides and then divide both sides by 1: x² = -9.'
+- en: A square is never negative, so no real number satisfies this.
+- en: The equation has no real roots.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e88483c966b85f689cab1d7e1e3464d21ad313750a4a28545b8c25a4a846e086
+  item_hash: ceab75a11b20f02ca635bcb8728d65c20ec7a062782eb199a06ef9cd242112b0
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: eba717142c3105bb9cfdc627e1fc7022c478d30dfd63601dbfac34cb8efb2825
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:10+00:00'
-  record_hash: 8b86f4f196765529fd82ec27914b7670970404ebcec650aeb183c33b19000b97
+  stamped_at: '2026-11-17T17:45:29+00:00'
+  record_hash: 938db5affc8f1bff636e63ff1dd6b4e2f13a8d33a39a9b85f2c71ed8b078a2fb

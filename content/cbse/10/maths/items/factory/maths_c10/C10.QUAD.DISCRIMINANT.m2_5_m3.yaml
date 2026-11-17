@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.m2_5_m3
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the discriminant of the equation -2x² + 5x - 3 = 0.
-options:
-- id: a
-  en: '19'
-- id: b
-  en: '49'
-- id: c
-  en: '-14'
-- id: d
-  en: '1'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Here the coefficients are -2, 5 and -3.
-- en: The discriminant is b² - 4ac = (5)² - 4(-2)(-3).
-- en: This equals 25 - (24) = 1.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Name the three coefficients first, keeping each sign.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '19'
+- id: b
+  en: '49'
+- id: c
+  en: '-14'
+- id: d
+  en: '1'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - a
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Here the coefficients are -2, 5 and -3.
+- en: The discriminant is b² - 4ac = (5)² - 4(-2)(-3).
+- en: This equals 25 - (24) = 1.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1c8fdad117c0b648f549aeb2c395073f666829a85fbcf3955a5ee248b6799e96
+  item_hash: 7c0dfc19f5acd3a5283af04d6e37fd8f6e8a0e3286f8396f31be4d2c0b191fa8
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: 85f6ed11b435df691f925553a738950f2c2f49206c155edd8ee64a0eb09137ad
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:40+00:00'
-  record_hash: c288f7bda20f18a66f8a1f15bba891c4d25107f1ac4588a64d72fd9b44d4784b
+  stamped_at: '2026-11-17T17:41:56+00:00'
+  record_hash: b9494173987e2629f94a133957395a7067d177ee6b9fc08f0c15786ed0df6bd3

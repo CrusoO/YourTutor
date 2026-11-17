@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.2_1_6_0
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: One of the following is a root of 2x² - 14x + 12 = 0. Which one?
-options:
-- id: a
-  en: '12'
-- id: b
-  en: '1'
-- id: c
-  en: '2'
-- id: d
-  en: '-1'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = 1: 2(1)² + (-14)(1) + (12) = 0.'
-- en: The left side is 0, so x = 1 satisfies the equation.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Solutions are the numbers that make the left side exactly zero.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '12'
+- id: b
+  en: '1'
+- id: c
+  en: '2'
+- id: d
+  en: '-1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 1: 2(1)² + (-14)(1) + (12) = 0.'
+- en: The left side is 0, so x = 1 satisfies the equation.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9a312d784c97a20be0d07e9260df80a582c1049245dd154c697029467cb8b661
+  item_hash: 79c6acd8929ed48192d01875a3355312a5ae1ddfe683005d10763eef5cfc1560
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: c1ed5157437fc3747d87710923d80425356bf658b69036c2ec0705661d61295f
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:32+00:00'
-  record_hash: b4f1d93178ee93d1de16bca4de6c262e3aa5f1cd527da6020e86dc0dd6526951
+  stamped_at: '2026-11-17T17:41:03+00:00'
+  record_hash: 511bd17cc6a51fad9f0337482a69aacd6ce2364b697d906b94776724c26c9097

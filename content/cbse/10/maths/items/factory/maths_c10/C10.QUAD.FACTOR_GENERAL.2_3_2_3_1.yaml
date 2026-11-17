@@ -2,33 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.2_3_2_3_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.65
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Solve 4x² - 18x + 18 = 0.
-options:
-- id: a
-  en: x = 3/2 or x = 3
-- id: b
-  en: x = 3 or x = 3
-- id: c
-  en: x = -3 or x = -3/2
-- id: d
-  en: x = -3 or x = 3/2
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Divide both sides by 2, the common factor, to get 2x² - 9x + 9 = 0.
-- en: Split the middle term -9x into -6x and -3x, because -6 and -3 multiply to 18
-    (the product of 2 and 9) and add to -9.
-- en: 'Factorise: (2x - 3)(x - 3) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: 2x - 3 = 0 gives x
-    = 3/2 and x - 3 = 0 gives x = 3.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Aim to turn the left side into two simpler expressions multiplied together.
@@ -44,15 +21,48 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 3/2 or x = 3
+- id: b
+  en: x = 3 or x = 3
+- id: c
+  en: x = -3 or x = -3/2
+- id: d
+  en: x = -3 or x = 3/2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get 2x² - 9x + 9 = 0.
+- en: Split the middle term -9x into -6x and -3x, because -6 and -3 multiply to 18
+    (the product of 2 and 9) and add to -9.
+- en: 'Factorise: (2x - 3)(x - 3) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: 2x - 3 = 0 gives x
+    = 3/2 and x - 3 = 0 gives x = 3.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fc8bb47eb573bba0d68afbd41917d62257bbb64c46ea29b54a9484da9c15c2e0
+  item_hash: 028c141faf6b09ccb22c6a958126cde42d248a4494e635ff5cd746f9d24b6be2
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: 6f12822e7da77739b5777e29b087bcb3fde5abfed0af08d8795ac882911482e6
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:51+00:00'
-  record_hash: f59e656262d7177a2db63819904936637b457301c65a895d013f8ed3a0bb76b8
+  stamped_at: '2026-11-17T17:42:13+00:00'
+  record_hash: f26875bcaaa93c17b3227c028a7f42184c2b3b9d1f41c8b64b70aeb70f804fda

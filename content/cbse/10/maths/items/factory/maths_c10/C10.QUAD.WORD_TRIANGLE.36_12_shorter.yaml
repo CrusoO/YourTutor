@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.36_12_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.74
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 12 m, and the longest side is 60 m. Find the length of the
     shorter of the two sides in metres.
-options:
-- id: a
-  en: '36'
-- id: b
-  en: '-48'
-- id: c
-  en: '24'
-- id: d
-  en: '48'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 12 metres.
-- en: By Pythagoras, x² + (x + 12)² = 60², so 2x² + 24x - 3456 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 36)(x + 48) = 0, so x = 36 (a length
-    cannot be negative).'
-- en: The shorter side is 36 m and the longer side is 48 m.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the unknown short side and give the other side in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '36'
+- id: b
+  en: '-48'
+- id: c
+  en: '24'
+- id: d
+  en: '48'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_SIDES_SUMMED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 12 metres.
+- en: By Pythagoras, x² + (x + 12)² = 60², so 2x² + 24x - 3456 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 36)(x + 48) = 0, so x = 36 (a length
+    cannot be negative).'
+- en: The shorter side is 36 m and the longer side is 48 m.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8aa9ae55547b6eb5a204eceed73fc14ccc0c06c690bc1cc04c50586728eecd1b
+  item_hash: 96945497b2b10fceec740efaef9cbe3dd8d2651f767cc255ae38c887b980bb95
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: ccb287061ce51926b8a5f4b7a9e9b3fe3a6afeff0d060bd4853afb8325c318a1
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:59+00:00'
-  record_hash: 39b885fbabdb73816dfa950c31eb500a0cd70c91cb2482bb3e851a016eeea335
+  stamped_at: '2026-11-17T17:47:51+00:00'
+  record_hash: f7e87d289867b84dda1bf25f98fadd37f1baf1cae0b3d08ff323a3dc80f11d96

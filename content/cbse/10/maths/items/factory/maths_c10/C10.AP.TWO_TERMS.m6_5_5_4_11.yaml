@@ -2,30 +2,11 @@ id: C10.AP.TWO_TERMS.m6_5_5_4_11
 skill_ids:
 - MATH.ALG.AP.TERMS_FROM_TWO_TERMS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: 'Two terms of an AP are known: term 5 is 14 and term 9 is 34. Work out term
     11.'
-options:
-- id: a
-  en: '64'
-- id: b
-  en: '134'
-- id: c
-  en: '49'
-- id: d
-  en: '44'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Going from term 5 to term 9 takes 4 equal steps, and the terms change by 20.
-- en: So the common difference is 20 / 4 = 5.
-- en: 'Go back to the first term: a = 14 - (5 - 1)(5) = -6.'
-- en: Then a_11 = -6 + (11 - 1)(5) = 44.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Use the two given terms to find the first term and the difference before anything
@@ -41,15 +22,44 @@ prediction_prompt:
   en: Is the common difference positive or negative?
 status: draft
 template_id: TPL.C10.AP.TWO_TERMS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '64'
+- id: b
+  en: '134'
+- id: c
+  en: '49'
+- id: d
+  en: '44'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - a
+- id: MC.AP.TWO_TERMS_DIFF_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Going from term 5 to term 9 takes 4 equal steps, and the terms change by 20.
+- en: So the common difference is 20 / 4 = 5.
+- en: 'Go back to the first term: a = 14 - (5 - 1)(5) = -6.'
+- en: Then a_11 = -6 + (11 - 1)(5) = 44.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7f4a2287c798b39c9832aaf8afda94564d166e51b1be3e868629f76ae31c1357
+  item_hash: 1dd513176109b656be6268a302d8315bcd872912e56ca0d34b08805be899677a
   template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
   certificate_hash: d3d82771f15ab8da074f6aeb74f72e3044d8eebe7dd82badff4848ad7a60d908
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:23:04+00:00'
-  record_hash: a526886b59d86c59658336378dac6c1670255e493fe606cf037f90c549c1cd6a
+  stamped_at: '2026-11-17T17:40:02+00:00'
+  record_hash: 161ba06c8c496ecc1d496b661b99f809204178cbaa2040e083a50354b61369ed

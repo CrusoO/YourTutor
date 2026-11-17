@@ -2,29 +2,10 @@ id: C10.AP.TWO_TERMS.m6_5_3_4_20
 skill_ids:
 - MATH.ALG.AP.TERMS_FROM_TWO_TERMS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: An AP has 4 as its 3rd term and 24 as its 7th term. What is its 20th term?
-options:
-- id: a
-  en: '94'
-- id: b
-  en: '89'
-- id: c
-  en: '344'
-- id: d
-  en: '99'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Going from term 3 to term 7 takes 4 equal steps, and the terms change by 20.
-- en: So the common difference is 20 / 4 = 5.
-- en: 'Go back to the first term: a = 4 - (3 - 1)(5) = -6.'
-- en: Then a_20 = -6 + (20 - 1)(5) = 89.
-- en: The correct option is b.
 hints:
 - level: 1
   en: The change between the two given terms is made of several equal steps.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: Is the common difference positive or negative?
 status: draft
 template_id: TPL.C10.AP.TWO_TERMS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '94'
+- id: b
+  en: '89'
+- id: c
+  en: '344'
+- id: d
+  en: '99'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.TWO_TERMS_DIFF_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Going from term 3 to term 7 takes 4 equal steps, and the terms change by 20.
+- en: So the common difference is 20 / 4 = 5.
+- en: 'Go back to the first term: a = 4 - (3 - 1)(5) = -6.'
+- en: Then a_20 = -6 + (20 - 1)(5) = 89.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 631372a5468b3a607d1b19f17a304976b61bd461c5fbdf71657e73a2a41e78ad
+  item_hash: c2b0cd5e9aeb640d33388eb94487f06e75b098b3684f805075a8ba322711735c
   template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
   certificate_hash: 927414a1788f83465c69b58304c0164448553f74b09d7dc912e7d6912fae173b
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:23:03+00:00'
-  record_hash: bc2ce32af2f052f1b41481c11f23e349d0915b68a35d98f17ae34dd2aa1bdb75
+  stamped_at: '2026-11-17T17:40:00+00:00'
+  record_hash: 23b23bf30dc9442624e3ef08f10bd1b4e53dfe2f1ba6d7c178cfe16b5723ace6

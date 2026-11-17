@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.8_4_10_1
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.31
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The first term of an AP is 8 and its common difference is 4. Find the 10th term.
-options:
-- id: a
-  en: '44'
-- id: b
-  en: '21'
-- id: c
-  en: '48'
-- id: d
-  en: '-28'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The first term is 8 and the common difference is 4.
-- en: The nth term is first term + (n - 1) x difference, so a_10 = 8 + (10 - 1)(4).
-- en: a_10 = 8 + 36 = 44.
-- en: The correct option is a.
 hints:
 - level: 1
   en: To reach the nth term you make one fewer jump than n.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '44'
+- id: b
+  en: '21'
+- id: c
+  en: '48'
+- id: d
+  en: '-28'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 8 and the common difference is 4.
+- en: The nth term is first term + (n - 1) x difference, so a_10 = 8 + (10 - 1)(4).
+- en: a_10 = 8 + 36 = 44.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cb3a433fbbe0aee9056c2a92cc2c32b5155c8b706077383a2d59c5abbef9ea2c
+  item_hash: 3e7b9b8fa042e51ca5f53d9912173dd28cc518689d8062ca092ecdeeb73a2bcc
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: 73763c6774e7c9fc126be83010ceb2c95cde202e97fec2a2b3c711880b878809
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:21+00:00'
-  record_hash: 5b8efcdb3805eaec93788d7600c28bf987238b285ba25e899b3e2437a29b2765
+  stamped_at: '2026-11-17T17:39:05+00:00'
+  record_hash: 2300963702e2108b81bf31fb0fc4f856df4e66df4070057a10e40326a7535981

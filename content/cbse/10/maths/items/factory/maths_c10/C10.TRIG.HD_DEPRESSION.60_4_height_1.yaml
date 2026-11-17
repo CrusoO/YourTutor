@@ -2,32 +2,12 @@ id: C10.TRIG.HD_DEPRESSION.60_4_height_1
 skill_ids:
 - MATH.TRIG.HD.ANGLE_OF_DEPRESSION
 difficulty: 0.54
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A swimmer on the water is 4 m from the foot of a cliff. From the top of the
     cliff the angle of depression of a swimmer is 60°. Find the height of the cliff
     in metres.
-options:
-- id: a
-  en: '8'
-- id: b
-  en: 4√3/3
-- id: c
-  en: 4√3
-- id: d
-  en: 2√3
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The angle of depression is measured downward from the horizontal at the top;
-    by alternate angles it equals the angle of elevation of the top seen from a swimmer.
-- en: So in the right triangle the 60° angle is at a swimmer, and height and ground
-    distance are opposite and adjacent to it.
-- en: 'Use tan 60° = height / distance and solve: the answer is 4√3 m.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: The angle of depression is measured from the horizontal, not from the vertical.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Does the sight line make a steep or a shallow angle with the horizontal?
 status: draft
 template_id: TPL.C10.TRIG.HD_DEPRESSION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '8'
+- id: b
+  en: 4√3/3
+- id: c
+  en: 4√3
+- id: d
+  en: 2√3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a swimmer.
+- en: So in the right triangle the 60° angle is at a swimmer, and height and ground
+    distance are opposite and adjacent to it.
+- en: 'Use tan 60° = height / distance and solve: the answer is 4√3 m.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: bbac4cba80a1c27f03fe20cedc55bdd550d3e058f67973facb9436d458b1e007
+  item_hash: b2a6cded969d34f3177c76bb3a6b3495b8b7e6f8de6ff4f1d6dd4fa6a86f787d
   template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
   certificate_hash: 1bc1cf12a038aacfdd2b5458724ffc1119f694c88629ff25c3389cbcad5a3c1f
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:57:29+00:00'
-  record_hash: f7f101ce47cd862d12efc66a7c1e3c5154f7da7c7d0a65de0142276b414c5234
+  stamped_at: '2026-11-17T17:49:16+00:00'
+  record_hash: 6094eef28e6f35e6f9592827186d208c43f55a86ba580e871b5a921d2cd17630

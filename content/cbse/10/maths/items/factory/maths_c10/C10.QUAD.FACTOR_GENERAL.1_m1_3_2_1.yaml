@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.1_m1_3_2_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.62
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find all values of x that satisfy 3x² - 5x - 2 = 0.
-options:
-- id: a
-  en: x = -2 or x = -1/3
-- id: b
-  en: x = -1 or x = 2
-- id: c
-  en: x = -2 or x = 1/3
-- id: d
-  en: x = -1/3 or x = 2
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Split the middle term -5x into -6x and 1x, because -6 and 1 multiply to -6 (the
-    product of 3 and -2) and add to -5.
-- en: 'Factorise: (3x + 1)(x - 2) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: 3x + 1 = 0 gives x
-    = -1/3 and x - 2 = 0 gives x = 2.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Aim to turn the left side into two simpler expressions multiplied together.
@@ -43,15 +21,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -2 or x = -1/3
+- id: b
+  en: x = -1 or x = 2
+- id: c
+  en: x = -2 or x = 1/3
+- id: d
+  en: x = -1/3 or x = 2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Split the middle term -5x into -6x and 1x, because -6 and 1 multiply to -6 (the
+    product of 3 and -2) and add to -5.
+- en: 'Factorise: (3x + 1)(x - 2) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: 3x + 1 = 0 gives x
+    = -1/3 and x - 2 = 0 gives x = 2.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dbdc8140e2f4e02b6ef5a63595b3923baa934d135e4516e46882c2a3ee2fee54
+  item_hash: 1ff1efc83175a53f00dc2b1137b4da0527bf2822a3f454a6f312e1d3a7e39f54
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: 53c3df17024294bbcddb4628c58042338ffb46fae8962ef05427b26e4dec4b76
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:50+00:00'
-  record_hash: 24b9c0aea23dcaa8d112a8da8b0f204e88e4ec6e9782eeea459b39121e13b403
+  stamped_at: '2026-11-17T17:42:11+00:00'
+  record_hash: 9dee50e371553ae9e47e4265bbbf9896671ffcc8581371d8db1f283130e60206

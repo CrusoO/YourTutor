@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.2_m2_m6
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve 2x² - 2x - 6 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = 1 ± √13
-- id: b
-  en: x = (-1 ± √13)/2
-- id: c
-  en: x = (1 ± √13)/2
-- id: d
-  en: x = (4 ± √13)/2
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The coefficients are 2, -2 and -6.
-- en: The discriminant is -2² - 4 x 2 x -6 = 52, which is positive but not a perfect
-    square.
-- en: So x = (-(-2) ± √52) / 4, and the square root is simplified as far as it will
-    go.
-- en: x = (1 ± √13)/2.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Work out the discriminant first; it tells you what kind of roots to expect.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 1 ± √13
+- id: b
+  en: x = (-1 ± √13)/2
+- id: c
+  en: x = (1 ± √13)/2
+- id: d
+  en: x = (4 ± √13)/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 2, -2 and -6.
+- en: The discriminant is -2² - 4 x 2 x -6 = 52, which is positive but not a perfect
+    square.
+- en: So x = (-(-2) ± √52) / 4, and the square root is simplified as far as it will
+    go.
+- en: x = (1 ± √13)/2.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b5bf6e30f9ad136a71d5d6b2d2a0148c1ebdfd606b40d10c69eb5716ddf1fb48
+  item_hash: 9a8cdeeaa6ad89b584d1c9002f8f48b034841fe311589c87692acef0ca6bea88
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 065acc068df44dd9cc0a7bff9bdacce172e53301322f976570bfc897877cb484
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:43+00:00'
-  record_hash: 76dd9003b04ef4f32825e93e804a84a6b8bb43682669afe38f6a6c6da053fa92
+  stamped_at: '2026-11-17T17:43:42+00:00'
+  record_hash: b2d8b474fafaadce2c9673a44fa744d46ba4760acc634fc23647cefa0a947754

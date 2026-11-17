@@ -2,29 +2,10 @@ id: C10.QUAD.WORD_NUMBERS.1_20
 skill_ids:
 - MATH.ALG.QUAD.MODEL_NUMBERS
 difficulty: 0.63
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The product of two consecutive positive integers is 420. Find the smaller one.
-options:
-- id: a
-  en: '19'
-- id: b
-  en: '-21'
-- id: c
-  en: '21'
-- id: d
-  en: '20'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Let x be the smaller number. The other is x + 1.
-- en: Their product is 420, so x(x + 1) = 420, which is x² + 1x - 420 = 0.
-- en: 'Factorise: (x - 20)(x + 21) = 0, so x = 20 or x = -21.'
-- en: The numbers must be positive, so the smaller number is 20.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Let x be the number you are asked for and write the other number in terms of
@@ -40,15 +21,44 @@ prediction_prompt:
   en: Roughly how big do you expect the smaller number to be?
 status: draft
 template_id: TPL.C10.QUAD.WORD_NUMBERS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '19'
+- id: b
+  en: '-21'
+- id: c
+  en: '21'
+- id: d
+  en: '20'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let x be the smaller number. The other is x + 1.
+- en: Their product is 420, so x(x + 1) = 420, which is x² + 1x - 420 = 0.
+- en: 'Factorise: (x - 20)(x + 21) = 0, so x = 20 or x = -21.'
+- en: The numbers must be positive, so the smaller number is 20.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 41427308af1ef0b3c67d780da173e752d41af7afdfebb4ddf087c7178df5e4da
+  item_hash: dd3c53637c6f8f6228edde59f3391cd0dbd3bb016003f411e85721fb8093974b
   template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
   certificate_hash: 88c7f782822c65943e4f9e3feb11bb3a575c29903f046db47598b0cb8033e383
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:37+00:00'
-  record_hash: 4515553745d571e30fc52a01429024994f972be35367f617f976944c0352337d
+  stamped_at: '2026-11-17T17:46:41+00:00'
+  record_hash: 50bbce19a3f9512daf9b930d7727619d59d2dbfe9a1701b61a9cd4ba95b317f9

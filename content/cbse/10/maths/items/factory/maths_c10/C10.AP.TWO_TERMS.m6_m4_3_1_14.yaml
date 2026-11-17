@@ -2,29 +2,10 @@ id: C10.AP.TWO_TERMS.m6_m4_3_1_14
 skill_ids:
 - MATH.ALG.AP.TERMS_FROM_TWO_TERMS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: In an AP the 3rd term is -14 and the 4th term is -18. Find the 14th term.
-options:
-- id: a
-  en: '-58'
-- id: b
-  en: '46'
-- id: c
-  en: '-66'
-- id: d
-  en: '-62'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Going from term 3 to term 4 takes 1 equal steps, and the terms change by -4.
-- en: So the common difference is -4 / 1 = -4.
-- en: 'Go back to the first term: a = -14 - (3 - 1)(-4) = -6.'
-- en: Then a_14 = -6 + (14 - 1)(-4) = -58.
-- en: The correct option is a.
 hints:
 - level: 1
   en: First find the common difference using the two terms you are given.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: Is the common difference positive or negative?
 status: draft
 template_id: TPL.C10.AP.TWO_TERMS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-58'
+- id: b
+  en: '46'
+- id: c
+  en: '-66'
+- id: d
+  en: '-62'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Going from term 3 to term 4 takes 1 equal steps, and the terms change by -4.
+- en: So the common difference is -4 / 1 = -4.
+- en: 'Go back to the first term: a = -14 - (3 - 1)(-4) = -6.'
+- en: Then a_14 = -6 + (14 - 1)(-4) = -58.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5e5b29c930a2e21fb714bb2c8ca21c3e66f947f118f8efa3a6b9cf359f2faa51
+  item_hash: 3ddd01901b68f926d2be7e6459629db39cc8ea46b2561ed5f8370e853b467356
   template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
   certificate_hash: 6f0bd9ed284e8dd4b513fde2338346263b1d721980c15be97f7dd3a254f904aa
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:23:04+00:00'
-  record_hash: d5bbe8c66c82a16911dc06de6fa17e79c19bbeece1db7f1a2472425f1645683e
+  stamped_at: '2026-11-17T17:40:02+00:00'
+  record_hash: 25cb17c88b0575da923bf63fa809b6ca8127140b153a6166931b3a6b4afb42c2

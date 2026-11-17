@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.63_21_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.74
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 21 m, and the longest side is 105 m. Find the length of the
     shorter of the two sides in metres.
-options:
-- id: a
-  en: '-84'
-- id: b
-  en: '84'
-- id: c
-  en: '63'
-- id: d
-  en: '42'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 21 metres.
-- en: By Pythagoras, x² + (x + 21)² = 105², so 2x² + 42x - 10584 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 63)(x + 84) = 0, so x = 63 (a length
-    cannot be negative).'
-- en: The shorter side is 63 m and the longer side is 84 m.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Let x be the unknown short side and give the other side in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-84'
+- id: b
+  en: '84'
+- id: c
+  en: '63'
+- id: d
+  en: '42'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_SIDES_SUMMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 21 metres.
+- en: By Pythagoras, x² + (x + 21)² = 105², so 2x² + 42x - 10584 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 63)(x + 84) = 0, so x = 63 (a length
+    cannot be negative).'
+- en: The shorter side is 63 m and the longer side is 84 m.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 68d7d87fbefa64a5246e9ef5f986e8c6fdcacdc8c9cfe71e49fcd2b774eaa3c7
+  item_hash: 8cf792085b96615c4e1632fb6979c012c38c7883e602a6c03480acbc8ce37e89
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 47ac63bc3a162263003966bf352c6df545ad7d56b727db477f6c36eaa7d94afe
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:01+00:00'
-  record_hash: b2a8c935af9e97da5dc222156eb4c887d7e0e5d8ee112bc8f615becbc93465a2
+  stamped_at: '2026-11-17T17:47:54+00:00'
+  record_hash: ee131d17ef07dcfc26673d7646ff34f5c03b88eeee1f53038ed1c87deede7f81

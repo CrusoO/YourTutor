@@ -2,35 +2,12 @@ id: C10.QUAD.WORD_MOTION.25_5_2_faster
 skill_ids:
 - MATH.ALG.QUAD.MODEL_MOTION
 difficulty: 0.86
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A bus travels 300 km along a fixed route at a steady speed. If it travelled
     5 km/h faster, the journey would take 2 hours less. Find the speed of the bus
     on the faster run in km/h.
-options:
-- id: a
-  en: '30'
-- id: b
-  en: '20'
-- id: c
-  en: '-30'
-- id: d
-  en: '25'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x km/h be the usual speed. The time taken is 300/x hours, and at the higher
-    speed it is 300/(x + 5) hours.
-- en: 'The saving is 2: 300/x - 300/(x + 5) = 2. Multiply every term by x(x + 5) to
-    clear the fractions.'
-- en: This gives 2x² + 10x - 1500 = 0, which factorises as (x - 25)(x + 30) = 0 after
-    dividing by 2.
-- en: A speed is positive, so the usual speed is 25 km/h and the faster speed is 30
-    km/h.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the usual speed, then express the two journey times in terms of x.
@@ -46,15 +23,48 @@ prediction_prompt:
   en: Will the usual speed be more or less than the increase in speed?
 status: draft
 template_id: TPL.C10.QUAD.WORD_MOTION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '30'
+- id: b
+  en: '20'
+- id: c
+  en: '-30'
+- id: d
+  en: '25'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_INCREASE_SUBTRACTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_OTHER_SPEED_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x km/h be the usual speed. The time taken is 300/x hours, and at the higher
+    speed it is 300/(x + 5) hours.
+- en: 'The saving is 2: 300/x - 300/(x + 5) = 2. Multiply every term by x(x + 5) to
+    clear the fractions.'
+- en: This gives 2x² + 10x - 1500 = 0, which factorises as (x - 25)(x + 30) = 0 after
+    dividing by 2.
+- en: A speed is positive, so the usual speed is 25 km/h and the faster speed is 30
+    km/h.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 515b593f34923797952cde53ac5ae8aa483c2032f4c6757d4c43f48873f420c3
+  item_hash: 8a16505c243f0501626f4dad4d2ec4eadf5001ed72ed66e217142f07095633b0
   template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
   certificate_hash: 8d52bd62979787f6a52a55e545b363f9bd75239de1cb7ce0ea46e6ea9f0fb30f
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:08+00:00'
-  record_hash: 220075af7e65cb38dcb5d774e383490ebcd328f0dbb9d994bb6e5b1c4ac36b88
+  stamped_at: '2026-11-17T17:46:22+00:00'
+  record_hash: ff3c8bb5ef910114965a57ea85c168aed70b5ea73bdd3b38a5f5c731ed1b6509

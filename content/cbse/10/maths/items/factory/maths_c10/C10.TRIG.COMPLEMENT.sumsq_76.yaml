@@ -2,29 +2,10 @@ id: C10.TRIG.COMPLEMENT.sumsq_76
 skill_ids:
 - MATH.TRIG.COMPLEMENTARY_ANGLES
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the value of sin² 76° + sin² 14°.
-options:
-- id: a
-  en: '0'
-- id: b
-  en: '-1'
-- id: c
-  en: '1'
-- id: d
-  en: '2'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The angles 76° and 14° add up to 90°, so they are complementary.
-- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
-    - A) = cot A, sec (90 - A) = cosec A.'
-- en: Rewrite the second term using the first angle and simplify; the value is 1.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Try rewriting one ratio so that both terms use the same angle.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Without a calculator, do you think the answer is a surprise number?
 status: draft
 template_id: TPL.C10.TRIG.COMPLEMENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: '-1'
+- id: c
+  en: '1'
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_ZERO
+  when_answer_equals:
+  - a
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angles 76° and 14° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0785193c55740c6b7080efbf9f2812a3e2256cc821398a23d31696804b918515
+  item_hash: 4b7d6351d4bd4617ca5882d5042400c2a1d0451463eb26ddf841ba327493e01a
   template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
   certificate_hash: ceee533a00d554c5835696fc6011343c74e9ab6bff2e32016402dc4c632d9c2b
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:41+00:00'
-  record_hash: 0ab4a844598d6f2895c7d1ed94f58bd105fbee9efed78d36a0dc5f2a7533cc66
+  stamped_at: '2026-11-17T17:48:18+00:00'
+  record_hash: 82aa63d5c5cdc5cf43327a28f1136d9e4aa4908e824aadc5d982cf08c8b60ceb

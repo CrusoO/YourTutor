@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.8_m2_8_0
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the 8th term of the AP 8, 6, 4, ...
-options:
-- id: a
-  en: '-6'
-- id: b
-  en: '22'
-- id: c
-  en: '13'
-- id: d
-  en: '-8'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The first term is 8 and the common difference is -2.
-- en: The nth term is first term + (n - 1) x difference, so a_8 = 8 + (8 - 1)(-2).
-- en: a_8 = 8 + -14 = -6.
-- en: The correct option is a.
 hints:
 - level: 1
   en: To reach the nth term you make one fewer jump than n.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-6'
+- id: b
+  en: '22'
+- id: c
+  en: '13'
+- id: d
+  en: '-8'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 8 and the common difference is -2.
+- en: The nth term is first term + (n - 1) x difference, so a_8 = 8 + (8 - 1)(-2).
+- en: a_8 = 8 + -14 = -6.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 25b8c8128da43a190a8b9272f06535aff0ad2d92eef756f0a94e40cf756b11a6
+  item_hash: 27961619ad898c21157a97174e8a53f03e38932771f2047a70dacedc1cef880b
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: f4f2d63b14876acc35e2b1ffc60f70fa89adddb89a73712c51d50189c06d1eaf
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:21+00:00'
-  record_hash: 25fa9f449e910bd01dc51a67d94a537c4ca2146d660e013db1d83e1081edac12
+  stamped_at: '2026-11-17T17:39:05+00:00'
+  record_hash: eeddea0eb9b1e2bda81698d307d359a5ebc5f6bf03f602cb846c316729d39871

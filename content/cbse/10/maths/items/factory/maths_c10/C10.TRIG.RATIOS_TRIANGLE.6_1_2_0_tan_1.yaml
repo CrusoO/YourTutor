@@ -2,31 +2,11 @@ id: C10.TRIG.RATIOS_TRIANGLE.6_1_2_0_tan_1
 skill_ids:
 - MATH.TRIG.RATIOS_FROM_TRIANGLE
 difficulty: 0.46
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: In triangle PQR the angle at Q is a right angle, PQ = 70 cm and QR = 24 cm.
     Find the value of tan R.
-options:
-- id: a
-  en: 12/37
-- id: b
-  en: 35/12
-- id: c
-  en: 35/37
-- id: d
-  en: 12/35
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Name the sides from angle R: the side opposite it, the side next to it (adjacent),
-    and the hypotenuse.'
-- en: By Pythagoras the hypotenuse PR = square root of (70² + 24²) = 74.
-- en: Opposite = 70, adjacent = 24, hypotenuse = 74.
-- en: tan R = opposite / adjacent = 35/12.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Decide which side is opposite the angle, which is next to it, and which is the
@@ -42,15 +22,45 @@ prediction_prompt:
   en: Is this ratio bigger or smaller than 1?
 status: draft
 template_id: TPL.C10.TRIG.RATIOS_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f1bcfc557b3e00da51f3ebd04e0948ae97fdeb64740e7773709a11d437301e3a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12/37
+- id: b
+  en: 35/12
+- id: c
+  en: 35/37
+- id: d
+  en: 12/35
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.TAN_AS_ADJ_OVER_HYP
+  when_answer_equals:
+  - a
+- id: MC.TRIG.TAN_AS_OPP_OVER_HYP
+  when_answer_equals:
+  - c
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Name the sides from angle R: the side opposite it, the side next to it (adjacent),
+    and the hypotenuse.'
+- en: By Pythagoras the hypotenuse PR = square root of (70² + 24²) = 74.
+- en: Opposite = 70, adjacent = 24, hypotenuse = 74.
+- en: tan R = opposite / adjacent = 35/12.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 16bc8b89a189c9012843078b8efbdd91f53a6de88ef7a72ef9fd8127b65cb524
+  item_hash: 68969fc7fd26b7cadb69b03bce5f2bfe256f152539c632471fc72e0faf0736c2
   template_hash: f1bcfc557b3e00da51f3ebd04e0948ae97fdeb64740e7773709a11d437301e3a
   certificate_hash: 7f2d1ed2f3edc05eb54c2f949031302c94edece76e2b574384c2cd124845395a
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:01:44+00:00'
-  record_hash: 90234abe0906b6fd19880d97c3c3a2f09018b44c40ee66e7fc1ac1fd7a0878ae
+  stamped_at: '2026-11-17T17:51:58+00:00'
+  record_hash: 37ec0f23824ab6b0cac1031825c8602f3a882e7bc8b50dbd95cc57370e184aee

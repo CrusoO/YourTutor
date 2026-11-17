@@ -2,30 +2,11 @@ id: C10.QUAD.STD_FORM.2_0_1_m2_m4_b
 skill_ids:
 - MATH.ALG.QUAD.STANDARD_FORM
 difficulty: 0.24
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Rearrange 2x² - 4x - 4 = -2x - 4 into the form ax² + bx + c = 0. What is the
     value of b?
-options:
-- id: a
-  en: '-6'
-- id: b
-  en: '-4'
-- id: c
-  en: '2'
-- id: d
-  en: '-2'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Take the whole right-hand side away from both sides, so the right-hand side
-    is 0.
-- en: The left-hand side becomes 2x² - 2x, so the equation is 2x² - 2x = 0.
-- en: Comparing with ax² + bx + c = 0 gives b = -2.
-- en: The correct option is d.
 hints:
 - level: 1
   en: The standard form has zero on the right, so deal with the terms on the right
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Before you work it out, will the coefficient be positive or negative?
 status: draft
 template_id: TPL.C10.QUAD.STD_FORM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-6'
+- id: b
+  en: '-4'
+- id: c
+  en: '2'
+- id: d
+  en: '-2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.STD_TERM_ADDED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.STD_RHS_IGNORED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.STD_SIGN_NEGATED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Take the whole right-hand side away from both sides, so the right-hand side
+    is 0.
+- en: The left-hand side becomes 2x² - 2x, so the equation is 2x² - 2x = 0.
+- en: Comparing with ax² + bx + c = 0 gives b = -2.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fa91a8086e2c9dfcac83d817d8b003f255e647c7603e4b98a20f765767e900f7
+  item_hash: 22376678f21cae6845bdd756ba564e0298355e1b854c13ce1b6f9de48afa3c44
   template_hash: d1b68ffcc7a52e0cec2e91d27d2df1ce2ca977b67623b5d5c3f2953f0245e6a1
   certificate_hash: 0cca9bce6f4c8630cef79c85f13a3cef1facd278e22f3b5d4747c75abc671fe1
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:50:14+00:00'
-  record_hash: 75893cd2e6c70578c32d85323c153b17a97f044f208837ec6e976d975b28d878
+  stamped_at: '2026-11-17T17:45:57+00:00'
+  record_hash: 2ddee709c08fe66b660ef9c004283c281ed4c254700be150663452c176f6f83d

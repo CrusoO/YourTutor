@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.3_m4_1
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: What is the value of the discriminant of 3x² - 4x + 1 = 0?
-options:
-- id: a
-  en: '28'
-- id: b
-  en: '13'
-- id: c
-  en: '4'
-- id: d
-  en: '-20'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Here the coefficients are 3, -4 and 1.
-- en: The discriminant is b² - 4ac = (-4)² - 4(3)(1).
-- en: This equals 16 - (12) = 4.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Be careful with brackets around negative numbers when you square.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '28'
+- id: b
+  en: '13'
+- id: c
+  en: '4'
+- id: d
+  en: '-20'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - a
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are 3, -4 and 1.
+- en: The discriminant is b² - 4ac = (-4)² - 4(3)(1).
+- en: This equals 16 - (12) = 4.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 77552e4df8f9aaff51594688e5d68bb8d427dc67071cca479d12539b3d12bacb
+  item_hash: e508b342de8a2c1b91380aeeb76ce8d6dfc00997a51419caf3a9eba48417124a
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: efc745fc1029b5c74474af3b46d5afac1a4550cd9259ffde77aaf1046183e569
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:40+00:00'
-  record_hash: b02492ce7dea460310eec0289d2d8a617e90c7bb3c9cc9e77e77ec47f497a82b
+  stamped_at: '2026-11-17T17:41:55+00:00'
+  record_hash: 34a7201261291cc0ee5c866d2361602613c06644aa50a57129d5920d48f47841

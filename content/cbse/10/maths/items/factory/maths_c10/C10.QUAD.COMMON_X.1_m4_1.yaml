@@ -2,31 +2,10 @@ id: C10.QUAD.COMMON_X.1_m4_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.42
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Solve x² = -4x.
-options:
-- id: a
-  en: x = 0
-- id: b
-  en: x = 0 or x = 4
-- id: c
-  en: x = -4
-- id: d
-  en: x = -4 or x = 0
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Bring every term to the left so the right side is 0, then take out x as a common
-    factor.
-- en: This gives x(x + 4) = 0.
-- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
-- en: 'Undo the bracket: add -4 to both sides, then divide both sides by 1: x = -4.'
-- en: The solutions are x = -4 or x = 0.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Both terms share an x, so take it out as the common factor instead of dividing.
@@ -41,15 +20,46 @@ prediction_prompt:
   en: Will x = 0 be one of the answers?
 status: draft
 template_id: TPL.C10.QUAD.COMMON_X
-generator_version: factory-1
+generator_version: factory-2
 template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 0
+- id: b
+  en: x = 0 or x = 4
+- id: c
+  en: x = -4
+- id: d
+  en: x = -4 or x = 0
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.ONE_FACTOR_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DIVIDED_BY_X_LOST_ROOT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(x + 4) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add -4 to both sides, then divide both sides by 1: x = -4.'
+- en: The solutions are x = -4 or x = 0.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b24d9aee7f982ed294df4e8583574fb0548b5e4c86221fceabe8e7d724cbcc28
+  item_hash: d44b0149dc9a1f0d4e459ea8660226e58c8442a952c17cb4c236f684e1d4bda2
   template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
   certificate_hash: 16eb481da05251702ac8315fc58aafaaa8594e3df026d337dd86aa9326e660b9
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:30:47+00:00'
-  record_hash: bf274065c1529c0f3e71400ffb92ce6540c0896df7ec5b8d44a05977dd8ccb68
+  stamped_at: '2026-11-17T17:41:18+00:00'
+  record_hash: 00d6edcf2ea14f2ec23c5d8bdbc800435dc314ac9ecd67be2e2cd0c65e188542

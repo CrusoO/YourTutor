@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.6_3_12_0_1
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every multiple of 6 from 18 up to 85, counting both ends if they qualify.
-options:
-- id: a
-  en: '1224'
-- id: b
-  en: '561'
-- id: c
-  en: '612'
-- id: d
-  en: '618'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first multiple of 6 in the range is 18 and the last is 84.
-- en: 'They form an AP with common difference 6. Number of terms: (84 - 18)/6 + 1
-    = 12.'
-- en: S = (12/2)(18 + 84) = 612.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'The multiples form an AP: find the first and last ones inside the range.'
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1224'
+- id: b
+  en: '561'
+- id: c
+  en: '612'
+- id: d
+  en: '618'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.ENDPOINTS_USED_NOT_MULTIPLES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 6 in the range is 18 and the last is 84.
+- en: 'They form an AP with common difference 6. Number of terms: (84 - 18)/6 + 1
+    = 12.'
+- en: S = (12/2)(18 + 84) = 612.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7ccc4b0ef4f0e696c446e43476ae03c7c49a0d63185c2cbb676bfd9e93ddcbc8
+  item_hash: 7829f971cd64317104851bd143346d3132717dae96fecc463ccb0a159177cd5b
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: f2dbc40d94d229edd90bfa8bffa564e9de900334f5d98d4e503b10ea8721286e
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: 366a0a8ef1795cd978fad9fcad5a2701e6afbd4bb6df0d4356d4b663c0904b94
+  stamped_at: '2026-11-17T17:38:41+00:00'
+  record_hash: 522388ee38e317c746e68b1cd58e9f513af1d9c9c65e135fa4df146fbd868ef9

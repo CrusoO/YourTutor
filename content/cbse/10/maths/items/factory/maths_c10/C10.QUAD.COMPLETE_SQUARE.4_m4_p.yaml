@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.4_m4_p
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Writing x² + 8x - 4 = 0 in the form (x + p)² = q gives which value of p?
-options:
-- id: a
-  en: '4'
-- id: b
-  en: '8'
-- id: c
-  en: '16'
-- id: d
-  en: '-4'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Half of the x coefficient 8 is 4, so the square is (x + 4)².
-- en: (x + 4)² = x² + 8x + 16, so add 16 to both sides and subtract -4 from both sides.
-- en: This gives (x + 4)² = 20. So p = 4 and q = 20.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Take the plain number away from both sides, then add whatever makes the left
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '8'
+- id: c
+  en: '16'
+- id: d
+  en: '-4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CS_SQUARED_INSTEAD
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CS_SIGN_OF_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 8 is 4, so the square is (x + 4)².
+- en: (x + 4)² = x² + 8x + 16, so add 16 to both sides and subtract -4 from both sides.
+- en: This gives (x + 4)² = 20. So p = 4 and q = 20.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 63e6c273837809552a1d447839134910bf1f14bf1e15d99b0d92ca93fe7b0511
+  item_hash: b8040289ca9f2bc1414321360b1735042e20e6b129922549ade1692a723fac65
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: 7472c7b4220c41247a2cfa4b91bfefd24702a282990c079ce60a62c4c75893a2
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:40+00:00'
-  record_hash: 93c7cb8ab6f14a5ebaa09fb2456054db9ee3e7ec9244db3a991629c2fd107e75
+  stamped_at: '2026-11-17T17:41:34+00:00'
+  record_hash: 50998b4a6c1c4171a7c76f1f3d7396b5febd5255f17d5c81a9549579f56aaf6a

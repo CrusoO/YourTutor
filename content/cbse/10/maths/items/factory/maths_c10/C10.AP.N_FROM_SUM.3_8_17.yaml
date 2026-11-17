@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.3_8_17
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: The sum of the first n terms of the AP 3, 11, 19, ... is 1139. Find n.
-options:
-- id: a
-  en: '17'
-- id: b
-  en: 1139/3
-- id: c
-  en: -67/4
-- id: d
-  en: '18'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here a = 3, d = 8 and S_n = 1139.
-- en: '(n/2)(2 x 3 + (n - 1) x 8) = 1139. Multiply both sides by 2 and expand: 8n²
-    + -2n = 2278.'
-- en: 'Rearranged: 8n² + (-2)n - 2278 = 0, whose solutions are n = 17 and n = -67/4.'
-- en: The number of terms is a positive whole number, so n = 17.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the sum formula with n as the unknown and make it equal to the target.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '17'
+- id: b
+  en: 1139/3
+- id: c
+  en: -67/4
+- id: d
+  en: '18'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 3, d = 8 and S_n = 1139.
+- en: '(n/2)(2 x 3 + (n - 1) x 8) = 1139. Multiply both sides by 2 and expand: 8n²
+    + -2n = 2278.'
+- en: 'Rearranged: 8n² + (-2)n - 2278 = 0, whose solutions are n = 17 and n = -67/4.'
+- en: The number of terms is a positive whole number, so n = 17.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0b956a56374c9ec3350085518d55561a3c058417b5fbc6578cc99a63fc155be7
+  item_hash: 16e2e6341066d2d5f6328c63ad011e17ce55517217fae465b9e063408598b755
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: 6aed282dbc2941ebddc63abea0f37df8bfc565a6daef5f092930bb8d90fbb8a6
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:29+00:00'
-  record_hash: bbed76b31997e5b7c502b5fa80903e05781858444a0341d41b598aa5c0178e6b
+  stamped_at: '2026-11-17T17:38:50+00:00'
+  record_hash: 252468e34b0a64254efe1d6748e6b7cbb7d38a0b875b6cce618800c48b2a1797

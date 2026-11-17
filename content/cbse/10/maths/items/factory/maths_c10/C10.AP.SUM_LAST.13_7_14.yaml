@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.13_7_14
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.58
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every term of the progression that begins 13, 20, 27 and ends at 104.
-options:
-- id: a
-  en: 1521/2
-- id: b
-  en: '819'
-- id: c
-  en: '6084'
-- id: d
-  en: '1638'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is 13, the last term is 104 and the difference is 7.
-- en: 'Number of terms: n = (104 - 13)/7 + 1 = 14.'
-- en: S = (n/2)(first + last) = (14/2)(13 + 104) = 819.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Before you can add, you need the number of terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1521/2
+- id: b
+  en: '819'
+- id: c
+  en: '6084'
+- id: d
+  en: '1638'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 13, the last term is 104 and the difference is 7.
+- en: 'Number of terms: n = (104 - 13)/7 + 1 = 14.'
+- en: S = (n/2)(first + last) = (14/2)(13 + 104) = 819.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d6e4718ef1aedad9cf6d3ad315f1d6970ede4c8050bedd0ae60e06d35488d80a
+  item_hash: fa25022b983f6a1b1ea0e9e65a5dc40d2b8142a3d333766766193e5c506f41be
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: 7cbdbec78ba72f940cc4b964e4db45d391b87ff09b1aba243926a60f970c57c1
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:11+00:00'
-  record_hash: 4d2f277ba5c08773eab518387af0e7ee5d254bf2bf07bd3827e2650dbddb46cb
+  stamped_at: '2026-11-17T17:39:17+00:00'
+  record_hash: 24842b122a5ff6a4cdc01ee0a0952fea493aeccf4d7d9a768bedab1659a0af17
