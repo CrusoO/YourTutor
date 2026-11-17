@@ -33,6 +33,7 @@ from app.db.models import (
     TeacherAlertRow,
     VideoJobRow,
 )
+from app.learner.profile.store import export_rows
 
 # Columns that are credentials, or that reveal where files sit on the server.
 STUDENT_HIDDEN = frozenset({"pin_hash", "pin_failed_attempts", "pin_locked_until", "family_code"})
@@ -105,6 +106,7 @@ def learner_export(session: Session, student: StudentRow) -> dict[str, Any]:
         "learner_profile": [
             row_dict(r) for r in _rows(session, LoopBRecordRow, LoopBRecordRow.student_id, sid)
         ],
+        "method_profile": export_rows(session, student.id),
         "safety_flags": [
             row_dict(r) for r in _rows(session, SafetyFlagRow, SafetyFlagRow.student_id, sid)
         ],

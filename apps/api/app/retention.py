@@ -1,6 +1,7 @@
 """Retention jobs: `python -m app.retention <job> [--dry-run]`, the one entrypoint for all of them.
 
-Jobs: purge_guests, approvals, otp, rate_events, auth_sessions, llm_calls, video_jobs, or `all`.
+Jobs: purge_guests, approvals, otp, rate_events, auth_sessions, llm_calls, video_jobs,
+profile_counts, or `all`.
 Nothing here is scheduled by the code; see docs/OPERATOR.md for the cron line.
 
 Every job is idempotent (a second run finds nothing to do), deletes in batches so one run never
@@ -36,6 +37,7 @@ from app.db.models import (
     VideoJobRow,
 )
 from app.db.session import session_factory
+from app.learner.profile.store import delete_older_than
 from app.registries.startup import deployment_jurisdiction_profile
 from app.video_jobs.files import delete_job_folder, job_folder_name
 
@@ -210,6 +212,9 @@ def run_job(db: Session, job: str, dry_run: bool = False, now: datetime | None =
         rows, folders = purge_video_jobs(db, now, dry_run)
         files = "(folders not counted in a dry run)" if dry_run else f"{folders} folder(s)"
         return f"video_jobs: {mode} {rows} job(s), {files}"
+    if job == "profile_counts":
+        today = (now or now_utc()).date()
+        return f"profile_counts: {mode} {delete_older_than(db, today, dry_run=dry_run)} row(s)"
     raise ValueError(f"unknown job {job}")
 
 
@@ -221,6 +226,7 @@ JOBS: tuple[str, ...] = (
     "auth_sessions",
     "llm_calls",
     "video_jobs",
+    "profile_counts",
 )
 
 

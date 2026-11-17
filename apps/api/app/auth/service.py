@@ -60,6 +60,7 @@ from app.db.models import (
     GroupLessonRow,
     GroupResultRow,
     GuardianApprovalRow,
+    LearnerMethodCountRow,
     LessonRecordRow,
     LlmCallRow,
     LoopBRecordRow,
@@ -81,6 +82,8 @@ from app.db.models import (
     UserRow,
     VideoJobRow,
 )
+from app.learner.profile.store import SCOPE as PROFILE_SCOPE
+from app.learner.profile.store import delete_student_rows
 from app.registries.startup import deployment_jurisdiction_profile
 from app.registries.student_setup import apply_student_context, ensure_locale, resolve_curriculum_id
 
@@ -348,6 +351,8 @@ def grant_consent(
     existing = active_consent(session, student_id)
     if existing:
         existing.revoked_at = now_utc()
+    if PROFILE_SCOPE not in scopes:
+        delete_student_rows(session, student_id)  # no learning_profile consent: no profile rows
     row = ConsentRow(
         id=uuid.uuid4(),
         student_id=student_id,
@@ -374,6 +379,7 @@ def revoke_consent(session: Session, actor: Actor, student_id: uuid.UUID) -> Non
     row = active_consent(session, student_id)
     if row:
         row.revoked_at = now_utc()
+    delete_student_rows(session, student_id)  # revoking deletes the profile at once
 
 
 def set_pin(session: Session, actor: Actor, student_id: uuid.UUID, pin: str) -> None:
@@ -665,6 +671,7 @@ def purge_students(session: Session, ids: list[uuid.UUID]) -> None:
         ReviewCardRow,
         MisconceptionHitRow,
         LoopBSnapshotRow,
+        LearnerMethodCountRow,
         LoopBRecordRow,
         LessonRecordRow,
         SafetyFlagRow,
