@@ -23,6 +23,26 @@ KINDS: dict[str, dict[str, str]] = {
 }
 
 
+MAX_VALUES_PER_AXIS = 5  # a variant needs a handful of items, not the whole box to be certified
+
+
+def shrink_box(box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS) -> dict[str, Any]:
+    """The same box with at most `limit` evenly spread values per axis (as explicit choices).
+
+    A smaller declared box means a smaller certificate (it covers exactly the shrunken box) and a
+    certification that takes seconds, not hours. Items are drawn only from this box.
+    """
+    from app.factory.kernel.certify import box_axes
+
+    out: dict[str, Any] = {}
+    for name, values in box_axes(dict(box)):
+        if len(values) > limit:
+            picks = sorted({round(i * (len(values) - 1) / (limit - 1)) for i in range(limit)})
+            values = [values[i] for i in picks]
+        out[name] = {"choices": list(values)}
+    return out
+
+
 def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
     """The variant of one template. Multiple-choice only where the box offers a choice of form."""
     spec = KINDS[kind]
@@ -31,9 +51,11 @@ def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
     if "short" in out:
         out["short"] = f"{template['short']}.{spec['suffix']}"
     out["variant"] = kind
-    form = out.get("box", {}).get("form")
+    box = out.get("box", {})
+    form = box.get("form")
     if isinstance(form, dict) and "mcq1" in (form.get("choices") or []):
         form["choices"] = ["mcq1"]  # options are needed to name the wrong answer and to key it
+    out["box"] = shrink_box(box)
     return out
 
 

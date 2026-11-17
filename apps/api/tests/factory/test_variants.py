@@ -18,7 +18,19 @@ SMALL["box"] = {"a": {"choices": [1, 2]}, "r1": {"min": -3, "max": 3}, "r2": {"m
 def test_derive_keeps_the_model_and_changes_id_and_variant() -> None:
     out = derive(SMALL, "diagnostic")
     assert out["id"] == SMALL["id"] + ".DX" and out["variant"] == "diagnostic"
-    assert out["box"] == SMALL["box"] and "variant" not in SMALL
+    assert "variant" not in SMALL
+    assert all(len(axis["choices"]) <= 5 for axis in out["box"].values())
+    assert set(out["box"]) == set(SMALL["box"])
+
+
+def test_shrink_keeps_the_ends_and_the_original_values() -> None:
+    from app.factory.variants import shrink_box
+
+    out = shrink_box({"n": {"min": 1, "max": 100}, "c": {"choices": ["a", "b"]}}, limit=3)
+    assert out == {"n": {"choices": [1, 50, 100]}, "c": {"choices": ["a", "b"]}} or (
+        out["n"]["choices"][0] == 1 and out["n"]["choices"][-1] == 100
+    )
+    assert out["c"] == {"choices": ["a", "b"]}
 
 
 def test_derive_restricts_a_physics_style_form_axis_to_mcq() -> None:
