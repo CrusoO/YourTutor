@@ -23,24 +23,37 @@ KINDS: dict[str, dict[str, str]] = {
 }
 
 
-MAX_VALUES_PER_AXIS = 5  # a variant needs a handful of items, not the whole box to be certified
+MAX_VALUES_PER_AXIS = 5
+MAX_TUPLES = 400  # a variant needs a handful of items, not the whole box to be certified
 
 
 def shrink_box(box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS) -> dict[str, Any]:
-    """The same box with at most `limit` evenly spread values per axis (as explicit choices).
+    """The same box with few evenly spread values per axis (as explicit choices).
 
-    A smaller declared box means a smaller certificate (it covers exactly the shrunken box) and a
-    certification that takes seconds, not hours. Items are drawn only from this box.
+    At most `limit` values per axis, and the limit drops (to a minimum of 2) until the box holds
+    at most MAX_TUPLES tuples. A smaller declared box means a smaller certificate (it covers
+    exactly the shrunken box) and a certification that takes seconds, not hours. Items are drawn
+    only from this box.
     """
     from app.factory.kernel.certify import box_axes
 
-    out: dict[str, Any] = {}
-    for name, values in box_axes(dict(box)):
-        if len(values) > limit:
-            picks = sorted({round(i * (len(values) - 1) / (limit - 1)) for i in range(limit)})
-            values = [values[i] for i in picks]
-        out[name] = {"choices": list(values)}
-    return out
+    axes = box_axes(dict(box))
+
+    def pick(values: list[Any], n: int) -> list[Any]:
+        if len(values) <= n:
+            return list(values)
+        return [
+            values[i] for i in sorted({round(k * (len(values) - 1) / (n - 1)) for k in range(n)})
+        ]
+
+    while True:
+        picked = {name: pick(list(values), limit) for name, values in axes}
+        size = 1
+        for values in picked.values():
+            size *= len(values)
+        if size <= MAX_TUPLES or limit <= 2:
+            return {name: {"choices": values} for name, values in picked.items()}
+        limit -= 1
 
 
 def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
