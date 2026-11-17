@@ -33,6 +33,7 @@ from app.factory.stamp import StampRefused, stamp
 
 # a new lane adds its module here; importing it registers the lane
 TEMPLATE_SCHEMA = "factory-template/1"
+NL = chr(10)
 LANE_MODULES = (
     "app.factory.lanes.maths_quadratic",
     "app.factory.lanes.maths",
@@ -324,6 +325,24 @@ def _variant_items(root: Path, lane_name: str, template_id: str, suffix: str) ->
     return count
 
 
+def cmd_forms(args: argparse.Namespace) -> int:
+    """Write the matched A/B checkpoint forms of each chapter from its stamped checkpoint items."""
+    from app.factory.forms import build_forms
+
+    root = _root(args.root)
+    forms = build_forms(root, minimum=args.minimum)
+    folder = root / "checkpoints"
+    folder.mkdir(parents=True, exist_ok=True)
+    for form in forms:
+        (folder / f"{form['checkpoint_id'].lower()}.yaml").write_text(
+            yaml.safe_dump(form, sort_keys=False), encoding="utf-8", newline=NL
+        )
+        print(f"{form['id']}: {len(form['A'])} matched pairs")
+    if not forms:
+        print("no chapter has enough matched checkpoint pairs")
+    return 0 if forms else 1
+
+
 def _stamped_items(root: Path) -> list[dict[str, Any]]:
     out = []
     for path in sorted((root / "items" / "factory").rglob("*.yaml")):
@@ -450,6 +469,10 @@ def build_parser() -> argparse.ArgumentParser:
     der.add_argument("--source", type=Path, required=True, help="folder of factory templates")
     der.add_argument("--out", type=Path, required=True)
     der.set_defaults(run=cmd_derive)
+
+    frm = sub.add_parser("forms", help="write matched A/B checkpoint forms per chapter")
+    frm.add_argument("--minimum", type=int, default=10, help="smallest number of matched pairs")
+    frm.set_defaults(run=cmd_forms)
 
     var = sub.add_parser("variants", help="derive, certify and stamp variants (resumable)")
     var.add_argument("--source", type=Path, required=True, help="folder of factory templates")

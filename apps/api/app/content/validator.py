@@ -115,10 +115,8 @@ def load_bundle(root: Path) -> ContentBundle:
             raw = _read_yaml(path)
             glossaries.append(GlossaryFile.model_validate(raw))
     forms: list[CheckpointForms] = []
-    cp_dir = root / "checkpoints"
-    if cp_dir.exists():
-        for path in sorted(cp_dir.rglob("*.yaml")):
-            forms.append(_model(CheckpointForms, path))
+    for path in _rglob_yaml(root, "checkpoints"):
+        forms.append(_model(CheckpointForms, path))
     return ContentBundle(
         skills=skills,
         items=items,
