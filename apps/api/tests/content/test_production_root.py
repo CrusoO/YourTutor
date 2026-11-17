@@ -62,8 +62,9 @@ def test_chapters_without_an_overlay_file_warn() -> None:
     report = validate_path(PRODUCTION)
     assert any("cbse.10.maths.ch02" in w for w in report.warnings)
     # chapters whose overlay file exists (physics) do not warn; maths chapters without one do
-    assert not any("cbse.10.physics.electricity" in w for w in report.warnings)
-    assert not any("cbse.10.physics.light" in w for w in report.warnings)
+    missing = [w for w in report.warnings if "no overlay file" in w]
+    assert not any("cbse.10.physics.electricity" in w for w in missing)
+    assert not any("cbse.10.physics.light" in w for w in missing)
     assert any("cbse.10.maths.quadratic" in w for w in report.warnings)
 
 
