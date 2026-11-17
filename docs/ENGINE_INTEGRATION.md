@@ -57,6 +57,8 @@ The file is written by YourTutor to a temp path; only these fields are sent.
 
 Any field outside this schema is refused by the engine (error code `invalid_request`).
 
+**Optional `options.captions`.** `"sidecar"` asks the engine to render without burned-in captions and write them as a separate WebVTT file (see section 3). It is sent only when the API setting `VIDEO_CAPTIONS_SIDECAR=true`; by default the option is absent and the engine burns the captions in as before. Request ids and idempotency keys are not affected by the setting.
+
 ---
 
 ## 3. Output layout
@@ -70,6 +72,9 @@ All outputs land in `<engine>/dist/jobs/<requestId>/`.
 | `sources.json` | Book pointer, claims with trust tier, caveats |
 | `qa.json`      | QA report |
 | `lesson.mp4`   | The finished video |
+| `captions.vtt` | Optional. Only with `options.captions: "sidecar"`: UTF-8 WebVTT captions for `lesson.mp4` |
+
+When the sidecar exists, `result.json` carries `captions: { file: "captions.vtt", language: "<locale>", format: "webvtt" }`. YourTutor reads this field only when present and ignores any other result field it does not know. The API shows it as `captions: { url, language, format }` on the job (`null` when absent or when the file is missing, not plain WebVTT, not valid UTF-8 or over 512 KB) and serves the file at `GET /video-jobs/{id}/captions.vtt` to the owning student or an admin, as `text/vtt; charset=utf-8`. Only the fixed name `captions.vtt` is ever read: a `file` value of anything else, and symbolic links, are refused. The web player shows a Captions on/off button (on by default, remembered on the device) only when the track exists; old videos and burned-in captions are unchanged. Captions are the narration the student already sees, so no new kind of data is stored.
 
 ---
 

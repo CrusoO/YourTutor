@@ -442,3 +442,160 @@ def test_error_message_for_code(
     r = client.get(f"/video-jobs/{row.id}", headers=auth_header(world.student_token))
     assert r.status_code == 200
     assert r.json()["error_message"] == expected_msg
+
+
+# ── captions sidecar ─────────────────────────────────────────────────────────
+
+_VTT = "WEBVTT\n\n00:00:00.000 --> 00:00:02.000\nHello, everyone.\n"
+
+
+def _add_captions(result_dir: Path, vtt: bytes | None = None, info: dict | None = None) -> None:
+    (result_dir / "captions.vtt").write_bytes(_VTT.encode() if vtt is None else vtt)
+    body = {"captions": info or {"file": "captions.vtt", "language": "en-IN", "format": "webvtt"}}
+    (result_dir / "result.json").write_text(json.dumps(body), encoding="utf-8")
+
+
+def _queued_options(db: Session, job_id: str) -> dict[str, Any]:
+    row = db.get(VideoJobRow, uuid.UUID(job_id))
+    assert row is not None
+    return row.request_json["options"]
+
+
+def test_captions_option_absent_by_default(client: TestClient, world: World, db: Session) -> None:
+    r, _ = _create_job(client, world.student_token)
+    assert r.status_code == 202
+    assert "captions" not in _queued_options(db, r.json()["id"])
+
+
+def test_captions_option_sent_when_setting_on(
+    client: TestClient, world: World, db: Session, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "video_captions_sidecar", True)
+    r, key = _create_job(client, world.student_token)
+    assert r.status_code == 202
+    options = _queued_options(db, r.json()["id"])
+    assert options["captions"] == "sidecar"
+    assert options["locale"] == "en-IN"
+    # the same key still returns the same job (idempotency is unchanged)
+    again, _ = _create_job(client, world.student_token, idem=key)
+    assert again.status_code == 200 and again.json()["id"] == r.json()["id"]
+
+
+def test_job_view_has_no_captions_without_sidecar(
+    client: TestClient, world: World, db: Session, tmp_path: Path
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    r = client.get(f"/video-jobs/{row.id}", headers=auth_header(world.student_token))
+    assert r.json()["captions"] is None
+    r = client.get(f"/video-jobs/{row.id}/captions.vtt", headers=auth_header(world.student_token))
+    assert r.status_code == 404
+
+
+def test_job_view_lists_captions_and_serves_vtt(
+    client: TestClient, world: World, db: Session, tmp_path: Path
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    _add_captions(tmp_path)
+    r = client.get(f"/video-jobs/{row.id}", headers=auth_header(world.student_token))
+    assert r.json()["captions"] == {
+        "url": f"/video-jobs/{row.id}/captions.vtt",
+        "language": "en-IN",
+        "format": "webvtt",
+    }
+    f = client.get(f"/video-jobs/{row.id}/captions.vtt", headers=auth_header(world.student_token))
+    assert f.status_code == 200
+    assert f.headers["content-type"] == "text/vtt; charset=utf-8"
+    assert f.headers["x-content-type-options"] == "nosniff"
+    assert f.text == _VTT
+
+
+def test_captions_descriptor_ignores_unknown_fields_and_bad_language(
+    client: TestClient, world: World, db: Session, tmp_path: Path
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    info = {"file": "captions.vtt", "language": "<script>", "format": "webvtt", "extra": 1}
+    _add_captions(tmp_path, info=info)
+    r = client.get(f"/video-jobs/{row.id}", headers=auth_header(world.student_token))
+    assert r.json()["captions"]["language"] == "en"
+
+
+@pytest.mark.parametrize(
+    "info",
+    [
+        {"file": "../../etc/passwd", "language": "en", "format": "webvtt"},
+        {"file": "other.vtt", "language": "en", "format": "webvtt"},
+        {"file": "captions.vtt", "language": "en", "format": "srt"},
+        "not a dict",
+    ],
+)
+def test_captions_descriptor_refuses_other_files(
+    client: TestClient, world: World, db: Session, tmp_path: Path, info: Any
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    _add_captions(tmp_path, info=info)
+    r = client.get(f"/video-jobs/{row.id}", headers=auth_header(world.student_token))
+    assert r.json()["captions"] is None
+
+
+@pytest.mark.parametrize(
+    "vtt",
+    [b"not webvtt at all", b"WEBVTT\n\n\xff\xfe broken", b"WEBVTT\n" + b"a" * (512 * 1024 + 1)],
+    ids=["no-header", "bad-utf8", "too-big"],
+)
+def test_captions_bad_file_is_404(
+    client: TestClient, world: World, db: Session, tmp_path: Path, vtt: bytes
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    _add_captions(tmp_path, vtt=vtt)
+    h = auth_header(world.student_token)
+    assert client.get(f"/video-jobs/{row.id}/captions.vtt", headers=h).status_code == 404
+    assert client.get(f"/video-jobs/{row.id}", headers=h).json()["captions"] is None
+
+
+@pytest.mark.parametrize(
+    "tail",
+    ["..%2Fsources.json", "..%2F..%2Fcaptions.vtt", "captions.VTT"],
+)
+def test_captions_route_traversal_attempts_fail(
+    client: TestClient, world: World, db: Session, tmp_path: Path, tail: str
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    _add_captions(tmp_path)
+    r = client.get(f"/video-jobs/{row.id}/{tail}", headers=auth_header(world.student_token))
+    assert r.status_code in (404, 422)
+    assert "WEBVTT" not in r.text
+
+
+def test_captions_not_served_for_another_student(
+    client: TestClient, world: World, db: Session, tmp_path: Path
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    _add_captions(tmp_path)
+    r = client.get(f"/video-jobs/{row.id}/captions.vtt", headers=auth_header(world.parent_token))
+    assert r.status_code == 403
+    assert client.get(f"/video-jobs/{row.id}/captions.vtt").status_code in (401, 403)
+
+
+def test_captions_symlink_is_not_followed(
+    client: TestClient, world: World, db: Session, tmp_path: Path
+) -> None:
+    row = _insert_done_job(db, uuid.UUID(world.student_share_id), tmp_path)
+    outside = tmp_path.parent / f"outside-{uuid.uuid4().hex}.vtt"
+    outside.write_text(_VTT, encoding="utf-8")
+    try:
+        (tmp_path / "captions.vtt").symlink_to(outside)
+    except OSError:
+        pytest.skip("symlinks not permitted here")
+    (tmp_path / "result.json").write_text(
+        json.dumps({"captions": {"file": "captions.vtt", "language": "en", "format": "webvtt"}})
+    )
+    r = client.get(f"/video-jobs/{row.id}/captions.vtt", headers=auth_header(world.student_token))
+    assert r.status_code == 404
+
+
+def test_captions_404_while_not_done(client: TestClient, world: World, db: Session) -> None:
+    row = _insert_job(db, uuid.UUID(world.student_share_id), status="running")
+    r = client.get(f"/video-jobs/{row.id}/captions.vtt", headers=auth_header(world.student_token))
+    assert r.status_code == 404

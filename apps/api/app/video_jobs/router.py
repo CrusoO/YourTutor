@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import uuid
 from datetime import datetime
 from pathlib import Path, PureWindowsPath
@@ -102,6 +103,14 @@ class CreateJobIn(BaseModel):
         return self
 
 
+class CaptionsOut(BaseModel):
+    """A separate caption track for a finished video (WebVTT), when the engine wrote one."""
+
+    url: str
+    language: str
+    format: str
+
+
 class JobOut(BaseModel):
     id: uuid.UUID
     node_id: str
@@ -114,6 +123,7 @@ class JobOut(BaseModel):
     created_at: datetime
     started_at: datetime | None
     completed_at: datetime | None
+    captions: CaptionsOut | None = None
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -143,6 +153,52 @@ def _require_owner(actor: ActorDep, job: VideoJobRow) -> None:
     raise FORBIDDEN
 
 
+CAPTIONS_FILE = "captions.vtt"
+CAPTIONS_MAX_BYTES = 512 * 1024
+_LANG_TAG = re.compile(r"^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8}){0,3}$")
+
+
+def _read_captions(row: VideoJobRow) -> bytes | None:
+    """The caption file's bytes if it is present, plain, small and valid WebVTT text, else None.
+
+    Only the fixed name captions.vtt is ever read, never a name from the engine's output.
+    """
+    if row.status != "done" or not row.result_path:
+        return None
+    path = _job_file(row.result_path, CAPTIONS_FILE)
+    try:
+        if path.is_symlink() or not path.is_file() or path.stat().st_size > CAPTIONS_MAX_BYTES:
+            return None
+        data = path.read_bytes()
+        text = data.decode("utf-8")
+    except (OSError, UnicodeDecodeError):
+        return None
+    return data if text.lstrip("﻿").startswith("WEBVTT") else None
+
+
+def _captions_descriptor(row: VideoJobRow) -> CaptionsOut | None:
+    """The caption track of a done job: the engine's result.json says so and the file is good."""
+    if row.status != "done" or not row.result_path:
+        return None
+    try:
+        result = json.loads(_job_file(row.result_path, "result.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    info = result.get("captions") if isinstance(result, dict) else None
+    if not isinstance(info, dict) or info.get("file") != CAPTIONS_FILE:
+        return None
+    if info.get("format") != "webvtt":
+        return None
+    language = info.get("language")
+    if not isinstance(language, str) or not _LANG_TAG.match(language):
+        language = "en"
+    if _read_captions(row) is None:
+        return None
+    return CaptionsOut(
+        url=f"/video-jobs/{row.id}/{CAPTIONS_FILE}", language=language, format="webvtt"
+    )
+
+
 def _job_view(row: VideoJobRow) -> dict[str, Any]:
     return JobOut(
         id=row.id,
@@ -156,6 +212,7 @@ def _job_view(row: VideoJobRow) -> dict[str, Any]:
         created_at=row.created_at,
         started_at=row.started_at,
         completed_at=row.completed_at,
+        captions=_captions_descriptor(row),
     ).model_dump()
 
 
@@ -214,12 +271,15 @@ def _engine_options(place: dict[str, Any]) -> dict[str, Any]:
     voice = settings.story_voice if (is_story or is_source) else "auto"
     theme = "dark" if is_story else "whiteboard"
     fps = 15 if is_story else 12
-    return {
+    options: dict[str, Any] = {
         "locale": "en-IN",
         "voice": voice,
         "fps": fps,
         "theme": theme,
     }
+    if settings.video_captions_sidecar:
+        options["captions"] = "sidecar"  # engine writes captions.vtt instead of burning them in
+    return options
 
 
 def _story_request(
@@ -428,6 +488,21 @@ def serve_lesson_mp4(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> FileR
     if not mp4.exists():
         raise HTTPException(status_code=404, detail="video file not found")
     return FileResponse(str(mp4), media_type="video/mp4", filename="lesson.mp4")
+
+
+@router.get("/{job_id}/captions.vtt")
+def serve_captions_vtt(job_id: uuid.UUID, db: DbSession, actor: ActorDep) -> Response:
+    """The caption track (WebVTT). Owner or admin; 404 when the job has none."""
+    row = _job_or_404(db, job_id)
+    _require_owner(actor, row)
+    data = _read_captions(row)
+    if data is None:
+        raise HTTPException(status_code=404, detail="captions not found")
+    return Response(
+        content=data,
+        media_type="text/vtt; charset=utf-8",
+        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"},
+    )
 
 
 @router.get("/{job_id}/sources.json")

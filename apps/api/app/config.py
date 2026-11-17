@@ -72,6 +72,10 @@ class Settings(BaseSettings):
     # env: VIDEO_WORKER_IDLE_POLL_SECONDS. How long an idle worker waits before asking the database.
     # Set it above 300 together with VIDEO_WAKE_FILE so a free hosted database can go to sleep.
     video_worker_idle_poll_seconds: float = 5.0
+    # env: VIDEO_CAPTIONS_SIDECAR=true. Ask the engine for captions as a separate WebVTT file
+    # (captions.vtt) instead of burning them into the picture, so the student can switch them off.
+    # Off by default: turn it on only once the engine supports the `captions: "sidecar"` option.
+    video_captions_sidecar: bool = False
     # Spending limits for an open API (see app/budget.py). 0 turns a limit off.
     llm_daily_cap: int = 0  # env: LLM_DAILY_CAP
     video_queue_max: int = 0  # env: VIDEO_QUEUE_MAX
