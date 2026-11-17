@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 import logging
 import uuid
-from dataclasses import dataclass
 from collections.abc import Iterator
+from dataclasses import dataclass
 from typing import Any
 
 import pytest

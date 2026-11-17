@@ -16,3 +16,12 @@ export function doubtDeviceEnabled(): boolean {
   if (v === "false") return false;
   return process.env.NODE_ENV === "development";
 }
+
+/**
+ * The optional server check on the doubt card (ADR 0005, Stage 2): a confirmed, structured expression goes to
+ * `POST /doubt/solve` after an explicit tap, only for a learner whose guardian granted `math_check`. Off unless the
+ * variable is exactly "true" (and the API has SCOPE_MATH_CHECK_ENABLED on). Needs the device doubt card too.
+ */
+export function doubtServerEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_DOUBT_SERVER === "true";
+}

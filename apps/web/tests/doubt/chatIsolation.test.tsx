@@ -90,7 +90,19 @@ describe("the doubt card in the chat is isolated from the network, storage and l
 
 describe("the doubt chat code imports no network or storage module", () => {
   const dir = join(process.cwd(), "components/chat/doubt");
-  const files = readdirSync(dir).filter((f) => /\.tsx?$/.test(f));
+  // ServerCheck.tsx is the one audited exception (ADR 0005, Stage 2): it alone may call the API, and only with a
+  // doubt-expr/1 built by lib/doubt/send.ts. It is loaded lazily and only when NEXT_PUBLIC_DOUBT_SERVER is on.
+  const AUDITED = "ServerCheck.tsx";
+  const all = readdirSync(dir).filter((f) => /\.tsx?$/.test(f));
+  const files = all.filter((f) => f !== AUDITED);
+
+  it("ServerCheck is the only file here that touches the API, and only through doubtSolve", () => {
+    const src = readFileSync(join(dir, AUDITED), "utf8");
+    expect(src).toMatch(/import \{ doubtSolve \} from "@\/lib\/api"/);
+    expect(src).not.toMatch(/(fetch|XMLHttpRequest|sendBeacon|WebSocket|localStorage|sessionStorage|indexedDB|console)\s*[.(]/);
+    expect(src).not.toMatch(/lib\/api["'][^;]*;[\s\S]*from\s+["']@\/lib\/api/);
+    expect(src).toMatch(/checkOnServer\(candidate, doubtSolve\)/);
+  });
 
   it.each(files)("%s", (f) => {
     const src = readFileSync(join(dir, f), "utf8");
@@ -101,6 +113,7 @@ describe("the doubt chat code imports no network or storage module", () => {
 
   it("the words reserved for server-verified results appear nowhere in the feature", () => {
     for (const f of files) expect(readFileSync(join(dir, f), "utf8"), f).not.toMatch(/checked by code/i);
+    expect(readFileSync(join(dir, AUDITED), "utf8")).toMatch(/Checked by code/);
     for (const f of ["../ChatProvider.tsx", "../Composer.tsx", "../Bubbles.tsx"]) expect(readFileSync(join(dir, f), "utf8"), f).not.toMatch(/checked by code/i);
   });
 
@@ -109,6 +122,7 @@ describe("the doubt chat code imports no network or storage module", () => {
       const src = readFileSync(join(dir, "..", f), "utf8");
       expect(src, f).not.toMatch(/^import\s[^;]*from\s+["']\.\/doubt\/(?!types)/m);
       expect(src, f).not.toMatch(/^import\s[^;]*from\s+["']@\/lib\/doubt/m);
+      expect(src, f).not.toMatch(/ServerCheck/);
     }
   });
 });

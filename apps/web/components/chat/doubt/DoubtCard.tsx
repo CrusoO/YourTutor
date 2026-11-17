@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { doubtServerEnabled } from "@/lib/flags";
 import { FeedbackCard } from "@/components/learn/FeedbackCard";
 import { HintLadder } from "@/components/learn/HintLadder";
 import { MathText } from "@/components/learn/MathText";
@@ -12,6 +13,9 @@ import { solve } from "@/lib/doubt/solve";
 import type { MathCandidate, Solution } from "@/lib/doubt/types";
 import { DOUBT_COPY as T } from "./copy";
 import type { DoubtPayload } from "./types";
+
+// Loaded only when the optional server check is on, so the network module stays out of the default path.
+const ServerCheck = lazy(() => import("./ServerCheck"));
 
 const BTN =
   "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border-2 px-4 py-2 text-base font-semibold focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[color:var(--c-focus)] disabled:cursor-not-allowed disabled:opacity-60";
@@ -66,6 +70,11 @@ export default function DoubtCard({ doubt, onEdit, onClose, onExplain }: DoubtCa
           {T.unsupportedTitle}
         </h3>
         <p className="m-0 mt-2 text-base">{T.unsupportedBody}</p>
+        {confirmed && c && doubtServerEnabled() ? (
+          <Suspense fallback={null}>
+            <ServerCheck candidate={c} />
+          </Suspense>
+        ) : null}
         <p className="m-0 mt-2 text-sm text-muted">{T.explainNote}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button type="button" className={PRIMARY} onClick={() => onExplain(doubt.text)} data-testid="doubt-explain">
