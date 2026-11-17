@@ -27,7 +27,9 @@ MAX_VALUES_PER_AXIS = 5
 MAX_TUPLES = 120  # a variant needs a handful of items, not the whole box to be certified
 
 
-def shrink_box(box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS) -> dict[str, Any]:
+def shrink_box(
+    box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS, max_tuples: int = MAX_TUPLES
+) -> dict[str, Any]:
     """The same box with few evenly spread values per axis (as explicit choices).
 
     At most `limit` values per axis, and the limit drops (to a minimum of 2) until the box holds
@@ -51,12 +53,12 @@ def shrink_box(box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS) -> dict
         size = 1
         for values in picked.values():
             size *= len(values)
-        if size <= MAX_TUPLES or limit <= 2:
+        if size <= max_tuples or limit <= 2:
             return {name: {"choices": values} for name, values in picked.items()}
         limit -= 1
 
 
-def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
+def derive(template: Mapping[str, Any], kind: str, max_tuples: int = MAX_TUPLES) -> dict[str, Any]:
     """The variant of one template. Multiple-choice only where the box offers a choice of form."""
     spec = KINDS[kind]
     out = copy.deepcopy(dict(template))
@@ -68,7 +70,7 @@ def derive(template: Mapping[str, Any], kind: str) -> dict[str, Any]:
     form = box.get("form")
     if kind == "explain" and isinstance(form, dict) and "mcq1" in (form.get("choices") or []):
         form["choices"] = ["mcq1"]  # options are needed to name the wrong answer and to key it
-    out["box"] = shrink_box(box)
+    out["box"] = shrink_box(box, max_tuples=max_tuples)
     return out
 
 

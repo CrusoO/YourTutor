@@ -269,7 +269,9 @@ def cmd_variants(args: argparse.Namespace) -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
         suffix = KINDS[kind]["suffix"]
         for source in one_per_skill(templates):
-            variant = derive(source, kind)
+            if args.skill and args.skill not in str(source["skill_id"]):
+                continue
+            variant = derive(source, kind, args.max_tuples)
             path = out_dir / f"{variant['id']}.yaml"
             path.write_text(
                 yaml.safe_dump(variant, sort_keys=False, allow_unicode=True),
@@ -482,6 +484,8 @@ def build_parser() -> argparse.ArgumentParser:
     )  # fmt: skip
     var.add_argument("--count", type=int, default=2, help="items per variant template")
     var.add_argument("--seed", type=int, default=3)
+    var.add_argument("--skill", default="", help="only skills whose id contains this text")
+    var.add_argument("--max-tuples", type=int, default=120, help="box size cap per variant")
     var.set_defaults(run=cmd_variants)
 
     aud = sub.add_parser("audit-sample", help="list a random and a PPS sample of stamped items")
