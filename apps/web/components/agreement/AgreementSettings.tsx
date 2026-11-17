@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Tick } from "@/components/agreement/AgreementForm";
-import { roleTitle, settings, ui, type Role } from "@/lib/agreement-copy";
+import { CONSENT_TEXT_SCOPES, roleTitle, settings, ui, type ConsentTextScope, type Role } from "@/lib/agreement-copy";
 import {
   acceptAgreement,
   getCatalog,
@@ -12,6 +13,14 @@ import {
   type Catalog,
   type MyAgreements,
 } from "@/lib/agreements-api";
+
+// The scope switches carry the approved wording and the withdrawal explanation; loaded only here.
+const ScopeToggle = dynamic(() => import("@/components/agreement/ScopeToggle"), {
+  ssr: false,
+  loading: () => <p>…</p>,
+});
+const isTextScope = (id: string): id is ConsentTextScope =>
+  (CONSENT_TEXT_SCOPES as readonly string[]).includes(id);
 
 /**
  * Everything the person agreed to, each item its own box. Unticking withdraws it at once (the same one
@@ -69,16 +78,27 @@ export default function AgreementSettings() {
             <p className="muted">
               {settings.version}: {row.version}
             </p>
-            {catalog.items.map((item) => (
-              <Tick
-                key={item.id}
-                role={row.role as Role}
-                item={item}
-                checked={row.items.includes(item.id)}
-                disabled={busy}
-                onChange={(on) => void change(row.role, item.id, item.required, on)}
-              />
-            ))}
+            {catalog.items.map((item) =>
+              isTextScope(item.id) ? (
+                <ScopeToggle
+                  key={item.id}
+                  role={row.role as Role}
+                  scope={item.id}
+                  on={row.items.includes(item.id)}
+                  disabled={busy}
+                  onChange={(on) => void change(row.role, item.id, false, on)}
+                />
+              ) : (
+                <Tick
+                  key={item.id}
+                  role={row.role as Role}
+                  item={item}
+                  checked={row.items.includes(item.id)}
+                  disabled={busy}
+                  onChange={(on) => void change(row.role, item.id, item.required, on)}
+                />
+              ),
+            )}
             {!row.complete ? (
               <Link href="/agreement" data-testid="agree-again">
                 {settings.agreeAgain}

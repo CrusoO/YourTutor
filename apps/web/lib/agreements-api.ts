@@ -24,6 +24,15 @@ async function open(path: string, init: RequestInit = {}) {
 }
 
 export const getCatalog = (role: string): Promise<Catalog> => open(`/agreements/${role}`);
+export type ConsentText = {
+  scope: string;
+  version: string;
+  lang: string;
+  guardian: { text: string; sha256: string };
+  child: { text: string; sha256: string };
+};
+/** The approved wording of one consent scope (404 when its flag is off or no verified text exists). */
+export const getConsentText = (scope: string): Promise<ConsentText> => open(`/consent/texts/${scope}`);
 export const getAuthOptions = (): Promise<AuthOptions> => open("/auth/options");
 export const myAgreements = (): Promise<MyAgreements> => staffReq("/agreements/me");
 export const acceptAgreement = (role: string, version: string, items: string[]): Promise<MyAgreements> =>
