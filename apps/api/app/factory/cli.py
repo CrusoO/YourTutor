@@ -31,7 +31,12 @@ from app.factory.registry import REGISTRY, Lane
 from app.factory.runner import build_item, certify_lane_template, template_hash
 from app.factory.stamp import StampRefused, stamp
 
-LANE_MODULES = ("app.factory.lanes.maths_quadratic",)  # a new lane adds its module here
+# a new lane adds its module here; importing it registers the lane
+LANE_MODULES = (
+    "app.factory.lanes.maths_quadratic",
+    "app.factory.lanes.maths",
+    "app.factory.lanes.physics",
+)
 
 
 def _root(arg: Path | None) -> Path:
