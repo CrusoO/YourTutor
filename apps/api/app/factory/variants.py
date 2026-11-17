@@ -24,7 +24,7 @@ KINDS: dict[str, dict[str, str]] = {
 
 
 MAX_VALUES_PER_AXIS = 5
-MAX_TUPLES = 400  # a variant needs a handful of items, not the whole box to be certified
+MAX_TUPLES = 120  # a variant needs a handful of items, not the whole box to be certified
 
 
 def shrink_box(box: Mapping[str, Any], limit: int = MAX_VALUES_PER_AXIS) -> dict[str, Any]:
