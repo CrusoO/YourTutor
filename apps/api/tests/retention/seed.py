@@ -31,6 +31,7 @@ from app.db.models import (
     GroupResultRow,
     GuardianApprovalRow,
     ItemRow,
+    LearnerMethodCountRow,
     LessonRecordRow,
     LlmCallRow,
     LoopBRecordRow,
@@ -51,6 +52,7 @@ from app.db.models import (
     UserRow,
     VideoJobRow,
 )
+from app.learner.profile.counts import week_index
 from tests.conftest import auth_header, seed_user, signup
 
 # Tables the delete code knows about (every table that refers, directly or through another such
@@ -69,6 +71,7 @@ HANDLED = frozenset(
         "group_lessons",
         "group_results",
         "guardian_approvals",
+        "learner_method_counts",
         "lesson_records",
         "llm_calls",
         "loop_b_records",
@@ -271,6 +274,14 @@ def seed_learner(
                 misconception_id=f"MC.{tag}",
                 item_id=f"ITEM.{tag}",
                 created_at=now,
+            ),
+            LearnerMethodCountRow(
+                student_id=sid,
+                skill_id="S1",
+                key_id=1,
+                payload=b"\x00" * 40,
+                schema_v=1,
+                updated_week=week_index(now.date()),
             ),
             LoopBRecordRow(student_id=sid, version=1, data={"k": 1}, updated_at=now),
             LoopBSnapshotRow(

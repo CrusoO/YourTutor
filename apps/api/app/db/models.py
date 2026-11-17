@@ -11,6 +11,8 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     Integer,
+    LargeBinary,
+    SmallInteger,
     String,
     Text,
     UniqueConstraint,
@@ -590,6 +592,25 @@ class LoopBRecordRow(Base):
     version: Mapped[int] = mapped_column(Integer)
     data: Mapped[dict] = mapped_column(JSONType)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class LearnerMethodCountRow(Base):
+    """Sealed method and error counts per (student, skill). Counts only; see app.learner.profile.
+
+    `payload` is AES-256-GCM (nonce || ciphertext || tag) with the student, skill and schema as
+    associated data. `updated_week` is a plain column so retention needs no decryption.
+    """
+
+    __tablename__ = "learner_method_counts"
+
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), primary_key=True
+    )
+    skill_id: Mapped[str] = mapped_column(String, primary_key=True)
+    key_id: Mapped[int] = mapped_column(SmallInteger)
+    payload: Mapped[bytes] = mapped_column(LargeBinary)
+    schema_v: Mapped[int] = mapped_column(SmallInteger)
+    updated_week: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class LoopBSnapshotRow(Base):

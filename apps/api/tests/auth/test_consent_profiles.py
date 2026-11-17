@@ -36,6 +36,7 @@ def test_the_default_profile_lists_every_scope_including_free_text() -> None:
         "free_text",
         "uploads",
         "research_pseudonymised",
+        "learning_profile",
     }
     assert profile.guest_retention_days == 90
 

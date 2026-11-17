@@ -84,6 +84,12 @@ class Settings(BaseSettings):
     confidence_rules: bool = False
     # env: PILOT_EXPORT_SALT. Keys the pilot export pseudonyms; empty: the export refuses to run.
     pilot_export_salt: str = ""
+    # env: LEARNER_PROFILE_ENABLED. Off: nothing is written or read and the table stays empty.
+    # Needs counsel's view (DPDP s.9, behavioural monitoring of under-18s) before production.
+    learner_profile_enabled: bool = False
+    # env: PROFILE_ENC_KEYS. `id:base64key,...` newest first (32-byte keys). Empty with the flag on:
+    # the store refuses to write. Never logged.
+    profile_enc_keys: str = ""
     # env: ADULT_LEARNERS_ASSUMED. Unset means "assume adults in development, never in production".
     # For now every learner is treated as 18 or older, which lets a teacher or manager see
     # anonymous group results. It is a stand-in for a real age gate: production refuses to start
@@ -208,6 +214,10 @@ def production_config_errors(
             errors.append(f"{env_name} (Claude is the only provider: name it anthropic/<model>)")
     if llm_route_enabled(current) and current.llm_daily_cap <= 0:
         errors.append("LLM_DAILY_CAP (0 turns the daily model limit off while an AI route is on)")
+    if current.learner_profile_enabled and not current.profile_enc_keys.strip():
+        errors.append(
+            "PROFILE_ENC_KEYS (empty while LEARNER_PROFILE_ENABLED: nothing can be sealed)"
+        )
     for origin in current.cors_extra_origins.split(","):
         if any(host in origin.strip().lower() for host in _LOCAL_HOSTS):
             errors.append("CORS_EXTRA_ORIGINS (contains a localhost origin)")

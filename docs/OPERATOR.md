@@ -99,7 +99,7 @@ Run these from cron or a scheduler (they are idempotent):
 cd apps/api
 python -m app.reports weekly            # the guardian report; once a week is enough, run it daily
 python -m app.retention all --dry-run  # count what would go (nothing is deleted)
-python -m app.retention all             # purge_guests, approvals (expired child profiles), otp, rate_events, auth_sessions, llm_calls, video_jobs
+python -m app.retention all             # purge_guests, approvals (expired child profiles), otp, rate_events, auth_sessions, llm_calls, video_jobs, profile_counts (method/error profile rows older than 26 weeks; empty while LEARNER_PROFILE_ENABLED is off)
 ```
 
 `all` prints one line of counts per job (no personal data) and exits 1 only if a job failed. The

@@ -17,8 +17,12 @@ certifi==2026.10.23
     # via
     #   httpcore
     #   httpx
+cffi==2.1.1
+    # via cryptography
 click==8.5.1
     # via uvicorn
+cryptography==46.0.7
+    # via -r requirements.txt
 docstring-parser==0.18.0
     # via anthropic
 fastapi==0.162.2
@@ -83,6 +87,8 @@ psycopg==3.3.8
     # via -r requirements.txt
 psycopg-binary==3.3.8
     # via psycopg
+pycparser==3.12
+    # via cffi
 pydantic==2.14.3
     # via
     #   anthropic

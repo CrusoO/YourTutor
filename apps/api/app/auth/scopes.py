@@ -10,6 +10,7 @@ CONSENT_SCOPES = frozenset(
         "ai_processing",
         "free_text",
         "uploads",
+        "learning_profile",
     }
 )
 # Everything except plain tutoring needs a guardian's informed choice; a guest never grants these.
