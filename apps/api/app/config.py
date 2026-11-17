@@ -87,6 +87,15 @@ class Settings(BaseSettings):
     # env: LEARNER_PROFILE_ENABLED. Off: nothing is written or read and the table stays empty.
     # Needs counsel's view (DPDP s.9, behavioural monitoring of under-18s) before production.
     learner_profile_enabled: bool = False
+    # Per-scope switches (env: SCOPE_<NAME>_ENABLED). Scopes that exist today default to on, which
+    # is their current behaviour; the three new scopes default to off. A new scope cannot be granted
+    # while its switch is off. All consent wording is a draft until the owner approves it.
+    scope_teacher_share_enabled: bool = True
+    scope_research_enabled: bool = True
+    scope_ai_processing_enabled: bool = True
+    scope_math_check_enabled: bool = False
+    scope_photo_check_enabled: bool = False
+    scope_ai_help_typed_enabled: bool = False
     # env: PROFILE_ENC_KEYS. `id:base64key,...` newest first (32-byte keys). Empty with the flag on:
     # the store refuses to write. Never logged.
     profile_enc_keys: str = ""

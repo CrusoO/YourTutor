@@ -333,8 +333,34 @@ class ConsentRow(Base):
     granted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     paper_ref: Mapped[str | None] = mapped_column(String, nullable=True)
+    # scope -> {version, lang, sha256: {audience: hash}} of the wording shown (None: no text yet)
+    text_manifest: Mapped[dict | None] = mapped_column(JSONType, nullable=True)
+    # how the guardian was checked
+    method: Mapped[str | None] = mapped_column(String, nullable=True)
+    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     student: Mapped[StudentRow] = relationship(back_populates="consents")
+
+
+class ConsentEventRow(Base):
+    """Append-only audit of consent changes, hash-chained per student. No IP, no free text.
+
+    No foreign keys on purpose: the trail must outlive the account it describes.
+    """
+
+    __tablename__ = "consent_events"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    student_id: Mapped[uuid.UUID | None] = mapped_column(Uuid, nullable=True, index=True)
+    guardian_user_id: Mapped[uuid.UUID | None] = mapped_column(Uuid, nullable=True)
+    scope: Mapped[str] = mapped_column(String)
+    action: Mapped[str] = mapped_column(String)
+    text_sha256: Mapped[str | None] = mapped_column(String, nullable=True)
+    method: Mapped[str | None] = mapped_column(String, nullable=True)
+    actor_kind: Mapped[str] = mapped_column(String)
+    prev_hash: Mapped[str] = mapped_column(String)
+    row_hash: Mapped[str] = mapped_column(String)
 
 
 class AgreementRow(Base):

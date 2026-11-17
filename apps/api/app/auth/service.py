@@ -9,7 +9,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import ColumnElement, delete, select
 from sqlalchemy.orm import Session
 
-from app.auth import agreements
+from app.auth import agreements, consent_events, consent_texts
 from app.auth.actor import Actor
 from app.auth.authz import (
     can_export_family,
@@ -23,7 +23,7 @@ from app.auth.authz import (
 )
 from app.auth.consent import active_consent, available_scopes, has_scope, is_guest
 from app.auth.contact import challenge_key, is_synthetic
-from app.auth.scopes import scope_error
+from app.auth.scopes import NEW_SCOPES, SCOPE_REGISTRY, scope_error
 from app.auth.security import (
     as_utc,
     codes_match,
@@ -336,6 +336,31 @@ def check_scopes(session: Session, student_id: uuid.UUID, scopes: list[str]) -> 
         raise HTTPException(status_code=400, detail=error)
 
 
+def _actor_kind(actor: Actor) -> str:
+    return "admin" if actor.is_admin else "guardian"
+
+
+def _shown_texts(scopes: list[str]) -> dict[str, dict[str, Any]]:
+    """The current approved wording for each requested scope that has some, by scope id.
+
+    A new scope with its flag off or no verified text is refused (400); an existing scope with no
+    text is granted as before and simply records nothing.
+    """
+    shown: dict[str, dict[str, Any]] = {}
+    for scope in scopes:
+        entry = SCOPE_REGISTRY[scope]
+        is_new = scope in NEW_SCOPES
+        if is_new and not (entry.flag_setting and getattr(settings, entry.flag_setting, False)):
+            raise HTTPException(status_code=400, detail=f"scope not enabled: {scope}")
+        manifest = consent_texts.current_manifest(entry.text_scope) if entry.text_scope else None
+        if manifest is None:
+            if is_new:
+                raise HTTPException(status_code=400, detail=f"consent text missing: {scope}")
+            continue
+        shown[scope] = manifest
+    return shown
+
+
 def grant_consent(
     session: Session,
     actor: Actor,
@@ -348,9 +373,19 @@ def grant_consent(
     student = student_or_404(session, student_id)
     require(can_manage_student(actor, student))
     check_scopes(session, student_id, scopes)
+    shown = _shown_texts(scopes)
     existing = active_consent(session, student_id)
     if existing:
         existing.revoked_at = now_utc()
+        for dropped in sorted(set(existing.scopes or []) - set(scopes)):
+            consent_events.append_event(
+                session,
+                student_id=student_id,
+                guardian_user_id=student.parent_id,
+                scope=dropped,
+                action="withdrawn",
+                actor_kind=_actor_kind(actor),
+            )
     if PROFILE_SCOPE not in scopes:
         delete_student_rows(session, student_id)  # no learning_profile consent: no profile rows
     row = ConsentRow(
@@ -361,9 +396,23 @@ def grant_consent(
         scopes=list(scopes),
         granted_at=now_utc(),
         paper_ref=paper_ref,
+        text_manifest=shown or None,
+        method=None,
+        verified_at=None,
     )
     session.add(row)
     session.flush()
+    for scope in scopes:
+        consent_events.append_event(
+            session,
+            student_id=student_id,
+            guardian_user_id=student.parent_id,
+            scope=scope,
+            action="granted",
+            actor_kind=_actor_kind(actor),
+            text_sha256=shown.get(scope, {}).get("sha256", {}).get("guardian"),
+            method=row.method,
+        )
     return row
 
 
@@ -379,6 +428,15 @@ def revoke_consent(session: Session, actor: Actor, student_id: uuid.UUID) -> Non
     row = active_consent(session, student_id)
     if row:
         row.revoked_at = now_utc()
+        for scope in row.scopes or []:
+            consent_events.append_event(
+                session,
+                student_id=student_id,
+                guardian_user_id=student.parent_id,
+                scope=scope,
+                action="withdrawn",
+                actor_kind=_actor_kind(actor),
+            )
     delete_student_rows(session, student_id)  # revoking deletes the profile at once
 
 
