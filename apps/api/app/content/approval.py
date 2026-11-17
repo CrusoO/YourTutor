@@ -17,7 +17,8 @@ from typing import Any
 
 import yaml
 
-from app.ask.passages import Passage, passages_dir
+from app.ask.passages import Passage, passage_files
+from app.content.factory_roots import content_files
 from app.lessons.schema import Lesson
 
 APPROVAL_KEYS = ("status", "reviewed_by", "content_hash", "approved_hash", "reviewer")
@@ -78,7 +79,7 @@ def reset_stale_approvals(root: Path, *, write: bool = True) -> list[str]:
     """Turn approved lessons and passages whose content no longer matches their hash back into
     drafts. Returns one warning per object reset."""
     warnings: list[str] = []
-    for path in sorted((root / "lessons").glob("*.yaml")) if (root / "lessons").is_dir() else []:
+    for path in content_files(root, "lessons"):
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
         if not isinstance(data, dict) or data.get("status") != "approved":
             continue
@@ -91,8 +92,7 @@ def reset_stale_approvals(root: Path, *, write: bool = True) -> list[str]:
             warnings.append(f"{lesson.id} approved lesson changed; reset to draft (hash mismatch)")
             if write:
                 _dump(path, _header(path), data)
-    folder = passages_dir(root)
-    for path in sorted(folder.glob("*.yaml")) if folder.is_dir() else []:
+    for path in passage_files(root):
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         rows = data.get("passages") if isinstance(data, dict) else None
         if not isinstance(rows, list):

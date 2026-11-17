@@ -25,8 +25,10 @@ def lessons_dir(root: Path | None = None) -> Path:
 
 
 def _files(root: Path | None) -> list[Path]:
-    folder = lessons_dir(root)
-    return sorted(folder.glob("*.yaml")) if folder.is_dir() else []
+    """The root's own lessons and those of every `<board>/<class>/<subject>` folder under it."""
+    from app.content.factory_roots import content_files
+
+    return content_files(root or content_root(), "lessons")
 
 
 def _parse(path: Path) -> tuple[Lesson | None, list[str]]:
@@ -101,7 +103,7 @@ _CACHE: dict[tuple[str, tuple[tuple[str, float], ...]], dict[str, Lesson]] = {}
 
 def _cached(root: Path | None) -> dict[str, Lesson]:
     folder = lessons_dir(root)
-    signature = tuple((p.name, p.stat().st_mtime) for p in _files(root))
+    signature = tuple((str(p), p.stat().st_mtime) for p in _files(root))
     key = (str(folder), signature)
     if key not in _CACHE:
         _CACHE.clear()

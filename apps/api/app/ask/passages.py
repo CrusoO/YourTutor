@@ -44,9 +44,14 @@ def passages_dir(root: Path) -> Path:
     return root / "passages"
 
 
-def _files(root: Path) -> list[Path]:
-    folder = passages_dir(root)
-    return sorted(folder.glob("*.yaml")) if folder.is_dir() else []
+def passage_files(root: Path) -> list[Path]:
+    """The root's own passages and those of every `<board>/<class>/<subject>` folder under it."""
+    from app.content.factory_roots import content_files
+
+    return content_files(root, "passages")
+
+
+_files = passage_files
 
 
 def _parse(path: Path) -> tuple[list[Passage], list[str]]:
