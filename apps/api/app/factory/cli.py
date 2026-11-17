@@ -32,6 +32,7 @@ from app.factory.runner import build_item, certify_lane_template, template_hash
 from app.factory.stamp import StampRefused, stamp
 
 # a new lane adds its module here; importing it registers the lane
+TEMPLATE_SCHEMA = "factory-template/1"
 LANE_MODULES = (
     "app.factory.lanes.maths_quadratic",
     "app.factory.lanes.maths",
@@ -226,6 +227,27 @@ def cmd_stamp(args: argparse.Namespace) -> int:
     return 0 if stamped else 1
 
 
+def cmd_derive(args: argparse.Namespace) -> int:
+    """Write the variant (diagnostic, explain, checkpoint) of one template per skill."""
+    from app.factory.variants import derive, one_per_skill
+
+    sources = [
+        yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(args.source.glob("*.yaml"))
+    ]
+    templates = [t for t in sources if isinstance(t, dict) and t.get("schema") == TEMPLATE_SCHEMA]
+    args.out.mkdir(parents=True, exist_ok=True)
+    chosen = one_per_skill(templates)
+    for template in chosen:
+        variant = derive(template, args.kind)
+        (args.out / f"{variant['id']}.yaml").write_text(
+            yaml.safe_dump(variant, sort_keys=False, allow_unicode=True),
+            encoding="utf-8",
+            newline="\n",
+        )
+    print(f"wrote {len(chosen)} {args.kind} templates into {args.out}")
+    return 0
+
+
 def _stamped_items(root: Path) -> list[dict[str, Any]]:
     out = []
     for path in sorted((root / "items" / "factory").rglob("*.yaml")):
@@ -346,6 +368,12 @@ def build_parser() -> argparse.ArgumentParser:
     st.add_argument("--seed", type=int, default=0)
     with_index(st)
     st.set_defaults(run=cmd_stamp)
+
+    der = sub.add_parser("derive", help="write diagnostic/explain/checkpoint variant templates")
+    der.add_argument("kind", choices=["diagnostic", "explain", "checkpoint"])
+    der.add_argument("--source", type=Path, required=True, help="folder of factory templates")
+    der.add_argument("--out", type=Path, required=True)
+    der.set_defaults(run=cmd_derive)
 
     aud = sub.add_parser("audit-sample", help="list a random and a PPS sample of stamped items")
     aud.add_argument("--rate", type=float, default=0.02)
