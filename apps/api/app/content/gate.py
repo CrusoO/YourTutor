@@ -154,10 +154,10 @@ def overlay_is_targetable(
 
 # What a chapter must hold, counting only items the serving gate admits, before it counts as live
 # without a human-approved overlay. Practice matches the approval rule; one diagnostic item per
-# skill is enough for the probe warm-up; every role that gives the ladder evidence is present.
+# skill is enough for the probe warm-up. Roles are not required: the policy falls back to any
+# eligible role and logs a content gap, so a missing role lowers quality, not safety.
 TIER_LIVE_MIN_PRACTICE = 5
 TIER_LIVE_MIN_DIAGNOSTIC = 1
-TIER_LIVE_ROLES = ("explain", "apply", "transfer")
 
 
 def tier_live_gaps(
@@ -171,14 +171,12 @@ def tier_live_gaps(
     """
     practice: Counter[str] = Counter()
     diagnostic: Counter[str] = Counter()
-    roles: Counter[tuple[str, str]] = Counter()
     for row in rows:
         if not row_is_servable(row, allow_draft=allow_draft, serve_tier_a_unreviewed=True):
             continue
         skill = str(getattr(row, "primary_skill", ""))
         if getattr(row, "pool", None) == "practice":
             practice[skill] += 1
-            roles[(skill, getattr(row, "role", None) or "procedure")] += 1
         elif getattr(row, "pool", None) == "diagnostic":
             diagnostic[skill] += 1
     gaps: list[str] = []
@@ -187,9 +185,6 @@ def tier_live_gaps(
             gaps.append(f"{skill_id} practice {practice[skill_id]}/{TIER_LIVE_MIN_PRACTICE}")
         if diagnostic[skill_id] < TIER_LIVE_MIN_DIAGNOSTIC:
             gaps.append(f"{skill_id} diagnostic {diagnostic[skill_id]}/{TIER_LIVE_MIN_DIAGNOSTIC}")
-        gaps.extend(
-            f"{skill_id} role {role} 0/1" for role in TIER_LIVE_ROLES if roles[(skill_id, role)] < 1
-        )
     return gaps
 
 
