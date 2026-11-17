@@ -70,3 +70,18 @@ def test_variant_is_certified_and_stamped_into_its_pool(tmp_path: Path, kind, po
         if role:
             assert item.role.value == role
             assert "A classmate says the answer is" in item.stem.en
+
+
+def test_variants_command_is_resumable(tmp_path: Path) -> None:
+    source = tmp_path / "src"
+    source.mkdir()
+    (source / "t.yaml").write_text(yaml.safe_dump(SMALL), encoding="utf-8")
+    root = tmp_path / "content"
+    args = ["--root", str(root), "variants", "--source", str(source), "--kind", "diagnostic"]
+    assert main([*args, "--count", "2"]) == 0
+    items = sorted((root / "items" / "factory" / "maths").glob("*.dx.yaml"))
+    assert len(items) == 2
+    assert main([*args, "--count", "2"]) == 0  # nothing more to do
+    assert len(list((root / "items" / "factory" / "maths").glob("*.dx.yaml"))) == 2
+    assert main([*args, "--count", "3"]) == 0  # tops up by one
+    assert len(list((root / "items" / "factory" / "maths").glob("*.dx.yaml"))) == 3
