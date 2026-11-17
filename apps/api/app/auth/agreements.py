@@ -23,6 +23,7 @@ from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
 from app.auth.consent import active_consent, available_scopes
+from app.auth.scopes import SCOPE_REGISTRY
 from app.auth.security import now_utc
 from app.config import settings
 from app.db.models import AgreementRow, StudentRow
@@ -48,6 +49,10 @@ _LEARNER_ITEMS = (
     Item("free_text", False, "free_text"),
     Item("uploads", False, "uploads"),
     Item("research_pseudonymised", False, "research_pseudonymised"),
+    Item("learning_profile", False, "learning_profile"),
+    Item("math_check", False, "math_check"),
+    Item("photo_check", False, "photo_check"),
+    Item("ai_help_typed", False, "ai_help_typed"),
     Item("progress_reports", False),
 )
 
@@ -63,15 +68,26 @@ CATALOG: dict[str, tuple[Item, ...]] = {
 }
 
 
+def scope_switched_on(scope: str) -> bool:
+    """Whether the scope's flag is on (a scope with no flag is always on)."""
+    flag = SCOPE_REGISTRY[scope].flag_setting
+    return flag is None or bool(getattr(settings, flag, False))
+
+
+def items_for(role: str) -> tuple[Item, ...]:
+    """The role's items that can be agreed now: an item whose scope flag is off is not offered."""
+    return tuple(i for i in CATALOG[role] if i.scope is None or scope_switched_on(i.scope))
+
+
 def catalog(role: str) -> dict[str, object]:
     if role not in CATALOG:
         raise HTTPException(status_code=404, detail="unknown role")
-    return {"role": role, "version": VERSION, "items": [i.public() for i in CATALOG[role]]}
+    return {"role": role, "version": VERSION, "items": [i.public() for i in items_for(role)]}
 
 
 def items_error(role: str, accepted: list[str]) -> str | None:
     """Why this selection cannot be accepted, or None. Pure: the server runs it on every accept."""
-    items = CATALOG.get(role)
+    items = items_for(role) if role in CATALOG else None
     if items is None:
         return "unknown role"
     known = {i.id for i in items}
@@ -85,7 +101,7 @@ def items_error(role: str, accepted: list[str]) -> str | None:
 
 
 def scopes_of(role: str, accepted: list[str]) -> list[str]:
-    return [i.scope for i in CATALOG[role] if i.scope and i.id in accepted]
+    return [i.scope for i in items_for(role) if i.scope and i.id in accepted]
 
 
 def required_present(role: str, accepted: list[str]) -> bool:

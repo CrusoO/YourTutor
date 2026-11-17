@@ -28,9 +28,9 @@ from app.db.models import (
 from app.retention import run_job
 from tests.conftest import auth_header, signup
 
-GUARDIAN_ALL = [i.id for i in agreements.CATALOG["guardian"]]
-GUARDIAN_REQUIRED = [i.id for i in agreements.CATALOG["guardian"] if i.required]
-CHILD_ACK = [i.id for i in agreements.CATALOG["child"]]
+GUARDIAN_ALL = [i.id for i in agreements.items_for("guardian")]
+GUARDIAN_REQUIRED = [i.id for i in agreements.items_for("guardian") if i.required]
+CHILD_ACK = [i.id for i in agreements.items_for("child")]
 PHONE = "+15550001234"
 
 

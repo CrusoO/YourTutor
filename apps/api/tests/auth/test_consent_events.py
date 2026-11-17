@@ -149,11 +149,11 @@ def test_a_new_scope_is_refused_without_a_verified_text(monkeypatch: pytest.Monk
     assert err.value.status_code == 400 and "text missing" in str(err.value.detail)
 
 
-def test_a_guardian_cannot_grant_a_new_scope_the_profile_does_not_offer(
+def test_a_guardian_cannot_grant_a_new_scope_while_its_flag_is_off(
     client: TestClient, world: World
 ) -> None:
     res = _grant(client, world, world.student_noshare_id, ["tutoring", "math_check"])
-    assert res.status_code == 400
+    assert res.status_code == 400 and "not enabled" in res.text
 
 
 def test_deprecated_scopes_read_as_their_replacements_and_are_never_written() -> None:

@@ -19,9 +19,9 @@ from app.config import settings
 from app.db.models import AgreementRow, ConsentRow, StudentRow
 from tests.conftest import auth_header, seed_user, signup
 
-GUARDIAN_ALL = [i.id for i in agreements.CATALOG["guardian"]]
-GUARDIAN_REQUIRED = [i.id for i in agreements.CATALOG["guardian"] if i.required]
-ADULT_ALL = [i.id for i in agreements.CATALOG["adult"]]
+GUARDIAN_ALL = [i.id for i in agreements.items_for("guardian")]
+GUARDIAN_REQUIRED = [i.id for i in agreements.items_for("guardian") if i.required]
+ADULT_ALL = [i.id for i in agreements.items_for("adult")]
 TEACHER_ALL = [i.id for i in agreements.CATALOG["teacher"]]
 
 

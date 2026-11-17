@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, ConfigDict
 
-from app.auth import adults, agreements, children
+from app.auth import adults, agreements, children, consent_texts
 from app.auth.deps import ActorDep, DbSession
+from app.auth.scopes import SCOPE_REGISTRY
 from app.proxy import client_ip
 
 router = APIRouter()
@@ -33,6 +34,19 @@ class WithdrawIn(BaseModel):
 @router.get("/agreements/me")
 def my_agreements(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     return agreements.my_agreements(db, actor)
+
+
+@router.get("/consent/texts/{scope}")
+def consent_text(scope: str) -> dict[str, Any]:
+    """The approved wording of one consent scope (guardian and child versions, each with the sha256
+    a consent record stores). Only for a scope whose flag is on and whose text is verified."""
+    entry = SCOPE_REGISTRY.get(scope)
+    if entry is None or not entry.text_scope or not agreements.scope_switched_on(scope):
+        raise HTTPException(status_code=404, detail="no consent text for this scope")
+    text = consent_texts.approved_text(entry.text_scope)
+    if text is None:
+        raise HTTPException(status_code=404, detail="no consent text for this scope")
+    return {**text, "scope": scope}
 
 
 @router.get("/agreements/{role}")
