@@ -96,7 +96,7 @@ def test_the_label_a_student_sees_is_calculation_checked_never_human_reviewed(
         original=bool((row.provenance or {}).get("original")),
         reviewed=row.reviewed_by is not None,
         pattern=None,
-        verification_label=row.verification["label"],
+        verification_label=(row.verification or {})["label"],
     )
     assert labels is not None and labels["badge"] == VERIFICATION_BADGE
     assert "reviewed" not in labels  # nobody has reviewed it
