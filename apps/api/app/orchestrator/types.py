@@ -37,6 +37,7 @@ class CatalogItem:
     solution_steps: tuple[str, ...] = ()
     misconception_rules: tuple[tuple[str, tuple[str, ...]], ...] = ()
     prediction_prompt: str = ""
+    stem: str = ""  # English question text; shown with the prediction so it is self-contained
     authored_explanation: str = ""
     verify: str | dict[str, Any] | None = None
     options: tuple[dict[str, Any], ...] = ()

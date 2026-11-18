@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+from dataclasses import replace
 from datetime import timedelta
 
 from app.content.validator import item_tier
@@ -226,6 +227,16 @@ def test_a_weak_prerequisite_with_no_servable_items_is_not_chosen() -> None:
     learner = make_learner(p_known={"MATH.T": 0.3, "MATH.INTRO": 0.1})
     action = policy(learner, session, None)
     assert action.skill_id == "MATH.T"
+
+
+def test_the_prediction_shows_the_question_it_is_about() -> None:
+    row = catalog_item("ITEM.P", skill="MATH.S1", difficulty=0.2)
+    row = replace(row, stem="Compute 15 - 3.", prediction_prompt="Will it be smaller?")
+    session = make_session(row, introduced=set())
+    from app.orchestrator.policy import _prediction_for
+
+    text = _prediction_for(session, "MATH.S1")
+    assert "Compute 15 - 3." in text and text.endswith("Will it be smaller?")
 
 
 def test_item_tiers_and_least_recently_shown() -> None:

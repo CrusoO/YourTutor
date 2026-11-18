@@ -1545,7 +1545,11 @@ def _match_misconception(item: CatalogItem, response: str) -> str | None:
 def _prediction_for(session: SessionState, skill: str) -> str:
     for row in session.catalog:
         if row.primary_skill == skill and row.prediction_prompt:
-            return row.prediction_prompt
+            # The prompt often refers to "the first number" or "the coefficient": show the question
+            # it is about, or the student is asked to predict something they have not seen.
+            if not row.stem:
+                return row.prediction_prompt
+            return row.stem + "\n\n" + row.prediction_prompt
     return GENERIC_SOCRATIC
 
 
