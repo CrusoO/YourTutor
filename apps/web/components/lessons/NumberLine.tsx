@@ -6,6 +6,7 @@ import {
   checkPrediction,
   clampToLine,
   directionOf,
+  labelledTicks,
   expression,
   fmt,
   hopAnnouncement,
@@ -43,6 +44,10 @@ export type NumberLineProps = {
   reducedMotion?: boolean;
   hopMs?: number;
   autoPlay?: boolean;
+  /** The dot has been placed (true) or reset (false). Lets the screen's main button say "That is my guess". */
+  onTouchedChange?: (touched: boolean) => void;
+  /** Bump this number to lock the guess in from outside (the screen's main button, which then replaces the figure's own button). Ignored until the dot is placed. */
+  lockSignal?: number;
   /** Show the Read aloud / Listen control with the generated narration. Default true. */
   narrate?: boolean;
 };
@@ -92,6 +97,8 @@ function Line({
   hopMs = 650,
   autoPlay = true,
   narrate = true,
+  onTouchedChange,
+  lockSignal,
 }: NumberLineProps) {
   const copy = t(locale);
   const reduced = reducedMotion ?? prefersReducedMotion();
@@ -128,6 +135,18 @@ function Line({
       setTouched(true);
     }
   }, [externalGuess, after, win.min, win.max]);
+
+  useEffect(() => {
+    onTouchedChange?.(phase === "predict" && touched);
+  }, [phase, touched, onTouchedChange]);
+
+  const lockSeen = useRef<number | undefined>(lockSignal);
+  const lockRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    if (lockSignal === lockSeen.current) return;
+    lockSeen.current = lockSignal;
+    if (phase === "predict" && touched && after !== "hold") lockRef.current();
+  }, [lockSignal, phase, touched, after]);
 
   // The hops: one unit at a time, each announced politely.
   useEffect(() => {
@@ -198,6 +217,8 @@ function Line({
     }
   }
 
+  lockRef.current = lock;
+
   function replay() {
     setHop(0);
     setPlaying(!reduced);
@@ -219,6 +240,7 @@ function Line({
   const everyLabel = unit >= 22 ? 1 : unit >= 11 ? 2 : 5;
   const ticks: number[] = [];
   for (let n = win.min; n <= win.max; n++) ticks.push(n);
+  const labelled = labelledTicks(win.min, win.max, unit, position, everyLabel);
   const drawnHops = phase === "hops" ? (reduced ? total : hop) : 0;
   const trueResult = result ?? (priorGuess !== null && phase === "hops" ? checkPrediction(start, delta, priorGuess) : null);
   const guessMark = trueResult && !trueResult.correct && showAnswer ? trueResult.guess : null;
@@ -296,7 +318,7 @@ function Line({
                 y2={AXIS_Y + (n === 0 ? 8 : 5)}
                 className={n === 0 ? styles.zeroTick : styles.tick}
               />
-              {n === position || (Math.abs(n - position) * unit >= 20 && (n % everyLabel === 0 || n === 0)) ? (
+              {labelled.has(n) ? (
                 <text
                   x={x(n)}
                   y={AXIS_Y + 22}
@@ -399,7 +421,7 @@ function Line({
             <button type="button" className={styles.btn} onClick={() => move(position + 1)} disabled={position >= win.max}>
               {copy.numberLineStepRight}
             </button>
-            {after !== "hold" ? (
+            {after !== "hold" && lockSignal === undefined ? (
               <button type="button" className={`${styles.btn} ${styles.main}`} onClick={lock} disabled={!touched}>
                 {copy.numberLineLockIn}
               </button>

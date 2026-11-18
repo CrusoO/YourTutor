@@ -322,7 +322,13 @@ export default function SessionPage() {
       {action.type === "predict" ? (
         <>
           <h1>{copy.predict}</h1>
+          {item?.stem ? <p className="stem" data-testid="predict-problem">{item.stem}</p> : null}
           <p className="stem">{action.text || item?.prediction}</p>
+          {!item?.stem ? (
+            <p className="muted" data-testid="predict-no-problem">
+              {copy.predictNoProblem}
+            </p>
+          ) : null}
           <button type="button" onClick={() => send("predict_response", { response: "yes" })}>
             {copy.yes}
           </button>
