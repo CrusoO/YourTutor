@@ -7,117 +7,121 @@ status: draft
 beats:
 - kind: predict
   prompt:
-    en: What is −6 + 15?
+    en: You are on floor 3 of a lift. It goes up 4 floors. Which floor do you reach?
   number_line:
     kind: number_line
-    start: -6
-    delta: 15
-    answer: 9
+    start: 3
+    delta: 4
+    answer: 7
   choices:
-  - value: '9'
+  - value: '7'
     text:
-      en: '9'
-  - value: −9
+      en: '7'
+  - value: '6'
     text:
-      en: −9
-  - value: '21'
+      en: '6'
+  - value: '12'
     text:
-      en: '21'
+      en: '12'
   reveal:
-    en: Hold on to that guess. We will check it on a number line.
+    en: Keep your count in mind. We will watch the lift next.
 - kind: explain_scene
   title:
-    en: Watch it on a number line
+    en: Watch the lift
   scene:
     id: SCENE.INTEGERS.OPERATIONS.EXPLAIN
     skill_id: MATH.ARITH.INTEGERS.OPERATIONS
     source_ref: NOTE.ARITH.INTEGERS
     alt:
-      en: A number line with an arrow from −6 moving right
+      en: A number line with a lift hopping up from 3
     steps:
     - caption:
-        en: Start at −6 on the number line.
+        en: Start on floor 3. Do not count floor 3 itself.
       actions:
       - kind: write_text
         x: 170
         y: 70
         size: 28
-        text: −6 + 15
+        text: 3 + 4
     - caption:
-        en: Move 15 steps to the right.
+        en: Adding 4 means 4 hops up.
       actions:
       - kind: pause_and_ask
         question:
-          en: 'Adding 15: which way do you move?'
+          en: 'The lift goes up 4 floors. Which way do you hop?'
         options:
         - text:
-            en: Right, 15 steps
+            en: Up, 4 hops
           correct: true
         - text:
-            en: Left, 15 steps
+            en: Down, 4 hops
           correct: false
           feedback:
-            en: Adding moves right; subtracting moves left.
+            en: Adding goes up. Subtracting goes down.
       - kind: write_text
         x: 170
         y: 170
         size: 30
-        text: −6 → 9
+        text: 3 → 7
         color: red
     - caption:
-        en: You land on 9, so −6 + 15 = 9.
+        en: Up one, up one, up one, up one. You reach floor 7, so 3 + 4 = 7.
       actions:
       - kind: write_text
         x: 170
         y: 220
         size: 30
-        text: = 9
+        text: = 7
         color: green
   final_caption:
-    en: 'That is the whole idea: adding moves right, subtracting moves left. Now try one.'
+    en: 'Count the hops, not the dots. Now try one that goes below zero.'
 - kind: worked_example
   title:
-    en: A worked example
+    en: Another one
   problem:
-    en: Work out −8 + 5.
+    en: At night in Shimla it is 2 degrees. It gets 5 degrees colder. What is the new temperature? We write 2 − 5.
   steps:
-  - en: Start at −8. Adding 5 moves 5 steps to the right.
-  - en: −8 → −3, so −8 + 5 = −3.
+  - en: Start at 2. Colder means go down, so make 5 hops down.
+  - en: Two hops reach 0. Three more go below 0, so 2 − 5 = −3.
   number_line:
     kind: number_line
-    start: -8
-    delta: 5
+    start: 2
+    delta: -5
     answer: -3
   more_number_lines:
   - kind: number_line
-    start: 3
-    delta: -7
-    answer: -4
+    start: -3
+    delta: 5
+    answer: 2
   - kind: number_line
-    start: -5
-    delta: 9
-    answer: 4
+    start: -2
+    delta: -4
+    answer: -6
+  - kind: number_line
+    start: 4
+    delta: -6
+    answer: -2
 - kind: faded_example
   title:
     en: Now you finish one
   problem:
-    en: Work out −9 + 4.
+    en: At dawn in Leh it is −6 degrees. By afternoon it is 15 degrees warmer. We write −6 + 15.
   steps:
-  - en: Start at −9. Adding 4 moves 4 steps to the right.
+  - en: Plan first. How many hops up reach 0? Then how many hops are left?
   number_line:
     kind: number_line
-    start: -9
-    delta: 4
-    answer: -5
+    start: -6
+    delta: 15
+    answer: 9
   blank_prompt:
-    en: Where do you land?
-  answer: '-5'
+    en: What is the afternoon temperature?
+  answer: '9'
   accept:
-  - −5
+  - '9'
   hint:
-    en: Count 4 steps right from −9.
+    en: Go up 6 to reach 0. Then keep going with the hops that are left.
   success:
-    en: 'Yes: −9 + 4 = −5.'
+    en: 'Yes: −6 + 15 = 9.'
 - kind: check
   prompt:
-    en: Work out −7 + 10 yourself.
+    en: In Leh it is −7 degrees. It gets 10 degrees warmer. Work out −7 + 10 yourself.
