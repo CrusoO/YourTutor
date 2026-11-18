@@ -1,0 +1,130 @@
+id: ITM.PHY.LIGHT.SIGN_CONVENTION.x_signed.mcq1.b852fac0.cp
+skill_ids:
+- PHY.LIGHT.SIGN_CONVENTION
+difficulty: 0.35
+pool: checkpoint
+role: explain
+stem:
+  en: A concave lens has a focal length of magnitude 20 cm. Using the Cartesian sign
+    convention, what is the value of f in cm?
+hints:
+- level: 1
+  en: 'Plan the steps: decide which side of the pole or centre the quantity is on,
+    then give the magnitude the matching sign.'
+- level: 2
+  en: Distances measured against the direction of the incident light are negative,
+    and those along it are positive. Focal length follows the type of mirror or lens.
+- level: 3
+  en: 'First step: say whether this quantity is on the side the light comes from or
+    on the other side, or what type of mirror or lens it is.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.LIGHT.SIGN_CONVENTION.CP
+generator_version: factory-2
+template_hash: b612a77b76a13fc87fecdfca5c1acaa11cc306220c719e09a4ac90a900799f25
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -20 cm
+- id: b
+  en: 20 cm
+- id: c
+  en: -10 cm
+- id: d
+  en: -40 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: A concave lens has a negative focal length.
+- en: 'Give it in cm: -20 cm.'
+- en: So the signed value is -20 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dfcdd9451424c1d9427fa216885f507c2b27c1451575834472ca6fceecb9b380
+  template_hash: b612a77b76a13fc87fecdfca5c1acaa11cc306220c719e09a4ac90a900799f25
+  certificate_hash: 774257be9fdeb783f457f4804f65528d8e85a689e8e24ec8cd2f6a1e2f2c5edb
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:00:43+00:00'
+  record_hash: dff64df16eaf622894fdcbff7a55e7b0b9810fd612694fe87f5f2e820f154e84

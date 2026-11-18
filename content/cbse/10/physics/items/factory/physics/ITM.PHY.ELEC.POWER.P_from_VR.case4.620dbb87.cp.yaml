@@ -1,0 +1,132 @@
+id: ITM.PHY.ELEC.POWER.P_from_VR.case4.620dbb87.cp
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.7
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates an electrical appliance and records the following.
+    The voltage across it, V, is 100 V and its resistance, R, is 400 Ω. Find the power.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: P = V x V / R (from P = V x I and I = V / R).'
+- level: 2
+  en: The relation already gives the power directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write P = V x V / R, where P is the power, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the power have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER.CP
+generator_version: factory-2
+template_hash: 2854d60dac17c18e152e795871a11fa985824bce33a6eee6b96fbde50a443c2a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 40000 W
+- id: b
+  en: 0.04 W
+- id: c
+  en: 0.25 W
+- id: d
+  en: 25 W
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
+- en: 'Substitute: P = 100 x 100 / 400.'
+- en: 'Calculate: P = 25 W.'
+- en: So the power is 25 W.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b1517e04327454d9c2720bffdf5a9c50a2e60f8837829d2748ba9c91e7fd6090
+  template_hash: 2854d60dac17c18e152e795871a11fa985824bce33a6eee6b96fbde50a443c2a
+  certificate_hash: 8896c41feb3b677667944ca717efe016e5efd934c54ba3306a45922087282539
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:20+00:00'
+  record_hash: 20abd7c2d60e135d71ef1d4369623a7fad0194462c0b44ccaf956a72843405b1

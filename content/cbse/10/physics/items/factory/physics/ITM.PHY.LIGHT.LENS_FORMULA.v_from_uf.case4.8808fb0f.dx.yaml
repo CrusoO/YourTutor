@@ -1,0 +1,144 @@
+id: ITM.PHY.LIGHT.LENS_FORMULA.v_from_uf.case4.8808fb0f.dx
+skill_ids:
+- PHY.LIGHT.LENS_FORMULA
+difficulty: 0.8
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates image formation by a thin lens and records the
+    following. The object, u, is 60 cm from the convex lens and the focal length of
+    the convex lens, f, is 10 cm. Using the Cartesian sign convention, find the image
+    distance v.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: lens formula 1/v - 1/u = 1/f, with u and f signed by the convention.'
+- level: 2
+  en: 'Get the image distance on its own before you put numbers in: add 1/u to each
+    side of 1/v - 1/u = 1/f, then take the reciprocal of each side. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked. Give each distance its sign by the Cartesian convention
+    before you substitute.'
+- level: 3
+  en: 'First step: Write 60 cm as -0.6 m and 10 cm as 0.1 m, then write v = u x f
+    / (u + f), where v is the image distance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_FORMULA.DX
+generator_version: factory-2
+template_hash: ce9d1ea23aa7d748620c42b21ddfd0412e99b057bdf9da18aaedc7d2af876fd1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12 cm
+- id: b
+  en: 8.57 cm
+- id: c
+  en: -8.57 cm
+- id: d
+  en: 833 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.U_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and f signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.6 m; f = 0.1 m.'
+- en: 'Get the image distance alone: add 1/u to each side of 1/v - 1/u = 1/f, then
+    take the reciprocal of each side.'
+- en: 'Substitute: v = (-0.6) x 0.1 / ((-0.6) + 0.1).'
+- en: 'Calculate: v = 0.12 m.'
+- en: 'Give it in cm: 12 cm.'
+- en: So the image distance is 12 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6c8d9a2a2878d792d2c94f936604597440e1e56e605f1c6f13ec4a4ad7c49eb1
+  template_hash: ce9d1ea23aa7d748620c42b21ddfd0412e99b057bdf9da18aaedc7d2af876fd1
+  certificate_hash: 558b0e7ebb7cfa4761ffca6590c0cd235308e3b7be7662d9796cfa46a0a9eafe
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:33:06+00:00'
+  record_hash: 5734254b55a2fd73ec061a88098d4766a0e26c0ba4e21dc15bb8bda54a4eeec7

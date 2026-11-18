@@ -1,0 +1,137 @@
+id: ITM.PHY.LIGHT.RELATIVE_INDEX.n2_from_n21.num3.78b17da3.cp
+skill_ids:
+- PHY.LIGHT.RELATIVE_INDEX
+difficulty: 0.6
+pool: checkpoint
+role: apply
+stem:
+  en: A student is studying light passing from one medium into another. The second
+    medium relative to the first has refractive index 0.5 and the first medium has
+    refractive index 2.4. Find the refractive index of the second medium.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: n21 = n2 / n1.'
+- level: 2
+  en: 'Get the refractive index of the second medium on its own before you put numbers
+    in: multiply each side of n21 = n2 / n1 by n1. Do the same operation to each side
+    of the formula.'
+- level: 3
+  en: 'First step: write n2 = n21 x n1, where n2 is the refractive index of the second
+    medium, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the refractive index of the second
+    medium be?
+status: draft
+template_id: TPL2.PHY.LIGHT.RELATIVE_INDEX.CP
+generator_version: factory-2
+template_hash: d99d835a6e1b18707a7371fc324788ee0898706c04f3417a04b1cc56b8aebdaf
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1.2'
+- id: b
+  en: '4.8'
+- id: c
+  en: '0.208'
+- id: d
+  en: '2.9'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.RELATIVE_INDEX_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.INDEX_PRODUCT_USED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.INDEX_DIFFERENCE_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n21 = n2 / n1.'
+- en: 'Get the refractive index of the second medium alone: multiply each side of
+    n21 = n2 / n1 by n1.'
+- en: 'Substitute: n2 = 0.5 x 2.4.'
+- en: 'Calculate: n2 = 1.2.'
+- en: So the refractive index of the second medium is 1.2.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 2ab18d5110edb5cee3b0548e326687817cc1012f6c281dd9eb3c96c043680183
+  template_hash: d99d835a6e1b18707a7371fc324788ee0898706c04f3417a04b1cc56b8aebdaf
+  certificate_hash: 0d61af0e485ede071364e1255409ded586efb4b09cd984f169c10e5d7c7c69ff
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:59:55+00:00'
+  record_hash: 5b558ef21c0f87481f635dbbfe43cc330bf4c7531674dda1f9d5f6f0fb8ae9f1

@@ -1,0 +1,134 @@
+id: ITM.PHY.ELEC.SERIES.R2_from_Rs.num2.a978bf2e.dx
+skill_ids:
+- PHY.ELEC.SERIES
+difficulty: 0.45
+pool: diagnostic
+role: apply
+stem:
+  en: This question is about resistors joined in series. The first resistor, R1, is
+    2 Ω and the total resistance, Rs, is 5 Ω. Find the second resistance.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: in series Rs = R1 + R2.'
+- level: 2
+  en: 'Get the second resistance on its own before you put numbers in: subtract R1
+    from each side of Rs = R1 + R2. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write R2 = Rs - R1, where R2 is the second resistance, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the second resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES.DX
+generator_version: factory-2
+template_hash: 64987198563a92ad71d5507c299f536b07e2789600d949dd09a971d19475ed77
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 Ω
+- id: b
+  en: 3 Ω
+- id: c
+  en: 7 Ω
+- id: d
+  en: 2.5 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in series Rs = R1 + R2.'
+- en: 'Get the second resistance alone: subtract R1 from each side of Rs = R1 + R2.'
+- en: 'Substitute: R2 = 5 - 2.'
+- en: 'Calculate: R2 = 3 Ω.'
+- en: So the second resistance is 3 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a93eb99deeb2620f057a4362b9859414ea9082f3081eaba7f3f12bb01903315e
+  template_hash: 64987198563a92ad71d5507c299f536b07e2789600d949dd09a971d19475ed77
+  certificate_hash: 84420aa9675efe18df42fc016de336539167d9352a9a952b8ae3e0afca8fc290
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:31:46+00:00'
+  record_hash: 3a4ea9e7c385a69e942f08c908ddd20ba3a96e1c27b38ce77a31c5f7f7f3f324

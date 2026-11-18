@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.OHM_LAW.R_from_VI.mcq1.754b8f2f.cp
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.35
+pool: checkpoint
+role: procedure
+stem:
+  en: The potential difference across it, V, is 100 V and the current through it,
+    I, is 50 mA. Find the resistance of the resistor.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: V = I x R.'
+- level: 2
+  en: 'Get the resistance on its own before you put numbers in: divide each side of
+    V = I x R by I. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 50 mA as 0.05 A, then write R = V / I, where R is the resistance,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW.CP
+generator_version: factory-2
+template_hash: e1a3413acbc8e190ebb23b1ec6802b20f5e65f3f68cdc0d238516632a4d174ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.005 kΩ
+- id: b
+  en: 0.002 kΩ
+- id: c
+  en: 2 kΩ
+- id: d
+  en: 5 x 10^-7 kΩ
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 50 mA = 0.05 A.'
+- en: 'Get the resistance alone: divide each side of V = I x R by I.'
+- en: 'Substitute: R = 100 / 0.05.'
+- en: 'Calculate: R = 2000 Ω.'
+- en: 'Give it in kΩ: 2 kΩ.'
+- en: So the resistance is 2 kΩ.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a6ccda87ad4e35807b8ed4c35a1274965131957fc5487941cbee4c69d6b74a99
+  template_hash: e1a3413acbc8e190ebb23b1ec6802b20f5e65f3f68cdc0d238516632a4d174ba
+  certificate_hash: a1209753007351c61be8c662b768c5c4d847cd27319c3025f0ad5780a30f5a94
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:51:34+00:00'
+  record_hash: 442fda578b95b2e23a91db4bfd42c2cd90d3df27a244338d27d563c461782a76

@@ -1,0 +1,136 @@
+id: ITM.PHY.LIGHT.REFRACTIVE_INDEX.n_from_v.mcq1.6f812d1c.ex
+skill_ids:
+- PHY.LIGHT.REFRACTIVE_INDEX
+difficulty: 0.3
+pool: practice
+role: explain
+stem:
+  en: Light travels in the medium at 1.5 x 10^8 m/s and the speed of light in vacuum
+    is 3 x 10^8 m/s. Find the refractive index of the medium. A classmate says the
+    answer is 0.5. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: refractive index n = speed of light in vacuum / speed in the
+    medium.'
+- level: 2
+  en: 'Get the refractive index on its own before you put numbers in: multiply each
+    side of n = c / v by v, then divide each side by n. Do the same operation to each
+    side of the formula.'
+- level: 3
+  en: 'First step: write n = c / v, where n is the refractive index, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the refractive index be?
+status: draft
+template_id: TPL2.PHY.LIGHT.REFRACTIVE_INDEX.EX
+generator_version: factory-2
+template_hash: fc34b99a76d5341c443fe89c33ee070d78a1c58c4ca0395cf3ea3dbbb524b6ac
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.2'
+- id: b
+  en: '20'
+- id: c
+  en: '0.5'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - b
+- id: PHY.MC.LIGHT.INDEX_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
+    the medium.'
+- en: 'Get the refractive index alone: multiply each side of n = c / v by v, then
+    divide each side by n.'
+- en: 'Substitute: n = (3 x 10^8) / (1.5 x 10^8).'
+- en: 'Calculate: n = 2.'
+- en: So the refractive index is 2.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: af7cae2f31b25288a8e8b1ae97fdfa877d5a64e4fc1216b1ff1635c52c716557
+  template_hash: fc34b99a76d5341c443fe89c33ee070d78a1c58c4ca0395cf3ea3dbbb524b6ac
+  certificate_hash: e3f76476ff1bdce7095b36904006d804b7cdf063ee241ca9c3be76700c16f5b4
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:44:22+00:00'
+  record_hash: 54dbeab73bd152a88d7bfc43fbfb12955dcd50bdc88e4491a84c78ea549ac7c6

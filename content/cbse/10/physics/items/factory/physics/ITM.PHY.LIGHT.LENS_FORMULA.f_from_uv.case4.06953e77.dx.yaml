@@ -1,0 +1,144 @@
+id: ITM.PHY.LIGHT.LENS_FORMULA.f_from_uv.case4.06953e77.dx
+skill_ids:
+- PHY.LIGHT.LENS_FORMULA
+difficulty: 0.8
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates image formation by a thin lens and records the
+    following. The object, u, is 60 cm from the convex lens and the image, which is
+    real, is 60 cm from the convex lens. Using the Cartesian sign convention, find
+    the focal length f.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: lens formula 1/v - 1/u = 1/f, with u and v signed by the convention.'
+- level: 2
+  en: 'Get the focal length on its own before you put numbers in: subtract 1/u from
+    1/v, then take the reciprocal of each side of 1/f = 1/v - 1/u. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked. Give each distance its sign by the Cartesian convention
+    before you substitute.'
+- level: 3
+  en: 'First step: Write 60 cm as -0.6 m and 60 cm as 0.6 m, then write f = u x v
+    / (u - v), where f is the focal length, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_FORMULA.DX
+generator_version: factory-2
+template_hash: ce9d1ea23aa7d748620c42b21ddfd0412e99b057bdf9da18aaedc7d2af876fd1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -30 cm
+- id: b
+  en: 30 cm
+- id: c
+  en: 333 cm
+- id: d
+  en: 3000 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and v signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.6 m; v = 0.6 m.'
+- en: 'Get the focal length alone: subtract 1/u from 1/v, then take the reciprocal
+    of each side of 1/f = 1/v - 1/u.'
+- en: 'Substitute: f = (-0.6) x 0.6 / ((-0.6) - 0.6).'
+- en: 'Calculate: f = 0.3 m.'
+- en: 'Give it in cm: 30 cm.'
+- en: So the focal length is 30 cm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 52068d0484caaa703a15ef73c79941389483a380bda6c3c713459d989abca7d2
+  template_hash: ce9d1ea23aa7d748620c42b21ddfd0412e99b057bdf9da18aaedc7d2af876fd1
+  certificate_hash: 241b2088ef3581dbf867ffc06520ef2d48bfd4b2cf1bfbd2aa25d7715dc21097
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:06:12+00:00'
+  record_hash: 45798b7fb169cc8cfe4c05e3cc0b97b582b7e96a9676b627c9b80573c6778bb8

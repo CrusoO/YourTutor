@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.PARALLEL.R3_from_Rp.case4.170d09d0.cp
+skill_ids:
+- PHY.ELEC.PARALLEL
+difficulty: 0.8
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates resistors joined in parallel and records the following.
+    The first resistor, R1, is 30 Ω, the second resistor, R2, is 20 Ω and the combined
+    resistance, Rp, is 6 Ω. Find the third resistance.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- level: 2
+  en: 'Get the third resistance on its own before you put numbers in: subtract 1/R1
+    and 1/R2 from each side of 1/Rp = 1/R1 + 1/R2 + 1/R3, then take the reciprocal
+    of each side. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write R3 = 1 / (1 / Rp - 1 / R1 - 1 / R2), where R3 is the third
+    resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the third resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL.CP
+generator_version: factory-2
+template_hash: ca7b1947b6c4092fa1f7ca8fae4790fb0f41962665eea2d9d3b55667bd4f9e74
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 56 Ω
+- id: b
+  en: 12 Ω
+- id: c
+  en: 0.0833 Ω
+- id: d
+  en: 3600 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
+    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
+- en: 'Substitute: R3 = 1 / (1 / 6 - 1 / 30 - 1 / 20).'
+- en: 'Calculate: R3 = 12 Ω.'
+- en: So the third resistance is 12 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f158b9ebdb6fdeebf014378853a5d0b8bd76a535d7a557a97ecfd90ac452f735
+  template_hash: ca7b1947b6c4092fa1f7ca8fae4790fb0f41962665eea2d9d3b55667bd4f9e74
+  certificate_hash: ed062b516594ae7d7341c7576d4f3e85a4bf8222ca369dabd8cd26a766f21f48
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:51:57+00:00'
+  record_hash: a2aca891d5665b88d2d19f576fc7606d21c4096de6019bfaedabb16bc4b90010

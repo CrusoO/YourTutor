@@ -1,0 +1,136 @@
+id: ITM.PHY.ELEC.OHM_LAW.V_from_IR.case4.89cea20e.dx
+skill_ids:
+- PHY.ELEC.OHM_LAW
+difficulty: 0.75
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates a resistor in a circuit and records the following.
+    The current through it, I, is 50 mA and its resistance, R, is 100 Ω. Find the
+    potential difference across the resistor.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: V = I x R.'
+- level: 2
+  en: The relation already gives the potential difference directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 50 mA as 0.05 A, then write V = I x R, where V is the potential
+    difference, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the potential difference have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.OHM_LAW.DX
+generator_version: factory-2
+template_hash: 60369cf6fc24846403ceb9ae63847c983842c366f66b1ee86a809fc71fc5f395
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 V
+- id: b
+  en: 5000 V
+- id: c
+  en: 5 x 10^-4 V
+- id: d
+  en: 100.05 V
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 50 mA = 0.05 A.'
+- en: 'Substitute: V = 0.05 x 100.'
+- en: 'Calculate: V = 5 V.'
+- en: So the potential difference is 5 V.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5964696dabe18298a653d6e943c513a5714775bf6ee7ffd194734e70f970a951
+  template_hash: 60369cf6fc24846403ceb9ae63847c983842c366f66b1ee86a809fc71fc5f395
+  certificate_hash: b9e2d6ac455b30cec71169151ea6575c5fc84f8aaeb0bed3a6d7c1f98590d90b
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:02:06+00:00'
+  record_hash: 8f767142bf40fcb0fccc3a65c110502dfb3dcd56d933300121879e464d5c384d
