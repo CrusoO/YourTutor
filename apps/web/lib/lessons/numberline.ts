@@ -203,3 +203,35 @@ export function choiceValueToNumber(value: string): number | null {
   const plain = value.trim().replace(/[−–]/g, "-");
   return /^-?\d+$/.test(plain) ? Number(plain) : null;
 }
+
+/** Approximate drawn width of a tick label in the 340-wide figure (bold current value is a little wider). */
+function labelWidth(n: number, bold: boolean): number {
+  return fmt(n).length * (bold ? 8 : 7) + 2;
+}
+
+/**
+ * Which tick numbers get a written label. The dot's own number always does and so does zero; the rest
+ * are every `every`-th number, but one is skipped when its text would touch a label already placed
+ * (the dot's number is placed first, then zero, then the others from the dot outwards). `unit` is the
+ * distance between neighbouring ticks in figure units.
+ */
+export function labelledTicks(min: number, max: number, unit: number, position: number, every: number): Set<number> {
+  const placed: { n: number; half: number }[] = [];
+  const out = new Set<number>();
+  const fits = (n: number, half: number) =>
+    placed.every((p) => Math.abs(n - p.n) * unit >= p.half + half + 4);
+  const add = (n: number, bold: boolean) => {
+    const half = labelWidth(n, bold) / 2;
+    if (n < min || n > max || out.has(n) || !fits(n, half)) return false;
+    placed.push({ n, half });
+    out.add(n);
+    return true;
+  };
+  add(position, true);
+  if (min <= 0 && max >= 0 && position !== 0) add(0, true);
+  const rest: number[] = [];
+  for (let n = min; n <= max; n++) if (n % every === 0) rest.push(n);
+  rest.sort((a, b) => Math.abs(a - position) - Math.abs(b - position) || a - b);
+  for (const n of rest) add(n, false);
+  return out;
+}

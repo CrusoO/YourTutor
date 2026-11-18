@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { pick, type Beat, type Lesson, type NumberLineFigure } from "@/lib/lessons/types";
 import { choiceValueToNumber, expression, guessToChoiceValue } from "@/lib/lessons/numberline";
 import { balanceStart } from "@/lib/lessons/widgets";
@@ -23,6 +23,9 @@ function lessonCopy(m: Messages) {
   return {
     continue: m.lessonContinue,
     start: m.lessonStart,
+    placeFirst: m.lessonPlaceDotFirst,
+    pickFirst: m.lessonPickAnswerFirst,
+    lockIn: m.numberLineLockIn,
     nextStep: m.lessonNextStep,
     checking: m.lessonChecking,
     verified: m.lessonVerified,
@@ -66,6 +69,9 @@ type Props = {
   sources?: SourceChip[];
 };
 
+/** Styles for the main button's reason line, kept with the lazy player so the homepage stays light. */
+const BAR_CSS = `.lp-why { max-width: 328px; margin: 0 auto 8px; text-align: center; font-size: 0.9rem; line-height: 1.35; color: var(--c-muted); } .lp-why.nudge { color: var(--c-text); font-weight: 600; } .lp-primary.is-blocked { background: var(--c-line); color: var(--c-muted) !important; cursor: not-allowed; }`;
+
 function Beats({ beat, children }: { beat: Beat; children: React.ReactNode }) {
   return <section className={`lp-step lp-${beat.kind}`}>{children}</section>;
 }
@@ -96,6 +102,11 @@ export default function LessonPlayer({
   const [faded, setFaded] = useState<"idle" | "pending" | "ok" | "bad">("idle");
   const [exampleLocked, setExampleLocked] = useState(false);
   const [extraIdx, setExtraIdx] = useState<number | null>(null);
+  const [dotTouched, setDotTouched] = useState(false);
+  const [lockSignal, setLockSignal] = useState(0);
+  const [nudge, setNudge] = useState(0);
+  const [barH, setBarH] = useState(96);
+  const barRef = useRef<HTMLDivElement>(null);
   const started = useRef(Date.now());
   const beats = lesson.beats;
   const beat = beats[cur];
@@ -110,6 +121,8 @@ export default function LessonPlayer({
     setFaded("idle");
     setExampleLocked(false);
     setExtraIdx(null);
+    setDotTouched(false);
+    setNudge(0);
     window.scrollTo?.(0, 0);
   }
 
@@ -173,8 +186,49 @@ export default function LessonPlayer({
 
   const primary = beat.kind === "check" ? (mode === "session" ? COPY.start : null) : COPY.continue;
 
+  // Some steps need one action first. The main button is then either that action ("That is my guess")
+  // or visibly switched off with the reason beside it; it is never a live-looking button that does nothing.
+  const needsLock =
+    (beat.kind === "worked_example" || beat.kind === "faded_example") &&
+    !!beat.number_line &&
+    !exampleLocked &&
+    faded !== "ok";
+  const needsGuess = beat.kind === "predict" && !predictSent && guess === null;
+  const lockNow = needsLock && dotTouched;
+  const blocked = (needsLock && !dotTouched) || needsGuess;
+  const why = blocked ? (needsLock ? COPY.placeFirst : COPY.pickFirst) : null;
+  const label = lockNow ? COPY.lockIn : primary;
+
+  function press() {
+    if (blocked) {
+      setNudge((n) => n + 1);
+      return;
+    }
+    if (lockNow) {
+      setLockSignal((n) => n + 1);
+      return;
+    }
+    void next();
+  }
+
+  // The scrolling content keeps clear of the fixed bar whatever its height (a reason line, large text).
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const measure = () => {
+      const h = Math.ceil(el.getBoundingClientRect().height);
+      if (h > 0) setBarH(h);
+    };
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [primary, why]);
+
   return (
-    <div className="lp">
+    <div className="lp" style={{ ["--lp-bar-h" as string]: `${barH}px` }} data-testid="lesson-player">
+      <style>{BAR_CSS}</style>
       <header className="lp-top">
         <div>
           <h1>{pick(lesson.title, locale)}</h1>
@@ -313,7 +367,10 @@ export default function LessonPlayer({
                         type="button"
                         className="lp-btn"
                         aria-pressed={(extraIdx === null ? 0 : extraIdx + 1) === i}
-                        onClick={() => setExtraIdx(i === 0 ? null : i - 1)}
+                        onClick={() => {
+                          setExtraIdx(i === 0 ? null : i - 1);
+                          setDotTouched(false);
+                        }}
                       >
                         {expression(f.start, f.delta)}
                       </button>
@@ -329,6 +386,8 @@ export default function LessonPlayer({
                   locale={locale}
                   reducedMotion={reducedMotion}
                   onLocked={() => setExampleLocked(true)}
+                  onTouchedChange={setDotTouched}
+                  lockSignal={lockSignal}
                 />
               </>
             ) : null}
@@ -365,7 +424,10 @@ export default function LessonPlayer({
                 after="check"
                 locale={locale}
                 reducedMotion={reducedMotion}
+                onTouchedChange={setDotTouched}
+                lockSignal={lockSignal}
                 onLocked={(r) => {
+                  setExampleLocked(true);
                   setFadedText(String(r.guess));
                   void checkFaded(String(r.guess));
                 }}
@@ -419,9 +481,21 @@ export default function LessonPlayer({
       </main>
 
       {primary ? (
-        <div className="lp-bar">
-          <button type="button" className="lp-primary" disabled={busy} onClick={next}>
-            {primary}
+        <div className="lp-bar" ref={barRef}>
+          {why ? (
+            <p id="lp-why" className={`lp-why${nudge > 0 ? " nudge" : ""}`} role="status" data-testid="primary-why">
+              {why}
+            </p>
+          ) : null}
+          <button
+            type="button"
+            className={`lp-primary${blocked ? " is-blocked" : ""}`}
+            disabled={busy}
+            aria-disabled={blocked ? "true" : undefined}
+            aria-describedby={why ? "lp-why" : undefined}
+            onClick={press}
+          >
+            {label}
           </button>
         </div>
       ) : null}

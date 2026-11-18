@@ -53,7 +53,7 @@ describe("LessonPlayer with number-line figures", () => {
     await slider();
     expect(screen.queryByText(/Start at .8\. Adding 5 moves/)).toBeNull();
     for (let i = 0; i < 5; i++) fireEvent.click(btn("+1 step"));
-    fireEvent.click(btn("That is my guess"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
     fireEvent.click(await screen.findByRole("button", { name: "Jump to the answer" }));
     expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
     expect(screen.getByText(/Adding 5 moves 5 steps to the right/)).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe("LessonPlayer with number-line figures", () => {
     );
     await slider();
     for (let i = 0; i < 4; i++) fireEvent.click(btn("+1 step"));
-    fireEvent.click(btn("That is my guess"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
     expect(screen.getByTestId("nl-reason")).toHaveTextContent(`Yes. ${MINUS}9 + 4 lands on ${MINUS}5.`);
     await waitFor(() => expect(onFadedAnswer).toHaveBeenCalledWith(0, "-5"));
   });

@@ -70,6 +70,13 @@ describe("SessionPage action rendering", () => {
     );
   });
 
+  it("predict with no problem text says so instead of looking broken", async () => {
+    await renderAction("predict");
+    expect(screen.getByTestId("predict-no-problem")).toHaveTextContent(/No problem is shown/);
+    expect(screen.queryByTestId("predict-problem")).toBeNull();
+    expect(screen.getByText(actionFixtures.predict.text as string)).toBeInTheDocument();
+  });
+
   it("worked_example continue after steps", async () => {
     await renderAction("worked_example");
     await userEvent.click(screen.getByRole("button", { name: /show next step/i }));
