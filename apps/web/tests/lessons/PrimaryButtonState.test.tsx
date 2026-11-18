@@ -16,25 +16,26 @@ const primary = () => document.querySelector(".lp-primary") as HTMLButtonElement
 describe("the sticky primary button never silently does nothing", () => {
   it("Example step: switched off with a reason before the dot is placed", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
-    await screen.findByRole("slider");
+    await screen.findByTestId("number-line");
     expect(primary()).toHaveAttribute("aria-disabled", "true");
-    expect(primary()).toHaveAccessibleDescription(/Place the dot first, then press That is my guess/);
+    expect(primary()).toHaveAccessibleDescription(/Count the hops first/);
     expect(screen.getByTestId("primary-why")).toHaveAttribute("role", "status");
     fireEvent.click(primary());
     expect(screen.getByTestId("primary-why")).toHaveClass("nudge");
     expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument();
   });
 
-  it("Example step: becomes That is my guess once the dot moves, then Continue after the guess is locked", async () => {
+  it("Example step: Check appears only when every hop is counted, then Continue after the check", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
-    await screen.findByRole("slider");
-    fireEvent.click(screen.getByRole("button", { name: "+1 step" }));
-    await waitFor(() => expect(primary()).toHaveTextContent("That is my guess"));
+    await screen.findByTestId("number-line");
+    for (let i = 0; i < 4; i++) fireEvent.click(screen.getByRole("button", { name: "Up 1 →" }));
+    expect(primary()).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(screen.getByRole("button", { name: "Up 1 →" }));
+    await waitFor(() => expect(primary()).toHaveTextContent("Check"));
     expect(primary()).not.toHaveAttribute("aria-disabled");
     fireEvent.click(primary());
     await waitFor(() => expect(primary()).toHaveTextContent("Continue"));
     expect(screen.getByTestId("number-line")).toHaveAttribute("data-phase", "hops");
-    expect(screen.queryAllByRole("button", { name: "That is my guess" })).toHaveLength(0);
   });
 
   it("Finish it: same rule, and a locked guess lets the learner continue", async () => {
