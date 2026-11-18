@@ -184,6 +184,11 @@ def lint_item_plain(item: Item, rules: PlainRules, *, check_leaks: bool = True) 
     return out
 
 
+def is_factory_item(item: Item) -> bool:
+    """Made by the factory (generator_version factory-N); the legacy pack is hand-authored."""
+    return (item.generator_version or "").startswith("factory-")
+
+
 def own_misconception_ids(item: Item, skills: dict[str, Skill]) -> set[str]:
     own: set[str] = set()
     for skill_id in item.skill_ids:
@@ -201,7 +206,7 @@ def misconception_mismatches(items: Iterable[Item], skills: Iterable[Skill]) -> 
         own = own_misconception_ids(item, by_id)
         for rule in item.misconception_rules:
             if rule.id not in own:
-                kind = "PL.MC_NOT_OWN" if item.template_id else "PL.MC_NOT_OWN_HAND_AUTHORED"
+                kind = "PL.MC_NOT_OWN" if is_factory_item(item) else "PL.MC_NOT_OWN_HAND_AUTHORED"
                 detail = f"skills {','.join(item.skill_ids)}"
                 out.append(Finding(kind, item.id, rule.id, detail, 100.0))
     return out

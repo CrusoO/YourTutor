@@ -121,12 +121,12 @@ def test_a_misconception_outside_the_skills_own_list_is_an_error() -> None:
     skills = [_skill("S.ONE", ["MC.OWN"])]
     own = _mcq([{"id": "MC.OWN", "when_answer_equals": ["b"]}], ["Hint.", "Two.", "Three."])
     stray = _mcq([{"id": "MC.INVERSE", "when_answer_equals": ["b"]}], ["Hint.", "Two.", "Three."])
-    stray.template_id = "TPL.X"
+    stray.generator_version = "factory-2"
     assert not misconception_mismatches([own], skills)
     found = misconception_mismatches([stray], skills)
     assert [(f.rule, f.text) for f in found] == [("PL.MC_NOT_OWN", "MC.INVERSE")]
     assert found[0].is_error
-    stray.template_id = None  # hand-authored (legacy pack): reported, not an error
+    stray.generator_version = None  # hand-authored (legacy pack): reported, not an error
     legacy = misconception_mismatches([stray], skills)
     assert [f.rule for f in legacy] == ["PL.MC_NOT_OWN_HAND_AUTHORED"]
     assert not legacy[0].is_error
@@ -135,7 +135,7 @@ def test_a_misconception_outside_the_skills_own_list_is_an_error() -> None:
 def test_the_worst_examples_put_errors_first() -> None:
     skills = [_skill("S.ONE", ["MC.OWN"])]
     item = _mcq([{"id": "MC.STRAY", "when_answer_equals": ["b"]}], ["H.", "Two.", "Three."])
-    item.template_id = "TPL.X"
+    item.generator_version = "factory-2"
     report = lint_bundle_plain([item], skills, [_mc("MC.OWN", "The student adds.")])
     worst = worst_examples(report, 5)
     assert [f.rule for f in worst] == ["PL.MC_NOT_OWN", "PL.MC_NOT_EVERYDAY"]
@@ -158,7 +158,7 @@ def test_a_factory_item_with_a_stray_misconception_fails_validation(content_root
     )
     item.skill_ids = [bundle.skills[0].id]
     bundle.skills[0].misconceptions = []
-    item.template_id = "TPL.X"
+    item.generator_version = "factory-2"
     bundle.items.append(item)
     report = validate_bundle(bundle)
     assert any("PL.MC_NOT_OWN" in e for e in report.errors)
