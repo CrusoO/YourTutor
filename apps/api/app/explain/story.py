@@ -11,6 +11,7 @@ module only checks the structure. The same safety screen and consent gate apply.
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -24,6 +25,8 @@ from app.llm.rules import default_rules
 PROMPTS = Path(__file__).parent / "prompts"
 PLAN_FILE = PROMPTS / "story_plan.v2.md"
 SCENES_FILE = PROMPTS / "story_scenes.v2.md"
+PLAN_FILE_V3 = PROMPTS / "story_plan.v3.md"
+SCENES_FILE_V3 = PROMPTS / "story_scenes.v3.md"
 PROMPT_VERSION = "story/v3"
 MAX_SCENES = 7
 MIN_SCENES = 3
@@ -139,6 +142,19 @@ _STYLE_PREAMBLES: dict[str, str] = {
         "describe what's HAPPENING, not what's visible.\n"
     ),
 }
+
+
+def prompt_version() -> str:
+    """'v3' only when EXPLAIN_STORY_PROMPT_VERSION=v3 (read from the environment); else 'v2'."""
+    raw = os.environ.get("EXPLAIN_STORY_PROMPT_VERSION", "").strip().lower()
+    return "v3" if raw == "v3" else "v2"
+
+
+def _files() -> tuple[Path, Path, str]:
+    """(plan file, scenes file, version suffix) for the selected prompt version."""
+    if prompt_version() == "v3":
+        return PLAN_FILE_V3, SCENES_FILE_V3, "+roles"
+    return PLAN_FILE, SCENES_FILE, ""
 
 
 def _story_style(prompt: str) -> str:
@@ -269,16 +285,28 @@ def clean_plan(data: dict[str, Any] | None) -> dict[str, Any] | None:
 def plan_prompt(question: str, restricted: bool, style: str = "animated") -> Prompt:
     scope = SYLLABUS_SCOPE if restricted else OPEN_SCOPE
     preamble = _STYLE_PREAMBLES.get(style, "")
-    base = PLAN_FILE.read_text(encoding="utf-8").strip()
+    plan_file, _, tag = _files()
+    base = plan_file.read_text(encoding="utf-8").strip()
     system = (preamble + "\n\n" + base if preamble else base) + "\n\n" + scope
     cleaned = STUDENT_TAG.sub("", question)
     user = f"<student_text>\n{cleaned}\n</student_text>\n\nPlan the video."
-    return Prompt(system=system, user=user, version=f"{PROMPT_VERSION}/plan/{style}", max_words=700)
+    return Prompt(
+        system=system,
+        user=user,
+        version=f"{PROMPT_VERSION}/plan/{style}{tag}",
+        max_words=700,
+    )
 
 
-def scenes_prompt(question: str, plan: dict[str, Any], style: str = "animated") -> Prompt:
+def scenes_prompt(
+    question: str,
+    plan: dict[str, Any],
+    style: str = "animated",
+    verified: list[str] | None = None,
+) -> Prompt:
     preamble = _STYLE_PREAMBLES.get(style, "")
-    base = SCENES_FILE.read_text(encoding="utf-8").strip()
+    _, scenes_file, tag = _files()
+    base = scenes_file.read_text(encoding="utf-8").strip()
     system = (preamble + "\n\n" + base) if preamble else base
     cleaned = STUDENT_TAG.sub("", question)
     lines = [
@@ -299,11 +327,14 @@ def scenes_prompt(question: str, plan: dict[str, Any], style: str = "animated") 
         lines.append(
             f"{i}. [{role}] {s['heading']} | {s['purpose'] or role} | {s['story']} | {s['picture']}"
         )
+    if tag:
+        shown = ", ".join(verified or []) or "none"
+        lines += ["", f"Verified solver input (the only values that may use role checked): {shown}"]
     lines += ["", f"Write all {len(plan['scenes'])} scenes now. Reply with the JSON object only."]
     return Prompt(
         system=system,
         user="\n".join(lines),
-        version=f"{PROMPT_VERSION}/scenes/{style}",
+        version=f"{PROMPT_VERSION}/scenes/{style}{tag}",
         max_words=3500,
     )
 
@@ -321,7 +352,14 @@ def clean_scene(data: dict[str, Any] | None) -> dict[str, Any] | None:
     if len(sentences) < 2:
         return None
     visuals = [v for v in data.get("visuals", []) if isinstance(v, dict)][:30]
-    return {"heading": _words(data.get("heading"), 80), "sentences": sentences, "visuals": visuals}
+    scene: dict[str, Any] = {
+        "heading": _words(data.get("heading"), 80),
+        "sentences": sentences,
+        "visuals": visuals,
+    }
+    if prompt_version() == "v3" and isinstance(data.get("highlights"), list):
+        scene["highlights"] = [h for h in data["highlights"] if isinstance(h, dict)][:12]
+    return scene
 
 
 def _scenes_of(text: str) -> list[dict[str, Any]]:
@@ -369,12 +407,17 @@ def _plan(
 
 
 def _scenes(
-    provider: Completer, model: str, question: str, plan: dict[str, Any], style: str = "animated"
+    provider: Completer,
+    model: str,
+    question: str,
+    plan: dict[str, Any],
+    style: str = "animated",
+    verified: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     written: list[dict[str, Any]] = []
     for _ in range(ATTEMPTS):
         try:
-            reply = provider.complete(scenes_prompt(question, plan, style), model)
+            reply = provider.complete(scenes_prompt(question, plan, style, verified), model)
         except ProviderError:
             continue
         found = _scenes_of(reply.text)
@@ -383,6 +426,76 @@ def _scenes(
         if len(written) >= len(plan["scenes"]):
             break
     return written
+
+
+ROLES = ("term", "key", "look-again", "checked")
+_HANDOFF = re.compile(r"\b(your turn|try|have a go|give it a go)\b", re.I)
+
+
+def sanitise_roles(scenes: list[dict[str, Any]], verified: list[str] | None = None) -> list[str]:
+    """Check role and highlights against the closed lists, in place; return a note per drop.
+
+    Unknown roles are dropped; a highlight word must appear in its sentence; `checked` survives
+    only when the code supplied a verified value (a highlight must contain one); at most one
+    `key` per scene. Everything else passes through unchanged.
+    """
+    notes: list[str] = []
+    ok_values = [v.lower() for v in (verified or []) if v]
+    for i, sc in enumerate(scenes, 1):
+        sents = sc.get("sentences", [])
+        keys = 0
+        for v in sc.get("visuals", []):
+            if "role" not in v:
+                continue
+            role = v["role"]
+            if role not in ROLES:
+                notes.append(f"scene {i}: unknown shape role {role!r} dropped")
+            elif role == "checked" and not ok_values:
+                notes.append(f"scene {i}: shape role 'checked' dropped (no verified input)")
+            elif role == "key" and keys >= 1:
+                notes.append(f"scene {i}: second 'key' shape role dropped")
+            else:
+                keys += role == "key"
+                continue
+            del v["role"]
+        kept: list[dict[str, Any]] = []
+        for h in sc.pop("highlights", None) or []:
+            s, word, role = h.get("s"), h.get("word"), h.get("role")
+            if role not in ROLES:
+                notes.append(f"scene {i}: highlight with unknown role {role!r} dropped")
+            elif not isinstance(s, int) or isinstance(s, bool) or not 0 <= s < len(sents):
+                notes.append(f"scene {i}: highlight with bad sentence index dropped")
+            elif not isinstance(word, str) or not word.strip():
+                notes.append(f"scene {i}: highlight without a word dropped")
+            elif not re.search(rf"(?<!\w){re.escape(word.strip())}(?!\w)", sents[s], re.I):
+                notes.append(f"scene {i}: highlight word {word!r} not in sentence {s} dropped")
+            elif role == "checked" and not any(x in word.lower() for x in ok_values):
+                notes.append(f"scene {i}: highlight role 'checked' dropped (not a verified value)")
+            elif role == "key" and keys >= 1:
+                notes.append(f"scene {i}: second 'key' highlight dropped")
+            else:
+                keys += role == "key"
+                kept.append({"s": s, "word": word.strip(), "role": role})
+        if kept:
+            sc["highlights"] = kept
+    return notes
+
+
+def handoff_issues(scenes: list[dict[str, Any]]) -> list[str]:
+    """The last sentence must be a short 'your turn' invitation that shows no answer digit."""
+    sents = scenes[-1].get("sentences", []) if scenes else []
+    last = sents[-1] if sents else ""
+    if not last or not _HANDOFF.search(last):
+        return [
+            "The last sentence of the last scene must be a short 'your turn' invitation to try "
+            "one in the app, naming the skill."
+        ]
+    if re.search(r"\d", last):
+        return [
+            "The last sentence must not contain a digit: it must never give the answer. "
+            "Invite the student to try one, naming the skill."
+        ]
+    return []
 
 
 def _quick_qa(scenes: list[dict[str, Any]]) -> list[str]:
@@ -454,7 +567,8 @@ def repair_prompt(
 ) -> Prompt:
     """Targeted repair call: return scenes JSON + numbered issues for the LLM to fix."""
     preamble = _STYLE_PREAMBLES.get(style, "")
-    base = SCENES_FILE.read_text(encoding="utf-8").strip()
+    _, scenes_file, tag = _files()
+    base = scenes_file.read_text(encoding="utf-8").strip()
     system = (preamble + "\n\n" + base) if preamble else base
     issue_list = "\n".join(f"  {j + 1}. {iss}" for j, iss in enumerate(issues))
     scenes_json = json.dumps({"scenes": scenes}, ensure_ascii=False)
@@ -466,7 +580,10 @@ def repair_prompt(
         f"Current scenes:\n{scenes_json}"
     )
     return Prompt(
-        system=system, user=user, version=f"{PROMPT_VERSION}/repair/{style}", max_words=3500
+        system=system,
+        user=user,
+        version=f"{PROMPT_VERSION}/repair/{style}{tag}",
+        max_words=3500,
     )
 
 
@@ -495,6 +612,7 @@ def build_story(
     provider: Completer | None = None,
     model: str | None = None,
     restricted: bool = False,
+    verified: list[str] | None = None,
 ) -> dict[str, Any]:
     """Plan, then write every scene: {"kind": "story", "story": ..., "fallbacks": n}, or why not."""
     if language != "en":
@@ -524,7 +642,7 @@ def build_story(
         if not isinstance(plan, dict):
             reason = "plan"
             continue
-        written = _scenes(scene_provider, use, text_in, plan, style)  # type: ignore[arg-type]
+        written = _scenes(scene_provider, use, text_in, plan, style, verified)  # type: ignore[arg-type]
         if len(written) < MIN_SCENES:
             reason = "scenes"
             continue
@@ -533,6 +651,8 @@ def build_story(
             scene["role"] = plan["scenes"][i]["role"]
         # QA: run a repair pass if structural issues are found
         qa_issues = _quick_qa(written[: len(plan["scenes"])])
+        if prompt_version() == "v3":
+            qa_issues += handoff_issues(written[: len(plan["scenes"])])
         if qa_issues and scene_provider is not None:
             written = _repair(
                 scene_provider, use, text_in, plan, written[: len(plan["scenes"])], qa_issues, style
@@ -552,10 +672,15 @@ def build_story(
         story: dict[str, Any] = {"title": plan["title"], "scenes": scenes}
         if plan.get("color_map"):
             story["color_map"] = plan["color_map"]
-        return {
+        result: dict[str, Any] = {
             "kind": "story",
             "story": story,
             "fallbacks": len(plan["scenes"]) - len(scenes),
             "model": use.split("/")[0],
         }
+        if prompt_version() == "v3":
+            notes = sanitise_roles(scenes, verified) + handoff_issues(scenes)
+            if notes:
+                result["role_notes"] = notes
+        return result
     return unavailable(reason)
