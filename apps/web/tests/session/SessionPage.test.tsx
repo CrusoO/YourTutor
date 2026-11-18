@@ -72,7 +72,7 @@ describe("SessionPage action rendering", () => {
 
   it("predict with no problem text says so instead of looking broken", async () => {
     await renderAction("predict");
-    expect(screen.getByTestId("predict-no-problem")).toHaveTextContent(/No problem is shown/);
+    expect(screen.getByTestId("predict-no-problem")).toHaveTextContent(/have not shown the problem/);
     expect(screen.queryByTestId("predict-problem")).toBeNull();
     expect(screen.getByText(actionFixtures.predict.text as string)).toBeInTheDocument();
   });
@@ -88,6 +88,7 @@ describe("SessionPage action rendering", () => {
     await renderAction("show_item");
     await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    await userEvent.click(screen.getByTestId("confidence-skip"));
     expect(postEvent).toHaveBeenCalledWith(
       "sess-test",
       "answer",
@@ -111,6 +112,7 @@ describe("SessionPage action rendering", () => {
     await renderAction("hint");
     await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "5");
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    await userEvent.click(screen.getByTestId("confidence-skip"));
     expect(postEvent).toHaveBeenCalledWith("sess-test", "answer", expect.objectContaining({ response: "5" }), "ITEM.FIX.1");
   });
 
@@ -220,6 +222,7 @@ describe("SessionPage action rendering", () => {
     await renderAction("similar_item");
     await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    await userEvent.click(screen.getByTestId("confidence-skip"));
     expect(postEvent).toHaveBeenCalledWith(
       "sess-test",
       "answer",
@@ -334,10 +337,10 @@ describe("SessionPage action rendering", () => {
 
   it.each([
     ["sign_flip", /signs in each line/i],
-    ["off_by", /arithmetic, line by line/i],
+    ["off_by", /adding and taking away, line by line/i],
     ["values", /last step again/i],
     ["recheck", /one at a time/i],
-    ["something_else", /look over your work once more/i],
+    ["something_else", /read your work once more/i],
   ])("check_your_work (%s) says what to look at, never the answer", async (kind, words) => {
     mockSession({ ...actionFixtures.check_your_work, extras: { check_kind: kind } });
     render(<SessionPage />);
@@ -351,6 +354,7 @@ describe("SessionPage action rendering", () => {
     await renderAction("check_your_work");
     await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    await userEvent.click(screen.getByTestId("confidence-skip"));
     expect(postEvent).toHaveBeenCalledWith("sess-test", "answer", expect.objectContaining({ response: "6" }), actionFixtures.check_your_work.item_id);
   });
 
@@ -445,7 +449,7 @@ describe("SessionPage action rendering", () => {
   it("show_item after 'might be right' asks the student to submit", async () => {
     mockSession({ ...actionFixtures.show_item, extras: { prompt_submit: true } });
     render(<SessionPage />);
-    expect(await screen.findByText(/go ahead and type your answer/i)).toBeInTheDocument();
+    expect(await screen.findByText(/type your answer\. we will check it/i)).toBeInTheDocument();
   });
 
   it("practice: 'I don't know' is its own event, keyboard reachable", async () => {

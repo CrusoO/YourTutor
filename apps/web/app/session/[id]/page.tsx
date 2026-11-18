@@ -12,7 +12,7 @@ import SourceChips from "@/components/flow/SourceChips";
 import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
-import { ConfidenceTap, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
+import { ConfidenceAsk, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
 import BlockedState, { hasNoQuestion } from "@/components/session/BlockedState";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import ItemLabels from "@/components/session/ItemLabels";
@@ -41,16 +41,46 @@ export default function SessionPage() {
   const hintTimer = useRef<number | null>(null);
   // When the current question appeared, so an answer carries the time it really took.
   const shownAt = useRef(Date.now());
-  const [confidence, setConfidence] = useState<Confidence | null>(null);
+  // The answer the learner has given but not yet sent: practice asks "how sure were you?" before sending it.
+  const [pending, setPending] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const inFlight = useRef(false);
+  // Timed when the answer was given, not when the confidence was tapped.
+  const answeredMs = useRef(1);
 
   /** The payload of an answer: what was said, how long it took, and how sure the learner said they were. */
-  function answerPayload(response: string): Record<string, unknown> {
-    return { response, latency_ms: elapsedMs(shownAt.current), ...(confidence ? { confidence } : {}) };
+  function answerPayload(response: string, confidence?: Confidence | null): Record<string, unknown> {
+    const latency_ms = pending === response ? answeredMs.current : elapsedMs(shownAt.current);
+    return { response, latency_ms, ...(confidence ? { confidence } : {}) };
+  }
+
+  /** Check was pressed, or an option picked. Practice asks for confidence next; anything else sends now. */
+  function giveAnswer(response: string, ask: boolean) {
+    if (inFlight.current) return;
+    if (!ask) {
+      send("answer", answerPayload(response));
+      return;
+    }
+    answeredMs.current = elapsedMs(shownAt.current);
+    setPending(response);
+  }
+
+  /** One request at a time. On a failure the answer stays on screen so it can be sent again. */
+  async function sendPending(confidence: Confidence | null) {
+    if (inFlight.current || pending === null) return;
+    setSending(true);
+    try {
+      await send("answer", answerPayload(pending, confidence));
+    } catch {
+      /* the answer is kept; the buttons come back */
+    } finally {
+      setSending(false);
+    }
   }
 
   function questionShown() {
     shownAt.current = Date.now();
-    setConfidence(null);
+    setPending(null);
   }
 
   function armTimers(next: ActionPayload) {
@@ -106,7 +136,18 @@ export default function SessionPage() {
       </button>
     ) : null;
 
+  /** Every event goes one at a time: a second tap while one is in flight is ignored. */
   async function send(event_type: string, payload: Record<string, unknown> = {}, itemId?: string | null) {
+    if (inFlight.current) return;
+    inFlight.current = true;
+    try {
+      await sendNow(event_type, payload, itemId);
+    } finally {
+      inFlight.current = false;
+    }
+  }
+
+  async function sendNow(event_type: string, payload: Record<string, unknown> = {}, itemId?: string | null) {
     const view = await postEvent(params.id, event_type, payload, itemId ?? action?.item_id);
     const next = view.action;
     if (event_type === "idle_nudge" && next.type === "nudge" && action) {
@@ -224,7 +265,26 @@ export default function SessionPage() {
   const mcq = item?.type === "mcq";
   // The tap is optional and only for practice (a diagnostic or checkpoint gives no feedback to calibrate on).
   const askConfidence = action.session_type === "practice" && action.type !== "warmup_item";
-  const confidenceTap = askConfidence ? <ConfidenceTap copy={copy} value={confidence} onChange={setConfidence} /> : null;
+  const answerArea = (label: string, submit: string) =>
+    askConfidence && pending !== null ? (
+      <ConfidenceAsk
+        copy={copy}
+        answer={mcq ? (item?.options?.find((o) => o.id === pending)?.label ?? pending) : pending}
+        busy={sending}
+        onChoose={sendPending}
+        onChange={() => setPending(null)}
+      />
+    ) : mcq ? (
+      <Mcq options={item?.options || []} onPick={(id) => giveAnswer(id, askConfidence)} />
+    ) : (
+      <AnswerForm
+        value={answer}
+        onChange={setAnswer}
+        label={label}
+        submit={submit}
+        onSubmit={() => giveAnswer(answer, askConfidence)}
+      />
+    );
   const extras = (action.extras ?? {}) as Record<string, unknown>;
   const praise = (extras.encouragement as { text?: string | null } | undefined)?.text;
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
@@ -299,18 +359,7 @@ export default function SessionPage() {
           <h1>{copy.checkTitle}</h1>
           <p className="stem">{item?.stem}</p>
           <p className="banner">{checkText(copy, extras.check_kind as string | undefined)}</p>
-          {confidenceTap}
-          {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
-          ) : (
-            <AnswerForm
-              value={answer}
-              onChange={setAnswer}
-              label={copy.answerPlaceholder}
-              submit={copy.submit}
-              onSubmit={() => send("answer", answerPayload(answer))}
-            />
-          )}
+          {answerArea(copy.answerPlaceholder, copy.submit)}
           {hintReady ? (
             <button type="button" className="secondary" onClick={() => send("request_help")}>
               {copy.helpButton}
@@ -379,18 +428,7 @@ export default function SessionPage() {
             }}
           />
           <p className="banner" data-testid="hint-text">{action.text}</p>
-          {confidenceTap}
-          {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
-          ) : (
-            <AnswerForm
-              value={answer}
-              onChange={setAnswer}
-              label={copy.answerPlaceholder}
-              submit={copy.submit}
-              onSubmit={() => send("answer", answerPayload(answer))}
-            />
-          )}
+          {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
           {canHelp(action) ? (
             <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
@@ -407,7 +445,7 @@ export default function SessionPage() {
 
       {action.type === "reveal_solution" ? (
         <>
-          <h1>{copy.reveal}</h1>
+          <h1>{copy.revealTitle}</h1>
           <p className="stem">{item?.stem}</p>
           <p className="math">{item?.answer || action.text}</p>
           <ol className="steps">
@@ -444,18 +482,7 @@ export default function SessionPage() {
           <p className="stem">{item?.stem}</p>
           <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
           <ItemLabels labels={item?.labels} />
-          {confidenceTap}
-          {mcq ? (
-            <Mcq options={item?.options || []} onPick={(id) => send("answer", answerPayload(id))} />
-          ) : (
-            <AnswerForm
-              value={answer}
-              onChange={setAnswer}
-              label={copy.answerPlaceholder}
-              submit={copy.submit}
-              onSubmit={() => send("answer", answerPayload(answer))}
-            />
-          )}
+          {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
           {extras.prompt_submit ? <p className="banner">{copy.promptSubmit}</p> : null}
           {canHelp(action) ? (

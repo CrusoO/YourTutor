@@ -2,7 +2,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import SessionPage from "@/app/session/[id]/page";
-import { ConfidenceTap, ExplainGrade, WhyWrong } from "@/components/session/Signals";
+import { ConfidenceAsk, ConfidenceTap, ExplainGrade, WhyWrong } from "@/components/session/Signals";
 import { getSession, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
 import { MAX_ANSWER_MS, elapsedMs } from "@/lib/session-timers";
@@ -31,18 +31,31 @@ describe("elapsedMs", () => {
   });
 });
 
-describe("ConfidenceTap", () => {
-  it("offers two optional choices, and tapping the chosen one again clears it", async () => {
-    const onChange = vi.fn();
-    const { rerender } = render(<ConfidenceTap copy={copy} value={null} onChange={onChange} />);
-    expect(screen.getByRole("group", { name: "How sure are you?" })).toBeInTheDocument();
+describe("ConfidenceAsk", () => {
+  afterEach(cleanup);
+
+  it("shows the answer and three choices; each sends once and Skip sends no confidence", async () => {
+    const onChoose = vi.fn();
+    render(<ConfidenceAsk copy={copy} answer="3" busy={false} onChoose={onChoose} />);
+    expect(screen.getByRole("group", { name: "How sure were you?" })).toBeInTheDocument();
+    expect(screen.getByTestId("confidence-answer")).toHaveTextContent("3");
     await userEvent.click(screen.getByTestId("confidence-sure"));
-    expect(onChange).toHaveBeenLastCalledWith("sure");
-    rerender(<ConfidenceTap copy={copy} value="sure" onChange={onChange} />);
-    expect(screen.getByTestId("confidence-sure")).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByTestId("confidence-unsure")).toHaveAttribute("aria-pressed", "false");
-    await userEvent.click(screen.getByTestId("confidence-sure"));
-    expect(onChange).toHaveBeenLastCalledWith(null);
+    expect(onChoose).toHaveBeenLastCalledWith("sure");
+    await userEvent.click(screen.getByTestId("confidence-unsure"));
+    expect(onChoose).toHaveBeenLastCalledWith("unsure");
+    await userEvent.click(screen.getByTestId("confidence-skip"));
+    expect(onChoose).toHaveBeenLastCalledWith(null);
+  });
+
+  it("is reachable by keyboard and disables every button while sending", async () => {
+    const onChoose = vi.fn();
+    const { rerender } = render(<ConfidenceAsk copy={copy} answer="3" busy={false} onChoose={onChoose} />);
+    expect(screen.getByTestId("confidence-sure")).toHaveFocus();
+    await userEvent.keyboard("{Enter}");
+    expect(onChoose).toHaveBeenCalledWith("sure");
+    rerender(<ConfidenceAsk copy={copy} answer="3" busy onChoose={onChoose} />);
+    for (const id of ["sure", "unsure", "skip"]) expect(screen.getByTestId(`confidence-${id}`)).toBeDisabled();
+    expect(screen.getByTestId("confidence").querySelector("[aria-live]")).not.toBeNull();
   });
 });
 
@@ -50,9 +63,9 @@ describe("WhyWrong", () => {
   afterEach(cleanup);
 
   it.each([
-    ["misconception", "common idea"],
+    ["misconception", "where it went off track"],
     ["slip", "small slip"],
-    ["prerequisite_gap", "earlier idea"],
+    ["prerequisite_gap", "from before"],
     ["incomplete_procedure", "one step early"],
   ])("says something plain for %s", (kind, words) => {
     render(<WhyWrong copy={copy} diagnosis={{ class: kind }} onNotWhy={vi.fn()} />);
@@ -74,7 +87,31 @@ describe("WhyWrong", () => {
     expect(onNotWhy).toHaveBeenCalledTimes(1);
     expect(onNotWhy).toHaveBeenCalledWith("slip");
     expect(screen.queryByTestId("not-why")).toBeNull();
-    expect(screen.getByRole("status")).toHaveTextContent("Okay, thanks for telling me.");
+    expect(screen.getByRole("status")).toHaveTextContent("Okay, thanks for telling us.");
+  });
+
+  it("shows a plain described mistake with Yes / No buttons, and a gentle line for a jargon one", () => {
+    const plain = "You added 7 instead of taking 7 away.";
+    const { rerender } = render(
+      <WhyWrong copy={copy} diagnosis={{ class: "misconception", description: plain }} onNotWhy={vi.fn()} />,
+    );
+    expect(screen.getByRole("heading", { name: "Let's look at your answer" })).toBeInTheDocument();
+    expect(screen.getByText("It looks like you may have done this:")).toBeInTheDocument();
+    expect(screen.getByTestId("why-mistake")).toHaveTextContent(plain);
+    expect(screen.getByRole("button", { name: "Yes, that is what I did" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "No, I did something else" })).toBeInTheDocument();
+    rerender(
+      <WhyWrong
+        copy={copy}
+        diagnosis={{ class: "misconception", description: "The inverse of subtraction is addition." }}
+        onNotWhy={vi.fn()}
+      />,
+    );
+    expect(screen.queryByTestId("why-mistake")).toBeNull();
+    expect(screen.getByTestId("why-generic")).toHaveTextContent("Let's work out together");
+    // Nothing specific is said, so there is nothing to confirm: no Yes / No buttons.
+    expect(screen.queryByTestId("yes-why")).toBeNull();
+    expect(screen.queryByTestId("not-why")).toBeNull();
   });
 });
 
@@ -143,6 +180,8 @@ describe("SessionPage signals", () => {
     now += 7_300;
     await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    now += 3_000;
+    await userEvent.click(screen.getByTestId("confidence-skip"));
     const payload = vi.mocked(postEvent).mock.calls.at(-1)![2] as { latency_ms: number };
     expect(payload.latency_ms).toBeGreaterThanOrEqual(7_300);
     expect(payload.latency_ms).toBeLessThan(MAX_ANSWER_MS);
@@ -157,19 +196,107 @@ describe("SessionPage signals", () => {
     expect(payload.latency_ms).toBeGreaterThanOrEqual(4_100);
   });
 
-  it("sends the confidence only when the learner tapped it", async () => {
-    await open(actionFixtures.show_item!);
-    await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
+  async function check(value = "6") {
+    await userEvent.type(screen.getByPlaceholderText(/type your answer/i), value);
     await userEvent.click(screen.getByRole("button", { name: /check/i }));
-    expect(vi.mocked(postEvent).mock.calls.at(-1)![2]).not.toHaveProperty("confidence");
+  }
 
-    cleanup();
-    vi.clearAllMocks();
+  it("asks how sure only after Check, and sends nothing until a choice is made", async () => {
     await open(actionFixtures.show_item!);
+    expect(screen.queryByTestId("confidence")).toBeNull();
+    await check();
+    expect(screen.getByTestId("confidence")).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText(/type your answer/i)).toBeNull();
+    expect(postEvent).not.toHaveBeenCalled();
+  });
+
+  it("sends the answer with the chosen confidence", async () => {
+    await open(actionFixtures.show_item!);
+    await check();
     await userEvent.click(screen.getByTestId("confidence-unsure"));
-    await userEvent.type(screen.getByPlaceholderText(/type your answer/i), "6");
-    await userEvent.click(screen.getByRole("button", { name: /check/i }));
+    expect(postEvent).toHaveBeenCalledTimes(1);
     expect(vi.mocked(postEvent).mock.calls.at(-1)![2]).toMatchObject({ response: "6", confidence: "unsure" });
+  });
+
+  it("Skip sends the answer with no confidence", async () => {
+    await open(actionFixtures.show_item!);
+    await check();
+    await userEvent.click(screen.getByTestId("confidence-skip"));
+    expect(postEvent).toHaveBeenCalledTimes(1);
+    const payload = vi.mocked(postEvent).mock.calls.at(-1)![2];
+    expect(payload).toMatchObject({ response: "6" });
+    expect(payload).not.toHaveProperty("confidence");
+  });
+
+  it("never double-sends: rapid taps give one request", async () => {
+    await open(actionFixtures.show_item!);
+    await check();
+    let release: () => void = () => {};
+    vi.mocked(postEvent).mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          release = () =>
+            resolve({
+              id: "sess-test",
+              session_id: "sess-test",
+              type: "practice",
+              student_id: "stu-1",
+              action: actionFixtures.show_item!,
+              progress: { items_completed: 0, active_ms: 0, resumable: false },
+            });
+        }),
+    );
+    const sure = screen.getByTestId("confidence-sure");
+    await userEvent.click(sure);
+    await userEvent.click(sure);
+    await userEvent.click(screen.getByTestId("confidence-skip"));
+    expect(postEvent).toHaveBeenCalledTimes(1);
+    release();
+  });
+
+  it("keeps the answer and lets the learner try again when sending fails", async () => {
+    await open(actionFixtures.show_item!);
+    await check();
+    vi.mocked(postEvent).mockRejectedValueOnce(new Error("offline"));
+    await userEvent.click(screen.getByTestId("confidence-sure"));
+    await waitFor(() => expect(screen.getByTestId("confidence-sure")).not.toBeDisabled());
+    expect(screen.getByTestId("confidence-answer")).toHaveTextContent("6");
+    await userEvent.click(screen.getByTestId("confidence-sure"));
+    expect(postEvent).toHaveBeenCalledTimes(2);
+  });
+
+  it("lets the learner change the answer before it is sent", async () => {
+    await open(actionFixtures.show_item!);
+    await check();
+    await userEvent.click(screen.getByTestId("confidence-change"));
+    expect(screen.queryByTestId("confidence")).toBeNull();
+    expect(screen.getByPlaceholderText(/type your answer/i)).toBeInTheDocument();
+  });
+
+  it("asks after a multiple-choice pick, before any feedback", async () => {
+    const item = {
+      id: "i1",
+      type: "mcq",
+      stem: "Pick",
+      options: [
+        { id: "a", label: "Five" },
+        { id: "b", label: "Six" },
+      ],
+    };
+    await open(actionFixture("show_item", { session_type: "practice", item: item as never }));
+    expect(screen.queryByTestId("confidence")).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: "Six" }));
+    expect(screen.getByTestId("confidence-answer")).toHaveTextContent("Six");
+    expect(postEvent).not.toHaveBeenCalled();
+    await userEvent.click(screen.getByTestId("confidence-sure"));
+    expect(vi.mocked(postEvent).mock.calls.at(-1)![2]).toMatchObject({ response: "b", confidence: "sure" });
+  });
+
+  it("I don't know still sends at once, with no confidence step", async () => {
+    await open(actionFixtures.show_item!);
+    await userEvent.click(screen.getByRole("button", { name: /i don't know/i }));
+    expect(screen.queryByTestId("confidence")).toBeNull();
+    expect(postEvent).toHaveBeenCalledTimes(1);
   });
 
   it("offers no confidence tap in a diagnostic, a checkpoint or a warm-up", async () => {
