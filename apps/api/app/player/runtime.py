@@ -68,6 +68,28 @@ def limits_for_student(student: StudentRow) -> SessionLimits:
     return session_limits(student.grade)
 
 
+DIAGNOSIS_DESCRIPTION_MAX_WORDS = 25
+
+
+def _diagnosis_description(
+    session: Session, misconception_id: str | None, locale: str
+) -> str | None:
+    """The misconception's plain message ('You may have ...') for the learner, when it is short.
+
+    The web shows it as "It looks like you may have done this: ..." and drops anything longer
+    than 25 words, so a long message is not sent at all.
+    """
+    if not misconception_id:
+        return None
+    row = session.get(MisconceptionRow, misconception_id)
+    if row is None:
+        return None
+    text = _locale_value(row.explanation, locale).strip()
+    if not text or len(text.split()) > DIAGNOSIS_DESCRIPTION_MAX_WORDS:
+        return None
+    return text
+
+
 def _locale_value(blob: dict | None, locale: str) -> str:
     data = blob or {}
     requested = str(data.get(locale) or "")
@@ -954,6 +976,9 @@ def apply_player_event(
     enriched = enrich_action(session, state, action, locale)
     why = public_diagnosis(event_type, state, enriched.get("extras") or {}, action.misconception_id)
     if why:
+        description = _diagnosis_description(session, why.get("misconception_id"), locale)
+        if description:
+            why["description"] = description
         enriched.setdefault("extras", {})["diagnosis"] = why
     _attach_summary(session, student, row, enriched)
     return {

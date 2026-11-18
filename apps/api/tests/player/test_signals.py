@@ -179,9 +179,11 @@ def test_a_misconception_answer_is_recorded_explained_and_stored_with_its_confid
     play = Play(client, misconception_world)
     action = play.send("answer", response="-2", latency_ms=4200, confidence="sure")
 
+    # the misconception's short plain message now rides along as `description` (it was not sent)
     assert action["extras"]["diagnosis"] == {
         "class": "misconception",
         "misconception_id": "MC.SAME",
+        "description": "A common idea.",
     }
     hits = list(db.scalars(select(MisconceptionHitRow)))
     assert [(h.misconception_id, h.item_id) for h in hits] == [("MC.SAME", action["item_id"])]
@@ -252,3 +254,33 @@ def test_a_retried_correction_is_recorded_once(
     assert first.status_code == again.status_code == 200
     assert again.json()["duplicate"] is True
     assert len(_events(db, "diagnosis_correction")) == 1
+
+
+def test_the_diagnosis_description_is_the_short_plain_message(db: Session) -> None:
+    from app.player.runtime import _diagnosis_description
+
+    db.add(
+        MisconceptionRow(
+            id="MC.SHORT",
+            title={"en": "t"},
+            explanation={"en": "You may have added the numbers instead of taking one away."},
+            remedial_skill="S",
+            status="draft",
+        )
+    )
+    db.add(
+        MisconceptionRow(
+            id="MC.LONG",
+            title={"en": "t"},
+            explanation={"en": " ".join(["word"] * 30)},
+            remedial_skill="S",
+            status="draft",
+        )
+    )
+    db.commit()
+    assert _diagnosis_description(db, "MC.SHORT", "en") == (
+        "You may have added the numbers instead of taking one away."
+    )
+    assert _diagnosis_description(db, "MC.LONG", "en") is None  # over 25 words: not sent
+    assert _diagnosis_description(db, "MC.NONE", "en") is None
+    assert _diagnosis_description(db, None, "en") is None
