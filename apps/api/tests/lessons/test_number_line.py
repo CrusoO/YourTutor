@@ -122,7 +122,7 @@ def test_the_pilot_lesson_carries_checked_figures() -> None:
         and (fig := b.number_line) is not None
     ]
     got = [(f.start, f.delta, f.answer) for f in figs]
-    assert got == [(-6, 15, 9), (-8, 5, -3), (-9, 4, -5)]
+    assert got == [(3, 4, 7), (2, -5, -3), (-6, 15, 9)]
     worked = next(b for b in pilot.beats if isinstance(b, WorkedExampleBeat))
     sub = [f for f in worked.more_number_lines if f.delta < 0]
     assert sub and sub[0].start + sub[0].delta == sub[0].answer
@@ -132,4 +132,4 @@ def test_the_served_lesson_json_carries_the_figure() -> None:
     pilot = load_lessons(LEGACY_CONTENT_ROOT)["LESSON.INTEGERS.OPERATIONS"]
     served = pilot.model_dump(mode="json", by_alias=True, exclude_none=True)
     worked = next(b for b in served["beats"] if b["kind"] == "worked_example")
-    assert worked["number_line"] == {"kind": "number_line", "start": -8, "delta": 5, "answer": -3}
+    assert worked["number_line"] == {"kind": "number_line", "start": 2, "delta": -5, "answer": -3}
