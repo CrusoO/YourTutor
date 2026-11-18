@@ -61,6 +61,10 @@ Any field outside this schema is refused by the engine (error code `invalid_requ
 
 ---
 
+### Story roles and highlights (optional, off by default)
+
+Animated story requests may carry, on a shape, `role` (`term`, `key`, `look-again`, `checked`) and, on a scene, `highlights: [{s, word, role}]` (`s` is the 0-based sentence index). The engine draws one colour per role. `EXPLAIN_STORY_PROMPT_VERSION=v3` (environment; default `v2`, which changes nothing) switches the story prompts to `story_plan.v3.md` and `story_scenes.v3.md`, which ask for the six-part template (hook question, key term marked, one idea per scene, worked example, one-line recap, a "your turn" last sentence) and these roles. `app/explain/story.py` checks the model output against the closed lists before the request is built: unknown roles are dropped, a highlight word must appear in its sentence, at most one `key` per scene, and `checked` is dropped unless the code passes a verified value to `build_story(verified=[...])`. Dropped items are listed in `role_notes` of the result (not sent to the engine); a last sentence that is missing or contains a digit is flagged the same way.
+
 ## 3. Output layout
 
 All outputs land in `<engine>/dist/jobs/<requestId>/`.
