@@ -5,7 +5,8 @@ import uuid
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.auth.scopes import read_scopes
+from app.auth.scopes import NEW_SCOPES, SCOPE_REGISTRY, read_scopes
+from app.config import settings
 from app.db.models import ConsentRow, StudentRow, UserRow
 from app.registries.loaders import load_all_curricula
 from app.registries.startup import deployment_jurisdiction_profile
@@ -46,10 +47,17 @@ def available_scopes(session: Session, student_id: uuid.UUID) -> set[str]:
     return set(profile.consent_scopes)
 
 
+def _flag_on(scope: str) -> bool:
+    flag = SCOPE_REGISTRY[scope].flag_setting
+    return bool(flag and getattr(settings, flag, False))
+
+
 def active_scopes(session: Session, student_id: uuid.UUID) -> set[str]:
     row = active_consent(session, student_id)
     if row is not None:
-        return read_scopes(row.scopes or []) & available_scopes(session, student_id)
+        held = read_scopes(row.scopes or []) & available_scopes(session, student_id)
+        # a new scope (also one read from a deprecated name) is active only while its flag is on
+        return {s for s in held if s not in NEW_SCOPES or _flag_on(s)}
     return set(GUEST_SCOPES) if is_guest(session, student_id) else set()
 
 

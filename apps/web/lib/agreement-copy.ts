@@ -55,6 +55,22 @@ export const items: Record<Role, Record<string, ItemCopy>> = {
       label: "Learning data without names may be used for research.",
       detail: `Optional. Who does the research and how it is protected: ${PLACEHOLDER}.`,
     },
+    learning_profile: {
+      label: "Brownie may keep simple counts of the methods my child uses and the mistakes they make.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    math_check: {
+      label: "My child may send a confirmed maths expression to Brownie's server to be checked.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    photo_check: {
+      label: "My child may send a photo of a maths question to Brownie's server to be read.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    ai_help_typed: {
+      label: "My child may send a typed school question to an AI service when they ask for AI help.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
     progress_reports: {
       label: "Send me a weekly note about how my child is doing.",
       detail: "Optional. Sent to the email address on this account.",
@@ -88,6 +104,22 @@ export const items: Record<Role, Record<string, ItemCopy>> = {
     research_pseudonymised: {
       label: "My learning data without my name may be used for research.",
       detail: `Optional. Who does the research and how it is protected: ${PLACEHOLDER}.`,
+    },
+    learning_profile: {
+      label: "Brownie may keep simple counts of the methods I use and the mistakes I make.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    math_check: {
+      label: "I may send a confirmed maths expression to Brownie's server to be checked.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    photo_check: {
+      label: "I may send a photo of a maths question to Brownie's server to be read.",
+      detail: "Optional. Read the exact wording below before you decide.",
+    },
+    ai_help_typed: {
+      label: "I may send a typed school question to an AI service when I ask for AI help.",
+      detail: "Optional. Read the exact wording below before you decide.",
     },
     progress_reports: {
       label: "Send me a weekly note about how I am doing.",
@@ -254,4 +286,42 @@ export const loginDetails = {
   result: "Give these to your child. The PIN is shown only now.",
   username: "Username",
   pin: "PIN",
+};
+
+/**
+ * The scopes whose exact approved wording comes from the server (config/consent_texts) and whose
+ * switch is shown in Settings. Each needs a withdrawal line here: the plain list of what is deleted
+ * when it is switched off (it mirrors the server's deletion map; a test checks every id has one).
+ */
+export const CONSENT_TEXT_SCOPES = ["learning_profile", "math_check", "photo_check", "ai_help_typed"] as const;
+export type ConsentTextScope = (typeof CONSENT_TEXT_SCOPES)[number];
+
+export const scopeUi = {
+  guardianHeading: "What you are agreeing to",
+  childHeading: "What your child is told",
+  showChild: "See what your child is told",
+  hideChild: "Hide what your child is told",
+  textVersion: "Wording version",
+  textMissing: "The wording for this choice is not available right now, so it cannot be switched on.",
+  switchOn: "Switch on",
+  switchOff: "Switch off",
+  confirmTitle: "Switch this off?",
+  confirmDelete: "Switching this off will delete:",
+  confirmKeep: "Keep it on",
+  confirmGo: "Switch off and delete",
+  status: { on: "On", off: "Off" },
+  childNoticeTitle: "A note for you",
+  childNoticeOk: "OK, I understand",
+  childNoticeCancel: "Cancel",
+};
+
+export const withdrawal: Record<ConsentTextScope, string> = {
+  learning_profile:
+    "All the method and mistake counts kept for your child are deleted now. Brownie stops keeping them, and later reads find nothing.",
+  math_check:
+    "Nothing is stored for this choice, so there is nothing to delete. Checking a maths expression on our server stops at once.",
+  photo_check:
+    "Nothing is stored for this choice, so there is nothing to delete. Sending a photo to our server stops at once; reading a photo on the device still works.",
+  ai_help_typed:
+    "AI call records linked to your child are deleted. The Ask AI button stops sending typed questions, and your child sees the answers Brownie already has on the device.",
 };

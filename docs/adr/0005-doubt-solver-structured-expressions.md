@@ -1,6 +1,6 @@
 # ADR 0005: Doubt solver, structured maths expressions only
 
-**Status:** Proposed (2026-11-16). The owner has not approved it. Nothing in this ADR is switched on by the code that accompanies it.
+**Status:** Accepted. The owner approved this ADR on 2026-11-17 in the working session, with these safeguards: only a confirmed, PII-screened maths expression may be sent to the server; it is sent only under the `math_check` consent scope; and the scope's flag is off by default, so nothing is switched on by approving it. This is the owner's product decision. It is not a legal opinion, and no lawyer has reviewed it. (Proposed 2026-11-16.)
 **Scope:** the "Ask Brownie" doubt solver for maths typed or photographed by a student.
 **Related:** `apps/web/lib/doubt/*` (on-device core), ADR 0004 (content factory kernel), the standing rule in `ChatApp.tsx` and `finder_rules_route` that typed text is matched in the browser and never sent, stored or logged.
 

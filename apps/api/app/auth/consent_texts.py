@@ -134,6 +134,28 @@ def current_manifest(
     return {"version": newest, "lang": lang, "sha256": hashes}
 
 
+def approved_text(
+    text_scope: str, *, lang: str = "en", root: Path | None = None
+) -> dict[str, Any] | None:
+    """The newest verified wording of a scope with the words themselves, for showing to a person.
+
+    `{scope, version, lang, guardian: {text, sha256}, child: {text, sha256}}`, or None whenever
+    `current_manifest` is None (nothing unverified is ever shown). The hash is the one a consent
+    record stores for that audience. `text_scope` must be a plain folder name.
+    """
+    if not re.fullmatch(r"[a-z_]+", text_scope):
+        return None
+    current = current_manifest(text_scope, lang=lang, root=root)
+    if current is None:
+        return None
+    out: dict[str, Any] = {"scope": text_scope, "version": current["version"], "lang": lang}
+    for audience in AUDIENCES:
+        path = texts_root(root) / text_scope / f"{current['version']}.{lang}.{audience}.md"
+        text = path.read_text(encoding="utf-8").strip()  # CRLF reads as LF
+        out[audience] = {"text": text, "sha256": current["sha256"][audience]}
+    return out
+
+
 def main(argv: list[str]) -> int:
     command = argv[0] if argv else ""
     if command == "manifest":

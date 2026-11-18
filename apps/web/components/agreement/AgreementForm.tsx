@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCatalog, type Catalog, type CatalogItem } from "@/lib/agreements-api";
-import { items as copyItems, roleIntro, roleTitle, ui, type Role } from "@/lib/agreement-copy";
+import { CONSENT_TEXT_SCOPES, items as copyItems, roleIntro, roleTitle, ui, type Role } from "@/lib/agreement-copy";
 import styles from "./Agreement.module.css";
 
 /** One item: its own tick box, its own words. */
@@ -62,7 +62,8 @@ export default function AgreementForm({
 
   if (!loaded) return error ? <p className="banner">{error}</p> : <p>…</p>;
   const required = loaded.items.filter((i) => i.required);
-  const optional = loaded.items.filter((i) => !i.required);
+  // Scopes with approved wording are switched on in Settings, where that wording is shown, never ticked blind.
+  const optional = loaded.items.filter((i) => !i.required && !(CONSENT_TEXT_SCOPES as readonly string[]).includes(i.id));
   const ready = required.every((i) => ticked.has(i.id));
   const toggle = (id: string, on: boolean) =>
     setTicked((current) => {

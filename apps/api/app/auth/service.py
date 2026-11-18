@@ -625,7 +625,12 @@ def export_family(session: Session, actor: Actor, parent_id: uuid.UUID) -> dict[
                 "student_id": str(c.student_id),
                 "scopes": list(c.scopes or []),
                 "version": c.version,
+                "granted_at": c.granted_at.isoformat(),
                 "revoked_at": c.revoked_at.isoformat() if c.revoked_at else None,
+                # exactly which wording was shown: per scope, its version, language and sha256
+                "text_manifest": c.text_manifest or {},
+                "method": c.method,
+                "verified_at": c.verified_at.isoformat() if c.verified_at else None,
             }
             for c in session.scalars(select(ConsentRow).where(ConsentRow.parent_id == parent_id))
         ],
