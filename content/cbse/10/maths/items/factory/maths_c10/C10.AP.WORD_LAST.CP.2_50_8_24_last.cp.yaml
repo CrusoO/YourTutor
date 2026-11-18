@@ -1,0 +1,133 @@
+id: C10.AP.WORD_LAST.CP.2_50_8_24_last.cp
+skill_ids:
+- MATH.ALG.AP.MODEL_SITUATION
+difficulty: 0.51
+pool: checkpoint
+role: apply
+stem:
+  en: A library puts books on display. On day 1 it shows 50 books and each day it
+    shows 8 more than the day before, for 24 days. How many books are on display on
+    the last day?
+hints:
+- level: 1
+  en: 'Let the amounts in order be the terms of an AP: name its first term and its
+    common difference.'
+- level: 2
+  en: Decide whether the question asks for one term or for the sum of all the terms,
+    then choose the matching rule. Work through it one operation after another.
+- level: 3
+  en: 'Full method: identify the first term, the common difference and the number
+    of rows or days, pick the rule for one term or for the sum, substitute carefully,
+    and give the answer with its unit.'
+prediction_prompt:
+  en: Is the pattern growing or shrinking from one step to the next?
+status: draft
+template_id: TPL.C10.AP.WORD_LAST.CP
+generator_version: factory-2
+template_hash: b52fc4312a650960b48cfd0ede72d05e8d313447f05d0b944febea7da5a65a71
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '234'
+- id: b
+  en: '81'
+- id: c
+  en: '242'
+- id: d
+  en: '226'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 50 and common difference 8.
+- en: The last amount is a_24 = 50 + (24 - 1)(8) = 234.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f238b55660742106bea2df6e38a6e801c90e6e8797366ba7f286300e74413c8c
+  template_hash: b52fc4312a650960b48cfd0ede72d05e8d313447f05d0b944febea7da5a65a71
+  certificate_hash: 65255fca48fb94524facb4c11db1d6a679d10ccc8b0246a0ed0f2ecfe6bf369a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:15:08+00:00'
+  record_hash: 89504f84d11359c6e85488adafe9bbbcfcb86a73867ee5c2ab6bd0f287db131e

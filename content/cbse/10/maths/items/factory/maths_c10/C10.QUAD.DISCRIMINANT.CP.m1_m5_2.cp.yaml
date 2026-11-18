@@ -1,0 +1,131 @@
+id: C10.QUAD.DISCRIMINANT.CP.m1_m5_2.cp
+skill_ids:
+- MATH.ALG.QUAD.DISCRIMINANT
+difficulty: 0.29
+pool: checkpoint
+role: procedure
+stem:
+  en: Calculate the discriminant for -x² - 5x + 2 = 0.
+hints:
+- level: 1
+  en: The discriminant uses only the three coefficients, not x itself.
+- level: 2
+  en: Square the x coefficient first, then work out four times the product of the
+    other two coefficients, and subtract.
+- level: 3
+  en: 'Full method: write the three coefficients with signs, square the middle one,
+    multiply the outer two together and then by four, and subtract the second result
+    from the first.'
+prediction_prompt:
+  en: Will the discriminant be positive, zero or negative?
+status: draft
+template_id: TPL.C10.QUAD.DISCRIMINANT.CP
+generator_version: factory-2
+template_hash: f4305014da133c366ee50a1d1f11c4de36eff53c757dc9e1f303f8cee1ef368d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '17'
+- id: b
+  en: '33'
+- id: c
+  en: '27'
+- id: d
+  en: '-2'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - a
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are -1, -5 and 2.
+- en: The discriminant is b² - 4ac = (-5)² - 4(-1)(2).
+- en: This equals 25 - (-8) = 33.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 57d24e810e538dcd5c7c1943642655955b63d3713ac474b506cdd8ec86086f3c
+  template_hash: f4305014da133c366ee50a1d1f11c4de36eff53c757dc9e1f303f8cee1ef368d
+  certificate_hash: 5edb14ede6de20f72710a314299d483a8a77241f398645c52b6c599a3948a2a8
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:19:26+00:00'
+  record_hash: 13341cfeba88c5769a94daf7ba8d36dbc8be91586e0d1ca85e31e316b8c4123e

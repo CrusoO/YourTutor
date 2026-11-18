@@ -1,0 +1,130 @@
+id: C10.AP.SUM_LAST.CP.13_2_18.cp
+skill_ids:
+- MATH.ALG.AP.SUM_USING_LAST_TERM
+difficulty: 0.56
+pool: checkpoint
+role: apply
+stem:
+  en: Find the sum of all the terms of the AP 13, 15, 17, ..., 47.
+hints:
+- level: 1
+  en: First find out how many terms there are.
+- level: 2
+  en: The number of terms is the distance from first to last divided by the difference,
+    plus one. Then average the first and last terms and multiply by the count.
+- level: 3
+  en: 'Full method: subtract the first term from the last, divide by the difference,
+    add one to get n, then multiply n by half of (first + last).'
+prediction_prompt:
+  en: Is the number of terms more or less than ten?
+status: draft
+template_id: TPL.C10.AP.SUM_LAST.CP
+generator_version: factory-2
+template_hash: e9de45d3fe968fb2d6a0a20e7697b4ca2fa19f36d78e63d15f803fee5fa94a55
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1080'
+- id: b
+  en: '1410'
+- id: c
+  en: '540'
+- id: d
+  en: '510'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 13, the last term is 47 and the difference is 2.
+- en: 'Number of terms: n = (47 - 13)/2 + 1 = 18.'
+- en: S = (n/2)(first + last) = (18/2)(13 + 47) = 540.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8004a6fb5379d1d1ce3ee2ec3f958cb1c7fa9f86e3bb1bf88c5f74f18c3ebb6b
+  template_hash: e9de45d3fe968fb2d6a0a20e7697b4ca2fa19f36d78e63d15f803fee5fa94a55
+  certificate_hash: b970e692860ab7738db40ba8f4313dbd574f530dd2bfb5dc7df724cd8a443ace
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:17:22+00:00'
+  record_hash: 197cc21f3a8a2e63da8d5c5db952781d327449f57db82a661004505045d2d009

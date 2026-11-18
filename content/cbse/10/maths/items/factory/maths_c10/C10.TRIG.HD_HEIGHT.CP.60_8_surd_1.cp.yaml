@@ -1,0 +1,134 @@
+id: C10.TRIG.HD_HEIGHT.CP.60_8_surd_1.cp
+skill_ids:
+- MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
+difficulty: 0.39
+pool: checkpoint
+role: apply
+stem:
+  en: A tree stands on level ground. From a point on the ground 8 m from the foot,
+    the angle of elevation of the top is 60°. Find the height of the tree in metres.
+hints:
+- level: 1
+  en: Choose the ratio that links the two sides you care about.
+- level: 2
+  en: The ratio that links the opposite side to the adjacent side is the tangent.
+    Write it as one relation and undo the division by doing the same thing to each
+    side.
+- level: 3
+  en: 'Full method: sketch and label the triangle, name the two sides involved, write
+    the tangent ratio for the stated angle, replace the tangent by its exact value,
+    and solve for the height.'
+prediction_prompt:
+  en: Is the height larger or smaller than the distance from the foot?
+status: draft
+template_id: TPL.C10.TRIG.HD_HEIGHT.CP
+generator_version: factory-2
+template_hash: 3448d7c7bfd9c9fee887a27fd1a63188239aeb8879288de32705da2cf88a4ddd
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8√3/3
+- id: b
+  en: '4'
+- id: c
+  en: 8√3
+- id: d
+  en: 4√3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Sketch a right triangle: the tree is the side opposite the 60° angle and the
+    ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 8 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 8√3 m.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 70a5b182c4d06226dbff6fe1e7de92e77daff3f14d041875342aeb28834b1ad3
+  template_hash: 3448d7c7bfd9c9fee887a27fd1a63188239aeb8879288de32705da2cf88a4ddd
+  certificate_hash: ddd39ae6b8d76cfb58511665007edfe2dbd9de23d2f194b52f67be18c1cdd7de
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:26:06+00:00'
+  record_hash: 1f754e15104ebb767b874438524de4e9b6496a0aff1f06ec558ee9d3982aea60

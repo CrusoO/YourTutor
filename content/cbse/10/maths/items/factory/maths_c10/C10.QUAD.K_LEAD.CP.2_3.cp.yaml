@@ -1,0 +1,131 @@
+id: C10.QUAD.K_LEAD.CP.2_3.cp
+skill_ids:
+- MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
+difficulty: 0.56
+pool: checkpoint
+role: apply
+stem:
+  en: Find the value of k for which kx² + 12x + 2 = 0 has two equal real roots.
+hints:
+- level: 1
+  en: Equal roots mean the discriminant is zero. Put the unknown k into it.
+- level: 2
+  en: You will get an equation that is linear in k. Undo each operation by doing the
+    same thing to both sides.
+- level: 3
+  en: 'Full method: write the discriminant using k as the leading coefficient, set
+    it to zero, collect the k term on one side by adding the same amount to both sides,
+    then divide both sides by the number multiplying k.'
+prediction_prompt:
+  en: Will k have the same sign as the plain number?
+status: draft
+template_id: TPL.C10.QUAD.K_LEAD.CP
+generator_version: factory-2
+template_hash: f58b60f6de10f46e280d7aa46b9e01a6c1a5bd1e024a0b242d28a140ecd04632
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -18
+- id: b
+  en: k = 18
+- id: c
+  en: k = 36
+- id: d
+  en: k = 72
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (12)² - 4(k)(2) = 0.
+- en: 'This gives 144 - 8k = 0. Add 8k to both sides: 8k = 144.'
+- en: 'Divide both sides by 8: k = 18.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3eabcbc2a6b7353ea97570dbc30fac425a1c75bb3cd68021e520c60ec74d3e9e
+  template_hash: f58b60f6de10f46e280d7aa46b9e01a6c1a5bd1e024a0b242d28a140ecd04632
+  certificate_hash: 364935922a67bebd91d1e6516f667217b30c7282c777ed8d8485d098275da889
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.k_closed
+  - maths.quad.k_sympy
+  - maths.quad.k_scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:19:48+00:00'
+  record_hash: 950f6244e33adfd6224027c7d81c03e583e927e2d2edb69aa19451f56dd15fc6

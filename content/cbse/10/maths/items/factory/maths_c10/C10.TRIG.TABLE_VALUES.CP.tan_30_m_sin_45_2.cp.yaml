@@ -1,0 +1,131 @@
+id: C10.TRIG.TABLE_VALUES.CP.tan_30_m_sin_45_2.cp
+skill_ids:
+- MATH.TRIG.STANDARD_ANGLE_VALUES
+difficulty: 0.42
+pool: checkpoint
+role: recall
+stem:
+  en: Find the value of tan² 30° - sin² 45°.
+hints:
+- level: 1
+  en: Replace each term by its exact value before doing any arithmetic.
+- level: 2
+  en: If any square sits on one ratio, square the exact value of the ratio, not the
+    angle. Then carry out the operation between the two terms.
+- level: 3
+  en: 'Full method: recall the exact value of each ratio, square it where a square
+    is shown, combine the two numbers with the stated operation, and simplify.'
+prediction_prompt:
+  en: Will the answer be a whole number, a fraction or involve a square root?
+status: draft
+template_id: TPL.C10.TRIG.TABLE_VALUES.CP
+generator_version: factory-2
+template_hash: 18aabf2c09795cafff65b9e6119aaee0a8ccccaf60f6dace8bc27e17a75e3308
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -√2/2 + √3/3
+- id: b
+  en: 2/3
+- id: c
+  en: -1/4
+- id: d
+  en: -1/6
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.SQUARE_DROPPED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.OPERATION_MIXED_UP
+  when_answer_equals:
+  - b
+- id: MC.TRIG.TAN_VALUE_AS_SIN_VALUE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
+- en: tan 30° = √3/3 and sin 45° = √2/2.
+- en: Square each value before combining, because the squares apply to the values.
+- en: 'Combine them: the result is -1/6.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3b433439dd984bdc9665b54897e6532b766cc1bbf3d6faa4d721aa0b99ada02c
+  template_hash: 18aabf2c09795cafff65b9e6119aaee0a8ccccaf60f6dace8bc27e17a75e3308
+  certificate_hash: a1cdceb735005ec5e0d5794a2d7a33f9402bececd452fe7757d0270b3f9e5516
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.table.exact
+  - maths.table.sympy
+  - maths.table.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:32:50+00:00'
+  record_hash: a7148a963d3b1eb96dd4cdd1810f193bea4306bb3ad09ec5a1b5faa76fe7db87

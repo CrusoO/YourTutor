@@ -1,0 +1,132 @@
+id: C10.QUAD.CHECK_ROOT.EX.1_m2_6_1.ex
+skill_ids:
+- MATH.ALG.QUAD.CHECK_ROOT
+difficulty: 0.16
+pool: practice
+role: explain
+stem:
+  en: Which of these values of x satisfies the equation x² - 4x - 12 = 0? A classmate
+    says the answer is -6. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: Test each choice by putting it in place of x.
+- level: 2
+  en: Substitute the choices one after another, work out the left side carefully with
+    its signs, and see whether it comes to zero.
+- level: 3
+  en: 'Full method: replace x by the choice, square first, then multiply by the coefficients,
+    add the terms, and keep only the choice that gives zero.'
+prediction_prompt:
+  en: Which choice looks most likely to work?
+status: draft
+template_id: TPL.C10.QUAD.CHECK_ROOT.EX
+generator_version: factory-2
+template_hash: 4b0530dabf66b33830b46f728dc506a034467f7815a3a6e8d958bd24cbe455dd
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-6'
+- id: b
+  en: '7'
+- id: c
+  en: '6'
+- id: d
+  en: '-12'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 6: 1(6)² + (-4)(6) + (-12) = 0.'
+- en: The left side is 0, so x = 6 satisfies the equation.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3fd148f3d190d5d3093bc27ae5d4b8ff0e09a14134b1633353eaf0cde9518ff0
+  template_hash: 4b0530dabf66b33830b46f728dc506a034467f7815a3a6e8d958bd24cbe455dd
+  certificate_hash: 7c0cfca5cf9ded00bf6243808e84746c3a302528b127cba31c24fb4585d091eb
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:08:08+00:00'
+  record_hash: 00af0a25144c4944328c75fd7e0f98287e978568675053c0f147feeaad8faf9c

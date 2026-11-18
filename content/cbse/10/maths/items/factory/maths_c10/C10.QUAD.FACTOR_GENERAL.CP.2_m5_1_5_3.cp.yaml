@@ -1,0 +1,138 @@
+id: C10.QUAD.FACTOR_GENERAL.CP.2_m5_1_5_3.cp
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
+difficulty: 0.65
+pool: checkpoint
+role: procedure
+stem:
+  en: Solve 6x² + 20x - 50 = 0.
+hints:
+- level: 1
+  en: Factorise the left side first; any product that equals zero tells you something
+    about each bracket.
+- level: 2
+  en: Divide out any common factor, split the middle term into two parts, and group
+    in pairs to find the brackets. Then set each bracket to zero and undo it by doing
+    the same thing to both sides.
+- level: 3
+  en: 'Full method: factorise the left side, set each bracket to zero, add or subtract
+    the same number on both sides, divide both sides by the coefficient of x, then
+    check each solution by substituting it back.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FACTOR_GENERAL.CP
+generator_version: factory-2
+template_hash: e98041ebb385fa10daee5b98a9b00da635fd158777e143cd774726bcea0b53c2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5 or x = -5/3
+- id: b
+  en: x = -5 or x = 5/3
+- id: c
+  en: x = -5 or x = 5
+- id: d
+  en: x = -5/3 or x = 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get 3x² + 10x - 25 = 0.
+- en: Split the middle term 10x into -5x and 15x, because -5 and 15 multiply to -75
+    (the product of 3 and -25) and add to 10.
+- en: 'Factorise: (x + 5)(3x - 5) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
+    = -5 and 3x - 5 = 0 gives x = 5/3.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9cf74b40e51a5d39d108ddcd65f5cb9d4e0875ed10c053108388c58b1c888a2b
+  template_hash: e98041ebb385fa10daee5b98a9b00da635fd158777e143cd774726bcea0b53c2
+  certificate_hash: 2a290ce37c4f44e72f385d86f11b4c8eab94eafc3cf85ed3d9ab7458f5afeb1a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:22:17+00:00'
+  record_hash: db3e10101ffa5750d251e193152a1b3df49db45b324e4e3f8b66a316aa4045c8

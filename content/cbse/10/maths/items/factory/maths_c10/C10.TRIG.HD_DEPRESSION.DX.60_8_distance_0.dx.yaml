@@ -1,0 +1,136 @@
+id: C10.TRIG.HD_DEPRESSION.DX.60_8_distance_0.dx
+skill_ids:
+- MATH.TRIG.HD.ANGLE_OF_DEPRESSION
+difficulty: 0.54
+pool: diagnostic
+role: transfer
+stem:
+  en: From the top of a lighthouse 8√3 m high, the angle of depression of a boat on
+    the sea is 60°. Find the horizontal distance of a boat from the foot of the lighthouse
+    in metres.
+hints:
+- level: 1
+  en: Alternate angles let you move the angle to the bottom of the triangle.
+- level: 2
+  en: After placing the angle inside the right triangle, decide which side is opposite
+    it and which is adjacent, then use the matching ratio and undo it by doing the
+    same thing to each side.
+- level: 3
+  en: 'Full method: sketch the horizontal line from the top, mark the angle below
+    it, copy that angle into the right triangle using alternate angles, pick the ratio
+    for the two sides involved, and solve.'
+prediction_prompt:
+  en: Does the sight line make a steep or a shallow angle with the horizontal?
+status: draft
+template_id: TPL.C10.TRIG.HD_DEPRESSION.DX
+generator_version: factory-2
+template_hash: e866c76c98f03fcdea0a6f28d3611f845f8d0d3cb3367cfca8cd020008f89adf
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '24'
+- id: b
+  en: '8'
+- id: c
+  en: '12'
+- id: d
+  en: '16'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a boat.
+- en: So in the right triangle the 60° angle is at a boat, and height and ground distance
+    are opposite and adjacent to it.
+- en: 'Use tan 60° = height / distance and solve: the answer is 8 m.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 95dc0f7d1824ada0e47dc1437f125103c5789cecf6ceca0c305146b04b53fc07
+  template_hash: e866c76c98f03fcdea0a6f28d3611f845f8d0d3cb3367cfca8cd020008f89adf
+  certificate_hash: e2ad9d502739923e9098ae5d64b55965c22c8da6eacd39dbaaf5a4f816c09015
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:59:05+00:00'
+  record_hash: f75a05448d0d215c9824dcf24d0fb9309a225f7da078d625d19db57a4551897b

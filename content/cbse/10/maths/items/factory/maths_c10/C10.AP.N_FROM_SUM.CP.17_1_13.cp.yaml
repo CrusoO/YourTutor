@@ -1,0 +1,132 @@
+id: C10.AP.N_FROM_SUM.CP.17_1_13.cp
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.79
+pool: checkpoint
+role: transfer
+stem:
+  en: How many terms of the AP 17, 18, 19, ... must be added to make the sum 299?
+hints:
+- level: 1
+  en: Use the sum formula, but this time the unknown is the number of terms.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM.CP
+generator_version: factory-2
+template_hash: 757e0ed342b091b56ad3d82a8c4a8e08e7a75b8791614e1a60a2d2faa007cb28
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '14'
+- id: b
+  en: '13'
+- id: c
+  en: 299/17
+- id: d
+  en: '-46'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 17, d = 1 and S_n = 299.
+- en: '(n/2)(2 x 17 + (n - 1) x 1) = 299. Multiply both sides by 2 and expand: 1n²
+    + 33n = 598.'
+- en: 'Rearranged: 1n² + (33)n - 598 = 0, whose solutions are n = 13 and n = -46.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3819b2081d4236ac3dcb1e9d5e792d50b443941923d80ed99cfee87ca7f23196
+  template_hash: 757e0ed342b091b56ad3d82a8c4a8e08e7a75b8791614e1a60a2d2faa007cb28
+  certificate_hash: 8caeec2b99c762b9c44f26c3d7717c4f3b0da0b168788551fd0719803a85ba28
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:15:48+00:00'
+  record_hash: e93f38c76591d81678828b001cad4b5c5f601cb2a0a8bd1d6fedb9edaeb99ebb

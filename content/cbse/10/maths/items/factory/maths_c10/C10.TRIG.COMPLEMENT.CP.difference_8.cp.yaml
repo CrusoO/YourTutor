@@ -1,0 +1,131 @@
+id: C10.TRIG.COMPLEMENT.CP.difference_8.cp
+skill_ids:
+- MATH.TRIG.COMPLEMENTARY_ANGLES
+difficulty: 0.39
+pool: checkpoint
+role: apply
+stem:
+  en: Find the value of cos 8° - sin 82°.
+hints:
+- level: 1
+  en: Try rewriting one ratio so that both terms use the same angle.
+- level: 2
+  en: A ratio of an angle equals the matching co-ratio of its complement. Use that
+    to rewrite one term so both terms involve the same angle.
+- level: 3
+  en: 'Full method: confirm the angles add to ninety, convert one term to the other
+    angle with the complement rule, then simplify the expression.'
+prediction_prompt:
+  en: Without a calculator, do you think the answer is a surprise number?
+status: draft
+template_id: TPL.C10.TRIG.COMPLEMENT.CP
+generator_version: factory-2
+template_hash: 4ff0df2bf10bfc087140c4d2d0072349d88528d80e8e551d8f338923985dd186
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-1'
+- id: b
+  en: '1'
+- id: c
+  en: '2'
+- id: d
+  en: '0'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.TRIG.COMPLEMENT_GAVE_ONE
+  when_answer_equals:
+  - b
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The angles 8° and 82° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 0.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d58e1b2cb9bff2105c5ddf7834300753d8cd16405abfd5a3348bc178dc4818c9
+  template_hash: 4ff0df2bf10bfc087140c4d2d0072349d88528d80e8e551d8f338923985dd186
+  certificate_hash: 404038fb452278dc02aa4db2579e333f5d63fd4a5dde25e692de0ab33558ebe1
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.comp.specialise
+  - maths.comp.symbolic
+  - maths.comp.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:24:31+00:00'
+  record_hash: 39e2ed1e81fa93a921531e4004da1f114acd0a1151df6fb68c0dd35fce240e65

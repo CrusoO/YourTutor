@@ -1,0 +1,134 @@
+id: C10.QUAD.FORMULA_RATIONAL.EX.1_m7_1_7_2.ex
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FORMULA
+difficulty: 0.57
+pool: practice
+role: explain
+stem:
+  en: Use the quadratic formula to solve 2x² + 7x - 49 = 0. A classmate says the answer
+    is x = -7/2 or x = 7. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: Every quadratic can be solved with the formula; the work is in the discriminant.
+- level: 2
+  en: Work out the discriminant first, then its square root. Keep the minus sign of
+    the x coefficient when you write the opposite of it.
+- level: 3
+  en: 'Full method: list the coefficients, compute the discriminant, take its square
+    root, put the numbers into the formula once with the plus sign and once with the
+    minus sign, divide each by twice the leading coefficient, and check by substitution.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FORMULA_RATIONAL.EX
+generator_version: factory-2
+template_hash: 023e5a06ccea36ae138cc6def1cd23fb1eff2ef8f53c42955ca4f44cbdba897a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -7/2 or x = 7
+- id: b
+  en: x = -49/4 or x = -7/4
+- id: c
+  en: x = -7 or x = 7/2
+- id: d
+  en: x = -14 or x = 7
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 2, of x is 7, plain number
+    is -49.'
+- en: The discriminant is 7² - 4 x 2 x -49 = 441, and its square root is 21.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 2).
+- en: 'Work out both signs: x = -7 or x = 7/2.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f5044c12c857898de83bc7fd554d81123d806b653e68750a22edacda012b2fd9
+  template_hash: 023e5a06ccea36ae138cc6def1cd23fb1eff2ef8f53c42955ca4f44cbdba897a
+  certificate_hash: b0cfa5e7f9b5b7500c4db7e50b1fb44d09ef0d171404212ea9977fa4afe9a201
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:11:08+00:00'
+  record_hash: 7f101e90e4e1cab18bc50e40126cc72643ebce32b55d649fd2e1683095fb2cc8

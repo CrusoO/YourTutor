@@ -1,0 +1,134 @@
+id: C10.QUAD.STD_FORM.CP.2_m3_3_3_3_c.cp
+skill_ids:
+- MATH.ALG.QUAD.STANDARD_FORM
+difficulty: 0.24
+pool: checkpoint
+role: procedure
+stem:
+  en: Rearrange 2x² + 3x - 15 = 3x + 3 into the form ax² + bx + c = 0. What is the
+    value of c?
+hints:
+- level: 1
+  en: Collect all the terms on the left side and leave zero on the right.
+- level: 2
+  en: 'Undo each term on the right by doing the same operation to both sides: take
+    the term away from both sides, then combine like terms. Start with the plain number
+    on the right: take it away from both sides first.'
+- level: 3
+  en: 'Full method: take the x term on the right from both sides, take the plain number
+    on the right from both sides, combine the x terms, combine the plain numbers,
+    then read the coefficient you need, keeping its sign.'
+prediction_prompt:
+  en: Before you work it out, will the coefficient be positive or negative?
+status: draft
+template_id: TPL.C10.QUAD.STD_FORM.CP
+generator_version: factory-2
+template_hash: f0335d947d866d90a6737482309f229bb76c85b5976ef8d3d3243755ecbf9faa
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '-15'
+- id: c
+  en: '-12'
+- id: d
+  en: '-18'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.STD_SIGN_NEGATED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.STD_RHS_IGNORED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.STD_TERM_ADDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Take the whole right-hand side away from both sides, so the right-hand side
+    is 0.
+- en: The left-hand side becomes 2x² - 18, so the equation is 2x² - 18 = 0.
+- en: Comparing with ax² + bx + c = 0 gives c = -18.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b69eb888e4c3f2e1eb7c56e0dc25fe2b6e5220cdb3fdd371e883e4f774978c0a
+  template_hash: f0335d947d866d90a6737482309f229bb76c85b5976ef8d3d3243755ecbf9faa
+  certificate_hash: 02a169cb44f8b33e09f7fb55bd51eeca88558f11d6124ecd719c8c56ad1d1552
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:24:01+00:00'
+  record_hash: d0a5d269b4507ca88d0fd33dcce26e35e5d269ddd8ab4fb86d667322d4836921

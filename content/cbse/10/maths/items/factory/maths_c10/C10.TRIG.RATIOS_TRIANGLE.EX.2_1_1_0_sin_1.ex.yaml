@@ -1,0 +1,135 @@
+id: C10.TRIG.RATIOS_TRIANGLE.EX.2_1_1_0_sin_1.ex
+skill_ids:
+- MATH.TRIG.RATIOS_FROM_TRIANGLE
+difficulty: 0.42
+pool: practice
+role: explain
+stem:
+  en: In triangle PQR the angle at Q is a right angle, PQ = 3 cm and QR = 4 cm. Find
+    the value of sin R. A classmate says the answer is 4/5. Work it out yourself and
+    choose the correct answer.
+hints:
+- level: 1
+  en: Label the three sides relative to the angle asked about, not to the triangle.
+- level: 2
+  en: Only two sides are given, so use the relation between the three sides of this
+    triangle to find the third before forming the ratio.
+- level: 3
+  en: 'Full method: label opposite, adjacent and hypotenuse for the stated angle,
+    find the missing side with the rule for right triangles, write the ratio as a
+    fraction and simplify it.'
+prediction_prompt:
+  en: Is this ratio bigger or smaller than 1?
+status: draft
+template_id: TPL.C10.TRIG.RATIOS_TRIANGLE.EX
+generator_version: factory-2
+template_hash: 06250f2aebfe210bc58531ef28f98a817d0f903031f901bd8f3738e15582d76d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5/3
+- id: b
+  en: 3/5
+- id: c
+  en: 4/5
+- id: d
+  en: 3/4
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.SIN_COS_MIXED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SIN_AS_OPP_OVER_ADJ
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Name the sides from angle R: the side opposite it, the side next to it (adjacent),
+    and the hypotenuse.'
+- en: By Pythagoras the hypotenuse PR = square root of (3² + 4²) = 5.
+- en: Opposite = 3, adjacent = 4, hypotenuse = 5.
+- en: sin R = opposite / hypotenuse = 3/5.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 20977640d3b08cb33c6fea1a0ebafbb38fd8af45130877d3470a0338867383b9
+  template_hash: 06250f2aebfe210bc58531ef28f98a817d0f903031f901bd8f3738e15582d76d
+  certificate_hash: f960ac9c832ecdb0ecaeecba35c6bff0dcfb55aa46231cf96f7792e859ad00cd
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.tri.closed
+  - maths.tri.sympy
+  - maths.tri.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:13:57+00:00'
+  record_hash: f972c14017aa24d063a898dc97789a28b695664a7b9aac90ce50bc3b2e79da4a

@@ -1,0 +1,131 @@
+id: C10.TRIG.COMPLEMENT.CP.ratio_76.cp
+skill_ids:
+- MATH.TRIG.COMPLEMENTARY_ANGLES
+difficulty: 0.39
+pool: checkpoint
+role: apply
+stem:
+  en: Find the value of sin 76° ÷ cos 14°.
+hints:
+- level: 1
+  en: 'Look at the two angles: what do they add up to?'
+- level: 2
+  en: A ratio of an angle equals the matching co-ratio of its complement. Use that
+    to rewrite one term so both terms involve the same angle.
+- level: 3
+  en: 'Full method: confirm the angles add to ninety, convert one term to the other
+    angle with the complement rule, then simplify the expression.'
+prediction_prompt:
+  en: Without a calculator, do you think the answer is a surprise number?
+status: draft
+template_id: TPL.C10.TRIG.COMPLEMENT.CP
+generator_version: factory-2
+template_hash: 4ff0df2bf10bfc087140c4d2d0072349d88528d80e8e551d8f338923985dd186
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '0'
+- id: c
+  en: '1'
+- id: d
+  en: '-1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - a
+- id: MC.TRIG.COMPLEMENT_GAVE_ZERO
+  when_answer_equals:
+  - b
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angles 76° and 14° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c6fe95a2ffaf19208aa7a4434cf0c2f9b0f1d5acecf4a698779c9ff0a60f390b
+  template_hash: 4ff0df2bf10bfc087140c4d2d0072349d88528d80e8e551d8f338923985dd186
+  certificate_hash: d10818197a177540e4ead2bdc34d0d925ab16230746e740c5abd51f006c002d1
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.comp.specialise
+  - maths.comp.symbolic
+  - maths.comp.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:24:31+00:00'
+  record_hash: 4b7d6503afae32f17d4602bffb58dd777251821ab1a8fe0ae4d8928856e469ff

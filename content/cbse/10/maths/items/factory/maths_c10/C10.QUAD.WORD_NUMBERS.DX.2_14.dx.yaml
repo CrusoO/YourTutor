@@ -1,0 +1,134 @@
+id: C10.QUAD.WORD_NUMBERS.DX.2_14.dx
+skill_ids:
+- MATH.ALG.QUAD.MODEL_NUMBERS
+difficulty: 0.63
+pool: diagnostic
+role: apply
+stem:
+  en: The product of two consecutive positive even integers is 224. Find the smaller
+    one.
+hints:
+- level: 1
+  en: Let x be the number you are asked for and write the other number in terms of
+    x.
+- level: 2
+  en: Write the product as one relation in x, bring every term to one side, then factorise
+    or use the formula. Check which solution fits the words of the question.
+- level: 3
+  en: 'Full method: name the smaller number, write the larger one, form the product
+    relation, rearrange so the right side is zero, solve, and reject any solution
+    that is not positive.'
+prediction_prompt:
+  en: Roughly how big do you expect the smaller number to be?
+status: draft
+template_id: TPL.C10.QUAD.WORD_NUMBERS.DX
+generator_version: factory-2
+template_hash: 4b9780732d15846ed0af1464142c642ed4c0646de3c03a44d8e0968b45ad3700
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-16'
+- id: b
+  en: '16'
+- id: c
+  en: '14'
+- id: d
+  en: '12'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x be the smaller number. The other is x + 2.
+- en: Their product is 224, so x(x + 2) = 224, which is x² + 2x - 224 = 0.
+- en: 'Factorise: (x - 14)(x + 16) = 0, so x = 14 or x = -16.'
+- en: The numbers must be positive, so the smaller number is 14.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c169ef57828981ff750b4b4d456792fe9af4d6998880624387cb0bf45b081201
+  template_hash: 4b9780732d15846ed0af1464142c642ed4c0646de3c03a44d8e0968b45ad3700
+  certificate_hash: 3295c68e00587057a597a8862bcfabe60414e1b268a045aeb31ad84a747f3428
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:55:09+00:00'
+  record_hash: 42dc8370f8b33479bb2c110921d2e90736f9031858718f22b7019c0335009c27
