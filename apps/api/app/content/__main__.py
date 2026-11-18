@@ -202,12 +202,12 @@ def main(argv: list[str] | None = None) -> int:
 
         bundle = load_bundle(args.root)
         items = [i for i in bundle.items if i.template_id] if args.factory_only else bundle.items
-        found = lint_bundle_plain(items, bundle.skills, bundle.misconceptions)
+        lint = lint_bundle_plain(items, bundle.skills, bundle.misconceptions)
         print(f"{len(items)} items, {len(bundle.misconceptions)} misconception messages")
-        print(format_counts(found))
-        for example in worst_examples(found, args.examples):
+        print(format_counts(lint))
+        for example in worst_examples(lint, args.examples):
             print(f"  [{example.rule}] {example.owner} ({example.detail}): {example.text[:140]}")
-        return 1 if found.errors else 0
+        return 1 if lint.errors else 0
     if args.command == "coverage":
         found = validate_path(args.root)
         if found.bundle is None:
