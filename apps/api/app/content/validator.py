@@ -41,6 +41,12 @@ LIVE_MIN_PER_ROLE = 1
 LIVE_WARN_CHECKPOINT = 15
 STEM_MIN_PRACTICE = 5
 STEM_MIN_DIAGNOSTIC = 3
+# Skills whose certified template family has only two stem shapes (a third would need a new family
+# and a recertification). The probe asks one diagnostic item per skill, a second only after a miss,
+# so two distinct stems are enough. Listed by id on purpose: it may shrink, never grow quietly.
+STEM_MIN_DIAGNOSTIC_TWO_SHAPES = frozenset(
+    {"MATH.ALG.QUAD.MODEL_NUMBERS", "MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC"}
+)
 WORD_ANSWER_MIN = 1
 WORD_ANSWER_MAX = 80
 
@@ -860,6 +866,8 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
         if _is_e2e_mini_skill(skill_id):
             continue
         count = len(by_skill_pool[(skill_id, ItemPool.diagnostic.value)])
+        if count == 2 and skill_id in STEM_MIN_DIAGNOSTIC_TWO_SHAPES:
+            continue
         if count < STEM_MIN_DIAGNOSTIC:
             report.errors.append(
                 f"{skill_id} diagnostic has {count} distinct stems; "

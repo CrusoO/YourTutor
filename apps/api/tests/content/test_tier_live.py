@@ -27,15 +27,15 @@ def test_a_covered_chapter_has_no_gaps() -> None:
     assert tier_live_gaps(["S1"], full("S1"), allow_draft=False) == []
 
 
-def test_missing_diagnostic_is_named_but_a_missing_role_is_not_a_gap() -> None:
+def test_missing_diagnostic_or_role_is_not_a_gap() -> None:
     rows = [r for r in full("S1") if r.pool != "diagnostic"]
     rows.append(row("S1", "practice", "procedure"))  # roles may be all alike
-    assert tier_live_gaps(["S1"], rows, allow_draft=False) == ["S1 diagnostic 0/1"]
+    assert tier_live_gaps(["S1"], rows, allow_draft=False) == []
 
 
 def test_unservable_rows_do_not_count() -> None:
     rows = [row("S1", r.pool, r.role, ok=False) for r in full("S1")]
-    assert len(tier_live_gaps(["S1"], rows, allow_draft=False)) == 2
+    assert len(tier_live_gaps(["S1"], rows, allow_draft=False)) == 1
 
 
 def test_live_needs_the_owner_switch() -> None:

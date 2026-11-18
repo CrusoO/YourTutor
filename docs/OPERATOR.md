@@ -423,7 +423,7 @@ All of these must hold (the gate is `app/content/gate.py`; nothing here changes 
 3. The item is not suspended (`python -m app.factory suspend`); suspension beats every other switch.
 4. The student's chapter is live. Either the overlay says `live: true` (the validator refuses that
    until approved counts hold), or, with `SERVE_TIER_A_UNREVIEWED=true`, every skill of the chapter
-   has at least 5 practice and 1 diagnostic item that the gate serves on their tier
+   has at least 5 practice items that the gate serves on their tier (a skill with no diagnostic item is simply skipped by the probe)
    (`gate.overlay_is_live_for_serving`). The overlay file stays `live: false`; nothing is flipped
    quietly. A missing role (explain, apply, transfer) lowers quality, not safety: the policy falls
    back and logs a content gap. `validate` says so: "not live by approval, but every skill is

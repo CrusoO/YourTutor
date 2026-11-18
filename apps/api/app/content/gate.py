@@ -157,7 +157,7 @@ def overlay_is_targetable(
 # skill is enough for the probe warm-up. Roles are not required: the policy falls back to any
 # eligible role and logs a content gap, so a missing role lowers quality, not safety.
 TIER_LIVE_MIN_PRACTICE = 5
-TIER_LIVE_MIN_DIAGNOSTIC = 1
+TIER_LIVE_MIN_DIAGNOSTIC = 0  # the probe skips a skill with no diagnostic item (pick_unused)
 
 
 def tier_live_gaps(
@@ -183,7 +183,7 @@ def tier_live_gaps(
     for skill_id in skill_ids:
         if practice[skill_id] < TIER_LIVE_MIN_PRACTICE:
             gaps.append(f"{skill_id} practice {practice[skill_id]}/{TIER_LIVE_MIN_PRACTICE}")
-        if diagnostic[skill_id] < TIER_LIVE_MIN_DIAGNOSTIC:
+        if TIER_LIVE_MIN_DIAGNOSTIC and diagnostic[skill_id] < TIER_LIVE_MIN_DIAGNOSTIC:
             gaps.append(f"{skill_id} diagnostic {diagnostic[skill_id]}/{TIER_LIVE_MIN_DIAGNOSTIC}")
     return gaps
 
