@@ -5,6 +5,7 @@ import { authFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icons";
 import { useCopy } from "@/lib/locale";
+import { CaptionedVideo, type CaptionTrack } from "./CaptionedVideo";
 
 interface VideoCardProps {
   jobId: string;
@@ -17,6 +18,8 @@ export function VideoCard({ jobId, autoLoad = false }: VideoCardProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const revokeRef = useRef<string | null>(null);
+  const [captions, setCaptions] = useState<CaptionTrack | null>(null);
+  const captionsRevokeRef = useRef<string | null>(null);
   const copy = useCopy();
   const frameRef = useRef<HTMLDivElement>(null);
   // Full window: the browser's full-screen mode where it exists, else a page-filling overlay (some phones).
@@ -57,6 +60,7 @@ export function VideoCard({ jobId, autoLoad = false }: VideoCardProps) {
   useEffect(() => {
     return () => {
       if (revokeRef.current) URL.revokeObjectURL(revokeRef.current);
+      if (captionsRevokeRef.current) URL.revokeObjectURL(captionsRevokeRef.current);
     };
   }, []);
 
@@ -76,10 +80,29 @@ export function VideoCard({ jobId, autoLoad = false }: VideoCardProps) {
       if (revokeRef.current) URL.revokeObjectURL(revokeRef.current);
       revokeRef.current = url;
       setBlobUrl(url);
+      void loadCaptions();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not load the video — please try again.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  /** The caption track, if the engine wrote one. Any failure just means no captions button (the video is unchanged). */
+  async function loadCaptions() {
+    try {
+      const job = await (await authFetch(`/video-jobs/${jobId}`)).json();
+      const info = job?.captions;
+      if (!info || info.format !== "webvtt" || typeof info.url !== "string") return;
+      const r = await authFetch(info.url);
+      if (!r.ok) return;
+      const vtt = new Blob([await r.arrayBuffer()], { type: "text/vtt" });
+      const url = URL.createObjectURL(vtt);
+      if (captionsRevokeRef.current) URL.revokeObjectURL(captionsRevokeRef.current);
+      captionsRevokeRef.current = url;
+      setCaptions({ src: url, lang: typeof info.language === "string" ? info.language : "en" });
+    } catch {
+      /* no captions button */
     }
   }
 
@@ -117,8 +140,9 @@ export function VideoCard({ jobId, autoLoad = false }: VideoCardProps) {
       }
       data-testid="video-frame"
     >
-      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <video
+      <CaptionedVideo
+        captions={captions}
+        buttonTop={56}
         src={blobUrl}
         controls
         preload="metadata"

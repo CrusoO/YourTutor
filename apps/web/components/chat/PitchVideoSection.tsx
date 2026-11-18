@@ -1,15 +1,17 @@
 "use client";
 
+import { CaptionedVideo, type CaptionTrack } from "./CaptionedVideo";
+
 /** The pitch video, in the video section: about a minute on what Brownie does and who it is for. It was made beforehand and is served as a file. */
-export function PitchVideoSection() {
+export function PitchVideoSection({ captions }: { captions?: CaptionTrack } = {}) {
   return (
     <section aria-labelledby="pitch-video-title" className="flex flex-col gap-3 rounded-2xl border border-[var(--c-line)] bg-[var(--c-surface)] p-4" data-testid="pitch-section">
       <h2 id="pitch-video-title" className="m-0 text-[1.0625rem] font-medium text-[var(--c-text)]">
         Brownie in about a minute
       </h2>
-      <div className="overflow-hidden rounded-xl border border-[var(--c-line)]">
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption -- the captions are burned into the picture */}
-        <video
+      <div className="relative overflow-hidden rounded-xl border border-[var(--c-line)]">
+        <CaptionedVideo
+          captions={captions}
           src="/prepared/pitch-demo.mp4"
           poster="/prepared/pitch-demo-poster.jpg"
           controls
