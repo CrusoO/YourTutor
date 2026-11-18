@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from app.content.plain_language import (
     PlainReport,
     default_rules,
@@ -13,8 +15,10 @@ from app.content.plain_language import (
     lint_reading,
     misconception_mismatches,
     unexplained_jargon,
+    worst_examples,
 )
 from app.content.schema import Item, Misconception, Skill
+from app.content.validator import format_report, load_bundle, validate_bundle
 from tests.content.conftest import minimal_item
 
 RULES = default_rules()
@@ -106,7 +110,9 @@ def test_a_hint_that_states_the_answer_is_an_error() -> None:
     item = _mcq([], ["Think about it.", "Start at 10 and end at 3.", "The answer is 3."])
     findings = lint_item_plain(item, RULES)
     errors = [f for f in findings if f.is_error]
-    assert [f.detail for f in errors] == ["hint level 2", "hint level 3"]
+    assert [f.detail for f in errors] == ["hint level 2"]
+    assert "PL.HINT3_STATES_ANSWER" in _rules_of(findings)
+    assert _rules_of(lint_item_plain(item, RULES, check_leaks=False)) == set()
     clean = _mcq([], ["Think about it.", "Take 7 away from 10.", "Count back."])
     assert not [f for f in lint_item_plain(clean, RULES) if f.is_error]
 
@@ -115,9 +121,47 @@ def test_a_misconception_outside_the_skills_own_list_is_an_error() -> None:
     skills = [_skill("S.ONE", ["MC.OWN"])]
     own = _mcq([{"id": "MC.OWN", "when_answer_equals": ["b"]}], ["Hint.", "Two.", "Three."])
     stray = _mcq([{"id": "MC.INVERSE", "when_answer_equals": ["b"]}], ["Hint.", "Two.", "Three."])
+    stray.template_id = "TPL.X"
     assert not misconception_mismatches([own], skills)
     found = misconception_mismatches([stray], skills)
     assert [(f.rule, f.text) for f in found] == [("PL.MC_NOT_OWN", "MC.INVERSE")]
+    assert found[0].is_error
+    stray.template_id = None  # hand-authored (legacy pack): reported, not an error
+    legacy = misconception_mismatches([stray], skills)
+    assert [f.rule for f in legacy] == ["PL.MC_NOT_OWN_HAND_AUTHORED"]
+    assert not legacy[0].is_error
+
+
+def test_the_worst_examples_put_errors_first() -> None:
+    skills = [_skill("S.ONE", ["MC.OWN"])]
+    item = _mcq([{"id": "MC.STRAY", "when_answer_equals": ["b"]}], ["H.", "Two.", "Three."])
+    item.template_id = "TPL.X"
+    report = lint_bundle_plain([item], skills, [_mc("MC.OWN", "The student adds.")])
+    worst = worst_examples(report, 5)
+    assert [f.rule for f in worst] == ["PL.MC_NOT_OWN", "PL.MC_NOT_EVERYDAY"]
+
+
+def test_the_validator_reports_plain_language_in_its_report(content_root: Path) -> None:
+    bundle = load_bundle(content_root)
+    bundle.misconceptions.append(_mc("MC.PLAIN.X", "The student adds."))
+    bundle.skills[0].misconceptions.append("MC.PLAIN.X")
+    report = validate_bundle(bundle)
+    assert report.stats["plain_language"]["PL.MC_NOT_EVERYDAY"] >= 1
+    assert any("plain-language warnings" in w for w in report.warnings)
+    assert "PL.MC_NOT_EVERYDAY" in format_report(report)
+
+
+def test_a_factory_item_with_a_stray_misconception_fails_validation(content_root: Path) -> None:
+    bundle = load_bundle(content_root)
+    item = _mcq(
+        [{"id": bundle.misconceptions[0].id, "when_answer_equals": ["b"]}], ["H.", "T.", "U."]
+    )
+    item.skill_ids = [bundle.skills[0].id]
+    bundle.skills[0].misconceptions = []
+    item.template_id = "TPL.X"
+    bundle.items.append(item)
+    report = validate_bundle(bundle)
+    assert any("PL.MC_NOT_OWN" in e for e in report.errors)
 
 
 def test_the_bundle_report_counts_by_rule() -> None:
@@ -127,6 +171,6 @@ def test_the_bundle_report_counts_by_rule() -> None:
     )
     report = lint_bundle_plain([item], skills, [_mc("MC.OWN", "The student adds.")])
     assert isinstance(report, PlainReport)
-    assert report.counts() == {"PL.MC_NOT_EVERYDAY": 1, "PL.MC_NOT_OWN": 1}
-    assert len(report.errors) == 1 and len(report.warnings) == 1
-    assert "PL.MC_NOT_OWN: 1 (error)" in format_counts(report)
+    assert report.counts() == {"PL.MC_NOT_EVERYDAY": 1, "PL.MC_NOT_OWN_HAND_AUTHORED": 1}
+    assert not report.errors and len(report.warnings) == 2
+    assert "PL.MC_NOT_OWN_HAND_AUTHORED: 1 (warning)" in format_counts(report)

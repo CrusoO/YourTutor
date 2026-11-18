@@ -116,6 +116,13 @@ def main(argv: list[str] | None = None) -> int:
     loc_status = sub.add_parser("locale-status")
     loc_status.add_argument("root", type=Path)
     loc_status.add_argument("--locale", required=True)
+    plain = sub.add_parser(
+        "plain-language",
+        help="Plain-language report: counts by rule and the worst examples (read-only).",
+    )
+    plain.add_argument("root", type=Path)
+    plain.add_argument("--examples", type=int, default=10)
+    plain.add_argument("--factory-only", action="store_true", help="Only factory items.")
     generate = sub.add_parser("generate-from-templates")
     generate.add_argument("root", type=Path)
     generate.add_argument("--seed", type=int, default=42)
@@ -189,6 +196,18 @@ def main(argv: list[str] | None = None) -> int:
         count = export_sheet(args.root, args.csv, args.html)
         print(f"Exported {count} items")
         return 0
+    if args.command == "plain-language":
+        from app.content.plain_language import format_counts, lint_bundle_plain, worst_examples
+        from app.content.validator import load_bundle
+
+        bundle = load_bundle(args.root)
+        items = [i for i in bundle.items if i.template_id] if args.factory_only else bundle.items
+        found = lint_bundle_plain(items, bundle.skills, bundle.misconceptions)
+        print(f"{len(items)} items, {len(bundle.misconceptions)} misconception messages")
+        print(format_counts(found))
+        for example in worst_examples(found, args.examples):
+            print(f"  [{example.rule}] {example.owner} ({example.detail}): {example.text[:140]}")
+        return 1 if found.errors else 0
     if args.command == "coverage":
         found = validate_path(args.root)
         if found.bundle is None:

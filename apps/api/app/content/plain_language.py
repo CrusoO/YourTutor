@@ -6,8 +6,11 @@ Class 7). Thresholds and the jargon list live in `config/plain_language.yaml`.
 Rules (id, severity):
 - PL.SENTENCE_LONG, PL.READING_LEVEL, PL.JARGON: warnings, reported as counts.
 - PL.MC_NOT_EVERYDAY: a misconception message that does not say what the learner did.
-- PL.HINT_STATES_ANSWER: error, a hint gives the final answer away.
-- PL.MC_NOT_OWN: error, a wrong option names a misconception that is not one of the skill's own.
+- PL.HINT_STATES_ANSWER: error, hint 1 or 2 gives the final answer away (hint 3 is the full
+  method, so a hint 3 that does is the warning PL.HINT3_STATES_ANSWER).
+- PL.MC_NOT_OWN: error, a factory item's wrong option names a misconception that is not one of
+  the skill's own. Hand-authored items (the legacy pack) only get the warning
+  PL.MC_NOT_OWN_HAND_AUTHORED: they are reported, never edited by this rule.
 """
 
 from __future__ import annotations
@@ -48,6 +51,7 @@ class Finding:
     owner: str  # item id or misconception id
     text: str
     detail: str = ""
+    score: float = 0.0  # how bad: used to pick the worst examples
 
     @property
     def is_error(self) -> bool:
@@ -142,9 +146,9 @@ def lint_reading(text: str, owner: str, rules: PlainRules) -> list[Finding]:
     if len(_WORD.findall(text)) >= rules.min_words_for_grade:
         grade = grade_level(text)
         if grade is not None and grade > rules.max_grade_level:
-            out.append(Finding("PL.READING_LEVEL", owner, text, f"grade {grade:.1f}"))
+            out.append(Finding("PL.READING_LEVEL", owner, text, f"grade {grade:.1f}", grade))
     for term in unexplained_jargon(text, rules):
-        out.append(Finding("PL.JARGON", owner, text, term))
+        out.append(Finding("PL.JARGON", owner, text, term, 1.0))
     return out
 
 
@@ -165,15 +169,16 @@ def key_texts(item: Item) -> list[str]:
     return [v for v in values if v]
 
 
-def lint_item_plain(item: Item, rules: PlainRules) -> list[Finding]:
+def lint_item_plain(item: Item, rules: PlainRules, *, check_leaks: bool = True) -> list[Finding]:
+    """`check_leaks=False` skips the (slow) answer-equivalence test; the validator already runs it
+    for hints 1 and 2 as its own error."""
     out: list[Finding] = []
-    keys = key_texts(item)
+    keys = key_texts(item) if check_leaks else []
     for hint in item.hints:
         out.extend(lint_reading(hint.en, item.id, rules))
         if any(hint_leaks_answer(hint.en, key) for key in keys):
-            out.append(
-                Finding("PL.HINT_STATES_ANSWER", item.id, hint.en, f"hint level {hint.level}")
-            )
+            rule = "PL.HINT_STATES_ANSWER" if hint.level < 3 else "PL.HINT3_STATES_ANSWER"
+            out.append(Finding(rule, item.id, hint.en, f"hint level {hint.level}", 100.0))
     for step in item.solution_steps:
         out.extend(lint_reading(step.en, item.id, rules))
     return out
@@ -196,9 +201,9 @@ def misconception_mismatches(items: Iterable[Item], skills: Iterable[Skill]) -> 
         own = own_misconception_ids(item, by_id)
         for rule in item.misconception_rules:
             if rule.id not in own:
-                out.append(
-                    Finding("PL.MC_NOT_OWN", item.id, rule.id, f"skills {','.join(item.skill_ids)}")
-                )
+                kind = "PL.MC_NOT_OWN" if item.template_id else "PL.MC_NOT_OWN_HAND_AUTHORED"
+                detail = f"skills {','.join(item.skill_ids)}"
+                out.append(Finding(kind, item.id, rule.id, detail, 100.0))
     return out
 
 
@@ -207,17 +212,35 @@ def lint_bundle_plain(
     skills: Iterable[Skill],
     misconceptions: Iterable[Misconception],
     rules: PlainRules | None = None,
+    *,
+    check_leaks: bool = True,
 ) -> PlainReport:
     use = rules or default_rules()
     skill_list = list(skills)
     item_list = list(items)
     report = PlainReport()
     for item in item_list:
-        report.findings.extend(lint_item_plain(item, use))
+        report.findings.extend(lint_item_plain(item, use, check_leaks=check_leaks))
     for mc in misconceptions:
         report.findings.extend(lint_misconception_message(mc, use))
     report.findings.extend(misconception_mismatches(item_list, skill_list))
     return report
+
+
+def worst_examples(report: PlainReport, limit: int = 10) -> list[Finding]:
+    """The worst findings: errors first, then by score; one per rule and text (templates repeat)."""
+    seen: set[tuple[str, str]] = set()
+    ranked = sorted(report.findings, key=lambda f: (not f.is_error, -f.score, f.owner))
+    out: list[Finding] = []
+    for finding in ranked:
+        key = (finding.rule, finding.text)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(finding)
+        if len(out) == limit:
+            break
+    return out
 
 
 def format_counts(report: PlainReport) -> str:
