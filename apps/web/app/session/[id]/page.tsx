@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
@@ -16,8 +16,22 @@ import { ConfidenceAsk, ExplainGrade, WhyWrong, type Confidence } from "@/compon
 import BlockedState, { hasNoQuestion } from "@/components/session/BlockedState";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import ItemLabels from "@/components/session/ItemLabels";
+import ProgressHeader, { FeedbackBlock, HintHeading } from "@/components/session/Progress";
+import {
+  parseIntegerStem,
+  plainSourceLabel,
+  showSignHintButton,
+  verifiedParse,
+  visibleSteps,
+} from "@/lib/session/integer-stem";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
 import { useCopy, useLocale } from "@/lib/locale";
+import { withSession } from "@/lib/session/copy";
+import SessionStyles from "@/components/session/sessionStyles";
+
+// The number-line panels load only inside the session route, never in the homepage bundle.
+const SignExplanation = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignExplanation })));
+const SignHint = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignHint })));
 
 /** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
 function canHelp(a: ActionPayload): boolean {
@@ -27,7 +41,8 @@ function canHelp(a: ActionPayload): boolean {
 export default function SessionPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const copy = useCopy();
+  const baseCopy = useCopy();
+  const copy = withSession(baseCopy);
   const activeLocale = useLocale();
   const [action, setAction] = useState<ActionPayload | null>(null);
   const ui = typeof window === "undefined" ? undefined : loadUi();
@@ -37,6 +52,12 @@ export default function SessionPage() {
   const [hintReady, setHintReady] = useState(false);
   const [nudge, setNudge] = useState(false);
   const [wrongOnce, setWrongOnce] = useState(false);
+  // Practice items finished so far (the server sends no total, so the header shows a count, not a percentage).
+  const [itemsDone, setItemsDone] = useState(0);
+  // Help was pressed on this question; for sign sums it opens the number-line hint button.
+  const [helpAsked, setHelpAsked] = useState(false);
+  // The hint on screen came from a wrong answer (not from pressing Help).
+  const [hintAfterWrong, setHintAfterWrong] = useState(false);
   const idle = useRef<number | null>(null);
   const hintTimer = useRef<number | null>(null);
   // When the current question appeared, so an answer carries the time it really took.
@@ -97,6 +118,7 @@ export default function SessionPage() {
   async function load() {
     const view = await getSession(params.id);
     setAction(view.action);
+    setItemsDone(view.progress?.items_completed ?? 0);
     questionShown();
     armTimers(view.action);
   }
@@ -156,9 +178,12 @@ export default function SessionPage() {
       return;
     }
     setAction(next);
+    if (view.progress) setItemsDone(view.progress.items_completed ?? 0);
     questionShown();
     setAnswer("");
     setStep(1);
+    setHintAfterWrong(event_type === "answer" && next.type === "hint");
+    if (event_type === "request_help") setHelpAsked(true);
     if (event_type === "answer" && next.type === "hint") {
       setWrongOnce(true);
       setHintReady(true);
@@ -166,6 +191,7 @@ export default function SessionPage() {
     if (next.type === "similar_item" || next.type === "show_item") {
       setWrongOnce(false);
       setHintReady(false);
+      setHelpAsked(false);
     }
     if (next.type === "check_your_work") {
       setWrongOnce(true);
@@ -289,8 +315,30 @@ export default function SessionPage() {
   const praise = (extras.encouragement as { text?: string | null } | undefined)?.text;
   const testOut = (action.extras as { test_out?: { index: number; of: number } } | undefined)?.test_out;
 
+  const practiceScreen =
+    action.session_type === "practice" &&
+    ["show_item", "similar_item", "hint", "feedback", "reveal_solution", "check_your_work"].includes(action.type);
+  const stemParse = parseIntegerStem(item?.stem);
+  // The explanation panel needs a parse whose computed result equals the item's answer; else the plain solution stays.
+  const solutionParse = action.type === "reveal_solution" ? verifiedParse(item?.stem, item?.answer) : null;
+  const solutionSteps = visibleSteps(item?.steps, item?.stem);
+  const plainSources = action.sources?.map((src) => ({ ...src, title: plainSourceLabel(src.title) }));
+  const signHint = showSignHintButton(stemParse, {
+    wrongOnce,
+    helpAsked,
+    hintShown: action.type === "hint",
+  });
+  const signHintNode =
+    signHint && stemParse && action.session_type === "practice" ? (
+      <Suspense fallback={null}>
+        <SignHint copy={copy} parse={stemParse} />
+      </Suspense>
+    ) : null;
+
   return (
-    <main className="stack column">
+    <main className="stack column sess">
+      <SessionStyles />
+      {practiceScreen ? <ProgressHeader copy={copy} done={itemsDone} /> : null}
       {action.type === "warmup_item" ? (
         <header className="stack">
           <h1>{copy.warmupTitle}</h1>
@@ -396,11 +444,11 @@ export default function SessionPage() {
           ) : null}
           <h1>{item?.stem || action.text}</h1>
           <ol className="steps">
-            {(item?.steps || []).slice(0, step).map((row) => (
+            {visibleSteps(item?.steps, item?.stem).slice(0, step).map((row) => (
               <li key={row}>{row}</li>
             ))}
           </ol>
-          <SourceChips sources={action.sources} label={copy.sourceLabel} />
+          <SourceChips sources={plainSources} label={copy.sourceLabel} />
           {item?.steps && step < item.steps.length ? (
             <button type="button" className="secondary" onClick={() => setStep(step + 1)}>
               {copy.nextStep}
@@ -415,7 +463,10 @@ export default function SessionPage() {
 
       {action.type === "hint" ? (
         <>
-          <p className="stem">{item?.stem}</p>
+          <div className="q-card">
+            <p className="stem">{item?.stem}</p>
+          </div>
+          <HintHeading copy={copy} afterWrong={hintAfterWrong} />
           {extras.kind === "restate" || extras.kind === "step" ? (
             <p className="muted">{extras.kind === "restate" ? copy.hintRestateLabel : copy.hintStepLabel}</p>
           ) : null}
@@ -428,6 +479,7 @@ export default function SessionPage() {
             }}
           />
           <p className="banner" data-testid="hint-text">{action.text}</p>
+          {signHintNode}
           {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
           {canHelp(action) ? (
@@ -446,14 +498,33 @@ export default function SessionPage() {
       {action.type === "reveal_solution" ? (
         <>
           <h1>{copy.revealTitle}</h1>
-          <p className="stem">{item?.stem}</p>
-          <p className="math">{item?.answer || action.text}</p>
-          <ol className="steps">
-            {(item?.steps || []).map((row) => (
-              <li key={row}>{row}</li>
-            ))}
-          </ol>
-          <SourceChips sources={action.sources} label={copy.sourceLabel} />
+          <div className="q-card">
+            <p className="stem">{item?.stem}</p>
+            <p className="ans-label">{copy.answerLabel}</p>
+            <p className="math ans-value" data-testid="solution-answer">{item?.answer || action.text}</p>
+          </div>
+          {solutionParse ? (
+            <Suspense fallback={null}>
+              <SignExplanation copy={copy} parse={solutionParse} />
+            </Suspense>
+          ) : null}
+          {solutionSteps.length > 0 && solutionParse ? (
+            <details className="more-steps">
+              <summary>{copy.moreStepsLabel}</summary>
+              <ol className="steps">
+                {solutionSteps.map((row) => (
+                  <li key={row}>{row}</li>
+                ))}
+              </ol>
+            </details>
+          ) : solutionSteps.length > 0 ? (
+            <ol className="steps" aria-label={copy.stepsLabel}>
+              {solutionSteps.map((row) => (
+                <li key={row}>{row}</li>
+              ))}
+            </ol>
+          ) : null}
+          <SourceChips sources={plainSources} label={copy.sourceLabel} />
           <button type="button" onClick={() => send("continue")}>
             {copy.similar}
           </button>
@@ -479,9 +550,12 @@ export default function SessionPage() {
               {copy.winLabel}
             </p>
           ) : null}
-          <p className="stem">{item?.stem}</p>
-          <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
-          <ItemLabels labels={item?.labels} />
+          <div className="q-card">
+            <p className="stem">{item?.stem}</p>
+            <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
+            <ItemLabels labels={item?.labels} />
+          </div>
+          {signHintNode}
           {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
           {extras.prompt_submit ? <p className="banner">{copy.promptSubmit}</p> : null}
@@ -531,9 +605,7 @@ export default function SessionPage() {
 
       {action.type === "feedback" ? (
         <>
-          <p className={action.correct ? "fb ok" : "fb try"} role="status" data-testid="feedback">
-            {action.correct ? copy.feedbackCorrect : copy.feedbackWrong}
-          </p>
+          <FeedbackBlock copy={copy} correct={Boolean(action.correct)} />
           <button type="button" onClick={() => send("continue")}>
             {copy.continue}
           </button>
