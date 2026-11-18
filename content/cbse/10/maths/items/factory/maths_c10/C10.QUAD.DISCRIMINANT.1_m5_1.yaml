@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.1_m5_1
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Calculate the discriminant for x² - 5x + 1 = 0.
-options:
-- id: a
-  en: '21'
-- id: b
-  en: '-14'
-- id: c
-  en: '29'
-- id: d
-  en: '24'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here the coefficients are 1, -5 and 1.
-- en: The discriminant is b² - 4ac = (-5)² - 4(1)(1).
-- en: This equals 25 - (4) = 21.
-- en: The correct option is a.
 hints:
 - level: 1
   en: The discriminant uses only the three coefficients, not x itself.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '-14'
+- id: c
+  en: '29'
+- id: d
+  en: '24'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are 1, -5 and 1.
+- en: The discriminant is b² - 4ac = (-5)² - 4(1)(1).
+- en: This equals 25 - (4) = 21.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ea7d664dee5da18cba7afea07a7d0fabdb1381873e0962572a0e58cdb8a8c644
+  item_hash: ab3f6f90d51724a962d9deabfe7959aab8330a3c087059d4ddc535772e5574ac
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: dae585abaecf7ee2879932669cfcdf34ca28a2e8c9f8e0747414780b1a8560de
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:40+00:00'
-  record_hash: 0c5c475aa6e640404eb2e213e994811a9f5cc938fd5dc039dbbe5fd98b3a7107
+  stamped_at: '2026-11-17T17:41:55+00:00'
+  record_hash: fc21598a227c9464aaaa21930f27263e57a469d6f969bdef6eef04e602506edd

@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.MIXED_NETWORK.I2_mixed.case4.24d409e0
 skill_ids:
 - PHY.ELEC.MIXED_NETWORK
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -11,24 +10,6 @@ stem:
     the pair, R1, is 10 Ω, one resistor of the parallel pair, R2, is 12 Ω and the
     other resistor of the pair, R3, is 4 Ω. Find the current in the first resistor
     of the pair.'
-options:
-- id: a
-  en: 0.75 A
-- id: b
-  en: 1.5 A
-- id: c
-  en: 3.25 A
-- id: d
-  en: 3 A
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Plan: find the voltage across the pair, then divide by the resistor of interest.'
-- en: 'Substitute: I2 = 39 x 4 / (10 x (12 + 4) + 12 x 4).'
-- en: 'Calculate: I2 = 0.75 A.'
-- en: So the current in the first parallel resistor is 0.75 A.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Plan the steps: find
@@ -44,15 +25,44 @@ prediction_prompt:
     have, and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.MIXED_NETWORK
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.75 A
+- id: b
+  en: 1.5 A
+- id: c
+  en: 3.25 A
+- id: d
+  en: 3 A
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.EQUAL_SHARE_ASSUMED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ONE_RESISTOR_ONLY
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.CURRENT_NOT_SPLIT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: find the voltage across the pair, then divide by the resistor of interest.'
+- en: 'Substitute: I2 = 39 x 4 / (10 x (12 + 4) + 12 x 4).'
+- en: 'Calculate: I2 = 0.75 A.'
+- en: So the current in the first parallel resistor is 0.75 A.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 691c6cbd4eff53babb89c358f3233f13eea43f47abbc536aa41eb63df2138e65
+  item_hash: 1abdb172281b530df2d0205b68d7e972d55104d0c059c5dc27f079b805232ea3
   template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
   certificate_hash: 250fbf79a1c5ec1f594f8ef818d27a94451cab2339fdbcb1e6dff2d984da405f
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:17+00:00'
-  record_hash: ff1ee5061f54d5453a2efc4c542530c76df1610668e511055f606ee5fc479cbc
+  stamped_at: '2026-11-17T19:38:20+00:00'
+  record_hash: 4eceb9b477a1d9490e9064320d64a2be61a00616ee3ef58e534a93fc2172215c

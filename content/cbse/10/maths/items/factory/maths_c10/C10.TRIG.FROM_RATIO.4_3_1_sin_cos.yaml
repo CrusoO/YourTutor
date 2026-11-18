@@ -2,29 +2,10 @@ id: C10.TRIG.FROM_RATIO.4_3_1_sin_cos
 skill_ids:
 - MATH.TRIG.RATIO_FROM_RATIO
 difficulty: 0.51
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A is an acute angle and sin A = 24/25. Find the value of cos A.
-options:
-- id: a
-  en: 7/25
-- id: b
-  en: 25/7
-- id: c
-  en: 1/25
-- id: d
-  en: 49/625
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Draw a right triangle with angle A and mark the sides so that sin A = 24/25.
-- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
-    missing ratio.
-- en: 'Since A is acute, take the positive root: cos A = 7/25.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Because the angle is acute, every ratio is positive.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Is the asked ratio bigger or smaller than the given one?
 status: draft
 template_id: TPL.C10.TRIG.FROM_RATIO
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7/25
+- id: b
+  en: 25/7
+- id: c
+  en: 1/25
+- id: d
+  en: 49/625
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.PYTHAG_NOT_SQUARED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SQUARE_NOT_ROOTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Draw a right triangle with angle A and mark the sides so that sin A = 24/25.
+- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
+    missing ratio.
+- en: 'Since A is acute, take the positive root: cos A = 7/25.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fffc257d1d7114f5f3ca0b0308731f9eaacf9fe0b411738cf8da054722614a6b
+  item_hash: 06573ed2427a318a4274bf72739a6595ba508b7df64ec9699a12fdb209fab77c
   template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
   certificate_hash: 1e9f9d9e7cf1a68a331f35d37e908c2d5d0339203889c82e3518aead9a0bce79
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:56:27+00:00'
-  record_hash: 6d1f1e0b923e666e2cb81ed2387294370b68c397b91f37712973d3eaf3fa0123
+  stamped_at: '2026-11-17T17:48:48+00:00'
+  record_hash: 0dffd2e1b86d4baeedc0d306af8fc56888dced117bd5129ee0e3380366f12f1d

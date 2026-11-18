@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.MIXED_NETWORK.Rt_mixed.num3.278a7c93
 skill_ids:
 - PHY.ELEC.MIXED_NETWORK
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -10,25 +9,6 @@ stem:
     resistor in series with the pair, R1, is 4 Ω, one resistor of the parallel pair,
     R2, is 9 Ω and the other resistor of the pair, R3, is 18 Ω. Find the total resistance
     of the network.
-options:
-- id: a
-  en: 2.4 Ω
-- id: b
-  en: 4.17 Ω
-- id: c
-  en: 31 Ω
-- id: d
-  en: 10 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: combine the parallel pair first (1/Rp = 1/R2 + 1/R3), then
-    add the series resistor.'
-- en: 'Substitute: Rt = 4 + 9 x 18 / (9 + 18).'
-- en: 'Calculate: Rt = 10 Ω.'
-- en: So the total resistance is 10 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -45,15 +25,45 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.MIXED_NETWORK
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2.4 Ω
+- id: b
+  en: 4.17 Ω
+- id: c
+  en: 31 Ω
+- id: d
+  en: 10 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.PARALLEL_RESISTANCES_ADDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: combine the parallel pair first (1/Rp = 1/R2 + 1/R3), then
+    add the series resistor.'
+- en: 'Substitute: Rt = 4 + 9 x 18 / (9 + 18).'
+- en: 'Calculate: Rt = 10 Ω.'
+- en: So the total resistance is 10 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4cf804af3e6b91caa1b37a4d99f337497310167375ac0a848926deaa603172c5
+  item_hash: 1cf22777c7b86a22ab7d4d4237aea36486933c6e66f7db74d3c2168f1f603deb
   template_hash: 41b1354346da65a807e5af0e8bd0693a4f14d1ab2ec2205f1062d1d844bf20c8
   certificate_hash: 655cc81b7d89ba1ea770bb0b663cafc05a8b9040464c9125c27c74bc39ee16d9
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:17+00:00'
-  record_hash: 2c58140ca4e4cee70dbfba7c7f486e5c76bc3abb9bfdb443936318f60480ff1f
+  stamped_at: '2026-11-17T19:38:20+00:00'
+  record_hash: a33d74d0916cee135f1ff9a6d2de50130bf174b598f586822f2b5dc1d123a8a7

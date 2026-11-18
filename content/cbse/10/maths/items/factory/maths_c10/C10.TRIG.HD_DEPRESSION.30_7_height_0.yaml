@@ -2,32 +2,12 @@ id: C10.TRIG.HD_DEPRESSION.30_7_height_0
 skill_ids:
 - MATH.TRIG.HD.ANGLE_OF_DEPRESSION
 difficulty: 0.54
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A boat on the sea is 7√3 m from the foot of a lighthouse. From the top of the
     lighthouse the angle of depression of a boat is 30°. Find the height of the lighthouse
     in metres.
-options:
-- id: a
-  en: '21'
-- id: b
-  en: '14'
-- id: c
-  en: 7√3/2
-- id: d
-  en: '7'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The angle of depression is measured downward from the horizontal at the top;
-    by alternate angles it equals the angle of elevation of the top seen from a boat.
-- en: So in the right triangle the 30° angle is at a boat, and height and ground distance
-    are opposite and adjacent to it.
-- en: 'Use tan 30° = height / distance and solve: the answer is 7 m.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Draw the horizontal line at the top and measure the angle downward from it.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Does the sight line make a steep or a shallow angle with the horizontal?
 status: draft
 template_id: TPL.C10.TRIG.HD_DEPRESSION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '14'
+- id: c
+  en: 7√3/2
+- id: d
+  en: '7'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a boat.
+- en: So in the right triangle the 30° angle is at a boat, and height and ground distance
+    are opposite and adjacent to it.
+- en: 'Use tan 30° = height / distance and solve: the answer is 7 m.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e484da8a955090ca63e862b306f7c1a5f6db32ae84b2ddb7703526c058e358b0
+  item_hash: 1726d4bdc86e47c59ebf79a3c727a433dec0386eb57d8d0addac19bb69e789fb
   template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
   certificate_hash: 2be4bbaafb42af83cce39ac619224c5b45f2d70ca42ea56547b78a84fc51656e
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:57:30+00:00'
-  record_hash: d5c0a73cda04feef9cf66eb05fac1707786455cf97ac833e146ef93530ab1adf
+  stamped_at: '2026-11-17T17:49:17+00:00'
+  record_hash: d463015664984b1ab198081927d34d3ef61883b067174363b997f033f027c4f7

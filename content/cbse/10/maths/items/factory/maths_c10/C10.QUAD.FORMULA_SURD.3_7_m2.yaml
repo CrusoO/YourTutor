@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.3_7_m2
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve 3x² + 7x - 2 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = (7 ± √73)/6
-- id: b
-  en: x = (-7 ± √73)/6
-- id: c
-  en: x = (-7 ± √73)/3
-- id: d
-  en: x = (-42 ± √73)/6
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The coefficients are 3, 7 and -2.
-- en: The discriminant is 7² - 4 x 3 x -2 = 73, which is positive but not a perfect
-    square.
-- en: So x = (-(7) ± √73) / 6, and the square root is simplified as far as it will
-    go.
-- en: x = (-7 ± √73)/6.
-- en: The correct option is b.
 hints:
 - level: 1
   en: This one will not factorise nicely, so the formula is the right tool.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = (7 ± √73)/6
+- id: b
+  en: x = (-7 ± √73)/6
+- id: c
+  en: x = (-7 ± √73)/3
+- id: d
+  en: x = (-42 ± √73)/6
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 3, 7 and -2.
+- en: The discriminant is 7² - 4 x 3 x -2 = 73, which is positive but not a perfect
+    square.
+- en: So x = (-(7) ± √73) / 6, and the square root is simplified as far as it will
+    go.
+- en: x = (-7 ± √73)/6.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b3b33a91119b4bcda7988b3dcdbafb771a914550f3c92296f88c225c02952353
+  item_hash: 9b2c78b87890d82867613443164cc14b312f6ae2ed015929087115cc36310716
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 2ba80865db04d5efcb0173a21ac7811eb1be549c1b8bafe33cb4665f4b04db59
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:42+00:00'
-  record_hash: b35cf23053542fe7347694526b690b3c8f0497fcc7724937aa919f548bcf2f3d
+  stamped_at: '2026-11-17T17:43:41+00:00'
+  record_hash: b5b8c62e045eb76ce5c9c6b1af40432c6e540c03fdee8eca1a693a17b60307ee

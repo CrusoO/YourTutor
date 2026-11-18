@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.CHARGE_COUNT.N_from_It.num2.abdc0261
 skill_ids:
 - PHY.ELEC.CHARGE_COUNT
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about electrons passing a point in a wire. The current, I,
     is 0.8 A, the time, t, is 5 s and the charge of one electron is 1.6 x 10^-19 C.
     How many electrons pass a point of the wire in this time?
-options:
-- id: a
-  en: 6.4 x 10^-19
-- id: b
-  en: 2.5 x 10^19
-- id: c
-  en: '4'
-- id: d
-  en: 2.5 x 10^20
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
-- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
-- en: 'Substitute: N = 0.8 x 5 / (1.6 x 10^-19).'
-- en: 'Calculate: N = 2.5 x 10^19.'
-- en: So the number of electrons is 2.5 x 10^19.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -42,15 +22,45 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the number of electrons be?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_COUNT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6.4 x 10^-19
+- id: b
+  en: 2.5 x 10^19
+- id: c
+  en: '4'
+- id: d
+  en: 2.5 x 10^20
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ELECTRON_CHARGE_MISUSE
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.CHARGE_NOT_DIVIDED_BY_E
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
+- en: 'Substitute: N = 0.8 x 5 / (1.6 x 10^-19).'
+- en: 'Calculate: N = 2.5 x 10^19.'
+- en: So the number of electrons is 2.5 x 10^19.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ceb52204ac8424ee271a3d767fdb8ee400369753cdff092b84c779b794426056
+  item_hash: 529458bd59e9505d5237c111cb2ecbd3cb82fdab2221223656405a6b1e61b132
   template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
   certificate_hash: 596e2aadd333c408fa198655912e870da9ab2b029f032eacb3653bffd9e6fec2
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:39+00:00'
-  record_hash: 4c3387e447627da6a918b9a408feda03802e8a8a5d848764037a1b941a1c5f39
+  stamped_at: '2026-11-17T19:37:15+00:00'
+  record_hash: cc6350cd863130ebd833b51d8022cd12ce0d854182318f009c991031a7009ee4

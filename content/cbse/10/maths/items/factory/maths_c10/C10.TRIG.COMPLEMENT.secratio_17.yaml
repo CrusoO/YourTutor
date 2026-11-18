@@ -2,29 +2,10 @@ id: C10.TRIG.COMPLEMENT.secratio_17
 skill_ids:
 - MATH.TRIG.COMPLEMENTARY_ANGLES
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the value of sec 17° ÷ cosec 73°.
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '1'
-- id: c
-  en: '0'
-- id: d
-  en: '-1'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The angles 17° and 73° add up to 90°, so they are complementary.
-- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
-    - A) = cot A, sec (90 - A) = cosec A.'
-- en: Rewrite the second term using the first angle and simplify; the value is 1.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Look at the two angles: what do they add up to?'
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Without a calculator, do you think the answer is a surprise number?
 status: draft
 template_id: TPL.C10.TRIG.COMPLEMENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '1'
+- id: c
+  en: '0'
+- id: d
+  en: '-1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - a
+- id: MC.TRIG.COMPLEMENT_GAVE_ZERO
+  when_answer_equals:
+  - c
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angles 17° and 73° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cd6972104b4b264f59e82d9ef34f100ba30fefe5aa785830b616d3a561457e86
+  item_hash: 87993ecd772b425a0ff21ba7722ba3643b203e1554574a060be2f4363dd633de
   template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
   certificate_hash: f8d977a4a217c3179e5c1628e677451022cbf93695c30bd497ba0ccffbb6bb57
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:42+00:00'
-  record_hash: 2eec64d3d1ddc8ef21fa9ffe3032e0bd11a8e659095151d8f5d6a093745eee8e
+  stamped_at: '2026-11-17T17:48:19+00:00'
+  record_hash: c1ea6625e8056240d6f7511bcfa8458be31efb129dff6e2b8829776b45ffd580

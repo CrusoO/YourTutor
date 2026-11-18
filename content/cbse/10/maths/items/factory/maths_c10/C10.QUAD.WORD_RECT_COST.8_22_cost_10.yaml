@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.8_22_cost_10
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 8 m more than its breadth and
     it covers 660 m². The garden is to be fenced all the way round and the fencing
     costs 10 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '1040'
-- id: b
-  en: '6600'
-- id: c
-  en: '1360'
-- id: d
-  en: '520'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 8 metres.
-- en: The area gives x(x + 8) = 660, so x² + 8x - 660 = 0.
-- en: 'Factorise: (x - 22)(x + 30) = 0, so x = 22 or x = -30; a length is positive,
-    so the breadth is 22 m and the length is 30 m.'
-- en: The perimeter is 2(22 + 30) = 104 m, and the cost is 104 x 10.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x stand for the breadth, then write the length in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1040'
+- id: b
+  en: '6600'
+- id: c
+  en: '1360'
+- id: d
+  en: '520'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 8 metres.
+- en: The area gives x(x + 8) = 660, so x² + 8x - 660 = 0.
+- en: 'Factorise: (x - 22)(x + 30) = 0, so x = 22 or x = -30; a length is positive,
+    so the breadth is 22 m and the length is 30 m.'
+- en: The perimeter is 2(22 + 30) = 104 m, and the cost is 104 x 10.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 011bf6195cb055e527171367d35d77923e3650c25b5e215a9570a9b351928f5f
+  item_hash: f7b25dda3550ef543142304a0ff9f9d3035a7c2e4e0685baea6bae02c7f09c61
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: 0b62398c22b27e3f3aa19bde981f1095a496fd971022ec5c86860eead6399bb1
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:14+00:00'
-  record_hash: 803b984cce7b57be6dafc385d92eab9f538c6690489f2692dde4d9f2e0b6faf9
+  stamped_at: '2026-11-17T17:47:28+00:00'
+  record_hash: c241205a9a43d766fbe1cda37e47b06fc6ebb7df381676844b422d3a436dcb44

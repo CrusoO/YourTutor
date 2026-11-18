@@ -2,29 +2,10 @@ id: C10.TRIG.FROM_RATIO.6_1_0_sin_tan
 skill_ids:
 - MATH.TRIG.RATIO_FROM_RATIO
 difficulty: 0.51
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A is an acute angle and sin A = 35/37. Find the value of tan A.
-options:
-- id: a
-  en: 12/35
-- id: b
-  en: 35/12
-- id: c
-  en: 1225/144
-- id: d
-  en: 35/37
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Draw a right triangle with angle A and mark the sides so that sin A = 35/37.
-- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
-    missing ratio.
-- en: 'Since A is acute, take the positive root: tan A = 35/12.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: A single identity connects sine and cosine of the same angle.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Is the asked ratio bigger or smaller than the given one?
 status: draft
 template_id: TPL.C10.TRIG.FROM_RATIO
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12/35
+- id: b
+  en: 35/12
+- id: c
+  en: 1225/144
+- id: d
+  en: 35/37
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.SQUARE_NOT_ROOTED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.GIVEN_REPEATED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Draw a right triangle with angle A and mark the sides so that sin A = 35/37.
+- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
+    missing ratio.
+- en: 'Since A is acute, take the positive root: tan A = 35/12.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c4d2724176865c06075ab1b83d2eba94bd0713dc0c7e21cc0c4255869882e998
+  item_hash: 19de49f39ada05c78627d474bf01cc2d0297757dfd80b4a28620f24f3851ba1b
   template_hash: 0e4d94a3f00c9634cfac21fd476466ce6bb47109c98a25b176c4231de2b29164
   certificate_hash: 75788cf830788c5cf882a5ea6e80928603644646c1d9f79f72fb305e2f9428da
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:56:26+00:00'
-  record_hash: 16233ece6d3c2240758fee1179b46fcad897ef159940912e46ca899d50444eaa
+  stamped_at: '2026-11-17T17:48:46+00:00'
+  record_hash: cb8f5dd628ea3d45be2fbc176ce24f6e37d7f8b4288ace635465f1d96af7f807

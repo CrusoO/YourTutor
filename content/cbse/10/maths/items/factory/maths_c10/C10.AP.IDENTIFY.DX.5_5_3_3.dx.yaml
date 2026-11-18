@@ -1,0 +1,133 @@
+id: C10.AP.IDENTIFY.DX.5_5_3_3.dx
+skill_ids:
+- MATH.ALG.AP.IDENTIFY_AP
+difficulty: 0.34
+pool: diagnostic
+role: recall
+stem:
+  en: All the lists begin with 5. Choose the one in which the gap between neighbouring
+    terms never changes.
+hints:
+- level: 1
+  en: Checking only the first two terms is not enough.
+- level: 2
+  en: For each list subtract every term from the next one. A list passes only when
+    all its gaps are identical.
+- level: 3
+  en: 'Full method: for every list write down the three gaps between neighbours, compare
+    them, and keep the one list whose gaps are all equal.'
+prediction_prompt:
+  en: Which list do you suspect, and why?
+status: draft
+template_id: TPL.C10.AP.IDENTIFY.DX
+generator_version: factory-2
+template_hash: 2494a9dbdaeae0618a613a3eb928e85b35528535066ae8ac626e287f1a0d54d5
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5, 10, 15, 23
+- id: b
+  en: 5, 15, 45, 135
+- id: c
+  en: 5, 10, 16, 23
+- id: d
+  en: 5, 10, 15, 20
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.CHECKED_TWO_TERMS_ONLY
+  when_answer_equals:
+  - a
+- id: MC.AP.RATIO_FOR_DIFFERENCE
+  when_answer_equals:
+  - b
+- id: MC.AP.DIFFERENCES_INCREASING_ACCEPTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A list is an AP when the difference between every pair of neighbouring terms
+    is the same.
+- en: In 5, 10, 15, 20 each step is 5, and it stays 5 all the way along.
+- en: In each of the other lists, at least one pair of neighbours has a different
+    difference.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0692ae9c29a972479811e0e95e69f964358948eb2a5fc92c4b305be2d1c8e747
+  template_hash: 2494a9dbdaeae0618a613a3eb928e85b35528535066ae8ac626e287f1a0d54d5
+  certificate_hash: 577e14f04d7394d7344c3c88639d2f46a4da2ee6c9124acd986d9fac4426147c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: cd9b830
+  llm_involved: false
+  stamped_at: '2026-11-17T20:45:27+00:00'
+  record_hash: 29fbfa8da8a3e45488920b69ace27ccd3def7dccb1c9978754d61d9769dc38a1

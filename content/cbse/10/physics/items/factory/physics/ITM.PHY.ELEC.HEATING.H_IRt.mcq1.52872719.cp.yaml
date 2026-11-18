@@ -1,0 +1,134 @@
+id: ITM.PHY.ELEC.HEATING.H_IRt.mcq1.52872719.cp
+skill_ids:
+- PHY.ELEC.HEATING
+difficulty: 0.35
+pool: checkpoint
+role: procedure
+stem:
+  en: The current, I, is 0.5 A, the resistance, R, is 100 Ω and the time, t, is 2
+    min. How much heat is produced?
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: heat H = I x I x R x t.'
+- level: 2
+  en: The relation already gives the heat produced directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2 min as 120 s, then write H = I x I x R x t, where H is
+    the heat produced, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the heat produced have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.HEATING.CP
+generator_version: factory-2
+template_hash: aa7d03ea70b21de06f7be660739cf9add8215f3f66f0d13ddafe34ac366c8637
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6000 J
+- id: b
+  en: 25 J
+- id: c
+  en: 3000 J
+- id: d
+  en: 50 J
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Substitute: H = 0.5 x 0.5 x 100 x 120.'
+- en: 'Calculate: H = 3000 J.'
+- en: So the heat produced is 3000 J.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fa49ffdfc682a9c6bde9b64548531d8ae70dd11a489c4d15df858816bc34b64f
+  template_hash: aa7d03ea70b21de06f7be660739cf9add8215f3f66f0d13ddafe34ac366c8637
+  certificate_hash: 4c8f443c7b45abd7041579a7bc408fa0a256a1d8864b2f4a5322a0ab355728b8
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:50:48+00:00'
+  record_hash: c9574b0ba77198c71794f0b9e19f5115ec0ddd4fd13b5fa1bd8596a02dd7f057

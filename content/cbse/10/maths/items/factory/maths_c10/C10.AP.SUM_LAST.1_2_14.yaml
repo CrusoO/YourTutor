@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.1_2_14
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.54
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every term of the progression that begins 1, 3, 5 and ends at 27.
-options:
-- id: a
-  en: '392'
-- id: b
-  en: '182'
-- id: c
-  en: '378'
-- id: d
-  en: '196'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The first term is 1, the last term is 27 and the difference is 2.
-- en: 'Number of terms: n = (27 - 1)/2 + 1 = 14.'
-- en: S = (n/2)(first + last) = (14/2)(1 + 27) = 196.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Before you can add, you need the number of terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '392'
+- id: b
+  en: '182'
+- id: c
+  en: '378'
+- id: d
+  en: '196'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 1, the last term is 27 and the difference is 2.
+- en: 'Number of terms: n = (27 - 1)/2 + 1 = 14.'
+- en: S = (n/2)(first + last) = (14/2)(1 + 27) = 196.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 83754a3d92c5f20312ad095fbacfa934cb670d163e4f7d956cb59c66c5c1ca56
+  item_hash: 439b389657177c0825cab0f8dde73c8d59a4775d5934b7c89da66e365f9c5e95
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: d3b815be422c6b3b5e616ca3a1b2c731a0a76b831839cf5b8642f5cc27d575e9
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:11+00:00'
-  record_hash: e133b0dcc6a63e3848def3411cadafdc5570f57960fa0a583da5480bfc4d7930
+  stamped_at: '2026-11-17T17:39:17+00:00'
+  record_hash: b155605dbcac07a59cd9aaa5e5a6c10bbff65717f784d574cd4b6e5790084a4d

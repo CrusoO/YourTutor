@@ -2,28 +2,10 @@ id: C10.AP.TERM_FROM_SUM.5_7_12_kth
 skill_ids:
 - MATH.ALG.AP.TERM_FROM_SUM_FORMULA
 difficulty: 0.69
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The sum of the first n terms of an AP is S_n = 5n² + 7n. Find the 12th term.
-options:
-- id: a
-  en: '234'
-- id: b
-  en: '122'
-- id: c
-  en: '804'
-- id: d
-  en: '67'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
-- en: S_n - S_(n-1) = 5n² + 7n - (5(n - 1)² + 7(n - 1)) = 10n + 2.
-- en: 'Put n = 12: a_12 = 122.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: The sum up to one term and the sum up to the term before it differ by exactly
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be larger or smaller than the sum for the same n?
 status: draft
 template_id: TPL.C10.AP.TERM_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '234'
+- id: b
+  en: '122'
+- id: c
+  en: '804'
+- id: d
+  en: '67'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.TERM_FROM_SUM_WRONG_INDEX
+  when_answer_equals:
+  - a
+- id: MC.AP.TERM_IS_SUM
+  when_answer_equals:
+  - c
+- id: MC.AP.TERM_FROM_SUM_AVERAGE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 5n² + 7n - (5(n - 1)² + 7(n - 1)) = 10n + 2.
+- en: 'Put n = 12: a_12 = 122.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9de728129b0118e8e2de64622b9946b8c2cac27bc2e8b074f6af8f4034c6420a
+  item_hash: a24749dba35bfa8c60ae5f811baa9dcfc9c858cab486f6d033fd072384c0db3a
   template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
   certificate_hash: e68b0ae0dc7136c5af128419e3998821420eb81af04936bcb304f1b6bc2ff79c
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:56+00:00'
-  record_hash: 65406acfa5ca250a89db6cedadd2c8567155327a737c3b992071379c6ff0a857
+  stamped_at: '2026-11-17T17:39:50+00:00'
+  record_hash: 40875012a302962dfc586b226d716e7e7100b786c59a439e83965501ce4f6bde

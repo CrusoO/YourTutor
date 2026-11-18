@@ -1,0 +1,139 @@
+id: C10.QUAD.WORD_MOTION.CP.20_10_2_usual.cp
+skill_ids:
+- MATH.ALG.QUAD.MODEL_MOTION
+difficulty: 0.86
+pool: checkpoint
+role: transfer
+stem:
+  en: A bus travels 120 km along a fixed route at a steady speed. If it travelled
+    10 km/h faster, the journey would take 2 hours less. Find the usual speed of the
+    bus in km/h.
+hints:
+- level: 1
+  en: Let x be the usual speed, then express the two journey times in terms of x.
+- level: 2
+  en: Subtract the two times and set the difference equal to the time saved. Multiply
+    every term by the same expression to clear the fractions, then solve. Do the same
+    thing to each side at every step.
+- level: 3
+  en: 'Full method: name the usual speed, write the two times, form the difference
+    relation, clear the fractions by multiplying every term, rearrange to zero, solve,
+    reject the negative speed, then answer the speed that was asked for.'
+prediction_prompt:
+  en: Will the usual speed be more or less than the increase in speed?
+status: draft
+template_id: TPL.C10.QUAD.WORD_MOTION.CP
+generator_version: factory-2
+template_hash: 7f2271221053f7ed7272ef1d17e7924478fdf13885e31fffc950651e0ff28f25
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '10'
+- id: b
+  en: '30'
+- id: c
+  en: '-30'
+- id: d
+  en: '20'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_INCREASE_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_OTHER_SPEED_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let x km/h be the usual speed. The time taken is 120/x hours, and at the higher
+    speed it is 120/(x + 10) hours.
+- en: 'The saving is 2: 120/x - 120/(x + 10) = 2. Multiply every term by x(x + 10)
+    to clear the fractions.'
+- en: This gives 2x² + 20x - 1200 = 0, which factorises as (x - 20)(x + 30) = 0 after
+    dividing by 2.
+- en: A speed is positive, so the usual speed is 20 km/h and the faster speed is 30
+    km/h.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 89297fd14ae93a75433838f1994e083af46d143985f1c7a221b34ba4c98c6c54
+  template_hash: 7f2271221053f7ed7272ef1d17e7924478fdf13885e31fffc950651e0ff28f25
+  certificate_hash: 053cb914862f770346a6360cba3cee52507b5873acd8770e8d0552c729345748
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:21:00+00:00'
+  record_hash: 7a74a5a3d08dbca98cd90e604021ac611e233cd70661a57325a4181ecbeafa3d

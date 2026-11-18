@@ -658,6 +658,42 @@
       "title": "FunctionGraphWidget",
       "type": "object"
     },
+    "GeneratedFrom": {
+      "additionalProperties": false,
+      "description": "Where a generated worked-example lesson came from (see `app.lessons.generated`).",
+      "properties": {
+        "kind": {
+          "const": "worked_example_trace",
+          "title": "Kind",
+          "type": "string"
+        },
+        "trace_item_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Trace Item Ids",
+          "type": "array"
+        },
+        "wording_template_id": {
+          "minLength": 1,
+          "title": "Wording Template Id",
+          "type": "string"
+        },
+        "wording_reviewed_by": {
+          "title": "Wording Reviewed By",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "trace_item_ids",
+        "wording_template_id",
+        "wording_reviewed_by"
+      ],
+      "title": "GeneratedFrom",
+      "type": "object"
+    },
     "Highlight": {
       "additionalProperties": false,
       "properties": {
@@ -1116,6 +1152,17 @@
       ],
       "default": null,
       "title": "Content Hash"
+    },
+    "generated": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GeneratedFrom"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "beats": {
       "items": {

@@ -2,30 +2,11 @@ id: C10.TRIG.HD_LADDER.30_2_foot
 skill_ids:
 - MATH.TRIG.HD.LADDER_AND_WALL
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A ladder 4 m long leans against a vertical wall and makes an angle of 30° with
     the level ground. How far is the foot of the ladder from the wall, in metres?
-options:
-- id: a
-  en: 4√3/3
-- id: b
-  en: 8√3/3
-- id: c
-  en: 2√3
-- id: d
-  en: '2'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The ladder is the hypotenuse. The wall height is opposite the 30° angle and
-    the foot distance is adjacent to it.
-- en: Distance = ladder x cosine 30° = 4 x (√3/2).
-- en: 'Simplify: 2√3 m.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Sketch the wall, the ground and the ladder as the right triangle.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: Is the answer more or less than the length of the ladder?
 status: draft
 template_id: TPL.C10.TRIG.HD_LADDER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4√3/3
+- id: b
+  en: 8√3/3
+- id: c
+  en: 2√3
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_FOR_SIN_COS
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_COS_SWAPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ladder is the hypotenuse. The wall height is opposite the 30° angle and
+    the foot distance is adjacent to it.
+- en: Distance = ladder x cosine 30° = 4 x (√3/2).
+- en: 'Simplify: 2√3 m.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7525b16014d98fe175b8ef0473f0627eb116348622cf48c5c6a2f16e9616199c
+  item_hash: ea1f495d78b6d3081dced940b576420e8ffaea04c8486db4b0fb6f97f53e5204
   template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
   certificate_hash: 3cf2fc149a3031286aca4ae89f534fa86530db35e0dd8dae09ae69baf98802a1
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:00:20+00:00'
-  record_hash: 92d8e8fddc9f5cecbd4b07de2e2624d9ee35b270b33ba956047d6cd886083036
+  stamped_at: '2026-11-17T17:50:50+00:00'
+  record_hash: dcf1a938fca1197db273f3847fd23d237b87a096be9c2e5a144624e7586bee23

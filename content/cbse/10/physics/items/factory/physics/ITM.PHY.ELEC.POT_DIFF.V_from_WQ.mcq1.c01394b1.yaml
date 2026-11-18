@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POT_DIFF.V_from_WQ.mcq1.c01394b1
 skill_ids:
 - PHY.ELEC.POT_DIFF
 difficulty: 0.25
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The work done, W, is 240 J and the charge moved, Q, is 20 C. Find the potential
     difference.
-options:
-- id: a
-  en: 260 V
-- id: b
-  en: 0.0833 V
-- id: c
-  en: 12 V
-- id: d
-  en: 4800 V
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: potential difference V = work done W / charge Q.'
-- en: 'Substitute: V = 240 / 20.'
-- en: 'Calculate: V = 12 V.'
-- en: So the potential difference is 12 V.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -41,15 +22,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POT_DIFF
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 260 V
+- id: b
+  en: 0.0833 V
+- id: c
+  en: 12 V
+- id: d
+  en: 4800 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.PD_FORMULA_MIXED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: potential difference V = work done W / charge Q.'
+- en: 'Substitute: V = 240 / 20.'
+- en: 'Calculate: V = 12 V.'
+- en: So the potential difference is 12 V.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1d839bbfeb02f84c9763e37940addb0a6f4d10147563c76fad5bd520e178f295
+  item_hash: bb3d2e8ca70fba2570141c12d9fd24ae546647f87cd3ba2ca3f8606e82fe09a5
   template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
   certificate_hash: 46616940c3a8a097b0755bbfd7400b9c010b7132ccbbeb049205d7dff5c27eff
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:42+00:00'
-  record_hash: 7af6eddbb8dd7af0e6b8c744c9409e20e9a1ea47fa166f0ea3ff68085d6514a6
+  stamped_at: '2026-11-17T19:37:21+00:00'
+  record_hash: 746fd1a4757cac1d1073ddb533c07ac7b05ca2b8ad4bc913f936f39bac697568

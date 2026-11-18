@@ -1,0 +1,132 @@
+id: C10.AP.TWO_TERMS.DX.m6_5_5_4_20.dx
+skill_ids:
+- MATH.ALG.AP.TERMS_FROM_TWO_TERMS
+difficulty: 0.59
+pool: diagnostic
+role: apply
+stem:
+  en: An AP has 14 as its 5th term and 34 as its 9th term. What is its 20th term?
+hints:
+- level: 1
+  en: First find the common difference using the two terms you are given.
+- level: 2
+  en: Share the total change between the two terms equally over the number of steps
+    between them, then work back to the first term.
+- level: 3
+  en: 'Full method: divide the change in value by the change in position to get the
+    difference, use one given term to find the first term, then apply the rule for
+    the term you are asked for.'
+prediction_prompt:
+  en: Is the common difference positive or negative?
+status: draft
+template_id: TPL.C10.AP.TWO_TERMS.DX
+generator_version: factory-2
+template_hash: f777b0e2a4f8bbf4ede3bd45ba17b270de0118db7171683db4ad255ed6da234b
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '89'
+- id: b
+  en: '109'
+- id: c
+  en: '314'
+- id: d
+  en: '94'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.TWO_TERMS_DIFF_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Going from term 5 to term 9 takes 4 equal steps, and the terms change by 20.
+- en: So the common difference is 20 / 4 = 5.
+- en: 'Go back to the first term: a = 14 - (5 - 1)(5) = -6.'
+- en: Then a_20 = -6 + (20 - 1)(5) = 89.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a6693198f2a36c25a93006306736b814dff7d873d41c0d54ddff13b7c5cff686
+  template_hash: f777b0e2a4f8bbf4ede3bd45ba17b270de0118db7171683db4ad255ed6da234b
+  certificate_hash: e360ff1f8cc978c53968622549166e87c66229eac4e76750df6db8f753372e51
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:04:11+00:00'
+  record_hash: 7accd775f24b82e56acb0e0883285a04687b8ab963811180f01aa59706553e28

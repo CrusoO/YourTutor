@@ -1,0 +1,140 @@
+id: ITM.PHY.LIGHT.MIRROR_FOCAL.f_from_R.mcq1.0472c74a.cp
+skill_ids:
+- PHY.LIGHT.MIRROR_FOCAL
+difficulty: 0.35
+pool: checkpoint
+role: procedure
+stem:
+  en: The radius of curvature of the convex mirror, R, is 60 cm. Find the focal length,
+    with its sign.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: the focal length is half the radius of curvature: f = R / 2, with
+    signs from the convention.'
+- level: 2
+  en: 'Get the focal length on its own before you put numbers in: divide each side
+    of R = 2f by 2. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked. Give each distance
+    its sign by the Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 60 cm as 0.6 m, then write f = R / 2, where f is the focal
+    length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL.CP
+generator_version: factory-2
+template_hash: 6efa89626b6b51ebe6391737a7861b00faffb7b07e450ea18e560910b1531e10
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 60 cm
+- id: b
+  en: 3000 cm
+- id: c
+  en: -30 cm
+- id: d
+  en: 30 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: the focal length is half the radius of curvature: f = R
+    / 2, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: R = 0.6 m.'
+- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
+- en: 'Substitute: f = 0.6 / 2.'
+- en: 'Calculate: f = 0.3 m.'
+- en: 'Give it in cm: 30 cm.'
+- en: So the focal length is 30 cm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6c3dd8f94e6b763c7dc769614fc24dbe25f8ed640e9cb894fa8b7614efa7ba3d
+  template_hash: 6efa89626b6b51ebe6391737a7861b00faffb7b07e450ea18e560910b1531e10
+  certificate_hash: 3395916ded1fe590fd89661a4b8e27d3c941701a13826032613c7c44750a2d5d
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:58:17+00:00'
+  record_hash: 8f28fc35e668cf372b9a7cea425fd05f4027d462585bc3337a4e0f3feb8d5913

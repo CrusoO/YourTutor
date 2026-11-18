@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_VR.case4.a7641b85
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.7
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates an electrical appliance and records the following.
     The voltage across it, V, is 20 V and its resistance, R, is 40 Ω. Find the power.'
-options:
-- id: a
-  en: 0.1 W
-- id: b
-  en: 800 W
-- id: c
-  en: 0.5 W
-- id: d
-  en: 10 W
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
-- en: 'Substitute: P = 20 x 20 / 40.'
-- en: 'Calculate: P = 10 W.'
-- en: So the power is 10 W.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.1 W
+- id: b
+  en: 800 W
+- id: c
+  en: 0.5 W
+- id: d
+  en: 10 W
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
+- en: 'Substitute: P = 20 x 20 / 40.'
+- en: 'Calculate: P = 10 W.'
+- en: So the power is 10 W.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c369427bd6ecae1a9d8768665ae249bd1e5e7391738c4dbd9eea5d6b4575771f
+  item_hash: 234f5cf9ea224035df8d8fc967105abcb059b929ddaa93af40ad2087601b400f
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 7968e2eb7bb969c6fc5e3c4443bc8cb2f7666d465bcbc8c8a58a6ce44f812b10
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:23+00:00'
-  record_hash: 54b9a3ef7de63645c79da2443a7f8878822faa7f1a307c982a833b56e89506e5
+  stamped_at: '2026-11-17T19:38:30+00:00'
+  record_hash: e92e9747b0bdbd555175f4783f2c937b3e43ba0538d89bdee6f42c16d2ebef22

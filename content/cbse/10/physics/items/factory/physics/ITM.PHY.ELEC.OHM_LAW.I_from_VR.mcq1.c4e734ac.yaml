@@ -2,33 +2,11 @@ id: ITM.PHY.ELEC.OHM_LAW.I_from_VR.mcq1.c4e734ac
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The potential difference across it, V, is 10 V and its resistance, R, is 2 kΩ.
     Find the current through the resistor.
-options:
-- id: a
-  en: 2 x 10^7 mA
-- id: b
-  en: 5 mA
-- id: c
-  en: 200000 mA
-- id: d
-  en: 5000 mA
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Put each quantity in SI units: 2 kΩ = 2000 Ω.'
-- en: 'Get the current alone: divide each side of V = I x R by R.'
-- en: 'Substitute: I = 10 / 2000.'
-- en: 'Calculate: I = 0.005 A.'
-- en: 'Give it in mA: 5 mA.'
-- en: So the current is 5 mA.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +23,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^7 mA
+- id: b
+  en: 5 mA
+- id: c
+  en: 200000 mA
+- id: d
+  en: 5000 mA
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 2 kΩ = 2000 Ω.'
+- en: 'Get the current alone: divide each side of V = I x R by R.'
+- en: 'Substitute: I = 10 / 2000.'
+- en: 'Calculate: I = 0.005 A.'
+- en: 'Give it in mA: 5 mA.'
+- en: So the current is 5 mA.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8fe82fcc5e8dd9f7c616c4ed2cdeece52577120591564c480b4731b5ab466d20
+  item_hash: e3ca7f18dc68f8d54b7e086557a7e94f530611de55c2a9d7e489ce89265f1678
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: d883d4c0761409b0978d1fbd76eb86fb11e661353ad302408c7564107942d8c8
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:44+00:00'
-  record_hash: 7e843f2c5799983ecd435d36becdb892c6f1a3f39299705fac584c82994498a2
+  stamped_at: '2026-11-17T19:37:25+00:00'
+  record_hash: aa9c5e5707494a68e7da77dc179558a9cc2080352e79a47b51ba6e3c9ae01fae

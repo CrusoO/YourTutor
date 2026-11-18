@@ -2,33 +2,11 @@ id: ITM.PHY.LIGHT.REFRACTIVE_INDEX.n_from_v.mcq1.ee002f18
 skill_ids:
 - PHY.LIGHT.REFRACTIVE_INDEX
 difficulty: 0.3
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Light travels in the medium at 2.4 x 10^8 m/s and the speed of light in vacuum
     is 3 x 10^8 m/s. Find the refractive index of the medium.
-options:
-- id: a
-  en: '0.2'
-- id: b
-  en: '12.5'
-- id: c
-  en: '0.8'
-- id: d
-  en: '1.25'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
-    the medium.'
-- en: 'Get the refractive index alone: multiply each side of n = c / v by v, then
-    divide each side by n.'
-- en: 'Substitute: n = (3 x 10^8) / (2.4 x 10^8).'
-- en: 'Calculate: n = 1.25.'
-- en: So the refractive index is 1.25.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -45,15 +23,47 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the refractive index be?
 status: draft
 template_id: TPL2.PHY.LIGHT.REFRACTIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.2'
+- id: b
+  en: '12.5'
+- id: c
+  en: '0.8'
+- id: d
+  en: '1.25'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SPEED_INCREASES_IN_DENSER_MEDIUM
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.INDEX_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
+    the medium.'
+- en: 'Get the refractive index alone: multiply each side of n = c / v by v, then
+    divide each side by n.'
+- en: 'Substitute: n = (3 x 10^8) / (2.4 x 10^8).'
+- en: 'Calculate: n = 1.25.'
+- en: So the refractive index is 1.25.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a7bc7a97cbdf8807ac5a16cd817fca719055624d7b1cfd806e724c259a5ce793
+  item_hash: d4e103a19c518bbafc0e0ee9c7c07c1a606a58bcb7a36ae5b32ce3d0db418f9b
   template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
   certificate_hash: 90c94dae2e62977776fed7a9575d6dfbcf05ecb1cb28008f9e8290539449278e
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:13+00:00'
-  record_hash: 30c29f2c281e5174ef3db32430b1fb9e5643173e27d9c2b009d1824b30e488b6
+  stamped_at: '2026-11-17T19:41:23+00:00'
+  record_hash: c839c17113d600575976489e28b3fff2c77e7d2d1286042b78059b642f6f8f47

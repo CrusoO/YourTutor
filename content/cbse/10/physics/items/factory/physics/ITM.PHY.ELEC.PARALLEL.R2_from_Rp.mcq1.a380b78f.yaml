@@ -2,32 +2,11 @@ id: ITM.PHY.ELEC.PARALLEL.R2_from_Rp.mcq1.a380b78f
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.3
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The first resistor, R1, is 20 Ω and the combined resistance, Rp, is 4 Ω. Find
     the second resistance.
-options:
-- id: a
-  en: 0.2 Ω
-- id: b
-  en: 24 Ω
-- id: c
-  en: 80 Ω
-- id: d
-  en: 5 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2.'
-- en: 'Get the second resistance alone: subtract 1/R1 from each side of 1/Rp = 1/R1
-    + 1/R2, then take the reciprocal of each side.'
-- en: 'Substitute: R2 = 1 / (1 / 4 - 1 / 20).'
-- en: 'Calculate: R2 = 5 Ω.'
-- en: So the second resistance is 5 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -44,15 +23,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.2 Ω
+- id: b
+  en: 24 Ω
+- id: c
+  en: 80 Ω
+- id: d
+  en: 5 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2.'
+- en: 'Get the second resistance alone: subtract 1/R1 from each side of 1/Rp = 1/R1
+    + 1/R2, then take the reciprocal of each side.'
+- en: 'Substitute: R2 = 1 / (1 / 4 - 1 / 20).'
+- en: 'Calculate: R2 = 5 Ω.'
+- en: So the second resistance is 5 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 07cfcff0ce0d79259e572aeb4623f2850bdd21fea69deb87d3da9ea8912b9d98
+  item_hash: 7e1eeb2fe343715390110b181fe19c1e52d66f5bd676a58e218e98c282328430
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: fee9eb16adffd35e73636c9d71abe3a8f07dd685d151ac05555003139c01e225
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:01+00:00'
-  record_hash: b24b78253bf661760e510cd2a7039c41690b2b18e4662936ce6f1f5fa7744abf
+  stamped_at: '2026-11-17T19:37:53+00:00'
+  record_hash: c3681993ae251ee60782bbba9f1a04b4ee61160dd82b2ac52655f4518883ebeb

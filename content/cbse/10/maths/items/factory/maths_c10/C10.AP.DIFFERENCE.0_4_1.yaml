@@ -2,28 +2,10 @@ id: C10.AP.DIFFERENCE.0_4_1
 skill_ids:
 - MATH.ALG.AP.COMMON_DIFFERENCE
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: What is the common difference of the AP 0, 4, 8, 12, ...?
-options:
-- id: a
-  en: '4'
-- id: b
-  en: '0'
-- id: c
-  en: '8'
-- id: d
-  en: '-4'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: In an AP every term is the previous term plus the same number, the common difference.
-- en: 'Subtract a term from the one after it: 4 - (0) = 4.'
-- en: 'Check with another pair: 8 - (4) = 4. The common difference is 4.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Subtract each term from the one after it and see what you get.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the list going up or down, and by roughly how much each step?
 status: draft
 template_id: TPL.C10.AP.DIFFERENCE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '0'
+- id: c
+  en: '8'
+- id: d
+  en: '-4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_AS_RATIO
+  when_answer_equals:
+  - b
+- id: MC.AP.DIFF_SKIPPED_TERM
+  when_answer_equals:
+  - c
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In an AP every term is the previous term plus the same number, the common difference.
+- en: 'Subtract a term from the one after it: 4 - (0) = 4.'
+- en: 'Check with another pair: 8 - (4) = 4. The common difference is 4.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 99a4191f3e8d87bff986e3a20d7a12d13c45a1493ae1fcef48dbdb954f006113
+  item_hash: 194e0d6b0611484a5eaeb10026cc74eaae8342aaa5e20c7cc06295c98b9c9641
   template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
   certificate_hash: c4ac5c6adce079e0164cbe3297f76af6b9ffa8133b57c30cde29ff0f5cad315a
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:12:37+00:00'
-  record_hash: c0dd861a45266bb5e9a22743b4f349c048c6948ade13f62c4018288681abf439
+  stamped_at: '2026-11-17T17:38:21+00:00'
+  record_hash: 3dce1ff352aba48aba3ca084215cd6d7f41f61308c594346fb01135231a7ebe3

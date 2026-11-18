@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.1_7_23
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every term of the progression that begins 1, 8, 15 and ends at 155.
-options:
-- id: a
-  en: '1716'
-- id: b
-  en: '1794'
-- id: c
-  en: '12090'
-- id: d
-  en: '3588'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is 1, the last term is 155 and the difference is 7.
-- en: 'Number of terms: n = (155 - 1)/7 + 1 = 23.'
-- en: S = (n/2)(first + last) = (23/2)(1 + 155) = 1794.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Before you can add, you need the number of terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1716'
+- id: b
+  en: '1794'
+- id: c
+  en: '12090'
+- id: d
+  en: '3588'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 1, the last term is 155 and the difference is 7.
+- en: 'Number of terms: n = (155 - 1)/7 + 1 = 23.'
+- en: S = (n/2)(first + last) = (23/2)(1 + 155) = 1794.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2664f921a258cccacb82725c0fb19fe7deace9a2db217d3a459318e45ef33d8b
+  item_hash: 9c4903425c61d7df19b23b990ff3ae0f0ae153c4baf9ae818b0f743ca6c4a4c3
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: e274bec62369fdcf9bb10524a8822acf98878cceba6a5c4f771c31219988ee23
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:10+00:00'
-  record_hash: 1e957c7155fc814c985b3791b370d1e66fdba4f7459decb113bca364781a0a5c
+  stamped_at: '2026-11-17T17:39:15+00:00'
+  record_hash: fd7815e20bb86e18bcb1bb76d1007030e210d0df4db1d80b384314aa64103843

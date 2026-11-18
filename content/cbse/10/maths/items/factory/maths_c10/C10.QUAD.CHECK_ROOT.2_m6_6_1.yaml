@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.2_m6_6_1
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Which number makes the left side of 2x² - 72 = 0 equal to zero?
-options:
-- id: a
-  en: '6'
-- id: b
-  en: '7'
-- id: c
-  en: '0'
-- id: d
-  en: '-72'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = 6: 2(6)² + (0)(6) + (-72) = 0.'
-- en: The left side is 0, so x = 6 satisfies the equation.
-- en: The correct option is a.
 hints:
 - level: 1
   en: You can check an answer without solving anything.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '7'
+- id: c
+  en: '0'
+- id: d
+  en: '-72'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_COEFFICIENT_USED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 6: 2(6)² + (0)(6) + (-72) = 0.'
+- en: The left side is 0, so x = 6 satisfies the equation.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 726f2e42ebcbb70a8d24f3d1cad77a8bd2ba1fdbda9d4c1a938cf2c952b05f33
+  item_hash: 5dd60e89899e75c03ed3786b51a11e53587ba8b5f1ce0773f8eeefe433a356f6
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: be4410f1cd47e27072b944bd01e609980957ce1a932947d1f54b51136b6bbbfc
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:30+00:00'
-  record_hash: c8153d4391560f34373ab1eb364d822c7a313210382749f249035657bbf651e1
+  stamped_at: '2026-11-17T17:41:02+00:00'
+  record_hash: 765f8f852294eb3247041e283298afc39883d5f93333264f1608791c438f6a7e

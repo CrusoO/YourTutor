@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.LENS_FORMULA.v_from_uf.case4.02c26a40
 skill_ids:
 - PHY.LIGHT.LENS_FORMULA
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,29 +9,6 @@ stem:
     following. The object, u, is 15 cm from the concave lens and the focal length
     of the concave lens, f, is 30 cm. Using the Cartesian sign convention, find the
     image distance v.'
-options:
-- id: a
-  en: -30 cm
-- id: b
-  en: -1000 cm
-- id: c
-  en: 30 cm
-- id: d
-  en: -10 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and f signed by the
-    convention.'
-- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = -0.3 m.'
-- en: 'Get the image distance alone: add 1/u to each side of 1/v - 1/u = 1/f, then
-    take the reciprocal of each side.'
-- en: 'Substitute: v = (-0.15) x (-0.3) / ((-0.15) + (-0.3)).'
-- en: 'Calculate: v = -0.1 m.'
-- en: 'Give it in cm: -10 cm.'
-- en: So the image distance is -10 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -52,15 +28,49 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_FORMULA
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -30 cm
+- id: b
+  en: -1000 cm
+- id: c
+  en: 30 cm
+- id: d
+  en: -10 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.U_SIGN_DROPPED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: lens formula 1/v - 1/u = 1/f, with u and f signed by the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = -0.3 m.'
+- en: 'Get the image distance alone: add 1/u to each side of 1/v - 1/u = 1/f, then
+    take the reciprocal of each side.'
+- en: 'Substitute: v = (-0.15) x (-0.3) / ((-0.15) + (-0.3)).'
+- en: 'Calculate: v = -0.1 m.'
+- en: 'Give it in cm: -10 cm.'
+- en: So the image distance is -10 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4e3a6c165cf16447c784a41c7ff559d3ecf5e969f438ecc900c1a5c64db0dd79
+  item_hash: 91a2aa6f2c6de8784adaf3707bce7095623451f12e1d6865d240f039de4364ea
   template_hash: 200a2915e5368012e0e0ef26d981277bf5f9161cf1dc81cf147a97bfca8dae00
   certificate_hash: c77362bf974fdc5c177c4e1b13ad4afbc76fbcb1434f06867dff04499df3c462
   label: calculation-checked
@@ -125,10 +135,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:31+00:00'
-  record_hash: 5af2f282365fe8c00451994045722b000e691d192eae7c994ec3d039a2a2e17f
+  stamped_at: '2026-11-17T19:40:15+00:00'
+  record_hash: 21c6ebaff963b06a23994e78f3c04b5eb9ed60aee1d5291dc6c17ceeffd99fd0

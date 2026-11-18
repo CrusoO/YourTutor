@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POT_DIFF.V_from_WQ.num3.3510d4e4
 skill_ids:
 - PHY.ELEC.POT_DIFF
 difficulty: 0.55
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying work done in moving charge. The work done, W, is 7.5 J
     and the charge moved, Q, is 5 C. Find the potential difference.
-options:
-- id: a
-  en: 1.5 V
-- id: b
-  en: 12.5 V
-- id: c
-  en: 0.667 V
-- id: d
-  en: 37.5 V
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: potential difference V = work done W / charge Q.'
-- en: 'Substitute: V = 7.5 / 5.'
-- en: 'Calculate: V = 1.5 V.'
-- en: So the potential difference is 1.5 V.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -41,15 +22,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POT_DIFF
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.5 V
+- id: b
+  en: 12.5 V
+- id: c
+  en: 0.667 V
+- id: d
+  en: 37.5 V
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.PD_FORMULA_MIXED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: potential difference V = work done W / charge Q.'
+- en: 'Substitute: V = 7.5 / 5.'
+- en: 'Calculate: V = 1.5 V.'
+- en: So the potential difference is 1.5 V.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 510685734825fcbef81c1a8f7f4301e5ef762307d8be0c2158e61f37959ded76
+  item_hash: 0f03ea1f3a9add6d8eed9be00796ac69c24fe000c1ca2279105d4d4a863569e2
   template_hash: 8efa982792381636f7b20e4424aa40389fe9e077ab2b3781f7f731e877e2389d
   certificate_hash: 67c113512491e66591cc5c1cddd2ee7173082310f1be00a576623f3d15654045
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:41+00:00'
-  record_hash: 7ea195616336a101071ded09c8c195841ac7316a512dc5285117400f84ac7a8d
+  stamped_at: '2026-11-17T19:37:19+00:00'
+  record_hash: 4804125c31a2a7111c878b45dc7d813a8a98f5adef884d3f3ffa43c876d89b92

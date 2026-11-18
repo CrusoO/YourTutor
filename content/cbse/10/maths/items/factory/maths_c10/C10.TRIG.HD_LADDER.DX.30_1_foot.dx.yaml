@@ -1,0 +1,132 @@
+id: C10.TRIG.HD_LADDER.DX.30_1_foot.dx
+skill_ids:
+- MATH.TRIG.HD.LADDER_AND_WALL
+difficulty: 0.49
+pool: diagnostic
+role: apply
+stem:
+  en: A ladder 2 m long leans against a vertical wall and makes an angle of 30° with
+    the level ground. How far is the foot of the ladder from the wall, in metres?
+hints:
+- level: 1
+  en: The ladder is always the longest side of the triangle.
+- level: 2
+  en: 'Choose between sine and cosine by asking which side the question wants: the
+    side opposite the angle goes with sine, the side next to it with cosine.'
+- level: 3
+  en: 'Full method: sketch and label the triangle, identify which two sides are involved,
+    pick sine or cosine for them, replace the ratio by its exact value, and solve.'
+prediction_prompt:
+  en: Is the answer more or less than the length of the ladder?
+status: draft
+template_id: TPL.C10.TRIG.HD_LADDER.DX
+generator_version: factory-2
+template_hash: 82d2ef8ad7e0c9dadd6c8d37114335055e4e165acd16f9c6d6bbbcb13c142118
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: √3
+- id: c
+  en: 4√3/3
+- id: d
+  en: 2√3/3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SIN_COS_SWAPPED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_TAN_FOR_SIN_COS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ladder is the hypotenuse. The wall height is opposite the 30° angle and
+    the foot distance is adjacent to it.
+- en: Distance = ladder x cosine 30° = 2 x (√3/2).
+- en: 'Simplify: √3 m.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 66355517cd31948529b90945e9bc45a47e011440b27fcbb3c70a53b4fb18d642
+  template_hash: 82d2ef8ad7e0c9dadd6c8d37114335055e4e165acd16f9c6d6bbbcb13c142118
+  certificate_hash: 5bea28510ae91eeb3f4f965dda361aee7472884ff3c85f2f53423929566c57fc
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:00:48+00:00'
+  record_hash: 20ddb12edb24dfa13451c6302cc0e7ba375a86caf69f310796baa66b76157280

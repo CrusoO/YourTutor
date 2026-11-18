@@ -1,0 +1,135 @@
+id: C10.QUAD.COMMON_X.EX.1_m9_1.ex
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_INCOMPLETE
+difficulty: 0.42
+pool: practice
+role: explain
+stem:
+  en: Which values of x satisfy x² = -9x? A classmate says the answer is x = -9. Work
+    it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: Look for the factor that both terms contain.
+- level: 2
+  en: Set each factor to zero. For the bracket, undo each operation by doing the same
+    thing to both sides.
+- level: 3
+  en: 'Full method: bring all terms to one side, take out the common factor x, set
+    each factor to zero, add the same number to both sides, divide both sides by the
+    coefficient, and write both solutions.'
+prediction_prompt:
+  en: Will x = 0 be one of the answers?
+status: draft
+template_id: TPL.C10.QUAD.COMMON_X.EX
+generator_version: factory-2
+template_hash: a24e717b815db64ad2d4450a5391b01d5bac9e80970bb4f8c3829433542c4ef3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -9 or x = 0
+- id: b
+  en: x = 0
+- id: c
+  en: x = -9
+- id: d
+  en: x = 0 or x = 9
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.ONE_FACTOR_ONLY
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DIVIDED_BY_X_LOST_ROOT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FACTOR_SIGN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(x + 9) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add -9 to both sides, then divide both sides by 1: x = -9.'
+- en: The solutions are x = -9 or x = 0.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 55c2f7fca936c164c52159d458c2e51cd679c5ec46a4bf592b7c24c38abcf7f5
+  template_hash: a24e717b815db64ad2d4450a5391b01d5bac9e80970bb4f8c3829433542c4ef3
+  certificate_hash: 4c0a1a8f88c3f4da98c0d5c107c3a8fff14211219d0cd6e1d2fd5d6a2222f96a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:11:25+00:00'
+  record_hash: 797865ee553068fb09cb5d3d80f80dc0ce92b7b8cef2a5df81734012f255b8ff

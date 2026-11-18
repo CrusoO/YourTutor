@@ -1,0 +1,135 @@
+id: ITM.PHY.LIGHT.MIRROR_MAGNIFICATION.m_from_uv.mcq1.0c0f1fea.ex
+skill_ids:
+- PHY.LIGHT.MIRROR_MAGNIFICATION
+difficulty: 0.35
+pool: practice
+role: explain
+stem:
+  en: The object, u, is 15 cm from the concave mirror and the image, which is virtual,
+    is 30 cm from the concave mirror. Find the magnification, with its sign. A classmate
+    says the answer is -2. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: magnification of a mirror m = -v / u.'
+- level: 2
+  en: The relation already gives the magnification directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+    Give each distance its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 15 cm as -0.15 m and 30 cm as 0.3 m, then write m = -v /
+    u, where m is the magnification, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the magnification be?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_MAGNIFICATION.EX
+generator_version: factory-2
+template_hash: 4e0aa3a18d23351abfba95d64d8799f62a136e33c9c1f33244f6f937b6a278fa
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-2'
+- id: b
+  en: '-0.5'
+- id: c
+  en: '0.5'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MAG_SIGN_DROPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: magnification of a mirror m = -v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; v = 0.3 m.'
+- en: 'Substitute: m = -0.3 / (-0.15).'
+- en: 'Calculate: m = 2.'
+- en: So the magnification is 2.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a12100a6ebb728502c268c0ca87080a0880f6b0e6d7460a82c6d3856ad7e6999
+  template_hash: 4e0aa3a18d23351abfba95d64d8799f62a136e33c9c1f33244f6f937b6a278fa
+  certificate_hash: d1fe20353db6f83bb46f040f7fe6ff45cf9780992a7f185d47379fd8d84020e2
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:44:05+00:00'
+  record_hash: e9aa224c9ff3519c33ec33add833324152da79971619a00c4a8f0a7985b5e7ba

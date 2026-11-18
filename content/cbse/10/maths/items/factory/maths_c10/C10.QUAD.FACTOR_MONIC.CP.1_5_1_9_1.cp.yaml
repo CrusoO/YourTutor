@@ -1,0 +1,134 @@
+id: C10.QUAD.FACTOR_MONIC.CP.1_5_1_9_1.cp
+skill_ids:
+- MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC
+difficulty: 0.42
+pool: checkpoint
+role: procedure
+stem:
+  en: Find the roots of the equation x² - 14x + 45 = 0.
+hints:
+- level: 1
+  en: Try writing the left side as two brackets multiplied together.
+- level: 2
+  en: Find two numbers that multiply to the plain number and add to the x coefficient.
+    Then set each bracket to zero and undo it by doing the same thing to both sides.
+- level: 3
+  en: 'Full method: factorise the left side, set each bracket to zero, add or subtract
+    the same number on both sides, divide both sides by the coefficient of x, then
+    check each solution by substituting it back.'
+prediction_prompt:
+  en: How many different values of x do you expect?
+status: draft
+template_id: TPL.C10.QUAD.FACTOR_MONIC.CP
+generator_version: factory-2
+template_hash: 501f38dc56106275a7696286b4beab547874bbe7be7d67f1b601ba7af47bd35d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -9 or x = -5
+- id: b
+  en: x = 5
+- id: c
+  en: x = -9 or x = 5
+- id: d
+  en: x = 5 or x = 9
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_ONE_ROOT_ONLY
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Look for two numbers with product 45 and sum -14: they are -5 and -9.'
+- en: 'Factorise: (x - 5)(x - 9) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x - 5 = 0 gives x
+    = 5 and x - 9 = 0 gives x = 9.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 096648dae765872084cac8f5564c867321e7973cfd99a662c85d9fdb49559221
+  template_hash: 501f38dc56106275a7696286b4beab547874bbe7be7d67f1b601ba7af47bd35d
+  certificate_hash: fed01c04a7badabfb899ee827523225528ca74c15c4a7db51d09d1caf8f5c006
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:22:42+00:00'
+  record_hash: 4c2c149528de023df8ebfee0d39d246a99f8c0602bf0904712079d2eb52aa30b

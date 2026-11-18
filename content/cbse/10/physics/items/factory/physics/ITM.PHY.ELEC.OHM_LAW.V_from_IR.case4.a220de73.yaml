@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.OHM_LAW.V_from_IR.case4.a220de73
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates a resistor in a circuit and records the following.
     The current through it, I, is 20 mA and its resistance, R, is 2 kΩ. Find the potential
     difference across the resistor.'
-options:
-- id: a
-  en: 40 V
-- id: b
-  en: 100000 V
-- id: c
-  en: 2000.02 V
-- id: d
-  en: 1 x 10^-5 V
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Put each quantity in SI units: 20 mA = 0.02 A; 2 kΩ = 2000 Ω.'
-- en: 'Substitute: V = 0.02 x 2000.'
-- en: 'Calculate: V = 40 V.'
-- en: So the potential difference is 40 V.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -45,15 +25,45 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 40 V
+- id: b
+  en: 100000 V
+- id: c
+  en: 2000.02 V
+- id: d
+  en: 1 x 10^-5 V
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 20 mA = 0.02 A; 2 kΩ = 2000 Ω.'
+- en: 'Substitute: V = 0.02 x 2000.'
+- en: 'Calculate: V = 40 V.'
+- en: So the potential difference is 40 V.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9899abbadb2b64283cc00eb0c7ada8bdfd2dc799e1f2f65762263f7553f2880d
+  item_hash: 91bc023ba4dca9626f95a202688ab0869f344fd320aef40260ec690518a78b7a
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: ac90a0875a8a4931125f803b66010974709a7a969cd4141ab39e068e8d9ebc0f
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:45+00:00'
-  record_hash: 01c61fdcf57789f4a15c7b379887f256fb9bc83260667b2efea25db7fbef7c6e
+  stamped_at: '2026-11-17T19:37:27+00:00'
+  record_hash: 9d11caf03bcbb96a171eb607ffc5a4311564e942028f694135946a62e339e2b9

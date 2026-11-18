@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { plainMistake } from "@/lib/plain-diagnosis";
 import type { Messages } from "@/lib/messages";
 
 export type Confidence = "sure" | "unsure";
@@ -47,6 +48,60 @@ export function ConfidenceTap({
   );
 }
 
+/**
+ * Shown AFTER the learner has given an answer, in the place of the answer box. The answer is only sent
+ * once one of the three buttons is pressed; Skip sends it with no confidence. While it is being sent
+ * every button is disabled, so one answer can never be sent twice.
+ */
+export function ConfidenceAsk({
+  copy,
+  answer,
+  busy,
+  onChoose,
+  onChange,
+}: {
+  copy: Messages;
+  answer: string;
+  busy: boolean;
+  onChoose: (value: Confidence | null) => void;
+  onChange?: () => void;
+}) {
+  const first = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    first.current?.focus();
+  }, []);
+  return (
+    <div className="stack" role="group" aria-label={copy.confidencePrompt} data-testid="confidence">
+      <div aria-live="polite" className="stack">
+        <p className="muted" data-testid="confidence-answer">
+          {copy.confidenceYourAnswer} <strong>{answer}</strong>
+        </p>
+        <p className="stem">{busy ? copy.confidenceSending : copy.confidencePrompt}</p>
+      </div>
+      <button ref={first} type="button" disabled={busy} data-testid="confidence-sure" onClick={() => onChoose("sure")}>
+        {copy.confidenceSure}
+      </button>
+      <button
+        type="button"
+        className="secondary"
+        disabled={busy}
+        data-testid="confidence-unsure"
+        onClick={() => onChoose("unsure")}
+      >
+        {copy.confidenceUnsure}
+      </button>
+      <button type="button" className="ghost" disabled={busy} data-testid="confidence-skip" onClick={() => onChoose(null)}>
+        {copy.confidenceSkip}
+      </button>
+      {onChange ? (
+        <button type="button" className="ghost" disabled={busy} data-testid="confidence-change" onClick={onChange}>
+          {copy.confidenceChange}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 const WHY: Record<string, keyof Messages> = {
   misconception: "whyMisconception",
   slip: "whySlip",
@@ -64,33 +119,46 @@ export function WhyWrong({
   onNotWhy,
 }: {
   copy: Messages;
-  diagnosis: { class?: string } | undefined;
+  diagnosis: { class?: string; description?: string; misconception_text?: string } | undefined;
   onNotWhy: (diagnosed: string) => void;
 }) {
-  const [noted, setNoted] = useState(false);
+  const [noted, setNoted] = useState<"yes" | "no" | null>(null);
   const kind = diagnosis?.class ?? "";
   const key = WHY[kind];
   if (!key) return null;
+  const mistake = plainMistake(diagnosis);
   return (
     <div className="stack" data-testid="why-wrong" data-class={kind}>
-      <p className="muted">{copy.whyTitle}</p>
-      <p>{copy[key]}</p>
-      {noted ? (
+      <h2>{copy.whyTitle}</h2>
+      {mistake ? (
+        <>
+          <p>{copy.whyIntro}</p>
+          <p className="banner" data-testid="why-mistake">{mistake}</p>
+        </>
+      ) : (
+        <p data-testid="why-generic">{kind === "misconception" ? copy.whyGeneric : copy[key]}</p>
+      )}
+      {!mistake && kind === "misconception" ? null : noted ? (
         <p className="muted" role="status">
-          {copy.whyNoted}
+          {noted === "yes" ? copy.whyYesNoted : copy.whyNoted}
         </p>
       ) : (
-        <button
-          type="button"
-          className="ghost"
-          data-testid="not-why"
-          onClick={() => {
-            setNoted(true);
-            onNotWhy(kind);
-          }}
-        >
-          {copy.whyNotWhy}
-        </button>
+        <>
+          <button type="button" className="secondary" data-testid="yes-why" onClick={() => setNoted("yes")}>
+            {copy.whyYes}
+          </button>
+          <button
+            type="button"
+            className="ghost"
+            data-testid="not-why"
+            onClick={() => {
+              setNoted("no");
+              onNotWhy(kind);
+            }}
+          >
+            {copy.whyNotWhy}
+          </button>
+        </>
       )}
     </div>
   );

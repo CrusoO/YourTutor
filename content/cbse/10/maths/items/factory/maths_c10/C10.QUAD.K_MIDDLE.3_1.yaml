@@ -2,29 +2,11 @@ id: C10.QUAD.K_MIDDLE.3_1
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the values of k for which the equation 3x² + kx + 3 = 0 has two equal real
     roots.
-options:
-- id: a
-  en: k = 6
-- id: b
-  en: k = -3 or k = 3
-- id: c
-  en: k = -36 or k = 36
-- id: d
-  en: k = -6 or k = 6
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Equal roots need the discriminant to be zero: k² - 4(3)(3) = 0.'
-- en: So k² = 36.
-- en: 'Take the square root of both sides, keeping both signs: k = -6 or k = 6.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Equal roots happen when the discriminant is exactly zero.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Should k be allowed to be negative as well as positive?
 status: draft
 template_id: TPL.C10.QUAD.K_MIDDLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = 6
+- id: b
+  en: k = -3 or k = 3
+- id: c
+  en: k = -36 or k = 36
+- id: d
+  en: k = -6 or k = 6
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_POSITIVE_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_SQRT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(3)(3) = 0.'
+- en: So k² = 36.
+- en: 'Take the square root of both sides, keeping both signs: k = -6 or k = 6.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9b07af5d578eaf98ed0e364937949e0c0d2a4041291afbb4938f9d7401a47186
+  item_hash: 0cbd0484f8e6944d7d70535a744642097a94e02b74e48470e27a8362ae488619
   template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
   certificate_hash: 1633527d9c042d5492cf2859abac70afcb90bd861c324ccb42980a30dc6aab3d
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:46:12+00:00'
-  record_hash: 81043404f7f58585427a427662802100a80b568982f4d8e37368637832261809
+  stamped_at: '2026-11-17T17:44:28+00:00'
+  record_hash: 93499f71d8c0f2b5c959b273f9d6100747994d168c0ff8b1182380d525f18f27

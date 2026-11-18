@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.MIRROR_FORMULA.u_from_vf.num3.77bd9142
 skill_ids:
 - PHY.LIGHT.MIRROR_FORMULA
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -10,29 +9,6 @@ stem:
     is virtual, is 8 cm from the convex mirror and the focal length of the convex
     mirror, f, is 12 cm. Using the Cartesian sign convention, find the object distance
     u.
-options:
-- id: a
-  en: 4.8 cm
-- id: b
-  en: -4.8 cm
-- id: c
-  en: -417 cm
-- id: d
-  en: -24 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with v and f signed by
-    the convention.'
-- en: 'Put each quantity in SI units with its sign: v = 0.08 m; f = 0.12 m.'
-- en: 'Get the object distance alone: subtract 1/v from each side of 1/v + 1/u = 1/f,
-    then take the reciprocal of each side.'
-- en: 'Substitute: u = 0.08 x 0.12 / (0.08 - 0.12).'
-- en: 'Calculate: u = -0.24 m.'
-- en: 'Give it in cm: -24 cm.'
-- en: So the object distance is -24 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -52,15 +28,49 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FORMULA
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4.8 cm
+- id: b
+  en: -4.8 cm
+- id: c
+  en: -417 cm
+- id: d
+  en: -24 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.V_SIGN_DROPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: mirror formula 1/v + 1/u = 1/f, with v and f signed by
+    the convention.'
+- en: 'Put each quantity in SI units with its sign: v = 0.08 m; f = 0.12 m.'
+- en: 'Get the object distance alone: subtract 1/v from each side of 1/v + 1/u = 1/f,
+    then take the reciprocal of each side.'
+- en: 'Substitute: u = 0.08 x 0.12 / (0.08 - 0.12).'
+- en: 'Calculate: u = -0.24 m.'
+- en: 'Give it in cm: -24 cm.'
+- en: So the object distance is -24 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1a23ca1045d43153a2bb7edefe98106d53ccfa43b52e9614b52155bf87494ec2
+  item_hash: f0a58dd7bb288413cf20c252dc3affe6e36f0be04840f903c040bafe3a3ab788
   template_hash: f55b9ed8b677ada4eb8e231957f1d07243080c6395789922fb32f77da9b34979
   certificate_hash: 134d92bc382d7e73b1ab7537526f236781c4b0a626fc7f00ed976c19a65620ef
   label: calculation-checked
@@ -125,10 +135,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:03+00:00'
-  record_hash: 694351cffa8a370a165e401911f00174e076ecf0c008856f4806ba14dd6cd23e
+  stamped_at: '2026-11-17T19:39:36+00:00'
+  record_hash: 4d4bb053aa6359ecfb0ff70dbeb986bc62551c1d40b6091746be93b610c9c0ef

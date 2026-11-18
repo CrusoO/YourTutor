@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.m3_m2_q
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Complete the square on x² - 6x - 2 = 0 to reach (x + p)² = q. What is q?
-options:
-- id: a
-  en: '7'
-- id: b
-  en: '11'
-- id: c
-  en: '-1'
-- id: d
-  en: '38'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Half of the x coefficient -6 is -3, so the square is (x - 3)².
-- en: (x - 3)² = x² + -6x + 9, so add 9 to both sides and subtract -2 from both sides.
-- en: This gives (x - 3)² = 11. So p = -3 and q = 11.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Think of one bracket squared; match the x term first.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: '11'
+- id: c
+  en: '-1'
+- id: d
+  en: '38'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_ADDED_NOT_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CS_NOT_SQUARED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient -6 is -3, so the square is (x - 3)².
+- en: (x - 3)² = x² + -6x + 9, so add 9 to both sides and subtract -2 from both sides.
+- en: This gives (x - 3)² = 11. So p = -3 and q = 11.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ade85ea67f83557467d594f8d3437d07abd0780b11cc54522bf455b196086fee
+  item_hash: 7b9e7eaafff6fa79ff2292287c39075e8c2df23b06ccc3abd50f615b56f176c0
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: df660e90803f3bc1aa62f8f6db2fac8e5074dcb1cd0e77ff6ef323d129fabd1b
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:43+00:00'
-  record_hash: be10961efe3b0128e211d3b0e1ef6d1e7c9675a81cb477e41a555dd897557bcf
+  stamped_at: '2026-11-17T17:41:37+00:00'
+  record_hash: 166106221c4c1fcdac0b72b7253fbb178d4cf4e0b341af24e66771bf96618bfa

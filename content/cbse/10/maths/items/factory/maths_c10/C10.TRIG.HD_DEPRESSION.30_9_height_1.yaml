@@ -2,32 +2,12 @@ id: C10.TRIG.HD_DEPRESSION.30_9_height_1
 skill_ids:
 - MATH.TRIG.HD.ANGLE_OF_DEPRESSION
 difficulty: 0.54
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A swimmer on the water is 9√3 m from the foot of a cliff. From the top of the
     cliff the angle of depression of a swimmer is 30°. Find the height of the cliff
     in metres.
-options:
-- id: a
-  en: '18'
-- id: b
-  en: '27'
-- id: c
-  en: 9√3/2
-- id: d
-  en: '9'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The angle of depression is measured downward from the horizontal at the top;
-    by alternate angles it equals the angle of elevation of the top seen from a swimmer.
-- en: So in the right triangle the 30° angle is at a swimmer, and height and ground
-    distance are opposite and adjacent to it.
-- en: 'Use tan 30° = height / distance and solve: the answer is 9 m.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: The angle of depression is measured from the horizontal, not from the vertical.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Does the sight line make a steep or a shallow angle with the horizontal?
 status: draft
 template_id: TPL.C10.TRIG.HD_DEPRESSION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '27'
+- id: c
+  en: 9√3/2
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a swimmer.
+- en: So in the right triangle the 30° angle is at a swimmer, and height and ground
+    distance are opposite and adjacent to it.
+- en: 'Use tan 30° = height / distance and solve: the answer is 9 m.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0637677a69635854021c29f1008dd04846649b85cd646ade052bf544205b895e
+  item_hash: fbd8df6fdfb2bdeab578e2037b750b407397e5c0efcbb76a13d885fd193bba39
   template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
   certificate_hash: c618a8782d2370bc11eaac202b1623dda449545aa1922af6c80b677dcbfaf974
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:57:30+00:00'
-  record_hash: 7fb579b6597a67d0741003a74f170ee6f9c61164651a0c0ee679f07b2cec7ca1
+  stamped_at: '2026-11-17T17:49:17+00:00'
+  record_hash: b1d440dfa659d70329eff486fd00f52392a5d3eb2464c34fcc0cf2c7382c706a

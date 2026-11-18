@@ -1,0 +1,40 @@
+id: TPL2.PHY.ELEC.POWER.EX
+schema: factory-template/1
+lane: physics
+model: ELEC.POWER
+skill_id: PHY.ELEC.POWER
+box:
+  I:
+    choices:
+    - '0.25'
+    - '0.5'
+    - '2'
+    - '5'
+  R:
+    choices:
+    - '10'
+    - '20'
+    - '100'
+    - '400'
+  form:
+    choices:
+    - mcq1
+  variant:
+    choices:
+    - P_from_VI
+    - P_from_VR
+    - I_from_PV
+    - I_from_PR
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.POWER
+  allowed_methods:
+  - electric_power
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: explain

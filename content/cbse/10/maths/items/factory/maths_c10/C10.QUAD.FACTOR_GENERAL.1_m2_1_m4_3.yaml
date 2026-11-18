@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.1_m2_1_m4_3
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.62
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find all values of x that satisfy 3x² + 10x + 8 = 0.
-options:
-- id: a
-  en: x = 4/3 or x = 2
-- id: b
-  en: x = -2 or x = -4/3
-- id: c
-  en: x = -2 or x = 4/3
-- id: d
-  en: x = -4 or x = -2
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Split the middle term 10x into 4x and 6x, because 4 and 6 multiply to 24 (the
-    product of 3 and 8) and add to 10.
-- en: 'Factorise: (x + 2)(3x + 4) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: x + 2 = 0 gives x
-    = -2 and 3x + 4 = 0 gives x = -4/3.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Aim to turn the left side into two simpler expressions multiplied together.
@@ -43,15 +21,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 4/3 or x = 2
+- id: b
+  en: x = -2 or x = -4/3
+- id: c
+  en: x = -2 or x = 4/3
+- id: d
+  en: x = -4 or x = -2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Split the middle term 10x into 4x and 6x, because 4 and 6 multiply to 24 (the
+    product of 3 and 8) and add to 10.
+- en: 'Factorise: (x + 2)(3x + 4) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 2 = 0 gives x
+    = -2 and 3x + 4 = 0 gives x = -4/3.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 55d1f3c2e32d76da3c231de6c38298e30ff1281717667de4ada7c618809182d2
+  item_hash: 9c49079fc2106ef96aad778141374d782074821a2cd73d5afac1158c6589454b
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: c64ece5ab5995e449432e9e71b1d3618b30a11888a48d624ce8ce0a5d05ec560
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:52+00:00'
-  record_hash: c20faca6329f8cfce66cc9d44f0fb6ccb435afb964b177e5f116a12195821351
+  stamped_at: '2026-11-17T17:42:13+00:00'
+  record_hash: df25d62f6a16c437542ab988dc25b9c834c0ce950f7b4c334a114c02950dcf61

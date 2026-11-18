@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER_SCALING.P_V_scaled.mcq1.eac30427
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.3
-type: mcq
 pool: practice
 role: explain
 stem:
   en: The potential difference across a fixed resistor is tripled. By what number
     is the power multiplied?
-options:
-- id: a
-  en: '6'
-- id: b
-  en: '0.111'
-- id: c
-  en: '3'
-- id: d
-  en: '9'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: for a fixed resistor P = V x V / R, so P changes with the
-    square of V.'
-- en: 'Combine the numbers: 3^2 = 9.'
-- en: So the number the power is multiplied by is 9.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -42,15 +23,42 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '0.111'
+- id: c
+  en: '3'
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - a
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = V x V / R, so P changes with the
+    square of V.'
+- en: 'Combine the numbers: 3^2 = 9.'
+- en: So the number the power is multiplied by is 9.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: baf4d6ff165e92a4d3fa5df66c2256b35cbc2697764f99f35130774447f80974
+  item_hash: 782258a112c0cc286b31e9005264816f2cf9cf91664876eeee81fc8f469b4e97
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: 0f4bc45ddcb1c73cb9329e79f3df492171992f9ae0bcbf993a21e66e89aa4a19
   label: calculation-checked
@@ -115,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:28+00:00'
-  record_hash: 81bfd0ab74f00c0d336cb63200a85e148b8841f676f216284c95de8ce45187aa
+  stamped_at: '2026-11-17T19:38:39+00:00'
+  record_hash: c7b00fa9223abb8e82452d4a0a2541666febaf81a6682837d09c11b0d27ca443

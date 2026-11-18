@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.8_9_20_0_1
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the sum of all the multiples of 8 from 72 to 225, both included.
-options:
-- id: a
-  en: '2970'
-- id: b
-  en: '2812'
-- id: c
-  en: '2960'
-- id: d
-  en: '5920'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first multiple of 8 in the range is 72 and the last is 224.
-- en: 'They form an AP with common difference 8. Number of terms: (224 - 72)/8 + 1
-    = 20.'
-- en: S = (20/2)(72 + 224) = 2960.
-- en: The correct option is c.
 hints:
 - level: 1
   en: The end numbers of the range may not themselves be multiples.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2970'
+- id: b
+  en: '2812'
+- id: c
+  en: '2960'
+- id: d
+  en: '5920'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.ENDPOINTS_USED_NOT_MULTIPLES
+  when_answer_equals:
+  - a
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 8 in the range is 72 and the last is 224.
+- en: 'They form an AP with common difference 8. Number of terms: (224 - 72)/8 + 1
+    = 20.'
+- en: S = (20/2)(72 + 224) = 2960.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c2851d424f21e2af17856ad850a9c12bab4be750dd65fbf5d00b4ec74f95523d
+  item_hash: dbf22d36ad12e35cd402f40598d1c64ee3d09fabf285bba5981a5750485da606
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: c82dd6cd7f5f44a2179695e3a02159220c9521ec10bfe3377d816aaee84ad7e9
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:11+00:00'
-  record_hash: d8f8bfb24e3b086e24bf256241eca0e388c495afbf39b9c27a4b293ff7c56320
+  stamped_at: '2026-11-17T17:38:39+00:00'
+  record_hash: 70a1319afac627127bf5ac9e6b0e7a27a3cd9a08dd4873f2e2d81e141df6edf0

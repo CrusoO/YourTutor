@@ -2,29 +2,11 @@ id: C10.AP.NTH_TERM.m1_m6_15_1
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.31
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The first term of an AP is -1 and its common difference is -6. Find the 15th
     term.
-options:
-- id: a
-  en: '-91'
-- id: b
-  en: '83'
-- id: c
-  en: '-85'
-- id: d
-  en: '7'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is -1 and the common difference is -6.
-- en: The nth term is first term + (n - 1) x difference, so a_15 = -1 + (15 - 1)(-6).
-- en: a_15 = -1 + -84 = -85.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Start at the first term and count how many jumps you need to reach the one asked
@@ -40,15 +22,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-91'
+- id: b
+  en: '83'
+- id: c
+  en: '-85'
+- id: d
+  en: '7'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -1 and the common difference is -6.
+- en: The nth term is first term + (n - 1) x difference, so a_15 = -1 + (15 - 1)(-6).
+- en: a_15 = -1 + -84 = -85.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b208ae0be12cdb007992adf79c3f25d1d64700e486c0f3c716e0c8ef52b2f771
+  item_hash: a6955353b29ea035fab46933416eb0136eec115202aacdb3ff5a30be34b43d1d
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: a5277dc024ac1a0d98bc723bb49a5bab37cb5359ace42b6b079a68716c952c1b
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:20+00:00'
-  record_hash: 94842f9a3195c5a0e737202e11d782e035ae1c8f563f77e5b65f007d0fef7530
+  stamped_at: '2026-11-17T17:39:03+00:00'
+  record_hash: b9d2d70723821bba2ab9a206ac14126f57b82e6f582773c6386b500b20ce7dc5

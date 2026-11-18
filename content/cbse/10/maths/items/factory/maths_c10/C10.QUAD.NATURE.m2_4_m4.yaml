@@ -2,28 +2,10 @@ id: C10.QUAD.NATURE.m2_4_m4
 skill_ids:
 - MATH.ALG.QUAD.NATURE_OF_ROOTS
 difficulty: 0.44
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Without solving it, decide the nature of the roots of -2x² + 4x - 4 = 0.
-options:
-- id: a
-  en: No real roots
-- id: b
-  en: Two distinct real roots
-- id: c
-  en: One real root and one non-real root
-- id: d
-  en: Two equal real roots
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The coefficients are -2, 4 and -4.
-- en: The discriminant is b² - 4ac = -16.
-- en: 'The discriminant is negative, so the equation has: no real roots.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Look for one number that decides the nature of the roots.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Which sign do you expect the discriminant to have?
 status: draft
 template_id: TPL.C10.QUAD.NATURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: No real roots
+- id: b
+  en: Two distinct real roots
+- id: c
+  en: One real root and one non-real root
+- id: d
+  en: Two equal real roots
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.NATURE_DISC_SIGN_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.NATURE_ONE_REAL_ONE_NOT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.NATURE_ZERO_ONLY_TESTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are -2, 4 and -4.
+- en: The discriminant is b² - 4ac = -16.
+- en: 'The discriminant is negative, so the equation has: no real roots.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 68d5aa6d02e5c5f73328c89e50c5fa92df469dc3de0653286d12028090e1a515
+  item_hash: 325ed465bccccfada8e2666151d7b527830ffc32d84047df31c1380f0376557e
   template_hash: 0efc4d407f3c977746ae081df613041a62f2c589532f89ae25878dfc3ebbd0ff
   certificate_hash: f3e085467c294d24684d8ff34286e62d99b275be4652de2baa860b57a16b8c9b
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:48:18+00:00'
-  record_hash: 62bdf0a15d698dfea7a48b9ba62df47a99d867d667bf61eeda569e3c20a7cb54
+  stamped_at: '2026-11-17T17:45:03+00:00'
+  record_hash: 625a880ac1f083c9a435847b13ddfa5a4acc08d07f687fc198a42ea7b1e1ec55

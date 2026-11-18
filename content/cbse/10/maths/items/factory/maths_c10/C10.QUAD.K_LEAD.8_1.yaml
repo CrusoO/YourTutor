@@ -2,28 +2,10 @@ id: C10.QUAD.K_LEAD.8_1
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the value of k for which kx² + 16x + 8 = 0 has two equal real roots.
-options:
-- id: a
-  en: k = -8
-- id: b
-  en: k = 32
-- id: c
-  en: k = 16
-- id: d
-  en: k = 8
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Equal roots need b² - 4ac = 0, so (16)² - 4(k)(8) = 0.
-- en: 'This gives 256 - 32k = 0. Add 32k to both sides: 32k = 256.'
-- en: 'Divide both sides by 32: k = 8.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Equal roots mean the discriminant is zero. Put the unknown k into it.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will k have the same sign as the plain number?
 status: draft
 template_id: TPL.C10.QUAD.K_LEAD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -8
+- id: b
+  en: k = 32
+- id: c
+  en: k = 16
+- id: d
+  en: k = 8
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (16)² - 4(k)(8) = 0.
+- en: 'This gives 256 - 32k = 0. Add 32k to both sides: 32k = 256.'
+- en: 'Divide both sides by 32: k = 8.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 991a9c56605ceff2756e9c3667be2432136205913a192b5cfbb45c47436dce68
+  item_hash: 34ee1de0051a31b47124e047dfcff7797bf35f2905bcdd74b385b11781822e67
   template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
   certificate_hash: da9de472108a7058baad505245ac995633cbbac06e4629d706c7973b04a4bc8b
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:45:30+00:00'
-  record_hash: f8ecd0d8a60397703eaba7449bf023cddd456b18b097359b1d4c2ce2c6feb8e8
+  stamped_at: '2026-11-17T17:44:05+00:00'
+  record_hash: 1ae15192e914af90a8e69cd1a95605de403dfe0e2729a6f0a1b7394a5898b439

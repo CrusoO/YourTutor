@@ -54,7 +54,7 @@ def build_item(ctx: ItemContext, template_id: str, template_hash: str) -> dict[s
         "id": ctx.item_id,
         "skill_ids": skills,
         "difficulty": ctx.difficulty,
-        "pool": "practice",
+        "pool": ctx.pool,
         "role": ctx.role,
         "stem": _text(ctx.stem),
         "hints": [{"level": i, "en": h} for i, h in enumerate(ctx.hints, start=1)],

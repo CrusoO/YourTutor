@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.2_2_1_4_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.65
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find all values of x that satisfy 2x² - 12x + 16 = 0.
-options:
-- id: a
-  en: x = -4 or x = -2
-- id: b
-  en: x = -4 or x = 2
-- id: c
-  en: x = 2
-- id: d
-  en: x = 2 or x = 4
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Divide both sides by 2, the common factor, to get x² - 6x + 8 = 0.
-- en: 'Look for two numbers with product 8 and sum -6: they are -2 and -4.'
-- en: 'Factorise: (x - 2)(x - 4) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: x - 2 = 0 gives x
-    = 2 and x - 4 = 0 gives x = 4.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Factorise the left side first; any product that equals zero tells you something
@@ -44,15 +22,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -4 or x = -2
+- id: b
+  en: x = -4 or x = 2
+- id: c
+  en: x = 2
+- id: d
+  en: x = 2 or x = 4
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_ONE_ROOT_ONLY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get x² - 6x + 8 = 0.
+- en: 'Look for two numbers with product 8 and sum -6: they are -2 and -4.'
+- en: 'Factorise: (x - 2)(x - 4) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x - 2 = 0 gives x
+    = 2 and x - 4 = 0 gives x = 4.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7e0255e49d927d540ae8ef7ec1c4cbf6fb06c4c6e8ef1acb6b55807bff039c07
+  item_hash: 22b579154f67192228f4a46a666177bb581ab466edb41c8e84ad9b1614c1f772
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: ba0c3c3b9088fee8929ddfd6c80fe26545ac20987294808dc8dfc4275fc259dd
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:50+00:00'
-  record_hash: 057e77764a18a883f53de665dd9c0d28d7501a10bd3720f3045d1a2f807b9b1c
+  stamped_at: '2026-11-17T17:42:12+00:00'
+  record_hash: a6ddeced2371dfcd343c202373af3dc09ab1469e9bd5697927b40b1f06396c32

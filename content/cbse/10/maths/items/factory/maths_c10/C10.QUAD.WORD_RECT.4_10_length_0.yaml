@@ -2,30 +2,11 @@ id: C10.QUAD.WORD_RECT.4_10_length_0
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.54
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A rectangular plot has a length that is 4 m more than its breadth. The plot
     covers 140 m². Find the length of the plot in metres.
-options:
-- id: a
-  en: '-10'
-- id: b
-  en: '10'
-- id: c
-  en: '18'
-- id: d
-  en: '14'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 4 metres.
-- en: The area gives x(x + 4) = 140, so x² + 4x - 140 = 0.
-- en: 'Factorise: (x - 10)(x + 14) = 0, so x = 10 or x = -14; a length is positive,
-    so the breadth is 10 m and the length is 14 m.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Let x be the breadth and write the length using x, then use the area.
@@ -41,15 +22,44 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-10'
+- id: b
+  en: '10'
+- id: c
+  en: '18'
+- id: d
+  en: '14'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_BREADTH_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_DIFFERENCE_ADDED_TWICE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 4 metres.
+- en: The area gives x(x + 4) = 140, so x² + 4x - 140 = 0.
+- en: 'Factorise: (x - 10)(x + 14) = 0, so x = 10 or x = -14; a length is positive,
+    so the breadth is 10 m and the length is 14 m.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f3b16de76f0667d75ecf014175869c8aca13d550bbd679a99c6318fe770d31f1
+  item_hash: 5ee6c4fba618ec21136aab0e313684bee90b67259fc23fd81e0b9d7d035f6399
   template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
   certificate_hash: f37424c1c38dd03adc2ce56386d06f5e92bb685dfbabea3d1d72a99c89af5a9e
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:52:43+00:00'
-  record_hash: 35723babbe7b6836bb45b29c166b678d0ac1d1889bbbb8ed8b593186efc713e6
+  stamped_at: '2026-11-17T17:47:05+00:00'
+  record_hash: 27bdb927bbd75e77f8d89e7fbd4343101408abcfd959e5921871cb8c6dc577ed

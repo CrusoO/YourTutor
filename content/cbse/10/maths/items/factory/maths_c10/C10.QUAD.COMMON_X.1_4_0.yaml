@@ -2,31 +2,10 @@ id: C10.QUAD.COMMON_X.1_4_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.42
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find both roots of x² - 4x = 0.
-options:
-- id: a
-  en: x = 0
-- id: b
-  en: x = -4 or x = 0
-- id: c
-  en: x = 0 or x = 4
-- id: d
-  en: x = 4
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Bring every term to the left so the right side is 0, then take out x as a common
-    factor.
-- en: This gives x(x - 4) = 0.
-- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
-- en: 'Undo the bracket: add 4 to both sides, then divide both sides by 1: x = 4.'
-- en: The solutions are x = 0 or x = 4.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Do not divide by x: that would lose an answer. Factorise instead.'
@@ -41,15 +20,46 @@ prediction_prompt:
   en: Will x = 0 be one of the answers?
 status: draft
 template_id: TPL.C10.QUAD.COMMON_X
-generator_version: factory-1
+generator_version: factory-2
 template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 0
+- id: b
+  en: x = -4 or x = 0
+- id: c
+  en: x = 0 or x = 4
+- id: d
+  en: x = 4
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.ONE_FACTOR_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DIVIDED_BY_X_LOST_ROOT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(x - 4) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add 4 to both sides, then divide both sides by 1: x = 4.'
+- en: The solutions are x = 0 or x = 4.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dc11cb0964e6f87788c6bbf121f5fe92b09f921615832bb08eb27050999fab99
+  item_hash: a028bc01934f0398ac4013f5fc515bb2537d2591b87c8285fc80c40eacc554e4
   template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
   certificate_hash: a3343fd9eeed313e377b8f3633e374c41b5e84fe6bcd1589e2bfcb2e11b1f161
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:30:46+00:00'
-  record_hash: cc719c2c7e162f09e7b93c522ff736698d58ea96751118a04774666ef88e7d76
+  stamped_at: '2026-11-17T17:41:17+00:00'
+  record_hash: 1be487fd5daa8c0789442c1c9d5a881635d8246a919b46fb3d2fcda4748e74ca

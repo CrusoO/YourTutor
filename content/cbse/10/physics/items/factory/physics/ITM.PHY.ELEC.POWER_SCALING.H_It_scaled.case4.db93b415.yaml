@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.POWER_SCALING.H_It_scaled.case4.db93b415
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.75
-type: mcq
 pool: practice
 role: explain
 stem:
   en: 'Case: a student investigates how power changes when a quantity changes and
     records the following. The current through a fixed resistor is tripled and the
     time it flows is halved. By what number is the heat produced multiplied?'
-options:
-- id: a
-  en: '4.5'
-- id: b
-  en: '9'
-- id: c
-  en: '0.0556'
-- id: d
-  en: '1.5'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = I x I x R x t: it changes with the square of I
-    and directly with t.'
-- en: 'Combine the numbers: 3^2 x 0.5 = 4.5.'
-- en: So the number the heat is multiplied by is 4.5.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -43,15 +24,44 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4.5'
+- id: b
+  en: '9'
+- id: c
+  en: '0.0556'
+- id: d
+  en: '1.5'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t: it changes with the square of I
+    and directly with t.'
+- en: 'Combine the numbers: 3^2 x 0.5 = 4.5.'
+- en: So the number the heat is multiplied by is 4.5.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c54ae80501a8d3fe449fa825ff4264f246f75c63ea2e3cba4ab5a5e8ff2bca02
+  item_hash: 17814108f83a24e1e667dd9e2c4415ce6cdb1909191a10be62c7043123d311c4
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: 76baec9362b6492057ff86356faa1b383cb3c882acf30ab3a6dbaeae18b53dad
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:29+00:00'
-  record_hash: c5ea33fb2ca772862590f8543e9d2cacd4dea05c892e6cf0a2ca6f0de3e45fe3
+  stamped_at: '2026-11-17T19:38:41+00:00'
+  record_hash: 7ee1135ff76c6ff4a4ca08cf1926972b519f74c5736b9fd9a58c573c5ca83547

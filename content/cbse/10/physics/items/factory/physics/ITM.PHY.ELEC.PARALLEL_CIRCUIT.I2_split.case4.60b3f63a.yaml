@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.I2_split.case4.60b3f63a
 skill_ids:
 - PHY.ELEC.PARALLEL_CIRCUIT
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,25 +9,6 @@ stem:
     records the following. The total current from the battery, It, is 10 A, the first
     resistor, R1, is 10 Ω and the second resistor, R2, is 15 Ω. Find the current in
     the second resistor.'
-options:
-- id: a
-  en: 5 A
-- id: b
-  en: 10 A
-- id: c
-  en: 4 A
-- id: d
-  en: 6 A
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: the branches share one voltage, so the larger resistor
-    takes the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
-- en: 'Substitute: I2 = 10 x 10 / (10 + 15).'
-- en: 'Calculate: I2 = 4 A.'
-- en: So the current in the second resistor is 4 A.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +25,45 @@ prediction_prompt:
     and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 A
+- id: b
+  en: 10 A
+- id: c
+  en: 4 A
+- id: d
+  en: 6 A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.EQUAL_SHARE_ASSUMED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.CURRENT_NOT_SPLIT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.WRONG_RESISTOR_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the branches share one voltage, so the larger resistor
+    takes the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
+- en: 'Substitute: I2 = 10 x 10 / (10 + 15).'
+- en: 'Calculate: I2 = 4 A.'
+- en: So the current in the second resistor is 4 A.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 83064874e12bc2bf8d25b4aa09e62ccf05543782f3e1499c09a8ac83dbc0b260
+  item_hash: 7c1faba68c30e44a010b1705e6ff28e6b95a692988b7fbe11a0c3d85ff1f3e87
   template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
   certificate_hash: 6b78e007fc33e356d9661da4a10f2d9291da14d0a663e2aa995cacca49d92f81
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:11+00:00'
-  record_hash: a697b4bc3c336347f5fe2459b0d7f5f3ac8f2c5e587edaca247bbf8e59b87cbb
+  stamped_at: '2026-11-17T19:38:09+00:00'
+  record_hash: cbacb074dc6c1f13c04a4a4a75eacae87cb5b6372d50fe08df55edf96fddd03d

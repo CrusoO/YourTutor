@@ -2,34 +2,12 @@ id: ITM.PHY.ELEC.ENERGY_KWH.t_from_EP.num2.b01074ba
 skill_ids:
 - PHY.ELEC.ENERGY_KWH
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about the electrical energy an appliance uses. The energy used,
     E1, is 0.48 kWh and the power rating of the first appliance, P1, is 60 W. For
     how many hours can it run?
-options:
-- id: a
-  en: 28.8 h
-- id: b
-  en: 480 h
-- id: c
-  en: 8 h
-- id: d
-  en: 0.125 h
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: energy E = power P x time t.'
-- en: 'Put each quantity in SI units: 0.48 kWh = 1.728 x 10^6 J.'
-- en: 'Get the time alone: divide each side of E = P x t by P.'
-- en: 'Substitute: t1 = (1.728 x 10^6) / 60.'
-- en: 'Calculate: t1 = 28800 h.'
-- en: 'Give it in h: 8 h.'
-- en: So the time is 8 h.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -46,15 +24,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.ENERGY_KWH
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 28.8 h
+- id: b
+  en: 480 h
+- id: c
+  en: 8 h
+- id: d
+  en: 0.125 h
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: energy E = power P x time t.'
+- en: 'Put each quantity in SI units: 0.48 kWh = 1.728 x 10^6 J.'
+- en: 'Get the time alone: divide each side of E = P x t by P.'
+- en: 'Substitute: t1 = (1.728 x 10^6) / 60.'
+- en: 'Calculate: t1 = 28800 h.'
+- en: 'Give it in h: 8 h.'
+- en: So the time is 8 h.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9d26193c9c9c2209200b624af4d0209427c664861f904715943f7268ad690301
+  item_hash: bc5752e15815447acff7d6c453472116e728d6d4107201a2b1db0dc6c7aff5af
   template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
   certificate_hash: 565d62853b7c462b6bee877b667d18fb176aaf3e34403a055a46d52e2eca2f73
   label: calculation-checked
@@ -119,10 +129,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:33+00:00'
-  record_hash: c2c8e21cdd0ab1826f63cefdac6dae036907e08249cf322d1d625ea275011d64
+  stamped_at: '2026-11-17T19:38:50+00:00'
+  record_hash: d0d5d90e10ca3c0819ea8671446d0eb60112b9cf0fb92aaf83466a1ace1af22e

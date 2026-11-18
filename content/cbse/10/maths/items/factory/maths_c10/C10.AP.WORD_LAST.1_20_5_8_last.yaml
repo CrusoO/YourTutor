@@ -2,28 +2,11 @@ id: C10.AP.WORD_LAST.1_20_5_8_last
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A runner trains for 8 weeks. In week 1 she runs 20 km and each week she runs
     5 km more than the week before. How far does she run in the last week, in km?
-options:
-- id: a
-  en: '55'
-- id: b
-  en: '60'
-- id: c
-  en: '50'
-- id: d
-  en: '32'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 20 and common difference 5.
-- en: The last amount is a_8 = 20 + (8 - 1)(5) = 55.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -39,15 +22,42 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '55'
+- id: b
+  en: '60'
+- id: c
+  en: '50'
+- id: d
+  en: '32'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 20 and common difference 5.
+- en: The last amount is a_8 = 20 + (8 - 1)(5) = 55.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e1824f5b13ae87cc46a57c57e5193b24e6e22c747ba2008d7e468e5c48dbb1a8
+  item_hash: 6270c206b8020682085128c60301404795b022baaafd70bb19d712334022c171
   template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
   certificate_hash: 93f2319d7b2ef908d9a27dfc673af61ea55a50118eb4f9977e86247f00b40200
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:25:30+00:00'
-  record_hash: 4cb47c93ca31ab52b418ccaf19b6003996c411778255ca4e6b2217aa49e98a1d
+  stamped_at: '2026-11-17T17:40:29+00:00'
+  record_hash: a6cdd822bfb3398d49e58d289254e1d9686258ed5daaf218acaab3a00a104aa4

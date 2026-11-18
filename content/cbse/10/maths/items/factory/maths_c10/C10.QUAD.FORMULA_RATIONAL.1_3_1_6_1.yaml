@@ -2,30 +2,10 @@ id: C10.QUAD.FORMULA_RATIONAL.1_3_1_6_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.57
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Use the quadratic formula to solve x² - 9x + 18 = 0.
-options:
-- id: a
-  en: x = 15/2 or x = 21/2
-- id: b
-  en: x = -6 or x = -3
-- id: c
-  en: x = 6 or x = 12
-- id: d
-  en: x = 3 or x = 6
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Read off the coefficients: coefficient of x² is 1, of x is -9, plain number
-    is 18.'
-- en: The discriminant is -9² - 4 x 1 x 18 = 9, and its square root is 3.
-- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 1).
-- en: 'Work out both signs: x = 3 or x = 6.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Every quadratic can be solved with the formula; the work is in the discriminant.
@@ -40,15 +20,45 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_RATIONAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 15/2 or x = 21/2
+- id: b
+  en: x = -6 or x = -3
+- id: c
+  en: x = 6 or x = 12
+- id: d
+  en: x = 3 or x = 6
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 1, of x is -9, plain number
+    is 18.'
+- en: The discriminant is -9² - 4 x 1 x 18 = 9, and its square root is 3.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 1).
+- en: 'Work out both signs: x = 3 or x = 6.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9f8ac347f8d40b9e1cbb8fc17036b6023f29070da880e0c4e516555e99a9d25a
+  item_hash: ba54050c33dda302e3245943a4d8e02f0d1fc071934820a3bd5a39b5e06aba46
   template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
   certificate_hash: 9a21f2e5bfae1193259a5401c4525a18a209327126e30853bcd3c8205a58238f
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:42:22+00:00'
-  record_hash: 366f687b383ed9e67dc0c991a84c8d13c425fc79731323f9c9ab48edaf9ccad3
+  stamped_at: '2026-11-17T17:43:21+00:00'
+  record_hash: 0d94d2bba2e370306d1b7f3a01fcf85d2183dfb01e7e5e33f9802c66a00171ec

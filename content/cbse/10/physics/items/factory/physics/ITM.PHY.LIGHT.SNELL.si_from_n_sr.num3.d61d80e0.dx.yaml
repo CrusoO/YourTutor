@@ -1,0 +1,134 @@
+id: ITM.PHY.LIGHT.SNELL.si_from_n_sr.num3.d61d80e0.dx
+skill_ids:
+- PHY.LIGHT.SNELL
+difficulty: 0.55
+pool: diagnostic
+role: apply
+stem:
+  en: A student is studying light entering a transparent medium from air. The refractive
+    index of the medium, n, is 2 and the sine of the angle of refraction is 0.45.
+    Find the sine of the angle of incidence.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: from air into a medium, sin i = n x sin r.'
+- level: 2
+  en: The relation already gives the sine of the angle of incidence directly, so decide
+    what to substitute.
+- level: 3
+  en: 'First step: write si = n x sr, where si is the sine of the angle of incidence,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the sine of the angle of incidence
+    be?
+status: draft
+template_id: TPL2.PHY.LIGHT.SNELL.DX
+generator_version: factory-2
+template_hash: b182799e35fe15349b9583d325da803ef7e8a6695ad7c14898c1f2e0be106f91
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1.55'
+- id: b
+  en: '0.9'
+- id: c
+  en: '4.44'
+- id: d
+  en: '0.225'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SINES_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.SNELL_MULTIPLIED_WRONG_WAY
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.SNELL_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
+- en: 'Substitute: si = 2 x 0.45.'
+- en: 'Calculate: si = 0.9.'
+- en: So the sine of the angle of incidence is 0.9.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: df7c935cf8aa58ba81dcbcfd2b9ab13c27ea184e244ded94960a26a33c6c168b
+  template_hash: b182799e35fe15349b9583d325da803ef7e8a6695ad7c14898c1f2e0be106f91
+  certificate_hash: cbc40b0fd9d0b70e9d6db393fc5d4e057ed3c1e2d9d073cdbb5f1251901225df
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:09:20+00:00'
+  record_hash: d586bdb0fbbb69ef40792362f6f293695290853ec1d935d40c882b7b698ee492

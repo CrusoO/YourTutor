@@ -1,0 +1,131 @@
+id: C10.TRIG.TABLE_VALUES.DX.sin_90_d_cos_45_2.dx
+skill_ids:
+- MATH.TRIG.STANDARD_ANGLE_VALUES
+difficulty: 0.42
+pool: diagnostic
+role: recall
+stem:
+  en: Find the value of sin² 90° ÷ cos² 45°.
+hints:
+- level: 1
+  en: Recall the exact values of the ratios for the standard angles.
+- level: 2
+  en: If any square sits on one ratio, square the exact value of the ratio, not the
+    angle. Then carry out the operation between the two terms.
+- level: 3
+  en: 'Full method: recall the exact value of each ratio, square it where a square
+    is shown, combine the two numbers with the stated operation, and simplify.'
+prediction_prompt:
+  en: Will the answer be a whole number, a fraction or involve a square root?
+status: draft
+template_id: TPL.C10.TRIG.TABLE_VALUES.DX
+generator_version: factory-2
+template_hash: 7e97b9c01765d49b929240e601bfd0770ccf2bcc6e413b799dcbb0c8370f1062
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/2
+- id: b
+  en: '0'
+- id: c
+  en: '2'
+- id: d
+  en: √2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.OPERATION_MIXED_UP
+  when_answer_equals:
+  - a
+- id: MC.TRIG.SWAPPED_SIN_COS_VALUES
+  when_answer_equals:
+  - b
+- id: MC.TRIG.SQUARE_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
+- en: sin 90° = 1 and cos 45° = √2/2.
+- en: Square each value before combining, because the squares apply to the values.
+- en: 'Combine them: the result is 2.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c42bee5f3beda4a676960c05b2480fa2532fa4d69cba059c17e2130640a78f54
+  template_hash: 7e97b9c01765d49b929240e601bfd0770ccf2bcc6e413b799dcbb0c8370f1062
+  certificate_hash: c25964b927752ff7f50fc5a010e9b480cbecbf5c6196668fa95ff5a9312214ea
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.table.exact
+  - maths.table.sympy
+  - maths.table.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-18T09:00:07+00:00'
+  record_hash: 9aae6d4914f2fef80a867b98cb3b4b7691d1a469468711ce59d49aef27c59d68

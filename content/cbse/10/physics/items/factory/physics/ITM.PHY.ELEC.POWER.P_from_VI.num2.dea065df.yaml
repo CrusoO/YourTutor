@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_VI.num2.dea065df
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.4
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about an electrical appliance. The voltage across it, V, is
     50 V and the current through it, I, is 5 A. Find the power.
-options:
-- id: a
-  en: 55 W
-- id: b
-  en: 250 W
-- id: c
-  en: 10 W
-- id: d
-  en: 0.1 W
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x I.'
-- en: 'Substitute: P = 50 x 5.'
-- en: 'Calculate: P = 250 W.'
-- en: So the power is 250 W.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 55 W
+- id: b
+  en: 250 W
+- id: c
+  en: 10 W
+- id: d
+  en: 0.1 W
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.POWER_AS_V_OVER_I
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = V x I.'
+- en: 'Substitute: P = 50 x 5.'
+- en: 'Calculate: P = 250 W.'
+- en: So the power is 250 W.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7ba5e278c9fd56b343984d27a66cf4e23bf5a16c59b59b08932327df70caedab
+  item_hash: dd4a07c71ac0e0cda2e0bb58bade518bc494a1349e93ab7219574fd8e0d39a8e
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 632550f78a69a064de2d5cb5e5db2ac21aadb42773e13de7e6a6a169dacbefc9
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:22+00:00'
-  record_hash: 1b29b810e4e54aa40ddf1181e00b31e349eed2d3d89f18a683d490440cc29366
+  stamped_at: '2026-11-17T19:38:29+00:00'
+  record_hash: bb3ef33e1d5ba1b4e1138805ca603f7deaa0b95406e74380cdb3796d33e5f81e

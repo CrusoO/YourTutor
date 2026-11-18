@@ -1,0 +1,39 @@
+id: TPL2.PHY.LIGHT.SNELL.DX
+schema: factory-template/1
+lane: physics
+model: LIGHT.SNELL
+skill_id: PHY.LIGHT.SNELL
+box:
+  form:
+    choices:
+    - mcq1
+    - num3
+    - case4
+  n:
+    choices:
+    - '1.2'
+    - '1.5'
+    - '2'
+  si:
+    choices:
+    - '0.4'
+    - '0.6'
+    - '0.9'
+  variant:
+    choices:
+    - n_from_sines
+    - sr_from_n
+    - si_from_n_sr
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.light
+  skill_id: PHY.LIGHT.SNELL
+  allowed_methods:
+  - snells_law
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: diagnostic

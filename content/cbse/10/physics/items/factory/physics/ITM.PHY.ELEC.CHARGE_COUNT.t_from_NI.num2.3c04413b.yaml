@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.CHARGE_COUNT.t_from_NI.num2.3c04413b
 skill_ids:
 - PHY.ELEC.CHARGE_COUNT
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about electrons passing a point in a wire. The number of electrons,
     N, is 1.5 x 10^20, the current, I, is 2.4 A and the charge of one electron is
     1.6 x 10^-19 C. How long does this many electrons take to pass?
-options:
-- id: a
-  en: 3.90625 x 10^38 s
-- id: b
-  en: 10 s
-- id: c
-  en: 0.1 s
-- id: d
-  en: 6.25 x 10^19 s
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = N x e, and Q = I x t, so t = N x e / I.'
-- en: 'Get the time alone: divide each side of I x t = N x e by I.'
-- en: 'Substitute: t = (1.5 x 10^20) x (1.6 x 10^-19) / 2.4.'
-- en: 'Calculate: t = 10 s.'
-- en: So the time is 10 s.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -43,15 +23,45 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_COUNT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3.90625 x 10^38 s
+- id: b
+  en: 10 s
+- id: c
+  en: 0.1 s
+- id: d
+  en: 6.25 x 10^19 s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ELECTRON_CHARGE_MISUSE
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.CHARGE_NOT_DIVIDED_BY_E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = N x e, and Q = I x t, so t = N x e / I.'
+- en: 'Get the time alone: divide each side of I x t = N x e by I.'
+- en: 'Substitute: t = (1.5 x 10^20) x (1.6 x 10^-19) / 2.4.'
+- en: 'Calculate: t = 10 s.'
+- en: So the time is 10 s.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e26ee28840c79cf350254f894a5aa3e988ace53376a5d1ff339b2a8c2c52f2f2
+  item_hash: 27c3bac1d3eaf0c1a9a96f0e2829749ae2ea9dbae6f2d9ded9e34a2faf3fae4a
   template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
   certificate_hash: 42aaf49b57cf7061a5e762e4890d2285055e395bc98395546d6368b0a5ef02aa
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:38+00:00'
-  record_hash: 11b57de75f8a78b44e096857cf0dc17e29a9e8b82513ebd98bc29205e41802b1
+  stamped_at: '2026-11-17T19:37:14+00:00'
+  record_hash: 8cbfc2fc2f05682e0845c6b17175711ad1141e7d703f722ecd1dffe9d33f3927

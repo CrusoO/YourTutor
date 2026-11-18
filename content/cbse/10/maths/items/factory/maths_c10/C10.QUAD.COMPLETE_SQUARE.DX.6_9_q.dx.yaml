@@ -1,0 +1,131 @@
+id: C10.QUAD.COMPLETE_SQUARE.DX.6_9_q.dx
+skill_ids:
+- MATH.ALG.QUAD.COMPLETE_SQUARE
+difficulty: 0.59
+pool: diagnostic
+role: procedure
+stem:
+  en: Complete the square on x² + 12x + 9 = 0 to reach (x + p)² = q. What is q?
+hints:
+- level: 1
+  en: Think of one bracket squared; match the x term first.
+- level: 2
+  en: Whatever you add to one side you must add to both sides. Compare the expanded
+    bracket with the original to see what is missing.
+- level: 3
+  en: 'Full method: halve the x coefficient, square it, add that square to both sides
+    after taking the plain number away from both sides, write the left side as a bracket
+    squared, and read off the two values.'
+prediction_prompt:
+  en: Will p have the same sign as the x coefficient?
+status: draft
+template_id: TPL.C10.QUAD.COMPLETE_SQUARE.DX
+generator_version: factory-2
+template_hash: faa2b2217afd806452cc20408c8ed03d12d6b1c600983be1955d01f5703905e1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '27'
+- id: b
+  en: '135'
+- id: c
+  en: '45'
+- id: d
+  en: '-3'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CS_ADDED_NOT_SUBTRACTED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CS_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 12 is 6, so the square is (x + 6)².
+- en: (x + 6)² = x² + 12x + 36, so add 36 to both sides and subtract 9 from both sides.
+- en: This gives (x + 6)² = 27. So p = 6 and q = 27.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1af536c03e377340eedf29354b56701ff0968f55983cb4a62abe09402b3fec78
+  template_hash: faa2b2217afd806452cc20408c8ed03d12d6b1c600983be1955d01f5703905e1
+  certificate_hash: 9ccdf575cad5c80132a9eb0f9a229afd48e6206a735824279f96aad5fdd6e00a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.cs.closed
+  - maths.cs.sympy
+  - maths.cs.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:52:15+00:00'
+  record_hash: 5d2424280886a751b7c33602c681e3fea09bba6a962af05c3c8651d1b448f10d

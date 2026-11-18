@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.1_20_cost_10
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 1 m more than its breadth and
     it covers 420 m². The garden is to be fenced all the way round and the fencing
     costs 10 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '4200'
-- id: b
-  en: '860'
-- id: c
-  en: '410'
-- id: d
-  en: '820'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 1 metres.
-- en: The area gives x(x + 1) = 420, so x² + 1x - 420 = 0.
-- en: 'Factorise: (x - 20)(x + 21) = 0, so x = 20 or x = -21; a length is positive,
-    so the breadth is 20 m and the length is 21 m.'
-- en: The perimeter is 2(20 + 21) = 82 m, and the cost is 82 x 10.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Let x stand for the breadth, then write the length in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4200'
+- id: b
+  en: '860'
+- id: c
+  en: '410'
+- id: d
+  en: '820'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 1 metres.
+- en: The area gives x(x + 1) = 420, so x² + 1x - 420 = 0.
+- en: 'Factorise: (x - 20)(x + 21) = 0, so x = 20 or x = -21; a length is positive,
+    so the breadth is 20 m and the length is 21 m.'
+- en: The perimeter is 2(20 + 21) = 82 m, and the cost is 82 x 10.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 3d0ac8ad8d3c8ea827a02579576e5f11b64821ac9b3ebe98576c39780bc7ff02
+  item_hash: 9373bd0956ebc70a7416db68d1d6e74989ecbf0344507ef8546af741a4dd7977
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: bf46ba02f2cac3ae8763339163dc8a08a21074c540e58d469d61182798f4d0ec
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:15+00:00'
-  record_hash: ff04b0dc6170226f0f2aa40f4cffcdf644c0e712bbfc2f7146728d3aa9e8ee13
+  stamped_at: '2026-11-17T17:47:29+00:00'
+  record_hash: 488d0b90c8af5a1a814b08a8709ff4c8fa95e5050feb1cbf9a768a6c11421d4c

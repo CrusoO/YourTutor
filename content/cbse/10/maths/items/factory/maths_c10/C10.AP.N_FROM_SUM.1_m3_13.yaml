@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.1_m3_13
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: The sum of the first n terms of the AP 1, -2, -5, ... is -221. Find n.
-options:
-- id: a
-  en: '13'
-- id: b
-  en: '14'
-- id: c
-  en: -34/3
-- id: d
-  en: '-221'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here a = 1, d = -3 and S_n = -221.
-- en: '(n/2)(2 x 1 + (n - 1) x -3) = -221. Multiply both sides by 2 and expand: -3n²
-    + 5n = -442.'
-- en: 'Rearranged: -3n² + (5)n - -442 = 0, whose solutions are n = 13 and n = -34/3.'
-- en: The number of terms is a positive whole number, so n = 13.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the sum formula with n as the unknown and make it equal to the target.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '13'
+- id: b
+  en: '14'
+- id: c
+  en: -34/3
+- id: d
+  en: '-221'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 1, d = -3 and S_n = -221.
+- en: '(n/2)(2 x 1 + (n - 1) x -3) = -221. Multiply both sides by 2 and expand: -3n²
+    + 5n = -442.'
+- en: 'Rearranged: -3n² + (5)n - -442 = 0, whose solutions are n = 13 and n = -34/3.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 06717aef52c7eb8ecd9ee000d669deca6c2bc702b3b0eda4e9f3c8befd15645c
+  item_hash: fce2ac7047dfe4c7b5fc6353f6a001c041b095356c67bb4ead4fe2b70bdb4c4e
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: 6461847918bd79bc2a68ba7b5ef3ee4ca96692b005f3abe2b176fcdf68145453
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:29+00:00'
-  record_hash: 087af2712dded30b46004c971ff54fb38afa6f4af4962d2a34fc8fdacaa1b858
+  stamped_at: '2026-11-17T17:38:51+00:00'
+  record_hash: 8cd8f681eb589d87bc3224361046f59839aad4e8e1c15c44b44470e4d18f9481

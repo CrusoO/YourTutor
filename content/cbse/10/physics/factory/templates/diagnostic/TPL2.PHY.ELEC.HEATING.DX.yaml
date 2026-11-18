@@ -1,0 +1,43 @@
+id: TPL2.PHY.ELEC.HEATING.DX
+schema: factory-template/1
+lane: physics
+model: ELEC.HEATING
+skill_id: PHY.ELEC.HEATING
+box:
+  I:
+    choices:
+    - '0.5'
+    - '5'
+  R:
+    choices:
+    - '10'
+    - '100'
+  form:
+    choices:
+    - mcq1
+    - case4
+  t:
+    choices:
+    - '2'
+    - '10'
+  tu:
+    choices:
+    - s
+    - min
+  variant:
+    choices:
+    - H_IRt
+    - I_from_HRt
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.HEATING
+  allowed_methods:
+  - joule_heating
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: diagnostic

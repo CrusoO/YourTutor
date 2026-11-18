@@ -1,0 +1,135 @@
+id: C10.TRIG.RATIOS_TRIANGLE.CP.6_1_3_1_tan_0.cp
+skill_ids:
+- MATH.TRIG.RATIOS_FROM_TRIANGLE
+difficulty: 0.48
+pool: checkpoint
+role: procedure
+stem:
+  en: In triangle PQR the angle at Q is a right angle, PQ = 36 cm and QR = 105 cm.
+    Find the value of tan P.
+hints:
+- level: 1
+  en: Decide which side is opposite the angle, which is next to it, and which is the
+    longest.
+- level: 2
+  en: Only two sides are given, so use the relation between the three sides of this
+    triangle to find the third before forming the ratio.
+- level: 3
+  en: 'Full method: label opposite, adjacent and hypotenuse for the stated angle,
+    find the missing side with the rule for right triangles, write the ratio as a
+    fraction and simplify it.'
+prediction_prompt:
+  en: Is this ratio bigger or smaller than 1?
+status: draft
+template_id: TPL.C10.TRIG.RATIOS_TRIANGLE.CP
+generator_version: factory-2
+template_hash: 2da5f1803c42ce4250bde69d448938bcb0c4396ef573d962d0b7887cebc7b143
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12/35
+- id: b
+  en: 35/12
+- id: c
+  en: 12/37
+- id: d
+  en: 35/37
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.TAN_AS_ADJ_OVER_HYP
+  when_answer_equals:
+  - c
+- id: MC.TRIG.TAN_AS_OPP_OVER_HYP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Name the sides from angle P: the side opposite it, the side next to it (adjacent),
+    and the hypotenuse.'
+- en: By Pythagoras the hypotenuse PR = square root of (36² + 105²) = 111.
+- en: Opposite = 105, adjacent = 36, hypotenuse = 111.
+- en: tan P = opposite / adjacent = 35/12.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f46dc12e8f89576babfe8f90e7a3e47875b4c0e8a5ac8c36522ff30c0311dc45
+  template_hash: 2da5f1803c42ce4250bde69d448938bcb0c4396ef573d962d0b7887cebc7b143
+  certificate_hash: ffc2b0972a0f7e6a684ca2bc7ce996c1e74915e8baccb2fab3a59c82d2fa56a6
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.tri.closed
+  - maths.tri.sympy
+  - maths.tri.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:27:31+00:00'
+  record_hash: 7ae874c93f7399a95cfa290dd691f79500038ce950aad945b2eda381a36de578

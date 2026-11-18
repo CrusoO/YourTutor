@@ -1,0 +1,142 @@
+id: ITM.PHY.LIGHT.IMAGE_NATURE.nature_lens.case4.6b8e9adf.cp
+skill_ids:
+- PHY.LIGHT.IMAGE_NATURE
+difficulty: 0.8
+pool: checkpoint
+role: explain
+stem:
+  en: 'Case: a student investigates the nature of the image from the mirror and lens
+    formulas and records the following. The object, u, is 15 cm from the concave lens
+    and the focal length of the concave lens, f, is 10 cm. What is the nature of the
+    image?'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: find v from the lens formula, then m = v / u; a positive v is a real
+    image on the far side, a negative m is inverted, |m| above 1 is magnified.'
+- level: 2
+  en: Work out v first, then m, and only then read what their signs say. Change every
+    quantity to SI units first, and change back at the end if asked. Give each distance
+    its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 15 cm as -0.15 m and 10 cm as -0.1 m, then write v = u x
+    f / (u + f), where v is the image distance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.LIGHT.IMAGE_NATURE.CP
+generator_version: factory-2
+template_hash: 5342dc50eba7c6a5e428e523af0155449f360bbd97992edfe8c19aac83b0e2e0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: real, erect, diminished
+- id: b
+  en: virtual, inverted, diminished
+- id: c
+  en: virtual, erect, magnified
+- id: d
+  en: virtual, erect, diminished
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.V_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.SIZE_MEANING_REVERSED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: find v from the lens formula, then m = v / u; a positive
+    v is a real image on the far side, a negative m is inverted, |m| above 1 is magnified.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = -0.1 m.'
+- en: 'Substitute: v = (-0.15) x (-0.1) / ((-0.15) + (-0.1)).'
+- en: 'Calculate: v = -0.06 m.'
+- en: 'Give it in cm: -6 cm.'
+- en: 'Read the sign of v and of m = v / u: the image is virtual, erect, diminished.'
+- en: So the image is virtual, erect, diminished.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fff3dfaed6c618dc4cd694517355b417f2af899cb23860d7caf6858dc3d1fa08
+  template_hash: 5342dc50eba7c6a5e428e523af0155449f360bbd97992edfe8c19aac83b0e2e0
+  certificate_hash: c750b51b536d5a338d73503adf50ea36549825cc8f4263f0061660f2d4f5181d
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:55:59+00:00'
+  record_hash: 05204d4fb834ba1091af7de4183b808ffcb4b7c3cde4dd87a9982a89aa185596

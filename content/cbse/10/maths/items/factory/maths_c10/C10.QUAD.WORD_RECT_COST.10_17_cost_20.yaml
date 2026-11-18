@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.10_17_cost_20
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.79
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 10 m more than its breadth and
     it covers 459 m². The garden is to be fenced all the way round and the fencing
     costs 20 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '1760'
-- id: b
-  en: '9180'
-- id: c
-  en: '2560'
-- id: d
-  en: '880'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 10 metres.
-- en: The area gives x(x + 10) = 459, so x² + 10x - 459 = 0.
-- en: 'Factorise: (x - 17)(x + 27) = 0, so x = 17 or x = -27; a length is positive,
-    so the breadth is 17 m and the length is 27 m.'
-- en: The perimeter is 2(17 + 27) = 88 m, and the cost is 88 x 20.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the unknown side, express the other side with x, then use the area.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1760'
+- id: b
+  en: '9180'
+- id: c
+  en: '2560'
+- id: d
+  en: '880'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 10 metres.
+- en: The area gives x(x + 10) = 459, so x² + 10x - 459 = 0.
+- en: 'Factorise: (x - 17)(x + 27) = 0, so x = 17 or x = -27; a length is positive,
+    so the breadth is 17 m and the length is 27 m.'
+- en: The perimeter is 2(17 + 27) = 88 m, and the cost is 88 x 20.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6fb455bd0481a76204726b0255e682de912eb78d366d131ab567ae30493a2bcf
+  item_hash: 92c842190040e27b60f2da2db525ddfb4715a943e0a8b515ab125ced6bbaba33
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: 5d77a069e198a06492b52fbba202520c04600d553c10ec9c78e22e72706c7dee
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:13+00:00'
-  record_hash: 844e442f42df699286e060c625aa6176483c276b26458acb87f97f2ece750940
+  stamped_at: '2026-11-17T17:47:27+00:00'
+  record_hash: a575050a2985ffaf9fd0c57b256b8baaf47aaaea0c1e0e3eb755958b9927a388

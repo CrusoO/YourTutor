@@ -2,30 +2,11 @@ id: C10.QUAD.WORD_NUMBERS.2_2
 skill_ids:
 - MATH.ALG.QUAD.MODEL_NUMBERS
 difficulty: 0.57
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The product of two consecutive positive even integers is 8. Find the smaller
     one.
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '4'
-- id: c
-  en: '-4'
-- id: d
-  en: '0'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x be the smaller number. The other is x + 2.
-- en: Their product is 8, so x(x + 2) = 8, which is x² + 2x - 8 = 0.
-- en: 'Factorise: (x - 2)(x + 4) = 0, so x = 2 or x = -4.'
-- en: The numbers must be positive, so the smaller number is 2.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x stand for the smaller number, then express the larger one with x.
@@ -40,15 +21,44 @@ prediction_prompt:
   en: Roughly how big do you expect the smaller number to be?
 status: draft
 template_id: TPL.C10.QUAD.WORD_NUMBERS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '4'
+- id: c
+  en: '-4'
+- id: d
+  en: '0'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x be the smaller number. The other is x + 2.
+- en: Their product is 8, so x(x + 2) = 8, which is x² + 2x - 8 = 0.
+- en: 'Factorise: (x - 2)(x + 4) = 0, so x = 2 or x = -4.'
+- en: The numbers must be positive, so the smaller number is 2.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0e5a0fa4a8b322652d5eeb9487e1ad5bf08703c6d00e242a427683f2d0c6e9bc
+  item_hash: 199f090626670f16594fbd07a1f8cd91b3f2ffd589eba31d79a966d2f30ef2b2
   template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
   certificate_hash: e87090393c2c889b77516899dbbd29785513766f02ffdcc63b968f6807d3d5b1
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:36+00:00'
-  record_hash: f5a865f82f1f261baeb3f6170104446b2d34cb60577c485ff234fbbe00d0f980
+  stamped_at: '2026-11-17T17:46:41+00:00'
+  record_hash: 146563ce95454a55e33e744875747244dee3658e29a6663fae83ba9ca5959ba5

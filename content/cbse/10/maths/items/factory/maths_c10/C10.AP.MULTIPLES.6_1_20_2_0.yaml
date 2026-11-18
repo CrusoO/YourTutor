@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.6_1_20_2_0
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: What is the sum of the multiples of 6 that lie between 4 and 120, ends included?
-options:
-- id: a
-  en: '1240'
-- id: b
-  en: '2520'
-- id: c
-  en: '1197'
-- id: d
-  en: '1260'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The first multiple of 6 in the range is 6 and the last is 120.
-- en: 'They form an AP with common difference 6. Number of terms: (120 - 6)/6 + 1
-    = 20.'
-- en: S = (20/2)(6 + 120) = 1260.
-- en: The correct option is d.
 hints:
 - level: 1
   en: List the first multiple inside the range and the last multiple inside it.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1240'
+- id: b
+  en: '2520'
+- id: c
+  en: '1197'
+- id: d
+  en: '1260'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.ENDPOINTS_USED_NOT_MULTIPLES
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first multiple of 6 in the range is 6 and the last is 120.
+- en: 'They form an AP with common difference 6. Number of terms: (120 - 6)/6 + 1
+    = 20.'
+- en: S = (20/2)(6 + 120) = 1260.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0023efb3947b686772d536e4e74611e8eca7929b710d5d0ae0ece2dad72beb95
+  item_hash: def08d3b40c3b82efddcbe2c9d07c0f6490b2eb9cc6b49adc49e38c130261743
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: 0cbabe2e7aff116c30b2609de98b5a009857331a0cd17e995c31b967e90732d0
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: 242991ac7bc5c92c9040fbeb1de0412355e6eba9d139ce3c790b0b11ca6e2d15
+  stamped_at: '2026-11-17T17:38:42+00:00'
+  record_hash: 51dac3c8b534367d20ef68e4b5c661163d31c7793dd33e7ae499bd64678c8113

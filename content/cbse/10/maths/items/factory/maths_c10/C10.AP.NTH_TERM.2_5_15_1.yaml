@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.2_5_15_1
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.31
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: An AP starts at 2 and changes by 5 at every step. What is its 15th term?
-options:
-- id: a
-  en: '77'
-- id: b
-  en: '21'
-- id: c
-  en: '72'
-- id: d
-  en: '-68'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is 2 and the common difference is 5.
-- en: The nth term is first term + (n - 1) x difference, so a_15 = 2 + (15 - 1)(5).
-- en: a_15 = 2 + 70 = 72.
-- en: The correct option is c.
 hints:
 - level: 1
   en: To reach the nth term you make one fewer jump than n.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '77'
+- id: b
+  en: '21'
+- id: c
+  en: '72'
+- id: d
+  en: '-68'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 2 and the common difference is 5.
+- en: The nth term is first term + (n - 1) x difference, so a_15 = 2 + (15 - 1)(5).
+- en: a_15 = 2 + 70 = 72.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 73dc14f56c9081adb4e9356d78f823b61939e36a41a151f7c9d651d4096bbbb9
+  item_hash: 9af398efa15fedab7afc3d085b3320248e8d866cb9dfb9df6edb2c2cb8d80aec
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: 8f4dd3b57a1cbefc89ad9784010d7be123099a78502e22ae20a3acb44c63ca2c
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:21+00:00'
-  record_hash: 3aa524216cf4eed2226f82a79c58b665ae356c4ee340b5dd46e2293c22f11307
+  stamped_at: '2026-11-17T17:39:05+00:00'
+  record_hash: 97b71fd3706aca88139c4f5b7351809e14f5a77932c168dbb52ed4d82d992876

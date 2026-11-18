@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.10_3_cost_10
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 10 m more than its breadth and
     it covers 39 m². The garden is to be fenced all the way round and the fencing
     costs 10 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '720'
-- id: b
-  en: '320'
-- id: c
-  en: '390'
-- id: d
-  en: '160'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 10 metres.
-- en: The area gives x(x + 10) = 39, so x² + 10x - 39 = 0.
-- en: 'Factorise: (x - 3)(x + 13) = 0, so x = 3 or x = -13; a length is positive,
-    so the breadth is 3 m and the length is 13 m.'
-- en: The perimeter is 2(3 + 13) = 32 m, and the cost is 32 x 10.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Let x be the breadth and write the length using x, then use the area.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '720'
+- id: b
+  en: '320'
+- id: c
+  en: '390'
+- id: d
+  en: '160'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 10 metres.
+- en: The area gives x(x + 10) = 39, so x² + 10x - 39 = 0.
+- en: 'Factorise: (x - 3)(x + 13) = 0, so x = 3 or x = -13; a length is positive,
+    so the breadth is 3 m and the length is 13 m.'
+- en: The perimeter is 2(3 + 13) = 32 m, and the cost is 32 x 10.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 3073a000db72fd09550f3469c17ccca13bbb35d41310671422a854f88b4f3969
+  item_hash: 09bbf19fc9e4c074a6cc72368ede7b912dfaad3617e995b785ab68902da8e8dc
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: c5353709d08ac81fb1d013075a295a4f70cbb2a8b70514ae89ceef3ea923e534
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:14+00:00'
-  record_hash: b58500d06e54cc5da13e7ae728ecc08b30a84deb6a275942719bdbd92f1a8780
+  stamped_at: '2026-11-17T17:47:28+00:00'
+  record_hash: d2545392478961e055dc9305ff3da15bb05d8aba4152e6cb2a9341c06681ab51

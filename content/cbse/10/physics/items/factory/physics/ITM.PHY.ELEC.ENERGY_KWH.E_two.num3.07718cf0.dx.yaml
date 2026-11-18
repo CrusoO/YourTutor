@@ -1,0 +1,139 @@
+id: ITM.PHY.ELEC.ENERGY_KWH.E_two.num3.07718cf0.dx
+skill_ids:
+- PHY.ELEC.ENERGY_KWH
+difficulty: 0.65
+pool: diagnostic
+role: apply
+stem:
+  en: A student is studying the electrical energy an appliance uses. The power rating
+    of the first appliance, P1, is 100 W, the time it is used each day, t1, is 8 h,
+    the power rating of the second appliance, P2, is 40 W, the time the second one
+    is used each day, t2, is 2 h and the number of days, d, is 30. How much electrical
+    energy is used in all, in kWh?
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Plan the steps: add
+    the energy of each appliance for one day, power times time, then multiply by the
+    days.'
+- level: 2
+  en: Work through the plan one step at a time. Change every quantity to SI units
+    first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write E2 = (P1 x t1 + P2 x t2) x d, where E2 is the energy, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the energy have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.ENERGY_KWH.DX
+generator_version: factory-2
+template_hash: 0940474eb9685d0c2fb5b73381ce5fef25b249d8113290497ed2056a8357264f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4.2 kWh
+- id: b
+  en: 26.4 kWh
+- id: c
+  en: 0.88 kWh
+- id: d
+  en: 24 kWh
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.DAYS_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ONE_APPLIANCE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: add the energy of each appliance for one day, power times time, then
+    multiply by the days.'
+- en: 'Substitute: E2 = (100 x 28800 + 40 x 7200) x 30.'
+- en: 'Calculate: E2 = 9.504 x 10^7 J.'
+- en: 'Give it in kWh: 26.4 kWh.'
+- en: So the energy is 26.4 kWh.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f3037181f9a8e325b02ccf4c694ce1d9109718161cbc848bcc391e920fd8e51b
+  template_hash: 0940474eb9685d0c2fb5b73381ce5fef25b249d8113290497ed2056a8357264f
+  certificate_hash: 92d8fa6cff49deb5e6f5a17cffc7fd6c63859bb67eef1f011941b4b01e3623bc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-18T09:00:25+00:00'
+  record_hash: ce3b75566c9c80d55bbb09fe40bb552764c8d75cf8fb84d9dfc6e1101c9b21ed

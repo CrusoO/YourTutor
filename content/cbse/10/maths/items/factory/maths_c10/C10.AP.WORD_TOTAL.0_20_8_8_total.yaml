@@ -2,29 +2,11 @@ id: C10.AP.WORD_TOTAL.0_20_8_8_total
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.69
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: In a hall the first row has 20 seats and every row after it has 8 more seats
     than the row before. There are 8 rows. How many seats are there in the whole hall?
-options:
-- id: a
-  en: '384'
-- id: b
-  en: '416'
-- id: c
-  en: '76'
-- id: d
-  en: '768'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 20 and common difference 8.
-- en: The last amount is 76, so the total is S = (8/2)(20 + 76).
-- en: S = 384.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -40,15 +22,43 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_TOTAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '384'
+- id: b
+  en: '416'
+- id: c
+  en: '76'
+- id: d
+  en: '768'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - b
+- id: MC.AP.WORD_LAST_REPORTED
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 20 and common difference 8.
+- en: The last amount is 76, so the total is S = (8/2)(20 + 76).
+- en: S = 384.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ca0f133036d13dfd3a7bafffe6ab27d147552d8c97e41310b841c0c28f9818e0
+  item_hash: 8140ff425a3941844c16814de5b1e0cb6ac7dbb8a65c8720463add0e1aeab2f8
   template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
   certificate_hash: ba53d28be9011e560426bb30f8614c92e0398b3e8b81eee7a405a707518d34cc
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:27:19+00:00'
-  record_hash: 656a24ec3c641db6dfe2ea4ce7d7f0cd65432e7ec92c381ee3c252e0f58b133f
+  stamped_at: '2026-11-17T17:40:48+00:00'
+  record_hash: e2aea096776ee7357e3ad82c3d8f7b7f7e5176ba8a36f956141a4917ea5c1daf

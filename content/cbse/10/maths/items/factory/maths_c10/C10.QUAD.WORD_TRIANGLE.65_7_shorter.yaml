@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.65_7_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.72
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 7 m, and the longest side is 97 m. Find the length of the
     shorter of the two sides in metres.
-options:
-- id: a
-  en: '65'
-- id: b
-  en: '90'
-- id: c
-  en: '-72'
-- id: d
-  en: '72'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 7 metres.
-- en: By Pythagoras, x² + (x + 7)² = 97², so 2x² + 14x - 9360 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 65)(x + 72) = 0, so x = 65 (a length
-    cannot be negative).'
-- en: The shorter side is 65 m and the longer side is 72 m.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the shorter side and write the other side using x. The longest side
@@ -44,15 +24,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '65'
+- id: b
+  en: '90'
+- id: c
+  en: '-72'
+- id: d
+  en: '72'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_HYPOTENUSE_MINUS_DIFFERENCE
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 7 metres.
+- en: By Pythagoras, x² + (x + 7)² = 97², so 2x² + 14x - 9360 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 65)(x + 72) = 0, so x = 65 (a length
+    cannot be negative).'
+- en: The shorter side is 65 m and the longer side is 72 m.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 725b1269e89e24036e5f142115d51934b86640a77495f15e1e21647a3376d1a4
+  item_hash: d1009eafd7eb13e38f71099457cdee68db3954e9813b3d105d4996d649e87186
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 197d6ccced26444b84a992323d17d56441d631f95017d42ff3f8ad1f785faf8d
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:01+00:00'
-  record_hash: ef2a9d7a7af17cf71d89055c5f5c24e9e984b88bd809912218c4cb59809d8f98
+  stamped_at: '2026-11-17T17:47:54+00:00'
+  record_hash: 9a28ca89f19bb8554c515791001d39ed412d7cbc72e0cb71ed3a85443bce8c78

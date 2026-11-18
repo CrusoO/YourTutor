@@ -1,0 +1,135 @@
+id: ITM.PHY.ELEC.CHARGE_COUNT.N_from_It.case4.5cba2e38.dx
+skill_ids:
+- PHY.ELEC.CHARGE_COUNT
+difficulty: 0.75
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates electrons passing a point in a wire and records
+    the following. The current, I, is 3.2 A, the time, t, is 1 s and the charge of
+    one electron is 1.6 x 10^-19 C. How many electrons pass a point of the wire in
+    this time?'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- level: 2
+  en: 'Get the number of electrons on its own before you put numbers in: divide each
+    side of Q = N x e by e. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write N = I x t / e, where N is the number of electrons, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of electrons be?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_COUNT.DX
+generator_version: factory-2
+template_hash: 0b088f1a76ebf06ba400d8e8e84a5a59f45d5b420391ef805078eac823d8d961
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^19
+- id: b
+  en: '3.2'
+- id: c
+  en: 5.12 x 10^-19
+- id: d
+  en: 2 x 10^20
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CHARGE_NOT_DIVIDED_BY_E
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ELECTRON_CHARGE_MISUSE
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
+- en: 'Substitute: N = 3.2 x 1 / (1.6 x 10^-19).'
+- en: 'Calculate: N = 2 x 10^19.'
+- en: So the number of electrons is 2 x 10^19.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1dbdb24294cc19202c771dfeea273ec0d616650dc63be674dd9e5d3da5372ad0
+  template_hash: 0b088f1a76ebf06ba400d8e8e84a5a59f45d5b420391ef805078eac823d8d961
+  certificate_hash: 761b343e77a3c71415f58d6d6b62ccd983d2c8d26dc40a004331cceea5408e5a
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:00:24+00:00'
+  record_hash: 86b5a9723ba5ae7c4e0d5d772f34765e00aaa87f142df39f65128caabee3ff8d

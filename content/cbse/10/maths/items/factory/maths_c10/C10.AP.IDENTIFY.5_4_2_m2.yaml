@@ -2,30 +2,10 @@ id: C10.AP.IDENTIFY.5_4_2_m2
 skill_ids:
 - MATH.ALG.AP.IDENTIFY_AP
 difficulty: 0.34
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Exactly one of these lists, all starting at 5, is an AP. Which one?
-options:
-- id: a
-  en: 5, 9, 14, 20
-- id: b
-  en: 5, 9, 13, 17
-- id: c
-  en: 5, 10, 20, 40
-- id: d
-  en: 5, 9, 13, 15
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: A list is an AP when the difference between every pair of neighbouring terms
-    is the same.
-- en: In 5, 9, 13, 17 each step is 4, and it stays 4 all the way along.
-- en: In each of the other lists, at least one pair of neighbours has a different
-    difference.
-- en: The correct option is b.
 hints:
 - level: 1
   en: An AP keeps adding the same amount; test every neighbouring pair.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Which list do you suspect, and why?
 status: draft
 template_id: TPL.C10.AP.IDENTIFY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5, 9, 14, 20
+- id: b
+  en: 5, 9, 13, 17
+- id: c
+  en: 5, 10, 20, 40
+- id: d
+  en: 5, 9, 13, 15
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFFERENCES_INCREASING_ACCEPTED
+  when_answer_equals:
+  - a
+- id: MC.AP.RATIO_FOR_DIFFERENCE
+  when_answer_equals:
+  - c
+- id: MC.AP.CHECKED_TWO_TERMS_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A list is an AP when the difference between every pair of neighbouring terms
+    is the same.
+- en: In 5, 9, 13, 17 each step is 4, and it stays 4 all the way along.
+- en: In each of the other lists, at least one pair of neighbours has a different
+    difference.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b36caff8fb0f01ff2666a310e7e7f35b03c7ac021bdf40a063d559dffa3b8c38
+  item_hash: 47ab7fe2ea094fe6647b4e164dda0711c7d401e2d6759f4694d48ea3e543a4f0
   template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
   certificate_hash: 4ff665c45cde1d00bc0e1d09fa21dea3c55a0ae4c43fd878ffe6e22c2e50d34a
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:14:02+00:00'
-  record_hash: 7547227cb668b0cf273c5a9ff20228e19b9a05184f3451b6eb35799bbebe8395
+  stamped_at: '2026-11-17T17:38:31+00:00'
+  record_hash: 72abe7b7b995d6ba42f20420c4695c4dcb71dca03c5fdfa0c862d8bed8578dbe

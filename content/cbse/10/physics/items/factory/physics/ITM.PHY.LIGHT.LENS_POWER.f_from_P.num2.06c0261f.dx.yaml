@@ -1,0 +1,140 @@
+id: ITM.PHY.LIGHT.LENS_POWER.f_from_P.num2.06c0261f.dx
+skill_ids:
+- PHY.LIGHT.LENS_POWER
+difficulty: 0.5
+pool: diagnostic
+role: apply
+stem:
+  en: This question is about the power of a lens. The power of the lens, P, is 5 D.
+    Find the focal length in cm, with its sign.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: power P = 1 / f, so f = 1 / P in metres.'
+- level: 2
+  en: 'Get the focal length on its own before you put numbers in: multiply each side
+    of P = 1 / f by f, then divide each side by P. Do the same operation to each side
+    of the formula. Change every quantity to SI units first, and change back at the
+    end if asked. Give each distance its sign by the Cartesian convention before you
+    substitute.'
+- level: 3
+  en: 'First step: write f = 1 / P, where f is the focal length, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_POWER.DX
+generator_version: factory-2
+template_hash: c6128b5752a1aeab318b47bb7ca456490a18aee2e9143a519da53ddfc9828bb0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20 cm
+- id: b
+  en: 0.2 cm
+- id: c
+  en: 2000 cm
+- id: d
+  en: 5 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWER_NOT_RECIPROCAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: power P = 1 / f, so f = 1 / P in metres.'
+- en: 'Put each quantity in SI units with its sign: P = 5 D.'
+- en: 'Get the focal length alone: multiply each side of P = 1 / f by f, then divide
+    each side by P.'
+- en: 'Substitute: f = 1 / 5.'
+- en: 'Calculate: f = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the focal length is 20 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fcfb95d4c7ba2a60301e0d46f8232a0bde06fba001ca916c4cd207cc66b04944
+  template_hash: c6128b5752a1aeab318b47bb7ca456490a18aee2e9143a519da53ddfc9828bb0
+  certificate_hash: 283f229ebedcd47e123332392d0e5e228ac4c6a2bc09b97193be5abec9f40a8f
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:06:54+00:00'
+  record_hash: a0451c3f3e5d458ec03ba9e5f86a36a565a740d90aa55b11a82e73d8839e798f

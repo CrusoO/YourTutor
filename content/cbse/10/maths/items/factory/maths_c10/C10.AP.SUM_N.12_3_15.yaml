@@ -2,29 +2,10 @@ id: C10.AP.SUM_N.12_3_15
 skill_ids:
 - MATH.ALG.AP.SUM_FIRST_N
 difficulty: 0.43
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: What is the total when the first 15 terms of 12, 15, 18, ... are added?
-options:
-- id: a
-  en: '990'
-- id: b
-  en: '405'
-- id: c
-  en: 1035/2
-- id: d
-  en: '495'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The first term is 12, the common difference is 3 and the number of terms is
-    15.
-- en: S_n = (n/2)(2a + (n - 1)d) = (15/2)(2 x 12 + (15 - 1) x 3).
-- en: = (15/2)(66) = 495.
-- en: The correct option is d.
 hints:
 - level: 1
   en: There is one formula for the sum of the first n terms of an AP.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Roughly how big do you expect the total to be?
 status: draft
 template_id: TPL.C10.AP.SUM_N
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '990'
+- id: b
+  en: '405'
+- id: c
+  en: 1035/2
+- id: d
+  en: '495'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_NO_DOUBLE_A
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 12, the common difference is 3 and the number of terms is
+    15.
+- en: S_n = (n/2)(2a + (n - 1)d) = (15/2)(2 x 12 + (15 - 1) x 3).
+- en: = (15/2)(66) = 495.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 53a46f996159b007b574cd26b81781a73514d92f93fd72d48157d1ed374549d7
+  item_hash: b89c5a87a43808e752f88dbd6d322d5f2ec0309ace9e8f179b8fbd01d6e5fc29
   template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
   certificate_hash: 1d54d682964f15c48bea3f384706886d0b3028b80a50579d13206fd73450079d
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:17+00:00'
-  record_hash: fe036b5a0ce588824c5d9a742701e9c394e6c950345c0b292fd98fa3021418c3
+  stamped_at: '2026-11-17T17:39:29+00:00'
+  record_hash: 4941bb46e1f15cb47841210db8203d6fbcdfa3ba310a7f2a9f1a579b42fd06c0

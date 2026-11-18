@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.MIRROR_FOCAL.R_from_f.num2.6725ce01
 skill_ids:
 - PHY.LIGHT.MIRROR_FOCAL
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about radius of curvature and focal length of a spherical mirror.
     The focal length of the convex mirror, f, is 5 cm. Find the radius of curvature,
     with its sign.
-options:
-- id: a
-  en: 1000 cm
-- id: b
-  en: 10 cm
-- id: c
-  en: -10 cm
-- id: d
-  en: 5 cm
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: the radius of curvature is twice the focal length: R =
-    2f, with signs from the convention.'
-- en: 'Put each quantity in SI units with its sign: f = 0.05 m.'
-- en: 'Substitute: R = 2 x 0.05.'
-- en: 'Calculate: R = 0.1 m.'
-- en: 'Give it in cm: 10 cm.'
-- en: So the radius of curvature is 10 cm.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -48,15 +26,47 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1000 cm
+- id: b
+  en: 10 cm
+- id: c
+  en: -10 cm
+- id: d
+  en: 5 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the radius of curvature is twice the focal length: R =
+    2f, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: f = 0.05 m.'
+- en: 'Substitute: R = 2 x 0.05.'
+- en: 'Calculate: R = 0.1 m.'
+- en: 'Give it in cm: 10 cm.'
+- en: So the radius of curvature is 10 cm.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 216ddec4c266115b0c66aeb69a7b701ee33472803180b88115be9cbbcad95c9d
+  item_hash: 30a80814a39dc10e33b06e7c57690d0a6d4c863c160785c904207531e18c714a
   template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
   certificate_hash: f3aa57d2b9e095389c55c6beac30f5bd8dfc25072d8caa7d9c93da15218c2745
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:57+00:00'
-  record_hash: 8770600d8ec112fa0f21f7ce8769cddf759c57c2eb9bff2d421d5712c78fd273
+  stamped_at: '2026-11-17T19:39:26+00:00'
+  record_hash: 56ba65ec56ce12a9edb9de551e2172f0510125d30d6282bdc8bffa7490a45601

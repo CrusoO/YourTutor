@@ -1,0 +1,136 @@
+id: ITM.PHY.ELEC.MIXED_NETWORK.I2_mixed.case4.ade31b78.dx
+skill_ids:
+- PHY.ELEC.MIXED_NETWORK
+difficulty: 0.75
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates a resistor in series with two resistors in parallel
+    and records the following. The battery gives 15 V, the resistor in series with
+    the pair, R1, is 6 Ω, one resistor of the parallel pair, R2, is 20 Ω and the other
+    resistor of the pair, R3, is 5 Ω. Find the current in the first resistor of the
+    pair.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Plan the steps: find
+    the voltage across the pair, then divide by the resistor of interest.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write I2 = V x R3 / (R1 x (R2 + R3) + R2 x R3), where I2 is the
+    current in the first parallel resistor, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current in the first parallel resistor
+    have, and roughly how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.MIXED_NETWORK.DX
+generator_version: factory-2
+template_hash: 2eff51ea72be8a4dffd3f1e7caccd3b8bd8ef8eefdd52672aec4bbad749c4cd6
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.5 A
+- id: b
+  en: 0.3 A
+- id: c
+  en: 0.75 A
+- id: d
+  en: 1.2 A
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CURRENT_NOT_SPLIT
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.EQUAL_SHARE_ASSUMED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.WRONG_RESISTOR_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: find the voltage across the pair, then divide by the resistor of interest.'
+- en: 'Substitute: I2 = 15 x 5 / (6 x (20 + 5) + 20 x 5).'
+- en: 'Calculate: I2 = 0.3 A.'
+- en: So the current in the first parallel resistor is 0.3 A.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 827d71f69620dd421f67dfb85f04e8731e56427766d3c7c6c00bcbd95b1c9e31
+  template_hash: 2eff51ea72be8a4dffd3f1e7caccd3b8bd8ef8eefdd52672aec4bbad749c4cd6
+  certificate_hash: c88c4d5963811e07a2bb351eb51726e7bd56b45c733e259e8a42c57a24d75131
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-18T08:56:48+00:00'
+  record_hash: 7adf546e358b462a3bec60488a5df6742b0df00b9eb5f5db4511938396902996

@@ -2,30 +2,11 @@ id: C10.AP.TWO_TERMS.3_m4_3_2_14
 skill_ids:
 - MATH.ALG.AP.TERMS_FROM_TWO_TERMS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: 'Two terms of an AP are known: term 3 is -5 and term 5 is -13. Work out term
     14.'
-options:
-- id: a
-  en: '-53'
-- id: b
-  en: '-57'
-- id: c
-  en: '-49'
-- id: d
-  en: '-93'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Going from term 3 to term 5 takes 2 equal steps, and the terms change by -8.
-- en: So the common difference is -8 / 2 = -4.
-- en: 'Go back to the first term: a = -5 - (3 - 1)(-4) = 3.'
-- en: Then a_14 = 3 + (14 - 1)(-4) = -49.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Use the two given terms to find the first term and the difference before anything
@@ -41,15 +22,44 @@ prediction_prompt:
   en: Is the common difference positive or negative?
 status: draft
 template_id: TPL.C10.AP.TWO_TERMS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-53'
+- id: b
+  en: '-57'
+- id: c
+  en: '-49'
+- id: d
+  en: '-93'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.TWO_TERMS_DIFF_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Going from term 3 to term 5 takes 2 equal steps, and the terms change by -8.
+- en: So the common difference is -8 / 2 = -4.
+- en: 'Go back to the first term: a = -5 - (3 - 1)(-4) = 3.'
+- en: Then a_14 = 3 + (14 - 1)(-4) = -49.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 08af33efba0e171730a468f65ca2579e274f8e4bf4ce6248e44f1cfe3287b8f3
+  item_hash: 8c797a4872480cf0ec6be045c6463b124e29e7ea22260cf50c7b02031f51adac
   template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
   certificate_hash: c7bf7345509b1e3540afb73a90723e89969075727f0927163568f8aabe93202b
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:23:03+00:00'
-  record_hash: a703667a13fb46aeee8d7e73ca1701afec4e4c3a319c8cac286784b8134558a0
+  stamped_at: '2026-11-17T17:40:00+00:00'
+  record_hash: 7a6b60ed2ca74bfb4668c16b5bb8decb5446bc8437ef6138502871e42b89f1b5

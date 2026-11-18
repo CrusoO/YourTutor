@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.LENS_COMBINATION.P_from_f1f2.num3.8ec4e90b
 skill_ids:
 - PHY.LIGHT.LENS_COMBINATION
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -10,26 +9,6 @@ stem:
     lens with focal length of magnitude 100 cm and the second lens is a convex lens
     with focal length of magnitude 20 cm. Find the power of the combination in dioptres,
     with its sign.
-options:
-- id: a
-  en: 0.833 D
-- id: b
-  en: 6 D
-- id: c
-  en: 0.06 D
-- id: d
-  en: 5 D
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
-    (f in metres, with signs).'
-- en: 'Put each quantity in SI units with its sign: f1 = 1 m; f2 = 0.2 m.'
-- en: 'Substitute: P = 1 / 1 + 1 / 0.2.'
-- en: 'Calculate: P = 6 D.'
-- en: So the combined power is 6 D.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -48,15 +27,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_COMBINATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.833 D
+- id: b
+  en: 6 D
+- id: c
+  en: 0.06 D
+- id: d
+  en: 5 D
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWERS_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
+    (f in metres, with signs).'
+- en: 'Put each quantity in SI units with its sign: f1 = 1 m; f2 = 0.2 m.'
+- en: 'Substitute: P = 1 / 1 + 1 / 0.2.'
+- en: 'Calculate: P = 6 D.'
+- en: So the combined power is 6 D.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 950c246a1a7548226e0e3106c5782e069efaa6d6fbb55589acafc4f07987fb0b
+  item_hash: 8497f750acb11986e0b2f743164df50785efd092dd7232dd80ddb0ea89543b3e
   template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
   certificate_hash: f85f8c0b1d06e9667ad2705d94c1403a0cd0dcf93401e127aee92fc95fe67334
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:02+00:00'
-  record_hash: 45c863aedacbff36a0c2951d0246bb4018e80d8c6017edf1e4a229a91f065bad
+  stamped_at: '2026-11-17T19:41:06+00:00'
+  record_hash: 2796b357492873631fbaeba080ef906dcb9c0351582201e1442fc2d18e41cfd9

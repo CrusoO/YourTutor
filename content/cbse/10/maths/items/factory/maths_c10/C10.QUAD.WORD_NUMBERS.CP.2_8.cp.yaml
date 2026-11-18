@@ -1,0 +1,134 @@
+id: C10.QUAD.WORD_NUMBERS.CP.2_8.cp
+skill_ids:
+- MATH.ALG.QUAD.MODEL_NUMBERS
+difficulty: 0.59
+pool: checkpoint
+role: apply
+stem:
+  en: The product of two consecutive positive even integers is 80. Find the smaller
+    one.
+hints:
+- level: 1
+  en: Let x be the number you are asked for and write the other number in terms of
+    x.
+- level: 2
+  en: Write the product as one relation in x, bring every term to one side, then factorise
+    or use the formula. Check which solution fits the words of the question.
+- level: 3
+  en: 'Full method: name the smaller number, write the larger one, form the product
+    relation, rearrange so the right side is zero, solve, and reject any solution
+    that is not positive.'
+prediction_prompt:
+  en: Roughly how big do you expect the smaller number to be?
+status: draft
+template_id: TPL.C10.QUAD.WORD_NUMBERS.CP
+generator_version: factory-2
+template_hash: 450c08257f0241e77569ce1ce45c04c7e96efc02abc2b8962cc27fcf4d7788df
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-10'
+- id: b
+  en: '8'
+- id: c
+  en: '10'
+- id: d
+  en: '6'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x be the smaller number. The other is x + 2.
+- en: Their product is 80, so x(x + 2) = 80, which is x² + 2x - 80 = 0.
+- en: 'Factorise: (x - 8)(x + 10) = 0, so x = 8 or x = -10.'
+- en: The numbers must be positive, so the smaller number is 8.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9d1f1a2b547fd14cfce6d46fccc123e0146cef7de4c2a63c891a336e22cdf2e8
+  template_hash: 450c08257f0241e77569ce1ce45c04c7e96efc02abc2b8962cc27fcf4d7788df
+  certificate_hash: c683eee54c50eb98c180e5319952e4387374fd0727aa5130f83549201f5eaf43
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:21:25+00:00'
+  record_hash: e6808dfbda636b4eaef711895b7f432436613965b9ea3077c9a9df88c6f62eda

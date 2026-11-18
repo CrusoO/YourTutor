@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.2_m5_1_m3_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.65
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Solve 2x² + 16x + 30 = 0.
-options:
-- id: a
-  en: x = -5 or x = 3
-- id: b
-  en: x = 3 or x = 5
-- id: c
-  en: x = -5 or x = -3
-- id: d
-  en: x = -5
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Divide both sides by 2, the common factor, to get x² + 8x + 15 = 0.
-- en: 'Look for two numbers with product 15 and sum 8: they are 5 and 3.'
-- en: 'Factorise: (x + 5)(x + 3) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
-    = -5 and x + 3 = 0 gives x = -3.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Try writing the left side as two brackets multiplied together.
@@ -43,15 +21,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5 or x = 3
+- id: b
+  en: x = 3 or x = 5
+- id: c
+  en: x = -5 or x = -3
+- id: d
+  en: x = -5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_ONE_ROOT_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get x² + 8x + 15 = 0.
+- en: 'Look for two numbers with product 15 and sum 8: they are 5 and 3.'
+- en: 'Factorise: (x + 5)(x + 3) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x + 5 = 0 gives x
+    = -5 and x + 3 = 0 gives x = -3.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 93d44b4a5b36b9993ce3d56ba2235cff3583416fb22158653d55360ed604d43c
+  item_hash: b3fd58a519640cd3c36e9fea9cfa7cbc39727825e9a36a3e47d86944189eb2dd
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: 71f060d224b4d06af38442b0d3301a8cafdc4cad55492fbfd4191bb9f2a3b36e
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:53+00:00'
-  record_hash: 06777812cded4a27cb69a8a9d984774518bdebac794a614203e0f1830f05d73a
+  stamped_at: '2026-11-17T17:42:14+00:00'
+  record_hash: 575c950d80f3d785c2fc712ff3adcd20a889438e9b309b5d62469b757f0b8d47

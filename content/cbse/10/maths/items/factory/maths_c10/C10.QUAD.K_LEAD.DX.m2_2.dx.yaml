@@ -1,0 +1,131 @@
+id: C10.QUAD.K_LEAD.DX.m2_2.dx
+skill_ids:
+- MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
+difficulty: 0.54
+pool: diagnostic
+role: apply
+stem:
+  en: The equation kx² - 8x - 2 = 0 has repeated roots. What is k?
+hints:
+- level: 1
+  en: Write the discriminant with k as one of the coefficients and make it zero.
+- level: 2
+  en: You will get an equation that is linear in k. Undo each operation by doing the
+    same thing to both sides.
+- level: 3
+  en: 'Full method: write the discriminant using k as the leading coefficient, set
+    it to zero, collect the k term on one side by adding the same amount to both sides,
+    then divide both sides by the number multiplying k.'
+prediction_prompt:
+  en: Will k have the same sign as the plain number?
+status: draft
+template_id: TPL.C10.QUAD.K_LEAD.DX
+generator_version: factory-2
+template_hash: d8ea43514aab39e6c4f4d763e0e869dcecfc8e96c2bccf7d1138b719c7d6701c
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -8
+- id: b
+  en: k = 8
+- id: c
+  en: k = -32
+- id: d
+  en: k = -16
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (-8)² - 4(k)(-2) = 0.
+- en: 'This gives 64 - -8k = 0. Add -8k to both sides: -8k = 64.'
+- en: 'Divide both sides by -8: k = -8.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c6d02e8af444caed2ca46885c950335f0d21ed65d7199e885ab16f09ba6df3f0
+  template_hash: d8ea43514aab39e6c4f4d763e0e869dcecfc8e96c2bccf7d1138b719c7d6701c
+  certificate_hash: 1a0a7f4649e399f2a2ece06e28f133e317a8944d90a0c50771746f97964c334d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.k_closed
+  - maths.quad.k_sympy
+  - maths.quad.k_scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:21+00:00'
+  record_hash: 7f12a4c1fd7ca773a35f155dc0aac656219072c4863e666c09c9cc01879ffb2a

@@ -2,34 +2,11 @@ id: ITM.PHY.LIGHT.LENS_POWER.f_from_P.num3.204199c3
 skill_ids:
 - PHY.LIGHT.LENS_POWER
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying the power of a lens. The power of the lens, P, is 5 D.
     Find the focal length in cm, with its sign.
-options:
-- id: a
-  en: 5 cm
-- id: b
-  en: 0.2 cm
-- id: c
-  en: 20 cm
-- id: d
-  en: 2000 cm
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: power P = 1 / f, so f = 1 / P in metres.'
-- en: 'Put each quantity in SI units with its sign: P = 5 D.'
-- en: 'Get the focal length alone: multiply each side of P = 1 / f by f, then divide
-    each side by P.'
-- en: 'Substitute: f = 1 / 5.'
-- en: 'Calculate: f = 0.2 m.'
-- en: 'Give it in cm: 20 cm.'
-- en: So the focal length is 20 cm.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -48,15 +25,48 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 cm
+- id: b
+  en: 0.2 cm
+- id: c
+  en: 20 cm
+- id: d
+  en: 2000 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_NOT_RECIPROCAL
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: power P = 1 / f, so f = 1 / P in metres.'
+- en: 'Put each quantity in SI units with its sign: P = 5 D.'
+- en: 'Get the focal length alone: multiply each side of P = 1 / f by f, then divide
+    each side by P.'
+- en: 'Substitute: f = 1 / 5.'
+- en: 'Calculate: f = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the focal length is 20 cm.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 43751119e6fea9de90303e41e3968dc14a15405ef6edd69a48e18ddf5d0e84a5
+  item_hash: 980375a9c190abdf1fd39d75ca91842b9fdf4318830597660cbaa130dbfd8f23
   template_hash: 72f3d9de92190cb177c60c6d6c651e31ed7edb44a867c7fac1070f0cf2dd75ac
   certificate_hash: 893777a55bc5efdaa4f8cdceba52ef790e4cb8562296572180cefff41932c7ea
   label: calculation-checked
@@ -121,10 +131,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:52+00:00'
-  record_hash: 9649a5fc1f8042ce42c90a1f49388e4a205887468dd0ca2e3f619c4c2343bf5a
+  stamped_at: '2026-11-17T19:40:48+00:00'
+  record_hash: a04f4458a2745cca594b896e5b00466b75de76c0f4b4310f60ab7e0d53faf41d

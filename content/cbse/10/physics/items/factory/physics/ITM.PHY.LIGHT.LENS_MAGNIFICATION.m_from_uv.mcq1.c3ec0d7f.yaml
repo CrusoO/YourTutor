@@ -2,31 +2,11 @@ id: ITM.PHY.LIGHT.LENS_MAGNIFICATION.m_from_uv.mcq1.c3ec0d7f
 skill_ids:
 - PHY.LIGHT.LENS_MAGNIFICATION
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The object, u, is 15 cm from the convex lens and the image, which is virtual,
     is 30 cm from the convex lens. Find the magnification, with its sign.
-options:
-- id: a
-  en: '-2'
-- id: b
-  en: '-0.5'
-- id: c
-  en: '0.5'
-- id: d
-  en: '2'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: magnification of a lens m = v / u.'
-- en: 'Put each quantity in SI units with its sign: u = -0.15 m; v = -0.3 m.'
-- en: 'Substitute: m = (-0.3) / (-0.15).'
-- en: 'Calculate: m = 2.'
-- en: So the magnification is 2.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -42,15 +22,45 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the magnification be?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_MAGNIFICATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-2'
+- id: b
+  en: '-0.5'
+- id: c
+  en: '0.5'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MIRROR_LENS_FORMULA_MIXED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: magnification of a lens m = v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; v = -0.3 m.'
+- en: 'Substitute: m = (-0.3) / (-0.15).'
+- en: 'Calculate: m = 2.'
+- en: So the magnification is 2.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6d4053eb1ca2a3dcb3b46b08bb5770898e6cddfeafaa57603c3e8d82b309124a
+  item_hash: 49fae02637a73fe705ff7f9b98ed593a98846162714be7f10c1d0141da78dba5
   template_hash: 52dbb76b5f1963458a0b0cd546f87b1d9d06bfbd5bd56ddfdd2a79bfc0c513a8
   certificate_hash: 3c3eb79f064a0fe4fdc39a138ce4de5cc6dd5c3e70af2f96777ecd8436635b8e
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:42+00:00'
-  record_hash: ff22c1ec1b8b044fa403d305507589daaee2717efeed39463057581aaa75ace9
+  stamped_at: '2026-11-17T19:40:33+00:00'
+  record_hash: 66975c0b1fda769b17ec5fd42e2b8b8a871a79729afea4fc3fe139b6fd88f574

@@ -2,28 +2,11 @@ id: C10.AP.WORD_LAST.0_20_8_8_last
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: In a hall the first row has 20 seats and every row after it has 8 more seats
     than the row before. There are 8 rows. How many seats are in the last row?
-options:
-- id: a
-  en: '35'
-- id: b
-  en: '84'
-- id: c
-  en: '68'
-- id: d
-  en: '76'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 20 and common difference 8.
-- en: The last amount is a_8 = 20 + (8 - 1)(8) = 76.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'The same change repeats at every step, so the amounts form an AP: find its
@@ -39,15 +22,42 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '35'
+- id: b
+  en: '84'
+- id: c
+  en: '68'
+- id: d
+  en: '76'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The amounts form an AP with first term 20 and common difference 8.
+- en: The last amount is a_8 = 20 + (8 - 1)(8) = 76.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 112309f82054bd5cd24bcaccd570b3594aa768286f7886c24e134ab0ddd205ab
+  item_hash: e74eee1c830050a23315130bff497361f91bdd8004fadcfb858adfc62c1b8846
   template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
   certificate_hash: 72fe2dfc2dc829f023964b17a7416a6143e9dd8327886e3e0374894ac9dad246
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:25:33+00:00'
-  record_hash: 504838c7800f2e0306946a761d459d8cf8c6d92913136c0fd1ce90cecb4cdc91
+  stamped_at: '2026-11-17T17:40:32+00:00'
+  record_hash: baa62445d9b1c013907a68dc67ef6dcc9c414e3e03786c9dabc68ebdc7c3381f

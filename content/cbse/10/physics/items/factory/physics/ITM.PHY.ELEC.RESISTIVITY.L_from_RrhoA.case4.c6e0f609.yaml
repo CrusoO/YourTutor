@@ -2,34 +2,12 @@ id: ITM.PHY.ELEC.RESISTIVITY.L_from_RrhoA.case4.c6e0f609
 skill_ids:
 - PHY.ELEC.RESISTIVITY
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates a uniform wire and records the following. Its
     resistance, R, is 0.25 Ω, the resistivity of its material, rho, is 1 x 10^-7 Ω
     m and its cross-section area, A, is 2 mm². Find the length of the wire.'
-options:
-- id: a
-  en: 0.0125 m
-- id: b
-  en: 5 m
-- id: c
-  en: 5 x 10^6 m
-- id: d
-  en: 5 x 10^-14 m
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: R = resistivity x length / area.'
-- en: 'Put each quantity in SI units: 2 mm² = 2 x 10^-6 m².'
-- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
-    divide each side by the resistivity.'
-- en: 'Substitute: L = 0.25 x (2 x 10^-6) / (1 x 10^-7).'
-- en: 'Calculate: L = 5 m.'
-- en: So the length is 5 m.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -47,15 +25,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.RESISTIVITY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.0125 m
+- id: b
+  en: 5 m
+- id: c
+  en: 5 x 10^6 m
+- id: d
+  en: 5 x 10^-14 m
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 2 mm² = 2 x 10^-6 m².'
+- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
+    divide each side by the resistivity.'
+- en: 'Substitute: L = 0.25 x (2 x 10^-6) / (1 x 10^-7).'
+- en: 'Calculate: L = 5 m.'
+- en: So the length is 5 m.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 01f8f54a545300a1a979e8c69fd3e225a2c67808bf66aca7599d1645dbfbac29
+  item_hash: d5b1d7d5f03d9c0955889f4e07fcb2da488d874bec1c040352dfa18bb30d71bd
   template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
   certificate_hash: c56172ea91cac18e956ec00f532e30d23191ce124f8b8aa030c61ed8a7a4f3a8
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:50+00:00'
-  record_hash: a093811a349b8faa3c4ee6a51ee716c6fb19c596cd7b9790e510cc8e84687159
+  stamped_at: '2026-11-17T19:37:32+00:00'
+  record_hash: 32f5d36d15cb220af0c5a1df3563b1ffcb6c99fd0d6e782690321e96f0206574

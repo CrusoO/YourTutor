@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.CHARGE_COUNT.N_from_It.case4.4d918262
 skill_ids:
 - PHY.ELEC.CHARGE_COUNT
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,25 +9,6 @@ stem:
     the following. The current, I, is 4 A, the time, t, is 2 s and the charge of one
     electron is 1.6 x 10^-19 C. How many electrons pass a point of the wire in this
     time?'
-options:
-- id: a
-  en: 5 x 10^19
-- id: b
-  en: 1.28 x 10^-18
-- id: c
-  en: 5 x 10^20
-- id: d
-  en: '8'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
-- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
-- en: 'Substitute: N = 4 x 2 / (1.6 x 10^-19).'
-- en: 'Calculate: N = 5 x 10^19.'
-- en: So the number of electrons is 5 x 10^19.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the number of electrons be?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_COUNT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 x 10^19
+- id: b
+  en: 1.28 x 10^-18
+- id: c
+  en: 5 x 10^20
+- id: d
+  en: '8'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ELECTRON_CHARGE_MISUSE
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.CHARGE_NOT_DIVIDED_BY_E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = I x t, and Q = N x e, so N = I x t / e.'
+- en: 'Get the number of electrons alone: divide each side of Q = N x e by e.'
+- en: 'Substitute: N = 4 x 2 / (1.6 x 10^-19).'
+- en: 'Calculate: N = 5 x 10^19.'
+- en: So the number of electrons is 5 x 10^19.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 56a8654dabd89f253cdc1c52ee697a092fe51e333f0175c46990db4bfa573c75
+  item_hash: c8ad5b53a5497c8a36020bfa4fe5ff8c306b15d723e829102af3e8a9d43bcfd5
   template_hash: b8a3e797dc5550fcb37fe660af88531c9825eb6da64f11e67b9c09bc3532db87
   certificate_hash: 965aee06708d9361b2d3c600fa6546ae91c2db6cb55bf1a9617509ae1b8089ec
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:40+00:00'
-  record_hash: 1984f1975ac03784ba8130e29b1c8bd414e4706e5790e6ea04c54d77e259a01e
+  stamped_at: '2026-11-17T19:37:17+00:00'
+  record_hash: 44becd978e8f501ce89d37e3daa690300d9ae46bdeabf5289f304e33a9e75647

@@ -2,32 +2,10 @@ id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.mcq1.1eb38fc5
 skill_ids:
 - PHY.ELEC.CHARGE_CURRENT
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The charge, Q, is 30 C and the time, t, is 10 min. What is the current?
-options:
-- id: a
-  en: 1.8 x 10^7 mA
-- id: b
-  en: 3000 mA
-- id: c
-  en: 50 mA
-- id: d
-  en: 20000 mA
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = current I x time t.'
-- en: 'Put each quantity in SI units: 10 min = 600 s.'
-- en: 'Get the current alone: divide each side of Q = I x t by t.'
-- en: 'Substitute: I = 30 / 600.'
-- en: 'Calculate: I = 0.05 A.'
-- en: 'Give it in mA: 50 mA.'
-- en: So the current is 50 mA.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -44,15 +22,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.8 x 10^7 mA
+- id: b
+  en: 3000 mA
+- id: c
+  en: 50 mA
+- id: d
+  en: 20000 mA
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 10 min = 600 s.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 30 / 600.'
+- en: 'Calculate: I = 0.05 A.'
+- en: 'Give it in mA: 50 mA.'
+- en: So the current is 50 mA.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 46a6dba33318889c4aedf671a6c02d9e6f69574cb9adadf49d0cfe7f0ac0953a
+  item_hash: dbf8eeb643f792cd1c773c8347976003bc9ab557c4ff29df88a193a0dcd8e999
   template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
   certificate_hash: 896f1c757a561c707c2ecf0e086d56f63f7c8bb9bae49184dff9f8047536ec30
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:36+00:00'
-  record_hash: 863ba00ce2870414ca47e591e86b05f8b2db7ae100f6d2319f87ef62ad64a46b
+  stamped_at: '2026-11-17T19:37:10+00:00'
+  record_hash: 5e8aa28fde1921df3798edd5802a369f78dab4362031918b8a1533cb6c114d7f

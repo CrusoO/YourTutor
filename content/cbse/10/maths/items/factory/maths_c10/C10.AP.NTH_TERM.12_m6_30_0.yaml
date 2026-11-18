@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.12_m6_30_0
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.33
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: What is the 30th term of the progression 12, 6, 0, ...?
-options:
-- id: a
-  en: '-162'
-- id: b
-  en: '186'
-- id: c
-  en: '35'
-- id: d
-  en: '-168'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The first term is 12 and the common difference is -6.
-- en: The nth term is first term + (n - 1) x difference, so a_30 = 12 + (30 - 1)(-6).
-- en: a_30 = 12 + -174 = -162.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Start at the first term and count how many jumps you need to reach the one asked
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-162'
+- id: b
+  en: '186'
+- id: c
+  en: '35'
+- id: d
+  en: '-168'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 12 and the common difference is -6.
+- en: The nth term is first term + (n - 1) x difference, so a_30 = 12 + (30 - 1)(-6).
+- en: a_30 = 12 + -174 = -162.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 610cf2605186d3a97429682a92fcc4e396c2d0182de23994623ceffb7977b6fd
+  item_hash: 12e8ef5d8ce29352d8b041ca7b4b97de253c963b48b33a0c4f2d515065388402
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: 45632fc36273298646e6197234460fca6e0e863c479cfcdb646ef3e0fc123b57
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:20+00:00'
-  record_hash: f6adf781fac08a69e9f8ca8883c18388c8ca46ab3c470c2fd8be30da5bdcab68
+  stamped_at: '2026-11-17T17:39:03+00:00'
+  record_hash: 7ec531b41b050f76182bc6ecb105e9cfa7ef550b11c3f30f13eca609b0c69180

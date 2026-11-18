@@ -1,0 +1,136 @@
+id: ITM.PHY.ELEC.POWER.I_from_PR.case4.12aa575d.cp
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.75
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates an electrical appliance and records the following.
+    Its power, P, is 1250 W and its resistance, R, is 50 Ω. Find the current.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: P = I x I x R.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of P
+    = I x I x R by R, then take the square root of each side. Do the same operation
+    to each side of the formula.'
+- level: 3
+  en: 'First step: write I = sqrt(P / R), where I is the current, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER.CP
+generator_version: factory-2
+template_hash: 2854d60dac17c18e152e795871a11fa985824bce33a6eee6b96fbde50a443c2a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 A
+- id: b
+  en: 62500 A
+- id: c
+  en: 25 A
+- id: d
+  en: 0.2 A
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ROOT_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.POWER_FORMULA_MISMATCH
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = I x I x R.'
+- en: 'Get the current alone: divide each side of P = I x I x R by R, then take the
+    square root of each side.'
+- en: 'Substitute: I = sqrt(1250 / 50).'
+- en: 'Calculate: I = 5 A.'
+- en: So the current is 5 A.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0f4e246e5e4315806d45a6377a9ee11c4b1bf0666e18255b7352e0d9bcd0f29d
+  template_hash: 2854d60dac17c18e152e795871a11fa985824bce33a6eee6b96fbde50a443c2a
+  certificate_hash: a8965ef5706e32e76fcd5ba24ddf1a4152088e3fa2ac6b75559f4e0556f899fc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:19+00:00'
+  record_hash: 83fe0b2c3cb80ef21d1b03e53566a311d003b00804c2f355b36f3324f8f0e012

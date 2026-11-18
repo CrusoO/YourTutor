@@ -2,30 +2,12 @@ id: C10.AP.WORD_TOTAL.2_50_8_12_total
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.71
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A library puts books on display. On day 1 it shows 50 books and each day it
     shows 8 more than the day before, for 12 days. How many books are shown over all
     the days together?
-options:
-- id: a
-  en: '1176'
-- id: b
-  en: '2256'
-- id: c
-  en: '138'
-- id: d
-  en: '1128'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 50 and common difference 8.
-- en: The last amount is 138, so the total is S = (12/2)(50 + 138).
-- en: S = 1128.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -41,15 +23,43 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_TOTAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1176'
+- id: b
+  en: '2256'
+- id: c
+  en: '138'
+- id: d
+  en: '1128'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.WORD_LAST_REPORTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The amounts form an AP with first term 50 and common difference 8.
+- en: The last amount is 138, so the total is S = (12/2)(50 + 138).
+- en: S = 1128.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e649d217ea24247530fbbfdf97419bd6ea6b1f335633edc48458642597b495e3
+  item_hash: 7cdec1a664a0fbcf2829de89550937b54713d1c3f017f637e531fca4157e2ef1
   template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
   certificate_hash: acf957bfa9874b97b47dafa77a7e21d4b68f96467a6fb5e7ec8a8cf061863639
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:27:18+00:00'
-  record_hash: e7bf97ffbb90c2f9f8754f1feda7519856881d6d5bb5cde20b0c73f6150b6de4
+  stamped_at: '2026-11-17T17:40:47+00:00'
+  record_hash: 997d745036c2a69aad8034e331711af8b367f09dd64de54180aba74f7f04a65b

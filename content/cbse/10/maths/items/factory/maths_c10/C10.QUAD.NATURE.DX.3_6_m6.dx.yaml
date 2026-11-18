@@ -1,0 +1,130 @@
+id: C10.QUAD.NATURE.DX.3_6_m6.dx
+skill_ids:
+- MATH.ALG.QUAD.NATURE_OF_ROOTS
+difficulty: 0.44
+pool: diagnostic
+role: apply
+stem:
+  en: Describe the roots of the equation 3x² + 6x - 6 = 0 using the discriminant.
+hints:
+- level: 1
+  en: Compare that quantity with zero to decide.
+- level: 2
+  en: Work out the discriminant from the three coefficients, then see whether it is
+    positive, zero or negative.
+- level: 3
+  en: 'Full method: write the coefficients with signs, compute the discriminant, and
+    match its sign to the three possible cases for the roots.'
+prediction_prompt:
+  en: Which sign do you expect the discriminant to have?
+status: draft
+template_id: TPL.C10.QUAD.NATURE.DX
+generator_version: factory-2
+template_hash: 88f0cad5d8600118f4f5aecd3b1f43e7893dd138ed48461505662a4caad09c2f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: No real roots
+- id: b
+  en: Two distinct real roots
+- id: c
+  en: One real root and one non-real root
+- id: d
+  en: Two equal real roots
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.NATURE_DISC_SIGN_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.NATURE_ONE_REAL_ONE_NOT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.NATURE_ZERO_ONLY_TESTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 3, 6 and -6.
+- en: The discriminant is b² - 4ac = 108.
+- en: 'The discriminant is positive, so the equation has: two distinct real roots.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f26808753f8824c1d9f53f31d9aaeb65ba30c553d1fb38c365616e52aa713143
+  template_hash: 88f0cad5d8600118f4f5aecd3b1f43e7893dd138ed48461505662a4caad09c2f
+  certificate_hash: 18273545f25b3fa1ee5ec9db6c35d351cfc9ac7351b028f357736f3db298118a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.quad.closed
+  - maths.quad.sympy
+  - maths.quad.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:08:12+00:00'
+  record_hash: 23860bef96b9c099faa0a5b254a916bdee56544a33a133e41374ad82fbc0fe66

@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.3_3_4_0
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Which number makes the left side of 3x² - 21x + 36 = 0 equal to zero?
-options:
-- id: a
-  en: '3'
-- id: b
-  en: '-21'
-- id: c
-  en: '36'
-- id: d
-  en: '-3'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = 3: 3(3)² + (-21)(3) + (36) = 0.'
-- en: The left side is 0, so x = 3 satisfies the equation.
-- en: The correct option is a.
 hints:
 - level: 1
   en: You can check an answer without solving anything.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '-21'
+- id: c
+  en: '36'
+- id: d
+  en: '-3'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_COEFFICIENT_USED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 3: 3(3)² + (-21)(3) + (36) = 0.'
+- en: The left side is 0, so x = 3 satisfies the equation.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 04e4fa7b8ff6439301de099c5d7c0d2f8d9f9c3358e9ddd1cb4ff0417bbcff66
+  item_hash: 1e486fe984d4169f73f5987b431fa7e2a481622098652bf3c7c5573cc8b174ea
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: 7eb3d2316324a8de5cd82412e27f9ff1ca4e303f8f4c8f5f5f82974698212427
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:32+00:00'
-  record_hash: cdfc3a6de559f7adc2ace6f8147b5b62aac176affcf40397b126d61b80927dc4
+  stamped_at: '2026-11-17T17:41:03+00:00'
+  record_hash: d40083aec1e1295db97c32ae99d17c58085ca28e54022b917f01a4fe83d9e8ff

@@ -2,28 +2,10 @@ id: C10.QUAD.K_LEAD.m4_3
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the value of k for which kx² - 24x - 4 = 0 has two equal real roots.
-options:
-- id: a
-  en: k = 36
-- id: b
-  en: k = -72
-- id: c
-  en: k = -144
-- id: d
-  en: k = -36
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Equal roots need b² - 4ac = 0, so (-24)² - 4(k)(-4) = 0.
-- en: 'This gives 576 - -16k = 0. Add -16k to both sides: -16k = 576.'
-- en: 'Divide both sides by -16: k = -36.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Equal roots mean the discriminant is zero. Put the unknown k into it.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will k have the same sign as the plain number?
 status: draft
 template_id: TPL.C10.QUAD.K_LEAD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = 36
+- id: b
+  en: k = -72
+- id: c
+  en: k = -144
+- id: d
+  en: k = -36
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (-24)² - 4(k)(-4) = 0.
+- en: 'This gives 576 - -16k = 0. Add -16k to both sides: -16k = 576.'
+- en: 'Divide both sides by -16: k = -36.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fb36b18a6eb0d054140b0e6bfb88441a7d7c5c776cb1e23aed31e704de056bbf
+  item_hash: 660df86fa382158a8f43553bdfaaf22253dbf5e04a5e059351a9418a3fb6f2ca
   template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
   certificate_hash: f1b2158de259064cff1a6b8f91c1a459032c07886d1c259ed0825381f5a90654
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:45:29+00:00'
-  record_hash: 379feba786f7b5f183c06ac11af40f1e010797d97103d74ca2eb8aa96f0e0d99
+  stamped_at: '2026-11-17T17:44:05+00:00'
+  record_hash: b4898dc9952620e99b7d504b47630c4fe63815f30c54208b1c383e682ea9289f

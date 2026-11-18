@@ -2,29 +2,10 @@ id: C10.AP.TWO_TERMS.m6_5_5_1_9
 skill_ids:
 - MATH.ALG.AP.TERMS_FROM_TWO_TERMS
 difficulty: 0.57
-type: mcq
 pool: practice
 role: apply
 stem:
   en: In an AP the 5th term is 14 and the 6th term is 19. Find the 9th term.
-options:
-- id: a
-  en: '-46'
-- id: b
-  en: '54'
-- id: c
-  en: '34'
-- id: d
-  en: '39'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Going from term 5 to term 6 takes 1 equal steps, and the terms change by 5.
-- en: So the common difference is 5 / 1 = 5.
-- en: 'Go back to the first term: a = 14 - (5 - 1)(5) = -6.'
-- en: Then a_9 = -6 + (9 - 1)(5) = 34.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Use the two given terms to find the first term and the difference before anything
@@ -40,15 +21,44 @@ prediction_prompt:
   en: Is the common difference positive or negative?
 status: draft
 template_id: TPL.C10.AP.TWO_TERMS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-46'
+- id: b
+  en: '54'
+- id: c
+  en: '34'
+- id: d
+  en: '39'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.AP.TWO_TERMS_STARTED_FROM_GIVEN_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Going from term 5 to term 6 takes 1 equal steps, and the terms change by 5.
+- en: So the common difference is 5 / 1 = 5.
+- en: 'Go back to the first term: a = 14 - (5 - 1)(5) = -6.'
+- en: Then a_9 = -6 + (9 - 1)(5) = 34.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fff084c575cf6345c2347859ac558971f701f88ad0665b7035d06e085712d965
+  item_hash: 4bf06f28945cddd12f5a69bdb54f5ffcd7982e63dde073f7b2e17742c0d9e7cc
   template_hash: b93bbd22d1100c0252def4efd89ddf48ff513c119726c3b8e3a940e478136259
   certificate_hash: 0c469d15ad951e5f7fd6b1060ddd89a43cacde65de86dd1a82b4c916d51f95e8
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:23:05+00:00'
-  record_hash: 7ba61768cf5ea02f4e77657fd81d50c7bcafde7315ef1219355bc654e746f0f8
+  stamped_at: '2026-11-17T17:40:03+00:00'
+  record_hash: f07cd1c6ec4250f59a4600991cec74a261b434804025a775016d1fb3db0da1df

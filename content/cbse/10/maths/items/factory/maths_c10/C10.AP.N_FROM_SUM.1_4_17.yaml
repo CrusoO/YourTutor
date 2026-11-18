@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.1_4_17
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: The sum of the first n terms of the AP 1, 5, 9, ... is 561. Find n.
-options:
-- id: a
-  en: -33/2
-- id: b
-  en: '17'
-- id: c
-  en: '18'
-- id: d
-  en: '561'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Here a = 1, d = 4 and S_n = 561.
-- en: '(n/2)(2 x 1 + (n - 1) x 4) = 561. Multiply both sides by 2 and expand: 4n²
-    + -2n = 1122.'
-- en: 'Rearranged: 4n² + (-2)n - 1122 = 0, whose solutions are n = 17 and n = -33/2.'
-- en: The number of terms is a positive whole number, so n = 17.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Write the sum formula with n as the unknown and make it equal to the target.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -33/2
+- id: b
+  en: '17'
+- id: c
+  en: '18'
+- id: d
+  en: '561'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 1, d = 4 and S_n = 561.
+- en: '(n/2)(2 x 1 + (n - 1) x 4) = 561. Multiply both sides by 2 and expand: 4n²
+    + -2n = 1122.'
+- en: 'Rearranged: 4n² + (-2)n - 1122 = 0, whose solutions are n = 17 and n = -33/2.'
+- en: The number of terms is a positive whole number, so n = 17.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: deb5764c503621ad9881342eb76890b0962655f372a5177f5e7adbe079d68121
+  item_hash: f809e75bb11ec90b57dec81d5efb7d75747f08b0e6fc19c57a5e801c17cd4ba4
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: 8feeeae2e6bb45a76c0c7ae3a7257d65665917718e639f4426c945811a174361
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:29+00:00'
-  record_hash: 2670d891be7627378aa38da09fddb97318b44b231a22008017677c724103a7ea
+  stamped_at: '2026-11-17T17:38:51+00:00'
+  record_hash: 9c617d49b8c96a355380203ba2ae5e63292f98de50d8210fb42345c0bf636234

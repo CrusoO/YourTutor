@@ -1,0 +1,134 @@
+id: ITM.PHY.ELEC.POWER_SCALING.P_I_scaled.mcq1.1f9be129.cp
+skill_ids:
+- PHY.ELEC.POWER_SCALING
+difficulty: 0.3
+pool: checkpoint
+role: explain
+stem:
+  en: The current through a fixed resistor is halved. By what number is the power
+    multiplied?
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: for a fixed resistor P = I x I x R, so P changes with the square
+    of I.'
+- level: 2
+  en: The relation already gives the number the power is multiplied by directly, so
+    decide what to substitute.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.POWER_SCALING.CP
+generator_version: factory-2
+template_hash: 233cb81a7f86d3b17b579e76560e730ecee63adae362a2d3035be88d3f7708ea
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '4'
+- id: c
+  en: '0.25'
+- id: d
+  en: '0.5'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = I x I x R, so P changes with the
+    square of I.'
+- en: 'Combine the numbers: 0.5^2 = 0.25.'
+- en: So the number the power is multiplied by is 0.25.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b6c295e5e585e27978cca87633a180a7640fed4cfd1cac506693dee3fbae8eb8
+  template_hash: 233cb81a7f86d3b17b579e76560e730ecee63adae362a2d3035be88d3f7708ea
+  certificate_hash: be2257f4c0e1b0ec67584596e8336be9618c0d3ea61ad8e09c6594af75c1d6ba
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:47+00:00'
+  record_hash: aa2ae4dd99d0a6381fb5047f1f9aca322c22df41ef940510a58118802776492f

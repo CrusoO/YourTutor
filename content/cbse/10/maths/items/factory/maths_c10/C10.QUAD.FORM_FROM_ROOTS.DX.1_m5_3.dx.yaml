@@ -1,0 +1,131 @@
+id: C10.QUAD.FORM_FROM_ROOTS.DX.1_m5_3.dx
+skill_ids:
+- MATH.ALG.QUAD.FORM_FROM_ROOTS
+difficulty: 0.44
+pool: diagnostic
+role: procedure
+stem:
+  en: Choose the quadratic equation that has -5 and 3 as its solutions.
+hints:
+- level: 1
+  en: Each root gives one factor; multiply the factors back together.
+- level: 2
+  en: 'To find each factor, undo x equals the root by doing the same thing to each
+    side: take the root away from each side. Then multiply the two factors and collect
+    terms.'
+- level: 3
+  en: 'Full method: write one factor for each root, multiply the two brackets, collect
+    like terms, then multiply every term by the stated leading coefficient.'
+prediction_prompt:
+  en: Will the x coefficient be the sum of the roots or its opposite?
+status: draft
+template_id: TPL.C10.QUAD.FORM_FROM_ROOTS.DX
+generator_version: factory-2
+template_hash: 4e5a074345dc1378a386895f999fe366e27861bcd324e7d44a24d1c1c6b9e064
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x² + 2x + 15 = 0
+- id: b
+  en: x² - 2x - 15 = 0
+- id: c
+  en: x² + 15x - 2 = 0
+- id: d
+  en: x² + 2x - 15 = 0
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (-5)) and (x - (3)).
+- en: 'Multiply them: x² - (-2)x + (-15).'
+- en: 'Multiply by the leading coefficient 1 if it is not 1: x² + 2x - 15 = 0.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9d6103157f77f4d837e234d4921abe9b0a62850c03f1d6765d0bdf72ca507672
+  template_hash: 4e5a074345dc1378a386895f999fe366e27861bcd324e7d44a24d1c1c6b9e064
+  certificate_hash: 1ef14ce14877b6d46e8b59a927d0623c2b70ff443370954f5fa5404582ea96fa
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.form.closed
+  - maths.form.sympy
+  - maths.form.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:48+00:00'
+  record_hash: d44639871395586f3b304479c5b081c3be914a7abf7cfdc9642aa5acd0c3dd57

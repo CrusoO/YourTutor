@@ -2,29 +2,11 @@ id: C10.QUAD.FORM_FROM_ROOTS.2_m4_5
 skill_ids:
 - MATH.ALG.QUAD.FORM_FROM_ROOTS
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Choose the quadratic equation that has -4 and 5 as its solutions. The coefficient
     of x² is 2.
-options:
-- id: a
-  en: 2x² + 40x + 2 = 0
-- id: b
-  en: 2x² - 2x - 40 = 0
-- id: c
-  en: 2x² - 2x + 40 = 0
-- id: d
-  en: 2x² + 2x - 40 = 0
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: A root r means (x - r) is a factor, so the factors are (x - (-4)) and (x - (5)).
-- en: 'Multiply them: x² - (1)x + (-20).'
-- en: 'Multiply by the leading coefficient 2 if it is not 1: 2x² - 2x - 40 = 0.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Each root gives one factor; multiply the factors back together.
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will the x coefficient be the sum of the roots or its opposite?
 status: draft
 template_id: TPL.C10.QUAD.FORM_FROM_ROOTS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2x² + 40x + 2 = 0
+- id: b
+  en: 2x² - 2x - 40 = 0
+- id: c
+  en: 2x² - 2x + 40 = 0
+- id: d
+  en: 2x² + 2x - 40 = 0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (-4)) and (x - (5)).
+- en: 'Multiply them: x² - (1)x + (-20).'
+- en: 'Multiply by the leading coefficient 2 if it is not 1: 2x² - 2x - 40 = 0.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b0dba8f711aeedbb7c0001343760e7ba0b41dcf428b63ec2585d3817bf072d65
+  item_hash: b36f00b4ae0616ceb94fdc65e020f501a8ea2e50b12bef90fbff7baa89113bfe
   template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
   certificate_hash: 520198a6af64edfcf6c0dc32c538b62c0a36b325e9e5f22292113b2604b5fbdd
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:39:44+00:00'
-  record_hash: 8e0378f6fcf7879dd6f64f899bd0181a38e9dbb7258d18dc9ab906ed74dfd380
+  stamped_at: '2026-11-17T17:42:53+00:00'
+  record_hash: c5f29f28f55df9f75bed130df163b26ec3b85e318a8cf8717692e0fd95d1abef

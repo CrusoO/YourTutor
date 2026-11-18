@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.12_4_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.72
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 4 m, and the longest side is 20 m. Find the length of the
     shorter of the two sides in metres.
-options:
-- id: a
-  en: '12'
-- id: b
-  en: '16'
-- id: c
-  en: '8'
-- id: d
-  en: '-16'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 4 metres.
-- en: By Pythagoras, x² + (x + 4)² = 20², so 2x² + 8x - 384 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 12)(x + 16) = 0, so x = 12 (a length
-    cannot be negative).'
-- en: The shorter side is 12 m and the longer side is 16 m.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the shorter side and write the other side using x. The longest side
@@ -44,15 +24,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '12'
+- id: b
+  en: '16'
+- id: c
+  en: '8'
+- id: d
+  en: '-16'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_SIDES_SUMMED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 4 metres.
+- en: By Pythagoras, x² + (x + 4)² = 20², so 2x² + 8x - 384 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 12)(x + 16) = 0, so x = 12 (a length
+    cannot be negative).'
+- en: The shorter side is 12 m and the longer side is 16 m.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 72b3daa7063d0e5cf37d4276581a851042228c1b784d66464d2a29c26fed9085
+  item_hash: 7afb0dce8751b28ee2a9702465df3ad90cd1452b38f26fc735a333b7642092ed
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 00f7d4d099697f363a6fa5ae2b5486dac123b5124bf7fd08b7b1d7ea87c84b3c
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:00+00:00'
-  record_hash: 1ba6d592ba00c331c5f88d64295a9eb5bc2edecbb77052248ef243bca34f2c88
+  stamped_at: '2026-11-17T17:47:53+00:00'
+  record_hash: 36cfd52ab425fdaa7af0e4a335280498c898414f8b20a7ff1c5c40eb5c80c3f5

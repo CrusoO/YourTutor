@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.CHARGE_CURRENT.t_from_QI.case4.b0a6c3f5.cp
+skill_ids:
+- PHY.ELEC.CHARGE_CURRENT
+difficulty: 0.8
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates charge flowing in a wire and records the following.
+    The charge, Q, is 1.5 C and the current, I, is 50 mA. For how long does the current
+    flow?'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: charge Q = current I x time t.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: divide each side of Q =
+    I x t by I. Do the same operation to each side of the formula. Change every quantity
+    to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 50 mA as 0.05 A, then write t = Q / I, where t is the time,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_CURRENT.CP
+generator_version: factory-2
+template_hash: ec2fe3a56845295ee019c56d70c4274a51cbc36f8ebed1306c35b2b556423b61
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.03 s
+- id: b
+  en: 0.075 s
+- id: c
+  en: 30 s
+- id: d
+  en: 0.0333 s
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 50 mA = 0.05 A.'
+- en: 'Get the time alone: divide each side of Q = I x t by I.'
+- en: 'Substitute: t = 1.5 / 0.05.'
+- en: 'Calculate: t = 30 s.'
+- en: So the time is 30 s.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e89bdbbae04781cab9617b55b5ced3e8ef577bce1dd011ea8b031ce2918e59d4
+  template_hash: ec2fe3a56845295ee019c56d70c4274a51cbc36f8ebed1306c35b2b556423b61
+  certificate_hash: 8f250db9b4a9a7eebc27e7418fdfc05554660abdb160706bf9ad865540eb1dd2
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:49:59+00:00'
+  record_hash: 1f4c5ff696d2f2a7992e87b4fff4417baea2e6ca17c039de56cb6b0143569241

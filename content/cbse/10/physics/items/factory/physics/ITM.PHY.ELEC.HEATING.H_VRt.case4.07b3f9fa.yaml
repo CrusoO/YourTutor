@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.HEATING.H_VRt.case4.07b3f9fa
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates the heat produced by a current and records the
     following. The voltage, V, is 50 V, the resistance, R, is 10 Ω and the time, t,
     is 2 s. How much heat is produced?'
-options:
-- id: a
-  en: 500 J
-- id: b
-  en: 250 J
-- id: c
-  en: 0.008 J
-- id: d
-  en: 10 J
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = V x V x t / R.'
-- en: 'Substitute: H = 50 x 50 x 2 / 10.'
-- en: 'Calculate: H = 500 J.'
-- en: So the heat produced is 500 J.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -41,15 +22,44 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 500 J
+- id: b
+  en: 250 J
+- id: c
+  en: 0.008 J
+- id: d
+  en: 10 J
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = V x V x t / R.'
+- en: 'Substitute: H = 50 x 50 x 2 / 10.'
+- en: 'Calculate: H = 500 J.'
+- en: So the heat produced is 500 J.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 11e1034451effcf26b67e53a941674535ee4091e84957f8721d277b50d8c9a81
+  item_hash: 00bbb36c7325becdd2f7ffe06395d19cd76770222b1536391e9e446de2ca27e6
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: b1555fa722485002d85e5f389b984ba08f336246d8aa5d2c067dde49384af03a
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:41+00:00'
-  record_hash: fbb8ba4735d02efb9912682afe83d42e20bdb6a4b7da948044199684896317c1
+  stamped_at: '2026-11-17T19:39:01+00:00'
+  record_hash: 15524a22f178c11d602b63568b4b3413ce80c1de4f6688b71c96f59621887473

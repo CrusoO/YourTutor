@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.5_8_17
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: How many terms of the AP 5, 13, 21, ... must be added to make the sum 1173?
-options:
-- id: a
-  en: '17'
-- id: b
-  en: '18'
-- id: c
-  en: 1173/5
-- id: d
-  en: -69/4
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here a = 5, d = 8 and S_n = 1173.
-- en: '(n/2)(2 x 5 + (n - 1) x 8) = 1173. Multiply both sides by 2 and expand: 8n²
-    + 2n = 2346.'
-- en: 'Rearranged: 8n² + (2)n - 2346 = 0, whose solutions are n = 17 and n = -69/4.'
-- en: The number of terms is a positive whole number, so n = 17.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Use the sum formula, but this time the unknown is the number of terms.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '17'
+- id: b
+  en: '18'
+- id: c
+  en: 1173/5
+- id: d
+  en: -69/4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 5, d = 8 and S_n = 1173.
+- en: '(n/2)(2 x 5 + (n - 1) x 8) = 1173. Multiply both sides by 2 and expand: 8n²
+    + 2n = 2346.'
+- en: 'Rearranged: 8n² + (2)n - 2346 = 0, whose solutions are n = 17 and n = -69/4.'
+- en: The number of terms is a positive whole number, so n = 17.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2544af113b16e472dddb5bf562d08a18f75fc5021ab59ab685172b66de5a6d72
+  item_hash: acabe49321ac9ebdabac5dd051604788b8de6d5287da3753b7e567c63fd53f35
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: a136c06b5c3378dc64bbfd1115085a42409c5200d0b42ab1e1e1c652975542f1
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:31+00:00'
-  record_hash: 249ea18c8e06c5417ee05e1fe872756a1fc0767260097d65ee909fc2573bf0b2
+  stamped_at: '2026-11-17T17:38:54+00:00'
+  record_hash: 60982c7bfce7e750f68a75eb70309195cd7af6caadf2ac34cecbd5dfec069408

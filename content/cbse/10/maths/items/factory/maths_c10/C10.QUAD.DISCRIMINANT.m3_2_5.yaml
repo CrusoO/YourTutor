@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.m3_2_5
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Calculate the discriminant for -3x² + 2x + 5 = 0.
-options:
-- id: a
-  en: '64'
-- id: b
-  en: '56'
-- id: c
-  en: '-56'
-- id: d
-  en: '19'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here the coefficients are -3, 2 and 5.
-- en: The discriminant is b² - 4ac = (2)² - 4(-3)(5).
-- en: This equals 4 - (-60) = 64.
-- en: The correct option is a.
 hints:
 - level: 1
   en: The discriminant uses only the three coefficients, not x itself.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '64'
+- id: b
+  en: '56'
+- id: c
+  en: '-56'
+- id: d
+  en: '19'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_NEGATIVE_B_SQUARED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are -3, 2 and 5.
+- en: The discriminant is b² - 4ac = (2)² - 4(-3)(5).
+- en: This equals 4 - (-60) = 64.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fe9e8f2e9606e8950b7524695ee7bc0a73f0a9abf85fa6eb9013fdde2276289a
+  item_hash: ba8f0be7a14f22d541e93208aa120f2349bef959772ebb99c8063186d026294d
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: 76db254d6889d93d2e7159c5c97eb5ba989dc5609766761d598b62fc3fc28aff
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:35+00:00'
-  record_hash: 5dc04164e1748da06955e8777edfbbf3afad2986452953d40a4796a88bf9da49
+  stamped_at: '2026-11-17T17:41:51+00:00'
+  record_hash: 6e2df8dea734eab9bff160e61c5465001e631e1dd59f3590e6829a3365664ac7

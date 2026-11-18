@@ -1,0 +1,47 @@
+id: TPL2.PHY.LIGHT.LENS_MAGNIFICATION.DX
+schema: factory-template/1
+lane: physics
+model: LIGHT.LENS_MAG
+skill_id: PHY.LIGHT.LENS_MAGNIFICATION
+box:
+  device:
+    choices:
+    - convex_lens
+    - concave_lens
+  fm:
+    choices:
+    - '10'
+    - '20'
+    - '30'
+  form:
+    choices:
+    - mcq1
+    - num3
+    - case4
+  h:
+    choices:
+    - '2'
+    - '4'
+  um:
+    choices:
+    - '15'
+    - '30'
+    - '60'
+  variant:
+    choices:
+    - m_from_uv
+    - hi_from_uvh
+    - v_from_um
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.light
+  skill_id: PHY.LIGHT.LENS_MAGNIFICATION
+  allowed_methods:
+  - lens_magnification
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: diagnostic

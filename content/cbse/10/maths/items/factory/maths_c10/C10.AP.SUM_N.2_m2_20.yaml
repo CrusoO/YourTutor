@@ -2,29 +2,10 @@ id: C10.AP.SUM_N.2_m2_20
 skill_ids:
 - MATH.ALG.AP.SUM_FIRST_N
 difficulty: 0.41
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: What is the total when the first 20 terms of 2, 0, -2, ... are added?
-options:
-- id: a
-  en: '-360'
-- id: b
-  en: '-680'
-- id: c
-  en: '-340'
-- id: d
-  en: '-36'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is 2, the common difference is -2 and the number of terms is
-    20.
-- en: S_n = (n/2)(2a + (n - 1)d) = (20/2)(2 x 2 + (20 - 1) x -2).
-- en: = (20/2)(-34) = -340.
-- en: The correct option is c.
 hints:
 - level: 1
   en: There is one formula for the sum of the first n terms of an AP.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Roughly how big do you expect the total to be?
 status: draft
 template_id: TPL.C10.AP.SUM_N
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-360'
+- id: b
+  en: '-680'
+- id: c
+  en: '-340'
+- id: d
+  en: '-36'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_AS_NTH_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 2, the common difference is -2 and the number of terms is
+    20.
+- en: S_n = (n/2)(2a + (n - 1)d) = (20/2)(2 x 2 + (20 - 1) x -2).
+- en: = (20/2)(-34) = -340.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 03ad68b48a92c35d253311a83056a367cb151cb1d589c37693ece52c225fe8a6
+  item_hash: 38471799037485c2c1bab134c9f2950fb34e1497dd45e1a93aa3c0c0212a4afd
   template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
   certificate_hash: a6ebe515472af1ecbe9a06668a78e3f400ec963ba42c8ea97cb12ee0bb86a00e
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:17+00:00'
-  record_hash: 6da1ce07720548f14bcd2107c8b64aedd35e03aa44e39f12bc3591f2a632c307
+  stamped_at: '2026-11-17T17:39:28+00:00'
+  record_hash: ec7678475785c2dd8cb71123d5ece2538e4e7a4324c4c7f61da7b515d459522d

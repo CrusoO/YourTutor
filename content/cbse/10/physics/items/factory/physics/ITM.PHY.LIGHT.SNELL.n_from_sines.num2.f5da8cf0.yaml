@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.SNELL.n_from_sines.num2.f5da8cf0
 skill_ids:
 - PHY.LIGHT.SNELL
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about light entering a transparent medium from air. The sine
     of the angle of incidence is 0.9 and the sine of the angle of refraction is 0.45.
     Find the refractive index of the medium.
-options:
-- id: a
-  en: '0.45'
-- id: b
-  en: '0.405'
-- id: c
-  en: '0.5'
-- id: d
-  en: '2'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: from air into a medium, n = sine of the angle of incidence
-    / sine of the angle of refraction.'
-- en: 'Get the refractive index alone: divide each side of sin i = n x sin r by sin
-    r.'
-- en: 'Substitute: n = 0.9 / 0.45.'
-- en: 'Calculate: n = 2.'
-- en: So the refractive index is 2.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -46,15 +24,47 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the refractive index be?
 status: draft
 template_id: TPL2.PHY.LIGHT.SNELL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.45'
+- id: b
+  en: '0.405'
+- id: c
+  en: '0.5'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SINES_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.SNELL_MULTIPLIED_WRONG_WAY
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.SNELL_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: from air into a medium, n = sine of the angle of incidence
+    / sine of the angle of refraction.'
+- en: 'Get the refractive index alone: divide each side of sin i = n x sin r by sin
+    r.'
+- en: 'Substitute: n = 0.9 / 0.45.'
+- en: 'Calculate: n = 2.'
+- en: So the refractive index is 2.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8025313386995838c26333a3ebbea8a190fd81124cc0373ed984dd8e0de7a6e9
+  item_hash: 62918c8de4b6a9c35d5764256f1fa589fb465b3ec0c84c0fcc1991813df3395a
   template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
   certificate_hash: e3d0a22b9f00ab5a6544eb504ba7044da9b44b16806d9b139e86a08c813c5971
   label: calculation-checked
@@ -119,10 +129,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:26+00:00'
-  record_hash: c904c412ae96f6c3d6ff43ccda69980b046a7dd7b029dbe620f20917c0da8478
+  stamped_at: '2026-11-17T19:41:44+00:00'
+  record_hash: d897786639e02f5693f6a6349907b0656dd5e6a628ae6b4038275e8bfbf7d3a6

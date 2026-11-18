@@ -1,0 +1,135 @@
+id: ITM.PHY.LIGHT.RELATIVE_INDEX.n21_from_v.case4.8ff222d3.cp
+skill_ids:
+- PHY.LIGHT.RELATIVE_INDEX
+difficulty: 0.7
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates light passing from one medium into another and
+    records the following. Light travels in the first medium at 1.25 x 10^8 m/s and
+    light travels in the second medium at 1 x 10^8 m/s. Find the refractive index
+    of the second medium relative to the first.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: n21 = n2 / n1 and each n = c / v, so n21 = v1 / v2.'
+- level: 2
+  en: The relation already gives the refractive index of the second medium relative
+    to the first directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write n21 = v1 / v2, where n21 is the refractive index of the second
+    medium relative to the first, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the refractive index of the second
+    medium relative to the first be?
+status: draft
+template_id: TPL2.PHY.LIGHT.RELATIVE_INDEX.CP
+generator_version: factory-2
+template_hash: d99d835a6e1b18707a7371fc324788ee0898706c04f3417a04b1cc56b8aebdaf
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.139'
+- id: b
+  en: '0.8'
+- id: c
+  en: '0.0833'
+- id: d
+  en: '1.25'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.INDEX_PRODUCT_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.RELATIVE_INDEX_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.INDEX_DIFFERENCE_USED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: n21 = n2 / n1 and each n = c / v, so n21 = v1 / v2.'
+- en: 'Substitute: n21 = (1.25 x 10^8) / (1 x 10^8).'
+- en: 'Calculate: n21 = 1.25.'
+- en: So the refractive index of the second medium relative to the first is 1.25.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1fb7ea74a3def01f3678f1183ebcee25b220e4cafab21507643f61110b8ad216
+  template_hash: d99d835a6e1b18707a7371fc324788ee0898706c04f3417a04b1cc56b8aebdaf
+  certificate_hash: e5920141d973117376f637bbfe559536052602e4ae59c9f437db9f31983f7560
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:59:55+00:00'
+  record_hash: 111620918ace6241cd86da36c4b6c9cf610635cfd9447c9a5d9bb01d08e3cbd8

@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL.R3_from_Rp.num2.67c71d10
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about resistors joined in parallel. The first resistor, R1,
     is 12 Ω, the second resistor, R2, is 6 Ω and the combined resistance, Rp, is 2
     Ω. Find the third resistance.
-options:
-- id: a
-  en: 0.25 Ω
-- id: b
-  en: 144 Ω
-- id: c
-  en: 20 Ω
-- id: d
-  en: 4 Ω
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
-- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
-    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
-- en: 'Substitute: R3 = 1 / (1 / 2 - 1 / 12 - 1 / 6).'
-- en: 'Calculate: R3 = 4 Ω.'
-- en: So the third resistance is 4 Ω.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.25 Ω
+- id: b
+  en: 144 Ω
+- id: c
+  en: 20 Ω
+- id: d
+  en: 4 Ω
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
+    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
+- en: 'Substitute: R3 = 1 / (1 / 2 - 1 / 12 - 1 / 6).'
+- en: 'Calculate: R3 = 4 Ω.'
+- en: So the third resistance is 4 Ω.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 42774259c4178e68422c2a00565b20384579ab9914913ac3d1d85c39dadc15d0
+  item_hash: f1f493228e5bebc34582b7615754b30f016d958b87c7390337297754442358e8
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: cd4352479a79ce9e92214a34b3212aa62bb2ab47cc5ddb9890e056c0293a05e6
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:00+00:00'
-  record_hash: 691e2c59b238f91e8c7572870cf771ffbacd1d6df4de8cb355fb3cb219e81da3
+  stamped_at: '2026-11-17T19:37:51+00:00'
+  record_hash: 42a474b3e854b919313930e90b168ee7c7218b70a8d8301d9c25ce0fd8edd83a

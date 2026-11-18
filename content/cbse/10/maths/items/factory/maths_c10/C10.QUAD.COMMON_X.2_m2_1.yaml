@@ -2,31 +2,10 @@ id: C10.QUAD.COMMON_X.2_m2_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.42
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which values of x satisfy 2x² = -4x?
-options:
-- id: a
-  en: x = -2
-- id: b
-  en: x = 0
-- id: c
-  en: x = 0 or x = 2
-- id: d
-  en: x = -2 or x = 0
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Bring every term to the left so the right side is 0, then take out x as a common
-    factor.
-- en: This gives x(2x + 4) = 0.
-- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
-- en: 'Undo the bracket: add -4 to both sides, then divide both sides by 2: x = -2.'
-- en: The solutions are x = -2 or x = 0.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Look for the factor that both terms contain.
@@ -41,15 +20,46 @@ prediction_prompt:
   en: Will x = 0 be one of the answers?
 status: draft
 template_id: TPL.C10.QUAD.COMMON_X
-generator_version: factory-1
+generator_version: factory-2
 template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -2
+- id: b
+  en: x = 0
+- id: c
+  en: x = 0 or x = 2
+- id: d
+  en: x = -2 or x = 0
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DIVIDED_BY_X_LOST_ROOT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.ONE_FACTOR_ONLY
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_SIGN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(2x + 4) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add -4 to both sides, then divide both sides by 2: x = -2.'
+- en: The solutions are x = -2 or x = 0.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 87de0bce5b099102701cca9c61c2abb11b5b127e1b1f77fc98212688cad6469c
+  item_hash: 84ca022303cbd5f0e490e568f29215dc1fe90a7feed109cd03b77c763a13639b
   template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
   certificate_hash: 3b1b18bb595d818d57bbfb981d4ceca102eb78ba1c3556f800c63ab10df485a8
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:30:48+00:00'
-  record_hash: 086211bfcb90e80598262e159bc23892c53357c54e0de127326b497001c53cac
+  stamped_at: '2026-11-17T17:41:19+00:00'
+  record_hash: c54e9fb294d8d14db03954456301129f7d4aef3ebb6207b3f54dba068091e33c

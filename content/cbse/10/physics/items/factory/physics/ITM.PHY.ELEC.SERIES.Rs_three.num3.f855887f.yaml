@@ -2,31 +2,12 @@ id: ITM.PHY.ELEC.SERIES.Rs_three.num3.f855887f
 skill_ids:
 - PHY.ELEC.SERIES
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying resistors joined in series. The first resistor, R1, is
     60 Ω, the second resistor, R2, is 30 Ω and the third resistor, R3, is 20 Ω. Find
     the total resistance.
-options:
-- id: a
-  en: 10 Ω
-- id: b
-  en: 0.1 Ω
-- id: c
-  en: 110 Ω
-- id: d
-  en: 36000 Ω
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: in series the resistances add: Rs = R1 + R2 + R3.'
-- en: 'Substitute: Rs = 60 + 30 + 20.'
-- en: 'Calculate: Rs = 110 Ω.'
-- en: So the total resistance is 110 Ω.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -42,15 +23,44 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.SERIES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 Ω
+- id: b
+  en: 0.1 Ω
+- id: c
+  en: 110 Ω
+- id: d
+  en: 36000 Ω
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in series the resistances add: Rs = R1 + R2 + R3.'
+- en: 'Substitute: Rs = 60 + 30 + 20.'
+- en: 'Calculate: Rs = 110 Ω.'
+- en: So the total resistance is 110 Ω.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8ed80c1ab638259bd28932ad280065161fededede7d7d5ff6e9764008ea9c271
+  item_hash: 9c50173865a338c285e205dd7d941e51ad65af11c89b56b0328266e14c2a92d8
   template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
   certificate_hash: f61e44079d439bfdb4b01dc7acbffed92f3e782e8d2bccf0a8a5e038212c2f61
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:56+00:00'
-  record_hash: 8a3880af00e308bf8667cb9a7b706813737a53ecdd3f85675c49cedef569e7cc
+  stamped_at: '2026-11-17T19:37:43+00:00'
+  record_hash: 298578145295e8c6288ab00fe0082d2f6115dc0c964c3d7916cda60767052fa9

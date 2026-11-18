@@ -2,29 +2,11 @@ id: C10.TRIG.HD_LADDER.60_5_length_foot
 skill_ids:
 - MATH.TRIG.HD.LADDER_AND_WALL
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A ladder leans against a vertical wall and makes an angle of 60° with the level
     ground. Its foot is 5 m from the wall. Find the length of the ladder in metres.
-options:
-- id: a
-  en: 5√3/3
-- id: b
-  en: '10'
-- id: c
-  en: 5/2
-- id: d
-  en: 10√3/3
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The ladder is the hypotenuse of the right triangle.
-- en: Known side = ladder x cosine 60°, so ladder = 5 / (1/2).
-- en: 'Simplify: 10 m.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: The ladder is always the longest side of the triangle.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the ladder be longer than the given side?
 status: draft
 template_id: TPL.C10.TRIG.HD_LADDER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5√3/3
+- id: b
+  en: '10'
+- id: c
+  en: 5/2
+- id: d
+  en: 10√3/3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_FOR_SIN_COS
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_SIN_COS_SWAPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ladder is the hypotenuse of the right triangle.
+- en: Known side = ladder x cosine 60°, so ladder = 5 / (1/2).
+- en: 'Simplify: 10 m.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e243963bdfd6748cfc1beffb6245efa946b9ec9a52bea9e93172d7478f4b307e
+  item_hash: 0065f08a63a2eaafe48c171b1a4bf71c978a78c38bd925a9f29316a0a38524f8
   template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
   certificate_hash: 99fbecd710e3bae06352209e1e26d71312c47d5c71cd2271b7d4f632f93a9020
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:00:20+00:00'
-  record_hash: 99aa28b4f572fd77f792980203f51e61f701eca2a9b963efcddd5e755b8fe594
+  stamped_at: '2026-11-17T17:50:51+00:00'
+  record_hash: 3b5987b8ee0427e1447ccb4950002e7ae5d47cd78930191a03f3e5fe4fc89005

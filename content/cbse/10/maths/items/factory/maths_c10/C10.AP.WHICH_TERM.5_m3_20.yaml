@@ -2,30 +2,10 @@ id: C10.AP.WHICH_TERM.5_m3_20
 skill_ids:
 - MATH.ALG.AP.POSITION_OF_TERM
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: In the progression 5, 2, -1, ... the number -52 appears. Which term is it?
-options:
-- id: a
-  en: '21'
-- id: b
-  en: '19'
-- id: c
-  en: '20'
-- id: d
-  en: '-57'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is 5 and the common difference is -3.
-- en: 'Set the nth term equal to -52: 5 + (n - 1)(-3) = -52.'
-- en: 'Take 5 away from both sides: (n - 1)(-3) = -57. Divide both sides by -3: n
-    - 1 = 19.'
-- en: 'Add 1 to both sides: n = 20.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Use the rule for the nth term, but this time n is the thing you do not know.
@@ -41,15 +21,45 @@ prediction_prompt:
   en: Roughly how many steps from the first term will it take to reach this number?
 status: draft
 template_id: TPL.C10.AP.WHICH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '19'
+- id: c
+  en: '20'
+- id: d
+  en: '-57'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - a
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 5 and the common difference is -3.
+- en: 'Set the nth term equal to -52: 5 + (n - 1)(-3) = -52.'
+- en: 'Take 5 away from both sides: (n - 1)(-3) = -57. Divide both sides by -3: n
+    - 1 = 19.'
+- en: 'Add 1 to both sides: n = 20.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c786e60e3d6835963fc14e9453345b979b975015dfe2a6259e7a6cbaee35674e
+  item_hash: ce9a6d79433a30e9b2177455b31683873cdea388769daf3ce68900a237048af3
   template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
   certificate_hash: 135b42793a9179e2b1d1888ed7a052ca4ffe8fd0142c7e8a7da22609a3c73513
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:24:21+00:00'
-  record_hash: ef6b02868349f80a3787a4ec0fc87d4a2fcdcaf36bd734104a27fd3ef7d2caaa
+  stamped_at: '2026-11-17T17:40:16+00:00'
+  record_hash: b75dff7645a8e354963130fb431814d0e3f0ac1be770d8f792beb00dfb8facf5

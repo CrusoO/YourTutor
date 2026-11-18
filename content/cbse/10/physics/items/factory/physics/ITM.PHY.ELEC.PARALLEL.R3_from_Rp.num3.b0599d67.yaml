@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL.R3_from_Rp.num3.b0599d67
 skill_ids:
 - PHY.ELEC.PARALLEL
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying resistors joined in parallel. The first resistor, R1,
     is 60 Ω, the second resistor, R2, is 30 Ω and the combined resistance, Rp, is
     10 Ω. Find the third resistance.
-options:
-- id: a
-  en: 18000 Ω
-- id: b
-  en: 20 Ω
-- id: c
-  en: 100 Ω
-- id: d
-  en: 0.05 Ω
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
-- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
-    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
-- en: 'Substitute: R3 = 1 / (1 / 10 - 1 / 60 - 1 / 30).'
-- en: 'Calculate: R3 = 20 Ω.'
-- en: So the third resistance is 20 Ω.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 18000 Ω
+- id: b
+  en: 20 Ω
+- id: c
+  en: 100 Ω
+- id: d
+  en: 0.05 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
+    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
+- en: 'Substitute: R3 = 1 / (1 / 10 - 1 / 60 - 1 / 30).'
+- en: 'Calculate: R3 = 20 Ω.'
+- en: So the third resistance is 20 Ω.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ab7be33bb5a847d0fb8adc68ea618667bdb8d8fe00db45a4f543155b576f0bd7
+  item_hash: e986cba75232054f5f9ae7d821fad507d2b514d638aea17d6d3c3aa49197a2b1
   template_hash: 0a4fc910ca4396546ccabfa90b3360f969dad5bd14015ef0b68279389f34bdc6
   certificate_hash: 8d9c04f6164d1627797c92cd0844feaa73edc0747e27556f3ae4e8e995b5e683
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:01+00:00'
-  record_hash: f4094aef441c7992c0f189c9dcf19ac79a9f58e704a8f45b92d33dd4a7c17b91
+  stamped_at: '2026-11-17T19:37:53+00:00'
+  record_hash: 9c2ab158cb9b3d2f5f822e5f0ae34ed14248c308ed7ce936240220a94007c100

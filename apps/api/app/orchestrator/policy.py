@@ -1212,10 +1212,12 @@ def _choose_skill(learner: LearnerState, session: SessionState) -> str | None:
             break
     if target is None:
         return _extension_skill(learner, session)
+    # A prerequisite with nothing servable to ask is not a place to send the student: the session
+    # would loop on its worked example and never reach a question.
     weak = [
         sid
         for sid in session.prerequisites.get(target, ())
-        if _p_known(learner, sid, session) < PREREQ_BELOW
+        if _p_known(learner, sid, session) < PREREQ_BELOW and _eligible_items(session, sid, set())
     ]
     if weak:
         return min(weak, key=lambda sid: (_p_known(learner, sid, session), sid))
@@ -1543,7 +1545,11 @@ def _match_misconception(item: CatalogItem, response: str) -> str | None:
 def _prediction_for(session: SessionState, skill: str) -> str:
     for row in session.catalog:
         if row.primary_skill == skill and row.prediction_prompt:
-            return row.prediction_prompt
+            # The prompt often refers to "the first number" or "the coefficient": show the question
+            # it is about, or the student is asked to predict something they have not seen.
+            if not row.stem:
+                return row.prediction_prompt
+            return row.stem + "\n\n" + row.prediction_prompt
     return GENERIC_SOCRATIC
 
 

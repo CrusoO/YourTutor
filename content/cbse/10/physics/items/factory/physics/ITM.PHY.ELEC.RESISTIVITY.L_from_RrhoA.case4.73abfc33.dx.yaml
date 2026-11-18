@@ -1,0 +1,140 @@
+id: ITM.PHY.ELEC.RESISTIVITY.L_from_RrhoA.case4.73abfc33.dx
+skill_ids:
+- PHY.ELEC.RESISTIVITY
+difficulty: 0.8
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates a uniform wire and records the following. Its
+    resistance, R, is 0.8 Ω, the resistivity of its material, rho, is 1 x 10^-6 Ω
+    m and its cross-section area, A, is 0.25 mm². Find the length of the wire.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: R = resistivity x length / area.'
+- level: 2
+  en: 'Get the length on its own before you put numbers in: multiply each side of
+    R = resistivity x L / A by A, then divide each side by the resistivity. Do the
+    same operation to each side of the formula. Change every quantity to SI units
+    first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 0.25 mm² as 2.5 x 10^-7 m², then write L = R x A / rho, where
+    L is the length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the length have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.RESISTIVITY.DX
+generator_version: factory-2
+template_hash: 90857b139a140de2c6bf838e7ec4b01e9d43389e4a28bcc5468030c52d129fb3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20 cm
+- id: b
+  en: 2 x 10^7 cm
+- id: c
+  en: 2 x 10^-11 cm
+- id: d
+  en: 320 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 0.25 mm² = 2.5 x 10^-7 m².'
+- en: 'Get the length alone: multiply each side of R = resistivity x L / A by A, then
+    divide each side by the resistivity.'
+- en: 'Substitute: L = 0.8 x (2.5 x 10^-7) / (1 x 10^-6).'
+- en: 'Calculate: L = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the length is 20 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fe1fb735cb7e8b25cdc390d89a8f2464e92c5b9cfe0f881024834b036805a09a
+  template_hash: 90857b139a140de2c6bf838e7ec4b01e9d43389e4a28bcc5468030c52d129fb3
+  certificate_hash: 3b2eaaa2a004d759f1ec6a63ba385afce08f14edc0ac1f18eb3b27596c8d434a
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:31:12+00:00'
+  record_hash: 1ae1944f4a509e1fbc68d2ddab709bcbaaad4a5b950d7a44006abbc492c0b4de

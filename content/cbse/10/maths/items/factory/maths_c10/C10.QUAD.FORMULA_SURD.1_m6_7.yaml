@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.1_m6_7
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve x² - 6x + 7 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = 6 ± √2
-- id: b
-  en: x = 3 ± √2
-- id: c
-  en: x = -3 ± √2
-- id: d
-  en: x = 6 ± 2√2
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The coefficients are 1, -6 and 7.
-- en: The discriminant is -6² - 4 x 1 x 7 = 8, which is positive but not a perfect
-    square.
-- en: So x = (-(-6) ± √8) / 2, and the square root is simplified as far as it will
-    go.
-- en: x = 3 ± √2.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Work out the discriminant first; it tells you what kind of roots to expect.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 6 ± √2
+- id: b
+  en: x = 3 ± √2
+- id: c
+  en: x = -3 ± √2
+- id: d
+  en: x = 6 ± 2√2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 1, -6 and 7.
+- en: The discriminant is -6² - 4 x 1 x 7 = 8, which is positive but not a perfect
+    square.
+- en: So x = (-(-6) ± √8) / 2, and the square root is simplified as far as it will
+    go.
+- en: x = 3 ± √2.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e6667aa6531da78028ee02e69a039e949fc7bf6a45d59f558d70e0cbae48a792
+  item_hash: ad626c1a7e427698333dfe02d96bac5994da4b00f62d290e5d2f130f6020b564
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 68989c43eb289f92458055558f2f8b17bb282e6d3f63ebad55b40d00fe2a5c58
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:45+00:00'
-  record_hash: dd69e02ede0717ad0249908a5f7b9be98e5dc9a4eee5904d2c278a61b1851f57
+  stamped_at: '2026-11-17T17:43:44+00:00'
+  record_hash: a275fd8eafdf6836909659d66a9032cde3fde5aa262e57fbec8b0d1b381e4a3a

@@ -2,31 +2,12 @@ id: C10.TRIG.HD_TWO.2_8_0
 skill_ids:
 - MATH.TRIG.HD.TWO_POSITIONS
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: From a point on level ground the angle of elevation of the top of a tower is
     30°. After walking 16 m towards the foot of the tower along a straight line, the
     angle of elevation becomes 45°. What is the height of the tower in metres?
-options:
-- id: a
-  en: 16√3/3
-- id: b
-  en: 8 + 8√3
-- id: c
-  en: '16'
-- id: d
-  en: -8 + 8√3
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let the tower be h m high. Seen at 30° the ground distance is h / tan 30°; seen
-    at 45° it is h / tan 45°.
-- en: 'The two distances differ by the 16 m walked: h / tan 30° - h / tan 45° = 16.'
-- en: 'Put in the exact values of the tangents and solve for h: h = 8 + 8√3 m.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: The distance walked is the difference between the two ground distances.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the tower taller or shorter than the distance walked?
 status: draft
 template_id: TPL.C10.TRIG.HD_TWO
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16√3/3
+- id: b
+  en: 8 + 8√3
+- id: c
+  en: '16'
+- id: d
+  en: -8 + 8√3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_FIRST_ANGLE_ONLY
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SEPARATION_AS_HEIGHT
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_DISTANCES_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the tower be h m high. Seen at 30° the ground distance is h / tan 30°; seen
+    at 45° it is h / tan 45°.
+- en: 'The two distances differ by the 16 m walked: h / tan 30° - h / tan 45° = 16.'
+- en: 'Put in the exact values of the tangents and solve for h: h = 8 + 8√3 m.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 57035d06853ca10db7bbcc5cd1f41e4fd5b070d94758b883b0dbb96fd3e1824b
+  item_hash: 800b071a3b2876d42c638609b1936ba807426088fe6c1e60aa8d7d4494419f4e
   template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
   certificate_hash: 09a37a9def85dd0a8eb74118a41288946e7bb950ac9e17e1869c23319aa55fc9
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:01:04+00:00'
-  record_hash: 51cef3c492223a4002df37f4b6913242c5ae1f308d521f6b6d5a86413ad82ab2
+  stamped_at: '2026-11-17T17:51:27+00:00'
+  record_hash: 52ab84313fcea36cee7b30858ffb482d1e6e4dda1299505f7cf2a9677676f115

@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.3_m2_m1_0
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Which of these values of x satisfies the equation 3x² + 9x + 6 = 0?
-options:
-- id: a
-  en: '9'
-- id: b
-  en: '-2'
-- id: c
-  en: '6'
-- id: d
-  en: '2'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = -2: 3(-2)² + (9)(-2) + (6) = 0.'
-- en: The left side is 0, so x = -2 satisfies the equation.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Test each choice by putting it in place of x.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '-2'
+- id: c
+  en: '6'
+- id: d
+  en: '2'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_COEFFICIENT_USED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = -2: 3(-2)² + (9)(-2) + (6) = 0.'
+- en: The left side is 0, so x = -2 satisfies the equation.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6e0d3174e01df09925dd5935276377d507154e9072c1733fc3ed1172b6254731
+  item_hash: 3d3baff206a608480c09b70931e43b1b49246023544a73c380ee0c7c24220325
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: 6b029f0d400303d117440d409c9221e8a3a0fcd328993c03f626db1584bafa65
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:30+00:00'
-  record_hash: de2525b2f0291acfcb6a1c0eb82d69adf53153e926c6f69c754502db4f3f152d
+  stamped_at: '2026-11-17T17:41:01+00:00'
+  record_hash: aa5d6a4006570e4fd19b320c14af3b70c4ffb1c6c83e7ea0cf37e8ff9ed55e54

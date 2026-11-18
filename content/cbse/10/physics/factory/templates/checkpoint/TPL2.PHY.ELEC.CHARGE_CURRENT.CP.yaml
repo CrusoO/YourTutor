@@ -1,0 +1,43 @@
+id: TPL2.PHY.ELEC.CHARGE_CURRENT.CP
+schema: factory-template/1
+lane: physics
+model: ELEC.CHARGE_CURRENT
+skill_id: PHY.ELEC.CHARGE_CURRENT
+box:
+  I:
+    choices:
+    - '0.5'
+    - '50'
+  form:
+    choices:
+    - mcq1
+    - case4
+  iu:
+    choices:
+    - A
+    - mA
+  t:
+    choices:
+    - '2'
+    - '30'
+  tu:
+    choices:
+    - s
+    - min
+  variant:
+    choices:
+    - Q_from_It
+    - t_from_QI
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.CHARGE_CURRENT
+  allowed_methods:
+  - charge_current_time
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: checkpoint

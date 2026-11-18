@@ -2,30 +2,10 @@ id: C10.AP.WHICH_TERM.2_6_12
 skill_ids:
 - MATH.ALG.AP.POSITION_OF_TERM
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which term of the AP 2, 8, 14, ... is 68?
-options:
-- id: a
-  en: '12'
-- id: b
-  en: '11'
-- id: c
-  en: '66'
-- id: d
-  en: '13'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The first term is 2 and the common difference is 6.
-- en: 'Set the nth term equal to 68: 2 + (n - 1)(6) = 68.'
-- en: 'Take 2 away from both sides: (n - 1)(6) = 66. Divide both sides by 6: n - 1
-    = 11.'
-- en: 'Add 1 to both sides: n = 12.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the rule for the nth term and make it equal to the given number.
@@ -41,15 +21,45 @@ prediction_prompt:
   en: Roughly how many steps from the first term will it take to reach this number?
 status: draft
 template_id: TPL.C10.AP.WHICH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '12'
+- id: b
+  en: '11'
+- id: c
+  en: '66'
+- id: d
+  en: '13'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 2 and the common difference is 6.
+- en: 'Set the nth term equal to 68: 2 + (n - 1)(6) = 68.'
+- en: 'Take 2 away from both sides: (n - 1)(6) = 66. Divide both sides by 6: n - 1
+    = 11.'
+- en: 'Add 1 to both sides: n = 12.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1c7d65e830db0f59857b1ba0711eba7aa9659451dfd9c2e692be78a5882270d7
+  item_hash: e4dc0b19d0bfc9f9b9f3629da513a9d94b30b692bfa3698a40d60b2627f9ab29
   template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
   certificate_hash: 4ef8e7fbb6b89f9d2a1785c23a01f379aed224773dc448755fba402353a4d230
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:24:21+00:00'
-  record_hash: b4346ac7c4cfac3364e2813b2a1191f2b362f76296d905f3278f28e9d5038a1c
+  stamped_at: '2026-11-17T17:40:15+00:00'
+  record_hash: 0e4dcac14534bbd624b0d06de8252e9890cb90d29a60e01dc74482efa3f9c16d

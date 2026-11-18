@@ -31,7 +31,14 @@ from app.factory.registry import REGISTRY, Lane
 from app.factory.runner import build_item, certify_lane_template, template_hash
 from app.factory.stamp import StampRefused, stamp
 
-LANE_MODULES = ("app.factory.lanes.maths_quadratic",)  # a new lane adds its module here
+# a new lane adds its module here; importing it registers the lane
+TEMPLATE_SCHEMA = "factory-template/1"
+NL = chr(10)
+LANE_MODULES = (
+    "app.factory.lanes.maths_quadratic",
+    "app.factory.lanes.maths",
+    "app.factory.lanes.physics",
+)
 
 
 def _root(arg: Path | None) -> Path:
@@ -221,6 +228,123 @@ def cmd_stamp(args: argparse.Namespace) -> int:
     return 0 if stamped else 1
 
 
+def cmd_derive(args: argparse.Namespace) -> int:
+    """Write the variant (diagnostic, explain, checkpoint) of one template per skill."""
+    from app.factory.variants import derive, one_per_skill
+
+    sources = [
+        yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(args.source.glob("*.yaml"))
+    ]
+    templates = [t for t in sources if isinstance(t, dict) and t.get("schema") == TEMPLATE_SCHEMA]
+    args.out.mkdir(parents=True, exist_ok=True)
+    chosen = one_per_skill(templates)
+    for template in chosen:
+        variant = derive(template, args.kind)
+        (args.out / f"{variant['id']}.yaml").write_text(
+            yaml.safe_dump(variant, sort_keys=False, allow_unicode=True),
+            encoding="utf-8",
+            newline="\n",
+        )
+    print(f"wrote {len(chosen)} {args.kind} templates into {args.out}")
+    return 0
+
+
+def cmd_variants(args: argparse.Namespace) -> int:
+    """Derive, certify and stamp the variants of every template in --source, in one process.
+
+    Safe to rerun: a variant whose certificate is current is not certified again, and one that
+    already has its items is not stamped again. Nothing is hand-typed: both steps are the real
+    `certify` and `stamp` commands.
+    """
+    from app.factory.variants import KINDS, derive, one_per_skill
+
+    root = _root(args.root)
+    sources = [
+        yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(args.source.glob("*.yaml"))
+    ]
+    templates = [t for t in sources if isinstance(t, dict) and t.get("schema") == TEMPLATE_SCHEMA]
+    failed = 0
+    for kind in args.kind:
+        out_dir = root / "factory" / "templates" / kind
+        out_dir.mkdir(parents=True, exist_ok=True)
+        suffix = KINDS[kind]["suffix"]
+        for source in one_per_skill(templates):
+            if args.skill and args.skill not in str(source["skill_id"]):
+                continue
+            variant = derive(source, kind, args.max_tuples)
+            path = out_dir / f"{variant['id']}.yaml"
+            path.write_text(
+                yaml.safe_dump(variant, sort_keys=False, allow_unicode=True),
+                encoding="utf-8",
+                newline="\n",
+            )
+            lane = _load_template(path)[1]
+            if not _certified(root, lane, variant):
+                certify = argparse.Namespace(
+                    root=root,
+                    template=path,
+                    seed=0,
+                    max_exhaustive=kernel.certify.MAX_EXHAUSTIVE,
+                    reference_index=None,
+                    no_reference_index=True,
+                )
+                if cmd_certify(certify) != 0:
+                    failed += 1
+                    continue
+            have = _variant_items(root, lane.name, str(variant["id"]), suffix)
+            if have >= args.count:
+                continue
+            stamp_args = argparse.Namespace(
+                root=root,
+                template=path,
+                count=args.count - have,
+                seed=args.seed + have,
+                reference_index=None,
+                no_reference_index=True,
+            )
+            if cmd_stamp(stamp_args) != 0:
+                failed += 1
+    return 1 if failed else 0
+
+
+def _certified(root: Path, lane: Lane, template: dict[str, Any]) -> bool:
+    cert_file = _cert_path(root, str(template["id"]))
+    if not cert_file.is_file():
+        return False
+    body = json.loads(cert_file.read_text(encoding="utf-8"))["certificate"]
+    return bool(
+        body["subject"]["template_hash"] == template_hash(lane, template)
+        and kernel.certificate_is_current(body)
+    )
+
+
+def _variant_items(root: Path, lane_name: str, template_id: str, suffix: str) -> int:
+    folder = root / "items" / "factory" / lane_name
+    count = 0
+    for path in folder.glob(f"*.{suffix.lower()}.yaml") if folder.is_dir() else []:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        count += isinstance(data, dict) and data.get("template_id") == template_id
+    return count
+
+
+def cmd_forms(args: argparse.Namespace) -> int:
+    """Write the matched A/B checkpoint forms of each chapter from its stamped checkpoint items."""
+    from app.factory.forms import build_forms
+
+    root = _root(args.root)
+    forms = build_forms(root, minimum=args.minimum)
+    folder = root / "checkpoints"
+    folder.mkdir(parents=True, exist_ok=True)
+    for form in forms:
+        (folder / f"{form['checkpoint_id'].lower()}.yaml").write_text(
+            yaml.safe_dump(form, sort_keys=False), encoding="utf-8", newline=NL
+        )
+        print(f"{form['id']}: {len(form['A'])} matched pairs")
+    if not forms:
+        print("no chapter has enough matched checkpoint pairs")
+    return 0 if forms else 1
+
+
 def _stamped_items(root: Path) -> list[dict[str, Any]]:
     out = []
     for path in sorted((root / "items" / "factory").rglob("*.yaml")):
@@ -341,6 +465,28 @@ def build_parser() -> argparse.ArgumentParser:
     st.add_argument("--seed", type=int, default=0)
     with_index(st)
     st.set_defaults(run=cmd_stamp)
+
+    der = sub.add_parser("derive", help="write diagnostic/explain/checkpoint variant templates")
+    der.add_argument("kind", choices=["diagnostic", "explain", "checkpoint"])
+    der.add_argument("--source", type=Path, required=True, help="folder of factory templates")
+    der.add_argument("--out", type=Path, required=True)
+    der.set_defaults(run=cmd_derive)
+
+    frm = sub.add_parser("forms", help="write matched A/B checkpoint forms per chapter")
+    frm.add_argument("--minimum", type=int, default=10, help="smallest number of matched pairs")
+    frm.set_defaults(run=cmd_forms)
+
+    var = sub.add_parser("variants", help="derive, certify and stamp variants (resumable)")
+    var.add_argument("--source", type=Path, required=True, help="folder of factory templates")
+    var.add_argument(
+        "--kind", nargs="+", default=["diagnostic", "explain", "checkpoint"],
+        choices=["diagnostic", "explain", "checkpoint"],
+    )  # fmt: skip
+    var.add_argument("--count", type=int, default=2, help="items per variant template")
+    var.add_argument("--seed", type=int, default=3)
+    var.add_argument("--skill", default="", help="only skills whose id contains this text")
+    var.add_argument("--max-tuples", type=int, default=120, help="box size cap per variant")
+    var.set_defaults(run=cmd_variants)
 
     aud = sub.add_parser("audit-sample", help="list a random and a PPS sample of stamped items")
     aud.add_argument("--rate", type=float, default=0.02)

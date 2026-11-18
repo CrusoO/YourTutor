@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.mcq1.9c454b9d.ex
+skill_ids:
+- PHY.ELEC.CHARGE_CURRENT
+difficulty: 0.35
+pool: practice
+role: explain
+stem:
+  en: The charge, Q, is 0.6 C and the time, t, is 2 min. What is the current? A classmate
+    says the answer is 72000 mA. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: charge Q = current I x time t.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of Q
+    = I x t by t. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 min as 120 s, then write I = Q / t, where I is the current,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.CHARGE_CURRENT.EX
+generator_version: factory-2
+template_hash: 737f8252bb0bfad3dbad01607b9e6afe43dff23967b9880a88246ebe951c6013
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 72000 mA
+- id: b
+  en: 5 mA
+- id: c
+  en: 200000 mA
+- id: d
+  en: 300 mA
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 0.6 / 120.'
+- en: 'Calculate: I = 0.005 A.'
+- en: 'Give it in mA: 5 mA.'
+- en: So the current is 5 mA.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 142a7cb331cf2378636b7a0e0e7c17253d30f6a16c78a4f30dc0d5efe450e958
+  template_hash: 737f8252bb0bfad3dbad01607b9e6afe43dff23967b9880a88246ebe951c6013
+  certificate_hash: 39932aec13a400cc0a03b2393f52b8c235b09aa63cdd4748b2fe14cf64d8c013
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:38:55+00:00'
+  record_hash: 56d2487970e3ea2fe3dda0ea34a95c62d4fbd866d404856404dd8ff8c187173b

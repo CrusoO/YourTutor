@@ -1,0 +1,130 @@
+id: C10.AP.DIFFERENCE.DX.9_1_2.dx
+skill_ids:
+- MATH.ALG.AP.COMMON_DIFFERENCE
+difficulty: 0.16
+pool: diagnostic
+role: recall
+stem:
+  en: Find the common difference of the list 9/2, 5, 11/2, 6, ...
+hints:
+- level: 1
+  en: Subtract each term from the one after it and see what you get.
+- level: 2
+  en: Take the later term and subtract the earlier one, keeping the order and the
+    sign. Then try another pair to be sure the jump is the same.
+- level: 3
+  en: 'Full method: pick two neighbouring terms, subtract the earlier from the later,
+    check with another pair, and keep the sign: a falling list has a negative difference.'
+prediction_prompt:
+  en: Is the list going up or down, and by roughly how much each step?
+status: draft
+template_id: TPL.C10.AP.DIFFERENCE.DX
+generator_version: factory-2
+template_hash: 7da4f86cc27af21bbb4f2ec125608d9944b7a2d4aa4ebeb6895adb086a0fbd4d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 9/2
+- id: b
+  en: 1/2
+- id: c
+  en: -1/2
+- id: d
+  en: 10/9
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_FIRST_TERM_GIVEN
+  when_answer_equals:
+  - a
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - c
+- id: MC.AP.DIFF_AS_RATIO
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In an AP every term is the previous term plus the same number, the common difference.
+- en: 'Subtract a term from the one after it: 5 - (9/2) = 1/2.'
+- en: 'Check with another pair: 11/2 - (5) = 1/2. The common difference is 1/2.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1c21aabc1b0873868cb4f3920f59fcc80910556492ada1081a32d17c7a8e2ab2
+  template_hash: 7da4f86cc27af21bbb4f2ec125608d9944b7a2d4aa4ebeb6895adb086a0fbd4d
+  certificate_hash: 81a1ba4feb41d36d2245f0081804930f54fa8d3bbaf414d531c652a227348da9
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:00:30+00:00'
+  record_hash: 5f3b2ba9bb8cf3d0d6c49060fee5ddaae443344d05f0d30f5f56520345082f7a

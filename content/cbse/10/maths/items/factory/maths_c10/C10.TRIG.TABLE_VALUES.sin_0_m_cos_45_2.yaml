@@ -2,29 +2,10 @@ id: C10.TRIG.TABLE_VALUES.sin_0_m_cos_45_2
 skill_ids:
 - MATH.TRIG.STANDARD_ANGLE_VALUES
 difficulty: 0.42
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Find the value of sin² 0° - cos² 45°.
-options:
-- id: a
-  en: -1/2
-- id: b
-  en: '0'
-- id: c
-  en: 1/2
-- id: d
-  en: -√2/2
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
-- en: sin 0° = 0 and cos 45° = √2/2.
-- en: Square each value before combining, because the squares apply to the values.
-- en: 'Combine them: the result is -1/2.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write each ratio as its exact value first, then combine.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Will the answer be a whole number, a fraction or involve a square root?
 status: draft
 template_id: TPL.C10.TRIG.TABLE_VALUES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -1/2
+- id: b
+  en: '0'
+- id: c
+  en: 1/2
+- id: d
+  en: -√2/2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.OPERATION_MIXED_UP
+  when_answer_equals:
+  - b
+- id: MC.TRIG.SWAPPED_SIN_COS_VALUES
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SQUARE_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
+- en: sin 0° = 0 and cos 45° = √2/2.
+- en: Square each value before combining, because the squares apply to the values.
+- en: 'Combine them: the result is -1/2.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4548affea55779de1effdcda7a5c7d6ef1ee8be9aff5335d87dd002868abea20
+  item_hash: 3e91af1161b078718444942e11dc9b22950949b1274d11edee905f4ecf3589c9
   template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
   certificate_hash: e756622587c5d3a00443da9394fe500cd77056684bbb89a8e253a0423195c509
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:02:35+00:00'
-  record_hash: ba593e7e516ecee59f84c9eb0b3e846e9df2ee0c0304b68a0f071ac82a88e291
+  stamped_at: '2026-11-17T17:52:30+00:00'
+  record_hash: 45321a716ded5918fe007cd8ad13a139d9bad6f668a23ebf75dc8d262b74110f

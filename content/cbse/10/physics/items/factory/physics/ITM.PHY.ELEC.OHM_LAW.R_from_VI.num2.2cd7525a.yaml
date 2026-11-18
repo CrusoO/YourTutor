@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.OHM_LAW.R_from_VI.num2.2cd7525a
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about a resistor in a circuit. The potential difference across
     it, V, is 200 V and the current through it, I, is 2 A. Find the resistance of
     the resistor.
-options:
-- id: a
-  en: 100 Ω
-- id: b
-  en: 0.01 Ω
-- id: c
-  en: 400 Ω
-- id: d
-  en: 198 Ω
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Get the resistance alone: divide each side of V = I x R by I.'
-- en: 'Substitute: R = 200 / 2.'
-- en: 'Calculate: R = 100 Ω.'
-- en: So the resistance is 100 Ω.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -43,15 +23,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 Ω
+- id: b
+  en: 0.01 Ω
+- id: c
+  en: 400 Ω
+- id: d
+  en: 198 Ω
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Get the resistance alone: divide each side of V = I x R by I.'
+- en: 'Substitute: R = 200 / 2.'
+- en: 'Calculate: R = 100 Ω.'
+- en: So the resistance is 100 Ω.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7dff7039944313ca7b2a9a85dc5158186b46afc40b3d34738c34df04cd0ee40f
+  item_hash: 5bfcef33c979b1b9b6d6148e6b4e9eb15e54045f99ba233cb5ddcff2cf9901f4
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: c70a9eaac4c8428dd83f97f58bbb00eca6a75bfabf220dc396d53b699b2ed2ac
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:45+00:00'
-  record_hash: 30eb58ed5f288f94168b34ea3a611786856244986caca0e27ad68f0335b45736
+  stamped_at: '2026-11-17T19:37:26+00:00'
+  record_hash: 3f28f3221f0fea6672626f91e5dea6e3558d611f175b058d3e907956aa8cc365

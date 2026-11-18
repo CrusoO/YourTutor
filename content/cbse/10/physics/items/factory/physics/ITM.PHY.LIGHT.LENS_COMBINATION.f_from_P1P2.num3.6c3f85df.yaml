@@ -2,35 +2,12 @@ id: ITM.PHY.LIGHT.LENS_COMBINATION.f_from_P1P2.num3.6c3f85df
 skill_ids:
 - PHY.LIGHT.LENS_COMBINATION
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying two thin lenses in contact. The first lens is a convex
     lens with power of magnitude 1 D and the second lens is a concave lens with power
     of magnitude 5 D. Find the focal length of the combination in cm, with its sign.
-options:
-- id: a
-  en: 16.7 cm
-- id: b
-  en: -25 cm
-- id: c
-  en: 80 cm
-- id: d
-  en: -20 cm
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: the powers add, then f = 1 / P, in metres.'
-- en: 'Put each quantity in SI units with its sign: P1 = 1 D; P2 = -5 D.'
-- en: 'Get the combined focal length alone: add the powers, then take the reciprocal
-    of each side of P = 1 / f.'
-- en: 'Substitute: f = 1 / (1 + (-5)).'
-- en: 'Calculate: f = -0.25 m.'
-- en: 'Give it in cm: -25 cm.'
-- en: So the combined focal length is -25 cm.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -49,15 +26,48 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_COMBINATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16.7 cm
+- id: b
+  en: -25 cm
+- id: c
+  en: 80 cm
+- id: d
+  en: -20 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_SIGN_IGNORED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWERS_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the powers add, then f = 1 / P, in metres.'
+- en: 'Put each quantity in SI units with its sign: P1 = 1 D; P2 = -5 D.'
+- en: 'Get the combined focal length alone: add the powers, then take the reciprocal
+    of each side of P = 1 / f.'
+- en: 'Substitute: f = 1 / (1 + (-5)).'
+- en: 'Calculate: f = -0.25 m.'
+- en: 'Give it in cm: -25 cm.'
+- en: So the combined focal length is -25 cm.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 40b9cf3f9f03a4ef03a38d208def947ae7230cf76ad1b19e57a0bf0f93b806c5
+  item_hash: 560de24bf3d895d20426edf7ce369ab3ebc8b0079fff2f0b1f25e1e4ab970984
   template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
   certificate_hash: 6a847e50c02b0f9aa2f6a10d87523f404a6d8aaafe1c51111101972b3502b7b8
   label: calculation-checked
@@ -122,10 +132,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:02+00:00'
-  record_hash: e3b9dc4fcfdf4f6c19c72c79bd7d863ad97c7edb7a3b0d82c318edd76db38bf4
+  stamped_at: '2026-11-17T19:41:07+00:00'
+  record_hash: 989d0316c6bfb88e26cb5b8405e189cac6df1669a9164aa8468319fcb9f1ffad

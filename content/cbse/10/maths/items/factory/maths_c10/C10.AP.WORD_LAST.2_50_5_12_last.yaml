@@ -2,29 +2,12 @@ id: C10.AP.WORD_LAST.2_50_5_12_last
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.51
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A library puts books on display. On day 1 it shows 50 books and each day it
     shows 5 more than the day before, for 12 days. How many books are on display on
     the last day?
-options:
-- id: a
-  en: '105'
-- id: b
-  en: '66'
-- id: c
-  en: '110'
-- id: d
-  en: '100'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 50 and common difference 5.
-- en: The last amount is a_12 = 50 + (12 - 1)(5) = 105.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the amounts as one list and look at what changes from one step to the
@@ -40,15 +23,42 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '105'
+- id: b
+  en: '66'
+- id: c
+  en: '110'
+- id: d
+  en: '100'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 50 and common difference 5.
+- en: The last amount is a_12 = 50 + (12 - 1)(5) = 105.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 79b323300c093197c83ea21ce043a84ff911407b10fec78dfdc20606793620c9
+  item_hash: 9f1a1bfc7199bc5e4f6c135ab33f8784c53ff68c515f9b9519f754e81ff01355
   template_hash: 33799c2f59d2b093316f67df7317fe882d122ae6d03da95dc5822b78a7eb1d1a
   certificate_hash: be69043336e796738f19caf75425d6d28b7a6e9338aba94a94bb154982a906d1
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:25:31+00:00'
-  record_hash: ee8760b953c271ec58ac9b5a9b09ccaa8f64e1250737b4dd0b7c34b657474d76
+  stamped_at: '2026-11-17T17:40:30+00:00'
+  record_hash: cfd4ee792f3a5b84d11d8a278f30f157332ae75427a9953d756bca16f0e1098b

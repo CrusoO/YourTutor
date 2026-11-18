@@ -2,30 +2,10 @@ id: C10.AP.WHICH_TERM.9_m2_15
 skill_ids:
 - MATH.ALG.AP.POSITION_OF_TERM
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which term of the AP 9, 7, 5, ... is -19?
-options:
-- id: a
-  en: '15'
-- id: b
-  en: '16'
-- id: c
-  en: '-28'
-- id: d
-  en: '14'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The first term is 9 and the common difference is -2.
-- en: 'Set the nth term equal to -19: 9 + (n - 1)(-2) = -19.'
-- en: 'Take 9 away from both sides: (n - 1)(-2) = -28. Divide both sides by -2: n
-    - 1 = 14.'
-- en: 'Add 1 to both sides: n = 15.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the rule for the nth term and make it equal to the given number.
@@ -41,15 +21,45 @@ prediction_prompt:
   en: Roughly how many steps from the first term will it take to reach this number?
 status: draft
 template_id: TPL.C10.AP.WHICH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '15'
+- id: b
+  en: '16'
+- id: c
+  en: '-28'
+- id: d
+  en: '14'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - b
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 9 and the common difference is -2.
+- en: 'Set the nth term equal to -19: 9 + (n - 1)(-2) = -19.'
+- en: 'Take 9 away from both sides: (n - 1)(-2) = -28. Divide both sides by -2: n
+    - 1 = 14.'
+- en: 'Add 1 to both sides: n = 15.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7fd9147756b0085807631e404adda014db238dc86367016865426d790423f1f8
+  item_hash: d0efe5265c872ef905ff7857e56354af0bbcb1b61ec679efb33fe2d1d36716ea
   template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
   certificate_hash: d31b6175c178c7606d5028eb2cff351914747795522e0c463434be0dc50e15d0
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:24:19+00:00'
-  record_hash: a2a908aad03aae19fb21075f1618b31868b9987fb6026012ea3ebb03b4925ad0
+  stamped_at: '2026-11-17T17:40:14+00:00'
+  record_hash: d1079bc28810fba4db4dd795396eab4b88fbb84736feb95fac3b7e18558a6c68

@@ -2,28 +2,10 @@ id: C10.QUAD.K_LEAD.4_3
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The equation kx² + 24x + 4 = 0 has repeated roots. What is k?
-options:
-- id: a
-  en: k = 36
-- id: b
-  en: k = -36
-- id: c
-  en: k = 72
-- id: d
-  en: k = 144
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Equal roots need b² - 4ac = 0, so (24)² - 4(k)(4) = 0.
-- en: 'This gives 576 - 16k = 0. Add 16k to both sides: 16k = 576.'
-- en: 'Divide both sides by 16: k = 36.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write the discriminant with k as one of the coefficients and make it zero.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will k have the same sign as the plain number?
 status: draft
 template_id: TPL.C10.QUAD.K_LEAD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = 36
+- id: b
+  en: k = -36
+- id: c
+  en: k = 72
+- id: d
+  en: k = 144
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (24)² - 4(k)(4) = 0.
+- en: 'This gives 576 - 16k = 0. Add 16k to both sides: 16k = 576.'
+- en: 'Divide both sides by 16: k = 36.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8788a8bb2fc75a3decec4056798fb819cab3d93a9613e366bcc9d249cba75fcc
+  item_hash: 2448cde4302c70699bd95dced92822eca715b0ae139153277eb42a84ba1ba239
   template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
   certificate_hash: 2852ee8630036e2c3145565231b1b1a2fa9d619ce849072370826c59ed5a3a83
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:45:29+00:00'
-  record_hash: 415af54bdcb77dc2d2db3f641078bff26539ff5ce84384a645f09b0855c43875
+  stamped_at: '2026-11-17T17:44:04+00:00'
+  record_hash: 5044970b7115a28e532acd04a12211af1d58df61bcf402cf03ac95c04efa0124

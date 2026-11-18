@@ -1,0 +1,133 @@
+id: C10.QUAD.FORM_FROM_ROOTS.EX.2_m5_m3.ex
+skill_ids:
+- MATH.ALG.QUAD.FORM_FROM_ROOTS
+difficulty: 0.44
+pool: practice
+role: explain
+stem:
+  en: Which quadratic equation has the roots -5 and -3? The coefficient of x² is 2.
+    A classmate says the answer is 2x² - 16x + 30 = 0. Work it out yourself and choose
+    the correct answer.
+hints:
+- level: 1
+  en: A root tells you one bracket of the factorised form.
+- level: 2
+  en: 'To find each factor, undo x equals the root by doing the same thing to each
+    side: take the root away from each side. Then multiply the two factors and collect
+    terms.'
+- level: 3
+  en: 'Full method: write one factor for each root, multiply the two brackets, collect
+    like terms, then multiply every term by the stated leading coefficient.'
+prediction_prompt:
+  en: Will the x coefficient be the sum of the roots or its opposite?
+status: draft
+template_id: TPL.C10.QUAD.FORM_FROM_ROOTS.EX
+generator_version: factory-2
+template_hash: 74c415013812b21ce84bf662a6743594918db95e3253b14207523f97184367ee
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2x² + 16x - 30 = 0
+- id: b
+  en: 2x² + 16x + 30 = 0
+- id: c
+  en: 2x² - 16x + 30 = 0
+- id: d
+  en: 2x² - 30x - 16 = 0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (-5)) and (x - (-3)).
+- en: 'Multiply them: x² - (-8)x + (15).'
+- en: 'Multiply by the leading coefficient 2 if it is not 1: 2x² + 16x + 30 = 0.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3240f1d68e0b3fda7f5aee7d0a156a7f492dcfbbafb69c233d20c5cd903a18b3
+  template_hash: 74c415013812b21ce84bf662a6743594918db95e3253b14207523f97184367ee
+  certificate_hash: 5ab6be882a1a7699e06065640890029cdb8c0959fe46d417bdd71c17a360f88d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.form.closed
+  - maths.form.sympy
+  - maths.form.interp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:09:12+00:00'
+  record_hash: 630ad3dbea307ca853a0121aa3bfa7b67a0c60979558dfd24d8384fa3f20efee

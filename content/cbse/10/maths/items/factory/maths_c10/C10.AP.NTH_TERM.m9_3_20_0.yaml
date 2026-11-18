@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.m9_3_20_0
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.31
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: What is the 20th term of the progression -9, -6, -3, ...?
-options:
-- id: a
-  en: '51'
-- id: b
-  en: '48'
-- id: c
-  en: '13'
-- id: d
-  en: '-66'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is -9 and the common difference is 3.
-- en: The nth term is first term + (n - 1) x difference, so a_20 = -9 + (20 - 1)(3).
-- en: a_20 = -9 + 57 = 48.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Each step adds the common difference; count the steps from the first term.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '51'
+- id: b
+  en: '48'
+- id: c
+  en: '13'
+- id: d
+  en: '-66'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -9 and the common difference is 3.
+- en: The nth term is first term + (n - 1) x difference, so a_20 = -9 + (20 - 1)(3).
+- en: a_20 = -9 + 57 = 48.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d92c640537335fd4570a54b44b3c1a6229465bbe6e7e4c499a64f73e27a4e173
+  item_hash: 6309e3e380a37dee20d9a3dda84e85e34ff1a3cb6821283fd61a2fbace068eb7
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: 64528384a1a88c35dd1ab935346c98d8c2ff734c1b10890c5b247d3adedc18b8
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:21+00:00'
-  record_hash: 0079d290db414ca3021b0bb64fbb2235c97c75d8b54a5133a398bd88b5ec1fb4
+  stamped_at: '2026-11-17T17:39:04+00:00'
+  record_hash: 27d5062107aabb06962f5dcf7ed9dafb1043da7f0c651ca6e67404a957253aac
