@@ -1,0 +1,140 @@
+id: ITM.PHY.LIGHT.MIRROR_FOCAL.R_from_f.mcq1.bc764b9a.ex
+skill_ids:
+- PHY.LIGHT.MIRROR_FOCAL
+difficulty: 0.35
+pool: practice
+role: explain
+stem:
+  en: The focal length of the concave mirror, f, is 12 cm. Find the radius of curvature,
+    with its sign. A classmate says the answer is 24 cm. Work it out yourself and
+    choose the correct answer.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: the radius of curvature is twice the focal length: R = 2f, with
+    signs from the convention.'
+- level: 2
+  en: The relation already gives the radius of curvature directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked. Give each distance its sign by the Cartesian convention before you
+    substitute.
+- level: 3
+  en: 'First step: Write 12 cm as -0.12 m, then write R = 2 x f, where R is the radius
+    of curvature, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the radius of curvature have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL.EX
+generator_version: factory-2
+template_hash: 94a10b6a93c0b44880f6d37bacfcbecfbf788c7c66aaedfaefff85ca6c153aa2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -24 cm
+- id: b
+  en: 24 cm
+- id: c
+  en: -2400 cm
+- id: d
+  en: -12 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the radius of curvature is twice the focal length: R =
+    2f, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: f = -0.12 m.'
+- en: 'Substitute: R = 2 x (-0.12).'
+- en: 'Calculate: R = -0.24 m.'
+- en: 'Give it in cm: -24 cm.'
+- en: So the radius of curvature is -24 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: aab156b695da187479eede541a1dc9ae5c4ad70250cedb0c9cdd97fbd98f688d
+  template_hash: 94a10b6a93c0b44880f6d37bacfcbecfbf788c7c66aaedfaefff85ca6c153aa2
+  certificate_hash: 4ccf3000e270ccbc2528e63b2e796b129fb2e2af64eda6eed0c201b9044620ce
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:43:29+00:00'
+  record_hash: 237ccfb32b67d29928304f4864d50cc1e14843f25cea657294a5f5911e022a39

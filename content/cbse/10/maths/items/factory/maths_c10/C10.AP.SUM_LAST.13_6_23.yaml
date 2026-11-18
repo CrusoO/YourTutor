@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.13_6_23
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.58
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The AP 13, 19, 25, ..., 145 stops at 145. What is the sum of all its terms?
-options:
-- id: a
-  en: '11455'
-- id: b
-  en: '3634'
-- id: c
-  en: '1738'
-- id: d
-  en: '1817'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The first term is 13, the last term is 145 and the difference is 6.
-- en: 'Number of terms: n = (145 - 13)/6 + 1 = 23.'
-- en: S = (n/2)(first + last) = (23/2)(13 + 145) = 1817.
-- en: The correct option is d.
 hints:
 - level: 1
   en: The count of terms is not given, so work it out from the first and last terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '11455'
+- id: b
+  en: '3634'
+- id: c
+  en: '1738'
+- id: d
+  en: '1817'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 13, the last term is 145 and the difference is 6.
+- en: 'Number of terms: n = (145 - 13)/6 + 1 = 23.'
+- en: S = (n/2)(first + last) = (23/2)(13 + 145) = 1817.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 77b05d654c5e441e0cc466a38023eb8daf05dde535c17e645e0393da74a9cf72
+  item_hash: 86684acbcc45623effe28f465f8a65e53365a90c24a9af80c9fb8cb1df4c839c
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: 566565a4e872fc41bec3ffe27aa3461a6f61210b98978156f012be85dd6b0aae
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:11+00:00'
-  record_hash: 04d472ac720bc9aa0a44fff2336d3141c9b0563e1ba05369d59ac4c32e280b42
+  stamped_at: '2026-11-17T17:39:17+00:00'
+  record_hash: 4ed4ce8b7ef90b3a4cb86c969c4bd72a0219c9e19891fdf60c95a9d911e1f8e5

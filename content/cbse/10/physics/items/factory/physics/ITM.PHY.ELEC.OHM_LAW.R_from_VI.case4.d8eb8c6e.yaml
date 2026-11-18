@@ -2,34 +2,12 @@ id: ITM.PHY.ELEC.OHM_LAW.R_from_VI.case4.d8eb8c6e
 skill_ids:
 - PHY.ELEC.OHM_LAW
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates a resistor in a circuit and records the following.
     The potential difference across it, V, is 500 V and the current through it, I,
     is 5 mA. Find the resistance of the resistor.'
-options:
-- id: a
-  en: 100 kΩ
-- id: b
-  en: 0.0025 kΩ
-- id: c
-  en: 0.1 kΩ
-- id: d
-  en: 1 x 10^-8 kΩ
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: V = I x R.'
-- en: 'Put each quantity in SI units: 5 mA = 0.005 A.'
-- en: 'Get the resistance alone: divide each side of V = I x R by I.'
-- en: 'Substitute: R = 500 / 0.005.'
-- en: 'Calculate: R = 100000 Ω.'
-- en: 'Give it in kΩ: 100 kΩ.'
-- en: So the resistance is 100 kΩ.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -46,15 +24,47 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.OHM_LAW
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 kΩ
+- id: b
+  en: 0.0025 kΩ
+- id: c
+  en: 0.1 kΩ
+- id: d
+  en: 1 x 10^-8 kΩ
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = I x R.'
+- en: 'Put each quantity in SI units: 5 mA = 0.005 A.'
+- en: 'Get the resistance alone: divide each side of V = I x R by I.'
+- en: 'Substitute: R = 500 / 0.005.'
+- en: 'Calculate: R = 100000 Ω.'
+- en: 'Give it in kΩ: 100 kΩ.'
+- en: So the resistance is 100 kΩ.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1310ecde4b6babd2afbf32044fbfc119313270e6605aa45d22abe9044c6c0ab1
+  item_hash: 8c1114d5f186a543f17998755a518ac46afb94f7767db4d3f14db827d700370c
   template_hash: e2582ff34188411e8a9111add819420df279c1c39ebfa5178e24db24a3b91ea6
   certificate_hash: cca55994beec1d9f7795ff579eec655db95243ba5423063a61bbdcd694a9a578
   label: calculation-checked
@@ -119,10 +129,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:45+00:00'
-  record_hash: f5ccbb81c6b22c734de0673d2b986475440f7297baf7635db3fecbe65ff88b52
+  stamped_at: '2026-11-17T19:37:26+00:00'
+  record_hash: e882c6587419dd8f8c3c19626291b1a2d5c9adec143b9e055c7154588acfe7a8

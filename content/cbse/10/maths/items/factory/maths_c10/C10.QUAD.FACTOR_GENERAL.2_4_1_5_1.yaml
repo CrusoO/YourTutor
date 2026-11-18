@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.2_4_1_5_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.65
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Solve 2x² - 18x + 40 = 0.
-options:
-- id: a
-  en: x = 4
-- id: b
-  en: x = 4 or x = 5
-- id: c
-  en: x = -5 or x = 4
-- id: d
-  en: x = -5 or x = -4
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Divide both sides by 2, the common factor, to get x² - 9x + 20 = 0.
-- en: 'Look for two numbers with product 20 and sum -9: they are -4 and -5.'
-- en: 'Factorise: (x - 4)(x - 5) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: x - 4 = 0 gives x
-    = 4 and x - 5 = 0 gives x = 5.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Aim to turn the left side into two simpler expressions multiplied together.
@@ -43,15 +21,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 4
+- id: b
+  en: x = 4 or x = 5
+- id: c
+  en: x = -5 or x = 4
+- id: d
+  en: x = -5 or x = -4
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_ONE_ROOT_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Divide both sides by 2, the common factor, to get x² - 9x + 20 = 0.
+- en: 'Look for two numbers with product 20 and sum -9: they are -4 and -5.'
+- en: 'Factorise: (x - 4)(x - 5) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: x - 4 = 0 gives x
+    = 4 and x - 5 = 0 gives x = 5.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2f01fd962110160f9322d708aca3c21377061db09ba2ff73ce14b41b47da470d
+  item_hash: 06f3179c833593222f10a4aae5d65253660d281251a2caf46648ab0388d8dc8a
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: 9e183a21c6c99d94ae5dd18af93a86c2182978192cef727c8a756edfccd1440f
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:51+00:00'
-  record_hash: bfd211a6d5d5c7afb4ce4e6228daee0a3b1ffa95baf66dccc779b1a0e543a358
+  stamped_at: '2026-11-17T17:42:12+00:00'
+  record_hash: 1b9f513c1ff9b7310338144f301706fc537203100e41e9152b6c013ca459ad28

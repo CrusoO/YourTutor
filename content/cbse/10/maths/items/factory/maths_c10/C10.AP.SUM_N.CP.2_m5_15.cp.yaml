@@ -1,0 +1,131 @@
+id: C10.AP.SUM_N.CP.2_m5_15.cp
+skill_ids:
+- MATH.ALG.AP.SUM_FIRST_N
+difficulty: 0.41
+pool: checkpoint
+role: procedure
+stem:
+  en: Find the sum of the first 15 terms of the AP 2, -3, -8, ...
+hints:
+- level: 1
+  en: You need the first term, the common difference and how many terms are added.
+- level: 2
+  en: Work out twice the first term plus one fewer than n times the difference, then
+    multiply by n and halve.
+- level: 3
+  en: 'Full method: read off the first term and difference, compute twice the first
+    term plus (n - 1) times the difference, multiply by n, then divide by 2.'
+prediction_prompt:
+  en: Roughly how big do you expect the total to be?
+status: draft
+template_id: TPL.C10.AP.SUM_N.CP
+generator_version: factory-2
+template_hash: 790dd2936dd613f8aab4c7f9333ca696115d1959ac7f6a5dc18fbb4195d622fe
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-990'
+- id: b
+  en: '-510'
+- id: c
+  en: '-495'
+- id: d
+  en: -1065/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_NO_DOUBLE_A
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 2, the common difference is -5 and the number of terms is
+    15.
+- en: S_n = (n/2)(2a + (n - 1)d) = (15/2)(2 x 2 + (15 - 1) x -5).
+- en: = (15/2)(-66) = -495.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bcc04ce0b7e967ed1c9eba4ca31c7672b0a12009a70780da14f4799fc702da9a
+  template_hash: 790dd2936dd613f8aab4c7f9333ca696115d1959ac7f6a5dc18fbb4195d622fe
+  certificate_hash: aab5703f39a78c82aa42dfeb45558ac440bf95607a6396d7fb6f18b3bc65dc8f
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:16:31+00:00'
+  record_hash: 2e2b262cc744c550583c397aaf6ae7192a199663b8302684a3ed7f531d1a120a

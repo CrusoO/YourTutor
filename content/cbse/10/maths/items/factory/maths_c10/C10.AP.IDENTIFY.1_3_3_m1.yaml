@@ -2,31 +2,11 @@ id: C10.AP.IDENTIFY.1_3_3_m1
 skill_ids:
 - MATH.ALG.AP.IDENTIFY_AP
 difficulty: 0.34
-type: mcq
 pool: practice
 role: recall
 stem:
   en: All the lists begin with 1. Choose the one in which the gap between neighbouring
     terms never changes.
-options:
-- id: a
-  en: 1, 4, 7, 9
-- id: b
-  en: 1, 3, 9, 27
-- id: c
-  en: 1, 4, 8, 13
-- id: d
-  en: 1, 4, 7, 10
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: A list is an AP when the difference between every pair of neighbouring terms
-    is the same.
-- en: In 1, 4, 7, 10 each step is 3, and it stays 3 all the way along.
-- en: In each of the other lists, at least one pair of neighbours has a different
-    difference.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Work out the gaps between neighbours for each list and compare them.
@@ -40,15 +20,45 @@ prediction_prompt:
   en: Which list do you suspect, and why?
 status: draft
 template_id: TPL.C10.AP.IDENTIFY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1, 4, 7, 9
+- id: b
+  en: 1, 3, 9, 27
+- id: c
+  en: 1, 4, 8, 13
+- id: d
+  en: 1, 4, 7, 10
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.CHECKED_TWO_TERMS_ONLY
+  when_answer_equals:
+  - a
+- id: MC.AP.RATIO_FOR_DIFFERENCE
+  when_answer_equals:
+  - b
+- id: MC.AP.DIFFERENCES_INCREASING_ACCEPTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A list is an AP when the difference between every pair of neighbouring terms
+    is the same.
+- en: In 1, 4, 7, 10 each step is 3, and it stays 3 all the way along.
+- en: In each of the other lists, at least one pair of neighbours has a different
+    difference.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 54bfe40af4878eb20035987a685ca212fbaa72a4f60a7e91c5f9743e0e8c2b12
+  item_hash: d43d0323814fb618bce45b1518ddd8a2478708e5e53df333e09743f99daf9f64
   template_hash: f37faf9d4d29b4aa014cf7741ae620857a6c41ae49af34f45d6c57c1b2b9713c
   certificate_hash: 67f722013096751941228bd6d521857014f7ef051311f2ea03f408c104a9ebbe
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:14:01+00:00'
-  record_hash: 09f1877e09ec302c4912af0d2079abedabc1c35295a5625f7c34dd9fc98caf54
+  stamped_at: '2026-11-17T17:38:30+00:00'
+  record_hash: 43ecc32d4af785fef517c98e3eebf57bc561c18154e6d0c2bcfc53dcf80454d9

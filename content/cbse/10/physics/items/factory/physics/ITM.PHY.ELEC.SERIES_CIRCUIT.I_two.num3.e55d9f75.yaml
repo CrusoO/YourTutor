@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.SERIES_CIRCUIT.I_two.num3.e55d9f75
 skill_ids:
 - PHY.ELEC.SERIES_CIRCUIT
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying a battery connected to resistors in series. The battery
     gives 2 V, the first resistor, R1, is 4 Ω and the second resistor, R2, is 6 Ω.
     Find the current in the circuit.
-options:
-- id: a
-  en: 0.2 A
-- id: b
-  en: 0.5 A
-- id: c
-  en: 20 A
-- id: d
-  en: 0.833 A
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: the same current flows through every resistor in series:
-    I = V / (R1 + R2).'
-- en: 'Get the current alone: divide each side of V = I x (R1 + R2) by (R1 + R2).'
-- en: 'Substitute: I = 2 / (4 + 6).'
-- en: 'Calculate: I = 0.2 A.'
-- en: So the current is 0.2 A.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.SERIES_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.2 A
+- id: b
+  en: 0.5 A
+- id: c
+  en: 20 A
+- id: d
+  en: 0.833 A
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ONE_RESISTOR_ONLY
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the same current flows through every resistor in series:
+    I = V / (R1 + R2).'
+- en: 'Get the current alone: divide each side of V = I x (R1 + R2) by (R1 + R2).'
+- en: 'Substitute: I = 2 / (4 + 6).'
+- en: 'Calculate: I = 0.2 A.'
+- en: So the current is 0.2 A.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cd8d397fd0267886dbac1ca34f9fafc9b505560848e133caa4deee68418e9527
+  item_hash: 07bad49a3a7cb4b163541e3051ad3df2ad0cdd3855f1084ce99cd7c896afc0db
   template_hash: 23fdbaa74cae9a92b13437c3a9ee9138c94e73b6862dc2b59bf70a2bf932ab73
   certificate_hash: 90e1e5f143e353d9ac6aa7967a0a89c84b1eacc8aa85b749fd0cf00536c40e72
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:06+00:00'
-  record_hash: 6238a5a50ac955df2d879f774cb8d6ce334a261e417744ceb13f05f9931e6c6a
+  stamped_at: '2026-11-17T19:38:01+00:00'
+  record_hash: 3910b21a5b7d23459556a86b156decd72908647293c8404a4691881e07f23469

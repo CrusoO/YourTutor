@@ -1,0 +1,132 @@
+id: C10.AP.NTH_TERM.EX.5_9_8_1.ex
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.29
+pool: practice
+role: explain
+stem:
+  en: An AP starts at 5 and changes by 9 at every step. What is its 8th term? A classmate
+    says the answer is 77. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: To reach the nth term you make one fewer jump than n.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM.EX
+generator_version: factory-2
+template_hash: 0e680c0d8638dae8d5455e0758133fba27e1ef9a2998d0ea1529bc86d69f3567
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '77'
+- id: c
+  en: '-58'
+- id: d
+  en: '68'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 5 and the common difference is 9.
+- en: The nth term is first term + (n - 1) x difference, so a_8 = 5 + (8 - 1)(9).
+- en: a_8 = 5 + 63 = 68.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 868dbc8c4560a5ec1f3f28230d98daef300bcf01a880107a52a853222a3b1ca8
+  template_hash: 0e680c0d8638dae8d5455e0758133fba27e1ef9a2998d0ea1529bc86d69f3567
+  certificate_hash: 775384724232fa97684fd89d1f9e976e42bf32443a2e481f95653c64a6824a0a
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:04:51+00:00'
+  record_hash: f61e66d6437269b526df4788bfaa979f4b4ea2f9ab4c35209c48b7831ee1c3ba

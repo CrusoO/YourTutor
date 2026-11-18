@@ -2,30 +2,11 @@ id: C10.TRIG.HD_HEIGHT.30_2_surd_1
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A tree stands on level ground. From a point on the ground 6 m from the foot,
     the angle of elevation of the top is 30°. Find the height of the tree in metres.
-options:
-- id: a
-  en: '3'
-- id: b
-  en: 3√3
-- id: c
-  en: 6√3
-- id: d
-  en: 2√3
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the tree is the side opposite the 30° angle and the
-    ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 30°: height = 6 x tan 30°.'
-- en: With tan 30° taken from the table, the height is 2√3 m.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Decide which side is opposite the angle and which is next to it.
@@ -41,15 +22,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: 3√3
+- id: c
+  en: 6√3
+- id: d
+  en: 2√3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Sketch a right triangle: the tree is the side opposite the 30° angle and the
+    ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 30°: height = 6 x tan 30°.'
+- en: With tan 30° taken from the table, the height is 2√3 m.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1719dbb7102264de38fd585dc966b69798026a3d1fd65ad34c8f441f9ed09b42
+  item_hash: 2550555bc6f7c467fdafe60f435c8f84e13e166b36bfa5411f89d3fa9223a393
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: 44ab195362e3eecfc465cc54ddbb98f6ccc4dbd7712d85c3616c8389cc22ea3c
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:39+00:00'
-  record_hash: 5c467ecaf16aeb0cb2d2e4bd38779f7f2cb5d5bccb06c5ec7704e927ad7d1fe5
+  stamped_at: '2026-11-17T17:50:20+00:00'
+  record_hash: a151da291ea0ba61df34d0e37a7f18c8b3e5c55def91eb65496f7f0202c8063f

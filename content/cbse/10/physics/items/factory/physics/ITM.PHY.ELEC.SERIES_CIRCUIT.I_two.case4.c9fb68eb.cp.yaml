@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.SERIES_CIRCUIT.I_two.case4.c9fb68eb.cp
+skill_ids:
+- PHY.ELEC.SERIES_CIRCUIT
+difficulty: 0.8
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates a battery connected to resistors in series and
+    records the following. The battery gives 2.4 V, the first resistor, R1, is 6 Ω
+    and the second resistor, R2, is 6 Ω. Find the current in the circuit.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: the same current flows through every resistor in series: I = V / (R1
+    + R2).'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of V
+    = I x (R1 + R2) by (R1 + R2). Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write I = V / (R1 + R2), where I is the current, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES_CIRCUIT.CP
+generator_version: factory-2
+template_hash: 293d43a42f757eac617e4eb559f30547dae89a90beffca1d46e939014e8eefd5
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.8 A
+- id: b
+  en: 0.4 A
+- id: c
+  en: 28.8 A
+- id: d
+  en: 0.2 A
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.ONE_RESISTOR_ONLY
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: the same current flows through every resistor in series:
+    I = V / (R1 + R2).'
+- en: 'Get the current alone: divide each side of V = I x (R1 + R2) by (R1 + R2).'
+- en: 'Substitute: I = 2.4 / (6 + 6).'
+- en: 'Calculate: I = 0.2 A.'
+- en: So the current is 0.2 A.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a2f8f6948bc00811c9a1b313a2dac6486cbce2bd3337585515db1db008a45c04
+  template_hash: 293d43a42f757eac617e4eb559f30547dae89a90beffca1d46e939014e8eefd5
+  certificate_hash: 4282ec0cbafe8a9e22a7023a477071bd7d4d47f02c3eb0bc2c94eca1c199deb2
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:55:28+00:00'
+  record_hash: d35fb80ef8a9bc456b56755d04fb8be92b86dd906ebc115b1f0f094027a09cc7

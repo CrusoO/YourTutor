@@ -104,6 +104,7 @@ def _item_to_catalog(row: ItemRow) -> CatalogItem:
         solution_steps=steps,
         misconception_rules=tuple(rules),
         prediction_prompt=str((row.prediction_prompt or {}).get("en") or ""),
+        stem=str((row.stem or {}).get("en") or ""),
         authored_explanation=steps[-1] if steps else "",
         verify=row.verify,
         options=tuple(row.options or ()),

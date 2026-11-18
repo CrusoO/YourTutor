@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.m2_3_m3
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the discriminant of the equation -2x² + 3x - 3 = 0.
-options:
-- id: a
-  en: '-15'
-- id: b
-  en: '3'
-- id: c
-  en: '33'
-- id: d
-  en: '-18'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Here the coefficients are -2, 3 and -3.
-- en: The discriminant is b² - 4ac = (3)² - 4(-2)(-3).
-- en: This equals 9 - (24) = -15.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Name the three coefficients first, keeping each sign.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-15'
+- id: b
+  en: '3'
+- id: c
+  en: '33'
+- id: d
+  en: '-18'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are -2, 3 and -3.
+- en: The discriminant is b² - 4ac = (3)² - 4(-2)(-3).
+- en: This equals 9 - (24) = -15.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dd3dbb39e0fb18eb793733e1242c3e3637d59bcd39dca87a7b3b290241b95a9b
+  item_hash: 41cd1629ab58fdc422a4abe689c2e5c4b301fa7e3cf3f6f78dcbc1618dd86da2
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: 9798dcf8f73133687f8fd457cf992b94447b2464399dadbcb57c1da2f99675a0
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:39+00:00'
-  record_hash: 617d65803ce9ca638dbc08a17255dd31b1dd51de2dd253158e0dc57a1943482d
+  stamped_at: '2026-11-17T17:41:55+00:00'
+  record_hash: 1b2baffcc54009fe8bccfe484017f3f191af81855414d87c9b831eb39e10e739

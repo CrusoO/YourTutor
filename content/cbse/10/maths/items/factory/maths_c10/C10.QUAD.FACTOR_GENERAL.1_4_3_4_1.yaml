@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.1_4_3_4_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.62
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the roots of the equation 3x² - 16x + 16 = 0.
-options:
-- id: a
-  en: x = -4 or x = -4/3
-- id: b
-  en: x = 4 or x = 4
-- id: c
-  en: x = -4 or x = 4/3
-- id: d
-  en: x = 4/3 or x = 4
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Split the middle term -16x into -12x and -4x, because -12 and -4 multiply to
-    48 (the product of 3 and 16) and add to -16.
-- en: 'Factorise: (3x - 4)(x - 4) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: 3x - 4 = 0 gives x
-    = 4/3 and x - 4 = 0 gives x = 4.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Aim to turn the left side into two simpler expressions multiplied together.
@@ -43,15 +21,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -4 or x = -4/3
+- id: b
+  en: x = 4 or x = 4
+- id: c
+  en: x = -4 or x = 4/3
+- id: d
+  en: x = 4/3 or x = 4
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - a
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Split the middle term -16x into -12x and -4x, because -12 and -4 multiply to
+    48 (the product of 3 and 16) and add to -16.
+- en: 'Factorise: (3x - 4)(x - 4) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: 3x - 4 = 0 gives x
+    = 4/3 and x - 4 = 0 gives x = 4.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1d433fcf24342d41ff115ee485307eb981ca857dd59b3e5582847c616efcc5a8
+  item_hash: 31653ff307baaec79b0b20f82ab50313a33bce597373d63d17065fb939037668
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: 4668808dec1b1fdba27afd90f2e9c56ec9a71100890792d031fe3b33d243108a
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:50+00:00'
-  record_hash: 0cd58667ddeb99422ccafea45614cf8e0eed7aaeac3fefd410b4ec965d156088
+  stamped_at: '2026-11-17T17:42:12+00:00'
+  record_hash: df517447e3f97539ae546a635b0d335258f82ea9fdad7cfcc850210e7d5835a6

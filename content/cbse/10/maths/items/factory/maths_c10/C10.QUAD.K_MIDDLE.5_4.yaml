@@ -2,28 +2,10 @@ id: C10.QUAD.K_MIDDLE.5_4
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: For which values of k does 5x² + kx + 80 = 0 have equal roots?
-options:
-- id: a
-  en: k = -40 or k = 40
-- id: b
-  en: k = -1600 or k = 1600
-- id: c
-  en: k = -20 or k = 20
-- id: d
-  en: k = 40
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Equal roots need the discriminant to be zero: k² - 4(5)(80) = 0.'
-- en: So k² = 1600.
-- en: 'Take the square root of both sides, keeping both signs: k = -40 or k = 40.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Set the discriminant equal to zero and treat k as the unknown.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Should k be allowed to be negative as well as positive?
 status: draft
 template_id: TPL.C10.QUAD.K_MIDDLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -40 or k = 40
+- id: b
+  en: k = -1600 or k = 1600
+- id: c
+  en: k = -20 or k = 20
+- id: d
+  en: k = 40
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_FORGOT_SQRT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.K_POSITIVE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(5)(80) = 0.'
+- en: So k² = 1600.
+- en: 'Take the square root of both sides, keeping both signs: k = -40 or k = 40.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dd1975c552f81170a1b6a0c6f673e61ff20267b2800424740359f673d05e1a47
+  item_hash: 3803589d5c2f208fd575a0bc553144724d05b64397c227466a0d46d1e66f4ea4
   template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
   certificate_hash: df4af93f1c3d3cb7346930b110370fa34353083aa46d869cc36bb088e7af130b
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:46:11+00:00'
-  record_hash: 76a8dbfa4ff22cb5b2cb91c1bf278b42596249d99549f2dbb6d94ea34b1dc88c
+  stamped_at: '2026-11-17T17:44:26+00:00'
+  record_hash: 107448a8ccd31030ec5282f2be4be7d17c51b5e09871d0e257360fe89349380f

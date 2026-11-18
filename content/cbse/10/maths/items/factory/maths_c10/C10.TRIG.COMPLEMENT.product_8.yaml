@@ -2,29 +2,10 @@ id: C10.TRIG.COMPLEMENT.product_8
 skill_ids:
 - MATH.TRIG.COMPLEMENTARY_ANGLES
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Find the value of tan 8° × tan 82°.
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '-1'
-- id: c
-  en: '0'
-- id: d
-  en: '1'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The angles 8° and 82° add up to 90°, so they are complementary.
-- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
-    - A) = cot A, sec (90 - A) = cosec A.'
-- en: Rewrite the second term using the first angle and simplify; the value is 1.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Look at the two angles: what do they add up to?'
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Without a calculator, do you think the answer is a surprise number?
 status: draft
 template_id: TPL.C10.TRIG.COMPLEMENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-1'
+- id: c
+  en: '0'
+- id: d
+  en: '1'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - a
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.TRIG.COMPLEMENT_GAVE_ZERO
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The angles 8° and 82° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: abcf756155d491a3a2d662fb02a9dab42154e27e93d89179a7f6427d5f20cd5f
+  item_hash: 6baed5f9b46824cb6d5f03a8c54f565dca381a18878d8d86f5955f917391763d
   template_hash: b6079d92225a9c175762e9a9ea0bfa19e471dfd038f275da47b3aa149f7ef373
   certificate_hash: 1cc10103e0a3613f62409b9555947d080cf1ab166d7098d1339b123d15ecbdcb
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:40+00:00'
-  record_hash: 06e87914909891dac57b5c4ab3094d105c16a0fffc92d8c3d7fc9cda0fa70d64
+  stamped_at: '2026-11-17T17:48:17+00:00'
+  record_hash: e289e79a5e69570557ca4977b1ab75e228b4f8f2ef8dcc79adf7205dd9427935

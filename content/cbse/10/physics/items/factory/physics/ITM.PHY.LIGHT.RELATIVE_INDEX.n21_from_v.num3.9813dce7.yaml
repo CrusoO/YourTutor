@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.RELATIVE_INDEX.n21_from_v.num3.9813dce7
 skill_ids:
 - PHY.LIGHT.RELATIVE_INDEX
 difficulty: 0.55
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -10,24 +9,6 @@ stem:
     in the first medium at 1.5 x 10^8 m/s and light travels in the second medium at
     1.25 x 10^8 m/s. Find the refractive index of the second medium relative to the
     first.
-options:
-- id: a
-  en: '0.0833'
-- id: b
-  en: '0.833'
-- id: c
-  en: '1.2'
-- id: d
-  en: '0.208'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: n21 = n2 / n1 and each n = c / v, so n21 = v1 / v2.'
-- en: 'Substitute: n21 = (1.5 x 10^8) / (1.25 x 10^8).'
-- en: 'Calculate: n21 = 1.2.'
-- en: So the refractive index of the second medium relative to the first is 1.2.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -43,15 +24,44 @@ prediction_prompt:
     medium relative to the first be?
 status: draft
 template_id: TPL2.PHY.LIGHT.RELATIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.0833'
+- id: b
+  en: '0.833'
+- id: c
+  en: '1.2'
+- id: d
+  en: '0.208'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.INDEX_DIFFERENCE_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.RELATIVE_INDEX_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.INDEX_PRODUCT_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n21 = n2 / n1 and each n = c / v, so n21 = v1 / v2.'
+- en: 'Substitute: n21 = (1.5 x 10^8) / (1.25 x 10^8).'
+- en: 'Calculate: n21 = 1.2.'
+- en: So the refractive index of the second medium relative to the first is 1.2.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0c6d22c889d4edd0f7220454d7e7c6fbc10a45687d3846adde18092105d0be50
+  item_hash: 234b162421861c492e097411e6ca388cfaca841a9e2a6128fa1cc187e4a51724
   template_hash: 5541a90f18ba962e842102101221f12b6c6c2e7a634a223eb2f2dbb6077249f0
   certificate_hash: 54ecd3a859e0dc254884d152e52be23abc1fa167d8dafccccf4e51f7ce06b1c7
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:38+00:00'
-  record_hash: 019ba97a95ca7c75016b3cc12470ef34e4f0e510f44209dde81c0efcefc253b1
+  stamped_at: '2026-11-17T19:42:01+00:00'
+  record_hash: 02ab780c42612c98c3e8b0dab47cc1f42437f09976b3a348d029b7a2d0442ced

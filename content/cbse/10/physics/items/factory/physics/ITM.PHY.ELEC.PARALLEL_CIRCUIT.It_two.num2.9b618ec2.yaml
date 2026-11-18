@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.It_two.num2.9b618ec2
 skill_ids:
 - PHY.ELEC.PARALLEL_CIRCUIT
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about a battery connected to resistors in parallel. The battery
     gives 60 V, the first resistor, R1, is 20 Ω and the second resistor, R2, is 5
     Ω. Find the total current drawn from the battery.
-options:
-- id: a
-  en: 2.4 A
-- id: b
-  en: 1500 A
-- id: c
-  en: 15 A
-- id: d
-  en: 3 A
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: each branch has the full battery voltage: I = V / R for
-    each, and the branch currents add.'
-- en: 'Substitute: It = 60 / 20 + 60 / 5.'
-- en: 'Calculate: It = 15 A.'
-- en: So the total current is 15 A.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -43,15 +23,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2.4 A
+- id: b
+  en: 1500 A
+- id: c
+  en: 15 A
+- id: d
+  en: 3 A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.SERIES_PARALLEL_SWAPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ONE_RESISTOR_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: each branch has the full battery voltage: I = V / R for
+    each, and the branch currents add.'
+- en: 'Substitute: It = 60 / 20 + 60 / 5.'
+- en: 'Calculate: It = 15 A.'
+- en: So the total current is 15 A.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d7847010ad7dfab759c2fb7f709c08e7b18b6c2c76b86a2ba7fa5be46eb171d5
+  item_hash: 4943fcb3fe6c7a5d34c3fe7eee5c5f97d910911430b66cdfd408232078d89989
   template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
   certificate_hash: c17166521d6c81c4fde688fa676b2e4017615375a566f876d526f86c3375a5e2
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:11+00:00'
-  record_hash: 607d3bb95b137804f262a859eaf4d7350943302c568bf975910d7f8ffd2e2cd2
+  stamped_at: '2026-11-17T19:38:09+00:00'
+  record_hash: de0a4448eafef1a55acb25ce3680ef67770767a9c7b26ce011bab4986933924c

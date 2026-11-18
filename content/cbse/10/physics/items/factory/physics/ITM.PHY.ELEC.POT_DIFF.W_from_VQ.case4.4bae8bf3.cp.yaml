@@ -1,0 +1,135 @@
+id: ITM.PHY.ELEC.POT_DIFF.W_from_VQ.case4.4bae8bf3.cp
+skill_ids:
+- PHY.ELEC.POT_DIFF
+difficulty: 0.75
+pool: checkpoint
+role: transfer
+stem:
+  en: 'Case: a student investigates work done in moving charge and records the following.
+    The potential difference, V, is 6 V and the charge moved, Q, is 0.5 C. How much
+    work is done?'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: V = W / Q, so W = V x Q.'
+- level: 2
+  en: 'Get the work done on its own before you put numbers in: multiply each side
+    of V = W / Q by Q. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write W = V x Q, where W is the work done, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the work done have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POT_DIFF.CP
+generator_version: factory-2
+template_hash: 8ad02dfd08ae1b5a8e022bdc66a179822cfc0a7fc82f60045405ca0746c0ab09
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.0833 J
+- id: b
+  en: 3 J
+- id: c
+  en: 12 J
+- id: d
+  en: 6.5 J
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = W / Q, so W = V x Q.'
+- en: 'Get the work done alone: multiply each side of V = W / Q by Q.'
+- en: 'Substitute: W = 6 x 0.5.'
+- en: 'Calculate: W = 3 J.'
+- en: So the work done is 3 J.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e7bb21cb99313cad9444bf276d6207cb06a9e0792923db172822423691708476
+  template_hash: 8ad02dfd08ae1b5a8e022bdc66a179822cfc0a7fc82f60045405ca0746c0ab09
+  certificate_hash: 143ed83ee61dd80ec3a74453b396b4011a2d2ee5f07029f4c14f7494658b54a7
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:52:53+00:00'
+  record_hash: b670dc29b7b07d87f490260e881e9196ae89f149c45ba84922e075fdb0bba0a7

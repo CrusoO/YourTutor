@@ -2,30 +2,11 @@ id: C10.QUAD.WORD_RECT.2_19_breadth_0
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.54
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The length of a rectangular field is 2 m more than its breadth. Its area is
     399 m². Find the breadth of the field in metres.
-options:
-- id: a
-  en: '40'
-- id: b
-  en: '19'
-- id: c
-  en: '21'
-- id: d
-  en: '-21'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 2 metres.
-- en: The area gives x(x + 2) = 399, so x² + 2x - 399 = 0.
-- en: 'Factorise: (x - 19)(x + 21) = 0, so x = 19 or x = -21; a length is positive,
-    so the breadth is 19 m and the length is 21 m.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Let x be the breadth and write the length using x, then use the area.
@@ -41,15 +22,44 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '40'
+- id: b
+  en: '19'
+- id: c
+  en: '21'
+- id: d
+  en: '-21'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_SEMIPERIMETER_FOR_SIDE
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_LENGTH_REPORTED
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 2 metres.
+- en: The area gives x(x + 2) = 399, so x² + 2x - 399 = 0.
+- en: 'Factorise: (x - 19)(x + 21) = 0, so x = 19 or x = -21; a length is positive,
+    so the breadth is 19 m and the length is 21 m.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a4d02b094402ce80d74be7a73c126595d43e00f5fdcc0f632c15b451d21b2e32
+  item_hash: 849e7fcb7f4d28005d15af3437d50cb96f805b041613d0c9f7f13859a9b5898b
   template_hash: 866ad4d062647acf94c1bfd5c8239282a586a8d48800bc16a35b67cb37c7bee3
   certificate_hash: 7b7f4c463133dd61c330cf010826e2e3d854bf4fa511a74578525745dd33c902
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:52:44+00:00'
-  record_hash: 690830036e544ea2a77c6defda6e09bdc57dffa5eb3b5853e1c376d1cb692670
+  stamped_at: '2026-11-17T17:47:07+00:00'
+  record_hash: 38111bbb6e56bca8ad943d5b94cb91ab8fe1da01134531d4594b82cc2b7b1923

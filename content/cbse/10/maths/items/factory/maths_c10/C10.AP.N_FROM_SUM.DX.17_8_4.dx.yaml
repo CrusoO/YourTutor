@@ -1,0 +1,133 @@
+id: C10.AP.N_FROM_SUM.DX.17_8_4.dx
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.77
+pool: diagnostic
+role: transfer
+stem:
+  en: For the progression 17, 25, 33, ..., how many terms from the start give a total
+    of 116?
+hints:
+- level: 1
+  en: This leads to quadratic working in n.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM.DX
+generator_version: factory-2
+template_hash: bda3e959c7348969b8828b6f70d01b0579513f9a4486d634236a0c038933cbef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: -29/4
+- id: c
+  en: '5'
+- id: d
+  en: 116/17
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 17, d = 8 and S_n = 116.
+- en: '(n/2)(2 x 17 + (n - 1) x 8) = 116. Multiply both sides by 2 and expand: 8n²
+    + 26n = 232.'
+- en: 'Rearranged: 8n² + (26)n - 232 = 0, whose solutions are n = 4 and n = -29/4.'
+- en: The number of terms is a positive whole number, so n = 4.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 49ca00cde3e4c5dc02b238f4defc08acbd6baf56a94d52c4ece83388b3aac86d
+  template_hash: bda3e959c7348969b8828b6f70d01b0579513f9a4486d634236a0c038933cbef
+  certificate_hash: ae9f55fc675c27850ea800f948e2414dd5021d4f5b2bbdeba2a7bff0fb3eec10
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:02:07+00:00'
+  record_hash: b1405427ac53d4ee87b55714b46edf409a3656c1b70d05ce19c2334a10c67a11

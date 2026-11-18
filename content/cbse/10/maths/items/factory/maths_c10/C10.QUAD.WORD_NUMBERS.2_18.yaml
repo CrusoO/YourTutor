@@ -2,30 +2,11 @@ id: C10.QUAD.WORD_NUMBERS.2_18
 skill_ids:
 - MATH.ALG.QUAD.MODEL_NUMBERS
 difficulty: 0.63
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The product of two consecutive positive even integers is 360. Find the smaller
     one.
-options:
-- id: a
-  en: '18'
-- id: b
-  en: '20'
-- id: c
-  en: '16'
-- id: d
-  en: '-20'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x be the smaller number. The other is x + 2.
-- en: Their product is 360, so x(x + 2) = 360, which is x² + 2x - 360 = 0.
-- en: 'Factorise: (x - 18)(x + 20) = 0, so x = 18 or x = -20.'
-- en: The numbers must be positive, so the smaller number is 18.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x stand for the smaller number, then express the larger one with x.
@@ -40,15 +21,44 @@ prediction_prompt:
   en: Roughly how big do you expect the smaller number to be?
 status: draft
 template_id: TPL.C10.QUAD.WORD_NUMBERS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '20'
+- id: c
+  en: '16'
+- id: d
+  en: '-20'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x be the smaller number. The other is x + 2.
+- en: Their product is 360, so x(x + 2) = 360, which is x² + 2x - 360 = 0.
+- en: 'Factorise: (x - 18)(x + 20) = 0, so x = 18 or x = -20.'
+- en: The numbers must be positive, so the smaller number is 18.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 988ff138cdace3e7b7f3a6617f65c524eafb4e52fe1f52872a0de03fc79f24d9
+  item_hash: fa8bbd7ec2f4443a4377b9a52bd092572d0bc8d356cbc0e0614497166deba232
   template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
   certificate_hash: 006e30c81780a79c8cba4f796ec5e651e2acd33802f2a608038a2586b68e9482
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:37+00:00'
-  record_hash: 6b9ea0eda7aab64fbb6fafefe7007184c70f72a65579f5f61a3041c34c28a3ef
+  stamped_at: '2026-11-17T17:46:41+00:00'
+  record_hash: afaa99257dac72d27e1ff33b108a5d034dd19d2c03f1befcbe66cf9449279258

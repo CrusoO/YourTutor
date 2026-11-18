@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.3_6_12_0_0
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every multiple of 3 from 18 up to 51, counting both ends if they qualify.
-options:
-- id: a
-  en: '459'
-- id: b
-  en: 759/2
-- id: c
-  en: '414'
-- id: d
-  en: '828'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first multiple of 3 in the range is 18 and the last is 51.
-- en: 'They form an AP with common difference 3. Number of terms: (51 - 18)/3 + 1
-    = 12.'
-- en: S = (12/2)(18 + 51) = 414.
-- en: The correct option is c.
 hints:
 - level: 1
   en: List the first multiple inside the range and the last multiple inside it.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '459'
+- id: b
+  en: 759/2
+- id: c
+  en: '414'
+- id: d
+  en: '828'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.MULTIPLES_STARTED_FROM_FIRST
+  when_answer_equals:
+  - a
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 3 in the range is 18 and the last is 51.
+- en: 'They form an AP with common difference 3. Number of terms: (51 - 18)/3 + 1
+    = 12.'
+- en: S = (12/2)(18 + 51) = 414.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 957984a74530258458e61a6291c2dc255dc5bf089750774c2459e18202be59de
+  item_hash: 023180c1432166108daad17d04eea999288d3d77b93137fc4ff9bcc3ebb255a0
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: 494508d75e5fd115087eb5821ddc49fcadc5f94b4273cbc2cad452d400445832
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: bf25f06ee2cf46384a0d987a95412f50d97a0854fa737fdadbac7321f8e1a984
+  stamped_at: '2026-11-17T17:38:41+00:00'
+  record_hash: 0f8caa341098c5fbe29f8f6d496e7b8529334c9aee73622539905d1dfc4b004c

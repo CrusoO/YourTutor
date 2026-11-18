@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.HEATING.H_VRt.mcq1.6c17042e
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The voltage, V, is 10 V, the resistance, R, is 10 Ω and the time, t, is 10 min.
     How much heat is produced?
-options:
-- id: a
-  en: 10 J
-- id: b
-  en: 600 J
-- id: c
-  en: 100 J
-- id: d
-  en: 6000 J
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = V x V x t / R.'
-- en: 'Put each quantity in SI units: 10 min = 600 s.'
-- en: 'Substitute: H = 10 x 10 x 600 / 10.'
-- en: 'Calculate: H = 6000 J.'
-- en: So the heat produced is 6000 J.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 J
+- id: b
+  en: 600 J
+- id: c
+  en: 100 J
+- id: d
+  en: 6000 J
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: heat H = V x V x t / R.'
+- en: 'Put each quantity in SI units: 10 min = 600 s.'
+- en: 'Substitute: H = 10 x 10 x 600 / 10.'
+- en: 'Calculate: H = 6000 J.'
+- en: So the heat produced is 6000 J.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0717afa5d9b5f3651d997f973e80f41089342acef26f0089e030d9023071b9be
+  item_hash: e752ad6489d8dd9fe914dd5a51395bf70c5af7baaa4e949fcf5c56b7555506dc
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: 1f101b3e3fcc03807b2ebe44554f43fcc76a328709775ad258895c2d7616e4bb
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:42+00:00'
-  record_hash: b6a2c00580ccea40e422d92e10f04f79a027ceb10f9575c4055c4b21d801b13d
+  stamped_at: '2026-11-17T19:39:02+00:00'
+  record_hash: 48cf25282b58e18c2a602f5d7fd4eff167cec1bd78847ca8fbbb2ff4a42df309

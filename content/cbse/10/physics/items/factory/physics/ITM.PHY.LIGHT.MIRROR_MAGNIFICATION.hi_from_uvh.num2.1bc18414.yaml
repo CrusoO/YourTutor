@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.MIRROR_MAGNIFICATION.hi_from_uvh.num2.1bc18414
 skill_ids:
 - PHY.LIGHT.MIRROR_MAGNIFICATION
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -10,28 +9,6 @@ stem:
     u, is 20 cm from the concave mirror, the image, which is virtual, is 60 cm from
     the concave mirror and the object, h, is 2 cm tall. Find the height of the image,
     with its sign.
-options:
-- id: a
-  en: -0.667 cm
-- id: b
-  en: -6 cm
-- id: c
-  en: 0.667 cm
-- id: d
-  en: 6 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: m = -v / u and m = image height / object height.'
-- en: 'Put each quantity in SI units with its sign: u = -0.2 m; v = 0.6 m; h = 0.02
-    m.'
-- en: 'Get the image height alone: multiply each side of m = hi / h by h.'
-- en: 'Substitute: hi = -0.6 x 0.02 / (-0.2).'
-- en: 'Calculate: hi = 0.06 m.'
-- en: 'Give it in cm: 6 cm.'
-- en: So the image height is 6 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -50,15 +27,48 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_MAGNIFICATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -0.667 cm
+- id: b
+  en: -6 cm
+- id: c
+  en: 0.667 cm
+- id: d
+  en: 6 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: m = -v / u and m = image height / object height.'
+- en: 'Put each quantity in SI units with its sign: u = -0.2 m; v = 0.6 m; h = 0.02
+    m.'
+- en: 'Get the image height alone: multiply each side of m = hi / h by h.'
+- en: 'Substitute: hi = -0.6 x 0.02 / (-0.2).'
+- en: 'Calculate: hi = 0.06 m.'
+- en: 'Give it in cm: 6 cm.'
+- en: So the image height is 6 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8bd325bc1a55c842605936e8efa59b769828cabd4706317c7cce16f1a3697164
+  item_hash: c05824d426445abcb5c9466290e1b0ce9012e3033d606cfdc19900974d0ebb1e
   template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
   certificate_hash: a28516b5264a43543a45bcb30f305135cf6ea2076d9ae8b72498b64bceb20a83
   label: calculation-checked
@@ -123,10 +133,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:14+00:00'
-  record_hash: 62d670778407793078c59d63c15bce5eed9ae5951c32cd2faa5b1a4692ff2700
+  stamped_at: '2026-11-17T19:39:51+00:00'
+  record_hash: 41eccd2d20c48b7a0e77703032ebd0afb833020a4806af6a866c0e674b32a8c1

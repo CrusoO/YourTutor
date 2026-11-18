@@ -1,0 +1,133 @@
+id: C10.TRIG.HD_DISTANCE.EX.30_8_surd_1.ex
+skill_ids:
+- MATH.TRIG.HD.DISTANCE_FROM_HEIGHT
+difficulty: 0.49
+pool: practice
+role: explain
+stem:
+  en: The sun is 30° above the horizontal. A vertical tree 8 m high casts a shadow
+    on level ground. Find the length of the shadow in metres. A classmate says the
+    answer is 8√3/3. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: The sun's angle is measured from the ground, at the tip of the shadow.
+- level: 2
+  en: The shadow is the unknown and it sits underneath in the tangent ratio. Undo
+    the division by doing the same thing to each side before you substitute the value.
+- level: 3
+  en: 'Full method: sketch the triangle, write the tangent ratio with the shadow as
+    the unknown, swap the unknown into the numerator by multiplying each side, replace
+    the tangent by its exact value and simplify, rationalising if needed.'
+prediction_prompt:
+  en: Will the shadow be longer or shorter than the object is tall?
+status: draft
+template_id: TPL.C10.TRIG.HD_DISTANCE.EX
+generator_version: factory-2
+template_hash: 3399fc1fc8f51858d73edeebbb20b767c0a66db293f67b1011daae831e6548f2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8√3/3
+- id: b
+  en: '16'
+- id: c
+  en: '4'
+- id: d
+  en: 8√3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The tree is the side opposite the 30° angle and the shadow is the adjacent side.
+- en: tan 30° = opposite / adjacent, so shadow = 8 / tan 30°.
+- en: 'Replace the tangent by its exact value and simplify: the shadow is 8√3 m.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 232a88a9a7326493874200b976cac495e3a277dc2ba80283236d166773580fa5
+  template_hash: 3399fc1fc8f51858d73edeebbb20b767c0a66db293f67b1011daae831e6548f2
+  certificate_hash: f19bb70bc33b03af3f9cb71222e22666a8a6bb8c35477352d63c6612c6078c46
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:12:42+00:00'
+  record_hash: d785e44373884e957f20dc5d5fb41edfd2107cd303a2ee4c93b79235fc6c23e2

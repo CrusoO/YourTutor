@@ -2,34 +2,12 @@ id: ITM.PHY.ELEC.HEATING.I_from_HRt.case4.8527fa46
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: 'Case: a student investigates the heat produced by a current and records the
     following. The heat produced, H, is 24000 J, the resistance, R, is 10 Ω and the
     time, t, is 10 min. Find the current.'
-options:
-- id: a
-  en: 4 A
-- id: b
-  en: 0.5 A
-- id: c
-  en: 2 A
-- id: d
-  en: 0.000667 A
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = I x I x R x t.'
-- en: 'Put each quantity in SI units: 10 min = 600 s.'
-- en: 'Get the current alone: divide each side of H = I x I x R x t by R x t, then
-    take the square root of each side.'
-- en: 'Substitute: I = sqrt(24000 / 10 / 600).'
-- en: 'Calculate: I = 2 A.'
-- en: So the current is 2 A.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -47,15 +25,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4 A
+- id: b
+  en: 0.5 A
+- id: c
+  en: 2 A
+- id: d
+  en: 0.000667 A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ROOT_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_FORMULA_MISMATCH
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t.'
+- en: 'Put each quantity in SI units: 10 min = 600 s.'
+- en: 'Get the current alone: divide each side of H = I x I x R x t by R x t, then
+    take the square root of each side.'
+- en: 'Substitute: I = sqrt(24000 / 10 / 600).'
+- en: 'Calculate: I = 2 A.'
+- en: So the current is 2 A.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4fc2227c56b933184f8c21e1aa3d883485a4558159a39ba45e522ff518b92322
+  item_hash: 3665b56ecce2368cb2775f3cb3ec6255481a155c2bd725b7d36a1f3101367731
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: bba83c4e15cb4b3eba989baaf94fbece56f0ffe7b303c79ba91c1949f6b69265
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:42+00:00'
-  record_hash: 26b5bd06a962a44e04aebb97b2eb14375e973b8e348959f914ae09f066979328
+  stamped_at: '2026-11-17T19:39:02+00:00'
+  record_hash: a7a83b91d5e495defc6c5a3236550de8db1f322d2edf2274c2e50f4ddef550f3

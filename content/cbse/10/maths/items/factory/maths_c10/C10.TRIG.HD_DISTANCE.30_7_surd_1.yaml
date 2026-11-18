@@ -2,29 +2,11 @@ id: C10.TRIG.HD_DISTANCE.30_7_surd_1
 skill_ids:
 - MATH.TRIG.HD.DISTANCE_FROM_HEIGHT
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The sun is 30° above the horizontal. A vertical tree 7 m high casts a shadow
     on level ground. Find the length of the shadow in metres.
-options:
-- id: a
-  en: 7/2
-- id: b
-  en: 7√3
-- id: c
-  en: '14'
-- id: d
-  en: 7√3/3
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The tree is the side opposite the 30° angle and the shadow is the adjacent side.
-- en: tan 30° = opposite / adjacent, so shadow = 7 / tan 30°.
-- en: 'Replace the tangent by its exact value and simplify: the shadow is 7√3 m.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Decide which side of the triangle is the shadow.
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will the shadow be longer or shorter than the object is tall?
 status: draft
 template_id: TPL.C10.TRIG.HD_DISTANCE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5f2616decbc39060906377a3683d19bb2992fe29afbd89b60aa7288db6c32df1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7/2
+- id: b
+  en: 7√3
+- id: c
+  en: '14'
+- id: d
+  en: 7√3/3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The tree is the side opposite the 30° angle and the shadow is the adjacent side.
+- en: tan 30° = opposite / adjacent, so shadow = 7 / tan 30°.
+- en: 'Replace the tangent by its exact value and simplify: the shadow is 7√3 m.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c696c24a6ffc36a28e9a2c39b15a4fbe4c06a327ecae2e7ea45008bb261e456a
+  item_hash: 1b52b95af142309fc7b21b0eef5a6bf35c82d9fc7b88c7abed82cd7613832329
   template_hash: 5f2616decbc39060906377a3683d19bb2992fe29afbd89b60aa7288db6c32df1
   certificate_hash: 778df4869191c0319bdaf5a6e89b1ef2e9e456aa4ba570e076ee364088fbc9f5
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:58:34+00:00'
-  record_hash: 930ca7c59835f8fdc3f59a56933b97ad53e016cffc76463bc0f335243374bad3
+  stamped_at: '2026-11-17T17:49:55+00:00'
+  record_hash: 0f8f63366cea446b4f5ed3699e52d01633133ee05e69bfadfb13085192a9ec2d

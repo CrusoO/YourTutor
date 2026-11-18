@@ -2,30 +2,11 @@ id: C10.TRIG.HD_LADDER.30_12_reach
 skill_ids:
 - MATH.TRIG.HD.LADDER_AND_WALL
 difficulty: 0.49
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A ladder 24 m long leans against a vertical wall and makes an angle of 30° with
     the level ground. How high up the wall does the ladder reach, in metres?
-options:
-- id: a
-  en: 8√3
-- id: b
-  en: '12'
-- id: c
-  en: 12√3
-- id: d
-  en: '48'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The ladder is the hypotenuse. The wall height is opposite the 30° angle and
-    the foot distance is adjacent to it.
-- en: Height = ladder x sine 30° = 24 x (1/2).
-- en: 'Simplify: 12 m.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Sketch the wall, the ground and the ladder as the right triangle.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: Is the answer more or less than the length of the ladder?
 status: draft
 template_id: TPL.C10.TRIG.HD_LADDER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8√3
+- id: b
+  en: '12'
+- id: c
+  en: 12√3
+- id: d
+  en: '48'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_FOR_SIN_COS
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SIN_COS_SWAPPED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ladder is the hypotenuse. The wall height is opposite the 30° angle and
+    the foot distance is adjacent to it.
+- en: Height = ladder x sine 30° = 24 x (1/2).
+- en: 'Simplify: 12 m.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 46fc4d9a06c096cb9d60b43f1f494174bb2df5b99d574674c7146a67ac7e3215
+  item_hash: 075b837bfd209a3205fa921f35c611f3aeccda39932dc0931af7232331e78ba3
   template_hash: 6a78eb05a14f52be435251579df5e163bf62f7f57a6d5da8b5a7cf4471891baa
   certificate_hash: cc3fa5d6ec6b2cedd105b4c6b511332a0a40dae4e1ff6c2ed1fae7626fd4bb4c
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:00:19+00:00'
-  record_hash: 42d2e97455056b11939596920b6dc62d010307e3e1b565be771963488e55d82c
+  stamped_at: '2026-11-17T17:50:49+00:00'
+  record_hash: 9f6b9bffe8ecd08034ec3af776233b40f29287f176a0bbc7b39d93196546a7da

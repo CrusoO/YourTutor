@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER_SCALING.P_I_scaled.num2.4d9dff9f
 skill_ids:
 - PHY.ELEC.POWER_SCALING
 difficulty: 0.45
-type: mcq
 pool: practice
 role: explain
 stem:
   en: This question is about how power changes when a quantity changes. The current
     through a fixed resistor is multiplied by 4. By what number is the power multiplied?
-options:
-- id: a
-  en: '0.0625'
-- id: b
-  en: '16'
-- id: c
-  en: '4'
-- id: d
-  en: '8'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: for a fixed resistor P = I x I x R, so P changes with the
-    square of I.'
-- en: 'Combine the numbers: 4^2 = 16.'
-- en: So the number the power is multiplied by is 16.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -42,15 +23,44 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.ELEC.POWER_SCALING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.0625'
+- id: b
+  en: '16'
+- id: c
+  en: '4'
+- id: d
+  en: '8'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = I x I x R, so P changes with the
+    square of I.'
+- en: 'Combine the numbers: 4^2 = 16.'
+- en: So the number the power is multiplied by is 16.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1da88d0af3dba9debacfb9950a05ebf569e08f4dcb268ee2ebf81901083ffd36
+  item_hash: ba3dba92711a5018d8cac0865a5d6c15a703c93ddddbbbb03cd71ff73ec5e8e8
   template_hash: 266901914cff6a1e0da55e1c467fb1e5d19143840a77722409370669bd68c7b9
   certificate_hash: bd865f19e06144c5ce140af3577d2a82472c70384a8fc930ef13ffa7b5d2d07c
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:27+00:00'
-  record_hash: 267e40acebf9d96f83dda37c589bbd93ab24777e61cd972ba3f0a185daee520b
+  stamped_at: '2026-11-17T19:38:38+00:00'
+  record_hash: 5337f7c96f14c9fa504aacb17ef43b1723ff5ffdf210586fcbbee0db733a467d

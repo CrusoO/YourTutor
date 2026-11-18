@@ -2,31 +2,12 @@ id: C10.TRIG.HD_HEIGHT.30_9_surd_3
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A flagpole stands upright on level ground. From a point on the ground 27 m from
     the foot, the angle of elevation of the top is 30°. Find the height of the flagpole
     in metres.
-options:
-- id: a
-  en: 27√3
-- id: b
-  en: 27/2
-- id: c
-  en: 9√3
-- id: d
-  en: 27√3/2
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the flagpole is the side opposite the 30° angle and
-    the ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 30°: height = 27 x tan 30°.'
-- en: With tan 30° taken from the table, the height is 9√3 m.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Draw the right triangle first and label what is known and what is wanted.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 27√3
+- id: b
+  en: 27/2
+- id: c
+  en: 9√3
+- id: d
+  en: 27√3/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Sketch a right triangle: the flagpole is the side opposite the 30° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 30°: height = 27 x tan 30°.'
+- en: With tan 30° taken from the table, the height is 9√3 m.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c8272650ea8ef0d8fc474b4aacae59c76469b244244fef8393240d2d53d670dd
+  item_hash: 663674b4dad9483332a15db2dbfd15b9d9feb7619fb6950056d0417c03f60ed0
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: 3b28356f66da1754dfcf36582acfeef15ba18ef716c4a9d7ed78dc160463411f
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:42+00:00'
-  record_hash: 958ffff7eed06e5d7e204643f233df9cc76a2c327cf5d8d9e3c50f2354259d8b
+  stamped_at: '2026-11-17T17:50:22+00:00'
+  record_hash: 94dcd62c155a74690f630d1aa7419dd8e4bf3aadc9b3079ccc9e0d1bd51629e2

@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.2_2_5_0
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Which number makes the left side of 2x² - 14x + 20 = 0 equal to zero?
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '-2'
-- id: c
-  en: '3'
-- id: d
-  en: '20'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = 2: 2(2)² + (-14)(2) + (20) = 0.'
-- en: The left side is 0, so x = 2 satisfies the equation.
-- en: The correct option is a.
 hints:
 - level: 1
   en: You can check an answer without solving anything.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-2'
+- id: c
+  en: '3'
+- id: d
+  en: '20'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 2: 2(2)² + (-14)(2) + (20) = 0.'
+- en: The left side is 0, so x = 2 satisfies the equation.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fcfa946621664bbf91dc6e18f1bce38115e494c7e3797a5b25d10dbebb660894
+  item_hash: 632e8fe37342dbea05aeabd80e71ef80fe0380634344e0c6f73d8877fb7b288b
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: 66e6d483d5d1327c5d4c37a49a23d4c9b09e8b9a31b0d09b71d90b3abcc12122
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:29+00:00'
-  record_hash: ed4254539e896c0438ad1cfd0a979bdaea037528c9d6447f021c970b226b5f50
+  stamped_at: '2026-11-17T17:41:01+00:00'
+  record_hash: 3351f6bd200f603fae488b9405e5fd35a0998513abfd7b155a4be82d5c8ee381

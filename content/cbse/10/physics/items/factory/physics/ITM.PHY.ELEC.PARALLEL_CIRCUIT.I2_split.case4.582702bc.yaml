@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.PARALLEL_CIRCUIT.I2_split.case4.582702bc
 skill_ids:
 - PHY.ELEC.PARALLEL_CIRCUIT
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,25 +9,6 @@ stem:
     records the following. The total current from the battery, It, is 1.5 A, the first
     resistor, R1, is 20 Ω and the second resistor, R2, is 5 Ω. Find the current in
     the second resistor.'
-options:
-- id: a
-  en: 0.75 A
-- id: b
-  en: 1.2 A
-- id: c
-  en: 1.5 A
-- id: d
-  en: 0.3 A
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: the branches share one voltage, so the larger resistor
-    takes the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
-- en: 'Substitute: I2 = 1.5 x 20 / (20 + 5).'
-- en: 'Calculate: I2 = 1.2 A.'
-- en: So the current in the second resistor is 1.2 A.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -45,15 +25,45 @@ prediction_prompt:
     and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.PARALLEL_CIRCUIT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.75 A
+- id: b
+  en: 1.2 A
+- id: c
+  en: 1.5 A
+- id: d
+  en: 0.3 A
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.EQUAL_SHARE_ASSUMED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.CURRENT_NOT_SPLIT
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.WRONG_RESISTOR_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the branches share one voltage, so the larger resistor
+    takes the smaller current: I1 x R1 = I2 x R2 and I1 + I2 = total.'
+- en: 'Substitute: I2 = 1.5 x 20 / (20 + 5).'
+- en: 'Calculate: I2 = 1.2 A.'
+- en: So the current in the second resistor is 1.2 A.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 0faacb5fc0531b5623710b361077a46e8adf68c876151a07645927ce01fdadd8
+  item_hash: c4411e69f73d3d3dc64d959eafcaa423c34d0e2d0b70b20cdb6a861259eecad7
   template_hash: b97b28fd926af9bfb2bb107bf5c7679fadc65c744fd0f05002a6ff0f03f54e26
   certificate_hash: 583309218af300eaa66b309352110c5451d4a3f003e9badb9761260c2db1b535
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:11+00:00'
-  record_hash: ede6d429e6e7efa7e1b119981527598f5b1015649bee190ae7be3a4bb17b4714
+  stamped_at: '2026-11-17T19:38:10+00:00'
+  record_hash: 8842189b967e26ac4e5b72f052e506ed3d53c9096046925ac84d526ad7f14305

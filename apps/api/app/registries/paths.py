@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import os
+from functools import cache
 from pathlib import Path
 
 
+@cache
 def repo_root() -> Path:
+    # cached: `resolve()` is a syscall, and validating thousands of items calls this per item
+    # (it failed with WinError 1450 on a OneDrive folder)
     return Path(__file__).resolve().parents[4]
 
 

@@ -1,0 +1,134 @@
+id: C10.AP.IDENTIFY.EX.5_8_3_1.ex
+skill_ids:
+- MATH.ALG.AP.IDENTIFY_AP
+difficulty: 0.34
+pool: practice
+role: explain
+stem:
+  en: Every list starts at 5. Which of these lists is an arithmetic progression? A
+    classmate says the answer is 5, 15, 45, 135. Work it out yourself and choose the
+    correct answer.
+hints:
+- level: 1
+  en: Work out the gaps between neighbours for each list and compare them.
+- level: 2
+  en: For each list subtract every term from the next one. A list passes only when
+    all its gaps are identical.
+- level: 3
+  en: 'Full method: for every list write down the three gaps between neighbours, compare
+    them, and keep the one list whose gaps are all equal.'
+prediction_prompt:
+  en: Which list do you suspect, and why?
+status: draft
+template_id: TPL.C10.AP.IDENTIFY.EX
+generator_version: factory-2
+template_hash: 033bbd6da855ec1c95706dc09e3fa42a3a6be7ada070776b965b465a78e44d1c
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5, 15, 45, 135
+- id: b
+  en: 5, 13, 21, 29
+- id: c
+  en: 5, 13, 21, 30
+- id: d
+  en: 5, 13, 22, 32
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.RATIO_FOR_DIFFERENCE
+  when_answer_equals:
+  - a
+- id: MC.AP.CHECKED_TWO_TERMS_ONLY
+  when_answer_equals:
+  - c
+- id: MC.AP.DIFFERENCES_INCREASING_ACCEPTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A list is an AP when the difference between every pair of neighbouring terms
+    is the same.
+- en: In 5, 13, 21, 29 each step is 8, and it stays 8 all the way along.
+- en: In each of the other lists, at least one pair of neighbours has a different
+    difference.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0034c164a4b5ad4100456679f64ef3d4faf7113c3031913cb3ad04fdc1f4e8f8
+  template_hash: 033bbd6da855ec1c95706dc09e3fa42a3a6be7ada070776b965b465a78e44d1c
+  certificate_hash: 71e75f6c86fe9a38ee2237bb1342c3db2a42ff2f93d26113d05fbf05698acf57
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:03:42+00:00'
+  record_hash: 5ed585899883b95e828208abba9d5439a746d4a4aeb27d525d2bb98c1b2f2265

@@ -2,30 +2,12 @@ id: C10.AP.WORD_TOTAL.1_35_2_8_total
 skill_ids:
 - MATH.ALG.AP.MODEL_SITUATION
 difficulty: 0.69
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A runner trains for 8 weeks. In week 1 she runs 35 km and each week she runs
     2 km more than the week before. How far does she run in all the weeks together,
     in km?
-options:
-- id: a
-  en: '336'
-- id: b
-  en: '49'
-- id: c
-  en: '672'
-- id: d
-  en: '344'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The amounts form an AP with first term 35 and common difference 2.
-- en: The last amount is 49, so the total is S = (8/2)(35 + 49).
-- en: S = 336.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Let the amounts in order be the terms of an AP: name its first term and its
@@ -41,15 +23,43 @@ prediction_prompt:
   en: Is the pattern growing or shrinking from one step to the next?
 status: draft
 template_id: TPL.C10.AP.WORD_TOTAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '336'
+- id: b
+  en: '49'
+- id: c
+  en: '672'
+- id: d
+  en: '344'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.AP.WORD_LAST_REPORTED
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 35 and common difference 2.
+- en: The last amount is 49, so the total is S = (8/2)(35 + 49).
+- en: S = 336.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e7a6f670e4b815a70795c51bbda2adc4bfb48b3c9460cef0634181039a0bad19
+  item_hash: d3b9cd016282b646214a6177a7df2bf623106fcd3b2d2caf1f1f88dedd73cfe1
   template_hash: 891fdf8fe6da223f51117fdf5a831aac78fe40c74cf741b42cb7b7e59fbf25cd
   certificate_hash: caf18f5552bad70e52aa41856f57f89cba5412577e0a3151ced03275d8cadd7e
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:27:19+00:00'
-  record_hash: f31ce98f794cf3830a0303cf49414b451c916365fc4d144461867a2a8f261042
+  stamped_at: '2026-11-17T17:40:48+00:00'
+  record_hash: bd63aa744bfb3559abb76e12c44d1cac0d98509c0d1a461f3212ff6a2f3e2f30

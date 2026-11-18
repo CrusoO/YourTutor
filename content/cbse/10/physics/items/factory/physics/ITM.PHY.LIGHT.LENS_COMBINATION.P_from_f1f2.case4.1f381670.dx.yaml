@@ -1,0 +1,140 @@
+id: ITM.PHY.LIGHT.LENS_COMBINATION.P_from_f1f2.case4.1f381670.dx
+skill_ids:
+- PHY.LIGHT.LENS_COMBINATION
+difficulty: 0.8
+pool: diagnostic
+role: transfer
+stem:
+  en: 'Case: a student investigates two thin lenses in contact and records the following.
+    The first lens is a convex lens with focal length of magnitude 20 cm and the second
+    lens is a convex lens with focal length of magnitude 100 cm. Find the power of
+    the combination in dioptres, with its sign.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: for thin lenses in contact the powers add: P = 1/f1 + 1/f2 (f in metres,
+    with signs).'
+- level: 2
+  en: The relation already gives the combined power directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+    Give each distance its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 20 cm as 0.2 m and 100 cm as 1 m, then write P = 1 / f1 +
+    1 / f2, where P is the combined power, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the combined power have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_COMBINATION.DX
+generator_version: factory-2
+template_hash: 74be7b9d2bcc1c9765d623e94609cc53fe78235e38e07ee5e6380d9d527b7bf4
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.833 D
+- id: b
+  en: 6 D
+- id: c
+  en: 0.06 D
+- id: d
+  en: 5 D
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWERS_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: for thin lenses in contact the powers add: P = 1/f1 + 1/f2
+    (f in metres, with signs).'
+- en: 'Put each quantity in SI units with its sign: f1 = 0.2 m; f2 = 1 m.'
+- en: 'Substitute: P = 1 / 0.2 + 1 / 1.'
+- en: 'Calculate: P = 6 D.'
+- en: So the combined power is 6 D.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ea0ad614c226dc83842efb7c437959090219c7fe8174f886d95d91ce2178384a
+  template_hash: 74be7b9d2bcc1c9765d623e94609cc53fe78235e38e07ee5e6380d9d527b7bf4
+  certificate_hash: 92cacfd6e9dbb4193db24c5ef01dcfac41eb77773a2d4ab942858aa2577ace93
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:32:43+00:00'
+  record_hash: f235412692a6c314d57c9a6fdd5eb8df4a4d90fdce45565bcd0e13340110d890

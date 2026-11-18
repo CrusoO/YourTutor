@@ -2,35 +2,12 @@ id: C10.QUAD.WORD_MOTION.25_10_2_faster
 skill_ids:
 - MATH.ALG.QUAD.MODEL_MOTION
 difficulty: 0.86
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A bus travels 175 km along a fixed route at a steady speed. If it travelled
     10 km/h faster, the journey would take 2 hours less. Find the speed of the bus
     on the faster run in km/h.
-options:
-- id: a
-  en: '25'
-- id: b
-  en: '15'
-- id: c
-  en: '35'
-- id: d
-  en: '-35'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Let x km/h be the usual speed. The time taken is 175/x hours, and at the higher
-    speed it is 175/(x + 10) hours.
-- en: 'The saving is 2: 175/x - 175/(x + 10) = 2. Multiply every term by x(x + 10)
-    to clear the fractions.'
-- en: This gives 2x² + 20x - 1750 = 0, which factorises as (x - 25)(x + 35) = 0 after
-    dividing by 2.
-- en: A speed is positive, so the usual speed is 25 km/h and the faster speed is 35
-    km/h.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Let x stand for the usual speed and write the time for each journey with x.
@@ -46,15 +23,48 @@ prediction_prompt:
   en: Will the usual speed be more or less than the increase in speed?
 status: draft
 template_id: TPL.C10.QUAD.WORD_MOTION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '25'
+- id: b
+  en: '15'
+- id: c
+  en: '35'
+- id: d
+  en: '-35'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_OTHER_SPEED_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_INCREASE_SUBTRACTED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x km/h be the usual speed. The time taken is 175/x hours, and at the higher
+    speed it is 175/(x + 10) hours.
+- en: 'The saving is 2: 175/x - 175/(x + 10) = 2. Multiply every term by x(x + 10)
+    to clear the fractions.'
+- en: This gives 2x² + 20x - 1750 = 0, which factorises as (x - 25)(x + 35) = 0 after
+    dividing by 2.
+- en: A speed is positive, so the usual speed is 25 km/h and the faster speed is 35
+    km/h.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 933566c914265f8afc60f03ddb366b4128f2e5a362e9dec0c395b320cb54cfa4
+  item_hash: 7f70221d600431f4ab7da83ba9e0b01508545b373d79e8ee85ca5c02712f86c5
   template_hash: 850e068661fd0578ae0c7dd5fb34d12950e710b1d2bdeea13d2deca619b5ecee
   certificate_hash: 277624da377b5afee3725791bcfe79f5860b53501c24384d710a08ba0bb6049c
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:06+00:00'
-  record_hash: 00b3c1d31078f97dee31c311409b9c1758488331dd5b188ba78172ecf9c8a784
+  stamped_at: '2026-11-17T17:46:20+00:00'
+  record_hash: f48c153eb8a2c30e8482af356d8af8053d18ced31262bcbcd64dad91f02305f2

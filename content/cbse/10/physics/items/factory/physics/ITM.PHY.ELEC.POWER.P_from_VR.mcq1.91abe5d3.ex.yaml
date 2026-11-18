@@ -1,0 +1,133 @@
+id: ITM.PHY.ELEC.POWER.P_from_VR.mcq1.91abe5d3.ex
+skill_ids:
+- PHY.ELEC.POWER
+difficulty: 0.25
+pool: practice
+role: explain
+stem:
+  en: The voltage across it, V, is 200 V and its resistance, R, is 400 Ω. Find the
+    power. A classmate says the answer is 0.5 W. Work it out yourself and choose the
+    correct answer.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: P = V x V / R (from P = V x I and I = V / R).'
+- level: 2
+  en: The relation already gives the power directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write P = V x V / R, where P is the power, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the power have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.ELEC.POWER.EX
+generator_version: factory-2
+template_hash: c45d3b421ee4e11ea356b2eb9781e723fdba4bfe90bba76fb461391e75eea3f9
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.01 W
+- id: b
+  en: 100 W
+- id: c
+  en: 0.5 W
+- id: d
+  en: 80000 W
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
+- en: 'Substitute: P = 200 x 200 / 400.'
+- en: 'Calculate: P = 100 W.'
+- en: So the power is 100 W.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4fd6628b2484f4761df86f6a36b9ed499ab373c9ac88eff15468ac7cb52fc1c6
+  template_hash: c45d3b421ee4e11ea356b2eb9781e723fdba4bfe90bba76fb461391e75eea3f9
+  certificate_hash: c60af3173b24006771d9f313690161afd2cc8d77fe0542acd9473f9e35759acc
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:40:54+00:00'
+  record_hash: bd6538234819e847fe0bdfd63be9af0705cd838a520d6e005a4d78a687b949fe

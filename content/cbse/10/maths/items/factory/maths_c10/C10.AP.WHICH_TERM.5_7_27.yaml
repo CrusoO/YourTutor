@@ -2,30 +2,10 @@ id: C10.AP.WHICH_TERM.5_7_27
 skill_ids:
 - MATH.ALG.AP.POSITION_OF_TERM
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: In the progression 5, 12, 19, ... the number 187 appears. Which term is it?
-options:
-- id: a
-  en: '182'
-- id: b
-  en: '28'
-- id: c
-  en: '26'
-- id: d
-  en: '27'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The first term is 5 and the common difference is 7.
-- en: 'Set the nth term equal to 187: 5 + (n - 1)(7) = 187.'
-- en: 'Take 5 away from both sides: (n - 1)(7) = 182. Divide both sides by 7: n -
-    1 = 26.'
-- en: 'Add 1 to both sides: n = 27.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Use the rule for the nth term, but this time n is the thing you do not know.
@@ -41,15 +21,45 @@ prediction_prompt:
   en: Roughly how many steps from the first term will it take to reach this number?
 status: draft
 template_id: TPL.C10.AP.WHICH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '182'
+- id: b
+  en: '28'
+- id: c
+  en: '26'
+- id: d
+  en: '27'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - b
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 5 and the common difference is 7.
+- en: 'Set the nth term equal to 187: 5 + (n - 1)(7) = 187.'
+- en: 'Take 5 away from both sides: (n - 1)(7) = 182. Divide both sides by 7: n -
+    1 = 26.'
+- en: 'Add 1 to both sides: n = 27.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2f86829d775cdbac4f807c167abda0ae4157fa67aa14148a17211a10f416fa7e
+  item_hash: 59a9f160606976446274aeecafb3f91a70e04a1d9aa0908f81fc5044e6b16496
   template_hash: 2966841666bd71ee588da05157f7a15c5b304b3cfe8685bb53b0710190c7c337
   certificate_hash: 2f0b751e0c5db62b78a274470d865aeadf3e6dcfa77febbab80b6d0c172ef8a5
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:24:21+00:00'
-  record_hash: 0a9eaa0fddd111e4a034cb48dfedd0f204e9829980b4a4495de5521beb99d06b
+  stamped_at: '2026-11-17T17:40:15+00:00'
+  record_hash: 1fae3bb81154d6353b97d610b834d74895b38bf71cb3da4e34d45e9b7945ad20

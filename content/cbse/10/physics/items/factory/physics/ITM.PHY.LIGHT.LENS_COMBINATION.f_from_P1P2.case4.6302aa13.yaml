@@ -2,7 +2,6 @@ id: ITM.PHY.LIGHT.LENS_COMBINATION.f_from_P1P2.case4.6302aa13
 skill_ids:
 - PHY.LIGHT.LENS_COMBINATION
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
@@ -10,28 +9,6 @@ stem:
     The first lens is a convex lens with power of magnitude 4 D and the second lens
     is a convex lens with power of magnitude 1 D. Find the focal length of the combination
     in cm, with its sign.'
-options:
-- id: a
-  en: 20 cm
-- id: b
-  en: 125 cm
-- id: c
-  en: 25 cm
-- id: d
-  en: 0.2 cm
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: the powers add, then f = 1 / P, in metres.'
-- en: 'Put each quantity in SI units with its sign: P1 = 4 D; P2 = 1 D.'
-- en: 'Get the combined focal length alone: add the powers, then take the reciprocal
-    of each side of P = 1 / f.'
-- en: 'Substitute: f = 1 / (4 + 1).'
-- en: 'Calculate: f = 0.2 m.'
-- en: 'Give it in cm: 20 cm.'
-- en: So the combined focal length is 20 cm.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -50,15 +27,48 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.LENS_COMBINATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20 cm
+- id: b
+  en: 125 cm
+- id: c
+  en: 25 cm
+- id: d
+  en: 0.2 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWERS_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the powers add, then f = 1 / P, in metres.'
+- en: 'Put each quantity in SI units with its sign: P1 = 4 D; P2 = 1 D.'
+- en: 'Get the combined focal length alone: add the powers, then take the reciprocal
+    of each side of P = 1 / f.'
+- en: 'Substitute: f = 1 / (4 + 1).'
+- en: 'Calculate: f = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the combined focal length is 20 cm.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9951ba46897f1eec4fbf90b18f5c8543bafe4dd96b19f7942ed3b899c03f3473
+  item_hash: cdd5141857b37ce3994c191540c73444f2c53e81a3b6f108a42904aab392349e
   template_hash: 36e52769e001ec740e4eecadec5c8cdf863483bbfca2a106037c822266668b27
   certificate_hash: 843af65c2619b3b90e7d6b1f31f00d0bc2abea580be8d19c488485423c9ea119
   label: calculation-checked
@@ -123,10 +133,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:01+00:00'
-  record_hash: 5050842beaea467fb546c25babf66a87b89777e414b0517f01e38d5ae7ad42c6
+  stamped_at: '2026-11-17T19:41:06+00:00'
+  record_hash: b2adf70eb5f1b0ba66a57c1a4ed7e9fb964eddd7eb327efd95fb395aeff033d7

@@ -2,32 +2,10 @@ id: C10.QUAD.FACTOR_GENERAL.1_m4_3_m1_2
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FACTORISE_GENERAL
 difficulty: 0.62
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find all values of x that satisfy 6x² + 11x + 4 = 0.
-options:
-- id: a
-  en: x = -4/3 or x = -1/2
-- id: b
-  en: x = 1/2 or x = 4/3
-- id: c
-  en: x = -4/3 or x = 1/2
-- id: d
-  en: x = -4 or x = -1
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Split the middle term 11x into 3x and 8x, because 3 and 8 multiply to 24 (the
-    product of 6 and 4) and add to 11.
-- en: 'Factorise: (3x + 4)(2x + 1) = 0.'
-- en: A product is zero only when one factor is zero, so set each bracket equal to
-    zero.
-- en: 'Undo each bracket by doing the same thing to both sides: 3x + 4 = 0 gives x
-    = -4/3 and 2x + 1 = 0 gives x = -1/2.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Factorise the left side first; any product that equals zero tells you something
@@ -44,15 +22,47 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FACTOR_GENERAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -4/3 or x = -1/2
+- id: b
+  en: x = 1/2 or x = 4/3
+- id: c
+  en: x = -4/3 or x = 1/2
+- id: d
+  en: x = -4 or x = -1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FACTOR_SIGN_READ
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FACTOR_ONE_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.BRACKET_COEFF_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Split the middle term 11x into 3x and 8x, because 3 and 8 multiply to 24 (the
+    product of 6 and 4) and add to 11.
+- en: 'Factorise: (3x + 4)(2x + 1) = 0.'
+- en: A product is zero only when one factor is zero, so set each bracket equal to
+    zero.
+- en: 'Undo each bracket by doing the same thing to both sides: 3x + 4 = 0 gives x
+    = -4/3 and 2x + 1 = 0 gives x = -1/2.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 2dfac791cccbb3a6f092101f74592c89a07446d2fa1a6607845d4ebb276723e8
+  item_hash: 79455e2dae7c1635ff5eb899a6ccda98a2694c9741eeb84b515d07dcaf39f14a
   template_hash: 019a5dd7711be5551e8ea27a0bd8834fb40f754b8acfa534e736619dd471dc21
   certificate_hash: c02a21290c6e123d539a29e7889da3094380169fe80a9c11fd3bd98077fd94bc
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:37:50+00:00'
-  record_hash: 8be2ee7c4747cd2abac8b0ba93db0eee30672f806cb436c834e2bdc0ed04fc18
+  stamped_at: '2026-11-17T17:42:11+00:00'
+  record_hash: ae33032a81e34b8db122e1b028cb7abea9dc24fe1aef2bbed9aee396911aeafc

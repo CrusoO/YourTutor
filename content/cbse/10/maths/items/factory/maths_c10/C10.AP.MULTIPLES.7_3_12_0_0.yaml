@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.7_3_12_0_0
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: What is the sum of the multiples of 7 that lie between 21 and 98, ends included?
-options:
-- id: a
-  en: 1309/2
-- id: b
-  en: '714'
-- id: c
-  en: '1428'
-- id: d
-  en: '735'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first multiple of 7 in the range is 21 and the last is 98.
-- en: 'They form an AP with common difference 7. Number of terms: (98 - 21)/7 + 1
-    = 12.'
-- en: S = (12/2)(21 + 98) = 714.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'The multiples form an AP: find the first and last ones inside the range.'
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1309/2
+- id: b
+  en: '714'
+- id: c
+  en: '1428'
+- id: d
+  en: '735'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - c
+- id: MC.AP.MULTIPLES_STARTED_FROM_FIRST
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 7 in the range is 21 and the last is 98.
+- en: 'They form an AP with common difference 7. Number of terms: (98 - 21)/7 + 1
+    = 12.'
+- en: S = (12/2)(21 + 98) = 714.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d159e3dd87039ad4c8753def2785864bd87117a349e46beb96c61cae83a83766
+  item_hash: eba8d51dc15141c374bd0c43e38e15a7a77d7054d60fd0de29f4127324b80c58
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: b10ae57481dafc57a70ff5606b71e5eeff11b55e0c34140ddb244691e9f70c04
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:11+00:00'
-  record_hash: 14c1b5076e6f67e286965fc93a88a975b32929e86f07ffe54ba6c60f8a9fa933
+  stamped_at: '2026-11-17T17:38:40+00:00'
+  record_hash: 96eebaa1c6180aad74c10670d87f8e6ead79f5c118f8c7f2ba564a4363d6dd9f

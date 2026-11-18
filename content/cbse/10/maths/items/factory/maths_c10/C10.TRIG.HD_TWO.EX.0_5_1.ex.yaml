@@ -1,0 +1,136 @@
+id: C10.TRIG.HD_TWO.EX.0_5_1.ex
+skill_ids:
+- MATH.TRIG.HD.TWO_POSITIONS
+difficulty: 0.8
+pool: practice
+role: explain
+stem:
+  en: From a point on level ground close to a tower the angle of elevation of its
+    top is 60°. After walking 10 m directly away from the tower, the angle of elevation
+    becomes 30°. What is the height of the tower in metres? A classmate says the answer
+    is 10. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: The distance walked is the difference between the two ground distances.
+- level: 2
+  en: Write the ground distance from each position in terms of the height. Their difference
+    equals the distance walked. Then undo each operation by doing the same thing to
+    each side to get the height.
+- level: 3
+  en: 'Full method: draw the figure, write each ground distance using the tangent
+    of the angle, subtract to match the distance walked, replace tangents by exact
+    values, collect the height terms, and divide each side to isolate the height.'
+prediction_prompt:
+  en: Is the tower taller or shorter than the distance walked?
+status: draft
+template_id: TPL.C10.TRIG.HD_TWO.EX
+generator_version: factory-2
+template_hash: ee126141aa3ee30d6610c288edc822f6ac75182ca0788895f42658167b636ab3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10√3
+- id: b
+  en: 5√3
+- id: c
+  en: 10√3/3
+- id: d
+  en: '10'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SECOND_ANGLE_ONLY
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_FIRST_ANGLE_ONLY
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_SEPARATION_AS_HEIGHT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the tower be h m high. Seen at 30° the ground distance is h / tan 30°; seen
+    at 60° it is h / tan 60°.
+- en: 'The two distances differ by the 10 m walked: h / tan 30° - h / tan 60° = 10.'
+- en: 'Put in the exact values of the tangents and solve for h: h = 5√3 m.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: beb755abecf9f5eba79fb5699df201587cb77549cbafed39feab33ffc9b725c8
+  template_hash: ee126141aa3ee30d6610c288edc822f6ac75182ca0788895f42658167b636ab3
+  certificate_hash: 6bb04d8dcd37135b5e667977ab83580850f1844bd9a28732610c0c8cbcb5bc04
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd2.closed
+  - maths.hd2.sympy
+  - maths.hd2.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:13:39+00:00'
+  record_hash: e4c5575c6f8a7a8fdaa6c6820828b2e760fe828243017461783d72db3fe31251

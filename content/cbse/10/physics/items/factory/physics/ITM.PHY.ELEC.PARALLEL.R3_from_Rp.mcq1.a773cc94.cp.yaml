@@ -1,0 +1,136 @@
+id: ITM.PHY.ELEC.PARALLEL.R3_from_Rp.mcq1.a773cc94.cp
+skill_ids:
+- PHY.ELEC.PARALLEL
+difficulty: 0.35
+pool: checkpoint
+role: procedure
+stem:
+  en: The first resistor, R1, is 9 Ω, the second resistor, R2, is 18 Ω and the combined
+    resistance, Rp, is 3 Ω. Find the third resistance.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- level: 2
+  en: 'Get the third resistance on its own before you put numbers in: subtract 1/R1
+    and 1/R2 from each side of 1/Rp = 1/R1 + 1/R2 + 1/R3, then take the reciprocal
+    of each side. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write R3 = 1 / (1 / Rp - 1 / R1 - 1 / R2), where R3 is the third
+    resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the third resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.PARALLEL.CP
+generator_version: factory-2
+template_hash: ca7b1947b6c4092fa1f7ca8fae4790fb0f41962665eea2d9d3b55667bd4f9e74
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 30 Ω
+- id: b
+  en: 6 Ω
+- id: c
+  en: 486 Ω
+- id: d
+  en: 0.167 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORGOT_FINAL_RECIPROCAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/Rp = 1/R1 + 1/R2 + 1/R3.'
+- en: 'Get the third resistance alone: subtract 1/R1 and 1/R2 from each side of 1/Rp
+    = 1/R1 + 1/R2 + 1/R3, then take the reciprocal of each side.'
+- en: 'Substitute: R3 = 1 / (1 / 3 - 1 / 9 - 1 / 18).'
+- en: 'Calculate: R3 = 6 Ω.'
+- en: So the third resistance is 6 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e8416836e97671b128c62524a28fafacaf6f59510dc0733f07bf01c738784f77
+  template_hash: ca7b1947b6c4092fa1f7ca8fae4790fb0f41962665eea2d9d3b55667bd4f9e74
+  certificate_hash: 638097e2d3a5491db92db3fc9f0c4c1eed25f007a550a53fa84e00a3e9376c7b
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:51:58+00:00'
+  record_hash: 32c637d727e945c2506fea70a6ad9bc2da2a9fa8b2686e150b5cfdb13f4a49f4

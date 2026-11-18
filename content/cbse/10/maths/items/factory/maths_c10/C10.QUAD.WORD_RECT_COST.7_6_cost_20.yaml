@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.7_6_cost_20
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 7 m more than its breadth and
     it covers 78 m². The garden is to be fenced all the way round and the fencing
     costs 20 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '380'
-- id: b
-  en: '1320'
-- id: c
-  en: '760'
-- id: d
-  en: '1560'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 7 metres.
-- en: The area gives x(x + 7) = 78, so x² + 7x - 78 = 0.
-- en: 'Factorise: (x - 6)(x + 13) = 0, so x = 6 or x = -13; a length is positive,
-    so the breadth is 6 m and the length is 13 m.'
-- en: The perimeter is 2(6 + 13) = 38 m, and the cost is 38 x 20.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Let x be the unknown side, express the other side with x, then use the area.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '380'
+- id: b
+  en: '1320'
+- id: c
+  en: '760'
+- id: d
+  en: '1560'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 7 metres.
+- en: The area gives x(x + 7) = 78, so x² + 7x - 78 = 0.
+- en: 'Factorise: (x - 6)(x + 13) = 0, so x = 6 or x = -13; a length is positive,
+    so the breadth is 6 m and the length is 13 m.'
+- en: The perimeter is 2(6 + 13) = 38 m, and the cost is 38 x 20.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c53e733263b216ddd3653d40e9f546165738fdcd5192f8bf99f76ae002944012
+  item_hash: 463c719bc1bc993a9913dd0b571aecd2aa5c8cf685e2ce8947b12956a4b86949
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: 4a19bbcaf9172c6b48ed6b42db2f114aa0896cfbdb8fe207b8a464d0fe7f3985
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:13+00:00'
-  record_hash: 1763a526ca18eedd5b1248cbe2dba611366b34fc40ff41b8b24e25a2c7025900
+  stamped_at: '2026-11-17T17:47:27+00:00'
+  record_hash: 94f8b684ebe69f5311aa8d0d399ba66b17105c679a53d0610f7ddaca389936a5

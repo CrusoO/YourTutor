@@ -2,29 +2,10 @@ id: C10.TRIG.TABLE_VALUES.cos_30_d_tan_45_2
 skill_ids:
 - MATH.TRIG.STANDARD_ANGLE_VALUES
 difficulty: 0.42
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Find the value of cos² 30° ÷ tan² 45°.
-options:
-- id: a
-  en: √3/2
-- id: b
-  en: 1/4
-- id: c
-  en: 3/2
-- id: d
-  en: 3/4
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
-- en: cos 30° = √3/2 and tan 45° = 1.
-- en: Square each value before combining, because the squares apply to the values.
-- en: 'Combine them: the result is 3/4.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Recall the exact values of the ratios for the standard angles.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Will the answer be a whole number, a fraction or involve a square root?
 status: draft
 template_id: TPL.C10.TRIG.TABLE_VALUES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: √3/2
+- id: b
+  en: 1/4
+- id: c
+  en: 3/2
+- id: d
+  en: 3/4
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.SQUARE_DROPPED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.SWAPPED_SIN_COS_VALUES
+  when_answer_equals:
+  - b
+- id: MC.TRIG.TAN_VALUE_AS_SIN_VALUE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
+- en: cos 30° = √3/2 and tan 45° = 1.
+- en: Square each value before combining, because the squares apply to the values.
+- en: 'Combine them: the result is 3/4.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8b13c97168d2f3713097ab92a3b7123e35cb2d7d99045ae2549c2d5ccbba0f8e
+  item_hash: c228d818a097ed71feed2f15834bc214dd68e8ee572426991e7bd6d0ee4c3e31
   template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
   certificate_hash: a4b54baea3300ff28574dbdac2173b92814e2e207d6857b5f17bd818993d0521
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:02:36+00:00'
-  record_hash: c21a8293e00907fa0560a6fcdea13f16a9986cac25a7745027453ba668f3d43e
+  stamped_at: '2026-11-17T17:52:36+00:00'
+  record_hash: 1263d202873f249e1741b8b2567d657b30eb913ada9a5caf390c63158c270237

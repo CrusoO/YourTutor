@@ -2,31 +2,12 @@ id: C10.TRIG.HD_HEIGHT.60_12_surd_3
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A flagpole stands upright on level ground. From a point on the ground 12 m from
     the foot, the angle of elevation of the top is 60°. Find the height of the flagpole
     in metres.
-options:
-- id: a
-  en: 6√3
-- id: b
-  en: 12√3
-- id: c
-  en: '6'
-- id: d
-  en: 4√3
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the flagpole is the side opposite the 60° angle and
-    the ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 60°: height = 12 x tan 60°.'
-- en: With tan 60° taken from the table, the height is 12√3 m.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Decide which side is opposite the angle and which is next to it.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6√3
+- id: b
+  en: 12√3
+- id: c
+  en: '6'
+- id: d
+  en: 4√3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Sketch a right triangle: the flagpole is the side opposite the 60° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 12 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 12√3 m.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a504b2bba778ffae5d9264dfd66204205c7740988f6fd618897691dacd6b5c1f
+  item_hash: 99b2fe4c8c7ca6fbd2aef0b1dcb70df403374c1a0cff4b6f1bf2ace12bac1e09
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: f0568beab2975c0c0d8e604191d3446547536e5c1362cb805388d5ec1edae42a
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:39+00:00'
-  record_hash: af741e1cea87f15841c27985df6469eba2c18ed3eff3e34c8e71e5835acd1566
+  stamped_at: '2026-11-17T17:50:19+00:00'
+  record_hash: d6bd4fe3d28f515d325782ed4d090289909a26c9a0e5fa6294deb9ba19733aab

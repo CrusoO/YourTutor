@@ -2,29 +2,11 @@ id: C10.AP.DIFFERENCE.5_m1_2
 skill_ids:
 - MATH.ALG.AP.COMMON_DIFFERENCE
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: The numbers 5/2, 2, 3/2, 1, ... follow an arithmetic progression. State its
     common difference.
-options:
-- id: a
-  en: 1/2
-- id: b
-  en: 4/5
-- id: c
-  en: 5/2
-- id: d
-  en: -1/2
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: In an AP every term is the previous term plus the same number, the common difference.
-- en: 'Subtract a term from the one after it: 2 - (5/2) = -1/2.'
-- en: 'Check with another pair: 3/2 - (2) = -1/2. The common difference is -1/2.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Subtract each term from the one after it and see what you get.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Is the list going up or down, and by roughly how much each step?
 status: draft
 template_id: TPL.C10.AP.DIFFERENCE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/2
+- id: b
+  en: 4/5
+- id: c
+  en: 5/2
+- id: d
+  en: -1/2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.DIFF_SIGN_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.AP.DIFF_AS_RATIO
+  when_answer_equals:
+  - b
+- id: MC.AP.DIFF_FIRST_TERM_GIVEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In an AP every term is the previous term plus the same number, the common difference.
+- en: 'Subtract a term from the one after it: 2 - (5/2) = -1/2.'
+- en: 'Check with another pair: 3/2 - (2) = -1/2. The common difference is -1/2.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fdb857dfb167e610eae772bf2a517366ff088087346bdf6a6971edf1d747a0e9
+  item_hash: a50c25b774ddd625ff163d50c4351ce9756f1b9d0ce43df1c2d6fe396ff7fca9
   template_hash: c2384f2dd807a757ed596b8a59fbf6c0a8a7e2905a47b6627ee437e9609257ca
   certificate_hash: ffdfc40a057580b82cf943ee977cea4e56f47f1217f5564307197b56ad3cc9fa
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:12:38+00:00'
-  record_hash: 637141948359d71a5b441994fc2a93ba4f7ea979c10cf8c000168befe669efcd
+  stamped_at: '2026-11-17T17:38:22+00:00'
+  record_hash: 38b28a046444527c78207d8490855ef92255608ede0fdc23b42a01315627b645

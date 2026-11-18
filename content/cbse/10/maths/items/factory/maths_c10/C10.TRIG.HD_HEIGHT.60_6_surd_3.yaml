@@ -2,31 +2,12 @@ id: C10.TRIG.HD_HEIGHT.60_6_surd_3
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A flagpole stands upright on level ground. From a point on the ground 6 m from
     the foot, the angle of elevation of the top is 60°. Find the height of the flagpole
     in metres.
-options:
-- id: a
-  en: '3'
-- id: b
-  en: 2√3
-- id: c
-  en: 6√3
-- id: d
-  en: 3√3
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the flagpole is the side opposite the 60° angle and
-    the ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 60°: height = 6 x tan 60°.'
-- en: With tan 60° taken from the table, the height is 6√3 m.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Draw the right triangle first and label what is known and what is wanted.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: 2√3
+- id: c
+  en: 6√3
+- id: d
+  en: 3√3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Sketch a right triangle: the flagpole is the side opposite the 60° angle and
+    the ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 6 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 6√3 m.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5dfde8f17350637a509d34c4a50324ef0aa95f7ae64761b31a5589649ace1602
+  item_hash: 2a9b206038a0f66e6240dc938e8ff7e6f03fb20e9a76ba89ca8eacdb26e43c07
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: 2bde43fc599becd8c5abcd54f9d8c3ae013551fb1c3771842481918c4248f763
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:39+00:00'
-  record_hash: ee2283fd68cfd17005c0f3d14192b460fb9befd80e31bb17c311df141edf624e
+  stamped_at: '2026-11-17T17:50:20+00:00'
+  record_hash: f0d83372c83dcd3f99e3a6f5ee04f0ad3a196f5cea34829333a018807469b30f

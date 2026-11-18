@@ -2,7 +2,6 @@ id: ITM.PHY.ELEC.ENERGY_KWH.E_two.num3.9c653792
 skill_ids:
 - PHY.ELEC.ENERGY_KWH
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
@@ -11,26 +10,6 @@ stem:
     h, the power rating of the second appliance, P2, is 100 W, the time the second
     one is used each day, t2, is 3 h and the number of days, d, is 10. How much electrical
     energy is used in all, in kWh?
-options:
-- id: a
-  en: 11 kWh
-- id: b
-  en: 53 kWh
-- id: c
-  en: 5.3 kWh
-- id: d
-  en: 50 kWh
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Plan: add the energy of each appliance for one day, power times time, then
-    multiply by the days.'
-- en: 'Substitute: E2 = (1000 x 18000 + 100 x 10800) x 10.'
-- en: 'Calculate: E2 = 1.908 x 10^8 J.'
-- en: 'Give it in kWh: 53 kWh.'
-- en: So the energy is 53 kWh.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Plan the steps: add
@@ -47,15 +26,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.ENERGY_KWH
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 11 kWh
+- id: b
+  en: 53 kWh
+- id: c
+  en: 5.3 kWh
+- id: d
+  en: 50 kWh
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.DAYS_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ONE_APPLIANCE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: add the energy of each appliance for one day, power times time, then
+    multiply by the days.'
+- en: 'Substitute: E2 = (1000 x 18000 + 100 x 10800) x 10.'
+- en: 'Calculate: E2 = 1.908 x 10^8 J.'
+- en: 'Give it in kWh: 53 kWh.'
+- en: So the energy is 53 kWh.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c0b875b1c4764d69ff6be4e33e36ff7554eefe63d9c884c47f14f046889257df
+  item_hash: 024ecb2528831ec7093fb4f69f1b6f37e5ffcb92d2364a47f1aadf22d14f923b
   template_hash: bdd8294b5642b518125d964b46a2a039aecbe01a2b7b42bf1cc90e43177de3a1
   certificate_hash: c257e9b04781d29de3a45fbbbbdb2699f4d223dcbb786354f5afee6a77532acc
   label: calculation-checked
@@ -120,10 +130,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:34+00:00'
-  record_hash: cf9228113c21853e818e605dede7f64f078b201a8050c02e6d6b011fcbac6f82
+  stamped_at: '2026-11-17T19:38:52+00:00'
+  record_hash: 9b55b7751bea64b1b24e9e3efd3f7e88e9848566533db146c88c3ebd89d887c1

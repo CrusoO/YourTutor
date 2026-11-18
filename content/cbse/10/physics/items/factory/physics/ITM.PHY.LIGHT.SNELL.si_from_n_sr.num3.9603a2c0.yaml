@@ -2,31 +2,12 @@ id: ITM.PHY.LIGHT.SNELL.si_from_n_sr.num3.9603a2c0
 skill_ids:
 - PHY.LIGHT.SNELL
 difficulty: 0.55
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying light entering a transparent medium from air. The refractive
     index of the medium, n, is 1.6 and the sine of the angle of refraction is 0.5.
     Find the sine of the angle of incidence.
-options:
-- id: a
-  en: '3.2'
-- id: b
-  en: '0.3125'
-- id: c
-  en: '1.1'
-- id: d
-  en: '0.8'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
-- en: 'Substitute: si = 1.6 x 0.5.'
-- en: 'Calculate: si = 0.8.'
-- en: So the sine of the angle of incidence is 0.8.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +23,44 @@ prediction_prompt:
     be?
 status: draft
 template_id: TPL2.PHY.LIGHT.SNELL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3.2'
+- id: b
+  en: '0.3125'
+- id: c
+  en: '1.1'
+- id: d
+  en: '0.8'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SNELL_MULTIPLIED_WRONG_WAY
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.SNELL_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.SINES_SUBTRACTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
+- en: 'Substitute: si = 1.6 x 0.5.'
+- en: 'Calculate: si = 0.8.'
+- en: So the sine of the angle of incidence is 0.8.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: d9d3d72f7e5d5f075fcffae492bbfabb03af0812e53ed0ef897d4846a7e13030
+  item_hash: 17b265544fd3fffc1a1a0a690b19c394cf1a216dd8022e0613bd8d7e56c55dc5
   template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
   certificate_hash: a7fdf9f51d8c8a8565c5569436f99d34d226953ac200046a898223d4f2b0c9b3
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:26+00:00'
-  record_hash: bb7fb3af8b2795082b4ea572f380a8c6acbd3f999257ecfa564f1d844997ba70
+  stamped_at: '2026-11-17T19:41:43+00:00'
+  record_hash: 1a2f7e1e0a72928e30391cb6356d4793a0489b645c610f8c84efb55cb3e3c041

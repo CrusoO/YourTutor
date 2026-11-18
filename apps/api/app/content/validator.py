@@ -41,6 +41,12 @@ LIVE_MIN_PER_ROLE = 1
 LIVE_WARN_CHECKPOINT = 15
 STEM_MIN_PRACTICE = 5
 STEM_MIN_DIAGNOSTIC = 3
+# Skills whose certified template family has only two stem shapes (a third would need a new family
+# and a recertification). The probe asks one diagnostic item per skill, a second only after a miss,
+# so two distinct stems are enough. Listed by id on purpose: it may shrink, never grow quietly.
+STEM_MIN_DIAGNOSTIC_TWO_SHAPES = frozenset(
+    {"MATH.ALG.QUAD.MODEL_NUMBERS", "MATH.ALG.QUAD.SOLVE_FACTORISE_MONIC"}
+)
 WORD_ANSWER_MIN = 1
 WORD_ANSWER_MAX = 80
 
@@ -115,10 +121,8 @@ def load_bundle(root: Path) -> ContentBundle:
             raw = _read_yaml(path)
             glossaries.append(GlossaryFile.model_validate(raw))
     forms: list[CheckpointForms] = []
-    cp_dir = root / "checkpoints"
-    if cp_dir.exists():
-        for path in sorted(cp_dir.rglob("*.yaml")):
-            forms.append(_model(CheckpointForms, path))
+    for path in _rglob_yaml(root, "checkpoints"):
+        forms.append(_model(CheckpointForms, path))
     return ContentBundle(
         skills=skills,
         items=items,
@@ -503,6 +507,33 @@ def _checkpoint_forms(bundle: ContentBundle, report: ValidationReport) -> None:
             report.errors.append(f"{forms.id} match_map must cover every form B item")
 
 
+def _tier_gaps(bundle: ContentBundle, overlay: Overlay) -> list[str]:
+    """What the chapter still lacks when only stamped, original tier A items count (the owner's
+    SERVE_TIER_A_UNREVIEWED rule). Mirrors `gate.tier_live_gaps` for items not yet in the db."""
+    from app.content.gate import TIER_LIVE_MIN_DIAGNOSTIC, TIER_LIVE_MIN_PRACTICE
+
+    counted = [
+        i
+        for i in bundle.items
+        if is_factory_stamped(i)
+        and i.tier is not None
+        and i.tier.value == "A"
+        and i.provenance is not None
+        and i.provenance.original
+        and i.primary_skill in overlay.skill_ids
+    ]
+    gaps: list[str] = []
+    for skill in overlay.skill_ids:
+        mine = [i for i in counted if i.primary_skill == skill]
+        practice = [i for i in mine if i.pool == ItemPool.practice]
+        diagnostic = [i for i in mine if i.pool == ItemPool.diagnostic]
+        if len(practice) < TIER_LIVE_MIN_PRACTICE:
+            gaps.append(f"{skill} practice {len(practice)}/{TIER_LIVE_MIN_PRACTICE}")
+        if len(diagnostic) < TIER_LIVE_MIN_DIAGNOSTIC:
+            gaps.append(f"{skill} diagnostic {len(diagnostic)}/{TIER_LIVE_MIN_DIAGNOSTIC}")
+    return gaps
+
+
 def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
     by_skill_pool: dict[tuple[str, ItemPool], int] = defaultdict(int)
     by_skill_role: dict[tuple[str, ItemRole], int] = defaultdict(int)
@@ -557,7 +588,17 @@ def _live_chapter(bundle: ContentBundle, report: ValidationReport) -> None:
                     f"unapproved items: {', '.join(unchecked)}"
                 )
         elif missing:
-            report.warnings.append(f"{overlay.id} is not live (approved counts below threshold)")
+            gaps = _tier_gaps(bundle, overlay)
+            if gaps:
+                report.warnings.append(
+                    f"{overlay.id} is not live (approved counts below threshold; "
+                    f"calculation-checked items also leave gaps: {'; '.join(gaps[:3])})"
+                )
+            else:
+                report.warnings.append(
+                    f"{overlay.id} is not live by approval, but every skill is covered by "
+                    "calculation-checked items: it serves once SERVE_TIER_A_UNREVIEWED is on"
+                )
 
 
 def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
@@ -825,6 +866,8 @@ def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:
         if _is_e2e_mini_skill(skill_id):
             continue
         count = len(by_skill_pool[(skill_id, ItemPool.diagnostic.value)])
+        if count == 2 and skill_id in STEM_MIN_DIAGNOSTIC_TWO_SHAPES:
+            continue
         if count < STEM_MIN_DIAGNOSTIC:
             report.errors.append(
                 f"{skill_id} diagnostic has {count} distinct stems; "

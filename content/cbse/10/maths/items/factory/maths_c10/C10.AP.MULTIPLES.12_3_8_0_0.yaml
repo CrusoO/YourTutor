@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.12_3_8_0_0
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.64
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every multiple of 12 from 36 up to 120, counting both ends if they qualify.
-options:
-- id: a
-  en: '1248'
-- id: b
-  en: '624'
-- id: c
-  en: '660'
-- id: d
-  en: '546'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first multiple of 12 in the range is 36 and the last is 120.
-- en: 'They form an AP with common difference 12. Number of terms: (120 - 36)/12 +
-    1 = 8.'
-- en: S = (8/2)(36 + 120) = 624.
-- en: The correct option is b.
 hints:
 - level: 1
   en: The end numbers of the range may not themselves be multiples.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1248'
+- id: b
+  en: '624'
+- id: c
+  en: '660'
+- id: d
+  en: '546'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.MULTIPLES_STARTED_FROM_FIRST
+  when_answer_equals:
+  - c
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 12 in the range is 36 and the last is 120.
+- en: 'They form an AP with common difference 12. Number of terms: (120 - 36)/12 +
+    1 = 8.'
+- en: S = (8/2)(36 + 120) = 624.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 70432ecf251ba910b9f9e73c931587310e550441f57bd527257b7721a4d008bf
+  item_hash: 54766bc4e663abc6e610acb40d9ff164563a48c09aa5d68c16352736bde8028d
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: bfea06c6397de8e0b00627636fb1e2fd23d2f4c9914bd73fd5e8f3bd73ad9eb0
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: b980a7de635d813e0b32d25a952c019fe97c8509be8fc3a5f20235e7f00be119
+  stamped_at: '2026-11-17T17:38:42+00:00'
+  record_hash: 8b9c8c7e1fe2a2b9aaeb7b6ae90b21d4d7a14131a0d4da2d92ee762a1dbac213

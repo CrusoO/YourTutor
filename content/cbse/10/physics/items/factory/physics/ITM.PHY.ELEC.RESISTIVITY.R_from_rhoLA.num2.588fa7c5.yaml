@@ -2,32 +2,12 @@ id: ITM.PHY.ELEC.RESISTIVITY.R_from_rhoLA.num2.588fa7c5
 skill_ids:
 - PHY.ELEC.RESISTIVITY
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about a uniform wire. The resistivity of its material, rho,
     is 1 x 10^-7 Ω m, its length, L, is 1 m and its cross-section area, A, is 1 mm².
     Find the resistance of the wire.
-options:
-- id: a
-  en: 1 x 10^-7 Ω
-- id: b
-  en: 1 x 10^-13 Ω
-- id: c
-  en: 0.1 Ω
-- id: d
-  en: 10 Ω
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: R = resistivity x length / area.'
-- en: 'Put each quantity in SI units: 1 mm² = 1 x 10^-6 m².'
-- en: 'Substitute: R = (1 x 10^-7) x 1 / (1 x 10^-6).'
-- en: 'Calculate: R = 0.1 Ω.'
-- en: So the resistance is 0.1 Ω.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -43,15 +23,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.RESISTIVITY
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1 x 10^-7 Ω
+- id: b
+  en: 1 x 10^-13 Ω
+- id: c
+  en: 0.1 Ω
+- id: d
+  en: 10 Ω
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.AREA_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.AREA_DIRECT_NOT_INVERSE
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R = resistivity x length / area.'
+- en: 'Put each quantity in SI units: 1 mm² = 1 x 10^-6 m².'
+- en: 'Substitute: R = (1 x 10^-7) x 1 / (1 x 10^-6).'
+- en: 'Calculate: R = 0.1 Ω.'
+- en: So the resistance is 0.1 Ω.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 86978792b35d9b5eccd5e57235f037f70972afe031e56d475966d561a4c5e082
+  item_hash: 9e55864e5626667e2e86995eabb583dc52306af3920b3696a345565f343c016b
   template_hash: 700a358e88edc72aacac7820858a974a983a73214b3ead28ba24e3d3d266375e
   certificate_hash: 0c151f9b4c59c4acbe03ac0e644f2ec4e6fc22b3ff7d6566a897b65c61f8c12b
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:49+00:00'
-  record_hash: c971eb665522bb9ce6361bf83e0bfd8fb2a9f8a0777105b81ef21478dd3192a8
+  stamped_at: '2026-11-17T19:37:30+00:00'
+  record_hash: 228b2810323d63612fe4a8ae3c60dc5d2e27f8259bee9f87ebcf5bbc19169710

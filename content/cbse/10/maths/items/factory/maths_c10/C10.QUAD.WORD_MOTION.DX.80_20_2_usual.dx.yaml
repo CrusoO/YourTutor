@@ -1,0 +1,139 @@
+id: C10.QUAD.WORD_MOTION.DX.80_20_2_usual.dx
+skill_ids:
+- MATH.ALG.QUAD.MODEL_MOTION
+difficulty: 0.86
+pool: diagnostic
+role: transfer
+stem:
+  en: A bus travels 800 km along a fixed route at a steady speed. If it travelled
+    20 km/h faster, the journey would take 2 hours less. Find the usual speed of the
+    bus in km/h.
+hints:
+- level: 1
+  en: Let x stand for the usual speed and write the time for each journey with x.
+- level: 2
+  en: Subtract the two times and set the difference equal to the time saved. Multiply
+    every term by the same expression to clear the fractions, then solve. Do the same
+    thing to each side at every step.
+- level: 3
+  en: 'Full method: name the usual speed, write the two times, form the difference
+    relation, clear the fractions by multiplying every term, rearrange to zero, solve,
+    reject the negative speed, then answer the speed that was asked for.'
+prediction_prompt:
+  en: Will the usual speed be more or less than the increase in speed?
+status: draft
+template_id: TPL.C10.QUAD.WORD_MOTION.DX
+generator_version: factory-2
+template_hash: 164daf38f6a0a184301d9321debefe7456ed4565ccc87897024b5a9b5c378ea9
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '60'
+- id: b
+  en: '80'
+- id: c
+  en: '-100'
+- id: d
+  en: '100'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_INCREASE_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_OTHER_SPEED_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x km/h be the usual speed. The time taken is 800/x hours, and at the higher
+    speed it is 800/(x + 20) hours.
+- en: 'The saving is 2: 800/x - 800/(x + 20) = 2. Multiply every term by x(x + 20)
+    to clear the fractions.'
+- en: This gives 2x² + 40x - 16000 = 0, which factorises as (x - 80)(x + 100) = 0
+    after dividing by 2.
+- en: A speed is positive, so the usual speed is 80 km/h and the faster speed is 100
+    km/h.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 24e80dd90d9a42c2a19f70be1d77964a757659500c9ce9f16cbbfedecf9f7cd8
+  template_hash: 164daf38f6a0a184301d9321debefe7456ed4565ccc87897024b5a9b5c378ea9
+  certificate_hash: 1e2719b512f4454f48e93cd3ae0fff111332e23db19fee49cf795ff59a3d49e1
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch04
+  methods_agreeing:
+  - kernel.algebra
+  - maths.word.closed
+  - maths.word.sympy
+  - maths.word.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:54:43+00:00'
+  record_hash: 696e4fd3d997868e9f625d68d1428b823cf3b7a3ba4f0312e60619a9317444d5

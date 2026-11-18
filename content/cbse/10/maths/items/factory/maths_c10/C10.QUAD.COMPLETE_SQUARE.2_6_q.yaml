@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.2_6_q
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Complete the square on x² + 4x + 6 = 0 to reach (x + p)² = q. What is q?
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '-4'
-- id: c
-  en: '-2'
-- id: d
-  en: '10'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Half of the x coefficient 4 is 2, so the square is (x + 2)².
-- en: (x + 2)² = x² + 4x + 4, so add 4 to both sides and subtract 6 from both sides.
-- en: This gives (x + 2)² = -2. So p = 2 and q = -2.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Think of one bracket squared; match the x term first.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-4'
+- id: c
+  en: '-2'
+- id: d
+  en: '10'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_SIGN_SWAPPED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CS_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CS_ADDED_NOT_SUBTRACTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 4 is 2, so the square is (x + 2)².
+- en: (x + 2)² = x² + 4x + 4, so add 4 to both sides and subtract 6 from both sides.
+- en: This gives (x + 2)² = -2. So p = 2 and q = -2.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: ef541f26dc871335bea13860ca804364af92c07e2f0f03c91b89ca0857f0eeb2
+  item_hash: 54c063a526242f1633e41d94a6659b84bef360b4ed3f13d73263cd299ce525b0
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: ff06eded92ee6883bcd48dcf3b49bac780e0b95804a22663807939f7b400e7b4
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:40+00:00'
-  record_hash: 76df9f0d067585ada48108a4a0a4f3f13a6b1954869178a57f5bc48dbe33edb4
+  stamped_at: '2026-11-17T17:41:34+00:00'
+  record_hash: 60f35e8ceae25ca17c362c6dfb232ace99af41154da78a6baf6b8b06ea0e0db0

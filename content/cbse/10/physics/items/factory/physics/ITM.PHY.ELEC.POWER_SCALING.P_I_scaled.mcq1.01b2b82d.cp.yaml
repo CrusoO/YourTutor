@@ -1,0 +1,134 @@
+id: ITM.PHY.ELEC.POWER_SCALING.P_I_scaled.mcq1.01b2b82d.cp
+skill_ids:
+- PHY.ELEC.POWER_SCALING
+difficulty: 0.3
+pool: checkpoint
+role: explain
+stem:
+  en: The current through a fixed resistor is multiplied by 4. By what number is the
+    power multiplied?
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: for a fixed resistor P = I x I x R, so P changes with the square
+    of I.'
+- level: 2
+  en: The relation already gives the number the power is multiplied by directly, so
+    decide what to substitute.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.POWER_SCALING.CP
+generator_version: factory-2
+template_hash: 233cb81a7f86d3b17b579e76560e730ecee63adae362a2d3035be88d3f7708ea
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.0625'
+- id: b
+  en: '8'
+- id: c
+  en: '4'
+- id: d
+  en: '16'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_SCALES_LINEARLY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: for a fixed resistor P = I x I x R, so P changes with the
+    square of I.'
+- en: 'Combine the numbers: 4^2 = 16.'
+- en: So the number the power is multiplied by is 16.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e63afa9b6f6b997c82a97b1a77622e1ee000678440edbec34fe8c03a2beae01a
+  template_hash: 233cb81a7f86d3b17b579e76560e730ecee63adae362a2d3035be88d3f7708ea
+  certificate_hash: 348ee0b9b1d4a761847ed74139c276af0b0471a7d74a7eda644869a481fd2859
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:53:47+00:00'
+  record_hash: d812e5b8f72479f4f33e9903f736f5ea9601169055705ee995298f23fa06c633

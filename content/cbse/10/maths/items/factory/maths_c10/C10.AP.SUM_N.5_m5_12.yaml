@@ -2,29 +2,10 @@ id: C10.AP.SUM_N.5_m5_12
 skill_ids:
 - MATH.ALG.AP.SUM_FIRST_N
 difficulty: 0.41
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the sum of the first 12 terms of the AP 5, 0, -5, ...
-options:
-- id: a
-  en: '-50'
-- id: b
-  en: '-540'
-- id: c
-  en: '-270'
-- id: d
-  en: '-300'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first term is 5, the common difference is -5 and the number of terms is
-    12.
-- en: S_n = (n/2)(2a + (n - 1)d) = (12/2)(2 x 5 + (12 - 1) x -5).
-- en: = (12/2)(-45) = -270.
-- en: The correct option is c.
 hints:
 - level: 1
   en: You need the first term, the common difference and how many terms are added.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Roughly how big do you expect the total to be?
 status: draft
 template_id: TPL.C10.AP.SUM_N
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-50'
+- id: b
+  en: '-540'
+- id: c
+  en: '-270'
+- id: d
+  en: '-300'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_AS_NTH_TERM
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 5, the common difference is -5 and the number of terms is
+    12.
+- en: S_n = (n/2)(2a + (n - 1)d) = (12/2)(2 x 5 + (12 - 1) x -5).
+- en: = (12/2)(-45) = -270.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: c8b2c0d0057aaf15d87ccfccbbd8f028e524a1eb8f844086baf145551965f614
+  item_hash: 080a0c465d64ca5419832e40f5bd1bab390732ed2d81ac3415a06db05f127eb2
   template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
   certificate_hash: e492027c87ddb8574f267de35befee279715b190bd7e358a374f329fa1ed625f
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:17+00:00'
-  record_hash: 289b373559fd68f1e169cce0c369c8ddb136c9018a9f3ed4d81a13ba71b68d1d
+  stamped_at: '2026-11-17T17:39:29+00:00'
+  record_hash: cf42b1c987f58576f7bc62c6696de60a493b1f27cd13c205f41580e5ec86c032

@@ -2,31 +2,12 @@ id: C10.TRIG.HD_TWO.0_2_1
 skill_ids:
 - MATH.TRIG.HD.TWO_POSITIONS
 difficulty: 0.8
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: From a point on level ground close to a tower the angle of elevation of its
     top is 60°. After walking 4 m directly away from the tower, the angle of elevation
     becomes 30°. Find the height of the tower in metres.
-options:
-- id: a
-  en: 2√3
-- id: b
-  en: 4√3
-- id: c
-  en: 4√3/3
-- id: d
-  en: '4'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let the tower be h m high. Seen at 30° the ground distance is h / tan 30°; seen
-    at 60° it is h / tan 60°.
-- en: 'The two distances differ by the 4 m walked: h / tan 30° - h / tan 60° = 4.'
-- en: 'Put in the exact values of the tangents and solve for h: h = 2√3 m.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Draw both positions on one diagram with the tower standing on the same line.
@@ -42,15 +23,44 @@ prediction_prompt:
   en: Is the tower taller or shorter than the distance walked?
 status: draft
 template_id: TPL.C10.TRIG.HD_TWO
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2√3
+- id: b
+  en: 4√3
+- id: c
+  en: 4√3/3
+- id: d
+  en: '4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SECOND_ANGLE_ONLY
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_FIRST_ANGLE_ONLY
+  when_answer_equals:
+  - c
+- id: MC.TRIG.HD_SEPARATION_AS_HEIGHT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the tower be h m high. Seen at 30° the ground distance is h / tan 30°; seen
+    at 60° it is h / tan 60°.
+- en: 'The two distances differ by the 4 m walked: h / tan 30° - h / tan 60° = 4.'
+- en: 'Put in the exact values of the tangents and solve for h: h = 2√3 m.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8ff8969678ad01cd2eefd43132a77da20e8360b5aef41fb1ff3446d74fb86624
+  item_hash: 417294cb96b44baa07d0a023a98d7a3487a512c69052136bee9d542413afd610
   template_hash: 333403abf0562bbbe9cb511e9fc7dd5c39e4a378805ddf0609d6f09eb357e430
   certificate_hash: d984fcabd979582237489ea59386f7d74039737ed009590f951ce6da1a06d343
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:01:01+00:00'
-  record_hash: 686ca483f9e2baee6a890f037698fbaecd6245fa5ea2289429bbd0a4c041b437
+  stamped_at: '2026-11-17T17:51:24+00:00'
+  record_hash: 5dc7427652f7383d8e730d5cf6213be92559760706f2b1214ec5c91d03572d99

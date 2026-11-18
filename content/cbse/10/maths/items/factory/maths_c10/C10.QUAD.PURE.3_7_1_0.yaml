@@ -2,27 +2,10 @@ id: C10.QUAD.PURE.3_7_1_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.26
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 3x² = 147.
-options:
-- id: a
-  en: x = -7 or x = 7
-- id: b
-  en: x = -49 or x = 49
-- id: c
-  en: x = 7
-- id: d
-  en: x = -21 or x = 21
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Add 147 to both sides and divide both sides by 3: x² = 49.'
-- en: 'Take the square root of both sides, remembering both signs: x = -7 or x = 7.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -37,15 +20,42 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -7 or x = 7
+- id: b
+  en: x = -49 or x = 49
+- id: c
+  en: x = 7
+- id: d
+  en: x = -21 or x = 21
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_FORGOT_SQRT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.PURE_PLUS_ONLY
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Add 147 to both sides and divide both sides by 3: x² = 49.'
+- en: 'Take the square root of both sides, remembering both signs: x = -7 or x = 7.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6ffce07a3555004b1a0e34e45a87aa79884ee10561c4bf7e9d83a99418474740
+  item_hash: 8f4146677de95413b30e019c563475895cda369ec31d42de2b42ca1435567e2f
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: affe0f57c9bfcd46f622bcde22178a7b56eb4c41bf9a474c21882bc682dbb5c3
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:10+00:00'
-  record_hash: fe62a6d0c3c5bbbb41fba7aef4a745875b6f0bc726752c45e2c8c1ab778198ca
+  stamped_at: '2026-11-17T17:45:31+00:00'
+  record_hash: 3064628282e5fa2d7165d38b3af9c569bc10b57000288b89db6a5b16c0b21e78

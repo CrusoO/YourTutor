@@ -2,30 +2,10 @@ id: C10.AP.N_FROM_SUM.8_3_13
 skill_ids:
 - MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: The sum of the first n terms of the AP 8, 11, 14, ... is 338. Find n.
-options:
-- id: a
-  en: '14'
-- id: b
-  en: 169/4
-- id: c
-  en: -52/3
-- id: d
-  en: '13'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Here a = 8, d = 3 and S_n = 338.
-- en: '(n/2)(2 x 8 + (n - 1) x 3) = 338. Multiply both sides by 2 and expand: 3n²
-    + 13n = 676.'
-- en: 'Rearranged: 3n² + (13)n - 676 = 0, whose solutions are n = 13 and n = -52/3.'
-- en: The number of terms is a positive whole number, so n = 13.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Write the sum formula with n as the unknown and make it equal to the target.
@@ -39,15 +19,45 @@ prediction_prompt:
   en: Is n more likely to be small or large?
 status: draft
 template_id: TPL.C10.AP.N_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '14'
+- id: b
+  en: 169/4
+- id: c
+  en: -52/3
+- id: d
+  en: '13'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Here a = 8, d = 3 and S_n = 338.
+- en: '(n/2)(2 x 8 + (n - 1) x 3) = 338. Multiply both sides by 2 and expand: 3n²
+    + 13n = 676.'
+- en: 'Rearranged: 3n² + (13)n - 676 = 0, whose solutions are n = 13 and n = -52/3.'
+- en: The number of terms is a positive whole number, so n = 13.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 6226b9e914ed39c19f8c511103b67b7e0409c6afe5ee0f3e54904d08edc0f790
+  item_hash: 5ca98201a092735426ead903bbe763f2549daef2f35139d02aa7e75f4a383bdb
   template_hash: 0f9e467fecc1e3f5ab86176f3936a5770fde91a8ccb76a647cecf30814499dee
   certificate_hash: 134c58c53ff4e25e14ee75bf8165ce42be43ec2fa05f53d278c28b020a04af4b
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:16:31+00:00'
-  record_hash: 138989ca7f815559750500d7779b54d44fdcbd6f2f12d832b97db6c4e7d5ff48
+  stamped_at: '2026-11-17T17:38:54+00:00'
+  record_hash: e94dba3f644ad6dc698dd5fabc21517da2dc682b8f87fe24799613347b3d2830

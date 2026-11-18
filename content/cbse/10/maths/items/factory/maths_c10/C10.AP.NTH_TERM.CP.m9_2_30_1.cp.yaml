@@ -1,0 +1,131 @@
+id: C10.AP.NTH_TERM.CP.m9_2_30_1.cp
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.31
+pool: checkpoint
+role: procedure
+stem:
+  en: An AP starts at -9 and changes by 2 at every step. What is its 30th term?
+hints:
+- level: 1
+  en: Each step adds the common difference; count the steps from the first term.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM.CP
+generator_version: factory-2
+template_hash: 730839494899c07c45b1266ba37ed75f8672cc796e15f56c584debd7d5143553
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '51'
+- id: b
+  en: '22'
+- id: c
+  en: '49'
+- id: d
+  en: '-67'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -9 and the common difference is 2.
+- en: The nth term is first term + (n - 1) x difference, so a_30 = -9 + (30 - 1)(2).
+- en: a_30 = -9 + 58 = 49.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 039f2195529eeaa7bae9e59157a1c7738ff1e6affc4ce2b20eee0469ab0bc8c7
+  template_hash: 730839494899c07c45b1266ba37ed75f8672cc796e15f56c584debd7d5143553
+  certificate_hash: 4480d2f9b25ffb23dd04766ef270e623c16248bb3ea9d6239ee5307c415de761
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:15:25+00:00'
+  record_hash: 0b555d44563a580fbe8eb37db2be7e1022a5b435049c80a41063f78ef721f277

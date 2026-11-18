@@ -2,31 +2,10 @@ id: C10.QUAD.COMMON_X.4_9_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.42
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which values of x satisfy 4x² - 36x = 0?
-options:
-- id: a
-  en: x = 0
-- id: b
-  en: x = -9 or x = 0
-- id: c
-  en: x = 0 or x = 9
-- id: d
-  en: x = 9
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Bring every term to the left so the right side is 0, then take out x as a common
-    factor.
-- en: This gives x(4x - 36) = 0.
-- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
-- en: 'Undo the bracket: add 36 to both sides, then divide both sides by 4: x = 9.'
-- en: The solutions are x = 0 or x = 9.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Look for the factor that both terms contain.
@@ -41,15 +20,46 @@ prediction_prompt:
   en: Will x = 0 be one of the answers?
 status: draft
 template_id: TPL.C10.QUAD.COMMON_X
-generator_version: factory-1
+generator_version: factory-2
 template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 0
+- id: b
+  en: x = -9 or x = 0
+- id: c
+  en: x = 0 or x = 9
+- id: d
+  en: x = 9
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.ONE_FACTOR_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FACTOR_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.QUAD.DIVIDED_BY_X_LOST_ROOT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Bring every term to the left so the right side is 0, then take out x as a common
+    factor.
+- en: This gives x(4x - 36) = 0.
+- en: A product is zero only when one factor is zero, so x = 0 or the bracket is 0.
+- en: 'Undo the bracket: add 36 to both sides, then divide both sides by 4: x = 9.'
+- en: The solutions are x = 0 or x = 9.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 93e709a06afe4fe5d4c3461781734420478082ea86298c1d5105b0133444da24
+  item_hash: f64465e7048e89f33754b0b1672ba09a96107266f058153b8ffcb617fded5e48
   template_hash: dff153d4725e304e6752ef5cb1caf26e1b239b4106b551530946dacadc0da6bd
   certificate_hash: bf1139fad4da6e12abab2d32c8509b3046abdc9132e8d217799ad3f9f49297f3
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:30:46+00:00'
-  record_hash: 66f62132a6407ab73bff0e6e781c50e9203cb0c091c8f6a11f8d085a6e7684f3
+  stamped_at: '2026-11-17T17:41:18+00:00'
+  record_hash: 65270b24b7b012606ebee93928b3715582b1c32a25d2467a5776de088f33bb72

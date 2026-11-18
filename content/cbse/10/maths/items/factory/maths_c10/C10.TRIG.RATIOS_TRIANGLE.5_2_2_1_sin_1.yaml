@@ -2,31 +2,11 @@ id: C10.TRIG.RATIOS_TRIANGLE.5_2_2_1_sin_1
 skill_ids:
 - MATH.TRIG.RATIOS_FROM_TRIANGLE
 difficulty: 0.46
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: In triangle PQR the angle at Q is a right angle, PQ = 40 cm and QR = 42 cm.
     Find the value of sin R.
-options:
-- id: a
-  en: 20/29
-- id: b
-  en: 20/21
-- id: c
-  en: 29/20
-- id: d
-  en: 21/29
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Name the sides from angle R: the side opposite it, the side next to it (adjacent),
-    and the hypotenuse.'
-- en: By Pythagoras the hypotenuse PR = square root of (40² + 42²) = 58.
-- en: Opposite = 40, adjacent = 42, hypotenuse = 58.
-- en: sin R = opposite / hypotenuse = 20/29.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Decide which side is opposite the angle, which is next to it, and which is the
@@ -42,15 +22,45 @@ prediction_prompt:
   en: Is this ratio bigger or smaller than 1?
 status: draft
 template_id: TPL.C10.TRIG.RATIOS_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f1bcfc557b3e00da51f3ebd04e0948ae97fdeb64740e7773709a11d437301e3a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20/29
+- id: b
+  en: 20/21
+- id: c
+  en: 29/20
+- id: d
+  en: 21/29
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.SIN_AS_OPP_OVER_ADJ
+  when_answer_equals:
+  - b
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SIN_COS_MIXED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Name the sides from angle R: the side opposite it, the side next to it (adjacent),
+    and the hypotenuse.'
+- en: By Pythagoras the hypotenuse PR = square root of (40² + 42²) = 58.
+- en: Opposite = 40, adjacent = 42, hypotenuse = 58.
+- en: sin R = opposite / hypotenuse = 20/29.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 79cdf06e34f8c466cd8d109a9a95d9f7756eff28fdc1264b543bd67a1d920183
+  item_hash: fac85c91490c3b10259d393a6076cf24ecee710038d098191ffe97a283da9196
   template_hash: f1bcfc557b3e00da51f3ebd04e0948ae97fdeb64740e7773709a11d437301e3a
   certificate_hash: 2a43152f8289878d5db5afe535a8eb6dc393312d4ba0aee758fc0e4c194bfc3c
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:01:43+00:00'
-  record_hash: b06709165b7333900abbaabfd52f8b84adb1c0659c0b873d47a0e72b65e7d336
+  stamped_at: '2026-11-17T17:51:57+00:00'
+  record_hash: 29edf7167a00dda272f69b31c40c350fc1e81d7c36ab1217438d24b10eb5e852

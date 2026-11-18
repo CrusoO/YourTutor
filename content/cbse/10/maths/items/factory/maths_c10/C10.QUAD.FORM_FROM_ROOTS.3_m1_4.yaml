@@ -2,28 +2,10 @@ id: C10.QUAD.FORM_FROM_ROOTS.3_m1_4
 skill_ids:
 - MATH.ALG.QUAD.FORM_FROM_ROOTS
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which quadratic equation has the roots -1 and 4? The coefficient of x² is 3.
-options:
-- id: a
-  en: 3x² + 9x - 12 = 0
-- id: b
-  en: 3x² + 12x + 9 = 0
-- id: c
-  en: 3x² - 9x + 12 = 0
-- id: d
-  en: 3x² - 9x - 12 = 0
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: A root r means (x - r) is a factor, so the factors are (x - (-1)) and (x - (4)).
-- en: 'Multiply them: x² - (3)x + (-4).'
-- en: 'Multiply by the leading coefficient 3 if it is not 1: 3x² - 9x - 12 = 0.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: A root tells you one bracket of the factorised form.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the x coefficient be the sum of the roots or its opposite?
 status: draft
 template_id: TPL.C10.QUAD.FORM_FROM_ROOTS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3x² + 9x - 12 = 0
+- id: b
+  en: 3x² + 12x + 9 = 0
+- id: c
+  en: 3x² - 9x + 12 = 0
+- id: d
+  en: 3x² - 9x - 12 = 0
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (-1)) and (x - (4)).
+- en: 'Multiply them: x² - (3)x + (-4).'
+- en: 'Multiply by the leading coefficient 3 if it is not 1: 3x² - 9x - 12 = 0.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cc395aa66024528eb2594e12113c71246d4cbd41baa1d7ba7ddc9017e8e429aa
+  item_hash: 5193a967a13c52341da4f31f3e0a6576e86ffd3830fa50c885eca582342c0f40
   template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
   certificate_hash: 6b19c62946900062372323264b3e00598b7f663749447b82438099969d8d6020
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:39:44+00:00'
-  record_hash: 03cccf9945e08aa4d4db3ce3b0c9047897c3821afdc4eda0801f3c463a1d6e3f
+  stamped_at: '2026-11-17T17:42:52+00:00'
+  record_hash: a3b9ce4cd3dab7282a7a4fcb784907254135a20abe015d723b355cf952bdad2a

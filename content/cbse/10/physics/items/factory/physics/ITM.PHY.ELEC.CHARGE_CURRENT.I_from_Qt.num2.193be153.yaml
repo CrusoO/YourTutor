@@ -2,32 +2,11 @@ id: ITM.PHY.ELEC.CHARGE_CURRENT.I_from_Qt.num2.193be153
 skill_ids:
 - PHY.ELEC.CHARGE_CURRENT
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about charge flowing in a wire. The charge, Q, is 0.15 C and
     the time, t, is 30 s. What is the current?
-options:
-- id: a
-  en: 4500 mA
-- id: b
-  en: 5000 mA
-- id: c
-  en: 200000 mA
-- id: d
-  en: 5 mA
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = current I x time t.'
-- en: 'Get the current alone: divide each side of Q = I x t by t.'
-- en: 'Substitute: I = 0.15 / 30.'
-- en: 'Calculate: I = 0.005 A.'
-- en: 'Give it in mA: 5 mA.'
-- en: So the current is 5 mA.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -44,15 +23,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4500 mA
+- id: b
+  en: 5000 mA
+- id: c
+  en: 200000 mA
+- id: d
+  en: 5 mA
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Get the current alone: divide each side of Q = I x t by t.'
+- en: 'Substitute: I = 0.15 / 30.'
+- en: 'Calculate: I = 0.005 A.'
+- en: 'Give it in mA: 5 mA.'
+- en: So the current is 5 mA.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8950383abd148c9b7cf2f16a02ea232c924a0b610856463b7558a811ca588cab
+  item_hash: 5a49ec16df89cbc193b5364056c58353d1b09a1b349fee58609a3a0e472bff3a
   template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
   certificate_hash: 32f506d78391e632bdf86e181ecd01f6522feeba8c941497f415ff575fb54163
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:37+00:00'
-  record_hash: 0b566540776788bfc644bd8868fc6bf7c0f9a0f7d6e9ced1231dee1ce7f77307
+  stamped_at: '2026-11-17T19:37:11+00:00'
+  record_hash: 00cc406f33aed2dcae881ca31a089fa6e508893bc35f8333c1d5132a8bfdf59e

@@ -2,28 +2,10 @@ id: C10.AP.TERM_FROM_SUM.2_0_12_kth
 skill_ids:
 - MATH.ALG.AP.TERM_FROM_SUM_FORMULA
 difficulty: 0.69
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The sum of the first n terms of an AP is S_n = 2n². Find the 12th term.
-options:
-- id: a
-  en: '24'
-- id: b
-  en: '46'
-- id: c
-  en: '88'
-- id: d
-  en: '288'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
-- en: S_n - S_(n-1) = 2n² - (2(n - 1)² + 0(n - 1)) = 4n - 2.
-- en: 'Put n = 12: a_12 = 46.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: A single term is the difference between two consecutive sums.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Will the term be larger or smaller than the sum for the same n?
 status: draft
 template_id: TPL.C10.AP.TERM_FROM_SUM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '24'
+- id: b
+  en: '46'
+- id: c
+  en: '88'
+- id: d
+  en: '288'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.TERM_FROM_SUM_AVERAGE
+  when_answer_equals:
+  - a
+- id: MC.AP.TERM_FROM_SUM_WRONG_INDEX
+  when_answer_equals:
+  - c
+- id: MC.AP.TERM_IS_SUM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 2n² - (2(n - 1)² + 0(n - 1)) = 4n - 2.
+- en: 'Put n = 12: a_12 = 46.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e534da1b0cca1dc044847901adddb81b58b3e3539e33b97c7f431966e6a55fc3
+  item_hash: aa77593386e274b038bec84446e1ad2ab7ebd69dc76e90dab83ddf2882b96c53
   template_hash: 70137216f4eb55fd2f3433f2d0e6204512edd8f9c25650e69fdea5d24ff5de60
   certificate_hash: c9741bab935ba54e7fa74d5b71c46bccf9a1f8b2096cb7b8498a41c34adf8a60
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:55+00:00'
-  record_hash: c618f53136fa9aea7d9a1c3a9d5d77962d48ffe56a5c7845b96ff11195bf5a6b
+  stamped_at: '2026-11-17T17:39:49+00:00'
+  record_hash: 00f7e72713bca760000511467d269716088e300c767893bc850104492daf5fa9

@@ -1,0 +1,139 @@
+id: ITM.PHY.LIGHT.LENS_MAGNIFICATION.v_from_um.num3.f39e5a55.dx
+skill_ids:
+- PHY.LIGHT.LENS_MAGNIFICATION
+difficulty: 0.65
+pool: diagnostic
+role: apply
+stem:
+  en: A student is studying the magnification of a thin lens. The object, u, is 30
+    cm from the concave lens and the magnification, m, is 0.5. Find the image distance,
+    with its sign.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: magnification of a lens m = v / u.'
+- level: 2
+  en: 'Get the image distance on its own before you put numbers in: multiply each
+    side of m = v / u by u. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked. Give each
+    distance its sign by the Cartesian convention before you substitute.'
+- level: 3
+  en: 'First step: Write 30 cm as -0.3 m, then write v = m x u, where v is the image
+    distance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_MAGNIFICATION.DX
+generator_version: factory-2
+template_hash: 601dd9e5a13ddf49e777170d481fd3bd3c12f2053cce0252d40b6aa36178b081
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15 cm
+- id: b
+  en: -60 cm
+- id: c
+  en: -15 cm
+- id: d
+  en: 60 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MIRROR_LENS_FORMULA_MIXED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: magnification of a lens m = v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.3 m.'
+- en: 'Get the image distance alone: multiply each side of m = v / u by u.'
+- en: 'Substitute: v = 0.5 x (-0.3).'
+- en: 'Calculate: v = -0.15 m.'
+- en: 'Give it in cm: -15 cm.'
+- en: So the image distance is -15 cm.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 440202c99fc7dac5bc591ef8c6da981ac8e351a76b62a35ab2164fc0691bc9e0
+  template_hash: 601dd9e5a13ddf49e777170d481fd3bd3c12f2053cce0252d40b6aa36178b081
+  certificate_hash: a0abc6655b42fa0d0aab32ea0a7349f8e96ef9291e848db792ae4dde2d4865f5
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:50:55+00:00'
+  record_hash: 24a4800e4df377d0b142b19b4702c434613b04f3660f35a136e2ded455f99f4c

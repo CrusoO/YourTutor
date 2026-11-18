@@ -1,0 +1,131 @@
+id: C10.TRIG.FROM_RATIO.CP.6_1_0_tan_sin.cp
+skill_ids:
+- MATH.TRIG.RATIO_FROM_RATIO
+difficulty: 0.51
+pool: checkpoint
+role: apply
+stem:
+  en: A is an acute angle and tan A = 35/12. Find the value of sin A.
+hints:
+- level: 1
+  en: Sketch the right triangle and mark the sides that the given ratio tells you.
+- level: 2
+  en: Find the third side of your triangle with the rule for right triangles, then
+    form the ratio you need as one fraction of the sides.
+- level: 3
+  en: 'Full method: choose side lengths that fit the given ratio, find the missing
+    side, write the asked ratio from the sides, and simplify.'
+prediction_prompt:
+  en: Is the asked ratio bigger or smaller than the given one?
+status: draft
+template_id: TPL.C10.TRIG.FROM_RATIO.CP
+generator_version: factory-2
+template_hash: fabbbde83d5036e34d84ee054cf30ee5b917efe2c60d0b5b5c19e97fa6657536
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 35/37
+- id: b
+  en: 37/35
+- id: c
+  en: 35/12
+- id: d
+  en: 1225/1369
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.RATIO_INVERTED
+  when_answer_equals:
+  - b
+- id: MC.TRIG.GIVEN_REPEATED
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SQUARE_NOT_ROOTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Draw a right triangle with angle A and mark the sides so that tan A = 35/12.
+- en: Use the identity sin² A + cos² A = 1 (or tan A = sin A / cos A) to find the
+    missing ratio.
+- en: 'Since A is acute, take the positive root: sin A = 35/37.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: cfd670a998f527d7f2256b7307b3d661222ce7a4f25176bbcd36795c441524d0
+  template_hash: fabbbde83d5036e34d84ee054cf30ee5b917efe2c60d0b5b5c19e97fa6657536
+  certificate_hash: 28aa6815a19275c2fdd61099689745b6377c2b213140f3a1f419fd7980432c4c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch10
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ratio.identity
+  - maths.ratio.sympy
+  - maths.ratio.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:27:56+00:00'
+  record_hash: c393c5b8047caae672df699dc7e0bcf16e0fa28cedd18e8c1ee5a74084efb09b

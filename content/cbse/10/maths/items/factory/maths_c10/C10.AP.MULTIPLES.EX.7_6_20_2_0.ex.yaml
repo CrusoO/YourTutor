@@ -1,0 +1,134 @@
+id: C10.AP.MULTIPLES.EX.7_6_20_2_0.ex
+skill_ids:
+- MATH.ALG.AP.SUM_OF_MULTIPLES
+difficulty: 0.64
+pool: practice
+role: explain
+stem:
+  en: What is the sum of the multiples of 7 that lie between 40 and 175, ends included?
+    A classmate says the answer is 4123/2. Work it out yourself and choose the correct
+    answer.
+hints:
+- level: 1
+  en: 'The multiples form an AP: find the first and last ones inside the range.'
+- level: 2
+  en: Work out how many multiples lie between the first and last, remembering to add
+    one to the count, then use the sum rule with the first and last multiples.
+- level: 3
+  en: 'Full method: find the first and last multiples inside the range, count them
+    using the difference between multiples, then multiply the count by half the sum
+    of the first and last multiples.'
+prediction_prompt:
+  en: About how many multiples do you expect in the range?
+status: draft
+template_id: TPL.C10.AP.MULTIPLES.EX
+generator_version: factory-2
+template_hash: 1ab3a260ebbe47d3a9c3a1f590393ae2cdf7844bbaec9c2f23bf25e60939b3d8
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4123/2
+- id: b
+  en: '2150'
+- id: c
+  en: '4340'
+- id: d
+  en: '2170'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.ENDPOINTS_USED_NOT_MULTIPLES
+  when_answer_equals:
+  - b
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first multiple of 7 in the range is 42 and the last is 175.
+- en: 'They form an AP with common difference 7. Number of terms: (175 - 42)/7 + 1
+    = 20.'
+- en: S = (20/2)(42 + 175) = 2170.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e3a57e81c8a6c13fbe2a582e744ad71d48b901845a4c0bdd59e0a5f85742f879
+  template_hash: 1ab3a260ebbe47d3a9c3a1f590393ae2cdf7844bbaec9c2f23bf25e60939b3d8
+  certificate_hash: 50c351681c671d548b29e1b498d22e8df4675b2416c88b808967609f6a6d6cb9
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:06:41+00:00'
+  record_hash: 27bd02faad8f6bd0036eb97f5f1bd2b65e28656a67f1e6917a0c610e6907114b

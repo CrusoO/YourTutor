@@ -1,0 +1,131 @@
+id: C10.AP.SUM_N.DX.m4_m5_10.dx
+skill_ids:
+- MATH.ALG.AP.SUM_FIRST_N
+difficulty: 0.41
+pool: diagnostic
+role: procedure
+stem:
+  en: What is the total when the first 10 terms of -4, -9, -14, ... are added?
+hints:
+- level: 1
+  en: There is one formula for the sum of the first n terms of an AP.
+- level: 2
+  en: Work out twice the first term plus one fewer than n times the difference, then
+    multiply by n and halve.
+- level: 3
+  en: 'Full method: read off the first term and difference, compute twice the first
+    term plus (n - 1) times the difference, multiply by n, then divide by 2.'
+prediction_prompt:
+  en: Roughly how big do you expect the total to be?
+status: draft
+template_id: TPL.C10.AP.SUM_N.DX
+generator_version: factory-2
+template_hash: f9747b988a18831a340a1c3a1eba92439b8c54bb871f864cf6d02d05b56456ca
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-530'
+- id: b
+  en: '-265'
+- id: c
+  en: '-245'
+- id: d
+  en: '-290'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_NO_DOUBLE_A
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -4, the common difference is -5 and the number of terms is
+    10.
+- en: S_n = (n/2)(2a + (n - 1)d) = (10/2)(2 x -4 + (10 - 1) x -5).
+- en: = (10/2)(-53) = -265.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f627285c1fcd7f72e1897bb44be42a44e2499d09f235a78d086606451ea9407b
+  template_hash: f9747b988a18831a340a1c3a1eba92439b8c54bb871f864cf6d02d05b56456ca
+  certificate_hash: 44a905a9f1ede7a55218938d4433f0b7664c3332e89321d18da377b5a1b0b547
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:49:25+00:00'
+  record_hash: b48205710193b6961416a746fd2bbd152a09fb4e6f03c0b2f3f2563d47f905ee

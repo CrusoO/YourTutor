@@ -2,32 +2,11 @@ id: ITM.PHY.ELEC.POWER.I_from_PR.num3.80d75943
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying an electrical appliance. Its power, P, is 3 W and its
     resistance, R, is 12 Ω. Find the current.
-options:
-- id: a
-  en: 2 A
-- id: b
-  en: 36 A
-- id: c
-  en: 0.25 A
-- id: d
-  en: 0.5 A
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = I x I x R.'
-- en: 'Get the current alone: divide each side of P = I x I x R by R, then take the
-    square root of each side.'
-- en: 'Substitute: I = sqrt(3 / 12).'
-- en: 'Calculate: I = 0.5 A.'
-- en: So the current is 0.5 A.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -44,15 +23,46 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 A
+- id: b
+  en: 36 A
+- id: c
+  en: 0.25 A
+- id: d
+  en: 0.5 A
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.POWER_FORMULA_MISMATCH
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ROOT_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: P = I x I x R.'
+- en: 'Get the current alone: divide each side of P = I x I x R by R, then take the
+    square root of each side.'
+- en: 'Substitute: I = sqrt(3 / 12).'
+- en: 'Calculate: I = 0.5 A.'
+- en: So the current is 0.5 A.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dcc1c6b06953e44d184e101d4d2fb5e720d8bd3ca78b3b1a29a38c53210d2670
+  item_hash: 04487159de6e8b3ad157334b791c44062fcba3910772663e98700ca10fb8280d
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 7ae49e525a427b8222e356937c4f38304677fa4bac5f7eba11aa7ebd74d4e06a
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:22+00:00'
-  record_hash: aa26417224059f7e88d3aeeaad7cd0476cc0e4739148b29bf086b085cbd433f3
+  stamped_at: '2026-11-17T19:38:29+00:00'
+  record_hash: fa055d32272f3926f15f5ddb22bb5f8ec8f85682d7ff68e272980181ab0ca4de

@@ -1,0 +1,133 @@
+id: C10.AP.NTH_TERM.CP.17_9_30_1.cp
+skill_ids:
+- MATH.ALG.AP.NTH_TERM
+difficulty: 0.33
+pool: checkpoint
+role: procedure
+stem:
+  en: The first term of an AP is 17 and its common difference is 9. Find the 30th
+    term.
+hints:
+- level: 1
+  en: Start at the first term and count how many jumps you need to reach the one asked
+    for.
+- level: 2
+  en: The number of jumps is one less than the position. Multiply the difference by
+    the number of jumps, then add the result to the first term.
+- level: 3
+  en: 'Full method: identify the first term and the common difference, count the jumps
+    which is the position minus one, multiply by the difference, and add to the first
+    term.'
+prediction_prompt:
+  en: Will the term be much bigger or smaller than the first term?
+status: draft
+template_id: TPL.C10.AP.NTH_TERM.CP
+generator_version: factory-2
+template_hash: 730839494899c07c45b1266ba37ed75f8672cc796e15f56c584debd7d5143553
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '55'
+- id: b
+  en: '-244'
+- id: c
+  en: '287'
+- id: d
+  en: '278'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - b
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first term is 17 and the common difference is 9.
+- en: The nth term is first term + (n - 1) x difference, so a_30 = 17 + (30 - 1)(9).
+- en: a_30 = 17 + 261 = 278.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e9743794a9927fe99d8cfc3bd8ae3354e19f90e47f5606c8d193b9b5e5a8c5ca
+  template_hash: 730839494899c07c45b1266ba37ed75f8672cc796e15f56c584debd7d5143553
+  certificate_hash: d4b88930eb368af5a396eedf9ccad7783b1ed108ee002d87cb4742f90fe5f205
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:15:26+00:00'
+  record_hash: a6419211f4779b2e59905640ef35f495a5428e0a7499c6a63770c19fbdc019eb

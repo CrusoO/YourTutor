@@ -2,28 +2,10 @@ id: C10.AP.SUM_LAST.m6_m5_18
 skill_ids:
 - MATH.ALG.AP.SUM_USING_LAST_TERM
 difficulty: 0.54
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Add every term of the progression that begins -6, -11, -16 and ends at -91.
-options:
-- id: a
-  en: '-1746'
-- id: b
-  en: '-873'
-- id: c
-  en: -1649/2
-- id: d
-  en: 8827/2
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is -6, the last term is -91 and the difference is -5.
-- en: 'Number of terms: n = (-91 - -6)/-5 + 1 = 18.'
-- en: S = (n/2)(first + last) = (18/2)(-6 + -91) = -873.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Before you can add, you need the number of terms.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Is the number of terms more or less than ten?
 status: draft
 template_id: TPL.C10.AP.SUM_LAST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-1746'
+- id: b
+  en: '-873'
+- id: c
+  en: -1649/2
+- id: d
+  en: 8827/2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_LAST_TERM_AS_COUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -6, the last term is -91 and the difference is -5.
+- en: 'Number of terms: n = (-91 - -6)/-5 + 1 = 18.'
+- en: S = (n/2)(first + last) = (18/2)(-6 + -91) = -873.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 845533a3de93046e7ca3b1e624da3e119838311c73973241ae7473df23a5b74b
+  item_hash: 4143115c44ae0cdef5eeae371206fb1e953edffedfa0f5ba7c15e2af23812e80
   template_hash: 6f705ef741595d3af89702b351a3c582f6cc2c11e0ae3598682038ef19e7e145
   certificate_hash: 523662ac3faa6c9c434a24ec08d28a352460247ff3da00e09e5ced65b0296d27
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:19:10+00:00'
-  record_hash: 80144541ba2c4b3611a38d5fa36ab16d6f34fbf827232862dfc68a2a82aa6382
+  stamped_at: '2026-11-17T17:39:15+00:00'
+  record_hash: 36e3168ad0a8f5ed239a3bc288cd3bcdae0718edf97a8f57d374b67cc888567f

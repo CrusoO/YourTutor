@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.HEATING.H_IRt.mcq1.3c9f8512
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The current, I, is 2 A, the resistance, R, is 100 Ω and the time, t, is 10 min.
     How much heat is produced?
-options:
-- id: a
-  en: 400 J
-- id: b
-  en: 4000 J
-- id: c
-  en: 120000 J
-- id: d
-  en: 240000 J
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = I x I x R x t.'
-- en: 'Put each quantity in SI units: 10 min = 600 s.'
-- en: 'Substitute: H = 2 x 2 x 100 x 600.'
-- en: 'Calculate: H = 240000 J.'
-- en: So the heat produced is 240000 J.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 400 J
+- id: b
+  en: 4000 J
+- id: c
+  en: 120000 J
+- id: d
+  en: 240000 J
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t.'
+- en: 'Put each quantity in SI units: 10 min = 600 s.'
+- en: 'Substitute: H = 2 x 2 x 100 x 600.'
+- en: 'Calculate: H = 240000 J.'
+- en: So the heat produced is 240000 J.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: bac00d7f2ae618d683c591ebfc9dd29e731100a2e7d194e83cde2b765c31d3ca
+  item_hash: 1bdb5dc93c5c580c7b35e96149ed8c3f8f31ef3c721b831f7a0f204c9b9c8548
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: ecc194a00d9fd2ad7d7775eed618fd412acbc1724570b5784a7dbad0c4f6abaa
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:41+00:00'
-  record_hash: 39b4c097d376bb581e1f9f2b77a30d45bdcd1d875e4895a00bf464c857d07d8c
+  stamped_at: '2026-11-17T19:39:01+00:00'
+  record_hash: 7092de296270475e35662b4118f40e36ef785eaaaa26e97c020a003248ef2182

@@ -2,29 +2,11 @@ id: C10.QUAD.FORM_FROM_ROOTS.3_m4_m2
 skill_ids:
 - MATH.ALG.QUAD.FORM_FROM_ROOTS
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Form the quadratic equation whose roots are -4 and -2. The coefficient of x²
     is 3.
-options:
-- id: a
-  en: 3x² - 18x + 24 = 0
-- id: b
-  en: 3x² - 24x - 18 = 0
-- id: c
-  en: 3x² + 18x - 24 = 0
-- id: d
-  en: 3x² + 18x + 24 = 0
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: A root r means (x - r) is a factor, so the factors are (x - (-4)) and (x - (-2)).
-- en: 'Multiply them: x² - (-6)x + (8).'
-- en: 'Multiply by the leading coefficient 3 if it is not 1: 3x² + 18x + 24 = 0.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: Think backwards from the solutions to the brackets that produce them.
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will the x coefficient be the sum of the roots or its opposite?
 status: draft
 template_id: TPL.C10.QUAD.FORM_FROM_ROOTS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3x² - 18x + 24 = 0
+- id: b
+  en: 3x² - 24x - 18 = 0
+- id: c
+  en: 3x² + 18x - 24 = 0
+- id: d
+  en: 3x² + 18x + 24 = 0
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (-4)) and (x - (-2)).
+- en: 'Multiply them: x² - (-6)x + (8).'
+- en: 'Multiply by the leading coefficient 3 if it is not 1: 3x² + 18x + 24 = 0.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 53577f9f18913ef37610cb367b04e562ede21b6a91bcc26b045b28f6f5118f1d
+  item_hash: fe56fb391d0e911b558a521986f4bca7a04ae9109f3b3ca71bd7684300d827e4
   template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
   certificate_hash: 0153ae716aaa0ed444055a8d48f005f6307ce4e663c70b68a268933872006b05
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:39:44+00:00'
-  record_hash: 419c7329422b03dfa3c6b8ec780973c5f2b7c3629656f47c411930fbf78470d5
+  stamped_at: '2026-11-17T17:42:53+00:00'
+  record_hash: 67cfa639b79f0b7e9dfa9544e802af41190cf9c1d6475cce1dde8305cff7c845

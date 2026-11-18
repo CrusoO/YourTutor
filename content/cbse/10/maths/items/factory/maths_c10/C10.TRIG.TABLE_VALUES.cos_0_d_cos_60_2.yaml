@@ -2,29 +2,10 @@ id: C10.TRIG.TABLE_VALUES.cos_0_d_cos_60_2
 skill_ids:
 - MATH.TRIG.STANDARD_ANGLE_VALUES
 difficulty: 0.42
-type: mcq
 pool: practice
 role: recall
 stem:
   en: Find the value of cos² 0° ÷ cos² 60°.
-options:
-- id: a
-  en: '4'
-- id: b
-  en: 3/4
-- id: c
-  en: '0'
-- id: d
-  en: '2'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
-- en: cos 0° = 1 and cos 60° = 1/2.
-- en: Square each value before combining, because the squares apply to the values.
-- en: 'Combine them: the result is 4.'
-- en: The correct option is a.
 hints:
 - level: 1
   en: Recall the exact values of the ratios for the standard angles.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Will the answer be a whole number, a fraction or involve a square root?
 status: draft
 template_id: TPL.C10.TRIG.TABLE_VALUES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: 3/4
+- id: c
+  en: '0'
+- id: d
+  en: '2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.OPERATION_MIXED_UP
+  when_answer_equals:
+  - b
+- id: MC.TRIG.SWAPPED_SIN_COS_VALUES
+  when_answer_equals:
+  - c
+- id: MC.TRIG.SQUARE_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Use the exact values for 0, 30, 45, 60 and 90 degrees.
+- en: cos 0° = 1 and cos 60° = 1/2.
+- en: Square each value before combining, because the squares apply to the values.
+- en: 'Combine them: the result is 4.'
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 98d29637b7968107f3239c18b96282e282cdca66f9b06df92c2dc0d6e7f8d686
+  item_hash: cb55742eeff59b85c37b134c8f5f164bfb57981eab9111d5926e017e765dd21c
   template_hash: af654c8557fdb5613c862a6eac66436b5745bf219b734ce8042b739b54c95e5e
   certificate_hash: d5fb6ec9c762bb09cde8538ff4beaeab9a210a09e2ecae7877af45c4ec173d73
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T14:02:35+00:00'
-  record_hash: c5159d7df67fe932ec57d57718a442c7aceea783b35525e1ba9406c272a2a0f6
+  stamped_at: '2026-11-17T17:52:31+00:00'
+  record_hash: 3819e7746e9e0e235c1ab975796b587a37bbb7f3a1133b1922644ac937432758

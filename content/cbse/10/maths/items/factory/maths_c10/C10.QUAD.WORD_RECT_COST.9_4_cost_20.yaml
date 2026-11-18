@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.9_4_cost_20
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 9 m more than its breadth and
     it covers 52 m². The garden is to be fenced all the way round and the fencing
     costs 20 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '680'
-- id: b
-  en: '340'
-- id: c
-  en: '1400'
-- id: d
-  en: '1040'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 9 metres.
-- en: The area gives x(x + 9) = 52, so x² + 9x - 52 = 0.
-- en: 'Factorise: (x - 4)(x + 13) = 0, so x = 4 or x = -13; a length is positive,
-    so the breadth is 4 m and the length is 13 m.'
-- en: The perimeter is 2(4 + 13) = 34 m, and the cost is 34 x 20.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the breadth and write the length using x, then use the area.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '680'
+- id: b
+  en: '340'
+- id: c
+  en: '1400'
+- id: d
+  en: '1040'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 9 metres.
+- en: The area gives x(x + 9) = 52, so x² + 9x - 52 = 0.
+- en: 'Factorise: (x - 4)(x + 13) = 0, so x = 4 or x = -13; a length is positive,
+    so the breadth is 4 m and the length is 13 m.'
+- en: The perimeter is 2(4 + 13) = 34 m, and the cost is 34 x 20.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4487caa51d0554b607322d523abd26375244085e6fc938375b549eb65bebd610
+  item_hash: b888fe49c2cbe0938bf3075cf8bddd8804e1093d478dd01284e1c30786c839b5
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: 24f08fc2a120e9face2b343fd16e6f95e549e9daadc40c92da75e6e9496671fa
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:15+00:00'
-  record_hash: 49f3177e54a2bd4694ce8b6809721630dec522e08f5f8998fde8ceb2c9bb9162
+  stamped_at: '2026-11-17T17:47:29+00:00'
+  record_hash: a9ff678bcae1ae3edd9b6ef658fb6dd4dad023e1727f18d7028ad784f9d6f9ea

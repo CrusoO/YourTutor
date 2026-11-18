@@ -2,28 +2,10 @@ id: C10.QUAD.K_LEAD.1_5
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.56
-type: mcq
 pool: practice
 role: apply
 stem:
   en: For what value of k does kx² + 10x + 1 = 0 have equal roots?
-options:
-- id: a
-  en: k = -25
-- id: b
-  en: k = 50
-- id: c
-  en: k = 100
-- id: d
-  en: k = 25
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Equal roots need b² - 4ac = 0, so (10)² - 4(k)(1) = 0.
-- en: 'This gives 100 - 4k = 0. Add 4k to both sides: 4k = 100.'
-- en: 'Divide both sides by 4: k = 25.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: The unknown k sits in the leading coefficient, so it appears in the product
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will k have the same sign as the plain number?
 status: draft
 template_id: TPL.C10.QUAD.K_LEAD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -25
+- id: b
+  en: k = 50
+- id: c
+  en: k = 100
+- id: d
+  en: k = 25
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_HALF_FACTOR
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equal roots need b² - 4ac = 0, so (10)² - 4(k)(1) = 0.
+- en: 'This gives 100 - 4k = 0. Add 4k to both sides: 4k = 100.'
+- en: 'Divide both sides by 4: k = 25.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8515fdaad67c7be90954033d45de8433ff178437e752c8f034ba2df133528ddd
+  item_hash: e300e11d786b3f204b0e32a77e723ac5c8ec276f023ae3c641154c15832e79d9
   template_hash: 929de391e07be6aaec542525544b698fb1493f15e9e0195ec768688703dc4d83
   certificate_hash: 7d438bf85d5cc4527cf1d4040ddf01d895552b54ed3e3ed63637fddace220af1
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:45:29+00:00'
-  record_hash: 7ec536e56d0c92450cbc36236366f428d198b18a7bc7399d0f7ddbb6848b607a
+  stamped_at: '2026-11-17T17:44:03+00:00'
+  record_hash: c7c38a7ca05c3b8231b23ce959a51e916c52b33d8e07b072f84d741fea171216

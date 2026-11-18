@@ -2,30 +2,10 @@ id: C10.QUAD.FORMULA_RATIONAL.3_m5_1_m1_2
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.57
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Use the quadratic formula to solve 6x² + 33x + 15 = 0.
-options:
-- id: a
-  en: x = -10 or x = -1
-- id: b
-  en: x = -5 or x = -1/2
-- id: c
-  en: x = -141/4 or x = -123/4
-- id: d
-  en: x = 1/2 or x = 5
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Read off the coefficients: coefficient of x² is 6, of x is 33, plain number
-    is 15.'
-- en: The discriminant is 33² - 4 x 6 x 15 = 729, and its square root is 27.
-- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 6).
-- en: 'Work out both signs: x = -5 or x = -1/2.'
-- en: The correct option is b.
 hints:
 - level: 1
   en: Write down the three coefficients with their signs, then work out the discriminant
@@ -41,15 +21,45 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_RATIONAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -10 or x = -1
+- id: b
+  en: x = -5 or x = -1/2
+- id: c
+  en: x = -141/4 or x = -123/4
+- id: d
+  en: x = 1/2 or x = 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 6, of x is 33, plain number
+    is 15.'
+- en: The discriminant is 33² - 4 x 6 x 15 = 729, and its square root is 27.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 6).
+- en: 'Work out both signs: x = -5 or x = -1/2.'
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 7effa8846305d47a52cd11b6179ba78a2bd2c154100a998f6d1853454036a91f
+  item_hash: 171b6a2d022078e88377ada8d774e1664fb4e67bdcca041e4f6a5978c30471ce
   template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
   certificate_hash: 1cc6fbcc55177a8fd810ad54a96e5018bd854ece6fe5a688adf6030bb4ed5ff7
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:42:22+00:00'
-  record_hash: a2bd3679c0ab1805a9b3aa941b418854db12e1515b1512990386793cc0ade796
+  stamped_at: '2026-11-17T17:43:20+00:00'
+  record_hash: 6ef66107a0cc01d3b68d79b80120ed5db8c36f24a6cc18a0ea88906723c20004

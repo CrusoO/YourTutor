@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.4_1_p
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Complete the square on x² + 8x + 1 = 0 to reach (x + p)² = q. What is p?
-options:
-- id: a
-  en: '-4'
-- id: b
-  en: '16'
-- id: c
-  en: '4'
-- id: d
-  en: '8'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Half of the x coefficient 8 is 4, so the square is (x + 4)².
-- en: (x + 4)² = x² + 8x + 16, so add 16 to both sides and subtract 1 from both sides.
-- en: This gives (x + 4)² = 15. So p = 4 and q = 15.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Think of one bracket squared; match the x term first.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-4'
+- id: b
+  en: '16'
+- id: c
+  en: '4'
+- id: d
+  en: '8'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_SIGN_OF_HALF
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CS_SQUARED_INSTEAD
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 8 is 4, so the square is (x + 4)².
+- en: (x + 4)² = x² + 8x + 16, so add 16 to both sides and subtract 1 from both sides.
+- en: This gives (x + 4)² = 15. So p = 4 and q = 15.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e9be6a40eab6983b10dba1fce8a10ab60dfb98f83d82a762165aa467c9f7376a
+  item_hash: afda485918e1d2df23d61b33f2aa72207d21204225dcee7791a551c70d5c7294
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: 68163bf7d20da697098db86cd7fb66b5cf4ae266a9a963e62a20d17c79edd9ae
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:42+00:00'
-  record_hash: 617d171c45d31bd0755e1e447fd6ee9cc530fed9750acf853c2debf74411b1e8
+  stamped_at: '2026-11-17T17:41:36+00:00'
+  record_hash: d9d1a995c173cb2b0acd127712bad64e813319fee140497a083e518b68c37782

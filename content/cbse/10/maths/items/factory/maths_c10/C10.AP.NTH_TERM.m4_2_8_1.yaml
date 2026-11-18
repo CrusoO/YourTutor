@@ -2,28 +2,10 @@ id: C10.AP.NTH_TERM.m4_2_8_1
 skill_ids:
 - MATH.ALG.AP.NTH_TERM
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: An AP starts at -4 and changes by 2 at every step. What is its 8th term?
-options:
-- id: a
-  en: '-18'
-- id: b
-  en: '10'
-- id: c
-  en: '12'
-- id: d
-  en: '5'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is -4 and the common difference is 2.
-- en: The nth term is first term + (n - 1) x difference, so a_8 = -4 + (8 - 1)(2).
-- en: a_8 = -4 + 14 = 10.
-- en: The correct option is b.
 hints:
 - level: 1
   en: To reach the nth term you make one fewer jump than n.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the term be much bigger or smaller than the first term?
 status: draft
 template_id: TPL.C10.AP.NTH_TERM
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-18'
+- id: b
+  en: '10'
+- id: c
+  en: '12'
+- id: d
+  en: '5'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_SIGN_OF_D_FLIPPED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -4 and the common difference is 2.
+- en: The nth term is first term + (n - 1) x difference, so a_8 = -4 + (8 - 1)(2).
+- en: a_8 = -4 + 14 = 10.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a0bcfa7ba044350139434075bb94d37790aca0a8fdd201243431b9ddf6d506e4
+  item_hash: 1a147ce4c7c2230e39e55a6a67132eb8ce6e024422e7c54c91b2995af7ba9b0e
   template_hash: 9808333046510ea60eebf7aeab9e97d5e197a4607c33da113a40451a324a3d2e
   certificate_hash: aa2c0cf25113006a7ebc385a4ac93dba3fda39fbcf70e05f0f932852b1858572
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:18:20+00:00'
-  record_hash: 03acf7ef0359aaf9c2d8c486597bcb0b1f7489f551e444017aeaddc2c92b747c
+  stamped_at: '2026-11-17T17:39:03+00:00'
+  record_hash: 6ee5c7346addd91c32f5954c7d6820012cb97824aabbe0215c234c765d3ef569

@@ -2,36 +2,12 @@ id: ITM.PHY.LIGHT.IMAGE_NATURE.nature_mirror.num3.f4083e83
 skill_ids:
 - PHY.LIGHT.IMAGE_NATURE
 difficulty: 0.65
-type: mcq
 pool: practice
 role: explain
 stem:
   en: A student is studying the nature of the image from the mirror and lens formulas.
     The object, u, is 15 cm from the concave mirror and the focal length of the concave
     mirror, f, is 20 cm. What is the nature of the image?
-options:
-- id: a
-  en: virtual, erect, magnified
-- id: b
-  en: virtual, erect, diminished
-- id: c
-  en: real, erect, magnified
-- id: d
-  en: virtual, inverted, magnified
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: find v from the mirror formula, then m = -v / u; a negative
-    v is a real image in front of the mirror, a negative m is inverted, |m| above
-    1 is magnified.'
-- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = -0.2 m.'
-- en: 'Substitute: v = (-0.15) x (-0.2) / ((-0.15) - (-0.2)).'
-- en: 'Calculate: v = 0.6 m.'
-- en: 'Give it in cm: 60 cm.'
-- en: 'Read the sign of v and of m = -v / u: the image is virtual, erect, magnified.'
-- en: So the image is virtual, erect, magnified.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -50,15 +26,49 @@ prediction_prompt:
     shrink?'
 status: draft
 template_id: TPL2.PHY.LIGHT.IMAGE_NATURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: virtual, erect, magnified
+- id: b
+  en: virtual, erect, diminished
+- id: c
+  en: real, erect, magnified
+- id: d
+  en: virtual, inverted, magnified
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SIZE_MEANING_REVERSED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.V_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.MAG_SIGN_MEANING_REVERSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: find v from the mirror formula, then m = -v / u; a negative
+    v is a real image in front of the mirror, a negative m is inverted, |m| above
+    1 is magnified.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; f = -0.2 m.'
+- en: 'Substitute: v = (-0.15) x (-0.2) / ((-0.15) - (-0.2)).'
+- en: 'Calculate: v = 0.6 m.'
+- en: 'Give it in cm: 60 cm.'
+- en: 'Read the sign of v and of m = -v / u: the image is virtual, erect, magnified.'
+- en: So the image is virtual, erect, magnified.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4da1c46f613f6959fa54249c6c4e09c02e6dc5e30caf01f052fe3848ad65caf0
+  item_hash: 7e723e82dcbccc900c0df81b4157f201ee7be952c889ad3659e0c62194bf01ce
   template_hash: e78faa49afc9d44807880ac6a8dab97554761356a826c94d0658912ff29d4c1c
   certificate_hash: 22bf826772b9e5d43fd99a529fcdde55d5301417b90dee865dd670fee5466155
   label: calculation-checked
@@ -123,10 +133,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:23+00:00'
-  record_hash: cf0457f8ecdde4894bf5950a9fea9d86b7992a2d011e5e36cafabba41ee6a7a2
+  stamped_at: '2026-11-17T19:40:03+00:00'
+  record_hash: cb284744388cf6c8880b4b792507aa7acf68ea309edc603ba0d69bdd24c2a139

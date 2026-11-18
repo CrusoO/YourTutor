@@ -1,0 +1,133 @@
+id: C10.TRIG.HD_LADDER.EX.30_12_length_reach.ex
+skill_ids:
+- MATH.TRIG.HD.LADDER_AND_WALL
+difficulty: 0.49
+pool: practice
+role: explain
+stem:
+  en: A ladder leans against a vertical wall and makes an angle of 30° with the level
+    ground. It reaches a height of 12 m up the wall. Find the length of the ladder
+    in metres. A classmate says the answer is 8√3. Work it out yourself and choose
+    the correct answer.
+hints:
+- level: 1
+  en: Sketch the wall, the ground and the ladder as the right triangle.
+- level: 2
+  en: The ladder is the unknown and it is the hypotenuse. Undo the multiplication
+    by doing the same thing to each side, dividing by the ratio.
+- level: 3
+  en: 'Full method: sketch and label the triangle, identify which two sides are involved,
+    pick sine or cosine for them, replace the ratio by its exact value, and solve.'
+prediction_prompt:
+  en: Will the ladder be longer than the given side?
+status: draft
+template_id: TPL.C10.TRIG.HD_LADDER.EX
+generator_version: factory-2
+template_hash: e2bc9fb9794bc82ef6d8e178268ff9d363d7d1372c0ed415497e9b94584862a6
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: 12√3
+- id: c
+  en: '24'
+- id: d
+  en: 8√3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_TAN_FOR_SIN_COS
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_COS_SWAPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ladder is the hypotenuse of the right triangle.
+- en: Known side = ladder x sine 30°, so ladder = 12 / (1/2).
+- en: 'Simplify: 24 m.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 30b0d98a4474481b06fcc81b53b8a1a77cd5656d0c50acd4bd2c618d84a49228
+  template_hash: e2bc9fb9794bc82ef6d8e178268ff9d363d7d1372c0ed415497e9b94584862a6
+  certificate_hash: fedc287210ac0f7b4ef1df39ee34a84617ce1c11df86fb1e131fb1342df1c169
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch11
+  methods_agreeing:
+  - kernel.algebra
+  - maths.hd.special_triangle
+  - maths.hd.sympy
+  - maths.hd.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:13:22+00:00'
+  record_hash: 66ed12c00858759238ed4def6eb5f43522302ffac712dd0cecf216e78c667640

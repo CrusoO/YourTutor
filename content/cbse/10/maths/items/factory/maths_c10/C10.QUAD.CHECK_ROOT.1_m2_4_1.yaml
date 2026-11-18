@@ -2,29 +2,10 @@ id: C10.QUAD.CHECK_ROOT.1_m2_4_1
 skill_ids:
 - MATH.ALG.QUAD.CHECK_ROOT
 difficulty: 0.16
-type: mcq
 pool: practice
 role: recall
 stem:
   en: One of the following is a root of x² - 2x - 8 = 0. Which one?
-options:
-- id: a
-  en: '4'
-- id: b
-  en: '-8'
-- id: c
-  en: '5'
-- id: d
-  en: '-4'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: A value satisfies the equation when substituting it makes the left side equal
-    to 0.
-- en: 'Substitute x = 4: 1(4)² + (-2)(4) + (-8) = 0.'
-- en: The left side is 0, so x = 4 satisfies the equation.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Solutions are the numbers that make the left side exactly zero.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Which choice looks most likely to work?
 status: draft
 template_id: TPL.C10.QUAD.CHECK_ROOT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '-8'
+- id: c
+  en: '5'
+- id: d
+  en: '-4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CHECK_CONSTANT_TERM_USED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.CHECK_ONE_OFF
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CHECK_SIGN_FLIPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A value satisfies the equation when substituting it makes the left side equal
+    to 0.
+- en: 'Substitute x = 4: 1(4)² + (-2)(4) + (-8) = 0.'
+- en: The left side is 0, so x = 4 satisfies the equation.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cd211db14c9b69e70b57ac5089c914a752fe2c7c44ca18cf31245dfb9101085f
+  item_hash: 2c4dc6fa8009e2ff994d72036f89868981771a6d10e17c2749f38d46bd30c72a
   template_hash: d279d929909530ec48816eb9cc0b63f3349ecd85dc378d5681c4fa06b32e29f7
   certificate_hash: 2276edc7750acdd9adffae8de88501ae945753eda21f2fed1967a545d8a25294
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:29:29+00:00'
-  record_hash: 4da68ebcb0dafca34bb6477814468bbe9b2a90ce36a7acff4b4c53c44006a5d1
+  stamped_at: '2026-11-17T17:41:01+00:00'
+  record_hash: c5f1abcbf371f7da6687e47d8e38f8f2d2e6ddb85d6c6b5ab315e8a4913e1b47

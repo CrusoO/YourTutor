@@ -1,0 +1,132 @@
+id: C10.AP.WORD_LAST.DX.0_35_8_24_last.dx
+skill_ids:
+- MATH.ALG.AP.MODEL_SITUATION
+difficulty: 0.51
+pool: diagnostic
+role: apply
+stem:
+  en: In a hall the first row has 35 seats and every row after it has 8 more seats
+    than the row before. There are 24 rows. How many seats are in the last row?
+hints:
+- level: 1
+  en: 'Let the amounts in order be the terms of an AP: name its first term and its
+    common difference.'
+- level: 2
+  en: Decide whether the question asks for one term or for the sum of all the terms,
+    then choose the matching rule. Work through it one operation after another.
+- level: 3
+  en: 'Full method: identify the first term, the common difference and the number
+    of rows or days, pick the rule for one term or for the sum, substitute carefully,
+    and give the answer with its unit.'
+prediction_prompt:
+  en: Is the pattern growing or shrinking from one step to the next?
+status: draft
+template_id: TPL.C10.AP.WORD_LAST.DX
+generator_version: factory-2
+template_hash: c2ea185a75c11dc20eb8cacd76e3480085868549b5bd952b5ef7815ad593d33a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '66'
+- id: b
+  en: '219'
+- id: c
+  en: '211'
+- id: d
+  en: '227'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.NTH_D_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: MC.AP.NTH_OFF_BY_ONE_LOW
+  when_answer_equals:
+  - c
+- id: MC.AP.NTH_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The amounts form an AP with first term 35 and common difference 8.
+- en: The last amount is a_24 = 35 + (24 - 1)(8) = 219.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a0bfa45b0862c2567b6067610bf9ea250a7beb7bc18221d9b19c7ae77a1ad29a
+  template_hash: c2ea185a75c11dc20eb8cacd76e3480085868549b5bd952b5ef7815ad593d33a
+  certificate_hash: 600cfba2038990ff673cae5f846583f721d93f80412fb9f3c53633bd4bf741b6
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:01:23+00:00'
+  record_hash: dab7252722c73baf8633397f3914ed99db467495bf72f873e601348c0d385322

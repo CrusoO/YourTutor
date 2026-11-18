@@ -1,0 +1,133 @@
+id: C10.AP.N_FROM_SUM.EX.5_8_6.ex
+skill_ids:
+- MATH.ALG.AP.NUMBER_OF_TERMS_FROM_SUM
+difficulty: 0.75
+pool: practice
+role: explain
+stem:
+  en: The sum of the first n terms of the AP 5, 13, 21, ... is 150. Find n. A classmate
+    says the answer is -25/4. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: Write the sum formula with n as the unknown and make it equal to the target.
+- level: 2
+  en: Multiply each side by 2 to clear the fraction, expand the bracket, and bring
+    everything to one side so the other side is zero. Then solve for n.
+- level: 3
+  en: 'Full method: put the numbers into the sum formula, multiply each side by 2,
+    expand, rearrange to zero, solve for n, and keep only the positive whole number.'
+prediction_prompt:
+  en: Is n more likely to be small or large?
+status: draft
+template_id: TPL.C10.AP.N_FROM_SUM.EX
+generator_version: factory-2
+template_hash: 380a619281b6218d016b10db390e94be153db450d372fbdaf6f1de263b0bdd23
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -25/4
+- id: b
+  en: '6'
+- id: c
+  en: '7'
+- id: d
+  en: '30'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUMN_OTHER_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.AP.SUMN_OFF_BY_ONE
+  when_answer_equals:
+  - c
+- id: MC.AP.SUMN_DIVIDED_BY_FIRST_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here a = 5, d = 8 and S_n = 150.
+- en: '(n/2)(2 x 5 + (n - 1) x 8) = 150. Multiply both sides by 2 and expand: 8n²
+    + 2n = 300.'
+- en: 'Rearranged: 8n² + (2)n - 300 = 0, whose solutions are n = 6 and n = -25/4.'
+- en: The number of terms is a positive whole number, so n = 6.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3efe459ff5700c8cc53a62d6f5cc5a16d7f101339fcf7456e4d8291f28c41ccf
+  template_hash: 380a619281b6218d016b10db390e94be153db450d372fbdaf6f1de263b0bdd23
+  certificate_hash: d2efc8a630a6977c869f96b62e5e33cc02b422d81545f2785deb6f3864398c41
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:05:25+00:00'
+  record_hash: 7515bb797026fd354a31aa607841350275d237ce5860cf4ebb0ab5065920334b

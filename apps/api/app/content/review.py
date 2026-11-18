@@ -10,9 +10,10 @@ from typing import Any
 
 import yaml
 
-from app.ask.passages import Passage, load_passages, passages_dir
+from app.ask.passages import Passage, load_passages, passage_files
 from app.config import settings
 from app.content.approval import _dump, _header, lesson_hash, passage_hash
+from app.content.factory_roots import content_files
 from app.content.generate import sample_instances
 from app.content.schema import Item
 from app.content.signatures import item_content_hash
@@ -244,7 +245,7 @@ def _approve_template(bundle, template, root: Path, reviewer_id: str, out: Impor
 
 
 def _approve_lesson(root: Path, lesson: Lesson, reviewer_id: str) -> None:
-    for path in sorted((root / "lessons").glob("*.yaml")):
+    for path in content_files(root, "lessons"):
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
         if isinstance(data, dict) and data.get("id") == lesson.id:
             data.update(
@@ -256,7 +257,7 @@ def _approve_lesson(root: Path, lesson: Lesson, reviewer_id: str) -> None:
 
 
 def _approve_passage(root: Path, passage: Passage, reviewer_id: str) -> None:
-    for path in sorted(passages_dir(root).glob("*.yaml")):
+    for path in passage_files(root):
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         for row in data.get("passages", []):
             if isinstance(row, dict) and row.get("id") == passage.id:

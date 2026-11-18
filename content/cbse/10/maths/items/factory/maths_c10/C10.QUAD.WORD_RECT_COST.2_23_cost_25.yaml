@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.2_23_cost_25
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.77
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 2 m more than its breadth and
     it covers 575 m². The garden is to be fenced all the way round and the fencing
     costs 25 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '2400'
-- id: b
-  en: '1200'
-- id: c
-  en: '2600'
-- id: d
-  en: '14375'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 2 metres.
-- en: The area gives x(x + 2) = 575, so x² + 2x - 575 = 0.
-- en: 'Factorise: (x - 23)(x + 25) = 0, so x = 23 or x = -25; a length is positive,
-    so the breadth is 23 m and the length is 25 m.'
-- en: The perimeter is 2(23 + 25) = 96 m, and the cost is 96 x 25.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x be the breadth and write the length using x, then use the area.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2400'
+- id: b
+  en: '1200'
+- id: c
+  en: '2600'
+- id: d
+  en: '14375'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 2 metres.
+- en: The area gives x(x + 2) = 575, so x² + 2x - 575 = 0.
+- en: 'Factorise: (x - 23)(x + 25) = 0, so x = 23 or x = -25; a length is positive,
+    so the breadth is 23 m and the length is 25 m.'
+- en: The perimeter is 2(23 + 25) = 96 m, and the cost is 96 x 25.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5154154cc577f95334b256ea5be2c472528e0a88486fb259c1f2291d76f0f2f4
+  item_hash: d6927774c9e9b0cf97eabb093a152c880c66a184f40a364a76e2f1e897b3cfae
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: a329485a6cc55bdc47d7cc5060841298a61df943a350eb37be2a8fe76e4975a9
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:14+00:00'
-  record_hash: ae1b124f80a5b5f1066e7a2932e17bea1a3c4838f8179041e1ba2c6461e14a9f
+  stamped_at: '2026-11-17T17:47:28+00:00'
+  record_hash: ed1489818490573da181b447e79dbb76b76727af81646f4af8d7e504f4373035

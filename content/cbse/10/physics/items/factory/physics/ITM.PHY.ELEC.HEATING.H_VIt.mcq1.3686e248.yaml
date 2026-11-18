@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.HEATING.H_VIt.mcq1.3686e248
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The voltage, V, is 20 V, the current, I, is 2 A and the time, t, is 5 min. How
     much heat is produced?
-options:
-- id: a
-  en: 200 J
-- id: b
-  en: 40 J
-- id: c
-  en: 12000 J
-- id: d
-  en: 3000 J
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = V x I x t.'
-- en: 'Put each quantity in SI units: 5 min = 300 s.'
-- en: 'Substitute: H = 20 x 2 x 300.'
-- en: 'Calculate: H = 12000 J.'
-- en: So the heat produced is 12000 J.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 200 J
+- id: b
+  en: 40 J
+- id: c
+  en: 12000 J
+- id: d
+  en: 3000 J
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.POWER_AS_V_OVER_I
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = V x I x t.'
+- en: 'Put each quantity in SI units: 5 min = 300 s.'
+- en: 'Substitute: H = 20 x 2 x 300.'
+- en: 'Calculate: H = 12000 J.'
+- en: So the heat produced is 12000 J.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: aed023d429933bee9a7e2b72869236d33abc8f553300187a8a628bc807d914c3
+  item_hash: 45ab008e096b88e45cc9bbcc985743e32a2fa36fc44086ff299674ded3771d96
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: 3a0fbc80a16ffe23cbf7c39c48a55c9faf7abd8b3eb2e004996054327b8d0209
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:42+00:00'
-  record_hash: ccf1d1b2c0f3dde42aa66ff0f02ebf9dc1e55d49d5dd94464a0b07d1f5e690eb
+  stamped_at: '2026-11-17T19:39:03+00:00'
+  record_hash: 6ae71a6dc59cbae8cd86f153b17c7c6503f22b7101361fcff1e6a56570a0fe48

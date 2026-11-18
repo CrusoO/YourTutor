@@ -2,33 +2,12 @@ id: ITM.PHY.ELEC.SERIES.R3_from_Rs.num3.d5f5c785
 skill_ids:
 - PHY.ELEC.SERIES
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying resistors joined in series. The first resistor, R1, is
     9 Ω, the second resistor, R2, is 18 Ω and the total resistance, Rs, is 33 Ω. Find
     the third resistance.
-options:
-- id: a
-  en: 6 Ω
-- id: b
-  en: 5346 Ω
-- id: c
-  en: 60 Ω
-- id: d
-  en: 1.22 Ω
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: in series Rs = R1 + R2 + R3.'
-- en: 'Get the third resistance alone: subtract R1 and R2 from each side of Rs = R1
-    + R2 + R3.'
-- en: 'Substitute: R3 = 33 - 9 - 18.'
-- en: 'Calculate: R3 = 6 Ω.'
-- en: So the third resistance is 6 Ω.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -45,15 +24,46 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.SERIES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 Ω
+- id: b
+  en: 5346 Ω
+- id: c
+  en: 60 Ω
+- id: d
+  en: 1.22 Ω
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in series Rs = R1 + R2 + R3.'
+- en: 'Get the third resistance alone: subtract R1 and R2 from each side of Rs = R1
+    + R2 + R3.'
+- en: 'Substitute: R3 = 33 - 9 - 18.'
+- en: 'Calculate: R3 = 6 Ω.'
+- en: So the third resistance is 6 Ω.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 4e6c5bbd7346a49af9b0ca791584f55c3e3314be555a679cbd30c957dd950496
+  item_hash: d4e8a5b04c7696ec4ecc3eaec4aa7311b45e7dca6abf076549497c8009cf53ff
   template_hash: b79696069c5c11ee2fec8169ca65b15b29f27ad8d5c50b67a0f955df664a795a
   certificate_hash: 0a598439dee41feba779076dcb239617f84700f630c547c0b59559b6de2a8817
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:56+00:00'
-  record_hash: 582ef76336c4dc30f18fdb8c2fe94ddee02bdf34eb52dba8446be4de8f6d16ac
+  stamped_at: '2026-11-17T19:37:45+00:00'
+  record_hash: b555eb81861c25f1be44bf9a5efe22fecf23d7deedbc87886500529377a6d524

@@ -25,8 +25,10 @@ def lessons_dir(root: Path | None = None) -> Path:
 
 
 def _files(root: Path | None) -> list[Path]:
-    folder = lessons_dir(root)
-    return sorted(folder.glob("*.yaml")) if folder.is_dir() else []
+    """The root's own lessons and those of every `<board>/<class>/<subject>` folder under it."""
+    from app.content.factory_roots import content_files
+
+    return content_files(root or content_root(), "lessons")
 
 
 def _parse(path: Path) -> tuple[Lesson | None, list[str]]:
@@ -51,10 +53,17 @@ def load_lessons(root: Path | None = None) -> dict[str, Lesson]:
     return out
 
 
-def lesson_errors(root: Path, skill_ids: set[str], sources: set[str] | None = None) -> list[str]:
+def lesson_errors(
+    root: Path,
+    skill_ids: set[str],
+    sources: set[str] | None = None,
+    item_skills: dict[str, str] | None = None,
+) -> list[str]:
     """Every problem in the lessons folder, for `content validate` and `content load`.
 
     With `sources` (the approved source ids), every lesson and scene `source_ref` must be in it.
+    With `item_skills` (item id to its skill), a generated lesson's trace items must exist and
+    belong to the lesson's skill.
     """
     errors: list[str] = []
     seen_ids: dict[str, str] = {}
@@ -72,6 +81,15 @@ def lesson_errors(root: Path, skill_ids: set[str], sources: set[str] | None = No
         by_skill.setdefault(lesson.skill_id, []).append(path.name)
         if lesson.skill_id not in skill_ids:
             errors.append(f"lesson {path.name}: unknown skill {lesson.skill_id}")
+        if lesson.generated is not None and item_skills is not None:
+            for item_id in lesson.generated.trace_item_ids:
+                if item_id not in item_skills:
+                    errors.append(f"lesson {path.name}: trace item {item_id} is unknown")
+                elif item_skills[item_id] != lesson.skill_id:
+                    errors.append(
+                        f"lesson {path.name}: trace item {item_id} is for another skill "
+                        f"({item_skills[item_id]})"
+                    )
         if sources is not None and lesson.source_ref not in sources:
             errors.append(f"lesson {path.name}: source.unknown ({lesson.source_ref})")
         for scene in lesson.scenes():
@@ -92,8 +110,16 @@ def lesson_errors(root: Path, skill_ids: set[str], sources: set[str] | None = No
 
 
 def servable(lesson: Lesson) -> bool:
-    """Same content gate as items: approved, or drafts only when ALLOW_DRAFT_CONTENT is on."""
-    return lesson.status.value == "approved" or settings.allow_draft_content
+    """Same content gate as items: approved, or drafts only when ALLOW_DRAFT_CONTENT is on. A
+    draft generated from verified solution traces also serves under the calculation-checked rule
+    (`app.lessons.generated`)."""
+    from app.lessons import generated
+
+    return (
+        lesson.status.value == "approved"
+        or settings.allow_draft_content
+        or generated.generated_servable(lesson)
+    )
 
 
 _CACHE: dict[tuple[str, tuple[tuple[str, float], ...]], dict[str, Lesson]] = {}
@@ -101,7 +127,7 @@ _CACHE: dict[tuple[str, tuple[tuple[str, float], ...]], dict[str, Lesson]] = {}
 
 def _cached(root: Path | None) -> dict[str, Lesson]:
     folder = lessons_dir(root)
-    signature = tuple((p.name, p.stat().st_mtime) for p in _files(root))
+    signature = tuple((str(p), p.stat().st_mtime) for p in _files(root))
     key = (str(folder), signature)
     if key not in _CACHE:
         _CACHE.clear()

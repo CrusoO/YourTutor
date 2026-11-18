@@ -39,6 +39,7 @@ class ItemContext:
     skill_ids: list[str] = field(default_factory=list)  # defaults to [syllabus["skill_id"]]
     difficulty: float = 0.5
     role: str = "apply"
+    pool: str = "practice"  # practice | diagnostic | checkpoint (set from the template variant)
     steps: list[str] = field(default_factory=list)  # worked solution, without the final line
     prediction: str = ""
     hints: list[str] = field(default_factory=list)

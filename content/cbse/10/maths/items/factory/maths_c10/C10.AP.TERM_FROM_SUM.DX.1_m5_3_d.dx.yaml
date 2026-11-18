@@ -1,0 +1,130 @@
+id: C10.AP.TERM_FROM_SUM.DX.1_m5_3_d.dx
+skill_ids:
+- MATH.ALG.AP.TERM_FROM_SUM_FORMULA
+difficulty: 0.67
+pool: diagnostic
+role: apply
+stem:
+  en: The sum of the first n terms of an AP is S_n = 1n² - 5n. Find the common difference.
+hints:
+- level: 1
+  en: A single term is the difference between two consecutive sums.
+- level: 2
+  en: Write the sum with n replaced by n minus one, subtract it from the original
+    sum, and simplify the result.
+- level: 3
+  en: 'Full method: find S_n minus S_(n-1) in terms of n, simplify to get the rule
+    for the nth term, then substitute the position you need or read off the difference.'
+prediction_prompt:
+  en: Will the term be larger or smaller than the sum for the same n?
+status: draft
+template_id: TPL.C10.AP.TERM_FROM_SUM.DX
+generator_version: factory-2
+template_hash: 1c57ed59365db474f78e883faea1e403730c57477f3dd0ed3e1ec82301873943
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-4'
+- id: b
+  en: '-2'
+- id: c
+  en: '2'
+- id: d
+  en: '1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.D_FROM_SUM_FIRST_TERM
+  when_answer_equals:
+  - a
+- id: MC.AP.D_FROM_SUM_SECOND_TERM
+  when_answer_equals:
+  - b
+- id: MC.AP.D_FROM_SUM_COEFF_NOT_DOUBLED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The nth term is the difference of two sums: a_n = S_n - S_(n-1).'
+- en: S_n - S_(n-1) = 1n² - 5n - (1(n - 1)² - 5(n - 1)) = 2n - 6.
+- en: The coefficient of n is 2, so the common difference is 2.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9e5a2b3b8b7aa689de7711f3bfaac0b608030daeb6bf143f9b2f248f0b9bf55b
+  template_hash: 1c57ed59365db474f78e883faea1e403730c57477f3dd0ed3e1ec82301873943
+  certificate_hash: ee4a42a6e4a18dc14e794fa72f372fb553ec3d49c9df7ebc207481b3e3fe6949
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:51:19+00:00'
+  record_hash: 32fba94bdd744899fb9343af25883cbc09f340a6f10228df0e3a25bbf15fcd36

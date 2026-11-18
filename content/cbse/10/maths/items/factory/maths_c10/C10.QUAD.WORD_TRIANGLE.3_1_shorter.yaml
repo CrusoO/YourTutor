@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.3_1_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.7
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 1 m, and the longest side is 5 m. Find the length of the shorter
     of the two sides in metres.
-options:
-- id: a
-  en: '2'
-- id: b
-  en: '-4'
-- id: c
-  en: '3'
-- id: d
-  en: '4'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 1 metres.
-- en: By Pythagoras, x² + (x + 1)² = 5², so 2x² + 2x - 24 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 3)(x + 4) = 0, so x = 3 (a length
-    cannot be negative).'
-- en: The shorter side is 3 m and the longer side is 4 m.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Let x be the unknown short side and give the other side in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-4'
+- id: c
+  en: '3'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_SIDES_SUMMED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 1 metres.
+- en: By Pythagoras, x² + (x + 1)² = 5², so 2x² + 2x - 24 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 3)(x + 4) = 0, so x = 3 (a length
+    cannot be negative).'
+- en: The shorter side is 3 m and the longer side is 4 m.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 8893e0d5bd0bae77ed7d84fb23790b1ab8a28dad955780ce8059ee75345115b3
+  item_hash: f2ed42b364205798e6d9e1c68c228d442b41995bbd20e4162fa24df25236a50a
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 0085a99d39ca021fa44a0b82f2bf93a2a96f53b76a83238b6c002316b13fc7af
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:55:01+00:00'
-  record_hash: 58f3defae3e681b254b5b507f0d53df1fd7f81b02aac7458218516285ee025e5
+  stamped_at: '2026-11-17T17:47:54+00:00'
+  record_hash: bb21cf6156f667b98344cad0c6d1b81c0cc761c67bfb99020949bb24115622c3

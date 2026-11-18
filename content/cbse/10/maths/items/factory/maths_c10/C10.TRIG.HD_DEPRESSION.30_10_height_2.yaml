@@ -2,32 +2,12 @@ id: C10.TRIG.HD_DEPRESSION.30_10_height_2
 skill_ids:
 - MATH.TRIG.HD.ANGLE_OF_DEPRESSION
 difficulty: 0.54
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A car on a straight road is 10√3 m from the foot of a tower. From the top of
     the tower the angle of depression of a car is 30°. Find the height of the tower
     in metres.
-options:
-- id: a
-  en: '20'
-- id: b
-  en: '30'
-- id: c
-  en: 5√3
-- id: d
-  en: '10'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: The angle of depression is measured downward from the horizontal at the top;
-    by alternate angles it equals the angle of elevation of the top seen from a car.
-- en: So in the right triangle the 30° angle is at a car, and height and ground distance
-    are opposite and adjacent to it.
-- en: 'Use tan 30° = height / distance and solve: the answer is 10 m.'
-- en: The correct option is d.
 hints:
 - level: 1
   en: The angle of depression is measured from the horizontal, not from the vertical.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Does the sight line make a steep or a shallow angle with the horizontal?
 status: draft
 template_id: TPL.C10.TRIG.HD_DEPRESSION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '20'
+- id: b
+  en: '30'
+- id: c
+  en: 5√3
+- id: d
+  en: '10'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SLANT_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_DEPRESSION_FROM_VERTICAL
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The angle of depression is measured downward from the horizontal at the top;
+    by alternate angles it equals the angle of elevation of the top seen from a car.
+- en: So in the right triangle the 30° angle is at a car, and height and ground distance
+    are opposite and adjacent to it.
+- en: 'Use tan 30° = height / distance and solve: the answer is 10 m.'
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 353e9ef76904d5292d5d5c8c18bf6991176d68102539e7d17d4fb79e5a0ee7f7
+  item_hash: 6a81a6dafb241307ed5a1826691ace08c9cd30610f69ff0a8a470151a51b4830
   template_hash: 242c9c2a06fcffa3e09c262d364055a07c232135947b77a2a42ed9c42e5569eb
   certificate_hash: c854a26327982df352ce5283cdeeaf6c8bcfbef21655fa774cc508d649e2675c
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:57:29+00:00'
-  record_hash: e6332ed1503e1a69511f8cf4d6c0114a929d1fccb607cc2df6f5b22c2746c888
+  stamped_at: '2026-11-17T17:49:16+00:00'
+  record_hash: 2517e7438807909d55e87831b2bf039fbac6186bd6a639a3204795863d65c344

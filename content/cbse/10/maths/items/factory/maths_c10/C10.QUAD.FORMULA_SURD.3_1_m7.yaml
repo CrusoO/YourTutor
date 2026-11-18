@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.3_1_m7
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve 3x² + x - 7 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = (-1 ± √85)/6
-- id: b
-  en: x = (-6 ± √85)/6
-- id: c
-  en: x = (1 ± √85)/6
-- id: d
-  en: x = (-1 ± √85)/3
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: The coefficients are 3, 1 and -7.
-- en: The discriminant is 1² - 4 x 3 x -7 = 85, which is positive but not a perfect
-    square.
-- en: So x = (-(1) ± √85) / 6, and the square root is simplified as far as it will
-    go.
-- en: x = (-1 ± √85)/6.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Write down the three coefficients with their signs, then compute the discriminant.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = (-1 ± √85)/6
+- id: b
+  en: x = (-6 ± √85)/6
+- id: c
+  en: x = (1 ± √85)/6
+- id: d
+  en: x = (-1 ± √85)/3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - c
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 3, 1 and -7.
+- en: The discriminant is 1² - 4 x 3 x -7 = 85, which is positive but not a perfect
+    square.
+- en: So x = (-(1) ± √85) / 6, and the square root is simplified as far as it will
+    go.
+- en: x = (-1 ± √85)/6.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: edb4946b5f77c7b47e9bc276c18fc3280a73b18d9a2cad99ebacdf2aaf264c74
+  item_hash: 33bbdf59863edd34ee2b621691939cf411502fcc7706b20dd8543afc54b7c974
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 55f70d5489595acf867827b6be99f7be1aef57a31748e25b528e4db747a5b8bf
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:44+00:00'
-  record_hash: afdd4bc174c647f4885d9676f327bfffd25032c7c402aa9c6a532a68871c2d3b
+  stamped_at: '2026-11-17T17:43:43+00:00'
+  record_hash: e3aa01504cd922384aeadb2811dcf3724c1bbe13f47d9e6790a2467c6c09be3a

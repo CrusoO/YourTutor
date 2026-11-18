@@ -1,0 +1,134 @@
+id: ITM.PHY.ELEC.RESIST_FACTORS.F_from_change.mcq1.598fe8f9.cp
+skill_ids:
+- PHY.ELEC.RESIST_FACTORS
+difficulty: 0.3
+pool: checkpoint
+role: explain
+stem:
+  en: The diameter of a uniform wire is multiplied by 4; its length and material stay
+    the same. By what number is the resistance multiplied?
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Plan the steps: R is proportional
+    to length and inversely proportional to area, so the new resistance divided by
+    the old one equals the length factor divided by the area factor.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write down the number each quantity is multiplied by, using 2 for
+    doubled and 1/2 for halved, then combine them using the relation.'
+prediction_prompt:
+  en: 'Think first: which quantities does the answer depend on, and does it grow or
+    shrink?'
+status: draft
+template_id: TPL2.PHY.ELEC.RESIST_FACTORS.CP
+generator_version: factory-2
+template_hash: b2ca38967413d6e4935c0666a5cc8f72c028895865196c12f03392ce7f2b37d2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '16'
+- id: c
+  en: '0.25'
+- id: d
+  en: '0.0625'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.ONLY_LENGTH_COUNTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.DIAMETER_AS_AREA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Plan: R is proportional to length and inversely proportional to area, so the
+    new resistance divided by the old one equals the length factor divided by the
+    area factor.'
+- en: 'Combine the numbers: 1 / 16 = 0.0625.'
+- en: So the number the resistance is multiplied by is 0.0625.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0c6383fadf8cbd9dd8adcbd67c479086da0097d42cfdc874c4daff93cd68d151
+  template_hash: b2ca38967413d6e4935c0666a5cc8f72c028895865196c12f03392ce7f2b37d2
+  certificate_hash: 523b4a94374b307c3df755f5e8c7c9fc54c12ff9be94af3be005c8ef1ec7dc56
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T20:54:37+00:00'
+  record_hash: 5ea31adde2164a3657dd7816a0ac3203224e56b0ba0d36f202a4b42317840757

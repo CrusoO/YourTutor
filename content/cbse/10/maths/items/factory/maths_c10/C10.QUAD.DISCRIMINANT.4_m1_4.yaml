@@ -2,28 +2,10 @@ id: C10.QUAD.DISCRIMINANT.4_m1_4
 skill_ids:
 - MATH.ALG.QUAD.DISCRIMINANT
 difficulty: 0.29
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the discriminant of the equation 4x² - x + 4 = 0.
-options:
-- id: a
-  en: '65'
-- id: b
-  en: '-63'
-- id: c
-  en: '-15'
-- id: d
-  en: '-66'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Here the coefficients are 4, -1 and 4.
-- en: The discriminant is b² - 4ac = (-1)² - 4(4)(4).
-- en: This equals 1 - (64) = -63.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Name the three coefficients first, keeping each sign.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the discriminant be positive, zero or negative?
 status: draft
 template_id: TPL.C10.QUAD.DISCRIMINANT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '65'
+- id: b
+  en: '-63'
+- id: c
+  en: '-15'
+- id: d
+  en: '-66'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.DISC_SIGN_OF_4AC
+  when_answer_equals:
+  - a
+- id: MC.QUAD.DISC_FORGOT_FOUR
+  when_answer_equals:
+  - c
+- id: MC.QUAD.DISC_DOUBLED_B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Here the coefficients are 4, -1 and 4.
+- en: The discriminant is b² - 4ac = (-1)² - 4(4)(4).
+- en: This equals 1 - (64) = -63.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5bc3d10acf53b71155211e7a3dc77b267c79d739f074b357a9d949c0cc3d9ca6
+  item_hash: 5b046173d97296a18591e15e6a1d5dca107939a6c36fc56b16a6c082b6c39798
   template_hash: c23f04dfeddba4570b2feee226681f9c2ec4749cfece6cc97dd9843e2bb19b27
   certificate_hash: 1b2015e3bf620a636bc5df13f71156cb9f8b2ca3204d4b89f23542a46888253e
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:35:38+00:00'
-  record_hash: e1cf9c00119ec2ea7556b17daff210eb607d102b169ec162019d1431504d5155
+  stamped_at: '2026-11-17T17:41:52+00:00'
+  record_hash: cf275dcd09a3858014585fddc7c9fe544c5c6aca313f4256d6b8bb0d8689e3ec

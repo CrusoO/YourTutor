@@ -2,30 +2,11 @@ id: ITM.PHY.ELEC.POWER.P_from_VR.mcq1.5da8acd5
 skill_ids:
 - PHY.ELEC.POWER
 difficulty: 0.25
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The voltage across it, V, is 100 V and its resistance, R, is 50 Ω. Find the
     power.
-options:
-- id: a
-  en: 2 W
-- id: b
-  en: 200 W
-- id: c
-  en: 5000 W
-- id: d
-  en: 0.005 W
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
-- en: 'Substitute: P = 100 x 100 / 50.'
-- en: 'Calculate: P = 200 W.'
-- en: So the power is 200 W.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -40,15 +21,44 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.POWER
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 W
+- id: b
+  en: 200 W
+- id: c
+  en: 5000 W
+- id: d
+  en: 0.005 W
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.VOLTAGE_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = V x V / R (from P = V x I and I = V / R).'
+- en: 'Substitute: P = 100 x 100 / 50.'
+- en: 'Calculate: P = 200 W.'
+- en: So the power is 200 W.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e331ce3561efb27300b21a66318d8bd4592e35fe98947053c946c843a41a166a
+  item_hash: 7b120922ec6fb92bfdde1b293ad3018aac211541328bad7883e49884b86fc2cb
   template_hash: f99182f971c8f5c238c932e5e6e21c6b64d2ad6e1746358381fe52f7660cd24c
   certificate_hash: 84a35b56ca4e5a8b2b8f173dcee46cfc214f8e48cc0d840bcc784c0fccd54f58
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:22+00:00'
-  record_hash: 5d0c8e4a0c6dca41fcf71f687b1b61eb86431a71092c54535d8632ccce7efd55
+  stamped_at: '2026-11-17T19:38:28+00:00'
+  record_hash: a55d79a02e5c0f447aadaf61ce72778f2dc88f266630abfad34077b740b17578

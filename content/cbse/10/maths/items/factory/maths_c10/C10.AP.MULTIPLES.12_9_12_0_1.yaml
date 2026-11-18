@@ -2,29 +2,10 @@ id: C10.AP.MULTIPLES.12_9_12_0_1
 skill_ids:
 - MATH.ALG.AP.SUM_OF_MULTIPLES
 difficulty: 0.66
-type: mcq
 pool: practice
 role: apply
 stem:
   en: What is the sum of the multiples of 12 that lie between 108 and 241, ends included?
-options:
-- id: a
-  en: '4176'
-- id: b
-  en: '2094'
-- id: c
-  en: '2088'
-- id: d
-  en: '1914'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The first multiple of 12 in the range is 108 and the last is 240.
-- en: 'They form an AP with common difference 12. Number of terms: (240 - 108)/12
-    + 1 = 12.'
-- en: S = (12/2)(108 + 240) = 2088.
-- en: The correct option is c.
 hints:
 - level: 1
   en: The end numbers of the range may not themselves be multiples.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: About how many multiples do you expect in the range?
 status: draft
 template_id: TPL.C10.AP.MULTIPLES
-generator_version: factory-1
+generator_version: factory-2
 template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4176'
+- id: b
+  en: '2094'
+- id: c
+  en: '2088'
+- id: d
+  en: '1914'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - a
+- id: MC.AP.ENDPOINTS_USED_NOT_MULTIPLES
+  when_answer_equals:
+  - b
+- id: MC.AP.COUNT_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first multiple of 12 in the range is 108 and the last is 240.
+- en: 'They form an AP with common difference 12. Number of terms: (240 - 108)/12
+    + 1 = 12.'
+- en: S = (12/2)(108 + 240) = 2088.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f354c34e89c3f17440312f132a7e84fc3a7ce694ebbee19a56448d11f59b396d
+  item_hash: 81c7bc4422d53b0ce3f448511516fa3850e1819fe03d6442d653e44cf9e948cb
   template_hash: b7c94dbf085fe226a4d62b4f695cec79632c1bc7cb94bcb1f73fa9d024fdd137
   certificate_hash: 7b18f763ab598675c41663103d14e002587fdd9d61855bb7cfd09e934f89dcc3
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:15:12+00:00'
-  record_hash: 339f1621517d4cac2ad76a3946b7fb089817fc4d6614f1f85b485bf0b699b7c1
+  stamped_at: '2026-11-17T17:38:41+00:00'
+  record_hash: 456ec49747f512074cd0019082dcb1c22f44d947089f4c6ab3e8790cd7f8277a

@@ -1,0 +1,134 @@
+id: C10.AP.WHICH_TERM.DX.14_7_6.dx
+skill_ids:
+- MATH.ALG.AP.POSITION_OF_TERM
+difficulty: 0.44
+pool: diagnostic
+role: procedure
+stem:
+  en: Which term of the AP 14, 21, 28, ... is 49?
+hints:
+- level: 1
+  en: Write the rule for the nth term and make it equal to the given number.
+- level: 2
+  en: 'Undo each operation in the rule by doing the same thing to each side: first
+    take away the first term, then divide by the difference, then deal with the minus
+    one.'
+- level: 3
+  en: 'Full method: write first term + (n - 1) x difference, set it equal to the target,
+    take away the first term from each side, divide each side by the difference, and
+    add one to each side.'
+prediction_prompt:
+  en: Roughly how many steps from the first term will it take to reach this number?
+status: draft
+template_id: TPL.C10.AP.WHICH_TERM.DX
+generator_version: factory-2
+template_hash: ccdc0a9de6e0f327384ce119ec3ed1d03f003d0fa4475875765e162e3a0685cc
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '6'
+- id: c
+  en: '7'
+- id: d
+  en: '35'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.FIND_N_FORGOT_PLUS_ONE
+  when_answer_equals:
+  - a
+- id: MC.AP.FIND_N_OVERCOUNT
+  when_answer_equals:
+  - c
+- id: MC.AP.FIND_N_DIFFERENCE_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is 14 and the common difference is 7.
+- en: 'Set the nth term equal to 49: 14 + (n - 1)(7) = 49.'
+- en: 'Take 14 away from both sides: (n - 1)(7) = 35. Divide both sides by 7: n -
+    1 = 5.'
+- en: 'Add 1 to both sides: n = 6.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 18c0ff10d494e7805ed31c5a239d8cadd1d6e8cc24bb0246f37b1203143a9d8e
+  template_hash: ccdc0a9de6e0f327384ce119ec3ed1d03f003d0fa4475875765e162e3a0685cc
+  certificate_hash: a9bd41b58f18dd9e51fb87fc8f0fbadeef5ac3b1caf33b71fd364bed6f5a346b
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch05
+  methods_agreeing:
+  - kernel.algebra
+  - maths.ap.closed
+  - maths.ap.enumeration
+  - maths.ap.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T22:02:30+00:00'
+  record_hash: 38778ca43e2d085596776d999c1b5760feac37ffb701e725a678bd34cc7091b6

@@ -2,28 +2,10 @@ id: C10.QUAD.PURE.3_3_0_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 3x² + 27 = 0.
-options:
-- id: a
-  en: x = 3
-- id: b
-  en: no real roots
-- id: c
-  en: x = -3
-- id: d
-  en: x = -3 or x = 3
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Take 27 away from both sides and then divide both sides by 3: x² = -9.'
-- en: A square is never negative, so no real number satisfies this.
-- en: The equation has no real roots.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 3
+- id: b
+  en: no real roots
+- id: c
+  en: x = -3
+- id: d
+  en: x = -3 or x = 3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_ONE_POSITIVE_ROOT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.PURE_ONE_NEGATIVE_ROOT
+  when_answer_equals:
+  - c
+- id: MC.QUAD.PURE_SIGN_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Take 27 away from both sides and then divide both sides by 3: x² = -9.'
+- en: A square is never negative, so no real number satisfies this.
+- en: The equation has no real roots.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: aa6142dda73166593d2a6122c8d092690ddb8bd1a2afcc7dbb5d4360f7729e91
+  item_hash: 0162d09f0950dbc663cdf49aaeccd5bda6e6de541b294b622bcbaafe7cee9e0c
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: 22ded8a277029f230051ca1e2cc9365863ba435f06f82b7ef84df1888883164a
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:11+00:00'
-  record_hash: a8f54ee6ea3129502d561b172c4ea94685dbb590fb8b5889b5626516e4d696f4
+  stamped_at: '2026-11-17T17:45:31+00:00'
+  record_hash: 819efdf29fde23bdb8cf140542b1107d9584e09fcb0ab32a7939254362ce8495

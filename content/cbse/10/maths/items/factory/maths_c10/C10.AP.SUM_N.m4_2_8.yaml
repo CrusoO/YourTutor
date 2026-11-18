@@ -2,29 +2,10 @@ id: C10.AP.SUM_N.m4_2_8
 skill_ids:
 - MATH.ALG.AP.SUM_FIRST_N
 difficulty: 0.39
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find the sum of the first 8 terms of the AP -4, -2, 0, ...
-options:
-- id: a
-  en: '40'
-- id: b
-  en: '24'
-- id: c
-  en: '48'
-- id: d
-  en: '32'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: The first term is -4, the common difference is 2 and the number of terms is
-    8.
-- en: S_n = (n/2)(2a + (n - 1)d) = (8/2)(2 x -4 + (8 - 1) x 2).
-- en: = (8/2)(6) = 24.
-- en: The correct option is b.
 hints:
 - level: 1
   en: You need the first term, the common difference and how many terms are added.
@@ -38,15 +19,44 @@ prediction_prompt:
   en: Roughly how big do you expect the total to be?
 status: draft
 template_id: TPL.C10.AP.SUM_N
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '40'
+- id: b
+  en: '24'
+- id: c
+  en: '48'
+- id: d
+  en: '32'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.AP.SUM_NO_DOUBLE_A
+  when_answer_equals:
+  - a
+- id: MC.AP.SUM_FORGOT_HALF
+  when_answer_equals:
+  - c
+- id: MC.AP.SUM_N_FOR_N_MINUS_1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first term is -4, the common difference is 2 and the number of terms is
+    8.
+- en: S_n = (n/2)(2a + (n - 1)d) = (8/2)(2 x -4 + (8 - 1) x 2).
+- en: = (8/2)(6) = 24.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: db64ef71d2c32b515019a03f8cb99c66af2833450d26ba31f4a0fd262c1f1529
+  item_hash: dc1716c976843135da6746ba24d91c200749073f9f9cbeb680f44becf4636d63
   template_hash: 846a0dbf20abfeefb239f66615b3b0114f93d4298df59cfb543b39c0b2772f1d
   certificate_hash: 89096aa7546734d705b4ba7fc273d649f03fe9cb31a2a4afffb27b6718496c2a
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:20:17+00:00'
-  record_hash: c86874ed90229e692197f028ea9002bc290576b4c18f8343abf424d0cc00f759
+  stamped_at: '2026-11-17T17:39:29+00:00'
+  record_hash: 97ae35c0d0bc4b974284bfbb40bc92ca1c049b3534f4fe3b3eb39c190e248cd5

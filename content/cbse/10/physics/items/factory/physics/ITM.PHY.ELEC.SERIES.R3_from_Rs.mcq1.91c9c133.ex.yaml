@@ -1,0 +1,137 @@
+id: ITM.PHY.ELEC.SERIES.R3_from_Rs.mcq1.91c9c133.ex
+skill_ids:
+- PHY.ELEC.SERIES
+difficulty: 0.35
+pool: practice
+role: explain
+stem:
+  en: The first resistor, R1, is 5 Ω, the second resistor, R2, is 5 Ω and the total
+    resistance, Rs, is 20 Ω. Find the third resistance. A classmate says the answer
+    is 30 Ω. Work it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: in series Rs = R1 + R2 + R3.'
+- level: 2
+  en: 'Get the third resistance on its own before you put numbers in: subtract R1
+    and R2 from each side of Rs = R1 + R2 + R3. Do the same operation to each side
+    of the formula.'
+- level: 3
+  en: 'First step: write R3 = Rs - R1 - R2, where R3 is the third resistance, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the third resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.ELEC.SERIES.EX
+generator_version: factory-2
+template_hash: 45c5a95a5c6e7b8b302dfe628bd1bacba882769359fb3a6ca5b19146751308a4
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 Ω
+- id: b
+  en: 10 Ω
+- id: c
+  en: 500 Ω
+- id: d
+  en: 30 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: in series Rs = R1 + R2 + R3.'
+- en: 'Get the third resistance alone: subtract R1 and R2 from each side of Rs = R1
+    + R2 + R3.'
+- en: 'Substitute: R3 = 20 - 5 - 5.'
+- en: 'Calculate: R3 = 10 Ω.'
+- en: So the third resistance is 10 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f2cfd1be2c2c8ee481f90630766d67745a49b2f996a1738e235d32a91ba7da89
+  template_hash: 45c5a95a5c6e7b8b302dfe628bd1bacba882769359fb3a6ca5b19146751308a4
+  certificate_hash: dd8a99461e73fef7152715964b55cfca81bcd51868db00aeef9a704c388c511a
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:42:16+00:00'
+  record_hash: 9b2a08b75a6cf09385e779043ba9ebaea8f36ddb936d2fc038dc7573bcb55778

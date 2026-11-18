@@ -2,30 +2,11 @@ id: C10.TRIG.HD_HEIGHT.60_4_surd_0
 skill_ids:
 - MATH.TRIG.HD.HEIGHT_FROM_DISTANCE
 difficulty: 0.39
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A tower stands on level ground. From a point on the ground 4 m from the foot,
     the angle of elevation of the top is 60°. Find the height of the tower in metres.
-options:
-- id: a
-  en: 2√3
-- id: b
-  en: '2'
-- id: c
-  en: 4√3/3
-- id: d
-  en: 4√3
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Sketch a right triangle: the tower is the side opposite the 60° angle and the
-    ground distance is the adjacent side.'
-- en: 'Opposite and adjacent sides link through tan 60°: height = 4 x tan 60°.'
-- en: With tan 60° taken from the table, the height is 4√3 m.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Choose the ratio that links the two sides you care about.
@@ -41,15 +22,44 @@ prediction_prompt:
   en: Is the height larger or smaller than the distance from the foot?
 status: draft
 template_id: TPL.C10.TRIG.HD_HEIGHT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2√3
+- id: b
+  en: '2'
+- id: c
+  en: 4√3/3
+- id: d
+  en: 4√3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.TRIG.HD_SIN_FOR_TAN
+  when_answer_equals:
+  - a
+- id: MC.TRIG.HD_COS_FOR_TAN
+  when_answer_equals:
+  - b
+- id: MC.TRIG.HD_TAN_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Sketch a right triangle: the tower is the side opposite the 60° angle and the
+    ground distance is the adjacent side.'
+- en: 'Opposite and adjacent sides link through tan 60°: height = 4 x tan 60°.'
+- en: With tan 60° taken from the table, the height is 4√3 m.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 97854dbd8281d084815b9c5923b98aac64c7279bdb8e77099049c98bdfc49fb4
+  item_hash: 57fa487b865dec0b8cab20fd9f324e0edbdfd064491ac25a0de6e9966019f64d
   template_hash: df1faa266c52b1ba51b633f90c8c20cd09b7c9cdbe4e00a0e7bf639b54ee0bdf
   certificate_hash: 502f6d55ef04800b9afe554a76a9d8f23250d564620d9239f8accf5f52816c06
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:59:40+00:00'
-  record_hash: 278df5e863e0b3e52eda9e8079a668a0372d8ebe35a456acf7e6f2d10c60257c
+  stamped_at: '2026-11-17T17:50:20+00:00'
+  record_hash: 479c86c4be7ee7af9a08de77575441f2f46859d0eaf40097de037c0b1aa38f9b

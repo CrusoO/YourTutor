@@ -2,28 +2,10 @@ id: C10.QUAD.COMPLETE_SQUARE.5_0_p
 skill_ids:
 - MATH.ALG.QUAD.COMPLETE_SQUARE
 difficulty: 0.59
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Writing x² + 10x = 0 in the form (x + p)² = q gives which value of p?
-options:
-- id: a
-  en: '10'
-- id: b
-  en: '5'
-- id: c
-  en: '-5'
-- id: d
-  en: '25'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Half of the x coefficient 10 is 5, so the square is (x + 5)².
-- en: (x + 5)² = x² + 10x + 25, so add 25 to both sides and subtract 0 from both sides.
-- en: This gives (x + 5)² = 25. So p = 5 and q = 25.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Take the plain number away from both sides, then add whatever makes the left
@@ -39,15 +21,43 @@ prediction_prompt:
   en: Will p have the same sign as the x coefficient?
 status: draft
 template_id: TPL.C10.QUAD.COMPLETE_SQUARE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '10'
+- id: b
+  en: '5'
+- id: c
+  en: '-5'
+- id: d
+  en: '25'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.CS_NOT_HALVED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.CS_SIGN_OF_HALF
+  when_answer_equals:
+  - c
+- id: MC.QUAD.CS_SQUARED_INSTEAD
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Half of the x coefficient 10 is 5, so the square is (x + 5)².
+- en: (x + 5)² = x² + 10x + 25, so add 25 to both sides and subtract 0 from both sides.
+- en: This gives (x + 5)² = 25. So p = 5 and q = 25.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: fff1bc069e447b377f9e0d9c8fdea8383fc65ce16e5c85e83980ad2ea7874aa9
+  item_hash: 85b9642538aa2fa29569f3eb92430d8306878da56b9e8297f024af3ac6c8ab5b
   template_hash: 00375f6f540ca5988a66d91fc6b502dd390d5425fc5d8ef7e2f149f4547929c6
   certificate_hash: 914ac19aa489f4d9cf9c26e4676ffc9d4cad5f84171f1c6b881606f33f90228a
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:32:41+00:00'
-  record_hash: 35e55fd86e12773ebe69d0cf499e749e7e1e864f577cfe71c9ef1b51a46dc431
+  stamped_at: '2026-11-17T17:41:35+00:00'
+  record_hash: bfc154e3cb11ed9348a645ca10399ec3c0914d88bc2607f1de50537db862296b

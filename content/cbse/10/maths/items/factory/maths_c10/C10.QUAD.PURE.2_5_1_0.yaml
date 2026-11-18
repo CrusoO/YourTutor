@@ -2,27 +2,10 @@ id: C10.QUAD.PURE.2_5_1_0
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.26
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 2x² = 50.
-options:
-- id: a
-  en: x = 5
-- id: b
-  en: x = -25 or x = 25
-- id: c
-  en: x = -5 or x = 5
-- id: d
-  en: x = -10 or x = 10
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Add 50 to both sides and divide both sides by 2: x² = 25.'
-- en: 'Take the square root of both sides, remembering both signs: x = -5 or x = 5.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -37,15 +20,42 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 5
+- id: b
+  en: x = -25 or x = 25
+- id: c
+  en: x = -5 or x = 5
+- id: d
+  en: x = -10 or x = 10
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_PLUS_ONLY
+  when_answer_equals:
+  - a
+- id: MC.QUAD.PURE_FORGOT_SQRT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.PURE_MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Add 50 to both sides and divide both sides by 2: x² = 25.'
+- en: 'Take the square root of both sides, remembering both signs: x = -5 or x = 5.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9f87baa7f59f901801716e8534a21cfb0b8d5e0c6cd05c56ca05212cc0283aed
+  item_hash: 98ce6c5d5e4e5cd058065f5141c75ffff246949a08e599fc7f01aae01ee5c801
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: 8d990928890eaa4f26d2cb2fa6c8bb456297dd185e4b35403d076cc5b4c3456d
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:11+00:00'
-  record_hash: 000346918c82ea7ba7998780143bbc04069a7a50edc1de8ee2181d61f97908cc
+  stamped_at: '2026-11-17T17:45:31+00:00'
+  record_hash: 54bced60dbac9517ef0d23d3809822fa7a5a90a22f93f7592d1269a6d778538f

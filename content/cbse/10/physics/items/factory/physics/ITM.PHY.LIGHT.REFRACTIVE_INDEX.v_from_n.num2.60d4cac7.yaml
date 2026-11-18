@@ -2,34 +2,12 @@ id: ITM.PHY.LIGHT.REFRACTIVE_INDEX.v_from_n.num2.60d4cac7
 skill_ids:
 - PHY.LIGHT.REFRACTIVE_INDEX
 difficulty: 0.45
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about light travelling in a transparent medium. The refractive
     index of the medium, n, is 1.5 and the speed of light in vacuum is 3 x 10^8 m/s.
     Find the speed of light in the medium.
-options:
-- id: a
-  en: 2 x 10^8 m/s
-- id: b
-  en: 4.5 x 10^8 m/s
-- id: c
-  en: 2 x 10^9 m/s
-- id: d
-  en: 2.999999985 x 10^8 m/s
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
-    the medium.'
-- en: 'Get the speed of light in the medium alone: multiply each side of n = c / v
-    by v, then divide each side by n.'
-- en: 'Substitute: v = (3 x 10^8) / 1.5.'
-- en: 'Calculate: v = 2 x 10^8 m/s.'
-- en: So the speed of light in the medium is 2 x 10^8 m/s.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -46,15 +24,47 @@ prediction_prompt:
     and roughly how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.REFRACTIVE_INDEX
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^8 m/s
+- id: b
+  en: 4.5 x 10^8 m/s
+- id: c
+  en: 2 x 10^9 m/s
+- id: d
+  en: 2.999999985 x 10^8 m/s
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SPEED_INCREASES_IN_DENSER_MEDIUM
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.INDEX_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: refractive index n = speed of light in vacuum / speed in
+    the medium.'
+- en: 'Get the speed of light in the medium alone: multiply each side of n = c / v
+    by v, then divide each side by n.'
+- en: 'Substitute: v = (3 x 10^8) / 1.5.'
+- en: 'Calculate: v = 2 x 10^8 m/s.'
+- en: So the speed of light in the medium is 2 x 10^8 m/s.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: dd45c230062a7d03d0b65aac0b4a1cee979ac102932a6239d5bfc9c212b79a26
+  item_hash: 14d94c929c67b3ef0fdb72c50e44739d007e85511979acec00d91753a1e0d60b
   template_hash: 125e2cae111c5fdf043718bfff37e9a4ec72f2535a112dff1a7780a0cadd2f6f
   certificate_hash: 25a953656d828e4fbf1ed031706732dc9c0302ae5fddde5ff5cc1a4689013e58
   label: calculation-checked
@@ -119,10 +129,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:13+00:00'
-  record_hash: fac677fa7e1fe90f72edcc86e0f0c0d2564d2bfe2f0d6725ae1ec8c51f72d675
+  stamped_at: '2026-11-17T19:41:24+00:00'
+  record_hash: 3a22d0867803db967566f6fd3d1e9ca1ff3c9c88fbcadc0c26955586eb13cd34

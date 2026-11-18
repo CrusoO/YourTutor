@@ -1,0 +1,48 @@
+id: TPL2.PHY.ELEC.RESISTIVITY.EX
+schema: factory-template/1
+lane: physics
+model: ELEC.RESISTIVITY
+skill_id: PHY.ELEC.RESISTIVITY
+box:
+  A:
+    choices:
+    - '0.25'
+    - '1'
+    - '2'
+  L:
+    choices:
+    - '1'
+    - '5'
+    - '20'
+  au:
+    choices:
+    - mm^2
+  form:
+    choices:
+    - mcq1
+  lu:
+    choices:
+    - m
+    - cm
+  rho:
+    choices:
+    - 1e-6
+    - 2e-6
+    - 1e-7
+  variant:
+    choices:
+    - R_from_rhoLA
+    - L_from_RrhoA
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.physics.electricity
+  skill_id: PHY.ELEC.RESISTIVITY
+  allowed_methods:
+  - resistivity
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - experiment_design
+  - assertion_reason
+variant: explain

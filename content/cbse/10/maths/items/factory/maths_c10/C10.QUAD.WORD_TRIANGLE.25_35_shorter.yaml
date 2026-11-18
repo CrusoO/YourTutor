@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_TRIANGLE.25_35_shorter
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.74
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A triangular park has a right angle. The two sides that meet at the right angle
     differ in length by 35 m, and the longest side is 65 m. Find the length of the
     shorter of the two sides in metres.
-options:
-- id: a
-  en: '60'
-- id: b
-  en: '-60'
-- id: c
-  en: '30'
-- id: d
-  en: '25'
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: Let x metres be the shorter side. The other side is x + 35 metres.
-- en: By Pythagoras, x² + (x + 35)² = 65², so 2x² + 70x - 3000 = 0.
-- en: 'Divide both sides by 2 and factorise: (x - 25)(x + 60) = 0, so x = 25 (a length
-    cannot be negative).'
-- en: The shorter side is 25 m and the longer side is 60 m.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Let x be the unknown short side and give the other side in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: Is the shorter side more or less than half the longest side?
 status: draft
 template_id: TPL.C10.QUAD.WORD_TRIANGLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '60'
+- id: b
+  en: '-60'
+- id: c
+  en: '30'
+- id: d
+  en: '25'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_OTHER_SIDE_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_HYPOTENUSE_MINUS_DIFFERENCE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let x metres be the shorter side. The other side is x + 35 metres.
+- en: By Pythagoras, x² + (x + 35)² = 65², so 2x² + 70x - 3000 = 0.
+- en: 'Divide both sides by 2 and factorise: (x - 25)(x + 60) = 0, so x = 25 (a length
+    cannot be negative).'
+- en: The shorter side is 25 m and the longer side is 60 m.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 39de3c26c3e69626f0d3bc018810707f18ecdf64a6416cf60cd675e48ffdd119
+  item_hash: 5bbbe80336399922c3333c4257e223e18b2bfbc7e271ca739addccafdb257726
   template_hash: 89548870a34e9313c5eaa85a11590fb119cadf86e3f87ec48c07c6109787a666
   certificate_hash: 218f34353c3008f2c244728c9a0de03bcb0f270c750a9c28dd32b49b039f61ba
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:59+00:00'
-  record_hash: 4a2b3aacc5f8222bc127ab61fba589ba574cf0b7999312eafdf9c421e27940ed
+  stamped_at: '2026-11-17T17:47:52+00:00'
+  record_hash: 3ae79432bfe6c41baa6f2610234da1ccc595b9ac42c57f4f7086869c0adb35f5

@@ -2,29 +2,10 @@ id: C10.QUAD.WORD_NUMBERS.1_2
 skill_ids:
 - MATH.ALG.QUAD.MODEL_NUMBERS
 difficulty: 0.57
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The product of two consecutive positive integers is 6. Find the smaller one.
-options:
-- id: a
-  en: '-3'
-- id: b
-  en: '2'
-- id: c
-  en: '1'
-- id: d
-  en: '3'
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: Let x be the smaller number. The other is x + 1.
-- en: Their product is 6, so x(x + 1) = 6, which is x² + 1x - 6 = 0.
-- en: 'Factorise: (x - 2)(x + 3) = 0, so x = 2 or x = -3.'
-- en: The numbers must be positive, so the smaller number is 2.
-- en: The correct option is b.
 hints:
 - level: 1
   en: Let x be the smaller number and write the other number using x.
@@ -39,15 +20,44 @@ prediction_prompt:
   en: Roughly how big do you expect the smaller number to be?
 status: draft
 template_id: TPL.C10.QUAD.WORD_NUMBERS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-3'
+- id: b
+  en: '2'
+- id: c
+  en: '1'
+- id: d
+  en: '3'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_NEGATIVE_ROOT_KEPT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.WORD_SETUP_WRONG_DIFFERENCE
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_LARGER_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x be the smaller number. The other is x + 1.
+- en: Their product is 6, so x(x + 1) = 6, which is x² + 1x - 6 = 0.
+- en: 'Factorise: (x - 2)(x + 3) = 0, so x = 2 or x = -3.'
+- en: The numbers must be positive, so the smaller number is 2.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 53f651a26d350e93f81ade0123174fce6384764059c254e21105e564ad0a3daa
+  item_hash: d40a8151e0a71f1808c530973795efe6d8f8e3d9f5b4ab6f14c6e19679bac2be
   template_hash: 4e1f557a0307e43b9f97ab53877ff07a51882ba2687b05d2abc4e4b490e632b6
   certificate_hash: af49e8fcdaa5d734542ac05f7d34cd41cf1e6a2e073f74871c62c57bb8dc5932
   label: calculation-checked
@@ -113,10 +123,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:51:37+00:00'
-  record_hash: 3d5a394bd3e83b7c1774ccceef18fd3e3ce94882ef35249e04c5a9bc3b5e9462
+  stamped_at: '2026-11-17T17:46:41+00:00'
+  record_hash: a405580cfa06e45785e6ba622c5d9fcf4be6da9d1e760b30697986788227805a

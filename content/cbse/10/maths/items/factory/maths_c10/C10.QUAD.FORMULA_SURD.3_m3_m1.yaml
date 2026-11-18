@@ -2,32 +2,11 @@ id: C10.QUAD.FORMULA_SURD.3_m3_m1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.72
-type: mcq
 pool: practice
 role: apply
 stem:
   en: Use the quadratic formula to solve 3x² - 3x - 1 = 0. Leave surds in simplest
     form.
-options:
-- id: a
-  en: x = (-3 ± √21)/6
-- id: b
-  en: x = (3 ± √21)/3
-- id: c
-  en: x = (3 ± √21)/6
-- id: d
-  en: x = (18 ± √21)/6
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: The coefficients are 3, -3 and -1.
-- en: The discriminant is -3² - 4 x 3 x -1 = 21, which is positive but not a perfect
-    square.
-- en: So x = (-(-3) ± √21) / 6, and the square root is simplified as far as it will
-    go.
-- en: x = (3 ± √21)/6.
-- en: The correct option is c.
 hints:
 - level: 1
   en: Work out the discriminant first; it tells you what kind of roots to expect.
@@ -42,15 +21,46 @@ prediction_prompt:
   en: Is the discriminant a perfect square? What does that say about the roots?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_SURD
-generator_version: factory-1
+generator_version: factory-2
 template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = (-3 ± √21)/6
+- id: b
+  en: x = (3 ± √21)/3
+- id: c
+  en: x = (3 ± √21)/6
+- id: d
+  en: x = (18 ± √21)/6
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The coefficients are 3, -3 and -1.
+- en: The discriminant is -3² - 4 x 3 x -1 = 21, which is positive but not a perfect
+    square.
+- en: So x = (-(-3) ± √21) / 6, and the square root is simplified as far as it will
+    go.
+- en: x = (3 ± √21)/6.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: f910de9a4dbcd257d2af3fdd5907d3ad5e322d6a6424531b02b36042a05883a1
+  item_hash: 20ca70082a827624947b6a30a86b8b3c93372927e3f5d870aefe1a859665cfe5
   template_hash: f74f1aeac439efa74e8043b0460f03c51e4fc4b9acd5b9aa5fac1d001b60a8a9
   certificate_hash: 051337e445b8f8aa74de8c20fb8ec333abbd844b5ff3c738f21f6fb2d406af41
   label: calculation-checked
@@ -116,10 +126,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:44:46+00:00'
-  record_hash: 06cbe1d98cd01b73ab505e638851b3711c21db05471c6fc4b10840f4582fd3cd
+  stamped_at: '2026-11-17T17:43:45+00:00'
+  record_hash: 4c17aff567efb6fc2bfeaf6ff5309720fa22fcfe8a11f4ddaf07be31f1e8d974

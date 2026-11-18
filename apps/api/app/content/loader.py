@@ -79,7 +79,10 @@ def load_path(
     report.errors.extend(source_errors(root))
     report.errors.extend(
         lesson_errors(
-            root, {skill.id for skill in bundle.skills}, sources=approved_source_ids(root)
+            root,
+            {skill.id for skill in bundle.skills},
+            sources=approved_source_ids(root),
+            item_skills={item.id: item.primary_skill for item in bundle.items},
         )
     )
     from app.lessons.loader import live_lesson_errors, load_lessons

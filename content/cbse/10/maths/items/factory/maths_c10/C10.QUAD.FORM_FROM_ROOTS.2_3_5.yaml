@@ -2,28 +2,10 @@ id: C10.QUAD.FORM_FROM_ROOTS.2_3_5
 skill_ids:
 - MATH.ALG.QUAD.FORM_FROM_ROOTS
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Which quadratic equation has the roots 3 and 5? The coefficient of x² is 2.
-options:
-- id: a
-  en: 2x² - 16x - 30 = 0
-- id: b
-  en: 2x² - 30x + 16 = 0
-- id: c
-  en: 2x² - 16x + 30 = 0
-- id: d
-  en: 2x² + 16x + 30 = 0
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: A root r means (x - r) is a factor, so the factors are (x - (3)) and (x - (5)).
-- en: 'Multiply them: x² - (8)x + (15).'
-- en: 'Multiply by the leading coefficient 2 if it is not 1: 2x² - 16x + 30 = 0.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: A root tells you one bracket of the factorised form.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will the x coefficient be the sum of the roots or its opposite?
 status: draft
 template_id: TPL.C10.QUAD.FORM_FROM_ROOTS
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2x² - 16x - 30 = 0
+- id: b
+  en: 2x² - 30x + 16 = 0
+- id: c
+  en: 2x² - 16x + 30 = 0
+- id: d
+  en: 2x² + 16x + 30 = 0
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORM_PRODUCT_SIGN
+  when_answer_equals:
+  - a
+- id: MC.QUAD.SUM_PRODUCT_CONFUSED
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORM_SUM_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A root r means (x - r) is a factor, so the factors are (x - (3)) and (x - (5)).
+- en: 'Multiply them: x² - (8)x + (15).'
+- en: 'Multiply by the leading coefficient 2 if it is not 1: 2x² - 16x + 30 = 0.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 66431fc3d5c9cc6cb42f0efd05df62d2cba504b04324a1a4fb8b3a4031a57d27
+  item_hash: 91724bacfaa837246ae78f8e35320a3d4f93eb65e1c566469611d07303589e62
   template_hash: 690f6ca57d14c622b4238533c54ddbfcc7b0cd62a2c4b16b6e4c94b844af27e1
   certificate_hash: 2fcf50bf5363ec3fae3641189c9c8a4ba0c79d025c3fec77053280ba2b85ebcd
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:39:44+00:00'
-  record_hash: 93fdf9516a667dc0d0327e7d0f305f30f62fd374052181f4647bae6ae98b555e
+  stamped_at: '2026-11-17T17:42:53+00:00'
+  record_hash: 7b789534ebe4683a8a3e2c52686c1c2891d59b889312866634c7adbf7c175c28

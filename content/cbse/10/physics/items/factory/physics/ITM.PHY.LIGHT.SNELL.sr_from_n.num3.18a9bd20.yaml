@@ -2,33 +2,12 @@ id: ITM.PHY.LIGHT.SNELL.sr_from_n.num3.18a9bd20
 skill_ids:
 - PHY.LIGHT.SNELL
 difficulty: 0.6
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying light entering a transparent medium from air. The refractive
     index of the medium, n, is 1.5 and the sine of the angle of incidence is 0.6.
     Find the sine of the angle of refraction.
-options:
-- id: a
-  en: '2.5'
-- id: b
-  en: '0.6'
-- id: c
-  en: '0.4'
-- id: d
-  en: '0.9'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
-- en: 'Get the sine of the angle of refraction alone: divide each side of sin i =
-    n x sin r by n.'
-- en: 'Substitute: sr = 0.6 / 1.5.'
-- en: 'Calculate: sr = 0.4.'
-- en: So the sine of the angle of refraction is 0.4.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -45,15 +24,46 @@ prediction_prompt:
     be?
 status: draft
 template_id: TPL2.PHY.LIGHT.SNELL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2.5'
+- id: b
+  en: '0.6'
+- id: c
+  en: '0.4'
+- id: d
+  en: '0.9'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.SNELL_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.SINES_SUBTRACTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.SNELL_MULTIPLIED_WRONG_WAY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: from air into a medium, sin i = n x sin r.'
+- en: 'Get the sine of the angle of refraction alone: divide each side of sin i =
+    n x sin r by n.'
+- en: 'Substitute: sr = 0.6 / 1.5.'
+- en: 'Calculate: sr = 0.4.'
+- en: So the sine of the angle of refraction is 0.4.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 9671c05882fedbc634b319209450421128dd22cc4be80b3f8d0876323daf1104
+  item_hash: 066cfffbdb2ab8c1623de86465f07d21160b7010b510212001d0cd726db5ac85
   template_hash: 3d9e9b117dd9beb82145a521271d78f003e3eb390b910c64225d29c5508ef898
   certificate_hash: 7c2a60f605d31c0c4c4e7b70220b8f6c67a6465b7bd47bb29168089b789df9c2
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:49:26+00:00'
-  record_hash: 3f6d4ed9cdaf6b64c42767e8bcd0ffa9a33c7f15e7392b3df9f8c7b311b2efac
+  stamped_at: '2026-11-17T19:41:43+00:00'
+  record_hash: b1d5e1b77ae017453008bde769528fec67b01872aa09719cdabe60c4dcec8dc2

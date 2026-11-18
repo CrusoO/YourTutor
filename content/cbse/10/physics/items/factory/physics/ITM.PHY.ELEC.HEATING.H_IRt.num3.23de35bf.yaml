@@ -2,31 +2,11 @@ id: ITM.PHY.ELEC.HEATING.H_IRt.num3.23de35bf
 skill_ids:
 - PHY.ELEC.HEATING
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying the heat produced by a current. The current, I, is 0.5
     A, the resistance, R, is 10 Ω and the time, t, is 2 min. How much heat is produced?
-options:
-- id: a
-  en: 300 J
-- id: b
-  en: 600 J
-- id: c
-  en: 5 J
-- id: d
-  en: 2.5 J
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: heat H = I x I x R x t.'
-- en: 'Put each quantity in SI units: 2 min = 120 s.'
-- en: 'Substitute: H = 0.5 x 0.5 x 10 x 120.'
-- en: 'Calculate: H = 300 J.'
-- en: So the heat produced is 300 J.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Read the question once more and mark what you must find. Pick the relation
@@ -42,15 +22,45 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.ELEC.HEATING
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 300 J
+- id: b
+  en: 600 J
+- id: c
+  en: 5 J
+- id: d
+  en: 2.5 J
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.ELEC.TIME_UNIT_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.TIME_LEFT_OUT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: heat H = I x I x R x t.'
+- en: 'Put each quantity in SI units: 2 min = 120 s.'
+- en: 'Substitute: H = 0.5 x 0.5 x 10 x 120.'
+- en: 'Calculate: H = 300 J.'
+- en: So the heat produced is 300 J.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b6e0b34e1b9e13e5fd6b49e24d62cf3d65c9942d9115b8cd5bb6ec5739027031
+  item_hash: bd32947f18520bc34545d680ede1c176f4b19509e46ed421e26ec8af99ddd309
   template_hash: 1ad7fa03eba64a3dd03f44e6890c1ce2a32fd6e0dec037fe118be187ee340ba8
   certificate_hash: a26ee415f7b4ca35341553a4501fea2f024d9259ab6fc683c018d0cc625d0fe8
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:41+00:00'
-  record_hash: 30e39bbd201516758d38c3937f3f2b0c6d22c991a22f80303c505391a3abc628
+  stamped_at: '2026-11-17T19:39:01+00:00'
+  record_hash: 70146cd9650de173eea397165c0d86e0a21284cad58b7041dc12d81ef1fdd46c

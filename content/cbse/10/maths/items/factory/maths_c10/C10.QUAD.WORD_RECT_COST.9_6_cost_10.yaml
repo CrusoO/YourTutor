@@ -2,32 +2,12 @@ id: C10.QUAD.WORD_RECT_COST.9_6_cost_10
 skill_ids:
 - MATH.ALG.QUAD.MODEL_GEOMETRY
 difficulty: 0.75
-type: mcq
 pool: practice
 role: transfer
 stem:
   en: A school garden is rectangular. Its length is 9 m more than its breadth and
     it covers 90 m². The garden is to be fenced all the way round and the fencing
     costs 10 rupees per metre. Find the total cost of the fencing in rupees.
-options:
-- id: a
-  en: '420'
-- id: b
-  en: '780'
-- id: c
-  en: '210'
-- id: d
-  en: '900'
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: Let x metres be the breadth. Then the length is x + 9 metres.
-- en: The area gives x(x + 9) = 90, so x² + 9x - 90 = 0.
-- en: 'Factorise: (x - 6)(x + 15) = 0, so x = 6 or x = -15; a length is positive,
-    so the breadth is 6 m and the length is 15 m.'
-- en: The perimeter is 2(6 + 15) = 42 m, and the cost is 42 x 10.
-- en: The correct option is a.
 hints:
 - level: 1
   en: Let x stand for the breadth, then write the length in terms of x.
@@ -43,15 +23,45 @@ prediction_prompt:
   en: About how long do you think the shorter side is?
 status: draft
 template_id: TPL.C10.QUAD.WORD_RECT_COST
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '420'
+- id: b
+  en: '780'
+- id: c
+  en: '210'
+- id: d
+  en: '900'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.QUAD.WORD_LENGTH_AS_BREADTH
+  when_answer_equals:
+  - b
+- id: MC.QUAD.WORD_HALF_PERIMETER
+  when_answer_equals:
+  - c
+- id: MC.QUAD.WORD_AREA_NOT_PERIMETER
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let x metres be the breadth. Then the length is x + 9 metres.
+- en: The area gives x(x + 9) = 90, so x² + 9x - 90 = 0.
+- en: 'Factorise: (x - 6)(x + 15) = 0, so x = 6 or x = -15; a length is positive,
+    so the breadth is 6 m and the length is 15 m.'
+- en: The perimeter is 2(6 + 15) = 42 m, and the cost is 42 x 10.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 1e28d812644dfae7f6e2b65712267b71d4a806b7c82d35f6f425fcc82e6683cb
+  item_hash: fcffe2a07400a50ca1a57f9a5dcdf6146076ca20c6b53fa456762e7ec4ae051d
   template_hash: 8b0442fdadb51d1f1560d0ee3e2d8dd9f49917c4cdfab214f707b0c49b3919a5
   certificate_hash: 8bc30c2f4ffef3268645e25fbde4a388943b7e77a379eb3a6c3767f8c52de18a
   label: calculation-checked
@@ -117,10 +127,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:54:14+00:00'
-  record_hash: 4a51e6e2a6d8187e341a1d3d4acaf0d01369816baf918b8d1d87e89f3a5f2ab2
+  stamped_at: '2026-11-17T17:47:28+00:00'
+  record_hash: 7994f20f378896a2616030d37101720a402d229856757c4b98b1a1b9fad2ff6f

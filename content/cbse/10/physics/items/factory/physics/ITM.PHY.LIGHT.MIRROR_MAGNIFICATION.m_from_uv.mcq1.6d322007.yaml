@@ -2,31 +2,11 @@ id: ITM.PHY.LIGHT.MIRROR_MAGNIFICATION.m_from_uv.mcq1.6d322007
 skill_ids:
 - PHY.LIGHT.MIRROR_MAGNIFICATION
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The object, u, is 15 cm from the concave mirror and the image, which is virtual,
     is 30 cm from the concave mirror. Find the magnification, with its sign.
-options:
-- id: a
-  en: '0.5'
-- id: b
-  en: '-0.5'
-- id: c
-  en: '2'
-- id: d
-  en: '-2'
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Write the relation: magnification of a mirror m = -v / u.'
-- en: 'Put each quantity in SI units with its sign: u = -0.15 m; v = 0.3 m.'
-- en: 'Substitute: m = -0.3 / (-0.15).'
-- en: 'Calculate: m = 2.'
-- en: So the magnification is 2.
-- en: The correct option is c.
 hints:
 - level: 1
   en: 'List what the question gives you and what it asks for. Pick the relation that
@@ -42,15 +22,45 @@ prediction_prompt:
   en: Before you calculate, roughly how large should the magnification be?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_MAGNIFICATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.5'
+- id: b
+  en: '-0.5'
+- id: c
+  en: '2'
+- id: d
+  en: '-2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MAG_SIGN_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: magnification of a mirror m = -v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.15 m; v = 0.3 m.'
+- en: 'Substitute: m = -0.3 / (-0.15).'
+- en: 'Calculate: m = 2.'
+- en: So the magnification is 2.
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: b194e48c55a53fc0886027253de4e3e048e2cce02b21e67dcbbaeb7fa11d2086
+  item_hash: d4068f5cfe9ed4461a23a2f69342f7d761a637527e7a42fa00e5e9726fbe9a93
   template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
   certificate_hash: d9fa50e72f5d1032a22a0946e5153d7e48aae74d052d7e60f3c3ba1e84d7faf5
   label: calculation-checked
@@ -115,10 +125,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:14+00:00'
-  record_hash: 306c2527892bb9f6f6b60dcfb83dda50a2e047edf6a5dc3b53742380544d1ac9
+  stamped_at: '2026-11-17T19:39:50+00:00'
+  record_hash: 004df619463c1d0ef8fa11074cafc2a31dcd000db5da002eb63d9155d5414924

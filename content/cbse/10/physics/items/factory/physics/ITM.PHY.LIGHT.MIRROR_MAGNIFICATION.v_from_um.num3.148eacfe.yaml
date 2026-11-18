@@ -2,35 +2,12 @@ id: ITM.PHY.LIGHT.MIRROR_MAGNIFICATION.v_from_um.num3.148eacfe
 skill_ids:
 - PHY.LIGHT.MIRROR_MAGNIFICATION
 difficulty: 0.65
-type: mcq
 pool: practice
 role: apply
 stem:
   en: A student is studying the magnification of a spherical mirror. The object, u,
     is 60 cm from the convex mirror and the magnification, m, is 0.2. Find the image
     distance, with its sign.
-options:
-- id: a
-  en: 300 cm
-- id: b
-  en: -300 cm
-- id: c
-  en: -12 cm
-- id: d
-  en: 12 cm
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Write the relation: magnification of a mirror m = -v / u.'
-- en: 'Put each quantity in SI units with its sign: u = -0.6 m.'
-- en: 'Get the image distance alone: multiply each side of m = -v / u by u, then change
-    the sign of each side.'
-- en: 'Substitute: v = -0.2 x (-0.6).'
-- en: 'Calculate: v = 0.12 m.'
-- en: 'Give it in cm: 12 cm.'
-- en: So the image distance is 12 cm.
-- en: The correct option is d.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -49,15 +26,48 @@ prediction_prompt:
     how large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_MAGNIFICATION
-generator_version: factory-1
+generator_version: factory-2
 template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 300 cm
+- id: b
+  en: -300 cm
+- id: c
+  en: -12 cm
+- id: d
+  en: 12 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.MAG_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.LIGHT.MAG_INVERTED_SIGN_DROPPED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.MIRROR_LENS_FORMULA_MIXED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: magnification of a mirror m = -v / u.'
+- en: 'Put each quantity in SI units with its sign: u = -0.6 m.'
+- en: 'Get the image distance alone: multiply each side of m = -v / u by u, then change
+    the sign of each side.'
+- en: 'Substitute: v = -0.2 x (-0.6).'
+- en: 'Calculate: v = 0.12 m.'
+- en: 'Give it in cm: 12 cm.'
+- en: So the image distance is 12 cm.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 39e51ba2d55eb46c5eb242237d3ef6a39fbd1e50a9da2755c4398ddec8b50c6e
+  item_hash: ba44e3fdd10eba1754bdc61c567f71249284bb5930e7393e5fbcd88871396d42
   template_hash: bb82b06754decc1fab3ce8473616a25d635c451806ce0f467bf4394cef606f12
   certificate_hash: d8114ff38fe2458d7111128c06a8e5abcb765ecc9d8445feb9e39f2757046d9d
   label: calculation-checked
@@ -122,10 +132,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:48:13+00:00'
-  record_hash: f699da9c66b7a88d27ad1cdf2a9c5c11c89bd52d16a97b78997f494c9471267f
+  stamped_at: '2026-11-17T19:39:48+00:00'
+  record_hash: 635d61b64e2bad03bbee45d7e5e6d60e1fcf604d06fd640a3bc0943aeecd59e7

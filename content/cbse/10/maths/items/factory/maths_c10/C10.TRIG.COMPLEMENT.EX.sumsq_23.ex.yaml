@@ -1,0 +1,132 @@
+id: C10.TRIG.COMPLEMENT.EX.sumsq_23.ex
+skill_ids:
+- MATH.TRIG.COMPLEMENTARY_ANGLES
+difficulty: 0.39
+pool: practice
+role: explain
+stem:
+  en: Find the value of sin² 23° + sin² 67°. A classmate says the answer is 0. Work
+    it out yourself and choose the correct answer.
+hints:
+- level: 1
+  en: Try rewriting one ratio so that both terms use the same angle.
+- level: 2
+  en: A ratio of an angle equals the matching co-ratio of its complement. Use that
+    to rewrite one term so both terms involve the same angle.
+- level: 3
+  en: 'Full method: confirm the angles add to ninety, convert one term to the other
+    angle with the complement rule, then simplify the expression.'
+prediction_prompt:
+  en: Without a calculator, do you think the answer is a surprise number?
+status: draft
+template_id: TPL.C10.TRIG.COMPLEMENT.EX
+generator_version: factory-2
+template_hash: 7addc40c0ba948e09cb279399b3691d4aa617f2e4fa7d4b0d8e4a5dd21b4e7f5
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '2'
+- id: c
+  en: '0'
+- id: d
+  en: '-1'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.TRIG.COMPLEMENT_GAVE_TWO
+  when_answer_equals:
+  - b
+- id: MC.TRIG.COMPLEMENT_GAVE_ZERO
+  when_answer_equals:
+  - c
+- id: MC.TRIG.COMPLEMENT_GAVE_MINUS_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angles 23° and 67° add up to 90°, so they are complementary.
+- en: 'For complementary angles: sin (90 - A) = cos A, cos (90 - A) = sin A, tan (90
+    - A) = cot A, sec (90 - A) = cosec A.'
+- en: Rewrite the second term using the first angle and simplify; the value is 1.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0cbfb681fbd0c45cd0880d18478b29f8b228a3f041fbbd12317f01a96474ebbe
+  template_hash: 7addc40c0ba948e09cb279399b3691d4aa617f2e4fa7d4b0d8e4a5dd21b4e7f5
+  certificate_hash: bacfae2449b6688a729831fb268f6dbb17c704a218c589aa4968a3525bcab0b7
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch09
+  methods_agreeing:
+  - kernel.algebra
+  - maths.comp.specialise
+  - maths.comp.symbolic
+  - maths.comp.numeric
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 11198d3
+  llm_involved: false
+  stamped_at: '2026-11-17T21:12:04+00:00'
+  record_hash: b2b3cd6449124d2c0af160f9f9ae10b9d9c5171a3d933414d4ba5c3302210379

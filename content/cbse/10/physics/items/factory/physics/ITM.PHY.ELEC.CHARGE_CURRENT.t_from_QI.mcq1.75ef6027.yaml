@@ -2,33 +2,11 @@ id: ITM.PHY.ELEC.CHARGE_CURRENT.t_from_QI.mcq1.75ef6027
 skill_ids:
 - PHY.ELEC.CHARGE_CURRENT
 difficulty: 0.35
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: The charge, Q, is 1.2 C and the current, I, is 2 mA. For how long does the current
     flow?
-options:
-- id: a
-  en: 4 x 10^-5 min
-- id: b
-  en: 10 min
-- id: c
-  en: 2.78e-05 min
-- id: d
-  en: 0.01 min
-answer:
-  sympy: b
-  accept: []
-solution_steps:
-- en: 'Write the relation: charge Q = current I x time t.'
-- en: 'Put each quantity in SI units: 2 mA = 0.002 A.'
-- en: 'Get the time alone: divide each side of Q = I x t by I.'
-- en: 'Substitute: t = 1.2 / 0.002.'
-- en: 'Calculate: t = 600 s.'
-- en: 'Give it in min: 10 min.'
-- en: So the time is 10 min.
-- en: The correct option is b.
 hints:
 - level: 1
   en: 'Name each quantity in the question before you calculate. Pick the relation
@@ -45,15 +23,47 @@ prediction_prompt:
     is it?
 status: draft
 template_id: TPL2.PHY.ELEC.CHARGE_CURRENT
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4 x 10^-5 min
+- id: b
+  en: 10 min
+- id: c
+  en: 2.78e-05 min
+- id: d
+  en: 0.01 min
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.ELEC.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.ELEC.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.ELEC.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: charge Q = current I x time t.'
+- en: 'Put each quantity in SI units: 2 mA = 0.002 A.'
+- en: 'Get the time alone: divide each side of Q = I x t by I.'
+- en: 'Substitute: t = 1.2 / 0.002.'
+- en: 'Calculate: t = 600 s.'
+- en: 'Give it in min: 10 min.'
+- en: So the time is 10 min.
+- en: The correct option is b.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: cd99f0a7b2ff69a552a4bc4d6c4eeeced2c4586483fae1497bfe0b4bca3d89ca
+  item_hash: 772bf47018b8681853be771ab7ebace2e67891889d346bf09dcd441b13627402
   template_hash: 2e3d425c0827f9fce550ca3a10a4c9e8b26f61744e0260287aba1a1ae443f6a1
   certificate_hash: 0c98aa3735138917a145e113bef9ff197d8e30580aa901dd1bfdf255b1065270
   label: calculation-checked
@@ -118,10 +128,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:46:37+00:00'
-  record_hash: 568a10f81fdac93b227b23937c0acbfe4184ec17ddf996a6382f9ee15dfa3b9c
+  stamped_at: '2026-11-17T19:37:12+00:00'
+  record_hash: ace59149885ab2daed2e7745f249c4b85b1014bc005fc7aef361242f64f0c975

@@ -1,0 +1,137 @@
+id: ITM.PHY.LIGHT.LENS_POWER.P_from_f.mcq1.20122ad1.ex
+skill_ids:
+- PHY.LIGHT.LENS_POWER
+difficulty: 0.35
+pool: practice
+role: explain
+stem:
+  en: The focal length of the convex lens, f, is 50 cm. Find the power of the lens
+    in dioptres, with its sign. A classmate says the answer is 0.02 D. Work it out
+    yourself and choose the correct answer.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: power P = 1 / f, with f in metres and its sign from the convention.'
+- level: 2
+  en: The relation already gives the power directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+    Give each distance its sign by the Cartesian convention before you substitute.
+- level: 3
+  en: 'First step: Write 50 cm as 0.5 m, then write P = 1 / f, where P is the power,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the power have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.LIGHT.LENS_POWER.EX
+generator_version: factory-2
+template_hash: e9f741f376ad72951a2f54ce1adf969a3eb2b4aa022d6433bd48e919f5d85790
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 D
+- id: b
+  en: -2 D
+- id: c
+  en: 0.5 D
+- id: d
+  en: 0.02 D
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.POWER_SIGN_IGNORED
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.POWER_NOT_RECIPROCAL
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.POWER_IN_CM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: power P = 1 / f, with f in metres and its sign from the
+    convention.'
+- en: 'Put each quantity in SI units with its sign: f = 0.5 m.'
+- en: 'Substitute: P = 1 / 0.5.'
+- en: 'Calculate: P = 2 D.'
+- en: So the power is 2 D.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c365a944e577be381253c478f8686757a624e7289fc690ae3152b2b7c3ed9764
+  template_hash: e9f741f376ad72951a2f54ce1adf969a3eb2b4aa022d6433bd48e919f5d85790
+  certificate_hash: 5a6a16571ed1893ba81fffa92875956e82396be16bd8f6bb878235967544ae6a
+  label: calculation-checked
+  tier: A
+  lane: physics
+  chapter_ref: cbse.10.physics.light
+  methods_agreeing:
+  - kernel.algebra
+  - phys.sympy_laws
+  - phys.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: c27e9a5
+  llm_involved: false
+  stamped_at: '2026-11-17T21:43:11+00:00'
+  record_hash: da125c3539e2d0333e611289d87e1744e3da08ad7cc659668595dbfdfabd830f

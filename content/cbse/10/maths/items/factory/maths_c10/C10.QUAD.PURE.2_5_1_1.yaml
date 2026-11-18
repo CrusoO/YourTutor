@@ -2,28 +2,10 @@ id: C10.QUAD.PURE.2_5_1_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_INCOMPLETE
 difficulty: 0.44
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Find every real solution of 2x² = -50.
-options:
-- id: a
-  en: x = -5
-- id: b
-  en: x = 5
-- id: c
-  en: x = -5 or x = 5
-- id: d
-  en: no real roots
-answer:
-  sympy: d
-  accept: []
-solution_steps:
-- en: 'Take 50 away from both sides and then divide both sides by 2: x² = -25.'
-- en: A square is never negative, so no real number satisfies this.
-- en: The equation has no real roots.
-- en: The correct option is d.
 hints:
 - level: 1
   en: Get the squared term on its own by undoing the other operations.
@@ -38,15 +20,43 @@ prediction_prompt:
   en: Will this equation have two answers, one answer or none?
 status: draft
 template_id: TPL.C10.QUAD.PURE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5
+- id: b
+  en: x = 5
+- id: c
+  en: x = -5 or x = 5
+- id: d
+  en: no real roots
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.QUAD.PURE_ONE_NEGATIVE_ROOT
+  when_answer_equals:
+  - a
+- id: MC.QUAD.PURE_ONE_POSITIVE_ROOT
+  when_answer_equals:
+  - b
+- id: MC.QUAD.PURE_SIGN_IGNORED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Take 50 away from both sides and then divide both sides by 2: x² = -25.'
+- en: A square is never negative, so no real number satisfies this.
+- en: The equation has no real roots.
+- en: The correct option is d.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: e7cadcbf38abd30d3e7355d63c37c540cbdd90539a828a52eb99a32dceb61fc5
+  item_hash: 0d839c52a27620adc33f69584b871bfe8000364c5ee483135845cf4e49b0dc83
   template_hash: 65446bbee73ebc5d34df50fcea4ed94d87957229f0b804c12066b76827b7b67d
   certificate_hash: 5ea9f37567e2c6d52422115d996bfc5dff182891b409fb736151efe7c6f8b7d4
   label: calculation-checked
@@ -112,10 +122,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: ''
   llm_involved: false
-  stamped_at: '2026-11-16T13:49:11+00:00'
-  record_hash: 7c02028df5da0e556c911cd17eaef9a19e3a64cff5ee545e9a2750273c3bf642
+  stamped_at: '2026-11-17T17:45:32+00:00'
+  record_hash: 1f6621f1f9b12b7514ffb62690af176be80dac3f673868da2dd95a2620018ac7

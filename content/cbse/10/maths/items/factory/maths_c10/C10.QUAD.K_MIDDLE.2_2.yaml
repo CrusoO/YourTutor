@@ -2,28 +2,10 @@ id: C10.QUAD.K_MIDDLE.2_2
 skill_ids:
 - MATH.ALG.QUAD.FIND_PARAMETER_FOR_ROOTS
 difficulty: 0.59
-type: mcq
 pool: practice
 role: apply
 stem:
   en: The equation 2x² + kx + 8 = 0 has repeated roots. Find k.
-options:
-- id: a
-  en: k = -4 or k = 4
-- id: b
-  en: k = 8
-- id: c
-  en: k = -8 or k = 8
-- id: d
-  en: k = -64 or k = 64
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Equal roots need the discriminant to be zero: k² - 4(2)(8) = 0.'
-- en: So k² = 64.
-- en: 'Take the square root of both sides, keeping both signs: k = -8 or k = 8.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: The discriminant will contain k; make it zero.
@@ -37,15 +19,43 @@ prediction_prompt:
   en: Should k be allowed to be negative as well as positive?
 status: draft
 template_id: TPL.C10.QUAD.K_MIDDLE
-generator_version: factory-1
+generator_version: factory-2
 template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: k = -4 or k = 4
+- id: b
+  en: k = 8
+- id: c
+  en: k = -8 or k = 8
+- id: d
+  en: k = -64 or k = 64
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.K_FORGOT_FACTOR_FOUR
+  when_answer_equals:
+  - a
+- id: MC.QUAD.K_POSITIVE_ONLY
+  when_answer_equals:
+  - b
+- id: MC.QUAD.K_FORGOT_SQRT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Equal roots need the discriminant to be zero: k² - 4(2)(8) = 0.'
+- en: So k² = 64.
+- en: 'Take the square root of both sides, keeping both signs: k = -8 or k = 8.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: a570c4a0db5b60f8958b427c55cc31f1eb6af9ceb6d139d0898508472fec49f2
+  item_hash: 4f309202c7186bd7f9610d0f06574a06f2b6f8bf0c399e8461de924a82def8ea
   template_hash: c2db2ba0202ab7139a0ad1fa80983c6a687ab5aabc463eab611983f206da0131
   certificate_hash: e68eb901e9994c3b31e3eba45121cd7aeab4925159752263ae228c24528892dc
   label: calculation-checked
@@ -111,10 +121,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:46:11+00:00'
-  record_hash: ca4ed5b10e17971829d9c8cec067d56fb8ccb23400eea4b2cd7d8546a7c8fa61
+  stamped_at: '2026-11-17T17:44:27+00:00'
+  record_hash: f52b4f080e9762cf6e6494ea1aeac815512a00910c18f360411ad3c78a5acd7b

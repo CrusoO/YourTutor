@@ -2,35 +2,12 @@ id: ITM.PHY.LIGHT.MIRROR_FOCAL.f_from_R.num2.d5de8541
 skill_ids:
 - PHY.LIGHT.MIRROR_FOCAL
 difficulty: 0.5
-type: mcq
 pool: practice
 role: apply
 stem:
   en: This question is about radius of curvature and focal length of a spherical mirror.
     The radius of curvature of the concave mirror, R, is 20 cm. Find the focal length,
     with its sign.
-options:
-- id: a
-  en: -10 cm
-- id: b
-  en: 10 cm
-- id: c
-  en: -1000 cm
-- id: d
-  en: -20 cm
-answer:
-  sympy: a
-  accept: []
-solution_steps:
-- en: 'Write the relation: the focal length is half the radius of curvature: f = R
-    / 2, with signs from the convention.'
-- en: 'Put each quantity in SI units with its sign: R = -0.2 m.'
-- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
-- en: 'Substitute: f = (-0.2) / 2.'
-- en: 'Calculate: f = -0.1 m.'
-- en: 'Give it in cm: -10 cm.'
-- en: So the focal length is -10 cm.
-- en: The correct option is a.
 hints:
 - level: 1
   en: 'Separate the known quantities from the unknown one. Pick the relation that
@@ -49,15 +26,48 @@ prediction_prompt:
     large is it?
 status: draft
 template_id: TPL2.PHY.LIGHT.MIRROR_FOCAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: -10 cm
+- id: b
+  en: 10 cm
+- id: c
+  en: -1000 cm
+- id: d
+  en: -20 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.LIGHT.F_SIGN_WRONG
+  when_answer_equals:
+  - b
+- id: PHY.MC.LIGHT.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.LIGHT.RADIUS_FOCAL_CONFUSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the focal length is half the radius of curvature: f = R
+    / 2, with signs from the convention.'
+- en: 'Put each quantity in SI units with its sign: R = -0.2 m.'
+- en: 'Get the focal length alone: divide each side of R = 2f by 2.'
+- en: 'Substitute: f = (-0.2) / 2.'
+- en: 'Calculate: f = -0.1 m.'
+- en: 'Give it in cm: -10 cm.'
+- en: So the focal length is -10 cm.
+- en: The correct option is a.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: 5f729a0446934ea9cbed04f0d0e3a1eb50d8908c3ae2d0a528bcf66af40eab53
+  item_hash: b961171326ad3a14f4664b4d80560925bc517878912dd3e6bbc5a9c5ceb6ebce
   template_hash: 3c42f003c407db65b1502147de3b616ddb7c5833cc8ee7fc5ad1921ba0ade29f
   certificate_hash: 7fedbfd0045ed8ebab0a7dd54042579618a18a721ef3f154e6419416ffc66635
   label: calculation-checked
@@ -122,10 +132,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: aa4b0d0
   llm_involved: false
-  stamped_at: '2026-11-16T12:47:56+00:00'
-  record_hash: fa56ded4ab3da86516bda1c5c1a12b0db742ffb9f50e636a2225ef6184a1b177
+  stamped_at: '2026-11-17T19:39:24+00:00'
+  record_hash: 10a999401864c44ceafb4947f32a7362c1928b01e4562562973e235d495e0b36

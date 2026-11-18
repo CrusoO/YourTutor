@@ -2,30 +2,10 @@ id: C10.QUAD.FORMULA_RATIONAL.2_m6_1_1_1
 skill_ids:
 - MATH.ALG.QUAD.SOLVE_FORMULA
 difficulty: 0.57
-type: mcq
 pool: practice
 role: procedure
 stem:
   en: Use the quadratic formula to solve 2x² + 10x - 12 = 0.
-options:
-- id: a
-  en: x = -12 or x = 2
-- id: b
-  en: x = -1 or x = 6
-- id: c
-  en: x = -6 or x = 1
-- id: d
-  en: x = -27/2 or x = -13/2
-answer:
-  sympy: c
-  accept: []
-solution_steps:
-- en: 'Read off the coefficients: coefficient of x² is 2, of x is 10, plain number
-    is -12.'
-- en: The discriminant is 10² - 4 x 2 x -12 = 196, and its square root is 14.
-- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 2).
-- en: 'Work out both signs: x = -6 or x = 1.'
-- en: The correct option is c.
 hints:
 - level: 1
   en: Every quadratic can be solved with the formula; the work is in the discriminant.
@@ -40,15 +20,45 @@ prediction_prompt:
   en: How many different values of x do you expect?
 status: draft
 template_id: TPL.C10.QUAD.FORMULA_RATIONAL
-generator_version: factory-1
+generator_version: factory-2
 template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
 provenance:
   original: true
   author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -12 or x = 2
+- id: b
+  en: x = -1 or x = 6
+- id: c
+  en: x = -6 or x = 1
+- id: d
+  en: x = -27/2 or x = -13/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.QUAD.FORMULA_FORGOT_2A
+  when_answer_equals:
+  - a
+- id: MC.QUAD.FORMULA_B_SIGN
+  when_answer_equals:
+  - b
+- id: MC.QUAD.FORMULA_DIVIDE_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Read off the coefficients: coefficient of x² is 2, of x is 10, plain number
+    is -12.'
+- en: The discriminant is 10² - 4 x 2 x -12 = 196, and its square root is 14.
+- en: Substitute into x = (-b ± square root of the discriminant) / (2 x 2).
+- en: 'Work out both signs: x = -6 or x = 1.'
+- en: The correct option is c.
 tier: A
 verification:
   schema: vrec/1
-  item_hash: eb0adfc3f52b4179a02de4877039e60d076a8a02b80f2473459045f964d016ae
+  item_hash: 4f54119a3c751f9aa0e24a3caa339736f2978498e9385c412726990ed64ecd9d
   template_hash: 5ef04d1972e4ec364cb452dc98753fd56fee221452c8cda5f52f3bf29727f469
   certificate_hash: d41b865f2de748d2885b1fd13d6bdcd5db120b138f4a7b4d7db8ca5bf915cd9e
   label: calculation-checked
@@ -114,10 +124,10 @@ verification:
     status: pass
   generated_by:
     tool: app.factory
-    generator_version: factory-1
+    generator_version: factory-2
     kernel_version: '1'
     constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
-    git_sha: fb49396
+    git_sha: 44bf8fb
   llm_involved: false
-  stamped_at: '2026-11-16T13:42:20+00:00'
-  record_hash: 6502b09a38d89f383b4fd4e80fcdc1a8bc61c3de6c326e29c118294532ce2b66
+  stamped_at: '2026-11-17T17:43:18+00:00'
+  record_hash: 0819bc3119d8abdc26469d1743812354ba4ff1345ee6c32e017ffa465a7745ac

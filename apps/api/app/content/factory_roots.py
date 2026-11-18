@@ -43,6 +43,17 @@ def content_roots(root: Path) -> list[Path]:
     return [root, *subject_roots(root)]
 
 
+def content_files(root: Path, folder: str) -> list[Path]:
+    """`*.yaml` directly inside `<folder>` of the root and of each subject folder (lessons,
+    passages), in a stable order."""
+    return [
+        path
+        for base in content_roots(root)
+        if (base / folder).is_dir()
+        for path in sorted((base / folder).glob("*.yaml"))
+    ]
+
+
 def is_factory_template(path: Path) -> bool:
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
