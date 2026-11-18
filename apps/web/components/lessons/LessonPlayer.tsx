@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { pick, type Beat, type Lesson, type NumberLineFigure } from "@/lib/lessons/types";
-import { choiceValueToNumber, expression, guessToChoiceValue } from "@/lib/lessons/numberline";
+import { choiceValueToNumber, expression, guessToChoiceValue, shouldCountOn } from "@/lib/lessons/numberline";
 import { balanceStart } from "@/lib/lessons/widgets";
 import { t, type Messages } from "@/lib/messages";
 import SourceChips, { type SourceChip } from "@/components/flow/SourceChips";
@@ -26,6 +26,9 @@ function lessonCopy(m: Messages) {
     placeFirst: m.lessonPlaceDotFirst,
     pickFirst: m.lessonPickAnswerFirst,
     lockIn: m.numberLineLockIn,
+    checkBtn: m.numberLineCheck,
+    countFirst: m.lessonCountFirst,
+    workOut: m.lessonWorkOut,
     nextStep: m.lessonNextStep,
     checking: m.lessonChecking,
     verified: m.lessonVerified,
@@ -188,16 +191,21 @@ export default function LessonPlayer({
 
   // Some steps need one action first. The main button is then either that action ("That is my guess")
   // or visibly switched off with the reason beside it; it is never a live-looking button that does nothing.
+  const predictCount =
+    beat.kind === "predict" && !!beat.number_line && shouldCountOn(beat.number_line.delta);
+  const exampleCount = workedFigure ? shouldCountOn(workedFigure.delta) : false;
+  const counting = predictCount || exampleCount;
   const needsLock =
-    (beat.kind === "worked_example" || beat.kind === "faded_example") &&
-    !!beat.number_line &&
-    !exampleLocked &&
-    faded !== "ok";
-  const needsGuess = beat.kind === "predict" && !predictSent && guess === null;
+    ((beat.kind === "worked_example" || beat.kind === "faded_example") &&
+      !!beat.number_line &&
+      !exampleLocked &&
+      faded !== "ok") ||
+    (predictCount && !predictSent && guess === null);
+  const needsGuess = beat.kind === "predict" && !predictCount && !predictSent && guess === null;
   const lockNow = needsLock && dotTouched;
   const blocked = (needsLock && !dotTouched) || needsGuess;
-  const why = blocked ? (needsLock ? COPY.placeFirst : COPY.pickFirst) : null;
-  const label = lockNow ? COPY.lockIn : primary;
+  const why = blocked ? (needsLock ? (counting ? COPY.countFirst : COPY.placeFirst) : COPY.pickFirst) : null;
+  const label = lockNow ? (counting ? COPY.checkBtn : COPY.lockIn) : primary;
 
   function press() {
     if (blocked) {
@@ -261,11 +269,14 @@ export default function LessonPlayer({
                 start={beat.number_line.start}
                 delta={beat.number_line.delta}
                 mode="predict"
-                after="hold"
+                after={predictCount ? "check" : "hold"}
+                countOn={predictCount}
                 locale={locale}
                 reducedMotion={reducedMotion}
-                externalGuess={guess === null ? null : choiceValueToNumber(guess)}
-                onGuess={(v) => setGuess(guessToChoiceValue(v, beat.choices))}
+                onGuess={predictCount ? undefined : (v) => setGuess(guessToChoiceValue(v, beat.choices))}
+                onLocked={predictCount ? (r) => setGuess(guessToChoiceValue(r.guess, beat.choices)) : undefined}
+                onTouchedChange={predictCount ? setDotTouched : undefined}
+                lockSignal={predictCount ? lockSignal : undefined}
               />
             ) : null}
             {beat.figure ? (
@@ -277,6 +288,7 @@ export default function LessonPlayer({
                 />
               </div>
             ) : null}
+            {beat.number_line ? null : (
             <div className="lp-choices" role="group" aria-label={pick(beat.prompt, locale)}>
               {beat.choices.map((c) => (
                 <button
@@ -290,6 +302,7 @@ export default function LessonPlayer({
                 </button>
               ))}
             </div>
+            )}
             {guess !== null && beat.reveal ? <p className="lp-fb tip">{pick(beat.reveal, locale)}</p> : null}
           </Beats>
         ) : null}
@@ -356,7 +369,11 @@ export default function LessonPlayer({
         {beat.kind === "worked_example" ? (
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
-            <p className="lp-problem">{pick(beat.problem, locale)}</p>
+            <p className="lp-problem">
+              {extraIdx !== null && workedFigure
+                ? `${COPY.workOut} ${expression(workedFigure.start, workedFigure.delta)}.`
+                : pick(beat.problem, locale)}
+            </p>
             {beat.number_line && workedFigure ? (
               <>
                 {beat.more_number_lines && beat.more_number_lines.length > 0 ? (
@@ -383,11 +400,12 @@ export default function LessonPlayer({
                   delta={workedFigure.delta}
                   mode="predict"
                   after="reveal"
+                  countOn={exampleCount}
                   locale={locale}
                   reducedMotion={reducedMotion}
                   onLocked={() => setExampleLocked(true)}
-                  onTouchedChange={setDotTouched}
-                  lockSignal={lockSignal}
+                  onTouchedChange={extraIdx === null ? setDotTouched : undefined}
+                  lockSignal={extraIdx === null ? lockSignal : undefined}
                 />
               </>
             ) : null}

@@ -5,6 +5,11 @@ import ReadAloud from "@/components/flow/ReadAloud";
 import {
   checkPrediction,
   clampToLine,
+  countComplete,
+  countOnFeedback,
+  countOnHint,
+  countOnWindow,
+  tapAnnouncement,
   directionOf,
   labelledTicks,
   expression,
@@ -12,6 +17,7 @@ import {
   hopAnnouncement,
   isSafeFigure,
   narrationScript,
+  numberWords,
   pathPoints,
   predictScript,
   tokenText,
@@ -44,6 +50,8 @@ export type NumberLineProps = {
   reducedMotion?: boolean;
   hopMs?: number;
   autoPlay?: boolean;
+  /** Count-on: the dot waits on the start; the learner taps Up 1 / Down 1 and counts the hops, then presses Check. PREDICT mode only. */
+  countOn?: boolean;
   /** The dot has been placed (true) or reset (false). Lets the screen's main button say "That is my guess". */
   onTouchedChange?: (touched: boolean) => void;
   /** Bump this number to lock the guess in from outside (the screen's main button, which then replaces the figure's own button). Ignored until the dot is placed. */
@@ -99,6 +107,7 @@ function Line({
   narrate = true,
   onTouchedChange,
   lockSignal,
+  countOn = false,
 }: NumberLineProps) {
   const copy = t(locale);
   const reduced = reducedMotion ?? prefersReducedMotion();
@@ -108,12 +117,13 @@ function Line({
   const dir = directionOf(delta);
 
   const win = useMemo(() => {
+    if (countOn) return countOnWindow(start, delta);
     // The mirror point (the same move the other way) is always on the line: it is the likeliest
     // wrong guess, and it keeps the line balanced around the start so it gives nothing away.
     const small = Math.abs(delta) <= 8;
     const base = viewWindow([start, land, ...(small ? [start - delta] : []), ...(priorGuess === null ? [] : [priorGuess])]);
     return small ? base : { min: Math.max(-20, base.min - 2), max: Math.min(20, base.max + 2) };
-  }, [start, land, delta, priorGuess]);
+  }, [start, land, delta, priorGuess, countOn]);
 
   const [phase, setPhase] = useState<Phase>(mode === "reveal" ? "hops" : mode === "explore" ? "explore" : "predict");
   const [guess, setGuess] = useState<number>(priorGuess ?? start);
@@ -124,9 +134,16 @@ function Line({
     mode === "reveal" && priorGuess !== null ? checkPrediction(start, delta, priorGuess) : null,
   );
   const [free, setFree] = useState(start);
+  const [moves, setMoves] = useState<number[]>([]);
+  const [hintLevel, setHintLevel] = useState(0);
+  const [tell, setTell] = useState("");
   const [announce, setAnnounce] = useState("");
   const svgRef = useRef<SVGSVGElement>(null);
   const dragging = useRef(false);
+  const tellRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (tell) tellRef.current?.scrollIntoView?.({ block: "center", behavior: "auto" });
+  }, [tell]);
 
   // A tapped choice button elsewhere on the screen moves the dot.
   useEffect(() => {
@@ -137,16 +154,16 @@ function Line({
   }, [externalGuess, after, win.min, win.max]);
 
   useEffect(() => {
-    onTouchedChange?.(phase === "predict" && touched);
-  }, [phase, touched, onTouchedChange]);
+    onTouchedChange?.(phase === "predict" && (countOn ? countComplete(moves.length, delta) : touched));
+  }, [phase, touched, countOn, moves.length, delta, onTouchedChange]);
 
   const lockSeen = useRef<number | undefined>(lockSignal);
   const lockRef = useRef<() => void>(() => {});
   useEffect(() => {
     if (lockSignal === lockSeen.current) return;
     lockSeen.current = lockSignal;
-    if (phase === "predict" && touched && after !== "hold") lockRef.current();
-  }, [lockSignal, phase, touched, after]);
+    if (phase === "predict" && (countOn ? countComplete(moves.length, delta) : touched) && after !== "hold") lockRef.current();
+  }, [lockSignal, phase, touched, after, countOn, moves.length, delta]);
 
   // The hops: one unit at a time, each announced politely.
   useEffect(() => {
@@ -166,8 +183,11 @@ function Line({
   const x = (n: number) => PAD + ((n - win.min) / (win.max - win.min)) * (W - 2 * PAD);
   const unit = x(win.min + 1) - x(win.min);
   const done = phase === "hops" && hop === total;
-  const position = phase === "hops" ? path[hop] : phase === "explore" ? free : guess;
-  const canDrag = phase === "predict" || phase === "explore";
+  const counting = countOn && phase === "predict";
+  const net = moves.reduce((a, b) => a + b, 0);
+  const ready = counting && countComplete(moves.length, delta);
+  const position = phase === "hops" ? path[hop] : phase === "explore" ? free : counting ? start + net : guess;
+  const canDrag = (phase === "predict" && !countOn) || phase === "explore";
   const tokenColor = dir === "right" ? styles.right : styles.left;
   const showAnswer = phase === "hops" || phase === "checked" || phase === "explore";
 
@@ -203,10 +223,38 @@ function Line({
     }
   }
 
+  function hop1(dir: 1 | -1) {
+    if (!counting || countComplete(moves.length, delta)) return;
+    const next = [...moves, dir];
+    const at = start + next.reduce((a, b) => a + b, 0);
+    if (at < win.min || at > win.max) return;
+    setMoves(next);
+    setTouched(true);
+    setTell(dir === (delta >= 0 ? 1 : -1) ? "" : countOnHint(start, delta, 1));
+    setAnnounce(tapAnnouncement(next.length, Math.abs(delta), at));
+  }
+
+  function startAgain(message = "") {
+    setMoves([]);
+    setTell(message);
+    setAnnounce(`Back at ${numberWords(start)}.`);
+  }
+
   function lock() {
-    const r = checkPrediction(start, delta, guess);
+    if (counting) {
+      if (net !== delta) {
+        const f = countOnFeedback(start, delta, moves);
+        const lvl = Math.min(3, hintLevel + 1);
+        setHintLevel(lvl);
+        startAgain(`${f.message} ${countOnHint(start, delta, lvl)}`);
+        return;
+      }
+      setGuess(start + net);
+    }
+    const g = counting ? start + net : guess;
+    const r = checkPrediction(start, delta, g);
     setResult(r);
-    onGuess?.(guess);
+    onGuess?.(g);
     onLocked?.(r);
     if (after === "check") {
       setPhase("checked");
@@ -227,6 +275,8 @@ function Line({
 
   function tryAgain() {
     setResult(null);
+    setMoves([]);
+    setTell("");
     setGuess(start);
     setTouched(false);
     setPhase("predict");
@@ -252,16 +302,20 @@ function Line({
   const midX = (x(start) + x(land)) / 2;
   const tokenW = 46;
 
-  const nowLabel = (phase === "hops" && !done) || phase === "explore" ? copy.numberLineNow : copy.numberLineResult;
+  const nowLabel = (phase === "hops" && !done) || phase === "explore" || counting ? copy.numberLineNow : copy.numberLineResult;
   const nowValue =
     phase === "predict"
-      ? "?"
+      ? counting
+        ? fmt(position)
+        : "?"
       : phase === "hops"
         ? fmt(path[hop])
         : phase === "checked"
           ? fmt(land)
           : fmt(free);
-  const moveValue = phase === "explore" ? (free === start ? "0" : tokenText(free - start)) : tokenText(delta);
+  const moveValue = counting
+    ? `${moves.length} ${copy.numberLineOf} ${total}`
+    : phase === "explore" ? (free === start ? "0" : tokenText(free - start)) : tokenText(delta);
 
   return (
     <div className={styles.wrap} data-phase={phase} data-testid="number-line">
@@ -402,7 +456,7 @@ function Line({
           <dd data-testid="nl-start">{fmt(start)}</dd>
         </div>
         <div className={tokenColor}>
-          <dt>{copy.numberLineMove}</dt>
+          <dt>{counting ? copy.numberLineSteps : copy.numberLineMove}</dt>
           <dd data-testid="nl-move">{moveValue}</dd>
         </div>
         <div className={done || phase === "checked" ? styles.final : undefined}>
@@ -411,7 +465,52 @@ function Line({
         </div>
       </dl>
 
-      {phase === "predict" ? (
+      {counting ? (
+        <>
+          <p className={styles.hint}>{copy.numberLineCountHint}</p>
+          {tell ? (
+            <p ref={tellRef} className={styles.tip} role="status" data-testid="nl-tell">
+              {tell}
+            </p>
+          ) : null}
+          <div className={styles.controls}>
+            {ready ? (
+              lockSignal === undefined ? (
+                <button type="button" className={`${styles.btn} ${styles.main}`} onClick={lock}>
+                  {copy.numberLineCheck}
+                </button>
+              ) : null
+            ) : (
+              <>
+                <button type="button" className={styles.btn} onClick={() => hop1(-1)} disabled={position <= win.min}>
+                  {copy.numberLineDown}
+                </button>
+                <button type="button" className={`${styles.btn} ${styles.main}`} onClick={() => hop1(1)} disabled={position >= win.max}>
+                  {copy.numberLineUp}
+                </button>
+              </>
+            )}
+            {moves.length > 0 ? (
+              <button type="button" className={styles.btn} onClick={() => startAgain()}>
+                {copy.numberLineStartAgain}
+              </button>
+            ) : null}
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={() => {
+                const l = Math.min(3, hintLevel + 1);
+                setHintLevel(l);
+                setTell(countOnHint(start, delta, l));
+              }}
+            >
+              {copy.numberLineHintBtn}
+            </button>
+          </div>
+        </>
+      ) : null}
+
+      {phase === "predict" && !countOn ? (
         <>
           <p className={styles.hint}>{copy.numberLinePredictHint}</p>
           <div className={styles.controls}>

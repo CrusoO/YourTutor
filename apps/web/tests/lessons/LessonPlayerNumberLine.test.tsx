@@ -28,31 +28,29 @@ describe("LessonPlayer with number-line figures", () => {
     expect(onPredict).toHaveBeenCalledWith("9");
   });
 
-  it("Guess step: tapping a choice moves the dot to it, and the choice buttons still work alone", async () => {
-    const onPredict = vi.fn().mockResolvedValue(undefined);
-    render(<LessonPlayer lesson={lesson} locale="en" mode="session" reducedMotion delay={noDelay} onPredict={onPredict} />);
+  it("Guess step: no multiple-choice row beside the figure", async () => {
+    render(<LessonPlayer lesson={lesson} locale="en" mode="session" reducedMotion delay={noDelay} onPredict={vi.fn()} />);
     await slider();
-    await userEvent.click(screen.getByRole("button", { name: `${MINUS}9` }));
-    await waitFor(() => expect(screen.getByRole("slider")).toHaveAttribute("aria-valuenow", "-9"));
-    await userEvent.click(btn(/^Continue$/));
-    expect(onPredict).toHaveBeenCalledWith(`${MINUS}9`);
+    expect(screen.queryByRole("button", { name: `${MINUS}9` })).toBeNull();
+    expect(document.querySelector(".lp-choices")).toBeNull();
   });
 
   it("Watch step: shows the same figure again with the learner's guess against the answer", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="session" reducedMotion delay={noDelay} onPredict={vi.fn()} />);
     await slider();
-    await userEvent.click(screen.getByRole("button", { name: "21" }));
+    for (let i = 0; i < 6; i++) fireEvent.click(btn("+1 step"));
+    await waitFor(() => expect(screen.getByRole("slider")).toHaveAttribute("aria-valuenow", "0"));
     await userEvent.click(btn(/^Continue$/));
     await userEvent.click(await screen.findByRole("button", { name: "Jump to the answer" }));
-    expect(screen.getByTestId("nl-reason")).toHaveTextContent("You picked 21");
+    expect(screen.getByTestId("nl-reason")).toHaveTextContent("You picked 0");
     expect(screen.getByTestId("nl-reason")).toHaveTextContent("lands on 9");
   });
 
   it("Example step: predict first, then hops; the written steps stay below once the guess is in", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
-    await slider();
+    await screen.findByTestId("number-line");
     expect(screen.queryByText(/Start at .8\. Adding 5 moves/)).toBeNull();
-    for (let i = 0; i < 5; i++) fireEvent.click(btn("+1 step"));
+    for (let i = 0; i < 5; i++) fireEvent.click(btn("Up 1 →"));
     fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
     fireEvent.click(await screen.findByRole("button", { name: "Jump to the answer" }));
     expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
@@ -61,11 +59,11 @@ describe("LessonPlayer with number-line figures", () => {
 
   it("Example step: another example (a subtraction) flips the sign of the move", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
-    await slider();
+    await screen.findByTestId("number-line");
     const other = screen.getByRole("button", { name: `3 ${MINUS} 7` });
     await userEvent.click(other);
     expect(other).toHaveAttribute("aria-pressed", "true");
-    await waitFor(() => expect(screen.getByTestId("nl-move")).toHaveTextContent(`${MINUS}7`));
+    await waitFor(() => expect(screen.getByTestId("nl-move")).toHaveTextContent("0 of 7"));
     expect(screen.getByTestId("nl-start")).toHaveTextContent("3");
   });
 

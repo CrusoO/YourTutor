@@ -235,3 +235,57 @@ export function labelledTicks(min: number, max: number, unit: number, position: 
   for (const n of rest) add(n, false);
   return out;
 }
+
+// ---------------------------------------------------------------- count-on mode
+
+/** Moves up to this size are counted hop by hop; bigger ones are predicted by dragging. */
+export const COUNT_ON_MAX = 9;
+
+export function shouldCountOn(delta: number): boolean {
+  return Math.abs(delta) <= COUNT_ON_MAX;
+}
+
+/** The line shows the start and the end with one number of room each side; zero is always on it. */
+export function countOnWindow(start: number, delta: number): { min: number; max: number } {
+  const end = start + delta;
+  const lo = Math.min(start, end);
+  const hi = Math.max(start, end);
+  return { min: lo < 0 ? lo - 1 : 0, max: hi > 0 ? hi + 1 : 1 };
+}
+
+/** The count is complete when the student has made as many hops as the move is long. */
+export function countComplete(taps: number, delta: number): boolean {
+  return taps >= Math.abs(delta);
+}
+
+export type CountOnFeedback = { kind: "wrong_way" | "mixed" | "other"; message: string };
+
+/** A wrong count: say what happened in plain words, never give the answer. `moves` are +1 (up) or -1 (down). */
+export function countOnFeedback(start: number, delta: number, moves: number[]): CountOnFeedback {
+  const want = delta >= 0 ? 1 : -1;
+  const right = moves.filter((m) => m === want).length;
+  const wrong = moves.length - right;
+  const word = want > 0 ? "up" : "down";
+  if (right === 0) {
+    return { kind: "wrong_way", message: `Look at the arrow on the line: this move goes ${word}, but you went ${want > 0 ? "down" : "up"}. Start again.` };
+  }
+  if (wrong > 0) {
+    return { kind: "mixed", message: `${wrong === 1 ? "One tap" : `${wrong} taps`} went the wrong way. This move only goes ${word}. Start again.` };
+  }
+  return { kind: "other", message: `Not quite. Start again and make exactly ${Math.abs(delta)} hops ${word}.` };
+}
+
+/** Hint ladder, never the answer: 1 re-read, 2 the method, 3 a guided action. */
+export function countOnHint(start: number, delta: number, level: number): string {
+  const n = Math.abs(delta);
+  const word = delta >= 0 ? "up" : "down";
+  const btn = delta >= 0 ? "Up 1" : "Down 1";
+  if (level <= 1) return `Start on ${fmt(start)}. Which way does this move go: up or down?`;
+  if (level === 2) return `Count ${n} hops ${word}. Do not count ${fmt(start)} itself.`;
+  return `Tap "${btn}" ${n} times. Say each number out loud as you tap.`;
+}
+
+/** Spoken after each tap. */
+export function tapAnnouncement(taps: number, total: number, position: number): string {
+  return `Now at ${numberWords(position)}. Hop ${taps} of ${total}.`;
+}
