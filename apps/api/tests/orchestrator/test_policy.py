@@ -213,6 +213,21 @@ def test_prerequisite_below_0_6_before_target() -> None:
     assert action.skill_id == "MATH.INTRO"
 
 
+def test_a_weak_prerequisite_with_no_servable_items_is_not_chosen() -> None:
+    # Found end to end on the factory content: the stub prerequisite had no items, so the session
+    # looped on its worked example and never reached a question. The target is asked instead.
+    target = catalog_item("ITEM.T", skill="MATH.T", difficulty=0.2)
+    session = make_session(
+        target,
+        overlay=("MATH.T",),
+        prereqs={"MATH.T": ("MATH.INTRO",)},
+        introduced={"MATH.T"},
+    )
+    learner = make_learner(p_known={"MATH.T": 0.3, "MATH.INTRO": 0.1})
+    action = policy(learner, session, None)
+    assert action.skill_id == "MATH.T"
+
+
 def test_item_tiers_and_least_recently_shown() -> None:
     older = catalog_item("ITEM.OLD", difficulty=0.2, last_shown_at=NOW - timedelta(days=3))
     newer = catalog_item("ITEM.NEW", difficulty=0.25, last_shown_at=NOW - timedelta(days=1))
