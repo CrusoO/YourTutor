@@ -36,8 +36,16 @@ export function SignExplanation({ copy, parse }: { copy: SessionCopy; parse: Int
 }
 
 /** On a practice item: a button that opens the number line. The line shows the start and the move, never the result. */
-export function SignHint({ copy, parse }: { copy: SessionCopy; parse: IntegerStem }) {
-  const [open, setOpen] = useState(false);
+export function SignHint({
+  copy,
+  parse,
+  defaultOpen = false,
+}: {
+  copy: SessionCopy;
+  parse: IntegerStem;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="sign-hint" data-testid="sign-hint">
       <button
