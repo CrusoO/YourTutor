@@ -25,3 +25,11 @@ export function doubtDeviceEnabled(): boolean {
 export function doubtServerEnabled(): boolean {
   return process.env.NEXT_PUBLIC_DOUBT_SERVER === "true";
 }
+
+/**
+ * Quick start: the first visit asks only class and subject, then goes straight to one question. On unless
+ * NEXT_PUBLIC_QUICK_START_ENABLED is exactly "false", which restores the full setup (class, state, board, medium, subject).
+ */
+export function quickStartEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_QUICK_START_ENABLED !== "false";
+}

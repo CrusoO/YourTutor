@@ -49,6 +49,8 @@ export function messageText(copy: Messages, ctx: ContextLike | null, msg: Msg, l
       return copy.chatAskMedium;
     case "ask_subject":
       return copy.chatAskSubject;
+    case "quick_start":
+      return copy.quickStarting;
     case "identity_intro":
       return copy.chatIdentityIntro;
     case "user_choice":
