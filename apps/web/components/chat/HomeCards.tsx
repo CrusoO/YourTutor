@@ -13,6 +13,7 @@ import {
 } from "@/lib/api";
 import { readGuestHomeCache, writeGuestHomeCache, type StudentHomeSnapshot } from "@/lib/chat/home-cache";
 import { memoryLine } from "@/lib/chat/memory";
+import { Button } from "@/components/ui/button";
 import { quickStartEnabled } from "@/lib/flags";
 import { useChatApi } from "./ChatProvider";
 import { TopicMastery } from "./TopicMastery";
@@ -206,15 +207,10 @@ export function HomeCards() {
         ) : null}
         {role === "guest" && quickStartEnabled() ? (
           <div>
-            <button
-              type="button"
-              onClick={() => dispatch({ type: "start_setup", intent: "lesson" })}
-              className="min-h-11 cursor-pointer rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink hover:bg-surface-2"
-              data-testid="more-about-you"
-            >
+            <Button variant="outline" onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="more-about-you">
               {copy.quickMoreAboutYou}
-            </button>
-            <p className="mb-0 mt-1 text-sm text-muted">{copy.quickMoreAboutYouHint}</p>
+            </Button>
+            <p className="m-0 text-sm text-muted">{copy.quickMoreAboutYouHint}</p>
           </div>
         ) : null}
       </>
