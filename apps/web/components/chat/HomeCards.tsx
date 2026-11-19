@@ -13,6 +13,7 @@ import {
 } from "@/lib/api";
 import { readGuestHomeCache, writeGuestHomeCache, type StudentHomeSnapshot } from "@/lib/chat/home-cache";
 import { memoryLine } from "@/lib/chat/memory";
+import { quickStartEnabled } from "@/lib/flags";
 import { useChatApi } from "./ChatProvider";
 import { TopicMastery } from "./TopicMastery";
 import { WelcomeBack } from "./WelcomeBack";
@@ -129,7 +130,7 @@ export function HomeCards() {
             <span className="text-[0.75rem] font-normal text-muted">{copy.chatCardTryQuestionHint}</span>
             <span className="mt-auto inline-flex min-h-9 items-center rounded-full border border-input-line px-4 text-[0.75rem] font-medium">{copy.chatPlanStart}</span>
           </button>
-          <button type="button" onClick={() => dispatch({ type: "start_setup", intent: "lesson" })} data-testid="card-try-lesson" className="home-card flex min-h-[8.5rem] w-full cursor-pointer flex-col items-start gap-1 rounded-2xl p-4 text-left text-ink hover:border-accent">
+          <button type="button" onClick={() => dispatch({ type: "start_setup", intent: "lesson", quick: quickStartEnabled() })} data-testid="card-try-lesson" className="home-card flex min-h-[8.5rem] w-full cursor-pointer flex-col items-start gap-1 rounded-2xl p-4 text-left text-ink hover:border-accent">
             <span className="text-[0.9375rem] font-medium">{copy.chatCardTryLesson}</span>
             <span className="text-[0.75rem] font-normal text-muted">{copy.chatCardTryLessonHint}</span>
             <span className="mt-auto inline-flex min-h-9 items-center rounded-full bg-accent px-4 text-[0.75rem] font-medium text-accent-fg">{copy.chatStartLesson}</span>
@@ -202,6 +203,19 @@ export function HomeCards() {
               data-testid="card-start"
             />
           </Row>
+        ) : null}
+        {role === "guest" && quickStartEnabled() ? (
+          <div>
+            <button
+              type="button"
+              onClick={() => dispatch({ type: "start_setup", intent: "lesson" })}
+              className="min-h-11 cursor-pointer rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink hover:bg-surface-2"
+              data-testid="more-about-you"
+            >
+              {copy.quickMoreAboutYou}
+            </button>
+            <p className="mb-0 mt-1 text-sm text-muted">{copy.quickMoreAboutYouHint}</p>
+          </div>
         ) : null}
       </>
     );

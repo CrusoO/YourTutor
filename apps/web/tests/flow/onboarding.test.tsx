@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import StartPage from "@/app/start/page";
 import FirstRun from "@/components/flow/FirstRun";
-import { getContextOptions, guestStart } from "@/lib/api";
+import { answerOnboarding, getContextOptions, guestStart, startSession, today } from "@/lib/api";
 
 const push = vi.fn();
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push, replace: push }) }));
@@ -17,11 +17,13 @@ vi.mock("@/lib/api", async (orig) => ({
   guestStart: vi.fn(),
   answerOnboarding: vi.fn(),
   startSession: vi.fn(),
+  today: vi.fn(),
 }));
 
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
 });
 
 describe("FirstRun", () => {
@@ -50,8 +52,9 @@ describe("FirstRun", () => {
   });
 });
 
-describe("StartPage", () => {
+describe("StartPage (full setup, quick start switched off)", () => {
   beforeEach(() => {
+    vi.stubEnv("NEXT_PUBLIC_QUICK_START_ENABLED", "false");
     vi.mocked(getContextOptions).mockResolvedValue({
       curricula: [
         {
@@ -117,5 +120,35 @@ describe("Subjects page first run", () => {
     await waitFor(() => expect(screen.queryByTestId("first-run")).not.toBeInTheDocument());
     expect(startSession).not.toHaveBeenCalled();
     offer = "first_run";
+  });
+});
+
+describe("StartPage (quick start, the default)", () => {
+  beforeEach(() => {
+    vi.mocked(getContextOptions).mockResolvedValue({
+      grades: [9, 10],
+      curricula: [
+        { id: "sample_board", grades: [{ grade: 9, subjects: [{ id: "sample_subject", books: [{ id: "x", medium: null }] }] }] },
+        { id: "cbse", grades: [{ grade: 10, subjects: [{ id: "maths", books: [{ id: "m", medium: null }] }] }] },
+      ],
+      languages: [{ code: "en", name: "English" }],
+    });
+    vi.mocked(guestStart).mockResolvedValue({ student_id: "s1", display_name: "Guest" });
+    vi.mocked(answerOnboarding).mockResolvedValue({ next: { session_type: "diagnostic" } });
+    vi.mocked(today).mockResolvedValue({ offer: "first_run" });
+    vi.mocked(startSession).mockResolvedValue({ id: "sess-1" } as never);
+  });
+
+  it("asks only class then subject, shows no board or test ids, and goes straight to the first question", async () => {
+    render(<StartPage />);
+    await userEvent.click(await screen.findByTestId("quick-grade-10"));
+    expect(screen.queryByLabelText("Curriculum")).not.toBeInTheDocument();
+    expect(screen.queryByText(/cbse|ncert|sample|board/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId("quick-grade-9")).not.toBeInTheDocument(); // no lessons on the default board
+    expect(screen.getByTestId("language-switch")).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId("quick-subject-maths"));
+    await waitFor(() => expect(guestStart).toHaveBeenCalledTimes(1));
+    expect(vi.mocked(guestStart).mock.calls[0][0]).toMatchObject({ curriculum_id: "cbse", grade: 10, subject: "maths" });
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/session/sess-1"));
   });
 });

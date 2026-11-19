@@ -7,6 +7,8 @@
  * the composer is a topic finder outside this module, and messages hold choices, never free text.
  */
 
+import { quickBoard, quickContext } from "@/lib/quick-start";
+
 export type Role = "guest" | "student" | "teacher" | "parent";
 export type Phase = "welcome" | "context" | "identity" | "home";
 export type SetupStep = "grade" | "state" | "board" | "medium" | "subject";
@@ -52,6 +54,7 @@ export type MsgKey =
   | "identity_intro"
   | "signed_in"
   | "guest_started"
+  | "quick_start"
   | "restart"
   | "summary";
 
@@ -78,6 +81,8 @@ export type ChatState = {
   identity: IdentityView;
   /** Which activity the visitor asked for on the welcome cards; the first activity opens this one. */
   intent: "lesson" | "practice" | null;
+  /** Quick start: only the class and the subject are asked; the board is an internal default. */
+  quick: boolean;
   messages: Msg[];
   nextId: number;
 };
@@ -85,11 +90,12 @@ export type ChatState = {
 export type Option = { value: string; label?: string; available: boolean };
 
 export type ChatEvent =
-  | { type: "start_setup"; intent: "lesson" | "practice" | null }
+  | { type: "start_setup"; intent: "lesson" | "practice" | null; quick?: boolean }
   | { type: "pick"; step: SetupStep; value: string }
   | { type: "identity"; view: IdentityView }
   | { type: "signed_in"; role: Role; name?: string }
   | { type: "guest_started" }
+  | { type: "quick_failed" }
   | { type: "restart" }
   | { type: "summary"; skill?: string; status?: string; next?: string };
 
@@ -99,6 +105,7 @@ export const initialState = (): ChatState => ({
   setup: {},
   identity: "choices",
   intent: null,
+  quick: false,
   messages: [],
   nextId: 1,
 });
@@ -109,6 +116,9 @@ export const GUEST_GRADES = [6, 7, 8, 9, 10, 11, 12];
 export const ADULT_GRADE = 0;
 
 const ORDER: SetupStep[] = ["grade", "state", "board", "medium", "subject"];
+/** Quick start asks only these two. */
+const QUICK_ORDER: SetupStep[] = ["grade", "subject"];
+const orderFor = (quick: boolean): SetupStep[] => (quick ? QUICK_ORDER : ORDER);
 
 const unique = <T,>(values: T[]): T[] => [...new Set(values)];
 
@@ -129,7 +139,8 @@ function booksFor(ctx: ContextLike, setup: Setup) {
 }
 
 /** The options for one step. `available: false` means no live content yet ("coming soon"). */
-export function stepOptions(ctx: ContextLike, setup: Setup, step: SetupStep): Option[] {
+export function stepOptions(ctx: ContextLike, setup: Setup, step: SetupStep, quick = false): Option[] {
+  if (quick) return stepOptions(quickContext(ctx), setup, step);
   if (step === "grade") {
     const withContent = new Set(ctx.curricula.flatMap((c) => c.grades.map((g) => g.grade)));
     const all = unique([...(ctx.grades ?? []), ...withContent])
@@ -160,29 +171,37 @@ export function stepOptions(ctx: ContextLike, setup: Setup, step: SetupStep): Op
 }
 
 /** Does this step need asking? A step with no options (no states in the registry) or only one is skipped. */
-function needed(ctx: ContextLike, setup: Setup, step: SetupStep): boolean {
-  const options = stepOptions(ctx, setup, step);
+function needed(ctx: ContextLike, setup: Setup, step: SetupStep, quick: boolean): boolean {
+  const options = stepOptions(ctx, setup, step, quick);
   if (step === "grade" || step === "board" || step === "subject") return options.length > 0;
   return options.length > 1; // state and medium only when there is a real choice
 }
 
 /** The next question to ask, or null when setup is complete. */
-export function nextStep(ctx: ContextLike, setup: Setup): SetupStep | null {
-  for (const step of ORDER) {
+export function nextStep(ctx: ContextLike, setup: Setup, quick = false): SetupStep | null {
+  for (const step of orderFor(quick)) {
     if (setup[step] !== undefined) continue;
-    if (needed(ctx, setup, step)) return step;
+    if (needed(ctx, setup, step, quick)) return step;
     // A skipped step with exactly one option is filled in silently so later steps can narrow by it.
-    const only = stepOptions(ctx, setup, step);
+    const only = stepOptions(ctx, setup, step, quick);
     if ((step === "state" || step === "medium") && only.length === 1) {
-      return nextStep(ctx, { ...setup, [step]: only[0]!.value });
+      return nextStep(ctx, { ...setup, [step]: only[0]!.value }, quick);
     }
   }
   return null;
 }
 
 /** The setup with silently-skipped single-option steps filled in. */
-export function resolveSetup(ctx: ContextLike, setup: Setup): Setup {
+export function resolveSetup(ctx: ContextLike, setup: Setup, quick = false): Setup {
   let current = { ...setup };
+  if (quick) {
+    // Quick start never asks for the board: once class and subject are known it is filled from the internal default.
+    if (current.board === undefined && current.grade !== undefined && current.subject !== undefined) {
+      const board = quickBoard(ctx, current);
+      if (board) current = { ...current, board };
+    }
+    return current;
+  }
   for (const step of ORDER) {
     if (current[step] !== undefined) continue;
     const options = stepOptions(ctx, current, step);
@@ -211,8 +230,15 @@ function push(state: ChatState, msg: Omit<Msg, "id">): ChatState {
 
 /** After a choice: ask the next question, or move on to identity when setup is complete. */
 function advance(state: ChatState, ctx: ContextLike): ChatState {
-  const step = nextStep(ctx, state.setup);
+  const step = nextStep(ctx, state.setup, state.quick);
   if (step) return push({ ...state, phase: "context" }, { from: "tutor", key: ASK[step] });
+  if (state.quick) {
+    // Quick start: no "how would you like to continue" step. The screen starts the first question.
+    return push(
+      { ...state, phase: "identity", identity: "choices", setup: resolveSetup(ctx, state.setup, true) },
+      { from: "tutor", key: "quick_start" },
+    );
+  }
   return push(
     { ...state, phase: "identity", identity: "choices", setup: resolveSetup(ctx, state.setup) },
     { from: "tutor", key: "identity_intro" },
@@ -223,23 +249,24 @@ export function reduce(state: ChatState, event: ChatEvent, ctx: ContextLike): Ch
   switch (event.type) {
     case "start_setup": {
       if (state.phase !== "welcome" && state.phase !== "home") return state;
-      const fresh = { ...initialState(), intent: event.intent, nextId: state.nextId, messages: state.messages };
+      const fresh = { ...initialState(), intent: event.intent, quick: event.quick === true, nextId: state.nextId, messages: state.messages };
       return advance(fresh, ctx);
     }
     case "pick": {
       if (state.phase !== "context" && state.phase !== "identity") return state;
       // Only the question being asked, or an earlier answer being changed.
-      const asking = nextStep(ctx, state.setup);
+      const asking = nextStep(ctx, state.setup, state.quick);
       if (asking !== event.step && state.setup[event.step] === undefined) return state;
       // Choosing a step clears every later one, so changing an answer never leaves stale choices.
-      const later = ORDER.slice(ORDER.indexOf(event.step) + 1);
+      const order = orderFor(state.quick);
+      const later = order.slice(order.indexOf(event.step) + 1);
       const base = Object.fromEntries(
         Object.entries(state.setup).filter(([k]) => k !== event.step && !later.includes(k as SetupStep)),
       ) as Setup;
-      const option = stepOptions(ctx, base, event.step).find((o) => o.value === event.value);
+      const option = stepOptions(ctx, base, event.step, state.quick).find((o) => o.value === event.value);
       if (!option || !option.available) return state; // "coming soon" cannot start
       const value = event.step === "grade" ? (event.value === "adult" ? ADULT_GRADE : Number(event.value)) : event.value;
-      const setup = resolveSetup(ctx, { ...base, [event.step]: value } as Setup);
+      const setup = resolveSetup(ctx, { ...base, [event.step]: value } as Setup, state.quick);
       const chosen = push(
         { ...state, setup, phase: "context", identity: "choices" },
         { from: "user", key: "user_choice", data: { step: event.step, value } },
@@ -261,6 +288,11 @@ export function reduce(state: ChatState, event: ChatEvent, ctx: ContextLike): Ch
     }
     case "guest_started": {
       return push({ ...state, phase: "home", role: "guest", identity: "choices" }, { from: "system", key: "guest_started" });
+    }
+    case "quick_failed": {
+      // The first question could not start: fall back to the usual "how would you like to continue" choices.
+      if (state.phase !== "identity") return state;
+      return push({ ...state, identity: "choices" }, { from: "tutor", key: "identity_intro" });
     }
     case "summary": {
       // A workflow ended in the panel: a short structured note for the chat. Choices and titles only.

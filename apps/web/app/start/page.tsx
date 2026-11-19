@@ -9,6 +9,8 @@ import { child } from "@/lib/agreement-copy";
 import StorageNotice from "@/components/StorageNotice";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { useCopy } from "@/lib/locale";
+import { quickStartEnabled } from "@/lib/flags";
+import QuickStartForm from "@/components/flow/QuickStartForm";
 
 /** Guest start: curriculum, grade, subject and language. Nothing personal is asked or stored. */
 export default function StartPage() {
@@ -55,6 +57,18 @@ export default function StartPage() {
       setError(copy.startError);
       setBusy(false);
     }
+  }
+
+  if (quickStartEnabled()) {
+    return (
+      <main className="stack">
+        <StorageNotice />
+        <QuickStartForm />
+        <a href="/join">{copy.joinLink}</a>
+        <a href="/start/child">{child.linkText}</a>
+        <LegalLinks />
+      </main>
+    );
   }
 
   return (

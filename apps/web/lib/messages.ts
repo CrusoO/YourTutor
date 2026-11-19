@@ -619,6 +619,15 @@ const en = {
   guardianRequestText: "{student} asked to join {class}, taught by {teacher}. If you say yes, this teacher can see {student}'s progress.",
   guardianRequestYes: "Yes, share",
   guardianRequestNo: "No, do not share",
+  // Quick start (first visit asks only class and subject). Other languages show these in English until reviewed.
+  quickStarting: "Getting your first question ready.",
+  quickStartHint: "Pick your class and subject. We will start with one question.",
+  quickClassLabel: "Your class",
+  quickSubjectLabel: "Your subject",
+  quickMoreAboutYou: "More about you",
+  quickMoreAboutYouHint: "Optional. Add your state or study language later, whenever you like.",
+  quickOtherClassesSoon: "Other classes are coming soon.",
+  quickFailed: "We could not start just now. Please try again.",
 };
 
 export type Messages = typeof en;

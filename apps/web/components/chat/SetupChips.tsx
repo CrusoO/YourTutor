@@ -12,22 +12,32 @@ const ASK = { grade: "chatAskGrade", state: "chatAskState", board: "chatAskBoard
 export function SetupChips() {
   const { chat, ctx, copy, dispatch } = useChatApi();
   if (!ctx || chat.phase !== "context") return null;
-  const step: SetupStep | null = nextStep(ctx, chat.setup);
+  const step: SetupStep | null = nextStep(ctx, chat.setup, chat.quick);
   if (!step) return null;
-  const options = stepOptions(ctx, chat.setup, step);
+  const all = stepOptions(ctx, chat.setup, step, chat.quick);
+  // Quick start shows only classes that have lessons, with one line for the rest, instead of a wall of "coming soon".
+  const hidden = chat.quick && step === "grade" ? all.filter((o) => !o.available).length : 0;
+  const options = hidden ? all.filter((o) => o.available) : all;
   return (
-    <div className="flex flex-wrap gap-2 pl-11" role="group" aria-label={copy[ASK[step]]} data-testid={`setup-${step}`}>
-      {options.map((option) => (
-        <Choice
-          key={option.value}
-          disabled={!option.available}
-          tag={option.available ? undefined : copy.chatSoon}
-          onClick={() => dispatch({ type: "pick", step, value: option.value })}
-          data-testid={`choice-${step}-${option.value}`}
-        >
-          {optionLabel(copy, ctx, step, option.value, locale())}
-        </Choice>
-      ))}
+    <div className="flex flex-col gap-2 pl-11">
+      <div className="flex flex-wrap gap-2" role="group" aria-label={copy[ASK[step]]} data-testid={`setup-${step}`}>
+        {options.map((option) => (
+          <Choice
+            key={option.value}
+            disabled={!option.available}
+            tag={option.available ? undefined : copy.chatSoon}
+            onClick={() => dispatch({ type: "pick", step, value: option.value })}
+            data-testid={`choice-${step}-${option.value}`}
+          >
+            {optionLabel(copy, ctx, step, option.value, locale())}
+          </Choice>
+        ))}
+      </div>
+      {hidden ? (
+        <p className="m-0 text-sm text-muted" data-testid="classes-soon">
+          {copy.quickOtherClassesSoon}
+        </p>
+      ) : null}
     </div>
   );
 }
