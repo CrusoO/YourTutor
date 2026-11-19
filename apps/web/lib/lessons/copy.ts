@@ -32,6 +32,7 @@ export const lessonFlowEn = {
   readAloud: "Read aloud",
   listen: "Listen",
   hintDragCount: "Move the dot {n} steps {dir}. Use the +1 or −1 step buttons if dragging is hard.",
+  tryAgainDot: "Try again: move the dot, then press Check.",
   placeDotCheck: "Place the dot, then press Check.",
   typeFirst: "Type your answer first, then press Check.",
 } as const;

@@ -229,7 +229,9 @@ export default function LessonPlayer({
     ? needsLock
       ? beat.kind === "faded_example"
         ? faded === "bad"
-          ? flow.notQuite
+          ? fadedFigure
+            ? flow.tryAgainDot
+            : flow.notQuite
           : fadedFigure
             ? flow.placeDotCheck
             : flow.typeFirst
@@ -548,7 +550,7 @@ export default function LessonPlayer({
               </p>
             ) : null}
             {faded === "ok" ? <p className="lp-fb tip" role="status">{pick(beat.success, locale)}</p> : null}
-            {faded === "bad" ? <p className="lp-fb tip" role="status">{flow.notQuite}</p> : null}
+            {faded === "bad" && !fadedFigure ? <p className="lp-fb tip" role="status">{flow.notQuite}</p> : null}
             {fadedHint > 0 ? (
               <p className="lp-fb tip" role="status" data-testid="faded-hint">
                 {fadedRungs[Math.min(fadedHint, fadedRungs.length) - 1]}

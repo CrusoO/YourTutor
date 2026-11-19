@@ -115,6 +115,29 @@ describe("LessonPlayer with number-line figures", () => {
     await waitFor(() => expect(onFadedAnswer).toHaveBeenCalledWith(0, "-5"));
   });
 
+  it("Finish it: a wrong placement names the way back; Hint opens one rung per ask, never the answer; typing is a small link", async () => {
+    const onFadedAnswer = vi.fn().mockResolvedValue(false);
+    render(
+      <LessonPlayer lesson={lesson} locale="en" mode="session" startAt={3} reducedMotion delay={noDelay} onFadedAnswer={onFadedAnswer} />,
+    );
+    await slider();
+    expect(screen.queryByRole("textbox")).toBeNull();
+    for (let i = 0; i < 3; i++) fireEvent.click(btn("+1 step"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
+    await waitFor(() => expect(onFadedAnswer).toHaveBeenCalledWith(0, "-6"));
+    await waitFor(() => expect(document.querySelector(".lp-why")).toHaveTextContent("Try again: move the dot, then press Check."));
+    expect(document.querySelector(".lp-primary")).toHaveAttribute("aria-disabled", "true");
+    expect(screen.queryByTestId("faded-hint")).toBeNull();
+    fireEvent.click(btn("Hint"));
+    expect(screen.getByTestId("faded-hint")).toHaveTextContent(/Which way does this move go/);
+    fireEvent.click(btn("Another hint"));
+    expect(screen.getByTestId("faded-hint")).toHaveTextContent(/Count 4 hops to the right/);
+    expect(screen.getByTestId("faded-hint").textContent).not.toMatch(/5/);
+    fireEvent.click(btn("Type the answer instead"));
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(btn("Use the number line")).toBeInTheDocument();
+  });
+
   it("a lesson without a figure keeps today's screen (no number line, no slider)", async () => {
     const plain = JSON.parse(
       readFileSync(path.resolve(__dirname, "../../../../packages/shared/fixtures/lessons/valid_faded_example_lesson.json"), "utf-8"),
