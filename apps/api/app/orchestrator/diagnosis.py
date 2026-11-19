@@ -16,11 +16,10 @@ A correct answer is class `none`. The result is stored on the event as `payload.
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
-from typing import Any
 
-from app.content.math_parse import ParseError, expressions_equivalent, parse_math
+from app.content.answer_match import matches_any as _matches_any
+from app.content.answer_match import value_of as _value
 from app.learner.types import LearnerState
 from app.orchestrator.types import CatalogItem, SessionState
 
@@ -39,8 +38,6 @@ FAST_STREAK_LIMIT = 3  # R35
 HELP_WITHOUT_ATTEMPT_LIMIT = 3  # R35
 DEFAULT_OFF_BY = 1.0
 
-_VAR_PREFIX = re.compile(r"^\s*[a-zA-Z]\s*=\s*(?!=)")
-
 
 @dataclass(frozen=True)
 class Diagnosis:
@@ -49,38 +46,6 @@ class Diagnosis:
 
     def as_payload(self) -> dict[str, str | None]:
         return {"class": self.kind, "detail": self.detail}
-
-
-def _squash(text: str) -> str:
-    return re.sub(r"\s+", "", text).lower()
-
-
-def _value(text: str) -> float | None:
-    """A response as a number, accepting `x = 4` style answers. None when it is not one."""
-    stripped = _VAR_PREFIX.sub("", text.strip())
-    if not stripped:
-        return None
-    try:
-        return float(parse_math(stripped).evalf())
-    except (ParseError, TypeError, ValueError):
-        return None
-
-
-def _same_value(left: str, right: str) -> bool:
-    a = _VAR_PREFIX.sub("", left.strip())
-    b = _VAR_PREFIX.sub("", right.strip())
-    if not a or not b:
-        return False
-    if _squash(a) == _squash(b):
-        return True
-    return expressions_equivalent(a, b)
-
-
-def _matches_any(response: str, values: Any) -> str | None:
-    for candidate in values:
-        if _same_value(response, str(candidate)):
-            return str(candidate)
-    return None
 
 
 def _misconception(item: CatalogItem, response: str) -> str | None:
