@@ -153,7 +153,7 @@ const en = {
   anotherWayNote: "No rush. Pick whichever feels easier.",
   wayPicture: "Show me a picture",
   waySteps: "Break it into smaller steps",
-  wayWorked: "Show me a worked example",
+  wayWorked: "Show me how to solve it",
   wayVideo: "Watch a short video",
   gradeTitle: "How your explanation went",
   gradeGood: "Nice. You got the main idea.",

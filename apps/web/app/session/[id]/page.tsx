@@ -335,7 +335,7 @@ export default function SessionPage() {
   const reason = readReason(extras);
   const ways = reason
     ? offeredWays(reason.offer, {
-        picture: signHint && Boolean(stemParse),
+        picture: signHint && Boolean(stemParse) && !pictureOpen,
         steps: canHelp(action),
         worked: Boolean(action.can_show_solution),
       })

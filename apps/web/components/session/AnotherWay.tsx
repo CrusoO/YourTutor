@@ -30,11 +30,11 @@ export function AnotherWay({
     <section className="stack" data-testid="another-way" aria-label={copy.anotherWayTitle}>
       <h2>{copy.anotherWayTitle}</h2>
       <p className="muted">{copy.anotherWayNote}</p>
-      {ways.map((way, index) => (
+      {ways.map((way) => (
         <button
           key={way}
           type="button"
-          className={index === 0 ? "secondary" : "ghost"}
+          className="secondary"
           disabled={busy}
           data-testid={`way-${way}`}
           onClick={() => onChoose(way)}
