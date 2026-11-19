@@ -590,7 +590,7 @@ function Line({
               ) : null}
               <div className={styles.links}>
                 <button type="button" className={styles.link} onClick={replay}>
-                  {flow.replay}
+                  {flow.replayHops}
                 </button>
                 <button type="button" className={styles.link} onClick={() => setPhase("explore")}>
                   {flow.tryYourself}
@@ -643,7 +643,7 @@ function Line({
           />
           <div className={styles.links}>
             <button type="button" className={styles.link} onClick={replay}>
-              {flow.replay}
+              {flow.replayHops}
             </button>
           </div>
         </>

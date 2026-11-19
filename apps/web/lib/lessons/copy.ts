@@ -24,6 +24,7 @@ export const lessonFlowEn = {
   useLine: "Use the number line",
   notQuite: "Not quite. Try again.",
   replay: "Replay",
+  replayHops: "Replay the hops",
   playAgain: "Play again",
   tryYourself: "Move it yourself",
   skipHops: "Jump to the answer",

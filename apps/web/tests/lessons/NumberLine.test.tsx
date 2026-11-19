@@ -150,7 +150,7 @@ describe("NumberLine: reveal", () => {
     expect(document.querySelectorAll("[data-hop]")).toHaveLength(5);
     expect(screen.getByText(`${MINUS}8 + 5 = ${MINUS}3`)).toBeInTheDocument();
     // when the hops are done: a quiet Replay link and a way to move it yourself
-    expect(btn("Replay")).toBeInTheDocument();
+    expect(btn("Replay the hops")).toBeInTheDocument();
     expect(btn("Move it yourself")).toBeInTheDocument();
     expect(screen.queryByTestId("nl-progress")).toBeNull();
   });

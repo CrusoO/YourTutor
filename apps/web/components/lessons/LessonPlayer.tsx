@@ -75,7 +75,7 @@ type Props = {
 };
 
 /** Styles for the main button's reason line, kept with the lazy player so the homepage stays light. */
-const BAR_CSS = `.lp-why { max-width: 328px; margin: 0 auto 8px; text-align: center; font-size: 0.9rem; line-height: 1.35; color: var(--c-muted); } .lp-why.nudge { color: var(--c-text); font-weight: 600; } .lp-count { margin: 0 0 4px; font-size: 0.9rem; color: var(--c-muted); } .lp-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; } .lp-link { background: none; border: 0; width: auto; min-height: 44px; min-width: 44px; padding: 8px 6px; color: var(--c-accent-ink); font-size: 0.95rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .lp-link:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; } .lp-primary.is-blocked { background: var(--c-line); color: var(--c-muted) !important; cursor: not-allowed; }`;
+const BAR_CSS = `.lp-why { max-width: 328px; margin: 0 auto 8px; text-align: center; font-size: 0.9rem; line-height: 1.35; color: var(--c-muted); } .lp-why.nudge { color: var(--c-text); font-weight: 600; } .lp-count { margin: 0 0 4px; font-size: 0.9rem; color: var(--c-muted); } .lp-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; } .lp-link { background: none; border: 0; width: auto; min-height: 44px; min-width: 44px; padding: 8px 6px; color: var(--c-accent-ink); font-size: 0.95rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .lp-link:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; } @layer legacy { .lp .lp-bar .lp-primary.is-blocked { background: var(--c-line); color: var(--c-muted) !important; cursor: not-allowed; } }`;
 
 function Beats({ beat, children }: { beat: Beat; children: React.ReactNode }) {
   return <section className={`lp-step lp-${beat.kind}`}>{children}</section>;
@@ -245,7 +245,9 @@ export default function LessonPlayer({
         ? COPY.checkBtn
         : COPY.lockIn
     : beat.kind === "faded_example" && !fadedDone
-      ? COPY.check
+      ? faded === "pending"
+        ? COPY.checking
+        : COPY.check
       : anotherNow
         ? flow.another
         : primary;
@@ -584,7 +586,7 @@ export default function LessonPlayer({
           <button
             type="button"
             className={`lp-primary${blocked ? " is-blocked" : ""}`}
-            disabled={busy}
+            disabled={busy || faded === "pending"}
             aria-disabled={blocked ? "true" : undefined}
             aria-describedby={why ? "lp-why" : undefined}
             onClick={press}
