@@ -48,7 +48,8 @@ import {
   bookGrade,
 } from "@/lib/chat/machine";
 import { type Messages } from "@/lib/messages";
-import { doubtDeviceEnabled } from "@/lib/flags";
+import { doubtDeviceEnabled, quickStartEnabled } from "@/lib/flags";
+import { QUICK_START_DEFAULT_BOARD, startFirstQuestion } from "@/lib/quick-start";
 import type { DoubtPayload } from "./doubt/types";
 
 export type Lesson = { id: number; prompt: string; /** A shared group lesson: opened by this code, not asked of the model. */ group?: string };
@@ -368,7 +369,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     if (saved?.board && saved.grade !== undefined && saved.subject) return saved;
     // Class 10 CBSE maths first: it is the class the video engine has lessons for.
     const hasClass10 = (c: ContextLike["curricula"][number]) => c.grades.some((g) => g.grade === 10 && g.subjects.length);
-    const curriculum = ctx?.curricula.find((c) => c.id === "cbse" && hasClass10(c)) ?? ctx?.curricula.find((c) => c.grades.some((g) => g.subjects.length));
+    const curriculum = ctx?.curricula.find((c) => c.id === QUICK_START_DEFAULT_BOARD && hasClass10(c)) ?? ctx?.curricula.find((c) => c.grades.some((g) => g.subjects.length));
     const grade = curriculum?.grades.find((g) => g.grade === 10 && g.subjects.length) ?? curriculum?.grades.find((g) => g.subjects.length);
     const subject = grade?.subjects[0];
     return curriculum && grade && subject ? resolveSetup(ctx!, { board: curriculum.id, grade: grade.grade, subject: subject.id }) : null;
@@ -466,21 +467,47 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   /** Register a guest silently and land on the home screen. No chapter navigation: the guest uses the
    * Composer to ask anything. If live chapters exist they are reachable via the workspace. */
   const startAsGuest = useCallback(
-    async (setup: Setup, remember: boolean) => {
+    async (setup: Setup, remember: boolean, firstQuestion = false): Promise<boolean> => {
       setBusy(true);
       setError("");
       try {
         await beginGuest(setup, remember);
         const me = await today();
-        if (me.offer === "first_run") await answerOnboarding("start_beginning");
+        if (firstQuestion) {
+          // Quick start: straight to one warm-up question. If that cannot open, the guest still lands on home.
+          try {
+            openWorkspace(`/session/${await startFirstQuestion(me.offer)}`);
+          } catch {
+            /* the guest is started; home offers the first lesson */
+          }
+        } else if (me.offer === "first_run") await answerOnboarding("start_beginning");
+        return true;
       } catch {
         setError(copy.chatCouldNotLoad);
+        return false;
       } finally {
         setBusy(false);
       }
     },
-    [beginGuest, copy],
+    [beginGuest, copy, openWorkspace],
   );
+
+  // Quick start: the class and subject are in; start the guest and open the first question. On failure the usual
+  // "how would you like to continue" choices appear instead.
+  const quickRan = useRef(0);
+  useEffect(() => {
+    const last = chat.messages.at(-1);
+    if (!chat.quick || chat.phase !== "identity" || last?.key !== "quick_start" || quickRan.current === last.id) return;
+    quickRan.current = last.id;
+    const { setup } = chat;
+    if (!setup.board || setup.grade === undefined || !setup.subject) {
+      dispatch({ type: "quick_failed" });
+      return;
+    }
+    void startAsGuest(setup, true, true).then((ok) => {
+      if (!ok) dispatch({ type: "quick_failed" });
+    });
+  }, [chat, dispatch, startAsGuest]);
 
   /** "Just try it" — works without setup questions. Falls back to the default class so any visitor
    * (student, professional, curious adult) can start without picking a curriculum first. */
@@ -502,7 +529,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const tryOneQuestion = useCallback(async () => {
     const setup = defaultSetup();
     if (!setup) { setError(copy.chatCouldNotLoad); return; }
-    return startAsGuest(setup, false);
+    await startAsGuest(setup, false, quickStartEnabled());
   }, [copy, defaultSetup, setError, startAsGuest]);
 
   const closeLesson = useCallback(() => setLesson(null), []);

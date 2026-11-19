@@ -26,6 +26,9 @@ export default defineConfig({
           NEXT_PUBLIC_SHOW_DRAFT_LOCALES: process.env.NEXT_PUBLIC_SHOW_DRAFT_LOCALES || "true",
           NEXT_PUBLIC_IDLE_NUDGE_MS: process.env.NEXT_PUBLIC_IDLE_NUDGE_MS || "2500",
           NEXT_PUBLIC_HINT_DELAY_MS: process.env.NEXT_PUBLIC_HINT_DELAY_MS || "60000",
+          // The existing specs walk the full setup (class, board, subject). Quick start has its own unit tests;
+          // run these specs against it by setting NEXT_PUBLIC_QUICK_START_ENABLED=true.
+          NEXT_PUBLIC_QUICK_START_ENABLED: process.env.NEXT_PUBLIC_QUICK_START_ENABLED || "false",
         },
       },
 });
