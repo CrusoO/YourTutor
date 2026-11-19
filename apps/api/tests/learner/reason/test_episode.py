@@ -103,7 +103,8 @@ def test_the_payload_round_trips_and_damaged_payloads_are_dropped() -> None:
         )
         < 1e-9
     )
-    for bad in (None, [], {}, {"skill": 3}, "x"):
+    damaged: list[object] = [None, [], {}, {"skill": 3}, "x"]
+    for bad in damaged:
         assert Episode.from_payload(bad) is None
     messy = Episode.from_payload(
         {
