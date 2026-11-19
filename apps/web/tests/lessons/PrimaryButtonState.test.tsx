@@ -25,16 +25,16 @@ describe("the sticky primary button never silently does nothing", () => {
     expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument();
   });
 
-  it("Example step: Check appears only when every hop is counted, then Continue after the check", async () => {
+  it("Example step: Check appears only when every hop is counted, then Another one after the check", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
     await screen.findByTestId("number-line");
-    for (let i = 0; i < 4; i++) fireEvent.click(screen.getByRole("button", { name: "Up 1 →" }));
+    for (let i = 0; i < 4; i++) fireEvent.click(screen.getByRole("button", { name: "Hop right" }));
     expect(primary()).toHaveAttribute("aria-disabled", "true");
-    fireEvent.click(screen.getByRole("button", { name: "Up 1 →" }));
+    fireEvent.click(screen.getByRole("button", { name: "Hop right" }));
     await waitFor(() => expect(primary()).toHaveTextContent("Check"));
     expect(primary()).not.toHaveAttribute("aria-disabled");
     fireEvent.click(primary());
-    await waitFor(() => expect(primary()).toHaveTextContent("Continue"));
+    await waitFor(() => expect(primary()).toHaveTextContent("Another one"));
     expect(screen.getByTestId("number-line")).toHaveAttribute("data-phase", "hops");
   });
 
@@ -44,7 +44,7 @@ describe("the sticky primary button never silently does nothing", () => {
     await screen.findByRole("slider");
     expect(primary()).toHaveAttribute("aria-disabled", "true");
     fireEvent.click(screen.getByRole("button", { name: "+1 step" }));
-    await waitFor(() => expect(primary()).toHaveTextContent("That is my guess"));
+    await waitFor(() => expect(primary()).toHaveTextContent("Check"));
     fireEvent.click(primary());
     await waitFor(() => expect(primary()).toHaveTextContent("Continue"));
   });

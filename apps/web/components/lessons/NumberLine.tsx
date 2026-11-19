@@ -26,7 +26,9 @@ import {
   viewWindow,
   type PredictionResult,
 } from "@/lib/lessons/numberline";
+import { fill, lessonFlowEn as flow } from "@/lib/lessons/copy";
 import { t } from "@/lib/messages";
+import { hintDelayMs } from "@/lib/session-timers";
 import { loadUi } from "@/lib/ui";
 import { prefersReducedMotion } from "./ScenePlayer";
 import { CSS, styles } from "./numberline-style";
@@ -58,6 +60,8 @@ export type NumberLineProps = {
   lockSignal?: number;
   /** Show the Read aloud / Listen control with the generated narration. Default true. */
   narrate?: boolean;
+  /** Count-on: how long the learner can sit without a hop before the first hint rung opens by itself. */
+  idleHintMs?: number;
 };
 
 const W = 340;
@@ -108,6 +112,7 @@ function Line({
   onTouchedChange,
   lockSignal,
   countOn = false,
+  idleHintMs = hintDelayMs,
 }: NumberLineProps) {
   const copy = t(locale);
   const reduced = reducedMotion ?? prefersReducedMotion();
@@ -138,6 +143,7 @@ function Line({
   const [hintLevel, setHintLevel] = useState(0);
   const [tell, setTell] = useState("");
   const [announce, setAnnounce] = useState("");
+  const idleOpen = useRef(false);
   const svgRef = useRef<SVGSVGElement>(null);
   const dragging = useRef(false);
   const tellRef = useRef<HTMLParagraphElement>(null);
@@ -164,6 +170,18 @@ function Line({
     lockSeen.current = lockSignal;
     if (phase === "predict" && (countOn ? countComplete(moves.length, delta) : touched) && after !== "hold") lockRef.current();
   }, [lockSignal, phase, touched, after, countOn, moves.length, delta]);
+
+  // Count-on: a student who has stopped for a while gets the first rung without asking. One rung only.
+  useEffect(() => {
+    if (!countOn || phase !== "predict" || hintLevel > 0 || idleOpen.current) return;
+    if (countComplete(moves.length, delta)) return;
+    const id = setTimeout(() => {
+      idleOpen.current = true;
+      setHintLevel(1);
+      setTell(countOnHint(start, delta, 1));
+    }, idleHintMs);
+    return () => clearTimeout(id);
+  }, [countOn, phase, hintLevel, moves.length, delta, start, idleHintMs]);
 
   // The hops: one unit at a time, each announced politely.
   useEffect(() => {
@@ -240,6 +258,20 @@ function Line({
     setAnnounce(`Back at ${numberWords(start)}.`);
   }
 
+  function undo() {
+    if (moves.length === 0) return;
+    const next = moves.slice(0, -1);
+    setMoves(next);
+    setTell("");
+    setAnnounce(`Back at ${numberWords(start + next.reduce((a, b) => a + b, 0))}.`);
+  }
+
+  function nextHint() {
+    const l = Math.min(3, hintLevel + 1);
+    setHintLevel(l);
+    setTell(countOnHint(start, delta, l));
+  }
+
   function lock() {
     if (counting) {
       if (net !== delta) {
@@ -258,6 +290,11 @@ function Line({
     onLocked?.(r);
     if (after === "check") {
       setPhase("checked");
+    } else if (counting) {
+      // The student has just made every hop themselves: show the finished line, do not replay it.
+      setHop(total);
+      setPlaying(false);
+      setPhase("hops");
     } else {
       setHop(0);
       setPlaying(!reduced && autoPlay);
@@ -302,35 +339,21 @@ function Line({
   const midX = (x(start) + x(land)) / 2;
   const tokenW = 46;
 
-  const nowLabel = (phase === "hops" && !done) || phase === "explore" || counting ? copy.numberLineNow : copy.numberLineResult;
-  const nowValue =
-    phase === "predict"
-      ? counting
-        ? fmt(position)
-        : "?"
-      : phase === "hops"
-        ? fmt(path[hop])
-        : phase === "checked"
-          ? fmt(land)
-          : fmt(free);
-  const moveValue = counting
-    ? `${moves.length} ${copy.numberLineOf} ${total}`
-    : phase === "explore" ? (free === start ? "0" : tokenText(free - start)) : tokenText(delta);
+  // One quiet line says where the learner is. It replaces the three boxes (Start / Hops / Now at).
+  const dirWord = dir === "right" ? "to the right" : "to the left";
+  const progress = counting
+    ? moves.length === 0
+      ? `Start on ${fmt(start)}. Make ${total} hops ${dirWord}.`
+      : fill(flow.hopProgress, { n: moves.length, total })
+    : phase === "hops" && !done
+      ? fill(flow.hopProgress, { n: hop, total })
+      : phase === "explore"
+        ? `${copy.numberLineMove}: ${free === start ? "0" : tokenText(free - start)}. ${copy.numberLineNow} ${fmt(free)}.`
+        : null;
 
   return (
     <div className={styles.wrap} data-phase={phase} data-testid="number-line">
       <style>{CSS}</style>
-      <div className={styles.legend} aria-label={copy.numberLineLabel}>
-        <span className={`${styles.chip} ${styles.right}`}>
-          <span aria-hidden="true">{"→ "}</span>
-          {copy.numberLineLegendRight}
-        </span>
-        <span className={`${styles.chip} ${styles.left}`}>
-          <span aria-hidden="true">{"← "}</span>
-          {copy.numberLineLegendLeft}
-        </span>
-      </div>
-
       <div className={styles.panel}>
         <svg
           ref={svgRef}
@@ -450,24 +473,14 @@ function Line({
         </svg>
       </div>
 
-      <dl className={styles.numbers} aria-label={copy.numberLineLabel}>
-        <div>
-          <dt>{copy.numberLineStart}</dt>
-          <dd data-testid="nl-start">{fmt(start)}</dd>
-        </div>
-        <div className={tokenColor}>
-          <dt>{counting ? copy.numberLineSteps : copy.numberLineMove}</dt>
-          <dd data-testid="nl-move">{moveValue}</dd>
-        </div>
-        <div className={done || phase === "checked" ? styles.final : undefined}>
-          <dt>{nowLabel}</dt>
-          <dd data-testid="nl-result">{nowValue}</dd>
-        </div>
-      </dl>
+      {progress ? (
+        <p className={styles.progress} data-testid="nl-progress">
+          {progress}
+        </p>
+      ) : null}
 
       {counting ? (
         <>
-          <p className={styles.hint}>{copy.numberLineCountHint}</p>
           {tell ? (
             <p ref={tellRef} className={styles.tip} role="status" data-testid="nl-tell">
               {tell}
@@ -476,36 +489,42 @@ function Line({
           <div className={styles.controls}>
             {ready ? (
               lockSignal === undefined ? (
-                <button type="button" className={`${styles.btn} ${styles.main}`} onClick={lock}>
+                <button type="button" className={`${styles.btn} ${styles.main} ${styles.big}`} onClick={lock}>
                   {copy.numberLineCheck}
                 </button>
               ) : null
             ) : (
-              <>
-                <button type="button" className={styles.btn} onClick={() => hop1(-1)} disabled={position <= win.min}>
-                  {copy.numberLineDown}
-                </button>
-                <button type="button" className={`${styles.btn} ${styles.main}`} onClick={() => hop1(1)} disabled={position >= win.max}>
-                  {copy.numberLineUp}
-                </button>
-              </>
+              <button
+                type="button"
+                className={`${styles.btn} ${styles.big} ${styles.hop}`}
+                onClick={() => hop1(delta >= 0 ? 1 : -1)}
+                disabled={delta >= 0 ? position >= win.max : position <= win.min}
+              >
+                {delta >= 0 ? (
+                  <>
+                    {flow.hopRight}
+                    <span aria-hidden="true">{" \u2192"}</span>
+                  </>
+                ) : (
+                  <>
+                    <span aria-hidden="true">{"\u2190 "}</span>
+                    {flow.hopLeft}
+                  </>
+                )}
+              </button>
             )}
+          </div>
+          <div className={styles.links}>
             {moves.length > 0 ? (
-              <button type="button" className={styles.btn} onClick={() => startAgain()}>
-                {copy.numberLineStartAgain}
+              <button type="button" className={styles.link} onClick={undo}>
+                {flow.undo}
               </button>
             ) : null}
-            <button
-              type="button"
-              className={styles.btn}
-              onClick={() => {
-                const l = Math.min(3, hintLevel + 1);
-                setHintLevel(l);
-                setTell(countOnHint(start, delta, l));
-              }}
-            >
-              {copy.numberLineHintBtn}
-            </button>
+            {hintLevel < 3 && !ready ? (
+              <button type="button" className={styles.link} onClick={nextHint}>
+                {hintLevel === 0 ? flow.hint : flow.anotherHint}
+              </button>
+            ) : null}
           </div>
         </>
       ) : null}
@@ -536,30 +555,29 @@ function Line({
 
       {phase === "hops" ? (
         <>
-          <div className={styles.controls}>
-            {reduced || !playing ? (
-              <>
-                <button type="button" className={styles.btn} onClick={() => stepHop(-1)} disabled={hop === 0}>
-                  {copy.numberLinePrevHop}
-                </button>
+          {reduced || !playing ? (
+            !done ? (
+              <div className={styles.controls}>
                 <button type="button" className={`${styles.btn} ${styles.main}`} onClick={() => stepHop(1)} disabled={hop === total}>
-                  {copy.numberLineNextHop}
+                  {flow.nextHop}
                 </button>
-              </>
-            ) : null}
-            {!done ? (
+              </div>
+            ) : null
+          ) : null}
+          {!done ? (
+            <div className={styles.links}>
               <button
                 type="button"
-                className={styles.btn}
+                className={styles.link}
                 onClick={() => {
                   setPlaying(false);
                   setHop(total);
                 }}
               >
-                {copy.numberLineSkip}
+                {flow.skipHops}
               </button>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
           {done ? (
             <div className={styles.result} role="status">
               <p className={styles.landed}>
@@ -570,12 +588,12 @@ function Line({
                   {trueResult.reason}
                 </p>
               ) : null}
-              <div className={styles.controls}>
-                <button type="button" className={styles.btn} onClick={replay}>
-                  {copy.numberLineReplay}
+              <div className={styles.links}>
+                <button type="button" className={styles.link} onClick={replay}>
+                  {flow.replay}
                 </button>
-                <button type="button" className={`${styles.btn} ${styles.main}`} onClick={() => setPhase("explore")}>
-                  {copy.numberLineExplore}
+                <button type="button" className={styles.link} onClick={() => setPhase("explore")}>
+                  {flow.tryYourself}
                 </button>
               </div>
             </div>
@@ -623,9 +641,9 @@ function Line({
             aria-valuetext={valueText(free)}
             onChange={(e) => move(Number(e.target.value))}
           />
-          <div className={styles.controls}>
-            <button type="button" className={styles.btn} onClick={replay}>
-              {copy.numberLineReplay}
+          <div className={styles.links}>
+            <button type="button" className={styles.link} onClick={replay}>
+              {flow.replay}
             </button>
           </div>
         </>

@@ -13,6 +13,7 @@ const slider = () => screen.getByRole("slider");
 const btn = (name: string | RegExp) => screen.getByRole("button", { name });
 const val = () => Number(slider().getAttribute("aria-valuenow"));
 const MINUS = "−";
+const nowAt = () => screen.getByRole("img", { name: /^Now at/ }).getAttribute("aria-label");
 
 describe("NumberLine: safe range", () => {
   it("refuses numbers it cannot draw instead of drawing nonsense", () => {
@@ -32,9 +33,11 @@ describe("NumberLine: predict", () => {
   it("opens on the start and hides the answer before the guess", () => {
     render(<NumberLine start={-8} delta={5} reducedMotion narrate={false} />);
     expect(val()).toBe(-8);
-    expect(screen.getByTestId("nl-start")).toHaveTextContent(`${MINUS}8`);
-    expect(screen.getByTestId("nl-move")).toHaveTextContent("+5");
-    expect(screen.getByTestId("nl-result")).toHaveTextContent("?");
+    // no counter boxes, no permanent legend chips: the figure carries the move itself
+    expect(screen.queryByTestId("nl-start")).toBeNull();
+    expect(screen.queryByTestId("nl-move")).toBeNull();
+    expect(screen.queryByTestId("nl-result")).toBeNull();
+    expect(screen.queryByText(/Add \(\+\): move right/)).toBeNull();
     expect(screen.queryByText("answer")).toBeNull();
     expect(btn("That is my guess")).toBeDisabled();
   });
@@ -83,8 +86,6 @@ describe("NumberLine: predict", () => {
     expect(slider()).toHaveAttribute("aria-label", "Your guess");
     expect(slider()).toHaveAttribute("aria-valuetext", "minus eight");
     expect(slider()).toHaveAttribute("tabindex", "0");
-    expect(screen.getByText(/Add \(\+\): move right/)).toBeInTheDocument();
-    expect(screen.getByText(/Subtract \(.\): move left/)).toBeInTheDocument();
   });
 
   it("says right at once for a correct guess (check mode)", async () => {
@@ -119,7 +120,7 @@ describe("NumberLine: predict", () => {
     await userEvent.click(btn("+1 step"));
     expect(onGuess).toHaveBeenLastCalledWith(-5);
     expect(screen.getByRole("status")).toHaveTextContent("Guess saved");
-    expect(screen.getByTestId("nl-result")).toHaveTextContent("?");
+    expect(screen.queryByText("answer")).toBeNull();
   });
 
   it("follows a choice tapped elsewhere (externalGuess)", () => {
@@ -140,14 +141,18 @@ describe("NumberLine: reveal", () => {
       vi.advanceTimersByTime(100);
     });
     expect(live).toHaveTextContent("Hop 1 of 5: minus seven.");
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}7`);
+    expect(nowAt()).toBe("Now at minus seven");
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent("Hop 1 of 5");
     expect(document.querySelectorAll("[data-hop]")).toHaveLength(1);
     for (let i = 0; i < 4; i++) act(() => void vi.advanceTimersByTime(100));
     expect(live).toHaveTextContent("Hop 5 of 5: minus three. You land on minus three.");
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
+    expect(nowAt()).toBe("Now at minus three");
     expect(document.querySelectorAll("[data-hop]")).toHaveLength(5);
     expect(screen.getByText(`${MINUS}8 + 5 = ${MINUS}3`)).toBeInTheDocument();
+    // when the hops are done: a quiet Replay link and a way to move it yourself
+    expect(btn("Replay")).toBeInTheDocument();
     expect(btn("Move it yourself")).toBeInTheDocument();
+    expect(screen.queryByTestId("nl-progress")).toBeNull();
   });
 
   it("locks in a prediction, then hops, and compares a wrong guess with the landing", () => {
@@ -156,7 +161,7 @@ describe("NumberLine: reveal", () => {
     for (let i = 0; i < 5; i++) fireEvent.click(btn(`${MINUS}1 step`));
     fireEvent.click(btn("That is my guess"));
     for (let i = 0; i < 8; i++) act(() => void vi.advanceTimersByTime(50));
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
+    expect(nowAt()).toBe("Now at minus three");
     expect(screen.getByTestId("nl-reason")).toHaveTextContent(`${MINUS}13 is the same number of steps, but left`);
   });
 
@@ -175,14 +180,13 @@ describe("NumberLine: reduced motion", () => {
     act(() => {
       vi.advanceTimersByTime(5000);
     });
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}8`);
+    expect(nowAt()).toBe("Now at minus eight");
     fireEvent.click(btn("Next hop"));
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}7`);
+    expect(nowAt()).toBe("Now at minus seven");
     expect(screen.getByTestId("nl-live")).toHaveTextContent("Hop 1 of 5");
-    fireEvent.click(btn("Back one hop"));
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}8`);
+    expect(screen.queryByRole("button", { name: "Back one hop" })).toBeNull();
     fireEvent.click(btn("Jump to the answer"));
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
+    expect(nowAt()).toBe("Now at minus three");
   });
 
   it("reads the media query when the prop is not given", () => {
@@ -196,17 +200,15 @@ describe("NumberLine: reduced motion", () => {
 describe("NumberLine: explore", () => {
   it("moves with the step buttons and the slider and shows the move as a signed number", () => {
     render(<NumberLine start={3} delta={-7} mode="explore" reducedMotion narrate={false} />);
-    expect(screen.getByTestId("nl-move")).toHaveTextContent("0");
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent("Move: 0");
     fireEvent.click(btn("+1 step"));
-    expect(screen.getByTestId("nl-move")).toHaveTextContent("+1");
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent("Move: +1");
     fireEvent.click(btn(`${MINUS}1 step`));
     fireEvent.click(btn(`${MINUS}1 step`));
-    expect(screen.getByTestId("nl-move")).toHaveTextContent(`${MINUS}1`);
-    expect(screen.getByTestId("nl-result")).toHaveTextContent("2");
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent(`Move: ${MINUS}1. Now at 2`);
     const range = screen.getByLabelText("Move the dot along the line", { selector: "input" });
     fireEvent.change(range, { target: { value: "-4" } });
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}4`);
-    expect(screen.getByTestId("nl-move")).toHaveTextContent(`${MINUS}7`);
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent(`Move: ${MINUS}7. Now at ${MINUS}4`);
   });
 });
 

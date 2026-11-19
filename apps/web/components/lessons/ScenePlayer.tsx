@@ -1,5 +1,6 @@
 "use client";
 
+import { lessonFlowEn as flow } from "@/lib/lessons/copy";
 import { reducedMotion } from "@/lib/motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { pick, type L10n, type PauseAndAsk, type Scene, type SceneAction } from "@/lib/lessons/types";
@@ -185,11 +186,13 @@ export default function ScenePlayer({
         </div>
       ) : null}
       <div className="lp-ctrl">
-        <button type="button" className="lp-btn main" onClick={togglePause}>
-          {done ? "Play again" : paused ? "Play" : "Pause"}
-        </button>
-        <button type="button" className="lp-btn" onClick={() => void play()}>
-          Replay
+        {done ? null : (
+          <button type="button" className="lp-btn main" onClick={togglePause}>
+            {paused ? "Play" : "Pause"}
+          </button>
+        )}
+        <button type="button" className="lp-link" onClick={() => void play()}>
+          {done ? flow.playAgain : flow.replay}
         </button>
       </div>
       <p className="lp-src">Source: {scene.source_ref}</p>

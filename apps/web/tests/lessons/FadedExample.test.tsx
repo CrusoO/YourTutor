@@ -47,12 +47,16 @@ describe("faded example beat", () => {
     expect(await screen.findByText("Yes, x = 4.")).toBeInTheDocument();
   });
 
-  it("a wrong answer shows the hint, keeps the box, and lets the student try again", async () => {
+  it("a wrong answer says so plainly, keeps the box, offers Hint as a quiet link, and lets the student try again", async () => {
     const onFadedAnswer = vi.fn().mockResolvedValueOnce(false).mockResolvedValueOnce(true);
     renderAtFaded(onFadedAnswer);
     await userEvent.type(screen.getByRole("textbox"), "7");
     await userEvent.click(screen.getByRole("button", { name: /^Check$/ }));
-    expect(await screen.findByText("What is 12 split into 3 equal parts?")).toBeInTheDocument();
+    expect(await screen.findByText("Not quite. Try again.")).toBeInTheDocument();
+    expect(screen.queryByText("What is 12 split into 3 equal parts?")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Hint" }));
+    expect(screen.getByTestId("faded-hint")).toHaveTextContent("What is 12 split into 3 equal parts?");
+    expect(screen.queryByRole("button", { name: /hint/i })).not.toBeInTheDocument();
     expect(screen.queryByText("Yes, x = 4.")).not.toBeInTheDocument();
     await userEvent.clear(screen.getByRole("textbox"));
     await userEvent.type(screen.getByRole("textbox"), "4");
@@ -64,7 +68,9 @@ describe("faded example beat", () => {
   it("does not send an empty answer", async () => {
     const onFadedAnswer = vi.fn().mockResolvedValue(true);
     renderAtFaded(onFadedAnswer);
-    expect(screen.getByRole("button", { name: /^Check$/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /^Check$/ })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByTestId("primary-why")).toHaveTextContent(/Type your answer first/);
+    await userEvent.click(screen.getByRole("button", { name: /^Check$/ }));
     expect(onFadedAnswer).not.toHaveBeenCalled();
   });
 });
