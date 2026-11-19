@@ -265,9 +265,9 @@ export function countOnFeedback(start: number, delta: number, moves: number[]): 
   const want = delta >= 0 ? 1 : -1;
   const right = moves.filter((m) => m === want).length;
   const wrong = moves.length - right;
-  const word = want > 0 ? "up" : "down";
+  const word = want > 0 ? "right" : "left";
   if (right === 0) {
-    return { kind: "wrong_way", message: `Look at the arrow on the line: this move goes ${word}, but you went ${want > 0 ? "down" : "up"}. Start again.` };
+    return { kind: "wrong_way", message: `Look at the arrow on the line: this move goes ${word}, but you went ${want > 0 ? "left" : "right"}. Start again.` };
   }
   if (wrong > 0) {
     return { kind: "mixed", message: `${wrong === 1 ? "One tap" : `${wrong} taps`} went the wrong way. This move only goes ${word}. Start again.` };
@@ -278,14 +278,37 @@ export function countOnFeedback(start: number, delta: number, moves: number[]): 
 /** Hint ladder, never the answer: 1 re-read, 2 the method, 3 a guided action. */
 export function countOnHint(start: number, delta: number, level: number): string {
   const n = Math.abs(delta);
-  const word = delta >= 0 ? "up" : "down";
-  const btn = delta >= 0 ? "Up 1" : "Down 1";
-  if (level <= 1) return `Start on ${fmt(start)}. Which way does this move go: up or down?`;
-  if (level === 2) return `Count ${n} hops ${word}. Do not count ${fmt(start)} itself.`;
-  return `Tap "${btn}" ${n} times. Say each number out loud as you tap.`;
+  const word = delta >= 0 ? "right" : "left";
+  if (level <= 1) return `Start on ${fmt(start)}. Which way does this move go: right or left?`;
+  if (level === 2) return `Count ${n} hops to the ${word}. Do not count ${fmt(start)} itself.`;
+  return `Press the hop button ${n} times. Say each number out loud as you hop.`;
 }
 
 /** Spoken after each tap. */
 export function tapAnnouncement(taps: number, total: number, position: number): string {
   return `Now at ${numberWords(position)}. Hop ${taps} of ${total}.`;
+}
+
+/** Which sign idea a figure needs said out loud: a move to the left (minus), or a start below zero. */
+export type SignKind = "minus" | "negative";
+
+export function signKind(start: number, delta: number): SignKind | null {
+  if (delta < 0) return "minus";
+  if (start < 0) return "negative";
+  return null;
+}
+
+/**
+ * The one-line note is for the FIRST time a kind shows up in the lesson (the figures in the order the student
+ * meets them). `index` is the figure being shown; later figures of the same kind get the link only.
+ */
+export function firstSignKind(figures: { start: number; delta: number }[], index: number): SignKind | null {
+  const f = figures[index];
+  if (!f) return null;
+  const kind = signKind(f.start, f.delta);
+  if (!kind) return null;
+  for (let i = 0; i < index; i++) {
+    if (signKind(figures[i].start, figures[i].delta) === kind) return null;
+  }
+  return kind;
 }

@@ -3,13 +3,15 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { pick, type Beat, type Lesson, type NumberLineFigure } from "@/lib/lessons/types";
-import { choiceValueToNumber, expression, guessToChoiceValue, shouldCountOn } from "@/lib/lessons/numberline";
+import { choiceValueToNumber, countOnHint, expression, firstSignKind, guessToChoiceValue, shouldCountOn, type SignKind } from "@/lib/lessons/numberline";
+import { lessonFlowEn as flow, fill } from "@/lib/lessons/copy";
 import { balanceStart } from "@/lib/lessons/widgets";
 import { t, type Messages } from "@/lib/messages";
 import SourceChips, { type SourceChip } from "@/components/flow/SourceChips";
 import BalanceScale, { BalanceFigure } from "./BalanceScale";
 import FunctionGraph from "./FunctionGraph";
 import ScenePlayer, { type Delay, type SceneAskInfo } from "./ScenePlayer";
+import SignHelp from "./SignHelp";
 
 // The number line is only needed on lessons that carry a figure, so it loads on demand and stays
 // out of every other route's bundle.
@@ -73,7 +75,7 @@ type Props = {
 };
 
 /** Styles for the main button's reason line, kept with the lazy player so the homepage stays light. */
-const BAR_CSS = `.lp-why { max-width: 328px; margin: 0 auto 8px; text-align: center; font-size: 0.9rem; line-height: 1.35; color: var(--c-muted); } .lp-why.nudge { color: var(--c-text); font-weight: 600; } .lp-primary.is-blocked { background: var(--c-line); color: var(--c-muted) !important; cursor: not-allowed; }`;
+const BAR_CSS = `.lp-why { max-width: 328px; margin: 0 auto 8px; text-align: center; font-size: 0.9rem; line-height: 1.35; color: var(--c-muted); } .lp-why.nudge { color: var(--c-text); font-weight: 600; } .lp-count { margin: 0 0 4px; font-size: 0.9rem; color: var(--c-muted); } .lp-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; } .lp-link { background: none; border: 0; width: auto; min-height: 44px; min-width: 44px; padding: 8px 6px; color: var(--c-accent-ink); font-size: 0.95rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .lp-link:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; } @layer legacy { .lp .lp-bar .lp-primary.is-blocked { background: var(--c-line); color: var(--c-muted) !important; cursor: not-allowed; } }`;
 
 function Beats({ beat, children }: { beat: Beat; children: React.ReactNode }) {
   return <section className={`lp-step lp-${beat.kind}`}>{children}</section>;
@@ -108,6 +110,8 @@ export default function LessonPlayer({
   const [dotTouched, setDotTouched] = useState(false);
   const [lockSignal, setLockSignal] = useState(0);
   const [nudge, setNudge] = useState(0);
+  const [fadedHint, setFadedHint] = useState(0);
+  const [typing, setTyping] = useState(false);
   const [barH, setBarH] = useState(96);
   const barRef = useRef<HTMLDivElement>(null);
   const started = useRef(Date.now());
@@ -126,6 +130,8 @@ export default function LessonPlayer({
     setExtraIdx(null);
     setDotTouched(false);
     setNudge(0);
+    setFadedHint(0);
+    setTyping(false);
     window.scrollTo?.(0, 0);
   }
 
@@ -179,33 +185,74 @@ export default function LessonPlayer({
   // The Guess step's figure is shown again, hopping, on the Watch step so the guess can be checked.
   const guessFigure: NumberLineFigure | null =
     (beats.find((b) => b.kind === "predict") as Extract<Beat, { kind: "predict" }> | undefined)?.number_line ?? null;
-  const workedFigure: NumberLineFigure | null =
-    beat.kind === "worked_example" && beat.number_line
-      ? extraIdx === null
-        ? beat.number_line
-        : (beat.more_number_lines?.[extraIdx] ?? beat.number_line)
-      : null;
-  const showWrittenSteps = beat.kind === "worked_example" && (!beat.number_line || (exampleLocked && extraIdx === null));
+  // One example at a time: the first figure, then each of the others, in order.
+  const exampleFigures: NumberLineFigure[] =
+    beat.kind === "worked_example" && beat.number_line ? [beat.number_line, ...(beat.more_number_lines ?? [])] : [];
+  const exIdx = extraIdx === null ? 0 : extraIdx + 1;
+  const workedFigure: NumberLineFigure | null = exampleFigures[exIdx] ?? null;
+  const moreExamples = exampleFigures.length > exIdx + 1;
+  const showWrittenSteps = beat.kind === "worked_example" && (!beat.number_line || (exampleLocked && exIdx === 0));
+
+  // The sign note: said once, the first time a figure in the lesson needs it, at that screen only.
+  const seq: { beat: number; sub: number; f: NumberLineFigure }[] = [];
+  beats.forEach((b, bi) => {
+    if (b.kind === "predict" && b.number_line) seq.push({ beat: bi, sub: 0, f: b.number_line });
+    if (b.kind === "worked_example" && b.number_line) [b.number_line, ...(b.more_number_lines ?? [])].forEach((f, k) => seq.push({ beat: bi, sub: k, f }));
+    if (b.kind === "faded_example" && b.number_line) seq.push({ beat: bi, sub: 0, f: b.number_line });
+  });
+  const seqNow = seq.findIndex((x) => x.beat === cur && x.sub === (beat.kind === "worked_example" ? exIdx : 0));
+  const noteKind: SignKind | null = seqNow < 0 ? null : firstSignKind(seq.map((x) => x.f), seqNow);
+  const signNote = noteKind === "minus" ? flow.signNoteMinus : noteKind === "negative" ? flow.signNoteNegative : null;
 
   const primary = beat.kind === "check" ? (mode === "session" ? COPY.start : null) : COPY.continue;
 
-  // Some steps need one action first. The main button is then either that action ("That is my guess")
-  // or visibly switched off with the reason beside it; it is never a live-looking button that does nothing.
+  // Some steps need one action first. The main button is then either that action ("Check") or visibly
+  // switched off with the reason beside it; it is never a live-looking button that does nothing.
   const predictCount =
     beat.kind === "predict" && !!beat.number_line && shouldCountOn(beat.number_line.delta);
   const exampleCount = workedFigure ? shouldCountOn(workedFigure.delta) : false;
   const counting = predictCount || exampleCount;
+  const fadedFigure = beat.kind === "faded_example" ? (beat.number_line ?? null) : null;
+  const fadedDone = faded === "ok";
+  const inputShown = beat.kind === "faded_example" && !!onFadedAnswer && (!fadedFigure || typing);
+  const typedReady = inputShown && fadedText.trim() !== "";
   const needsLock =
-    ((beat.kind === "worked_example" || beat.kind === "faded_example") &&
-      !!beat.number_line &&
-      !exampleLocked &&
-      faded !== "ok") ||
+    (beat.kind === "worked_example" && !!beat.number_line && !exampleLocked) ||
+    (beat.kind === "faded_example" && !fadedDone && (fadedFigure ? !(exampleLocked && faded !== "bad") : true)) ||
     (predictCount && !predictSent && guess === null);
   const needsGuess = beat.kind === "predict" && !predictCount && !predictSent && guess === null;
-  const lockNow = needsLock && dotTouched;
-  const blocked = (needsLock && !dotTouched) || needsGuess;
-  const why = blocked ? (needsLock ? (counting ? COPY.countFirst : COPY.placeFirst) : COPY.pickFirst) : null;
-  const label = lockNow ? (counting ? COPY.checkBtn : COPY.lockIn) : primary;
+  const fadedReady = beat.kind === "faded_example" && (typedReady || (!!fadedFigure && dotTouched));
+  const anotherNow = beat.kind === "worked_example" && exampleLocked && moreExamples;
+  const lockNow = needsLock && (beat.kind === "faded_example" ? fadedReady : dotTouched);
+  const blocked = (needsLock && !lockNow) || needsGuess;
+  const why = blocked
+    ? needsLock
+      ? beat.kind === "faded_example"
+        ? faded === "bad"
+          ? fadedFigure
+            ? flow.tryAgainDot
+            : flow.notQuite
+          : fadedFigure
+            ? flow.placeDotCheck
+            : flow.typeFirst
+        : counting
+          ? COPY.countFirst
+          : COPY.placeFirst
+      : COPY.pickFirst
+    : null;
+  const label = lockNow
+    ? beat.kind === "faded_example"
+      ? COPY.check
+      : counting
+        ? COPY.checkBtn
+        : COPY.lockIn
+    : beat.kind === "faded_example" && !fadedDone
+      ? faded === "pending"
+        ? COPY.checking
+        : COPY.check
+      : anotherNow
+        ? flow.another
+        : primary;
 
   function press() {
     if (blocked) {
@@ -213,10 +260,34 @@ export default function LessonPlayer({
       return;
     }
     if (lockNow) {
-      setLockSignal((n) => n + 1);
+      if (beat.kind === "faded_example" && typedReady) void checkFaded();
+      else setLockSignal((n) => n + 1);
+      return;
+    }
+    if (anotherNow) {
+      setExtraIdx(exIdx);
+      setExampleLocked(false);
+      setDotTouched(false);
+      setStepsShown(1);
+      setNudge(0);
       return;
     }
     void next();
+  }
+
+  // Help for Finish it: one rung at a time, only when asked. The last rung is the lesson's own hint when it has one.
+  const fadedRungs: string[] = [];
+  if (beat.kind === "faded_example") {
+    if (fadedFigure) {
+      fadedRungs.push(countOnHint(fadedFigure.start, fadedFigure.delta, 1), countOnHint(fadedFigure.start, fadedFigure.delta, 2));
+      fadedRungs.push(
+        beat.hint
+          ? pick(beat.hint, locale)
+          : fill(flow.hintDragCount, { n: Math.abs(fadedFigure.delta), dir: fadedFigure.delta >= 0 ? "to the right" : "to the left" }),
+      );
+    } else if (beat.hint) {
+      fadedRungs.push(pick(beat.hint, locale));
+    }
   }
 
   // The scrolling content keeps clear of the fixed bar whatever its height (a reason line, large text).
@@ -263,6 +334,7 @@ export default function LessonPlayer({
         {beat.kind === "predict" ? (
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.prompt, locale)}</h2>
+            {beat.number_line ? <SignHelp note={signNote} /> : null}
             {beat.number_line ? (
               <NumberLine
                 key={`${beat.number_line.start}:${beat.number_line.delta}`}
@@ -348,7 +420,6 @@ export default function LessonPlayer({
                 start={guessFigure.start}
                 delta={guessFigure.delta}
                 mode="reveal"
-                autoPlay={false}
                 priorGuess={guess === null ? null : choiceValueToNumber(guess)}
                 locale={locale}
                 reducedMotion={reducedMotion}
@@ -369,33 +440,19 @@ export default function LessonPlayer({
         {beat.kind === "worked_example" ? (
           <Beats beat={beat}>
             <h2 tabIndex={-1}>{pick(beat.title, locale)}</h2>
+            {exampleFigures.length > 1 ? (
+              <p className="lp-count" data-testid="example-count">
+                {fill(flow.exampleOf, { n: exIdx + 1, total: exampleFigures.length })}
+              </p>
+            ) : null}
             <p className="lp-problem">
-              {extraIdx !== null && workedFigure
-                ? `${COPY.workOut} ${expression(workedFigure.start, workedFigure.delta)}.`
-                : pick(beat.problem, locale)}
+              {exIdx > 0 && workedFigure ? `${COPY.workOut} ${expression(workedFigure.start, workedFigure.delta)}.` : pick(beat.problem, locale)}
             </p>
             {beat.number_line && workedFigure ? (
               <>
-                {beat.more_number_lines && beat.more_number_lines.length > 0 ? (
-                  <div className="lp-ctrl chips" role="group" aria-label={COPY.another}>
-                    {[beat.number_line, ...beat.more_number_lines].map((f, i) => (
-                      <button
-                        key={`${f.start}:${f.delta}`}
-                        type="button"
-                        className="lp-btn"
-                        aria-pressed={(extraIdx === null ? 0 : extraIdx + 1) === i}
-                        onClick={() => {
-                          setExtraIdx(i === 0 ? null : i - 1);
-                          setDotTouched(false);
-                        }}
-                      >
-                        {expression(f.start, f.delta)}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
+                <SignHelp note={signNote} />
                 <NumberLine
-                  key={`ex:${workedFigure.start}:${workedFigure.delta}`}
+                  key={`ex:${exIdx}:${workedFigure.start}:${workedFigure.delta}`}
                   start={workedFigure.start}
                   delta={workedFigure.delta}
                   mode="predict"
@@ -404,8 +461,8 @@ export default function LessonPlayer({
                   locale={locale}
                   reducedMotion={reducedMotion}
                   onLocked={() => setExampleLocked(true)}
-                  onTouchedChange={extraIdx === null ? setDotTouched : undefined}
-                  lockSignal={extraIdx === null ? lockSignal : undefined}
+                  onTouchedChange={setDotTouched}
+                  lockSignal={lockSignal}
                 />
               </>
             ) : null}
@@ -434,45 +491,56 @@ export default function LessonPlayer({
               ))}
             </ol>
             {beat.number_line ? (
-              <NumberLine
-                key={`faded:${beat.number_line.start}:${beat.number_line.delta}`}
-                start={beat.number_line.start}
-                delta={beat.number_line.delta}
-                mode="predict"
-                after="check"
-                locale={locale}
-                reducedMotion={reducedMotion}
-                onTouchedChange={setDotTouched}
-                lockSignal={lockSignal}
-                onLocked={(r) => {
-                  setExampleLocked(true);
-                  setFadedText(String(r.guess));
-                  void checkFaded(String(r.guess));
-                }}
-              />
+              <>
+                <SignHelp note={signNote} />
+                <NumberLine
+                  key={`faded:${beat.number_line.start}:${beat.number_line.delta}`}
+                  start={beat.number_line.start}
+                  delta={beat.number_line.delta}
+                  mode="predict"
+                  after="check"
+                  locale={locale}
+                  reducedMotion={reducedMotion}
+                  onTouchedChange={setDotTouched}
+                  lockSignal={lockSignal}
+                  onLocked={(r) => {
+                    setExampleLocked(true);
+                    setFadedText(String(r.guess));
+                    void checkFaded(String(r.guess));
+                  }}
+                />
+              </>
             ) : null}
             <p className="lp-problem">{pick(beat.blank_prompt, locale)}</p>
             {onFadedAnswer ? (
-              <form
-                className="lp-faded"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  void checkFaded();
-                }}
-              >
-                <input
-                  type="text"
-                  aria-label={COPY.answerLabel}
-                  placeholder={COPY.answerLabel}
-                  value={fadedText}
-                  autoComplete="off"
-                  readOnly={faded === "ok"}
-                  onChange={(e) => setFadedText(e.target.value)}
-                />
-                <button type="submit" className="lp-btn" disabled={fadedText.trim() === "" || faded === "pending" || faded === "ok"}>
-                  {COPY.check}
-                </button>
-              </form>
+              <>
+                {inputShown ? (
+                  <form
+                    className="lp-faded"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      void checkFaded();
+                    }}
+                  >
+                    <input
+                      type="text"
+                      aria-label={COPY.answerLabel}
+                      placeholder={COPY.answerLabel}
+                      value={fadedText}
+                      autoComplete="off"
+                      readOnly={faded === "ok"}
+                      onChange={(e) => setFadedText(e.target.value)}
+                    />
+                  </form>
+                ) : null}
+                {fadedFigure && !fadedDone ? (
+                  <div className="lp-links">
+                    <button type="button" className="lp-link" onClick={() => setTyping((v) => !v)}>
+                      {typing ? flow.useLine : flow.typeInstead}
+                    </button>
+                  </div>
+                ) : null}
+              </>
             ) : (
               <p className="lp-src">{COPY.fadedPreviewNote}</p>
             )}
@@ -482,7 +550,19 @@ export default function LessonPlayer({
               </p>
             ) : null}
             {faded === "ok" ? <p className="lp-fb tip" role="status">{pick(beat.success, locale)}</p> : null}
-            {faded === "bad" && beat.hint ? <p className="lp-fb tip" role="status">{pick(beat.hint, locale)}</p> : null}
+            {faded === "bad" && !fadedFigure ? <p className="lp-fb tip" role="status">{flow.notQuite}</p> : null}
+            {fadedHint > 0 ? (
+              <p className="lp-fb tip" role="status" data-testid="faded-hint">
+                {fadedRungs[Math.min(fadedHint, fadedRungs.length) - 1]}
+              </p>
+            ) : null}
+            {!fadedDone && fadedHint < fadedRungs.length ? (
+              <div className="lp-links">
+                <button type="button" className="lp-link" onClick={() => setFadedHint((n) => Math.min(fadedRungs.length, n + 1))}>
+                  {fadedHint === 0 ? flow.hint : flow.anotherHint}
+                </button>
+              </div>
+            ) : null}
           </Beats>
         ) : null}
 
@@ -508,7 +588,7 @@ export default function LessonPlayer({
           <button
             type="button"
             className={`lp-primary${blocked ? " is-blocked" : ""}`}
-            disabled={busy}
+            disabled={busy || faded === "pending"}
             aria-disabled={blocked ? "true" : undefined}
             aria-describedby={why ? "lp-why" : undefined}
             onClick={press}

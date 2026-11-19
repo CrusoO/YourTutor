@@ -50,21 +50,56 @@ describe("LessonPlayer with number-line figures", () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
     await screen.findByTestId("number-line");
     expect(screen.queryByText(/Start at .8\. Adding 5 moves/)).toBeNull();
-    for (let i = 0; i < 5; i++) fireEvent.click(btn("Up 1 →"));
+    for (let i = 0; i < 5; i++) fireEvent.click(btn("Hop right"));
     fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
-    fireEvent.click(await screen.findByRole("button", { name: "Jump to the answer" }));
-    expect(screen.getByTestId("nl-result")).toHaveTextContent(`${MINUS}3`);
+    // the student made every hop themselves, so the finished line shows at once (no replay to sit through)
+    await waitFor(() => expect(screen.getByTestId("nl-reason")).toBeInTheDocument());
+    expect(screen.queryByRole("button", { name: "Jump to the answer" })).toBeNull();
+    expect(screen.getByRole("img", { name: "Now at minus three" })).toBeInTheDocument();
     expect(screen.getByText(/Adding 5 moves 5 steps to the right/)).toBeInTheDocument();
   });
 
-  it("Example step: another example (a subtraction) flips the sign of the move", async () => {
+  it("Example step: ONE example at a time, no picker; Another one moves on to the subtraction", async () => {
     render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
     await screen.findByTestId("number-line");
-    const other = screen.getByRole("button", { name: `3 ${MINUS} 7` });
-    await userEvent.click(other);
-    expect(other).toHaveAttribute("aria-pressed", "true");
-    await waitFor(() => expect(screen.getByTestId("nl-move")).toHaveTextContent("0 of 7"));
-    expect(screen.getByTestId("nl-start")).toHaveTextContent("3");
+    expect(screen.queryByRole("button", { name: `3 ${MINUS} 7` })).toBeNull();
+    expect(screen.queryByRole("group", { name: "Try another" })).toBeNull();
+    expect(screen.getByTestId("example-count")).toHaveTextContent("Example 1 of 2");
+    expect(document.querySelector(".lp-primary")).toHaveTextContent("Continue");
+    for (let i = 0; i < 5; i++) fireEvent.click(btn("Hop right"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement); // Check
+    await waitFor(() => expect(document.querySelector(".lp-primary")).toHaveTextContent("Another one"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
+    await waitFor(() => expect(screen.getByTestId("example-count")).toHaveTextContent("Example 2 of 2"));
+    expect(screen.getByRole("button", { name: "Hop left" })).toBeInTheDocument();
+    expect(screen.getByTestId("nl-progress")).toHaveTextContent("Start on 3. Make 7 hops to the left.");
+    expect(document.querySelector(".lp-primary")).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("Example step: the sign note shows once, at the first example that needs it; the link is always there", async () => {
+    render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
+    await screen.findByTestId("number-line");
+    // the lesson's Guess step (start below zero) already used the "below zero" note, so Example 1 has none
+    expect(screen.queryByTestId("sign-note")).toBeNull();
+    for (let i = 0; i < 5; i++) fireEvent.click(btn("Hop right"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
+    await waitFor(() => expect(document.querySelector(".lp-primary")).toHaveTextContent("Another one"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
+    await waitFor(() => expect(screen.getByTestId("sign-note")).toHaveTextContent("A minus sign moves you left."));
+    expect(screen.queryByText(/Add \(\+\): move right/)).toBeNull(); // no permanent chips
+    const link = screen.getByRole("button", { name: "What do + and \u2212 mean?" });
+    expect(link).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(link);
+    expect(screen.getByText("Plus (+) moves right.")).toBeInTheDocument();
+    expect(screen.getByText("Minus (\u2212) moves left.")).toBeInTheDocument();
+    expect(screen.getByText("Adding a negative number moves left too.")).toBeInTheDocument();
+    expect(link).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("Example step: the lesson's own wording is kept for the first example", async () => {
+    render(<LessonPlayer lesson={lesson} locale="en" mode="preview" startAt={2} reducedMotion delay={noDelay} />);
+    await screen.findByTestId("number-line");
+    expect(screen.getByText("Work out -8 + 5.")).toBeInTheDocument();
   });
 
   it("Finish it: a correct placement is checked at once and sent to the server as the typed answer", async () => {
@@ -74,9 +109,33 @@ describe("LessonPlayer with number-line figures", () => {
     );
     await slider();
     for (let i = 0; i < 4; i++) fireEvent.click(btn("+1 step"));
+    expect(document.querySelector(".lp-primary")).toHaveTextContent("Check");
     fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
     expect(screen.getByTestId("nl-reason")).toHaveTextContent(`Yes. ${MINUS}9 + 4 lands on ${MINUS}5.`);
     await waitFor(() => expect(onFadedAnswer).toHaveBeenCalledWith(0, "-5"));
+  });
+
+  it("Finish it: a wrong placement names the way back; Hint opens one rung per ask, never the answer; typing is a small link", async () => {
+    const onFadedAnswer = vi.fn().mockResolvedValue(false);
+    render(
+      <LessonPlayer lesson={lesson} locale="en" mode="session" startAt={3} reducedMotion delay={noDelay} onFadedAnswer={onFadedAnswer} />,
+    );
+    await slider();
+    expect(screen.queryByRole("textbox")).toBeNull();
+    for (let i = 0; i < 3; i++) fireEvent.click(btn("+1 step"));
+    fireEvent.click(document.querySelector(".lp-primary") as HTMLElement);
+    await waitFor(() => expect(onFadedAnswer).toHaveBeenCalledWith(0, "-6"));
+    await waitFor(() => expect(document.querySelector(".lp-why")).toHaveTextContent("Try again: move the dot, then press Check."));
+    expect(document.querySelector(".lp-primary")).toHaveAttribute("aria-disabled", "true");
+    expect(screen.queryByTestId("faded-hint")).toBeNull();
+    fireEvent.click(btn("Hint"));
+    expect(screen.getByTestId("faded-hint")).toHaveTextContent(/Which way does this move go/);
+    fireEvent.click(btn("Another hint"));
+    expect(screen.getByTestId("faded-hint")).toHaveTextContent(/Count 4 hops to the right/);
+    expect(screen.getByTestId("faded-hint").textContent).not.toMatch(/5/);
+    fireEvent.click(btn("Type the answer instead"));
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(btn("Use the number line")).toBeInTheDocument();
   });
 
   it("a lesson without a figure keeps today's screen (no number line, no slider)", async () => {
