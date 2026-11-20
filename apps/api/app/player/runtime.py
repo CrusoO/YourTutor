@@ -49,9 +49,9 @@ from app.orchestrator.types import (
 )
 from app.player.action_flags import hint_solution_flags
 from app.player.lesson_events import LESSON_EVENTS, check_lesson_event, lesson_for_state
+from app.player.reason_hook import SIDE_EVENTS, side_event_payload
+from app.player.reason_hook import on_answer as reason_on_answer
 from app.player.signals import (
-    CORRECTION_EVENT,
-    clean_correction,
     clean_signals,
     public_diagnosis,
     record_misconception_hit,
@@ -818,17 +818,17 @@ def apply_player_event(
         view["session_id"] = str(row.id)
         view["duplicate"] = True
         return view
-    if event_type == CORRECTION_EVENT:
-        # "That's not why": the learner disagreed with the explanation shown. Kept as evidence; it
-        # changes no state, so the session carries on exactly where it was.
+    if event_type in SIDE_EVENTS:
+        # "That's not why" and "I chose this kind of help": evidence kept on the log. Neither
+        # changes the tutor's state, so the session carries on exactly where it was.
         session.add(
             EventRow(
                 id=uuid.uuid4(),
                 client_event_id=client_event_id,
                 session_id=row.id,
                 item_id=item_id,
-                event_type=CORRECTION_EVENT,
-                payload=clean_correction(payload),
+                event_type=event_type,
+                payload=side_event_payload(session, row.id, event_type, payload),
                 created_at=now_utc(),
             )
         )
@@ -927,6 +927,14 @@ def apply_player_event(
     sync_alerts(session, student, state, learner)
     was_open = row.ended_at is None
     _persist_state(row, state)
+    reasoned = (
+        reason_on_answer(session, row.id, state, learner, state.item(item_id), payload)
+        if event_type == "answer"
+        else None
+    )
+    stored = {**payload, "diagnosis": state.last_diagnosis} if state.last_diagnosis else payload
+    if reasoned is not None:
+        stored = {**stored, "reason": reasoned[0]}
     session.add(
         EventRow(
             id=uuid.uuid4(),
@@ -934,9 +942,7 @@ def apply_player_event(
             session_id=row.id,
             item_id=item_id or action.item_id,
             event_type="request_help" if event_type == "request_hint" else event_type,
-            payload={**payload, "diagnosis": state.last_diagnosis}
-            if state.last_diagnosis
-            else payload,
+            payload=stored,
             correct=state.last_correct if event_type == "answer" else action.correct,
             hint_level=action.hint_level,
             latency_ms=payload.get("latency_ms"),
@@ -955,6 +961,8 @@ def apply_player_event(
     why = public_diagnosis(event_type, state, enriched.get("extras") or {}, action.misconception_id)
     if why:
         enriched.setdefault("extras", {})["diagnosis"] = why
+    if reasoned is not None and reasoned[1] is not None:
+        enriched.setdefault("extras", {})["reason"] = reasoned[1]
     _attach_summary(session, student, row, enriched)
     return {
         "session_id": str(row.id),

@@ -86,6 +86,10 @@ class Settings(BaseSettings):
     # env: CONFIDENCE_RULES=true. Lets a right answer the learner called a guess count as neither
     # evidence nor a miss. Off by default until pilot data shows children's "unsure" is meaningful.
     confidence_rules: bool = False
+    # env: REASON_FIRST_ENABLED=true. Weighs every cause of a wrong answer (not one label), offers
+    # other kinds of help, and logs which help was chosen and how the next answer went. Stored as
+    # counts-only fields on the learner's own events. Off by default; the demo bundle turns it on.
+    reason_first_enabled: bool = False
     # env: PILOT_EXPORT_SALT. Keys the pilot export pseudonyms; empty: the export refuses to run.
     pilot_export_salt: str = ""
     # env: LEARNER_PROFILE_ENABLED. Off: nothing is written or read and the table stays empty.

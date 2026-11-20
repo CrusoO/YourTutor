@@ -13,6 +13,7 @@ import LessonPlayer from "@/components/lessons/LessonPlayer";
 import DoneScreen from "@/components/flow/DoneScreen";
 import { StuckPoint, StuckStep, checkText } from "@/components/session/StuckPoint";
 import { ConfidenceAsk, ExplainGrade, WhyWrong, type Confidence } from "@/components/session/Signals";
+import { offeredWays, readReason, type Way } from "@/lib/session/ways";
 import BlockedState, { hasNoQuestion } from "@/components/session/BlockedState";
 import BreakOrSwitch from "@/components/session/BreakOrSwitch";
 import ItemLabels from "@/components/session/ItemLabels";
@@ -31,6 +32,7 @@ import SessionStyles from "@/components/session/sessionStyles";
 
 // The number-line panels load only inside the session route, never in the homepage bundle.
 const SignExplanation = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignExplanation })));
+const AnotherWay = lazy(() => import("@/components/session/AnotherWay").then((m) => ({ default: m.AnotherWay })));
 const SignHint = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignHint })));
 
 /** Help is always allowed when the server says so; `can_request_hint` is the deprecated name. */
@@ -49,6 +51,7 @@ export default function SessionPage() {
   useEffect(() => applyBodyClasses(loadUi()), []);
   const [answer, setAnswer] = useState("");
   const [step, setStep] = useState(1);
+  const [pictureOpen, setPictureOpen] = useState(false);
   const [hintReady, setHintReady] = useState(false);
   const [nudge, setNudge] = useState(false);
   const [wrongOnce, setWrongOnce] = useState(false);
@@ -102,6 +105,7 @@ export default function SessionPage() {
   function questionShown() {
     shownAt.current = Date.now();
     setPending(null);
+    setPictureOpen(false);
   }
 
   function armTimers(next: ActionPayload) {
@@ -328,10 +332,25 @@ export default function SessionPage() {
     helpAsked,
     hintShown: action.type === "hint",
   });
+  const reason = readReason(extras);
+  const ways = reason
+    ? offeredWays(reason.offer, {
+        picture: signHint && Boolean(stemParse) && !pictureOpen,
+        steps: canHelp(action),
+        worked: Boolean(action.can_show_solution),
+      })
+    : [];
+  const chooseWay = (way: Way) => {
+    // Recorded without waiting; the help itself is the same action the old buttons sent.
+    postEvent(params.id, "move_chosen", { family: way }, action.item_id).catch(() => {});
+    if (way === "steps") send("request_help");
+    else if (way === "worked") send("show_solution");
+    else if (way === "picture") setPictureOpen(true);
+  };
   const signHintNode =
     signHint && stemParse && action.session_type === "practice" ? (
       <Suspense fallback={null}>
-        <SignHint copy={copy} parse={stemParse} />
+        <SignHint key={pictureOpen ? "open" : "closed"} copy={copy} parse={stemParse} defaultOpen={pictureOpen} />
       </Suspense>
     ) : null;
 
@@ -479,15 +498,20 @@ export default function SessionPage() {
             }}
           />
           <p className="banner" data-testid="hint-text">{action.text}</p>
-          {signHintNode}
+          {ways.length > 0 ? (
+            <Suspense fallback={null}>
+              <AnotherWay copy={copy} ways={ways} busy={sending} onChoose={chooseWay} />
+            </Suspense>
+          ) : null}
+          {ways.length === 0 || pictureOpen ? signHintNode : null}
           {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
-          {canHelp(action) ? (
+          {ways.length === 0 && canHelp(action) ? (
             <button type="button" className="secondary" data-testid="help-button" onClick={() => send("request_help")}>
               {copy.helpButton}
             </button>
           ) : null}
-          {action.can_show_solution ? (
+          {ways.length === 0 && action.can_show_solution ? (
             <button type="button" className="ghost" onClick={() => send("show_solution")}>
               {copy.reveal}
             </button>
