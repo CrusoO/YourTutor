@@ -211,243 +211,243 @@ SKILLS: list[tuple[str, str, list[str]]] = [
 _TEXT: dict[str, tuple[str, str]] = {
     "FORMULA_INVERTED": (
         "Uses the relation upside down",
-        "The student divides the two quantities the wrong way round, so the answer has the reciprocal size.",
+        "You may have divided the wrong way round.",
     ),  # noqa: E501
     "MULTIPLIED_NOT_DIVIDED": (
         "Multiplies where the relation divides",
-        "The student multiplies the two known quantities instead of dividing one by the other.",
+        "You may have multiplied when you should divide.",
     ),  # noqa: E501
     "DIVIDED_NOT_MULTIPLIED": (
         "Divides where the relation multiplies",
-        "The student divides the two known quantities instead of multiplying them.",
+        "You may have divided the two numbers when you should multiply them.",
     ),  # noqa: E501
     "ADDED_NOT_MULTIPLIED": (
         "Adds the quantities",
-        "The student adds numbers that have different units instead of using the relation between them.",
+        "You may have added numbers that have different units. Use the formula that links them.",
     ),  # noqa: E501
     "TIME_UNIT_SLIP": (
         "Uses minutes as if they were seconds",
-        "The student puts a time in minutes straight into a formula that needs seconds.",
+        "You may have used minutes where the formula needs seconds.",
     ),  # noqa: E501
     "SERIES_PARALLEL_SWAPPED": (
         "Swaps the series and parallel rules",
-        "The student uses the reciprocal rule for resistors in series, or the plain sum for resistors in parallel.",
+        "You may have mixed up the rules for series and parallel.",
     ),  # noqa: E501
     "PARALLEL_RESISTANCES_ADDED": (
         "Adds resistances that are in parallel",
-        "The student adds the resistances instead of adding their reciprocals.",
+        "You may have added the resistances. For parallel, add their fractions 1/R.",
     ),  # noqa: E501
     "FORGOT_FINAL_RECIPROCAL": (
         "Stops before the final reciprocal",
-        "The student adds the reciprocals correctly but gives the sum itself as the answer.",
+        "You may have added the fractions but forgot to flip the total.",
     ),  # noqa: E501
     "PARALLEL_AVERAGED": (
         "Averages the parallel resistances",
-        "The student takes the mean of the resistances for a parallel pair.",
+        "You may have taken the average of two resistors in parallel.",
     ),  # noqa: E501
     "TWO_RESISTOR_SHORTCUT_ON_THREE": (
         "Uses the two-resistor shortcut on three resistors",
-        "The student applies product over sum to two resistors and ignores the third.",
+        "You may have used the two-resistor shortcut and ignored the third.",
     ),  # noqa: E501
     "CURRENT_NOT_SQUARED": (
         "Forgets to square the current",
-        "The student writes power or heat with I once instead of I squared.",
+        "You may have used I once. The formula needs I squared.",
     ),  # noqa: E501
     "VOLTAGE_NOT_SQUARED": (
         "Forgets to square the voltage",
-        "The student writes V over R, or V t over R, instead of using V squared.",
+        "You may have used V where the formula needs V squared.",
     ),  # noqa: E501
     "POWER_AS_V_OVER_I": (
         "Writes power as V divided by I",
-        "The student divides the voltage by the current where power needs the product.",
+        "You may have divided voltage by current. Power needs them multiplied.",
     ),  # noqa: E501
     "ROOT_FORGOTTEN": (
         "Forgets the square root",
-        "The student stops at P over R and gives it as the current.",
+        "You may have stopped at P over R. Now take the square root.",
     ),  # noqa: E501
     "AREA_DIRECT_NOT_INVERSE": (
         "Treats area as directly proportional to resistance",
-        "The student puts the area on top, so a thicker wire is given a larger resistance.",
+        "You may have put the area on top. A thicker wire gives less resistance.",
     ),  # noqa: E501
     "AREA_UNIT_SLIP": (
         "Uses square millimetres as square metres",
-        "The student does not convert the area to square metres, so the answer is off by a power of ten.",
+        "You may have left the area in the wrong unit. Change it to square metres.",
     ),  # noqa: E501
     "ONLY_LENGTH_COUNTED": (
         "Counts only the change in length",
-        "The student scales the resistance with the length and forgets that the area changes too.",
+        "You may have changed only the length. The area changes too.",
     ),  # noqa: E501
     "DIAMETER_AS_AREA": (
         "Treats a change in diameter as a change in area",
-        "The student uses the diameter factor where the area factor (its square) is needed.",
+        "You may have used the diameter where the area is needed.",
     ),  # noqa: E501
     "SERIES_VOLTAGE_NOT_SHARED": (
         "Gives each series resistor the full battery voltage",
-        "The student forgets that the battery voltage is shared between resistors in series.",
+        "You may have forgotten that the battery voltage is shared in series.",
     ),  # noqa: E501
     "EQUAL_SHARE_ASSUMED": (
         "Splits the quantity equally",
-        "The student shares voltage or current equally between unequal resistors.",
+        "You may have shared the voltage or current equally between unequal resistors.",
     ),  # noqa: E501
     "ONE_RESISTOR_ONLY": (
         "Uses one resistor instead of the combination",
-        "The student works with a single resistor and ignores the others in the circuit.",
+        "You may have used one resistor and ignored the others.",
     ),  # noqa: E501
     "RESISTOR_LEFT_OUT": (
         "Leaves a resistor out of the sum",
-        "The student adds only some of the resistors.",
+        "You may have added only some of the resistors.",
     ),  # noqa: E501
     "WRONG_RESISTOR_USED": (
         "Uses the wrong resistor for the share",
-        "The student picks the other resistor when sharing the voltage or current.",
+        "You may have picked the other resistor when sharing the voltage.",
     ),  # noqa: E501
     "CURRENT_NOT_SPLIT": (
         "Gives a branch the whole current",
-        "The student forgets that the total current divides between the branches.",
+        "You may have forgotten that the current splits between the branches.",
     ),  # noqa: E501
     "ELECTRON_CHARGE_MISUSE": (
         "Multiplies by the electron charge instead of dividing",
-        "The student multiplies by e where the number of electrons needs division by e.",
+        "You may have multiplied by e when you should divide by e.",
     ),  # noqa: E501
     "CHARGE_NOT_DIVIDED_BY_E": (
         "Gives the charge as the number of electrons",
-        "The student stops at the total charge and does not divide by the charge of one electron.",
+        "You may have stopped at the total charge. Divide by the charge of one electron.",
     ),  # noqa: E501
     "POWER_OF_TEN_SLIP": (
         "Slips by a power of ten",
-        "The student mishandles an exponent, so the answer is ten times too large or too small.",
+        "You may have slipped on a power of ten.",
     ),  # noqa: E501
     "TIME_LEFT_OUT": (
         "Leaves the time out",
-        "The student finds a power instead of an energy or heat, because the time is never used.",
+        "You may have found the power and forgotten to use the time.",
     ),  # noqa: E501
     "DAYS_LEFT_OUT": (
         "Leaves the number of days out",
-        "The student finds the energy for one day only.",
+        "You may have found the energy for one day only.",
     ),  # noqa: E501
     "ONE_APPLIANCE_ONLY": (
         "Counts only one appliance",
-        "The student ignores the second appliance in the total.",
+        "You may have left out the second appliance.",
     ),  # noqa: E501
     "WRONG_QUANTITY_SQUARED": (
         "Squares the wrong quantity",
-        "The student squares a product or a different quantity than the formula needs.",
+        "You may have squared the wrong quantity.",
     ),  # noqa: E501
     "POWER_FORMULA_MISMATCH": (
         "Mixes up the power formulas",
-        "The student uses a power relation with the wrong pair of quantities.",
+        "You may have used a power formula with the wrong two quantities.",
     ),  # noqa: E501
     "PD_FORMULA_MIXED": (
         "Multiplies work and charge for the potential difference",
-        "The student multiplies work done by charge instead of dividing.",
+        "You may have multiplied work by charge when you should divide.",
     ),  # noqa: E501
     "POWER_SCALES_LINEARLY": (
         "Assumes power scales in direct proportion",
-        "The student scales the power by the same factor as the quantity, ignoring the square.",
+        "You may have scaled the power by the same factor. It goes up with the square.",
     ),  # noqa: E501
     "UNIT_PREFIX_SLIP": (
         "Slips by a thousand between a unit and its milli or kilo form",
-        "The student forgets to convert a prefix, so the answer is a thousand times off.",
+        "You may have forgotten to change the unit. The answer is 1000 times off.",
     ),  # noqa: E501
     "U_SIGN_DROPPED": (
         "Uses u as a positive number",
-        "The student puts the object distance in as a positive value instead of a negative one.",
+        "You may have used a positive object distance. It must be negative.",
     ),  # noqa: E501
     "F_SIGN_WRONG": (
         "Gives the focal length the wrong sign",
-        "The student gives a concave mirror or lens a positive focal length, or a convex one a negative focal length.",
+        "You may have given the focal length the wrong sign.",
     ),  # noqa: E501
     "V_SIGN_DROPPED": (
         "Loses the sign of the image distance",
-        "The student gives the image distance the opposite sign to the correct one.",
+        "You may have given the image distance the wrong sign.",
     ),  # noqa: E501
     "MIRROR_LENS_FORMULA_MIXED": (
         "Uses the mirror formula for a lens, or the lens formula for a mirror",
-        "The student swaps the sign in front of 1/u.",
+        "You may have put the wrong sign in front of 1/u.",
     ),  # noqa: E501
     "RADIUS_FOCAL_CONFUSED": (
         "Confuses the radius of curvature with the focal length",
-        "The student uses R in place of f, or doubles or halves in the wrong direction.",
+        "You may have used R for f, or doubled instead of halved.",
     ),  # noqa: E501
     "MAG_SIGN_DROPPED": (
         "Drops the minus sign in the mirror magnification",
-        "The student writes m = v / u for a mirror.",
+        "You may have written m = v / u and left out the minus.",
     ),  # noqa: E501
     "MAG_INVERTED": (
         "Writes the magnification upside down",
-        "The student uses object distance over image distance.",
+        "You may have put object distance over image distance. Turn it round.",
     ),  # noqa: E501
     "MAG_INVERTED_SIGN_DROPPED": (
         "Inverts the magnification and loses its sign",
-        "The student uses u over v with no minus sign.",
+        "You may have used u over v with no minus sign.",
     ),  # noqa: E501
     "POWER_IN_CM": (
         "Uses the focal length in centimetres for the power",
-        "The student does not change centimetres to metres, so the power is a hundred times off.",
+        "You may have left the length in centimetres. The power is 100 times off.",
     ),  # noqa: E501
     "POWER_SIGN_IGNORED": (
         "Ignores the sign of the power",
-        "The student gives a concave lens a positive power.",
+        "You may have given a spreading (concave) lens a positive power.",
     ),  # noqa: E501
     "POWER_NOT_RECIPROCAL": (
         "Gives the focal length as the power",
-        "The student does not take the reciprocal.",
+        "You may have forgotten to flip the fraction.",
     ),  # noqa: E501
     "FOCAL_LENGTHS_ADDED": (
         "Adds focal lengths for lenses in contact",
-        "The student adds the focal lengths instead of the powers.",
+        "You may have added the focal lengths. Add the powers instead.",
     ),  # noqa: E501
     "POWERS_MULTIPLIED": (
         "Multiplies the powers",
-        "The student multiplies the powers of two lenses in contact.",
+        "You may have multiplied the powers of two lenses. Add them instead.",
     ),  # noqa: E501
     "INDEX_INVERTED": (
         "Writes the refractive index upside down",
-        "The student divides the speed in the medium by the speed in vacuum.",
+        "You may have flipped the speed ratio.",
     ),  # noqa: E501
     "SPEED_INCREASES_IN_DENSER_MEDIUM": (
         "Thinks light speeds up in a denser medium",
-        "The student multiplies the speed of light in vacuum by the index.",
+        "You may have multiplied the speed of light by the index. Divide instead.",
     ),  # noqa: E501
     "SNELL_INVERTED": (
         "Inverts the ratio of sines",
-        "The student divides the sine of the refraction angle by the sine of the incidence angle.",
+        "You may have put the two angle sines the wrong way round.",
     ),  # noqa: E501
     "SINES_SUBTRACTED": (
         "Subtracts or adds the sines",
-        "The student combines the two sines by subtraction or addition.",
+        "You may have added or taken away the two sines. Divide them instead.",
     ),  # noqa: E501
     "SNELL_MULTIPLIED_WRONG_WAY": (
         "Multiplies where the ratio is needed",
-        "The student multiplies the quantities in the sine relation instead of dividing.",
+        "You may have multiplied where you should divide.",
     ),  # noqa: E501
     "RELATIVE_INDEX_INVERTED": (
         "Inverts the relative refractive index",
-        "The student writes n1 over n2 (or v2 over v1) for the second medium relative to the first.",
+        "You may have turned the ratio upside down for the second material.",
     ),  # noqa: E501
     "INDEX_DIFFERENCE_USED": (
         "Subtracts the indices",
-        "The student uses a difference where a ratio is needed.",
+        "You may have taken one number away from the other. Divide them instead.",
     ),  # noqa: E501
     "INDEX_PRODUCT_USED": (
         "Multiplies the indices",
-        "The student uses a product where a ratio is needed.",
+        "You may have multiplied two numbers when you should divide them.",
     ),  # noqa: E501
     "V_SIGN_MEANING_REVERSED": (
         "Reads the sign of the image distance the wrong way round",
-        "The student swaps real and virtual when reading the sign of v, or gives an image distance the wrong sign.",
+        "You may have mixed up real and not-real images.",
     ),  # noqa: E501
     "MAG_SIGN_MEANING_REVERSED": (
         "Reads the sign of the magnification the wrong way round",
-        "The student swaps erect and inverted when reading the sign of m.",
+        "You may have mixed up upright and upside down.",
     ),  # noqa: E501
     "SIZE_MEANING_REVERSED": (
         "Reads the size of the magnification the wrong way round",
-        "The student swaps magnified and diminished when reading the size of m.",
+        "You may have mixed up bigger and smaller.",
     ),  # noqa: E501
     "HEIGHT_NOT_USED": (
         "Gives the magnification where the image height is asked",
-        "The student forgets to multiply by the object height.",
+        "You may have forgotten to multiply by the height of the object.",
     ),  # noqa: E501
 }
 
