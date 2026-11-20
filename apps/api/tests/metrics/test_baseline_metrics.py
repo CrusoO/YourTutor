@@ -255,3 +255,35 @@ def test_the_report_is_read_only(db: Session) -> None:
         db.scalar(select(func.count()).select_from(EventRow)),
     )
     assert before == after
+
+
+def test_session_type_filter_defaults_to_practice_and_all_includes_the_rest(db: Session) -> None:
+    for _ in range(MIN_STUDENTS):
+        st = uuid.uuid4()
+        add_session(db, st, D0)
+        diag = add_session(db, st, D0)
+        row = db.get(SessionRow, diag)
+        assert row is not None
+        row.type = "diagnostic"
+    db.commit()
+    default = baseline_metrics(db, D0, D0)
+    assert default["window"]["session_type"] == "practice"
+    assert default["sessions_in_window"] == MIN_STUDENTS
+    assert baseline_metrics(db, D0, D0, "all")["sessions_in_window"] == 2 * MIN_STUDENTS
+    only = baseline_metrics(db, D0, D0, "diagnostic")
+    assert only["sessions_in_window"] == MIN_STUDENTS
+    assert "sessions: diagnostic" in render_table(only)
+    assert baseline_metrics(db, D0, D0, "checkpoint")["sessions_in_window"] == 0
+
+
+def test_return_uses_the_same_type_filter(db: Session) -> None:
+    for _ in range(MIN_STUDENTS):
+        st = uuid.uuid4()
+        d = add_session(db, st, D0)
+        db.get(SessionRow, d).type = "diagnostic"  # type: ignore[union-attr]
+        add_session(db, st, D0 + timedelta(days=1))  # practice only on day 1
+    db.commit()
+    until = D0 + timedelta(days=2)
+    assert baseline_metrics(db, D0, until, "all")["return"]["day_1"]["rate"] == 1.0
+    # practice only: day 0 is the practice session on day 1, so nobody returned on day 2
+    assert baseline_metrics(db, D0, until)["return"]["day_1"]["rate"] == 0.0

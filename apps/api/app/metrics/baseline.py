@@ -5,7 +5,9 @@ no event shape changes. The report is aggregate only: no student id, name or fre
 module, and any cell backed by fewer than `MIN_STUDENTS` distinct students is replaced by
 `SUPPRESSED` ("n<20").
 
-Window: sessions whose `started_at` UTC date lies in [since, until], both inclusive.
+Window: sessions whose `started_at` UTC date lies in [since, until], both inclusive. Only sessions
+of `session_type` count (default "practice", as in pilot.py; "all" keeps every type). The same
+filter applies to the first-session date used for day-N return.
 
 Definitions
 - Answer: an event with `event_type == "answer"`. Time-to-first-answer is first answer
@@ -52,6 +54,7 @@ PLANNED_ENDS = frozenset(
 )
 HINT_EVENTS = frozenset({"request_help", "request_hint"})
 RETURN_DAYS = (1, 7)
+DEFAULT_SESSION_TYPE = "practice"  # same as pilot.py; "all" keeps every type
 
 NOT_MEASURED = (
     "hint dwell (time a hint stayed on screen)",
@@ -71,6 +74,10 @@ def _percentile(sorted_vals: Sequence[float], q: float) -> float:
     """Nearest-rank percentile of a non-empty sorted list."""
     rank = max(1, math.ceil(q * len(sorted_vals)))
     return sorted_vals[rank - 1]
+
+
+def _type_filter(session_type: str) -> list[Any]:
+    return [] if session_type == "all" else [SessionRow.type == session_type]
 
 
 def _window_bounds(since: date, until: date) -> tuple[datetime, datetime]:
@@ -93,7 +100,9 @@ def _duration_cell(samples: list[tuple[object, float]]) -> dict[str, Any]:
     }
 
 
-def baseline_metrics(db: Session, since: date, until: date) -> dict[str, Any]:
+def baseline_metrics(
+    db: Session, since: date, until: date, session_type: str = DEFAULT_SESSION_TYPE
+) -> dict[str, Any]:
     if until < since:
         raise ValueError("until must not be before since")
     start, end = _window_bounds(since, until)
@@ -104,7 +113,11 @@ def baseline_metrics(db: Session, since: date, until: date) -> dict[str, Any]:
             SessionRow.started_at,
             SessionRow.ended_at,
             SessionRow.ended_reason,
-        ).where(SessionRow.started_at >= start, SessionRow.started_at < end)
+        ).where(
+            SessionRow.started_at >= start,
+            SessionRow.started_at < end,
+            *_type_filter(session_type),
+        )
     ).all()
     by_id = {s.id: s for s in sessions}
 
@@ -183,24 +196,28 @@ def baseline_metrics(db: Session, since: date, until: date) -> dict[str, Any]:
         )
 
     return {
-        "window": {"since": since.isoformat(), "until": until.isoformat()},
+        "window": {
+            "since": since.isoformat(),
+            "until": until.isoformat(),
+            "session_type": session_type,
+        },
         "sessions_in_window": suppress(total, n_students) if total else 0,
         "students_in_window": suppress(n_students, n_students) if total else 0,
         "time_to_first_answer": _duration_cell(gaps(first_answer)),
         "time_to_first_correct": _duration_cell(gaps(first_correct)),
         "hints_per_answered_item": hint_cell,
         "completion": completion,
-        "return": _returns(db, since, until),
+        "return": _returns(db, since, until, session_type),
         "not_measured": list(NOT_MEASURED),
     }
 
 
-def _returns(db: Session, since: date, until: date) -> dict[str, Any]:
+def _returns(db: Session, since: date, until: date, session_type: str) -> dict[str, Any]:
     """Day-N return for students whose first-ever session date is in the window."""
     _, end = _window_bounds(since, until)
     dates: dict[object, set[date]] = defaultdict(set)
     for student_id, started_at in db.execute(
-        select(SessionRow.student_id, SessionRow.started_at)
+        select(SessionRow.student_id, SessionRow.started_at).where(*_type_filter(session_type))
     ).all():
         if as_utc(started_at) < end:  # later sessions never matter: day-N is capped at `until`
             dates[student_id].add(as_utc(started_at).date())
@@ -229,7 +246,7 @@ def render_table(report: dict[str, Any]) -> str:
     t1, t2 = report["time_to_first_answer"], report["time_to_first_correct"]
     h, c, r = report["hints_per_answered_item"], report["completion"], report["return"]
     rows = [
-        ("window (UTC dates)", f"{w['since']} .. {w['until']}"),
+        ("window (UTC dates)", f"{w['since']} .. {w['until']}, sessions: {w['session_type']}"),
         (
             "sessions / students",
             f"{f(report['sessions_in_window'])} / {f(report['students_in_window'])}",
