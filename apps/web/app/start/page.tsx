@@ -9,6 +9,7 @@ import { child } from "@/lib/agreement-copy";
 import StorageNotice from "@/components/StorageNotice";
 import LegalLinks from "@/components/legal/LegalLinks";
 import { useCopy } from "@/lib/locale";
+import { flowEn } from "@/lib/flow-copy";
 import { quickStartEnabled } from "@/lib/flags";
 import QuickStartForm from "@/components/flow/QuickStartForm";
 
@@ -24,10 +25,15 @@ export default function StartPage() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
+  function load() {
+    setError("");
     getContextOptions()
       .then(setOptions)
       .catch(() => setError(copy.startError));
+  }
+
+  useEffect(() => {
+    load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,6 +82,11 @@ export default function StartPage() {
       <StorageNotice />
       <h1>{copy.startTitle}</h1>
       <p className="muted">{copy.startHint}</p>
+      {options === null && !error ? (
+        <p className="muted" role="status" data-testid="start-loading">
+          {flowEn.startLoading}
+        </p>
+      ) : null}
       <label>
         {copy.curriculumLabel}
         <select
@@ -138,6 +149,11 @@ export default function StartPage() {
         {copy.startButton}
       </button>
       {error ? <p className="banner">{error}</p> : null}
+      {options === null && error ? (
+        <button type="button" className="secondary" onClick={load}>
+          {flowEn.startRetry}
+        </button>
+      ) : null}
       <a href="/join">{copy.joinLink}</a>
       <a href="/start/child">{child.linkText}</a>
       <LegalLinks />
