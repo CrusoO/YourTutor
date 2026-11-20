@@ -248,7 +248,8 @@ describe("Done screen", () => {
     rerender(
       <DoneScreen copy={copy} reason="idle" summary={{ ...summary, learned: [], practised: [] }} onKeepGoing={onKeepGoing} onChapters={onChapters} />,
     );
-    expect(screen.getByText(copy.doneNothingNew)).toBeInTheDocument();
+    expect(screen.queryByTestId("done-moved")).toBeNull();
+    expect(screen.getByTestId("done-tomorrow")).toBeInTheDocument();
   });
 
   it("One more goes to the chapter page; the chapter map is inside the disclosure", async () => {

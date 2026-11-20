@@ -60,13 +60,13 @@ export default function DoneScreen({
       ) : null}
       {summary ? (
         <>
-          <p data-testid="done-moved">
-            {moved.length === 0
-              ? copy.doneNothingNew
-              : moved.length === 1
+          {moved.length > 0 ? (
+            <p data-testid="done-moved">
+              {moved.length === 1
                 ? fill(learnedLine, { title: moved[0].title })
                 : fill(learnedMore, { title: moved[0].title, n: moved.length - 1 })}
-          </p>
+            </p>
+          ) : null}
           {summary.next ? (
             <p>
               <strong>{copy.doneNext}:</strong> {summary.next.title}
