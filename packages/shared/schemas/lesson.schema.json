@@ -465,6 +465,65 @@
       "title": "ExploreBeat",
       "type": "object"
     },
+    "ExtraNumberLineFigure": {
+      "additionalProperties": false,
+      "description": "An extra example figure. `problem` is the sentence or sum exactly as authored (shown\ninstead of the generated \"Work out ...\" text) and `note` is an optional one-line plain\nexplanation for that example. Both are optional so older lessons load unchanged.",
+      "properties": {
+        "kind": {
+          "const": "number_line",
+          "title": "Kind",
+          "type": "string"
+        },
+        "start": {
+          "title": "Start",
+          "type": "integer"
+        },
+        "delta": {
+          "title": "Delta",
+          "type": "integer"
+        },
+        "answer": {
+          "title": "Answer",
+          "type": "integer"
+        },
+        "problem": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Problem"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "kind",
+        "start",
+        "delta",
+        "answer"
+      ],
+      "title": "ExtraNumberLineFigure",
+      "type": "object"
+    },
     "FadedExampleBeat": {
       "additionalProperties": false,
       "description": "A worked example with its last step left to the student; checked by the server, formative.",
@@ -1032,9 +1091,9 @@
         },
         "more_number_lines": {
           "items": {
-            "$ref": "#/$defs/NumberLineFigure"
+            "$ref": "#/$defs/ExtraNumberLineFigure"
           },
-          "maxItems": 3,
+          "maxItems": 8,
           "title": "More Number Lines",
           "type": "array"
         }

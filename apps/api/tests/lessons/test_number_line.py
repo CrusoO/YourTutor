@@ -122,7 +122,7 @@ def test_the_pilot_lesson_carries_checked_figures() -> None:
         and (fig := b.number_line) is not None
     ]
     got = [(f.start, f.delta, f.answer) for f in figs]
-    assert got == [(3, 4, 7), (2, -5, -3), (-6, 15, 9)]
+    assert got == [(3, 4, 7), (-4, 3, -1), (-6, 15, 9)]
     worked = next(b for b in pilot.beats if isinstance(b, WorkedExampleBeat))
     sub = [f for f in worked.more_number_lines if f.delta < 0]
     assert sub and sub[0].start + sub[0].delta == sub[0].answer
@@ -132,4 +132,55 @@ def test_the_served_lesson_json_carries_the_figure() -> None:
     pilot = load_lessons(LEGACY_CONTENT_ROOT)["LESSON.INTEGERS.OPERATIONS"]
     served = pilot.model_dump(mode="json", by_alias=True, exclude_none=True)
     worked = next(b for b in served["beats"] if b["kind"] == "worked_example")
-    assert worked["number_line"] == {"kind": "number_line", "start": 2, "delta": -5, "answer": -3}
+    assert worked["number_line"] == {"kind": "number_line", "start": -4, "delta": 3, "answer": -1}
+
+
+def _with_extras(extras: list[dict[str, Any]]) -> dict[str, Any]:
+    lesson = _lesson()
+    _beat(lesson, "worked_example")["more_number_lines"] = extras
+    return lesson
+
+
+def _fig(**over: Any) -> dict[str, Any]:
+    return {"kind": "number_line", "start": 1, "delta": 2, "answer": 3, **over}
+
+
+def test_extra_figures_without_the_new_keys_still_load() -> None:
+    lesson = _with_extras([_fig()])
+    assert validate_lesson_dict(lesson) == []
+    worked = next(
+        b for b in Lesson.model_validate(lesson).beats if isinstance(b, WorkedExampleBeat)
+    )
+    assert worked.more_number_lines[0].problem is None and worked.more_number_lines[0].note is None
+
+
+def test_extra_figures_accept_authored_problem_and_note() -> None:
+    lesson = _with_extras(
+        [_fig(problem="Work out -2 + (-4).", note="Adding a negative moves left.")]
+    )
+    assert validate_lesson_dict(lesson) == []
+
+
+@pytest.mark.parametrize(
+    "over",
+    [{"problem": "x" * 161}, {"note": "x" * 201}, {"problem": ""}, {"note": ""}, {"problem": 5}],
+)
+def test_extra_figure_text_is_length_limited(over: dict[str, Any]) -> None:
+    assert validate_lesson_dict(_with_extras([_fig(**over)])) == ["schema.invalid"]
+
+
+def test_the_extra_figure_text_limits_are_inclusive() -> None:
+    assert validate_lesson_dict(_with_extras([_fig(problem="x" * 160, note="y" * 200)])) == []
+
+
+def test_up_to_eight_extra_figures_and_no_more() -> None:
+    assert validate_lesson_dict(_with_extras([_fig()] * 8)) == []
+    assert validate_lesson_dict(_with_extras([_fig()] * 9)) == ["schema.invalid"]
+
+
+def test_the_integers_lesson_carries_authored_problem_text() -> None:
+    lesson = load_lessons(LEGACY_CONTENT_ROOT)["LESSON.INTEGERS.OPERATIONS"]
+    worked = next(b for b in lesson.beats if isinstance(b, WorkedExampleBeat))
+    problems = [f.problem for f in worked.more_number_lines]
+    assert len(problems) == 6 and all(problems)
+    assert "Work out -2 + (-4)." in problems and "Work out 4 + (-6)." in problems
