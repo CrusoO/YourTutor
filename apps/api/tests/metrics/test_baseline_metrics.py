@@ -10,7 +10,8 @@ import pytest
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.db.models import EventRow, SessionRow
+from app.auth.security import now_utc
+from app.db.models import EventRow, SessionRow, StudentRow, UserRow
 from app.metrics.baseline import (
     MIN_STUDENTS,
     SUPPRESSED,
@@ -26,6 +27,38 @@ def _t(day: date, seconds: int = 0) -> datetime:
     return datetime(day.year, day.month, day.day, tzinfo=UTC) + timedelta(seconds=seconds)
 
 
+PARENT_EMAIL = "baseline-parent@example.com"
+
+
+def ensure_student(db: Session, student: uuid.UUID) -> None:
+    """A real student row (Postgres enforces the foreign key; SQLite does not)."""
+    if db.get(StudentRow, student) is not None:
+        return
+    parent = db.scalars(select(UserRow).where(UserRow.email == PARENT_EMAIL)).first()
+    if parent is None:
+        parent = UserRow(
+            id=uuid.uuid4(), role="parent", email=PARENT_EMAIL, locale="en", created_at=now_utc()
+        )
+        db.add(parent)
+        db.flush()
+    db.add(
+        StudentRow(
+            id=student,
+            parent_id=parent.id,
+            display_name="Kid",
+            grade=9,
+            board="bhutan",
+            curriculum_id="bhutan",
+            book_id="bhutan_class9",
+            home_language="en",
+            exam_language="en",
+            timezone="Asia/Thimphu",
+            created_at=now_utc(),
+        )
+    )
+    db.flush()
+
+
 def add_session(
     db: Session,
     student: uuid.UUID,
@@ -36,6 +69,7 @@ def add_session(
     offset: int = 0,
 ) -> uuid.UUID:
     start = _t(day, offset)
+    ensure_student(db, student)
     is_ended = ended if ended is not None else ended_reason is not None
     row = SessionRow(
         id=uuid.uuid4(),
