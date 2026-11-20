@@ -74,6 +74,8 @@ export type WidgetSpec = BalanceScaleWidget | FunctionGraphWidget;
 
 /** An integer move on a number line: start at `start`, move `delta` (right when positive); `answer` is the authored landing. */
 export type NumberLineFigure = { kind: "number_line"; start: number; delta: number; answer: number };
+/** An extra example figure: `problem` is the authored sentence or sum, `note` a one-line plain explanation. */
+export type ExtraNumberLineFigure = NumberLineFigure & { problem?: string | null; note?: string | null };
 
 export type PredictBeat = {
   kind: "predict";
@@ -96,7 +98,7 @@ export type WorkedExampleBeat = {
   problem: L10n;
   steps: L10n[];
   number_line?: NumberLineFigure | null;
-  more_number_lines?: NumberLineFigure[];
+  more_number_lines?: ExtraNumberLineFigure[];
 };
 export type FadedExampleBeat = {
   kind: "faded_example";

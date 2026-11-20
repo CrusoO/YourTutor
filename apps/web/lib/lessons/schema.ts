@@ -71,6 +71,11 @@ function numberLine(v: unknown): boolean {
   return isObj(v) && v.kind === "number_line" && isInt(v.start) && isInt(v.delta) && isInt(v.answer);
 }
 
+function extraNumberLine(v: unknown): boolean {
+  const text = (max: number) => (x: unknown) => isStr(x) && x.length >= 1 && x.length <= max;
+  return numberLine(v) && isObj(v) && optional(v.problem, text(160)) && optional(v.note, text(200));
+}
+
 function widget(v: unknown): boolean {
   if (!isObj(v) || !isStr(v.widget_id) || v.widget_id.length === 0) return false;
   if (!l10n(v.prompt) || !l10n(v.success) || !optional(v.hint, l10n)) return false;
@@ -102,7 +107,7 @@ function beat(v: unknown): boolean {
       return (
         l10n(v.title) && l10n(v.problem) && isArr(v.steps) && v.steps.length >= 2 && v.steps.every(l10n) &&
         optional(v.number_line, numberLine) &&
-        optional(v.more_number_lines, (a) => isArr(a) && a.length <= 3 && a.every(numberLine))
+        optional(v.more_number_lines, (a) => isArr(a) && a.length <= 8 && a.every(extraNumberLine))
       );
     case "faded_example":
       return (

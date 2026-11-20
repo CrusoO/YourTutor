@@ -162,6 +162,20 @@ class NumberLineFigure(_Strict):
     answer: StrictInt
 
 
+EXTRA_FIGURES_MAX = 8
+EXTRA_PROBLEM_MAX = 160
+EXTRA_NOTE_MAX = 200
+
+
+class ExtraNumberLineFigure(NumberLineFigure):
+    """An extra example figure. `problem` is the sentence or sum exactly as authored (shown
+    instead of the generated "Work out ..." text) and `note` is an optional one-line plain
+    explanation for that example. Both are optional so older lessons load unchanged."""
+
+    problem: str | None = Field(default=None, min_length=1, max_length=EXTRA_PROBLEM_MAX)
+    note: str | None = Field(default=None, min_length=1, max_length=EXTRA_NOTE_MAX)
+
+
 class PredictChoice(_Strict):
     value: str = Field(min_length=1)
     text: LocalizedText
@@ -196,7 +210,9 @@ class WorkedExampleBeat(_Strict):
     problem: LocalizedText
     steps: list[LocalizedText] = Field(min_length=2)
     number_line: NumberLineFigure | None = None
-    more_number_lines: list[NumberLineFigure] = Field(default_factory=list, max_length=3)
+    more_number_lines: list[ExtraNumberLineFigure] = Field(
+        default_factory=list, max_length=EXTRA_FIGURES_MAX
+    )
 
 
 class FadedExampleBeat(_Strict):
