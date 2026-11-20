@@ -8,6 +8,7 @@ import { getContextOptions, guestStart, locale, today, type ContextOptions } fro
 import { optionLabel } from "@/lib/chat/labels";
 import { resolveSetup, stepOptions, type ContextLike } from "@/lib/chat/machine";
 import { useCopy } from "@/lib/locale";
+import { flowEn } from "@/lib/flow-copy";
 import { startFirstQuestion } from "@/lib/quick-start";
 
 /**
@@ -22,12 +23,21 @@ export default function QuickStartForm() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
+  const [loadFailed, setLoadFailed] = useState(false);
+
+  function load() {
+    setLoadFailed(false);
     getContextOptions()
       .then((options: ContextOptions) => setCtx({ grades: options.grades, curricula: options.curricula }))
-      .catch(() => setError(copy.startError));
+      .catch(() => setLoadFailed(true));
+  }
+
+  useEffect(() => {
+    load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const loading = ctx === null && !loadFailed;
 
   const allGrades = ctx ? stepOptions(ctx, {}, "grade", true).filter((o) => o.value !== "adult") : [];
   const grades = allGrades.filter((o) => o.available);
@@ -67,7 +77,28 @@ export default function QuickStartForm() {
       <p className="muted">{copy.quickStartHint}</p>
       <section className="stack" aria-labelledby="quick-class">
         <h2 id="quick-class">{copy.quickClassLabel}</h2>
-        <div className="flex flex-wrap gap-2" role="group" aria-labelledby="quick-class" data-testid="quick-grades">
+        {loading ? (
+          <p className="muted" role="status" data-testid="quick-loading">
+            {flowEn.startLoading}
+          </p>
+        ) : null}
+        {loadFailed ? (
+          <div className="stack" data-testid="quick-load-error">
+            <p className="banner" role="alert">
+              {copy.startError}
+            </p>
+            <button type="button" className="secondary" onClick={load}>
+              {flowEn.startRetry}
+            </button>
+          </div>
+        ) : null}
+        <div
+          className="flex flex-wrap gap-2"
+          role="group"
+          aria-labelledby="quick-class"
+          aria-busy={loading}
+          data-testid="quick-grades"
+        >
           {grades.map((o) => (
             <Choice
               key={o.value}

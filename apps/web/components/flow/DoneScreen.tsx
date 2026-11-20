@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import type { Messages } from "@/lib/messages";
 import { reasonCopy, type DoneSummary } from "@/lib/flow";
+import { fill, flowEn } from "@/lib/flow-copy";
 import StatusChip from "./StatusChip";
 
 type Props = {
@@ -11,6 +12,8 @@ type Props = {
   encouragement?: string | null;
   onKeepGoing: (chapterId: string) => void;
   onChapters: () => void;
+  /** "Done for today": leave the flow. Falls back to the chapter list. */
+  onFinish?: () => void;
 };
 
 /** End of a session: what moved, where every skill stands, what is next. No streaks or ranks. */
@@ -21,6 +24,7 @@ export default function DoneScreen({
   encouragement,
   onKeepGoing,
   onChapters,
+  onFinish,
 }: Props) {
   const chapterId = summary?.chapter?.id ?? summary?.recommended_chapter ?? null;
 
@@ -41,6 +45,10 @@ export default function DoneScreen({
     );
   }, [summary]);
 
+  const moved = summary?.learned.length ? summary.learned : (summary?.practised ?? []);
+  const learnedLine = summary?.learned.length ? flowEn.doneMoved : flowEn.donePractisedLine;
+  const learnedMore = summary?.learned.length ? flowEn.doneMovedMore : flowEn.donePractisedMore;
+
   return (
     <main className="stack done">
       <h1>{copy.doneTitle}</h1>
@@ -52,32 +60,36 @@ export default function DoneScreen({
       ) : null}
       {summary ? (
         <>
-          {summary.learned.length > 0 ? (
-            <section className="card" aria-label={copy.doneLearned}>
-              <h2>{copy.doneLearned}</h2>
-              <ul className="plain">
-                {summary.learned.map((row) => (
-                  <li key={row.id}>
-                    {row.title} <StatusChip status={row.status} copy={copy} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : summary.practised.length > 0 ? (
-            <section className="card" aria-label={copy.donePractised}>
-              <h2>{copy.donePractised}</h2>
-              <ul className="plain">
-                {summary.practised.map((row) => (
-                  <li key={row.id}>
-                    {row.title} <StatusChip status={row.status} copy={copy} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : (
-            <p>{copy.doneNothingNew}</p>
-          )}
-          <section className="card" aria-label={copy.doneSkills}>
+          <p data-testid="done-moved">
+            {moved.length === 0
+              ? copy.doneNothingNew
+              : moved.length === 1
+                ? fill(learnedLine, { title: moved[0].title })
+                : fill(learnedMore, { title: moved[0].title, n: moved.length - 1 })}
+          </p>
+          {summary.next ? (
+            <p>
+              <strong>{copy.doneNext}:</strong> {summary.next.title}
+            </p>
+          ) : null}
+          <p className="muted">{fill(flowEn.doneMinutesLeft, { n: summary.remaining_active_minutes })}</p>
+        </>
+      ) : null}
+      <p className="muted" data-testid="done-tomorrow">
+        {flowEn.doneTomorrow}
+      </p>
+      <button type="button" onClick={onFinish ?? onChapters} data-testid="done-finish">
+        {flowEn.doneFinish}
+      </button>
+      {chapterId ? (
+        <button type="button" className="secondary" onClick={() => onKeepGoing(chapterId)} data-testid="done-one-more">
+          {flowEn.doneOneMore}
+        </button>
+      ) : null}
+      <details className="card" data-testid="done-covered">
+        <summary>{flowEn.doneSeeCovered}</summary>
+        {summary ? (
+          <section aria-label={copy.doneSkills}>
             <h2>{copy.doneSkills}</h2>
             <ul className="plain">
               {summary.skills.map((row) => (
@@ -87,24 +99,11 @@ export default function DoneScreen({
               ))}
             </ul>
           </section>
-          {summary.next ? (
-            <p>
-              <strong>{copy.doneNext}:</strong> {summary.next.title}
-            </p>
-          ) : null}
-          <p className="muted">
-            {summary.remaining_active_minutes} {copy.doneMinutes}
-          </p>
-        </>
-      ) : null}
-      {chapterId ? (
-        <button type="button" onClick={() => onKeepGoing(chapterId)}>
-          {copy.doneContinue}
+        ) : null}
+        <button type="button" className="secondary" onClick={onChapters}>
+          {copy.doneChapters}
         </button>
-      ) : null}
-      <button type="button" className={chapterId ? "secondary" : undefined} onClick={onChapters}>
-        {copy.doneChapters}
-      </button>
+      </details>
     </main>
   );
 }
