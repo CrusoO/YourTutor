@@ -190,6 +190,8 @@ export default function LessonPlayer({
     beat.kind === "worked_example" && beat.number_line ? [beat.number_line, ...(beat.more_number_lines ?? [])] : [];
   const exIdx = extraIdx === null ? 0 : extraIdx + 1;
   const workedFigure: NumberLineFigure | null = exampleFigures[exIdx] ?? null;
+  // The extra figures may carry their own authored problem text and one-line note.
+  const extra = beat.kind === "worked_example" && exIdx > 0 ? (beat.more_number_lines ?? [])[exIdx - 1] : undefined;
   const moreExamples = exampleFigures.length > exIdx + 1;
   const showWrittenSteps = beat.kind === "worked_example" && (!beat.number_line || (exampleLocked && exIdx === 0));
 
@@ -446,11 +448,13 @@ export default function LessonPlayer({
               </p>
             ) : null}
             <p className="lp-problem">
-              {exIdx > 0 && workedFigure ? `${COPY.workOut} ${expression(workedFigure.start, workedFigure.delta)}.` : pick(beat.problem, locale)}
+              {exIdx > 0 && workedFigure
+                ? (extra?.problem ?? `${COPY.workOut} ${expression(workedFigure.start, workedFigure.delta)}.`)
+                : pick(beat.problem, locale)}
             </p>
             {beat.number_line && workedFigure ? (
               <>
-                <SignHelp note={signNote} />
+                <SignHelp note={extra?.note ?? signNote} />
                 <NumberLine
                   key={`ex:${exIdx}:${workedFigure.start}:${workedFigure.delta}`}
                   start={workedFigure.start}
