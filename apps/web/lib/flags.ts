@@ -33,3 +33,11 @@ export function doubtServerEnabled(): boolean {
 export function quickStartEnabled(): boolean {
   return process.env.NEXT_PUBLIC_QUICK_START_ENABLED !== "false";
 }
+
+/**
+ * "Show my week" on the Today page: seven dots, Monday to Sunday, kept on the device only. Off unless the variable is
+ * exactly "true", and even then the student must switch it on themselves.
+ */
+export function weekDotsEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_WEEK_DOTS === "true";
+}
