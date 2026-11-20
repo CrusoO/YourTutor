@@ -203,6 +203,7 @@ def validate_bundle(
     _one_x_ban(bundle, report)
     _hint_language(bundle, report)
     _language_quality(bundle, report)
+    _plain_language(bundle, report)
     _approval_hashes(bundle, report)
     _template_approval(bundle, report, factory_templates)
     _factory_notes(bundle, report)
@@ -719,6 +720,25 @@ def _language_quality(bundle: ContentBundle, report: ValidationReport) -> None:
             report.warnings.append(f"{item.id} {warning}")
 
 
+def _plain_language(bundle: ContentBundle, report: ValidationReport) -> None:
+    """Plain-language rules (config/plain_language.yaml): errors stay errors, the rest is a count.
+
+    The answer-leak test is skipped here: `_items` already makes it an error for hints 1 and 2.
+    """
+    from app.content.plain_language import ERROR_RULES, lint_bundle_plain
+
+    found = lint_bundle_plain(bundle.items, bundle.skills, bundle.misconceptions, check_leaks=False)
+    for finding in found.errors:
+        report.errors.append(f"{finding.owner} {finding.rule}: {finding.text} ({finding.detail})")
+    counts = found.counts()
+    report.stats["plain_language"] = counts
+    warned = {rule: n for rule, n in counts.items() if rule not in ERROR_RULES}
+    if warned:
+        parts = ", ".join(f"{rule} {n}" for rule, n in warned.items())
+        total = sum(warned.values())
+        report.warnings.append(f"{total} plain-language warnings: {parts}")
+
+
 def _one_x_ban(bundle: ContentBundle, report: ValidationReport) -> None:
     for item in bundle.items:
         if has_one_x(item.stem.en):
@@ -957,6 +977,7 @@ def _build_report(bundle: ContentBundle, report: ValidationReport) -> None:
         "structures_by_skill_pool": report.stats.get("structures_by_skill_pool", {}),
         "practice_by_skill_tier": report.stats.get("practice_by_skill_tier", {}),
         "tier_gaps": report.stats.get("tier_gaps", []),
+        "plain_language": report.stats.get("plain_language", {}),
         "templates_per_skill": _templates_per_skill(bundle),
         "instances_by_skill_tier": _instances_by_skill_tier(bundle),
     }
@@ -1039,6 +1060,10 @@ def format_report(report: ValidationReport) -> str:
     lines.append(f"  A/B skill-or-tier mismatches: {len(report.ab_mismatches)}")
     for row in report.ab_mismatches:
         lines.append(f"    {row}")
+    plain = report.stats.get("plain_language") or {}
+    lines.append(f"  plain-language findings: {sum(plain.values())}")
+    for rule, count in plain.items():
+        lines.append(f"    {rule}: {count}")
     lines.append(f"  needs_teacher_check: {report.stats.get('needs_teacher_check_count', 0)}")
     for item_id in report.needs_teacher_check:
         lines.append(f"    {item_id}")

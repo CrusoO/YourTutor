@@ -187,16 +187,50 @@ describe("Done screen", () => {
   const onKeepGoing = vi.fn();
   const onChapters = vi.fn();
 
-  it("shows what moved forward, every skill status, what is next and the minutes left", () => {
+  it("shows one plain what-moved line, what is next and the minutes left; the skills list is collapsed", () => {
     render(<DoneScreen copy={copy} reason="soft_cap" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
     expect(screen.getByRole("heading", { name: "Nice work" })).toBeInTheDocument();
     expect(screen.getByText(copy.reasonSoftCap)).toBeInTheDocument();
-    const learned = screen.getByRole("region", { name: copy.doneLearned });
-    expect(within(learned).getByText(/Two-step equations/)).toBeInTheDocument();
-    const skills = screen.getByRole("region", { name: copy.doneSkills });
-    expect(within(skills).getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.getByTestId("done-moved").textContent).toMatch(/You moved forward on Two-step equations/);
     expect(screen.getByText(/Brackets/, { selector: "p" })).toBeInTheDocument();
     expect(screen.getByText(/9 active minutes left today/)).toBeInTheDocument();
+    const covered = screen.getByTestId("done-covered") as HTMLDetailsElement;
+    expect(covered.open).toBe(false);
+    expect(within(covered).getByText("See what you covered")).toBeInTheDocument();
+    expect(within(covered).getAllByRole("listitem", { hidden: true })).toHaveLength(3);
+  });
+
+  it("has one primary action; One more is a quiet secondary button and never starts by itself", () => {
+    render(<DoneScreen copy={copy} reason="soft_cap" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
+    expect(onKeepGoing).not.toHaveBeenCalled();
+    const finish = screen.getByTestId("done-finish");
+    const more = screen.getByTestId("done-one-more");
+    expect(finish.className).not.toContain("secondary");
+    expect(more.className).toContain("secondary");
+    expect(finish.textContent).toBe("Done for today");
+    const outside = screen.getAllByRole("button").filter((b) => !b.closest("details"));
+    expect(outside).toHaveLength(2);
+  });
+
+  it("Done for today calls onFinish, or falls back to the chapter list", async () => {
+    const onFinish = vi.fn();
+    const { unmount } = render(
+      <DoneScreen copy={copy} reason="idle" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} onFinish={onFinish} />,
+    );
+    await userEvent.click(screen.getByTestId("done-finish"));
+    expect(onFinish).toHaveBeenCalled();
+    expect(onChapters).not.toHaveBeenCalled();
+    unmount();
+    render(<DoneScreen copy={copy} reason="idle" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
+    await userEvent.click(screen.getByTestId("done-finish"));
+    expect(onChapters).toHaveBeenCalled();
+  });
+
+  it("makes no promise about a specific number of questions tomorrow", () => {
+    render(<DoneScreen copy={copy} reason="idle" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
+    const line = screen.getByTestId("done-tomorrow").textContent ?? "";
+    expect(line).toBe("Come back tomorrow for a quick check.");
+    expect(line).not.toMatch(/\d/);
   });
 
   it("uses no streaks, ranks, scores or points", () => {
@@ -210,24 +244,26 @@ describe("Done screen", () => {
     const { rerender } = render(
       <DoneScreen copy={copy} reason="idle" summary={{ ...summary, learned: [] }} onKeepGoing={onKeepGoing} onChapters={onChapters} />,
     );
-    expect(screen.getByRole("region", { name: copy.donePractised })).toBeInTheDocument();
+    expect(screen.getByTestId("done-moved").textContent).toMatch(/You practised/);
     rerender(
       <DoneScreen copy={copy} reason="idle" summary={{ ...summary, learned: [], practised: [] }} onKeepGoing={onKeepGoing} onChapters={onChapters} />,
     );
-    expect(screen.getByText(copy.doneNothingNew)).toBeInTheDocument();
+    expect(screen.queryByTestId("done-moved")).toBeNull();
+    expect(screen.getByTestId("done-tomorrow")).toBeInTheDocument();
   });
 
-  it("keeps going to the chapter page or back to the map", async () => {
+  it("One more goes to the chapter page; the chapter map is inside the disclosure", async () => {
     render(<DoneScreen copy={copy} reason="soft_cap" summary={summary} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
-    await userEvent.click(screen.getByRole("button", { name: copy.doneContinue }));
+    await userEvent.click(screen.getByTestId("done-one-more"));
     expect(onKeepGoing).toHaveBeenCalledWith("CH.ONE");
+    await userEvent.click(screen.getByText("See what you covered"));
     await userEvent.click(screen.getByRole("button", { name: copy.doneChapters }));
     expect(onChapters).toHaveBeenCalled();
   });
 
   it("still works without a summary", async () => {
     render(<DoneScreen copy={copy} reason="consent_revoked" summary={undefined} onKeepGoing={onKeepGoing} onChapters={onChapters} />);
-    await waitFor(() => expect(screen.getByRole("button", { name: copy.doneChapters })).toBeInTheDocument());
-    expect(screen.queryByRole("button", { name: copy.doneContinue })).toBeNull();
+    expect(screen.getByTestId("done-finish")).toBeInTheDocument();
+    expect(screen.queryByTestId("done-one-more")).toBeNull();
   });
 });

@@ -218,6 +218,7 @@ export default function SessionPage() {
         }
         onKeepGoing={(chapterId) => router.push(`/chapters/${encodeURIComponent(chapterId)}`)}
         onChapters={() => router.push("/chapters")}
+        onFinish={() => router.push("/")}
       />
     );
   }

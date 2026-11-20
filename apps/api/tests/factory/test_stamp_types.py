@@ -110,7 +110,7 @@ def test_numeric_and_expression_items_stamp_with_the_schema_fields(tmp_path: Pat
             "title": {"en": "s"},
             "grade_band": [10],
             "subject": "maths",
-            "misconceptions": [],
+            "misconceptions": [r.id for r in item.misconception_rules],  # the item's own
             "bkt": {"p_init": 0.3, "p_learn": 0.15, "p_slip": 0.1, "p_guess": 0.25},
         }
     )

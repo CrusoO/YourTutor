@@ -1,18 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getChapters, setStudentId, startSession, studentId, today } from "@/lib/api";
 
+import { weekDotsEnabled } from "@/lib/flags";
 import { useCopy } from "@/lib/locale";
 import { prefetchSession, useStarting } from "@/lib/useStarting";
+
+// The week view loads only on this page and only when the flag is on, so it never adds to the homepage bundle.
+const WeekDots = lazy(() => import("@/components/today/WeekDots"));
 
 type Today = {
   student_id: string;
   display_name: string;
   goal_minutes: number;
   remaining_active_minutes: number;
+  /** Active time already used today in the student's own day; above zero means they practised today. */
+  used_active_ms?: number;
   resume?: { session_id: string; type: string } | null;
 };
 
@@ -87,6 +93,11 @@ export default function TodayPage() {
       <button type="button" className="ghost" onClick={() => go("checkpoint")} {...starting.buttonProps("checkpoint")}>
         {starting.label("checkpoint", copy.startCheckpoint)}
       </button>
+      {weekDotsEnabled() ? (
+        <Suspense fallback={null}>
+          <WeekDots learnerId={data.student_id || studentId()} practisedToday={(data.used_active_ms ?? 0) > 0} />
+        </Suspense>
+      ) : null}
       {starting.status}
       {starting.error ? (
         <p className="banner" role="alert">
