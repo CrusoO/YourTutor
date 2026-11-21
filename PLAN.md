@@ -625,9 +625,9 @@ milestone of its own and starts only when the owner names it. Every phase ends w
 checks in CLAUDE.md and a walk through the flow in a real browser as the test student.
 
 **P0 — Check before changing (no learner-visible change)**
-- [ ] Contrast: re-check white on `#0b6bd3` and the proposed dark tokens in `tests/ui/tokens.test.ts`; record results in docs/UI_CONTRAST.md.
-- [ ] Fonts: a specimen page of Google Sans, Geist plus Noto Sans Devanagari, Source Serif 4 and Noto Serif Devanagari in English, Hindi and Nepali; three native readers per language pick and flag broken conjuncts or Nepali letter forms.
-- [ ] Weight: measure the WOFF2 subsets and confirm the 150 KB page budget and the lesson screen's 0 KB font rule (or record the exception the owner approves).
+- [x] Met 2026-11-22: Contrast: white on `#0b6bd3` is 5.18:1 (the `tokens.css` comment said 6.6:1 and is corrected); every proposed light and dark candidate passes (docs/UI_CONTRAST.md, UI-6 P0 section). The stale contrast table in that file was regenerated from the live test output. Targeted tests: `tests/ui/tokens.test.ts` and `tests/ui/semantic.test.ts`, 521 passed. No token value changed.
+- [ ] Fonts: a specimen page of Google Sans, Geist plus Noto Sans Devanagari, Source Serif 4 and Noto Serif Devanagari in English, Hindi and Nepali; three native readers per language pick and flag broken conjuncts or Nepali letter forms. (Specimen page built as a private mock; waiting on the reviewers.)
+- [x] Met 2026-11-22 (single-file sizes only): Weight: WOFF2 sizes measured (docs/UI_CONTRAST.md). Google Sans variable is 35 KB Latin plus 49 KB Devanagari against about 62 KB plus 49 KB today. Still open: a full-page weight measurement and the owner's call on the 0 KB lesson-screen font rule.
 - [ ] Voice: listening test of Kokoro Hindi voices (RESEARCH_PLAN V4) and of Piper and Indic Parler-TTS Nepali; record scores.
 
 **P1 — Tokens and components**
@@ -771,6 +771,23 @@ Written from the platform master plan (milestones M0 to M14, kept outside this r
 the tutor side: BKT-F as a shadow model (`learner/bktf.py`, replay and report), event-retry fixes, and
 M4 (shadow traits, Loop B, `loop_b_*` tables, migration 0027, wired at session end behind
 `LOOP_B_ENABLED`, off by default). M4 is merged (PR #18). Everything below is still open.
+
+### Main pending items (2026-11-22)
+
+Written from a code inventory of master (read-only) and the plan above. Order is the recommended order of work.
+
+| # | Item | State | Next step |
+|---|---|---|---|
+| 1 | v0.9 Safe Base gate | Code merged (PR #30). Gate open: helplines are `verified: false` (production will not start until verified); keys not rotated and the old zip not deleted | Owner: verify the helplines and rotate keys. Cannot be done by code |
+| 2 | v0.95 Clean Base (target 22 Nov) | In progress: one integration line, cleanup, docs, CI green, no behaviour change | Close open branches (about 60 worktrees exist) and keep the flaky doubt-log test from blocking CI |
+| 3 | Checked practice loop | Mostly unbuilt. Exists: final-answer verifier (`verifier/check.py`), FSRS per-skill reviews (`learner/scheduler_fsrs.py`), misconception rules and diagnosis, teacher mistake list (minimum 5 students), weekly parent text report, `ItemLabels` Checked label for calculation-checked items. Missing: step-by-step entry and per-step checks, step marks and a marking scheme, a "Not checked" label, a notebook with 2, 6 and 15 day returns and new-form retests, a timed section with marks lost, a ranked weak-spot result (the probe engine in `learner/probe/` is not wired in) | Specify and build in slices, web and API, behind flags; first slice: honest Checked or Not checked label on every answer plus step-line entry for one chapter |
+| 4 | Item bank for v1.0 | Class 10 maths has about 781 factory items (quadratics, AP, trigonometry, identities, heights and distances), Class 10 physics about 625; every item is `status: draft`, none approved. There is no "pair of linear equations" chapter, although the roadmap v1.0 row names it | Decide the first pack. Recommended: quadratic equations first (items exist and the new flow is mocked on it); linear equations only if authored. Start approval with a reviewer |
+| 5 | Age gate and parental consent | Not built; group lessons and results are adult-only through `ADULT_LEARNERS_ASSUMED` | Blocks sign-in for under-18s, the memory card, study rooms and the growing tutor |
+| 6 | Counsel | No lawyer named | DPDP behavioural-monitoring ruling (keep `LOOP_B_ENABLED`, `LEARNER_PROFILE_ENABLED` off), landing privacy wording, consent for sending typed questions to a model |
+| 7 | Hindi and Nepali | Draft text, old landing copy, no reviewed voices | Owner has a Nepali reviewer; need a Hindi reviewer; run the font and voice tests (UI-6 P0) |
+| 8 | Head-to-head test | Not run; needs live model calls | Owner approval and a cost estimate first |
+| 9 | UI-6 | P0 contrast and file sizes done; fonts and voice tests wait on reviewers | Name P1 when ready |
+| 10 | Test and setup debts | The flaky `test_logs_hold_a_hash_and_an_outcome_and_no_numbers` is fixed (the test now ignores the random hex digest in the log line; 46 doubt route tests passed three times in a row); three web tests failing on master; local `.env` lines that do not parse; no migration at start | See Known issues below |
 
 ### Waiting on a decision or a person
 
