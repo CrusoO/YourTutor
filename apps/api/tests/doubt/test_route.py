@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import uuid
 from collections.abc import Iterator
 from dataclasses import dataclass
@@ -253,8 +254,11 @@ def test_logs_hold_a_hash_and_an_outcome_and_no_numbers(
         r.getMessage() for r in caplog.records if r.name.startswith("app.doubt")
     )
     assert "outcome=verified" in doubt_lines
+    # The log carries a hex digest ("h=..."). It is a hash, not user data, and any short digit run
+    # (such as "613") can appear in it by chance, which made this test fail now and then.
+    visible = re.sub(r"h=[0-9a-f]+", "h=<digest>", doubt_lines)
     for secret in ("4217", "613", "8191", "poly_eq"):
-        assert secret not in doubt_lines
+        assert secret not in visible
 
 
 def test_nothing_is_stored(client: TestClient, world: World, db: Session) -> None:
