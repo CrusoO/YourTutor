@@ -59,3 +59,24 @@ Workflows (chapter map, skill path, lesson, practice, done, teacher and parent v
 screens inside the panel. Deep links, browser back and refresh work, and the old routes (`/today`,
 `/chapters`, ...) keep working. When a workflow ends the chat gets a short structured summary message
 (skill, result, next step); free-text transcripts are never kept.
+
+## Direction v2 (UI-6, decided 2026-11-21, not built yet)
+
+What changes from UI-1 when UI-6 is built (decisions in PLAN.md §2, phases in PLAN.md UI-6):
+
+* **First run.** Language first (native names, the same sample sentence in each), then the address form
+  (respectful by default), then one goal question: school, exam or job prep, maths for work and life, or
+  just curious. School asks class and subject only; the board stays internal and is never shown.
+* **Understand first.** Two or three "show me" items with no marks, then a first win, then the age
+  question before anything is saved. Under-18 defaults apply until the age is known.
+* **Home.** The personal Brownie chat is the home. Workflows still open as panels, and their results also
+  come back as checked cards inside the chat (quiz, practice, lesson scene, engine clip, notebook retest).
+* **Composer.** Still a deterministic finder on the device for routing and commands. A question goes to a
+  model only when the learner taps "Ask Brownie", with a visible notice, and for under-18s only inside the
+  consent scope. Photo and hold-to-talk sit inside the composer.
+* **What Brownie knows.** A card and a page listing only what the learner said, results checked by code
+  and the current teaching moves, each with Edit and Forget, plus Forget everything and a pause switch.
+* **Growing tutor.** Teaching-move changes appear as one line with Keep and Undo; name, voice and tone
+  never change; free, never a paid tier.
+* **Roles.** Two doors on the landing page: learner, and parent or teacher. Teacher and parent homes are
+  unchanged by UI-6.

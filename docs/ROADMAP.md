@@ -30,6 +30,7 @@ Dates are **targets**. A version ships **only when its gate passes**. If a date 
 - v0.9 Safe Base: code merged (PR #30, 5 Nov 2026); gate not closed (helplines unverified, keys not rotated).
 - v0.95 Clean Base: in progress.
 - Later versions: not started.
+- Design direction v2 (decided 21 Nov 2026, PLAN.md §2 and milestone UI-6): P0 checks and P1 tokens and components fit inside v1.0 if the owner names them; P2 language and tone, P3 chat-first cards and P5 voice follow the v1.0 conversation-layer work; P4 memory card, P7 growing tutor and P8 study rooms wait for the age gate and consent work (v1.2 to v1.3).
 
 What has merged is in [CHANGELOG.md](../CHANGELOG.md).
 

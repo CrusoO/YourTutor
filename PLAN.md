@@ -180,6 +180,20 @@ Kept unchanged because they are correct: pure policy, LLM-as-phrasing, allowlist
 | UI-2b home weight | The conversation view (setup chips, sign-in forms), the Today strip and the Settings dialog load on demand. The home is 262.5 KB and its limit is lowered from 275 to 265 KB. |
 | Plain paper (UI-4) | Lessons and boards use plain surfaces; the earlier graph-paper decision is reversed because it was visually irritating; grid is an opt-in setting. The lesson surface is white in light and the dark background in dark (`--c-lesson`). Settings > Comfort > Board paper (Plain by default, or Light grid) only affects the graph widget's grid lines, never lesson text. This is the one place pure white is used as a background, by explicit decision; pages elsewhere keep `--c-bg`. |
 | UI tests | The 12 existing specs that began at `/dev` then `/subjects` now begin at `/`, open their workflow through a home card or sidebar item (`e2e/shell.ts`) and continue on the screen the panel opened; assertions are unchanged. New specs at 360, 768, 1280 and 1536 px are in `e2e/shell.spec.ts`. |
+| Design direction v2 (2026-11-21) | Owner asked for the best calls to be made; recorded here and built as milestone UI-6. Mocks: https://claude.ai/artifact/PPj76j13stdtWgsMBnYWz4 (private). Research reports were kept outside the repo. Every item below is a direction to build and test, not a shipped change. |
+| Product shape | Each learner gets one personal Brownie chat. The chat hands out **checked cards** (quiz, step-entry practice, lesson scene, engine clip, notebook retest, listen button). There is no "just give me the answer" mode: code decides right or wrong, hints come first and always end in a full answer. Reason: plain chat lowered unassisted exam scores in a 2025 randomised trial (Bastani et al., PNAS), and a tutor kept beside the content went largely unused (Khanmigo trial, 2026). |
+| Audiences | One age-neutral promise: "Your personal tutor for maths and science". Two doors: learner, and parent or teacher. Goals are asked inside the product (school Class 9 to 12, exam or job prep, maths for work and life, just curious). Everyone gets under-18 defaults until their age is known. No board name is shown to learners. |
+| Languages | No language is the centre. The learner picks the language first (native names, the same sample sentence in each). Screen language, lesson language, voice, script and digits are separate settings. Hinglish is Hindi in Latin script (`hi-Latn`), a script choice, not a language; this replaces the earlier "Hinglish by default" decision. Nepali missing strings fall back to English with a label, never to Hindi. New Hindi and Nepali text stays draft until a native reviewer approves it. |
+| Address form | Respectful by default: Hindi "aap", Nepali "tapai"; the friendly form ("tum", "timi") is a learner choice. Each register is its own hand-written string set, never rewritten at run time. |
+| Fonts | Sans-serif by default for everything (lightest and safest on low-end phones). Candidate to test: Google Sans (OFL since Dec 2025, Latin and Devanagari in one family) against today's Geist plus Noto Sans Devanagari; adopt only after native Hindi and Nepali readers approve it and the page-weight budget holds. Optional reading choice for Brownie's explanations, loaded only when chosen: Book (Source Serif 4 with Noto Serif Devanagari) and Easy-read (Atkinson Hyperlegible Next, Latin only). Numbers in Geist Mono. Reason: studies show no reliable serif versus sans speed gap, but a reader's best font can be about 35% faster than their worst, so a choice helps more than a house serif. |
+| Colour | The existing palette stays. Light is the default (dark text on light reads slightly better), dark is a choice. No glass, blur or gradient behind any reading text (extends UI-4 from lessons to chat and cards). Proposed dark refinements, to be checked by `tests/ui/tokens.test.ts` before use: text `#e6e9ef`, muted `#b8c0ce`, accent `#6cc4ff` with label `#021626`. Light link text `#0a5fbd`. Re-check white on `#0b6bd3` (computed 5.2:1; the token comment says 6.6:1). Colours are chosen for contrast and meaning only; "colour psychology" claims did not replicate. |
+| Components | Radius scale 6, 10, 14, 20, 28 and pill; inner radius = outer radius minus padding. Hairline borders (text colour at 8%) only for cards and dividers; inputs, toggles and chips that must be found get a 3:1 border. Depth: two soft text-tinted shadows in light; a lighter surface and a faint top highlight in dark. Primary button is a pill, 48 to 52 px, with a faint top highlight; secondary has a visible border. Focus ring: 2 px solid accent, 2 px offset, never semi-transparent. Composer 56 px, radius 24, round send button inside. Tutor message: card with a hairline border; learner message: soft accent tint, no border. Motion 120 ms press, 200 ms small changes, fade only under reduced motion. |
+| Type and controls | Lesson and chat text 17 px (18 optional), interface 16, captions 13 (14 in Devanagari); line height 1.5 Latin, 1.7 to 1.8 Devanagari, 1.7 for long explanations; heading ratio 1.2 on phones, 1.25 on laptops. Targets 48 px (44 floor on dense desktop controls), main action 52 to 56, gaps 8. Test at 320, 360, 600 and 840 px and at 200% text. |
+| Teaching rules (from 3Blue1Brown) | Concrete before abstract; never start with a definition; ask which picture explains the idea; no animation without a purpose. They apply to lessons, chat cards and engine clips. |
+| Voice | Kokoro stays the voice engine. English: `af_heart`, clips made on the server and cached (no large in-browser model by default). Hindi: a Kokoro Hindi voice only after a native listening test, fed Devanagari text only (romanised Hinglish scored poorly). Nepali: captions only until a free voice (Piper or Indic Parler-TTS) passes a native listening test; a paid voice needs the owner's approval. Maths is turned into words before speaking. A listen button on each tutor message, auto-read off, speeds 0.75, 1 and 1.25, sentence highlighting. |
+| Typed text in chat | The 2026-11-04 rule stands: typed text is matched on the device for routing and commands. It is sent to a model only when the learner taps an explicit "Ask Brownie" action with a visible notice, educational questions only, and for under-18s only inside the consent scope. |
+| Tutor that grows | Free progression, never a paid tier. Brownie first learns the learner from checked answers, then changes only teaching moves (pacing, hint depth, worked-example fading, what to practise next) and opens tools in turn. Name, voice and tone never change. Every change is one line with Keep and Undo. No learner labels, no learning styles, counts only, behind the existing flags (off by default), compared with a fixed-rule control before it is trusted. |
+| Study rooms | Small closed rooms joined by code from a WhatsApp invite, one task at a time (find the mistake, compare two methods, a checked live quiz); Brownie checks the maths and never solves for the group. No private messages, no strangers, no photos at first, no ranking. Under-18s use tap-only messages until a parent agrees. Tutor-run rooms come after friend rooms. Needs the age gate first. |
 
 
 If something else is ambiguous and not blocking, pick the simplest option, add a row here, and continue.
@@ -604,6 +618,55 @@ Accept:
 - [x] Full English, Hindi, and Nepali landing copy is wired through one catalog; Hindi and Nepali remain draft pending native-speaker review.
 - [x] Verified 2026-11-01: landing Playwright 5/5 passed, including both scripted explanation paths and Hindi/Nepali responses; translation tests 3/3 and web type check passed. Desktop and mobile checks passed. Full UI suite started (145 tests): the previous 4 landing tests passed, then the run stopped after `flow.spec.ts` timed out in setup on `/dev/seed`; the full suite remains unverified.
 
+### UI-6 — Personal Brownie v2 (chat-first, multilingual, growing tutor)
+
+Planned 2026-11-21 from the "Design direction v2" decisions in §2. Phases run in order; each phase is a
+milestone of its own and starts only when the owner names it. Every phase ends with the student-visible
+checks in CLAUDE.md and a walk through the flow in a real browser as the test student.
+
+**P0 — Check before changing (no learner-visible change)**
+- [ ] Contrast: re-check white on `#0b6bd3` and the proposed dark tokens in `tests/ui/tokens.test.ts`; record results in docs/UI_CONTRAST.md.
+- [ ] Fonts: a specimen page of Google Sans, Geist plus Noto Sans Devanagari, Source Serif 4 and Noto Serif Devanagari in English, Hindi and Nepali; three native readers per language pick and flag broken conjuncts or Nepali letter forms.
+- [ ] Weight: measure the WOFF2 subsets and confirm the 150 KB page budget and the lesson screen's 0 KB font rule (or record the exception the owner approves).
+- [ ] Voice: listening test of Kokoro Hindi voices (RESEARCH_PLAN V4) and of Piper and Indic Parler-TTS Nepali; record scores.
+
+**P1 — Tokens and components**
+- [ ] Radius, border (decorative and control), shadow, focus-ring and motion tokens; type-scale tokens with per-script line heights.
+- [ ] Pill primary and bordered secondary buttons, chips, toggles, composer, tutor and learner messages per §2 "Components".
+- [ ] No glass, blur or gradient behind reading text anywhere (a test asserts it, as UI-4 does for lessons).
+- [ ] Screens checked at 320, 360, 600, 840 and 1280 px, light and dark, and at 200% text.
+
+**P2 — Language, tone and comfort**
+- [ ] First-run language screen (native names, sample sentence); separate screen, lesson, voice, script and digit settings in the locale registry.
+- [ ] Register string sets (respectful default, friendly option) for Hindi and Nepali; Hinglish as `hi-Latn`; Nepali fallback to English with a label.
+- [ ] Comfort adds reading font (Clean, Book, Easy-read), reading ruler and hand preference to the existing device-only settings.
+
+**P3 — Chat-first home with checked cards**
+- [ ] The personal chat is the home; quiz, step-entry practice, lesson scene, notebook retest and listen cards render inside it.
+- [ ] Typed text routes on the device; "Ask Brownie" sends only on an explicit tap with a notice; no answer-only mode.
+- [ ] Every card shows Checked or Not checked; hints end in a full answer.
+
+**P4 — Understands you first**
+- [ ] First session: language, one goal question, two or three "show me" items, a first win, then the age question before anything is saved.
+- [ ] "What Brownie knows about you": only what the learner said, code-checked results and current teaching moves; Edit, Forget and Forget everything.
+
+**P5 — Voice**
+- [ ] Server-made, cached Kokoro clips; listen button, speeds, sentence highlighting, auto-read off; maths spoken from words, not symbols.
+- [ ] Hindi voice behind a review flag; Nepali captions only until a reviewed voice exists; no paid voice without approval.
+
+**P6 — Engine clips in chat**
+- [ ] Clip cards from engine video jobs (MP4 plus WebVTT captions), size and duration shown, tap to play.
+- [ ] A table from named mistake to clip or scene, so the second miss of the same mistake can offer a short clip.
+- [ ] Wrong step shown in amber in clips: an engine change, asked for through the engine session and an engine ADR (workspace rule 2).
+
+**P7 — Teaching setup levels (free)**
+- [ ] Changes to teaching moves only, each shown with a plain reason and Keep or Undo; counts only; flags off by default.
+- [ ] A fixed-rule control comparison and a sycophancy check before any change is trusted.
+
+**P8 — Audiences and study rooms**
+- [ ] Age-neutral landing hero and goal chips; learner versus parent or teacher doors.
+- [ ] Study rooms on top of group lessons: WhatsApp invite, one task at a time, tap-only messages for under-18s, report and mute, no ranking; only after the age gate.
+
 ---
 
 ## 9. Required tests (ongoing)
@@ -724,6 +787,12 @@ M4 (shadow traits, Loop B, `loop_b_*` tables, migration 0027, wired at session e
 | Landing answers about privacy and children | Owner or counsel wording for the two answers marked "Wording to be confirmed" on the page (what is remembered, and whether it is safe for a child). Whether Brownie is free to try is also unconfirmed, so the page says only "no sign-up needed". |
 | The three example videos | Scripts and the files (a student, a person at work, a company course) from EduVideoEngine; set `src`, `poster`, `captions` and `transcript` in `landing-extras.ts` (`videoDemos`) and each tab appears. Large files belong on object storage, not in git. |
 | Learner-facing percentages | Decided: keep as labelled syllabus coverage. The rule is "no numeric mastery probability for learners". |
+| UI-6 fonts | Native Hindi and Nepali readers to compare the font specimens (P0) before any font change. |
+| UI-6 Hindi voice | A native listening test of the Kokoro Hindi voices before the Hindi listen button is switched on. |
+| UI-6 Nepali voice | A native listening test of a free Nepali voice (Piper or Indic Parler-TTS); a paid voice only with the owner's approval. Captions only until then. |
+| UI-6 chat to a model for under-18s | The consent scope and notice wording for sending a typed question to a model; counsel when available. |
+| UI-6 memory card and study rooms | The age gate (see "Adult and independent sign-in"); until then both stay adult-only or tap-only. |
+| UI-6 amber wrong step in engine clips | An engine-session ADR; this repo only asks through docs/ENGINE_INTEGRATION.md. |
 
 ### Buildable next
 
