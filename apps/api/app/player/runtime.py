@@ -591,7 +591,7 @@ def _item_labels(row: ItemRow) -> dict[str, str] | None:
 
 
 def check_state(row: ItemRow) -> str:
-    """"checked" only when the row's verification record is calculation-checked, intact (vrec/1
+    """ "checked" only when the row's verification record is calculation-checked, intact (vrec/1
     hash) and names the content the row holds now; anything else is "not_checked"."""
     from app.content.gate import row_tier_backed
     from app.content.verification import CALCULATION_CHECKED

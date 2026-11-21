@@ -30,6 +30,7 @@ from app.health import database_ready, ping_redis
 from app.helplines import unverified_helplines
 from app.metrics.router import router as metrics_router
 from app.offline.router import router as offline_router
+from app.practice.router import router as practice_router
 from app.proxy import (
     client_ip,
     header_ignored_from_loopback,
@@ -132,6 +133,7 @@ app.include_router(dev_router)
 app.include_router(video_jobs_router)
 app.include_router(explain_router)
 app.include_router(doubt_router)
+app.include_router(practice_router)
 app.include_router(actions_router)
 app.include_router(groups_router)
 app.include_router(classes_router)
