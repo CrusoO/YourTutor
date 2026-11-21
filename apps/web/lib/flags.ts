@@ -41,3 +41,12 @@ export function quickStartEnabled(): boolean {
 export function weekDotsEnabled(): boolean {
   return process.env.NEXT_PUBLIC_WEEK_DOTS === "true";
 }
+
+/**
+ * Practice loop, slice 1: a "Show your working" panel on quadratics practice questions, with a step-by-step check
+ * (`POST /practice/check-steps`, needs STEP_CHECK_ENABLED and the math_check scope on the API). Off unless the variable
+ * is exactly "true".
+ */
+export function stepEntryEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_STEP_ENTRY === "true";
+}

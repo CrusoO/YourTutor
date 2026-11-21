@@ -5,6 +5,8 @@ import { useParams, useRouter } from "next/navigation";
 import { ensureDevStudent, skipLogin } from "@/lib/dev-auth";
 import { getSession, locale, postEvent, type ActionPayload } from "@/lib/api";
 import { t } from "@/lib/messages";
+import { stepEntryEnabled } from "@/lib/flags";
+import { equationFromStem } from "@/lib/practice/steps";
 import { elapsedMs, hintDelayMs, idleNudgeMs } from "@/lib/session-timers";
 import { applyBodyClasses, loadUi } from "@/lib/ui";
 import ReadAloud from "@/components/flow/ReadAloud";
@@ -32,6 +34,7 @@ import SessionStyles from "@/components/session/sessionStyles";
 
 // The number-line panels load only inside the session route, never in the homepage bundle.
 const SignExplanation = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignExplanation })));
+const StepEntry = lazy(() => import("@/components/practice/StepEntry"));
 const AnotherWay = lazy(() => import("@/components/session/AnotherWay").then((m) => ({ default: m.AnotherWay })));
 const SignHint = lazy(() => import("@/components/session/SignExplain").then((m) => ({ default: m.SignHint })));
 
@@ -52,6 +55,8 @@ export default function SessionPage() {
   const [answer, setAnswer] = useState("");
   const [step, setStep] = useState(1);
   const [pictureOpen, setPictureOpen] = useState(false);
+  // "Show your working" (practice loop slice 1, behind NEXT_PUBLIC_STEP_ENTRY); closed again for each new question.
+  const [workingOpen, setWorkingOpen] = useState(false);
   const [hintReady, setHintReady] = useState(false);
   const [nudge, setNudge] = useState(false);
   const [wrongOnce, setWrongOnce] = useState(false);
@@ -106,6 +111,7 @@ export default function SessionPage() {
     shownAt.current = Date.now();
     setPending(null);
     setPictureOpen(false);
+    setWorkingOpen(false);
   }
 
   function armTimers(next: ActionPayload) {
@@ -355,6 +361,26 @@ export default function SessionPage() {
       </Suspense>
     ) : null;
 
+  const workingEquation = stepEntryEnabled() && action.session_type === "practice" ? equationFromStem(item?.stem, item?.skill_ids) : null;
+  const workingNode = workingEquation ? (
+    <div className="stack">
+      <button
+        type="button"
+        className="secondary"
+        data-testid="working-toggle"
+        aria-expanded={workingOpen}
+        onClick={() => setWorkingOpen((open) => !open)}
+      >
+        {workingOpen ? copy.stepsClose : copy.stepsOpen}
+      </button>
+      {workingOpen ? (
+        <Suspense fallback={null}>
+          <StepEntry key={item?.id} copy={copy} equation={workingEquation} />
+        </Suspense>
+      ) : null}
+    </div>
+  ) : null;
+
   return (
     <main className="stack column sess">
       <SessionStyles />
@@ -582,6 +608,7 @@ export default function SessionPage() {
             <ItemLabels labels={item?.labels} check={item?.check} />
           </div>
           {signHintNode}
+          {workingNode}
           {answerArea(copy.answerPlaceholder, copy.submit)}
           {dontKnowButton}
           {extras.prompt_submit ? <p className="banner">{copy.promptSubmit}</p> : null}
