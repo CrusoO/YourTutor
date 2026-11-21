@@ -279,6 +279,8 @@ def _engine_options(place: dict[str, Any]) -> dict[str, Any]:
     }
     if settings.video_captions_sidecar:
         options["captions"] = "sidecar"  # engine writes captions.vtt instead of burning them in
+    if is_story and settings.explain_video_style in ("animated", "technical"):
+        options["style"] = settings.explain_video_style  # unset: the engine's own default
     return options
 
 

@@ -18,6 +18,7 @@ from typing import Any
 
 from app.config import key_for_model, settings
 from app.explain.service import Completer, ExplainProvider, Gate, precheck, unavailable
+from app.explain.story_templates import build_template_story
 from app.llm.prompt import STUDENT_TAG, Prompt
 from app.llm.provider import ProviderError
 from app.llm.rules import default_rules
@@ -617,6 +618,21 @@ def build_story(
     """Plan, then write every scene: {"kind": "story", "story": ..., "fallbacks": n}, or why not."""
     if language != "en":
         return unavailable("language")  # the engine's voices are English
+    if settings.story_templates_enabled:
+        # A maths question that matches a family is built by code: the same safety screen and
+        # consent gate, but no key, no model and no model call.
+        early, text_in, _ = precheck(question, language, gate, provider, model, need_model=False)
+        if early is not None:
+            return early
+        built = build_template_story(text_in)
+        if built is not None:
+            return {
+                "kind": "story",
+                "story": built.story,
+                "fallbacks": 0,
+                "model": "template",
+                "template": built.family,
+            }
     early, text_in, chosen = precheck(question, language, gate, provider, model)
     if early is not None:
         return early
