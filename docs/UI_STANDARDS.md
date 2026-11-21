@@ -29,8 +29,10 @@ but are exempt from the page-weight budget.
 * Fonts: sans-serif (system stack with per-script fallbacks) for everything a student reads; the serif
   (Fraunces, self-hosted, OFL) only for the one-line greeting. Body 16 px minimum on phones; question and
   lesson text 18 px at line height 1.5; per-script line-height tokens (Latin 1.5, Devanagari and
-  Bengali-Assamese 1.75). UI-6 adds an optional reading font for tutor explanations (Book, Easy-read),
-  chosen by the learner and loaded only when chosen; the default stays sans-serif. See "Design direction v2".
+  Bengali-Assamese 1.75). UI-6 (owner choice 2026-11-22) makes Easy-read the interface font: Atkinson
+  Hyperlegible Next for Latin, Noto Sans Devanagari for Hindi and Nepali, Geist Mono for numbers. Clean (Geist)
+  and Book (Source Serif 4 with Noto Serif Devanagari) are learner choices, loaded only when chosen. See
+  "Design direction v2".
 
 ## Input and access
 
