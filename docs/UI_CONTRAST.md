@@ -82,7 +82,10 @@ Not measured: APCA scores, and the pairs on real devices. Contrast says nothing 
 | Google Sans, variable 400 to 700 (candidate) | 35.2 KB | 48.9 KB | one file per script covers all weights |
 | Source Serif 4 400 (optional Book) | 19.6 KB | none | |
 | Noto Serif Devanagari 400 (optional Book) | 11.6 KB | 49.8 KB | |
-| Atkinson Hyperlegible Next 400 (optional Easy-read) | 11.8 KB | none | |
+| Atkinson Hyperlegible Next 400 (single weight) | 11.8 KB | none | |
+| Atkinson Hyperlegible Next, variable 200 to 800 (owner-chosen interface font, 2026-11-22) | 33.2 KB | none | one file covers all weights; Hindi and Nepali keep Noto Sans Devanagari |
 | Mukta 400 | 20.0 KB | 97.0 KB | heavier than the others |
 
-Reading: one Google Sans variable file per script (35 and 49 KB) costs about the same as today's Geist weights plus Noto Sans Devanagari (62 and 49 KB) and removes the two-family mismatch. The 0 KB font rule on lesson screens still needs an owner decision (cached from earlier screens, or an approved exception). These are single-file transfer sizes, not a full page measurement.
+Update 2026-11-22: the owner chose Atkinson Hyperlegible Next (Easy-read) as the interface font, so Google Sans is no longer a candidate. One Atkinson variable file (33 KB) plus today's Noto Sans Devanagari (49 KB) is lighter than today's five Geist weights (62 KB) plus Noto Sans Devanagari.
+
+Earlier reading (Google Sans, kept for the record): one Google Sans variable file per script (35 and 49 KB) costs about the same as today's Geist weights plus Noto Sans Devanagari (62 and 49 KB) and removes the two-family mismatch. The 0 KB font rule on lesson screens still needs an owner decision (cached from earlier screens, or an approved exception). These are single-file transfer sizes, not a full page measurement.

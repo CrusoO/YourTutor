@@ -7,6 +7,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Ver
 
 Code for v0.9 Safe Base (target 12 Nov 2026) merged in PR #30 on 5 Nov 2026 (distress detection and helplines, login fixes, the production start guard, guest syllabus scope; the same PR also carries the pitch video section). The v0.9 gate is not closed: the helplines are still marked `verified: false` (production will not start until they are verified), and key rotation is open. v0.95 Clean Base is in progress. A version ships only when its gate passes. See [docs/ROADMAP.md](docs/ROADMAP.md).
 
+### Changed
+- Plan: the owner chose Easy-read (Atkinson Hyperlegible Next for Latin, Noto Sans Devanagari kept for Hindi and Nepali) as the interface font for UI-6; Clean (Geist) and Book (Source Serif 4) become learner choices. Plan and docs only; no font change in the app yet. Native readers still check the Latin and Devanagari pairing.
+
 ### Fixed
 - Flaky test: `tests/doubt/test_route.py::test_logs_hold_a_hash_and_an_outcome_and_no_numbers` failed now and then because the random hex digest in the log line ("h=...") can contain the digits the test searches for ("613"). The test now ignores the digest before checking that no input numbers are logged. Test only; no app change.
 - `app/tokens.css`: the comment on `--c-accent` said the white label reaches 6.6:1; the computed value is 5.18:1 (still above the 4.5:1 minimum). Comment only; no colour changed. `docs/UI_CONTRAST.md` was regenerated from the live test output because its old table had drifted.
