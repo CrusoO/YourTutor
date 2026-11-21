@@ -527,6 +527,7 @@ export default function SessionPage() {
             <p className="stem">{item?.stem}</p>
             <p className="ans-label">{copy.answerLabel}</p>
             <p className="math ans-value" data-testid="solution-answer">{item?.answer || action.text}</p>
+            <ItemLabels check={item?.check} />
           </div>
           {solutionParse ? (
             <Suspense fallback={null}>
@@ -578,7 +579,7 @@ export default function SessionPage() {
           <div className="q-card">
             <p className="stem">{item?.stem}</p>
             <ReadAloud text={item?.stem || ""} lang={activeLocale} ui={ui} />
-            <ItemLabels labels={item?.labels} />
+            <ItemLabels labels={item?.labels} check={item?.check} />
           </div>
           {signHintNode}
           {answerArea(copy.answerPlaceholder, copy.submit)}

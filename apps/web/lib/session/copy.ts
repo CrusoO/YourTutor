@@ -41,6 +41,10 @@ export const sessionEn = {
   signLineLand: "You land on {result}.",
   signDirRight: "right",
   signDirLeft: "left",
+  checkedStamp: "Checked",
+  checkedStampHint: "A rule worked this answer out and it agreed.",
+  notCheckedStamp: "Not checked",
+  notCheckedStampHint: "No rule could check this answer. Compare it with your book or teacher.",
 };
 
 export type SessionCopy = Messages & typeof sessionEn;

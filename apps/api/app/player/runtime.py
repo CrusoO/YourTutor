@@ -590,6 +590,18 @@ def _item_labels(row: ItemRow) -> dict[str, str] | None:
     )
 
 
+def check_state(row: ItemRow) -> str:
+    """"checked" only when the row's verification record is calculation-checked, intact (vrec/1
+    hash) and names the content the row holds now; anything else is "not_checked"."""
+    from app.content.gate import row_tier_backed
+    from app.content.verification import CALCULATION_CHECKED
+
+    record = row.verification or {}
+    if record.get("label") == CALCULATION_CHECKED and row_tier_backed(row) is True:
+        return "checked"
+    return "not_checked"
+
+
 def _item_payload(
     row: ItemRow | None, locale: str, *, reveal: bool, steps: bool
 ) -> dict[str, Any] | None:
@@ -609,6 +621,7 @@ def _item_payload(
             for opt in (row.options or [])
         ],
     }
+    payload["check"] = check_state(row)
     labels = _item_labels(row)
     if labels:
         payload["labels"] = labels

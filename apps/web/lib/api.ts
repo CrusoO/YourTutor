@@ -47,6 +47,8 @@ export type ActionPayload = {
     answer?: string;
     /** Rights labels, sent only for an original, calculation-checked practice question. */
     labels?: ItemLabels;
+    /** "checked" only when the item's verification record is calculation-checked and intact. */
+    check?: "checked" | "not_checked";
   } | null;
 };
 
