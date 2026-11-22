@@ -177,10 +177,12 @@ def precheck(
     gate: Gate,
     provider: Completer | None = None,
     model: str | None = None,
+    need_model: bool = True,
 ) -> tuple[dict[str, Any] | None, str, str]:
     """What must hold before any model is called: the feature is on, the question is clean and
     safe, there is consent, a key and a model. Returns an answer to give at once (or None), the
-    cleaned question and the model to use."""
+    cleaned question and the model to use. `need_model=False` skips the key and model check, for
+    a path that builds its answer by code and calls no model."""
     if not gate.enabled:
         return unavailable("off"), "", ""
     cleaned = clean_question(question, MAX_QUESTION_CHARS)
@@ -206,6 +208,8 @@ def precheck(
     if not gate.allowed:
         return unavailable("consent"), "", ""
     chosen = model if model is not None else settings.llm_model_strong
+    if not need_model:
+        return None, cleaned.text, chosen
     if provider is None and not (chosen and key_for_model(chosen)):
         return unavailable("no_key"), "", ""
     return None, cleaned.text, chosen

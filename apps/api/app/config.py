@@ -128,6 +128,15 @@ class Settings(BaseSettings):
     llm_story_api_key: str = ""  # env: LLM_STORY_API_KEY; the key for that model
     voice_enabled: bool = False  # env: VOICE_ENABLED; the web mic is off until voice input exists
     story_voice: str = "kokoro"  # env: STORY_VOICE; kokoro (default, af_heart) or piper
+    # --- Dynamic explainer stories (code-built, no live model) -----------------------------------
+    # env: STORY_TEMPLATES_ENABLED=true. A maths question that matches a template family (linear
+    # equation, quadratic, sign flip, number line, circle, Pythagoras) becomes a story built by
+    # code from checked numbers, with no model call. Off by default: today's model-backed story.
+    story_templates_enabled: bool = False
+    # env: EXPLAIN_VIDEO_STYLE=animated. Sent to the engine as options.style on story jobs.
+    # Unset (default): no style is sent, so the engine keeps its own default (technical).
+    explain_video_style: str = ""
+    # --- end: dynamic explainer stories -----------------------------------------------------------
     llm_model_fast: str = ""  # env: LLM_MODEL_FAST (hints, encouragement)
     llm_model_strong: str = ""  # env: LLM_MODEL_STRONG (explain-back grading, explanations)
     anthropic_api_key: str = ""  # env: ANTHROPIC_API_KEY; no key means no LLM calls
