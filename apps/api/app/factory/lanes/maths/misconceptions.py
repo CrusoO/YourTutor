@@ -8,6 +8,8 @@ has reviewed these descriptions yet.
 
 from __future__ import annotations
 
+from app.factory.lanes.maths.misconceptions_pair import PAIR_TEXT
+
 # id -> (title, explanation of the wrong procedure)
 TEXT: dict[str, tuple[str, str]] = {
     # ---------------- Quadratic equations
@@ -630,3 +632,5 @@ TEXT: dict[str, tuple[str, str]] = {
         "You may have added two distances that you should take away.",
     ),
 }
+
+TEXT.update(PAIR_TEXT)
