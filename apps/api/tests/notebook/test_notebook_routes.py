@@ -201,6 +201,7 @@ def test_only_the_first_answer_counts(db: Session, world: World) -> None:
             last_active_at=T0,
         )
     )
+    db.flush()  # the session row must exist before an event points at it (Postgres enforces it)
     db.add(
         EventRow(
             id=uuid.uuid4(),
