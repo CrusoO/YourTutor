@@ -108,6 +108,10 @@ class Settings(BaseSettings):
     # env: STEP_CHECK_ENABLED=true. POST /practice/check-steps checks a student's written lines
     # for one equation. Off by default; it also needs the math_check scope, like /doubt/solve.
     step_check_enabled: bool = False
+    # env: MISTAKE_NOTEBOOK_ENABLED=true. A wrong first answer is kept (ids and times only)
+    # and comes back after 2, 6 and 15 days (config/notebook.yaml). Off by default: nothing is
+    # written or served.
+    mistake_notebook_enabled: bool = False
     # --- end practice loop block ---
     # env: PROFILE_ENC_KEYS. `id:base64key,...` newest first (32-byte keys). Empty with the flag on:
     # the store refuses to write. Never logged.

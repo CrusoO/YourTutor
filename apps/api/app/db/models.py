@@ -639,6 +639,31 @@ class LearnerMethodCountRow(Base):
     updated_week: Mapped[int] = mapped_column(Integer, index=True)
 
 
+class NotebookEntryRow(Base):
+    """One wrong first answer waiting to come back (mistake notebook, slice 1).
+
+    Ids and times only. It never holds the learner's typed answer or any free text (ADR 0005).
+    `anchor_at` is what the return days are counted from: the miss, or the last wrong return.
+    """
+
+    __tablename__ = "notebook_entries"
+    __table_args__ = (UniqueConstraint("student_id", "item_id", name="uq_notebook_student_item"),)
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    student_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("students.id", ondelete="CASCADE"), index=True
+    )
+    item_id: Mapped[str] = mapped_column(String)
+    skill_id: Mapped[str] = mapped_column(String)
+    misconception_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    stage: Mapped[int] = mapped_column(SmallInteger, default=0)
+    state: Mapped[str] = mapped_column(String, default="open")
+    anchor_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    due_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class LoopBSnapshotRow(Base):
     """One versioned snapshot per Loop B write, naming the graph, parameter and policy versions."""
 

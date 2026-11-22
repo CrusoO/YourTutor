@@ -35,6 +35,7 @@ from app.db.models import (
 )
 from app.learner.bkt import BktParams
 from app.learner.ladder import SkillLadder
+from app.learner.notebook_store import record_miss as record_notebook_miss
 from app.learner.types import LearnerState, Mastery, ReviewCard
 from app.lessons.path import lesson_path
 from app.llm.personalise import personalise_action
@@ -951,6 +952,15 @@ def apply_player_event(
     )
     persist_learner(session, student.id, learner)
     record_misconception_hit(
+        session,
+        student.id,
+        event_type,
+        state,
+        action.misconception_id,
+        item_id or action.item_id,
+        state.now,
+    )
+    record_notebook_miss(  # off unless MISTAKE_NOTEBOOK_ENABLED; ids and times only
         session,
         student.id,
         event_type,
