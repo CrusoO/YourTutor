@@ -23,6 +23,7 @@ from app.db.models import (
     LoopBRecordRow,
     MasteryRow,
     MisconceptionHitRow,
+    NotebookEntryRow,
     PaperEntryRow,
     ReportLogRow,
     ReviewCardRow,
@@ -96,6 +97,9 @@ def learner_export(session: Session, student: StudentRow) -> dict[str, Any]:
         "misconception_hits": [
             row_dict(r)
             for r in _rows(session, MisconceptionHitRow, MisconceptionHitRow.student_id, sid)
+        ],
+        "notebook_entries": [
+            row_dict(r) for r in _rows(session, NotebookEntryRow, NotebookEntryRow.student_id, sid)
         ],
         "lesson_records": [
             row_dict(r)
