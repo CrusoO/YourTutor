@@ -25,9 +25,13 @@ from app.config import settings
 from app.db.models import Base, UserRow
 from app.db.session import get_db
 from app.main import app
+from tests.db_guard import assert_safe_test_database
 
 settings.pin_hash_iterations = 1_000
 settings.research_module = True
+
+# every setting that holds a key for a paid model provider
+PROVIDER_KEY_SETTINGS = ("anthropic_api_key", "llm_story_api_key")
 
 
 @pytest.fixture(autouse=True)
@@ -35,6 +39,10 @@ def _restore_settings() -> Generator[None, None, None]:
     """Tests mutate the global settings singleton; undo it so test order cannot matter."""
     snapshot = settings.model_dump()
     settings.rate_limit_enabled = False  # tests send many requests; the limiter has its own tests
+    # a key in the developer's .env must never reach a test: with one set, a test that
+    # expected "no key" made a live, paid model call. A test that needs one sets a fake.
+    for name in PROVIDER_KEY_SETTINGS:
+        setattr(settings, name, "")
     yield
     for name, value in snapshot.items():
         if getattr(settings, name) != value:
@@ -48,6 +56,7 @@ def _sqlite_url() -> str:
 def _try_postgres_url() -> str | None:
     env = os.environ.get("TEST_DATABASE_URL")
     if env:
+        assert_safe_test_database(env)  # the engine fixture drops every table in it
         return env
     return None
 
