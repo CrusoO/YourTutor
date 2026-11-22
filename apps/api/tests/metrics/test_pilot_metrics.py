@@ -20,7 +20,11 @@ def played(client: TestClient, world: World, db: Session) -> None:
     seed_content(db)
     student = db.get(StudentRow, uuid.UUID(world.student_share_id))
     assert student is not None
-    run = play(db, student, steps=40, wrong_every=3, t0=datetime.now(UTC) - timedelta(days=1))
+    # noon UTC yesterday: the run lasts well under 12 hours, so every event is on one UTC date
+    # whatever time the test runs (starting at now minus a day split it over two dates)
+    day = datetime.now(UTC) - timedelta(days=1)
+    yesterday_noon = day.replace(hour=12, minute=0, second=0, microsecond=0)
+    run = play(db, student, steps=40, wrong_every=3, t0=yesterday_noon)
     body = {
         "client_session_id": str(uuid.uuid5(NS, "metrics")),
         "started_at": run["started_at"],
