@@ -16,6 +16,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.auth.security import now_utc
 from app.db.models import MasteryRow, OverlayRow, SkillRow, StudentRow, UserRow
+from tests.db_guard import assert_safe_test_database
 
 API_ROOT = Path(__file__).resolve().parents[2]
 PRE_G0_REVISION = "0008_retire"
@@ -24,6 +25,7 @@ PRE_G0_REVISION = "0008_retire"
 def _postgres_url() -> str | None:
     url = os.environ.get("TEST_DATABASE_URL", "")
     if url.startswith("postgresql"):
+        assert_safe_test_database(url)  # this test downgrades the schema, dropping data
         return url
     candidate = "postgresql+psycopg://tutor:tutor@127.0.0.1:5432/yourtutor_test"
     try:
