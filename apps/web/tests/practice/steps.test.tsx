@@ -138,7 +138,7 @@ describe("StepEntry", () => {
     await waitFor(() => expect(screen.getByTestId("step-state-1")).toBeInTheDocument());
     expect(screen.getByTestId("step-state-1")).toHaveTextContent("Look at this step again");
     expect(screen.getByTestId("step-state-1").dataset.state).toBe("stepWrong");
-    expect(screen.getByTestId("step-verdict")).toHaveTextContent("not the answer yet");
+    expect(screen.getByTestId("step-verdict")).toHaveTextContent("does not match the roots yet");
   });
 
   it("an unreadable line says so, with no penalty wording", async () => {

@@ -58,7 +58,8 @@ export const SESSION_CSS = `/* ---- Practice session look (visual refresh). Ever
   margin: 0 0 12px;
 }
 .check-stamp {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 6px;
   margin: 4px 0 8px;

@@ -219,9 +219,9 @@ const CSS = `
 .se-row { display: grid; gap: 4px; }
 .se-num { font-size: 0.8125rem; font-weight: 700; color: var(--s-text-subtle); }
 .se-input { min-height: 48px; width: 100%; box-sizing: border-box; font-size: 1.125rem; padding: 8px 12px; border-width: 2px; }
-.se-input.good { border-color: var(--c-success); }
-.se-input.try { border-color: var(--c-warning); }
-.se-input.muted { border-color: var(--s-text-subtle); border-style: dashed; }
+.stepentry .se-input.good { border-color: var(--c-success); }
+.stepentry .se-input.try { border-color: var(--c-warning); }
+.stepentry .se-input.muted { border-color: var(--s-text-subtle); border-style: dashed; }
 .se-state, .se-verdict { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 8px 12px; border-radius: 10px; font-weight: 600; }
 .se-state.good, .se-verdict.good { background: var(--c-success-soft); color: var(--c-success); }
 .se-state.try, .se-verdict.try { background: var(--c-warning-soft); color: var(--c-warning); }
