@@ -104,6 +104,11 @@ class Settings(BaseSettings):
     scope_math_check_enabled: bool = False
     scope_photo_check_enabled: bool = False
     scope_ai_help_typed_enabled: bool = False
+    # --- practice loop, slice 1 (own block) ---
+    # env: STEP_CHECK_ENABLED=true. POST /practice/check-steps checks a student's written lines
+    # for one equation. Off by default; it also needs the math_check scope, like /doubt/solve.
+    step_check_enabled: bool = False
+    # --- end practice loop block ---
     # env: PROFILE_ENC_KEYS. `id:base64key,...` newest first (32-byte keys). Empty with the flag on:
     # the store refuses to write. Never logged.
     profile_enc_keys: str = ""

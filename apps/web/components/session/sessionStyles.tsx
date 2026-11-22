@@ -57,6 +57,33 @@ export const SESSION_CSS = `/* ---- Practice session look (visual refresh). Ever
   font-weight: 600;
   margin: 0 0 12px;
 }
+.check-stamp {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: transparent;
+}
+.check-stamp.is-checked {
+  border: 2px solid var(--s-text-default);
+  color: var(--s-text-default);
+}
+.check-stamp.is-unchecked {
+  border: 2px dashed var(--s-text-subtle);
+  color: var(--s-text-subtle);
+}
+.check-stamp svg {
+  flex: none;
+}
+.check-hint {
+  display: block;
+  margin: 0 0 8px;
+}
 .ans-label {
   margin: 8px 0 0;
   font-size: 0.8125rem;

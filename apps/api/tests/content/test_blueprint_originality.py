@@ -446,3 +446,20 @@ def test_row_labels_follow_the_rule() -> None:
     assert _item_labels(row(provenance={"original": False})) is None
     assert _item_labels(row(provenance=None)) is None
     assert _item_labels(row(pool="diagnostic")) is None
+
+
+def test_check_state_is_checked_only_with_an_intact_calculation_record() -> None:
+    from app.player.runtime import _item_payload, check_state
+
+    assert check_state(row()) == "checked"
+    assert check_state(row(verification=None)) == "not_checked"
+    assert check_state(row(tier=None)) == "not_checked"
+    forged = {**_STAMP, "label": "fact-checked-against-sources"}
+    assert check_state(row(verification=forged)) == "not_checked"
+    edited = {**_STAMP, "tier": "B"}  # hash no longer matches
+    assert check_state(row(verification=edited)) == "not_checked"
+    changed = row(stem={"en": "A different stem after the stamp."})
+    assert check_state(changed) == "not_checked"
+    # the payload always carries the state, even when no rights labels are sent
+    payload = _item_payload(row(verification=None), "en", reveal=False, steps=False)
+    assert payload is not None and payload["check"] == "not_checked" and "labels" not in payload

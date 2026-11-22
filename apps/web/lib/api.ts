@@ -47,6 +47,9 @@ export type ActionPayload = {
     answer?: string;
     /** Rights labels, sent only for an original, calculation-checked practice question. */
     labels?: ItemLabels;
+    skill_ids?: string[];
+    /** "checked" only when the item's verification record is calculation-checked and intact. */
+    check?: "checked" | "not_checked";
   } | null;
 };
 
@@ -476,6 +479,21 @@ export async function explainStory(prompt: string, language: "en" | "hi"): Promi
  */
 export async function doubtSolve(body: string): Promise<{ status: number; json: unknown }> {
   const response = await authedFetch("/doubt/solve", { method: "POST", body });
+  let json: unknown = null;
+  try {
+    json = await response.json();
+  } catch {
+    json = null;
+  }
+  return { status: response.status, json };
+}
+
+/**
+ * The one network call of the step check (practice loop, slice 1). `body` is the JSON text of a `step-check/1` built by
+ * lib/practice/steps.ts, sent only after the student taps Check step. Never logged; errors carry no body.
+ */
+export async function practiceCheckSteps(body: string): Promise<{ status: number; json: unknown }> {
+  const response = await authedFetch("/practice/check-steps", { method: "POST", body });
   let json: unknown = null;
   try {
     json = await response.json();
