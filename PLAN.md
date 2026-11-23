@@ -849,6 +849,8 @@ Written from a code inventory of master (read-only) and the plan above. Order is
 
 | Issue | Detail | Next step |
 | --- | --- | --- |
+| Two web tests fail only under load | `tests/consent-scopes.test.tsx` (the guardian wording and the off-by-default switch) failed twice in a full local run on a loaded 8 GB machine (`Unable to find an element by: [data-testid="scope-math_check"]`) and passed alone (9 of 9); CI passes. A short wait for the element is the likely cause. | Use a longer `findBy` wait or wait for the consent fetch; confirm in CI first. |
+| The full API suite is too slow to run locally | About 4,000 tests; on the owner's machine a full run reached 9% in 30 minutes. CI runs it in about 20 minutes. | Run targeted tests locally (the folder you changed) and the full suite in CI. |
 | `test_review_due_flow` on sqlite | Fixed already: `review_overdue` (`app/learner/status.py`) normalises both datetimes to aware before comparing, and the two tests in the file pass on SQLite (checked 2026-11-23). | None. |
 | `test_scripted_students_on_seed` failed once | A randomised test in `tests/orchestrator/test_simulations.py` failed once in a long run, with no reason captured; run alone it passed. Unexplained. | Re-run in CI; keep the failure output if it recurs. |
 | Hindi and Nepali are masculine and out of date | The neutral Robin wording and the new tagline are English only; the Hindi and Nepali drafts still use gendered verbs and the old tagline. | Human translation. |
