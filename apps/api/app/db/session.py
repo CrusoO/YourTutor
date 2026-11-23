@@ -19,12 +19,27 @@ def database_url(override: str | None = None) -> str:
     )
 
 
+# A database that does not answer must fail a start or a request in seconds, not hang it.
+CONNECT_TIMEOUT_SECONDS = 5
+
+
+def engine_options(full_url: str) -> dict:
+    """The create_engine options for a URL. pool_pre_ping: a connection a hosted database dropped
+    while idle is replaced, not failed. SQLite's pool takes no size or timeout settings."""
+    if full_url.startswith("sqlite"):
+        return {"future": True, "pool_pre_ping": True}
+    return {
+        "future": True,
+        "pool_pre_ping": True,
+        "pool_size": 10,
+        "max_overflow": 10,
+        "connect_args": {"connect_timeout": CONNECT_TIMEOUT_SECONDS},
+    }
+
+
 def make_engine(url: str | None = None):
-    # pool_pre_ping: a connection a hosted database dropped while idle is replaced, not failed.
     full = database_url(url)
-    if full.startswith("sqlite"):  # SQLite's pool takes no size settings
-        return create_engine(full, future=True, pool_pre_ping=True)
-    return create_engine(full, future=True, pool_pre_ping=True, pool_size=10, max_overflow=10)
+    return create_engine(full, **engine_options(full))
 
 
 _shared_engine: Engine | None = None
