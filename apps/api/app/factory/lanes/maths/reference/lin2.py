@@ -149,7 +149,7 @@ def kind_gauss(pair: Sequence[Eq]) -> str:
 
 
 def _grid() -> list[Fraction]:
-    seen = {F(p, d) for d in (1, 2, 3, 4) for p in range(-60 * d, 60 * d + 1)}
+    seen = {F(p, d) for d in (1, 2) for p in range(-60 * d, 60 * d + 1)}
     return sorted(seen)
 
 

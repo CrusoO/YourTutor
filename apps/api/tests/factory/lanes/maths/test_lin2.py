@@ -98,7 +98,7 @@ PAIR_TEMPLATES = [t for t in TEMPLATES if t["syllabus"]["chapter_ref"] == "cbse.
 
 
 def test_chapter_has_between_14_and_20_item_models():
-    assert 9 <= len(PAIR_TEMPLATES) <= 20
+    assert 14 <= len(PAIR_TEMPLATES) <= 20
     assert all(t["family"] in FAMILIES for t in PAIR_TEMPLATES)
     assert {t["form"]["marks"] for t in PAIR_TEMPLATES} == {1, 2, 3, 4} or len(PAIR_TEMPLATES) < 19
 
@@ -171,3 +171,32 @@ def test_language_lint_is_clean_on_sampled_items(template):
         built = LANE._build(template, params)
         errors, _ = lint_item_texts(stem=built.stem, hints=built.hints)
         assert errors == [], (built.stem, errors)
+
+
+def test_golden_k_word_and_reciprocal_items():
+    ctx, built = _pick("C10.PAIR.K_NONE", {"p": 1, "q": 2, "s1": 1, "s2": 3, "cc": 2, "d": 1, "pos": "a"})
+    assert ctx.answer["value"] == "3" and "kx + 6y = 7" in built.stem
+    ctx, _ = _pick("C10.PAIR.K_INFINITE", {"p": 1, "q": 2, "s1": 1, "s2": 3, "cc": 2, "pos": "c"})
+    assert ctx.answer["value"] == "6"  # second constant is 3 * 2
+    ctx, _ = _pick("C10.PAIR.WORD_AGES", {"y": 10, "k": 2, "t": 4, "when": "later", "ask": "A", "who": 0})
+    assert ctx.answer["value"] == "24 years"
+    ctx, _ = _pick("C10.PAIR.WORD_STREAM", {"x": 10, "y": 2, "t1": 3, "t2": 2, "ask": "stream", "ctx": 0})
+    assert ctx.answer["value"] == "2 km/h"
+    ctx, _ = _pick("C10.PAIR.WORD_RECT", {"w": 4, "k": 2, "e": 2, "ask": "area", "ctx": 0})
+    assert ctx.answer["value"] == "40 square metres"  # 10 by 4
+    ctx, _ = _pick("C10.PAIR.RECIP_PAIR", {"x": 2, "y": 3, "a": 1, "b": 3, "d": 2, "e": 1})
+    assert ctx.answer["value"] == "x = 2, y = 3" and ctx.answer["values"] == {"u": "1/2", "v": "1/3"}
+    ctx, _ = _pick("C10.PAIR.RECIP_SUMDIFF", {"x": 4, "y": 1, "a": 1, "b": 2, "d": 2, "e": 1})
+    assert ctx.answer["value"] == "x = 4, y = 1"
+
+
+def test_a_tuple_is_thrown_away_when_two_methods_disagree():
+    from app.factory.lanes.maths.core import FnMethod, IllPosed
+    from app.factory.lanes.maths.lin2_core import agree
+
+    good = {"values": {"x": "1", "y": "2"}, "value": "x = 1, y = 2"}
+    bad = FnMethod("bad", "other", "", lambda spec: {**good, "value": "x = 2, y = 1"})
+    ok = FnMethod("ok", "closed", "", lambda spec: good)
+    agree({}, [ok], good)
+    with pytest.raises(IllPosed):
+        agree({}, [ok, bad], good)
