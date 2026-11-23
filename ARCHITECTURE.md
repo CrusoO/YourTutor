@@ -124,6 +124,25 @@ Python 3.12, Pydantic v2, SQLAlchemy 2, Alembic, Postgres 16 + pgvector, Redis +
 - **Alembic numbering:** `0001`–`0008` are v1 (M2–M5.5, M7a, retire guard). G0 adds `0009_g0_registry` (locales, curricula, books, chapters), `0010_g0_students` (student `curriculum_id`, `book_id`, `context_key`; locale foreign keys) and `0011_g0_sections` (sections, `overlays.section_map`) and `0012_g0_locale_columns`; G1 adds `0013_g1_item_role` (`items.role`), `0014_g1_ladder` (`mastery` ladder columns) and `0015_g1_overlay_curriculum` (`overlays.board` → `curriculum_id`); S1b adds `0016_s1b_chapter_titles` (`chapters.titles`, `chapters.position`); G2a adds `0017_g2_item_diagnosis` (item diagnosis and step-hint columns). A Postgres test downgrades to `0008_retire` and upgrades to head with data present. Later milestones continue the sequence, one migration set per milestone. `migrations/env.py` takes an explicit target via `cfg.attributes["database_url"]`, otherwise app settings.
 - **Region guard:** `apps/api/scripts/check_region_literals.py` fails CI on curriculum, board or time-zone literals outside `config/`, `content/`, `migrations/` and `tests/`.
 
+### 3.2 Added since G0
+
+API packages under `apps/api/app/` that sections 3 to 16 do not describe. Each line is what the package's own code says it does.
+
+- **`factory/`** (the content factory, the largest package): kernel plus item models (templates). It picks numbers backwards from the answer, solves each item by independent methods, builds tagged wrong options, runs the 17 ordered checkers and fault injection, and `stamp.py` is the only writer of an item's tier (a hash-chained, append-only ledger). Lanes (`factory/lanes/maths`, `factory/lanes/physics`) hold the item models per subject. CLI: `python -m app.factory <command>`.
+- **`doubt/`**: `POST /doubt/solve`. A structured, confirmed maths expression (`doubt-expr/1`, ADR 0005) goes in; an exact-arithmetic, rule-named, kernel-checked trace comes out. It accepts nothing else (ADR 0005, points 2 and 4).
+- **`conversation/`**: how Brownie sounds around a model reply (register, length, what it says when it cannot answer).
+- **`video_jobs/`**: the queue, worker and routes that build engine videos; the worker runs the engine as a subprocess and deletes only folders directly inside the jobs directory.
+- **`groups/`**: group lessons. One checked lesson shared by link, anonymous results back, a group view for the organiser.
+- **`content_review/`**: the staff-only review screen's API and the review state per content hash.
+- **`notebook/`** and `learner/notebook*.py`: the mistake notebook (off by default, `MISTAKE_NOTEBOOK_ENABLED`; ids and times only; returns at 2, 6 and 15 days).
+- **`observe/`**: optional OpenTelemetry spans, off unless `OTEL_ENABLED`, no personal data.
+- **`db/`**: models, sessions, the startup schema check, and a 5 second connect timeout on server databases.
+
+Two tests guard the shape of the API package (refactor phase 0):
+
+- `tests/contract/test_openapi_snapshot.py` fails when a route, request or response changes without the committed snapshot (`tests/fixtures/contract/openapi.json`) being regenerated.
+- `tests/architecture/test_import_boundaries.py` records every import between app packages in `import_baseline.json` and fails on a new one (and on a listed one that is gone), so the dependency loop among 17 packages can only shrink. `config` and `db` must import nothing above them.
+
 ---
 
 ## 4. Components
