@@ -48,6 +48,10 @@ PAIR_TEXT: dict[str, tuple[str, str]] = {
         "Calls lines that cut each other the same line",
         "You may have taken a shared look or a shared factor for the same line. Compare the ratios of the coefficients.",
     ),
+    "MC.PAIR.TYPE_RATIOS_NOT_COMPARED": (
+        "Says the lines meet without comparing the ratios",
+        "You may have assumed two lines always cross. They cross once only when the ratios of the x and y coefficients differ.",
+    ),
     "MC.PAIR.TYPE_TWO_MEETING_POINTS": (
         "Thinks two straight lines can meet at two points",
         "Two different straight lines meet at one point, or never, or they are the same line.",
@@ -116,6 +120,10 @@ PAIR_TEXT: dict[str, tuple[str, str]] = {
         "Subtracts the products in the wrong order",
         "You may have taken the two products of one numerator the wrong way round.",
     ),
+    "MC.PAIR.CROSS_PAIRING_SLIP": (
+        "Pairs the wrong numbers in the products",
+        "You may have multiplied numbers from the same equation instead of numbers from different equations.",
+    ),
     "MC.PAIR.CROSS_DENOM_ADDED": (
         "Adds the two products in the denominator",
         "You may have added the products that the formula subtracts.",
@@ -168,6 +176,22 @@ PAIR_TEXT: dict[str, tuple[str, str]] = {
     "MC.PAIR.WORD_RECT_AREA_AS_SUM": (
         "Adds length and width when asked for the area",
         "You may have found both sides and then added them instead of multiplying.",
+    ),
+    "MC.PAIR.WORD_AGES_RATIO_FLIPPED": (
+        "Puts the multiplier on the wrong person",
+        "You may have written the younger person's age as the multiple of the older person's age.",
+    ),
+    "MC.PAIR.WORD_STREAM_NOT_HALVED": (
+        "Forgets to halve when combining the two speeds",
+        "You may have added or subtracted the two trip speeds and not divided by two.",
+    ),
+    "MC.PAIR.WORD_RECT_STOPPED_AT_SEMIPERIMETER": (
+        "Stops at half the perimeter",
+        "You may have found length plus width and reported it as one of the sides.",
+    ),
+    "MC.PAIR.WORD_RECT_MORE_THAN_AS_LESS": (
+        "Reads more than as less than",
+        "You may have taken the extra length as being taken away from a multiple of the width.",
     ),
     # ---------------- equations that reduce to a pair of linear equations
     "MC.PAIR.RECIP_ANSWER_IS_RECIPROCAL": (

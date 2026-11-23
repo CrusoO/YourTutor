@@ -13,7 +13,7 @@ from typing import Any
 
 from app.factory.kernel.certify import box_axes
 from app.factory.kernel.exact import chash
-from app.factory.lanes.maths import catalog_ap, catalog_quad, catalog_trig
+from app.factory.lanes.maths import catalog_ap, catalog_lin2, catalog_quad, catalog_trig
 from app.factory.lanes.maths.core import IllPosed, distinct_wrong
 
 # The lane's chapter refs (kept: they sit inside every template hash and certificate) name chapters
@@ -26,6 +26,8 @@ OVERLAY_IDS: dict[str, str] = {
 }
 
 CHAPTERS: dict[str, dict[str, str]] = {
+    "cbse.10.maths.ch03": {"key": "pair_of_linear_equations",
+                           "title": "Pair of Linear Equations in Two Variables"},
     "cbse.10.maths.ch04": {"key": "quadratic_equations", "title": "Quadratic Equations"},
     "cbse.10.maths.ch05": {"key": "arithmetic_progressions", "title": "Arithmetic Progressions"},
     "cbse.10.maths.ch09": {"key": "introduction_to_trigonometry",
@@ -119,7 +121,12 @@ PREREQUISITES: list[tuple[str, str, list[int], list[str]]] = [
 def all_templates() -> list[dict[str, Any]]:
     from app.factory.lanes.maths.lane import FAMILIES
 
-    out = [*catalog_quad.TEMPLATES, *catalog_ap.TEMPLATES, *catalog_trig.TEMPLATES]
+    out = [
+        *catalog_quad.TEMPLATES,
+        *catalog_ap.TEMPLATES,
+        *catalog_trig.TEMPLATES,
+        *catalog_lin2.TEMPLATES,
+    ]
     for t in out:  # the template records the generator version it was written for
         t["family_version"] = FAMILIES[t["family"]].version
     return out
@@ -158,6 +165,8 @@ def skill_records() -> list[dict[str, Any]]:
         out.append(record(catalog_ap.P + suffix, title, band, prereq))
     for sid, title, band, prereq in catalog_trig.SKILLS:
         out.append(record(sid, title, band, prereq))
+    for suffix, title, band, prereq, _ in catalog_lin2.SKILLS:
+        out.append(record(catalog_lin2.P + suffix, title, band, prereq))
     stubs = [record(sid, title, band, prereq) for sid, title, band, prereq in PREREQUISITES]
     return [*out, *stubs]
 

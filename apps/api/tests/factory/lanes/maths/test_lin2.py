@@ -1,8 +1,21 @@
 # ruff: noqa: E501
 """Pair of Linear Equations in Two Variables lane: misconception table, reference solvers, families."""
 
+from fractions import Fraction
+
+import pytest
+
+from app.content.language import lint_item_texts
+from app.content.leak import hint_leaks_answer
+from app.factory.kernel.exact import chash
+from app.factory.lanes.maths.lane import FAMILIES, LANE
 from app.factory.lanes.maths.misconceptions import TEXT
 from app.factory.lanes.maths.misconceptions_pair import PAIR_TEXT
+from app.factory.lanes.maths.reference import lin2 as ref
+
+from .support import TEMPLATES, tuples
+
+F = Fraction
 
 
 def test_pair_table_is_merged_and_well_formed():
@@ -29,15 +42,6 @@ def test_the_required_slips_are_named():
 
 
 # ---------------------------------------------------------------- reference solvers
-
-from fractions import Fraction  # noqa: E402
-
-import pytest  # noqa: E402
-
-from app.factory.lanes.maths.reference import lin2 as ref  # noqa: E402
-
-F = Fraction
-
 
 @pytest.mark.parametrize(
     "raw, want",
@@ -86,3 +90,84 @@ def test_determinants_two_ways():
 def test_scan_needs_exactly_one_grid_point():
     with pytest.raises(ValueError):
         ref.scan_pair(ref.eqs([[1, 0, 1000], [0, 1, 2]]))  # solution outside the grid
+
+
+# ---------------------------------------------------------------- the families
+
+PAIR_TEMPLATES = [t for t in TEMPLATES if t["syllabus"]["chapter_ref"] == "cbse.10.maths.ch03"]
+
+
+def test_chapter_has_between_14_and_20_item_models():
+    assert 9 <= len(PAIR_TEMPLATES) <= 20
+    assert all(t["family"] in FAMILIES for t in PAIR_TEMPLATES)
+    assert {t["form"]["marks"] for t in PAIR_TEMPLATES} == {1, 2, 3, 4} or len(PAIR_TEMPLATES) < 19
+
+
+@pytest.mark.parametrize("template", PAIR_TEMPLATES, ids=lambda t: t["short"])
+def test_options_are_named_pair_slips_and_methods_agree(template):
+    got = tuples(template, 8)
+    assert got, "no well-posed tuple"
+    for params in got:
+        built = LANE._build(template, params)
+        assert len(built.methods) == 3 and len({m.independence_group for m in built.methods}) == 3
+        for m in built.methods:  # three independent methods give the key, exactly
+            assert chash(m.solve(built.spec)) == chash(built.answer)
+        ctx = LANE.render(template, params)
+        wrong = [o for o in ctx.options if o["id"] != "key"]
+        assert len(wrong) == 3 and all(o["procedure"] in PAIR_TEXT for o in wrong)
+        for text in (*built.hints, built.stem, *built.steps):
+            assert "CBSE" not in text and "NCERT" not in text
+        for hint in built.hints[:2]:
+            assert not any(ch.isdigit() for ch in hint), hint
+
+
+def _pick(short, params):
+    template = next(t for t in PAIR_TEMPLATES if t["short"] == short)
+    return LANE.render(template, params), LANE._build(template, params)
+
+
+def test_golden_graph_point_and_type():
+    ctx, built = _pick("C10.PAIR.GRAPH_POINT", {"x": 2, "y": 1, "ma": 1, "mb": -1, "wide": 0, "first": 0})
+    assert ctx.answer["value"] == "(2, 1)"
+    assert "(0, -1)" in built.stem and "(3, 2)" in built.stem and "(1, 2)" in built.stem and "(4, -1)" in built.stem
+    types = {"one": "exactly one", "none": "parallel", "infinite": "same line"}
+    for kind, word in types.items():
+        ctx, _ = _pick("C10.PAIR.GRAPH_TYPE", {"kind": kind, "a1": 2, "b1": 3, "c1": 3, "m": 2, "d": 1})
+        assert word in ctx.answer["value"]
+
+
+def test_golden_substitution_elimination_and_ratio_formula():
+    ctx, _ = _pick("C10.PAIR.SUBST_FORM", {"x": 3, "y": 3, "m": 2, "a": 3, "b": 2, "ask": "pair"})
+    assert ctx.answer["value"] == "x = 3, y = 3" and "y = 2x - 3" in ctx.stem
+    ctx, _ = _pick("C10.PAIR.ELIM_BOTH", {"x": 3, "y": 2, "e": 0, "a1": 2, "a2": 3, "q1": 3, "q2": -4})
+    assert ctx.answer["value"] == "x = 3, y = 2" and "2x + 3y = 12" in ctx.stem
+    ctx, _ = _pick("C10.PAIR.CROSS_SOLVE", {"x": 2, "y": 1, "a1": 1, "b1": 2, "a2": 3, "b2": 1})
+    assert ctx.answer["value"] == "x = 2, y = 1" and "x + 2y - 4 = 0" in ctx.stem
+    ctx, _ = _pick("C10.PAIR.CROSS_SETUP", {"which": "r", "a1": 2, "b1": 3, "c1": -5, "a2": 3, "b2": 1, "c2": 2})
+    assert ctx.answer["value"] == "-7"  # 2*1 - 3*3
+
+
+def test_a_wrong_option_really_is_what_its_tag_says():
+    # adding two equations whose x terms have the same sign: 3x + 2y = 13, 3x - 4y = 1
+    ctx, _ = _pick("C10.PAIR.ELIM_DIRECT", {"x": 3, "y": 2, "e": 0, "pe": 3, "sgn": 1, "q1": 2, "q2": -4})
+    by_tag = {o["procedure"]: o["value"]["value"] for o in ctx.options}
+    assert ctx.answer["value"] == "x = 3, y = 2"
+    # added: (2 + -4) y = 13 + 1 -> y = -7, then x from the first equation: (13 + 14) / 3 = 9
+    assert by_tag["MC.PAIR.ELIM_ADD_NOT_SUBTRACT"] == "x = 9, y = -7"
+
+
+def test_hint_does_not_leak():
+    for template in PAIR_TEMPLATES:
+        for params in tuples(template, 4):
+            built = LANE._build(template, params)
+            for hint in built.hints[:2]:
+                for token in built.tokens:
+                    assert not hint_leaks_answer(hint, token)
+
+
+@pytest.mark.parametrize("template", PAIR_TEMPLATES, ids=lambda t: t["short"])
+def test_language_lint_is_clean_on_sampled_items(template):
+    for params in tuples(template, 12):
+        built = LANE._build(template, params)
+        errors, _ = lint_item_texts(stem=built.stem, hints=built.hints)
+        assert errors == [], (built.stem, errors)
