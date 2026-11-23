@@ -1,6 +1,16 @@
 import type { ChapterStatus } from "@/lib/api";
 import type { Messages } from "@/lib/messages";
 
+/** A shape cue for each status, so a status never relies on colour alone. */
+export const STATUS_MARK: Record<ChapterStatus, string> = {
+  not_started: "○",
+  learning: "◐",
+  can_do_it: "✓",
+  solid: "★",
+  review_due: "↻",
+  coming_soon: "…",
+};
+
 /** Plain-words label for a skill or chapter status. */
 export function statusLabel(copy: Messages, status: ChapterStatus): string {
   switch (status) {

@@ -1,18 +1,9 @@
 import type { ChapterStatus } from "@/lib/api";
-import { statusLabel } from "@/lib/flow";
+import { STATUS_MARK, statusLabel } from "@/lib/flow";
 import type { Messages } from "@/lib/messages";
 import { cn } from "@/lib/cn";
 
 /** Status in words with a shape cue and a tone, so colour is never the only signal. */
-const MARK: Record<ChapterStatus, string> = {
-  not_started: "○",
-  learning: "◐",
-  can_do_it: "✓",
-  solid: "★",
-  review_due: "↻",
-  coming_soon: "…",
-};
-
 const TONE: Record<ChapterStatus, string> = {
   not_started: "bg-neutral-soft text-neutral",
   learning: "bg-warning-soft text-warning",
@@ -40,7 +31,7 @@ export function StatusChip({
         className,
       )}
     >
-      <span aria-hidden="true">{MARK[status]}</span>
+      <span aria-hidden="true">{STATUS_MARK[status]}</span>
       {statusLabel(copy, status)}
     </span>
   );
