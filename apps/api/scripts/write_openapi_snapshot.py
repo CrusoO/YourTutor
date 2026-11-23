@@ -17,6 +17,7 @@ SNAPSHOT = Path(__file__).resolve().parents[1] / "tests" / "fixtures" / "contrac
 def current_spec() -> dict:
     from app.main import app
 
+    app.openapi_schema = None  # FastAPI caches the spec; never read one built before a test's route
     return app.openapi()
 
 

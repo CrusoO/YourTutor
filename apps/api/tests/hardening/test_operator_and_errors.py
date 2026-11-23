@@ -10,11 +10,23 @@ from app.config import settings
 from app.main import app
 
 
-def test_an_unexpected_error_returns_a_generic_body_with_a_request_id() -> None:
+@pytest.fixture
+def boom_route():  # noqa: ANN201
+    """A route that raises, on the shared app for this test only (it must not outlive it: the API
+    contract snapshot reads the same app)."""
+    routes_before = list(app.router.routes)
+
     @app.get("/__boom")
     def boom() -> None:
         raise RuntimeError("secret detail: password=hunter2")
 
+    yield
+    app.router.routes[:] = routes_before
+    app.openapi_schema = None
+
+
+@pytest.mark.usefixtures("boom_route")
+def test_an_unexpected_error_returns_a_generic_body_with_a_request_id() -> None:
     with TestClient(app, raise_server_exceptions=False) as quiet:
         res = quiet.get("/__boom")
     assert res.status_code == 500
