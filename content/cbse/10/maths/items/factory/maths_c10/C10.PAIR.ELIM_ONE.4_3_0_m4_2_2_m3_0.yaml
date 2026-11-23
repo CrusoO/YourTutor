@@ -1,0 +1,131 @@
+id: C10.PAIR.ELIM_ONE.4_3_0_m4_2_2_m3_0
+skill_ids:
+- MATH.ALG.PAIR.ELIMINATION
+difficulty: 0.49
+pool: practice
+role: procedure
+stem:
+  en: Find x and y by elimination from 2x + 2y = 14 and -6x - 4y = -34.
+hints:
+- level: 1
+  en: Look for the unknown that is easiest to remove by adding or subtracting the
+    equations.
+- level: 2
+  en: Add the equations when the matching terms have opposite signs and subtract them
+    when the signs agree. Apply the operation to every term, constants included.
+- level: 3
+  en: 'Full method: multiply the equation with the smaller coefficient by the right
+    number, using every term, so the coefficients of one unknown match, add or subtract
+    to cancel it, solve, then find the other unknown.'
+prediction_prompt:
+  en: Which unknown will you cancel first?
+status: draft
+template_id: TPL.C10.PAIR.ELIM_ONE
+generator_version: factory-2
+template_hash: 7e3510a146dcad70c56e00c5be1ce532e0bd8e9deb61b86ec30419b3c8e4182a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 37/3, y = -10
+- id: b
+  en: x = 3, y = 4
+- id: c
+  en: x = 25/3, y = -4
+- id: d
+  en: x = 59/9, y = 4/9
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.ELIM_SCALE_PARTIAL
+  when_answer_equals:
+  - a
+  - c
+- id: MC.PAIR.ELIM_DIVIDED_ONE_TERM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Multiply the first equation by 3, every term. The x coefficients are then equal
+    in size and opposite in sign.
+- en: 'Add the equations: 2y = 8, so y = 4.'
+- en: Put y = 4 back to find x = 3.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 30929e3ec9e82664b8ddce332f4eeda87706d45b4d03603eadda2f8bb431fb88
+  template_hash: 7e3510a146dcad70c56e00c5be1ce532e0bd8e9deb61b86ec30419b3c8e4182a
+  certificate_hash: 000b5ce48d737b7aa6bab738715f745aa70cd7684020fca70b36d348587fed66
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.elimination
+  - maths.lin2.sympy
+  - maths.lin2.cramer
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:07:45+00:00'
+  record_hash: bb5b6375c359b58c59ee6f59f0aa536763f3cdc6f736331e252ac415e5976138

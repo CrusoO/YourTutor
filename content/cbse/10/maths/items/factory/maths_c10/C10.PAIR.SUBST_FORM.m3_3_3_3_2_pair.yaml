@@ -1,0 +1,130 @@
+id: C10.PAIR.SUBST_FORM.m3_3_3_3_2_pair
+skill_ids:
+- MATH.ALG.PAIR.SUBSTITUTION
+difficulty: 0.42
+pool: practice
+role: procedure
+stem:
+  en: Use substitution to solve y = 3x + 12 and 3x + 2y = -3.
+hints:
+- level: 1
+  en: Start by putting the expression for y into the other equation.
+- level: 2
+  en: Multiply every term inside the bracket, then solve the one-unknown equation
+    that is left.
+- level: 3
+  en: 'Full method: substitute for y, multiply out the bracket, collect the x terms,
+    solve for x, then put that value of x back into the first equation to get y.'
+prediction_prompt:
+  en: Will x or y come out first when you substitute?
+status: draft
+template_id: TPL.C10.PAIR.SUBST_FORM
+generator_version: factory-2
+template_hash: 9b97e6989bc726766c646f903bf74391f29b7150ff718f918b8580835f848707
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 3, y = -3
+- id: b
+  en: x = -3, y = 3
+- id: c
+  en: x = -3, y = -21
+- id: d
+  en: x = -5/3, y = 7
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.XY_SWAPPED
+  when_answer_equals:
+  - a
+- id: MC.PAIR.SUBST_SIGN_SLIP
+  when_answer_equals:
+  - c
+- id: MC.PAIR.SUBST_NOT_DISTRIBUTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Put y = 3x + 12 into the second equation: 3x + 2(3x + 12) = -3.'
+- en: 'Multiply out and collect the x terms: 9x = -27, so x = -3.'
+- en: 'Put x = -3 back into the first equation: y = 3 × -3 + (12) = 3.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9ec2ae02e4ffc6a03bc839c229520f5f68b71406e12bd88fc34ecc3ec20d9fc0
+  template_hash: 9b97e6989bc726766c646f903bf74391f29b7150ff718f918b8580835f848707
+  certificate_hash: f5f9a5b4077e8463f0989c8f8022199fb44abb86c1920486e681858443f5c1d8
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.substitution
+  - maths.lin2.sympy
+  - maths.lin2.gauss
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:13:50+00:00'
+  record_hash: 7288ffa85cb63cf4907a0b63539fa30e7f6d4dda36b14df18d8762e4bbfd3598

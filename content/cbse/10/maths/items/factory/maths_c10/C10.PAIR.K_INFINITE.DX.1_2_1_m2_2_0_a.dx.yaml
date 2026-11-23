@@ -1,0 +1,131 @@
+id: C10.PAIR.K_INFINITE.DX.1_2_1_m2_2_0_a.dx
+skill_ids:
+- MATH.ALG.PAIR.K_VALUES
+difficulty: 0.54
+pool: diagnostic
+role: apply
+stem:
+  en: For which value of k does the pair x + 2y = 2 and kx - 4y = -4 have infinitely
+    many solutions?
+hints:
+- level: 1
+  en: Write every ratio of matching numbers and find the one that holds k.
+- level: 2
+  en: Set the right ratios equal, multiply out, and solve the small equation for k.
+- level: 3
+  en: 'Full method: write the ratios of matching numbers, put equal the ones the situation
+    requires, solve for k, then check that the remaining ratio behaves as needed.'
+prediction_prompt:
+  en: Is k going to be positive or negative?
+status: draft
+template_id: TPL.C10.PAIR.K_INFINITE.DX
+generator_version: factory-2
+template_hash: e0bec44e9b118e5f669824a07784bf5339f4fc68a90c4430fcd8b3413c1d9e9a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-5'
+- id: b
+  en: '-2'
+- id: c
+  en: '2'
+- id: d
+  en: -1/2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.K_ADDITIVE_INSTEAD_OF_RATIO
+  when_answer_equals:
+  - a
+- id: MC.PAIR.K_SIGN_SLIP
+  when_answer_equals:
+  - c
+- id: MC.PAIR.K_RATIO_UPSIDE_DOWN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Infinitely many solutions need all three ratios equal: the x coefficients,
+    the y coefficients and the constants.'
+- en: 'Use the ratios that contain k: 1/k = 2/-4, so k = -2.'
+- en: 'Check the third ratio with this value of k: it matches, so the lines coincide.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0bdfc4ceaa62a59a2f6548207765876e1d4645c9c5cfd18d356fafa66262eb18
+  template_hash: e0bec44e9b118e5f669824a07784bf5339f4fc68a90c4430fcd8b3413c1d9e9a
+  certificate_hash: e377dc0410a247535da1ed9563ddfab9f46c6a4fb1fe9b97190bb0a958793b70
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.k_ratio
+  - maths.lin2.k_minors
+  - maths.lin2.k_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:25:35+00:00'
+  record_hash: 559576a731c6b3935e3a0a4bccdd9c1caa95b8c99d0d4b37daaf1b9227f578f8

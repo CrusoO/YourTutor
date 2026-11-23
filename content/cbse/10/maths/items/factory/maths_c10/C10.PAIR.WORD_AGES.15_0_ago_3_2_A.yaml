@@ -1,0 +1,131 @@
+id: C10.PAIR.WORD_AGES.15_0_ago_3_2_A
+skill_ids:
+- MATH.ALG.PAIR.WORD_NUMBERS_AGES
+difficulty: 0.58
+pool: practice
+role: apply
+stem:
+  en: The sum of the present ages of Asha and Bilal is 42 years. Before 3 years passed,
+    Asha was exactly 2 times as old as Bilal. Find the present age of Asha.
+hints:
+- level: 1
+  en: Name the two unknown ages first.
+- level: 2
+  en: One sentence is about the ages now. The other concerns the ages at another time,
+    so move each age by the stated years before comparing.
+- level: 3
+  en: 'Full method: name the ages, write the two relations, solve the pair, and check
+    both sentences with your answer.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_AGES
+generator_version: factory-2
+template_hash: 0422f0c9dd9d06f57b65136529adeb8a1e09e00defb151f317e06aff03cf191f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15 years
+- id: b
+  en: 27 years
+- id: c
+  en: 29 years
+- id: d
+  en: 24 years
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_ASKED_OTHER_UNKNOWN
+  when_answer_equals:
+  - a
+- id: MC.PAIR.WORD_AGES_SIGN_OF_TIME
+  when_answer_equals:
+  - c
+- id: MC.PAIR.WORD_AGES_FUTURE_REPORTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let Asha's present age be x years and Bilal's be y years. Then x + y = 42.
+- en: 'Earlier: x - 3 = 2(y - 3), which gives x - 2y = -3.'
+- en: Solving the pair gives x = 27 and y = 15.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b4ccf5b541f91b1310096ce8ddd1507657cb0fc6e26ba7de1dbe9109b9c52cc0
+  template_hash: 0422f0c9dd9d06f57b65136529adeb8a1e09e00defb151f317e06aff03cf191f
+  certificate_hash: eff4bf337bbff96a3af781aa11881b4c3594a609c2d327f6ee78c7557a428b1d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:15:26+00:00'
+  record_hash: 734365d0abe35f22b82fe4b23441f784a7ab5c5d8abfd2f8fc26630bc992fd05

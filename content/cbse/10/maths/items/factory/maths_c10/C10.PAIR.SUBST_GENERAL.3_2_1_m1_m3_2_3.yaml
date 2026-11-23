@@ -1,0 +1,131 @@
+id: C10.PAIR.SUBST_GENERAL.3_2_1_m1_m3_2_3
+skill_ids:
+- MATH.ALG.PAIR.SUBSTITUTION
+difficulty: 0.5
+pool: practice
+role: procedure
+stem:
+  en: Use substitution on the pair -3x - y = -11, 2x + 3y = 12.
+hints:
+- level: 1
+  en: Look for the equation where y has the simplest coefficient, and get y alone
+    from it.
+- level: 2
+  en: Take the other term to the opposite side with its sign reversed, then put the
+    result in place of y in the second equation.
+- level: 3
+  en: 'Full method: write y alone, substitute it into the other equation, solve for
+    x, then use that value to get y.'
+prediction_prompt:
+  en: Which letter is easier to get alone, and why?
+status: draft
+template_id: TPL.C10.PAIR.SUBST_GENERAL
+generator_version: factory-2
+template_hash: 8ccd20f2dd02874ab5556f35d9341c75771ae5d1c10c507e86d5ef8c354a4b91
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 2, y = 3
+- id: b
+  en: x = -12/7, y = 113/7
+- id: c
+  en: x = 3, y = 2
+- id: d
+  en: x = -21/11, y = 58/11
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.PAIR.XY_SWAPPED
+  when_answer_equals:
+  - a
+- id: MC.PAIR.SUBST_NOT_DISTRIBUTED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.SUBST_ISOLATE_SIGN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write y on its own using the first equation: y = 11 - 3x.'
+- en: 'Put that into the second equation and solve for x: x = 3.'
+- en: 'Use the value of x in the line from the first step: y = 2.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 040515503604dff94741c59a7ab9c5989f96bdfc6b6a385b39875315ef7f9de1
+  template_hash: 8ccd20f2dd02874ab5556f35d9341c75771ae5d1c10c507e86d5ef8c354a4b91
+  certificate_hash: 01a49277bbb3025066baee7b2270f500b122a7cd7568baac827110fc5ff83d2e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.substitution
+  - maths.lin2.sympy
+  - maths.lin2.gauss
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:14:40+00:00'
+  record_hash: 9e95de0174041affde93d9910207833c99ed25bf71a1fb3dd01a58b4e0ec6546

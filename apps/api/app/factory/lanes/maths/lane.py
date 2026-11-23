@@ -17,11 +17,21 @@ from typing import Any
 from app.factory.kernel.exact import chash
 from app.factory.lanes.maths.ap import AP_FAMILIES
 from app.factory.lanes.maths.core import Built, Family, IllPosed, distinct_wrong, hint_problems
+from app.factory.lanes.maths.lin2 import LIN2_FAMILIES
+from app.factory.lanes.maths.lin2_k import K_FAMILIES
+from app.factory.lanes.maths.lin2_word import WORD_FAMILIES
 from app.factory.lanes.maths.quad import QUAD_FAMILIES
 from app.factory.lanes.maths.trig import TRIG_FAMILIES
 from app.factory.registry import ItemContext, register_lane
 
-FAMILIES: dict[str, Family] = {**QUAD_FAMILIES, **AP_FAMILIES, **TRIG_FAMILIES}
+FAMILIES: dict[str, Family] = {
+    **QUAD_FAMILIES,
+    **AP_FAMILIES,
+    **TRIG_FAMILIES,
+    **LIN2_FAMILIES,
+    **K_FAMILIES,
+    **WORD_FAMILIES,
+}
 LANE_NAME = "maths_c10"
 
 

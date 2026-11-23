@@ -1,0 +1,131 @@
+id: C10.PAIR.WORD_COST.7_5_0_2314_item2
+skill_ids:
+- MATH.ALG.PAIR.WORD_COST_SHAPES
+difficulty: 0.49
+pool: practice
+role: apply
+stem:
+  en: 2 pens and 3 notebooks cost 31 rupees. 1 pen and 4 notebooks cost 33 rupees.
+    Find the cost of one notebook.
+hints:
+- level: 1
+  en: Decide what x and y stand for before writing any relation.
+- level: 2
+  en: Multiply each count by the price of the same item, add the two amounts, and
+    set that equal to the bill.
+- level: 3
+  en: 'Full method: name the two prices, write one relation for each bill, solve the
+    pair, then give the quantity the question asks for.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_COST
+generator_version: factory-2
+template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 rupees
+- id: b
+  en: 7 rupees
+- id: c
+  en: 34/5 rupees
+- id: d
+  en: 32/5 rupees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_ASKED_OTHER_UNKNOWN
+  when_answer_equals:
+  - a
+- id: MC.PAIR.WORD_COST_COUNTS_SWAPPED
+  when_answer_equals:
+  - c
+- id: MC.PAIR.WORD_COST_AVERAGE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let one pen cost x rupees and one notebook cost y rupees.
+- en: The two bills give 2x + 3y = 31 and x + 4y = 33.
+- en: Solving the pair gives x = 5 and y = 7.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e1b32e24e04067b398af403af54080017cf1d420129bbba606c92f1d7079f0aa
+  template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+  certificate_hash: 325d0d6bb989851fbd6c88e0c0f4cc774708d418a1bb35b7eec454bc655481cd
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:16:15+00:00'
+  record_hash: 0fe9085ea961bc0da5a786874e520256cf0762a2b2b9866682abea63c076d592

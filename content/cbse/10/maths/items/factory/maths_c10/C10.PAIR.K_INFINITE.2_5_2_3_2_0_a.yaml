@@ -1,0 +1,131 @@
+id: C10.PAIR.K_INFINITE.2_5_2_3_2_0_a
+skill_ids:
+- MATH.ALG.PAIR.K_VALUES
+difficulty: 0.56
+pool: practice
+role: apply
+stem:
+  en: For which value of k does the pair 4x + 10y = 4 and kx + 15y = 6 have infinitely
+    many solutions?
+hints:
+- level: 1
+  en: Write every ratio of matching numbers and find the one that holds k.
+- level: 2
+  en: Set the right ratios equal, multiply out, and solve the small equation for k.
+- level: 3
+  en: 'Full method: write the ratios of matching numbers, put equal the ones the situation
+    requires, solve for k, then check that the remaining ratio behaves as needed.'
+prediction_prompt:
+  en: Is k going to be positive or negative?
+status: draft
+template_id: TPL.C10.PAIR.K_INFINITE
+generator_version: factory-2
+template_hash: 95ca915fe58a66e31ab492ebbeac38549e53be0854647443bbc78d0aac96d457
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-6'
+- id: b
+  en: '9'
+- id: c
+  en: 8/3
+- id: d
+  en: '6'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.K_SIGN_SLIP
+  when_answer_equals:
+  - a
+- id: MC.PAIR.K_ADDITIVE_INSTEAD_OF_RATIO
+  when_answer_equals:
+  - b
+- id: MC.PAIR.K_RATIO_UPSIDE_DOWN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Infinitely many solutions need all three ratios equal: the x coefficients,
+    the y coefficients and the constants.'
+- en: 'Use the ratios that contain k: 4/k = 10/15, so k = 6.'
+- en: 'Check the third ratio with this value of k: it matches, so the lines coincide.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9c540b3cf9396407f7b0d838f8b23100edcabb0f751e7ba5c612c31da884456b
+  template_hash: 95ca915fe58a66e31ab492ebbeac38549e53be0854647443bbc78d0aac96d457
+  certificate_hash: 083e0d6c15abacc31e02a773ae9bc206dcf2c5c99c72cdc1b89cd1c620610e2d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.k_ratio
+  - maths.lin2.k_minors
+  - maths.lin2.k_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:09:57+00:00'
+  record_hash: 52b91c00457dd44ce4fcf4ad3baf8b76e8721638e3a23e78cba577bf03b97a1f

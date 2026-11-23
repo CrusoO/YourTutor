@@ -1,0 +1,132 @@
+id: C10.PAIR.WORD_RECT.10_1_2_0_width
+skill_ids:
+- MATH.ALG.PAIR.WORD_COST_SHAPES
+difficulty: 0.58
+pool: practice
+role: apply
+stem:
+  en: A rectangular garden has perimeter 44 metres, and its length is 2 metres more
+    than its width. What is the width of the garden?
+hints:
+- level: 1
+  en: Name the two sides first, then turn each fact into one relation.
+- level: 2
+  en: Two lengths and two widths make up the perimeter, so the perimeter is twice
+    the sum of length and width.
+- level: 3
+  en: 'Full method: name the sides, write the perimeter relation and the relation
+    between length and width, solve the pair, then answer what is asked.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_RECT
+generator_version: factory-2
+template_hash: c3df606766f0984da27c45d81b52fe04b66b221c08d8e3cf985e1446c26dbdf0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 22 metres
+- id: b
+  en: 10 metres
+- id: c
+  en: 12 metres
+- id: d
+  en: 21 metres
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_RECT_STOPPED_AT_SEMIPERIMETER
+  when_answer_equals:
+  - a
+- id: MC.PAIR.WORD_RECT_MORE_THAN_AS_LESS
+  when_answer_equals:
+  - c
+- id: MC.PAIR.WORD_RECT_PERIMETER_AS_SUM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the length be x metres and the width y metres. The perimeter counts every
+    side.
+- en: The two facts give 2x + 2y = 44 and x - y = 2.
+- en: Solving the pair gives x = 12 and y = 10. The width is 10 metres.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ea43b909c1f00cb9f8d04cf8968f0512c05465261b0e181dd46d2761e8cd7a10
+  template_hash: c3df606766f0984da27c45d81b52fe04b66b221c08d8e3cf985e1446c26dbdf0
+  certificate_hash: 7f12a26b53f8315690edbd1fb096113f635183fd68695dc75a31d05d1b665aac
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:17:59+00:00'
+  record_hash: 607f36972c5df53956edacdf79ca5c5a7f4a879429d7cdd08d62461738e13047
