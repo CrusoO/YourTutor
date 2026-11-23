@@ -1,0 +1,131 @@
+id: C10.PAIR.K_UNIQUE.1_2_2_m2_2_1_a
+skill_ids:
+- MATH.ALG.PAIR.K_VALUES
+difficulty: 0.54
+pool: practice
+role: apply
+stem:
+  en: The pair 2x + 4y = 4 and kx - 4y = 1 has exactly one solution for every k except
+    one value. Find that value of k.
+hints:
+- level: 1
+  en: Set the ratio of the x coefficients equal to the ratio of the y coefficients.
+- level: 2
+  en: Set the right ratios equal, multiply out, and solve the small equation for k.
+- level: 3
+  en: 'Full method: write the ratios of matching numbers, put equal the ones the situation
+    requires, solve for k, then check that the remaining ratio behaves as needed.'
+prediction_prompt:
+  en: Is k going to be positive or negative?
+status: draft
+template_id: TPL.C10.PAIR.K_UNIQUE
+generator_version: factory-2
+template_hash: de884ade85db48476795d24330af4d9002bdf4ea67711d0e22d7021062272a47
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-6'
+- id: b
+  en: '-2'
+- id: c
+  en: 1/2
+- id: d
+  en: '2'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.K_ADDITIVE_INSTEAD_OF_RATIO
+  when_answer_equals:
+  - a
+- id: MC.PAIR.K_WRONG_RATIO_USED
+  when_answer_equals:
+  - c
+- id: MC.PAIR.K_SIGN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A pair fails to have exactly one solution when the ratio of the x coefficients
+    equals the ratio of the y coefficients.
+- en: 'Use the ratios that contain k: 2/k = 4/-4, so k = -2.'
+- en: At k = -2 the two coefficient ratios are equal, so the pair has no unique solution.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d74780cecd7884661a368c386644baa6a6ccd7e4b4bd4869c5b9e1237e7dd401
+  template_hash: de884ade85db48476795d24330af4d9002bdf4ea67711d0e22d7021062272a47
+  certificate_hash: 108164f58830014f90b726222fdb957f00567fada6bf1520bf2cec6515aedad8
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.k_ratio
+  - maths.lin2.k_minors
+  - maths.lin2.k_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:11:33+00:00'
+  record_hash: 00c2c6a1e7dc27b4096d36b62be9c9d0706ebdfcf9950019d32f80013aa39829

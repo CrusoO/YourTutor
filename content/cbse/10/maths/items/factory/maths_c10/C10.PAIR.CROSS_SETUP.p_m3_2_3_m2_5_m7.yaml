@@ -1,0 +1,131 @@
+id: C10.PAIR.CROSS_SETUP.p_m3_2_3_m2_5_m7
+skill_ids:
+- MATH.ALG.PAIR.CROSS_MULTIPLICATION
+difficulty: 0.36
+pool: practice
+role: recall
+stem:
+  en: For -3x + 2y + 3 = 0 and -2x + 5y - 7 = 0, the ratio formula is written x/p
+    = y/q = 1/r. Find the value of p.
+hints:
+- level: 1
+  en: Pick out the coefficients you need and keep every sign.
+- level: 2
+  en: Subtract the products in the order the formula gives. Reversing the order reverses
+    the sign of the answer.
+- level: 3
+  en: 'Full method: identify the coefficients and constants of both equations, then
+    evaluate the wanted difference of products with great care over signs.'
+prediction_prompt:
+  en: Will the number come out positive or negative?
+status: draft
+template_id: TPL.C10.PAIR.CROSS_SETUP
+generator_version: factory-2
+template_hash: a34ef9ae5320b31d0a8bb0fbf892c2d851d1e3ad2476726536a152657ce82969
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '41'
+- id: b
+  en: '1'
+- id: c
+  en: '29'
+- id: d
+  en: '-29'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.CROSS_PAIRING_SLIP
+  when_answer_equals:
+  - a
+- id: MC.PAIR.CROSS_DENOM_ADDED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.CROSS_NUMERATOR_ORDER
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Read off a1 = -3, b1 = 2, c1 = 3, a2 = -2, b2 = 5, c2 = -7.
+- en: 'Use the matching difference of products: p = b1c2 - b2c1 = (2)(-7) - (5)(3)
+    = -29.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8043a95cc836e9630493c83929249dc99d7a7fe07bb7d72fb331465fbffbf425
+  template_hash: a34ef9ae5320b31d0a8bb0fbf892c2d851d1e3ad2476726536a152657ce82969
+  certificate_hash: bb1ada0f6b70c6abbfa7d84d389cbd144d88696ad24748c3da17fff5707cd40e
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.products
+  - maths.lin2.det_sympy
+  - maths.lin2.det_rows
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:20:17+00:00'
+  record_hash: 08b8a381bbc3b3d0242c052403e1712c6c0a7974c1d8674867c1ae5593d3b07a

@@ -1,0 +1,134 @@
+id: C10.PAIR.GRAPH_POINT.m1_m2_1_2_0_0
+skill_ids:
+- MATH.ALG.PAIR.GRAPH_MEETING_POINT
+difficulty: 0.47
+pool: practice
+role: apply
+stem:
+  en: Line A passes through (-3, -4) and (0, -1). Line B passes through (-2, -4) and
+    (1, 2). At which point do the two lines meet?
+hints:
+- level: 1
+  en: Each line has its own rule linking y to x. Work these out before anything else.
+- level: 2
+  en: The meeting point is the one place where both rules give the same y for the
+    same x.
+- level: 3
+  en: 'Full method: get the rule for each line from its points, set the two rules
+    equal to find x, then put x into either rule to find y and check it in the other.'
+prediction_prompt:
+  en: 'Before working it out: is the meeting point nearer the first listed points
+    or the last ones?'
+status: draft
+template_id: TPL.C10.PAIR.GRAPH_POINT
+generator_version: factory-2
+template_hash: d1a9473c0ac2102f88bf3ab3fa2be2e5dee2b92301cf7f79109441960408f6a2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: (-3, -4)
+- id: b
+  en: (0, -1)
+- id: c
+  en: (-1, -2)
+- id: d
+  en: (1, 2)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.PAIR.GRAPH_ONE_LINE_POINT
+  when_answer_equals:
+  - a
+- id: MC.PAIR.GRAPH_INTERCEPT_FOR_MEET
+  when_answer_equals:
+  - b
+- id: MC.PAIR.GRAPH_OTHER_LINE_POINT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Line A: y changes by 1 each time x goes up by 1, so y = x - 1.'
+- en: 'Line B: y changes by 2 each time x goes up by 1, so y = 2x.'
+- en: 'At the meeting point both rules give the same y: 1x + (-1) = 2x + (0), so x
+    = -1.'
+- en: Then y = 1 × -1 + (-1) = -2. The lines meet at (-1, -2).
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c23d47d601ccae0f0503053b618b9f03c042f2890c96d6eeb1a10c761deb935b
+  template_hash: d1a9473c0ac2102f88bf3ab3fa2be2e5dee2b92301cf7f79109441960408f6a2
+  certificate_hash: 5bcbbbe827b73991b3d547fa270ace9c62637c81c4955d666a40d80cc6bb6ff4
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.lines
+  - maths.lin2.sympy_param
+  - maths.lin2.grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:08:32+00:00'
+  record_hash: 716581b1069f862bf3fa391bbe11a4dd50797a0cf7cc2d14f072636ca10e1941

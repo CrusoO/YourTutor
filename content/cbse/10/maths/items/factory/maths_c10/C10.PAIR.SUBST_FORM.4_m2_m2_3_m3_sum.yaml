@@ -1,0 +1,131 @@
+id: C10.PAIR.SUBST_FORM.4_m2_m2_3_m3_sum
+skill_ids:
+- MATH.ALG.PAIR.SUBSTITUTION
+difficulty: 0.42
+pool: practice
+role: procedure
+stem:
+  en: Use substitution on y = -2x + 6 and 3x - 3y = 18. What is x + y?
+hints:
+- level: 1
+  en: Replace y in the second equation by what the first equation says it equals.
+- level: 2
+  en: Multiply every term inside the bracket, then solve the one-unknown equation
+    that is left.
+- level: 3
+  en: 'Full method: substitute for y, multiply out the bracket, collect the x terms,
+    solve for x, then put that value of x back into the first equation to get y.'
+prediction_prompt:
+  en: Will x or y come out first when you substitute?
+status: draft
+template_id: TPL.C10.PAIR.SUBST_FORM
+generator_version: factory-2
+template_hash: 9b97e6989bc726766c646f903bf74391f29b7150ff718f918b8580835f848707
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '-10'
+- id: c
+  en: 14/3
+- id: d
+  en: '4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.PAIR.SUBST_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.PAIR.SUBST_NOT_DISTRIBUTED
+  when_answer_equals:
+  - c
+- id: MC.PAIR.ONE_VARIABLE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Put y = -2x + 6 into the second equation: 3x - 3(-2x + 6) = 18.'
+- en: 'Multiply out and collect the x terms: 9x = 36, so x = 4.'
+- en: 'Put x = 4 back into the first equation: y = -2 × 4 + (6) = -2.'
+- en: So x + y = 4 + (-2) = 2.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c9463a0850fd3918240302d4a04621971c911354352ebf9282a6535b80edfed4
+  template_hash: 9b97e6989bc726766c646f903bf74391f29b7150ff718f918b8580835f848707
+  certificate_hash: 56e75f9875449b9c57d62227288a4a5f37fc61fd562379ceafbeb68c51a1c888
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.substitution
+  - maths.lin2.sympy
+  - maths.lin2.gauss
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:13:52+00:00'
+  record_hash: 180c60a3b3f942a017d67a4a42da54891f0696714be7fb989d5669b4664e5d13

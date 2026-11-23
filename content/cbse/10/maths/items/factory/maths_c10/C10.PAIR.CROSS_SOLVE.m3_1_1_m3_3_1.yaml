@@ -1,0 +1,133 @@
+id: C10.PAIR.CROSS_SOLVE.m3_1_1_m3_3_1
+skill_ids:
+- MATH.ALG.PAIR.CROSS_MULTIPLICATION
+difficulty: 0.57
+pool: practice
+role: procedure
+stem:
+  en: Find x and y from x - 3y + 6 = 0 and 3x + y + 8 = 0 using the method of ratios
+    of products.
+hints:
+- level: 1
+  en: Read off the three numbers of each equation, keeping their signs.
+- level: 2
+  en: Each denominator is the difference of two products. Keep the order of the subtraction
+    exactly as in the formula.
+- level: 3
+  en: 'Full method: write both equations as ax + by + c = 0, build the three differences
+    of products for x, y and 1, then divide to get x and y.'
+prediction_prompt:
+  en: Which of the three differences of products will be the denominator of the last
+    ratio?
+status: draft
+template_id: TPL.C10.PAIR.CROSS_SOLVE
+generator_version: factory-2
+template_hash: bd14e9f7ea43abbfea221eaa0e882c2a6d8e0d44da53cdd72f6911d70ef7c885
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -3, y = -1
+- id: b
+  en: x = 15/4, y = -5/4
+- id: c
+  en: x = 3, y = -1
+- id: d
+  en: x = -3, y = 1
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.CROSS_NUMERATOR_ORDER
+  when_answer_equals:
+  - a
+- id: MC.PAIR.CROSS_DENOM_ADDED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.CROSS_CONSTANT_SIGN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Read off the numbers: a1 = 1, b1 = -3, c1 = 6, a2 = 3, b2 = 1, c2 = 8.'
+- en: 'Use x/(b1c2 - b2c1) = y/(c1a2 - c2a1) = 1/(a1b2 - a2b1): x/(-30) = y/(10) =
+    1/(10).'
+- en: So x = -30/10 = -3 and y = 10/10 = 1.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 56ade8090136e59a8f56c89ea2074df8dc515acd1c33f1ceb30f4082e8b429b3
+  template_hash: bd14e9f7ea43abbfea221eaa0e882c2a6d8e0d44da53cdd72f6911d70ef7c885
+  certificate_hash: bf0b1f7b16cc1f80c8f54ed9f8e1a1fc83547e0b688617d864f4702de7fd818c
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.cross_multiplication
+  - maths.lin2.sympy
+  - maths.lin2.gauss
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:21:05+00:00'
+  record_hash: 7bfbc8e2fb7115ae9d4c978b72eb225746f621b08bb483f98a135d15361c0c24

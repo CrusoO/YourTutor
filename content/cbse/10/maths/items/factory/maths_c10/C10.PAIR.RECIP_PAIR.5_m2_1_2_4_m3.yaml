@@ -1,0 +1,129 @@
+id: C10.PAIR.RECIP_PAIR.5_m2_1_2_4_m3
+skill_ids:
+- MATH.ALG.PAIR.REDUCIBLE_TO_LINEAR
+difficulty: 0.67
+pool: practice
+role: transfer
+stem:
+  en: 'Solve for x and y: 1/x + 2/y = -4/5 and 4/x - 3/y = 23/10.'
+hints:
+- level: 1
+  en: Replace each reciprocal by new letters so that the relations become linear.
+- level: 2
+  en: Solve the new linear pair, then remember that the new letters are reciprocals,
+    so finish by turning them back.
+- level: 3
+  en: 'Full method: put u for one over x and v for one over y, solve the linear pair
+    in u and v, then take reciprocals to get x and y and check in the original relations.'
+prediction_prompt:
+  en: What new letters could make both relations linear?
+status: draft
+template_id: TPL.C10.PAIR.RECIP_PAIR
+generator_version: factory-2
+template_hash: 0b5cf3926c52adc8051be428549f3ae0ba212ef20f14e3dca90f63e460bde089
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 1/5, y = -1/2
+- id: b
+  en: x = 5, y = -2
+- id: c
+  en: x = 1/5, y = -2
+- id: d
+  en: x = 5, y = -1/2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.RECIP_ANSWER_IS_RECIPROCAL
+  when_answer_equals:
+  - a
+- id: MC.PAIR.RECIP_ONE_NOT_INVERTED
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: Put 1/x = u and 1/y = v. Both relations become linear in u and v.
+- en: They read u + 2v = -4/5 and 4u - 3v = 23/10.
+- en: Solving gives u = 1/5 and v = -1/2.
+- en: 'Turn back: x = 1/u = 5 and y = 1/v = -2.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9c158c1fa5d926098c3cd12f838863e0ed2928d727c16a899a17b93593bc7720
+  template_hash: 0b5cf3926c52adc8051be428549f3ae0ba212ef20f14e3dca90f63e460bde089
+  certificate_hash: 1a9081516a57b9ce20ea2ba306cf32b3d116d36edb896c679f41597f02719eaa
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.recip_rows
+  - maths.lin2.recip_sympy
+  - maths.lin2.recip_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:12:20+00:00'
+  record_hash: ebb4406715fcb8d9ab91e0d948b12bd61fe36d56171508832ea66675bed1a515

@@ -1,0 +1,134 @@
+id: C10.PAIR.GRAPH_TYPE.one_2_5_m4_m2_1
+skill_ids:
+- MATH.ALG.PAIR.SOLUTION_TYPE
+difficulty: 0.34
+pool: practice
+role: apply
+stem:
+  en: Two straight lines are drawn from 2x + 5y = -4 and -4x - 9y = 9. Which statement
+    about them is true?
+hints:
+- level: 1
+  en: Divide matching numbers of the two lines and look at the three results.
+- level: 2
+  en: If the first two ratios differ the lines meet once. If they match, the third
+    ratio decides between parallel lines and the same line.
+- level: 3
+  en: 'Full method: find the ratio of the x coefficients, the ratio of the y coefficients
+    and the ratio of the constants. Different first two ratios: one meeting point.
+    All three equal: same line. First two equal and the third different: parallel
+    lines.'
+prediction_prompt:
+  en: Do you expect these lines to meet, never meet, or lie on top of each other?
+status: draft
+template_id: TPL.C10.PAIR.GRAPH_TYPE
+generator_version: factory-2
+template_hash: d7129c62c9dfbb5dd135ad7f6cb3d12da80b4fba445e7c7713ff7ce39aa24394
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: They are the same line.
+- id: b
+  en: They meet at exactly one point.
+- id: c
+  en: They are parallel and never meet.
+- id: d
+  en: They meet at exactly two points.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.TYPE_ONE_AS_INFINITE
+  when_answer_equals:
+  - a
+- id: MC.PAIR.TYPE_ONE_AS_NONE
+  when_answer_equals:
+  - c
+- id: MC.PAIR.TYPE_TWO_MEETING_POINTS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Compare the ratios of matching numbers: x coefficients, y coefficients, then
+    the constants.'
+- en: Here the three ratios are -1/2, -5/9 and -4/9.
+- en: The first two ratios differ, so the lines meet at exactly one point.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b3c620f3094a70a9a079952df46ad7e9d5cb4373bab5640459436a29a6d3e5d7
+  template_hash: d7129c62c9dfbb5dd135ad7f6cb3d12da80b4fba445e7c7713ff7ce39aa24394
+  certificate_hash: c56fbf2f591c856b0eb2764583d9ab82d4808f0c0003288799137fb2921551e0
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.ratios
+  - maths.lin2.rank
+  - maths.lin2.rows
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:09:11+00:00'
+  record_hash: cca41fd4d2cf422d9c0d9e25bcf365891d983ff82201bbd98c52a69f8d649757

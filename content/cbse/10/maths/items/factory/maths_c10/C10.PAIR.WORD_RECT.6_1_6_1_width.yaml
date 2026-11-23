@@ -1,0 +1,132 @@
+id: C10.PAIR.WORD_RECT.6_1_6_1_width
+skill_ids:
+- MATH.ALG.PAIR.WORD_COST_SHAPES
+difficulty: 0.56
+pool: practice
+role: apply
+stem:
+  en: A rectangular poster has perimeter 36 metres, and its length is 6 metres more
+    than its width. What is the width of the poster?
+hints:
+- level: 1
+  en: Name the two sides first, then turn each fact into one relation.
+- level: 2
+  en: Two lengths and two widths make up the perimeter, so the perimeter is twice
+    the sum of length and width.
+- level: 3
+  en: 'Full method: name the sides, write the perimeter relation and the relation
+    between length and width, solve the pair, then answer what is asked.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_RECT
+generator_version: factory-2
+template_hash: c3df606766f0984da27c45d81b52fe04b66b221c08d8e3cf985e1446c26dbdf0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 metres
+- id: b
+  en: 18 metres
+- id: c
+  en: 15 metres
+- id: d
+  en: 12 metres
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_RECT_STOPPED_AT_SEMIPERIMETER
+  when_answer_equals:
+  - b
+- id: MC.PAIR.WORD_RECT_PERIMETER_AS_SUM
+  when_answer_equals:
+  - c
+- id: MC.PAIR.WORD_RECT_MORE_THAN_AS_LESS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the length be x metres and the width y metres. The perimeter counts every
+    side.
+- en: The two facts give 2x + 2y = 36 and x - y = 6.
+- en: Solving the pair gives x = 12 and y = 6. The width is 6 metres.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 395382b380e58e308f1dbc3026423a8491788f9a189f87a2923e737c852ed9df
+  template_hash: c3df606766f0984da27c45d81b52fe04b66b221c08d8e3cf985e1446c26dbdf0
+  certificate_hash: 9f3e7c303748ee03089000ef6899b03c7b210a67e9ef6c94a6bee0d7536e9134
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:17:58+00:00'
+  record_hash: 6abea5ce831d311c306e56d211107dd61f9c30e3a3b46e931b3305e2852e33a6

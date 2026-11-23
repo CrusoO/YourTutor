@@ -1,0 +1,131 @@
+id: C10.PAIR.K_NONE.3_2_1_3_2_1_a
+skill_ids:
+- MATH.ALG.PAIR.K_VALUES
+difficulty: 0.54
+pool: practice
+role: apply
+stem:
+  en: Find k so that 3x + 2y = 2 and kx + 6y = 7 have no common point.
+hints:
+- level: 1
+  en: Make the ratios of the coefficients equal and use the one that contains k.
+- level: 2
+  en: Set the right ratios equal, multiply out, and solve the small equation for k.
+- level: 3
+  en: 'Full method: write the ratios of matching numbers, put equal the ones the situation
+    requires, solve for k, then check that the remaining ratio behaves as needed.'
+prediction_prompt:
+  en: Is k going to be positive or negative?
+status: draft
+template_id: TPL.C10.PAIR.K_NONE
+generator_version: factory-2
+template_hash: e57b18bcea5ec156beab8cf0afc92d8453392a8373fbdd3b618a9efbeb7bab4e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: 21/2
+- id: c
+  en: '9'
+- id: d
+  en: '1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.PAIR.K_ADDITIVE_INSTEAD_OF_RATIO
+  when_answer_equals:
+  - a
+- id: MC.PAIR.K_WRONG_RATIO_USED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.K_RATIO_UPSIDE_DOWN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: No solution needs equal ratios of the x and y coefficients, and a different
+    ratio for the constants.
+- en: 'Use the ratios that contain k: 3/k = 2/6, so k = 9.'
+- en: 'Check the constants: 2/7 differs from the coefficient ratio, so there really
+    is no solution.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d063b2637588f379e29676c6346383f8185bcaf733d99de213d940551744007f
+  template_hash: e57b18bcea5ec156beab8cf0afc92d8453392a8373fbdd3b618a9efbeb7bab4e
+  certificate_hash: 6f0742cc1cb5835742d8ee2099c52e2a5026a0797a27307e169d7eedc59c01c4
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.k_ratio
+  - maths.lin2.k_minors
+  - maths.lin2.k_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:10:42+00:00'
+  record_hash: 8edb7f24fdf5e5e68e3d03534b3d6b04e1f5e2e5c37f22cbb02716792805de69

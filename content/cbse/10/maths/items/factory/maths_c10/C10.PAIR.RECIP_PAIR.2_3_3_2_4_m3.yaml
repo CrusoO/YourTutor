@@ -1,0 +1,129 @@
+id: C10.PAIR.RECIP_PAIR.2_3_3_2_4_m3
+skill_ids:
+- MATH.ALG.PAIR.REDUCIBLE_TO_LINEAR
+difficulty: 0.67
+pool: practice
+role: transfer
+stem:
+  en: 'Solve for x and y: 3/x + 2/y = 13/6 and 4/x - 3/y = 1.'
+hints:
+- level: 1
+  en: Try new letters for one over x and for one over y.
+- level: 2
+  en: Solve the new linear pair, then remember that the new letters are reciprocals,
+    so finish by turning them back.
+- level: 3
+  en: 'Full method: put u for one over x and v for one over y, solve the linear pair
+    in u and v, then take reciprocals to get x and y and check in the original relations.'
+prediction_prompt:
+  en: What new letters could make both relations linear?
+status: draft
+template_id: TPL.C10.PAIR.RECIP_PAIR
+generator_version: factory-2
+template_hash: 0b5cf3926c52adc8051be428549f3ae0ba212ef20f14e3dca90f63e460bde089
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 1/2, y = 3
+- id: b
+  en: x = 2, y = 1/3
+- id: c
+  en: x = 1/2, y = 1/3
+- id: d
+  en: x = 2, y = 3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.RECIP_ONE_NOT_INVERTED
+  when_answer_equals:
+  - a
+  - b
+- id: MC.PAIR.RECIP_ANSWER_IS_RECIPROCAL
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Put 1/x = u and 1/y = v. Both relations become linear in u and v.
+- en: They read 3u + 2v = 13/6 and 4u - 3v = 1.
+- en: Solving gives u = 1/2 and v = 1/3.
+- en: 'Turn back: x = 1/u = 2 and y = 1/v = 3.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 52c2f09e2315e2da67ac1cf251ae633bf5ab32c17491a14b872080dba5aa8fad
+  template_hash: 0b5cf3926c52adc8051be428549f3ae0ba212ef20f14e3dca90f63e460bde089
+  certificate_hash: 69816300c8c050ba8b4da348ee0ffa3b65e3fd11f4a9fc94dcc9767ffdc5d9e7
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.recip_rows
+  - maths.lin2.recip_sympy
+  - maths.lin2.recip_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:12:20+00:00'
+  record_hash: 70ef084e36a614184964913a69979fc2d94a8375f384770bfc118c0126d9b8a7

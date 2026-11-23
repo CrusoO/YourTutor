@@ -1,0 +1,129 @@
+id: C10.PAIR.WORD_COST.15_5_2_2231_both
+skill_ids:
+- MATH.ALG.PAIR.WORD_COST_SHAPES
+difficulty: 0.51
+pool: practice
+role: apply
+stem:
+  en: A shop sells 2 rulers with 2 pencil cases for 40 rupees, and 3 rulers with 1
+    pencil case for 30 rupees. What is the cost of one ruler and one pencil case together?
+hints:
+- level: 1
+  en: Give the price of one of each item its own letter.
+- level: 2
+  en: Multiply each count by the price of the same item, add the two amounts, and
+    set that equal to the bill.
+- level: 3
+  en: 'Full method: name the two prices, write one relation for each bill, solve the
+    pair, then give the quantity the question asks for.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_COST
+generator_version: factory-2
+template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 rupees
+- id: b
+  en: 35/4 rupees
+- id: c
+  en: 5 rupees
+- id: d
+  en: 20 rupees
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_COST_AVERAGE
+  when_answer_equals:
+  - a
+  - b
+- id: MC.PAIR.WORD_ASKED_OTHER_UNKNOWN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let one ruler cost x rupees and one pencil case cost y rupees.
+- en: The two bills give 2x + 2y = 40 and 3x + y = 30.
+- en: Solving the pair gives x = 5 and y = 15.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e24c51e3674fa46160f6688c6296f0e7295c4a7a5f49b5e80928b961b951effb
+  template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+  certificate_hash: f3b96ab1285fe880607afae5ba6d4cd5ee8f84ec4672efc80523109a7b4f07fa
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:16:16+00:00'
+  record_hash: 73863dfc967ecac51f94506b679236596f5f14d73eaa5c73674592d9defb8d6a

@@ -1,0 +1,129 @@
+id: C10.PAIR.WORD_COST.7_10_2_2231_item2
+skill_ids:
+- MATH.ALG.PAIR.WORD_COST_SHAPES
+difficulty: 0.51
+pool: practice
+role: apply
+stem:
+  en: A shop sells 2 rulers with 2 pencil cases for 34 rupees, and 3 rulers with 1
+    pencil case for 37 rupees. What is the cost of one pencil case?
+hints:
+- level: 1
+  en: Decide what x and y stand for before writing any relation.
+- level: 2
+  en: Multiply each count by the price of the same item, add the two amounts, and
+    set that equal to the bill.
+- level: 3
+  en: 'Full method: name the two prices, write one relation for each bill, solve the
+    pair, then give the quantity the question asks for.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_COST
+generator_version: factory-2
+template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 17/2 rupees
+- id: b
+  en: 7 rupees
+- id: c
+  en: 10 rupees
+- id: d
+  en: 71/8 rupees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_COST_AVERAGE
+  when_answer_equals:
+  - a
+  - d
+- id: MC.PAIR.WORD_ASKED_OTHER_UNKNOWN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Let one ruler cost x rupees and one pencil case cost y rupees.
+- en: The two bills give 2x + 2y = 34 and 3x + y = 37.
+- en: Solving the pair gives x = 10 and y = 7.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a76294afb101b67f9095058f7c3be77af77ada09e1d39e49f47c1a8b12dcb421
+  template_hash: 9f2dba72642946c0b43ec817196b8b88c86a4cd27b4fbf3599d60d743a9bc838
+  certificate_hash: 0d7147caf88977501883ed4137431fba7e1cce5adf3e455df7412cd97b1c1590
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:16:18+00:00'
+  record_hash: 9068992303cad530267b1c9e4415348071d86641dc008187b5fe679ee628a901

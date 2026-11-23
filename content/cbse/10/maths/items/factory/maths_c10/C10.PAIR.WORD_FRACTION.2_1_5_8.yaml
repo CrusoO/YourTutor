@@ -1,0 +1,133 @@
+id: C10.PAIR.WORD_FRACTION.2_1_5_8
+skill_ids:
+- MATH.ALG.PAIR.WORD_NUMBERS_AGES
+difficulty: 0.59
+pool: practice
+role: apply
+stem:
+  en: A fraction in lowest terms has numerator plus denominator equal to 13. If the
+    numerator is increased by 1 and the denominator is increased by 2, the new fraction
+    is 3/5. Find the original fraction.
+hints:
+- level: 1
+  en: Write what the sum of the two parts tells you about x and y.
+- level: 2
+  en: The new fraction equals the stated value, so multiply out the two sides to remove
+    the fractions before solving.
+- level: 3
+  en: 'Full method: name the numerator and denominator, write the sum relation, write
+    the relation for the new fraction without fractions, solve the pair, then state
+    the fraction.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_FRACTION
+generator_version: factory-2
+template_hash: b4f75598c21db1f5d4f9d79fdf082bc788e41d78b052cac60b78d4695531b9be
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4/9
+- id: b
+  en: 8/5
+- id: c
+  en: 5/8
+- id: d
+  en: 3/5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_FRACTION_CHANGE_MISPLACED
+  when_answer_equals:
+  - a
+- id: MC.PAIR.WORD_FRACTION_ROLES_SWAPPED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.WORD_FRACTION_REPORTED_NEW
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the fraction be x/y. Then x + y = 13.
+- en: After the change the fraction is (x + 1)/(y + 2) = 3/5, so 5x - 3y = 1.
+- en: Solving the pair gives x = 5 and y = 8, so the fraction is 5/8.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3606312fdb3c6dee47b495ae03a30aff29fbfcc0daf46d1783b28416f2f1a733
+  template_hash: b4f75598c21db1f5d4f9d79fdf082bc788e41d78b052cac60b78d4695531b9be
+  certificate_hash: 1faae1f57691f12e645136710c01efcae80cd0fe237a8ce6736996ae838cb147
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:17:05+00:00'
+  record_hash: 22faa1932a4aae4175ab2863ca575d25697606a52847feb4df4fa626e400226f

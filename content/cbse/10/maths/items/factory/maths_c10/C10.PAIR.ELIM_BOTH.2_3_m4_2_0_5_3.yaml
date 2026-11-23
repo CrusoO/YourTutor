@@ -1,0 +1,132 @@
+id: C10.PAIR.ELIM_BOTH.2_3_m4_2_0_5_3
+skill_ids:
+- MATH.ALG.PAIR.ELIMINATION
+difficulty: 0.59
+pool: practice
+role: procedure
+stem:
+  en: Find x and y by elimination from 3x + 2y = 13 and 5x - 4y = 7.
+hints:
+- level: 1
+  en: The aim is to get one equation with only one unknown left.
+- level: 2
+  en: Add the equations when the matching terms have opposite signs and subtract them
+    when the signs agree. Apply the operation to every term, constants included.
+- level: 3
+  en: 'Full method: pick an unknown, multiply each equation by the other equation''s
+    coefficient of it, using every term, so they match, subtract to cancel it, solve
+    for the other unknown, then substitute back.'
+prediction_prompt:
+  en: Which unknown will you cancel first?
+status: draft
+template_id: TPL.C10.PAIR.ELIM_BOTH
+generator_version: factory-2
+template_hash: d730ddb63ea2d44f080e7231300f2e67a451ebc4b5999d2ddeba5451de5c89fe
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 19/11, y = 43/11
+- id: b
+  en: x = 2, y = 3
+- id: c
+  en: x = 33, y = -43
+- id: d
+  en: x = 3, y = 2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.ELIM_SIGN_SLIP
+  when_answer_equals:
+  - a
+- id: MC.PAIR.XY_SWAPPED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.ELIM_ADD_NOT_SUBTRACT
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Multiply the first equation by 5 and the second by 3, every term, so both x
+    coefficients become 15.
+- en: 'Subtract the second new equation from the first: 22y = 44, so y = 2.'
+- en: Put y = 2 in the first original equation to get x = 3.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3ddcd4feaace506437ac397961337ebb3aa577dca1fcee188f5c2ed59be8b2b4
+  template_hash: d730ddb63ea2d44f080e7231300f2e67a451ebc4b5999d2ddeba5451de5c89fe
+  certificate_hash: fbb1e096c61cc39dc63f68cdb12b817443a4ef5d163d8f52020e2b82835d0549
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.elimination
+  - maths.lin2.sympy
+  - maths.lin2.cramer
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:21:56+00:00'
+  record_hash: 9a62b5d1dbfa51320436ffcf02c7166ed01fd86d9410990be294b0d918310920

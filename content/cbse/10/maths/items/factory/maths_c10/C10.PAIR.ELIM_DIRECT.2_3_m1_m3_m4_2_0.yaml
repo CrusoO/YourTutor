@@ -1,0 +1,131 @@
+id: C10.PAIR.ELIM_DIRECT.2_3_m1_m3_m4_2_0
+skill_ids:
+- MATH.ALG.PAIR.ELIMINATION
+difficulty: 0.39
+pool: practice
+role: procedure
+stem:
+  en: 'Solve by elimination: 2x - 4y = -2 and -2x - 3y = -12.'
+hints:
+- level: 1
+  en: Choose one unknown and make its coefficients match in size in the two equations.
+- level: 2
+  en: Add the equations when the matching terms have opposite signs and subtract them
+    when the signs agree. Apply the operation to every term, constants included.
+- level: 3
+  en: 'Full method: compare the coefficients of one unknown, add or subtract the equations,
+    using every term, so it cancels, solve the single equation left, then put that
+    value into one of the originals.'
+prediction_prompt:
+  en: Which unknown will you cancel first?
+status: draft
+template_id: TPL.C10.PAIR.ELIM_DIRECT
+generator_version: factory-2
+template_hash: 285b8ce8db85acbbbeb660be9f88bf88b5bca7c90512d537617775199d9ba377
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 3, y = 2
+- id: b
+  en: x = -27/7, y = -10/7
+- id: c
+  en: x = 2, y = 3
+- id: d
+  en: x = -21, y = -10
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.PAIR.ELIM_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.PAIR.XY_SWAPPED
+  when_answer_equals:
+  - c
+- id: MC.PAIR.ELIM_SUBTRACT_NOT_ADD
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The x terms are 2x and -2x, so adding the equations cancels x.
+- en: 'Add the two equations, every term: -7y = -14, so y = 2.'
+- en: Put y = 2 in the first equation to get x = 3.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bbde2f36ea0a82e855d81bbe5fde0932764580c135eea906c6dabbca85a0f437
+  template_hash: 285b8ce8db85acbbbeb660be9f88bf88b5bca7c90512d537617775199d9ba377
+  certificate_hash: c06285ffd0a358ddf47069174d9c2fec32fbee9a18f0d3f194939e46cad37d1d
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.elimination
+  - maths.lin2.sympy
+  - maths.lin2.cramer
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:07:04+00:00'
+  record_hash: 5dddaee9027c8fb8abba7ac2496c679315a64e864bc177cbee7d287480e2dd02

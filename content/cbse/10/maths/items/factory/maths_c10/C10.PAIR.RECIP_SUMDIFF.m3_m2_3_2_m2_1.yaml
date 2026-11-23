@@ -1,0 +1,132 @@
+id: C10.PAIR.RECIP_SUMDIFF.m3_m2_3_2_m2_1
+skill_ids:
+- MATH.ALG.PAIR.REDUCIBLE_TO_LINEAR
+difficulty: 0.77
+pool: practice
+role: transfer
+stem:
+  en: Reduce the pair 3/(x + y) + 2/(x - y) = -13/5, -2/(x + y) + 1/(x - y) = -3/5
+    to a pair of linear equations and solve it for x and y.
+hints:
+- level: 1
+  en: Look for the parts that appear in both relations and rename them.
+- level: 2
+  en: After solving for the new letters, take reciprocals to find the sum and the
+    difference, then use those two to find x and y.
+- level: 3
+  en: 'Full method: rename the two reciprocals, solve the linear pair, invert to get
+    the sum and the difference of x and y, then add and subtract and halve.'
+prediction_prompt:
+  en: What new letters could make both relations linear?
+status: draft
+template_id: TPL.C10.PAIR.RECIP_SUMDIFF
+generator_version: factory-2
+template_hash: 8073cbd85f30bde87ae910910d65e19fdeee8dd88448d81a450a90ed4c9275d5
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = -5, y = -1
+- id: b
+  en: x = -3, y = 2
+- id: c
+  en: x = -6, y = -4
+- id: d
+  en: x = -3, y = -2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.PAIR.RECIP_SUMDIFF_STOPPED_EARLY
+  when_answer_equals:
+  - a
+- id: MC.PAIR.RECIP_SUMDIFF_SIGN_OF_Y
+  when_answer_equals:
+  - b
+- id: MC.PAIR.RECIP_SUMDIFF_NOT_HALVED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Put 1/(x + y) = u and 1/(x - y) = v. Both relations become linear in u and v.
+- en: They read 3u + 2v = -13/5 and -2u + v = -3/5.
+- en: Solving gives u = -1/5 and v = -1, so x + y = -5 and x - y = -1.
+- en: 'Add and subtract: x = (-5 + (-1))/2 = -3 and y = (-5 - (-1))/2 = -2.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8c8da90d634566bfdf32e4eab46cef95cad2b0ccd1b7fa770760b1280c72c9b1
+  template_hash: 8073cbd85f30bde87ae910910d65e19fdeee8dd88448d81a450a90ed4c9275d5
+  certificate_hash: 99804d60755053c091e9b58196825916fc3681364834cc72c5aeff45908df599
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.recip_rows
+  - maths.lin2.recip_sympy
+  - maths.lin2.recip_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:13:05+00:00'
+  record_hash: b8bcd4925b77acca92b6be434ff015c5dcb6a8fb9fabd80ec3c6197ff5ce0f00

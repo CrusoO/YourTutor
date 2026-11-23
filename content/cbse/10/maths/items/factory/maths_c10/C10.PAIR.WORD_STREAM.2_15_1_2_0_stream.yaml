@@ -1,0 +1,132 @@
+id: C10.PAIR.WORD_STREAM.2_15_1_2_0_stream
+skill_ids:
+- MATH.ALG.PAIR.WORD_MOTION
+difficulty: 0.61
+pool: practice
+role: apply
+stem:
+  en: On a river, a boat covers 26 km against the current in 2 hours and 17 km with
+    the current in 1 hour. What is the speed of the stream?
+hints:
+- level: 1
+  en: Give the still-water speed one letter and the stream speed another.
+- level: 2
+  en: Distance equals speed times time on each trip. That gives one relation for the
+    upstream trip and one for the downstream trip.
+- level: 3
+  en: 'Full method: name the two speeds, write the upstream and downstream speeds,
+    use distance = speed × time twice, solve the pair, and answer the quantity asked.'
+prediction_prompt:
+  en: Roughly what size should the answer be?
+status: draft
+template_id: TPL.C10.PAIR.WORD_STREAM
+generator_version: factory-2
+template_hash: 7f79b70f58c618e65f0cb68b81460c3f9481b8521cd578a9661b845a0813f2b7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 km/h
+- id: b
+  en: -2 km/h
+- id: c
+  en: 15 km/h
+- id: d
+  en: 4 km/h
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.PAIR.WORD_STREAM_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.PAIR.WORD_ASKED_OTHER_UNKNOWN
+  when_answer_equals:
+  - c
+- id: MC.PAIR.WORD_STREAM_NOT_HALVED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the still-water speed be x km/h and the stream speed y km/h. Upstream the
+    speed is x - y, downstream it is x + y.
+- en: Distance = speed × time gives 2x - 2y = 26 and x + y = 17.
+- en: 'Dividing out the hours: x - y = 13 and x + y = 17, so x = 15 and y = 2.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f99f47b35fa6a8d474d6899bfcccd4d5ba943060ea2a4fbcc2dc83c8bc39d6a3
+  template_hash: 7f79b70f58c618e65f0cb68b81460c3f9481b8521cd578a9661b845a0813f2b7
+  certificate_hash: 30dc2fa2a78f051cdb000eae069bcc8ff00f4e687243723772540967de1e3780
+  label: calculation-checked
+  tier: A
+  lane: maths_c10
+  chapter_ref: cbse.10.maths.ch03
+  methods_agreeing:
+  - kernel.algebra
+  - maths.lin2.word_rows
+  - maths.lin2.word_sympy
+  - maths.lin2.word_grid
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 12052fa
+  llm_involved: false
+  stamped_at: '2026-11-23T01:18:53+00:00'
+  record_hash: 095db808693e9db1ef5ada4c78ab953b5d7300cfcfeedc064b1dd962a3522cb2
