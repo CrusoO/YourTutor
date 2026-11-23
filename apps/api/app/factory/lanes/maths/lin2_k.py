@@ -14,13 +14,16 @@ from typing import Any
 
 import sympy
 
-from app.factory.lanes.maths.ap import scalar
 from app.factory.lanes.maths.core import Built, Family, IllPosed, clamp_difficulty, fstr, pick
 from app.factory.lanes.maths.lin2_core import F, coef_text, make, method, nice, slug
 from app.factory.lanes.maths.reference import lin2 as ref
 
 K = "k"
-_NEED = {"none": "no solution", "infinite": "infinitely many solutions", "not_unique": "not exactly one solution"}
+_NEED = {
+    "none": "no solution",
+    "infinite": "infinitely many solutions",
+    "not_unique": "not exactly one solution",
+}
 _WORDS = {
     "none": ["have no solution", "be inconsistent", "have no common point"],
     "infinite": ["have infinitely many solutions", "have every point in common"],
@@ -62,8 +65,13 @@ def _grid_k(rows: list[list[Any]], need: str) -> Fraction:
 
 def _sympy_k(rows: list[list[Any]], need: str) -> Fraction:
     k = sympy.Symbol("k")
-    mat = [[k if v == K else sympy.Rational(F(v).numerator, F(v).denominator) for v in row] for row in rows]
-    if any(row[2] == K for row in rows):  # k sits in a constant: every 2x2 minor of the augmented matrix vanishes
+    mat = [
+        [k if v == K else sympy.Rational(F(v).numerator, F(v).denominator) for v in row]
+        for row in rows
+    ]
+    if any(
+        row[2] == K for row in rows
+    ):  # k sits in a constant: every 2x2 minor of the augmented matrix vanishes
         eq = sympy.Matrix([[mat[0][0], mat[0][2]], [mat[1][0], mat[1][2]]]).det()
     else:
         eq = sympy.Matrix([[mat[0][0], mat[0][1]], [mat[1][0], mat[1][1]]]).det()
@@ -98,7 +106,12 @@ class KFamily(Family):
     def build(self, tpl: Mapping[str, Any], p: Mapping[str, Any]) -> Built:
         pb, qb, s1, s2, cc, pos = p["p"], p["q"], p["s1"], p["s2"], p["cc"], p["pos"]
         extra = p.get("d", p.get("cu", 0))
-        if s1 == s2 or 0 in (pb, qb, s1, s2, cc) or abs(pb) == abs(qb) or (self.need != "infinite" and extra == 0):
+        if (
+            s1 == s2
+            or 0 in (pb, qb, s1, s2, cc)
+            or abs(pb) == abs(qb)
+            or (self.need != "infinite" and extra == 0)
+        ):
             raise IllPosed("base_numbers_unusable")
         a1, b1, c1 = s1 * pb, s1 * qb, s1 * cc
         a2, b2 = s2 * pb, s2 * qb

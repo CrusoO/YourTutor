@@ -43,6 +43,7 @@ def test_the_required_slips_are_named():
 
 # ---------------------------------------------------------------- reference solvers
 
+
 @pytest.mark.parametrize(
     "raw, want",
     [
@@ -127,29 +128,45 @@ def _pick(short, params):
 
 
 def test_golden_graph_point_and_type():
-    ctx, built = _pick("C10.PAIR.GRAPH_POINT", {"x": 2, "y": 1, "ma": 1, "mb": -1, "wide": 0, "first": 0})
+    ctx, built = _pick(
+        "C10.PAIR.GRAPH_POINT", {"x": 2, "y": 1, "ma": 1, "mb": -1, "wide": 0, "first": 0}
+    )
     assert ctx.answer["value"] == "(2, 1)"
-    assert "(0, -1)" in built.stem and "(3, 2)" in built.stem and "(1, 2)" in built.stem and "(4, -1)" in built.stem
+    assert (
+        "(0, -1)" in built.stem
+        and "(3, 2)" in built.stem
+        and "(1, 2)" in built.stem
+        and "(4, -1)" in built.stem
+    )
     types = {"one": "exactly one", "none": "parallel", "infinite": "same line"}
     for kind, word in types.items():
-        ctx, _ = _pick("C10.PAIR.GRAPH_TYPE", {"kind": kind, "a1": 2, "b1": 3, "c1": 3, "m": 2, "d": 1})
+        ctx, _ = _pick(
+            "C10.PAIR.GRAPH_TYPE", {"kind": kind, "a1": 2, "b1": 3, "c1": 3, "m": 2, "d": 1}
+        )
         assert word in ctx.answer["value"]
 
 
 def test_golden_substitution_elimination_and_ratio_formula():
     ctx, _ = _pick("C10.PAIR.SUBST_FORM", {"x": 3, "y": 3, "m": 2, "a": 3, "b": 2, "ask": "pair"})
     assert ctx.answer["value"] == "x = 3, y = 3" and "y = 2x - 3" in ctx.stem
-    ctx, _ = _pick("C10.PAIR.ELIM_BOTH", {"x": 3, "y": 2, "e": 0, "a1": 2, "a2": 3, "q1": 3, "q2": -4})
+    ctx, _ = _pick(
+        "C10.PAIR.ELIM_BOTH", {"x": 3, "y": 2, "e": 0, "a1": 2, "a2": 3, "q1": 3, "q2": -4}
+    )
     assert ctx.answer["value"] == "x = 3, y = 2" and "2x + 3y = 12" in ctx.stem
     ctx, _ = _pick("C10.PAIR.CROSS_SOLVE", {"x": 2, "y": 1, "a1": 1, "b1": 2, "a2": 3, "b2": 1})
     assert ctx.answer["value"] == "x = 2, y = 1" and "x + 2y - 4 = 0" in ctx.stem
-    ctx, _ = _pick("C10.PAIR.CROSS_SETUP", {"which": "r", "a1": 2, "b1": 3, "c1": -5, "a2": 3, "b2": 1, "c2": 2})
+    ctx, _ = _pick(
+        "C10.PAIR.CROSS_SETUP",
+        {"which": "r", "a1": 2, "b1": 3, "c1": -5, "a2": 3, "b2": 1, "c2": 2},
+    )
     assert ctx.answer["value"] == "-7"  # 2*1 - 3*3
 
 
 def test_a_wrong_option_really_is_what_its_tag_says():
     # adding two equations whose x terms have the same sign: 3x + 2y = 13, 3x - 4y = 1
-    ctx, _ = _pick("C10.PAIR.ELIM_DIRECT", {"x": 3, "y": 2, "e": 0, "pe": 3, "sgn": 1, "q1": 2, "q2": -4})
+    ctx, _ = _pick(
+        "C10.PAIR.ELIM_DIRECT", {"x": 3, "y": 2, "e": 0, "pe": 3, "sgn": 1, "q1": 2, "q2": -4}
+    )
     by_tag = {o["procedure"]: o["value"]["value"] for o in ctx.options}
     assert ctx.answer["value"] == "x = 3, y = 2"
     # added: (2 + -4) y = 13 + 1 -> y = -7, then x from the first equation: (13 + 14) / 3 = 9
@@ -174,18 +191,27 @@ def test_language_lint_is_clean_on_sampled_items(template):
 
 
 def test_golden_k_word_and_reciprocal_items():
-    ctx, built = _pick("C10.PAIR.K_NONE", {"p": 1, "q": 2, "s1": 1, "s2": 3, "cc": 2, "d": 1, "pos": "a"})
+    ctx, built = _pick(
+        "C10.PAIR.K_NONE", {"p": 1, "q": 2, "s1": 1, "s2": 3, "cc": 2, "d": 1, "pos": "a"}
+    )
     assert ctx.answer["value"] == "3" and "kx + 6y = 7" in built.stem
     ctx, _ = _pick("C10.PAIR.K_INFINITE", {"p": 1, "q": 2, "s1": 1, "s2": 3, "cc": 2, "pos": "c"})
     assert ctx.answer["value"] == "6"  # second constant is 3 * 2
-    ctx, _ = _pick("C10.PAIR.WORD_AGES", {"y": 10, "k": 2, "t": 4, "when": "later", "ask": "A", "who": 0})
+    ctx, _ = _pick(
+        "C10.PAIR.WORD_AGES", {"y": 10, "k": 2, "t": 4, "when": "later", "ask": "A", "who": 0}
+    )
     assert ctx.answer["value"] == "24 years"
-    ctx, _ = _pick("C10.PAIR.WORD_STREAM", {"x": 10, "y": 2, "t1": 3, "t2": 2, "ask": "stream", "ctx": 0})
+    ctx, _ = _pick(
+        "C10.PAIR.WORD_STREAM", {"x": 10, "y": 2, "t1": 3, "t2": 2, "ask": "stream", "ctx": 0}
+    )
     assert ctx.answer["value"] == "2 km/h"
     ctx, _ = _pick("C10.PAIR.WORD_RECT", {"w": 4, "k": 2, "e": 2, "ask": "area", "ctx": 0})
     assert ctx.answer["value"] == "40 square metres"  # 10 by 4
     ctx, _ = _pick("C10.PAIR.RECIP_PAIR", {"x": 2, "y": 3, "a": 1, "b": 3, "d": 2, "e": 1})
-    assert ctx.answer["value"] == "x = 2, y = 3" and ctx.answer["values"] == {"u": "1/2", "v": "1/3"}
+    assert ctx.answer["value"] == "x = 2, y = 3" and ctx.answer["values"] == {
+        "u": "1/2",
+        "v": "1/3",
+    }
     ctx, _ = _pick("C10.PAIR.RECIP_SUMDIFF", {"x": 4, "y": 1, "a": 1, "b": 2, "d": 2, "e": 1})
     assert ctx.answer["value"] == "x = 4, y = 1"
 

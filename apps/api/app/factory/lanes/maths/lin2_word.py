@@ -16,7 +16,16 @@ from typing import Any
 import sympy
 
 from app.factory.lanes.maths.core import Built, Family, IllPosed, clamp_difficulty, fstr, pick
-from app.factory.lanes.maths.lin2_core import F, coef_text, make, method, nice, pair_rec, slug, system_spec
+from app.factory.lanes.maths.lin2_core import (
+    F,
+    coef_text,
+    make,
+    method,
+    nice,
+    pair_rec,
+    slug,
+    system_spec,
+)
 from app.factory.lanes.maths.reference import lin2 as ref
 
 Fmt = Callable[[Mapping[str, Any], Fraction, Fraction], tuple[dict[str, Any], str]]
@@ -52,17 +61,23 @@ class WordFamily(Family):
     def story(self, m: Mapping[str, Any], x: Any, y: Any) -> list[Any]:  # pragma: no cover
         raise NotImplementedError
 
-    def fmt(self, m: Mapping[str, Any], x: Fraction, y: Fraction) -> tuple[dict[str, Any], str]:  # pragma: no cover
+    def fmt(
+        self, m: Mapping[str, Any], x: Fraction, y: Fraction
+    ) -> tuple[dict[str, Any], str]:  # pragma: no cover
         raise NotImplementedError
 
-    def wrongs(self, m: Mapping[str, Any], x: Fraction, y: Fraction) -> list[tuple[str, Any]]:  # pragma: no cover
+    def wrongs(
+        self, m: Mapping[str, Any], x: Fraction, y: Fraction
+    ) -> list[tuple[str, Any]]:  # pragma: no cover
         """(misconception id, (x', y') or a ready (record, text))."""
         raise NotImplementedError
 
     def stem(self, m: Mapping[str, Any], p: Mapping[str, Any]) -> str:  # pragma: no cover
         raise NotImplementedError
 
-    def steps(self, m: Mapping[str, Any], x: Fraction, y: Fraction) -> list[str]:  # pragma: no cover
+    def steps(
+        self, m: Mapping[str, Any], x: Fraction, y: Fraction
+    ) -> list[str]:  # pragma: no cover
         raise NotImplementedError
 
     def hints(self, p: Mapping[str, Any]) -> list[str]:  # pragma: no cover
@@ -184,7 +199,10 @@ class WordAges(WordFamily):
         flipped = _safe(lambda: ref.cramer(ref.eqs([[1, 1, S], [-k, 1, (k - 1) * s * t]])))
         return [
             ("MC.PAIR.WORD_ASKED_OTHER_UNKNOWN", (y, x)),
-            ("MC.PAIR.WORD_AGES_FUTURE_REPORTED", (mine + s * t, other) if m["ask"] == "A" else (other, mine + s * t)),
+            (
+                "MC.PAIR.WORD_AGES_FUTURE_REPORTED",
+                (mine + s * t, other) if m["ask"] == "A" else (other, mine + s * t),
+            ),
             ("MC.PAIR.WORD_AGES_SIGN_OF_TIME", wrong_time),
             ("MC.PAIR.WORD_AGES_RATIO_FLIPPED", flipped),
         ]
@@ -195,12 +213,18 @@ class WordAges(WordFamily):
         t, k = m["t"], m["k"]
         if m["when"] == "later":
             link = pick(
-                [f"{plural('year', t)} from now, {a}'s age will be {k} times {b}'s age.", f"After {plural('year', t)}, {a} will be exactly {k} times as old as {b}."],
+                [
+                    f"{plural('year', t)} from now, {a}'s age will be {k} times {b}'s age.",
+                    f"After {plural('year', t)}, {a} will be exactly {k} times as old as {b}.",
+                ],
                 m,
             )
         else:
             link = pick(
-                [f"{plural('year', t)} ago, {a}'s age was {k} times {b}'s age.", f"Before {plural('year', t)} passed, {a} was exactly {k} times as old as {b}."],
+                [
+                    f"{plural('year', t)} ago, {a}'s age was {k} times {b}'s age.",
+                    f"Before {plural('year', t)} passed, {a} was exactly {k} times as old as {b}.",
+                ],
                 m,
             )
         return f"The sum of the present ages of {a} and {b} is {m['S']} years. {link} Find the present age of {who}."
@@ -322,7 +346,15 @@ class WordStream(WordFamily):
         x, y, t1, t2, ask, ctx = p["x"], p["y"], p["t1"], p["t2"], p["ask"], p["ctx"]
         if y >= x:
             raise IllPosed("stream_not_slower_than_boat")
-        return {"family": self.id, "t1": t1, "t2": t2, "D1": (x - y) * t1, "D2": (x + y) * t2, "ask": ask, "ctx": ctx}
+        return {
+            "family": self.id,
+            "t1": t1,
+            "t2": t2,
+            "D1": (x - y) * t1,
+            "D2": (x + y) * t2,
+            "ask": ask,
+            "ctx": ctx,
+        }
 
     def solution(self, p: Mapping[str, Any]) -> tuple[Fraction, Fraction]:
         return F(p["x"]), F(p["y"])
@@ -352,7 +384,11 @@ class WordStream(WordFamily):
 
     def stem(self, m: Mapping[str, Any], p: Mapping[str, Any]) -> str:
         boat = _BOATS[m["ctx"]]
-        goal = f"the speed of the {boat} in still water" if m["ask"] == "boat" else "the speed of the stream"
+        goal = (
+            f"the speed of the {boat} in still water"
+            if m["ask"] == "boat"
+            else "the speed of the stream"
+        )
         return pick(
             [
                 f"A {boat} goes {m['D1']} km upstream in {plural('hour', m['t1'])} and {m['D2']} km downstream in {plural('hour', m['t2'])}. Find {goal}.",
@@ -364,7 +400,7 @@ class WordStream(WordFamily):
     def steps(self, m: Mapping[str, Any], x: Fraction, y: Fraction) -> list[str]:
         t1, t2, D1, D2 = m["t1"], m["t2"], m["D1"], m["D2"]
         return [
-            f"Let the still-water speed be x km/h and the stream speed y km/h. Upstream the speed is x - y, downstream it is x + y.",
+            "Let the still-water speed be x km/h and the stream speed y km/h. Upstream the speed is x - y, downstream it is x + y.",
             f"Distance = speed × time gives {ref_text(self.rows_of(m)[0])} and {ref_text(self.rows_of(m)[1])}.",
             f"Dividing out the hours: x - y = {fstr(F(D1, t1))} and x + y = {fstr(F(D2, t2))}, so x = {fstr(x)} and y = {fstr(y)}.",
         ]
@@ -397,7 +433,14 @@ class WordCost(WordFamily):
         pn, qn, rn, sn = (int(ch) for ch in str(cnt))
         if pn * sn - qn * rn == 0:
             raise IllPosed("pair_has_no_unique_solution")
-        return {"family": self.id, "c": [pn, qn, rn, sn], "R": pn * x + qn * y, "T": rn * x + sn * y, "ask": ask, "ctx": ctx}
+        return {
+            "family": self.id,
+            "c": [pn, qn, rn, sn],
+            "R": pn * x + qn * y,
+            "T": rn * x + sn * y,
+            "ask": ask,
+            "ctx": ctx,
+        }
 
     def solution(self, p: Mapping[str, Any]) -> tuple[Fraction, Fraction]:
         return F(p["x"]), F(p["y"])
@@ -433,7 +476,9 @@ class WordCost(WordFamily):
     def stem(self, m: Mapping[str, Any], p: Mapping[str, Any]) -> str:
         a, b = _ITEMS[m["ctx"]]
         pn, qn, rn, sn = m["c"]
-        goal = {"item1": f"one {a}", "item2": f"one {b}", "both": f"one {a} and one {b} together"}[m["ask"]]
+        goal = {"item1": f"one {a}", "item2": f"one {b}", "both": f"one {a} and one {b} together"}[
+            m["ask"]
+        ]
         return pick(
             [
                 f"{plural(a, pn)} and {plural(b, qn)} cost {m['R']} rupees. {plural(a, rn)} and {plural(b, sn)} cost {m['T']} rupees. Find the cost of {goal}.",
@@ -510,14 +555,27 @@ class WordRect(WordFamily):
             out.append(("MC.PAIR.WORD_ASKED_OTHER_UNKNOWN", (x, F(1))))
         else:
             out.append(("MC.PAIR.WORD_ASKED_OTHER_UNKNOWN", (y, x)))
-            out.append(("MC.PAIR.WORD_RECT_STOPPED_AT_SEMIPERIMETER", (semi, y) if m["ask"] == "length" else (x, semi)))
+            out.append(
+                (
+                    "MC.PAIR.WORD_RECT_STOPPED_AT_SEMIPERIMETER",
+                    (semi, y) if m["ask"] == "length" else (x, semi),
+                )
+            )
         return out
 
     def stem(self, m: Mapping[str, Any], p: Mapping[str, Any]) -> str:
         shape = _SHAPES[m["ctx"]]
         k, e = m["k"], m["e"]
-        link = f"{e} metres more than its width" if k == 1 else f"{e} metres more than {k} times its width"
-        goal = {"length": f"the length of the {shape}", "width": f"the width of the {shape}", "area": f"the area of the {shape}"}[m["ask"]]
+        link = (
+            f"{e} metres more than its width"
+            if k == 1
+            else f"{e} metres more than {k} times its width"
+        )
+        goal = {
+            "length": f"the length of the {shape}",
+            "width": f"the width of the {shape}",
+            "area": f"the area of the {shape}",
+        }[m["ask"]]
         return pick(
             [
                 f"The perimeter of a rectangular {shape} is {m['P']} metres. Its length is {link}. Find {goal}.",
@@ -528,7 +586,11 @@ class WordRect(WordFamily):
 
     def steps(self, m: Mapping[str, Any], x: Fraction, y: Fraction) -> list[str]:
         rows = self.rows_of(m)
-        last = {"length": f"The length is {fstr(x)} metres.", "width": f"The width is {fstr(y)} metres.", "area": f"The area is {fstr(x)} × {fstr(y)} = {fstr(x * y)} square metres."}[m["ask"]]
+        last = {
+            "length": f"The length is {fstr(x)} metres.",
+            "width": f"The width is {fstr(y)} metres.",
+            "area": f"The area is {fstr(x)} × {fstr(y)} = {fstr(x * y)} square metres.",
+        }[m["ask"]]
         return [
             "Let the length be x metres and the width y metres. The perimeter counts every side.",
             f"The two facts give {ref_text(rows[0])} and {ref_text(rows[1])}.",
@@ -576,7 +638,10 @@ class RecipBase(Family):
         spec = system_spec(rows, model, names=("u", "v"))
 
         def rec_of(xv: Fraction, yv: Fraction, uv: Fraction, vv: Fraction) -> dict[str, Any]:
-            return {"values": {"u": fstr(uv), "v": fstr(vv)}, "value": f"x = {fstr(xv)}, y = {fstr(yv)}"}
+            return {
+                "values": {"u": fstr(uv), "v": fstr(vv)},
+                "value": f"x = {fstr(xv)}, y = {fstr(yv)}",
+            }
 
         def from_uv(uv: Fraction, vv: Fraction, sd: int) -> dict[str, Any]:
             s, t = 1 / uv, 1 / vv
@@ -592,7 +657,9 @@ class RecipBase(Family):
             big_x, big_y = sympy.symbols("X Y")
             den1, den2 = (big_x + big_y, big_x - big_y) if mm["sd"] else (big_x, big_y)
             eqs = [
-                sympy.Rational(r[0]) / den1 + sympy.Rational(r[1]) / den2 - sympy.Rational(F(r[2]).numerator, F(r[2]).denominator)
+                sympy.Rational(r[0]) / den1
+                + sympy.Rational(r[1]) / den2
+                - sympy.Rational(F(r[2]).numerator, F(r[2]).denominator)
                 for r in mm["rows"]
             ]
             sol = sympy.solve(eqs, [big_x, big_y], dict=True)
@@ -616,6 +683,7 @@ class RecipBase(Family):
                 return None if rest == 0 else 1 / rest
 
             if not sd:
+
                 def resid(xv: Fraction, yv: Fraction) -> list[Fraction]:
                     return [a1 / xv + b1 / yv - k1, a2 / xv + b2 / yv - k2]
 
@@ -647,14 +715,24 @@ class RecipBase(Family):
         key_text = f"x = {x}, y = {y}"
         wrong_pairs = self.wrongs(x, y, s_, t_, rows, u, v)
         wrong = [
-            (mc, {"values": {"u": fstr(xv), "v": fstr(yv)}, "value": f"x = {fstr(xv)}, y = {fstr(yv)}"}, f"x = {fstr(xv)}, y = {fstr(yv)}")
+            (
+                mc,
+                {
+                    "values": {"u": fstr(xv), "v": fstr(yv)},
+                    "value": f"x = {fstr(xv)}, y = {fstr(yv)}",
+                },
+                f"x = {fstr(xv)}, y = {fstr(yv)}",
+            )
             for mc, (xv, yv) in wrong_pairs
             if nice(xv) and nice(yv)
         ]
         e1 = _recip_text(a, b, c1, *self.denoms())
         e2 = _recip_text(d, e, c2, *self.denoms())
         stem = pick(
-            [f"Solve for x and y: {e1} and {e2}.", f"Reduce the pair {e1}, {e2} to a pair of linear equations and solve it for x and y."],
+            [
+                f"Solve for x and y: {e1} and {e2}.",
+                f"Reduce the pair {e1}, {e2} to a pair of linear equations and solve it for x and y.",
+            ],
             {"x": x, "y": y, "a": a},
         )
         steps = self.steps(a, b, d, e, u, v, s_, t_, x, y)
@@ -679,10 +757,24 @@ class RecipBase(Family):
     def denoms(self) -> tuple[str, str]:  # pragma: no cover
         raise NotImplementedError
 
-    def wrongs(self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction) -> list[tuple[str, tuple[Fraction, Fraction]]]:  # pragma: no cover
+    def wrongs(
+        self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction
+    ) -> list[tuple[str, tuple[Fraction, Fraction]]]:  # pragma: no cover
         raise NotImplementedError
 
-    def steps(self, a: int, b: int, d: int, e: int, u: Fraction, v: Fraction, s: int, t: int, x: int, y: int) -> list[str]:  # pragma: no cover
+    def steps(
+        self,
+        a: int,
+        b: int,
+        d: int,
+        e: int,
+        u: Fraction,
+        v: Fraction,
+        s: int,
+        t: int,
+        x: int,
+        y: int,
+    ) -> list[str]:  # pragma: no cover
         raise NotImplementedError
 
     def hints(self, p: Mapping[str, Any]) -> list[str]:  # pragma: no cover
@@ -695,7 +787,9 @@ class RecipPair(RecipBase):
     def denoms(self) -> tuple[str, str]:
         return "x", "y"
 
-    def wrongs(self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction) -> list[tuple[str, tuple[Fraction, Fraction]]]:
+    def wrongs(
+        self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction
+    ) -> list[tuple[str, tuple[Fraction, Fraction]]]:
         linear = _safe(lambda: ref.cramer(ref.eqs(rows)))
         out: list[tuple[str, tuple[Fraction, Fraction]]] = [
             ("MC.PAIR.RECIP_ANSWER_IS_RECIPROCAL", (u, v)),
@@ -707,7 +801,19 @@ class RecipPair(RecipBase):
             out.insert(2, ("MC.PAIR.RECIP_TREATED_AS_LINEAR", linear))
         return out
 
-    def steps(self, a: int, b: int, d: int, e: int, u: Fraction, v: Fraction, s: int, t: int, x: int, y: int) -> list[str]:
+    def steps(
+        self,
+        a: int,
+        b: int,
+        d: int,
+        e: int,
+        u: Fraction,
+        v: Fraction,
+        s: int,
+        t: int,
+        x: int,
+        y: int,
+    ) -> list[str]:
         r1, r2 = (a, b), (d, e)
         return [
             "Put 1/x = u and 1/y = v. Both relations become linear in u and v.",
@@ -747,7 +853,9 @@ class RecipSumDiff(RecipBase):
     def denoms(self) -> tuple[str, str]:
         return "(x + y)", "(x - y)"
 
-    def wrongs(self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction) -> list[tuple[str, tuple[Fraction, Fraction]]]:
+    def wrongs(
+        self, x: int, y: int, s: int, t: int, rows: list[list[Any]], u: Fraction, v: Fraction
+    ) -> list[tuple[str, tuple[Fraction, Fraction]]]:
         return [
             ("MC.PAIR.RECIP_SUMDIFF_STOPPED_EARLY", (F(s), F(t))),
             ("MC.PAIR.RECIP_SUMDIFF_NOT_HALVED", (F(s + t), F(s - t))),
@@ -756,7 +864,19 @@ class RecipSumDiff(RecipBase):
             ("MC.PAIR.RECIP_ANSWER_IS_RECIPROCAL", (u, v)),
         ]
 
-    def steps(self, a: int, b: int, d: int, e: int, u: Fraction, v: Fraction, s: int, t: int, x: int, y: int) -> list[str]:
+    def steps(
+        self,
+        a: int,
+        b: int,
+        d: int,
+        e: int,
+        u: Fraction,
+        v: Fraction,
+        s: int,
+        t: int,
+        x: int,
+        y: int,
+    ) -> list[str]:
         return [
             "Put 1/(x + y) = u and 1/(x - y) = v. Both relations become linear in u and v.",
             f"They read {lin_uv(a, b, a * u + b * v)} and {lin_uv(d, e, d * u + e * v)}.",

@@ -58,7 +58,11 @@ def _wrong_from_pairs(
 def _one_var(ask: str, x: Fraction) -> tuple[str, dict[str, Any], str]:
     if ask == "sum":
         return "MC.PAIR.ONE_VARIABLE_ONLY", {"values": {"x": fstr(x)}, "value": fstr(x)}, fstr(x)
-    return "MC.PAIR.ONE_VARIABLE_ONLY", {"values": {"x": fstr(x)}, "value": f"x = {fstr(x)}"}, f"x = {fstr(x)}"
+    return (
+        "MC.PAIR.ONE_VARIABLE_ONLY",
+        {"values": {"x": fstr(x)}, "value": f"x = {fstr(x)}"},
+        f"x = {fstr(x)}",
+    )
 
 
 def _safe(fn: Any) -> Any:
@@ -79,10 +83,21 @@ def _row_methods(tech: str, ask_key: str = "ask") -> list[Any]:
 
         return run
 
-    third = {"substitution": "gauss", "elimination": "cramer", "cross_multiplication": "gauss"}[tech]
-    groups = {"substitution": "substitution", "elimination": "elimination", "cross_multiplication": "cramer"}
+    third = {"substitution": "gauss", "elimination": "cramer", "cross_multiplication": "gauss"}[
+        tech
+    ]
+    groups = {
+        "substitution": "substitution",
+        "elimination": "elimination",
+        "cross_multiplication": "cramer",
+    }
     return [
-        method(f"maths.lin2.{tech}", groups[tech], tech, mk(tech if tech != "cross_multiplication" else "cramer")),
+        method(
+            f"maths.lin2.{tech}",
+            groups[tech],
+            tech,
+            mk(tech if tech != "cross_multiplication" else "cramer"),
+        ),
         method("maths.lin2.sympy", "sympy.linsolve", "", mk("sympy")),
         method(f"maths.lin2.{third}", third, "", mk(third)),
     ]
@@ -124,7 +139,10 @@ class GraphPoint(Family):
             (ax1, ay1, ax2, ay2), (bx1, by1, bx2, by2) = s["model"]["pts"]
             t, u = sympy.symbols("t u")
             sol = sympy.linsolve(
-                [ax1 + t * (ax2 - ax1) - bx1 - u * (bx2 - bx1), ay1 + t * (ay2 - ay1) - by1 - u * (by2 - by1)],
+                [
+                    ax1 + t * (ax2 - ax1) - bx1 - u * (bx2 - bx1),
+                    ay1 + t * (ay2 - ay1) - by1 - u * (by2 - by1),
+                ],
                 (t, u),
             )
             if len(sol) != 1:
@@ -159,7 +177,8 @@ class GraphPoint(Family):
             ("MC.PAIR.XY_SWAPPED", pair_rec(y, x, pt(y, x)), pt(y, x)),
         ]
         listing = " ".join(
-            f"Line {n} passes through {pt(*q[0])} and {pt(*q[1])}." for n, q in zip(names, lines, strict=True)
+            f"Line {n} passes through {pt(*q[0])} and {pt(*q[1])}."
+            for n, q in zip(names, lines, strict=True)
         )
         stem = pick(
             [
@@ -269,9 +288,21 @@ class GraphType(Family):
         ]
         key = answer(kind)
         wrong_map = {
-            "one": [("MC.PAIR.TYPE_ONE_AS_NONE", "none"), ("MC.PAIR.TYPE_ONE_AS_INFINITE", "infinite"), ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two")],
-            "none": [("MC.PAIR.TYPE_CONSTANT_RATIO_IGNORED", "infinite"), ("MC.PAIR.TYPE_RATIOS_NOT_COMPARED", "one"), ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two")],
-            "infinite": [("MC.PAIR.TYPE_COINCIDENT_AS_PARALLEL", "none"), ("MC.PAIR.TYPE_RATIOS_NOT_COMPARED", "one"), ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two")],
+            "one": [
+                ("MC.PAIR.TYPE_ONE_AS_NONE", "none"),
+                ("MC.PAIR.TYPE_ONE_AS_INFINITE", "infinite"),
+                ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two"),
+            ],
+            "none": [
+                ("MC.PAIR.TYPE_CONSTANT_RATIO_IGNORED", "infinite"),
+                ("MC.PAIR.TYPE_RATIOS_NOT_COMPARED", "one"),
+                ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two"),
+            ],
+            "infinite": [
+                ("MC.PAIR.TYPE_COINCIDENT_AS_PARALLEL", "none"),
+                ("MC.PAIR.TYPE_RATIOS_NOT_COMPARED", "one"),
+                ("MC.PAIR.TYPE_TWO_MEETING_POINTS", "two"),
+            ],
         }[kind]
         wrong = [(mc, answer(k), _TYPE_TEXT[k]) for mc, k in wrong_map]
         e1, e2 = lin_text(*row1), lin_text(*row2)
@@ -423,7 +454,9 @@ class SubstGeneral(Family):
         spec = system_spec(rows, model)
         key, key_text = _fmt_ask("pair", F(x), F(y))
         c1 = row1[2]
-        slip_isolate = [[row1[0], -row1[1], c1], row2] if unit == 0 else [[-row1[0], row1[1], c1], row2]
+        slip_isolate = (
+            [[row1[0], -row1[1], c1], row2] if unit == 0 else [[-row1[0], row1[1], c1], row2]
+        )
         # the constant of the isolated expression is dropped when it is put into the second equation
         if unit == 0:
             yd = _safe(lambda: F(row2[2]) / (b - F(a * q, s1)))
@@ -498,14 +531,19 @@ def _to_xy(u: Fraction, v: Fraction, e: int) -> tuple[Fraction, Fraction]:
     return (u, v) if e == 0 else (v, u)
 
 
-def _elim_rows(e: int, ecoefs: tuple[int, int], oc: tuple[int, int], cs: tuple[int, int]) -> list[list[int]]:
+def _elim_rows(
+    e: int, ecoefs: tuple[int, int], oc: tuple[int, int], cs: tuple[int, int]
+) -> list[list[int]]:
     if e == 0:
         return [[ecoefs[0], oc[0], cs[0]], [ecoefs[1], oc[1], cs[1]]]
     return [[oc[0], ecoefs[0], cs[0]], [oc[1], ecoefs[1], cs[1]]]
 
 
 def _stem_pair(rows: list[list[int]], p: Mapping[str, Any]) -> str:
-    e1, e2 = lin_text(*rows[0]), lin_text(*rows[1])
+    e1, e2 = (
+        lin_text(rows[0][0], rows[0][1], rows[0][2]),
+        lin_text(rows[1][0], rows[1][1], rows[1][2]),
+    )
     return pick(
         [
             f"Solve by elimination: {e1} and {e2}.",
@@ -533,8 +571,16 @@ def _elim_hints(p: Mapping[str, Any], full: str) -> list[str]:
 
 
 def _build_elim(
-    fam: str, tpl: Mapping[str, Any], p: Mapping[str, Any], rows: list[list[int]], x: int, y: int, steps: list[str],
-    cands: list[tuple[str, tuple[Fraction, Fraction] | None]], full: str, base: float,
+    fam: str,
+    tpl: Mapping[str, Any],
+    p: Mapping[str, Any],
+    rows: list[list[int]],
+    x: int,
+    y: int,
+    steps: list[str],
+    cands: list[tuple[str, tuple[Fraction, Fraction] | None]],
+    full: str,
+    base: float,
 ) -> Built:
     model = {"family": fam, "rows": rows, "ask": "pair"}
     key, key_text = _fmt_ask("pair", F(x), F(y))
@@ -559,7 +605,9 @@ def _build_elim(
     )
 
 
-def _finish_u_v(rows: list[list[int]], e: int, rhs: Fraction, coefv: Fraction) -> tuple[Fraction, Fraction]:
+def _finish_u_v(
+    rows: list[list[int]], e: int, rhs: Fraction, coefv: Fraction
+) -> tuple[Fraction, Fraction]:
     """From the one-unknown line coefv * v = rhs, find v, then u from the first original equation."""
     v = rhs / coefv
     r = rows[0]
@@ -591,16 +639,35 @@ class ElimDirect(Family):
         ]
         if sgn == 1:
             cands = [
-                ("MC.PAIR.ELIM_ADD_NOT_SUBTRACT", _safe(lambda: _finish_u_v(rows, e, F(cs[0] + cs[1]), F(q1 + q2)))),
-                ("MC.PAIR.ELIM_SIGN_SLIP", _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 + q2)))),
+                (
+                    "MC.PAIR.ELIM_ADD_NOT_SUBTRACT",
+                    _safe(lambda: _finish_u_v(rows, e, F(cs[0] + cs[1]), F(q1 + q2))),
+                ),
+                (
+                    "MC.PAIR.ELIM_SIGN_SLIP",
+                    _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 + q2))),
+                ),
             ]
         else:
             cands = [
-                ("MC.PAIR.ELIM_SUBTRACT_NOT_ADD", _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 - q2)))),
-                ("MC.PAIR.ELIM_SIGN_SLIP", _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 + q2)))),
+                (
+                    "MC.PAIR.ELIM_SUBTRACT_NOT_ADD",
+                    _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 - q2))),
+                ),
+                (
+                    "MC.PAIR.ELIM_SIGN_SLIP",
+                    _safe(lambda: _finish_u_v(rows, e, F(cs[0] - cs[1]), F(q1 + q2))),
+                ),
             ]
         return _build_elim(
-            self.id, tpl, p, rows, x, y, steps, cands,
+            self.id,
+            tpl,
+            p,
+            rows,
+            x,
+            y,
+            steps,
+            cands,
             "Full method: compare the coefficients of one unknown, add or subtract the equations, using every term, so it cancels, solve the single equation left, then put that value into one of the originals.",
             0.3,
         )
@@ -610,7 +677,16 @@ class ElimOne(Family):
     id = "lin_elim_one"
 
     def build(self, tpl: Mapping[str, Any], p: Mapping[str, Any]) -> Built:
-        x, y, e, pe, m, q1, q2, swap = p["x"], p["y"], p["e"], p["pe"], p["m"], p["q1"], p["q2"], p["swap"]
+        x, y, e, pe, m, q1, q2, swap = (
+            p["x"],
+            p["y"],
+            p["e"],
+            p["pe"],
+            p["m"],
+            p["q1"],
+            p["q2"],
+            p["swap"],
+        )
         if abs(m) < 2 or q1 == 0 or q2 == 0 or q2 == m * q1:
             raise IllPosed("scaled_row_would_not_cancel_cleanly")
         u, v = (x, y) if e == 0 else (y, x)
@@ -630,23 +706,49 @@ class ElimOne(Family):
             f"Put {other} = {fstr(v)} back to find {var} = {fstr(u)}.",
         ]
 
-        def system_with(first: list[int], second: list[int]) -> tuple[Fraction, Fraction] | None:
-            row_s = _elim_rows(e, (first[0], second[0]), (first[1], second[1]), (first[2], second[2]))
+        def system_with(first: list[Any], second: list[Any]) -> tuple[Fraction, Fraction] | None:
+            row_s = _elim_rows(
+                e, (first[0], second[0]), (first[1], second[1]), (first[2], second[2])
+            )
             return _safe(lambda: ref.cramer(ref.eqs(row_s)))
 
         big_row = [big[0], q2, big[2]]
         cands = [
             ("MC.PAIR.ELIM_SCALE_PARTIAL", system_with([scaled[0], scaled[1], small[2]], big_row)),
             ("MC.PAIR.ELIM_SCALE_PARTIAL", system_with([scaled[0], q1, scaled[2]], big_row)),
-            ("MC.PAIR.ELIM_DIVIDED_ONE_TERM", system_with([pe, q1, small[2]], [pe, q2, F(big[2], m)])),
+            (
+                "MC.PAIR.ELIM_DIVIDED_ONE_TERM",
+                system_with([pe, q1, small[2]], [pe, q2, F(big[2], m)]),
+            ),
             (
                 "MC.PAIR.ELIM_ADD_NOT_SUBTRACT" if same else "MC.PAIR.ELIM_SUBTRACT_NOT_ADD",
-                _safe(lambda: _finish_u_v(rows, e, F(scaled[2] + big[2] if same else scaled[2] - big[2]), F(scaled[1] + q2 if same else scaled[1] - q2))),
+                _safe(
+                    lambda: _finish_u_v(
+                        rows,
+                        e,
+                        F(scaled[2] + big[2] if same else scaled[2] - big[2]),
+                        F(scaled[1] + q2 if same else scaled[1] - q2),
+                    )
+                ),
             ),
-            ("MC.PAIR.ELIM_SIGN_SLIP", _safe(lambda: _finish_u_v(rows, e, F(scaled[2] + big[2] if same else scaled[2] - big[2]), F(rq)))),
+            (
+                "MC.PAIR.ELIM_SIGN_SLIP",
+                _safe(
+                    lambda: _finish_u_v(
+                        rows, e, F(scaled[2] + big[2] if same else scaled[2] - big[2]), F(rq)
+                    )
+                ),
+            ),
         ]
         return _build_elim(
-            self.id, tpl, p, rows, x, y, steps, cands,
+            self.id,
+            tpl,
+            p,
+            rows,
+            x,
+            y,
+            steps,
+            cands,
             "Full method: multiply the equation with the smaller coefficient by the right number, using every term, so the coefficients of one unknown match, add or subtract to cancel it, solve, then find the other unknown.",
             0.4,
         )
@@ -675,11 +777,26 @@ class ElimBoth(Family):
         partial = _elim_rows(e, (a1 * a2, a1 * a2), (a2 * q1, a1 * q2), (cs[0], a1 * cs[1]))
         cands = [
             ("MC.PAIR.ELIM_SCALE_PARTIAL", _safe(lambda: ref.cramer(ref.eqs(partial)))),
-            ("MC.PAIR.ELIM_ADD_NOT_SUBTRACT", _safe(lambda: _finish_u_v(rows, e, F(a2 * cs[0] + a1 * cs[1]), F(a2 * q1 + a1 * q2)))),
-            ("MC.PAIR.ELIM_SIGN_SLIP", _safe(lambda: _finish_u_v(rows, e, F(a2 * cs[0] + a1 * cs[1]), F(rq)))),
+            (
+                "MC.PAIR.ELIM_ADD_NOT_SUBTRACT",
+                _safe(
+                    lambda: _finish_u_v(rows, e, F(a2 * cs[0] + a1 * cs[1]), F(a2 * q1 + a1 * q2))
+                ),
+            ),
+            (
+                "MC.PAIR.ELIM_SIGN_SLIP",
+                _safe(lambda: _finish_u_v(rows, e, F(a2 * cs[0] + a1 * cs[1]), F(rq))),
+            ),
         ]
         return _build_elim(
-            self.id, tpl, p, rows, x, y, steps, cands,
+            self.id,
+            tpl,
+            p,
+            rows,
+            x,
+            y,
+            steps,
+            cands,
             "Full method: pick an unknown, multiply each equation by the other equation's coefficient of it, using every term, so they match, subtract to cancel it, solve for the other unknown, then substitute back.",
             0.5,
         )
@@ -771,7 +888,15 @@ class CrossSetup(Family):
     id = "lin_cross_setup"
 
     def build(self, tpl: Mapping[str, Any], p: Mapping[str, Any]) -> Built:
-        which, a1, b1, c1, a2, b2, c2 = p["which"], p["a1"], p["b1"], p["c1"], p["a2"], p["b2"], p["c2"]
+        which, a1, b1, c1, a2, b2, c2 = (
+            p["which"],
+            p["a1"],
+            p["b1"],
+            p["c1"],
+            p["a2"],
+            p["b2"],
+            p["c2"],
+        )
         if a1 * b2 - a2 * b1 == 0 or 0 in (c1, c2):
             raise IllPosed("pair_has_no_unique_solution")
         pn, qn, rn = _cross_numbers(a1, b1, c1, a2, b2, c2)
@@ -784,7 +909,11 @@ class CrossSetup(Family):
 
         def closed(s: Mapping[str, Any]) -> Any:
             A1, B1, C1, A2, B2, C2 = s["model"]["v"]
-            return ans({"p": B1 * C2 - B2 * C1, "q": C1 * A2 - C2 * A1, "r": A1 * B2 - A2 * B1}[s["model"]["w"]])
+            return ans(
+                {"p": B1 * C2 - B2 * C1, "q": C1 * A2 - C2 * A1, "r": A1 * B2 - A2 * B1}[
+                    s["model"]["w"]
+                ]
+            )
 
         def by_sympy(s: Mapping[str, Any]) -> Any:
             A1, B1, C1, A2, B2, C2 = (sympy.Integer(v) for v in s["model"]["v"])

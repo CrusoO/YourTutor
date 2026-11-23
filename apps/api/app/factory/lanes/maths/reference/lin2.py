@@ -116,10 +116,13 @@ def kind_ratios(pair: Sequence[Eq]) -> str:
 
 
 def kind_sympy(pair: Sequence[Eq]) -> str:
-    m = sympy.Matrix([[sympy.Rational(a.numerator, a.denominator), sympy.Rational(b.numerator, b.denominator)] for a, b, _ in pair])
-    aug = sympy.Matrix(
-        [[sympy.Rational(v.numerator, v.denominator) for v in row] for row in pair]
+    m = sympy.Matrix(
+        [
+            [sympy.Rational(a.numerator, a.denominator), sympy.Rational(b.numerator, b.denominator)]
+            for a, b, _ in pair
+        ]
     )
+    aug = sympy.Matrix([[sympy.Rational(v.numerator, v.denominator) for v in row] for row in pair])
     rank_a, rank_aug = m.rank(), aug.rank()
     if rank_a == 2:
         return "one"
@@ -142,7 +145,9 @@ def kind_gauss(pair: Sequence[Eq]) -> str:
         r += 1
     if r == 2:
         return "one"
-    return "none" if any(row[0] == 0 and row[1] == 0 and row[2] != 0 for row in rows) else "infinite"
+    return (
+        "none" if any(row[0] == 0 and row[1] == 0 and row[2] != 0 for row in rows) else "infinite"
+    )
 
 
 # ------------------------------------------------------------ search

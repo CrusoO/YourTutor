@@ -24,8 +24,13 @@ from app.factory.lanes.maths.quad import QUAD_FAMILIES
 from app.factory.lanes.maths.trig import TRIG_FAMILIES
 from app.factory.registry import ItemContext, register_lane
 
-FAMILIES: dict[str, Family] = {**QUAD_FAMILIES, **AP_FAMILIES, **TRIG_FAMILIES,
-    **LIN2_FAMILIES, **K_FAMILIES, **WORD_FAMILIES,
+FAMILIES: dict[str, Family] = {
+    **QUAD_FAMILIES,
+    **AP_FAMILIES,
+    **TRIG_FAMILIES,
+    **LIN2_FAMILIES,
+    **K_FAMILIES,
+    **WORD_FAMILIES,
 }
 LANE_NAME = "maths_c10"
 

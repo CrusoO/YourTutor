@@ -73,7 +73,9 @@ def slug(*parts: Any) -> str:
 # ---------------------------------------------------------------- answers
 
 
-def pair_rec(x: Any, y: Any, text: str | None = None, names: tuple[str, str] = ("x", "y")) -> dict[str, Any]:
+def pair_rec(
+    x: Any, y: Any, text: str | None = None, names: tuple[str, str] = ("x", "y")
+) -> dict[str, Any]:
     return {
         "values": {names[0]: fstr(x), names[1]: fstr(y)},
         "value": text if text is not None else f"x = {fstr(x)}, y = {fstr(y)}",
@@ -109,7 +111,9 @@ def memo(fn: Callable[[Mapping[str, Any]], Any]) -> Callable[[Mapping[str, Any]]
     return run
 
 
-def method(mid: str, group: str, technique: str, fn: Callable[[Mapping[str, Any]], Any]) -> FnMethod:
+def method(
+    mid: str, group: str, technique: str, fn: Callable[[Mapping[str, Any]], Any]
+) -> FnMethod:
     return FnMethod(mid, group, technique, memo(fn))
 
 
@@ -124,14 +128,14 @@ def agree(spec: dict[str, Any], methods: list[FnMethod], answer: dict[str, Any])
             raise IllPosed("methods_disagree")
 
 
-def system_spec(rows: Rows, model: dict[str, Any], names: tuple[str, str] = ("x", "y")) -> dict[str, Any]:
+def system_spec(
+    rows: Rows, model: dict[str, Any], names: tuple[str, str] = ("x", "y")
+) -> dict[str, Any]:
     return {
         "domain": "algebra",
         "kind": "linear_system",
         "variables": list(names),
-        "equations": [
-            {"coeffs": [fstr(a), fstr(b)], "const": fstr(c)} for a, b, c in rows
-        ],
+        "equations": [{"coeffs": [fstr(a), fstr(b)], "const": fstr(c)} for a, b, c in rows],
         "model": model,
     }
 
