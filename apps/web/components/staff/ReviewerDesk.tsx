@@ -262,9 +262,8 @@ export default function ReviewerDesk() {
     const open = cards.findIndex((c, i) => i > idx && !isDone(c));
     return open >= 0 ? open : Math.min(idx + 1, cards.length - 1);
   };
-  const generalProblems = problems.filter(
-    (p) => p.field === "form" || (p.field === "fix_notes" && p.question === undefined) || p.field === "checks",
-  );
+  // the action bar lists every problem (a phone user may not see the field it belongs to); fields repeat theirs inline
+  const generalProblems = problems.filter((p, i) => problems.findIndex((q) => q.message === p.message) === i);
 
   if (state === "loading") return <main className="stack" data-testid="desk-loading"><p>{desk.loading}</p></main>;
   if (state === "error")
@@ -275,7 +274,7 @@ export default function ReviewerDesk() {
     );
 
   return (
-    <main className="mx-auto w-full max-w-6xl pb-44 sm:pb-32" data-testid="reviewer-desk">
+    <main className="mx-auto w-full max-w-6xl pb-48 sm:pb-36" data-testid="reviewer-desk">
       <header className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-line py-3">
         <h1 className="m-0 text-xl font-bold">{desk.title}</h1>
         <span className="flex-1" />
@@ -314,14 +313,18 @@ export default function ReviewerDesk() {
                   type="button"
                   onClick={() => go(i)}
                   aria-current={i === idx ? "true" : undefined}
+                  title={c.id}
                   className={cn(
-                    "flex min-h-11 w-auto items-center gap-2 rounded-lg border border-line bg-surface px-3 py-1 text-sm font-medium text-ink",
+                    "flex min-h-11 min-w-11 w-auto items-center justify-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1 font-sans text-sm font-medium normal-case tracking-normal text-ink",
                     i === idx && "border-accent shadow-[0_0_0_2px_var(--c-accent-soft)]",
                   )}
                 >
                   <span className={cn("size-2.5 rounded-full bg-line", decision && DOT[decision])} aria-hidden />
-                  {desk.question(i + 1)}
-                  {decision ? <span className="sr-only"> ({desk.decisionWords[decision] ?? decision})</span> : null}
+                  <span aria-hidden>{i + 1}</span>
+                  <span className="sr-only">
+                    {desk.question(i + 1)}
+                    {decision ? ` (${desk.decisionWords[decision] ?? decision})` : ""}
+                  </span>
                 </button>
               );
             })}
@@ -395,7 +398,7 @@ export default function ReviewerDesk() {
                         aria-describedby={error("note").length ? "general-note-error" : undefined}
                       />
                       {error("note").map((p) => (
-                        <p key={p.message} id="general-note-error" role="alert" className="mt-1 text-sm font-medium text-danger">
+                        <p key={p.message} id="general-note-error" className="mt-1 text-sm font-medium text-danger">
                           {p.message}
                         </p>
                       ))}
@@ -421,7 +424,7 @@ export default function ReviewerDesk() {
         />
       ) : null}
 
-      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-28 z-30 flex justify-center px-4">
+      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-36 z-30 flex justify-center px-4">
         {toast ? (
           <span className="rounded-xl bg-ink px-4 py-2 text-sm text-surface" data-testid="desk-toast">
             {toast}
@@ -600,7 +603,7 @@ function CheckRow({
             type="button"
             aria-pressed={value === true}
             onClick={() => onAnswer(true)}
-            className={cn("min-h-11 w-auto min-w-20 rounded-lg border border-line bg-surface px-3 text-sm text-ink", value === true && "border-success bg-success-soft font-semibold text-success")}
+            className={cn("min-h-11 w-auto min-w-20 rounded-lg border border-line bg-surface px-3 font-sans text-sm normal-case tracking-normal text-ink", value === true && "border-success bg-success-soft font-semibold text-success")}
           >
             {desk.yes} <span className="font-mono text-xs opacity-70">Y</span>
           </button>
@@ -608,7 +611,7 @@ function CheckRow({
             type="button"
             aria-pressed={value === false}
             onClick={() => onAnswer(false)}
-            className={cn("min-h-11 w-auto min-w-20 rounded-lg border border-line bg-surface px-3 text-sm text-ink", value === false && "border-warning bg-warning-soft font-semibold text-warning")}
+            className={cn("min-h-11 w-auto min-w-20 rounded-lg border border-line bg-surface px-3 font-sans text-sm normal-case tracking-normal text-ink", value === false && "border-warning bg-warning-soft font-semibold text-warning")}
           >
             {desk.needsFix} <span className="font-mono text-xs opacity-70">N</span>
           </button>
@@ -634,7 +637,7 @@ function CheckRow({
             aria-describedby={`fix-hint-${index}`}
             className={cn(bad && "border-danger")}
           />
-          <p id={`fix-hint-${index}`} role={bad ? "alert" : undefined} className={cn("mt-1 text-sm", bad ? "font-medium text-danger" : "text-ink")}>
+          <p id={`fix-hint-${index}`} className={cn("mt-1 text-sm", bad ? "font-medium text-danger" : "text-ink")}>
             {problems.length ? problems[0].message : bad ? desk.fixHintBad : desk.fixHint}
           </p>
         </div>
@@ -666,7 +669,7 @@ function ReasonPicker({
             type="button"
             aria-pressed={draft.reason === code}
             onClick={() => onReason(code)}
-            className={cn("flex min-h-11 w-auto items-center gap-2 rounded-full border border-line bg-surface px-3 text-sm text-ink", draft.reason === code && "border-accent bg-accent-soft text-accent-ink")}
+            className={cn("flex min-h-11 w-auto items-center gap-2 rounded-full border border-line bg-surface px-3 font-sans text-sm normal-case tracking-normal text-ink", draft.reason === code && "border-accent bg-accent-soft text-accent-ink")}
           >
             <kbd className="font-mono text-xs text-muted">{code}</kbd>
             {label}
@@ -674,7 +677,7 @@ function ReasonPicker({
         ))}
       </div>
       {reasonError.map((p) => (
-        <p key={p.message} role="alert" className="text-sm font-medium text-danger">
+        <p key={p.message} className="text-sm font-medium text-danger">
           {p.message}
         </p>
       ))}
@@ -687,7 +690,7 @@ function ReasonPicker({
               type="button"
               aria-pressed={draft.severity === key}
               onClick={() => onSeverity(key)}
-              className={cn("min-h-11 w-auto rounded-xl border border-line bg-surface px-3 py-1 text-left text-sm text-ink", draft.severity === key && "border-accent bg-accent-soft text-accent-ink")}
+              className={cn("min-h-11 w-auto rounded-xl border border-line bg-surface px-3 py-1 text-left font-sans text-sm normal-case tracking-normal text-ink", draft.severity === key && "border-accent bg-accent-soft text-accent-ink")}
             >
               <b>{label}</b>
               <span className="block text-xs font-normal opacity-80">{help}</span>
@@ -696,7 +699,7 @@ function ReasonPicker({
         </div>
       </div>
       {severityError.map((p) => (
-        <p key={p.message} role="alert" className="text-sm font-medium text-danger">
+        <p key={p.message} className="text-sm font-medium text-danger">
           {p.message}
         </p>
       ))}
@@ -735,9 +738,9 @@ function ActionBar({
           : desk.statusAnswerFirst;
   return (
     <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] pt-3" data-testid="desk-actions">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2">
+      <div className="mx-auto grid max-w-6xl grid-cols-4 items-center gap-2 sm:flex sm:flex-wrap">
         {decided ? (
-          <Button variant="outline" onClick={onNext}>
+          <Button variant="outline" onClick={onNext} className="col-span-4 sm:col-auto">
             {lastLook ? desk.backToSummary : desk.nextQuestion}
           </Button>
         ) : (
@@ -745,28 +748,28 @@ function ActionBar({
             <Button
               onClick={() => onDecide("approve")}
               disabled={!canApprove || busy}
-              className="bg-success text-surface"
+              className="min-w-0 bg-success px-2 text-surface sm:px-5"
               data-testid="act-approve"
             >
-              {desk.approve} <kbd className="font-mono text-xs opacity-80">A</kbd>
+              {desk.approve} <kbd className="hidden font-mono text-xs opacity-80 sm:inline">A</kbd>
             </Button>
-            <Button variant="outline" onClick={() => onDecide("fix")} disabled={busy} className="border-warning text-warning" data-testid="act-fix">
-              {desk.fix} <kbd className="font-mono text-xs opacity-80">F</kbd>
+            <Button variant="outline" onClick={() => onDecide("fix")} disabled={busy} className="min-w-0 border-warning px-2 text-warning sm:px-5" data-testid="act-fix">
+              {desk.fix} <kbd className="hidden font-mono text-xs opacity-80 sm:inline">F</kbd>
             </Button>
-            <Button variant="outline" onClick={() => onDecide("reject")} disabled={busy} className="border-danger text-danger" data-testid="act-reject">
-              {desk.reject} <kbd className="font-mono text-xs opacity-80">R</kbd>
+            <Button variant="outline" onClick={() => onDecide("reject")} disabled={busy} className="min-w-0 border-danger px-2 text-danger sm:px-5" data-testid="act-reject">
+              {desk.reject} <kbd className="hidden font-mono text-xs opacity-80 sm:inline">R</kbd>
             </Button>
-            <Button variant="outline" onClick={() => onDecide("skip")} disabled={busy} data-testid="act-skip">
-              {desk.skip} <kbd className="font-mono text-xs opacity-80">S</kbd>
+            <Button variant="outline" onClick={() => onDecide("skip")} disabled={busy} className="min-w-0 px-2 sm:px-5" data-testid="act-skip">
+              {desk.skip} <kbd className="hidden font-mono text-xs opacity-80 sm:inline">S</kbd>
             </Button>
           </>
         )}
-        <span className="min-w-0 flex-1 basis-48 text-sm text-muted" data-testid="desk-status">
+        <span className="col-span-4 min-w-0 text-xs text-muted sm:flex-1 sm:basis-48 sm:text-sm" data-testid="desk-status">
           {busy ? desk.saving : status}
         </span>
       </div>
       {problems.length ? (
-        <ul role="alert" className="mx-auto mt-2 max-w-6xl list-none p-0 text-sm font-medium text-danger" data-testid="desk-problems">
+        <ul role="alert" className="mx-auto mt-2 max-h-24 max-w-6xl list-none overflow-auto p-0 text-sm font-medium text-danger" data-testid="desk-problems">
           {problems.map((p) => (
             <li key={p.message}>{p.message}</li>
           ))}

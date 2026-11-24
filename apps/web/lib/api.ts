@@ -909,7 +909,7 @@ export type DeskDecisionBody = {
   fix_notes?: DeskFixNote[];
   active_seconds?: number;
 };
-export const deskItems = (offset = 0, limit = 20): Promise<{ total: number; items: DeskCard[] }> =>
+export const deskItems = (offset = 0, limit = 10): Promise<{ total: number; items: DeskCard[] }> =>
   staffReq(`/staff/review/items?status=pending&limit=${limit}&offset=${offset}`);
 export const decideDesk = (id: string, body: DeskDecisionBody): Promise<DeskCard> =>
   staffReq(`/staff/review/items/${encodeURIComponent(id)}/decision`, {

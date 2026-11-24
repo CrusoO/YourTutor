@@ -190,9 +190,9 @@ describe("reviewer desk: the API is the authority", () => {
     await user.click(screen.getByRole("button", { name: /Blocker/ }));
     await user.click(screen.getByRole("button", { name: /^Fix/ }));
     await waitFor(() => expect(api.decideDesk).toHaveBeenCalled());
-    expect(await screen.findByText("question 2: say what to fix (at least 8 characters)")).toBeTruthy();
+    expect((await screen.findAllByText("question 2: say what to fix (at least 8 characters)")).length).toBeGreaterThan(0);
     expect(within(screen.getByTestId("check-1")).getByText(/question 2: say what to fix/)).toBeTruthy();
-    expect(screen.getByText("pick how serious it is")).toBeTruthy();
+    expect(within(screen.getByTestId("desk-reasons")).getByText("pick how serious it is")).toBeTruthy();
   });
 
   it("says when the question changed (409)", async () => {
