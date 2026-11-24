@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import threading
-from datetime import date, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -205,7 +205,7 @@ def test_the_export_counts_withdrawals_and_late_changes(
     _post(client, token, _approve(digest))
     _post(client, token, _withdraw(digest))
     _post(client, token, _approve(digest))
-    today = date.today()
+    today = datetime.now(UTC).date()
     url = f"/staff/review/export?from={today - timedelta(days=1)}&to={today + timedelta(days=1)}"
     out = client.get(url, headers=auth_header(world.admin_token)).json()["reviewers"][0]
     assert out["decisions"]["withdraw"] == 1 and out["changed_after_seeing"] == 1
