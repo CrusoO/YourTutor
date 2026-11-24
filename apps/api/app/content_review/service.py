@@ -7,9 +7,12 @@ Editing the item changes the hash, so earlier decisions stop counting (they stay
 
 from __future__ import annotations
 
+import hashlib
+import re
 import uuid
+from collections.abc import Sequence
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, date, datetime, time, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -24,9 +27,18 @@ from app.content.schema import ContentStatus, Item
 from app.content.signatures import item_content_hash
 from app.content.stem_solve import check_item_stem_answer
 from app.content.validator import load_bundle
-from app.db.models import ContentReviewRow
+from app.db.models import ContentReviewRow, UserRow
 
 REQUIRED_APPROVALS = 2
+MIN_NOTE_CHARS = 8  # non-space characters, for a fix note or a general note
+CHECK_COUNT = 5  # the five yes / needs-a-fix questions on the reviewer desk
+MAX_ACTIVE_SECONDS = 7200
+SEVERITIES = ("blocker", "must_fix", "nice_to_fix")
+REASON_CODES = tuple("0123456789")
+
+
+def desk_enabled() -> bool:
+    return settings.reviewer_desk_enabled
 
 
 def reviewer_allowed(label: str) -> bool:
@@ -66,11 +78,96 @@ class Tally:
         return self.approvals >= REQUIRED_APPROVALS and not self.blocked
 
 
+def standing(rows: Sequence[ContentReviewRow]) -> dict[uuid.UUID, ContentReviewRow]:
+    """Each reviewer's current decision: their latest row (rows come oldest first) that is not a
+    skip. A skip is kept in the history but does not stand in for, or withdraw, a decision."""
+    current: dict[uuid.UUID, ContentReviewRow] = {}
+    for row in rows:
+        if row.decision != "skip":
+            current[row.reviewer_id] = row
+    return current
+
+
 def tally(rows: list[ContentReviewRow]) -> Tally:
+    current = standing(rows).values()
     return Tally(
-        approvals=len({r.reviewer_id for r in rows if r.decision == "approve"}),
-        blocked=any(r.decision in ("reject", "fix") for r in rows),
+        approvals=sum(1 for r in current if r.decision == "approve"),
+        blocked=any(r.decision in ("reject", "fix") for r in current),
     )
+
+
+@dataclass(frozen=True)
+class FieldError:
+    field: str
+    message: str
+
+
+def _enough(text: str | None) -> bool:
+    return len(re.sub(r"\s", "", text or "")) >= MIN_NOTE_CHARS
+
+
+def check_desk_decision(
+    *,
+    decision: str,
+    severity: str | None,
+    reason_code: str | None,
+    checks: Sequence[bool | None] | None,
+    fix_notes: Sequence[tuple[int, str]],
+    note: str | None,
+) -> list[FieldError]:
+    """The reviewer desk's rules for one decision. An empty list means it may be recorded.
+
+    fix / reject: a severity, a reason code, and every question marked "needs a fix" carries a fix
+    note of at least 8 non-space characters; with no question marked, the general note must have
+    them. approve: all five answers yes, nothing else attached. skip: no unfinished required note.
+    """
+    errors: list[FieldError] = []
+    marked = [i for i, c in enumerate(checks or ()) if c is False]
+    written = {i: text for i, text in fix_notes}
+    for index in written:
+        if not 0 <= index < CHECK_COUNT:
+            errors.append(FieldError("fix_notes", f"question {index + 1} does not exist"))
+        elif index not in marked:
+            errors.append(
+                FieldError("fix_notes", f"question {index + 1} is not marked as needing a fix")
+            )
+    unfinished = [i for i in marked if not _enough(written.get(i))]
+    if decision == "approve":
+        if checks is None or len(checks) != CHECK_COUNT or any(c is not True for c in checks):
+            errors.append(FieldError("checks", "to approve, answer yes to all five questions"))
+        if severity is not None:
+            errors.append(FieldError("severity", "an approval has no severity"))
+        if reason_code is not None:
+            errors.append(FieldError("reason_code", "an approval has no reason"))
+        return errors
+    if decision == "skip":
+        if severity is not None or reason_code is not None:
+            errors.append(FieldError("severity", "a skip has no severity or reason"))
+        for i in unfinished:
+            errors.append(FieldError("fix_notes", f"question {i + 1}: finish what to fix first"))
+        return errors
+    # fix or reject
+    if severity is None:
+        errors.append(FieldError("severity", "pick how serious it is"))
+    if reason_code is None:
+        errors.append(FieldError("reason_code", "pick the main reason (1 to 9, or 0)"))
+    if marked:
+        for i in unfinished:
+            errors.append(
+                FieldError(
+                    "fix_notes",
+                    f"question {i + 1}: say what to fix (at least {MIN_NOTE_CHARS} characters)",
+                )
+            )
+    elif not _enough(note):
+        errors.append(
+            FieldError(
+                "note",
+                "mark the question that needs a fix and say what to change, "
+                f"or write at least {MIN_NOTE_CHARS} characters in the note",
+            )
+        )
+    return errors
 
 
 def record_decision(
@@ -83,15 +180,25 @@ def record_decision(
     decision: str,
     note: str | None,
     now: datetime,
+    severity: str | None = None,
+    reason_code: str | None = None,
+    checks: list[bool | None] | None = None,
+    fix_notes: list[dict[str, Any]] | None = None,
+    active_seconds: int | None = None,
 ) -> ContentReviewRow:
-    """Insert, or replace this reviewer's earlier decision on the same hash."""
-    row = db.scalar(
-        select(ContentReviewRow).where(
-            ContentReviewRow.item_id == item_id,
-            ContentReviewRow.content_hash == content_hash,
-            ContentReviewRow.reviewer_id == reviewer_id,
-        )
-    )
+    """Desk off: insert, or replace this reviewer's earlier decision on the same hash.
+    Desk on: always insert a new row; the earlier rows stay as history."""
+    row = None
+    if not desk_enabled():
+        row = db.scalars(
+            select(ContentReviewRow)
+            .where(
+                ContentReviewRow.item_id == item_id,
+                ContentReviewRow.content_hash == content_hash,
+                ContentReviewRow.reviewer_id == reviewer_id,
+            )
+            .order_by(ContentReviewRow.created_at.desc(), ContentReviewRow.id.desc())
+        ).first()
     if row is None:
         row = ContentReviewRow(
             id=uuid.uuid4(),
@@ -104,6 +211,12 @@ def record_decision(
     row.decision = decision
     row.note = note
     row.created_at = now
+    if desk_enabled():
+        row.severity = severity
+        row.reason_code = reason_code
+        row.checks = checks
+        row.fix_notes = fix_notes
+        row.active_seconds = active_seconds
     db.flush()
     return row
 
@@ -169,13 +282,105 @@ def load_items(root: Path) -> tuple[list[Item], dict[str, str]]:
     return sorted(bundle.items, key=lambda i: i.id), labels
 
 
+def has_decided(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> bool:
+    return me in standing(rows)
+
+
+def list_state(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> str:
+    """pending / ready / flagged for the list filter. With the desk on, an item this reviewer has
+    not decided yet is always "pending": a filter must not tell them how others voted."""
+    if desk_enabled() and not has_decided(rows, me):
+        return "pending"
+    counted = tally(list(rows))
+    return "flagged" if counted.blocked else "ready" if counted.ready else "pending"
+
+
+def pseudonyms(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> dict[uuid.UUID, str]:
+    """ "Reviewer 1", "Reviewer 2" for the other reviewers on this card, in the order they first
+    decided. Stable: a later reviewer never renumbers an earlier one."""
+    order: list[uuid.UUID] = []
+    for row in rows:
+        if row.decision != "skip" and row.reviewer_id != me and row.reviewer_id not in order:
+            order.append(row.reviewer_id)
+    return {rid: f"Reviewer {n}" for n, rid in enumerate(order, start=1)}
+
+
+def _desk_fields(row: ContentReviewRow) -> dict[str, Any]:
+    return {
+        "severity": row.severity,
+        "reason_code": row.reason_code,
+        "checks": row.checks,
+        "fix_notes": row.fix_notes or [],
+    }
+
+
+def _review_view(rows: list[ContentReviewRow], me: uuid.UUID) -> dict[str, Any]:
+    """The review fields of a card. Desk off: exactly the original shape. Desk on: blind until
+    `me` has a standing decision, then the others by pseudonym only."""
+    counted = tally(rows)
+    current = standing(rows)
+    mine = current.get(me)
+    if not desk_enabled():
+        mine = next((r for r in rows if r.reviewer_id == me), None)
+        return {
+            "approvals": counted.approvals,
+            "approvals_needed": REQUIRED_APPROVALS,
+            "blocked": counted.blocked,
+            "notes": [
+                {"reviewer": r.reviewer_label, "decision": r.decision, "note": r.note}
+                for r in rows
+                if r.note
+            ],
+            "my_decision": (
+                {"decision": mine.decision, "note": mine.note} if mine is not None else None
+            ),
+        }
+    mine_rows = [r for r in rows if r.reviewer_id == me]
+    view: dict[str, Any] = {
+        "approvals_needed": REQUIRED_APPROVALS,
+        "my_decision": (
+            {"decision": mine.decision, "note": mine.note, **_desk_fields(mine)}
+            if mine is not None
+            else None
+        ),
+        "my_history": [
+            {"decision": r.decision, "severity": r.severity, "created_at": r.created_at.isoformat()}
+            for r in mine_rows
+        ],
+    }
+    if mine is None:
+        view.update(approvals=None, blocked=None, notes=[], others=[])
+        return view
+    names = pseudonyms(rows, me)
+    others = [
+        {
+            "reviewer": names[r.reviewer_id],
+            "decision": r.decision,
+            "note": r.note,
+            **_desk_fields(r),
+        }
+        for r in current.values()
+        if r.reviewer_id != me
+    ]
+    others.sort(key=lambda o: o["reviewer"])
+    view.update(
+        approvals=counted.approvals,
+        blocked=counted.blocked,
+        notes=[
+            {"reviewer": o["reviewer"], "decision": o["decision"], "note": o["note"]}
+            for o in others
+            if o["note"]
+        ],
+        others=others,
+    )
+    return view
+
+
 def card(
     db: Session, root: Path, item: Item, labels: dict[str, str], me: uuid.UUID
 ) -> dict[str, Any]:
     digest = item_content_hash(item)
     rows = reviews_for(db, item.id, digest)
-    counted = tally(rows)
-    mine = next((r for r in rows if r.reviewer_id == me), None)
     return {
         "id": item.id,
         "skill_ids": item.skill_ids,
@@ -191,19 +396,68 @@ def card(
         "solution_steps": [s.en for s in item.solution_steps],
         "hints": [h.en for h in sorted(item.hints, key=lambda h: h.level)],
         "hindi": hindi_texts(root, item.id),
-        "approvals": counted.approvals,
-        "approvals_needed": REQUIRED_APPROVALS,
-        "blocked": counted.blocked,
-        "notes": [
-            {"reviewer": r.reviewer_label, "decision": r.decision, "note": r.note}
-            for r in rows
-            if r.note
-        ],
-        "my_decision": (
-            {"decision": mine.decision, "note": mine.note} if mine is not None else None
-        ),
+        **_review_view(rows, me),
     }
 
 
 def is_draft(item: Item) -> bool:
     return item.status == ContentStatus.draft
+
+
+# ---- reviewer accounts (desk on) ----
+
+
+def invite_reviewer(db: Session, email: str, now: datetime) -> UserRow:
+    """Create an invited `reviewer` account. Never changes the role of an account that exists."""
+    address = email.strip().lower()
+    user = db.scalar(select(UserRow).where(UserRow.email == address))
+    if user is None:
+        user = UserRow(id=uuid.uuid4(), role="reviewer", email=address, locale="en", created_at=now)
+        db.add(user)
+        db.flush()
+    return user
+
+
+def set_reviewer_suspended(
+    db: Session, reviewer_id: uuid.UUID, suspended: bool, now: datetime
+) -> UserRow | None:
+    user = db.get(UserRow, reviewer_id)
+    if user is None or user.role != "reviewer":
+        return None
+    user.suspended_at = now if suspended else None
+    db.flush()
+    return user
+
+
+# ---- pay statement export (read-only, no learner data) ----
+
+
+def reviewer_label(reviewer_id: uuid.UUID) -> str:
+    """A pseudonymous label that is the same on every statement, and is not an email address."""
+    return "R-" + hashlib.sha256(reviewer_id.bytes).hexdigest()[:8]
+
+
+def reviewer_export(db: Session, start: date, end: date) -> list[dict[str, Any]]:
+    """Per reviewer, for decisions made from `start` to `end` (both days included, UTC): how many
+    of each decision and the total active seconds. Ids and pseudonymous labels only."""
+    lo = datetime.combine(start, time.min, tzinfo=UTC)
+    hi = datetime.combine(end + timedelta(days=1), time.min, tzinfo=UTC)
+    rows = db.scalars(
+        select(ContentReviewRow).where(
+            ContentReviewRow.created_at >= lo, ContentReviewRow.created_at < hi
+        )
+    )
+    out: dict[uuid.UUID, dict[str, Any]] = {}
+    for row in rows:
+        entry = out.setdefault(
+            row.reviewer_id,
+            {
+                "reviewer_id": str(row.reviewer_id),
+                "label": reviewer_label(row.reviewer_id),
+                "decisions": {"approve": 0, "fix": 0, "reject": 0, "skip": 0},
+                "active_seconds": 0,
+            },
+        )
+        entry["decisions"][row.decision] = entry["decisions"].get(row.decision, 0) + 1
+        entry["active_seconds"] += row.active_seconds or 0
+    return sorted(out.values(), key=lambda e: e["label"])

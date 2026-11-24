@@ -133,7 +133,7 @@ API packages under `apps/api/app/` that sections 3 to 16 do not describe. Each l
 - **`conversation/`**: how Brownie sounds around a model reply (register, length, what it says when it cannot answer).
 - **`video_jobs/`**: the queue, worker and routes that build engine videos; the worker runs the engine as a subprocess and deletes only folders directly inside the jobs directory.
 - **`groups/`**: group lessons. One checked lesson shared by link, anonymous results back, a group view for the organiser.
-- **`content_review/`**: the staff-only review screen's API and the review state per content hash.
+- **`content_review/`**: the staff-only review screen's API and the review state per content hash. Behind `REVIEWER_DESK_ENABLED`: blind cards, append-only decisions with severity, reason, per-question answers and time, the invited `reviewer` role (suspendable) and an admin pay export.
 - **`notebook/`** and `learner/notebook*.py`: the mistake notebook (off by default, `MISTAKE_NOTEBOOK_ENABLED`; ids and times only; returns at 2, 6 and 15 days).
 - **`observe/`**: optional OpenTelemetry spans, off unless `OTEL_ENABLED`, no personal data.
 - **`db/`**: models, sessions, the startup schema check, and a 5 second connect timeout on server databases.

@@ -540,7 +540,44 @@
    },
    "DecisionIn": {
     "additionalProperties": false,
+    "description": "`skip` and every field after `note` are for the reviewer desk (REVIEWER_DESK_ENABLED); with\nthe desk off, sending any of them is a 422.",
     "properties": {
+     "active_seconds": {
+      "anyOf": [
+       {
+        "maximum": 7200.0,
+        "minimum": 0.0,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Active Seconds"
+     },
+     "checks": {
+      "anyOf": [
+       {
+        "items": {
+         "anyOf": [
+          {
+           "type": "boolean"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "maxItems": 5,
+        "minItems": 5,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Checks"
+     },
      "content_hash": {
       "maxLength": 64,
       "minLength": 1,
@@ -551,10 +588,26 @@
       "enum": [
        "approve",
        "reject",
-       "fix"
+       "fix",
+       "skip"
       ],
       "title": "Decision",
       "type": "string"
+     },
+     "fix_notes": {
+      "anyOf": [
+       {
+        "items": {
+         "$ref": "#/components/schemas/FixNote"
+        },
+        "maxItems": 5,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fix Notes"
      },
      "note": {
       "anyOf": [
@@ -567,6 +620,45 @@
        }
       ],
       "title": "Note"
+     },
+     "reason_code": {
+      "anyOf": [
+       {
+        "enum": [
+         "0",
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7",
+         "8",
+         "9"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason Code"
+     },
+     "severity": {
+      "anyOf": [
+       {
+        "enum": [
+         "blocker",
+         "must_fix",
+         "nice_to_fix"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Severity"
      }
     },
     "required": [
@@ -699,6 +791,28 @@
     "title": "FamilyLoginIn",
     "type": "object"
    },
+   "FixNote": {
+    "additionalProperties": false,
+    "properties": {
+     "question_index": {
+      "maximum": 4.0,
+      "minimum": 0.0,
+      "title": "Question Index",
+      "type": "integer"
+     },
+     "text": {
+      "maxLength": 2000,
+      "title": "Text",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question_index",
+     "text"
+    ],
+    "title": "FixNote",
+    "type": "object"
+   },
    "GroupIn": {
     "additionalProperties": false,
     "properties": {
@@ -788,6 +902,23 @@
      }
     },
     "title": "HTTPValidationError",
+    "type": "object"
+   },
+   "InviteIn": {
+    "additionalProperties": false,
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "minLength": 3,
+      "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+      "title": "Email",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email"
+    ],
+    "title": "InviteIn",
     "type": "object"
    },
    "JoinIn": {
@@ -5935,9 +6066,81 @@
     "summary": "Post Event"
    }
   },
+  "/staff/review/export": {
+   "get": {
+    "description": "Admin only, read-only: per reviewer, decisions by type and total active seconds between two\ndates (both included, UTC). Ids and pseudonymous labels only; no email, no learner data.",
+    "operationId": "pay_export_staff_review_export_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "from",
+      "required": true,
+      "schema": {
+       "format": "date",
+       "title": "From",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": true,
+      "schema": {
+       "format": "date",
+       "title": "To",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Pay Export Staff Review Export Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Pay Export",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/staff/review/items": {
    "get": {
-    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft.",
+    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,\nan item you have not decided yet always counts as pending (so a filter cannot show how others\nvoted).",
     "operationId": "list_items_staff_review_items_get",
     "parameters": [
      {
@@ -6091,6 +6294,190 @@
      }
     },
     "summary": "Decide",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
+  "/staff/review/reviewers": {
+   "post": {
+    "description": "Admin only: invite an outside reviewer by email. They then sign in with the usual email\ncode. Never turns an existing teacher, parent or admin account into a reviewer.",
+    "operationId": "invite_reviewer_staff_review_reviewers_post",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InviteIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Invite Reviewer Staff Review Reviewers Post",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Invite Reviewer",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
+  "/staff/review/reviewers/{reviewer_id}/reinstate": {
+   "post": {
+    "operationId": "reinstate_reviewer_staff_review_reviewers__reviewer_id__reinstate_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "reviewer_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Reviewer Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Reinstate Reviewer Staff Review Reviewers  Reviewer Id  Reinstate Post",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Reinstate Reviewer",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
+  "/staff/review/reviewers/{reviewer_id}/suspend": {
+   "post": {
+    "operationId": "suspend_reviewer_staff_review_reviewers__reviewer_id__suspend_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "reviewer_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Reviewer Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Suspend Reviewer Staff Review Reviewers  Reviewer Id  Suspend Post",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Suspend Reviewer",
     "tags": [
      "staff-review"
     ]

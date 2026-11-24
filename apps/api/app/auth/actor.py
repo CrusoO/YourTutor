@@ -26,6 +26,10 @@ class Actor:
         return self.role == "teacher"
 
     @property
+    def is_reviewer(self) -> bool:
+        return self.role == "reviewer"
+
+    @property
     def is_student(self) -> bool:
         return self.role == "student"
 

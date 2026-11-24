@@ -251,6 +251,8 @@ def resolve_token(session: Session, token: str) -> Actor:
     if row.user_id:
         user = session.get(UserRow, row.user_id)
         email = user.email if user else None
+        if user is not None and user.suspended_at is not None:
+            raise HTTPException(status_code=403, detail="account suspended")
     return Actor(
         role=row.role,
         user_id=row.user_id,
@@ -274,7 +276,7 @@ def create_student(
     current_chapter_id: str | None = None,
     family_code: str | None = None,
 ) -> StudentRow:
-    if actor.role in {"student", "teacher", "comparison"}:
+    if actor.role in {"student", "teacher", "comparison", "reviewer"}:
         raise HTTPException(status_code=403, detail="forbidden")
     owner = actor.user_id if actor.is_parent else parent_id
     if actor.is_parent:
