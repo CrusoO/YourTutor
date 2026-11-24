@@ -6,8 +6,8 @@ from typing import Any
 
 import yaml
 
-from app.auth.scopes import CONSENT_SCOPES
 from app.registries.paths import config_dir, content_curricula_dir
+from app.registries.scopes import CONSENT_SCOPES
 
 
 class RegistryLoadError(ValueError):
