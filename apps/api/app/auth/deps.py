@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import Depends, Header, HTTPException
+from fastapi import Depends, Header, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from app.auth.actor import Actor
@@ -15,7 +15,19 @@ OtpDep = Annotated[OtpSender, Depends(get_otp_sender)]
 SmsOtpDep = Annotated[OtpSender, Depends(get_sms_otp_sender)]
 
 
+# An invited reviewer may call only the content-review routes and the sign-in basics. Deny by
+# default here, so no route (present or future) can hand a reviewer learner or class data.
+REVIEWER_PATHS = (
+    "/staff/review",
+    "/auth/me",
+    "/auth/options",
+    "/auth/request-otp",
+    "/auth/verify-otp",
+)
+
+
 def optional_actor(
+    request: Request,
     db: DbSession,
     authorization: Annotated[str | None, Header()] = None,
 ) -> Actor | None:
@@ -24,7 +36,10 @@ def optional_actor(
     scheme, _, token = authorization.partition(" ")
     if scheme.lower() != "bearer" or not token:
         raise HTTPException(status_code=401, detail="invalid authorization")
-    return resolve_token(db, token)
+    actor = resolve_token(db, token)
+    if actor.is_reviewer and not request.url.path.startswith(REVIEWER_PATHS):
+        raise HTTPException(status_code=403, detail="forbidden")
+    return actor
 
 
 def require_actor(actor: Annotated[Actor | None, Depends(optional_actor)]) -> Actor:
