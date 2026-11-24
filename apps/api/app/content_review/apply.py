@@ -40,7 +40,8 @@ def apply_reviews(db: Session, root: Path) -> ApplyReport:
         if counted.blocked:
             out.blocked.append(item.id)
         elif counted.ready:
-            who = sorted({r.reviewer_label for r in rows if r.decision == "approve"})
+            current = service.standing(rows).values()
+            who = sorted({r.reviewer_label for r in current if r.decision == "approve"})
             groups.setdefault(", ".join(who), []).append(item)
         elif counted.approvals:
             out.waiting.append(item.id)
