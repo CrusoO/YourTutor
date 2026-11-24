@@ -531,9 +531,13 @@ it off, everything works as in section 11: each question is approved one by one 
 by approving a few sample questions from it. The sample set is the same for every reviewer: the
 questions of one template version sorted by difficulty then id, the easiest, the middle and the
 hardest (all of them when there are fewer than three). A template version is the template id, its
-hash and the generator version; any change to those is a new version and starts again. Nothing new
-is stored: a reviewer has approved a template when their standing decision on every sample, at its
-current content hash, is approve. A withdrawn decision does not count and a skip does not count. About
+hash and the generator version; any change to those is a new version and starts again, even if a
+sample's text is identical. Each decision stores a `template_key` (sha256 of
+"template_id|template_hash|generator_version", set by the server, column added by migration 0041;
+NULL for items with no template and for older rows). A reviewer has approved a template when their
+standing decision on every sample, at its current content hash and the version's current key, is
+approve. Decisions with another or no key still count as ordinary item decisions, and an old
+version's fix or reject does not block the new version. Run migrations before switching it on. A withdrawn decision does not count and a skip does not count. About
 3 sample decisions per template are paid at the usual rate (section 11); pay is unchanged.
 
 **How many reviewers.** `REVIEW_TEMPLATE_APPROVALS_REQUIRED` (default 1). Two are required for a
