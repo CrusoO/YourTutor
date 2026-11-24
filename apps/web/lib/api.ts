@@ -842,7 +842,8 @@ export type ReviewCard = {
   answer: string;
   answer_text: string | null;
   verification: { state: "verified" | "unchecked" | "mismatch"; detail: string };
-  wrong_options: { answer: string; text: string; misconceptions: string[] }[];
+  /** `explanation` is the sentence the student is told for this choice; "" when there is none. */
+  wrong_options: { answer: string; text: string; misconceptions: string[]; explanation?: string }[];
   hindi: { stem: string | null; options: Record<string, string> };
   approvals: number;
   approvals_needed: number;
@@ -912,8 +913,9 @@ export type DeskDecisionBody = {
 };
 /** Which chapter to review: from `deskChapters`. Left out, every chapter. */
 export type DeskScope = { class: number; subject: string; chapter: string };
-export const deskItems = (offset = 0, limit = 10, scope?: DeskScope | null): Promise<{ total: number; items: DeskCard[] }> => {
-  const query = new URLSearchParams({ status: "pending", limit: String(limit), offset: String(offset) });
+/** The first `limit` questions you have not decided yet (the API's `todo` filter), so there is no offset to keep in step. `total` is how many you have left. */
+export const deskItems = (limit = 10, scope?: DeskScope | null): Promise<{ total: number; items: DeskCard[] }> => {
+  const query = new URLSearchParams({ status: "todo", limit: String(limit) });
   if (scope) {
     query.set("class", String(scope.class));
     query.set("subject", scope.subject);

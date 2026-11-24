@@ -60,7 +60,12 @@ def test_the_card_shows_the_verified_answer_labels_and_hindi(
     assert mcq["answer"] == "yes" and mcq["answer_text"] == "Yes"
     assert mcq["verification"]["state"] == "verified"
     assert mcq["wrong_options"] == [
-        {"answer": "no", "text": "No", "misconceptions": ["Wrong inverse"]}
+        {
+            "answer": "no",
+            "text": "No",
+            "misconceptions": ["Wrong inverse"],
+            "explanation": "Undo by doing the opposite.",
+        }
     ]
     assert mcq["hindi"]["stem"] == HINDI
     assert mcq["approvals"] == 0 and mcq["approvals_needed"] == 2 and mcq["my_decision"] is None

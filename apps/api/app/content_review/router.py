@@ -32,7 +32,7 @@ from app.registries.paths import content_root
 
 router = APIRouter(prefix="/staff/review", tags=["staff-review"])
 
-Status = Literal["pending", "ready", "flagged", "all"]
+Status = Literal["pending", "ready", "flagged", "all", "todo"]
 
 
 class FixNote(BaseModel):
@@ -113,9 +113,14 @@ def list_items(
     pending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for
     `apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,
     an item you have not decided yet always counts as pending (so a filter cannot show how others
-    voted). Desk on only: `class`, `subject` and `chapter` (from `/chapters`) narrow the list."""
+    voted). todo (desk on only): the drafts you have no standing decision on for their current
+    content (a withdrawn decision is undecided again, a skip is not a decision), whatever others
+    voted: the same rule as the `pending` count in `/chapters`. Desk on only: `class`, `subject`
+    and `chapter` (from `/chapters`) narrow the list."""
     me, _ = _reviewer(actor)
     if not settings.reviewer_desk_enabled and (grade, subject, chapter) != (None, None, None):
+        raise HTTPException(status_code=422, detail="the reviewer desk is not switched on")
+    if status == "todo" and not settings.reviewer_desk_enabled:
         raise HTTPException(status_code=422, detail="the reviewer desk is not switched on")
     root = content_root()
     data = service.load_review_data(root)
@@ -128,7 +133,12 @@ def list_items(
     reviews = service.reviews_for_items(db, list(pairs.values()))
     chosen = []
     for item in drafts:
-        state = service.list_state(reviews[pairs[item.id]], me)
+        rows = reviews[pairs[item.id]]
+        if status == "todo":
+            if not service.has_decided(rows, me):
+                chosen.append(item)
+            continue
+        state = service.list_state(rows, me)
         if status in ("all", state):
             chosen.append(item)
     page = chosen[offset : offset + limit]
@@ -136,7 +146,9 @@ def list_items(
         "total": len(chosen),
         "offset": offset,
         "items": [
-            service.card(db, root, item, data.labels, me, _hindi_for(data, item.id))
+            service.card(
+                db, root, item, data.labels, me, _hindi_for(data, item.id), data.explanations
+            )
             for item in page
         ],
     }
@@ -145,7 +157,7 @@ def list_items(
 @router.get("/chapters")
 def list_chapters(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     """Desk on only: the class / subject / chapter groups that have draft items, each with its
-    item count and how many are still pending for the caller (the same rule as the list filter).
+    item count and how many are still to do for the caller (the `todo` list filter).
     Only content that exists is listed. `unmapped_chapters` names groups with no curriculum entry
     (their title comes from the overlay) so the gap is visible."""
     if not settings.reviewer_desk_enabled:
@@ -213,7 +225,9 @@ def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> di
         now=now_utc(),
         **extra,
     )
-    return service.card(db, root, item, data.labels, me, _hindi_for(data, item.id))
+    return service.card(
+        db, root, item, data.labels, me, _hindi_for(data, item.id), data.explanations
+    )
 
 
 def _reviewer_out(user: Any) -> dict[str, Any]:

@@ -2,8 +2,9 @@
 
 Parsing about 2,300 YAML files takes 15-20 seconds, which a short-lived serverless function would
 pay on every cold start (and the content folder may not even be inside the deployed function). The
-snapshot holds the validated items, the misconception titles, the Hindi strings each item carries
-and the chapter each item belongs to, in one small gzip JSON file inside `apps/api`.
+snapshot holds the validated items, the misconception titles and explanations, the Hindi strings
+each item carries and the chapter each item belongs to, in one small gzip JSON file inside
+`apps/api`.
 
 Which one is used (see `service.load_review_data`):
   * the content folder exists and its source signature equals the one recorded here: the snapshot;
@@ -33,7 +34,9 @@ import yaml
 from app.content.factory_roots import content_roots
 from app.content.schema import Item, Misconception, Overlay
 
-SNAPSHOT_VERSION = 1
+# 2: adds `explanations` (misconception id -> the sentence the student is told). A version 1 file is
+# read as stale, so the YAML path is used until the snapshot is rewritten.
+SNAPSHOT_VERSION = 2
 SNAPSHOT_PATH = Path(__file__).resolve().parent / "review_snapshot.json.gz"
 UNMAPPED_ID = "unmapped"
 _FOLDERS = ("items", "misconceptions", "overlays")
@@ -63,6 +66,7 @@ class Chapter:
 class ReviewData:
     items: list[Item]
     labels: dict[str, str]
+    explanations: dict[str, str]  # misconception id -> English explanation shown to the student
     # item id -> Hindi strings; None means "not known, read the YAML" (the YAML path)
     hindi: dict[str, dict[str, Any]] | None
     chapters: dict[str, Chapter]  # chapter id -> chapter
@@ -168,9 +172,11 @@ def build(root: Path) -> dict[str, Any]:
         p for base in content_roots(root) for p in sorted((base / "misconceptions").rglob("*.yaml"))
     ]
     labels = {}
+    explanations = {}
     for path in misconception_paths:
         m = Misconception.model_validate(_read(path))
         labels[m.id] = m.title.en
+        explanations[m.id] = m.explanation.en
     overlays = [
         Overlay.model_validate(_read(p))
         for base in content_roots(root)
@@ -182,6 +188,7 @@ def build(root: Path) -> dict[str, Any]:
         "source_signature": source_signature(root),
         "items": [i.model_dump(mode="json", by_alias=True) for i in items],
         "labels": dict(sorted(labels.items())),
+        "explanations": dict(sorted(explanations.items())),
         "hindi": dict(sorted(hindi.items())),
         "chapters": {k: chapters[k].as_dict() for k in sorted(chapters)},
         "item_chapter": dict(sorted(item_chapter.items())),
@@ -219,6 +226,7 @@ def to_review_data(data: dict[str, Any]) -> ReviewData:
     return ReviewData(
         items=items,
         labels=dict(data["labels"]),
+        explanations=dict(data["explanations"]),
         hindi=dict(data["hindi"]),
         chapters=chapters,
         item_chapter=dict(data["item_chapter"]),
@@ -227,8 +235,12 @@ def to_review_data(data: dict[str, Any]) -> ReviewData:
 
 
 def from_bundle(
-    root: Path, items: list[Item], labels: dict[str, str], overlays: list[Overlay]
+    root: Path,
+    items: list[Item],
+    labels: dict[str, str],
+    explanations: dict[str, str],
+    overlays: list[Overlay],
 ) -> ReviewData:
     """The YAML path: the loaded bundle plus the chapter map (Hindi is read from the files)."""
     chapters, item_chapter = chapter_map(root, overlays, items)
-    return ReviewData(items, labels, None, chapters, item_chapter, "yaml")
+    return ReviewData(items, labels, explanations, None, chapters, item_chapter, "yaml")

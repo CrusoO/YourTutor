@@ -357,3 +357,102 @@ def test_the_pay_statement_as_csv_and_who_may_read_it(
 def test_the_pay_statement_is_off_with_the_desk_off(client: TestClient, world: World) -> None:
     url = f"{PAY}?from=2026-03-01&to=2026-03-31"
     assert client.get(url, headers=auth_header(world.admin_token)).status_code == 404
+
+
+# ---- status=todo: only what the caller has not decided on the current content ----
+
+
+def _todo(client: TestClient, token: str, query: str = "") -> dict[str, Any]:
+    out = client.get(f"{LIST}?status=todo&limit=50&{query}", headers=auth_header(token))
+    assert out.status_code == 200, out.text
+    return out.json()
+
+
+def _todo_ids(client: TestClient, token: str) -> set[str]:
+    return {c["id"] for c in _todo(client, token)["items"]}
+
+
+def _digest(client: TestClient, token: str, item_id: str) -> str:
+    return next(c["content_hash"] for c in _todo(client, token)["items"] if c["id"] == item_id)
+
+
+def test_todo_lists_only_undecided_and_matches_the_chapter_count(
+    client: TestClient, world: World, two_chapters: Path, desk: None
+) -> None:
+    token = world.teacher_token
+    assert _todo(client, token)["total"] == 13
+    digest = _digest(client, token, "ITEM.X1")
+    assert _post(client, token, _approve(digest), item="ITEM.X1").status_code == 200
+    after = _todo(client, token)
+    assert "ITEM.X1" not in {c["id"] for c in after["items"]} and after["total"] == 12
+    # the picker count and the todo list agree, per chapter and overall
+    groups = _groups(client, token)
+    quad = _todo(client, token, "chapter=cbse.10.maths.quad")["total"]
+    assert groups["cbse.10.maths.quad"]["pending"] == quad == 1
+    assert sum(g["pending"] for g in groups.values()) == after["total"]
+    # the old values behave as before: the approved item is still there under "all"
+    assert "ITEM.X1" in _ids(client, token, "")
+
+
+def test_todo_skip_does_not_exclude_and_withdraw_includes_again(
+    client: TestClient, world: World, two_chapters: Path, desk: None
+) -> None:
+    token = world.teacher_token
+    digest = _digest(client, token, "ITEM.X1")
+    _post(client, token, {"content_hash": digest, "decision": "skip"}, item="ITEM.X1")
+    assert "ITEM.X1" in _todo_ids(client, token)
+    _post(client, token, _approve(digest), item="ITEM.X1")
+    assert "ITEM.X1" not in _todo_ids(client, token)
+    _post(client, token, {"content_hash": digest, "decision": "withdraw"}, item="ITEM.X1")
+    assert "ITEM.X1" in _todo_ids(client, token)
+
+
+def test_todo_ignores_other_reviewers_and_stays_blind(
+    client: TestClient, world: World, sender: Any, db: Session, two_chapters: Path, desk: None
+) -> None:
+    from tests.content_review.test_review_api import _second_teacher
+
+    second = _second_teacher(client, sender, db)
+    digest = _digest(client, second, "ITEM.X1")
+    _post(client, world.teacher_token, _approve(digest), item="ITEM.X1")
+    _post(client, world.admin_token, _approve(digest), item="ITEM.X1")
+    mine = _todo(client, second)
+    card = next(c for c in mine["items"] if c["id"] == "ITEM.X1")
+    # two others approved, yet it is still to do for me, and nothing shows how they voted
+    assert card["approvals"] is None and card["others"] == [] and card["my_decision"] is None
+    assert mine["total"] == 13 and set(mine) == {"total", "offset", "items"}
+    # and the two who approved no longer see it
+    assert "ITEM.X1" not in _todo_ids(client, world.teacher_token)
+
+
+def test_an_edited_item_is_to_do_again(
+    client: TestClient, world: World, two_chapters: Path, desk: None
+) -> None:
+    token = world.teacher_token
+    digest = _digest(client, token, "ITEM.X1")
+    _post(client, token, _approve(digest), item="ITEM.X1")
+    path = two_chapters / "items" / "ITEM.X1.yaml"
+    path.write_text(path.read_text(encoding="utf-8").replace("Solve for x", "Work out x"), "utf-8")
+    again = {c["id"]: c for c in _todo(client, token)["items"]}
+    assert again["ITEM.X1"]["content_hash"] != digest
+
+
+def test_todo_pages_by_offset_without_overlap(
+    client: TestClient, world: World, two_chapters: Path, desk: None
+) -> None:
+    token = world.teacher_token
+    first = client.get(f"{LIST}?status=todo&limit=5", headers=auth_header(token)).json()
+    for card in first["items"]:
+        _post(client, token, _approve(card["content_hash"]), item=card["id"])
+    nxt = client.get(f"{LIST}?status=todo&limit=5", headers=auth_header(token)).json()
+    assert not {c["id"] for c in first["items"]} & {c["id"] for c in nxt["items"]}
+    assert nxt["total"] == first["total"] - 5
+
+
+def test_todo_needs_the_desk_and_the_old_values_are_unchanged(
+    client: TestClient, world: World, two_chapters: Path
+) -> None:
+    settings.reviewer_desk_enabled = False
+    head = auth_header(world.teacher_token)
+    assert client.get(f"{LIST}?status=todo", headers=head).status_code == 422
+    assert client.get(f"{LIST}?status=pending", headers=head).status_code == 200

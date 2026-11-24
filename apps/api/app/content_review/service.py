@@ -312,17 +312,28 @@ def verification(item: Item) -> dict[str, str]:
     return {"state": "mismatch", "detail": outcome}
 
 
-def _wrong_options(item: Item, labels: dict[str, str]) -> list[dict[str, Any]]:
+def _wrong_options(
+    item: Item, labels: dict[str, str], explanations: dict[str, str] | None = None
+) -> list[dict[str, Any]]:
     named: dict[str, list[str]] = {}
+    told: dict[str, list[str]] = {}
     for rule in item.misconception_rules:
         for answer in rule.when_answer_equals:
             named.setdefault(answer, []).append(labels.get(rule.id, rule.id))
+            sentence = (explanations or {}).get(rule.id)
+            if sentence and sentence not in told.setdefault(answer, []):
+                told[answer].append(sentence)
     if item.options:
         wrong = [(o.id, o.en) for o in item.options if o.id != item.answer.sympy]
     else:
         wrong = [(answer, answer) for answer in named if answer != item.answer.sympy]
     return [
-        {"answer": ident, "text": text, "misconceptions": named.get(ident, [])}
+        {
+            "answer": ident,
+            "text": text,
+            "misconceptions": named.get(ident, []),
+            "explanation": " ".join(told.get(ident, [])),
+        }
         for ident, text in wrong
     ]
 
@@ -437,8 +448,9 @@ def load_review_data(root: Path) -> snapshot.ReviewData:
             return hit[1]
         bundle = load_bundle(root)
         labels = {m.id: m.title.en for m in bundle.misconceptions}
+        explanations = {m.id: m.explanation.en for m in bundle.misconceptions}
         items = sorted(bundle.items, key=lambda i: i.id)
-        data = snapshot.from_bundle(root, items, labels, list(bundle.overlays))
+        data = snapshot.from_bundle(root, items, labels, explanations, list(bundle.overlays))
         _cache.pop(key, None)
         while len(_cache) >= _CACHE_MAX_ROOTS:
             _cache.pop(next(iter(_cache)))
@@ -563,6 +575,7 @@ def card(
     labels: dict[str, str],
     me: uuid.UUID,
     hindi: dict[str, Any] | None = None,
+    explanations: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """One review card. `hindi` is the item's Hindi strings when they are already known (from the
     snapshot); without it they are read from the item's YAML file."""
@@ -579,7 +592,7 @@ def card(
         "answer": item.answer.sympy,
         "answer_text": next((o.en for o in item.options if o.id == item.answer.sympy), None),
         "verification": verification(item),
-        "wrong_options": _wrong_options(item, labels),
+        "wrong_options": _wrong_options(item, labels, explanations),
         "solution_steps": [s.en for s in item.solution_steps],
         "hints": [h.en for h in sorted(item.hints, key=lambda h: h.level)],
         "hindi": hindi if hindi is not None else hindi_texts(root, item.id),
@@ -780,10 +793,10 @@ def chapter_groups(
     db: Session, data: snapshot.ReviewData, me: uuid.UUID
 ) -> tuple[list[dict[str, Any]], list[str]]:
     """The class / subject / chapter groups that have draft items, with the item count and how
-    many are still pending for `me` (the same rule as the list filter, so a count never shows how
-    others voted on an item `me` has not decided). Also the chapter ids with no curriculum entry
-    (their metadata comes from the overlay), including the `unmapped` group if an item has no
-    chapter at all."""
+    many are still to do for `me` (the `todo` list filter: no standing decision of theirs on the
+    current content, so a count never shows how others voted). Also the chapter ids with no
+    curriculum entry (their metadata comes from the overlay), including the `unmapped` group if an
+    item has no chapter at all."""
     drafts = [item for item in data.items if is_draft(item)]
     pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
     reviews = reviews_for_items(db, list(pairs.values()))
@@ -792,7 +805,7 @@ def chapter_groups(
         chapter_id = data.item_chapter.get(item.id, snapshot.UNMAPPED_ID)
         entry = totals.setdefault(chapter_id, [0, 0])
         entry[0] += 1
-        if list_state(reviews[pairs[item.id]], me) == "pending":
+        if not has_decided(reviews[pairs[item.id]], me):
             entry[1] += 1
     groups = []
     gaps = []

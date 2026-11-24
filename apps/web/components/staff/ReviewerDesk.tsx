@@ -55,7 +55,7 @@ const DOT: Record<string, string> = {
 /** The reviewer desk: pick a chapter, then one question at a time with three checks. The API is the authority on every rule. */
 export default function ReviewerDesk() {
   const [cards, setCards] = useState<DeskCard[]>([]);
-  const [total, setTotal] = useState(0);
+  const [rest, setRest] = useState(0); // questions left for you beyond the ones loaded
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [idx, setIdx] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
@@ -88,13 +88,17 @@ export default function ReviewerDesk() {
     toastTimer.current = setTimeout(() => setToast(""), 2400);
   }, []);
 
-  const load = useCallback(async (offset: number, chosen: DeskScope | null) => {
+  // `shown` are the cards already on screen and `open` how many of them you have not decided: those
+  // still come back from the API (a skip is not a decision), so ask for that many extra and drop them
+  const load = useCallback(async (chosen: DeskScope | null, shown: DeskCard[] = [], open = 0) => {
     try {
-      const data = await deskItems(offset, 10, chosen);
-      setCards((rows) => (offset === 0 ? data.items : [...rows, ...data.items]));
-      setTotal(data.total);
+      const data = await deskItems(Math.min(50, 10 + open), chosen);
+      const known = new Set(shown.map((c) => c.id));
+      const fresh = data.items.filter((c) => !known.has(c.id)).slice(0, 10);
+      setCards((rows) => (shown.length ? [...rows, ...fresh] : fresh));
+      setRest(Math.max(0, data.total - open - fresh.length));
       setState("ready");
-      return data.items.length;
+      return fresh.length;
     } catch {
       setState("error");
       return 0;
@@ -115,7 +119,7 @@ export default function ReviewerDesk() {
       })
       .catch(() => {
         setPicking(false); // no list of chapters: start on everything
-        void load(0, null);
+        void load(null);
       });
     refreshToday();
     whoAmI()
@@ -147,7 +151,7 @@ export default function ReviewerDesk() {
     setIdx(0);
     setReviewing(false);
     started.current = false;
-    await load(0, chosen);
+    await load(chosen);
   }
 
   function backToPicker() {
@@ -363,7 +367,8 @@ export default function ReviewerDesk() {
 
   async function nextBatch() {
     const before = cards.length;
-    const got = await load(before, scopeRef.current);
+    const open = cards.filter((c) => !c.my_decision && !(results[c.id] && results[c.id].decision !== "skip")).length;
+    const got = await load(scopeRef.current, cards, open);
     if (got > 0) {
       setIdx(before);
       started.current = true;
@@ -480,7 +485,7 @@ export default function ReviewerDesk() {
           </ol>
 
           {allDone ? (
-            <Summary cards={cards} results={results} seconds={seconds} more={cards.length < total} onMore={() => void nextBatch()} onOpen={go} canUndo={undoStack.length > 0} onUndo={() => void undo()} />
+            <Summary cards={cards} results={results} seconds={seconds} more={rest > 0} onMore={() => void nextBatch()} onOpen={go} canUndo={undoStack.length > 0} onUndo={() => void undo()} />
           ) : card ? (
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
               <StudentView card={card} lang={lang} setLang={setLang} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
@@ -689,7 +694,12 @@ function StudentView({
                 {card.wrong_options.map((o) => (
                   <li key={o.answer}>
                     <span className="font-mono text-muted">({o.answer})</span> <b>{o.text}</b>
-                    <span className="block text-muted">{o.misconceptions.join(", ") || desk.noMistakeNamed}</span>
+                    {o.misconceptions.length ? (
+                      <b className="block font-medium">{o.misconceptions.join(", ")}</b>
+                    ) : (
+                      <span className="block text-muted">{desk.noMistakeNamed}</span>
+                    )}
+                    {o.explanation ? <span className="block">{o.explanation}</span> : null}
                   </li>
                 ))}
               </ul>
