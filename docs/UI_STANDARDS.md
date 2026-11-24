@@ -45,8 +45,9 @@ but are exempt from the page-weight budget.
 
 ## Performance
 
-* Page weight budget: 150 KB transferred per screen, excluding audio (CI check; the lesson screen is
-  the measured reference). Skeleton screens while loading. No third-party scripts, analytics or tracking.
+* Page weight budget: 152 KB transferred per screen, excluding audio (CI check; the lesson screen is
+  the measured reference). Raised from 150 KB on 2026-11-24 for the reviewer desk's styles (about 0.7 KB of
+  CSS shared by every page). Skeleton screens while loading. No third-party scripts, analytics or tracking.
 
 ## Testing
 

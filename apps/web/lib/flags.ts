@@ -50,3 +50,11 @@ export function weekDotsEnabled(): boolean {
 export function stepEntryEnabled(): boolean {
   return process.env.NEXT_PUBLIC_STEP_ENTRY === "true";
 }
+
+/**
+ * The reviewer desk on the staff review screen (one question at a time, five checks, per-question fix notes) and the
+ * admin invite page. Off unless the variable is exactly "true"; the API must have REVIEWER_DESK_ENABLED on as well.
+ */
+export function reviewerDeskEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_REVIEWER_DESK === "true";
+}

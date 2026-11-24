@@ -7,7 +7,7 @@
  * Budgets (gzip):
  *   JS for the homepage route  ≤ 128 KB
  *   CSS (all pages)            ≤  25 KB
- *   Homepage JS + all CSS      ≤ 150 KB
+ *   Homepage JS + all CSS      ≤ 152 KB   (150 until 2026-11-24: the reviewer desk added about 0.7 KB of CSS)
  */
 
 import { createReadStream, existsSync, readdirSync } from "node:fs";
@@ -18,7 +18,7 @@ import { createGzip } from "node:zlib";
 const DIST = join(process.cwd(), ".next");
 const JS_BUDGET_KB = 128;
 const CSS_BUDGET_KB = 25;
-const PAGE_BUDGET_KB = 150;
+const PAGE_BUDGET_KB = 152; // was 150; raised 2026-11-24 for the reviewer desk styles (see CHANGELOG)
 
 if (!existsSync(DIST)) {
   console.error("ERROR: .next/ not found — run the production build first");

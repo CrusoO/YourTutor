@@ -863,6 +863,80 @@ export const decideItem = (
     body: JSON.stringify(body),
   });
 
+/* ---- Reviewer desk (NEXT_PUBLIC_REVIEWER_DESK; the API needs REVIEWER_DESK_ENABLED) ---- */
+export type DeskSeverity = "blocker" | "must_fix" | "nice_to_fix";
+export type DeskDecision = ReviewDecision | "skip";
+export type DeskFixNote = { question_index: number; text: string };
+/** A decision as the API keeps it (yours, or another reviewer's by pseudonym). */
+export type DeskOther = {
+  reviewer: string;
+  decision: string;
+  note: string | null;
+  severity: DeskSeverity | null;
+  reason_code: string | null;
+  checks: (boolean | null)[] | null;
+  fix_notes: DeskFixNote[];
+};
+/** A card with the reviewer desk on. `approvals`, `blocked`, `others` stay null or empty until you have decided. */
+export type DeskCard = {
+  id: string;
+  skill_ids: string[];
+  type: string;
+  content_hash: string;
+  stem: string;
+  answer: string;
+  answer_text: string | null;
+  verification: ReviewCard["verification"];
+  wrong_options: ReviewCard["wrong_options"];
+  solution_steps: string[];
+  hints: string[];
+  hindi: ReviewCard["hindi"];
+  approvals: number | null;
+  approvals_needed: number;
+  blocked: boolean | null;
+  notes: { reviewer: string; decision: string; note: string | null }[];
+  others: DeskOther[];
+  my_decision: (Pick<DeskOther, "severity" | "reason_code" | "checks" | "fix_notes"> & { decision: string; note: string | null }) | null;
+  my_history: { decision: string; severity: DeskSeverity | null; created_at: string }[];
+};
+export type DeskDecisionBody = {
+  content_hash: string;
+  decision: DeskDecision;
+  note?: string;
+  severity?: DeskSeverity;
+  reason_code?: string;
+  checks?: (boolean | null)[];
+  fix_notes?: DeskFixNote[];
+  active_seconds?: number;
+};
+export const deskItems = (offset = 0, limit = 10): Promise<{ total: number; items: DeskCard[] }> =>
+  staffReq(`/staff/review/items?status=pending&limit=${limit}&offset=${offset}`);
+export const decideDesk = (id: string, body: DeskDecisionBody): Promise<DeskCard> =>
+  staffReq(`/staff/review/items/${encodeURIComponent(id)}/decision`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+/** The API's 422 for a desk decision: `{code, errors:[{field,message}]}` inside `detail`. Empty when it is not that. */
+export function deskErrors(error: unknown): { field: string; message: string }[] {
+  if (!(error instanceof ApiError) || error.status !== 422) return [];
+  try {
+    const list = JSON.parse(error.message)?.detail?.errors;
+    return Array.isArray(list)
+      ? list.filter((e) => e && typeof e.field === "string" && typeof e.message === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+export type DeskReviewer = { id: string; email: string; role: string; suspended: boolean };
+/** Admin only. There is no list route: the API answers each invite, suspend and reinstate with the account. */
+export const inviteReviewer = (email: string): Promise<DeskReviewer> =>
+  staffReq("/staff/review/reviewers", { method: "POST", body: JSON.stringify({ email }) });
+export const setReviewerSuspended = (id: string, suspended: boolean): Promise<DeskReviewer> =>
+  staffReq(`/staff/review/reviewers/${encodeURIComponent(id)}/${suspended ? "suspend" : "reinstate"}`, {
+    method: "POST",
+  });
+
 /** Dev only: a token for a preview guardian or teacher (404 unless DEV_TOOLS is on). */
 export async function devStaffToken(role: "parent" | "teacher", scenario?: string) {
   const out = await staffReq("/dev/staff-token", {
