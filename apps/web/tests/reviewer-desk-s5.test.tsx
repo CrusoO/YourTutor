@@ -158,6 +158,43 @@ describe("the three questions", () => {
     expect(section.textContent?.toLowerCase()).not.toMatch(/misconception|trap|template|skill/);
   });
 
+  it("shows the sentence the student is told under each other choice, and nothing extra without one", async () => {
+    await open([
+      card({
+        wrong_options: [
+          { answer: "b", text: "No", misconceptions: ["Forgets to halve"], explanation: "You may have multiplied by n and forgotten to divide by 2." },
+          { answer: "c", text: "Maybe", misconceptions: ["Sign slip"], explanation: "" },
+          { answer: "d", text: "Never", misconceptions: ["Old mistake"] },
+        ],
+      }),
+    ]);
+    const section = screen.getByText("Other choices: what the student is told if they pick one").closest("details") as HTMLDetailsElement;
+    const items = section.querySelectorAll("li");
+    expect(items[0].querySelector("b.block")?.textContent).toBe("Forgets to halve");
+    expect(items[0].textContent).toContain("You may have multiplied by n and forgotten to divide by 2.");
+    expect(items[1].querySelectorAll("span.block")).toHaveLength(0); // no sentence: no empty line
+    expect(items[2].textContent).toBe("(d) NeverOld mistake");
+  });
+
+  it("asks for the next questions you have not decided, with no offset, and does not repeat a skipped one", async () => {
+    const user = userEvent.setup();
+    const first = [card(), card({ id: "ITEM.Q2", content_hash: "h2", stem: "Second question" })];
+    const next = [card({ id: "ITEM.Q2", content_hash: "h2" }), card({ id: "ITEM.Q3", content_hash: "h3", stem: "Third question" })];
+    vi.mocked(api.decideDesk).mockResolvedValue(saved());
+    vi.mocked(api.deskItems).mockResolvedValueOnce({ total: 3, items: first }).mockResolvedValueOnce({ total: 2, items: next });
+    render(<ReviewerDesk />);
+    await user.click(await screen.findByRole("button", { name: "All chapters" }));
+    await screen.findByTestId("desk-queue");
+    await keys(user, ["y", "y", "y"]);
+    await user.click(screen.getByTestId("act-approve")); // question 1 decided
+    await user.keyboard("s"); // question 2 skipped
+    await user.click(await screen.findByRole("button", { name: "Load the next batch" }));
+    await waitFor(() => expect(api.deskItems).toHaveBeenCalledTimes(2));
+    // one skipped question comes back from the API, so one extra is asked for; no offset argument
+    expect(vi.mocked(api.deskItems).mock.calls[1]).toEqual([11, null]);
+    await screen.findByText("Third question");
+  });
+
   it("keeps the honest amber wording when the computer could not check", async () => {
     await open([card({ verification: { state: "unchecked", detail: "" } })]);
     const box = screen.getByTestId("desk-computer");
@@ -267,7 +304,7 @@ describe("chapter picker", () => {
     render(<ReviewerDesk />);
     await user.click(await screen.findByRole("button", { name: /Quadratic equations/ }));
     await screen.findByTestId("desk-queue");
-    expect(api.deskItems).toHaveBeenCalledWith(0, 10, { class: 10, subject: "maths", chapter: "cbse.10.maths.quad" });
+    expect(api.deskItems).toHaveBeenCalledWith(10, { class: 10, subject: "maths", chapter: "cbse.10.maths.quad" });
   });
 
   it("All chapters sends no chapter, and the next batch keeps the choice", async () => {
@@ -277,12 +314,12 @@ describe("chapter picker", () => {
     render(<ReviewerDesk />);
     await user.click(await screen.findByRole("button", { name: "All chapters" }));
     await screen.findByTestId("desk-queue");
-    expect(api.deskItems).toHaveBeenCalledWith(0, 10, null);
+    expect(api.deskItems).toHaveBeenCalledWith(10, null);
     await keys(user, ["y", "y", "y"]);
     await user.click(screen.getByTestId("act-approve"));
     await user.click(await screen.findByRole("button", { name: "Load the next batch" }));
     await waitFor(() => expect(api.deskItems).toHaveBeenCalledTimes(2));
-    expect(vi.mocked(api.deskItems).mock.calls[1]).toEqual([1, 10, null]);
+    expect(vi.mocked(api.deskItems).mock.calls[1]).toEqual([10, null]);
   });
 
   it("goes back to the picker with Change chapter, unless a required note is empty", async () => {
@@ -302,7 +339,7 @@ describe("chapter picker", () => {
     vi.mocked(api.deskItems).mockResolvedValue({ total: 1, items: [card()] });
     render(<ReviewerDesk />);
     expect(await screen.findByTestId("desk-queue")).toBeTruthy();
-    expect(api.deskItems).toHaveBeenCalledWith(0, 10, null);
+    expect(api.deskItems).toHaveBeenCalledWith(10, null);
   });
 
   it("says so when no chapter has questions left", async () => {
