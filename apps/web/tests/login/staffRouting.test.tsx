@@ -53,6 +53,12 @@ describe("where each role lands after the one-time code", () => {
     expect(screen.getByTestId("teacher-note")).toHaveTextContent(/school or an admin/i);
   });
 
+  it("an invited reviewer goes to the review screen, not a teacher or guardian page, even with an agreement pending", async () => {
+    await signIn("teacher", { role: "reviewer", agreements: ["guardian"] });
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/staff/review"));
+    expect(push).toHaveBeenCalledTimes(1);
+  });
+
   it("a returning adult learner goes to the chat", async () => {
     await signIn("adult", { role: "parent", agreements: [] });
     await waitFor(() => expect(push).toHaveBeenCalledWith("/brownie-chat"));
