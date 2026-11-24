@@ -456,7 +456,7 @@ def test_the_export_counts_decisions_and_seconds_without_identities(
     )
     _, outside = _invite(client, world, sender, "outside@example.com")
     _post(client, outside, _approve(digest, active_seconds=30))
-    today = datetime.now(UTC).date()
+    today = datetime.now(UTC).date()  # the export counts UTC days, not the machine's local day
     url = f"/staff/review/export?from={today - timedelta(days=1)}&to={today + timedelta(days=1)}"
     out = client.get(url, headers=auth_header(world.admin_token))
     assert out.status_code == 200, out.text
