@@ -576,6 +576,7 @@ def card(
     me: uuid.UUID,
     hindi: dict[str, Any] | None = None,
     explanations: dict[str, str] | None = None,
+    extra: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """One review card. `hindi` is the item's Hindi strings when they are already known (from the
     snapshot); without it they are read from the item's YAML file."""
@@ -597,6 +598,7 @@ def card(
         "hints": [h.en for h in sorted(item.hints, key=lambda h: h.level)],
         "hindi": hindi if hindi is not None else hindi_texts(root, item.id),
         **_review_view(rows, me),
+        **(extra or {}),
     }
 
 

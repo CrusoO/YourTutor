@@ -27,7 +27,7 @@ from app.auth.deps import ActorDep, DbSession
 from app.auth.security import now_utc
 from app.config import settings
 from app.content.signatures import item_content_hash
-from app.content_review import service, snapshot
+from app.content_review import service, snapshot, templates
 from app.registries.paths import content_root
 
 router = APIRouter(prefix="/staff/review", tags=["staff-review"])
@@ -129,29 +129,46 @@ def list_items(
         for item in data.items
         if service.is_draft(item) and service.in_group(data, item, grade, subject, chapter)
     ]
-    pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
-    reviews = service.reviews_for_items(db, list(pairs.values()))
+    mode = templates.template_mode()
     chosen = []
-    for item in drafts:
-        rows = reviews[pairs[item.id]]
-        if status == "todo":
-            if not service.has_decided(rows, me):
+    if mode and status == "todo":
+        # template mode: the samples of question types you still owe and all items of blocked ones
+        todo = templates.analyse(db, data).todo_ids(me)
+        chosen = [item for item in drafts if item.id in todo]
+    else:
+        pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
+        reviews = service.reviews_for_items(db, list(pairs.values()))
+        for item in drafts:
+            rows = reviews[pairs[item.id]]
+            if status == "todo":
+                if not service.has_decided(rows, me):
+                    chosen.append(item)
+                continue
+            state = service.list_state(rows, me)
+            if status in ("all", state):
                 chosen.append(item)
-            continue
-        state = service.list_state(rows, me)
-        if status in ("all", state):
-            chosen.append(item)
     page = chosen[offset : offset + limit]
-    return {
+    info = templates.sample_info(templates.build_versions(data)) if mode else {}
+    out: dict[str, Any] = {
         "total": len(chosen),
         "offset": offset,
         "items": [
             service.card(
-                db, root, item, data.labels, me, _hindi_for(data, item.id), data.explanations
+                db,
+                root,
+                item,
+                data.labels,
+                me,
+                _hindi_for(data, item.id),
+                data.explanations,
+                {"template": info.get(item.id)} if mode else None,
             )
             for item in page
         ],
     }
+    if mode:
+        out["template_mode"] = True
+    return out
 
 
 @router.get("/chapters")
@@ -165,7 +182,11 @@ def list_chapters(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     me, _ = _reviewer(actor)
     data = service.load_review_data(content_root())
     groups, gaps = service.chapter_groups(db, data, me)
-    return {"groups": groups, "chapters_without_curriculum_entry": gaps}
+    out: dict[str, Any] = {"groups": groups, "chapters_without_curriculum_entry": gaps}
+    if templates.template_mode():
+        out["groups"] = templates.apply_to_groups(templates.analyse(db, data), data, groups, me)
+        out["template_mode"] = True
+    return out
 
 
 @router.post("/items/{item_id}/decision")
@@ -225,8 +246,11 @@ def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> di
         now=now_utc(),
         **extra,
     )
+    shown = None
+    if templates.template_mode():
+        shown = {"template": templates.sample_info(templates.build_versions(data)).get(item.id)}
     return service.card(
-        db, root, item, data.labels, me, _hindi_for(data, item.id), data.explanations
+        db, root, item, data.labels, me, _hindi_for(data, item.id), data.explanations, shown
     )
 
 
@@ -322,6 +346,37 @@ def pay_export(
         "to": end.isoformat(),
         "reviewers": service.reviewer_export(db, start, end),
     }
+
+
+def _template_admin(actor: Actor) -> None:
+    """Admin only, desk and template approval both on; otherwise like an unknown route."""
+    if not templates.template_mode():
+        raise HTTPException(status_code=404, detail="not found")
+    _desk_admin(actor)
+
+
+@router.get("/templates/summary")
+def templates_summary(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Admin only, read-only (template approval on): question types (templates) by state, in total
+    and per chapter, and the blocked or escalated ones with their ids. States: in_review, ready
+    (enough reviewers approved all its samples, nothing blocking), blocked, escalated (a fix or
+    reject stands on a sample and its other questions go to reviewers one by one). No reviewer
+    identities. Records only: nothing a learner is served depends on it."""
+    _template_admin(actor)
+    data = service.load_review_data(content_root())
+    return templates.summary(templates.analyse(db, data), data)
+
+
+@router.get("/templates/{template_id}")
+def template_detail(template_id: str, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Admin only (template approval on): every version of one template with its sample questions
+    and each reviewer's progress, by pseudonymous label only."""
+    _template_admin(actor)
+    data = service.load_review_data(content_root())
+    found = templates.detail(templates.analyse(db, data), template_id)
+    if not found:
+        raise HTTPException(status_code=404, detail="template not found")
+    return {"versions": found}
 
 
 _CSV_COLUMNS = (
