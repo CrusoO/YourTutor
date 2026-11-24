@@ -150,10 +150,10 @@ export const desk = {
   admin: {
     title: "Reviewers (admin only)",
     intro:
-      "Invite an outside reviewer by email. They sign in with an emailed code and can use only the review screen. Only an admin can do this.",
+      "Invite an outside reviewer by email. They sign in with a code and can use only the review screen. Create the code here and send it to them (or let the site email one, if email is set up). Only an admin can do this.",
     email: "Reviewer email",
     invite: "Invite",
-    invited: (email: string) => `${email} is invited. Ask them to sign in with an email code.`,
+    invited: (email: string) => `${email} is invited. Press Create sign-in code to give them a way in.`,
     listTitle: "Reviewers you have handled in this visit",
     listNote:
       "The API has no list of reviewers yet, so this list shows only the accounts you invited, suspended or reinstated on this page.",
