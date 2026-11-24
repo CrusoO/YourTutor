@@ -11,11 +11,14 @@ It never returns student data and never writes repo files: decisions go to `cont
 
 from __future__ import annotations
 
+import csv
+import io
 import uuid
 from datetime import date
+from decimal import Decimal
 from typing import Annotated, Any, Literal
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.auth.actor import Actor
@@ -24,7 +27,7 @@ from app.auth.deps import ActorDep, DbSession
 from app.auth.security import now_utc
 from app.config import settings
 from app.content.signatures import item_content_hash
-from app.content_review import service
+from app.content_review import service, snapshot
 from app.registries.paths import content_root
 
 router = APIRouter(prefix="/staff/review", tags=["staff-review"])
@@ -87,6 +90,13 @@ def _desk_admin(actor: Actor) -> uuid.UUID:
     return actor.user_id
 
 
+def _hindi_for(data: snapshot.ReviewData, item_id: str) -> dict[str, Any] | None:
+    """The item's Hindi strings from the snapshot; None means read them from the YAML file."""
+    if data.hindi is None:
+        return None
+    return data.hindi.get(item_id, {"stem": None, "options": {}})
+
+
 @router.get("/items")
 def list_items(
     db: DbSession,
@@ -94,17 +104,26 @@ def list_items(
     status: Status = "pending",
     limit: Annotated[int, Query(ge=1, le=50)] = 20,
     offset: Annotated[int, Query(ge=0)] = 0,
+    grade: Annotated[int | None, Query(alias="class", ge=1, le=12)] = None,
+    subject: Annotated[str | None, Query(max_length=40)] = None,
+    chapter: Annotated[str | None, Query(max_length=120)] = None,
 ) -> dict[str, Any]:
     """Draft items, in id order, one page at a time (each card runs the solver).
 
     pending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for
     `apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,
     an item you have not decided yet always counts as pending (so a filter cannot show how others
-    voted)."""
+    voted). Desk on only: `class`, `subject` and `chapter` (from `/chapters`) narrow the list."""
     me, _ = _reviewer(actor)
+    if not settings.reviewer_desk_enabled and (grade, subject, chapter) != (None, None, None):
+        raise HTTPException(status_code=422, detail="the reviewer desk is not switched on")
     root = content_root()
-    items, labels = service.load_items(root)
-    drafts = [item for item in items if service.is_draft(item)]
+    data = service.load_review_data(root)
+    drafts = [
+        item
+        for item in data.items
+        if service.is_draft(item) and service.in_group(data, item, grade, subject, chapter)
+    ]
     pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
     reviews = service.reviews_for_items(db, list(pairs.values()))
     chosen = []
@@ -116,16 +135,33 @@ def list_items(
     return {
         "total": len(chosen),
         "offset": offset,
-        "items": [service.card(db, root, item, labels, me) for item in page],
+        "items": [
+            service.card(db, root, item, data.labels, me, _hindi_for(data, item.id))
+            for item in page
+        ],
     }
+
+
+@router.get("/chapters")
+def list_chapters(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Desk on only: the class / subject / chapter groups that have draft items, each with its
+    item count and how many are still pending for the caller (the same rule as the list filter).
+    Only content that exists is listed. `unmapped_chapters` names groups with no curriculum entry
+    (their title comes from the overlay) so the gap is visible."""
+    if not settings.reviewer_desk_enabled:
+        raise HTTPException(status_code=404, detail="not found")
+    me, _ = _reviewer(actor)
+    data = service.load_review_data(content_root())
+    groups, gaps = service.chapter_groups(db, data, me)
+    return {"groups": groups, "chapters_without_curriculum_entry": gaps}
 
 
 @router.post("/items/{item_id}/decision")
 def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
     me, label = _reviewer(actor)
     root = content_root()
-    items, labels = service.load_items(root)
-    item = next((i for i in items if i.id == item_id), None)
+    data = service.load_review_data(root)
+    item = next((i for i in data.items if i.id == item_id), None)
     if item is None or not service.is_draft(item):
         raise HTTPException(status_code=404, detail="item not found")
     if body.content_hash != item_content_hash(item):
@@ -177,7 +213,7 @@ def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> di
         now=now_utc(),
         **extra,
     )
-    return service.card(db, root, item, labels, me)
+    return service.card(db, root, item, data.labels, me, _hindi_for(data, item.id))
 
 
 def _reviewer_out(user: Any) -> dict[str, Any]:
@@ -256,3 +292,78 @@ def pay_export(
         "to": end.isoformat(),
         "reviewers": service.reviewer_export(db, start, end),
     }
+
+
+_CSV_COLUMNS = (
+    "label",
+    "reviewer_id",
+    "email",
+    "paid_decisions",
+    "approve",
+    "fix",
+    "reject",
+    "active_seconds",
+    "changed_after_seeing",
+    "rate_inr",
+    "amount_before_cap_inr",
+    "amount_inr",
+    "cap_applied",
+)
+
+
+@router.get("/pay-statement", response_model=None)
+def pay_statement(
+    db: DbSession,
+    actor: ActorDep,
+    start: Annotated[date, Query(alias="from")],
+    end: Annotated[date, Query(alias="to")],
+    rate: Annotated[Decimal | None, Query(ge=0, le=100000, decimal_places=2)] = None,
+    format: Literal["json", "csv"] = "json",
+) -> Any:
+    """Admin only, read-only: what to pay each reviewer for decisions from `from` to `to` (both
+    included, UTC). Paid decisions = each reviewer's standing approve / fix / reject per item and
+    content hash, counted once (skip and withdraw are not paid). amount = paid x rate, where rate is
+    `REVIEW_RATE_PER_DECISION_INR` unless `rate` overrides it for this request (teachers and
+    students can be paid differently). The monthly cap `REVIEW_MONTHLY_CAP_INR` applies to the
+    calendar month of `to`. No quality multiplier yet (planted checks are not built). Holds the
+    reviewer's email and pseudonymous label so the owner can pay by hand; it stores and returns no
+    payment or UPI details. `format=csv` returns the same rows as a CSV file."""
+    _desk_admin(actor)
+    if end < start:
+        raise HTTPException(status_code=422, detail="`to` is before `from`")
+    statement = service.pay_statement(
+        db,
+        start,
+        end,
+        rate=rate if rate is not None else Decimal(settings.review_rate_per_decision_inr),
+        monthly_cap=Decimal(settings.review_monthly_cap_inr),
+    )
+    if format == "json":
+        return statement
+    out = io.StringIO()
+    writer = csv.writer(out, lineterminator="\n")
+    writer.writerow(_CSV_COLUMNS)
+    for r in statement["reviewers"]:
+        writer.writerow(
+            [
+                r["label"],
+                r["reviewer_id"],
+                r["email"] or "",
+                r["paid_decisions"],
+                r["decisions"]["approve"],
+                r["decisions"]["fix"],
+                r["decisions"]["reject"],
+                r["active_seconds"],
+                r["changed_after_seeing"],
+                r["rate_inr"],
+                r["amount_before_cap_inr"],
+                r["amount_inr"],
+                r["cap_applied"],
+            ]
+        )
+    name = f"pay-statement-{start.isoformat()}-{end.isoformat()}.csv"
+    return Response(
+        out.getvalue(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{name}"'},
+    )
