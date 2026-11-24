@@ -4,13 +4,29 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ApiError, decideDesk, deskErrors, deskItems, whoAmI, type DeskCard, type DeskDecision, type DeskOther } from "@/lib/api";
+import {
+  ApiError,
+  apiDetail,
+  decideDesk,
+  deskChapters,
+  deskErrors,
+  deskItems,
+  deskToday,
+  whoAmI,
+  type DeskCard,
+  type DeskChapter,
+  type DeskDecision,
+  type DeskOther,
+  type DeskScope,
+} from "@/lib/api";
 import { cn } from "@/lib/cn";
 import {
   allYes,
   buildBody,
+  dayFraction,
   emptyDraft,
   formatClock,
+  formatHours,
   keyAction,
   median,
   missingNotes,
@@ -18,7 +34,9 @@ import {
   nextUnanswered,
   placeServerErrors,
   problemsFor,
+  rememberTour,
   tickSeconds,
+  tourSeen,
   type Draft,
   type Problem,
 } from "@/lib/reviewDesk";
@@ -34,7 +52,7 @@ const DOT: Record<string, string> = {
   skip: "bg-muted",
 };
 
-/** The reviewer desk: a queue, and one question at a time with five checks. The API is the authority on every rule. */
+/** The reviewer desk: pick a chapter, then one question at a time with three checks. The API is the authority on every rule. */
 export default function ReviewerDesk() {
   const [cards, setCards] = useState<DeskCard[]>([]);
   const [total, setTotal] = useState(0);
@@ -53,6 +71,14 @@ export default function ReviewerDesk() {
   const [role, setRole] = useState("");
   const [focusId, setFocusId] = useState("");
   const [reviewing, setReviewing] = useState(false); // looking at one question from the summary
+  const [picking, setPicking] = useState(true); // the chapter picker comes first
+  const [groups, setGroups] = useState<DeskChapter[]>([]);
+  const [scope, setScope] = useState<DeskScope | null>(null);
+  const [today, setToday] = useState<{ used: number; cap: number } | null>(null);
+  const [undoStack, setUndoStack] = useState<string[]>([]); // ids decided in this visit, newest last
+  const [tourOpen, setTourOpen] = useState(false);
+  const [helpFor, setHelpFor] = useState(-1); // which question's "?" help is open
+  const scopeRef = useRef<DeskScope | null>(null);
   const pausedRef = useRef(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -62,9 +88,9 @@ export default function ReviewerDesk() {
     toastTimer.current = setTimeout(() => setToast(""), 2400);
   }, []);
 
-  const load = useCallback(async (offset: number) => {
+  const load = useCallback(async (offset: number, chosen: DeskScope | null) => {
     try {
-      const data = await deskItems(offset);
+      const data = await deskItems(offset, 10, chosen);
       setCards((rows) => (offset === 0 ? data.items : [...rows, ...data.items]));
       setTotal(data.total);
       setState("ready");
@@ -75,13 +101,64 @@ export default function ReviewerDesk() {
     }
   }, []);
 
+  const refreshToday = useCallback(() => {
+    deskToday()
+      .then((t) => setToday({ used: t.active_seconds_today, cap: t.daily_cap_seconds }))
+      .catch(() => undefined); // the meter is only a display: no meter is better than an error
+  }, []);
+
   useEffect(() => {
-    void load(0);
+    deskChapters()
+      .then((r) => {
+        setGroups(r.groups);
+        setState("ready");
+      })
+      .catch(() => {
+        setPicking(false); // no list of chapters: start on everything
+        void load(0, null);
+      });
+    refreshToday();
     whoAmI()
       .then((me: { role?: string }) => setRole(me.role ?? ""))
       .catch(() => setRole(""));
     return () => clearTimeout(toastTimer.current);
-  }, [load]);
+  }, [load, refreshToday]);
+
+  // the first-time tour: once per browser; a blocked or missing storage just shows it again next time
+  const tourChecked = useRef(false);
+  useEffect(() => {
+    if (state !== "ready" || tourChecked.current) return;
+    tourChecked.current = true;
+    if (!tourSeen()) setTourOpen(true);
+  }, [state]);
+  const closeTour = () => {
+    rememberTour();
+    setTourOpen(false);
+  };
+
+  async function pick(chosen: DeskScope | null) {
+    scopeRef.current = chosen;
+    setScope(chosen);
+    setPicking(false);
+    setState("loading");
+    setCards([]);
+    setResults({});
+    setUndoStack([]);
+    setIdx(0);
+    setReviewing(false);
+    started.current = false;
+    await load(0, chosen);
+  }
+
+  function backToPicker() {
+    if (moveBlocked(draft)) {
+      patch((d) => ({ ...d, tried: true }));
+      say(desk.toastNoMove);
+      return;
+    }
+    setPicking(true);
+    setState("ready");
+  }
 
   const isDone = useCallback(
     (card: DeskCard) => Boolean(card.my_decision) || Boolean(results[card.id]),
@@ -191,6 +268,8 @@ export default function ReviewerDesk() {
       const saved = await decideDesk(card.id, buildBody(card, decision, draft, cardSeconds));
       const updated = { ...results, [card.id]: { decision, card: saved } };
       setResults(updated);
+      setUndoStack((stack) => [...stack, card.id]);
+      refreshToday();
       setReviewing(false);
       setCards((rows) => rows.map((r) => (r.id === saved.id ? saved : r)));
       say(
@@ -213,6 +292,39 @@ export default function ReviewerDesk() {
     }
   }
 
+  async function undo() {
+    const last = undoStack[undoStack.length - 1];
+    if (busy || !last) {
+      if (!last) say(desk.undoNothing);
+      return;
+    }
+    const target = cards.find((c) => c.id === last);
+    if (!target) return;
+    setBusy(true);
+    try {
+      // a skip was never a standing decision, so there is nothing for the server to withdraw
+      const fresh =
+        results[last]?.decision === "skip"
+          ? target
+          : await decideDesk(last, { content_hash: target.content_hash, decision: "withdraw" });
+      setCards((rows) => rows.map((r) => (r.id === fresh.id ? fresh : r)));
+      setResults((all) => Object.fromEntries(Object.entries(all).filter(([id]) => id !== last)));
+      setUndoStack((stack) => stack.slice(0, -1));
+      setIdx(cards.findIndex((c) => c.id === last));
+      setLang("en");
+      setShowAnswer(false);
+      setReviewing(false);
+      setProblems([]);
+      say(desk.undone);
+      refreshToday();
+    } catch (error) {
+      // the server says why in plain words (for example when the question was edited meanwhile)
+      setProblems([{ field: "form", message: apiDetail(error) || desk.undoFailed }]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   // keys: kept in a ref so the one listener always sees the latest state
   const keyHandler = useRef<(event: KeyboardEvent) => void>(() => {});
   keyHandler.current = (event) => {
@@ -225,9 +337,12 @@ export default function ReviewerDesk() {
     const action = keyAction(event.key, target, { ctrl: event.ctrlKey, meta: event.metaKey, alt: event.altKey });
     if (!action) return;
     event.preventDefault(); // so a key that moves focus to a note box does not also type its letter there
+    if (tourOpen) return action.kind === "escape" ? closeTour() : undefined;
     if (action.kind === "help") return setHelpOpen(true);
     if (action.kind === "escape") return setHelpOpen(false);
-    if (helpOpen || !card || allDone || decided) return;
+    if (helpOpen || picking) return;
+    if (action.kind === "undo") return void undo();
+    if (!card || allDone || decided) return;
     if (action.kind === "answer") answerNext(action.yes);
     else if (action.kind === "decide") void decide(action.decision);
     else if (action.kind === "toggleAnswer") setShowAnswer((v) => !v);
@@ -248,7 +363,7 @@ export default function ReviewerDesk() {
 
   async function nextBatch() {
     const before = cards.length;
-    const got = await load(before);
+    const got = await load(before, scopeRef.current);
     if (got > 0) {
       setIdx(before);
       started.current = true;
@@ -278,15 +393,31 @@ export default function ReviewerDesk() {
       <header className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-line py-3">
         <h1 className="m-0 text-xl font-bold">{desk.title}</h1>
         <span className="flex-1" />
-        <span className="text-sm text-muted">
-          {desk.timeThis}{" "}
-          <span className="font-mono tabular-nums text-ink" data-testid="desk-clock">
-            {formatClock(cardSeconds)}
+        {today ? (
+          <span className="flex items-center gap-2 text-sm text-muted" data-testid="desk-today">
+            {desk.timeToday}
+            <span className="h-1.5 w-24 overflow-hidden rounded-full border border-line bg-surface-2" aria-hidden>
+              <i className="block h-full bg-accent" style={{ width: `${dayFraction(today.used, today.cap) * 100}%` }} />
+            </span>
+            <span className="font-mono tabular-nums text-ink">{desk.timeTodayOf(formatHours(today.used), formatHours(today.cap))}</span>
           </span>
-        </span>
-        <Button variant="outline" size="sm" onClick={togglePause} aria-pressed={paused} data-testid="desk-pause">
-          {paused ? desk.resume : desk.pause}
-        </Button>
+        ) : null}
+        {picking ? null : (
+          <>
+            <span className="text-sm text-muted">
+              {desk.timeThis}{" "}
+              <span className="font-mono tabular-nums text-ink" data-testid="desk-clock">
+                {formatClock(cardSeconds)}
+              </span>
+            </span>
+            <Button variant="outline" size="sm" onClick={togglePause} aria-pressed={paused} data-testid="desk-pause">
+              {paused ? desk.resume : desk.pause}
+            </Button>
+            <Button variant="outline" size="sm" onClick={backToPicker}>
+              {desk.pickChange}
+            </Button>
+          </>
+        )}
         <Button variant="outline" size="sm" onClick={() => setHelpOpen(true)} aria-label={desk.keysLabel}>
           {desk.keys}
         </Button>
@@ -297,7 +428,9 @@ export default function ReviewerDesk() {
         ) : null}
       </header>
 
-      {cards.length === 0 ? (
+      {picking ? (
+        <Picker groups={groups} onPick={(chosen) => void pick(chosen)} />
+      ) : cards.length === 0 ? (
         <p className="mt-6" data-testid="desk-empty">
           {desk.empty}
         </p>
@@ -347,7 +480,7 @@ export default function ReviewerDesk() {
           </ol>
 
           {allDone ? (
-            <Summary cards={cards} results={results} seconds={seconds} more={cards.length < total} onMore={() => void nextBatch()} onOpen={go} />
+            <Summary cards={cards} results={results} seconds={seconds} more={cards.length < total} onMore={() => void nextBatch()} onOpen={go} canUndo={undoStack.length > 0} onUndo={() => void undo()} />
           ) : card ? (
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
               <StudentView card={card} lang={lang} setLang={setLang} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
@@ -371,6 +504,9 @@ export default function ReviewerDesk() {
                         note={draft.notes[i] ?? ""}
                         tried={draft.tried}
                         problems={error("fix_notes", i)}
+                        help={desk.checkHelp[i]}
+                        helpOpen={helpFor === i}
+                        onHelp={() => setHelpFor((open) => (open === i ? -1 : i))}
                         onAnswer={(yes) => setCheck(i, yes)}
                         onNote={(value) => patch((d) => ({ ...d, notes: d.notes.map((n, j) => (j === i ? value : n)) }))}
                       />
@@ -412,13 +548,15 @@ export default function ReviewerDesk() {
         </>
       )}
 
-      {cards.length > 0 && !allDone && card ? (
+      {!picking && cards.length > 0 && !allDone && card ? (
         <ActionBar
           draft={draft}
           decided={decided}
           busy={busy}
           problems={generalProblems}
           onDecide={(d) => void decide(d)}
+          canUndo={undoStack.length > 0}
+          onUndo={() => void undo()}
           lastLook={lastLook}
           onNext={() => (lastLook ? setReviewing(false) : go(nextIndex()))}
         />
@@ -433,6 +571,7 @@ export default function ReviewerDesk() {
       </div>
 
       {helpOpen ? <Help onClose={() => setHelpOpen(false)} /> : null}
+      {tourOpen ? <Tour onClose={closeTour} /> : null}
     </main>
   );
 }
@@ -440,11 +579,11 @@ export default function ReviewerDesk() {
 function ComputerBox({ state }: { state: "verified" | "unchecked" | "mismatch" }) {
   const tone = { verified: "border-success bg-success-soft text-success", unchecked: "border-warning bg-warning-soft text-warning", mismatch: "border-danger bg-danger-soft text-danger" }[state];
   const head = { verified: desk.computerOk, unchecked: desk.computerUnchecked, mismatch: desk.computerMismatch }[state];
-  const more = { verified: desk.computerOkMore, unchecked: desk.computerUncheckedMore, mismatch: desk.computerMismatchMore }[state];
+  const more = { verified: "", unchecked: desk.computerUncheckedMore, mismatch: desk.computerMismatchMore }[state];
   return (
     <div className={cn("rounded-xl border p-3 text-sm font-medium", tone)} data-testid="desk-computer" data-state={state}>
       {head}
-      <small className="mt-0.5 block font-normal text-ink">{more}</small>
+      {more ? <small className="mt-0.5 block font-normal text-ink">{more}</small> : null}
     </div>
   );
 }
@@ -484,11 +623,14 @@ function StudentView({
       </Tabs>
       {lang === "en" ? (
         <div className="mt-3">
-          <p className="mb-2 flex flex-wrap gap-x-3 text-xs text-muted">
-            <span className="font-mono">{card.id}</span>
-            {card.skill_ids.length ? <span className="font-mono">{card.skill_ids.join(", ")}</span> : null}
-            <span>{card.type}</span>
-          </p>
+          <details className="mb-2 text-xs text-muted">
+            <summary className="cursor-pointer">{desk.detailsForTeam}</summary>
+            <p className="my-1 flex flex-wrap gap-x-3">
+              <span className="font-mono">{card.id}</span>
+              {card.skill_ids.length ? <span className="font-mono">{card.skill_ids.join(", ")}</span> : null}
+              <span>{card.type}</span>
+            </p>
+          </details>
           <p className="my-0 mb-3 text-lg" data-testid="desk-stem">
             {card.stem}
           </p>
@@ -546,8 +688,8 @@ function StudentView({
               <ul className="mt-2 list-none space-y-1 p-0 text-sm">
                 {card.wrong_options.map((o) => (
                   <li key={o.answer}>
-                    <span className="font-mono text-muted">({o.answer})</span>{" "}
-                    <b>{o.misconceptions.join(", ") || desk.noMistakeNamed}</b>
+                    <span className="font-mono text-muted">({o.answer})</span> <b>{o.text}</b>
+                    <span className="block text-muted">{o.misconceptions.join(", ") || desk.noMistakeNamed}</span>
                   </li>
                 ))}
               </ul>
@@ -577,6 +719,9 @@ function CheckRow({
   note,
   tried,
   problems,
+  help,
+  helpOpen,
+  onHelp,
   onAnswer,
   onNote,
 }: {
@@ -587,6 +732,9 @@ function CheckRow({
   note: string;
   tried: boolean;
   problems: Problem[];
+  help: string;
+  helpOpen: boolean;
+  onHelp: () => void;
   onAnswer: (yes: boolean) => void;
   onNote: (value: string) => void;
 }) {
@@ -595,8 +743,22 @@ function CheckRow({
   return (
     <div data-testid={`check-${index}`}>
       <div className={cn("grid grid-cols-1 items-center gap-2 rounded-xl border border-transparent p-2 sm:grid-cols-[1fr_auto]", current && "border-accent bg-accent-soft")}>
-        <span id={`check-text-${index}`} className="text-sm">
-          {text}
+        <span className="text-sm">
+          <span id={`check-text-${index}`}>{text}</span>{" "}
+          <button
+            type="button"
+            onClick={onHelp}
+            aria-expanded={helpOpen}
+            aria-label={desk.helpFor(index + 1)}
+            className="ml-1 inline-grid size-7 min-h-7 w-7 place-items-center rounded-full border border-line bg-surface p-0 font-sans text-xs normal-case tracking-normal text-muted"
+          >
+            ?
+          </button>
+          {helpOpen ? (
+            <span className="mt-1 block rounded-lg bg-surface-2 p-2 text-muted" data-testid={`check-help-${index}`}>
+              {help}
+            </span>
+          ) : null}
         </span>
         <span className="flex gap-2" role="group" aria-labelledby={`check-text-${index}`}>
           <button
@@ -683,6 +845,7 @@ function ReasonPicker({
       ))}
       <div role="group" aria-label={desk.severityGroup} className="my-2">
         <p className="mb-1 text-sm font-semibold">{desk.severityGroup}</p>
+        <p className="mb-1 text-xs text-muted">{desk.rejectNote}</p>
         <div className="flex flex-wrap gap-2">
           {desk.severities.map(([key, label, help]) => (
             <button
@@ -713,6 +876,8 @@ function ActionBar({
   busy,
   problems,
   lastLook,
+  canUndo,
+  onUndo,
   onDecide,
   onNext,
 }: {
@@ -721,6 +886,8 @@ function ActionBar({
   busy: boolean;
   problems: Problem[];
   lastLook: boolean;
+  canUndo: boolean;
+  onUndo: () => void;
   onDecide: (d: DeskDecision) => void;
   onNext: () => void;
 }) {
@@ -738,7 +905,7 @@ function ActionBar({
           : desk.statusAnswerFirst;
   return (
     <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] pt-3" data-testid="desk-actions">
-      <div className="mx-auto grid max-w-6xl grid-cols-4 items-center gap-2 sm:flex sm:flex-wrap">
+      <div className="mx-auto grid max-w-6xl grid-cols-5 items-center gap-2 sm:flex sm:flex-wrap">
         {decided ? (
           <Button variant="outline" onClick={onNext} className="col-span-4 sm:col-auto">
             {lastLook ? desk.backToSummary : desk.nextQuestion}
@@ -764,7 +931,10 @@ function ActionBar({
             </Button>
           </>
         )}
-        <span className="col-span-4 min-w-0 text-xs text-muted sm:flex-1 sm:basis-48 sm:text-sm" data-testid="desk-status">
+        <Button variant="outline" onClick={onUndo} disabled={!canUndo || busy} className="min-w-0 px-2 sm:px-5" data-testid="act-undo">
+          {desk.undo} <kbd className="hidden font-mono text-xs opacity-80 sm:inline">⌫</kbd>
+        </Button>
+        <span className="col-span-5 min-w-0 text-xs text-muted sm:flex-1 sm:basis-48 sm:text-sm" data-testid="desk-status">
           {busy ? desk.saving : status}
         </span>
       </div>
@@ -852,6 +1022,8 @@ function Summary({
   more,
   onMore,
   onOpen,
+  canUndo,
+  onUndo,
 }: {
   cards: DeskCard[];
   results: Record<string, Result>;
@@ -859,6 +1031,8 @@ function Summary({
   more: boolean;
   onMore: () => void;
   onOpen: (index: number) => void;
+  canUndo: boolean;
+  onUndo: () => void;
 }) {
   const decisionOf = (c: DeskCard) => results[c.id]?.decision ?? c.my_decision?.decision ?? "";
   const count = (d: string) => cards.filter((c) => decisionOf(c) === d).length;
@@ -901,11 +1075,14 @@ function Summary({
         ))}
       </ul>
       {count("skip") ? <p className="text-sm text-muted">{desk.skippedAgain}</p> : null}
-      {more ? (
-        <div className="mt-3">
-          <Button onClick={onMore}>{desk.more}</Button>
-        </div>
-      ) : null}
+      <div className="mt-3 flex flex-wrap gap-3">
+        {more ? <Button onClick={onMore}>{desk.more}</Button> : null}
+        {canUndo ? (
+          <Button variant="outline" onClick={onUndo} data-testid="summary-undo">
+            {desk.undo} <kbd className="font-mono text-xs opacity-80">⌫</kbd>
+          </Button>
+        ) : null}
+      </div>
     </section>
   );
 }
@@ -931,6 +1108,70 @@ function Help({ onClose }: { onClose: () => void }) {
         <Button ref={ref} onClick={onClose}>
           {desk.close}
         </Button>
+      </div>
+    </div>
+  );
+}
+
+function Picker({ groups, onPick }: { groups: DeskChapter[]; onPick: (scope: DeskScope | null) => void }) {
+  const open = groups.filter((g) => g.pending > 0 && g.class !== null && g.subject !== null);
+  return (
+    <section className="mt-4 rounded-2xl border border-line bg-surface p-4" data-testid="desk-picker" aria-labelledby="pick-title">
+      <h2 id="pick-title" className="mb-1 text-xl font-bold">
+        {desk.pickTitle}
+      </h2>
+      <p className="mb-3 text-sm text-muted">{desk.pickIntro}</p>
+      {open.length === 0 ? <p data-testid="desk-pick-none">{desk.pickNone}</p> : null}
+      <ul className="m-0 grid list-none gap-2 p-0">
+        {open.map((g) => (
+          <li key={g.chapter}>
+            <button
+              type="button"
+              onClick={() => onPick({ class: g.class as number, subject: g.subject as string, chapter: g.chapter })}
+              className="flex min-h-11 w-full flex-wrap items-center gap-x-3 rounded-xl border border-line bg-surface px-3 py-2 text-left font-sans text-sm normal-case tracking-normal text-ink"
+            >
+              <b>{g.title}</b>
+              <span className="text-muted">
+                {desk.pickClass(g.class)} · {g.subject}
+              </span>
+              <span className="ml-auto text-muted">{desk.pickLeft(g.pending)}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3">
+        <Button variant="outline" onClick={() => onPick(null)}>
+          {desk.pickAll}
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+/** The first-time tour: three short steps and the keys. Skippable; remembered by the caller. */
+function Tour({ onClose }: { onClose: () => void }) {
+  const [step, setStep] = useState(0);
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => ref.current?.focus(), [step]);
+  const last = step === desk.tour.length - 1;
+  const [title, text] = desk.tour[step];
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/55 p-4">
+      <div role="dialog" aria-modal="true" aria-label={desk.tourTitle} className="w-full max-w-md rounded-2xl border border-line bg-surface p-5" data-testid="desk-tour">
+        <p className="mb-1 text-xs text-muted">{desk.tourStep(step + 1, desk.tour.length)}</p>
+        <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+        <p className="my-2 text-sm">{text}</p>
+        {last ? <p className="my-2 text-sm text-muted">{desk.tourKeys}</p> : null}
+        <div className="mt-3 flex flex-wrap gap-3">
+          <Button ref={ref} onClick={() => (last ? onClose() : setStep(step + 1))}>
+            {last ? desk.tourDone : desk.tourNext}
+          </Button>
+          {last ? null : (
+            <Button variant="outline" onClick={onClose}>
+              {desk.tourSkip}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

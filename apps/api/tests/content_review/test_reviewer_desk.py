@@ -27,7 +27,7 @@ from tests.content_review.test_review_api import (  # noqa: F401
     root,
 )
 
-YES = [True] * 5
+YES = [True] * 3
 LONG = "The wrong option is not believable"
 
 
@@ -46,8 +46,8 @@ def _fix(digest: str, **more: Any) -> dict[str, Any]:
         "decision": "fix",
         "severity": "must_fix",
         "reason_code": "6",
-        "checks": [True, True, True, False, True],
-        "fix_notes": [{"question_index": 3, "text": LONG}],
+        "checks": [True, True, False],
+        "fix_notes": [{"question_index": 2, "text": LONG}],
     }
     body.update(more)
     return body
@@ -81,14 +81,14 @@ def _rules(decision: str, **kw: Any) -> list[str]:
 def test_rules_for_approve() -> None:
     assert _rules("approve", checks=YES) == []
     assert _rules("approve", checks=None) == ["checks"]
-    assert _rules("approve", checks=[True, True, None, True, True]) == ["checks"]
-    assert _rules("approve", checks=[True, True, True, True, False]) == ["checks"]
+    assert _rules("approve", checks=[True, None, True]) == ["checks"]
+    assert _rules("approve", checks=[True, True, False]) == ["checks"]
     assert "severity" in _rules("approve", checks=YES, severity="blocker")
     assert "reason_code" in _rules("approve", checks=YES, reason_code="1")
 
 
 def test_rules_for_fix_and_reject() -> None:
-    marked = [True, False, True, True, True]
+    marked = [True, False, True]
     good = {"severity": "blocker", "reason_code": "4", "checks": marked}
     for decision in ("fix", "reject"):
         assert _rules(decision, **good, fix_notes=[(1, "Use the sine rule here")]) == []
@@ -100,7 +100,7 @@ def test_rules_for_fix_and_reject() -> None:
         no_reason = {**good, "reason_code": None}
         assert _rules(decision, **no_reason, fix_notes=[(1, LONG)]) == ["reason_code"]
         # nothing marked: the general note carries it
-        plain = {"severity": "must_fix", "reason_code": "0", "checks": YES}
+        plain = {"severity": "must_fix", "reason_code": "5", "checks": YES}
         assert _rules(decision, **plain, note=LONG) == []
         assert _rules(decision, **plain, note="short") == ["note"]
         assert _rules(decision, **plain) == ["note"]
@@ -110,8 +110,8 @@ def test_rules_for_fix_and_reject() -> None:
 
 def test_rules_for_skip() -> None:
     assert _rules("skip") == []
-    assert _rules("skip", checks=[True, False, None, None, None]) == ["fix_notes"]  # unfinished
-    assert _rules("skip", checks=[True, False, None, None, None], fix_notes=[(1, LONG)]) == []
+    assert _rules("skip", checks=[True, False, None]) == ["fix_notes"]  # unfinished
+    assert _rules("skip", checks=[True, False, None], fix_notes=[(1, LONG)]) == []
     assert "severity" in _rules("skip", severity="blocker")
 
 
@@ -129,14 +129,18 @@ def test_server_refuses_incomplete_decisions_with_clear_errors(
     bare = _errors(_post(client, token, {"content_hash": digest, "decision": "fix", "note": LONG}))
     assert set(bare) == {"severity", "reason_code"}
     no_note = _errors(
-        _post(client, token, _fix(digest, fix_notes=[{"question_index": 3, "text": "no"}]))
+        _post(client, token, _fix(digest, fix_notes=[{"question_index": 2, "text": "no"}]))
     )
-    assert "question 4" in no_note["fix_notes"]
+    assert "question 3" in no_note["fix_notes"]
     assert _post(client, token, _fix(digest, active_seconds=7201)).status_code == 422
     assert _post(client, token, _fix(digest, active_seconds=-1)).status_code == 422
     assert _post(client, token, _fix(digest, checks=[True, False])).status_code == 422
+    assert _post(client, token, _fix(digest, checks=[True] * 5)).status_code == 422  # five is old
+    bad_index = _fix(digest, fix_notes=[{"question_index": 3, "text": LONG}])
+    assert _post(client, token, bad_index).status_code == 422
     assert _post(client, token, _fix(digest, severity="huge")).status_code == 422
     assert _post(client, token, _fix(digest, reason_code="10")).status_code == 422
+    assert _post(client, token, _fix(digest, reason_code="0")).status_code == 422  # old code
     stale = _post(client, token, _approve("0" * 64))
     assert stale.status_code == 409  # still tied to the current content hash
 
@@ -149,8 +153,8 @@ def test_a_full_decision_is_stored_with_every_field(
     assert out.status_code == 200, out.text
     row = db.scalars(select(ContentReviewRow)).one()
     assert (row.decision, row.severity, row.reason_code) == ("fix", "must_fix", "6")
-    assert row.checks == [True, True, True, False, True]
-    assert row.fix_notes == [{"question_index": 3, "text": LONG}]
+    assert row.checks == [True, True, False]
+    assert row.fix_notes == [{"question_index": 2, "text": LONG}]
     assert row.active_seconds == 95 and row.note == "general"
     mine = out.json()["my_decision"]
     assert mine["severity"] == "must_fix" and mine["reason_code"] == "6"
@@ -483,3 +487,48 @@ def test_the_export_counts_decisions_and_seconds_without_identities(
     assert client.get(url, headers=auth_header(world.teacher_token)).status_code == 403
     assert client.get(url).status_code == 401
     assert service.reviewer_export(db, today, today)[0]["reviewer_id"]
+
+
+# ---- three questions, six reasons; old five-answer rows still read ----
+
+
+def test_the_six_reasons_are_the_only_ones_new_decisions_take() -> None:
+    assert service.REASON_CODES == ("1", "2", "3", "4", "5", "6")
+    assert service.CHECK_COUNT == 3
+    good = {"severity": "must_fix", "checks": [False, True, True], "fix_notes": [(0, LONG)]}
+    assert _rules("fix", **good, reason_code="6") == []
+
+
+def test_old_five_answer_rows_are_read_without_errors(
+    client: TestClient, world: World, root: Path, desk: None, db: Session
+) -> None:
+    digest = _hash(client, world.teacher_token, "ITEM.Q1")
+    teacher = db.scalars(select(UserRow).where(UserRow.email == "teacher@example.com")).one()
+    db.add(
+        ContentReviewRow(
+            id=uuid.uuid4(),
+            item_id="ITEM.Q1",
+            content_hash=digest,
+            reviewer_id=teacher.id,
+            reviewer_label="teacher@example.com",
+            decision="fix",
+            note="old",
+            severity="must_fix",
+            reason_code="8",
+            checks=[True, True, True, False, True],
+            fix_notes=[{"question_index": 3, "text": LONG}],
+            active_seconds=30,
+            created_at=now_utc(),
+        )
+    )
+    db.commit()
+    mine = _card(client, world.teacher_token)["my_decision"]
+    assert mine["reason_code"] == "8" and len(mine["checks"]) == 5
+    assert mine["fix_notes"] == [{"question_index": 3, "text": LONG}]
+    today = now_utc().date().isoformat()
+    export = client.get(
+        f"/staff/review/export?from={today}&to={today}", headers=auth_header(world.admin_token)
+    )
+    assert export.status_code == 200
+    # a new decision on the same item still follows the new rules
+    assert _post(client, world.teacher_token, _fix(digest, checks=[True] * 5)).status_code == 422

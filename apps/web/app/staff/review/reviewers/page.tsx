@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ApiError, inviteReviewer, issueReviewerSignInCode, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer } from "@/lib/api";
+import { ApiError, inviteReviewer, issueReviewerSignInCode, listReviewers, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer, type DeskReviewerRow } from "@/lib/api";
 import { reviewerDeskEnabled } from "@/lib/flags";
 import { desk } from "@/lib/reviewDeskCopy";
 
@@ -15,7 +15,7 @@ export default function ReviewersAdminPage() {
   const router = useRouter();
   const [state, setState] = useState<"loading" | "admin" | "denied">("loading");
   const [email, setEmail] = useState("");
-  const [rows, setRows] = useState<DeskReviewer[]>([]);
+  const [rows, setRows] = useState<DeskReviewerRow[]>([]);
   const [message, setMessage] = useState("");
   const [problem, setProblem] = useState("");
   const [issued, setIssued] = useState<{ id: string; email: string; code: string } | null>(null);
@@ -31,11 +31,32 @@ export default function ReviewersAdminPage() {
       return;
     }
     whoAmI()
-      .then((me: { role?: string }) => setState(me.role === "admin" ? "admin" : "denied"))
+      .then((me: { role?: string }) => {
+        setState(me.role === "admin" ? "admin" : "denied");
+        if (me.role !== "admin") return;
+        listReviewers()
+          .then((out) =>
+            // the list is the truth, but an invite answered while it loaded must not vanish
+            setRows((now) => [...out.reviewers, ...now.filter((r) => !out.reviewers.some((o) => o.id === r.id))]),
+          )
+          .catch(() => setProblem(t.listFailed));
+      })
       .catch(() => setState("denied"));
   }, [router]);
 
-  const keep = (row: DeskReviewer) => setRows((all) => [row, ...all.filter((r) => r.id !== row.id)]);
+  // an answer from invite, suspend or reinstate has the account only: keep the activity facts we already have
+  const keep = (row: DeskReviewer) =>
+    setRows((all) => {
+      const before = all.find((r) => r.id === row.id);
+      const merged: DeskReviewerRow = {
+        invited_at: new Date().toISOString(),
+        last_decision_at: null,
+        decision_count: 0,
+        ...before,
+        ...row,
+      };
+      return before ? all.map((r) => (r.id === row.id ? merged : r)) : [merged, ...all];
+    });
 
   async function invite() {
     setMessage("");
@@ -127,12 +148,17 @@ export default function ReviewersAdminPage() {
         </section>
       ) : null}
       <h2>{t.listTitle}</h2>
-      <p className="muted">{t.listNote}</p>
       {rows.length === 0 ? <p>{t.none}</p> : null}
       <ul className="m-0 list-none space-y-2 p-0" data-testid="reviewer-list">
         {rows.map((row) => (
           <li key={row.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-3">
-            <span className="min-w-0 flex-1 break-all">{row.email}</span>
+            <span className="min-w-0 flex-1 break-all">
+              {row.email}
+              <span className="block text-xs text-muted">
+                {t.invitedOn(new Date(row.invited_at).toLocaleDateString())} · {t.decisionCount(row.decision_count)} ·{" "}
+                {t.lastDecision(row.last_decision_at ? new Date(row.last_decision_at).toLocaleDateString() : null)}
+              </span>
+            </span>
             <span className="text-sm text-muted">{row.suspended ? t.suspended : t.active}</span>
             <Button variant="outline" size="sm" disabled={row.suspended} onClick={() => void makeCode(row)}>
               {t.makeCode}

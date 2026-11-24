@@ -897,11 +897,12 @@ export type DeskCard = {
   notes: { reviewer: string; decision: string; note: string | null }[];
   others: DeskOther[];
   my_decision: (Pick<DeskOther, "severity" | "reason_code" | "checks" | "fix_notes"> & { decision: string; note: string | null }) | null;
-  my_history: { decision: string; severity: DeskSeverity | null; created_at: string }[];
+  my_history: { decision: string; severity: DeskSeverity | null; created_at: string; changed_after_seeing?: boolean }[];
 };
 export type DeskDecisionBody = {
   content_hash: string;
-  decision: DeskDecision;
+  /** "withdraw" is Undo: it ends your own standing decision (the API keeps it as a new row). */
+  decision: DeskDecision | "withdraw";
   note?: string;
   severity?: DeskSeverity;
   reason_code?: string;
@@ -909,8 +910,33 @@ export type DeskDecisionBody = {
   fix_notes?: DeskFixNote[];
   active_seconds?: number;
 };
-export const deskItems = (offset = 0, limit = 10): Promise<{ total: number; items: DeskCard[] }> =>
-  staffReq(`/staff/review/items?status=pending&limit=${limit}&offset=${offset}`);
+/** Which chapter to review: from `deskChapters`. Left out, every chapter. */
+export type DeskScope = { class: number; subject: string; chapter: string };
+export const deskItems = (offset = 0, limit = 10, scope?: DeskScope | null): Promise<{ total: number; items: DeskCard[] }> => {
+  const query = new URLSearchParams({ status: "pending", limit: String(limit), offset: String(offset) });
+  if (scope) {
+    query.set("class", String(scope.class));
+    query.set("subject", scope.subject);
+    query.set("chapter", scope.chapter);
+  }
+  return staffReq(`/staff/review/items?${query.toString()}`);
+};
+/** One class / subject / chapter that has questions to review; `pending` counts what is left for you. */
+export type DeskChapter = { class: number | null; subject: string | null; chapter: string; title: string; in_curriculum: boolean; total: number; pending: number };
+export const deskChapters = (): Promise<{ groups: DeskChapter[] }> => staffReq("/staff/review/chapters");
+/** Active review seconds you have logged today (UTC) and the daily cap. Shown, never enforced. */
+export const deskToday = (): Promise<{ active_seconds_today: number; daily_cap_seconds: number }> =>
+  staffReq("/staff/review/me/today");
+/** The API's plain-text refusal (`detail` as a string), or "" when it sent none. */
+export function apiDetail(error: unknown): string {
+  if (!(error instanceof ApiError)) return "";
+  try {
+    const detail = JSON.parse(error.message)?.detail;
+    return typeof detail === "string" ? detail : "";
+  } catch {
+    return "";
+  }
+}
 export const decideDesk = (id: string, body: DeskDecisionBody): Promise<DeskCard> =>
   staffReq(`/staff/review/items/${encodeURIComponent(id)}/decision`, {
     method: "POST",
@@ -929,7 +955,10 @@ export function deskErrors(error: unknown): { field: string; message: string }[]
   }
 }
 export type DeskReviewer = { id: string; email: string; role: string; suspended: boolean };
-/** Admin only. There is no list route: the API answers each invite, suspend and reinstate with the account. */
+/** Admin only: every invited reviewer with how much they have done. Facts about the account, no votes. */
+export type DeskReviewerRow = DeskReviewer & { invited_at: string; last_decision_at: string | null; decision_count: number };
+export const listReviewers = (): Promise<{ reviewers: DeskReviewerRow[] }> => staffReq("/staff/review/reviewers");
+/** Admin only. The API answers each invite, suspend and reinstate with the account. */
 export const inviteReviewer = (email: string): Promise<DeskReviewer> =>
   staffReq("/staff/review/reviewers", { method: "POST", body: JSON.stringify({ email }) });
 export const setReviewerSuspended = (id: string, suspended: boolean): Promise<DeskReviewer> =>

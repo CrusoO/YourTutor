@@ -52,7 +52,7 @@ class DecisionIn(BaseModel):
     decision: Literal["approve", "reject", "fix", "skip", "withdraw"]
     note: str | None = Field(default=None, max_length=2000)
     severity: Literal["blocker", "must_fix", "nice_to_fix"] | None = None
-    reason_code: Literal["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] | None = None
+    reason_code: Literal["1", "2", "3", "4", "5", "6"] | None = None
     checks: list[bool | None] | None = Field(
         default=None, min_length=service.CHECK_COUNT, max_length=service.CHECK_COUNT
     )

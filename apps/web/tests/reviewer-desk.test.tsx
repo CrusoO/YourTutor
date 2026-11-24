@@ -5,6 +5,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/api", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/api")>()),
   deskItems: vi.fn(),
+  deskChapters: vi.fn(),
+  deskToday: vi.fn(),
+  listReviewers: vi.fn(),
   reviewItems: vi.fn(),
   decideDesk: vi.fn(),
   whoAmI: vi.fn(),
@@ -48,34 +51,49 @@ const saved = (over: Partial<api.DeskCard> = {}) =>
   card({
     approvals: 1,
     blocked: false,
-    my_decision: { decision: "approve", note: null, severity: null, reason_code: null, checks: [true, true, true, true, true], fix_notes: [] },
+    my_decision: { decision: "approve", note: null, severity: null, reason_code: null, checks: [true, true, true], fix_notes: [] },
     ...over,
   });
 
+const GROUPS: api.DeskChapter[] = [
+  { class: 10, subject: "maths", chapter: "cbse.10.maths.quad", title: "Quadratic equations", in_curriculum: true, total: 12, pending: 7 },
+  { class: 10, subject: "physics", chapter: "cbse.10.physics.light", title: "Light", in_curriculum: false, total: 4, pending: 0 },
+  { class: 10, subject: "physics", chapter: "cbse.10.physics.elec", title: "Electricity", in_curriculum: true, total: 5, pending: 5 },
+];
+
+/** Open the desk and start on every chapter (the picker has its own tests in reviewer-desk-s5.test.tsx). */
 async function open(cards: api.DeskCard[] = [card(), card({ id: "ITEM.Q2", content_hash: "h2", stem: "Second question" })]) {
   vi.mocked(api.deskItems).mockResolvedValue({ total: cards.length, items: cards });
   vi.mocked(api.whoAmI).mockResolvedValue({ role: "reviewer" } as never);
   render(<ReviewerDesk />);
-  await screen.findByTestId("reviewer-desk");
+  await userEvent.click(await screen.findByRole("button", { name: "All chapters" }));
+  await screen.findByTestId(cards.length ? "desk-queue" : "desk-empty");
 }
 
 async function answerAll(user: ReturnType<typeof userEvent.setup>, values: ("y" | "n")[]) {
   for (const v of values) await user.keyboard(v);
 }
 
-beforeEach(() => vi.clearAllMocks());
+beforeEach(() => {
+  vi.clearAllMocks();
+  window.localStorage.setItem("reviewer-desk-tour-v1", "1"); // the tour has its own tests
+  vi.mocked(api.deskChapters).mockResolvedValue({ groups: GROUPS });
+  vi.mocked(api.deskToday).mockResolvedValue({ active_seconds_today: 42 * 60, daily_cap_seconds: 12600 });
+  vi.mocked(api.listReviewers).mockResolvedValue({ reviewers: [] });
+});
 afterEach(() => {
   cleanup();
   vi.unstubAllEnvs();
+  window.localStorage.clear();
 });
 
 describe("reviewer desk: gating", () => {
-  it("keeps Approve locked until all five answers are yes", async () => {
+  it("keeps Approve locked until all three answers are yes", async () => {
     const user = userEvent.setup();
     await open();
     const approve = screen.getByTestId("act-approve");
     expect((approve as HTMLButtonElement).disabled).toBe(true);
-    await answerAll(user, ["y", "y", "y", "y"]);
+    await answerAll(user, ["y", "y"]);
     expect((approve as HTMLButtonElement).disabled).toBe(true);
     await user.keyboard("y");
     expect((approve as HTMLButtonElement).disabled).toBe(false);
@@ -107,7 +125,7 @@ describe("reviewer desk: gating", () => {
 
   it("needs a reason and a severity for Fix, then sends the fix note by question", async () => {
     const user = userEvent.setup();
-    vi.mocked(api.decideDesk).mockResolvedValue(saved({ my_decision: { decision: "fix", note: null, severity: "must_fix", reason_code: "4", checks: [true, false, true, true, true], fix_notes: [] } }));
+    vi.mocked(api.decideDesk).mockResolvedValue(saved({ my_decision: { decision: "fix", note: null, severity: "must_fix", reason_code: "4", checks: [true, false, true], fix_notes: [] } }));
     await open();
     await answerAll(user, ["y", "n"]);
     await user.type(screen.getByLabelText(/What should be fixed/), "the rule is the wrong way round");
@@ -119,7 +137,7 @@ describe("reviewer desk: gating", () => {
     expect(screen.getAllByRole("alert").map((a) => a.textContent).join(" ")).toMatch(/Pick how serious/);
     await user.keyboard("4");
     await user.click(screen.getByRole("button", { name: /Must fix/ }));
-    // the other three questions are not answered yet: the fix is still allowed (they are not "needs a fix")
+    // the third question is not answered yet: the fix is still allowed (it is not "needs a fix")
     await user.click(screen.getByRole("button", { name: /^Fix/ }));
     await waitFor(() => expect(api.decideDesk).toHaveBeenCalledTimes(1));
     const [id, body] = vi.mocked(api.decideDesk).mock.calls[0];
@@ -138,10 +156,10 @@ describe("reviewer desk: gating", () => {
     const user = userEvent.setup();
     vi.mocked(api.decideDesk).mockResolvedValue(saved());
     await open();
-    await answerAll(user, ["y", "y", "y", "y", "y"]);
+    await answerAll(user, ["y", "y", "y"]);
     await user.click(screen.getByTestId("act-approve"));
     await waitFor(() => expect(screen.getByTestId("desk-stem").textContent).toBe("Second question"));
-    expect(vi.mocked(api.decideDesk).mock.calls[0][1]).toMatchObject({ decision: "approve", checks: [true, true, true, true, true] });
+    expect(vi.mocked(api.decideDesk).mock.calls[0][1]).toMatchObject({ decision: "approve", checks: [true, true, true] });
   });
 });
 
@@ -188,7 +206,7 @@ describe("reviewer desk: the API is the authority", () => {
     await user.type(screen.getByLabelText(/What should be fixed/), "enough text here");
     await user.keyboard("{Escape}");
     await user.keyboard("1");
-    await user.click(screen.getByRole("button", { name: /Blocker/ }));
+    await user.click(screen.getByRole("button", { name: /Must fix/ }));
     await user.click(screen.getByRole("button", { name: /^Fix/ }));
     await waitFor(() => expect(api.decideDesk).toHaveBeenCalled());
     expect((await screen.findAllByText("question 2: say what to fix (at least 8 characters)")).length).toBeGreaterThan(0);
@@ -200,7 +218,7 @@ describe("reviewer desk: the API is the authority", () => {
     const user = userEvent.setup();
     vi.mocked(api.decideDesk).mockRejectedValue(new api.ApiError("changed", 409));
     await open();
-    await answerAll(user, ["y", "y", "y", "y", "y"]);
+    await answerAll(user, ["y", "y", "y"]);
     await user.click(screen.getByTestId("act-approve"));
     expect((await screen.findByTestId("desk-problems")).textContent).toMatch(/changed/);
   });
@@ -219,12 +237,12 @@ describe("reviewer desk: blind review", () => {
     vi.mocked(api.decideDesk).mockResolvedValue(
       saved({
         approvals: 1,
-        others: [{ reviewer: "Reviewer 1", decision: "fix", note: "Hint is too long", severity: "must_fix", reason_code: "7", checks: null, fix_notes: [{ question_index: 3, text: "Choice B is silly" }] }],
+        others: [{ reviewer: "Reviewer 1", decision: "fix", note: "Hint is too long", severity: "must_fix", reason_code: "4", checks: null, fix_notes: [{ question_index: 2, text: "Choice B is silly" }] }],
         blocked: true,
       }),
     );
     await open([card()]);
-    await answerAll(user, ["y", "y", "y", "y", "y"]);
+    await answerAll(user, ["y", "y", "y"]);
     await user.click(screen.getByTestId("act-approve"));
     await waitFor(() => expect(screen.getByTestId("desk-summary")).toBeTruthy());
     await user.click(screen.getByRole("button", { name: "Open" }));
@@ -306,6 +324,7 @@ describe("the review route and its flag", () => {
     vi.mocked(api.whoAmI).mockResolvedValue({ role: "reviewer" } as never);
     render(<ReviewPage />);
     expect(await screen.findByTestId("reviewer-desk")).toBeTruthy();
+    expect(await screen.findByTestId("desk-picker")).toBeTruthy();
     expect(api.reviewItems).not.toHaveBeenCalled();
   });
 });
@@ -337,6 +356,36 @@ describe("admin invite page", () => {
     await user.click(screen.getByRole("button", { name: "Suspend" }));
     expect(api.setReviewerSuspended).toHaveBeenCalledWith("r1", true);
     expect(await screen.findByRole("button", { name: "Reinstate" })).toBeTruthy();
+  });
+
+  it("loads the real reviewer list on open, with the facts and the buttons", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    vi.mocked(api.whoAmI).mockResolvedValue({ role: "admin" } as never);
+    vi.mocked(api.listReviewers).mockResolvedValue({
+      reviewers: [
+        { id: "r1", email: "asha@example.org", role: "reviewer", suspended: false, invited_at: "2026-11-20T10:00:00Z", last_decision_at: "2026-11-24T09:00:00Z", decision_count: 12 },
+        { id: "r2", email: "ravi@example.org", role: "reviewer", suspended: true, invited_at: "2026-11-21T10:00:00Z", last_decision_at: null, decision_count: 0 },
+      ],
+    });
+    render(<ReviewersAdminPage />);
+    const list = await screen.findByTestId("reviewer-list");
+    await waitFor(() => expect(within(list).getAllByRole("listitem")).toHaveLength(2));
+    const [first, second] = within(list).getAllByRole("listitem");
+    expect(first.textContent).toContain("asha@example.org");
+    expect(first.textContent).toContain("12 decisions");
+    expect(within(first).getByRole("button", { name: "Create sign-in code" })).toBeTruthy();
+    expect(within(first).getByRole("button", { name: "Suspend" })).toBeTruthy();
+    expect(second.textContent).toContain("No decisions yet");
+    expect(second.textContent).toContain("Suspended");
+    expect(within(second).getByRole("button", { name: "Reinstate" })).toBeTruthy();
+  });
+
+  it("says when the list could not be loaded", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    vi.mocked(api.whoAmI).mockResolvedValue({ role: "admin" } as never);
+    vi.mocked(api.listReviewers).mockRejectedValue(new api.ApiError("x", 500));
+    render(<ReviewersAdminPage />);
+    expect((await screen.findByRole("alert")).textContent).toMatch(/could not be loaded/);
   });
 
   it("explains a 409 (the email belongs to another account)", async () => {

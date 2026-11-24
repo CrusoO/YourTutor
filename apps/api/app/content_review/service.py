@@ -37,10 +37,11 @@ from app.db.models import ContentReviewRow, ReviewerCodeIssueRow, UserRow
 
 REQUIRED_APPROVALS = 2
 MIN_NOTE_CHARS = 8  # non-space characters, for a fix note or a general note
-CHECK_COUNT = 5  # the five yes / needs-a-fix questions on the reviewer desk
+# three yes / needs-a-fix questions; rows stored before this change hold five and are only read
+CHECK_COUNT = 3
 MAX_ACTIVE_SECONDS = 7200
 SEVERITIES = ("blocker", "must_fix", "nice_to_fix")
-REASON_CODES = tuple("0123456789")
+REASON_CODES = tuple("123456")  # old rows may hold "0" to "9"; they are read, never rewritten
 
 
 def desk_enabled() -> bool:
@@ -167,7 +168,7 @@ def check_desk_decision(
 
     fix / reject: a severity, a reason code, and every question marked "needs a fix" carries a fix
     note of at least 8 non-space characters; with no question marked, the general note must have
-    them. approve: all five answers yes, nothing else attached. skip: no unfinished required note.
+    them. approve: all three answers yes, nothing else attached. skip: no unfinished required note.
     """
     errors: list[FieldError] = []
     marked = [i for i, c in enumerate(checks or ()) if c is False]
@@ -182,7 +183,7 @@ def check_desk_decision(
     unfinished = [i for i in marked if not _enough(written.get(i))]
     if decision == "approve":
         if checks is None or len(checks) != CHECK_COUNT or any(c is not True for c in checks):
-            errors.append(FieldError("checks", "to approve, answer yes to all five questions"))
+            errors.append(FieldError("checks", "to approve, answer yes to all three questions"))
         if severity is not None:
             errors.append(FieldError("severity", "an approval has no severity"))
         if reason_code is not None:
@@ -202,7 +203,7 @@ def check_desk_decision(
     if severity is None:
         errors.append(FieldError("severity", "pick how serious it is"))
     if reason_code is None:
-        errors.append(FieldError("reason_code", "pick the main reason (1 to 9, or 0)"))
+        errors.append(FieldError("reason_code", "pick the main reason (1 to 6)"))
     if marked:
         for i in unfinished:
             errors.append(
