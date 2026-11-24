@@ -65,6 +65,8 @@ class Settings(BaseSettings):
     # env: REVIEWER_DAILY_CAP_SECONDS. The most active review time per reviewer per day (UTC) the
     # desk shows as "time today" (3.5 hours). It is shown, not enforced.
     reviewer_daily_cap_seconds: int = 12_600
+    # env: REVIEWER_SIGNIN_CODE_TTL_SECONDS. Life of an admin-issued reviewer sign-in code.
+    reviewer_signin_code_ttl_seconds: int = 900
     otel_enabled: bool = False
     pilot_onboarding: bool = False
     pilot_key: str = "dev-pilot"
