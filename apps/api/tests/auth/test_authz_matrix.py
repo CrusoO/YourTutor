@@ -348,3 +348,60 @@ def test_matrix_load_draft_content(role: str, allowed: bool) -> None:
         assert item_is_servable(item, actor=actor) is False
     finally:
         settings.allow_draft_content = previous
+
+
+@pytest.mark.parametrize(
+    "role,allowed",
+    [
+        ("parent", False),
+        ("student", False),
+        ("teacher", True),
+        ("admin", True),
+        ("comparison", False),
+        ("reviewer", True),
+    ],
+)
+def test_matrix_content_review_with_the_reviewer_desk(
+    client: TestClient, world: World, sender, db, role: str, allowed: bool
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    tokens = {
+        **_roles(world),
+        "reviewer": signup(client, sender, seed_user(db, "reviewer", "rv@example.com").email),
+    }
+    status = _status(client, "GET", "/staff/review/items", tokens[role])
+    assert (status == 200) is allowed, (role, status)
+
+
+def test_a_reviewer_reaches_nothing_but_content_review(
+    client: TestClient, world: World, sender, db
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    token = signup(client, sender, seed_user(db, "reviewer", "rv@example.com").email)
+    # every matrix route above, tried as a reviewer: all refused
+    for method, path, body in (
+        (
+            "POST",
+            "/students",
+            {"display_name": "K", "grade": 9, "board": "bhutan", "parent_id": world.parent_id},
+        ),
+        (
+            "POST",
+            f"/students/{world.student_noshare_id}/consent",
+            {"version": "v2", "scopes": ["tutoring"]},
+        ),
+        ("POST", f"/students/{world.student_noshare_id}/pin", {"pin": "5555"}),
+        ("POST", "/sessions", {"student_id": world.student_share_id, "type": "practice"}),
+        ("GET", f"/students/{world.student_share_id}/progress", None),
+        ("GET", f"/parents/{world.parent_id}/export", None),
+        ("GET", f"/teacher/classes/{world.class_id}/heatmap", None),
+        ("GET", "/teacher/review-queue", None),
+        ("GET", "/analytics/export", None),
+        ("GET", f"/checkpoints/cp1/forms/{world.comparison_form}", None),
+    ):
+        assert _status(client, method, path, token, body) == 403, path
+    assert _status(client, "GET", "/staff/review/items", token) == 200
