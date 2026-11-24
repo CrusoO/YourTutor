@@ -10,6 +10,7 @@ from sqlalchemy import (
     DateTime,
     Float,
     ForeignKey,
+    Index,
     Integer,
     LargeBinary,
     SmallInteger,
@@ -278,6 +279,8 @@ class UserRow(Base):
     # E.164 phone number for phone sign-in. A phone-only account has a made-up `.invalid` email.
     phone: Mapped[str | None] = mapped_column(String, nullable=True, unique=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    # Set by an admin to block this account at once (used for invited reviewers; migration 0039).
+    suspended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     students: Mapped[list[StudentRow]] = relationship(back_populates="parent")
     classes: Mapped[list[ClassRow]] = relationship(back_populates="teacher")
@@ -746,24 +749,30 @@ class LessonRecordRow(Base):
 class ContentReviewRow(Base):
     """One staff member's decision on one content item at one content hash.
 
-    A reviewer's later decision on the same hash replaces the earlier one (unique key). Two distinct
-    `approve` rows on an item's current hash, and no `reject` or `fix`, make it approved; the
-    `apply-reviews` command then writes that into the YAML. No student data is held here.
+    With REVIEWER_DESK_ENABLED off a reviewer's later decision on the same hash replaces the earlier
+    row in place. With it on every decision is a new row (append-only); the reviewer's standing
+    decision is their latest row that is not a `skip`. Two distinct reviewers with a standing
+    `approve` on an item's current hash, and nobody with a standing `reject` or `fix`, make it
+    approved; the `apply-reviews` command then writes that into the YAML. No student data here.
     """
 
     __tablename__ = "content_reviews"
-    __table_args__ = (
-        UniqueConstraint("item_id", "content_hash", "reviewer_id", name="uq_content_review"),
-    )
+    __table_args__ = (Index("ix_content_reviews_lookup", "item_id", "content_hash", "reviewer_id"),)
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     item_id: Mapped[str] = mapped_column(String(120), index=True)
     content_hash: Mapped[str] = mapped_column(String(64))
     reviewer_id: Mapped[uuid.UUID] = mapped_column(Uuid)
     reviewer_label: Mapped[str] = mapped_column(String(120))
-    decision: Mapped[str] = mapped_column(String(10))  # approve | reject | fix
+    decision: Mapped[str] = mapped_column(String(10))  # approve | reject | fix | skip
     note: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    # Reviewer desk (migration 0039). All null on rows written with the desk off.
+    severity: Mapped[str | None] = mapped_column(String(12), nullable=True)
+    reason_code: Mapped[str | None] = mapped_column(String(2), nullable=True)
+    checks: Mapped[list | None] = mapped_column(JSONType, nullable=True)  # five true/false/null
+    fix_notes: Mapped[list | None] = mapped_column(JSONType, nullable=True)
+    active_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class ReviewCardRow(Base):

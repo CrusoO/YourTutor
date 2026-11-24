@@ -58,6 +58,10 @@ class Settings(BaseSettings):
     token_pepper: str = "dev-only-change-me"
     test_database_url: str = ""
     reviewer_allowlist: str = ""
+    # env: REVIEWER_DESK_ENABLED. Off: the content-review API behaves as it always has. On: blind
+    # review, append-only decision history with severity, reason, per-question answers and time,
+    # the invited `reviewer` role with suspend, and the reviewer pay export.
+    reviewer_desk_enabled: bool = False
     otel_enabled: bool = False
     pilot_onboarding: bool = False
     pilot_key: str = "dev-pilot"
