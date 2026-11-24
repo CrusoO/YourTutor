@@ -217,7 +217,7 @@ def test_pattern_for_skill_and_tag(root: Path, tmp_path: Path) -> None:
     bp.import_csv(csv_file(tmp_path, [line(year=2023, marks=3, qtype="short")]), root)
     bp._cached_blueprint.cache_clear()
     assert bp.pattern_tag_for_skill(SKILL, root) == (
-        "Question type seen in CBSE Class 10 board papers: 3-mark short (2023)."
+        "Question type seen in board exam papers: 3-mark short (2023)."
     )
     bp._cached_blueprint.cache_clear()
 
