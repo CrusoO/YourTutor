@@ -146,6 +146,7 @@ export const desk = {
   helpNote:
     "Some questions with deliberate mistakes may be mixed into a batch. You are not told which ones. They show whether our process catches mistakes. They are not a test of you.",
   close: "Close",
+  haveCode: "I already have a code from the admin",
   admin: {
     title: "Reviewers (admin only)",
     intro:
@@ -165,5 +166,15 @@ export const desk = {
     otherAccount: "That email already belongs to another account, so it cannot become a reviewer.",
     failed: "That did not work. Check the email and try again.",
     back: "Back to the review screen",
+    makeCode: "Create sign-in code",
+    codeFor: (email: string) => `Sign-in code for ${email}`,
+    codeNote: "Send this to the reviewer, for example on WhatsApp. It works once and expires in 15 minutes.",
+    copy: "Copy",
+    copied: "Copied",
+    done: "Done",
+    codeSuspended: "That reviewer is suspended. Reinstate them first.",
+    codeLimit: "Too many codes for this reviewer in the last hour. Try again later.",
+    codeMissing: "That reviewer was not found.",
+    codeFailed: "Could not create a code. Try again.",
   },
 };

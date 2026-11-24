@@ -936,6 +936,9 @@ export const setReviewerSuspended = (id: string, suspended: boolean): Promise<De
   staffReq(`/staff/review/reviewers/${encodeURIComponent(id)}/${suspended ? "suspend" : "reinstate"}`, {
     method: "POST",
   });
+/** Admin only. A one-time sign-in code to hand to the reviewer; the API returns it once and never again. */
+export const issueReviewerSignInCode = (id: string): Promise<{ code: string; expires_at: string }> =>
+  staffReq(`/staff/review/reviewers/${encodeURIComponent(id)}/sign-in-code`, { method: "POST" });
 
 /** Dev only: a token for a preview guardian or teacher (404 unless DEV_TOOLS is on). */
 export async function devStaffToken(role: "parent" | "teacher", scenario?: string) {

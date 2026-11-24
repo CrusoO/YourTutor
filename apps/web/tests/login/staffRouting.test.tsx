@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import StaffLogin from "@/app/staff/login/page";
 import { adultSession } from "@/lib/agreements-api";
-import { whoAmI } from "@/lib/api";
+import { requestStaffCode, verifyStaffCode, whoAmI } from "@/lib/api";
 
 const push = vi.fn();
 let search = "";
@@ -75,5 +75,29 @@ describe("where each role lands after the one-time code", () => {
     await signIn(as, { role: as === "teacher" ? "teacher" : "parent", agreements: ["guardian"] });
     await waitFor(() => expect(push).toHaveBeenCalledWith("/agreement"));
     expect(push).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("an admin-issued code (reviewer desk on)", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("lets a reviewer enter the code without asking for an email, then lands on the review screen", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    search = "";
+    vi.mocked(whoAmI).mockResolvedValue({ role: "reviewer", agreements: [] } as never);
+    render(<StaffLogin />);
+    await userEvent.type(screen.getByLabelText(/email/i), "asha@example.org");
+    await userEvent.click(screen.getByTestId("have-code"));
+    await userEvent.type(await screen.findByLabelText(/code/i), "482913");
+    await userEvent.click(screen.getByRole("button", { name: /^sign in$|verify/i }));
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/staff/review"));
+    expect(requestStaffCode).not.toHaveBeenCalled();
+    expect(verifyStaffCode).toHaveBeenCalledWith({ email: "asha@example.org" }, "482913");
+  });
+
+  it("does not show the option with the desk off", () => {
+    search = "";
+    render(<StaffLogin />);
+    expect(screen.queryByTestId("have-code")).toBeNull();
   });
 });

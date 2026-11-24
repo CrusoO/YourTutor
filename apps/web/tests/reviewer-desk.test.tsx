@@ -10,6 +10,7 @@ vi.mock("@/lib/api", async (importOriginal) => ({
   whoAmI: vi.fn(),
   inviteReviewer: vi.fn(),
   setReviewerSuspended: vi.fn(),
+  issueReviewerSignInCode: vi.fn(),
   staffToken: () => "token",
 }));
 const push = vi.fn();
@@ -347,5 +348,47 @@ describe("admin invite page", () => {
     await user.type(await screen.findByLabelText("Reviewer email"), "t@example.org");
     await user.click(screen.getByRole("button", { name: "Invite" }));
     expect((await screen.findByRole("alert")).textContent).toMatch(/another account/);
+  });
+
+  const invited = async (user: ReturnType<typeof userEvent.setup>) => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    vi.mocked(api.whoAmI).mockResolvedValue({ role: "admin" } as never);
+    vi.mocked(api.inviteReviewer).mockResolvedValue({ id: "r1", email: "asha@example.org", role: "reviewer", suspended: false });
+    render(<ReviewersAdminPage />);
+    await user.type(await screen.findByLabelText("Reviewer email"), "asha@example.org");
+    await user.click(screen.getByRole("button", { name: "Invite" }));
+    await screen.findByText(/asha@example.org is invited/);
+  };
+
+  it("shows a sign-in code once, with the WhatsApp note, a copy button and a way to dismiss it", async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    vi.mocked(api.issueReviewerSignInCode).mockResolvedValue({ code: "482913", expires_at: "2026-11-25T10:15:00Z" });
+    await invited(user);
+    await user.click(screen.getByRole("button", { name: "Create sign-in code" }));
+    expect(api.issueReviewerSignInCode).toHaveBeenCalledWith("r1");
+    expect((await screen.findByTestId("signin-code-value")).textContent).toBe("482913");
+    expect(screen.getByText(/for example on WhatsApp. It works once and expires in 15 minutes/)).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Copy" }));
+    expect(writeText).toHaveBeenCalledWith("482913");
+    expect(await screen.findByRole("button", { name: "Copied" })).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Done" }));
+    expect(screen.queryByTestId("signin-code")).toBeNull();
+    vi.unstubAllGlobals();
+  });
+
+  it.each([
+    [409, /suspended/],
+    [429, /Too many codes/],
+    [404, /not found/],
+    [500, /Could not create a code/],
+  ])("explains a %i when making a code", async (status, message) => {
+    const user = userEvent.setup();
+    vi.mocked(api.issueReviewerSignInCode).mockRejectedValue(new api.ApiError("x", status));
+    await invited(user);
+    await user.click(screen.getByRole("button", { name: "Create sign-in code" }));
+    expect((await screen.findByRole("alert")).textContent).toMatch(message);
+    expect(screen.queryByTestId("signin-code")).toBeNull();
   });
 });
