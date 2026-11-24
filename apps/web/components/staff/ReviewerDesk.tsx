@@ -73,6 +73,7 @@ export default function ReviewerDesk() {
   const [reviewing, setReviewing] = useState(false); // looking at one question from the summary
   const [picking, setPicking] = useState(true); // the chapter picker comes first
   const [groups, setGroups] = useState<DeskChapter[]>([]);
+  const [typesMode, setTypesMode] = useState(false); // template approval is on
   const [scope, setScope] = useState<DeskScope | null>(null);
   const [today, setToday] = useState<{ used: number; cap: number } | null>(null);
   const [undoStack, setUndoStack] = useState<string[]>([]); // ids decided in this visit, newest last
@@ -115,6 +116,7 @@ export default function ReviewerDesk() {
     deskChapters()
       .then((r) => {
         setGroups(r.groups);
+        setTypesMode(r.template_mode === true);
         setState("ready");
       })
       .catch(() => {
@@ -434,7 +436,7 @@ export default function ReviewerDesk() {
       </header>
 
       {picking ? (
-        <Picker groups={groups} onPick={(chosen) => void pick(chosen)} />
+        <Picker groups={groups} typesMode={typesMode} onPick={(chosen) => void pick(chosen)} />
       ) : cards.length === 0 ? (
         <p className="mt-6" data-testid="desk-empty">
           {desk.empty}
@@ -626,6 +628,13 @@ function StudentView({
           ))}
         </TabsList>
       </Tabs>
+      {card.template ? (
+        <div className="mt-3">
+          <p className="my-0 text-xs text-muted" data-testid="desk-sample">
+            {desk.sampleLine(card.template.sample_index, card.template.sample_count)}
+          </p>
+        </div>
+      ) : null}
       {lang === "en" ? (
         <div className="mt-3">
           <details className="mb-2 text-xs text-muted">
@@ -1123,7 +1132,7 @@ function Help({ onClose }: { onClose: () => void }) {
   );
 }
 
-function Picker({ groups, onPick }: { groups: DeskChapter[]; onPick: (scope: DeskScope | null) => void }) {
+function Picker({ groups, typesMode, onPick }: { groups: DeskChapter[]; typesMode: boolean; onPick: (scope: DeskScope | null) => void }) {
   const open = groups.filter((g) => g.pending > 0 && g.class !== null && g.subject !== null);
   return (
     <section className="mt-4 rounded-2xl border border-line bg-surface p-4" data-testid="desk-picker" aria-labelledby="pick-title">
@@ -1144,7 +1153,10 @@ function Picker({ groups, onPick }: { groups: DeskChapter[]; onPick: (scope: Des
               <span className="text-muted">
                 {desk.pickClass(g.class)} · {g.subject}
               </span>
-              <span className="ml-auto text-muted">{desk.pickLeft(g.pending)}</span>
+              <span className="ml-auto text-muted">
+                {typesMode && g.templates_pending !== undefined ? `${desk.pickTypesLeft(g.templates_pending)} · ` : ""}
+                {desk.pickLeft(g.pending)}
+              </span>
             </button>
           </li>
         ))}
