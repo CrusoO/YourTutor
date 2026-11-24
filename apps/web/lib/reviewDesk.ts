@@ -6,7 +6,7 @@
 import type { DeskCard, DeskDecision, DeskDecisionBody, DeskSeverity } from "@/lib/api";
 import { desk } from "@/lib/reviewDeskCopy";
 
-export const CHECK_COUNT = 5;
+export const CHECK_COUNT = 3;
 export const MIN_NOTE_CHARS = 8; // non-space characters
 export const MAX_ACTIVE_SECONDS = 7200; // the API refuses more than this per decision
 
@@ -39,7 +39,7 @@ export const enoughNote = (text: string): boolean => text.replace(/\s/g, "").len
 export const missingNotes = (d: Draft): number[] =>
   d.checks.flatMap((c, i) => (c === false && !enoughNote(d.notes[i] ?? "") ? [i] : []));
 
-/** The first question still unanswered, or -1 when all five are answered. */
+/** The first question still unanswered, or -1 when all three are answered. */
 export const nextUnanswered = (d: Draft): number => d.checks.findIndex((c) => c === null);
 export const allYes = (d: Draft): boolean => d.checks.length === CHECK_COUNT && d.checks.every((c) => c === true);
 export const anyNeedsFix = (d: Draft): boolean => d.checks.some((c) => c === false);
@@ -59,7 +59,8 @@ export function problemsFor(decision: DeskDecision, d: Draft): Problem[] {
     for (const i of missing) out.push({ field: "fix_notes", question: i, message: desk.missingFixNotes(i + 1) });
     return out;
   }
-  if (!d.severity) out.push({ field: "severity", message: desk.needSeverity });
+  // Reject needs no choice: it is always a blocker. Fix asks how serious.
+  if (decision === "fix" && !d.severity) out.push({ field: "severity", message: desk.needSeverity });
   if (!d.reason) out.push({ field: "reason_code", message: desk.needReason });
   if (anyNeedsFix(d)) {
     for (const i of missing) out.push({ field: "fix_notes", question: i, message: desk.missingFixNotes(i + 1) });
@@ -103,7 +104,7 @@ export function buildBody(
     ...base,
     checks: d.checks,
     ...(note ? { note } : {}),
-    ...(d.severity ? { severity: d.severity } : {}),
+    severity: decision === "reject" ? ("blocker" as const) : d.severity ?? undefined,
     ...(d.reason ? { reason_code: d.reason } : {}),
     ...(fixNotes.length ? { fix_notes: fixNotes } : {}),
   };
@@ -114,6 +115,7 @@ export type DeskKey =
   | { kind: "answer"; yes: boolean }
   | { kind: "decide"; decision: DeskDecision }
   | { kind: "reason"; code: string }
+  | { kind: "undo" }
   | { kind: "toggleAnswer" }
   | { kind: "help" }
   | { kind: "escape" };
@@ -129,6 +131,7 @@ export function keyAction(
   if (mods.ctrl || mods.meta || mods.alt) return null;
   if (key === "?") return { kind: "help" };
   if (key === "Escape") return { kind: "escape" };
+  if (key === "Backspace") return { kind: "undo" };
   const k = key.toLowerCase();
   if (k === "y") return { kind: "answer", yes: true };
   if (k === "n") return { kind: "answer", yes: false };
@@ -137,7 +140,7 @@ export function keyAction(
   if (k === "r") return { kind: "decide", decision: "reject" };
   if (k === "s") return { kind: "decide", decision: "skip" };
   if (k === "e") return { kind: "toggleAnswer" };
-  if (/^[0-9]$/.test(key)) return { kind: "reason", code: key };
+  if (/^[1-6]$/.test(key)) return { kind: "reason", code: key };
   return null;
 }
 
@@ -147,3 +150,32 @@ export function median(values: number[]): number {
   const sorted = [...values].sort((a, b) => a - b);
   return sorted[Math.floor(sorted.length / 2)];
 }
+
+const TOUR_KEY = "reviewer-desk-tour-v1";
+
+/** Has this browser already seen the first-time tour? Storage may be missing or blocked: then say no. */
+export function tourSeen(): boolean {
+  try {
+    return window.localStorage.getItem(TOUR_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+/** Remember the tour was seen. Never throws. */
+export function rememberTour(): void {
+  try {
+    window.localStorage.setItem(TOUR_KEY, "1");
+  } catch {
+    /* private window or blocked storage: the tour just shows again next time */
+  }
+}
+
+/** Seconds as hours and minutes for the day meter: 2520 becomes "0:42", 12600 becomes "3:30". */
+export const formatHours = (seconds: number): string => {
+  const total = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
+  return `${Math.floor(total / 3600)}:${String(Math.floor((total % 3600) / 60)).padStart(2, "0")}`;
+};
+
+/** The part of the day cap used, 0 to 1. */
+export const dayFraction = (used: number, cap: number): number => (cap > 0 ? Math.max(0, Math.min(1, used / cap)) : 0);
