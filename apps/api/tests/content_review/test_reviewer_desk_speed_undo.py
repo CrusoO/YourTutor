@@ -265,7 +265,7 @@ def test_time_today_sums_my_active_seconds_and_shows_the_cap(
     row = db.scalars(select(ContentReviewRow).order_by(ContentReviewRow.created_at)).first()
     assert row is not None
     row.created_at = row.created_at.replace(year=2020)
-    db.flush()
+    db.commit()  # the API reads through its own session: Postgres shows it only once committed
     again = client.get("/staff/review/me/today", headers=auth_header(token)).json()
     assert again["active_seconds_today"] == 50
     settings.reviewer_daily_cap_seconds = 600
