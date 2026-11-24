@@ -540,7 +540,7 @@
    },
    "DecisionIn": {
     "additionalProperties": false,
-    "description": "`skip` and every field after `note` are for the reviewer desk (REVIEWER_DESK_ENABLED); with\nthe desk off, sending any of them is a 422.",
+    "description": "`skip`, `withdraw` and every field after `note` are for the reviewer desk\n(REVIEWER_DESK_ENABLED); with the desk off, sending any of them is a 422.",
     "properties": {
      "active_seconds": {
       "anyOf": [
@@ -589,7 +589,8 @@
        "approve",
        "reject",
        "fix",
-       "skip"
+       "skip",
+       "withdraw"
       ],
       "title": "Decision",
       "type": "string"
@@ -6299,7 +6300,109 @@
     ]
    }
   },
+  "/staff/review/me/today": {
+   "get": {
+    "description": "The caller's active review seconds today (UTC) and the daily cap, for the \"time today\"\ndisplay. Desk on only.",
+    "operationId": "my_time_today_staff_review_me_today_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response My Time Today Staff Review Me Today Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "My Time Today",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/staff/review/reviewers": {
+   "get": {
+    "description": "Admin only: every invited reviewer with suspended, invited at, last decision time and\ndecision count. Account and activity facts only; no learner data, no votes.",
+    "operationId": "list_reviewers_staff_review_reviewers_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response List Reviewers Staff Review Reviewers Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Reviewers",
+    "tags": [
+     "staff-review"
+    ]
+   },
    "post": {
     "description": "Admin only: invite an outside reviewer by email. They then sign in with the usual email\ncode. Never turns an existing teacher, parent or admin account into a reviewer.",
     "operationId": "invite_reviewer_staff_review_reviewers_post",

@@ -405,3 +405,5 @@ def test_a_reviewer_reaches_nothing_but_content_review(
     ):
         assert _status(client, method, path, token, body) == 403, path
     assert _status(client, "GET", "/staff/review/items", token) == 200
+    assert _status(client, "GET", "/staff/review/me/today", token) == 200
+    assert _status(client, "GET", "/staff/review/reviewers", token) == 403  # admin only

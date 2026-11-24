@@ -40,13 +40,13 @@ class FixNote(BaseModel):
 
 
 class DecisionIn(BaseModel):
-    """`skip` and every field after `note` are for the reviewer desk (REVIEWER_DESK_ENABLED); with
-    the desk off, sending any of them is a 422."""
+    """`skip`, `withdraw` and every field after `note` are for the reviewer desk
+    (REVIEWER_DESK_ENABLED); with the desk off, sending any of them is a 422."""
 
     model_config = ConfigDict(extra="forbid")
 
     content_hash: str = Field(min_length=1, max_length=64)
-    decision: Literal["approve", "reject", "fix", "skip"]
+    decision: Literal["approve", "reject", "fix", "skip", "withdraw"]
     note: str | None = Field(default=None, max_length=2000)
     severity: Literal["blocker", "must_fix", "nice_to_fix"] | None = None
     reason_code: Literal["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] | None = None
@@ -58,7 +58,7 @@ class DecisionIn(BaseModel):
 
     def desk_fields_used(self) -> bool:
         extras = (self.severity, self.reason_code, self.checks, self.fix_notes, self.active_seconds)
-        return self.decision == "skip" or any(v is not None for v in extras)
+        return self.decision in ("skip", "withdraw") or any(v is not None for v in extras)
 
 
 class InviteIn(BaseModel):
@@ -104,11 +104,12 @@ def list_items(
     me, _ = _reviewer(actor)
     root = content_root()
     items, labels = service.load_items(root)
+    drafts = [item for item in items if service.is_draft(item)]
+    pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
+    reviews = service.reviews_for_items(db, list(pairs.values()))
     chosen = []
-    for item in items:
-        if not service.is_draft(item):
-            continue
-        state = service.list_state(service.reviews_for(db, item.id, item_content_hash(item)), me)
+    for item in drafts:
+        state = service.list_state(reviews[pairs[item.id]], me)
         if status in ("all", state):
             chosen.append(item)
     page = chosen[offset : offset + limit]
@@ -130,6 +131,10 @@ def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> di
     if body.content_hash != item_content_hash(item):
         raise HTTPException(status_code=409, detail="the item changed; reload and review again")
     note = (body.note or "").strip() or None
+    if body.decision == "withdraw" and settings.reviewer_desk_enabled:
+        rows = service.reviews_for(db, item_id, body.content_hash)
+        if me not in service.standing(rows):
+            raise HTTPException(status_code=409, detail="you have no decision to withdraw")
     desk = settings.reviewer_desk_enabled
     if not desk and body.desk_fields_used():
         raise HTTPException(status_code=422, detail="the reviewer desk is not switched on")
@@ -211,6 +216,27 @@ def reinstate_reviewer(reviewer_id: uuid.UUID, db: DbSession, actor: ActorDep) -
     if user is None:
         raise HTTPException(status_code=404, detail="reviewer not found")
     return _reviewer_out(user)
+
+
+@router.get("/reviewers")
+def list_reviewers(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Admin only: every invited reviewer with suspended, invited at, last decision time and
+    decision count. Account and activity facts only; no learner data, no votes."""
+    _desk_admin(actor)
+    return {"reviewers": service.list_reviewers(db)}
+
+
+@router.get("/me/today")
+def my_time_today(db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """The caller's active review seconds today (UTC) and the daily cap, for the "time today"
+    display. Desk on only."""
+    if not settings.reviewer_desk_enabled:
+        raise HTTPException(status_code=404, detail="not found")
+    me, _ = _reviewer(actor)
+    return {
+        "active_seconds_today": service.seconds_today(db, me, now_utc()),
+        "daily_cap_seconds": settings.reviewer_daily_cap_seconds,
+    }
 
 
 @router.get("/export")
