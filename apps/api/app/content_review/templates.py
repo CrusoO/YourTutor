@@ -97,6 +97,11 @@ class TemplateVersion:
         return (self.template_id, self.template_hash, self.generator_version)
 
     @property
+    def version_key(self) -> str:
+        """sha256 of "template_id|template_hash|generator_version" (`service.template_key_of`)."""
+        return hashlib.sha256("|".join(self.key).encode("utf-8")).hexdigest()
+
+    @property
     def sample_ids(self) -> tuple[str, ...]:
         return tuple(i for i, _ in self.samples)
 
@@ -168,6 +173,8 @@ def _status(
     counts: dict[uuid.UUID, int] = {}
     for pair in version.samples:
         for reviewer, row in service.standing(reviews.get(pair, [])).items():
+            if row.template_key != version.version_key:
+                continue  # an old version, or a row from before the key: item level only
             if row.decision == "approve":
                 counts[reviewer] = counts.get(reviewer, 0) + 1
             elif row.decision in ("reject", "fix"):
@@ -194,8 +201,16 @@ class Analysis:
         covered by a template, the samples of every version and all items of a blocked version."""
         out = set()
         for item_id, (_, digest) in self.candidates.items():
-            rows = self.reviews[(item_id, digest)]
-            if not service.has_decided(rows, me):
+            mine = service.standing(self.reviews[(item_id, digest)]).get(me)
+            key = self.version_of.get(item_id)
+            if key is not None and item_id in self.statuses[key].version.sample_ids:
+                # a sample is done for you only by a decision on the current template version
+                done = (
+                    mine is not None and mine.template_key == self.statuses[key].version.version_key
+                )
+            else:
+                done = mine is not None
+            if not done:
                 out.add(item_id)
         return out
 

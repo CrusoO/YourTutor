@@ -244,6 +244,7 @@ def decide(item_id: str, body: DecisionIn, db: DbSession, actor: ActorDep) -> di
         decision=body.decision,
         note=note,
         now=now_utc(),
+        template_key=service.template_key_of(item),
         **extra,
     )
     shown = None

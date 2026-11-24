@@ -107,5 +107,7 @@ def test_chain_and_models_agree() -> None:
     assert _load().down_revision == "0038_mistake_notebook"
     engine = _old_engine()
     _run(engine, "upgrade")
-    assert _cols(engine, "content_reviews") == {c.key for c in ContentReviewRow.__table__.columns}
+    # template_key is added later, by migration 0041
+    model = {c.key for c in ContentReviewRow.__table__.columns} - {"template_key"}
+    assert _cols(engine, "content_reviews") == model
     assert "suspended_at" in {c.key for c in UserRow.__table__.columns}

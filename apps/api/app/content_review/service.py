@@ -223,6 +223,14 @@ def check_desk_decision(
     return errors
 
 
+def template_key_of(item: Item) -> str | None:
+    """The item's template version key, or None when it has no template. Server side only."""
+    if not item.template_id:
+        return None
+    raw = f"{item.template_id}|{item.template_hash or ''}|{item.generator_version or ''}"
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
 def record_decision(
     db: Session,
     *,
@@ -238,6 +246,7 @@ def record_decision(
     checks: list[bool | None] | None = None,
     fix_notes: list[dict[str, Any]] | None = None,
     active_seconds: int | None = None,
+    template_key: str | None = None,
 ) -> ContentReviewRow:
     """Desk off: insert, or replace this reviewer's earlier decision on the same hash.
     Desk on: always insert a new row; the earlier rows stay as history."""
@@ -264,6 +273,7 @@ def record_decision(
     row.decision = decision
     row.note = note
     row.created_at = now
+    row.template_key = template_key
     if desk_enabled():
         row.severity = severity
         row.reason_code = reason_code

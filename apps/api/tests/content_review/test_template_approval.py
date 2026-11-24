@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -393,3 +394,105 @@ def test_unknown_template_is_404_and_anonymous_is_401(
     out = client.get("/staff/review/templates/TPL.NOPE", headers=auth_header(world.admin_token))
     assert out.status_code == 404
     assert client.get(SUMMARY).status_code == 401
+
+
+# ---- approvals are tied to the template version key ----
+
+
+def _version_key(tpl: tuple[str, str, str]) -> str:
+    return hashlib.sha256("|".join(tpl).encode()).hexdigest()
+
+
+def test_a_template_hash_change_with_identical_text_resets_approval(
+    client: TestClient, world: World, tpl_root: Path, tmode: None
+) -> None:
+    token = world.teacher_token
+    _approve_samples(client, token, T_SAMPLES)
+    assert _state(client, world, MATHS[0])["state"] == "ready"
+    _write_maths(tpl_root, (MATHS[0], "hash-x2", MATHS[2]))  # same question text, new template
+    service.clear_items_cache()
+    version = _state(client, world, MATHS[0])
+    assert version["template_hash"] == "hash-x2"
+    assert version["state"] == "in_review" and version["approvals"] == 0
+    # the samples are owed again, and a fresh approval on the new version counts
+    assert set(T_SAMPLES) <= set(_cards(client, token))
+    _approve_samples(client, token, T_SAMPLES)
+    assert _state(client, world, MATHS[0])["state"] == "ready"
+
+
+def test_a_generator_version_change_with_identical_text_resets_approval(
+    client: TestClient, world: World, tpl_root: Path, tmode: None
+) -> None:
+    _approve_samples(client, world.teacher_token, T_SAMPLES)
+    _write_maths(tpl_root, (MATHS[0], MATHS[1], "factory-3"))
+    service.clear_items_cache()
+    version = _state(client, world, MATHS[0])
+    assert version["generator_version"] == "factory-3" and version["approvals"] == 0
+
+
+def test_an_old_version_block_does_not_block_the_new_version(
+    client: TestClient, world: World, tpl_root: Path, tmode: None
+) -> None:
+    digest = _cards(client, world.teacher_token, "all")["ITEM.T4"]["content_hash"]
+    assert _post(client, world.teacher_token, _fix(digest), "ITEM.T4").status_code == 200
+    assert _state(client, world, MATHS[0])["state"] == "escalated"
+    _write_maths(tpl_root, (MATHS[0], "hash-x2", MATHS[2]))
+    service.clear_items_cache()
+    assert _state(client, world, MATHS[0])["state"] == "in_review"
+
+
+def test_rows_without_a_key_do_not_count_toward_template_approval(
+    client: TestClient, world: World, tpl_root: Path, tmode: None, db: Any
+) -> None:
+    from datetime import UTC, datetime
+
+    from app.db.models import ContentReviewRow
+
+    cards = _cards(client, world.teacher_token, "all")
+    for item_id in T_SAMPLES:
+        db.add(
+            ContentReviewRow(
+                id=uuid.uuid4(),
+                item_id=item_id,
+                content_hash=cards[item_id]["content_hash"],
+                reviewer_id=uuid.uuid4(),
+                reviewer_label="old",
+                decision="approve",
+                created_at=datetime.now(UTC),
+                template_key=None,
+            )
+        )
+    db.commit()
+    assert _state(client, world, MATHS[0])["approvals"] == 0
+    # they still count as ordinary item decisions
+    assert _cards(client, world.teacher_token, "all")["ITEM.T4"]["approvals"] is None  # blind
+
+
+def test_the_key_is_stored_server_side_and_a_client_value_is_refused(
+    client: TestClient, world: World, tpl_root: Path, tmode: None, db: Any
+) -> None:
+    from sqlalchemy import select
+
+    from app.db.models import ContentReviewRow
+
+    digest = _cards(client, world.teacher_token, "all")["ITEM.T4"]["content_hash"]
+    forged = _approve(digest, template_key="f" * 64)
+    assert _post(client, world.teacher_token, forged, "ITEM.T4").status_code == 422
+    assert _post(client, world.teacher_token, _approve(digest), "ITEM.T4").status_code == 200
+    plain = _cards(client, world.teacher_token, "all")["ITEM.P0"]["content_hash"]
+    assert _post(client, world.teacher_token, _approve(plain), "ITEM.P0").status_code == 200
+    db.expire_all()
+    rows = {r.item_id: r.template_key for r in db.scalars(select(ContentReviewRow))}
+    assert rows["ITEM.T4"] == _version_key(MATHS)
+    assert rows["ITEM.P0"] is None
+
+
+def test_flag_off_still_stores_the_key_and_blocks_at_item_level(
+    client: TestClient, world: World, tpl_root: Path, desk: None
+) -> None:
+    digest = _cards(client, world.teacher_token, "all")["ITEM.T4"]["content_hash"]
+    assert _post(client, world.teacher_token, _fix(digest), "ITEM.T4").status_code == 200
+    _write_maths(tpl_root, (MATHS[0], "hash-x2", MATHS[2]))  # text unchanged: same item hash
+    service.clear_items_cache()
+    card = _cards(client, world.teacher_token, "all")["ITEM.T4"]
+    assert card["blocked"] is True  # item-level behaviour is exactly as before
