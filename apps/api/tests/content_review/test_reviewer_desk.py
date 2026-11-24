@@ -247,9 +247,13 @@ def test_with_the_desk_off_the_old_card_and_rules_are_unchanged(
     # replacement in place: still one row per reviewer
     assert len(db.scalars(select(ContentReviewRow)).all()) == 2
     for path in ("/staff/review/export?from=2026-01-01&to=2026-12-31", "/staff/review/reviewers"):
-        method = client.get if "export" in path else client.post
-        kwargs = {} if "export" in path else {"json": {"email": "r@example.com"}}
-        assert method(path, headers=auth_header(world.admin_token), **kwargs).status_code == 404
+        if "export" in path:
+            res = client.get(path, headers=auth_header(world.admin_token))
+        else:
+            res = client.post(
+                path, headers=auth_header(world.admin_token), json={"email": "r@example.com"}
+            )
+        assert res.status_code == 404
 
 
 # ---- append-only history ----
@@ -382,9 +386,8 @@ def test_reviewers_are_invite_only(
         headers=auth_header(world.admin_token),
     )
     assert again.status_code == 409
-    assert (
-        db.scalar(select(UserRow).where(UserRow.email == "teacher@example.com")).role == "teacher"
-    )
+    still_teacher = db.scalar(select(UserRow).where(UserRow.email == "teacher@example.com"))
+    assert still_teacher is not None and still_teacher.role == "teacher"
 
 
 def test_the_role_does_nothing_with_the_desk_off(
@@ -418,6 +421,7 @@ def test_suspending_blocks_a_reviewer_at_once_and_reinstating_restores(
     assert client.get(LIST, headers=auth_header(token)).status_code == 200
     # only reviewers can be suspended this way
     teacher = db.scalar(select(UserRow).where(UserRow.email == "teacher@example.com"))
+    assert teacher is not None
     missing = client.post(
         f"/staff/review/reviewers/{teacher.id}/suspend", headers=auth_header(world.admin_token)
     )

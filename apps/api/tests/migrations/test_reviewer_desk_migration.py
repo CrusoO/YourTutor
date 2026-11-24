@@ -57,7 +57,7 @@ def _cols(engine: sa.engine.Engine, table: str) -> set[str]:
 
 def _unique(engine: sa.engine.Engine) -> list[str]:
     inspector = sa.inspect(engine)
-    return [u["name"] for u in inspector.get_unique_constraints("content_reviews")]
+    return [str(u["name"]) for u in inspector.get_unique_constraints("content_reviews")]
 
 
 def test_upgrade_downgrade_upgrade_on_sqlite() -> None:
@@ -97,7 +97,9 @@ def test_downgrade_keeps_each_reviewers_latest_row_so_the_key_can_return() -> No
             )
     _run(engine, "downgrade")
     with engine.connect() as conn:
-        kept = conn.execute(sa.text("SELECT decision FROM content_reviews")).scalars().all()
+        kept: list[str] = list(
+            conn.execute(sa.text("SELECT decision FROM content_reviews")).scalars().all()
+        )
     assert kept == ["approve"]
 
 
