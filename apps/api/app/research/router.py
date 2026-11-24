@@ -8,7 +8,8 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from app.auth import service
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep
 from app.auth.router import CheckpointAnswersIn, RedeemIn, StudyIn, TokenIn, _token_body
-from app.checkpoint.study import COOKIE_NAME, REFERRER_POLICY
+from app.checkpoint import service as checkpoint_service
+from app.checkpoint.study import COOKIE_NAME, REFERRER_POLICY, lookup_checkpoint_token
 from app.config import settings
 from app.research.deps import require_research_module
 
@@ -48,7 +49,7 @@ def enrol_participant(body: StudyIn, db: DbSession, actor: ActorDep) -> dict[str
 def issue_token(
     checkpoint_id: str, body: TokenIn, db: DbSession, actor: ActorDep
 ) -> dict[str, Any]:
-    return service.issue_checkpoint_token(
+    return checkpoint_service.issue_checkpoint_token(
         db,
         actor,
         checkpoint_id=checkpoint_id,
@@ -60,7 +61,7 @@ def issue_token(
 
 @router.post("/checkpoints/redeem")
 def redeem(body: RedeemIn, db: DbSession) -> dict[str, str]:
-    return _token_body(service.redeem_checkpoint_token(db, body.token))
+    return _token_body(checkpoint_service.redeem_checkpoint_token(db, body.token))
 
 
 @router.get("/checkpoints/{checkpoint_id}/forms/{form}")
@@ -73,7 +74,7 @@ def load_form(
     token: str | None = Query(default=None),
 ) -> Any:
     if token:
-        service.lookup_checkpoint_token(db, token)
+        lookup_checkpoint_token(db, token)
         redirect = RedirectResponse(url=str(request.url.replace(query="")), status_code=302)
         redirect.set_cookie(
             COOKIE_NAME,
@@ -85,10 +86,12 @@ def load_form(
         )
         redirect.headers["Referrer-Policy"] = REFERRER_POLICY
         return redirect
-    resolved = actor or service.actor_from_checkpoint_cookie(db, request.cookies.get(COOKIE_NAME))
+    resolved = actor or checkpoint_service.actor_from_checkpoint_cookie(
+        db, request.cookies.get(COOKIE_NAME)
+    )
     if resolved is None:
         raise HTTPException(status_code=401, detail="authentication required")
-    payload = service.load_checkpoint_form(db, resolved, checkpoint_id, form)
+    payload = checkpoint_service.load_checkpoint_form(db, resolved, checkpoint_id, form)
     return JSONResponse(payload, headers={"Referrer-Policy": REFERRER_POLICY})
 
 
@@ -102,10 +105,10 @@ def submit_form(
     db: DbSession,
 ) -> dict[str, Any]:
     raw = request.cookies.get(COOKIE_NAME)
-    resolved = actor or service.actor_from_checkpoint_cookie(db, raw)
+    resolved = actor or checkpoint_service.actor_from_checkpoint_cookie(db, raw)
     if resolved is None:
         raise HTTPException(status_code=401, detail="authentication required")
-    return service.submit_checkpoint_form(
+    return checkpoint_service.submit_checkpoint_form(
         db,
         resolved,
         checkpoint_id=checkpoint_id,

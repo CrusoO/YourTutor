@@ -12,6 +12,7 @@ from app.auth import service
 from app.auth.actor import Actor
 from app.auth.authz import require
 from app.auth.deps import ActorDep, DbSession, OptionalActorDep
+from app.checkpoint import service as checkpoint_service
 from app.checkpoint.study import REFERRER_POLICY, paper_entry_html
 from app.config import settings
 from app.db.models import EventRow, SessionRow
@@ -82,7 +83,7 @@ def paper_entry_screen(actor: ActorDep) -> HTMLResponse:
 
 @router.post("/checkpoints/paper", dependencies=[Depends(require_research_module)])
 def paper_entry(body: PaperIn, db: DbSession, actor: ActorDep) -> dict[str, Any]:
-    return service.enter_paper_checkpoint(
+    return checkpoint_service.enter_paper_checkpoint(
         db,
         actor,
         pseudonym=body.pseudonym,
