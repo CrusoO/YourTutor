@@ -67,6 +67,17 @@ class Settings(BaseSettings):
     reviewer_daily_cap_seconds: int = 12_600
     # env: REVIEWER_SIGNIN_CODE_TTL_SECONDS. Life of an admin-issued reviewer sign-in code.
     reviewer_signin_code_ttl_seconds: int = 900
+    # env: REVIEW_RATE_PER_DECISION_INR. Pay per paid decision (approve, fix, reject) in the
+    # reviewer pay statement; a `rate` query parameter overrides it for one request.
+    review_rate_per_decision_inr: int = 30
+    # env: REVIEW_MONTHLY_CAP_INR. The most one reviewer is paid per calendar month in the
+    # statement.
+    review_monthly_cap_inr: int = 4000
+    # env: REVIEW_SNAPSHOT_ENABLED / REVIEW_SNAPSHOT_PATH. Use the build-time content snapshot for
+    # the review routes (on by default; it only applies when it matches the content folder, or the
+    # folder is absent). An empty path means the committed file next to `content_review`.
+    review_snapshot_enabled: bool = True
+    review_snapshot_path: str = ""
     otel_enabled: bool = False
     pilot_onboarding: bool = False
     pilot_key: str = "dev-pilot"

@@ -439,6 +439,28 @@ Other surfaces (offline packs, mistake list, ask search) use the status rule onl
 item never appears there. The label learners see stays `Answer checked by calculation`; the factory
 cannot emit `human-reviewed` or `teacher-approved`.
 
+## 10. Reviewer-only launch on Vercel
+
+This is for putting only the reviewer desk on Vercel (`vercel.json` at the repo root: service `api` =
+`apps/api`, service `web` = `apps/web`). Checked against the code and Vercel's documentation on
+2026-11-24; nothing here was deployed.
+
+Settings, by name only (never write values into the repo):
+
+- Database: the `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_HOST`, `POSTGRES_PORT` settings (a hosted Postgres such as Neon; the API refuses the default dev password in production).
+- Sign-in codes: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`. Without SMTP nobody can sign in.
+- Reviewer desk: `REVIEWER_DESK_ENABLED=true` on the API, `NEXT_PUBLIC_REVIEWER_DESK=true` on the web build; optional `REVIEWER_ALLOWLIST`, `REVIEWER_DAILY_CAP_SECONDS`, `REVIEW_RATE_PER_DECISION_INR`, `REVIEW_MONTHLY_CAP_INR`.
+- Keep `ALLOW_DRAFT_CONTENT` and `SERVE_TIER_A_UNREVIEWED` false: the review routes read drafts directly and need neither.
+- `REVIEW_SNAPSHOT_ENABLED` (default true) and `REVIEW_SNAPSHOT_PATH` (default: the committed file) only need setting to turn the snapshot off or move it.
+
+Plan: Vercel's Hobby plan is for personal, non-commercial use (Vercel's terms; not re-checked word for word here). Paying reviewers is commercial, so plan on Pro. Documented limits (Fluid compute): maximum duration 300 s on Hobby, 300 s default and up to 800 s on Pro; Python bundle 500 MB uncompressed; 2 GB memory by default.
+
+Cold start. The review routes used to parse about 2,300 YAML files (13 MB) in the request: about 14 to 19 s on the development machine, per cold function instance (the per-process cache only helps a warm one). The API service root is `apps/api`, while `content/` and `config/` are at the repo root, outside it. Vercel documents that Python functions "include all files from your project that are reachable at build time", but nothing I could find says whether files outside a service `root` are copied into that service's build, and services are described as "built separately". So the YAML may be absent in the deployed function.
+
+What the snapshot does: `app/content_review/review_snapshot.json.gz` (0.4 MB, inside `apps/api`) holds the validated items, misconception titles, Hindi strings and the chapter map. Measured here: reading it takes about 0.1 s and validating the items about 0.2 s (0.3 s with no YAML present), against about 14 s from YAML; with the YAML present, checking that the snapshot still matches takes about 0.7 s once per process. Content hashes are identical either way (tested for every item). Rule: with the desk on, use the snapshot when the content folder is absent, or when its signature matches the one recorded in the snapshot; otherwise parse the YAML. After any change under `content/` (items, misconceptions, overlays, curriculum) run `cd apps/api && PYTHONPATH=. python scripts/write_review_snapshot.py` and commit the file; a test fails when it is stale. If the YAML is absent the snapshot is the only truth, so a stale snapshot would be served: regenerate before every deploy that follows a content change.
+
+Not proven, so the owner must check on a preview deployment: (1) whether `content/` reaches the API function (not needed for the review routes now, but other routes, and `apply-reviews` expect it); (2) the real cold-start time and memory of the API function; (3) the duration limit actually applied to the `api` service (a `maxDuration` per service is a deploy setting, not changed here); (4) whether `apply-reviews`, which writes YAML, can run on Vercel at all (it needs the YAML and a writable repo, which a function is unlikely to have; not verified), so plan to run it on a development machine against the database. The recommended change, for the owner to decide, is to keep `vercel.json` as it is, deploy a preview with the desk on, and open `/staff/review/chapters` as an admin: a fast answer with the snapshot in place proves the path.
+
 ## 11. Free reviewer pilot (three invited teachers, no email service)
 
 For checking questions with three outside teachers and no learners. It needs no email service and
@@ -455,10 +477,11 @@ no domain: the admin hands each reviewer a one-time sign-in code, for example on
 - Keep `ALLOW_DRAFT_CONTENT=false` and `SERVE_TIER_A_UNREVIEWED=false`. Reviewers see draft questions
   on the review screen without either switch, and no learner is served a draft.
 - `REVIEWER_SIGNIN_CODE_TTL_SECONDS` (default `900`, 15 minutes): how long a code lives.
-- Leave `SMTP_HOST` empty. Sign-in codes by email will not work, and they are not needed.
+- Leave the `SMTP_*` settings out. Section 10 says nobody can sign in without them; with admin-issued
+  codes that no longer holds for reviewers.
 
-**Free stack.** Neon free Postgres for the database; the free Vercel plan for the web app; the API on
-any host that runs Python (not Vercel). The free Vercel Hobby plan is for non-commercial use: that fits
+**Free stack.** Neon free Postgres for the database; the free Vercel plan for the web app; the API as in
+section 10, or on any host that runs Python. The free Vercel Hobby plan is for non-commercial use: that fits
 three invited teachers and no learners. Move to Pro or another host before paying people or opening
 the site wider.
 
@@ -498,4 +521,3 @@ The database keeps who issued a code for whom and when (table `reviewer_code_iss
 
 **Not covered yet:** the reviewer agreement and its acceptance, a quality multiplier on pay, and
 approval of a whole question template at once (each question is still reviewed on its own).
-

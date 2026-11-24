@@ -6067,6 +6067,58 @@
     "summary": "Post Event"
    }
   },
+  "/staff/review/chapters": {
+   "get": {
+    "description": "Desk on only: the class / subject / chapter groups that have draft items, each with its\nitem count and how many are still pending for the caller (the same rule as the list filter).\nOnly content that exists is listed. `unmapped_chapters` names groups with no curriculum entry\n(their title comes from the overlay) so the gap is visible.",
+    "operationId": "list_chapters_staff_review_chapters_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response List Chapters Staff Review Chapters Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Chapters",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/staff/review/export": {
    "get": {
     "description": "Admin only, read-only: per reviewer, decisions by type and total active seconds between two\ndates (both included, UTC). Ids and pseudonymous labels only; no email, no learner data.",
@@ -6141,7 +6193,7 @@
   },
   "/staff/review/items": {
    "get": {
-    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,\nan item you have not decided yet always counts as pending (so a filter cannot show how others\nvoted).",
+    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,\nan item you have not decided yet always counts as pending (so a filter cannot show how others\nvoted). Desk on only: `class`, `subject` and `chapter` (from `/chapters`) narrow the list.",
     "operationId": "list_items_staff_review_items_get",
     "parameters": [
      {
@@ -6181,6 +6233,58 @@
        "minimum": 0,
        "title": "Offset",
        "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "class",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 12,
+         "minimum": 1,
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Class"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 40,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject"
+      }
+     },
+     {
+      "in": "query",
+      "name": "chapter",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 120,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Chapter"
       }
      },
      {
@@ -6347,6 +6451,109 @@
      }
     },
     "summary": "My Time Today",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
+  "/staff/review/pay-statement": {
+   "get": {
+    "description": "Admin only, read-only: what to pay each reviewer for decisions from `from` to `to` (both\nincluded, UTC). Paid decisions = each reviewer's standing approve / fix / reject per item and\ncontent hash, counted once (skip and withdraw are not paid). amount = paid x rate, where rate is\n`REVIEW_RATE_PER_DECISION_INR` unless `rate` overrides it for this request (teachers and\nstudents can be paid differently). The monthly cap `REVIEW_MONTHLY_CAP_INR` applies to the\ncalendar month of `to`. No quality multiplier yet (planted checks are not built). Holds the\nreviewer's email and pseudonymous label so the owner can pay by hand; it stores and returns no\npayment or UPI details. `format=csv` returns the same rows as a CSV file.",
+    "operationId": "pay_statement_staff_review_pay_statement_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "from",
+      "required": true,
+      "schema": {
+       "format": "date",
+       "title": "From",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": true,
+      "schema": {
+       "format": "date",
+       "title": "To",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "rate",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 100000.0,
+         "minimum": 0.0,
+         "type": "number"
+        },
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Rate"
+      }
+     },
+     {
+      "in": "query",
+      "name": "format",
+      "required": false,
+      "schema": {
+       "default": "json",
+       "enum": [
+        "json",
+        "csv"
+       ],
+       "title": "Format",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Pay Statement",
     "tags": [
      "staff-review"
     ]

@@ -15,6 +15,7 @@ import uuid
 from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, time, timedelta
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +32,7 @@ from app.content.schema import ContentStatus, Item
 from app.content.signatures import item_content_hash
 from app.content.stem_solve import check_item_stem_answer
 from app.content.validator import load_bundle
+from app.content_review import snapshot
 from app.db.models import ContentReviewRow, ReviewerCodeIssueRow, UserRow
 
 REQUIRED_APPROVALS = 2
@@ -325,13 +327,19 @@ def _wrong_options(item: Item, labels: dict[str, str]) -> list[dict[str, Any]]:
 
 
 _CACHE_MAX_ROOTS = 2  # the live content folder; a second only so a test or a swap does not thrash
-_cache: dict[str, tuple[str, list[Item], dict[str, str]]] = {}
+_cache: dict[str, tuple[str, snapshot.ReviewData]] = {}
+_raw_cache: dict[str, tuple[tuple[int, int], dict[str, Any]]] = {}
+_snapshot_cache: dict[str, tuple[tuple[int, int], snapshot.ReviewData]] = {}
+_match_cache: dict[str, tuple[str, str, bool]] = {}
 _cache_lock = threading.Lock()
 
 
 def clear_items_cache() -> None:
     with _cache_lock:
         _cache.clear()
+        _raw_cache.clear()
+        _snapshot_cache.clear()
+        _match_cache.clear()
 
 
 def _content_signature(root: Path) -> str:
@@ -354,28 +362,93 @@ def _content_signature(root: Path) -> str:
     return digest.hexdigest()
 
 
-def load_items(root: Path) -> tuple[list[Item], dict[str, str]]:
-    """Items in id order and misconception id to English title. Reads only: `validate_path`
-    would rewrite stale files, and the API must never write the repo.
+def _snapshot_file() -> Path:
+    override = settings.review_snapshot_path.strip()
+    return Path(override) if override else snapshot.SNAPSHOT_PATH
 
-    Parsing and validating about two thousand YAML files takes tens of seconds, so the loaded
-    result is kept per process and reused while the content files are unchanged (see
-    `_content_signature`). Nothing about what is loaded or validated changes, and the content
-    hash is still computed from each item as loaded. Treat the returned items as read-only."""
-    key = str(root)
-    signature = _content_signature(root)
+
+def _load_snapshot() -> tuple[dict[str, Any], Path, tuple[int, int]] | None:
+    """The build-time snapshot file as plain data, with its path and stamp. None when there is no
+    usable one. Cheap (decompress and parse); validating the items is `_snapshot_data`."""
+    path = _snapshot_file()
+    try:
+        info = path.stat()
+    except OSError:
+        return None
+    stamp = (info.st_size, info.st_mtime_ns)
+    hit = _raw_cache.get(str(path))
+    if hit is not None and hit[0] == stamp:
+        return hit[1], path, stamp
+    data = snapshot.read(path)
+    if data is None:
+        return None
+    _raw_cache.clear()
+    _raw_cache[str(path)] = (stamp, data)
+    return data, path, stamp
+
+
+def _snapshot_data(data: dict[str, Any], path: Path, stamp: tuple[int, int]) -> snapshot.ReviewData:
+    hit = _snapshot_cache.get(str(path))
+    if hit is not None and hit[0] == stamp:
+        return hit[1]
+    loaded = snapshot.to_review_data(data)
+    _snapshot_cache.clear()
+    _snapshot_cache[str(path)] = (stamp, loaded)
+    return loaded
+
+
+def _snapshot_matches(root: Path, recorded: str) -> bool:
+    """Does the content folder still hash to what the snapshot was built from? The content hash
+    reads every file, so the answer is kept per process while the stat fingerprint is unchanged."""
+    stat_sig = _content_signature(root)
+    hit = _match_cache.get(str(root))
+    if hit is not None and hit[0] == stat_sig and hit[1] == recorded:
+        return hit[2]
+    matches = snapshot.source_signature(root) == recorded
+    _match_cache[str(root)] = (stat_sig, recorded, matches)
+    return matches
+
+
+def load_review_data(root: Path) -> snapshot.ReviewData:
+    """Items, misconception titles, Hindi strings and chapters for the review routes.
+
+    Rule for choosing the source: with the reviewer desk on, the build-time snapshot (`snapshot.py`)
+    when it exists and either
+    the content folder is absent (a deployed function without `content/`: the snapshot is then
+    authoritative) or the folder's content signature equals the one recorded in the snapshot;
+    otherwise parse the YAML (kept per process while the files are unchanged, see
+    `_content_signature`). Reads only: `validate_path` would rewrite stale files. Treat the
+    returned items as read-only."""
     with _cache_lock:
+        snap = (
+            _load_snapshot()
+            if settings.reviewer_desk_enabled and settings.review_snapshot_enabled
+            else None
+        )
+        if snap is not None and (
+            not root.exists() or _snapshot_matches(root, str(snap[0]["source_signature"]))
+        ):
+            return _snapshot_data(*snap)
+        key = str(root)
+        signature = _content_signature(root)
         hit = _cache.get(key)
         if hit is not None and hit[0] == signature:
-            return list(hit[1]), hit[2]
+            return hit[1]
         bundle = load_bundle(root)
         labels = {m.id: m.title.en for m in bundle.misconceptions}
         items = sorted(bundle.items, key=lambda i: i.id)
+        data = snapshot.from_bundle(root, items, labels, list(bundle.overlays))
         _cache.pop(key, None)
         while len(_cache) >= _CACHE_MAX_ROOTS:
             _cache.pop(next(iter(_cache)))
-        _cache[key] = (signature, items, labels)
-    return list(items), labels
+        _cache[key] = (signature, data)
+    return data
+
+
+def load_items(root: Path) -> tuple[list[Item], dict[str, str]]:
+    """Items in id order and misconception id to English title (see `load_review_data`)."""
+    data = load_review_data(root)
+    return list(data.items), data.labels
 
 
 def has_decided(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> bool:
@@ -483,8 +556,15 @@ def _review_view(rows: list[ContentReviewRow], me: uuid.UUID) -> dict[str, Any]:
 
 
 def card(
-    db: Session, root: Path, item: Item, labels: dict[str, str], me: uuid.UUID
+    db: Session,
+    root: Path,
+    item: Item,
+    labels: dict[str, str],
+    me: uuid.UUID,
+    hindi: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """One review card. `hindi` is the item's Hindi strings when they are already known (from the
+    snapshot); without it they are read from the item's YAML file."""
     digest = item_content_hash(item)
     rows = reviews_for(db, item.id, digest)
     return {
@@ -501,7 +581,7 @@ def card(
         "wrong_options": _wrong_options(item, labels),
         "solution_steps": [s.en for s in item.solution_steps],
         "hints": [h.en for h in sorted(item.hints, key=lambda h: h.level)],
-        "hindi": hindi_texts(root, item.id),
+        "hindi": hindi if hindi is not None else hindi_texts(root, item.id),
         **_review_view(rows, me),
     }
 
@@ -673,3 +753,194 @@ def seconds_today(db: Session, reviewer_id: uuid.UUID, now: datetime) -> int:
         )
     )
     return int(total or 0)
+
+
+# ---- class / subject / chapter groups (desk on) ----
+
+
+def in_group(
+    data: snapshot.ReviewData,
+    item: Item,
+    grade: int | None,
+    subject: str | None,
+    chapter: str | None,
+) -> bool:
+    """Does the item belong to the asked class, subject and chapter? Unset filters match all."""
+    chapter_id = data.item_chapter.get(item.id, snapshot.UNMAPPED_ID)
+    found = data.chapters.get(chapter_id)
+    if chapter is not None and chapter_id != chapter:
+        return False
+    if grade is not None and (found is None or found.grade != grade):
+        return False
+    return subject is None or (found is not None and found.subject == subject)
+
+
+def chapter_groups(
+    db: Session, data: snapshot.ReviewData, me: uuid.UUID
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """The class / subject / chapter groups that have draft items, with the item count and how
+    many are still pending for `me` (the same rule as the list filter, so a count never shows how
+    others voted on an item `me` has not decided). Also the chapter ids with no curriculum entry
+    (their metadata comes from the overlay), including the `unmapped` group if an item has no
+    chapter at all."""
+    drafts = [item for item in data.items if is_draft(item)]
+    pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
+    reviews = reviews_for_items(db, list(pairs.values()))
+    totals: dict[str, list[int]] = {}
+    for item in drafts:
+        chapter_id = data.item_chapter.get(item.id, snapshot.UNMAPPED_ID)
+        entry = totals.setdefault(chapter_id, [0, 0])
+        entry[0] += 1
+        if list_state(reviews[pairs[item.id]], me) == "pending":
+            entry[1] += 1
+    groups = []
+    gaps = []
+    for chapter_id, (total, pending) in totals.items():
+        chapter = data.chapters.get(chapter_id) or snapshot.Chapter(
+            chapter_id, None, None, chapter_id, False
+        )
+        if not chapter.in_curriculum:
+            gaps.append(chapter_id)
+        groups.append(
+            {
+                "class": chapter.grade,
+                "subject": chapter.subject,
+                "chapter": chapter_id,
+                "title": chapter.title,
+                "in_curriculum": chapter.in_curriculum,
+                "total": total,
+                "pending": pending,
+            }
+        )
+    groups.sort(
+        key=lambda g: (
+            g["class"] is None,
+            g["class"] or 0,
+            g["subject"] or "",
+            g["title"],
+            g["chapter"],
+        )
+    )
+    return groups, sorted(gaps)
+
+
+# ---- pay statement (admin only, read-only) ----
+
+PAID_DECISIONS = ("approve", "fix", "reject")
+
+
+def _new_tally() -> dict[str, Any]:
+    return {
+        "decisions": {"approve": 0, "fix": 0, "reject": 0},
+        "in_range": 0,
+        "in_month": 0,
+        "prior_in_month": 0,
+        "active_seconds": 0,
+        "changed_after_seeing": 0,
+    }
+
+
+def pay_statement(
+    db: Session,
+    start: date,
+    end: date,
+    *,
+    rate: Decimal,
+    monthly_cap: Decimal,
+) -> dict[str, Any]:
+    """Per reviewer, what to pay for decisions made from `start` to `end` (both included, UTC).
+
+    Paid decision: a reviewer's STANDING decision (see `standing`) on an item and content hash,
+    when that decision is approve, fix or reject. A skip or a withdraw is never paid. It is counted
+    once per reviewer, item and hash, however often they withdrew and decided again, and it is dated
+    by the first approve, fix or reject they recorded on that item and hash (so changing your mind
+    next month does not pay again; the by-type breakdown shows the decision that stands now). A
+    withdrawn decision that was not made again is not paid.
+
+    amount = paid decisions x rate. The monthly cap applies to the calendar month of `end`: the
+    decisions dated in that month (from `max(start, first of month)`) are paid at most
+    `monthly_cap` together with the decisions dated earlier in the same month that fall before
+    `start` (so a statement for 1-15 and then one for 16-30 never pays past the cap). Decisions in
+    an earlier month of the range are not capped. `cap_applied` is set when the cap reduced the
+    amount. `active_seconds` is the sum over every decision row in the range (a skip's time counts).
+
+    No quality multiplier yet: planted checks are not built, so nobody's pay depends on a score."""
+    month_start = end.replace(day=1)
+    lo = datetime.combine(min(start, month_start), time.min, tzinfo=UTC)
+    hi = datetime.combine(end + timedelta(days=1), time.min, tzinfo=UTC)
+    range_lo = datetime.combine(start, time.min, tzinfo=UTC)
+    month_lo = datetime.combine(month_start, time.min, tzinfo=UTC)
+    # the whole history of every (item, hash) touched in the window, to find standing decisions
+    touched = {
+        (r.item_id, r.content_hash)
+        for r in db.scalars(
+            select(ContentReviewRow).where(
+                ContentReviewRow.created_at >= lo, ContentReviewRow.created_at < hi
+            )
+        )
+    }
+    per: dict[uuid.UUID, dict[str, Any]] = {}
+    for history in reviews_for_items(db, sorted(touched)).values():
+        late = changed_after_seeing(history)
+        for row in history:
+            if range_lo <= row.created_at.astimezone(UTC) < hi:
+                bucket = per.setdefault(row.reviewer_id, _new_tally())
+                bucket["active_seconds"] += row.active_seconds or 0
+                if row.id in late:
+                    bucket["changed_after_seeing"] += 1
+        for reviewer_id, row in standing(history).items():
+            if row.decision not in PAID_DECISIONS:
+                continue
+            first = next(
+                r for r in history if r.reviewer_id == reviewer_id and r.decision in PAID_DECISIONS
+            )
+            when = first.created_at.astimezone(UTC)
+            if not lo <= when < hi:
+                continue
+            bucket = per.setdefault(reviewer_id, _new_tally())
+            if when >= range_lo:
+                bucket["in_range"] += 1
+                bucket["decisions"][row.decision] += 1
+                if when >= month_lo:
+                    bucket["in_month"] += 1
+            elif when >= month_lo:
+                bucket["prior_in_month"] += 1
+    users = {
+        u.id: u
+        for u in db.scalars(select(UserRow).where(UserRow.id.in_(list(per) or [uuid.UUID(int=0)])))
+    }
+    reviewers = []
+    for reviewer_id, b in per.items():
+        if b["in_range"] == 0 and b["active_seconds"] == 0 and b["changed_after_seeing"] == 0:
+            continue
+        before_cap = rate * b["in_range"]
+        room = max(Decimal(0), monthly_cap - rate * b["prior_in_month"])
+        amount = rate * (b["in_range"] - b["in_month"]) + min(rate * b["in_month"], room)
+        user = users.get(reviewer_id)
+        reviewers.append(
+            {
+                "reviewer_id": str(reviewer_id),
+                "label": reviewer_label(reviewer_id),
+                "email": user.email if user is not None else None,
+                "paid_decisions": b["in_range"],
+                "decisions": b["decisions"],
+                "active_seconds": b["active_seconds"],
+                "changed_after_seeing": b["changed_after_seeing"],
+                "rate_inr": float(rate),
+                "amount_before_cap_inr": float(before_cap),
+                "amount_inr": float(amount),
+                "cap_applied": amount < before_cap,
+            }
+        )
+    reviewers.sort(key=lambda r: r["label"])
+    return {
+        "from": start.isoformat(),
+        "to": end.isoformat(),
+        "rate_inr": float(rate),
+        "monthly_cap_inr": float(monthly_cap),
+        "cap_month": month_start.strftime("%Y-%m"),
+        "quality_multiplier": None,
+        "reviewers": reviewers,
+        "total_paid_decisions": sum(r["paid_decisions"] for r in reviewers),
+        "total_amount_inr": float(sum(Decimal(str(r["amount_inr"])) for r in reviewers)),
+    }

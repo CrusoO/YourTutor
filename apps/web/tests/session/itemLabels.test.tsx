@@ -64,7 +64,7 @@ describe("ItemLabels", () => {
 describe("footer disclaimer copy", () => {
   it("is the fixed wording", () => {
     expect(t("en").independenceFooter).toBe(
-      "Brownie is independent and is not affiliated with, endorsed by or approved by CBSE, NCERT, or Nepal's CDC or NEB. These names are used only to describe syllabus alignment. Official papers: cbseacademic.nic.in.",
+      "Brownie is independent and is not affiliated with, endorsed by or approved by any exam board or textbook publisher. Official papers: cbseacademic.nic.in.",
     );
   });
 });

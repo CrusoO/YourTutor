@@ -200,21 +200,21 @@ def test_retired_never_served() -> None:
 
 
 def test_label_strings_are_exact() -> None:
-    assert QUESTION_LABEL == (
-        "Original Brownie practice question. Aligned to the CBSE Class 10 syllabus (2026-27). "
-        "Not an official CBSE or NCERT question."
-    )
+    assert QUESTION_LABEL == "Original Brownie practice question."
     assert VERIFICATION_BADGE == "Answer checked by calculation"
     assert PATTERN_TAG_TEMPLATE == (
-        "Question type seen in CBSE Class 10 board papers: {marks}-mark {type} ({years})."
+        "Question type seen in board exam papers: {marks}-mark {type} ({years})."
     )
     assert FOOTER_DISCLAIMER.endswith("Official papers: cbseacademic.nic.in.")
-    assert "Nepal's CDC or NEB" in FOOTER_DISCLAIMER
+    # no board or publisher is named to students (owner, 2026-11-24); only the link remains
+    for name in ("CBSE", "NCERT", "NEB", "CDC"):
+        assert name not in FOOTER_DISCLAIMER.replace("cbseacademic.nic.in", "")
+        assert name not in QUESTION_LABEL and name not in PATTERN_TAG_TEMPLATE
 
 
 def test_pattern_tag() -> None:
     assert pattern_tag(3, "short", [2024, 2023, 2024]) == (
-        "Question type seen in CBSE Class 10 board papers: 3-mark short (2023, 2024)."
+        "Question type seen in board exam papers: 3-mark short (2023, 2024)."
     )
     assert "assertion reason" in pattern_tag(1, "assertion_reason", [2025])
 

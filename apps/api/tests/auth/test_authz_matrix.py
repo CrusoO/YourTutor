@@ -375,6 +375,36 @@ def test_matrix_content_review_with_the_reviewer_desk(
     assert (status == 200) is allowed, (role, status)
 
 
+@pytest.mark.parametrize(
+    "role,chapters,pay",
+    [
+        ("parent", 403, 403),
+        ("student", 403, 403),
+        ("teacher", 200, 403),
+        ("admin", 200, 200),
+        ("comparison", 403, 403),
+        ("reviewer", 200, 403),
+    ],
+)
+def test_matrix_reviewer_chapters_and_pay_statement(
+    client: TestClient, world: World, sender, db, role: str, chapters: int, pay: int
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    tokens = {
+        **_roles(world),
+        "reviewer": signup(client, sender, seed_user(db, "reviewer", "rv@example.com").email),
+    }
+    assert _status(client, "GET", "/staff/review/chapters", tokens[role]) == chapters
+    url = "/staff/review/pay-statement?from=2026-03-01&to=2026-03-31"
+    assert _status(client, "GET", url, tokens[role]) == pay
+    assert _status(client, "GET", "/staff/review/chapters", None) == 401
+    settings.reviewer_desk_enabled = False
+    assert _status(client, "GET", "/staff/review/chapters", tokens["admin"]) == 404
+    assert _status(client, "GET", url, tokens["admin"]) == 404
+
+
 def test_a_reviewer_reaches_nothing_but_content_review(
     client: TestClient, world: World, sender, db
 ) -> None:
@@ -407,6 +437,11 @@ def test_a_reviewer_reaches_nothing_but_content_review(
     assert _status(client, "GET", "/staff/review/items", token) == 200
     assert _status(client, "GET", "/staff/review/me/today", token) == 200
     assert _status(client, "GET", "/staff/review/reviewers", token) == 403  # admin only
+    assert _status(client, "GET", "/staff/review/chapters", token) == 200
+    assert (
+        _status(client, "GET", "/staff/review/pay-statement?from=2026-03-01&to=2026-03-31", token)
+        == 403
+    )
 
 
 @pytest.mark.parametrize(
