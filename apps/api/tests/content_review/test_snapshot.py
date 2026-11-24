@@ -34,13 +34,18 @@ def snap_file(content_root: Path, tmp_path_factory: pytest.TempPathFactory) -> P
 
 @pytest.fixture(scope="module")
 def real_yaml() -> snapshot.ReviewData:
+    # a module-scoped fixture runs outside the per-test settings restore: put BOTH flags back as
+    # they were, or the desk stays on for every test that runs after this module
+    desk_before = settings.reviewer_desk_enabled
+    snapshot_before = settings.review_snapshot_enabled
     settings.reviewer_desk_enabled = True
     settings.review_snapshot_enabled = False
     try:
         service.clear_items_cache()
         return service.load_review_data(real_content_root())
     finally:
-        settings.review_snapshot_enabled = True
+        settings.reviewer_desk_enabled = desk_before
+        settings.review_snapshot_enabled = snapshot_before
         service.clear_items_cache()
 
 
