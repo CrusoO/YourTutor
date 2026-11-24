@@ -775,6 +775,18 @@ class ContentReviewRow(Base):
     active_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
+class ReviewerCodeIssueRow(Base):
+    """Who issued a reviewer sign-in code, for whom, and when. Never holds the code or its hash."""
+
+    __tablename__ = "reviewer_code_issues"
+
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    reviewer_id: Mapped[uuid.UUID] = mapped_column(Uuid, index=True)
+    issued_by: Mapped[uuid.UUID] = mapped_column(Uuid)
+    issued_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class ReviewCardRow(Base):
     __tablename__ = "review_cards"
 

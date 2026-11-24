@@ -442,3 +442,31 @@ def test_a_reviewer_reaches_nothing_but_content_review(
         _status(client, "GET", "/staff/review/pay-statement?from=2026-03-01&to=2026-03-31", token)
         == 403
     )
+
+
+@pytest.mark.parametrize(
+    "role,expected",
+    [
+        ("anonymous", 401),
+        ("parent", 403),
+        ("student", 403),
+        ("teacher", 403),
+        ("comparison", 403),
+        ("reviewer", 403),
+        ("admin", 200),
+    ],
+)
+def test_matrix_reviewer_sign_in_code_is_admin_only(
+    client: TestClient, world: World, sender, db, role: str, expected: int
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    target = seed_user(db, "reviewer", "target@example.com")
+    tokens = {
+        **_roles(world),
+        "reviewer": signup(client, sender, seed_user(db, "reviewer", "rv3@example.com").email),
+        "anonymous": "",
+    }
+    path = f"/staff/review/reviewers/{target.id}/sign-in-code"
+    assert _status(client, "POST", path, tokens[role]) == expected, role

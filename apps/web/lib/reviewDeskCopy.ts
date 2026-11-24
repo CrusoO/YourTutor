@@ -146,13 +146,14 @@ export const desk = {
   helpNote:
     "Some questions with deliberate mistakes may be mixed into a batch. You are not told which ones. They show whether our process catches mistakes. They are not a test of you.",
   close: "Close",
+  haveCode: "I already have a code from the admin",
   admin: {
     title: "Reviewers (admin only)",
     intro:
-      "Invite an outside reviewer by email. They sign in with an emailed code and can use only the review screen. Only an admin can do this.",
+      "Invite an outside reviewer by email. They sign in with a code and can use only the review screen. Create the code here and send it to them (or let the site email one, if email is set up). Only an admin can do this.",
     email: "Reviewer email",
     invite: "Invite",
-    invited: (email: string) => `${email} is invited. Ask them to sign in with an email code.`,
+    invited: (email: string) => `${email} is invited. Press Create sign-in code to give them a way in.`,
     listTitle: "Reviewers you have handled in this visit",
     listNote:
       "The API has no list of reviewers yet, so this list shows only the accounts you invited, suspended or reinstated on this page.",
@@ -165,5 +166,15 @@ export const desk = {
     otherAccount: "That email already belongs to another account, so it cannot become a reviewer.",
     failed: "That did not work. Check the email and try again.",
     back: "Back to the review screen",
+    makeCode: "Create sign-in code",
+    codeFor: (email: string) => `Sign-in code for ${email}`,
+    codeNote: "Send this to the reviewer, for example on WhatsApp. It works once and expires in 15 minutes.",
+    copy: "Copy",
+    copied: "Copied",
+    done: "Done",
+    codeSuspended: "That reviewer is suspended. Reinstate them first.",
+    codeLimit: "Too many codes for this reviewer in the last hour. Try again later.",
+    codeMissing: "That reviewer was not found.",
+    codeFailed: "Could not create a code. Try again.",
   },
 };

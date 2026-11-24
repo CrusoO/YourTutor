@@ -3,6 +3,7 @@ from __future__ import annotations
 import secrets
 import string
 import uuid
+from datetime import datetime
 from typing import Any
 
 from fastapi import HTTPException, status
@@ -146,17 +147,53 @@ def request_otp(
     _hit_rate(session, f"otp_request:email:{email}")
     _hit_rate(session, f"otp_request:ip:{ip}")
     code = otp_code()
+    challenge = OtpChallengeRow(
+        id=uuid.uuid4(),
+        email=email,
+        code_hash=hash_code(code),
+        ip=ip,
+        created_at=now_utc(),
+        expires_at=expires_after(settings.otp_ttl_seconds),
+    )
+    session.add(challenge)
+    session.flush()
+    try:
+        sender.send(email, code)
+    except Exception:
+        # a code that was never delivered must not hide an older usable one (an admin-issued code)
+        session.delete(challenge)
+        session.flush()
+        raise
+
+
+def issue_signin_code(session: Session, email: str, ttl_seconds: int) -> tuple[str, datetime]:
+    """Make a one-time sign-in code for `email` WITHOUT sending it (an admin hands it over).
+
+    It is an ordinary challenge row: hashed with the token pepper, checked, counted and used up by
+    `consume_challenge` exactly like an emailed code. Any earlier unused code for the address is
+    used up, so only the newest works. Returns the code (the caller shows it once) and its expiry.
+    """
+    address = email.strip().lower()
+    now = now_utc()
+    for old in session.scalars(
+        select(OtpChallengeRow).where(
+            OtpChallengeRow.email == address, OtpChallengeRow.consumed_at.is_(None)
+        )
+    ):
+        old.consumed_at = now
+    code = otp_code()
+    expires = expires_after(ttl_seconds)
     session.add(
         OtpChallengeRow(
             id=uuid.uuid4(),
-            email=email,
+            email=address,
             code_hash=hash_code(code),
-            ip=ip,
-            created_at=now_utc(),
-            expires_at=expires_after(settings.otp_ttl_seconds),
+            ip="admin-issued",
+            created_at=now,
+            expires_at=expires,
         )
     )
-    sender.send(email, code)
+    return code, expires
 
 
 def consume_challenge(session: Session, key: str, code: str, ip: str) -> None:

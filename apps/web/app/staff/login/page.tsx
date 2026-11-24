@@ -18,6 +18,8 @@ import {
 import { adultSession, getAuthOptions } from "@/lib/agreements-api";
 import { signin } from "@/app/login/loginCopy";
 import { login } from "@/lib/agreement-copy";
+import { reviewerDeskEnabled } from "@/lib/flags";
+import { desk } from "@/lib/reviewDeskCopy";
 
 import EmailUnavailable from "@/components/EmailUnavailable";
 import StorageNotice from "@/components/StorageNotice";
@@ -156,6 +158,11 @@ function StaffLoginForm() {
           {copy.staffSendCode}
         </button>
       )}
+      {reviewerDeskEnabled() && mode === "email" && !sent ? (
+        <button type="button" className="secondary" data-testid="have-code" disabled={!filled} onClick={() => setSent(true)}>
+          {desk.haveCode}
+        </button>
+      ) : null}
       {phoneOn && !sent ? (
         <button
           type="button"

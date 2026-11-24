@@ -23,6 +23,8 @@ import yaml
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.auth.security import now_utc
+from app.auth.service import issue_signin_code
 from app.config import settings
 from app.content.locale import is_missing_translation
 from app.content.review import reviewer_allowlist
@@ -31,7 +33,7 @@ from app.content.signatures import item_content_hash
 from app.content.stem_solve import check_item_stem_answer
 from app.content.validator import load_bundle
 from app.content_review import snapshot
-from app.db.models import ContentReviewRow, UserRow
+from app.db.models import ContentReviewRow, ReviewerCodeIssueRow, UserRow
 
 REQUIRED_APPROVALS = 2
 MIN_NOTE_CHARS = 8  # non-space characters, for a fix note or a general note
@@ -611,6 +613,50 @@ def set_reviewer_suspended(
     user.suspended_at = now if suspended else None
     db.flush()
     return user
+
+
+class SignInCodeRefused(Exception):  # noqa: N818
+    def __init__(self, status_code: int, detail: str) -> None:
+        super().__init__(detail)
+        self.status_code = status_code
+        self.detail = detail
+
+
+SIGNIN_CODES_PER_HOUR = 5
+
+
+def issue_reviewer_signin_code(
+    db: Session, reviewer_id: uuid.UUID, admin_id: uuid.UUID
+) -> tuple[str, datetime] | None:
+    """An admin hands a reviewer a one-time sign-in code (no email). None: not a reviewer account.
+    Raises SignInCodeRefused for a suspended reviewer (409) or more than five codes in an hour
+    (429). The audit row keeps who, for whom and when, never the code."""
+    user = db.get(UserRow, reviewer_id)
+    if user is None or user.role != "reviewer" or user.email is None:
+        return None
+    if user.suspended_at is not None:
+        raise SignInCodeRefused(409, "that reviewer is suspended")
+    now = now_utc()
+    recent = db.scalar(
+        select(func.count(ReviewerCodeIssueRow.id)).where(
+            ReviewerCodeIssueRow.reviewer_id == reviewer_id,
+            ReviewerCodeIssueRow.issued_at > now - timedelta(hours=1),
+        )
+    )
+    if (recent or 0) >= SIGNIN_CODES_PER_HOUR:
+        raise SignInCodeRefused(429, "too many codes for this reviewer; try again later")
+    code, expires = issue_signin_code(db, user.email, settings.reviewer_signin_code_ttl_seconds)
+    db.add(
+        ReviewerCodeIssueRow(
+            id=uuid.uuid4(),
+            reviewer_id=reviewer_id,
+            issued_by=admin_id,
+            issued_at=now,
+            expires_at=expires,
+        )
+    )
+    db.flush()
+    return code, expires
 
 
 # ---- pay statement export (read-only, no learner data) ----

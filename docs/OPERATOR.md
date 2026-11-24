@@ -460,3 +460,64 @@ Cold start. The review routes used to parse about 2,300 YAML files (13 MB) in th
 What the snapshot does: `app/content_review/review_snapshot.json.gz` (0.4 MB, inside `apps/api`) holds the validated items, misconception titles, Hindi strings and the chapter map. Measured here: reading it takes about 0.1 s and validating the items about 0.2 s (0.3 s with no YAML present), against about 14 s from YAML; with the YAML present, checking that the snapshot still matches takes about 0.7 s once per process. Content hashes are identical either way (tested for every item). Rule: with the desk on, use the snapshot when the content folder is absent, or when its signature matches the one recorded in the snapshot; otherwise parse the YAML. After any change under `content/` (items, misconceptions, overlays, curriculum) run `cd apps/api && PYTHONPATH=. python scripts/write_review_snapshot.py` and commit the file; a test fails when it is stale. If the YAML is absent the snapshot is the only truth, so a stale snapshot would be served: regenerate before every deploy that follows a content change.
 
 Not proven, so the owner must check on a preview deployment: (1) whether `content/` reaches the API function (not needed for the review routes now, but other routes, and `apply-reviews` expect it); (2) the real cold-start time and memory of the API function; (3) the duration limit actually applied to the `api` service (a `maxDuration` per service is a deploy setting, not changed here); (4) whether `apply-reviews`, which writes YAML, can run on Vercel at all (it needs the YAML and a writable repo, which a function is unlikely to have; not verified), so plan to run it on a development machine against the database. The recommended change, for the owner to decide, is to keep `vercel.json` as it is, deploy a preview with the desk on, and open `/staff/review/chapters` as an admin: a fast answer with the snapshot in place proves the path.
+
+## 11. Free reviewer pilot (three invited teachers, no email service)
+
+For checking questions with three outside teachers and no learners. It needs no email service and
+no domain: the admin hands each reviewer a one-time sign-in code, for example on WhatsApp.
+
+**Set by name** (values in the host's secret settings, never in git):
+
+- Database: `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`. The
+  API has no single database URL setting; it builds the address from these five. Not tested against
+  Neon: the driver asks for an encrypted connection when the server offers one, which Neon does.
+- `TOKEN_PEPPER` (long random), `APP_ENV=production`, `CORS_EXTRA_ORIGINS` (the web address).
+- API: `REVIEWER_DESK_ENABLED=true`. Web, set before `npm run build`: `NEXT_PUBLIC_REVIEWER_DESK=true`
+  and `NEXT_PUBLIC_API_URL`.
+- Keep `ALLOW_DRAFT_CONTENT=false` and `SERVE_TIER_A_UNREVIEWED=false`. Reviewers see draft questions
+  on the review screen without either switch, and no learner is served a draft.
+- `REVIEWER_SIGNIN_CODE_TTL_SECONDS` (default `900`, 15 minutes): how long a code lives.
+- Leave the `SMTP_*` settings out. Section 10 says nobody can sign in without them; with admin-issued
+  codes that no longer holds for reviewers.
+
+**Free stack.** Neon free Postgres for the database; the free Vercel plan for the web app; the API as in
+section 10, or on any host that runs Python. The free Vercel Hobby plan is for non-commercial use: that fits
+three invited teachers and no learners. Move to Pro or another host before paying people or opening
+the site wider.
+
+**First admin (one-time command).** Nothing in the web app makes the first admin, so run this once
+from `apps/api`, with the database settings above, after `python -m alembic upgrade head`:
+
+    python -m app.auth.bootstrap admin-code you@example.org
+
+It creates the admin account and prints a code (works once, 15 minutes; run it again for a new one).
+It refuses an address that already belongs to another kind of account. Sign in at `/staff/login`:
+type the email, press "I already have a code from the admin", enter the code. Do not press "Send
+code": with no email service that fails.
+
+**Invite a reviewer and give them a code.**
+
+1. As admin open `/staff/review/reviewers`. Type the reviewer's email, press Invite.
+2. Press "Create sign-in code" on their row. The code shows once, with a Copy button. Send it to them
+   (WhatsApp is fine). It works once and expires in 15 minutes. A new code replaces an unused one; at
+   most 5 per reviewer per hour. A suspended reviewer cannot be given a code.
+3. The reviewer opens `/staff/login`, types their email, presses "I already have a code from the
+   admin", enters the code and lands on `/staff/review`. To sign in again later they need a new code.
+4. The reviewers page lists only accounts handled in the current visit. To get a row for someone
+   invited earlier, Invite the same email again (it changes nothing else).
+
+The database keeps who issued a code for whom and when (table `reviewer_code_issues`), never the code.
+
+**First week, three teachers.**
+
+- Day 1: run `python -m app.operator check`; sign in as admin; invite the three; send each a code;
+  confirm each reaches the review screen (ask them to reply "in").
+- Day 1 to 2: each does five questions; check the admin export (`GET /staff/review/export`) shows their
+  counts and time.
+- Through the week: send a fresh code whenever someone is signed out (a session lasts 24 hours); suspend
+  anyone who should stop; read the notes they leave.
+- End of week: run `python -m app.content apply-reviews` and look at what two reviewers
+  approved before anything is set to approved.
+
+**Not covered yet:** the reviewer agreement and its acceptance, a quality multiplier on pay, and
+approval of a whole question template at once (each question is still reviewed on its own).

@@ -254,6 +254,22 @@ def reinstate_reviewer(reviewer_id: uuid.UUID, db: DbSession, actor: ActorDep) -
     return _reviewer_out(user)
 
 
+@router.post("/reviewers/{reviewer_id}/sign-in-code")
+def reviewer_sign_in_code(reviewer_id: uuid.UUID, db: DbSession, actor: ActorDep) -> dict[str, Any]:
+    """Admin only: make a one-time sign-in code for an invited reviewer, to hand over by hand (no
+    email needed). The reviewer signs in at /staff/login with their email and this code. The code
+    is in this response only: it is stored hashed, never logged and never shown again."""
+    admin_id = _desk_admin(actor)
+    try:
+        issued = service.issue_reviewer_signin_code(db, reviewer_id, admin_id)
+    except service.SignInCodeRefused as refused:
+        raise HTTPException(status_code=refused.status_code, detail=refused.detail) from None
+    if issued is None:
+        raise HTTPException(status_code=404, detail="reviewer not found")
+    code, expires = issued
+    return {"code": code, "expires_at": expires.isoformat()}
+
+
 @router.get("/reviewers")
 def list_reviewers(db: DbSession, actor: ActorDep) -> dict[str, Any]:
     """Admin only: every invited reviewer with suspended, invited at, last decision time and

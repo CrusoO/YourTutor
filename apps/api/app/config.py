@@ -65,6 +65,8 @@ class Settings(BaseSettings):
     # env: REVIEWER_DAILY_CAP_SECONDS. The most active review time per reviewer per day (UTC) the
     # desk shows as "time today" (3.5 hours). It is shown, not enforced.
     reviewer_daily_cap_seconds: int = 12_600
+    # env: REVIEWER_SIGNIN_CODE_TTL_SECONDS. Life of an admin-issued reviewer sign-in code.
+    reviewer_signin_code_ttl_seconds: int = 900
     # env: REVIEW_RATE_PER_DECISION_INR. Pay per paid decision (approve, fix, reject) in the
     # reviewer pay statement; a `rate` query parameter overrides it for one request.
     review_rate_per_decision_inr: int = 30

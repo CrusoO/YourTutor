@@ -6732,6 +6732,68 @@
     ]
    }
   },
+  "/staff/review/reviewers/{reviewer_id}/sign-in-code": {
+   "post": {
+    "description": "Admin only: make a one-time sign-in code for an invited reviewer, to hand over by hand (no\nemail needed). The reviewer signs in at /staff/login with their email and this code. The code\nis in this response only: it is stored hashed, never logged and never shown again.",
+    "operationId": "reviewer_sign_in_code_staff_review_reviewers__reviewer_id__sign_in_code_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "reviewer_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Reviewer Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Reviewer Sign In Code Staff Review Reviewers  Reviewer Id  Sign In Code Post",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Reviewer Sign In Code",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/staff/review/reviewers/{reviewer_id}/suspend": {
    "post": {
     "operationId": "suspend_reviewer_staff_review_reviewers__reviewer_id__suspend_post",

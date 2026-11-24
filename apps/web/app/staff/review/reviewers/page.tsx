@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ApiError, inviteReviewer, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer } from "@/lib/api";
+import { ApiError, inviteReviewer, issueReviewerSignInCode, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer } from "@/lib/api";
 import { reviewerDeskEnabled } from "@/lib/flags";
 import { desk } from "@/lib/reviewDeskCopy";
 
@@ -18,6 +18,8 @@ export default function ReviewersAdminPage() {
   const [rows, setRows] = useState<DeskReviewer[]>([]);
   const [message, setMessage] = useState("");
   const [problem, setProblem] = useState("");
+  const [issued, setIssued] = useState<{ id: string; email: string; code: string } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!reviewerDeskEnabled()) {
@@ -57,6 +59,28 @@ export default function ReviewersAdminPage() {
     }
   }
 
+  async function makeCode(row: DeskReviewer) {
+    setProblem("");
+    setCopied(false);
+    setIssued(null);
+    try {
+      const out = await issueReviewerSignInCode(row.id);
+      setIssued({ id: row.id, email: row.email, code: out.code });
+    } catch (error) {
+      const status = error instanceof ApiError ? error.status : 0;
+      setProblem(status === 409 ? t.codeSuspended : status === 429 ? t.codeLimit : status === 404 ? t.codeMissing : t.codeFailed);
+    }
+  }
+
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(issued?.code ?? "");
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  }
+
   if (state === "loading") return null;
   if (state === "denied")
     return (
@@ -85,6 +109,23 @@ export default function ReviewersAdminPage() {
         {message ? <p>{message}</p> : null}
       </div>
       {problem ? <p role="alert">{problem}</p> : null}
+      {issued ? (
+        <section className="stack rounded-xl border border-line bg-surface p-3" data-testid="signin-code">
+          <h2>{t.codeFor(issued.email)}</h2>
+          <p className="text-2xl font-bold tracking-widest" data-testid="signin-code-value">
+            {issued.code}
+          </p>
+          <p>{t.codeNote}</p>
+          <div className="flex gap-3">
+            <Button size="sm" onClick={() => void copyCode()}>
+              {copied ? t.copied : t.copy}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setIssued(null)}>
+              {t.done}
+            </Button>
+          </div>
+        </section>
+      ) : null}
       <h2>{t.listTitle}</h2>
       <p className="muted">{t.listNote}</p>
       {rows.length === 0 ? <p>{t.none}</p> : null}
@@ -93,6 +134,9 @@ export default function ReviewersAdminPage() {
           <li key={row.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-3">
             <span className="min-w-0 flex-1 break-all">{row.email}</span>
             <span className="text-sm text-muted">{row.suspended ? t.suspended : t.active}</span>
+            <Button variant="outline" size="sm" disabled={row.suspended} onClick={() => void makeCode(row)}>
+              {t.makeCode}
+            </Button>
             <Button variant="outline" size="sm" onClick={() => void toggle(row)}>
               {row.suspended ? t.reinstate : t.suspend}
             </Button>
