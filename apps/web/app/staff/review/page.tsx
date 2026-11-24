@@ -4,13 +4,31 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReviewItemCard from "@/components/staff/ReviewItemCard";
+import ReviewerDesk from "@/components/staff/ReviewerDesk";
 import { reviewItems, staffToken, type ReviewCard } from "@/lib/api";
+import { reviewerDeskEnabled } from "@/lib/flags";
 import { useCopy } from "@/lib/locale";
 
 type Copy = Record<string, string>;
 
 /** Staff only (teacher or admin): approve, reject or send back draft content items. */
 export default function ReviewPage() {
+  // NEXT_PUBLIC_REVIEWER_DESK replaces the whole screen; with it off this page is exactly as it was
+  return reviewerDeskEnabled() ? <DeskGate /> : <ReviewList />;
+}
+
+/** The desk needs a staff sign-in like the list does; a reviewer account is staff for this purpose. */
+function DeskGate() {
+  const router = useRouter();
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (!staffToken()) router.push("/staff/login");
+    else setOk(true);
+  }, [router]);
+  return ok ? <ReviewerDesk /> : null;
+}
+
+function ReviewList() {
   const router = useRouter();
   const copy = useCopy() as unknown as Copy;
   const [cards, setCards] = useState<ReviewCard[]>([]);
