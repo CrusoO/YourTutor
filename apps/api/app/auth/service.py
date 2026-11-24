@@ -239,8 +239,6 @@ def verify_otp(
         raise HTTPException(status_code=403, detail="forbidden")
     consume_challenge(session, email, code, ip)
     user = session.scalar(select(UserRow).where(UserRow.email == email))
-    if user is not None and user.suspended_at is not None:
-        raise HTTPException(status_code=403, detail="account suspended")
     if user is None:
         user = UserRow(
             id=uuid.uuid4(),

@@ -114,7 +114,13 @@ def test_a_suspended_reviewer_is_refused_and_cannot_use_an_issued_code(
     code = _issue(client, world.admin_token, rev.id).json()["code"]
     head = auth_header(world.admin_token)
     assert client.post(f"/staff/review/reviewers/{rev.id}/suspend", headers=head).status_code == 200
-    assert _sign_in(client, rev.email, code).status_code == 403
+    # the sign-in itself still answers (as for an emailed code), but the session it gives is dead
+    signed = _sign_in(client, rev.email, code)
+    assert signed.status_code == 200
+    for path in (LIST, "/auth/me"):
+        assert (
+            client.get(path, headers=auth_header(signed.json()["access_token"])).status_code == 403
+        )
     assert _issue(client, world.admin_token, rev.id).status_code == 409
 
 
