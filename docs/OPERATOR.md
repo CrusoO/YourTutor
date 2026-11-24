@@ -438,3 +438,64 @@ the one-time wording review are not built.
 Other surfaces (offline packs, mistake list, ask search) use the status rule only: a draft stamped
 item never appears there. The label learners see stays `Answer checked by calculation`; the factory
 cannot emit `human-reviewed` or `teacher-approved`.
+
+## 11. Free reviewer pilot (three invited teachers, no email service)
+
+For checking questions with three outside teachers and no learners. It needs no email service and
+no domain: the admin hands each reviewer a one-time sign-in code, for example on WhatsApp.
+
+**Set by name** (values in the host's secret settings, never in git):
+
+- Database: `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`. The
+  API has no single database URL setting; it builds the address from these five. Not tested against
+  Neon: the driver asks for an encrypted connection when the server offers one, which Neon does.
+- `TOKEN_PEPPER` (long random), `APP_ENV=production`, `CORS_EXTRA_ORIGINS` (the web address).
+- API: `REVIEWER_DESK_ENABLED=true`. Web, set before `npm run build`: `NEXT_PUBLIC_REVIEWER_DESK=true`
+  and `NEXT_PUBLIC_API_URL`.
+- Keep `ALLOW_DRAFT_CONTENT=false` and `SERVE_TIER_A_UNREVIEWED=false`. Reviewers see draft questions
+  on the review screen without either switch, and no learner is served a draft.
+- `REVIEWER_SIGNIN_CODE_TTL_SECONDS` (default `900`, 15 minutes): how long a code lives.
+- Leave `SMTP_HOST` empty. Sign-in codes by email will not work, and they are not needed.
+
+**Free stack.** Neon free Postgres for the database; the free Vercel plan for the web app; the API on
+any host that runs Python (not Vercel). The free Vercel Hobby plan is for non-commercial use: that fits
+three invited teachers and no learners. Move to Pro or another host before paying people or opening
+the site wider.
+
+**First admin (one-time command).** Nothing in the web app makes the first admin, so run this once
+from `apps/api`, with the database settings above, after `python -m alembic upgrade head`:
+
+    python -m app.auth.bootstrap admin-code you@example.org
+
+It creates the admin account and prints a code (works once, 15 minutes; run it again for a new one).
+It refuses an address that already belongs to another kind of account. Sign in at `/staff/login`:
+type the email, press "I already have a code from the admin", enter the code. Do not press "Send
+code": with no email service that fails.
+
+**Invite a reviewer and give them a code.**
+
+1. As admin open `/staff/review/reviewers`. Type the reviewer's email, press Invite.
+2. Press "Create sign-in code" on their row. The code shows once, with a Copy button. Send it to them
+   (WhatsApp is fine). It works once and expires in 15 minutes. A new code replaces an unused one; at
+   most 5 per reviewer per hour. A suspended reviewer cannot be given a code.
+3. The reviewer opens `/staff/login`, types their email, presses "I already have a code from the
+   admin", enters the code and lands on `/staff/review`. To sign in again later they need a new code.
+4. The reviewers page lists only accounts handled in the current visit. To get a row for someone
+   invited earlier, Invite the same email again (it changes nothing else).
+
+The database keeps who issued a code for whom and when (table `reviewer_code_issues`), never the code.
+
+**First week, three teachers.**
+
+- Day 1: run `python -m app.operator check`; sign in as admin; invite the three; send each a code;
+  confirm each reaches the review screen (ask them to reply "in").
+- Day 1 to 2: each does five questions; check the admin export (`GET /staff/review/export`) shows their
+  counts and time.
+- Through the week: send a fresh code whenever someone is signed out (a session lasts 24 hours); suspend
+  anyone who should stop; read the notes they leave.
+- End of week: run `python -m app.content apply-reviews` and look at what two reviewers
+  approved before anything is set to approved.
+
+**Not covered yet:** the reviewer agreement and its acceptance, a quality multiplier on pay, and
+approval of a whole question template at once (each question is still reviewed on its own).
+
