@@ -8,7 +8,9 @@ Editing the item changes the hash, so earlier decisions stop counting (they stay
 from __future__ import annotations
 
 import hashlib
+import os
 import re
+import threading
 import uuid
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -17,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.config import settings
@@ -78,14 +80,56 @@ class Tally:
         return self.approvals >= REQUIRED_APPROVALS and not self.blocked
 
 
+def reviews_for_items(
+    db: Session, pairs: Sequence[tuple[str, str]]
+) -> dict[tuple[str, str], list[ContentReviewRow]]:
+    """`reviews_for` for many (item id, content hash) pairs in a few queries, not one each. Every
+    pair is a key of the result (an empty list when nobody has reviewed it)."""
+    out: dict[tuple[str, str], list[ContentReviewRow]] = {pair: [] for pair in pairs}
+    ids = sorted({item_id for item_id, _ in pairs})
+    for start in range(0, len(ids), 500):
+        rows = db.scalars(
+            select(ContentReviewRow)
+            .where(ContentReviewRow.item_id.in_(ids[start : start + 500]))
+            .order_by(ContentReviewRow.created_at, ContentReviewRow.id)
+        )
+        for row in rows:
+            bucket = out.get((row.item_id, row.content_hash))
+            if bucket is not None:
+                bucket.append(row)
+    return out
+
+
 def standing(rows: Sequence[ContentReviewRow]) -> dict[uuid.UUID, ContentReviewRow]:
     """Each reviewer's current decision: their latest row (rows come oldest first) that is not a
-    skip. A skip is kept in the history but does not stand in for, or withdraw, a decision."""
+    skip. A skip is kept in the history but does not stand in for, or withdraw, a decision. A
+    `withdraw` row removes the reviewer's standing decision (the rows before it stay in the
+    history): until they decide again they count as an approval or a block for nobody."""
     current: dict[uuid.UUID, ContentReviewRow] = {}
     for row in rows:
-        if row.decision != "skip":
+        if row.decision == "skip":
+            continue
+        if row.decision == "withdraw":
+            current.pop(row.reviewer_id, None)
+        else:
             current[row.reviewer_id] = row
     return current
+
+
+def changed_after_seeing(rows: Sequence[ContentReviewRow]) -> set[uuid.UUID]:
+    """Ids of the rows that are a reviewer's second (or later) real decision on this hash, made
+    after they had already decided or withdrawn, so after they could have read the other
+    reviewers' notes. Worked out from the history, so it needs no stored flag and cannot be
+    skipped. A first decision, a skip, and a withdraw itself are never flagged."""
+    seen: set[uuid.UUID] = set()
+    flagged: set[uuid.UUID] = set()
+    for row in rows:
+        if row.decision == "skip":
+            continue
+        if row.decision != "withdraw" and row.reviewer_id in seen:
+            flagged.add(row.id)
+        seen.add(row.reviewer_id)
+    return flagged
 
 
 def tally(rows: list[ContentReviewRow]) -> Tally:
@@ -139,6 +183,10 @@ def check_desk_decision(
             errors.append(FieldError("severity", "an approval has no severity"))
         if reason_code is not None:
             errors.append(FieldError("reason_code", "an approval has no reason"))
+        return errors
+    if decision == "withdraw":
+        if severity is not None or reason_code is not None or checks is not None or fix_notes:
+            errors.append(FieldError("severity", "a withdraw carries no severity or answers"))
         return errors
     if decision == "skip":
         if severity is not None or reason_code is not None:
@@ -274,12 +322,58 @@ def _wrong_options(item: Item, labels: dict[str, str]) -> list[dict[str, Any]]:
     ]
 
 
+_CACHE_MAX_ROOTS = 2  # the live content folder; a second only so a test or a swap does not thrash
+_cache: dict[str, tuple[str, list[Item], dict[str, str]]] = {}
+_cache_lock = threading.Lock()
+
+
+def clear_items_cache() -> None:
+    with _cache_lock:
+        _cache.clear()
+
+
+def _content_signature(root: Path) -> str:
+    """A cheap fingerprint of every YAML file under the content folder: path, size and mtime.
+    Any edit, add, delete or rename changes it. Reading the files is what is slow, not this."""
+    digest = hashlib.sha256()
+    entries: list[str] = []
+    for folder, _dirs, files in os.walk(root):
+        for name in files:
+            if name.endswith((".yaml", ".yml")):
+                path = os.path.join(folder, name)
+                try:
+                    info = os.stat(path)
+                except OSError:
+                    continue
+                entries.append(f"{path}|{info.st_size}|{info.st_mtime_ns}")
+    for entry in sorted(entries):
+        digest.update(entry.encode("utf-8", "surrogatepass"))
+        digest.update(b"|")
+    return digest.hexdigest()
+
+
 def load_items(root: Path) -> tuple[list[Item], dict[str, str]]:
     """Items in id order and misconception id to English title. Reads only: `validate_path`
-    would rewrite stale files, and the API must never write the repo."""
-    bundle = load_bundle(root)
-    labels = {m.id: m.title.en for m in bundle.misconceptions}
-    return sorted(bundle.items, key=lambda i: i.id), labels
+    would rewrite stale files, and the API must never write the repo.
+
+    Parsing and validating about two thousand YAML files takes tens of seconds, so the loaded
+    result is kept per process and reused while the content files are unchanged (see
+    `_content_signature`). Nothing about what is loaded or validated changes, and the content
+    hash is still computed from each item as loaded. Treat the returned items as read-only."""
+    key = str(root)
+    signature = _content_signature(root)
+    with _cache_lock:
+        hit = _cache.get(key)
+        if hit is not None and hit[0] == signature:
+            return list(hit[1]), hit[2]
+        bundle = load_bundle(root)
+        labels = {m.id: m.title.en for m in bundle.misconceptions}
+        items = sorted(bundle.items, key=lambda i: i.id)
+        _cache.pop(key, None)
+        while len(_cache) >= _CACHE_MAX_ROOTS:
+            _cache.pop(next(iter(_cache)))
+        _cache[key] = (signature, items, labels)
+    return list(items), labels
 
 
 def has_decided(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> bool:
@@ -300,7 +394,11 @@ def pseudonyms(rows: Sequence[ContentReviewRow], me: uuid.UUID) -> dict[uuid.UUI
     decided. Stable: a later reviewer never renumbers an earlier one."""
     order: list[uuid.UUID] = []
     for row in rows:
-        if row.decision != "skip" and row.reviewer_id != me and row.reviewer_id not in order:
+        if (
+            row.decision not in ("skip", "withdraw")
+            and row.reviewer_id != me
+            and row.reviewer_id not in order
+        ):
             order.append(row.reviewer_id)
     return {rid: f"Reviewer {n}" for n, rid in enumerate(order, start=1)}
 
@@ -336,6 +434,7 @@ def _review_view(rows: list[ContentReviewRow], me: uuid.UUID) -> dict[str, Any]:
             ),
         }
     mine_rows = [r for r in rows if r.reviewer_id == me]
+    late = changed_after_seeing(rows)
     view: dict[str, Any] = {
         "approvals_needed": REQUIRED_APPROVALS,
         "my_decision": (
@@ -344,7 +443,12 @@ def _review_view(rows: list[ContentReviewRow], me: uuid.UUID) -> dict[str, Any]:
             else None
         ),
         "my_history": [
-            {"decision": r.decision, "severity": r.severity, "created_at": r.created_at.isoformat()}
+            {
+                "decision": r.decision,
+                "severity": r.severity,
+                "created_at": r.created_at.isoformat(),
+                "changed_after_seeing": r.id in late,
+            }
             for r in mine_rows
         ],
     }
@@ -442,11 +546,15 @@ def reviewer_export(db: Session, start: date, end: date) -> list[dict[str, Any]]
     of each decision and the total active seconds. Ids and pseudonymous labels only."""
     lo = datetime.combine(start, time.min, tzinfo=UTC)
     hi = datetime.combine(end + timedelta(days=1), time.min, tzinfo=UTC)
-    rows = db.scalars(
-        select(ContentReviewRow).where(
-            ContentReviewRow.created_at >= lo, ContentReviewRow.created_at < hi
+    rows = list(
+        db.scalars(
+            select(ContentReviewRow).where(
+                ContentReviewRow.created_at >= lo, ContentReviewRow.created_at < hi
+            )
         )
     )
+    # "late" is judged on the whole history of each item and hash, not only on this date range
+    late = _late_row_ids(db, {(r.item_id, r.content_hash) for r in rows})
     out: dict[uuid.UUID, dict[str, Any]] = {}
     for row in rows:
         entry = out.setdefault(
@@ -454,10 +562,68 @@ def reviewer_export(db: Session, start: date, end: date) -> list[dict[str, Any]]
             {
                 "reviewer_id": str(row.reviewer_id),
                 "label": reviewer_label(row.reviewer_id),
-                "decisions": {"approve": 0, "fix": 0, "reject": 0, "skip": 0},
+                "decisions": {"approve": 0, "fix": 0, "reject": 0, "skip": 0, "withdraw": 0},
+                "changed_after_seeing": 0,
                 "active_seconds": 0,
             },
         )
         entry["decisions"][row.decision] = entry["decisions"].get(row.decision, 0) + 1
         entry["active_seconds"] += row.active_seconds or 0
+        if row.id in late:
+            entry["changed_after_seeing"] += 1
     return sorted(out.values(), key=lambda e: e["label"])
+
+
+def _late_row_ids(db: Session, pairs: set[tuple[str, str]]) -> set[uuid.UUID]:
+    late: set[uuid.UUID] = set()
+    for history in reviews_for_items(db, sorted(pairs)).values():
+        late |= changed_after_seeing(history)
+    return late
+
+
+# ---- reviewer list and time today (desk on) ----
+
+
+def list_reviewers(db: Session) -> list[dict[str, Any]]:
+    """Every invited `reviewer` account with its decision count and last decision time. Account
+    and activity facts only: no learner data, and nothing about how anyone voted."""
+    users = list(
+        db.scalars(select(UserRow).where(UserRow.role == "reviewer").order_by(UserRow.created_at))
+    )
+    stats = {
+        rid: (count, last)
+        for rid, count, last in db.execute(
+            select(
+                ContentReviewRow.reviewer_id,
+                func.count(ContentReviewRow.id),
+                func.max(ContentReviewRow.created_at),
+            ).group_by(ContentReviewRow.reviewer_id)
+        )
+    }
+    out = []
+    for user in users:
+        count, last = stats.get(user.id, (0, None))
+        out.append(
+            {
+                "id": str(user.id),
+                "email": user.email,
+                "suspended": user.suspended_at is not None,
+                "invited_at": user.created_at.isoformat(),
+                "last_decision_at": last.isoformat() if last is not None else None,
+                "decision_count": count,
+            }
+        )
+    return out
+
+
+def seconds_today(db: Session, reviewer_id: uuid.UUID, now: datetime) -> int:
+    """The caller's total active seconds on decisions made today (UTC)."""
+    lo = datetime.combine(now.astimezone(UTC).date(), time.min, tzinfo=UTC)
+    total = db.scalar(
+        select(func.coalesce(func.sum(ContentReviewRow.active_seconds), 0)).where(
+            ContentReviewRow.reviewer_id == reviewer_id,
+            ContentReviewRow.created_at >= lo,
+            ContentReviewRow.created_at < lo + timedelta(days=1),
+        )
+    )
+    return int(total or 0)
