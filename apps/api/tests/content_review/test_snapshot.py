@@ -4,11 +4,14 @@ and the fallback. The module-scoped real-content test parses the whole content f
 
 from __future__ import annotations
 
+import gzip
+import json
 from pathlib import Path
 
 import pytest
 
 from app.config import settings
+from app.content.schema import Item
 from app.content.signatures import item_content_hash
 from app.content_review import service, snapshot
 from app.registries.paths import content_root as real_content_root
@@ -58,6 +61,7 @@ def test_the_committed_snapshot_is_up_to_date(real_yaml: snapshot.ReviewData) ->
         i.model_dump(mode="json", by_alias=True) for i in real_yaml.items
     ], hint
     assert committed["labels"] == dict(sorted(real_yaml.labels.items())), hint
+    assert committed["explanations"] == dict(sorted(real_yaml.explanations.items())), hint
     assert committed["item_chapter"] == dict(sorted(real_yaml.item_chapter.items())), hint
     assert committed["chapters"] == {
         k: real_yaml.chapters[k].as_dict() for k in sorted(real_yaml.chapters)
@@ -76,6 +80,7 @@ def test_every_item_has_the_identical_content_hash_from_the_snapshot_and_the_yam
         assert item_content_hash(mine) == item_content_hash(theirs), mine.id
         assert mine == theirs, mine.id
     assert from_snapshot.labels == real_yaml.labels
+    assert from_snapshot.explanations == real_yaml.explanations
     assert from_snapshot.chapters == real_yaml.chapters
     assert from_snapshot.item_chapter == real_yaml.item_chapter
 
@@ -137,6 +142,70 @@ def test_a_matching_snapshot_is_used(content_root: Path, snap_file: Path) -> Non
     items, labels = service.load_items(content_root)
     assert [i.id for i in items][:2] == ["ITEM.D0", "ITEM.D1"]
     assert labels == {"MC.1": "Wrong inverse"}
+    assert data.explanations == {"MC.1": "Undo by doing the opposite."}
+
+
+def test_the_yaml_path_and_the_snapshot_path_give_the_same_wrong_options(
+    content_root: Path,  # noqa: F811
+    snap_file: Path,
+) -> None:
+    from_snapshot = service.load_review_data(content_root)
+    assert from_snapshot.source == "snapshot"
+    settings.review_snapshot_enabled = False
+    service.clear_items_cache()
+    from_yaml = service.load_review_data(content_root)
+    assert from_yaml.source == "yaml"
+    assert from_yaml.explanations == from_snapshot.explanations
+    for mine, theirs in zip(from_snapshot.items, from_yaml.items, strict=True):
+        assert service._wrong_options(
+            mine, from_snapshot.labels, from_snapshot.explanations
+        ) == service._wrong_options(theirs, from_yaml.labels, from_yaml.explanations)
+
+
+def test_a_missing_explanation_adds_nothing_and_does_not_fail() -> None:
+    item = minimal_item("ITEM.W", stem="Q")
+    item.update(
+        type="mcq",
+        answer={"sympy": "yes", "accept": ["yes"]},
+        options=[{"id": "yes", **loc("Yes")}, {"id": "no", **loc("No")}],
+        misconception_rules=[{"id": "MC.1", "when_answer_equals": ["no"]}],
+    )
+    parsed = Item.model_validate(item)
+    assert service._wrong_options(parsed, {"MC.1": "T"}, {})[0]["explanation"] == ""
+    assert service._wrong_options(parsed, {"MC.1": "T"})[0]["explanation"] == ""
+
+
+def _as_version_1(snap_file: Path) -> dict:
+    new = json.loads(gzip.decompress(snap_file.read_bytes()))
+    old = {k: v for k, v in new.items() if k != "explanations"}
+    old["version"] = 1
+    return old
+
+
+def test_an_older_snapshot_is_stale_and_the_yaml_path_is_used(
+    content_root: Path,  # noqa: F811
+    snap_file: Path,
+) -> None:
+    old = _as_version_1(snap_file)
+    snap_file.write_bytes(gzip.compress(json.dumps(old).encode("utf-8")))
+    assert snapshot.read(snap_file) is None
+    data = service.load_review_data(content_root)
+    assert data.source == "yaml"
+    assert data.explanations == {"MC.1": "Undo by doing the opposite."}
+
+
+def test_item_hashes_equal_the_previous_snapshot_format(
+    content_root: Path,  # noqa: F811
+    snap_file: Path,
+) -> None:
+    """The format change touched the misconception data only: the same items load from a version 1
+    payload and from the new one, with identical content hashes."""
+    new = json.loads(gzip.decompress(snap_file.read_bytes()))
+    old = _as_version_1(snap_file)
+    old["explanations"] = {}  # to_review_data needs the key; the items are what is compared
+    a = snapshot.to_review_data(new)
+    b = snapshot.to_review_data(old)
+    assert [item_content_hash(i) for i in a.items] == [item_content_hash(i) for i in b.items]
 
 
 def test_a_stale_snapshot_is_ignored_when_the_yaml_is_there(
