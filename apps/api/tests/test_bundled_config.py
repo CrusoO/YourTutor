@@ -42,6 +42,7 @@ def test_the_bundled_curricula_match_the_content_folder() -> None:
 
 
 def test_without_the_content_folder_the_bundled_curricula_are_used(monkeypatch, tmp_path) -> None:  # type: ignore[no-untyped-def]
-    monkeypatch.setenv("CONTENT_DIR", str(tmp_path))
+    monkeypatch.delenv("CONTENT_DIR", raising=False)
+    monkeypatch.setattr("app.registries.paths.repo_root", lambda: tmp_path)
     assert content_curricula_dir() == bundled_curricula_dir()
     assert (content_curricula_dir() / "cbse" / "curriculum.yaml").is_file()
