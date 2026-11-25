@@ -29,7 +29,11 @@ from app.config import settings
 from app.db.models import AgreementRow, StudentRow
 
 VERSION = "agreement-v1"  # bump when the items or their meaning change: everyone is asked again
-STORED_ROLES = ("guardian", "adult", "teacher")
+# The reviewer terms have their own version, so editing them (bump this) asks every reviewer to
+# accept again without asking anyone else. The wording is in apps/web/lib/agreement-copy.ts
+# (`reviewerTerms`); keep the two in step.
+REVIEWER_VERSION = "reviewer-terms-v1"
+STORED_ROLES = ("guardian", "adult", "teacher", "reviewer")
 
 
 @dataclass(frozen=True)
@@ -65,7 +69,12 @@ CATALOG: dict[str, tuple[Item, ...]] = {
         Item("terms_no_exporting_names", True),
     ),
     "child": (Item("ack_limited_mode", True), Item("ack_guardian_contact", True)),
+    "reviewer": (Item("accept_reviewer_terms", True),),
 }
+
+
+def version_for(role: str) -> str:
+    return REVIEWER_VERSION if role == "reviewer" else VERSION
 
 
 def scope_switched_on(scope: str) -> bool:
@@ -80,9 +89,16 @@ def items_for(role: str) -> tuple[Item, ...]:
 
 
 def catalog(role: str) -> dict[str, object]:
-    if role not in CATALOG:
+    if role not in CATALOG or (role == "reviewer" and not settings.reviewer_desk_enabled):
         raise HTTPException(status_code=404, detail="unknown role")
-    return {"role": role, "version": VERSION, "items": [i.public() for i in items_for(role)]}
+    out: dict[str, object] = {
+        "role": role,
+        "version": version_for(role),
+        "items": [i.public() for i in items_for(role)],
+    }
+    if role == "reviewer":
+        out["contact"] = settings.reviewer_terms_contact  # replaces [contact] in the terms
+    return out
 
 
 def items_error(role: str, accepted: list[str]) -> str | None:
@@ -123,7 +139,7 @@ def active_agreement(session: Session, user_id: uuid.UUID, role: str) -> Agreeme
 def _complete(row: AgreementRow | None) -> bool:
     return (
         row is not None
-        and row.version == VERSION
+        and row.version == version_for(row.role)
         and required_present(row.role, list(row.items or []))
     )
 
@@ -131,6 +147,8 @@ def _complete(row: AgreementRow | None) -> bool:
 def _allowed_role(actor: Actor, role: str) -> bool:
     if role == "teacher":
         return actor.is_teacher
+    if role == "reviewer":
+        return actor.is_reviewer and settings.reviewer_desk_enabled
     if role in {"guardian", "adult"}:
         return actor.is_parent
     return False
@@ -141,6 +159,11 @@ def needed(session: Session, actor: Actor) -> list[str]:
     A guardian-or-adult account is listed as both choices: either one completes it."""
     if actor.user_id is None:
         return []
+    if actor.is_reviewer:
+        if not settings.reviewer_desk_enabled:
+            return []
+        done = _complete(active_agreement(session, actor.user_id, "reviewer"))
+        return [] if done else ["reviewer"]
     if actor.is_teacher:
         return [] if _complete(active_agreement(session, actor.user_id, "teacher")) else ["teacher"]
     if actor.is_parent:
@@ -209,7 +232,7 @@ def store(session: Session, user_id: uuid.UUID, role: str, items: list[str]) -> 
         id=uuid.uuid4(),
         user_id=user_id,
         role=role,
-        version=VERSION,
+        version=version_for(role),
         items=list(items),
         granted_at=now,
     )
@@ -224,7 +247,7 @@ def accept(
     """Record this person's ticks for their role and make their learners' consents match."""
     if role not in STORED_ROLES or not _allowed_role(actor, role) or actor.user_id is None:
         raise HTTPException(status_code=403, detail="forbidden")
-    if version != VERSION:
+    if version != version_for(role):
         raise HTTPException(status_code=409, detail="agreement_version_changed")
     error = items_error(role, items)
     if error:
@@ -238,7 +261,11 @@ def accept(
 def withdraw(session: Session, actor: Actor, role: str, item_id: str) -> AgreementRow:
     """Take one item back. It is effective at once; if it is one the service cannot run without,
     every consent under this agreement is closed too (the person can agree again any time)."""
-    if role not in STORED_ROLES or not _allowed_role(actor, role) or actor.user_id is None:
+    if role == "reviewer" or role not in STORED_ROLES or not _allowed_role(actor, role):
+        raise HTTPException(
+            status_code=403, detail="forbidden"
+        )  # reviewer terms are not withdrawn here
+    if actor.user_id is None:
         raise HTTPException(status_code=403, detail="forbidden")
     current = active_agreement(session, actor.user_id, role)
     if current is None or item_id not in (current.items or []):
@@ -268,3 +295,28 @@ def require_teacher_terms(session: Session, actor: Actor) -> None:
         return
     if not _complete(active_agreement(session, actor.user_id, "teacher")):
         raise HTTPException(status_code=403, detail="agreement_required")
+
+
+def reviewer_terms_accepted(session: Session, user_id: uuid.UUID) -> bool:
+    return _complete(active_agreement(session, user_id, "reviewer"))
+
+
+def reviewer_terms_accepted_ids(session: Session, user_ids: list[uuid.UUID]) -> set[uuid.UUID]:
+    """Which of these reviewers have accepted the current terms (one query, for the admin list)."""
+    rows = session.scalars(
+        select(AgreementRow).where(
+            AgreementRow.user_id.in_(user_ids),
+            AgreementRow.role == "reviewer",
+            AgreementRow.revoked_at.is_(None),
+        )
+    )
+    return {r.user_id for r in rows if _complete(r)}
+
+
+def require_reviewer_terms(session: Session, actor: Actor) -> None:
+    """With the desk on, a reviewer who has not accepted the current terms gets a 403
+    `terms_not_accepted` (the web sends them to the agreement page)."""
+    if not settings.reviewer_desk_enabled or not actor.is_reviewer or actor.user_id is None:
+        return
+    if not reviewer_terms_accepted(session, actor.user_id):
+        raise HTTPException(status_code=403, detail={"code": "terms_not_accepted"})

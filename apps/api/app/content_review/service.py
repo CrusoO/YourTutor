@@ -23,6 +23,7 @@ import yaml
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.auth import agreements
 from app.auth.security import now_utc
 from app.auth.service import issue_signin_code
 from app.config import settings
@@ -752,6 +753,7 @@ def list_reviewers(db: Session) -> list[dict[str, Any]]:
             ).group_by(ContentReviewRow.reviewer_id)
         )
     }
+    accepted = agreements.reviewer_terms_accepted_ids(db, [u.id for u in users])
     out = []
     for user in users:
         count, last = stats.get(user.id, (0, None))
@@ -763,6 +765,7 @@ def list_reviewers(db: Session) -> list[dict[str, Any]]:
                 "invited_at": user.created_at.isoformat(),
                 "last_decision_at": last.isoformat() if last is not None else None,
                 "decision_count": count,
+                "terms_accepted": user.id in accepted,
             }
         )
     return out

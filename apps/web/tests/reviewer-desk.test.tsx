@@ -329,6 +329,33 @@ describe("the review route and its flag", () => {
   });
 });
 
+describe("reviewer terms", () => {
+  it("sends a reviewer with the terms pending to the agreement page and does not open the desk", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    vi.mocked(api.whoAmI).mockResolvedValue({ role: "reviewer", agreements: ["reviewer"] } as never);
+    push.mockClear();
+    render(<ReviewPage />);
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/agreement"));
+    expect(screen.queryByTestId("reviewer-desk")).toBeNull();
+    expect(api.deskItems).not.toHaveBeenCalled();
+  });
+
+  it("shows the admin who has accepted the current terms", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    vi.mocked(api.whoAmI).mockResolvedValue({ role: "admin" } as never);
+    const row = { role: "reviewer", suspended: false, invited_at: "2026-11-01T00:00:00Z", last_decision_at: null, decision_count: 0 };
+    vi.mocked(api.listReviewers).mockResolvedValue({
+      reviewers: [
+        { ...row, id: "r1", email: "yes@example.org", terms_accepted: true },
+        { ...row, id: "r2", email: "no@example.org", terms_accepted: false },
+      ],
+    });
+    render(<ReviewersAdminPage />);
+    const marks = await screen.findAllByTestId("terms-marker");
+    expect(marks.map((m) => m.textContent)).toEqual(["Terms accepted", "Terms not yet accepted"]);
+  });
+});
+
 describe("admin invite page", () => {
   it("is closed to a non-admin", async () => {
     vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");

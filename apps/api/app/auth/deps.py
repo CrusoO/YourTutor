@@ -5,6 +5,7 @@ from typing import Annotated
 from fastapi import Depends, Header, HTTPException, Request
 from sqlalchemy.orm import Session
 
+from app.auth import agreements
 from app.auth.actor import Actor
 from app.auth.sender import OtpSender, get_otp_sender, get_sms_otp_sender
 from app.auth.service import resolve_token
@@ -23,6 +24,8 @@ REVIEWER_PATHS = (
     "/auth/options",
     "/auth/request-otp",
     "/auth/verify-otp",
+    "/agreements/me",  # a reviewer may read and accept their own terms, and nothing else here
+    "/agreements/reviewer",
 )
 
 
@@ -39,6 +42,8 @@ def optional_actor(
     actor = resolve_token(db, token)
     if actor.is_reviewer and not request.url.path.startswith(REVIEWER_PATHS):
         raise HTTPException(status_code=403, detail="forbidden")
+    if actor.is_reviewer and request.url.path.startswith("/staff/review"):
+        agreements.require_reviewer_terms(db, actor)  # every review route, now and later
     return actor
 
 

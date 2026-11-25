@@ -18,7 +18,7 @@ import { DRAFT_BANNER, PLACEHOLDER } from "./legal-copy";
 
 export { DRAFT_BANNER, PLACEHOLDER };
 
-export type Role = "guardian" | "adult" | "teacher" | "child";
+export type Role = "guardian" | "adult" | "teacher" | "child" | "reviewer";
 
 export type ItemCopy = { label: string; detail: string };
 
@@ -140,6 +140,12 @@ export const items: Record<Role, Record<string, ItemCopy>> = {
       detail: "What a student chose as a label stays inside the app.",
     },
   },
+  reviewer: {
+    accept_reviewer_terms: {
+      label: "I have read these terms and I agree to them.",
+      detail: "",
+    },
+  },
   child: {
     ack_limited_mode: {
       label: "I understand that nothing about me is saved until my guardian says yes.",
@@ -156,6 +162,7 @@ export const roleTitle: Record<Role, string> = {
   guardian: "Agreement for a parent or guardian",
   adult: "Agreement for an adult learner",
   teacher: "Terms for teachers",
+  reviewer: "Reviewer terms",
   child: "Before you start",
 };
 
@@ -166,8 +173,27 @@ export const roleIntro: Record<Role, string> = {
     "Each box below is its own choice. The first group is what Brownie needs to work. The second group is up to you, and you can change any of it later in Settings.",
   teacher:
     "Please read and tick each line. These are the terms for handling student data. You can withdraw them later in Settings, and then the class views close.",
+  reviewer: "Please read these terms. You must accept them to start reviewing.",
   child: "A few things to know. A grown-up you trust has to say yes before Brownie keeps anything about you.",
 };
+
+/**
+ * The reviewer terms shown on the agreement page. DRAFT: the owner or a lawyer will edit this text.
+ * To change it, edit it here and bump REVIEWER_VERSION in apps/api/app/auth/agreements.py: every
+ * reviewer is then asked to accept again. [contact] is replaced by the API's REVIEWER_TERMS_CONTACT.
+ */
+export const reviewerTerms = [
+  "Thank you for helping check Brownie's questions. Please read these terms. You must accept them to start reviewing.",
+  "1. You are an adult (18 or over). You review as an independent person. You are not an employee of Brownie.",
+  "2. Your job: read each question, check it is correct and clear, and say so honestly. Use your own judgement. Please do not talk to other reviewers about a question before you have decided.",
+  "3. Keep it confidential: do not share, copy or publish the questions, answers or anything else you see here. Do not paste text from textbooks or exam papers into your notes.",
+  "4. Your comments and decisions can be used by Brownie to improve its content. You do not own the content you review.",
+  "5. Pay: you are paid the rate agreed with you for each question you review, by UPI, once a month, after a quality check. Some questions with deliberate mistakes are mixed in to measure quality; they are not a test of you. If you disagree with a payment, tell us within 7 days. You are responsible for your own taxes, and we may ask for your PAN.",
+  "6. Your details: we keep your name, email, phone or UPI details, PAN if given, and a record of your decisions and time spent. We use them to run the review and pay you. We do not sell or share them. Ask [contact] to see, correct or delete your details.",
+  "7. Safety: you will never be presented to students as a doctor, nurse or teacher unless you agree. Student reviewers are shown only as student reviewers, if at all.",
+  "8. Either side can stop at any time. We may pause your access if the work does not meet the standard.",
+  "By accepting, you confirm you have read and agree to these terms.",
+];
 
 export const ui = {
   banner: DRAFT_BANNER,

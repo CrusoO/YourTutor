@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReviewItemCard from "@/components/staff/ReviewItemCard";
 import ReviewerDesk from "@/components/staff/ReviewerDesk";
-import { reviewItems, staffToken, type ReviewCard } from "@/lib/api";
+import { reviewItems, staffToken, whoAmI, type ReviewCard } from "@/lib/api";
 import { reviewerDeskEnabled } from "@/lib/flags";
 import { useCopy } from "@/lib/locale";
 
@@ -22,8 +22,17 @@ function DeskGate() {
   const router = useRouter();
   const [ok, setOk] = useState(false);
   useEffect(() => {
-    if (!staffToken()) router.push("/staff/login");
-    else setOk(true);
+    if (!staffToken()) {
+      router.push("/staff/login");
+      return;
+    }
+    // a reviewer who has not accepted the current terms goes to the agreement page first
+    whoAmI()
+      .then((me: { agreements?: string[] }) => {
+        if (me.agreements?.includes("reviewer")) router.push("/agreement");
+        else setOk(true);
+      })
+      .catch(() => setOk(true)); // the API enforces the terms either way
   }, [router]);
   return ok ? <ReviewerDesk /> : null;
 }

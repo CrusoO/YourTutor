@@ -119,7 +119,9 @@ export default function ReviewerDesk() {
         setTypesMode(r.template_mode === true);
         setState("ready");
       })
-      .catch(() => {
+      .catch((error) => {
+        // the terms changed since the page opened: back to the agreement page
+        if (error instanceof ApiError && error.code === "terms_not_accepted") window.location.assign("/agreement");
         setPicking(false); // no list of chapters: start on everything
         void load(null);
       });

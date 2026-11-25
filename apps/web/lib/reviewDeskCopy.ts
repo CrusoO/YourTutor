@@ -187,6 +187,8 @@ export const desk = {
     decisionCount: (n: number) => `${n} ${n === 1 ? "decision" : "decisions"}`,
     invitedOn: (when: string) => `Invited ${when}`,
     active: "Active",
+    termsAccepted: "Terms accepted",
+    termsNotYet: "Terms not yet accepted",
     suspended: "Suspended",
     suspend: "Suspend",
     reinstate: "Reinstate",

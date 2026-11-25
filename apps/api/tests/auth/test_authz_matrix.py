@@ -505,3 +505,20 @@ def test_matrix_reviewer_sign_in_code_is_admin_only(
     }
     path = f"/staff/review/reviewers/{target.id}/sign-in-code"
     assert _status(client, "POST", path, tokens[role]) == expected, role
+
+
+def test_a_reviewer_without_the_terms_reaches_only_the_agreement_routes(
+    client: TestClient, world: World, sender, db
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    user = seed_user(db, "reviewer", "rv-terms@example.com", terms=False)
+    token = signup(client, sender, user.email)
+    for path in ("/staff/review/items", "/staff/review/chapters", "/staff/review/me/today"):
+        assert _status(client, "GET", path, token) == 403, path
+    assert _status(client, "GET", "/agreements/me", token) == 200
+    body = {"version": "agreement-v1", "items": []}
+    for role in ("guardian", "adult", "teacher"):
+        assert _status(client, "POST", f"/agreements/{role}", token, body) == 403, role
+    assert _status(client, "GET", f"/parents/{world.parent_id}/export", token) == 403

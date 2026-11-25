@@ -53,9 +53,15 @@ describe("where each role lands after the one-time code", () => {
     expect(screen.getByTestId("teacher-note")).toHaveTextContent(/school or an admin/i);
   });
 
-  it("an invited reviewer goes to the review screen, not a teacher or guardian page, even with an agreement pending", async () => {
-    await signIn("teacher", { role: "reviewer", agreements: ["guardian"] });
+  it("an invited reviewer who has accepted the terms goes to the review screen, not a teacher or guardian page", async () => {
+    await signIn("teacher", { role: "reviewer", agreements: [] });
     await waitFor(() => expect(push).toHaveBeenCalledWith("/staff/review"));
+    expect(push).toHaveBeenCalledTimes(1);
+  });
+
+  it("an invited reviewer with the terms pending goes to the agreement page first", async () => {
+    await signIn("teacher", { role: "reviewer", agreements: ["reviewer"] });
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/agreement"));
     expect(push).toHaveBeenCalledTimes(1);
   });
 

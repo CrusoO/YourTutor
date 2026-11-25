@@ -65,6 +65,9 @@ class Settings(BaseSettings):
     # env: REVIEWER_DAILY_CAP_SECONDS. The most active review time per reviewer per day (UTC) the
     # desk shows as "time today" (3.5 hours). It is shown, not enforced.
     reviewer_daily_cap_seconds: int = 12_600
+    # env: REVIEWER_TERMS_CONTACT. Who a reviewer asks to see, correct or delete their details;
+    # shown in the reviewer terms. Set a real contact before inviting reviewers.
+    reviewer_terms_contact: str = "the Brownie team"
     # env: REVIEWER_SIGNIN_CODE_TTL_SECONDS. Life of an admin-issued reviewer sign-in code.
     reviewer_signin_code_ttl_seconds: int = 900
     # env: REVIEW_RATE_PER_DECISION_INR. Pay per paid decision (approve, fix, reject) in the

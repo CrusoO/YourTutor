@@ -13,6 +13,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth import agreements
 from app.auth.security import now_utc
 from app.config import settings
 from app.content_review import service
@@ -326,7 +327,14 @@ def _invite(client: TestClient, world: World, sender: Any, email: str) -> tuple[
         "/staff/review/reviewers", json={"email": email}, headers=auth_header(world.admin_token)
     )
     assert made.status_code == 200, made.text
-    return made.json()["id"], signup(client, sender, email)
+    token = signup(client, sender, email)
+    terms = client.post(
+        "/agreements/reviewer",
+        json={"version": agreements.REVIEWER_VERSION, "items": ["accept_reviewer_terms"]},
+        headers=auth_header(token),
+    )
+    assert terms.status_code == 200, terms.text
+    return made.json()["id"], token
 
 
 def test_an_invited_reviewer_can_review_but_not_see_anything_else(
