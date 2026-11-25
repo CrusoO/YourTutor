@@ -135,9 +135,24 @@ def run_checks() -> list[Check]:
     )
     checks.append(
         Check(
+            "reviewers-only mode",
+            not settings.reviewers_only or settings.reviewer_desk_enabled,
+            "REVIEWERS_ONLY is on: only sign-in basics and /staff/review are served"
+            if settings.reviewers_only and settings.reviewer_desk_enabled
+            else "REVIEWERS_ONLY is on but REVIEWER_DESK_ENABLED is off"
+            if settings.reviewers_only
+            else "off",
+        )
+    )
+    checks.append(
+        Check(
             "email for codes and reports",
-            bool(settings.smtp_host) or not prod,
-            "SMTP_HOST set" if settings.smtp_host else "codes and reports only go to the log",
+            bool(settings.smtp_host) or not prod or settings.reviewers_only,
+            "not needed: REVIEWERS_ONLY is on (admin-issued codes, no learners)"
+            if settings.reviewers_only and not settings.smtp_host
+            else "SMTP_HOST set"
+            if settings.smtp_host
+            else "codes and reports only go to the log",
         )
     )
     checks.append(

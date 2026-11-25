@@ -448,7 +448,7 @@ This is for putting only the reviewer desk on Vercel (`vercel.json` at the repo 
 Settings, by name only (never write values into the repo):
 
 - Database: the `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_HOST`, `POSTGRES_PORT` settings (a hosted Postgres such as Neon; the API refuses the default dev password in production).
-- Sign-in codes: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`. Without SMTP nobody can sign in.
+- Sign-in codes: for a pilot that also has learners, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`. For reviewers only, no SMTP is needed: set `REVIEWERS_ONLY=true` and hand out admin-issued codes (section 11).
 - Reviewer desk: `REVIEWER_DESK_ENABLED=true` on the API, `NEXT_PUBLIC_REVIEWER_DESK=true` on the web build; optional `REVIEWER_ALLOWLIST`, `REVIEWER_DAILY_CAP_SECONDS`, `REVIEW_RATE_PER_DECISION_INR`, `REVIEW_MONTHLY_CAP_INR`.
 - Keep `ALLOW_DRAFT_CONTENT` and `SERVE_TIER_A_UNREVIEWED` false: the review routes read drafts directly and need neither.
 - `REVIEW_SNAPSHOT_ENABLED` (default true) and `REVIEW_SNAPSHOT_PATH` (default: the committed file) only need setting to turn the snapshot off or move it.
@@ -480,8 +480,22 @@ no domain: the admin hands each reviewer a one-time sign-in code, for example on
 - Keep `ALLOW_DRAFT_CONTENT=false` and `SERVE_TIER_A_UNREVIEWED=false`. Reviewers see draft questions
   on the review screen without either switch, and no learner is served a draft.
 - `REVIEWER_SIGNIN_CODE_TTL_SECONDS` (default `900`, 15 minutes): how long a code lives.
-- Leave the `SMTP_*` settings out. Section 10 says nobody can sign in without them; with admin-issued
-  codes that no longer holds for reviewers.
+- `REVIEWERS_ONLY=true` (with `REVIEWER_DESK_ENABLED=true`, which it requires: the API refuses to start
+  without it). The full production set for this pilot is `REVIEWERS_ONLY`, `REVIEWER_DESK_ENABLED`,
+  `APP_ENV=production`, `DATABASE_URL`, `TOKEN_PEPPER`, `CORS_EXTRA_ORIGINS`, `REVIEWER_TERMS_CONTACT`.
+- Not needed in this mode: `SMTP_*`, `LLM_DAILY_CAP` and verified helplines. In production the API
+  normally refuses to start without them (`SMTP_HOST`, `LLM_DAILY_CAP` with an AI route on, and
+  `HELPLINES` unverified in `config/helplines.yaml`). With `REVIEWERS_ONLY=true` only those three checks
+  are skipped, because the API then answers 404 to every path except `/health`, `/ready`, `/staff/review...`,
+  `/auth/me`, `/auth/options`, `/auth/verify-otp`, `/agreements/me` and `/agreements/reviewer`. There
+  is no sign-up, guest, student, parent, teacher-class, explain, doubt or video route, and the interactive
+  docs and `/openapi.json` are closed. Every other production check stays on (secrets, draft
+  content off, dev tools off, CORS). `python -m app.operator check` prints "reviewers-only mode" and
+  marks email "not needed".
+- These three guards stay fully on in normal mode. The helplines MUST be verified (`config/helplines.yaml`,
+  an owner action) and SMTP and `LLM_DAILY_CAP` set before any learner-facing launch: turn `REVIEWERS_ONLY`
+  off only then.
+- `/auth/request-otp` is closed in this mode, so "Send code" does nothing; use the admin-issued code.
 
 **Free stack.** Neon free Postgres for the database; the free Vercel plan for the web app; the API as in
 section 10, or on any host that runs Python. The free Vercel Hobby plan is for non-commercial use: that fits
