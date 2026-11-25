@@ -308,3 +308,12 @@ def test_the_operator_check_marks_email_not_needed_and_prints_the_mode(
     after = {c.name: c for c in operator.run_checks()}
     assert not after["email for codes and reports"].ok  # normal mode: still required
     assert after["reviewers-only mode"].ok
+
+
+def test_a_leading_api_prefix_is_removed_before_routing(client: TestClient, only: None) -> None:
+    assert client.get("/api/health").status_code == 200
+    assert client.get("/api/auth/options").status_code == 200
+    assert client.get("/api/students/me/today").status_code == 404
+    assert main.without_api_prefix("/apiary") == "/apiary"
+    assert main.without_api_prefix("/api") == "/"
+    assert main.without_api_prefix("/api/staff/review/chapters") == "/staff/review/chapters"
