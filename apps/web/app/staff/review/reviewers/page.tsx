@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ApiError, inviteReviewer, issueReviewerSignInCode, listReviewers, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer, type DeskReviewerRow } from "@/lib/api";
+import { ApiError, deskTemplateSummary, inviteReviewer, issueReviewerSignInCode, listReviewers, setReviewerSuspended, staffToken, whoAmI, type DeskReviewer, type DeskReviewerRow, type DeskTemplateSummary } from "@/lib/api";
 import { reviewerDeskEnabled } from "@/lib/flags";
 import { desk } from "@/lib/reviewDeskCopy";
 
@@ -20,6 +20,7 @@ export default function ReviewersAdminPage() {
   const [problem, setProblem] = useState("");
   const [issued, setIssued] = useState<{ id: string; email: string; code: string } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [types, setTypes] = useState<DeskTemplateSummary | null>(null);
 
   useEffect(() => {
     if (!reviewerDeskEnabled()) {
@@ -40,6 +41,10 @@ export default function ReviewersAdminPage() {
             setRows((now) => [...out.reviewers, ...now.filter((r) => !out.reviewers.some((o) => o.id === r.id))]),
           )
           .catch(() => setProblem(t.listFailed));
+        // 404 when template approval is off: then there is simply nothing to show
+        deskTemplateSummary()
+          .then(setTypes)
+          .catch(() => setTypes(null));
       })
       .catch(() => setState("denied"));
   }, [router]);
@@ -169,6 +174,21 @@ export default function ReviewersAdminPage() {
           </li>
         ))}
       </ul>
+      {types ? (
+        <section className="stack" data-testid="types-summary">
+          <h2>{t.typesTitle}</h2>
+          <p className="muted">{t.typesNote}</p>
+          <p data-testid="types-totals">{t.typesTotals(types.totals)}</p>
+          {types.blocked.length ? <h3>{t.typesFlagged}</h3> : null}
+          <ul className="m-0 list-none space-y-2 p-0" data-testid="types-flagged">
+            {types.blocked.map((b) => (
+              <li key={`${b.template_id}-${b.template_hash}-${b.generator_version}`} className="rounded-xl border border-line bg-surface p-3">
+                {t.typesFlaggedLine(b.template_id, b.state, b.questions)}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       <Link href="/staff/review">{t.back}</Link>
     </main>
   );

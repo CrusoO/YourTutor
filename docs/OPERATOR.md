@@ -520,4 +520,42 @@ The database keeps who issued a code for whom and when (table `reviewer_code_iss
   approved before anything is set to approved.
 
 **Not covered yet:** the reviewer agreement and its acceptance, a quality multiplier on pay, and
-approval of a whole question template at once (each question is still reviewed on its own).
+a way to turn an approved question type into approved content for students (see section 12).
+
+## 12. Template-level approval (records only)
+
+Needs `REVIEWER_DESK_ENABLED=true` and `REVIEW_TEMPLATE_APPROVAL_ENABLED=true` (default false). With
+it off, everything works as in section 11: each question is approved one by one by two reviewers.
+
+**What it does.** The factory makes many questions from one template. A reviewer approves a template
+by approving a few sample questions from it. The sample set is the same for every reviewer: the
+questions of one template version sorted by difficulty then id, the easiest, the middle and the
+hardest (all of them when there are fewer than three). A template version is the template id, its
+hash and the generator version; any change to those is a new version and starts again, even if a
+sample's text is identical. Each decision stores a `template_key` (sha256 of
+"template_id|template_hash|generator_version", set by the server, column added by migration 0041;
+NULL for items with no template and for older rows). A reviewer has approved a template when their
+standing decision on every sample, at its current content hash and the version's current key, is
+approve. Decisions with another or no key still count as ordinary item decisions, and an old
+version's fix or reject does not block the new version. Run migrations before switching it on. A withdrawn decision does not count and a skip does not count. About
+3 sample decisions per template are paid at the usual rate (section 11); pay is unchanged.
+
+**How many reviewers.** `REVIEW_TEMPLATE_APPROVALS_REQUIRED` (default 1). Two are required for a
+template id that starts with one of `REVIEW_TEMPLATE_DOUBLE_REVIEW_PREFIXES` (default
+`TPL2.PHY,TPL2.CHEM,TPL2.BIO,TPL2.HEALTH`: laws and facts), and for `REVIEW_TEMPLATE_DOUBLE_REVIEW_PERCENT`
+(default 15) per cent of the other templates, picked by `int(sha256(template_hash)[:8], 16) % 100`,
+so the same template always gets the same answer. The two reviewers do not see each other's votes.
+
+**Block and escalate.** A fix or reject on a sample by anyone blocks the template. All its questions
+then enter every reviewer's todo list for one-by-one review (state `escalated`; `blocked` when the
+samples are all its questions) until the template changes. Reviewers see only their own progress.
+
+**What the admin sees.** `GET /staff/review/templates/summary` (counts by state in total and per
+chapter, plus the blocked and escalated templates) and `GET /staff/review/templates/{template_id}`
+(samples and each reviewer's progress by pseudonymous label). The admin page also shows the counts.
+States: in_review, ready (enough reviewers approved all samples, nothing blocking), blocked, escalated.
+
+**What it does not do.** It changes nothing a student is served, no item `status`, and not
+`apply-reviews`. A `ready` template is a record only. Turning ready templates into approved content
+(and using the label "Question type reviewed by a teacher") is a later step for the owner to review
+after the first pilot results.

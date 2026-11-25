@@ -405,6 +405,39 @@ def test_matrix_reviewer_chapters_and_pay_statement(
     assert _status(client, "GET", url, tokens["admin"]) == 404
 
 
+@pytest.mark.parametrize(
+    "role,expected",
+    [
+        ("parent", 403),
+        ("student", 403),
+        ("teacher", 403),
+        ("admin", 200),
+        ("comparison", 403),
+        ("reviewer", 403),
+    ],
+)
+def test_matrix_reviewer_template_summary_is_admin_only(
+    client: TestClient, world: World, sender, db, role: str, expected: int
+) -> None:
+    from tests.conftest import seed_user, signup
+
+    settings.reviewer_desk_enabled = True
+    settings.review_template_approval_enabled = True
+    tokens = {
+        **_roles(world),
+        "reviewer": signup(client, sender, seed_user(db, "reviewer", "rv@example.com").email),
+    }
+    for path in ("/staff/review/templates/summary", "/staff/review/templates/TPL.ANY"):
+        want = 404 if path.endswith("TPL.ANY") and expected == 200 else expected
+        assert _status(client, "GET", path, tokens[role]) == want, (role, path)
+    assert _status(client, "GET", "/staff/review/templates/summary", None) == 401
+    settings.review_template_approval_enabled = False  # flag off: an unknown route for everyone
+    assert _status(client, "GET", "/staff/review/templates/summary", tokens["admin"]) == 404
+    settings.review_template_approval_enabled = True
+    settings.reviewer_desk_enabled = False  # desk off: the same
+    assert _status(client, "GET", "/staff/review/templates/summary", tokens["admin"]) == 404
+
+
 def test_a_reviewer_reaches_nothing_but_content_review(
     client: TestClient, world: World, sender, db
 ) -> None:
@@ -438,6 +471,8 @@ def test_a_reviewer_reaches_nothing_but_content_review(
     assert _status(client, "GET", "/staff/review/me/today", token) == 200
     assert _status(client, "GET", "/staff/review/reviewers", token) == 403  # admin only
     assert _status(client, "GET", "/staff/review/chapters", token) == 200
+    settings.review_template_approval_enabled = True
+    assert _status(client, "GET", "/staff/review/templates/summary", token) == 403
     assert (
         _status(client, "GET", "/staff/review/pay-statement?from=2026-03-01&to=2026-03-31", token)
         == 403

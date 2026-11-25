@@ -78,6 +78,18 @@ class Settings(BaseSettings):
     # folder is absent). An empty path means the committed file next to `content_review`.
     review_snapshot_enabled: bool = True
     review_snapshot_path: str = ""
+    # env: REVIEW_TEMPLATE_APPROVAL_ENABLED. Needs the desk on. Off: items are approved one by one
+    # (two reviewers each). On: a reviewer approves a question type (template) by approving its few
+    # deterministic sample questions; records and queue only, nothing served changes.
+    review_template_approval_enabled: bool = False
+    # env: REVIEW_TEMPLATE_APPROVALS_REQUIRED. Reviewers who must approve a template's samples.
+    review_template_approvals_required: int = 1
+    # env: REVIEW_TEMPLATE_DOUBLE_REVIEW_PREFIXES. Template ids starting with one of these (comma
+    # separated, matched at a dot boundary) need two reviewers: they state laws or facts.
+    review_template_double_review_prefixes: str = "TPL2.PHY,TPL2.CHEM,TPL2.BIO,TPL2.HEALTH"
+    # env: REVIEW_TEMPLATE_DOUBLE_REVIEW_PERCENT. Share (0-100) of the other templates that also
+    # need two reviewers, picked by a hash of the template hash (same answer every time).
+    review_template_double_review_percent: int = 15
     otel_enabled: bool = False
     pilot_onboarding: bool = False
     pilot_key: str = "dev-pilot"

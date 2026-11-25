@@ -113,6 +113,8 @@ export const desk = {
   pickIntro: "Pick a chapter. You get up to 10 questions at a time.",
   pickAll: "All chapters",
   pickLeft: (n: number) => `${n} left for you`,
+  pickTypesLeft: (n: number) => `${n} question ${n === 1 ? "type" : "types"} left for you`,
+  sampleLine: (n: number, of: number) => `Sample ${n} of ${of} for this question type`,
   pickClass: (n: number | null) => (n ? `Class ${n}` : "Other"),
   pickNone: "No chapter has questions waiting for you. Thank you.",
   pickChange: "Change chapter",
@@ -202,5 +204,11 @@ export const desk = {
     codeLimit: "Too many codes for this reviewer in the last hour. Try again later.",
     codeMissing: "That reviewer was not found.",
     codeFailed: "Could not create a code. Try again.",
+    typesTitle: "Question types",
+    typesNote: "Records only. Nothing a student sees changes because of these.",
+    typesTotals: (t: { ready: number; in_review: number; blocked: number; escalated: number }) =>
+      `${t.ready} ready, ${t.in_review} in review, ${t.blocked} blocked, ${t.escalated} escalated`,
+    typesFlagged: "Blocked or escalated",
+    typesFlaggedLine: (id: string, state: string, n: number) => `${id}: ${state}, ${n} questions`,
   },
 };

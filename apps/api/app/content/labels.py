@@ -14,6 +14,9 @@ QUESTION_LABEL = "Original Brownie practice question."
 PATTERN_TAG_TEMPLATE = "Question type seen in board exam papers: {marks}-mark {type} ({years})."
 VERIFICATION_BADGE = "Answer checked by calculation"
 REVIEWED_BADGE = "Reviewed by a teacher"
+# For an item covered by the approval of the question type (template) it was made from. Not served
+# yet: template approval is records only until the owner turns it into approved content.
+TEMPLATE_REVIEWED_BADGE = "Question type reviewed by a teacher"
 # What a stamped item may say about itself: one sentence per honest label. The factory has no
 # wording for "human-reviewed" or "teacher-approved" because it can never earn them.
 FACTORY_LABEL_TEXT = {
@@ -43,6 +46,7 @@ def item_labels(
     reviewed: bool,
     pattern: str | None,
     verification_label: str | None = None,
+    template_reviewed: bool = False,
 ) -> dict[str, str] | None:
     """Labels for one item, or None. Only practice items that are original and Tier A get them."""
     if pool != "practice" or tier != "A" or not original:
@@ -50,6 +54,8 @@ def item_labels(
     labels = {"question": QUESTION_LABEL, "badge": VERIFICATION_BADGE}
     if reviewed:
         labels["reviewed"] = REVIEWED_BADGE
+    elif template_reviewed:
+        labels["reviewed"] = TEMPLATE_REVIEWED_BADGE
     if pattern:
         labels["pattern"] = pattern
     if verification_label in FACTORY_LABEL_TEXT:

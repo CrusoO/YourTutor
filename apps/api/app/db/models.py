@@ -773,6 +773,9 @@ class ContentReviewRow(Base):
     checks: Mapped[list | None] = mapped_column(JSONType, nullable=True)  # five true/false/null
     fix_notes: Mapped[list | None] = mapped_column(JSONType, nullable=True)
     active_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # Migration 0041: sha256 of "template_id|template_hash|generator_version" when recorded (server
+    # side only). NULL: no template, or a row from before the column existed.
+    template_key: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
 
 class ReviewerCodeIssueRow(Base):

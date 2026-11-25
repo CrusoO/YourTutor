@@ -899,6 +899,8 @@ export type DeskCard = {
   others: DeskOther[];
   my_decision: (Pick<DeskOther, "severity" | "reason_code" | "checks" | "fix_notes"> & { decision: string; note: string | null }) | null;
   my_history: { decision: string; severity: DeskSeverity | null; created_at: string; changed_after_seeing?: boolean }[];
+  /** Only when template approval is on: which sample of its question type this is, or null when it is not a sample. */
+  template?: { template_id: string; sample_index: number; sample_count: number; questions: number } | null;
 };
 export type DeskDecisionBody = {
   content_hash: string;
@@ -924,8 +926,15 @@ export const deskItems = (limit = 10, scope?: DeskScope | null): Promise<{ total
   return staffReq(`/staff/review/items?${query.toString()}`);
 };
 /** One class / subject / chapter that has questions to review; `pending` counts what is left for you. */
-export type DeskChapter = { class: number | null; subject: string | null; chapter: string; title: string; in_curriculum: boolean; total: number; pending: number };
-export const deskChapters = (): Promise<{ groups: DeskChapter[] }> => staffReq("/staff/review/chapters");
+export type DeskChapter = { class: number | null; subject: string | null; chapter: string; title: string; in_curriculum: boolean; total: number; pending: number; templates_pending?: number };
+export const deskChapters = (): Promise<{ groups: DeskChapter[]; template_mode?: boolean }> => staffReq("/staff/review/chapters");
+/** Admin only, template approval on (404 otherwise): question types by state, in total and per chapter. */
+export type DeskTemplateSummary = {
+  totals: { in_review: number; ready: number; blocked: number; escalated: number; total: number };
+  chapters: { chapter: string; title: string; in_review: number; ready: number; blocked: number; escalated: number; total: number }[];
+  blocked: { template_id: string; template_hash: string; generator_version: string; state: string; chapter: string; questions: number; samples: string[] }[];
+};
+export const deskTemplateSummary = (): Promise<DeskTemplateSummary> => staffReq("/staff/review/templates/summary");
 /** Active review seconds you have logged today (UTC) and the daily cap. Shown, never enforced. */
 export const deskToday = (): Promise<{ active_seconds_today: number; daily_cap_seconds: number }> =>
   staffReq("/staff/review/me/today");

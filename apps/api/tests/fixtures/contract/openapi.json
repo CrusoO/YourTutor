@@ -6852,6 +6852,119 @@
     ]
    }
   },
+  "/staff/review/templates/summary": {
+   "get": {
+    "description": "Admin only, read-only (template approval on): question types (templates) by state, in total\nand per chapter, and the blocked or escalated ones with their ids. States: in_review, ready\n(enough reviewers approved all its samples, nothing blocking), blocked, escalated (a fix or\nreject stands on a sample and its other questions go to reviewers one by one). No reviewer\nidentities. Records only: nothing a learner is served depends on it.",
+    "operationId": "templates_summary_staff_review_templates_summary_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Templates Summary Staff Review Templates Summary Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Templates Summary",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
+  "/staff/review/templates/{template_id}": {
+   "get": {
+    "description": "Admin only (template approval on): every version of one template with its sample questions\nand each reviewer's progress, by pseudonymous label only.",
+    "operationId": "template_detail_staff_review_templates__template_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "template_id",
+      "required": true,
+      "schema": {
+       "title": "Template Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Template Detail Staff Review Templates  Template Id  Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Template Detail",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/students": {
    "post": {
     "operationId": "create_student_students_post",
