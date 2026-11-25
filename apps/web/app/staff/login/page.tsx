@@ -61,8 +61,9 @@ function StaffLoginForm() {
 
   async function go(askAgreement = true) {
     const me = await whoAmI();
-    // an invited reviewer sees the review screen and nothing else (the API refuses every other route for them)
-    if (me.role === "reviewer") router.push("/staff/review");
+    // an invited reviewer sees the review screen and nothing else (the API refuses every other route for them),
+    // after accepting the reviewer terms
+    if (me.role === "reviewer") router.push(me.agreements && me.agreements.length > 0 ? "/agreement" : "/staff/review");
     else if (askAgreement && me.agreements && me.agreements.length > 0) router.push("/agreement");
     else if (askAgreement && who === "adult" && me.role === "parent" && (await enterAsAdult())) router.push("/brownie-chat");
     else router.push(me.role === "teacher" || me.role === "admin" ? "/teacher" : "/guardian");

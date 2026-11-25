@@ -44,6 +44,27 @@ beforeEach(() => {
 });
 afterEach(cleanup);
 
+describe("the reviewer terms", () => {
+  it("shows the terms with the contact filled in and needs the one tick", async () => {
+    vi.mocked(api.getCatalog).mockResolvedValue({
+      role: "reviewer",
+      version: "reviewer-terms-v1",
+      items: [{ id: "accept_reviewer_terms", required: true, scope: null }],
+      contact: "terms@example.org",
+    });
+    const onSubmit = vi.fn();
+    render(<AgreementForm role="reviewer" onSubmit={onSubmit} />);
+    const terms = await screen.findByTestId("reviewer-terms");
+    expect(terms.textContent).toContain("Ask terms@example.org to see, correct or delete your details.");
+    expect(terms.textContent).not.toContain("[contact]");
+    const button = screen.getByRole("button", { name: "Agree and continue" });
+    expect(button).toHaveProperty("disabled", true);
+    await userEvent.click(screen.getByRole("checkbox"));
+    await userEvent.click(button);
+    expect(onSubmit).toHaveBeenCalledWith(["accept_reviewer_terms"], "reviewer-terms-v1");
+  });
+});
+
 describe("the agreement form", () => {
   it("gives every item its own tick box, required ones in their own group", async () => {
     render(<AgreementForm role="guardian" onSubmit={vi.fn()} />);

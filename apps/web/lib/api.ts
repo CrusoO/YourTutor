@@ -967,7 +967,12 @@ export function deskErrors(error: unknown): { field: string; message: string }[]
 }
 export type DeskReviewer = { id: string; email: string; role: string; suspended: boolean };
 /** Admin only: every invited reviewer with how much they have done. Facts about the account, no votes. */
-export type DeskReviewerRow = DeskReviewer & { invited_at: string; last_decision_at: string | null; decision_count: number };
+export type DeskReviewerRow = DeskReviewer & {
+  invited_at: string;
+  last_decision_at: string | null;
+  decision_count: number;
+  terms_accepted?: boolean;
+};
 export const listReviewers = (): Promise<{ reviewers: DeskReviewerRow[] }> => staffReq("/staff/review/reviewers");
 /** Admin only. The API answers each invite, suspend and reinstate with the account. */
 export const inviteReviewer = (email: string): Promise<DeskReviewer> =>

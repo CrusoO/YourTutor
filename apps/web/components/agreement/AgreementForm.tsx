@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCatalog, type Catalog, type CatalogItem } from "@/lib/agreements-api";
-import { CONSENT_TEXT_SCOPES, items as copyItems, roleIntro, roleTitle, ui, type Role } from "@/lib/agreement-copy";
+import { CONSENT_TEXT_SCOPES, items as copyItems, reviewerTerms, roleIntro, roleTitle, ui, type Role } from "@/lib/agreement-copy";
 import styles from "./Agreement.module.css";
 
 /** One item: its own tick box, its own words. */
@@ -83,9 +83,17 @@ export default function AgreementForm({
       }}
     >
       <h2>{roleTitle[role]}</h2>
-      <p>{roleIntro[role]}</p>
+      {role === "reviewer" ? (
+        <div className="stack" data-testid="reviewer-terms">
+          {reviewerTerms.map((line) => (
+            <p key={line}>{line.replace("[contact]", loaded.contact ?? "the Brownie team")}</p>
+          ))}
+        </div>
+      ) : (
+        <p>{roleIntro[role]}</p>
+      )}
       <fieldset className={styles.group} data-testid="group-required">
-        <legend>{role === "teacher" ? ui.groupTeacher : ui.groupNeeded}</legend>
+        <legend>{role === "teacher" || role === "reviewer" ? ui.groupTeacher : ui.groupNeeded}</legend>
         {required.map((item) => (
           <Tick key={item.id} role={role} item={item} checked={ticked.has(item.id)} onChange={(on) => toggle(item.id, on)} />
         ))}
@@ -98,7 +106,7 @@ export default function AgreementForm({
           ))}
         </fieldset>
       ) : null}
-      {role !== "teacher" ? <p className="muted">{ui.noTracking}</p> : null}
+      {role !== "teacher" && role !== "reviewer" ? <p className="muted">{ui.noTracking}</p> : null}
       {!ready ? <p className="muted">{ui.agreeNeeds}</p> : null}
       <button type="submit" disabled={!ready || busy}>
         {busy ? ui.saving : submitLabel}

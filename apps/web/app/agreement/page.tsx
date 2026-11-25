@@ -12,6 +12,9 @@ import { staffToken, whoAmI } from "@/lib/api";
 
 type Step = "loading" | "signin" | "choose" | "form" | "adult-age";
 
+const landing = (who: string) =>
+  who === "reviewer" ? "/staff/review" : who === "teacher" || who === "admin" ? "/teacher" : "/guardian";
+
 /**
  * Shown once, after the first sign-in, for the role the person has: teachers accept the terms, and a new
  * account chooses guardian or adult learner. A guardian's one screen covers every child's consent.
@@ -34,7 +37,7 @@ export default function AgreementPage() {
       .then((me: { role: string; agreements?: string[] }) => {
         const list = me.agreements ?? [];
         if (list.length === 0) {
-          router.replace(me.role === "teacher" || me.role === "admin" ? "/teacher" : "/guardian");
+          router.replace(landing(me.role));
           return;
         }
         setNeeded(list);
@@ -57,7 +60,7 @@ export default function AgreementPage() {
     }
     try {
       await acceptAgreement(role, version, items);
-      router.push(role === "teacher" ? "/teacher" : "/guardian");
+      router.push(landing(role));
     } catch (caught) {
       setError(caught instanceof ApiError && caught.status === 409 ? ui.versionChanged : ui.failed);
       setBusy(false);

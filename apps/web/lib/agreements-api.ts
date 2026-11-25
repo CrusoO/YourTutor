@@ -6,7 +6,7 @@ const API =
     : process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export type CatalogItem = { id: string; required: boolean; scope: string | null };
-export type Catalog = { role: string; version: string; items: CatalogItem[] };
+export type Catalog = { role: string; version: string; items: CatalogItem[]; contact?: string };
 export type MyAgreements = {
   version: string;
   agreements: { role: string; version: string; items: string[]; granted_at: string; complete: boolean }[];

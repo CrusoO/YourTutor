@@ -165,6 +165,11 @@ export default function ReviewersAdminPage() {
               </span>
             </span>
             <span className="text-sm text-muted">{row.suspended ? t.suspended : t.active}</span>
+            {row.terms_accepted === undefined ? null : (
+              <span className="text-sm text-muted" data-testid="terms-marker">
+                {row.terms_accepted ? t.termsAccepted : t.termsNotYet}
+              </span>
+            )}
             <Button variant="outline" size="sm" disabled={row.suspended} onClick={() => void makeCode(row)}>
               {t.makeCode}
             </Button>
