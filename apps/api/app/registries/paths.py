@@ -36,5 +36,19 @@ def content_root() -> Path:
     return Path(override) if override else repo_root() / "content"
 
 
+def bundled_curricula_dir() -> Path:
+    """A copy of `<repo>/content/curricula` inside the API folder (see `bundled_config_dir`)."""
+    return Path(__file__).resolve().parents[2] / "bundled_curricula"
+
+
 def content_curricula_dir() -> Path:
-    return content_root() / "curricula"
+    """`<content root>/curricula`; with no `CONTENT_DIR` and no repo folder, the bundled copy.
+
+    An explicit `CONTENT_DIR` is always honoured (a typo must fail loudly). Only the small curricula
+    folder is bundled; `content_root()` itself is not redirected, so the reviewer desk still falls
+    back to its snapshot when the real content folder is absent (Vercel uploads only `apps/api`).
+    """
+    real = content_root() / "curricula"
+    if os.environ.get("CONTENT_DIR") or real.is_dir():
+        return real
+    return bundled_curricula_dir()
