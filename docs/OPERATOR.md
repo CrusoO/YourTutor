@@ -514,7 +514,8 @@ The database keeps who issued a code for whom and when (table `reviewer_code_iss
   confirm each reaches the review screen (ask them to reply "in").
 - Day 1 to 2: each does five questions; check the admin export (`GET /staff/review/export`) shows their
   counts and time.
-- Through the week: send a fresh code whenever someone is signed out (a session lasts 24 hours); suspend
+- Through the week: send a fresh code whenever someone is signed out (a reviewer's session lasts 7 days, set by
+  `REVIEWER_SESSION_TTL_SECONDS`; every other role's lasts 24 hours); suspend
   anyone who should stop; read the notes they leave.
 - End of week: run `python -m app.content apply-reviews` and look at what two reviewers
   approved before anything is set to approved.

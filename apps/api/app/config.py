@@ -55,6 +55,9 @@ class Settings(BaseSettings):
     pin_lockout_seconds: int = 900
     pin_hash_iterations: int = 80_000
     session_ttl_seconds: int = 86_400
+    # env: REVIEWER_SESSION_TTL_SECONDS. An invited reviewer stays signed in this long (7 days), so
+    # a teacher is not asked for a new code every day. Reviewers see content only, no learner data.
+    reviewer_session_ttl_seconds: int = 604_800
     token_pepper: str = "dev-only-change-me"
     test_database_url: str = ""
     reviewer_allowlist: str = ""
