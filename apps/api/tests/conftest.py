@@ -145,7 +145,7 @@ def signup(client: TestClient, sender: MemoryOtpSender, email: str) -> str:
     return verified.json()["access_token"]
 
 
-def seed_user(db: Session, role: str, email: str) -> UserRow:
+def seed_user(db: Session, role: str, email: str, terms: bool = True) -> UserRow:
     user = UserRow(
         id=uuid.uuid4(),
         role=role,
@@ -155,8 +155,27 @@ def seed_user(db: Session, role: str, email: str) -> UserRow:
     )
     db.add(user)
     db.commit()
+    if role == "reviewer" and terms:  # most tests are not about the reviewer terms
+        accept_reviewer_terms(db, user)
     db.refresh(user)
     return user
+
+
+def accept_reviewer_terms(db: Session, user: UserRow) -> None:
+    from app.auth import agreements
+    from app.db.models import AgreementRow
+
+    db.add(
+        AgreementRow(
+            id=uuid.uuid4(),
+            user_id=user.id,
+            role="reviewer",
+            version=agreements.REVIEWER_VERSION,
+            items=["accept_reviewer_terms"],
+            granted_at=now_utc(),
+        )
+    )
+    db.commit()
 
 
 @dataclass
