@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FISSION.after_divisions.f51c616a
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A culture of single-celled organisms starts with 2 cells. Assume that every
+    cell divides into two cells in each round of division, that all the cells divide
+    together, and that no cell dies. How many cells are there after 4 rounds of division?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Each round multiplies
+    the number of cells by the same number.
+- level: 2
+  en: Multiply the starting number of cells by that number once for each round of
+    division.
+- level: 3
+  en: There are four rounds of division, so the multiplying is done four times.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 32 cells
+- id: b
+  en: 6 cells
+- id: c
+  en: 16 cells
+- id: d
+  en: 64 cells
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.ADDED_NOT_DOUBLED
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.LINEAR_GROWTH
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.ONE_ROUND_MORE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each round multiplies the cells by 2, so the cells are multiplied by 2, 4 times.
+- en: 2 x 2 to the power 4 = 32.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d2744d7207bd8ed87fb5831c701f7f7bfc779f5edaeb17d18732867cecf238fb
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 92bc10e1b155fbb13ad4e72dbbccf8cd6bad2ee43852e884f62cb69e922ee7f3
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:29+00:00'
+  record_hash: c7e0905136c98bfe3b099fd461ffb1179765c1ad9be1ed2b546ab850ab8ebf95

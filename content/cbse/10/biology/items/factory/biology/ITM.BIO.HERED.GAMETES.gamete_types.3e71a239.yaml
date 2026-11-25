@@ -1,0 +1,133 @@
+id: ITM.BIO.HERED.GAMETES.gamete_types.3e71a239
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. How many different types of gametes can a plant with
+    genotype Yy produce?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. A
+    gamete carries one allele from each gene. Different gametes differ in the alleles
+    they carry.
+- level: 2
+  en: A gene whose two alleles are the same gives only one choice. A gene whose alleles
+    differ gives two choices.
+- level: 3
+  en: Write the choices for each gene, then combine the choices of the different genes
+    by multiplying them.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '4'
+- id: c
+  en: '1'
+- id: d
+  en: '3'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.PUNNETT_BOXES_FOR_TYPES
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.HET_COUNT_AS_ANSWER
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.GENOTYPES_FOR_TYPES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A gamete gets one allele of each gene. The genotype Yy has 1 heterozygous gene.
+- en: 'Each heterozygous gene gives 2 choices and each homozygous gene gives 1, so
+    multiply the choices: 2.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5357882f2a96ac66c7ef9662ff16d55ffa3e85897a59aaf27734ddd234269e4f
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: 3052774ca9ea9856cdecffa610fd64ab66eb35f4b4d364c0f85c5f78d6d234d1
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: b19850854f0af18e259619e03f279750a8be657bebcddd01115b25a4e4b9a2c9

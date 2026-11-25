@@ -1,0 +1,136 @@
+id: ITM.BIO.HERED.MONO_PROB.p_het.b2e27db0
+skill_ids:
+- BIO.HERED.MONO_PROB
+difficulty: 0.35
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele T for tall stems is dominant over the
+    allele t for short stems. A plant with genotype Tt is crossed with a plant with
+    genotype Tt. What is the probability that one offspring, picked at random, has
+    the genotype Tt? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Find
+    the gametes each parent can make, then combine them in a Punnett square.
+- level: 2
+  en: A probability is the number of boxes that show the outcome asked for, divided
+    by the number of all the boxes.
+- level: 3
+  en: The first parent makes the gametes T and t, and the second parent makes the
+    gametes T and t.
+prediction_prompt:
+  en: Before you calculate, is the outcome asked for more likely or less likely than
+    the other?
+status: draft
+template_id: TPL2.BIO.HERED.MONO_PROB
+generator_version: factory-2
+template_hash: 40786d1103a9ef99f5de874c7acd3e283bc13abca503651dc7579dc22ab83e79
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3/4
+- id: b
+  en: 1/2
+- id: c
+  en: 1/4
+- id: d
+  en: '1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.FIXED_RATIO_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.ODDS_AS_PROBABILITY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Tt makes the gametes T and t; the second parent Tt makes the
+    gametes T and t.
+- en: 'Out of 4 boxes, TT: 1; Tt: 2; tt: 1.'
+- en: 'The probability is the number of boxes that show the outcome asked for, divided
+    by all the boxes: 1/2.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0132f04147ce729de4c92f5397657be72e2fb9255ac6cc488cd8e611c3574b8e
+  template_hash: 40786d1103a9ef99f5de874c7acd3e283bc13abca503651dc7579dc22ab83e79
+  certificate_hash: 650fdcebfc79fad97638c9194d4f3f5471727a9e5763ba12dd6205edae1356a1
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:27+00:00'
+  record_hash: 7ec296ebf2862f7b1c21910f181e9d7baf1a7a6d6dc4d31e71b2168469621034

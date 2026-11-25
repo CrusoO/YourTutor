@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.TEST_CROSS.identify.2cc2bada
+skill_ids:
+- BIO.HERED.TEST_CROSS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: In a certain plant species, the allele P for purple flowers is dominant over
+    the allele p for white flowers, and the allele T for tall stems is dominant over
+    the allele t for short stems. The two genes are on different chromosomes and are
+    inherited independently. A plant with purple flowers and tall stems is test-crossed
+    with a plant with white flowers and short stems. The result of the test cross
+    is that the offspring fall into four equal groups, namely purple flowers and tall
+    stems; purple flowers and short stems; white flowers and tall stems; white flowers
+    and short stems. What is the genotype of the plant that was tested?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    parent used for the test cross passes on only recessive alleles, so each offspring
+    shows which allele the tested parent passed on.
+- level: 2
+  en: Count how many different groups of offspring appear. Each heterozygous gene
+    of the tested parent doubles that number.
+- level: 3
+  en: Check a candidate by writing its gametes and pairing them with the gametes of
+    the other parent in a Punnett square.
+prediction_prompt:
+  en: Before you decide, how many different gamete types must the tested parent make?
+status: draft
+template_id: TPL2.BIO.HERED.TEST_CROSS
+generator_version: factory-2
+template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: PPTt
+- id: b
+  en: PpTT
+- id: c
+  en: PpTt
+- id: d
+  en: PPTT
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HOMOZYGOUS_ASSUMED
+  when_answer_equals:
+  - a
+  - b
+  - d
+solution_steps:
+- en: A test cross uses a plant with white flowers and short stems, which can pass
+    on only recessive alleles. Every dominant or recessive form in the offspring therefore
+    shows what the tested plant passed on.
+- en: The offspring show 4 different groups, so the tested plant makes 4 different
+    gamete types.
+- en: Try each candidate genotype in a Punnett square with pptt; only PpTt gives the
+    groups seen.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 52d967727a5842b3c5932a5237d34b5cd5a0a9f458511a84a8c8bbba5678e29a
+  template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+  certificate_hash: b6be7b8aaff991ab374fd72390e5a89df7513cc2be72d812d8130f1ae8eda123
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:36+00:00'
+  record_hash: ca74bd60f75642698dea498151c7a91128c2cb5c217a3263b47fcffc9b4f983a

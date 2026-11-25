@@ -1,0 +1,133 @@
+id: ITM.BIO.HERED.GAMETES.grid_boxes.29a8371a
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. A plant with genotype YY is crossed with a plant with
+    genotype Yy. A Punnett square has one row for each different gamete type of the
+    first parent and one column for each different gamete type of the second parent.
+    How many boxes does it have?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Count the different gamete
+    types of each parent first. A type that repeats counts once.
+- level: 2
+  en: Each row is paired with each column, so combine the two counts by multiplying.
+- level: 3
+  en: The first parent makes the gametes Y, and the second parent makes the gametes
+    Y and y.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '3'
+- id: c
+  en: '2'
+- id: d
+  en: '1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ALL_COMBINATIONS_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.GENES_COUNTED_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent YY makes 1 different gamete type; the second parent Yy makes
+    2.
+- en: 'The square has one box for each pair of types: 1 x 2 = 2.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 48e34bff073c84cc13dc6365f93908b52b73a539816581ba5ac8a763035ddb41
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: be6015377e1a64732e65dfb28be188be7d91edf8596917e77bccfebd69a58838
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: d0d8c5672372dcd572e225730671db556ff185f4302a183ffcff87e1738419d0
