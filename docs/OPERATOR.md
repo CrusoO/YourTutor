@@ -559,3 +559,19 @@ States: in_review, ready (enough reviewers approved all samples, nothing blockin
 `apply-reviews`. A `ready` template is a record only. Turning ready templates into approved content
 (and using the label "Question type reviewed by a teacher") is a later step for the owner to review
 after the first pilot results.
+
+## 13. Reviewer terms (draft)
+
+With `REVIEWER_DESK_ENABLED` on, an invited reviewer must accept the reviewer terms before any
+review route works. They are signed in, shown the terms on the agreement page, and tick one box.
+What is kept: who, which version and when (the `agreement_acceptances` table).
+
+- **Where to edit the text.** `apps/web/lib/agreement-copy.ts`, the `reviewerTerms` list. The
+  text is a DRAFT: a lawyer should read it before real reviewers are paid. `[contact]` in it is
+  replaced by the setting below.
+- **How a new version forces re-acceptance.** After editing the text, change `REVIEWER_VERSION`
+  in `apps/api/app/auth/agreements.py` (for example to `reviewer-terms-v2`) and deploy. From then
+  every reviewer gets 403 `terms_not_accepted` until they accept again; teachers and admins are
+  not asked. The admin reviewers page shows "Terms accepted" or "Terms not yet accepted" for each.
+- **Setting.** `REVIEWER_TERMS_CONTACT`: who a reviewer asks to see, correct or delete their
+  details. The default is "the Brownie team"; set a real contact before inviting reviewers.
