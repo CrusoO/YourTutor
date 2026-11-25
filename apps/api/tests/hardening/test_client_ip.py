@@ -91,11 +91,17 @@ def test_an_ignored_header_from_this_machine_is_remembered_once() -> None:
 
 
 def test_production_refuses_the_default_database_password() -> None:
-    prod = Settings(app_env="production", postgres_password="tutor")
+    prod = Settings(app_env="production", postgres_password="tutor", database_url="")
     assert production_secret_errors(prod) == ["POSTGRES_PASSWORD"]
     assert (
-        production_secret_errors(Settings(app_env="production", postgres_password="x" * 20)) == []
+        production_secret_errors(
+            Settings(app_env="production", postgres_password="x" * 20, database_url="")
+        )
+        == []
     )
     assert (
-        production_secret_errors(Settings(app_env="development", postgres_password="tutor")) == []
+        production_secret_errors(
+            Settings(app_env="development", postgres_password="tutor", database_url="")
+        )
+        == []
     )

@@ -7,12 +7,27 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.config import settings
+from app.config import PRODUCTION, settings
+
+
+def normalise_database_url(url: str) -> str:
+    """A host's address (`postgres://` or `postgresql://`) in the form this app's driver wants."""
+    address = url.strip()
+    for plain in ("postgres://", "postgresql://"):
+        if address.startswith(plain):
+            return "postgresql+psycopg://" + address[len(plain) :]
+    return address
 
 
 def database_url(override: str | None = None) -> str:
+    """The database address: an explicit one; in production DATABASE_URL; else the POSTGRES_* parts.
+
+    DATABASE_URL counts only in production, so an old line in a laptop's .env cannot point dev,
+    tests or migrations at a real database."""
     if override:
         return override
+    if settings.database_url.strip() and settings.app_env.strip().lower() == PRODUCTION:
+        return normalise_database_url(settings.database_url)
     return (
         f"postgresql+psycopg://{settings.postgres_user}:{settings.postgres_password}"
         f"@{settings.postgres_host}:{settings.postgres_port}/{settings.postgres_db}"

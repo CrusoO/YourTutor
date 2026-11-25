@@ -468,9 +468,12 @@ no domain: the admin hands each reviewer a one-time sign-in code, for example on
 
 **Set by name** (values in the host's secret settings, never in git):
 
-- Database: `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`. The
-  API has no single database URL setting; it builds the address from these five. Not tested against
-  Neon: the driver asks for an encrypted connection when the server offers one, which Neon does.
+- Database: `DATABASE_URL`, the single address Neon gives you (it holds the password: put it in the host's
+  secret settings, never in chat or git). It replaces the five `POSTGRES_HOST`, `POSTGRES_PORT`,
+  `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` parts, which still work when `DATABASE_URL` is not
+  set. It counts **only when `APP_ENV=production`**: an old `DATABASE_URL` line in a laptop's `.env` must never
+  point dev, tests or migrations at a real database. Not yet tested against Neon itself: Neon's
+  `?sslmode=require` is passed through to the driver.
 - `TOKEN_PEPPER` (long random), `APP_ENV=production`, `CORS_EXTRA_ORIGINS` (the web address).
 - API: `REVIEWER_DESK_ENABLED=true`. Web, set before `npm run build`: `NEXT_PUBLIC_REVIEWER_DESK=true`
   and `NEXT_PUBLIC_API_URL`.
@@ -486,7 +489,8 @@ three invited teachers and no learners. Move to Pro or another host before payin
 the site wider.
 
 **First admin (one-time command).** Nothing in the web app makes the first admin, so run this once
-from `apps/api`, with the database settings above, after `python -m alembic upgrade head`:
+from `apps/api`, with `APP_ENV=production` and `DATABASE_URL` set in that shell for the command (not in a
+    file), after `python -m alembic upgrade head`:
 
     python -m app.auth.bootstrap admin-code you@example.org
 
