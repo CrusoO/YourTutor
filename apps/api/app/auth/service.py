@@ -262,6 +262,11 @@ def issue_auth_token(
     checkpoint_form: str | None = None,
 ) -> str:
     token = new_token()
+    ttl = (
+        settings.reviewer_session_ttl_seconds
+        if role == "reviewer"
+        else settings.session_ttl_seconds
+    )
     session.add(
         AuthSessionRow(
             id=uuid.uuid4(),
@@ -271,7 +276,7 @@ def issue_auth_token(
             student_id=student_id,
             checkpoint_id=checkpoint_id,
             checkpoint_form=checkpoint_form,
-            expires_at=expires_after(settings.session_ttl_seconds),
+            expires_at=expires_after(ttl),
             created_at=now_utc(),
         )
     )
