@@ -1,0 +1,58 @@
+id: TPL2.BIO.REPRO.FISSION
+schema: factory-template/1
+lane: biology
+model: REPRO.FISSION
+skill_id: BIO.REPRO.FISSION
+box:
+  variant:
+    choices:
+    - after_divisions
+    - after_time
+    - divisions_needed
+    - time_needed
+    - multiple_fission
+  n:
+    choices:
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '8'
+  n0:
+    choices:
+    - '1'
+    - '2'
+    - '3'
+    - '5'
+    - '10'
+  d:
+    choices:
+    - '20'
+    - '30'
+    - '45'
+    - '60'
+  k:
+    choices:
+    - '3'
+    - '4'
+    - '8'
+  org:
+    choices:
+    - '0'
+    - '1'
+    - '2'
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.biology.reproduction
+  skill_id: BIO.REPRO.FISSION
+  allowed_methods:
+  - repeated_doubling
+  - round_by_round_simulation
+  forbidden_content:
+  - free_text
+  - assertion_reason
+  - fact_recall
+  - diagram
+  - calculus
+  - experiment_design
