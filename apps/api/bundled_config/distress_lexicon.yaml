@@ -1,0 +1,374 @@
+# Layer 1 distress lexicon (deterministic). Read by app/safety_lexicon.py.
+#
+# Every phrase is run through the same normaliser as the student's text (lowercase, zero-width
+# characters removed, digits and symbols used as letters mapped, repeated letters collapsed,
+# punctuation dropped, Devanagari nukta and chandrabindu folded), so write phrases naturally.
+# A phrase matches on whole-word boundaries. A trailing * lets the last word run on
+# (suicid* matches suicide and suicidal).
+# {a|b|c} expands to each alternative; an empty alternative is allowed: "i {want|need} {|really }to die".
+#
+# STATUS: the Hindi (hi) and Hinglish phrase lists are DRAFT. They were written without a native
+# reviewer and must be reviewed by a native Hindi speaker (ideally a counsellor) before launch.
+# risk: urgent -> the full distress flow; concern -> the gentler support message (exam stress).
+status:
+  hi: draft_needs_native_review
+  hinglish: draft_needs_native_review
+  en: draft_needs_clinical_review
+
+categories:
+  suicide:
+    risk: urgent
+    en:
+      - suicid*
+      - commit suicide
+      - kill myself
+      - killing myself
+      - (kill|end|take) my own life
+      - end my life
+      - ending my life
+      - end it all
+      - ending it all
+      - take my own life
+      - i (want|wanna|need|have to|am going to|will|am gonna|would like) (|just |really )(to |)(die|be dead|disappear forever|not exist|not be alive|stop living|stop existing)
+      - i (dont|do not|no longer|never) want to (be alive|live|exist|wake up)
+      - i dont want to be here anymore
+      - i (wish|hope) (i was|i were|i am|id be|i would be) dead
+      - i wish i (had never been born|was never born|could disappear|could die|would die|could sleep forever)
+      - i (feel|am) like dying
+      - i feel like ending it
+      - (thinking|thought|thoughts) (of|about) (dying|death|ending it|ending my life|killing myself)
+      - going to (die|kill myself|end it|end my life) tonight
+      - (better|best) off without me
+      - (everyone|everybody|they|my family|my parents) (would|will) be better off (without me|if i was gone|if i were gone|if i died|if i was dead)
+      - nobody would (even |ever |)(notice|care|miss me) if i (disappeared|died|was gone|were gone)
+      - no one would (even |ever |)(notice|care|miss me) if i (disappeared|died|was gone|were gone)
+      - (no|there is no) point (in|of) (living|being alive|life|going on)
+      - life is (not worth living|meaningless|pointless|worthless)
+      - my life is (not worth living|meaningless|pointless|worthless)
+      - i cant (go on|keep living|live like this|live anymore|carry on)
+      - i (can not|cannot) (go on|keep living|live like this|live anymore|carry on)
+      - i am done with (life|living|everything)
+      - i am tired of living
+      - i (want|wanna|need) to leave this world
+      - (jump|jumping) (off|from) (the |a |my )(roof|building|terrace|balcony|bridge|window|cliff)
+      - (hang|hanging) myself
+      - hang myself
+      - i (will|am going to|want to|wanna) (overdose|take all my pills|swallow all my pills|drink poison|take poison)
+      - take all my pills
+      - sleep forever
+      - i should be dead
+      - i (should|ought to|deserve to) (die|be dead|disappear)
+      - (dont|do not|cant|cannot) see (a|any|the) (reason|point|way) (to|for|in) (live|living|keep living|going on|go on|life|being alive)
+      - i (want|wanna|need) (it|everything|this|all of this|the pain) to (stop|end) (forever|for good|now|)
+      - i want (to end|to stop) everything
+      - (took|taken|swallowed|have taken) too many (pills|tablets|medicine|meds)
+      - i want to (disappear|vanish|go away) (forever|for good)
+      - how (can|do|could) i (kill myself|die|end my life|commit suicide)
+      - (ways|way|method|methods) to (die|kill myself|commit suicide|end my life)
+      - (easiest|painless|quickest) way to die
+      - i should just (die|kill myself|disappear|end it)
+      - (just|simply) (not wake|dont wake|do not wake) up
+      - i (just |sometimes |really )(think|wish) (i |that i )(should |would |could )(just |simply )(not wake up|not wake up tomorrow)
+      - i will not be here (tomorrow|much longer)
+      - this is my (last|final) (message|goodbye|day)
+      - goodbye (forever|everyone) i (am|will be) gone
+    hi:
+      - मैं (मरना|मर जाना|जान देना|खुदकुशी करना|आत्महत्या करना) (चाहता|चाहती|चाहते) (हूं|हु|है|हैं|)
+      - मुझे (मरना|मर जाना) है
+      - मुझे (मरना|मर जाना) (अच्छा|बेहतर) लगता है
+      - मरना (चाहता|चाहती) (हूं|हु|)
+      - मर जाना (चाहता|चाहती) (हूं|हु|)
+      - (आत्महत्या|खुदकुशी|खुद कुशी|आत्म हत्या)
+      - आत्महत्या*
+      - मैं (अपनी |अपना |)(जान|जीवन|ज़िंदगी|जिंदगी|जीवन लीला) (दे दूंगा|दे दूंगी|दे दूँगा|खत्म कर दूंगा|खत्म कर दूंगी|खत्म कर लूंगा|खत्म कर लूंगी|समाप्त कर दूंगा|समाप्त कर दूंगी|ख़त्म कर लूंगा|ख़त्म कर लूंगी)
+      - अपनी (जान|ज़िंदगी|जिंदगी) (खत्म|ख़त्म|समाप्त) कर
+      - जीने की (कोई |)(इच्छा|वजह|उम्मीद) नहीं
+      - (मैं |)अपनी जान ले (लूंगा|लूंगी|लूँगा|लूँगी)
+      - (मैं |)अपनी (ज़िंदगी|जिंदगी) (से |)नफरत
+      - सब (कुछ |)(खत्म|ख़त्म) कर (दूंगा|दूंगी|दूँगा|दूँगी|लूंगा|लूंगी)
+      - (जान|जिंदगी) दे दूं
+      - मैं खुद को (खत्म|ख़त्म|समाप्त) कर (लूंगा|लूंगी|दूंगा|दूंगी|दूंगा)
+      - मुझे (अब |)जीना नहीं (है|)
+      - मैं (अब |और |अब और |)जीना नहीं (चाहता|चाहती)
+      - (अब |)जीने का मन नहीं (करता|है)
+      - जीने की इच्छा नहीं
+      - जीने की (कोई |)वजह नहीं
+      - (मैं|मेरा) मर जाना (ही |)(बेहतर|अच्छा) है
+      - (काश|काश कि) मैं (मर जाऊं|मर जाता|मर जाती|मर ही जाऊं|मर जाऊं)
+      - मैं मर जाऊंगा
+      - मैं मर जाऊंगी
+      - मर जाऊं तो (अच्छा|बेहतर)
+      - (सबको|सब को|सभी को) मेरे बिना (अच्छा|बेहतर)
+      - मेरे बिना (सब|सभी|सबको|सबको) (ठीक|अच्छे|बेहतर)
+      - मेरी (ज़िंदगी|जिंदगी|जीवन) (बेकार|बेमतलब|व्यर्थ) है
+      - ज़िंदगी से तंग आ गया
+      - जिंदगी से तंग आ गया
+      - ज़िंदगी से तंग आ गई
+      - जिंदगी से तंग आ गई
+      - (पंखे|छत|पुल|बिल्डिंग|इमारत) से (लटक|कूद)
+      - फांसी (लगा|लगाकर|लगाके)
+      - ज़हर (खा|पी)
+      - जहर (खा|पी)
+      - नींद की गोलियां खा
+      - हमेशा के लिए (सो|चला जा|चली जा)
+      - इस दुनिया से (चला जाना|चले जाना|जाना) (चाहता|चाहती)
+    hinglish:
+      - (mujhe|mujhko|mjhe) (marna|mar jana|mar jaana|jaan dena) (hai|h|he)
+      - (mai|main|me|mein) (mar jana|mar jaana|marna|mar jau|mar jaun|mar jaunga|mar jaungi|mar jaaunga|mar jaaungi|mar jaau|mar jaaun) (chahta|chahti|chahta hu|chahti hu|chahta hoon|chahti hoon|)
+      - (mai|main|me|mein) mar (jau|jaun|jaaun|jaunga|jaungi|jaaunga|jaaungi|jaaoon)
+      - mar jana chahta
+      - mar jana chahti
+      - mar jaana chahta
+      - mar jaana chahti
+      - marna chahta
+      - marna chahti
+      - mar jau toh (accha|achha|acha|behtar)
+      - kaash (main|mai|me|) mar (jau|jaun|jaaun|jata|jati|jaaun)
+      - (jeene|jine|jeena|jina) (ka|ki) (mann|man|mood|iccha|ichha) nahi
+      - (jeena|jina|jeene|jine) nahi (hai|h|he|chahta|chahti|chahta hu|chahti hu)
+      - (ab |)(jeena|jina) nahi (chahta|chahti)
+      - (ab |)jiya nahi jata
+      - (zindagi|zindgi|life|jindagi|jeevan) (khatam|khtm|khatm|samapt) (kar|karni|karna|ho)
+      - (zindagi|zindgi|jindagi) (se tang|bekar|bekaar|bekar hai|bekaar hai|ka koi matlab nahi)
+      - (meri|meri ki) (life|zindagi|jindagi) bekar
+      - (apni|apna) (jaan|jan|jivan|zindagi) de (dunga|dungi|du|doon|dunga)
+      - jaan de (dunga|dungi|du|doon)
+      - (suicide|sucide|suiside|suicid|suicde|sucide) (kar|karna|karunga|karungi|karoonga|karoongi|kar lunga|kar lungi|kar lu|karne)
+      - suicid*
+      - sucid*
+      - (khudkushi|khudkhushi|khud kushi|khudkhusi|khud kusi|aatmhatya|atmahatya|aatmahatya|atmhatya)
+      - (khud ko|apne aap ko|khud ko) (khatam|khtm|khatm|mar)
+      - khud ko khatam
+      - (fansi|phansi|fasi|phasi) laga
+      - (pankhe|pankha|chhat|chat|bridge|building|pul) se (latak|lataka|kood|kud|koodunga|kudunga|koodungi|kudungi|kud jau|kood jau|kood jaunga|kud jaunga|kood jaungi)
+      - (jahar|zehar|jehar|zahar|poison) (kha|pee|pi|pi lunga|kha lunga|kha lungi|pi lungi)
+      - neend ki goliyan kha
+      - hamesha ke liye so
+      - is duniya se chala jau
+      - is duniya se chale jana
+      - (sabko|sab ko|sabhi ko) mere bina (accha|achha|acha|behtar)
+      - mere bina sab (theek|thik|acche|behtar)
+      - meri (zarurat|jarurat) kisi ko nahi
+      - (main|mai|me) (zinda|jinda) nahi rehna (chahta|chahti)
+      - (main|mai|me) (ab |)(zinda|jinda) nahi rehna
+      - bas ab khatam karna hai
+      - (bas |ab |bas ab )(marna|mar jana|mar jaana) (hai|h|he|chahta|chahti)
+      - socha ki mar (jau|jaun|jaaun|jaun)
+      - (sab|sab kuch|sabkuch|sab kuchh) khatam kar (du|dun|dungi|dunga|doon|dungi|lu|lun|lungi|lunga)
+      - (life|zindagi|jindagi) se thak (gaya|gayi|gaye)
+  self_harm:
+    risk: urgent
+    en:
+      - self harm*
+      - self-harm*
+      - selfharm*
+      - (hurt|harm|cut|burn|hit|punish) myself
+      - (hurting|harming|cutting|burning|hitting|punishing) myself
+      - i (cut|burned|burnt|hurt|hit|scratched|harmed) myself
+      - (cut|cutting|cuts) my (wrist|wrists|arm|arms|hand|hands|thigh|thighs|legs|skin)
+      - cutting (my wrists|my arms|my arm|my wrist|my skin|my thighs|myself)
+      - (cut|cutting|cuts) myself (with|on|using)
+      - i (have been|keep|keep on|started|started to|want to|wanna|need to) (cutting|burning|scratching|hurting|harming|hitting) (myself|my arms|my arm|my wrists|my wrist|my skin|my legs|my thighs)
+      - (scratching|scratch) my (arms|arm|skin) until (they|it) bleed
+      - make myself bleed
+      - razor (on|to|against) my (skin|arm|wrist|wrists)
+      - blade (on|to|against) my (skin|arm|wrist|wrists)
+      - (burned|burnt|burning) myself on purpose
+      - on purpose (to hurt|to cut|to burn) myself
+      - (punishing|punish) myself by (cutting|burning|hitting|starving)
+      - i deserve to (be hurt|get hurt|be in pain|suffer)
+    hi:
+      - मैंने (अपना |अपनी |अपने |)(हाथ|कलाई|नस|बाज़ू|बाजू|पैर|जांघ) (काट|जला|जलाया)
+      - मैं (अपना |अपनी |अपने |)(हाथ|कलाई|नस|बाज़ू|बाजू|पैर|जांघ) (काट|जला) (लूंगा|लूंगी|लेता|लेती|देता|देती|दूंगा|दूंगी|ता|ती)
+      - (हाथ|कलाई|नस) काट (लिया|लूंगा|लूंगी|ली|लेता|लेती|रहा|रही)
+      - खुद को (चोट|नुकसान|हानि) (पहुंचा|पहुँचा)
+      - खुद को (चोट|नुकसान) (देना|देता|देती|दे|पहुंचाना|पहुंचाता|पहुंचाती)
+      - अपने आप को (काट*|जला*|चोट|नुकसान|मार*|सज़ा|सजा)
+      - खुद को (काट*|जला*|मार*|सज़ा|सजा)
+      - ब्लेड से (काट|हाथ|नस)
+      - सेल्फ हार्म
+    hinglish:
+      - (maine|mene|maina) (apna |apni |apne |)(haath|hath|kalai|nas|bazu|baju|pair|jaangh) (kaat|jala|kat)
+      - (main|mai|me) (apna |apni |apne |)(haath|hath|kalai|nas|bazu|baju|pair) (kaat|jala|kat) (lunga|lungi|raha|rahi|leta|leti|deta|deti|dunga|dungi|ta hu|ti hu)
+      - (haath|hath|kalai|nas) kaat (liya|lunga|lungi|li|leta|leti|raha|rahi|rha|rhi)
+      - (khud|khud ko|apne aap ko|apne ap ko) (ko |)(chot|chhot|hurt|nuksan|nuksaan|harm)
+      - khud ko (hurt|chot|chhot|nuksan|nuksaan|harm|maarta|marta|maarti|marti|kaat|kaatta|kaatti|jalata|jalati)
+      - apne aap ko (hurt|chot|chhot|nuksan|nuksaan|harm|maarta|marta|maarti|marti|kaat|kaatta|kaatti|jalata|jalati)
+      - blade se (haath|hath|kalai|nas|khud ko|kaat|kat)
+      - blade se (kaat|kat) (raha|rahi|rha|rhi|leta|leti|lunga|lungi)
+      - self harm*
+      - selfharm*
+  abuse:
+    risk: urgent
+    en:
+      - (i am|im|i was|ive been|i have been) (being |getting |been |)(abused|molested|raped|assaulted|beaten up|sexually abused)
+      - (abused|molested|raped|assaulted) me
+      - (someone|he|she|they|my (uncle|father|dad|stepfather|brother|cousin|teacher|tutor|neighbour|neighbor|boyfriend|grandfather|coach|driver|relative)) (is |has |was |keeps |kept |)(abusing|molesting|raping|assaulting|abused|molested|raped|assaulted) me
+      - (touch|touches|touched|touching) me (in a bad way|in a way i dont like|in a way i do not like|inappropriately|wrongly|there|down there|in my private parts)
+      - (touch|touches|touched|touching) my private (parts|part)
+      - (touch|touches|touched|touching) me in a way
+      - touched me in a bad way
+      - touched me in a way i
+      - (force|forces|forced|forcing) me to (do things|have sex|do sex|touch|kiss|take off my clothes|undress|do something)
+      - (makes|made|making) me do things i (dont|do not) want to
+      - told me to keep it a secret
+      - (tells|told|telling) me not to tell (anyone|anybody|my parents|mom|dad|)
+      - (touches|touched|touching) me (and|then) (tells|told|telling) me
+      - tells me to keep it a secret
+      - keep it (a |our |)secret and (dont|do not|never) tell
+      - (dont|do not|never) tell anyone about (this|it|what) (happened|he did|we did|they did)
+      - (hits|beats|hit|beat|beating|hitting|slaps|kicks|burns|hurts|threatens) me (every day|everyday|a lot|badly|daily|all the time|when he is drunk|when she is drunk|when drunk|until i bleed|with a belt|with a stick|and i have bruises|and i bleed|and leaves marks)
+      - (beats|beat|hits|hit|hurts|hurt) me badly
+      - (hits|beats|hurts|hit|beat|hurt) me and (i have|there are|it leaves) (bruises|marks|scars)
+      - i have bruises (because|from)
+      - (am|im|i am|i m) scared to go home
+      - (afraid|scared|terrified) (to go|of going) home
+      - (afraid|scared|terrified) of (my|him|her) (dad|father|mother|mom|uncle|stepfather|stepmother|brother|teacher|tutor)
+      - nobody at home (is kind|loves me)
+      - i (dont|do not) feel safe (at home|with him|with her|with them|with my)
+    hi:
+      - मुझे गलत तरीके से (छू|छूता|छूती|छूते|छुआ|छुआ है|छूना)
+      - (गलत|बुरे) तरीके से (छू|छुआ|छूता|छूती|छूते|छूना)
+      - गलत (जगह|जगहों) (छू|छुआ|पर छू|पर हाथ|हाथ)
+      - (गंदी|गन्दी|बुरी) हरकत
+      - गंदा काम
+      - (किसी|कोई) को बताने से मना
+      - किसी को (मत बताना|मत बताओ|बताया तो)
+      - (मेरे साथ|मेरे साथ) जबरदस्ती
+      - जबरदस्ती (की|करता|करते|करती|करना)
+      - बलात्कार
+      - यौन शोषण
+      - शारीरिक शोषण
+      - (मुझे|मुझको) (बहुत |रोज़ |रोज |हर रोज़ |हर दिन |)(मारते|मारता|मारती|पीटते|पीटता|पीटती|मारा|पीटा|मारपीट) (हैं|है|हूं|हो|)
+      - (पापा|पिताजी|चाचा|मामा|भाई|टीचर|सर|मम्मी|माँ|मां|सौतेले पिता|सौतेली मां|सौतेली माँ) (मुझे |मुझको |)(बहुत |रोज़ |रोज |बुरी तरह |)(मारते|मारता|मारती|पीटते|पीटता|पीटती)
+      - घर जाने से डर लगता
+      - घर जाने में डर लगता
+      - घर में (मुझे |)(डर|सुरक्षित नहीं)
+      - मैं सुरक्षित नहीं
+    hinglish:
+      - (galat|bure) (tarike|tareeke|tarike|tareke|jagah|jagha|jagah pe|jagha pe) (se |)(chhute|chhoote|chuta|chute|chhuta|chhoota|chhua|chhuu|touch|chhuti|chhooti|chhu|chhoo|choota|chute hain)
+      - galat (tarike|tareeke|tarah) (se |)(touch|chhu|chhoo|chhuta|chhoota)
+      - galat touch
+      - galat jagah touch
+      - galat jagah (chhu|chhua|chhuta|chhoota|chhuti|haath|hath)
+      - mujhe (galat |bura |ganda |)touch (karta|karte|karti|kiya|karna)
+      - (ganda|ganda sa|gandi|gandi si|bura) (kaam|harkat|baat) (karta|karte|karti|kiya|karna|karne)
+      - ganda kaam
+      - gandi harkat
+      - (kisi ko|kisi se|kisiko) (batane|batane se|bataya|batana|batao) (se |)(mana|mat|na|manaa)
+      - kisi ko mat batana
+      - kisi ko (batana|bataya) (mat|toh|to)
+      - (mere saath|mere sath|meray saath) (jabardasti|jabardasti|zabardasti|zabardasti|jabrdasti|jabardasti)
+      - (jabardasti|zabardasti|jabrdasti) (hui|kiya|karta|karte|karti|karne)
+      - (balatkar|rape)
+      - (papa|pita ji|pitaji|chacha|mama|bhaiya|bhai|teacher|sir|mummy|mom|uncle|tuition teacher|tutor|stepfather|sautele papa) mujhe (bahut |roz |bohot |rooz |buri tarah |zor se |)(maarte|maarta|maarti|peette|peetta|peetti|marte|marta|marti|pitte|pitta|pitti|peet|mara|maara|peeta)
+      - mujhe (bahut |roz |bohot |buri tarah |)(maarte|peette|peette|marte|pitte|maarta|peeta|maarti) (hain|hai|he|h|)
+      - (roz|rooz|har din) (maarte|maarta|maarti|peette|marte|marta|marti|peetta)
+      - ghar (jaane|jane|jaana|jana) se (dar|darr|dar sa|darr sa) lagta
+      - ghar (jaane|jane) mein (dar|darr)
+      - mujhe ghar (jaane|jane) se (dar|darr)
+      - mai (safe|surakshit) nahi hu
+      - mere saath galat hua
+  exam_stress:
+    risk: concern
+    en:
+      - (i will|ill|i am going to|im going to|i m going to|i am gonna|im gonna|i might) fail
+      - (will|would) kill me if i fail
+      - parents (will|would|are going to) (kill|beat|hit|punish|disown|hate|throw out|never forgive) me
+      - my (parents|dad|father|mom|mother|mum|family|teacher) (will|would|is going to|are going to) (be so |be very |be really |)(angry|furious|disappointed|upset|beat me|kill me|hit me|punish me|disown me|hate me|scold me|shout|shout at me)
+      - (dad|father|mom|mother|mum|parents|papa|mummy) will (beat|hit|punish|scold|shout at) me (if|when) (i get|i fail|i score|my marks|my result|my results)
+      - i (cant|can not|cannot|could not|couldnt|am not able to) (do this|take this|handle this|take it|cope|do it|go on|study|take it) (anymore|any more|any longer)
+      - i (cant|can not|cannot) (do this|take this|handle this|cope) (anymore|any more)
+      - i (cant|can not|cannot) (take|handle|bear|cope with|stand|deal with) (the |this |so much |this much |all this |too much |that |)(exam |exams |study |studies |academic |board |board exam |)pressure
+      - (exam|exams|board exam|board exams|studies|study|marks|results|result|tests) (pressure|stress|anxiety|tension|fear)
+      - (pressure|stress|anxiety|tension|fear) (of|about|from|because of|due to) (the |my |)(exams|exam|board exams|board exam|studies|marks|results|result|tests|boards)
+      - (stressed|anxious|scared|terrified|afraid|panicking|panicked|worried|nervous|tense|depressed|sad|hopeless|exhausted) (about|of|because of|over|for|with|by) (the |my |our |these |)(exams|exam|board exams|board exam|marks|results|result|boards|failing|studies|tests)
+      - (exams|exam|boards|board exams|marks|results|studies) (are |is |have been |keep |)(giving|gave|causing|cause|causes) me (so much |a lot of |lots of |too much |)(anxiety|stress|tension|pressure|panic|fear)
+      - (so |very |really |too |)(scared|afraid|terrified|anxious|worried) (i will|ill|i would|i might|of) fail(ing|)
+      - scared (i will|ill|i might|i would|of) fail
+      - afraid (i will|ill|i might|i would|of) fail
+      - terrified of (failing|my result|my results|my marks|the exam|the exams)
+      - fear of failing
+      - feel like a failure
+      - i am a failure
+      - i feel (hopeless|worthless|useless|stupid|dumb|like a failure) (about|because of|about my) (exams|exam|marks|studies|results)
+      - everyone expects me to (score|get|pass|top|do well)
+      - (nothing|nothing stays|nothing is staying|nothing goes) in my head
+      - (cant|cannot|can not|dont|do not|couldnt) sleep (because of|due to) (exams|exam|studies|the exam|stress|marks)
+      - (exam|exams|stress|marks|studies) (and|so i|so i am|so i can) (cant|cannot|can not) sleep
+      - panicking (about|because|for) (the |my |)(exam|exams|test|result)
+      - exam is tomorrow (and|so) (i am|im) (panicking|scared|terrified|stressed|crying)
+      - i (hate|am ashamed of|am disappointed in) myself (for|because of) (getting |my |)(low|bad|poor) (marks|grades|score|scores|results|result)
+      - afraid to show (my |the |)(report card|result|results|marks|marksheet|mark sheet)
+      - scared to show (my |the |)(report card|result|results|marks|marksheet|mark sheet)
+      - (report card|marksheet|mark sheet) (to my |to |for my )(parents|dad|mom|father|mother)
+      - too much pressure
+      - (i am|im|i m) panicking
+      - (so |very |really |)(tensed|stressed|anxious|scared) (about|for|because of) (the |my |)(boards|board exams|exams|exam|results|marks)
+      - (everyone|everybody|they|people|my friends|my classmates) (will|would) laugh at me
+      - (i will|ill) definitely fail
+      - so much pressure
+      - cant handle (the |this |so much |this much |all this |)pressure
+      - i give up on everything
+    hi:
+      - (परीक्षा|एग्जाम|एग्ज़ाम|बोर्ड परीक्षा|बोर्ड एग्जाम|बोर्ड|पढ़ाई|पढ़ाई का) (का |की |के |से |में |)(बहुत |बहुत ज़्यादा |बहुत ज्यादा |)(टेंशन|तनाव|दबाव|डर|घबराहट|चिंता|प्रेशर)
+      - परीक्षा (से |के |का |की |)(बहुत |)(डर|टेंशन|तनाव|दबाव|घबराहट|चिंता)
+      - मैं (फेल|अनुत्तीर्ण) हो (जाऊंगा|जाऊंगी|जाऊगा|जाउंगा|जाउंगी|जाऊँगा|जाऊँगी|जाउँगा|जाउँगी)
+      - (फेल|अनुत्तीर्ण) हो (गया|गई|गयी|जाऊं|जाऊंगा|जाऊंगी|जाने)
+      - फेल होने (का|से) (डर|डरता|डरती|डर लगता)
+      - (पापा|मम्मी|माँ|मां|पिताजी|घर वाले|घरवाले|माता पिता|मम्मी पापा) (मुझे |मुझ पर |मुझसे |)(मार डालेंगे|मार देंगे|बहुत मारेंगे|मारेंगे|पीटेंगे|डाटेंगे|डांटेंगे|गुस्सा होंगे|बहुत गुस्सा|नाराज़ होंगे|नाराज होंगे|निकाल देंगे|कभी माफ़ नहीं|कभी माफ नहीं)
+      - मुझसे (अब |)(और |)नहीं (हो पा रहा|हो पाएगा|होगा|होता|हो रहा|सहा जाता|संभलता)
+      - मैं (यह |ये |ये सब |यह सब |)(सब |)(नहीं|ना) कर (सकता|सकती) (अब|)
+      - मैं (अब |)(और |)(यह |ये |)(नहीं|ना) कर (सकता|सकती)
+      - मैं (अब |)थक गया हूं
+      - मैं (अब |)थक गई हूं
+      - मैं (पढ़ाई|दबाव|तनाव|टेंशन) (के |से |का |की )(दबाव|तनाव|टेंशन|थक)
+      - (पढ़ाई|परीक्षा) (के |के बहुत |)(दबाव|तनाव) से (थक|परेशान)
+      - नींद नहीं आती
+      - रिपोर्ट कार्ड (दिखाने|दिखाना) से डर
+      - रिपोर्ट कार्ड (दिखाने|दिखाना)
+      - नंबर कम (आए|आये|आएंगे|आयेंगे|आया|आई)
+      - सब मुझ पर हंसेंगे
+      - सब (मुझ पर|मुझे) (हंसेंगे|हँसेंगे|ताने मारेंगे|ताने देंगे)
+      - मैं (बेकार|नाकाम|नाकामयाब|असफल) हूं
+      - मैं (बेकार|नाकाम|नाकामयाब|असफल) हूँ
+      - घबराहट हो रही
+      - (बहुत|बहुत ज़्यादा|बहुत ज्यादा) (टेंशन|तनाव|घबराहट|चिंता)
+      - (टेंशन|तनाव) (में हूं|में हूँ|हो रहा है|हो रही है)
+    hinglish:
+      - (pariksha|exam|exams|board exam|board exams|boards|board|padhai|padhai ka|study|results|result|marks) (ka |ki |ke |se |mein |me |)(bahut |bohot |bahot |boht |bahut zyada |bohot zyada |)(tension|stress|pressure|darr|dar|ghabrahat|ghabrahat|chinta|anxiety|panic)
+      - (main|mai|me) fail ho (jaunga|jaungi|jaaunga|jaaungi|jaonga|jaongi|jauga|jaugi)
+      - fail ho (gaya|gayi|gaya toh|gayi toh|jaunga|jaungi|jaaunga|jaaungi|jaonga|jaongi|jaunga|jane|jaane)
+      - fail hone (ka|se) (darr|dar|dar lagta|darr lagta)
+      - (papa|mummy|mom|dad|pitaji|ghar wale|gharwale|mummy papa|mama papa|parents) (mujhe |mujhpe |mujhse |)(maar dalenge|maar denge|bahut maarenge|maarenge|pitenge|peetenge|daantengi|dantengi|daatenge|datenge|daantenge|gussa honge|bahut gussa|naraz honge|nikal denge|kabhi maaf nahi|kabhi maf nahi|kya kahenge|bahut daantengi)
+      - (sab|log|dost) kya kahenge
+      - mujhse (ab |)(aur |)nahi (ho raha|ho paa raha|ho pa raha|hota|hoga|hopayega|ho payega|sahan hota|sambhalta|sahi jata|saha jata)
+      - (main|mai|me) (ye |yeh |ye sab |yeh sab |)(sab |)(ab |)nahi kar (sakta|sakti) (ab|)
+      - (main|mai|me) (ab |)(aur |)(ye |yeh |)nahi kar (sakta|sakti)
+      - (mai|main|me) (ab |)thak gaya
+      - (mai|main|me) (ab |)thak gayi
+      - neend nahi aati
+      - report card (dikhane|dikhana) se (darr|dar)
+      - report card (dikhane|dikhana)
+      - number kam (aaye|aaya|aayenge|aayega|aae|aaye toh|aa gaye|aa jaye)
+      - marks kam (aaye|aaya|aayenge|aayega|aae|aaye toh|aa gaye|aa jaye)
+      - (95|90|99|100) percent expect
+      - percent expect karte
+      - expect karte hain mujhse
+      - mera kuch nahi hoga
+      - (main|mai|me) (kuch |kuchh |)(bekar|nakaam|nakam|fail|failure|useless) hu
+      - (mai|main|me) (bekar|nakaam|nakam|useless|failure) hoon
+      - mujhe ghabrahat ho
+      - padhai ka (pressure|tension|stress)
+      - (bahut|bohot|bahot|boht) (tension|stress|ghabrahat|chinta|darr|pressure) (hai|ho raha|ho rahi|lag raha|lag rahi|hai mujhe)
+      - (tension|stress) (mein|me) hu
+      - (number|marks) nahi aaye (toh|to) (ghar wale|gharwale|papa|mummy|parents) mujhe
+      - boards ka (tension|stress|pressure|darr) (kha|lag|ho)
+      - (mujhe |)(boards|board|exam|exams) se (bahut |bohot |)(dar|darr) lag
+
+squashed:
+  - iwanttodie
+  - killmyself
+  - endmylife
+  - wanttodie
+  - suicide

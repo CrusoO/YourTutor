@@ -1,0 +1,35 @@
+# Everyday words a student may type for a topic ("teach me algebra"), and what they stand for.
+#
+# The server only PUBLISHES this table (GET /context/finder-rules). The browser matches the typed
+# words against it on the device, then against the student's own live chapters and skills. What a
+# student types is never sent anywhere.
+#
+# Each entry:
+#   say:            the word or short phrase a student may type (lower case letters and spaces, 1-3 words)
+#   words:          topic words to look for in chapter and skill titles (a typed "polynomial" also finds "Polynomials")
+#   skill_prefixes: skill id prefixes whose skills count as a match (e.g. MATH.ALG covers every algebra skill)
+#
+# English is first. Hindi and Nepali lists stay empty until a person who reads the language writes
+# them: never machine-translate and fill them in.
+default_language: en
+languages:
+  en:
+    status: draft
+    aliases:
+      - {say: [algebra], words: [algebra, equation, equations, expression, expressions, linear, polynomial, polynomials, quadratic, variable, variables, zeroes], skill_prefixes: [MATH.ALG]}
+      - {say: [equation, equations, linear equation, linear equations], words: [equation, equations, linear], skill_prefixes: [MATH.ALG.LIN]}
+      - {say: [quadratic, quadratics, quadratic equation, quadratic equations], words: [quadratic, quadratics], skill_prefixes: [MATH.ALG.QUAD]}
+      - {say: [polynomial, polynomials, zeroes, zeros], words: [polynomial, polynomials, zeroes, quadratic, cubic], skill_prefixes: [MATH.ALG.POLY]}
+      - {say: [maths, math, mathematics], words: [], skill_prefixes: [MATH]}
+      - {say: [numbers, number, arithmetic, integers], words: [number, numbers, integer, integers, arithmetic, fractions, decimals], skill_prefixes: [MATH.ARITH]}
+      - {say: [geometry, shapes, triangles, triangle, circles, circle], words: [geometry, triangle, triangles, circle, circles, angles, coordinate, lines, shapes], skill_prefixes: [MATH.GEO]}
+      - {say: [trigonometry, trig], words: [trigonometry, trigonometric, sine, cosine, tangent, ratios, angles], skill_prefixes: [MATH.TRIG]}
+      - {say: [progression, progressions, ap, arithmetic progression, arithmetic progressions, sequence, sequences, series], words: [progression, progressions, sequence, sequences, series], skill_prefixes: [MATH.SEQ]}
+      - {say: [statistics, stats, probability, data], words: [statistics, probability, data, mean, median, mode], skill_prefixes: [MATH.STAT]}
+  # TODO: hi and ne aliases wait for a native speaker to write and review them. Empty on purpose.
+  hi:
+    status: draft
+    aliases: []
+  ne:
+    status: draft
+    aliases: []
