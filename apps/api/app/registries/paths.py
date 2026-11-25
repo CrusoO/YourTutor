@@ -12,10 +12,22 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parents[4]
 
 
+def bundled_config_dir() -> Path:
+    """A copy of `<repo>/config` kept inside the API folder (`scripts/sync_bundled_config.py`).
+
+    Vercel uploads only `apps/api`, so the real `config/` folder is not there; a test fails if this
+    copy differs from it.
+    """
+    return Path(__file__).resolve().parents[2] / "bundled_config"
+
+
 def config_dir() -> Path:
-    """`CONFIG_DIR` (containers mount `/config`), else `<repo>/config`."""
+    """`CONFIG_DIR` (containers mount `/config`), else `<repo>/config`, else the bundled copy."""
     override = os.environ.get("CONFIG_DIR")
-    return Path(override) if override else repo_root() / "config"
+    if override:
+        return Path(override)
+    repo = repo_root() / "config"
+    return repo if repo.is_dir() else bundled_config_dir()
 
 
 def content_root() -> Path:

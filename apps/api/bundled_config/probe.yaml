@@ -1,0 +1,57 @@
+# Adaptive placement probe parameters (docs: probe-and-profile-spec section 3).
+# Every value is TUNABLE-DEFAULT: a first estimate, not a fitted number. Change it here, not in
+# code; a log-based fit (a later PR) may replace any of them. The loader validates ranges.
+
+# TUNABLE-DEFAULT: chance a student who knows the skill still answers wrong (careless error).
+slip: 0.10
+# TUNABLE-DEFAULT: multi-step items (role apply/transfer) have more places to slip.
+slip_multistep: 0.15
+# TUNABLE-DEFAULT: chance of a lucky correct typed numeric or expression answer.
+guess_typed: 0.05
+# TUNABLE-DEFAULT: MCQ guess is 1/options, clipped to this floor (many options) ...
+guess_mcq_floor: 0.10
+# TUNABLE-DEFAULT: ... and this cap (two or three options still carry some evidence).
+guess_mcq_cap: 0.33
+# TUNABLE-DEFAULT: P("I don't know" | knows the skill); rare, so IDK is strong evidence.
+idk_known: 0.05
+# TUNABLE-DEFAULT: P("I don't know" | does not know it); 10:1 odds against known.
+idk_unknown: 0.50
+# TUNABLE-DEFAULT: low, middle and high starting levels of the mixture prior.
+prior_bases: [0.3, 0.6, 0.9]
+# TUNABLE-DEFAULT: deeper skills (longer prerequisite chain) are less likely known at the start.
+depth_decay: 0.85
+# TUNABLE-DEFAULT: keeps every probability strictly inside (0, 1) so no state is impossible.
+prior_clip: [0.02, 0.98]
+# TUNABLE-DEFAULT: each starting level keeps at least this weight, so a tap never sets level.
+mixture_floor: 0.15
+# TUNABLE-DEFAULT: a skill at or above this marginal counts as known.
+resolve_hi: 0.90
+# TUNABLE-DEFAULT: a skill at or below this marginal counts as not known.
+resolve_lo: 0.10
+# TUNABLE-DEFAULT: stop when the best next item is expected to teach less than this many bits.
+min_gain_bits: 0.03
+# TUNABLE-DEFAULT: a warm-up of at most 12 items.
+cap_items: 12
+# TUNABLE-DEFAULT: wide graphs (more than 12 probe skills) may use 14.
+cap_items_wide: 14
+# TUNABLE-DEFAULT: a warm-up should not run past 10 active minutes.
+cap_minutes: 10
+# TUNABLE-DEFAULT: items of one skill are correlated, so ask at most this many per skill.
+max_per_skill: 3
+# TUNABLE-DEFAULT: above this many closed states the caller shrinks the skill set.
+max_states: 20000
+# TUNABLE-DEFAULT: this many wrong or "I don't know" answers in a row ends the warm-up kindly.
+frustration_run: 3
+# TUNABLE-DEFAULT: a placement is never proof; seeded mastery is capped here.
+seed_cap: 0.85
+# TUNABLE-DEFAULT: guess used for a rapid or unsure correct answer (weak evidence).
+guess_uncertain: 0.5
+# TUNABLE-DEFAULT: the first items should feel winnable ("confidence opener").
+opener_items: 2
+opener_min_success: 0.7
+# TUNABLE-DEFAULT: graphs with more probe skills than this use cap_items_wide.
+wide_skills: 12
+# TUNABLE-DEFAULT: seed bounds for known / not-known and for unclear skills.
+seed_floor: 0.05
+unclear_lo: 0.2
+unclear_hi: 0.6
