@@ -70,6 +70,11 @@ class Settings(BaseSettings):
     # review, append-only decision history with severity, reason, per-question answers and time,
     # the invited `reviewer` role with suspend, and the reviewer pay export.
     reviewer_desk_enabled: bool = False
+    # env: REVIEWERS_ONLY. On: this API serves only sign-in basics and the reviewer desk; every
+    # other route answers 404, and the production start guard skips the three learner-safety
+    # checks (SMTP_HOST, LLM_DAILY_CAP, HELPLINES) because no learner can reach the API. Needs
+    # REVIEWER_DESK_ENABLED. Off (default): nothing changes.
+    reviewers_only: bool = False
     # env: REVIEWER_DAILY_CAP_SECONDS. The most active review time per reviewer per day (UTC) the
     # desk shows as "time today" (3.5 hours). It is shown, not enforced.
     reviewer_daily_cap_seconds: int = 12_600
@@ -257,6 +262,13 @@ def has_llm_key(current: Settings) -> bool:
     return bool(current.anthropic_api_key)
 
 
+def reviewers_only_errors(current: Settings) -> list[str]:
+    """REVIEWERS_ONLY without the reviewer desk is a misconfiguration: no route would work."""
+    if current.reviewers_only and not current.reviewer_desk_enabled:
+        return ["REVIEWERS_ONLY is on but REVIEWER_DESK_ENABLED is off (no review routes exist)"]
+    return []
+
+
 def production_config_errors(
     current: Settings, unverified_helplines: Callable[[], list[str]] | None = None
 ) -> list[str]:
@@ -275,7 +287,8 @@ def production_config_errors(
         current.pilot_key == DEFAULT_PILOT_KEY or len(current.pilot_key) < MIN_SECRET_LENGTH
     ):
         errors.append("PILOT_KEY (default or shorter than 32 characters while PILOT_ONBOARDING)")
-    if not current.smtp_host.strip():
+    learner_safety = not current.reviewers_only  # no learner route exists in reviewers-only mode
+    if learner_safety and not current.smtp_host.strip():
         errors.append("SMTP_HOST (empty: sign-in codes cannot be sent)")
     if current.phone_signin_enabled and current.sms_provider.strip().lower() in {"console", "fake"}:
         errors.append("SMS_PROVIDER (console or fake while PHONE_SIGNIN_ENABLED: nothing is sent)")
@@ -292,7 +305,7 @@ def production_config_errors(
     ):
         if model.strip() and not model.strip().startswith(ANTHROPIC_PREFIX):
             errors.append(f"{env_name} (Claude is the only provider: name it anthropic/<model>)")
-    if llm_route_enabled(current) and current.llm_daily_cap <= 0:
+    if learner_safety and llm_route_enabled(current) and current.llm_daily_cap <= 0:
         errors.append("LLM_DAILY_CAP (0 turns the daily model limit off while an AI route is on)")
     if current.learner_profile_enabled and not current.profile_enc_keys.strip():
         errors.append(
@@ -302,7 +315,7 @@ def production_config_errors(
         if any(host in origin.strip().lower() for host in _LOCAL_HOSTS):
             errors.append("CORS_EXTRA_ORIGINS (contains a localhost origin)")
             break
-    if unverified_helplines is not None:
+    if learner_safety and unverified_helplines is not None:
         pending = unverified_helplines()
         if pending:
             errors.append("HELPLINES (unverified: " + ", ".join(pending) + ")")

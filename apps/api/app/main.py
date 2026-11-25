@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.types import ASGIApp, Receive, Scope, Send
 
 from app.actions.router import router as actions_router
 from app.auth.admin import router as admin_router
@@ -19,6 +20,7 @@ from app.config import (
     production_config_errors,
     production_flag_errors,
     production_secret_errors,
+    reviewers_only_errors,
     settings,
 )
 from app.content_review.router import router as content_review_router
@@ -51,6 +53,9 @@ logger = logging.getLogger("yourtutor.access")
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     validate_startup_config()  # unknown JURISDICTION_PROFILE etc. stops startup
     trusted_networks()  # a bad TRUSTED_PROXIES entry stops startup
+    misconfigured = reviewers_only_errors(settings)
+    if misconfigured:
+        raise RuntimeError(f"Refusing to start: {'; '.join(misconfigured)}.")
     unsafe = production_flag_errors(settings)
     if unsafe:
         raise RuntimeError(
@@ -114,7 +119,51 @@ def allowed_origins(extra: str, *, production: bool = False) -> list[str]:
     return origins
 
 
+# REVIEWERS_ONLY: the only paths still served. Exact paths, plus /staff/review and below. The
+# list is REVIEWER_PATHS (app/auth/deps.py) minus /auth/request-otp (no email is sent) plus the
+# health routes. Interactive docs and /openapi.json are not listed, so they are closed too.
+REVIEWERS_ONLY_EXACT = (
+    "/health",
+    "/ready",
+    "/auth/me",
+    "/auth/options",
+    "/auth/verify-otp",
+    "/agreements/me",
+    "/agreements/reviewer",
+)
+REVIEWERS_ONLY_PREFIX = "/staff/review"
+
+
+def reviewers_only_allows(path: str) -> bool:
+    if path in REVIEWERS_ONLY_EXACT or path == REVIEWERS_ONLY_PREFIX:
+        return True
+    return path.startswith(REVIEWERS_ONLY_PREFIX + "/")
+
+
+class ReviewersOnlyMiddleware:
+    """With REVIEWERS_ONLY on, answer 404 for every path outside the allowlist (per request)."""
+
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if (
+            settings.reviewers_only
+            and scope["type"] in ("http", "websocket")
+            and not reviewers_only_allows(scope["path"])
+        ):
+            if scope["type"] == "http":
+                await JSONResponse({"detail": "not available"}, status_code=404)(
+                    scope, receive, send
+                )
+            else:
+                await send({"type": "websocket.close", "code": 1008})
+            return
+        await self.app(scope, receive, send)
+
+
 app = FastAPI(title="YourTutor API", version="0.2.0", lifespan=lifespan)
+app.add_middleware(ReviewersOnlyMiddleware)  # added first, so CORS wraps its 404s
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins(
