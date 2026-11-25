@@ -174,6 +174,11 @@ class Built:
     options: list[dict[str, Any]]
 
 
+_OPENERS = (
+    "Read the question once more and mark what it gives and what it asks for.",
+    "Before you start, name what the question tells you and what you must find.",
+    "Begin by separating what is given from what is asked.",
+)
 _NUM = re.compile(r"(?<![\d.])\d+(?:\.\d+)?(?![\d.])")
 
 
@@ -213,6 +218,10 @@ def finish(
         return "fewer_than_three_distinct_named_wrongs"
     if len(draft.hints) != 3:
         raise ValueError("three hints needed")
+    draft.hints = [
+        f"{_OPENERS[int(digest(params), 16) % len(_OPENERS)]} {draft.hints[0]}",
+        *draft.hints[1:],
+    ]
     if any(_hint_leaks(h, draft) for h in draft.hints):
         return "hint_contains_the_answer"
     options: list[dict[str, Any]] = [

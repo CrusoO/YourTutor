@@ -143,7 +143,7 @@ def _equation(params: Mapping[str, str]) -> Any:
         "coeffs": coeffs, "given": given, "ask": ask, "count": count,
     }  # fmt: skip
     hints = [
-        "The numbers in front of the formulas in the equation show how many molecules take part, in proportion.",
+        "The numbers written in front of the formulas show how many molecules take part, in proportion.",
         "Find the number in front of each of the two substances in the question, and use their ratio to scale the number of molecules given.",
         "Write the number of molecules wanted as the number given multiplied by the ratio of the two numbers in front of the formulas.",
     ]
