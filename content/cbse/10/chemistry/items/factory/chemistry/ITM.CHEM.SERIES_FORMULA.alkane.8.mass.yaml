@@ -1,0 +1,129 @@
+id: ITM.CHEM.SERIES_FORMULA.alkane.8.mass
+skill_ids:
+- CHEM.CARBON.SERIES_FORMULA
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: What is the molar mass, in g/mol, of C8H18? (Take C = 12 and H = 1.)
+hints:
+- level: 1
+  en: Molar mass is the sum of the masses of all the atoms in one molecule.
+- level: 2
+  en: Multiply the number of atoms of each element by that element's atomic mass,
+    then add.
+- level: 3
+  en: Count the carbon atoms and the hydrogen atoms in the formula, and use the given
+    atomic masses.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number of
+    carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_FORMULA
+generator_version: factory-2
+template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '112'
+- id: b
+  en: '26'
+- id: c
+  en: '114'
+- id: d
+  en: '96'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - a
+- id: CHEM.MC.SERIES.ATOMS_COUNTED_AS_MASS
+  when_answer_equals:
+  - b
+- id: CHEM.MC.SERIES.CARBON_MASS_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Carbon: 8 x 12 = 96. Hydrogen: 18 x 1 = 18.'
+- en: 'Add them: 114 g/mol.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4f1382f128314f525b6e084d70c6e45d59f817061417707418d855656315c7f6
+  template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+  certificate_hash: 8725d3b0088a1f228984a483e5ddb8cfd8301d27e4cfe5ee805e42948a2a2df1
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.series_general_formula
+  - chem.series_chain_build
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:04+00:00'
+  record_hash: a35f65434c29ebc2bd86c47e3578d2cb5504c48ac97e012b02cfd68b292bdf9b

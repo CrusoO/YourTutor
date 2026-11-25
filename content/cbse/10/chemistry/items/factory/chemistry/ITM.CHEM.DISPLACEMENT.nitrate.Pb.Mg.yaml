@@ -1,0 +1,131 @@
+id: ITM.CHEM.DISPLACEMENT.nitrate.Pb.Mg
+skill_ids:
+- CHEM.METAL.DISPLACEMENT
+difficulty: 0.41
+pool: practice
+role: apply
+stem:
+  en: Lead metal is added to magnesium nitrate solution. Which statement is correct?
+hints:
+- level: 1
+  en: A more reactive metal can push a less reactive metal out of its salt solution.
+    Look at the order of reactivity.
+- level: 2
+  en: Find the metal that is added and the metal that is already in the solution,
+    and compare their places in the reactivity series.
+- level: 3
+  en: The metal that is added must be higher in the series than the metal in the solution
+    for a reaction to happen.
+prediction_prompt:
+  en: Before you decide, which of the two metals do you think is more reactive?
+status: draft
+template_id: TPL.CHEM.DISPLACEMENT
+generator_version: factory-2
+template_hash: 9242b82a511ba8e4510ee27455106591ab669464ca3ba6b6c0975bb9387b4191
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: No reaction takes place
+- id: b
+  en: Hydrogen gas is released
+- id: c
+  en: Magnesium displaces lead, and lead metal is formed
+- id: d
+  en: Lead displaces magnesium, and magnesium metal is formed
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.METAL.HYDROGEN_ALWAYS_RELEASED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.METAL.ROLES_REVERSED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.METAL.LESS_REACTIVE_DISPLACES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Place both metals in the reactivity series.
+- en: A displacement reaction happens only if the metal added is more reactive than
+    the metal in the salt solution.
+- en: 'So the correct statement is: No reaction takes place.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e06111f94410a137545b5f3cc6e0f28b4e970ba59882f0dccc3b606ce16e2257
+  template_hash: 9242b82a511ba8e4510ee27455106591ab669464ca3ba6b6c0975bb9387b4191
+  certificate_hash: 261b19482d0335e0fccbe72a3f3c7b3b0b6e1102ced5b92fa12f43792e01ca1c
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.metals_nonmetals
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.displace_series
+  - chem.displace_potentials
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:46+00:00'
+  record_hash: 5798987b6b53743631e452b642a5f3d36998694812ef77897ff41bd8803a35c6

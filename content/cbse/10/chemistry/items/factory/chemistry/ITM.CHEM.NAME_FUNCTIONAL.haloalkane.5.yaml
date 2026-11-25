@@ -1,0 +1,126 @@
+id: ITM.CHEM.NAME_FUNCTIONAL.haloalkane.5
+skill_ids:
+- CHEM.CARBON.NAME_FUNCTIONAL
+difficulty: 0.54
+pool: practice
+role: procedure
+stem:
+  en: What is the IUPAC name of the compound with the condensed formula CH3-CH2-CH2-CH2-CH2-Cl?
+hints:
+- level: 1
+  en: Count all the carbon atoms in the chain, including the carbon inside a group
+    such as CHO or COOH, to get the parent name.
+- level: 2
+  en: The group at the end of the chain decides the ending of the name, or a prefix
+    such as chloro.
+- level: 3
+  en: Put the parent name and the ending or prefix together, and add the number one
+    where the position of the group at the end of a longer chain must be stated.
+prediction_prompt:
+  en: Before you name it, which group at the end of the chain gives the ending?
+status: draft
+template_id: TPL.CHEM.NAME_FUNCTIONAL
+generator_version: factory-2
+template_hash: 916288f0467856e7f085b38017c7a62004c777c25e6de76a8d19a0bd6c40652a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: pentanal
+- id: b
+  en: pentanoic acid
+- id: c
+  en: pentan-1-ol
+- id: d
+  en: 1-chloropentane
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.NAME.GROUP_SUFFIX_MIXED
+  when_answer_equals:
+  - a
+  - b
+  - c
+solution_steps:
+- en: The chain has 5 carbon atoms, so the parent is 'pentan-'.
+- en: The end group is the haloalkane group, which sets the ending or prefix.
+- en: The name is 1-chloropentane.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f2b151d70328af6bc8491cffac346247c30e0793762645f9bc961a8a6fe8d3f3
+  template_hash: 916288f0467856e7f085b38017c7a62004c777c25e6de76a8d19a0bd6c40652a
+  certificate_hash: 81ca4d3600a223ffb3c4f318b69d98fd182dfc6d8fccd3cc19cb3b9435b89943
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.functional_algorithm
+  - chem.functional_table
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:31+00:00'
+  record_hash: 780fccb86dfd9eeb5fba804028e86160ce27a834c1ef69b0d5840230b94d0b56

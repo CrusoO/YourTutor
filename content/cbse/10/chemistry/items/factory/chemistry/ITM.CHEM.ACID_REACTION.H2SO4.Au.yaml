@@ -1,0 +1,132 @@
+id: ITM.CHEM.ACID_REACTION.H2SO4.Au
+skill_ids:
+- CHEM.METAL.ACID_REACTION
+difficulty: 0.33
+pool: practice
+role: recall
+stem:
+  en: Gold metal is added to dilute sulphuric acid. Which statement is correct?
+hints:
+- level: 1
+  en: A dilute acid contains hydrogen ions. A metal can push hydrogen out of the acid
+    only if it is more reactive than hydrogen.
+- level: 2
+  en: Find where hydrogen sits in the reactivity series and compare it with the place
+    of the metal.
+- level: 3
+  en: Metals above hydrogen in the series release hydrogen gas from a dilute acid.
+    Metals below hydrogen do not.
+prediction_prompt:
+  en: Before you decide, is this metal near the top of the reactivity series or near
+    the bottom?
+status: draft
+template_id: TPL.CHEM.ACID_REACTION
+generator_version: factory-2
+template_hash: e0ff7cfd083e161bd073bf1d484b9b50301fa235735fdc2ea3084e8edb58474f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: Hydrogen gas is released and a salt forms
+- id: b
+  en: Oxygen gas is released
+- id: c
+  en: Only a salt and water form, as in neutralisation
+- id: d
+  en: No reaction takes place
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.METAL.BELOW_HYDROGEN_REACTS
+  when_answer_equals:
+  - a
+- id: CHEM.MC.METAL.WRONG_GAS_NAMED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.METAL.METAL_TREATED_AS_BASE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Locate the metal and hydrogen in the reactivity series.
+- en: A metal reacts with a dilute acid to give hydrogen only if it is above hydrogen
+    in the series.
+- en: 'So the correct statement is: No reaction takes place.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 28774498d29aebbcac22702a9d29b87216d9959a183161284f0581481c942655
+  template_hash: e0ff7cfd083e161bd073bf1d484b9b50301fa235735fdc2ea3084e8edb58474f
+  certificate_hash: d776c281b9b9e4b3f189746283ad4e1d2bc2e230b89a9826bd6608a22afba330
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.metals_nonmetals
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.acid_series
+  - chem.acid_potentials
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:50+00:00'
+  record_hash: 75223713f8d1f4c9a59ce3993fa0a9f4b4720ef568c7838cd4eeabedb172318f
