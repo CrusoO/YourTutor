@@ -121,8 +121,14 @@ def run_checks() -> list[Check]:
     checks.append(
         Check(
             "database password changed",
-            not (prod and settings.postgres_password == DEFAULT_DB_PASSWORD),
-            "POSTGRES_PASSWORD is set"
+            not (
+                prod
+                and not settings.database_url.strip()
+                and settings.postgres_password == DEFAULT_DB_PASSWORD
+            ),
+            "DATABASE_URL is set"
+            if settings.database_url.strip()
+            else "POSTGRES_PASSWORD is set"
             if settings.postgres_password != DEFAULT_DB_PASSWORD
             else "default",
         )

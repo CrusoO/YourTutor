@@ -90,6 +90,7 @@ def test_the_api_refuses_to_start_in_production_on_the_default_database_password
     for name in DEV_ONLY_FLAGS:
         monkeypatch.setattr(main.settings, name, False)
     monkeypatch.setattr(main.settings, "postgres_password", "tutor")
+    monkeypatch.setattr(main.settings, "database_url", "")  # a machine's .env must not decide this
     with pytest.raises(RuntimeError, match="Refusing to start.*POSTGRES_PASSWORD"):
         with TestClient(main.app):
             pass

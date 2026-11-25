@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     postgres_db: str = "yourtutor"
     postgres_host: str = "127.0.0.1"  # not "localhost": ::1 can stall 30 s per connection
     postgres_port: int = 5432
+    # env: DATABASE_URL. One address for the database, as a host such as Neon hands it out. Used
+    # ONLY when APP_ENV=production (a laptop's old .env line must never point dev, tests or
+    # migrations at a real database); it then replaces the five POSTGRES_* parts. It holds the
+    # password: keep it in the host's secret settings.
+    database_url: str = ""
     redis_url: str = "redis://localhost:6379/0"
     allow_draft_content: bool = False
     # env: SERVE_TIER_A_UNREVIEWED. Serve calculation-checked (Tier A) original items that have no
@@ -229,6 +234,8 @@ def production_flag_errors(current: Settings) -> list[str]:
 def production_secret_errors(current: Settings) -> list[str]:
     """Secrets that still hold their development default although APP_ENV says production."""
     if current.app_env.strip().lower() != PRODUCTION:
+        return []
+    if current.database_url.strip():  # in production one full address replaces the five parts
         return []
     return ["POSTGRES_PASSWORD"] if current.postgres_password == DEFAULT_DB_PASSWORD else []
 
