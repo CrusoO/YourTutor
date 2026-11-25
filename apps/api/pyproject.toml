@@ -4,6 +4,22 @@ version = "0.1.0"
 description = "YourTutor FastAPI service"
 requires-python = ">=3.12"
 readme = "README.md"
+# Keep `dependencies` identical to requirements.txt (tests/test_dependency_lists.py fails if they differ).
+# Vercel's Python builder installs from this table when pyproject.toml has a [project] section, and
+# ignores requirements.txt then: with no list here the deployed API had no libraries at all.
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.32,<1",
+    "pydantic-settings>=2.6,<3",
+    "pyyaml>=6,<7",
+    "sympy>=1.13,<2",
+    "sqlalchemy>=2.0,<3",
+    "alembic>=1.14,<2",
+    "psycopg[binary]>=3.2,<4",
+    "fsrs>=5,<7",
+    "anthropic>=2.4,<3",
+    "cryptography>=46.0.7,<47",
+]
 
 [tool.ruff]
 line-length = 100
