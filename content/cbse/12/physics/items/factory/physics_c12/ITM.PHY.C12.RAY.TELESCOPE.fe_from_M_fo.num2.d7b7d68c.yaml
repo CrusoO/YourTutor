@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.RAY.TELESCOPE.fe_from_M_fo.num2.d7b7d68c
+skill_ids:
+- PHY.C12.RAY.TELESCOPE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about an astronomical telescope in normal adjustment. The magnifying
+    power, M, is 10 and the focal length of the objective, fo, is 200 cm. Find the
+    focal length of the eyepiece.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: M = fo / fe in normal adjustment.'
+- level: 2
+  en: 'Get the eyepiece focal length on its own before you put numbers in: divide
+    each side by M. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 200 cm as 2 m, then write fe = fo / M, where fe is the eyepiece
+    focal length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the eyepiece focal length have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.TELESCOPE
+generator_version: factory-2
+template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 200 cm
+- id: b
+  en: 20 cm
+- id: c
+  en: 500 cm
+- id: d
+  en: 2000 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.OBJECTIVE_COPIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: M = fo / fe in normal adjustment.'
+- en: 'Put each quantity in SI units: 200 cm = 2 m.'
+- en: 'Get the eyepiece focal length alone: divide each side by M.'
+- en: 'Substitute: fe = 2 / 10.'
+- en: 'Calculate: fe = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the eyepiece focal length is 20 cm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 77d2a6253061c06b19b694be0549dcc05466c126ad3e65b6da0a57d6c4ee2b53
+  template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+  certificate_hash: 9d621a7b7c1d6f83b39bd555c546d02453141bfaa92ebd64700beadefc55b810
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:01+00:00'
+  record_hash: 7a382fe52127f777073eb767604e35c5c75352a85ab8f22fa3ae17ab524a3883

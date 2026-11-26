@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.LORENTZ.B_from_m_v_q_r.num3.6bc841b9
+skill_ids:
+- PHY.C12.MAG.LORENTZ
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a charged particle moving in a magnetic field. Its mass,
+    m, is 6.4 x 10^-27 kg, its speed, v, is 100000 m/s, the charge of the particle,
+    q, is 3.2 x 10^-19 C and the radius of its circular path, r, is 0.4 cm. Find the
+    strength of the magnetic field.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: q x v x B = m x v^2 / r, so B = m x v / [q x r].'
+- level: 2
+  en: The relation already gives the field directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 0.4 cm as 0.004 m, then write B = m x v / [q x r], where
+    B is the field, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.LORENTZ
+generator_version: factory-2
+template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 x 10^7 mT
+- id: b
+  en: 500 mT
+- id: c
+  en: 0.008 mT
+- id: d
+  en: 2000 mT
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SPEED_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RADIUS_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: q x v x B = m x v^2 / r, so B = m x v / [q x r].'
+- en: 'Put each quantity in SI units: 0.4 cm = 0.004 m.'
+- en: 'Substitute: B = (6.4 x 10^-27) x 100000 / ((3.2 x 10^-19) x 0.004).'
+- en: 'Calculate: B = 0.5 T.'
+- en: 'Give it in mT: 500 mT.'
+- en: So the field is 500 mT.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0287c559d149df4eda440347928f7823e0ff53ce587e2f96a9194ee5878a0ce0
+  template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+  certificate_hash: a195787877d2945fd72aaf8bcded205b31011184dc3c8fe484aa3f2fe0810734
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:16+00:00'
+  record_hash: 373fcd798244156a0d21260ccecc2bb6f4f7d245683000937f0f7971759cf0a9

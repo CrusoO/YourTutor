@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.CUR.METRE_BRIDGE.S_from_R_l1_l2.num3.46fc1d49
+skill_ids:
+- PHY.C12.CUR.METRE_BRIDGE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a metre bridge at balance. The known resistance in the
+    left gap, R, is 12 Ω, the balance point, l1, is 40 cm from the left end and the
+    remaining wire on the right, l2, is 60 cm. Find the unknown resistance.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: R / S = l1 / l2.'
+- level: 2
+  en: 'Get the unknown resistance on its own before you put numbers in: multiply each
+    side of R / S = l1 / l2 by S, then rearrange for S. Do the same operation to each
+    side of the formula. Change every quantity to SI units first, and change back
+    at the end if asked.'
+- level: 3
+  en: 'First step: Write 40 cm as 0.4 m and 60 cm as 0.6 m, then write S = R x l2
+    / l1, where S is the unknown resistance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the unknown resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.METRE_BRIDGE
+generator_version: factory-2
+template_hash: af0b9a0726ccbc8053a529df5f179726d98dd6c011b5788408ddb9b2e09f39fb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8 Ω
+- id: b
+  en: 18 Ω
+- id: c
+  en: 7.2 Ω
+- id: d
+  en: 30 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.LENGTH_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.TOTAL_LENGTH_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R / S = l1 / l2.'
+- en: 'Put each quantity in SI units: 40 cm = 0.4 m; 60 cm = 0.6 m.'
+- en: 'Get the unknown resistance alone: multiply each side of R / S = l1 / l2 by
+    S, then rearrange for S.'
+- en: 'Substitute: S = 12 x 0.6 / 0.4.'
+- en: 'Calculate: S = 18 Ω.'
+- en: So the unknown resistance is 18 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3f11f7a5631802a7b972c455a7232de690f9e53269be76fc8a1d007fae5494b6
+  template_hash: af0b9a0726ccbc8053a529df5f179726d98dd6c011b5788408ddb9b2e09f39fb
+  certificate_hash: 845b70064db7b14d60ab604c0a3db742f072d023b5f273efbc0ee58eb2f309cc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:13+00:00'
+  record_hash: 797ff11a77058b634ea2c71f454eb118102df729a45d7e28c4489e20607275f2

@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.B_FIELD.Bl_from_N_I_r.mcq1.48a0acef
+skill_ids:
+- PHY.C12.MAG.B_FIELD
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The number of turns, N, is 100, the current, I, is 5 A and the distance, r,
+    is 10 cm. Find the field at the centre of the coil. Take the permeability of free
+    space, mu0, = 1.256 x 10^-6 N/A².
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: B = mu0 x N x I / (2 x r) at the centre of a circular coil.'
+- level: 2
+  en: The relation already gives the field at the centre directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 10 cm as 0.1 m, then write Bl = mu0 x N x I / (2 x r), where
+    Bl is the field at the centre, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field at the centre have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.B_FIELD
+generator_version: factory-2
+template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3140 μT
+- id: b
+  en: 6280 μT
+- id: c
+  en: 31.4 μT
+- id: d
+  en: 31400 μT
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.HALF_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.DISTANCE_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x N x I / (2 x r) at the centre of a circular coil.'
+- en: 'Put each quantity in SI units: 10 cm = 0.1 m.'
+- en: 'Substitute: Bl = (1.256 x 10^-6) x 100 x 5 / (2 x 0.1).'
+- en: 'Calculate: Bl = 0.00314 T.'
+- en: 'Give it in μT: 3140 μT.'
+- en: So the field at the centre is 3140 μT.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bb0adca2e929f6f40b9690b9fa6b33e5132b764e0565e54a6a92bf827c27e7ef
+  template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+  certificate_hash: 7f20604042b693f8e6a6672f7f05587f2463e30aaa32d618786ba25eb80ba518
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:20+00:00'
+  record_hash: ed6d16de5be85df29c22d83fc0a5df546273afbac1d986639053f35a3c5914dc

@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.ATOM.BOHR.r_from_n.num3.b622c8b6
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the hydrogen atom in the Bohr model. The principal quantum
+    number, n, is 4. Find the radius of that orbit. Take the radius of the first Bohr
+    orbit, a0, = 5.3 x 10^-11 m.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Plan the steps: the radius
+    of the n-th orbit is a0 times n squared.'
+- level: 2
+  en: Work through the plan one step at a time. Change every quantity to SI units
+    first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write r = a0 x n^2, where r is the orbit radius, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the orbit radius have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3.3125 pm
+- id: b
+  en: 848 pm
+- id: c
+  en: 3392 pm
+- id: d
+  en: 212 pm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.QUANTUM_NUMBER_CUBED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.QUANTUM_NUMBER_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: the radius of the n-th orbit is a0 times n squared.'
+- en: 'Substitute: r = (5.3 x 10^-11) x 4^2.'
+- en: 'Calculate: r = 8.48 x 10^-10 m.'
+- en: 'Give it in pm: 848 pm.'
+- en: So the orbit radius is 848 pm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 159d4b4be1317db69bdbbc03fb8ca6907fb28b8fcf0efb8a6d16a2caac268f6e
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: 503d3dffb904d5e8d848825695cc5ba05284eedd78e5d9901069af0355d17979
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:50+00:00'
+  record_hash: a7f15d686db314cdbceb55c04e1799b89a0fc2fb1b1936ef70f61329bb3a5113

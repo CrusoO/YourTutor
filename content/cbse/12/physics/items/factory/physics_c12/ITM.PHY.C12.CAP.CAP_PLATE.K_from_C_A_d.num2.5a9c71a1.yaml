@@ -1,0 +1,141 @@
+id: ITM.PHY.C12.CAP.CAP_PLATE.K_from_C_A_d.num2.5a9c71a1
+skill_ids:
+- PHY.C12.CAP.CAP_PLATE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a parallel plate capacitor. The capacitance, C, is 1770
+    pF, the area of each plate, A, is 1000 cm² and the gap between the plates, d,
+    is 2.5 mm. Find the dielectric constant of the material. Take the permittivity
+    of free space, eps0, = 8.85 x 10^-12 C²/(N m²).
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: C = K x eps0 x A / d.'
+- level: 2
+  en: 'Get the dielectric constant on its own before you put numbers in: multiply
+    each side by d and divide each side by eps0 x A. Do the same operation to each
+    side of the formula. Change every quantity to SI units first, and change back
+    at the end if asked.'
+- level: 3
+  en: 'First step: Write 1770 pF as 1.77 x 10^-9 F, 1000 cm² as 0.1 m² and 2.5 mm
+    as 0.0025 m, then write K = C x d / (eps0 x A), where K is the dielectric constant,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the dielectric constant be?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_PLATE
+generator_version: factory-2
+template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: 5 x 10^-4
+- id: c
+  en: '800000'
+- id: d
+  en: '0.2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.GAP_NOT_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: C = K x eps0 x A / d.'
+- en: 'Put each quantity in SI units: 1770 pF = 1.77 x 10^-9 F; 1000 cm² = 0.1 m²;
+    2.5 mm = 0.0025 m.'
+- en: 'Get the dielectric constant alone: multiply each side by d and divide each
+    side by eps0 x A.'
+- en: 'Substitute: K = (1.77 x 10^-9) x 0.0025 / ((8.85 x 10^-12) x 0.1).'
+- en: 'Calculate: K = 5.'
+- en: So the dielectric constant is 5.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 2baf4ccdd876bd8d9b5eef81b2d50d9ac17c7ea4f0f0e85245f61b752dcd1b96
+  template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+  certificate_hash: fb9772135c78ac7a030bec4495354644ec258b4423e90bc9e2763bb1ae988a4a
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:57+00:00'
+  record_hash: 26ccb73fca4ac52e4a5e932659ac69d5f949c8a47f475336a4d0466b063474e5

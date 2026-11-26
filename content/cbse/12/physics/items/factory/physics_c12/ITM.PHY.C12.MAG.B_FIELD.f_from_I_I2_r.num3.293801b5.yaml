@@ -1,0 +1,141 @@
+id: ITM.PHY.C12.MAG.B_FIELD.f_from_I_I2_r.num3.293801b5
+skill_ids:
+- PHY.C12.MAG.B_FIELD
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the magnetic field of a current. The current, I, is 2
+    A, the current in the second wire, I2, is 5 A and the distance, r, is 5 cm. Find
+    the force on each metre of either wire. Take mu0_4pi (the permeability of free
+    space divided by 4 pi) = 1 x 10^-7 N/A².
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: force per metre = (mu0 / 4 pi) x 2 x I1 x I2 / d for two long parallel
+    wires.'
+- level: 2
+  en: The relation already gives the force per unit length directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 5 cm as 0.05 m, then write f = 2 x mu0_4pi x I x I2 / r,
+    where f is the force per unit length, with the values in place, one quantity at
+    a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the force per unit length have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.B_FIELD
+generator_version: factory-2
+template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.8 mN/m
+- id: b
+  en: 0.028 mN/m
+- id: c
+  en: 0.04 mN/m
+- id: d
+  en: 0.02 mN/m
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DISTANCE_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.CURRENTS_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FACTOR_TWO_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: force per metre = (mu0 / 4 pi) x 2 x I1 x I2 / d for two
+    long parallel wires.'
+- en: 'Put each quantity in SI units: 5 cm = 0.05 m.'
+- en: 'Substitute: f = 2 x (1 x 10^-7) x 2 x 5 / 0.05.'
+- en: 'Calculate: f = 4 x 10^-5 N/m.'
+- en: 'Give it in mN/m: 0.04 mN/m.'
+- en: So the force per unit length is 0.04 mN/m.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9a825998b52656f7abe6c33f71cfd781b7762e3758fb841272241407b1d3b50a
+  template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+  certificate_hash: 443711119d3aa1c20c0e057a1b63af573a29ef4617ac7726298b207b13edbb2c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:20+00:00'
+  record_hash: 0181dbe8a890913d401838af00c81eb2cfa66ab1a11903469049841517fb9c43

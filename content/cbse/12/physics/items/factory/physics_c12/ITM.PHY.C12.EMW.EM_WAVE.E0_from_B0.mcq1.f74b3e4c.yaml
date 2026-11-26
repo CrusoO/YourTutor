@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.EMW.EM_WAVE.E0_from_B0.mcq1.f74b3e4c
+skill_ids:
+- PHY.C12.EMW.EM_WAVE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The amplitude of the magnetic field, B0, is 500 nT. Find the amplitude of the
+    electric field. Take the speed of light in vacuum, c, = 3 x 10^8 m/s.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: E0 / B0 = c.'
+- level: 2
+  en: The relation already gives the electric amplitude directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 500 nT as 5 x 10^-7 T, then write E0 = c x B0, where E0 is
+    the electric amplitude, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the electric amplitude have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMW.EM_WAVE
+generator_version: factory-2
+template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 150 V/m
+- id: b
+  en: 1500 V/m
+- id: c
+  en: 0.00667 V/m
+- id: d
+  en: 0.15 V/m
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.SPEED_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: E0 / B0 = c.'
+- en: 'Put each quantity in SI units: 500 nT = 5 x 10^-7 T.'
+- en: 'Substitute: E0 = (3 x 10^8) x (5 x 10^-7).'
+- en: 'Calculate: E0 = 150 V/m.'
+- en: So the electric amplitude is 150 V/m.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 450e26afa78b3e0aff622db67856d0c83df67cc92a9dd40ef9b674ba43f35160
+  template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+  certificate_hash: b220a46fe12a880d9730d9360ba4b441dd8a349d7fa1a772ed7c84ec1a9ed630
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_waves
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:27+00:00'
+  record_hash: dbaa31d5b23b6eb3b8b0b2ea5abe9f4d6d061ae28e782279015d959127a88086

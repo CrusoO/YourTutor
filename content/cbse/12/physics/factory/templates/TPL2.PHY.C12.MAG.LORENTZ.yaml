@@ -1,0 +1,53 @@
+id: TPL2.PHY.C12.MAG.LORENTZ
+schema: factory-template/1
+lane: physics_c12
+model: MAG.LORENTZ
+skill_id: PHY.C12.MAG.LORENTZ
+box:
+  variant:
+    choices:
+    - F_from_q_v_B_s
+    - B_from_F_q_v_s
+    - v_from_F_q_B_s
+    - r_from_m_v_q_B
+    - v_from_m_r_q_B
+    - B_from_m_v_q_r
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  pt:
+    choices:
+    - 1.6e-27,1.6e-19
+    - 6.4e-27,3.2e-19
+    - 3.2e-27,1.6e-19
+  v:
+    choices:
+    - '100000'
+    - '200000'
+    - '1000000'
+  B:
+    choices:
+    - '100'
+    - '200'
+    - '500'
+  s:
+    choices:
+    - '0.5'
+    - '0.6'
+    - '1'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  skill_id: PHY.C12.MAG.LORENTZ
+  allowed_methods:
+  - magnetic_force_on_charge
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

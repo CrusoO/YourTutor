@@ -1,0 +1,52 @@
+id: TPL2.PHY.C12.EMI.FARADAY
+schema: factory-template/1
+lane: physics_c12
+model: EMI.FARADAY
+skill_id: PHY.C12.EMI.FARADAY
+box:
+  variant:
+    choices:
+    - eps_from_N_dPhi_dt
+    - dPhi_from_dB_A
+    - eps_from_N_dB_A_dt
+    - N_from_eps_dPhi_dt
+    - dt_from_eps_N_dPhi
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  N:
+    choices:
+    - '10'
+    - '100'
+    - '500'
+  dB:
+    choices:
+    - '0.2'
+    - '0.5'
+    - '1'
+  A:
+    choices:
+    - '20'
+    - '50'
+    - '200'
+  dt:
+    choices:
+    - '10'
+    - '20'
+    - '100'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  skill_id: PHY.C12.EMI.FARADAY
+  allowed_methods:
+  - faraday_law
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

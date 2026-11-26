@@ -1,0 +1,141 @@
+id: ITM.PHY.C12.MAG.FORCE_WIRE.N_from_tau_I_A_B_s.case4.c42bd6c4
+skill_ids:
+- PHY.C12.MAG.FORCE_WIRE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a current-carrying conductor in a magnetic field
+    and records the following. The torque on the coil, tau, is 2 mNm, the current,
+    I, is 2 A, the area of the coil, A, is 20 cm², the magnetic field, B, is 100 mT
+    and the sine of the angle between the wire and the field, s, is 0.5. Find the
+    number of turns on the coil.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: torque = N x I x A x B x sine of the angle on a flat coil.'
+- level: 2
+  en: 'Get the number of turns on its own before you put numbers in: divide each side
+    by I x A x B x sine of the angle. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 mNm as 0.002 N m, 20 cm² as 0.002 m² and 100 mT as 0.1
+    T, then write N = tau / [I x A x B x s], where N is the number of turns, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of turns be?
+status: draft
+template_id: TPL2.PHY.C12.MAG.FORCE_WIRE
+generator_version: factory-2
+template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '0.001'
+- id: c
+  en: '100'
+- id: d
+  en: '10'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: torque = N x I x A x B x sine of the angle on a flat coil.'
+- en: 'Put each quantity in SI units: 2 mNm = 0.002 N m; 20 cm² = 0.002 m²; 100 mT
+    = 0.1 T.'
+- en: 'Get the number of turns alone: divide each side by I x A x B x sine of the
+    angle.'
+- en: 'Substitute: N = 0.002 / (2 x 0.002 x 0.1 x 0.5).'
+- en: 'Calculate: N = 10.'
+- en: So the number of turns is 10.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9ac1e3a51c45bd5248b0aee455ac86db0b289ac02d4fc41eca292b2ee3b97350
+  template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+  certificate_hash: d77bc78c59b568779d3df33d5fe3eedfee6e6f893305234a1269d565e3ab66ab
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:26+00:00'
+  record_hash: c2d5c4efa09ee98221ef46ea21f72aa92df02e8c6742790ae788aa3960dea69f

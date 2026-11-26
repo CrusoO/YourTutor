@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.WAVE.YDSE.x_from_n_lam_D_d.mcq1.2fdfd9fc
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The order of the bright fringe, n, is 3, the wavelength of the light, lam, is
+    600 nm, the screen, D, is 1.2 m from the slits and the slits are 0.4 mm apart.
+    Find the distance of that bright fringe from the central one.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: the n-th bright fringe is at x = n x wavelength x D / d.'
+- level: 2
+  en: The relation already gives the position directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 600 nm as 6 x 10^-7 m and 0.4 mm as 4 x 10^-4 m, then write
+    x = n x lam x D / d, where x is the position, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the position have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.8 mm
+- id: b
+  en: 7.2 mm
+- id: c
+  en: 1.85e+05 mm
+- id: d
+  en: 5.4 mm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ORDER_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.ORDER_ADDED_ONE
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: the n-th bright fringe is at x = n x wavelength x D / d.'
+- en: 'Put each quantity in SI units: 600 nm = 6 x 10^-7 m; 0.4 mm = 4 x 10^-4 m.'
+- en: 'Substitute: x = 3 x (6 x 10^-7) x 1.2 / (4 x 10^-4).'
+- en: 'Calculate: x = 0.0054 m.'
+- en: 'Give it in mm: 5.4 mm.'
+- en: So the position is 5.4 mm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9a96eeac186f2b5567833bc8277fd999b60b97959e364ddd8a44a36ecea7e951
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: 9352973ee38026f47d72aee781425062cf988d97343b463a91e95fb74ed51a88
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:10+00:00'
+  record_hash: 932a5a035fa328dc091a220ef13508d4bf2f8daceb335c8b52a1e3f3627132e7

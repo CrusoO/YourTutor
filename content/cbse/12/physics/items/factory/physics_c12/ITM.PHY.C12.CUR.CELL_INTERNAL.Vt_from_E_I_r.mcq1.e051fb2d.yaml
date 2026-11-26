@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.CUR.CELL_INTERNAL.Vt_from_E_I_r.mcq1.e051fb2d
+skill_ids:
+- PHY.C12.CUR.CELL_INTERNAL
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The emf of the cell, E, is 24 V, the current, I, is 4.8 A and its internal resistance,
+    r, is 2 Ω. Find the terminal voltage of the cell.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: terminal voltage V = E - I x r.'
+- level: 2
+  en: The relation already gives the terminal voltage directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Vt = E - I x r, where Vt is the terminal voltage, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the terminal voltage have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.CELL_INTERNAL
+generator_version: factory-2
+template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 19.2 V
+- id: b
+  en: 14.4 V
+- id: c
+  en: 33.6 V
+- id: d
+  en: 24 V
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DROP_FORGOTTEN_RESISTANCE
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DROP_ADDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.EMF_TAKEN_AS_TERMINAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: terminal voltage V = E - I x r.'
+- en: 'Substitute: Vt = 24 - 4.8 x 2.'
+- en: 'Calculate: Vt = 14.4 V.'
+- en: So the terminal voltage is 14.4 V.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9ea8bd4c95cde81b7ae3eba7a4ad4152b1c28ae37d30878afa1a873e98e9651a
+  template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+  certificate_hash: ba2c36f9ce3709f9aae1a28ddf56044c68bd4fc15703c0c0b3c28e79eb31a361
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:09+00:00'
+  record_hash: be0f7654c814e454c81e70610228d7044a7b3f468eadbc59d11f2df3e1746aa3

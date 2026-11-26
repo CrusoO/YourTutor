@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.NUC.DECAY.N_from_N0_t_T.mcq1.800327d2
+skill_ids:
+- PHY.C12.NUC.DECAY
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The sample starts with 1280 undecayed nuclei, the time that passes, t, is 15
+    days and the half-life, T, is 5 days. Find how many undecayed nuclei are left.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: the number of half-lives is t / T, then N = N0 / 2^(t/T).'
+- level: 2
+  en: The relation already gives the remaining number of nuclei directly, so decide
+    what to substitute. Change every quantity to SI units first, and change back at
+    the end if asked.
+- level: 3
+  en: 'First step: Write 15 days as 1.296 x 10^6 s and 5 days as 432000 s, then write
+    N = N0 / 2^(t / T), where N is the remaining number of nuclei, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the remaining number of nuclei
+    be?
+status: draft
+template_id: TPL2.PHY.C12.NUC.DECAY
+generator_version: factory-2
+template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '160'
+- id: b
+  en: '640'
+- id: c
+  en: '427'
+- id: d
+  en: '1600'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.HALVED_ONCE_ONLY
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.DIVIDED_BY_N
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the number of half-lives is t / T, then N = N0 / 2^(t/T).'
+- en: 'Put each quantity in SI units: 15 days = 1.296 x 10^6 s; 5 days = 432000 s.'
+- en: 'Substitute: N = 1280 / 2^((1.296 x 10^6) / 432000).'
+- en: 'Calculate: N = 160.'
+- en: So the remaining number of nuclei is 160.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 79067f84b4e47feada8057ab9e60a47fff89ed2c3fbc1146e11518fa569702ad
+  template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+  certificate_hash: 7dae69be79c44bc16d396ec278d1a77933f7f084efd3431183af827a0a655f16
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:15+00:00'
+  record_hash: 2b05a1b0a129b54914b352c46ce766ea0ff0bd087d15d26b2ea558ed058a6df4

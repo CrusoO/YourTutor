@@ -1,0 +1,52 @@
+id: TPL2.PHY.C12.AC.TRANSFORMER
+schema: factory-template/1
+lane: physics_c12
+model: AC.TRANSFORMER
+skill_id: PHY.C12.AC.TRANSFORMER
+box:
+  variant:
+    choices:
+    - Vs_from_Vp_Np_Ns
+    - Ns_from_Vp_Vs_Np
+    - Np_from_Vp_Vs_Ns
+    - I2_from_I1_Np_Ns
+    - I1_from_I2_Np_Ns
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  Vp:
+    choices:
+    - '110'
+    - '220'
+  Np:
+    choices:
+    - '100'
+    - '200'
+    - '1000'
+  Ns:
+    choices:
+    - '10'
+    - '20'
+    - '50'
+    - '2000'
+  Ip:
+    choices:
+    - '0.1'
+    - '0.5'
+    - '2'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.alternating_current
+  skill_id: PHY.C12.AC.TRANSFORMER
+  allowed_methods:
+  - ideal_transformer
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

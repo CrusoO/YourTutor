@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.CUR.CELL_INTERNAL.I_from_E_R_r.case4.207a06bd
+skill_ids:
+- PHY.C12.CUR.CELL_INTERNAL
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a cell with internal resistance driving a resistor
+    and records the following. The emf of the cell, E, is 12 V, the external resistor,
+    R, is 3 Ω and its internal resistance, r, is 2 Ω. Find the current in the circuit.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: E = I x (R + r).'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: divide each side of E
+    = I x (R + r) by (R + r). Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write I = E / (R + r), where I is the current, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.CELL_INTERNAL
+generator_version: factory-2
+template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4 A
+- id: b
+  en: 12 A
+- id: c
+  en: 6 A
+- id: d
+  en: 2.4 A
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INTERNAL_RESISTANCE_IGNORED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RESISTANCES_SUBTRACTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.EXTERNAL_RESISTANCE_IGNORED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: E = I x (R + r).'
+- en: 'Get the current alone: divide each side of E = I x (R + r) by (R + r).'
+- en: 'Substitute: I = 12 / (3 + 2).'
+- en: 'Calculate: I = 2.4 A.'
+- en: So the current is 2.4 A.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 811d3c83c672e7ad4d665287db30ce1be774760f00b197ffd426d34b6e0ae278
+  template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+  certificate_hash: 625540d889d7d47a602987913b959dcf55f9d49c13f003e221143b85dfba7612
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:09+00:00'
+  record_hash: 2dc99eb45259fb885d21a25b9e09dad16fbdf129f12b2a0b3d275b9793e830f0

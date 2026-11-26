@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.Eph_from_K_phi.num3.b2af0114
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying the photoelectric effect at a metal surface. The maximum
+    kinetic energy of the emitted electrons, K, is 3 eV and the work function of the
+    metal, phi, is 1.5 eV. Find the energy of each photon.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: K = photon energy - work function.'
+- level: 2
+  en: The relation already gives the photon energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 3 eV as 4.8 x 10^-19 J and 1.5 eV as 2.4 x 10^-19 J, then
+    write Eph = K + phi, where Eph is the photon energy, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the photon energy have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4.5 eV
+- id: b
+  en: 450 eV
+- id: c
+  en: 4500 eV
+- id: d
+  en: 45 eV
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+  - c
+  - d
+solution_steps:
+- en: 'Write the relation: K = photon energy - work function.'
+- en: 'Put each quantity in SI units: 3 eV = 4.8 x 10^-19 J; 1.5 eV = 2.4 x 10^-19
+    J.'
+- en: 'Substitute: Eph = (4.8 x 10^-19) + (2.4 x 10^-19).'
+- en: 'Calculate: Eph = 7.2 x 10^-19 J.'
+- en: 'Give it in eV: 4.5 eV.'
+- en: So the photon energy is 4.5 eV.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bf8d1e652270dc9ebf9a34243e34ca431f36738b4c2fb3902a3f81e47bec6113
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 0c83b006ba35735b2b04e145c3c591b07ab3d63a0038f7aaff27fb84d9c8fde8
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:30+00:00'
+  record_hash: 3f1d6ef708037bdccb8eb139dbb18a105e1f40cb7fa65b28f36cc2d28707a105

@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.AC.RESONANCE.R_from_Q_w0_L.case4.c836ea62
+skill_ids:
+- PHY.C12.AC.RESONANCE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a series LCR circuit at resonance and records
+    the following. The quality factor, Q, is 4, the resonant angular frequency, w0,
+    is 1000 rad/s and the inductance, L, is 100 mH. Find the resistance.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: Q = w0 x L / R.'
+- level: 2
+  en: The relation already gives the resistance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 100 mH as 0.1 H, then write R = w0 x L / Q, where R is the
+    resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resistance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.RESONANCE
+generator_version: factory-2
+template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.04 Ω
+- id: b
+  en: 25 Ω
+- id: c
+  en: 400 Ω
+- id: d
+  en: 25000 Ω
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.INDUCTANCE_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Q = w0 x L / R.'
+- en: 'Put each quantity in SI units: 100 mH = 0.1 H.'
+- en: 'Substitute: R = 1000 x 0.1 / 4.'
+- en: 'Calculate: R = 25 Ω.'
+- en: So the resistance is 25 Ω.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d16619e17be2b74dbcfedd78a0c97110ef8bf32bbcf6ade8075fc7e77dc2711b
+  template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+  certificate_hash: 12566b63662d07b7a3f02a1b581067c4ba539f2ac574798d29b1206b2c9b9a0f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:13+00:00'
+  record_hash: 306d1cdb32577a42c54304a7381f1df2a5e4a13dd007d24e674affa65db8eb0b

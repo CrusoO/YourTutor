@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.RAY.SPH_REFRACT.d_from_n_R_v.mcq1.a072da04
+skill_ids:
+- PHY.C12.RAY.SPH_REFRACT
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The refractive index of the glass, n, is 1.5, the radius of curvature of the
+    convex surface, R, is 30 cm and the image forms 18 cm from the surface inside
+    the glass. Find the distance of the object from the surface.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: n/v - 1/d = (n - 1)/R, so 1/d = n/v - (n - 1)/R.'
+- level: 2
+  en: The relation already gives the object distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 30 cm as 0.3 m and 18 cm as 0.18 m, then write d = 1 / (n
+    / v - (n - 1) / R), where d is the object distance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the object distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.SPH_REFRACT
+generator_version: factory-2
+template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15 cm
+- id: b
+  en: 30 cm
+- id: c
+  en: 10 cm
+- id: d
+  en: 25.7 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.TERMS_ADDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.INDEX_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n/v - 1/d = (n - 1)/R, so 1/d = n/v - (n - 1)/R.'
+- en: 'Put each quantity in SI units: 30 cm = 0.3 m; 18 cm = 0.18 m.'
+- en: 'Substitute: d = 1 / (1.5 / 0.18 - (1.5 - 1) / 0.3).'
+- en: 'Calculate: d = 0.15 m.'
+- en: 'Give it in cm: 15 cm.'
+- en: So the object distance is 15 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 864c99afa1ff7bad245e3898916290a8de0b339ece7f4f7ef08649caf1f7180e
+  template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+  certificate_hash: 5eff616e13d3a0aec1b6ed6038be42a75d7448e6f7fa0c867ab5341f5b4ebac1
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:53+00:00'
+  record_hash: 9022602ce06e8fa49038a3b31792afc73a4b2a02435ccd4d59c66e11dcfb6620

@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.CUR.DRIFT.n_from_I_A_vd.num3.fd892d54
+skill_ids:
+- PHY.C12.CUR.DRIFT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying current carried by free electrons in a wire. The current,
+    I, is 0.64 A, the cross-sectional area, A, is 1 mm² and the drift speed, vd, is
+    0.05 mm/s. Find the number of free electrons in each cubic metre. Take the charge
+    of one electron, e, = 1.6 x 10^-19 C.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: I = n x e x A x v_d.'
+- level: 2
+  en: 'Get the electron density on its own before you put numbers in: divide each
+    side by e x A x v_d. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 1 mm² as 1 x 10^-6 m² and 0.05 mm/s as 5 x 10^-5 m/s, then
+    write n = I / [e x A x vd], where n is the electron density, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the electron density have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.DRIFT
+generator_version: factory-2
+template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8 x 10^29 m⁻³
+- id: b
+  en: 8 x 10^28 m⁻³
+- id: c
+  en: 8 x 10^30 m⁻³
+- id: d
+  en: 8 x 10^25 m⁻³
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - c
+- id: PHY.MC.C12.SPEED_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: I = n x e x A x v_d.'
+- en: 'Put each quantity in SI units: 1 mm² = 1 x 10^-6 m²; 0.05 mm/s = 5 x 10^-5
+    m/s.'
+- en: 'Get the electron density alone: divide each side by e x A x v_d.'
+- en: 'Substitute: n = 0.64 / ((1.6 x 10^-19) x (1 x 10^-6) x (5 x 10^-5)).'
+- en: 'Calculate: n = 8 x 10^28 m⁻³.'
+- en: So the electron density is 8 x 10^28 m⁻³.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ac716ee222ecc2e128179c39bc4ae5dd4edfd03020e969409406d190e370a4bd
+  template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+  certificate_hash: 699bad86121393e62fecf38a68b4287a209b6b6a07855cc11928c2c3a477c51c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:06+00:00'
+  record_hash: 26d06e32aab8ca4f00097d7ad7b0276c6e3dee555bd1c8f127cc64bc29b86e81

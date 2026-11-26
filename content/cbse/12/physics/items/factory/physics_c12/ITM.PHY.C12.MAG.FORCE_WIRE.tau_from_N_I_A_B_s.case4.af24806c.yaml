@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.MAG.FORCE_WIRE.tau_from_N_I_A_B_s.case4.af24806c
+skill_ids:
+- PHY.C12.MAG.FORCE_WIRE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a current-carrying conductor in a magnetic field
+    and records the following. The number of turns, N, is 100, the current, I, is
+    5 A, the area of the coil, A, is 100 cm², the magnetic field, B, is 100 mT and
+    the sine of the angle between the wire and the field, s, is 0.5. Find the torque
+    on the coil.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: torque = N x I x A x B x sine of the angle on a flat coil.'
+- level: 2
+  en: The relation already gives the torque directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 100 cm² as 0.01 m² and 100 mT as 0.1 T, then write tau =
+    N x I x A x B x s, where tau is the torque, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the torque have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.FORCE_WIRE
+generator_version: factory-2
+template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 250 mNm
+- id: b
+  en: 500 mNm
+- id: c
+  en: 2.5 mNm
+- id: d
+  en: 2.5 x 10^6 mNm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: torque = N x I x A x B x sine of the angle on a flat coil.'
+- en: 'Put each quantity in SI units: 100 cm² = 0.01 m²; 100 mT = 0.1 T.'
+- en: 'Substitute: tau = 100 x 5 x 0.01 x 0.1 x 0.5.'
+- en: 'Calculate: tau = 0.25 N m.'
+- en: 'Give it in mNm: 250 mNm.'
+- en: So the torque is 250 mNm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8a503b18cd7ef1b3ace429439c876eb2f82da6d611a262d55d0ba06848277aa5
+  template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+  certificate_hash: 4de3d2055eb3fa8a05e9346cbf2cf436ec883f7be3e9039d971907ecfbbdb6b9
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:26+00:00'
+  record_hash: 9474a27a91c82360b823e6b971ee4a2f37c1b06b657b0fa73c9e1e6e06c2ffbf

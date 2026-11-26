@@ -1,0 +1,56 @@
+id: TPL2.PHY.C12.MAG.B_FIELD
+schema: factory-template/1
+lane: physics_c12
+model: MAG.B_FIELD
+skill_id: PHY.C12.MAG.B_FIELD
+box:
+  variant:
+    choices:
+    - Bw_from_I_r
+    - I_from_Bw_r
+    - Bl_from_N_I_r
+    - I_from_Bl_N_r
+    - Bs_from_n_I
+    - n_from_Bs_I
+    - f_from_I_I2_r
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  I:
+    choices:
+    - '1'
+    - '2'
+    - '5'
+  I2:
+    choices:
+    - '2'
+    - '5'
+  r:
+    choices:
+    - '5'
+    - '10'
+    - '20'
+  N:
+    choices:
+    - '10'
+    - '100'
+  n:
+    choices:
+    - '500'
+    - '2000'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  skill_id: PHY.C12.MAG.B_FIELD
+  allowed_methods:
+  - field_of_a_current
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

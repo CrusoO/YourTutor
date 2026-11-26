@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.NUC.BINDING.Ebn_from_dm_A.num2.63c5e381
+skill_ids:
+- PHY.C12.NUC.BINDING
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about the binding energy of a nucleus. The mass defect, dm,
+    is 0.8 u and the mass number, A, is 40. Find the binding energy per nucleon. Take
+    the energy equivalent of one atomic mass unit, ue, = 931.5 MeV/u.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: binding energy per nucleon = mass defect x energy of one atomic
+    mass unit / A.'
+- level: 2
+  en: The relation already gives the binding energy per nucleon directly, so decide
+    what to substitute. Change every quantity to SI units first, and change back at
+    the end if asked.
+- level: 3
+  en: 'First step: Write 0.8 u as 1.328 x 10^-27 kg, then write Ebn = dm x ue / A,
+    where Ebn is the binding energy per nucleon, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the binding energy per nucleon have,
+    and roughly how large is it?
+status: draft
+template_id: TPL2.PHY.C12.NUC.BINDING
+generator_version: factory-2
+template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 29808 MeV
+- id: b
+  en: 18.63 MeV
+- id: c
+  en: 745.2 MeV
+- id: d
+  en: 0.02 MeV
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.MASS_NUMBER_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TOTAL_ENERGY_GIVEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.MASS_NUMBER_FORGOTTEN_AND_MASS_DEFECT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: binding energy per nucleon = mass defect x energy of one
+    atomic mass unit / A.'
+- en: 'Put each quantity in SI units: 0.8 u = 1.328 x 10^-27 kg.'
+- en: 'Substitute: Ebn = (1.328 x 10^-27) x 8.98e + 16 / 40.'
+- en: 'Calculate: Ebn = 2.9808 x 10^-12 J.'
+- en: 'Give it in MeV: 18.63 MeV.'
+- en: So the binding energy per nucleon is 18.63 MeV.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 93f372cc5c08643e9cb1904fe2219ad18f67c725540033b841347ea9fe5553ee
+  template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+  certificate_hash: 474ae20f0c98a98380ebedf74de4b7b51123f86e8e155d2ede42fdc7975cd026
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:27+00:00'
+  record_hash: 5de8a8bc9cb86dad4f5774f940c2841dc49084a3510ac16a029ccc71d834194a

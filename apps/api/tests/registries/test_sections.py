@@ -53,7 +53,7 @@ def _curriculum(keys: tuple[str, ...], overlay_id: str = "OV") -> dict[str, Curr
 COMING_SOON_CHAPTER = "bhutan_class9_quadratics"
 # A chapter with named sections from the book's contents, not the three placeholders.
 REAL_SECTIONS_CHAPTER = "cbse.10.maths.ch02"
-# Class 10 lane chapters: names only (no section list or page range until a source is approved)
+# Class 10 and 12 lane chapters: names only (no section list or page range yet)
 LANE_CHAPTERS = {
     "cbse.10.maths.quadratic",
     "cbse.10.maths.ap",
@@ -68,6 +68,20 @@ LANE_CHAPTERS = {
     "cbse.10.chemistry.acids_bases_salts",
     "cbse.10.chemistry.metals_nonmetals",
     "cbse.10.chemistry.carbon_compounds",
+    "cbse.12.physics.electric_charges_fields",
+    "cbse.12.physics.electrostatic_potential_capacitance",
+    "cbse.12.physics.current_electricity",
+    "cbse.12.physics.moving_charges_magnetism",
+    "cbse.12.physics.magnetism_matter",
+    "cbse.12.physics.electromagnetic_induction",
+    "cbse.12.physics.alternating_current",
+    "cbse.12.physics.electromagnetic_waves",
+    "cbse.12.physics.ray_optics",
+    "cbse.12.physics.wave_optics",
+    "cbse.12.physics.dual_nature",
+    "cbse.12.physics.atoms",
+    "cbse.12.physics.nuclei",
+    "cbse.12.physics.semiconductor_electronics",
     "cbse.12.maths.relations_functions",
     "cbse.12.maths.inverse_trig",
     "cbse.12.maths.matrices",

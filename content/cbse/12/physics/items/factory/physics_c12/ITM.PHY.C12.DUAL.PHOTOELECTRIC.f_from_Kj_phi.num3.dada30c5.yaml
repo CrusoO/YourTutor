@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.f_from_Kj_phi.num3.dada30c5
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the photoelectric effect at a metal surface. The maximum
+    kinetic energy of the emitted electrons, Kj, is 2.63 x 10^-19 J and the work function
+    of the metal, phi, is 2.5 eV. Find the frequency of the light. Take Planck's constant,
+    h, = 6.63 x 10^-34 J s.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: K = h x f - work function, so f = (K + work function) / h.'
+- level: 2
+  en: The relation already gives the frequency directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2.5 eV as 4 x 10^-19 J, then write f = (Kj + phi) / h, where
+    f is the frequency, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the frequency have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1 x 10^15 Hz
+- id: b
+  en: 1 x 10^16 Hz
+- id: c
+  en: 3.97e+14 Hz
+- id: d
+  en: 1 x 10^17 Hz
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+  - d
+- id: PHY.MC.C12.WORK_FUNCTION_IGNORED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: K = h x f - work function, so f = (K + work function) /
+    h.'
+- en: 'Put each quantity in SI units: 2.5 eV = 4 x 10^-19 J.'
+- en: 'Substitute: f = ((2.63 x 10^-19) + (4 x 10^-19)) / (6.63 x 10^-34).'
+- en: 'Calculate: f = 1 x 10^15 Hz.'
+- en: So the frequency is 1 x 10^15 Hz.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3dee3970bab44478d3ba3a10687c0024faae57b37a093d8ce7c37e89c31a75f6
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 1d487a4107858d23fdfd96a26d623604d792176d02e6f10b5af1b797d0ec6a92
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:30+00:00'
+  record_hash: 94aad636dc9d1f1d21af9723561c3ebf6059eeae8dc99695091193360c2f1643

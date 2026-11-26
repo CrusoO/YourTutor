@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.phi_from_Eph_K.mcq1.712c90fb
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The energy of each photon, Eph, is 3.5 eV and the maximum kinetic energy of
+    the emitted electrons, K, is 1 eV. Find the work function of the metal.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: K = photon energy - work function.'
+- level: 2
+  en: 'Get the work function on its own before you put numbers in: rearrange K = photon
+    energy - work function for the work function. Do the same operation to each side
+    of the formula. Change every quantity to SI units first, and change back at the
+    end if asked.'
+- level: 3
+  en: 'First step: Write 3.5 eV as 5.6 x 10^-19 J and 1 eV as 1.6 x 10^-19 J, then
+    write phi = Eph - K, where phi is the work function, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the work function have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 25 eV
+- id: b
+  en: 3.5 eV
+- id: c
+  en: 250 eV
+- id: d
+  en: 2.5 eV
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - c
+- id: PHY.MC.C12.ENERGIES_MULTIPLIED
+  when_answer_equals:
+  - b
+solution_steps:
+- en: 'Write the relation: K = photon energy - work function.'
+- en: 'Put each quantity in SI units: 3.5 eV = 5.6 x 10^-19 J; 1 eV = 1.6 x 10^-19
+    J.'
+- en: 'Get the work function alone: rearrange K = photon energy - work function for
+    the work function.'
+- en: 'Substitute: phi = (5.6 x 10^-19) - (1.6 x 10^-19).'
+- en: 'Calculate: phi = 4 x 10^-19 J.'
+- en: 'Give it in eV: 2.5 eV.'
+- en: So the work function is 2.5 eV.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d1aa62e65b9d10c36ba709e77d2d942dfd079a72e4ae79164a6a65dbdd995eeb
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: b12e95561b3cd16bbb2b1dccddd42c5fad59e997094cbb85768ef6f660fb142b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:29+00:00'
+  record_hash: de76434d91f0fcf81f50963c9eac815f1be50bf8ef9042eaa90f2a98f97acb5c

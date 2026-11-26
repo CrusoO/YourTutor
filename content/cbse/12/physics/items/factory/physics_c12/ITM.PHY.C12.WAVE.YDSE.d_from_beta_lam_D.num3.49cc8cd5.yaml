@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.WAVE.YDSE.d_from_beta_lam_D.num3.49cc8cd5
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying Young's double slit experiment. The fringe width, beta,
+    is 2.1 mm, the wavelength of the light, lam, is 700 nm and the screen, D, is 1.2
+    m from the slits. Find the separation of the slits.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: fringe width = wavelength x D / d.'
+- level: 2
+  en: The relation already gives the slit separation directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2.1 mm as 0.0021 m and 700 nm as 7 x 10^-7 m, then write
+    d = lam x D / beta, where d is the slit separation, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the slit separation have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.333 mm
+- id: b
+  en: 400 mm
+- id: c
+  en: 2.5 x 10^6 mm
+- id: d
+  en: 0.4 mm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SCREEN_DISTANCE_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: fringe width = wavelength x D / d.'
+- en: 'Put each quantity in SI units: 2.1 mm = 0.0021 m; 700 nm = 7 x 10^-7 m.'
+- en: 'Substitute: d = (7 x 10^-7) x 1.2 / 0.0021.'
+- en: 'Calculate: d = 4 x 10^-4 m.'
+- en: 'Give it in mm: 0.4 mm.'
+- en: So the slit separation is 0.4 mm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7251c33b59598962f285b9130153836617df0d32a4721cddb5a2d5c926736909
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: c848493f23a278bb099d60ae5a83153d3fbf2887472f9caa4926f30d7c4c4cbc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:09+00:00'
+  record_hash: 9f9f81f12ed43f5c9cd11f2533ec6c3c1fab02256b29569883e5ae42c8fc8918

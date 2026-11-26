@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.EMI.FARADAY.N_from_eps_dPhi_dt.num3.9022a138
+skill_ids:
+- PHY.C12.EMI.FARADAY
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a coil in a changing magnetic field. The induced emf,
+    eps, is 10 V, the flux through the coil changes by 2 mWb and the change takes
+    20 ms. Find the number of turns in the coil.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: emf = N x flux change / time.'
+- level: 2
+  en: 'Get the number of turns on its own before you put numbers in: multiply each
+    side by the time and divide each side by the flux change. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 mWb as 0.002 Wb and 20 ms as 0.02 s, then write N = eps
+    x dt / dPhi, where N is the number of turns, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of turns be?
+status: draft
+template_id: TPL2.PHY.C12.EMI.FARADAY
+generator_version: factory-2
+template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '100000'
+- id: b
+  en: '100'
+- id: c
+  en: '1'
+- id: d
+  en: '0.01'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TIME_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TIME_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emf = N x flux change / time.'
+- en: 'Put each quantity in SI units: 2 mWb = 0.002 Wb; 20 ms = 0.02 s.'
+- en: 'Get the number of turns alone: multiply each side by the time and divide each
+    side by the flux change.'
+- en: 'Substitute: N = 10 x 0.02 / 0.002.'
+- en: 'Calculate: N = 100.'
+- en: So the number of turns is 100.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c85e420dcbe228050aa5ee0a25b69914f5c93e9b2462a98c6ccf167063dd9fbf
+  template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+  certificate_hash: 7ea6f836def49c41079c64d3bb97831b872da7f8e1b0cd86edbf44e615810e0c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:41+00:00'
+  record_hash: d43bb1d9439e3deeaba2fc2217dc76bb8c17bae9de7eeef3134142c4348b5070

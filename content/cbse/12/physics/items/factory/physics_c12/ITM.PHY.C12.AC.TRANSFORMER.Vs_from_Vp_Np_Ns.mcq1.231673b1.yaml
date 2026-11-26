@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.AC.TRANSFORMER.Vs_from_Vp_Np_Ns.mcq1.231673b1
+skill_ids:
+- PHY.C12.AC.TRANSFORMER
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The primary voltage, Vp, is 220 V, the number of primary turns, Np, is 100 and
+    the number of secondary turns, Ns, is 10. Find the secondary voltage.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: Vs / Vp = Ns / Np.'
+- level: 2
+  en: The relation already gives the secondary voltage directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Vs = Vp x Ns / Np, where Vs is the secondary voltage, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the secondary voltage have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.TRANSFORMER
+generator_version: factory-2
+template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2200 V
+- id: b
+  en: 130 V
+- id: c
+  en: 2.2 V
+- id: d
+  en: 22 V
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TURNS_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.PRIMARY_TURNS_ONLY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: Vs / Vp = Ns / Np.'
+- en: 'Substitute: Vs = 220 x 10 / 100.'
+- en: 'Calculate: Vs = 22 V.'
+- en: So the secondary voltage is 22 V.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 912f7af9af23037ef88d31329e7c362508f8b4c71a682a8219dd4a8dbae81f3b
+  template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+  certificate_hash: 8d49b5515997c6425d3880c9a0ca1401e2591755c2ae5f159353679b1f331299
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:20+00:00'
+  record_hash: f5855ab06b5bb7a7698420fc11ddedd0dd291c46369bafec0fbd18ab1758b7bd

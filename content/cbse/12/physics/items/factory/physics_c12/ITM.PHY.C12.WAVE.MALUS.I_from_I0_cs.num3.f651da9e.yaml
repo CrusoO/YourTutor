@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.WAVE.MALUS.I_from_I0_cs.num3.f651da9e
+skill_ids:
+- PHY.C12.WAVE.MALUS
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: A student is studying polarised light through an analyser. The intensity of
+    the incident light, I0, is 50 W/m^2 and the cosine of the angle between the pass
+    directions, cs, is 0.8. Find the transmitted intensity.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: I = I0 x cosine squared of the angle for polarised light.'
+- level: 2
+  en: The relation already gives the transmitted intensity directly, so decide what
+    to substitute.
+- level: 3
+  en: 'First step: write I = I0 x cs^2, where I is the transmitted intensity, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the transmitted intensity have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.MALUS
+generator_version: factory-2
+template_hash: 31584cd8176768bf4c90ed5fab0266af753096b66e06dd57ff074280a1d39bce
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16 W/m^2
+- id: b
+  en: 40 W/m^2
+- id: c
+  en: 78.125 W/m^2
+- id: d
+  en: 32 W/m^2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.HALF_USED_FOR_POLARISED_LIGHT
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.COSINE_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.COSINE_DIVIDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: I = I0 x cosine squared of the angle for polarised light.'
+- en: 'Substitute: I = 50 x 0.8^2.'
+- en: 'Calculate: I = 32 W/m^2.'
+- en: So the transmitted intensity is 32 W/m^2.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 09cafa04d4989d445accacb801d06c952d865e563345bb9a1bcbf43dbdfb3839
+  template_hash: 31584cd8176768bf4c90ed5fab0266af753096b66e06dd57ff074280a1d39bce
+  certificate_hash: d157ec4e0bb1945f88aacf7940bf0fa54362b6c62e96a85e872bcd371b5b69cc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:19+00:00'
+  record_hash: 5b450df8dd80a744ed1681aec2573f691fe106dddff04b1cc06301415e8c3cba

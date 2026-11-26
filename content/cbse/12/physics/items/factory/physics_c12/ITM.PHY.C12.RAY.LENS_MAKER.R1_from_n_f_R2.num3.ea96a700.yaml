@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.RAY.LENS_MAKER.R1_from_n_f_R2.num3.ea96a700
+skill_ids:
+- PHY.C12.RAY.LENS_MAKER
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a thin double convex lens in air. The refractive index
+    of the glass, n, is 1.6, the focal length, f, is 20 cm and the radius of curvature
+    of the second face, R2, is 60 cm. Find the radius of curvature of the first face.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: 1/f = (n - 1) x (1/R1 + 1/R2), so 1/R1 = 1/((n - 1) x f) - 1/R2.'
+- level: 2
+  en: The relation already gives the first radius directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 20 cm as 0.2 m and 60 cm as 0.6 m, then write R1 = 1 / (1
+    / ((n - 1) x f) - 1 / R2), where R1 is the first radius, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the first radius have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.LENS_MAKER
+generator_version: factory-2
+template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 68.6 cm
+- id: b
+  en: 10 cm
+- id: c
+  en: 667 cm
+- id: d
+  en: 15 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RADII_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: 1/f = (n - 1) x (1/R1 + 1/R2), so 1/R1 = 1/((n - 1) x f)
+    - 1/R2.'
+- en: 'Put each quantity in SI units: 20 cm = 0.2 m; 60 cm = 0.6 m.'
+- en: 'Substitute: R1 = 1 / (1 / ((1.6 - 1) x 0.2) - 1 / 0.6).'
+- en: 'Calculate: R1 = 0.15 m.'
+- en: 'Give it in cm: 15 cm.'
+- en: So the first radius is 15 cm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3d7602ad9733df2c2fb99d72cb58b6a643fb6bd4b3652ccdad76c09ba36b3d0d
+  template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+  certificate_hash: 01262fcbee1801b3d9a59e0ecefb581c468cb69cd35dc3130d9b073efa023bfc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:45+00:00'
+  record_hash: 47300c3d56c282ff321159ead29b50ee14fe28ed58fdacf263c9eff7995a31d7

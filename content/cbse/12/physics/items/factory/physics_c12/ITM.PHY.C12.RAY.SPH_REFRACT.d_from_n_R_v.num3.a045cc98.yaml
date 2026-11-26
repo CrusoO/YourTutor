@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.RAY.SPH_REFRACT.d_from_n_R_v.num3.a045cc98
+skill_ids:
+- PHY.C12.RAY.SPH_REFRACT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying refraction at a curved glass surface. The refractive index
+    of the glass, n, is 1.5, the radius of curvature of the convex surface, R, is
+    20 cm and the image forms 12 cm from the surface inside the glass. Find the distance
+    of the object from the surface.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: n/v - 1/d = (n - 1)/R, so 1/d = n/v - (n - 1)/R.'
+- level: 2
+  en: The relation already gives the object distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 20 cm as 0.2 m and 12 cm as 0.12 m, then write d = 1 / (n
+    / v - (n - 1) / R), where d is the object distance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the object distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.SPH_REFRACT
+generator_version: factory-2
+template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 cm
+- id: b
+  en: 6.67 cm
+- id: c
+  en: 17.1 cm
+- id: d
+  en: 20 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TERMS_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.INDEX_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n/v - 1/d = (n - 1)/R, so 1/d = n/v - (n - 1)/R.'
+- en: 'Put each quantity in SI units: 20 cm = 0.2 m; 12 cm = 0.12 m.'
+- en: 'Substitute: d = 1 / (1.5 / 0.12 - (1.5 - 1) / 0.2).'
+- en: 'Calculate: d = 0.1 m.'
+- en: 'Give it in cm: 10 cm.'
+- en: So the object distance is 10 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9c3b7f4b17bef0ae4a23a648ba908690e5a407d8dba017a57fba0e4aecb1b255
+  template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+  certificate_hash: c22043bfff522815f8ad50bde8384f5283efbbc7269c07c0edcbe35695149a77
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:53+00:00'
+  record_hash: 02e9327b06fe2e2edf08eabe56a0b38152e29098e7a355ab3990426f07e41277

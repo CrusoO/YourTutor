@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.CAP.CAP_COMBINE.C2_from_Cp_C1.num3.b0b30e34
+skill_ids:
+- PHY.C12.CAP.CAP_COMBINE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying two capacitors joined together. The parallel combination,
+    Cp, is 18 μF and the first capacitor, C1, is 12 μF. Find the second capacitance.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: parallel: Cp = C1 + C2.'
+- level: 2
+  en: 'Get the second capacitance on its own before you put numbers in: subtract C1
+    from each side. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 18 μF as 1.8 x 10^-5 F and 12 μF as 1.2 x 10^-5 F, then write
+    C2 = Cp - C1, where C2 is the second capacitance, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the second capacitance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_COMBINE
+generator_version: factory-2
+template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15 μF
+- id: b
+  en: 7.2 μF
+- id: c
+  en: 30 μF
+- id: d
+  en: 6 μF
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CAPACITANCES_AVERAGED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.SERIES_RULE_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.PARALLEL_RULE_USED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: parallel: Cp = C1 + C2.'
+- en: 'Put each quantity in SI units: 18 μF = 1.8 x 10^-5 F; 12 μF = 1.2 x 10^-5 F.'
+- en: 'Get the second capacitance alone: subtract C1 from each side.'
+- en: 'Substitute: C2 = (1.8 x 10^-5) - (1.2 x 10^-5).'
+- en: 'Calculate: C2 = 6 x 10^-6 F.'
+- en: 'Give it in μF: 6 μF.'
+- en: So the second capacitance is 6 μF.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f90775ff590cb53691eccef36d9e39e58663a4aea0a4b50e58d8bd579fcfb2e8
+  template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+  certificate_hash: ab3373a1b81f13944201a073af14041379b1652944580d6bb2efc663b2789709
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:59+00:00'
+  record_hash: 59459608094c5e63d31492fdf0595efbf42669c48ba3f4811c900594f0f719f1

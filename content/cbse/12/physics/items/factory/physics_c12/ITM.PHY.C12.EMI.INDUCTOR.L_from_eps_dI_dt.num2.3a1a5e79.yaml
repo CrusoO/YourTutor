@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.EMI.INDUCTOR.L_from_eps_dI_dt.num2.3a1a5e79
+skill_ids:
+- PHY.C12.EMI.INDUCTOR
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about an inductor in a circuit. The induced emf, eps, is 20
+    V, the current changes by 1 A and the change takes 10 ms. Find the inductance
+    of the coil.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: emf = L x current change / time.'
+- level: 2
+  en: 'Get the inductance on its own before you put numbers in: multiply each side
+    by the time and divide each side by the change in current. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked.'
+- level: 3
+  en: 'First step: Write 10 ms as 0.01 s, then write L = eps x dt / dI, where L is
+    the inductance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the inductance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.INDUCTOR
+generator_version: factory-2
+template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^6 mH
+- id: b
+  en: 200000 mH
+- id: c
+  en: 200 mH
+- id: d
+  en: 5000 mH
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TIME_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TIME_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emf = L x current change / time.'
+- en: 'Put each quantity in SI units: 10 ms = 0.01 s.'
+- en: 'Get the inductance alone: multiply each side by the time and divide each side
+    by the change in current.'
+- en: 'Substitute: L = 20 x 0.01 / 1.'
+- en: 'Calculate: L = 0.2 H.'
+- en: 'Give it in mH: 200 mH.'
+- en: So the inductance is 200 mH.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 668ba9770015ccd6a5078c6e65eb37b44404d3a10ae0e649ff83c472ec85c6f9
+  template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+  certificate_hash: a0cbc0a1673faaa96451bba90ef6cdc2c374bb346d75984e7fb8d868537a4603
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:53+00:00'
+  record_hash: fb4c15e8471594c91b91e6f2ee8632d2612ed23cddfef8ba80290b6a8edf62f3

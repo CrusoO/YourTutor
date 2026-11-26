@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.EMI.FARADAY.dPhi_from_dB_A.case4.86601585
+skill_ids:
+- PHY.C12.EMI.FARADAY
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a coil in a changing magnetic field and records
+    the following. The field changes by 0.5 T and the area of the coil, A, is 20 cm².
+    Find the change in magnetic flux through the coil.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: change in flux = [change in field] x area, for a field along
+    the normal.'
+- level: 2
+  en: The relation already gives the change in flux directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 20 cm² as 0.002 m², then write dPhi = dB x A, where dPhi
+    is the change in flux, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the change in flux have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.FARADAY
+generator_version: factory-2
+template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10000 mWb
+- id: b
+  en: 502 mWb
+- id: c
+  en: 1 mWb
+- id: d
+  en: 250000 mWb
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FIELDS_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: change in flux = [change in field] x area, for a field
+    along the normal.'
+- en: 'Put each quantity in SI units: 20 cm² = 0.002 m².'
+- en: 'Substitute: dPhi = 0.5 x 0.002.'
+- en: 'Calculate: dPhi = 0.001 Wb.'
+- en: 'Give it in mWb: 1 mWb.'
+- en: So the change in flux is 1 mWb.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b2feb59a43a5b064aaa24a9cc5a0be836939bdd37fe188c4ec51712ab0595c88
+  template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+  certificate_hash: 990321d4ab39338f8642d79aae2e9bee5e9b24e479c918cf43bdcff2f08005aa
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:41+00:00'
+  record_hash: 6d13decc6fed38ceb45bf884902186737e7b7236485c6f050b42e6138721d936

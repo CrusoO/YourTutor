@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.EMW.EM_WAVE.B0_from_E0.num2.b21f4ed0
+skill_ids:
+- PHY.C12.EMW.EM_WAVE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a plane electromagnetic wave in vacuum. The amplitude
+    of the electric field, E0, is 60 V/m. Find the amplitude of the magnetic field.
+    Take the speed of light in vacuum, c, = 3 x 10^8 m/s.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: E0 / B0 = c.'
+- level: 2
+  en: 'Get the magnetic amplitude on its own before you put numbers in: divide each
+    side by c. Do the same operation to each side of the formula. Change every quantity
+    to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write B0 = E0 / c, where B0 is the magnetic amplitude, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the magnetic amplitude have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMW.EM_WAVE
+generator_version: factory-2
+template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2000 nT
+- id: b
+  en: 200 nT
+- id: c
+  en: 200000 nT
+- id: d
+  en: 20000 nT
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - d
+- id: PHY.MC.C12.SPEED_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: E0 / B0 = c.'
+- en: 'Get the magnetic amplitude alone: divide each side by c.'
+- en: 'Substitute: B0 = 60 / (3 x 10^8).'
+- en: 'Calculate: B0 = 2 x 10^-7 T.'
+- en: 'Give it in nT: 200 nT.'
+- en: So the magnetic amplitude is 200 nT.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 915917f4ca2a934b77df74ac114da45ef07242780677b9dfa7b58f4eba5f99e2
+  template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+  certificate_hash: 1a99cdbc4ca7a21ff65553a15a43852986943b83f0719713e3ea2d5db4e4c4bb
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_waves
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:27+00:00'
+  record_hash: f23ecab0d4224457d509d1a3241123377b3b336f310f31ef81c6d03737508b59

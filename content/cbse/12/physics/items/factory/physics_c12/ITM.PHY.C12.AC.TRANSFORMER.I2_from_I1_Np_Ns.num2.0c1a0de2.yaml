@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.AC.TRANSFORMER.I2_from_I1_Np_Ns.num2.0c1a0de2
+skill_ids:
+- PHY.C12.AC.TRANSFORMER
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about an ideal transformer. The primary current, I1, is 0.5
+    A, the number of primary turns, Np, is 1000 and the number of secondary turns,
+    Ns, is 50. Find the secondary current.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: an ideal transformer has Vp x I1 = Vs x I2, so I2 = I1 x Np / Ns.'
+- level: 2
+  en: The relation already gives the secondary current directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write I2 = I1 x Np / Ns, where I2 is the secondary current, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the secondary current have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.TRANSFORMER
+generator_version: factory-2
+template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.025 A
+- id: b
+  en: 500 A
+- id: c
+  en: 10 A
+- id: d
+  en: 0.5 A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.VOLTAGE_RATIO_USED_FOR_CURRENT
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TURNS_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.CURRENT_NOT_TRANSFORMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: an ideal transformer has Vp x I1 = Vs x I2, so I2 = I1
+    x Np / Ns.'
+- en: 'Substitute: I2 = 0.5 x 1000 / 50.'
+- en: 'Calculate: I2 = 10 A.'
+- en: So the secondary current is 10 A.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 71025b7a52d559b0acedaa556d0d8ba2c744fbbb9f1a3e0f0fd30a5b3a626364
+  template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+  certificate_hash: 035dacb2f0051656e3831d60444370d754359aa127eb3045627126cca8de206b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:20+00:00'
+  record_hash: ccf1348b3b8a6fb88c7aacce8843001456d1d9d396900b6a069c8b1633c8e863

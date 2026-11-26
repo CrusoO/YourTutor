@@ -1,0 +1,51 @@
+id: TPL2.PHY.C12.AC.RESONANCE
+schema: factory-template/1
+lane: physics_c12
+model: AC.RESONANCE
+skill_id: PHY.C12.AC.RESONANCE
+box:
+  variant:
+    choices:
+    - w0_from_L_C
+    - C_from_w0_L
+    - L_from_w0_C
+    - Q_from_w0_L_R
+    - R_from_Q_w0_L
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  lc:
+    choices:
+    - 100,10
+    - 400,10
+    - 250,16
+    - 200,5
+    - 500,8
+    - 10,100
+    - 900,10
+    - 250,4
+    - 50,20
+    - 40,25
+  R:
+    choices:
+    - '5'
+    - '10'
+    - '20'
+    - '25'
+    - '50'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.alternating_current
+  skill_id: PHY.C12.AC.RESONANCE
+  allowed_methods:
+  - lcr_resonance
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

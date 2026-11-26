@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.SEMI.TRANSISTOR.Ie_from_Ib_Ic.case4.f2ee8330
+skill_ids:
+- PHY.C12.SEMI.TRANSISTOR
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a transistor in the common emitter connection
+    and records the following. The base current, Ib, is 10 μA and the collector current,
+    Ic, is 0.2 mA. Find the emitter current.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: emitter current = base current + collector current.'
+- level: 2
+  en: The relation already gives the emitter current directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 10 μA as 1 x 10^-5 A and 0.2 mA as 2 x 10^-4 A, then write
+    Ie = Ib + Ic, where Ie is the emitter current, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the emitter current have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.SEMI.TRANSISTOR
+generator_version: factory-2
+template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.21 mA
+- id: b
+  en: 0.2 mA
+- id: c
+  en: 0.002 mA
+- id: d
+  en: 0.19 mA
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.COLLECTOR_CURRENT_COPIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.CURRENTS_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.BASE_CURRENT_SUBTRACTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emitter current = base current + collector current.'
+- en: 'Put each quantity in SI units: 10 μA = 1 x 10^-5 A; 0.2 mA = 2 x 10^-4 A.'
+- en: 'Substitute: Ie = (1 x 10^-5) + (2 x 10^-4).'
+- en: 'Calculate: Ie = 2.1 x 10^-4 A.'
+- en: 'Give it in mA: 0.21 mA.'
+- en: So the emitter current is 0.21 mA.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8d9d72999a6f32b5d8cd73f86a38f6221fe97d673d46e9eb821b1f0fe214f20c
+  template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+  certificate_hash: fef90183ce9ab08b882a16527d6166892a2475c4358f1d3849e27af5d6150f3d
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.semiconductor_electronics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:50+00:00'
+  record_hash: 7cee7c0a893a522d4d6e3643cea8b9b03cef6acc74a668c538789a1771e5e2bb

@@ -1,0 +1,52 @@
+id: TPL2.PHY.C12.EMI.MOTIONAL
+schema: factory-template/1
+lane: physics_c12
+model: EMI.MOTIONAL
+skill_id: PHY.C12.EMI.MOTIONAL
+box:
+  variant:
+    choices:
+    - eps_from_B_l_v
+    - v_from_eps_B_l
+    - I_from_B_l_v_R
+    - F_from_B_I_l
+    - l_from_eps_B_v
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  B:
+    choices:
+    - '100'
+    - '200'
+    - '500'
+  l:
+    choices:
+    - '10'
+    - '20'
+    - '50'
+  v:
+    choices:
+    - '1'
+    - '2'
+    - '5'
+  R:
+    choices:
+    - '1'
+    - '2'
+    - '5'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  skill_id: PHY.C12.EMI.MOTIONAL
+  allowed_methods:
+  - motional_emf
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.K_from_Eph_phi.num2.da81e7f2
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about the photoelectric effect at a metal surface. The energy
+    of each photon, Eph, is 4.5 eV and the work function of the metal, phi, is 1.5
+    eV. Find the maximum kinetic energy of the emitted electrons.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: K = photon energy - work function.'
+- level: 2
+  en: The relation already gives the maximum kinetic energy directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 4.5 eV as 7.2 x 10^-19 J and 1.5 eV as 2.4 x 10^-19 J, then
+    write K = Eph - phi, where K is the maximum kinetic energy, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the maximum kinetic energy have, and
+    roughly how large is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6.75 eV
+- id: b
+  en: 4.5 eV
+- id: c
+  en: 3 eV
+- id: d
+  en: 6 eV
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ENERGIES_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.PHOTON_ENERGY_USED_AS_K
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.WORK_FUNCTION_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: K = photon energy - work function.'
+- en: 'Put each quantity in SI units: 4.5 eV = 7.2 x 10^-19 J; 1.5 eV = 2.4 x 10^-19
+    J.'
+- en: 'Substitute: K = (7.2 x 10^-19) - (2.4 x 10^-19).'
+- en: 'Calculate: K = 4.8 x 10^-19 J.'
+- en: 'Give it in eV: 3 eV.'
+- en: So the maximum kinetic energy is 3 eV.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 10b871b6c3ef8eb613eb8ce0499597c6202f6543896a21a1047a9742917d94a2
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 5427d1af7714acb460911b85df18af73f9084d39e6efa6217f3405931273985b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:30+00:00'
+  record_hash: 3dd444170fdc77d33360d7a6c37ec48f63934056348e622be1e3e4920d6a2749

@@ -1,0 +1,57 @@
+id: TPL2.PHY.C12.MAG.FORCE_WIRE
+schema: factory-template/1
+lane: physics_c12
+model: MAG.FORCE_WIRE
+skill_id: PHY.C12.MAG.FORCE_WIRE
+box:
+  variant:
+    choices:
+    - F_from_B_I_L_s
+    - B_from_F_I_L_s
+    - I_from_F_B_L_s
+    - tau_from_N_I_A_B_s
+    - N_from_tau_I_A_B_s
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  B:
+    choices:
+    - '100'
+    - '500'
+  I:
+    choices:
+    - '2'
+    - '5'
+  L:
+    choices:
+    - '10'
+    - '20'
+    - '50'
+  s:
+    choices:
+    - '0.5'
+    - '1'
+  N:
+    choices:
+    - '10'
+    - '100'
+  A:
+    choices:
+    - '20'
+    - '100'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  skill_id: PHY.C12.MAG.FORCE_WIRE
+  allowed_methods:
+  - force_and_torque_on_current
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

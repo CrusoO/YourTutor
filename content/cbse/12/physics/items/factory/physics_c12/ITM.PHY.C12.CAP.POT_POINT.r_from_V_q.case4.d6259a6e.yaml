@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.CAP.POT_POINT.r_from_V_q.case4.d6259a6e
+skill_ids:
+- PHY.C12.CAP.POT_POINT
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the electric potential of a point charge and records
+    the following. The potential, V, is 1200 V and the charge, q, is 2 μC. Find the
+    distance from the charge. Take k = 9 x 10^9 N m²/C².'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: V = k x q / r.'
+- level: 2
+  en: 'Get the distance on its own before you put numbers in: multiply each side by
+    r and divide each side by V. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 μC as 2 x 10^-6 C, then write r = k x q / V, where r is
+    the distance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the distance have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.POT_POINT
+generator_version: factory-2
+template_hash: b2e1bd80b5c6c78cff3abb29056f123adbb16b90ae35b437972bd6122dffddda
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.0667 m
+- id: b
+  en: 2.16 x 10^7 m
+- id: c
+  en: 150 m
+- id: d
+  en: 15 m
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: V = k x q / r.'
+- en: 'Put each quantity in SI units: 2 μC = 2 x 10^-6 C.'
+- en: 'Get the distance alone: multiply each side by r and divide each side by V.'
+- en: 'Substitute: r = (9 x 10^9) x (2 x 10^-6) / 1200.'
+- en: 'Calculate: r = 15 m.'
+- en: So the distance is 15 m.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d864c92839ff75d65d52e009ed5ccaf8db075a68721a0a50869abbf4dd9118fa
+  template_hash: b2e1bd80b5c6c78cff3abb29056f123adbb16b90ae35b437972bd6122dffddda
+  certificate_hash: 87f52fe799ea54e7b46ddec97bd2d39329a421ec7854949fcebecbe11a2128a2
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:54+00:00'
+  record_hash: b1db8de3b1dc42c7035448dae4fb376446e00f251509346851ba8332210d69b0

@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.GALV.Rs_from_V_Ig_G.case4.57a1ed6d
+skill_ids:
+- PHY.C12.MAG.GALV
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates converting a galvanometer into an ammeter or a
+    voltmeter and records the following. The voltmeter must read up to 3 V, its full
+    scale deflection needs 1 mA and the galvanometer coil has a resistance of 100
+    Ω. Find the series resistance needed.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: V = Ig x (G + Rs), so Rs = V / Ig - G.'
+- level: 2
+  en: The relation already gives the series resistance directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 1 mA as 0.001 A, then write Rs = V / Ig - G, where Rs is
+    the series resistance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the series resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.GALV
+generator_version: factory-2
+template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3100 Ω
+- id: b
+  en: 3000 Ω
+- id: c
+  en: 2900 Ω
+- id: d
+  en: 29000 Ω
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.COIL_RESISTANCE_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.COIL_RESISTANCE_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: V = Ig x (G + Rs), so Rs = V / Ig - G.'
+- en: 'Put each quantity in SI units: 1 mA = 0.001 A.'
+- en: 'Substitute: Rs = 3 / 0.001 - 100.'
+- en: 'Calculate: Rs = 2900 Ω.'
+- en: So the series resistance is 2900 Ω.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0a7cab8fced8fc62671ca65d46ea9b949ed294bdacd90ef6eb476ae01e2da438
+  template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+  certificate_hash: 48bdef815903ba6d23621eb794a0fafe9438b91aab195e74e60115a2ac94f5bd
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:31+00:00'
+  record_hash: b573b76530e09ec10ca02c3a7149f43a4426942d3653a50da0d5ae020f0c5da0
