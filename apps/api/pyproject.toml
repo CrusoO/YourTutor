@@ -21,6 +21,11 @@ dependencies = [
     "cryptography>=46.0.7,<47",
 ]
 
+[project.optional-dependencies]
+# Local book-check tool only (python -m app.bookcheck). Never add this to `dependencies` or to
+# requirements.txt: Vercel installs those into the serverless API.
+bookcheck = ["pypdf>=5,<8"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"
