@@ -34,7 +34,6 @@ BANNED_NAMES = (
     "icse",
     "cisce",
     "nios",
-    "seba",
     "state board",
     "board exam",
     "board paper",
