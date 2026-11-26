@@ -84,7 +84,7 @@ _BAD_PHRASES = re.compile(
     re.IGNORECASE,
 )
 _NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
-_PLAIN_NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
+_PLAIN_NUMBER = re.compile(r"-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?")  # 1.34e-5 is one number
 _WORD = re.compile(r"[a-z0-9]+")
 _MATH = re.compile(r"\d+(?:\.\d+)?|[^\sa-z\d]")
 _PUNCTUATION = frozenset(".,;:?!\"'")
