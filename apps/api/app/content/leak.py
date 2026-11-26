@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from app.content.math_parse import expressions_equivalent, find_numbers, normalize
+from app.content.math_parse import ParseError, expressions_equivalent, find_numbers, normalize
 
 _NUMERIC = re.compile(r"-?\d+(?:\.\d+)?$")
 
@@ -16,8 +16,20 @@ def _contains_token(hay: str, needle: str) -> bool:
     return bool(re.search(rf"(?<![A-Za-z]){re.escape(needle)}(?![A-Za-z])", hay))
 
 
+def _plain(text: str) -> str:
+    return re.sub(r"\s+", " ", text.casefold()).strip()
+
+
 def hint_leaks_answer(hint: str, forbidden: str) -> bool:
     """True if hint level 1–2 contains the answer or an equivalent value."""
+    try:
+        return _leaks(hint, forbidden)
+    except ParseError:
+        # an answer such as "2,2-dimethylpropane" or "1, 2, 3" is text, not an expression
+        return _contains_token(_plain(hint), _plain(forbidden))
+
+
+def _leaks(hint: str, forbidden: str) -> bool:
     hay = normalize(hint)
     needle = normalize(forbidden)
     if _contains_token(hay, needle):

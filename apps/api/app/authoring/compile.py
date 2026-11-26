@@ -184,6 +184,7 @@ def compile_draft(
     for position, item in enumerate(draft.items):
         per_topic.setdefault(item.topic, []).append(position)
     all_mcs: dict[str, dict[str, Any]] = {}
+    chapter_skills: list[str] = []
     for topic_key, positions in per_topic.items():
         built: list[tuple[str, dict[str, Any]]] = []
         mcs_here: dict[str, dict[str, Any]] = {}
@@ -208,6 +209,23 @@ def compile_draft(
             skill
         )
         result.skills += 1
+        chapter_skills.append(skill["id"])
+    if chapter_skills:
+        # The reviewer desk finds an item's chapter through an overlay that lists its skill.
+        # The `.authored` suffix keeps it apart from a machine-checked chapter of the same name.
+        overlay_id = f"cbse.{draft.class_}.{draft.subject}.{draft.chapter}.authored"
+        overlay = {
+            "id": overlay_id,
+            "curriculum_id": "cbse",
+            "grade": draft.class_,
+            "chapter": f"{draft.chapter}_unchecked_drafts",
+            "skill_ids": sorted(chapter_skills),
+            "live": False,
+            "section_map": {},
+        }
+        result.files[(base / "overlays" / "authored" / f"{overlay_id}.yaml").as_posix()] = (
+            dump_yaml(overlay)
+        )
     for mid, data in sorted(all_mcs.items()):
         result.files[(base / "misconceptions" / "authored" / f"{mid}.yaml").as_posix()] = dump_yaml(
             data

@@ -99,10 +99,8 @@ def test_snapshot_hindi_matches_what_the_yaml_card_would_show(
 def test_every_real_item_maps_to_a_chapter(real_yaml: snapshot.ReviewData) -> None:
     assert snapshot.UNMAPPED_ID not in real_yaml.chapters
     grades = {c.grade for c in real_yaml.chapters.values()}
-    assert grades == {
-        10,
-        12,
-    }  # class 10 lanes plus class 12 maths and physics; no class 9 or 11 yet
+    # machine-checked: classes 10 and 12; unchecked drafts (tier C): classes 9, 10, 11 and 12
+    assert grades == {9, 10, 11, 12}
     assert {c.subject for c in real_yaml.chapters.values()} == {
         "maths",
         "physics",

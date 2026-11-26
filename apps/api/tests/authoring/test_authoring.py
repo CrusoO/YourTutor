@@ -19,7 +19,7 @@ from app.authoring.lint import jaccard, lint_paths, near_duplicates, tokens
 from app.authoring.report import build_report
 from app.authoring.schema import DraftFile
 from app.authoring.syllabus import SyllabusMap, duplicate_keys, load_map
-from app.content.schema import Item, Misconception, Skill
+from app.content.schema import Item, Misconception, Overlay, Skill
 from app.content.validator import validate_path
 
 FIXTURE = Path(__file__).parent / "fixtures" / "content"
@@ -136,7 +136,7 @@ def test_compile_is_byte_identical_twice(root: Path) -> None:
 def test_compiled_files_load_as_real_models(root: Path) -> None:
     files = _compile_all(root)
     kinds = Counter(rel.split("/")[3] for rel in files)
-    assert kinds == {"items": 11, "skills": 2, "misconceptions": 18}
+    assert kinds == {"items": 11, "skills": 2, "misconceptions": 18, "overlays": 2}
     for rel, text in files.items():
         data = yaml.safe_load(text)
         if "/items/authored/" in rel:
@@ -150,6 +150,10 @@ def test_compiled_files_load_as_real_models(root: Path) -> None:
         elif "/skills/authored/" in rel:
             skill = Skill.model_validate(data)
             assert skill.bkt.p_guess == 0.25
+        elif "/overlays/authored/" in rel:
+            overlay = Overlay.model_validate(data)
+            assert overlay.id.endswith(".authored") and overlay.live is False
+            assert overlay.skill_ids and overlay.grade in (9, 10)
         else:
             assert Misconception.model_validate(data).id.startswith("MC.A.")
 
@@ -321,6 +325,33 @@ def test_formula_stems_that_differ_in_a_sign_or_number_are_not_duplicates() -> N
         ("f", 2, "s", same_words.format("= 2y")),
     ]
     assert [(a, b) for a, b, _ in near_duplicates(entries)] == [(0, 2)]  # only the true copy
+
+
+def test_validator_language_rules_are_applied_to_drafts(root: Path) -> None:
+    def stem_with_brace(d: dict[str, Any]) -> None:
+        d["items"][0]["stem"] = (
+            "Which element of the set {x} belongs to the product with the set B?"
+        )
+
+    _edit(root, BIO, stem_with_brace)
+    assert "language" in _codes(root, BIO)
+
+    def doubled_word(d: dict[str, Any]) -> None:
+        d["items"][0]["hints"][0] = "Time spent standing still still counts."
+
+    _edit(root, BIO, doubled_word)
+    assert "language" in _codes(root, BIO)
+
+
+def test_a_stem_used_twice_across_classes_is_an_error(root: Path) -> None:
+    stem = _draft(root, BIO).items[0].stem
+
+    def copy_stem(d: dict[str, Any]) -> None:
+        d["items"][0]["stem"] = stem
+
+    _edit(root, PHY, copy_stem)
+    run = lint_paths(root)
+    assert any(f.code == "duplicate_stem" for f in run.findings)
 
 
 def test_schema_error_reports_and_exit_code(root: Path, capsys: pytest.CaptureFixture[str]) -> None:
