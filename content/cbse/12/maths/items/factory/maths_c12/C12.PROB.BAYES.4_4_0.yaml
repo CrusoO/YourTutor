@@ -1,0 +1,134 @@
+id: C12.PROB.BAYES.4_4_0
+skill_ids:
+- MATH.C12.PROB.BAYES
+difficulty: 0.67
+pool: practice
+role: apply
+stem:
+  en: A factory has 3 machines. They make first source 25%, second source 35%, third
+    source 40% of the bolts. The chance that a bolt is faulty is 4%, 5%, 3% for the
+    machines in that order. A bolt is picked at random and found faulty. What is the
+    probability that it came from the first machine?
+hints:
+- level: 1
+  en: Find each machine's share of the faulty bolts.
+- level: 2
+  en: Multiply each machine's share by its fault rate, add them all for the total,
+    then divide the share of the asked machine by that total.
+- level: 3
+  en: 'Full method: joint probability for each machine, their sum as the total probability
+    of a fault, then the asked joint divided by the total; simplify the fraction.'
+prediction_prompt:
+  en: Should the answer be larger or smaller than the machine's share?
+status: draft
+template_id: TPL.C12.PROB.BAYES
+generator_version: factory-2
+template_hash: e7fb56f150042d5ad2eddc7e9231917e06ac176d1f567304291acafbb7588ad0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/25
+- id: b
+  en: 20/79
+- id: c
+  en: 1/4
+- id: d
+  en: 1/100
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.LIKELIHOOD_USED_AS_POSTERIOR
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.PRIOR_USED_AS_POSTERIOR
+  when_answer_equals:
+  - c
+- id: MC.C12.PROB.JOINT_NOT_DIVIDED_BY_TOTAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Find the probability of each machine and a faulty bolt together: prior times
+    fault rate.'
+- en: 'Add them to get the total chance of a faulty bolt: 395 out of 10000.'
+- en: Posterior = 100 / 395 = 20/79.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 262dacf2563feada175358198097ba17dfe321d1e3a0cffd797d8f0be861dcfc
+  template_hash: e7fb56f150042d5ad2eddc7e9231917e06ac176d1f567304291acafbb7588ad0
+  certificate_hash: ee1e3647fba168f98a249c3bf7758bddf2f915d017ab8e59d6761fc44803ab0d
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.bayes.formula
+  - c12.bayes.population
+  - c12.bayes.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:35:41+00:00'
+  record_hash: cee0ff40a84527a15335b18fdc172bd694ea3d7da708a0ecc56409a21b1a0330

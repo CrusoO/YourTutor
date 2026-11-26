@@ -1,0 +1,131 @@
+id: C12.LP.OPTIMUM.354
+skill_ids:
+- MATH.C12.LP.OPTIMUM
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: Maximise Z = 3x + 4y subject to 4x + 4y ≤ 24; x + 4y ≤ 12; x ≥ 0 and y ≥ 0.
+hints:
+- level: 1
+  en: Check each candidate point against all the inequalities.
+- level: 2
+  en: Solve pairs of boundary lines to find the corner points, keep the feasible ones,
+    and evaluate the objective at each.
+- level: 3
+  en: 'Full method: all pairwise intersections of boundary lines, discard the infeasible
+    ones, compute Z at every remaining corner, and take the largest.'
+prediction_prompt:
+  en: Will the best point be a corner of the region?
+status: draft
+template_id: TPL.C12.LP.OPTIMUM
+generator_version: factory-2
+template_hash: 1bf47748ee07696aac17b5599610aaefaa23a7294ca9afc1f9e6a01457e44f50
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '18'
+- id: b
+  en: '6'
+- id: c
+  en: '0'
+- id: d
+  en: '20'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.LP.WRONG_CORNER_CHOSEN
+  when_answer_equals:
+  - a
+- id: MC.C12.LP.VALUE_OF_X_PLUS_Y_AT_BEST_CORNER
+  when_answer_equals:
+  - b
+- id: MC.C12.LP.MINIMUM_REPORTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Draw or list the corner points of the feasible region: where the boundary lines
+    meet each other and the axes, keeping only points that satisfy every inequality.'
+- en: Evaluate Z at each corner point.
+- en: The largest value is 20.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 00ae0b77b02daf098a87a9d40a8a88c63ce980a265e37ab0b3183294a39d9119
+  template_hash: 1bf47748ee07696aac17b5599610aaefaa23a7294ca9afc1f9e6a01457e44f50
+  certificate_hash: 439d806dc22424906811c43eebc314c5d7acdfa1588b8147a72e733ed958f097
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.linear_programming
+  methods_agreeing:
+  - kernel.algebra
+  - c12.lp.corner
+  - c12.lp.lattice
+  - c12.lp.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:34:58+00:00'
+  record_hash: f21ab1f48bcac074b88a7e59d083acc5063ec8002d9eb11e06504e9aa2db5630

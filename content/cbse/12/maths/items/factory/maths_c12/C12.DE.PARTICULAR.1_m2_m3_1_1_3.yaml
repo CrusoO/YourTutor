@@ -1,0 +1,133 @@
+id: C12.DE.PARTICULAR.1_m2_m3_1_1_3
+skill_ids:
+- MATH.C12.DE.PARTICULAR
+difficulty: 0.57
+pool: practice
+role: apply
+stem:
+  en: A function y satisfies dy/dx = x² - 2x - 3, and y = 1 when x = 1. Find the value
+    of y when x = 3.
+hints:
+- level: 1
+  en: Integration brings in an unknown constant, so the given pair of values has some
+    work to do.
+- level: 2
+  en: Integrate to get the general solution, use the given pair of values to fix the
+    constant, then evaluate at the new x.
+- level: 3
+  en: 'Full method: integrate term by term with a constant, substitute the known x
+    and y, solve for the constant, write the particular solution, and substitute the
+    asked x.'
+prediction_prompt:
+  en: What does the given pair of values let you find?
+status: draft
+template_id: TPL.C12.DE.PARTICULAR
+generator_version: factory-2
+template_hash: ba9d19ebf9a30207c9827ff7e4d2f4fd55527ee0d764410bb90faf40e38dfe5f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: -13/3
+- id: c
+  en: '-9'
+- id: d
+  en: '-8'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.DE.DERIVATIVE_EVALUATED_NOT_SOLUTION
+  when_answer_equals:
+  - a
+- id: MC.C12.DE.CONSTANT_OF_INTEGRATION_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: MC.C12.DE.INITIAL_VALUE_USED_AS_CONSTANT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Integrate both sides: the general solution has an arbitrary constant.'
+- en: 'Use y = 1 at x = 1 to find the constant: 14/3.'
+- en: 'Put x = 3 into the particular solution: y = -13/3.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6f621bf214a6763fd438902375938e7b07e3a01c68b5c73364f00b7f1d8d02d9
+  template_hash: ba9d19ebf9a30207c9827ff7e4d2f4fd55527ee0d764410bb90faf40e38dfe5f
+  certificate_hash: 38550d8658347ea0e4797a730cbdfdc422606034dd63770468b77b97b5ed5fdb
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.differential_equations
+  methods_agreeing:
+  - kernel.algebra
+  - c12.dep.integrate
+  - c12.dep.sympy
+  - c12.dep.simpson
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:45+00:00'
+  record_hash: bbbf062cc7538b329673454b6353e0359924db2cd14f7fa222df964fe2ddcf14

@@ -1,0 +1,133 @@
+id: C12.DET.ADJOINT_ENTRY.5_0_0
+skill_ids:
+- MATH.C12.DET.ADJOINT_ENTRY
+difficulty: 0.57
+pool: practice
+role: apply
+stem:
+  en: The adjoint of A = [[-2, 1, 2], [-3, 3, -1], [0, -1, -2]] is needed. Give its
+    entry in row 1 and column 1.
+hints:
+- level: 1
+  en: Decide the minor to delete before computing anything.
+- level: 2
+  en: Find the cofactor of the entry in the mirrored position, since the adjoint is
+    the transpose of the cofactor matrix.
+- level: 3
+  en: 'Full method: locate the mirrored position, delete its row and column, find
+    the 2 by 2 determinant, and multiply by the sign of that position.'
+prediction_prompt:
+  en: Does the position of the entry matter once the matrix is turned over?
+status: draft
+template_id: TPL.C12.DET.ADJOINT_ENTRY
+generator_version: factory-2
+template_hash: 2ee8143e31491717ce49b7914e443bccb71f18a77ce894398415ffcf143710d3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '14'
+- id: b
+  en: '7'
+- id: c
+  en: '-7'
+- id: d
+  en: -1/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.DET.DETERMINANT_USED_FOR_ENTRY
+  when_answer_equals:
+  - a
+- id: MC.C12.DET.SIGN_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.C12.DET.ADJOINT_DIVIDED_BY_DETERMINANT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The adjoint is the transpose of the matrix of cofactors, so its entry in row
+    i and column j is the cofactor of the entry in row j and column i of A.
+- en: Delete row 1 and column 1, take the 2 by 2 determinant, and attach the sign
+    +.
+- en: The entry is -7.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4c02f485eafd6250c36e8e26352cc11c52a56e32fcd00eace30bd613653bb90e
+  template_hash: 2ee8143e31491717ce49b7914e443bccb71f18a77ce894398415ffcf143710d3
+  certificate_hash: 400e2ce75032c3d865e8ff2c0c9ea95d312ee17293b2eea190b73f64b4cd9d94
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.determinants
+  methods_agreeing:
+  - kernel.algebra
+  - c12.adj.cofactor
+  - c12.adj.sympy
+  - c12.adj.inverse
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:54+00:00'
+  record_hash: 37690556989ac4ca547fabd50661942cdeaa617a602eb655faf75853248d91c4

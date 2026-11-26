@@ -1,0 +1,132 @@
+id: C12.VEC.CROSS_TRIPLE.7_cross
+skill_ids:
+- MATH.C12.VEC.CROSS_TRIPLE
+difficulty: 0.52
+pool: practice
+role: apply
+stem:
+  en: Find the cross product of the vectors -2i - 3k and -2i - 2j + 3k, in that order.
+hints:
+- level: 1
+  en: The order of the two vectors matters.
+- level: 2
+  en: Expand the determinant along the unit-vector row, taking care with the sign
+    of the middle term.
+- level: 3
+  en: 'Full method: determinant with i, j, k on the first row, expand, simplify each
+    component, and check that your result is perpendicular to both vectors by taking
+    dot products.'
+prediction_prompt:
+  en: Is the result perpendicular to both vectors?
+status: draft
+template_id: TPL.C12.VEC.CROSS_TRIPLE
+generator_version: factory-2
+template_hash: 4be31fa0aa0a8fd824198a3ee645978b0af1ddb9fdf9e026dbabde981402cf1d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6i - 12j - 4k
+- id: b
+  en: 4i - 9k
+- id: c
+  en: -6i + 12j + 4k
+- id: d
+  en: -6i - 12j + 4k
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.VEC.CROSS_ORDER_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.C12.VEC.COMPONENTWISE_PRODUCT
+  when_answer_equals:
+  - b
+- id: MC.C12.VEC.MIDDLE_SIGN_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Write the 3 by 3 determinant with the unit vectors on the first row, the first
+    vector on the second row and the second vector on the third row.
+- en: Expand along the first row; the middle term carries a minus sign.
+- en: The cross product is -6i + 12j + 4k.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7b9048b9a60624cf487745a78387016bd8997d5cb71b2dc06f782e3f95f7975d
+  template_hash: 4be31fa0aa0a8fd824198a3ee645978b0af1ddb9fdf9e026dbabde981402cf1d
+  certificate_hash: 5a4fa1b1f86fd8a61a6cf7b9587ff5c47582f3a52c3516935bf32081eb321e56
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.vectors
+  methods_agreeing:
+  - kernel.algebra
+  - c12.vec.cross.det
+  - c12.vec.cross.sympy
+  - c12.vec.cross.levi
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:37:21+00:00'
+  record_hash: f4a5221f197359fc9413416b1b918e2b9c8d86439c945d8b2f223898dd3de47d

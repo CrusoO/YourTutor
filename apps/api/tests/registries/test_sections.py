@@ -68,6 +68,19 @@ LANE_CHAPTERS = {
     "cbse.10.chemistry.acids_bases_salts",
     "cbse.10.chemistry.metals_nonmetals",
     "cbse.10.chemistry.carbon_compounds",
+    "cbse.12.maths.relations_functions",
+    "cbse.12.maths.inverse_trig",
+    "cbse.12.maths.matrices",
+    "cbse.12.maths.determinants",
+    "cbse.12.maths.continuity_differentiability",
+    "cbse.12.maths.applications_derivatives",
+    "cbse.12.maths.integrals",
+    "cbse.12.maths.applications_integrals",
+    "cbse.12.maths.differential_equations",
+    "cbse.12.maths.vectors",
+    "cbse.12.maths.three_d_geometry",
+    "cbse.12.maths.linear_programming",
+    "cbse.12.maths.probability",
 }
 
 

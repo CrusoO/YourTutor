@@ -1,0 +1,132 @@
+id: C12.RF.COUNT_MAPS.surjective_5_4
+skill_ids:
+- MATH.C12.RF.COUNT_MAPS
+difficulty: 0.48
+pool: practice
+role: apply
+stem:
+  en: How many onto functions are there from a set of 5 elements onto a set of 4 elements?
+hints:
+- level: 1
+  en: 'Think about what you are counting: separate choices that multiply, or whole
+    sets of pairs.'
+- level: 2
+  en: Write down the choices one by one and combine them with the multiplication rule,
+    or count subsets of pairs where each pair is in or out.
+- level: 3
+  en: 'Full method: identify the objects, list the free choices, multiply their counts,
+    and test your rule on a very small set you can list by hand.'
+prediction_prompt:
+  en: Will the count be small or large? Roughly how many digits?
+status: draft
+template_id: TPL.C12.RF.COUNT_MAPS
+generator_version: factory-2
+template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1024'
+- id: b
+  en: '240'
+- id: c
+  en: '120'
+- id: d
+  en: '52'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.RF.ALL_FUNCTIONS_COUNTED
+  when_answer_equals:
+  - a
+- id: MC.C12.RF.CHOSE_ONE_PREIMAGE_ONLY
+  when_answer_equals:
+  - c
+- id: MC.C12.RF.STOPPED_AFTER_ONE_SUBTRACTION
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Decide what must be chosen and how many independent choices there are.
+- en: Count all functions, then remove those that miss one or more elements of the
+    target (inclusion and exclusion). The count is 240.
+- en: So the number is 240.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 923c421605f8c043c8db12e380340d8706df48195b08b85f1810378abdec768b
+  template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+  certificate_hash: 8f3da40893d353b1ecb211493f76ca6e6e33fd1337cb948dff3b190ed6931a7e
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.relations_functions
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rf.formula
+  - c12.rf.enumeration
+  - c12.rf.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:38+00:00'
+  record_hash: d3502bec5a1829db37b70d9aa04a02c0703ae82a846ce8361db6a45535d129fc

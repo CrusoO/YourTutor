@@ -1,0 +1,134 @@
+id: C12.PROB.BINOMIAL.4_1d2_exactly_1
+skill_ids:
+- MATH.C12.PROB.BINOMIAL
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: A biased coin shows heads with probability 1/2. It is tossed 4 times, each toss
+    independent of the others. Find the probability of exactly 1 heads.
+hints:
+- level: 1
+  en: How many different orders can the heads appear in?
+- level: 2
+  en: For each allowed number of heads, multiply the number of arrangements by the
+    probability of one arrangement, then add the cases.
+- level: 3
+  en: 'Full method: list the allowed head counts, compute n choose i times p to the
+    i times q to the n minus i for each, add, and simplify. A complement can save
+    work for at least one.'
+prediction_prompt:
+  en: Is the event likely or unlikely?
+status: draft
+template_id: TPL.C12.PROB.BINOMIAL
+generator_version: factory-2
+template_hash: baea8897541bc54ec9c02d148513017ace863082182e70050cb4b48afde3a722
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/16
+- id: b
+  en: 1/2
+- id: c
+  en: '2'
+- id: d
+  en: 1/4
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.BINOMIAL_COEFFICIENT_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.SUCCESS_ONLY_POWER
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.FAILURE_FACTOR_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'The number of heads follows a binomial pattern: each outcome with i heads has
+    probability p to the i times q to the n minus i, and there are n choose i ways
+    to place the heads.'
+- en: Add the cases that belong to the event asked.
+- en: The probability is 1/4.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b127b433ea7d1bb9136371f624b91eae9ca7f309d1e3cc4d7d4e4196f42c0149
+  template_hash: baea8897541bc54ec9c02d148513017ace863082182e70050cb4b48afde3a722
+  certificate_hash: 99ee6f5ba1973fdba89c8af4e9e9630f85c1d8f2acc03a839b9eb03149b613ae
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.bin.formula
+  - c12.bin.enumeration
+  - c12.bin.dp
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:35:54+00:00'
+  record_hash: c928511c4f30f432d8a0b37b7e13b8f5fa2bd779be41549affb0bc537b84b356
