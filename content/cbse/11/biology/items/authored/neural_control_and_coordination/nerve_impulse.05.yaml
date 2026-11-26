@@ -1,0 +1,49 @@
+id: A.11.biology.neural_control_and_coordination.nerve_impulse.05
+skill_ids:
+- SK.A.11.biology.nerve_impulse
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Local anaesthetics block voltage-gated sodium channels in a nerve. What is the most direct consequence for nerve conduction?
+hints:
+- level: 1
+  en: Think about which channel the anaesthetic targets.
+- level: 2
+  en: Consider whether an impulse can be generated without sodium entry.
+- level: 3
+  en: Ask what the nerve needs in order to carry a signal along the axon.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Potassium channels open to stop the impulse
+- id: b
+  en: Action potentials fail to start or to propagate, so the pain signal is blocked
+- id: c
+  en: Myelin thickens rapidly to compensate
+- id: d
+  en: The nerve fires twice as fast
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5908B6934BB8
+  when_answer_equals:
+  - a
+- id: MC.A.FA1E0F0D66EF
+  when_answer_equals:
+  - d
+- id: MC.A.ACCD13AEE650
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Sodium entry is needed to generate an action potential.
+- en: Blocking the channels prevents the depolarising phase, so the impulse cannot start or travel, and the sensation is not transmitted.
+- en: The correct option is b.
+tier: C

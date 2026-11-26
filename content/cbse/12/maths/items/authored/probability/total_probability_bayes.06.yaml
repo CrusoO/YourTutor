@@ -1,0 +1,48 @@
+id: A.12.maths.probability.total_probability_bayes.06
+skill_ids:
+- SK.A.12.maths.total_probability_bayes
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Using the three suppliers in which the third supplies 20 percent of parts and the overall defect probability is 0.021, what is the probability that a defective part came from the third supplier, rounded to 3 decimal places?
+hints:
+- level: 1
+  en: Compute the joint probability of the third supplier and a defect.
+- level: 2
+  en: Divide by the overall defect probability found in the earlier part.
+- level: 3
+  en: Round the result to 3 decimal places.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.05'
+- id: b
+  en: '0.476'
+- id: c
+  en: '0.2'
+- id: d
+  en: '0.238'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.76884BA67E24
+  when_answer_equals:
+  - c
+- id: MC.A.7F07F71D884F
+  when_answer_equals:
+  - a
+- id: MC.A.B54CA15FC0A4
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The joint probability of supplier 3 and defect is 0.2 times 0.05 = 0.01, and dividing by the overall defect probability 0.021 gives about 0.476.
+- en: The correct option is b.
+tier: C

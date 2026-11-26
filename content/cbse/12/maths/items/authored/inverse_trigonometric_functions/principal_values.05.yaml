@@ -1,0 +1,48 @@
+id: A.12.maths.inverse_trigonometric_functions.principal_values.05
+skill_ids:
+- SK.A.12.maths.principal_values
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the value of tan^-1(sqrt(3)) + tan^-1(-1/sqrt(3)) using principal values?
+hints:
+- level: 1
+  en: Evaluate each inverse tangent separately within the principal range.
+- level: 2
+  en: Recall that the principal range of tan^-1 is an open interval.
+- level: 3
+  en: Add the two angles once both are known.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5pi/6
+- id: b
+  en: -pi/6
+- id: c
+  en: pi/2
+- id: d
+  en: pi/6
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.FC6F5E95A618
+  when_answer_equals:
+  - c
+- id: MC.A.AEE248A30C2D
+  when_answer_equals:
+  - b
+- id: MC.A.4AD614CBE1C4
+  when_answer_equals:
+  - a
+solution_steps:
+- en: tan^-1(sqrt(3)) equals pi/3 and tan^-1(-1/sqrt(3)) equals -pi/6, so the sum is pi/6.
+- en: The correct option is d.
+tier: C

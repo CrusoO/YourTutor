@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_induction.motional_emf.04
+skill_ids:
+- SK.A.12.physics.motional_emf
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A conductor moves through a magnetic field parallel to the direction of the field. What is the motional EMF across it?
+hints:
+- level: 1
+  en: Use the general motional EMF formula with the sine of the angle between velocity and field.
+- level: 2
+  en: Find the sine of the angle for this motion.
+- level: 3
+  en: Think about whether the charges in the conductor are pushed across the conductor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: B times l times v
+- id: b
+  en: Zero
+- id: c
+  en: Half of the maximum possible value
+- id: d
+  en: The maximum possible value
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.910257BA9F5C
+  when_answer_equals:
+  - d
+- id: MC.A.80A3EE921D29
+  when_answer_equals:
+  - c
+- id: MC.A.179E5FACE33A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The motional EMF is B l v sin theta, where theta is the angle between the velocity and the field.
+- en: For parallel motion theta is zero, so the EMF is zero.
+- en: The correct option is b.
+tier: C

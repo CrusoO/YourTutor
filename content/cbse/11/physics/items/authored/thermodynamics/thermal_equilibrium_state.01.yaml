@@ -1,0 +1,49 @@
+id: A.11.physics.thermodynamics.thermal_equilibrium_state.01
+skill_ids:
+- SK.A.11.physics.thermal_equilibrium_state
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: The zeroth law of thermodynamics is about which relation?
+hints:
+- level: 1
+  en: Think about what it means for two bodies to share a temperature.
+- level: 2
+  en: Use a third body as a go-between.
+- level: 3
+  en: The statement is about whether equilibrium carries over from one pair to another.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: entropy never decreases in an isolated system
+- id: b
+  en: heat only flows from hot bodies to cold bodies
+- id: c
+  en: if A is in equilibrium with C and B is in equilibrium with C, then A is in equilibrium with B
+- id: d
+  en: energy is conserved in every process
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.EDE011AEB80C
+  when_answer_equals:
+  - d
+- id: MC.A.02813F4F8657
+  when_answer_equals:
+  - a
+- id: MC.A.912C1E37D3BA
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The zeroth law states that thermal equilibrium is transitive.
+- en: A third body acts as a common reference, which is why thermometers work.
+- en: The correct option is c.
+tier: C

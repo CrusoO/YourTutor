@@ -1,0 +1,48 @@
+id: A.12.chemistry.chemical_kinetics.rate_of_reaction.02
+skill_ids:
+- SK.A.12.chemistry.rate_of_reaction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which change raises the rate of a gas phase reaction most directly by increasing the collision frequency?
+hints:
+- level: 1
+  en: Consider which change puts more reacting particles into the same space.
+- level: 2
+  en: Think about whether the added substance takes part in the reaction.
+- level: 3
+  en: Compare the number of collisions before and after the change.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Lowering the temperature
+- id: b
+  en: Raising the concentration of a reactant
+- id: c
+  en: Removing the catalyst
+- id: d
+  en: Adding an inert gas at constant volume
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CECB1CE2B15E
+  when_answer_equals:
+  - d
+- id: MC.A.D8992DFFDEA1
+  when_answer_equals:
+  - a
+- id: MC.A.1D90C894DDA9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: More reactant molecules in the same volume means more collisions per second, so the rate rises.
+- en: The correct option is b.
+tier: C

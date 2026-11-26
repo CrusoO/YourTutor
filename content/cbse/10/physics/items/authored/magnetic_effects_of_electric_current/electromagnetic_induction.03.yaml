@@ -1,0 +1,51 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electromagnetic_induction.03
+skill_ids:
+- SK.A.10.physics.electromagnetic_induction
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A bar magnet is pushed into a coil connected to a galvanometer, and the needle deflects in one direction. The magnet is then pulled out of the coil. What happens to the direction of the deflection?
+hints:
+- level: 1
+  en: Think about whether the magnetic flux through the coil is increasing or decreasing in each case.
+- level: 2
+  en: Ask how the induced current responds to a change in the flux.
+- level: 3
+  en: Consider whether the galvanometer needle deflects when the magnet is still.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It is zero
+- id: b
+  en: It is larger and steady
+- id: c
+  en: It is in the opposite direction
+- id: d
+  en: It is in the same direction
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.ED419FE79072
+  when_answer_equals:
+  - d
+- id: MC.A.23E896C12705
+  when_answer_equals:
+  - a
+- id: MC.A.DC9E7AF480B8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Pushing the magnet in increases the flux through the coil, and pulling it out decreases the flux.
+- en: The induced current opposes the change in each case, so the current, and the deflection, reverses.
+- en: A steady magnet held still gives no deflection.
+- en: The correct option is c.
+tier: C
+diagram_note: Coil drawn as several loops connected to a galvanometer. A bar magnet is shown above the coil with its north pole pointing down. Draw one arrow showing the magnet being pushed into the coil and a second arrow showing it being withdrawn.

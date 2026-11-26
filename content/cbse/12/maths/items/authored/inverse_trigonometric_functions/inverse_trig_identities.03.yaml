@@ -1,0 +1,48 @@
+id: A.12.maths.inverse_trigonometric_functions.inverse_trig_identities.03
+skill_ids:
+- SK.A.12.maths.inverse_trig_identities
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which expression equals tan^-1(1/2) + tan^-1(1/3) using principal values?
+hints:
+- level: 1
+  en: Write the sum of two inverse tangents using the addition formula for tangent.
+- level: 2
+  en: Compute the sum and the product of the two fractions separately.
+- level: 3
+  en: Identify the angle whose tangent equals the resulting ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pi/4
+- id: b
+  en: pi/3
+- id: c
+  en: tan^-1(5/6)
+- id: d
+  en: pi/6
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.982C7A88486F
+  when_answer_equals:
+  - b
+- id: MC.A.99C6AF83F498
+  when_answer_equals:
+  - d
+- id: MC.A.351C8410CAF9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Using the addition formula for tangent, the sum equals tan^-1 of (1/2 + 1/3) divided by (1 - 1/6), which is tan^-1(1), and this equals pi/4.
+- en: The correct option is a.
+tier: C

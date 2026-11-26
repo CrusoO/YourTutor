@@ -1,0 +1,49 @@
+id: A.10.maths.quadratic_equations.standard_form_quadratic.01
+skill_ids:
+- SK.A.10.maths.standard_form_quadratic
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of these is written in standard form ax² + bx + c = 0 with a not equal to 0?
+hints:
+- level: 1
+  en: Check the highest power of x in each option.
+- level: 2
+  en: Look for an equation with zero on one side.
+- level: 3
+  en: Compare each option with the pattern ax² + bx + c = 0.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3x² - 5x + 2 = 0
+- id: b
+  en: x(x + 1) = 2
+- id: c
+  en: x³ + 2 = 0
+- id: d
+  en: 2x + 5 = 0
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.266054D9A5FD
+  when_answer_equals:
+  - d
+- id: MC.A.843E0C49CF8C
+  when_answer_equals:
+  - b
+- id: MC.A.0FD441BEDF55
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Standard form has an x² term with a nonzero coefficient, an x term, a constant, and zero on the right.
+- en: 3x² - 5x + 2 = 0 fits; the others are linear, unexpanded or cubic.
+- en: The correct option is a.
+tier: C

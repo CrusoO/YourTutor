@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.work_done.04
+skill_ids:
+- SK.A.9.physics.work_done
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A person carries a heavy bag across a level floor at constant height. What is the work done by the lifting force on the bag?
+hints:
+- level: 1
+  en: Compare the direction of the lifting force with the direction of motion.
+- level: 2
+  en: The motion here is horizontal while the lift is vertical.
+- level: 3
+  en: Work is zero when the force has no component along the displacement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: equal to the bag's weight times the distance
+- id: b
+  en: zero, since the lifting force is perpendicular to the horizontal motion
+- id: c
+  en: negative, because the bag resists the motion
+- id: d
+  en: positive, because the person is exerting effort
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E474EC7E0C85
+  when_answer_equals:
+  - d
+- id: MC.A.FB26E10FDBCD
+  when_answer_equals:
+  - c
+- id: MC.A.C9DEEE01D581
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The lifting force points up and the bag moves sideways, so the force does no work on the bag.
+- en: The correct option is b.
+tier: C

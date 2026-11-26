@@ -1,0 +1,48 @@
+id: A.11.maths.sequences_and_series.geometric_progression.06
+skill_ids:
+- SK.A.11.maths.geometric_progression
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The first three terms of a geometric progression of positive terms are a, ar and ar squared, with a equal to 3 and their sum equal to 21. What is the common ratio r?
+hints:
+- level: 1
+  en: Write the sum of the three terms in terms of the ratio and substitute the first term.
+- level: 2
+  en: Simplify the equation into a standard quadratic in the ratio.
+- level: 3
+  en: Use the requirement that all terms are positive to choose between the two roots.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '-3'
+- id: c
+  en: '7'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.39B8BF318AC4
+  when_answer_equals:
+  - b
+- id: MC.A.C2615AC30A9B
+  when_answer_equals:
+  - a
+- id: MC.A.F4FE08269642
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The equation 3 plus 3r plus 3r squared equals 21 simplifies to r squared plus r minus 6 equal to 0, whose positive root is 2.
+- en: The correct option is d.
+tier: C

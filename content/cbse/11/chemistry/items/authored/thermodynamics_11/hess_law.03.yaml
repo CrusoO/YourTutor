@@ -1,0 +1,30 @@
+id: A.11.chemistry.thermodynamics_11.hess_law.03
+skill_ids:
+- SK.A.11.chemistry.hess_law
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Given C + O2 -> CO2 (delta H = -394 kJ/mol), H2 + 1/2 O2 -> H2O (delta H = -286 kJ/mol) and CH4 + 2 O2 -> CO2 + 2 H2O (delta H = -891 kJ/mol), what is delta H in kJ/mol for C + 2 H2 -> CH4?
+hints:
+- level: 1
+  en: Reverse the methane combustion equation and multiply the water equation by two.
+- level: 2
+  en: Add all the adjusted equations and check that the unwanted species cancel.
+- level: 3
+  en: Remember to change the sign of each enthalpy when you reverse an equation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '-75'
+  accept: []
+solution_steps:
+- en: Adding the first equation to two times the second and then reversing the methane combustion gives delta H equal to -394 plus 2 times -286 minus -891, which is -75 kJ/mol.
+- en: The unit of the answer is kJ/mol.
+- en: Answer = -75
+tier: C

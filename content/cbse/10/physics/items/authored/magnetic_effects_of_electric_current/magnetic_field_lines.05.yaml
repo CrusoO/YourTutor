@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.magnetic_field_lines.05
+skill_ids:
+- SK.A.10.physics.magnetic_field_lines
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The magnetic field at a fixed distance from a long straight current-carrying wire is to be made stronger. Which change does this?
+hints:
+- level: 1
+  en: Recall which quantities the field at a distance from a wire depends on.
+- level: 2
+  en: Ask how the field changes as you move farther from the wire.
+- level: 3
+  en: Consider which property of the current, its magnitude or its direction, affects the strength.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Moving the point farther away from the wire
+- id: b
+  en: Reversing the direction of the current
+- id: c
+  en: Using a thinner wire of the same current
+- id: d
+  en: Increasing the current in the wire
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3252CD16F54B
+  when_answer_equals:
+  - a
+- id: MC.A.6EC665A6704F
+  when_answer_equals:
+  - c
+- id: MC.A.3041E60EBE41
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The magnetic field at a distance r from a long straight wire is proportional to the current and inversely proportional to the distance.
+- en: Increasing the current therefore strengthens the field.
+- en: Reversing the current only reverses the direction of the field.
+- en: The correct option is d.
+tier: C

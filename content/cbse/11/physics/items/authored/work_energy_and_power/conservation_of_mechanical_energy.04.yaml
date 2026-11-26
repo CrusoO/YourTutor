@@ -1,0 +1,49 @@
+id: A.11.physics.work_energy_and_power.conservation_of_mechanical_energy.04
+skill_ids:
+- SK.A.11.physics.conservation_of_mechanical_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A block slides from rest down a frictionless curved track starting at a height of 2.5 m. Taking g = 9.8 m/s^2, what is its speed at the bottom of the track?
+hints:
+- level: 1
+  en: Energy at the top is all potential energy because the block starts from rest.
+- level: 2
+  en: Set the potential energy at the top equal to the kinetic energy at the bottom.
+- level: 3
+  en: Take the square root only after solving for the speed squared.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4.9 m/s
+- id: b
+  en: 7 m/s
+- id: c
+  en: 49 m/s
+- id: d
+  en: 9.8 m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CE9808F7D003
+  when_answer_equals:
+  - a
+- id: MC.A.1298342EC24F
+  when_answer_equals:
+  - d
+- id: MC.A.AEA8D57EA63C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The energy at the top is m g h, which becomes one half m v^2 at the bottom.
+- en: So v^2 = 2 g h = 49 and v = 7 m/s.
+- en: The correct option is b.
+tier: C

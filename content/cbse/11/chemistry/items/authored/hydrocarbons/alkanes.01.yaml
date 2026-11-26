@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkanes.01
+skill_ids:
+- SK.A.11.chemistry.alkanes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the general molecular formula of a saturated acyclic alkane?
+hints:
+- level: 1
+  en: Each carbon in a saturated chain needs enough hydrogens to make four bonds.
+- level: 2
+  en: Count the hydrogens at the ends of the chain as well as those in the middle.
+- level: 3
+  en: Check the formula for a one-carbon alkane first.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CnH2n+1
+- id: b
+  en: CnH2n
+- id: c
+  en: CnH2n+2
+- id: d
+  en: CnH2n-2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.641668191C01
+  when_answer_equals:
+  - b
+- id: MC.A.2418A95018B1
+  when_answer_equals:
+  - d
+- id: MC.A.A9668601A497
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A saturated chain of n carbons has 2n plus 2 hydrogen atoms, since each carbon forms four bonds and the two terminal carbons carry an extra hydrogen.
+- en: The correct option is c.
+tier: C

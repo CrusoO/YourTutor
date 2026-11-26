@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.moment_of_inertia.01
+skill_ids:
+- SK.A.11.physics.moment_of_inertia
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Moment of inertia of a body about an axis depends on which property?
+hints:
+- level: 1
+  en: Mass farther from the axis is harder to rotate.
+- level: 2
+  en: Rotational inertia depends on both the mass and the distance from the axis.
+- level: 3
+  en: Ask how the mass is spread out around the axis.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the distribution of mass relative to the axis
+- id: b
+  en: its speed of rotation
+- id: c
+  en: only its total mass
+- id: d
+  en: the colour of its surface
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5DD3ED5288B8
+  when_answer_equals:
+  - d
+- id: MC.A.1B9218DF5EB5
+  when_answer_equals:
+  - c
+- id: MC.A.DC1110102E40
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Moment of inertia depends on how the mass is spread out relative to the axis, so mass farther from the axis contributes more.
+- en: The correct option is a.
+tier: C

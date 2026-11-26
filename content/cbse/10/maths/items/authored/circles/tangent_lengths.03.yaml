@@ -1,0 +1,50 @@
+id: A.10.maths.circles.tangent_lengths.03
+skill_ids:
+- SK.A.10.maths.tangent_lengths
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Two tangents TP and TQ are drawn from an external point T to a circle with centre O. The angle PTQ is 60 degrees. What is the angle POQ?
+hints:
+- level: 1
+  en: Draw in the radii to P and Q and find the angles at those points.
+- level: 2
+  en: Add up the angles of quadrilateral OPTQ.
+- level: 3
+  en: Recall the total of the angles in any quadrilateral.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 90 degrees
+- id: b
+  en: 120 degrees
+- id: c
+  en: 60 degrees
+- id: d
+  en: 150 degrees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5D595922BCE0
+  when_answer_equals:
+  - c
+- id: MC.A.D84FD283DA44
+  when_answer_equals:
+  - a
+- id: MC.A.D417A44F38F2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The radii OP and OQ are perpendicular to the tangents, so quadrilateral OPTQ has angles 90, 90 and 60 degrees at P, Q and T.
+- en: The angle at O is therefore 360 - 240 = 120 degrees.
+- en: The correct option is b.
+tier: C
+diagram_note: An external point T with two tangent lines TP and TQ forming a 60 degree angle at T, touching the circle at P and Q, with the centre O joined to P and Q.

@@ -1,0 +1,48 @@
+id: A.9.physics.sound.audible_range.06
+skill_ids:
+- SK.A.9.physics.audible_range
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A sonar device sends a sound at 40 kHz into water to measure the depth of the sea floor. Which feature makes this sound suitable?
+hints:
+- level: 1
+  en: Think about how the sound pulse is aimed and how it returns.
+- level: 2
+  en: Measure the time between sending and receiving the pulse.
+- level: 3
+  en: Ask what the returning signal tells you about the distance to a surface.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it can be sent as a narrow beam and its echo timing reveals distance
+- id: b
+  en: it slows to zero at great depth
+- id: c
+  en: it is audible to whales only
+- id: d
+  en: it cannot travel through water at all
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E38565E6F1F7
+  when_answer_equals:
+  - c
+- id: MC.A.E464741DF1FD
+  when_answer_equals:
+  - d
+- id: MC.A.2DFE7A10A90F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A narrow high-frequency beam reflects off the sea floor, and the round-trip time, with the speed of sound in water, gives the depth.
+- en: The correct option is a.
+tier: C

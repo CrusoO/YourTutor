@@ -1,0 +1,30 @@
+id: A.12.maths.applications_of_integrals.area_between_curves.03
+skill_ids:
+- SK.A.12.maths.area_between_curves
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Find the area between the curves y = 2x and y = x^2, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Find the points where the two curves intersect.
+- level: 2
+  en: Determine which curve lies on top between the intersection points.
+- level: 3
+  en: Integrate the top curve minus the bottom curve.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.333'
+  accept: []
+solution_steps:
+- en: The curves meet at x = 0 and x = 2, and between them y = 2x is above y = x^2, so the area is the integral of 2x - x^2 from 0 to 2, which is 4 - 8/3 = 4/3.
+- en: Answer = 1.333
+tier: C
+diagram_note: Parabola y = x squared and straight line y = 2x meeting at the origin and at x = 2, with the enclosed region shaded.

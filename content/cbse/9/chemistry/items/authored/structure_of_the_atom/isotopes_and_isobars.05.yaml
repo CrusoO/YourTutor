@@ -1,0 +1,49 @@
+id: A.9.chemistry.structure_of_the_atom.isotopes_and_isobars.05
+skill_ids:
+- SK.A.9.chemistry.isotopes_and_isobars
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Atom A has 8 protons and 9 neutrons, atom B has 8 protons and 10 neutrons, and atom C has 9 protons and 9 neutrons. Which pair are isotopes?
+hints:
+- level: 1
+  en: Isotopes share the number that defines the element.
+- level: 2
+  en: Compare the proton count of each atom in the pair.
+- level: 3
+  en: Check whether the pair belongs to the same element before comparing neutron counts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A and B
+- id: b
+  en: A and C, because both have an odd number of neutrons
+- id: c
+  en: B and C, because their mass numbers are equal
+- id: d
+  en: A and C, because their mass numbers are close
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.01BABE280F65
+  when_answer_equals:
+  - d
+- id: MC.A.50FEE40C2711
+  when_answer_equals:
+  - b
+- id: MC.A.FCABD4A04889
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A and B both have 8 protons, so they are atoms of the same element with different neutron counts, which makes them isotopes.
+- en: C has 9 protons, so it is a different element.
+- en: The correct option is a.
+tier: C

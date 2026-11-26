@@ -1,0 +1,49 @@
+id: A.10.physics.magnetic_effects_of_electric_current.force_on_current_carrying_conductor.02
+skill_ids:
+- SK.A.10.physics.force_on_current_carrying_conductor
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'A straight wire carries a current and lies in a uniform magnetic field. For a given current and field, the force on the wire is largest when the wire is:'
+hints:
+- level: 1
+  en: Think about the angle between the wire and the field lines.
+- level: 2
+  en: Ask for which orientation the wire is pushed most sideways by the field.
+- level: 3
+  en: Recall whether a current-carrying wire along a field line experiences any push.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Parallel to the magnetic field
+- id: b
+  en: Perpendicular to the magnetic field
+- id: c
+  en: At any angle, since the angle has no effect
+- id: d
+  en: Carrying no current
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AD4158EA78CF
+  when_answer_equals:
+  - a
+- id: MC.A.AC792B71AD1C
+  when_answer_equals:
+  - d
+- id: MC.A.E413D27EF0BC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The force on a straight conductor is given by F = BIL sin(theta), where theta is the angle between the current and the field.
+- en: The force is largest when theta is 90 degrees, and it is zero when the wire is parallel to the field.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.03
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which approach proves that the sum of two even numbers is even?
+hints:
+- level: 1
+  en: Represent a general even number using an algebraic expression.
+- level: 2
+  en: Add two such expressions and factor the result.
+- level: 3
+  en: Check whether the factored result matches the definition of an even number.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: direct proof writing each even number as twice an integer
+- id: b
+  en: proof by checking several examples
+- id: c
+  en: proof by assuming the result is already true
+- id: d
+  en: proof by counterexample
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.364BC70EE921
+  when_answer_equals:
+  - d
+- id: MC.A.D4C253CDB5D7
+  when_answer_equals:
+  - b
+- id: MC.A.72CA663941A4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: If the numbers are 2m and 2n, their sum 2(m plus n) is twice an integer, which proves the sum is even for all such numbers.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_line_3d.04
+skill_ids:
+- SK.A.12.maths.equation_of_line_3d
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which line is parallel to r = (1, 2, 3) + t(2, 3, 4)?
+hints:
+- level: 1
+  en: Parallel lines have direction vectors that are scalar multiples of each other.
+- level: 2
+  en: Check whether each candidate direction is a scalar multiple of (2, 3, 4).
+- level: 3
+  en: Ignore the point on the line when comparing directions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The line through the origin with direction (2, 3, 5)
+- id: b
+  en: The line through the origin with direction (4, 6, 8)
+- id: c
+  en: The line through (1, 2, 3) with direction (1, 2, 3)
+- id: d
+  en: The line through the origin with direction (-2, 3, 4)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.21C795FA0B35
+  when_answer_equals:
+  - a
+- id: MC.A.2FA7F6CAB3ED
+  when_answer_equals:
+  - d
+- id: MC.A.EE595C8BADBC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Two lines are parallel when their direction vectors are scalar multiples, and (4, 6, 8) is 2 times (2, 3, 4).
+- en: The correct option is b.
+tier: C

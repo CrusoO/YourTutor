@@ -1,0 +1,30 @@
+id: A.12.maths.applications_of_derivatives.rate_of_change.06
+skill_ids:
+- SK.A.12.maths.rate_of_change
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A sphere has radius increasing at 0.5 cm per second. When the radius is 2 cm, find the rate of change of its surface area in square cm per second, rounded to 1 decimal place.
+hints:
+- level: 1
+  en: Differentiate the surface area formula with respect to time.
+- level: 2
+  en: Substitute the radius and the given rate before multiplying.
+- level: 3
+  en: Keep pi exact until the last step.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '25.1'
+  accept: []
+solution_steps:
+- en: The surface area is 4 pi r^2, so dS/dt = 8 pi r dr/dt.
+- en: At r = 2 and dr/dt = 0.5 this equals 8 pi, about 25.1.
+- en: Answer = 25.1
+tier: C

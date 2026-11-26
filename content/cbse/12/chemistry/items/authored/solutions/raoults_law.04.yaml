@@ -1,0 +1,49 @@
+id: A.12.chemistry.solutions.raoults_law.04
+skill_ids:
+- SK.A.12.chemistry.raoults_law
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: For an ideal binary solution, what shape does a plot of total vapour pressure against the mole fraction of component A take?
+hints:
+- level: 1
+  en: Write the total pressure as the sum of two partial pressures, each linear in mole fraction.
+- level: 2
+  en: Check the pressure at the two ends of the axis where the mole fraction is zero and one.
+- level: 3
+  en: Consider whether a sum of linear terms can bend.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A curve that dips below both pure values
+- id: b
+  en: A horizontal line at the higher pure pressure
+- id: c
+  en: A vertical line at zero mole fraction
+- id: d
+  en: A straight line joining the two pure component pressures
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.728508D41A8E
+  when_answer_equals:
+  - a
+- id: MC.A.6DACB48C9276
+  when_answer_equals:
+  - b
+- id: MC.A.BDF5BDC2693B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Total pressure is the sum of two terms that each vary linearly with mole fraction, so the plot is a straight line between the two pure values.
+- en: The correct option is d.
+tier: C
+diagram_note: Graph with mole fraction of A from zero to one on the horizontal axis and total vapour pressure on the vertical axis; a straight line runs between the pure pressure of B at one end and the pure pressure of A at the other.

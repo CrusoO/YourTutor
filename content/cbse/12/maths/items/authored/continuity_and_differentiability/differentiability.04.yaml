@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.differentiability.04
+skill_ids:
+- SK.A.12.maths.differentiability
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: At which points is f(x) = |x - 2| + x^2 not differentiable?
+hints:
+- level: 1
+  en: Identify the point where the absolute value expression changes its formula.
+- level: 2
+  en: Look at the one-sided slopes at that point.
+- level: 3
+  en: The polynomial part is smooth everywhere, so focus on the other term.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Nowhere
+- id: b
+  en: At x = -2 and x = 2
+- id: c
+  en: At x = 0 only
+- id: d
+  en: At x = 2 only
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.AC0AF51266B7
+  when_answer_equals:
+  - a
+- id: MC.A.67555F1CD5E4
+  when_answer_equals:
+  - c
+- id: MC.A.0E45D16D75AD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The polynomial part is smooth everywhere, and the absolute value changes its formula only at x equal to 2, where the one-sided slopes differ.
+- en: The correct option is d.
+tier: C

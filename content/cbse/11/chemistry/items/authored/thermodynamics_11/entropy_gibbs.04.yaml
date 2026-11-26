@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.entropy_gibbs.04
+skill_ids:
+- SK.A.11.chemistry.entropy_gibbs
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A reaction has positive delta H and positive delta S. At which temperatures is it spontaneous?
+hints:
+- level: 1
+  en: Compare the enthalpy term with the entropy term multiplied by temperature.
+- level: 2
+  en: Consider how the entropy term changes as the temperature rises.
+- level: 3
+  en: Find the temperature at which the sign of delta G changes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: above a certain temperature
+- id: b
+  en: at no temperature
+- id: c
+  en: at low temperature only
+- id: d
+  en: at all temperatures
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2B00D37C775B
+  when_answer_equals:
+  - b
+- id: MC.A.4E698BF70A0F
+  when_answer_equals:
+  - c
+- id: MC.A.E41D23987DC3
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Delta G equals delta H minus T delta S, and the entropy term grows with temperature, so the reaction becomes spontaneous once T delta S exceeds delta H.
+- en: The correct option is a.
+tier: C

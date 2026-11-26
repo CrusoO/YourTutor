@@ -1,0 +1,49 @@
+id: A.9.biology.why_do_we_fall_ill.immunity.03
+skill_ids:
+- SK.A.9.biology.immunity
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A person who recovers from chickenpox seldom gets it again. Which feature of the immune system explains this?
+hints:
+- level: 1
+  en: Think about what the body keeps after the first infection is over.
+- level: 2
+  en: Consider how a second meeting with the same pathogen differs from the first.
+- level: 3
+  en: Eliminate options that claim the body loses its defences.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The body stops making white blood cells after one illness
+- id: b
+  en: Skin cells lose their receptor for the virus permanently
+- id: c
+  en: Memory cells remember the pathogen and respond quickly
+- id: d
+  en: The virus is destroyed completely and never leaves any trace
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4E303261E904
+  when_answer_equals:
+  - d
+- id: MC.A.17486E43F649
+  when_answer_equals:
+  - a
+- id: MC.A.CCEDCE737B96
+  when_answer_equals:
+  - b
+solution_steps:
+- en: After an infection, memory lymphocytes persist and recognise the same pathogen on a later encounter, triggering a faster and stronger response.
+- en: This is why second infections are often prevented.
+- en: The correct option is c.
+tier: C

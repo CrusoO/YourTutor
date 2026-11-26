@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.functions_domain_range.01
+skill_ids:
+- SK.A.11.maths.functions_domain_range
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the domain of the function f(x) = x + 5 when the inputs are real numbers?
+hints:
+- level: 1
+  en: Ask which inputs the expression can accept without any breakdown.
+- level: 2
+  en: A linear rule has no division and no square roots to worry about.
+- level: 3
+  en: Check whether any real value makes the rule undefined.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all real numbers
+- id: b
+  en: all real numbers except 5
+- id: c
+  en: all positive real numbers
+- id: d
+  en: all integers
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B1AE913F24BF
+  when_answer_equals:
+  - c
+- id: MC.A.5E98982F24EF
+  when_answer_equals:
+  - d
+- id: MC.A.42C4EB485408
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A linear expression can be evaluated at every real number, so the domain is the whole real line.
+- en: The correct option is a.
+tier: C

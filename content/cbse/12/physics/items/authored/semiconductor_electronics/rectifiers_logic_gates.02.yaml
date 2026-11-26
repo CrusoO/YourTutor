@@ -1,0 +1,46 @@
+id: A.12.physics.semiconductor_electronics.rectifiers_logic_gates.02
+skill_ids:
+- SK.A.12.physics.rectifiers_logic_gates
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the output of a NOT gate for a given input?
+hints:
+- level: 1
+  en: Think about what the word NOT does to a logical value.
+- level: 2
+  en: Consider how the output depends on the input in a single gate.
+- level: 3
+  en: Recall the truth table of a single input inverter.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Always high
+- id: b
+  en: Always low
+- id: c
+  en: The inverse of its input
+- id: d
+  en: The same as its input
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CE7A2F924F25
+  when_answer_equals:
+  - d
+- id: MC.A.77AE1813247F
+  when_answer_equals:
+  - a
+  - b
+solution_steps:
+- en: A NOT gate inverts its input, so a high input gives a low output and a low input gives a high output.
+- en: The correct option is c.
+tier: C

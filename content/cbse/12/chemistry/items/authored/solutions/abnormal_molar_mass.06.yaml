@@ -1,0 +1,48 @@
+id: A.12.chemistry.solutions.abnormal_molar_mass.06
+skill_ids:
+- SK.A.12.chemistry.abnormal_molar_mass
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A salt solution shows an observed molar mass lower than the value calculated from its formula. Which conclusion is correct?
+hints:
+- level: 1
+  en: Think about what happens to the number of particles that a colligative measurement counts.
+- level: 2
+  en: Compare the observed value with the calculated one to decide the direction of change.
+- level: 3
+  en: Recall which process increases the particle count for a salt in water.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The solute dissociated into more particles than formula units
+- id: b
+  en: The solute associated into larger aggregates
+- id: c
+  en: The calculated molar mass was wrong because of solvent purity only
+- id: d
+  en: The solvent evaporated during the measurement
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.437DEE140A45
+  when_answer_equals:
+  - b
+- id: MC.A.A68BF56F9A74
+  when_answer_equals:
+  - d
+- id: MC.A.EA4D5A49499C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A lower observed molar mass means the colligative measurement counted more particles than formula units, which happens when a salt dissociates.
+- en: The correct option is a.
+tier: C

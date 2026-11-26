@@ -1,0 +1,48 @@
+id: A.12.maths.probability.total_probability_bayes.02
+skill_ids:
+- SK.A.12.maths.total_probability_bayes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which formula is Bayes theorem for P(A given B)?
+hints:
+- level: 1
+  en: Bayes theorem reverses the direction of a conditional probability.
+- level: 2
+  en: Start from the definition of conditional probability in both orders.
+- level: 3
+  en: Write the joint probability in two ways and equate them.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: P(A given B) = P(A and B) + P(B)
+- id: b
+  en: P(A given B) = P(B given A)
+- id: c
+  en: P(A given B) = P(B given A) times P(A) divided by P(B)
+- id: d
+  en: P(A given B) = P(A) times P(B) divided by P(A and B)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CB5645C95043
+  when_answer_equals:
+  - b
+- id: MC.A.A04382746E39
+  when_answer_equals:
+  - d
+- id: MC.A.274A18E9F659
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Bayes theorem reverses a conditional probability, and it follows from writing P(A and B) in two ways and dividing by P(B).
+- en: The correct option is c.
+tier: C

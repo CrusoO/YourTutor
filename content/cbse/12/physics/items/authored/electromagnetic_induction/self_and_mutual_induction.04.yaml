@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_induction.self_and_mutual_induction.04
+skill_ids:
+- SK.A.12.physics.self_and_mutual_induction
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which expression gives the energy stored in an inductor of inductance L carrying a steady current I?
+hints:
+- level: 1
+  en: Think about how the energy depends on the current, which is not linear.
+- level: 2
+  en: The factor in the formula comes from building up the current gradually.
+- level: 3
+  en: Compare with the energy of a capacitor, which has a similar structure.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: L times I squared
+- id: b
+  en: One half times L squared times I
+- id: c
+  en: L times I
+- id: d
+  en: One half times L times I squared
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.11B5AA6AA0F9
+  when_answer_equals:
+  - c
+- id: MC.A.2C7B3D0DB6E6
+  when_answer_equals:
+  - a
+- id: MC.A.888CF5C4AC85
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Building up a current in an inductor requires work against the induced EMF.
+- en: Integrating gives an energy of one half L I squared.
+- en: The correct option is d.
+tier: C

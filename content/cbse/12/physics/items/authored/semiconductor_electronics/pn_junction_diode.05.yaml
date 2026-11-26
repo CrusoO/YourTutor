@@ -1,0 +1,32 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.05
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A Zener diode holds 5.1 V across it and is in series with a 200 ohm resistor on a 12 V supply. What is the current in mA?
+hints:
+- level: 1
+  en: Subtract the Zener voltage from the supply voltage.
+- level: 2
+  en: Divide the voltage across the resistor by its resistance.
+- level: 3
+  en: Convert the result from ampere to milliampere at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '34.5'
+  accept: []
+solution_steps:
+- en: The voltage across the resistor is 12 minus 5.1, which is 6.9 V.
+- en: The current is 6.9 divided by 200, which is 0.0345 A, or 34.5 mA.
+- en: The unit of the answer is mA.
+- en: Answer = 34.5
+tier: C
+diagram_note: A Zener diode in reverse bias in series with a resistor across a 12 V supply, with the Zener voltage of 5.1 V labelled across the diode.

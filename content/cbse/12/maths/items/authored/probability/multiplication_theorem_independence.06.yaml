@@ -1,0 +1,49 @@
+id: A.12.maths.probability.multiplication_theorem_independence.06
+skill_ids:
+- SK.A.12.maths.multiplication_theorem_independence
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which statement about three events A, B and C is correct?
+hints:
+- level: 1
+  en: Consider whether checking pairs covers the product rule for all three events.
+- level: 2
+  en: Compare the definition of mutual independence with pairwise independence.
+- level: 3
+  en: Try to construct a small example with three events built from equally likely outcomes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Pairwise independence always implies the triple product rule
+- id: b
+  en: Independent events must be disjoint
+- id: c
+  en: Three events are independent if any one pair is independent
+- id: d
+  en: Pairwise independence does not guarantee that P(A and B and C) equals P(A) P(B) P(C)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7ABF81B04F5E
+  when_answer_equals:
+  - a
+- id: MC.A.58629EB8ECFC
+  when_answer_equals:
+  - b
+- id: MC.A.4B72B0D2CB05
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Mutual independence requires the product rule for every subcollection, including the triple.
+- en: Pairwise independence alone does not force the triple product rule, so it is a weaker condition.
+- en: The correct option is d.
+tier: C

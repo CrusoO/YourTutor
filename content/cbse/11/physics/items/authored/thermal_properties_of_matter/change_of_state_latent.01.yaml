@@ -1,0 +1,48 @@
+id: A.11.physics.thermal_properties_of_matter.change_of_state_latent.01
+skill_ids:
+- SK.A.11.physics.change_of_state_latent
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'During melting at constant pressure, the temperature of a pure substance:'
+hints:
+- level: 1
+  en: Heat goes into breaking bonds during a phase change.
+- level: 2
+  en: Think of the energy going into the structure rather than into the motion of the molecules.
+- level: 3
+  en: The question is about the flat section of the heating curve during the change.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: rises steadily
+- id: b
+  en: falls steadily
+- id: c
+  en: rises and then falls
+- id: d
+  en: remains constant while latent heat is absorbed
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.558A1229C9B7
+  when_answer_equals:
+  - a
+- id: MC.A.0E1AD7EA416C
+  when_answer_equals:
+  - b
+- id: MC.A.5BFED16B4140
+  when_answer_equals:
+  - c
+solution_steps:
+- en: During a phase change at constant pressure, the absorbed heat goes into breaking intermolecular bonds, so the temperature stays fixed until melting is complete.
+- en: The correct option is d.
+tier: C

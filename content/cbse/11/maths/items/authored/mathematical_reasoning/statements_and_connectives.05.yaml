@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.05
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: Which statement is the negation of 'for every real number x there exists a real number y with y greater than x'?
+hints:
+- level: 1
+  en: Negate the quantifiers in order, changing each one from for every to there exists or the reverse.
+- level: 2
+  en: Negate the inequality at the end of the statement.
+- level: 3
+  en: Check the result by reading it back in words.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: there exists a real x such that some real y is at most x
+- id: b
+  en: there exists a real x such that for every real y, y is at most x
+- id: c
+  en: there exists a real x such that for every real y, y is greater than x
+- id: d
+  en: for every real x there is no real y with y greater than x
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.3FE6F5E7B64C
+  when_answer_equals:
+  - d
+- id: MC.A.1B6F65270B51
+  when_answer_equals:
+  - c
+- id: MC.A.62D9F1A7D339
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Negating the statement swaps the quantifiers and negates the inequality, giving that some real x exists with every real y at most x.
+- en: The correct option is b.
+tier: C

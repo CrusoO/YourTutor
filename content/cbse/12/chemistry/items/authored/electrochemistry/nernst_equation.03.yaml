@@ -1,0 +1,31 @@
+id: A.12.chemistry.electrochemistry.nernst_equation.03
+skill_ids:
+- SK.A.12.chemistry.nernst_equation
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A cell has a standard EMF of 1.10 V, transfers two electrons, and has reaction quotient 0.1 at 298 K. What is the cell EMF in volts? Give two decimal places.
+hints:
+- level: 1
+  en: Apply the Nernst equation with the coefficient for two electrons.
+- level: 2
+  en: Find the logarithm of the reaction quotient before multiplying.
+- level: 3
+  en: Subtract the correction term from the standard EMF with its sign kept.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.13'
+  accept: []
+solution_steps:
+- en: E equals E standard minus 0.0591 over n times log Q.
+- en: With log 0.1 equal to minus 1, the correction adds 0.0296 V, giving 1.13 V.
+- en: The unit of the answer is V.
+- en: Answer = 1.13
+tier: C

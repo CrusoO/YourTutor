@@ -1,0 +1,48 @@
+id: A.12.physics.electromagnetic_induction.ac_generator_eddy.01
+skill_ids:
+- SK.A.12.physics.ac_generator_eddy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a rotating coil AC generator, at which orientation is the induced EMF maximum?
+hints:
+- level: 1
+  en: Think about the rate of change of flux at each orientation, not the flux itself.
+- level: 2
+  en: Consider the orientation where the flux is zero but changing fastest.
+- level: 3
+  en: Compare the flux linked at the two special orientations of the coil.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: When the coil is at rest
+- id: b
+  en: When the coil plane is perpendicular to the magnetic field
+- id: c
+  en: When the coil plane is parallel to the magnetic field
+- id: d
+  en: When the coil axis is aligned with the rotation axis
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6181335B6908
+  when_answer_equals:
+  - b
+- id: MC.A.38B75B4DEC6C
+  when_answer_equals:
+  - a
+- id: MC.A.3FD2ECA40F81
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The flux is zero when the plane is parallel to the field but changing fastest, so the EMF is maximum at that orientation.
+- en: The correct option is c.
+tier: C

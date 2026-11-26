@@ -1,0 +1,49 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.equipotential_surfaces.01
+skill_ids:
+- SK.A.12.physics.equipotential_surfaces
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Why are equipotential surfaces always perpendicular to electric field lines?
+hints:
+- level: 1
+  en: Consider the work done when a charge moves along a surface of constant potential.
+- level: 2
+  en: Think about whether the field has any component along that surface.
+- level: 3
+  en: Relate the field direction to the direction in which the potential changes most.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Potential is highest where field lines start
+- id: b
+  en: Equipotential surfaces carry the electric field
+- id: c
+  en: No work is needed to move a charge along an equipotential surface
+- id: d
+  en: Field lines always bend at right angles to each other
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.06E60EC117C8
+  when_answer_equals:
+  - d
+- id: MC.A.12185EB3C386
+  when_answer_equals:
+  - a
+- id: MC.A.BE39E9944F43
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Moving a charge along an equipotential needs no work, so the field has no component along the surface.
+- en: Field lines therefore meet equipotentials at right angles.
+- en: The correct option is c.
+tier: C

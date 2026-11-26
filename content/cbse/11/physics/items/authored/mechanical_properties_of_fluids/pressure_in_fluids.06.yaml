@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_fluids.pressure_in_fluids.06
+skill_ids:
+- SK.A.11.physics.pressure_in_fluids
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A tank of water is filled to a fixed depth. The tank is replaced by one with the same depth but a much larger base area. How does the pressure at the bottom change?
+hints:
+- level: 1
+  en: Pressure at a depth depends on the height of the column above the point.
+- level: 2
+  en: Think about whether the base area appears in the pressure formula.
+- level: 3
+  en: Compare the depth, density and gravity in the two tanks.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it halves
+- id: b
+  en: it doubles
+- id: c
+  en: it stays the same
+- id: d
+  en: it increases in proportion to the base area
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3D828DA8B358
+  when_answer_equals:
+  - b
+- id: MC.A.09D8909BEAC5
+  when_answer_equals:
+  - d
+- id: MC.A.9C4A2DDC9F50
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Fluid pressure at a given depth depends only on density, gravity and depth.
+- en: The base area does not appear in the formula, so the bottom pressure is unchanged.
+- en: The correct option is c.
+tier: C

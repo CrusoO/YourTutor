@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.systems_by_matrices.06
+skill_ids:
+- SK.A.12.maths.systems_by_matrices
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A is a nonzero square matrix with determinant zero, and the system AX = 0 is considered. Which statement is correct?
+hints:
+- level: 1
+  en: A homogeneous system always has the all-zero solution.
+- level: 2
+  en: Ask whether a singular matrix can map a nonzero vector to zero.
+- level: 3
+  en: Think about the rank of A and how many free variables remain.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It has infinitely many solutions, including nontrivial ones
+- id: b
+  en: It has no solutions
+- id: c
+  en: It has exactly two solutions
+- id: d
+  en: It has only the trivial solution
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.80DD929C1CD0
+  when_answer_equals:
+  - d
+- id: MC.A.17604791CA67
+  when_answer_equals:
+  - b
+- id: MC.A.238E8D40DB1E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A homogeneous system always has the zero solution, and because det A is zero the rank is less than the order, so there are free variables and infinitely many solutions.
+- en: The correct option is a.
+tier: C

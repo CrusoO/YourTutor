@@ -1,0 +1,49 @@
+id: A.10.chemistry.metals_and_non_metals.corrosion_and_prevention.05
+skill_ids:
+- SK.A.10.chemistry.corrosion_and_prevention
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Blocks of magnesium are bolted to the steel hull of a ship to slow its corrosion. Why does this protect the steel?
+hints:
+- level: 1
+  en: Compare how easily magnesium and iron react.
+- level: 2
+  en: Think about which metal in contact with the steel will corrode first.
+- level: 3
+  en: Ask which metal is being sacrificed to protect the other.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Magnesium makes the steel stronger, so it resists rust
+- id: b
+  en: Magnesium is more reactive and corrodes first, while the iron stays intact
+- id: c
+  en: Magnesium is unreactive and resists corrosion better than iron
+- id: d
+  en: Magnesium repels water away from the hull
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2362EF8D9163
+  when_answer_equals:
+  - c
+- id: MC.A.83BB2A2F010E
+  when_answer_equals:
+  - d
+- id: MC.A.8F9C6D3CCCB1
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Magnesium is more reactive than iron, so it is oxidised in preference to the iron.
+- en: The magnesium is used up slowly while the steel remains protected.
+- en: The correct option is b.
+tier: C

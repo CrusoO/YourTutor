@@ -1,0 +1,49 @@
+id: A.12.chemistry.alcohols_phenols_and_ethers.ether_preparation.03
+skill_ids:
+- SK.A.12.chemistry.ether_preparation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is a tertiary alkyl halide unsuitable as the halide in a Williamson synthesis?
+hints:
+- level: 1
+  en: Consider the competing reaction when a strong base meets a hindered substrate.
+- level: 2
+  en: Think about whether the alkoxide acts as a base or as a nucleophile on a tertiary carbon.
+- level: 3
+  en: Compare the expected product with what the strong base produces on a hindered halide.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It gives an ester instead
+- id: b
+  en: It undergoes elimination, giving an alkene instead of the ether
+- id: c
+  en: It is too polar to react
+- id: d
+  en: It dissolves water and stops the reaction
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.83F904F76C91
+  when_answer_equals:
+  - c
+- id: MC.A.8E1FB0C18CAF
+  when_answer_equals:
+  - a
+- id: MC.A.D3A3AE09EE08
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The alkoxide is a strong base, and a tertiary halide is hindered for SN2.
+- en: Elimination dominates, so an alkene forms instead of the ether.
+- en: The correct option is b.
+tier: C

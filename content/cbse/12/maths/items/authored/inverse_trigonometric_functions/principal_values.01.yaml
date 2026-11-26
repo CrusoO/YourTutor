@@ -1,0 +1,49 @@
+id: A.12.maths.inverse_trigonometric_functions.principal_values.01
+skill_ids:
+- SK.A.12.maths.principal_values
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the principal value of sin^-1(1/2)?
+hints:
+- level: 1
+  en: Recall the fixed interval that the principal values of sin^-1 must lie in.
+- level: 2
+  en: Find the angle in that interval whose sine equals one half.
+- level: 3
+  en: Sketch sine on that interval and find the point at height one half.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pi/3
+- id: b
+  en: 5pi/6
+- id: c
+  en: -pi/6
+- id: d
+  en: pi/6
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3EA501C27B07
+  when_answer_equals:
+  - b
+- id: MC.A.1D9EB55F53DE
+  when_answer_equals:
+  - a
+- id: MC.A.AC02C9C9FB32
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The principal range of sin^-1 is from -pi/2 to pi/2, and within it the only angle with sine equal to one half is pi/6.
+- en: The correct option is d.
+tier: C
+diagram_note: Graph of y = sin x on the interval from minus pi over 2 to pi over 2, with a horizontal line at height one half marked where it meets the curve.

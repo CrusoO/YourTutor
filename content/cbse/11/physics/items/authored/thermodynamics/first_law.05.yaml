@@ -1,0 +1,32 @@
+id: A.11.physics.thermodynamics.first_law.05
+skill_ids:
+- SK.A.11.physics.first_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A gas is heated at a constant pressure of 100 kPa while its volume increases from 0.002 m^3 to 0.005 m^3, and 900 J of heat enters the gas. What is the change in internal energy in joules?
+hints:
+- level: 1
+  en: Find the work done by the gas first, using the constant pressure relation.
+- level: 2
+  en: Then apply the first law with heat entering as positive.
+- level: 3
+  en: Subtract the work from the heat to get the change in internal energy.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '600'
+  accept: []
+solution_steps:
+- en: The work done by the gas is P delta V = 100000 times 0.003 = 300 J.
+- en: Then delta U = Q - W = 900 - 300 = 600 J.
+- en: The unit of the answer is J.
+- en: Answer = 600
+tier: C
+diagram_note: A pressure-volume plot with a horizontal line at 100 kPa, running between the two volume values in cubic metres. The rectangle under the line is shaded.

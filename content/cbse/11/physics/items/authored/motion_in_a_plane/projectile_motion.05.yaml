@@ -1,0 +1,32 @@
+id: A.11.physics.motion_in_a_plane.projectile_motion.05
+skill_ids:
+- SK.A.11.physics.projectile_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A projectile is launched from ground level at 49 m/s at an angle whose sine is 0.8. Taking g = 9.8 m/s^2, what is its time of flight in seconds?
+hints:
+- level: 1
+  en: The time of flight depends only on the vertical component of the launch velocity.
+- level: 2
+  en: Use the vertical component formula with the sine of the launch angle.
+- level: 3
+  en: The time of flight is twice the time needed to reach the top.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '8'
+  accept: []
+solution_steps:
+- en: The time of flight for ground-to-ground motion is 2 u sin theta over g.
+- en: That is 2 times 49 times 0.8 divided by 9.8, which equals 8 s.
+- en: The unit of the answer is s.
+- en: Answer = 8
+tier: C
+diagram_note: A parabolic path from ground level back to ground level. At the start, the launch velocity arrow is split into horizontal and vertical components, and the launch angle is marked at the ground.

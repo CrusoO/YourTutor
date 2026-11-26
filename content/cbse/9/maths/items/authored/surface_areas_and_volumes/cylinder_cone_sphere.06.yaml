@@ -1,0 +1,49 @@
+id: A.9.maths.surface_areas_and_volumes.cylinder_cone_sphere.06
+skill_ids:
+- SK.A.9.maths.cylinder_cone_sphere
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A cylinder has a volume of 90 cubic cm. A cone has the same radius and the same height as the cylinder. What is the volume of the cone?
+hints:
+- level: 1
+  en: Compare the cone with a cylinder of the same base and height.
+- level: 2
+  en: Find the fraction of the cylinder's volume that a cone holds.
+- level: 3
+  en: Apply that fraction to the given volume.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 45 cubic cm
+- id: b
+  en: 30 cubic cm
+- id: c
+  en: 270 cubic cm
+- id: d
+  en: 90 cubic cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.BF7E6E2BB02B
+  when_answer_equals:
+  - a
+- id: MC.A.E0D0F9935EE2
+  when_answer_equals:
+  - d
+- id: MC.A.50127FB618AB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A cone has one third of the volume of a cylinder with the same base and height, so 90 divided by 3 gives 30 cubic cm.
+- en: The correct option is b.
+tier: C
+diagram_note: Cylinder and cone sharing the same base and height, drawn side by side.

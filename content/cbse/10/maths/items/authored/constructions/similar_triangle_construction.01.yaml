@@ -1,0 +1,50 @@
+id: A.10.maths.constructions.similar_triangle_construction.01
+skill_ids:
+- SK.A.10.maths.similar_triangle_construction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: When constructing a triangle similar to a given triangle, which property must the new triangle keep from the original?
+hints:
+- level: 1
+  en: Recall what similarity says about angles.
+- level: 2
+  en: Ask which measurements the scale factor changes.
+- level: 3
+  en: Compare with congruence, where the sides also stay fixed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Its area.
+- id: b
+  en: Its angles.
+- id: c
+  en: Its sides.
+- id: d
+  en: Its perimeter.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.52FF891145D4
+  when_answer_equals:
+  - c
+- id: MC.A.87E05B27DE83
+  when_answer_equals:
+  - a
+- id: MC.A.3F1043DBD4C4
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Similar triangles have equal corresponding angles, while every side is multiplied by the same scale factor.
+- en: So the angles are kept and the sides change.
+- en: The correct option is b.
+tier: C
+diagram_note: A given triangle ABC drawn on its own, with its three vertices labelled and no other lines.

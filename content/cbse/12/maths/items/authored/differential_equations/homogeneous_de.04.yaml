@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.homogeneous_de.04
+skill_ids:
+- SK.A.12.maths.homogeneous_de
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which of the following differential equations is homogeneous?
+hints:
+- level: 1
+  en: Check the total degree of each term in the numerator and the denominator.
+- level: 2
+  en: A homogeneous expression scales by a fixed power when x and y are multiplied by the same constant.
+- level: 3
+  en: Constant terms and mixed degrees break this pattern.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: dy/dx = (x^2 + y^2)/(xy)
+- id: b
+  en: dy/dx = (x + 1)/y
+- id: c
+  en: dy/dx = x^2 + y
+- id: d
+  en: dy/dx = sin x + y
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.74697F904284
+  when_answer_equals:
+  - b
+- id: MC.A.1282391FDB22
+  when_answer_equals:
+  - c
+- id: MC.A.5DCB8CB870C9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The numerator and the denominator are both of degree 2 in x and y, so the right side is a function of y/x and the equation is homogeneous.
+- en: The correct option is a.
+tier: C

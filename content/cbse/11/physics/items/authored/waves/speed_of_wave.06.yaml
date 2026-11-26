@@ -1,0 +1,49 @@
+id: A.11.physics.waves.speed_of_wave.06
+skill_ids:
+- SK.A.11.physics.speed_of_wave
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A rope is made heavier per metre, but the tension in it is kept the same. What happens to the speed of transverse waves on the rope?
+hints:
+- level: 1
+  en: Speed depends on tension divided by mass per unit length, under a square root.
+- level: 2
+  en: A larger denominator makes the quotient smaller.
+- level: 3
+  en: Think about which way the speed moves when the denominator grows.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it decreases
+- id: b
+  en: it increases
+- id: c
+  en: it doubles
+- id: d
+  en: it stays the same
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B573A5B0D119
+  when_answer_equals:
+  - b
+- id: MC.A.8B4892539594
+  when_answer_equals:
+  - d
+- id: MC.A.A12EBF337D30
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The wave speed is the square root of tension over mass per unit length.
+- en: Increasing the mass per unit length with the same tension lowers the speed.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,29 @@
+id: A.12.maths.integrals.integration_by_parts.02
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: Evaluate the definite integral of x times e^x with respect to x from 0 to 1.
+hints:
+- level: 1
+  en: Use the antiderivative you found by parts.
+- level: 2
+  en: Evaluate it at the upper limit first.
+- level: 3
+  en: Subtract the value at the lower limit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1'
+  accept: []
+solution_steps:
+- en: The antiderivative is (x - 1)e^x, which equals 0 at x = 1 and -1 at x = 0, so the integral is 0 minus (-1), which is 1.
+- en: Answer = 1
+tier: C

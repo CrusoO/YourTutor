@@ -1,0 +1,29 @@
+id: A.12.maths.integrals.integration_by_parts.03
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Evaluate the definite integral of ln x with respect to x from 1 to e.
+hints:
+- level: 1
+  en: Take ln x as the part to differentiate and dx as the part to integrate.
+- level: 2
+  en: Compute du and v, then apply the parts formula.
+- level: 3
+  en: Evaluate at both limits and subtract.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1'
+  accept: []
+solution_steps:
+- en: Taking u = ln x and dv = dx gives x ln x minus x, which at e is 0 and at 1 is minus 1, so the value is 1.
+- en: Answer = 1
+tier: C

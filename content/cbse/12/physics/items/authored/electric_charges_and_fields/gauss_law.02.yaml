@@ -1,0 +1,48 @@
+id: A.12.physics.electric_charges_and_fields.gauss_law.02
+skill_ids:
+- SK.A.12.physics.gauss_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the direction and dependence on distance of the electric field near a large uniformly charged infinite plane sheet?
+hints:
+- level: 1
+  en: Choose a Gaussian surface that crosses the sheet symmetrically.
+- level: 2
+  en: Consider how the flux through the two flat ends depends on the field direction.
+- level: 3
+  en: Ask whether the distance from the sheet appears in the final expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Perpendicular to the sheet and falling as the square of distance
+- id: b
+  en: Parallel to the sheet and falling as the square of distance
+- id: c
+  en: Perpendicular to the sheet and independent of distance
+- id: d
+  en: Zero everywhere outside the sheet
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CBE0524192F3
+  when_answer_equals:
+  - b
+- id: MC.A.2DD649BAB53C
+  when_answer_equals:
+  - a
+- id: MC.A.63D27B91C1C0
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Gauss's law with a cylindrical surface through the sheet gives a field of sigma over 2 epsilon zero, which is the same at all distances and points away from the sheet on each side.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.biology.biomolecules.carbohydrates_and_proteins.06
+skill_ids:
+- SK.A.11.biology.carbohydrates_and_proteins
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A researcher finds that two proteins with the same primary sequence fold differently in different cells. What is the most likely explanation?
+hints:
+- level: 1
+  en: Ask which factors other than the sequence can influence the final shape.
+- level: 2
+  en: Consider whether the premise of the question has been met.
+- level: 3
+  en: Think about how chemical changes after synthesis can alter folding.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The two proteins have different primary sequences after all
+- id: b
+  en: Folding is unrelated to the protein's function
+- id: c
+  en: Primary structure is always determined by the cell type
+- id: d
+  en: Differences in the surrounding environment or post-translational modifications change how the chain folds
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9F7DAD178B38
+  when_answer_equals:
+  - a
+- id: MC.A.0798D387A067
+  when_answer_equals:
+  - c
+- id: MC.A.C5403BE68945
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Protein folding depends on the environment and on chemical modifications such as glycosylation or phosphorylation, which can change the final shape even when the primary sequence is identical.
+- en: The correct option is d.
+tier: C

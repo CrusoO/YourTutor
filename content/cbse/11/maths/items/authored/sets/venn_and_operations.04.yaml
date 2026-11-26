@@ -1,0 +1,49 @@
+id: A.11.maths.sets.venn_and_operations.04
+skill_ids:
+- SK.A.11.maths.venn_and_operations
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: The universal set U is {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, A is the set of odd numbers in U and B is {3, 6, 9}. Which set is A minus B?
+hints:
+- level: 1
+  en: List the members of A first, then mark which of them also appear in B.
+- level: 2
+  en: The difference keeps what is in the first set and drops anything shared with the second.
+- level: 3
+  en: Read off the remaining members after the shared ones are crossed out.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '{1, 5, 7}'
+- id: b
+  en: '{3, 9}'
+- id: c
+  en: '{6}'
+- id: d
+  en: '{1, 3, 5, 6, 7, 9}'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9FFDF59714F8
+  when_answer_equals:
+  - b
+- id: MC.A.EB5A86B60770
+  when_answer_equals:
+  - d
+- id: MC.A.F0AB016E96F4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A is {1, 3, 5, 7, 9}; removing the shared elements 3 and 9 leaves {1, 5, 7}.
+- en: The correct option is a.
+tier: C
+diagram_note: Two overlapping circles A and B inside rectangle U, with the members of U placed in their regions; the part of A outside B is shaded.

@@ -1,0 +1,49 @@
+id: A.12.chemistry.coordination_compounds.werner_theory_nomenclature.05
+skill_ids:
+- SK.A.12.chemistry.werner_theory_nomenclature
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the oxidation state of cobalt in the complex ion [Co(NH3)4Cl2]+?
+hints:
+- level: 1
+  en: Ammine ligands are neutral and each chloride is minus one.
+- level: 2
+  en: Subtract the total ligand charge from the overall charge of the ion.
+- level: 3
+  en: Solve for the oxidation state of cobalt.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '+2'
+- id: b
+  en: '+4'
+- id: c
+  en: '+3'
+- id: d
+  en: '+1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.609752490318
+  when_answer_equals:
+  - a
+- id: MC.A.540023FFEE2D
+  when_answer_equals:
+  - d
+- id: MC.A.589142D2DFF5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Ammine ligands are neutral, and each chloride carries minus one, giving -2 in total.
+- en: The complex has a +1 charge, so cobalt must be +3.
+- en: The correct option is c.
+tier: C

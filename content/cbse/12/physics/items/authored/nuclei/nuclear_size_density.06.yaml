@@ -1,0 +1,30 @@
+id: A.12.physics.nuclei.nuclear_size_density.06
+skill_ids:
+- SK.A.12.physics.nuclear_size_density
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A nucleus has a radius of 6 fm. Using R equal to 1.2 times A to the power one third fm, what is its mass number?
+hints:
+- level: 1
+  en: Divide the radius by R0 first to get the cube root of A.
+- level: 2
+  en: Cube the result to remove the one third power.
+- level: 3
+  en: The mass number is a whole number, so check that your result is close to one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '125'
+  accept: []
+solution_steps:
+- en: Dividing 6 by 1.2 gives 5, which is the cube root of A.
+- en: Cubing 5 gives A equal to 125.
+- en: Answer = 125
+tier: C

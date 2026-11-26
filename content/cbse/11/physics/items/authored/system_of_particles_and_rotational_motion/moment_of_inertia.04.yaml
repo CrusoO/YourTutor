@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.moment_of_inertia.04
+skill_ids:
+- SK.A.11.physics.moment_of_inertia
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For bodies of the same mass and radius, which has the largest moment of inertia about an axis through its centre?
+hints:
+- level: 1
+  en: Compare how far the mass sits from the axis in each shape.
+- level: 2
+  en: A ring has all of its mass at the same radius.
+- level: 3
+  en: A solid disc has some of its mass close to the axis.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a thin ring
+- id: b
+  en: a solid sphere
+- id: c
+  en: a point mass at the centre
+- id: d
+  en: a solid disc
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.06AC52DD4AD4
+  when_answer_equals:
+  - d
+- id: MC.A.482687E08957
+  when_answer_equals:
+  - b
+- id: MC.A.6C8917CCA5E2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A thin ring places all its mass at the same largest radius, so it has the largest moment of inertia, MR^2, compared with MR^2/2 for a solid disc.
+- en: The correct option is a.
+tier: C

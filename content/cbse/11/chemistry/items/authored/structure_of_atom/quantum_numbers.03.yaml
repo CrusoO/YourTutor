@@ -1,0 +1,48 @@
+id: A.11.chemistry.structure_of_atom.quantum_numbers.03
+skill_ids:
+- SK.A.11.chemistry.quantum_numbers
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which set of quantum numbers (n, l, m) is allowed for an electron in an atom?
+hints:
+- level: 1
+  en: The azimuthal number can run from zero up to one less than the principal number.
+- level: 2
+  en: The magnetic number must lie between minus the azimuthal number and plus the azimuthal number.
+- level: 3
+  en: Check each set against both of these rules.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: n = 1, l = 1, m = 0
+- id: b
+  en: n = 2, l = 1, m = 0
+- id: c
+  en: n = 3, l = 1, m = 2
+- id: d
+  en: n = 2, l = 2, m = 0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.3546759E5674
+  when_answer_equals:
+  - d
+- id: MC.A.4C1897C70DD9
+  when_answer_equals:
+  - a
+- id: MC.A.68A5307D0DEC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The azimuthal number runs from zero to n minus one, and the magnetic number runs from minus l to plus l, so n = 2, l = 1, m = 0 is allowed.
+- en: The correct option is b.
+tier: C

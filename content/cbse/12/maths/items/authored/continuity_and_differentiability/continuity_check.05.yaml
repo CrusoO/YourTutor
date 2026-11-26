@@ -1,0 +1,29 @@
+id: A.12.maths.continuity_and_differentiability.continuity_check.05
+skill_ids:
+- SK.A.12.maths.continuity_check
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Find the limit of (1 - cos 2x)/x^2 as x approaches 0.
+hints:
+- level: 1
+  en: Use an identity that rewrites 1 minus a cosine as a squared sine.
+- level: 2
+  en: Factor the result so that a sine over its angle appears.
+- level: 3
+  en: Apply the standard limit of sine t over t.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2'
+  accept: []
+solution_steps:
+- en: Since 1 minus cos 2x equals 2 sin^2 x, the expression becomes 2 times (sin x / x) squared, whose limit is 2.
+- en: Answer = 2
+tier: C

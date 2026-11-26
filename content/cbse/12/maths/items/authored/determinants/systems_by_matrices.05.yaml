@@ -1,0 +1,30 @@
+id: A.12.maths.determinants.systems_by_matrices.05
+skill_ids:
+- SK.A.12.maths.systems_by_matrices
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Solve the system 2x - y = 1 and x + 3y = 9 by matrices. What is the value of x, rounded to 3 decimal places?
+hints:
+- level: 1
+  en: Write the system as AX = B with the constants in a column.
+- level: 2
+  en: Compute the determinant of the coefficient matrix.
+- level: 3
+  en: Use the inverse formula for a 2 by 2 matrix and read off the first entry.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.714'
+  accept: []
+solution_steps:
+- en: The determinant of the coefficient matrix is 7 and its inverse is (1 divided by 7) times [[3, 1], [-1, 2]].
+- en: Multiplying by the constants gives x equal to (3 times 1 plus 1 times 9) divided by 7, which is 12 divided by 7, about 1.714.
+- en: Answer = 1.714
+tier: C

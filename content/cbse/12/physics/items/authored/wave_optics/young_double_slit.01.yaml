@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.young_double_slit.01
+skill_ids:
+- SK.A.12.physics.young_double_slit
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In Young's double slit experiment, at which path differences do bright fringes form?
+hints:
+- level: 1
+  en: Think about when two waves arrive in phase at a point on the screen.
+- level: 2
+  en: Consider which path differences keep the two waves in step.
+- level: 3
+  en: Recall the condition for constructive interference.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Values equal to the separation of the slits
+- id: b
+  en: Whole number multiples of the wavelength
+- id: c
+  en: Zero only, so only the central fringe is bright
+- id: d
+  en: Odd multiples of half the wavelength
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.4325C2AB15FB
+  when_answer_equals:
+  - d
+- id: MC.A.F0B859441B49
+  when_answer_equals:
+  - a
+- id: MC.A.2B560C863A6E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Waves from the two slits reinforce when the path difference is a whole number of wavelengths, which gives a bright fringe.
+- en: The correct option is b.
+tier: C

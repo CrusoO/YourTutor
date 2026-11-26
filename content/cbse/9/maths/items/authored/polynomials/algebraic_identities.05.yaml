@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.algebraic_identities.05
+skill_ids:
+- SK.A.9.maths.algebraic_identities
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: If a plus b equals 7 and a times b equals 10, what is the value of a cubed plus b cubed?
+hints:
+- level: 1
+  en: Recall the identity that links the cube of a sum to the cubes of its parts.
+- level: 2
+  en: Substitute the given sum and product into that identity.
+- level: 3
+  en: Check the coefficient of the product term carefully.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '203'
+- id: b
+  en: '343'
+- id: c
+  en: '49'
+- id: d
+  en: '133'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4D1F05435557
+  when_answer_equals:
+  - b
+- id: MC.A.EE2220320E2B
+  when_answer_equals:
+  - a
+- id: MC.A.F6546CE62D50
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The identity gives a cubed plus b cubed equal to (a + b) cubed minus 3ab(a + b), which is 343 minus 210, so the value is 133.
+- en: The correct option is d.
+tier: C

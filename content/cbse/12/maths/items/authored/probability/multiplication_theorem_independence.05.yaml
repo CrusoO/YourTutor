@@ -1,0 +1,29 @@
+id: A.12.maths.probability.multiplication_theorem_independence.05
+skill_ids:
+- SK.A.12.maths.multiplication_theorem_independence
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: P(A) = 0.5, P(B) = 0.2 and P(A and B) = 0.1. Find P(B and not A).
+hints:
+- level: 1
+  en: Split event B into the part that lies inside A and the part that lies outside A.
+- level: 2
+  en: Use the joint probability you are given for the part inside A.
+- level: 3
+  en: Subtract that part from P(B).
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.1'
+  accept: []
+solution_steps:
+- en: B splits into the part inside A and the part outside A, so P(B and not A) = P(B) - P(A and B) = 0.2 - 0.1 = 0.1.
+- en: Answer = 0.1
+tier: C

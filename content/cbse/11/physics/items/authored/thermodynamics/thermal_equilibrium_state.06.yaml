@@ -1,0 +1,47 @@
+id: A.11.physics.thermodynamics.thermal_equilibrium_state.06
+skill_ids:
+- SK.A.11.physics.thermal_equilibrium_state
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which of these quantities is NOT a state function of a gas?
+hints:
+- level: 1
+  en: Ask which of these depends on how the process was carried out.
+- level: 2
+  en: Work is exchanged during a process rather than stored in the system.
+- level: 3
+  en: State functions have the same value for the same end conditions, whatever the path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: work done in a process
+- id: b
+  en: entropy
+- id: c
+  en: pressure
+- id: d
+  en: temperature
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5D3ECC58F61F
+  when_answer_equals:
+  - c
+  - d
+- id: MC.A.1A475A6A0357
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Work depends on the path followed between two states, so it is not a state function.
+- en: Pressure, temperature and entropy depend only on the state.
+- en: The correct option is a.
+tier: C

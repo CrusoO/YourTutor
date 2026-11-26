@@ -1,0 +1,50 @@
+id: A.12.physics.electric_charges_and_fields.gauss_law.06
+skill_ids:
+- SK.A.12.physics.gauss_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A point charge Q sits exactly at one corner of a cube. What is the electric flux through the whole cube?
+hints:
+- level: 1
+  en: Imagine eight identical cubes that all share the charge as a common corner.
+- level: 2
+  en: Consider what fraction of the full enclosing sphere this cube covers.
+- level: 3
+  en: Start from the total flux of a charge that is completely enclosed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Q divided by epsilon zero
+- id: b
+  en: Zero
+- id: c
+  en: Q divided by 8 epsilon zero
+- id: d
+  en: Q divided by 6 epsilon zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B6E3FB6C4108
+  when_answer_equals:
+  - a
+- id: MC.A.76004754DDF0
+  when_answer_equals:
+  - b
+- id: MC.A.043177324816
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Eight identical cubes can meet at a corner to fill the space around the charge.
+- en: The charge therefore sends one eighth of its total flux through the single cube.
+- en: The correct option is c.
+tier: C
+diagram_note: A cube drawn in perspective with a dot at one bottom corner, and arrows radiating outward from the dot through the faces of the cube.

@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.vector_applications.04
+skill_ids:
+- SK.A.12.maths.vector_applications
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the area of the triangle with vertices A(1, 2, 0), B(3, 4, 0) and C(5, 0, 0)?
+hints:
+- level: 1
+  en: Choose two sides that meet at one vertex.
+- level: 2
+  en: Compute the cross product of those two side vectors.
+- level: 3
+  en: Take half of the magnitude of the cross product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '24'
+- id: b
+  en: '6'
+- id: c
+  en: '12'
+- id: d
+  en: '3'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.023E07763692
+  when_answer_equals:
+  - c
+- id: MC.A.427D69DB3D7D
+  when_answer_equals:
+  - d
+- id: MC.A.C19F22BF4D09
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The vectors AB = (2, 2, 0) and AC = (4, -2, 0) have cross product (0, 0, -12), whose magnitude is 12, and half of this is 6.
+- en: The correct option is b.
+tier: C

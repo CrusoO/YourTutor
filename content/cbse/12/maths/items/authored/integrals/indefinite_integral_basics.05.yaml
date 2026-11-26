@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.indefinite_integral_basics.05
+skill_ids:
+- SK.A.12.maths.indefinite_integral_basics
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Find the indefinite integral of sin^2 x dx.
+hints:
+- level: 1
+  en: Rewrite sin squared using a double angle identity.
+- level: 2
+  en: Integrate the resulting terms separately.
+- level: 3
+  en: Check your answer by differentiating it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: -cos^2(x) + C
+- id: b
+  en: x/2 + sin(2x)/4 + C
+- id: c
+  en: sin^3(x)/3 + C
+- id: d
+  en: x/2 - sin(2x)/4 + C
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DE304DEA3378
+  when_answer_equals:
+  - c
+- id: MC.A.FCF86A10CBC7
+  when_answer_equals:
+  - b
+- id: MC.A.CF73A7FC5EC6
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Using sin^2 x = (1 - cos 2x)/2, the integral is x/2 minus (sin 2x)/4, plus a constant.
+- en: The correct option is d.
+tier: C

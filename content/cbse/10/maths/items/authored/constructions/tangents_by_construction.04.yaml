@@ -1,0 +1,49 @@
+id: A.10.maths.constructions.tangents_by_construction.04
+skill_ids:
+- SK.A.10.maths.tangents_by_construction
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the angle at each contact point a right angle in the tangent construction?
+hints:
+- level: 1
+  en: Recall the property of a diameter and a point on the circle.
+- level: 2
+  en: Ask which lines form the right angle at the contact point.
+- level: 3
+  en: Compare this with the tangent property you already know.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because OT is always the tangent.
+- id: b
+  en: Because the angle in a semicircle is 90 degrees.
+- id: c
+  en: Because the radius bisects the diameter.
+- id: d
+  en: Because the two circles touch at T.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.ED1964CB48E6
+  when_answer_equals:
+  - c
+- id: MC.A.B71A8360D675
+  when_answer_equals:
+  - a
+- id: MC.A.8C02CC8F88A2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A point on the circle with OT as diameter sees OT at an angle of 90 degrees.
+- en: So the radius OX and the line TX meet at a right angle, which is the tangent condition.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.chemistry.solutions.raoults_law.06
+skill_ids:
+- SK.A.12.chemistry.raoults_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In an ideal binary solution, the vapour above the liquid is richer in which component than the liquid itself?
+hints:
+- level: 1
+  en: Consider which component escapes to the vapour more easily.
+- level: 2
+  en: Think about how the partial pressure of each component relates to its vapour composition.
+- level: 3
+  en: Compare the composition of the vapour with the composition of the liquid, not with the pure liquid.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The more volatile component
+- id: b
+  en: Both components in exactly the liquid ratio
+- id: c
+  en: The less volatile component
+- id: d
+  en: Only the solvent
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.83F1CB25203D
+  when_answer_equals:
+  - c
+- id: MC.A.D1D4878705F6
+  when_answer_equals:
+  - b
+- id: MC.A.945C3E36A7AF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The more volatile component contributes a larger partial pressure, so it makes up a larger share of the vapour than of the liquid.
+- en: The correct option is a.
+tier: C
+diagram_note: 'Two stacked boxes: the lower box shows a liquid mixture of components A and B with their mole fractions labelled, and the upper box shows the vapour above it with a larger share of component A.'

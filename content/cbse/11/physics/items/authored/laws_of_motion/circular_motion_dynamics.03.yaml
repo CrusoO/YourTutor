@@ -1,0 +1,30 @@
+id: A.11.physics.laws_of_motion.circular_motion_dynamics.03
+skill_ids:
+- SK.A.11.physics.circular_motion_dynamics
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A car of mass 800 kg goes round a flat bend of radius 50 m at 10 m/s without skidding. Taking g = 9.8 m/s^2, what is the minimum coefficient of static friction needed, to two decimal places?
+hints:
+- level: 1
+  en: Static friction provides the sideways force that bends the path.
+- level: 2
+  en: Friction cannot exceed the coefficient times the normal force.
+- level: 3
+  en: Set the maximum friction equal to the required centripetal force and cancel the mass.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.20'
+  accept: []
+solution_steps:
+- en: Static friction provides the centripetal force, so mu m g must be at least m v^2 / r.
+- en: That gives mu = v^2 / (r g) = 100 / 490, about 0.20.
+- en: Answer = 0.20
+tier: C

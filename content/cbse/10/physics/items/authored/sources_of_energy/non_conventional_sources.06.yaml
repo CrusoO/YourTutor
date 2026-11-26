@@ -1,0 +1,50 @@
+id: A.10.physics.sources_of_energy.non_conventional_sources.06
+skill_ids:
+- SK.A.10.physics.non_conventional_sources
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: The output of a solar power plant changes through the day. Which arrangement is best for supplying a steady power?
+hints:
+- level: 1
+  en: Think about what the plant can do when the sun is not shining.
+- level: 2
+  en: Ask whether changing the wiring or the orientation can change the time at which the sun shines.
+- level: 3
+  en: Consider which kind of component can hold energy for later.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Connecting all the panels only in parallel
+- id: b
+  en: Using only panels facing north
+- id: c
+  en: Raising the temperature of the panels
+- id: d
+  en: Pairing the plant with energy storage or a backup source
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9686CA476814
+  when_answer_equals:
+  - b
+- id: MC.A.C8166459AA40
+  when_answer_equals:
+  - c
+- id: MC.A.103493D13861
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Solar output varies with the time of day and the weather.
+- en: Storage, such as batteries, or a backup source fills the gap when sunlight is weak or absent.
+- en: This gives a steadier supply than the panels could give alone.
+- en: The correct option is d.
+tier: C

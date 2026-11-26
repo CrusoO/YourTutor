@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.momentum.04
+skill_ids:
+- SK.A.9.physics.momentum
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Object X has mass 2 kg and object Y has mass 8 kg. They have equal momentum. Which statement is correct?
+hints:
+- level: 1
+  en: A lighter object needs more speed to carry the same momentum.
+- level: 2
+  en: Write the equal momenta as mass times speed for each object.
+- level: 3
+  en: Compare the speeds using the ratio of the masses.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: X moves four times faster than Y
+- id: b
+  en: they move at the same speed
+- id: c
+  en: Y moves four times faster than X
+- id: d
+  en: X has more momentum than Y
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E5EB24C0759F
+  when_answer_equals:
+  - c
+- id: MC.A.57631D63D9BB
+  when_answer_equals:
+  - b
+- id: MC.A.43181295D6DB
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Equal momenta mean 2 times the speed of X equals 8 times the speed of Y, so the speed of X is four times the speed of Y.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,31 @@
+id: A.12.physics.communication_systems.modulation_and_propagation.05
+skill_ids:
+- SK.A.12.physics.modulation_and_propagation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A carrier of frequency 1 MHz is amplitude modulated by a message of highest frequency 5 kHz. What is the bandwidth of the transmitted signal in kHz?
+hints:
+- level: 1
+  en: The amplitude modulation bandwidth is related to the highest message frequency.
+- level: 2
+  en: Find the highest message frequency first.
+- level: 3
+  en: Multiply that frequency by two.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '10'
+  accept: []
+solution_steps:
+- en: The sidebands lie at 1000 kHz plus or minus 5 kHz, so the transmitted signal spans from 995 kHz to 1005 kHz.
+- en: The bandwidth is 10 kHz, which is twice the message frequency.
+- en: The unit of the answer is kHz.
+- en: Answer = 10
+tier: C

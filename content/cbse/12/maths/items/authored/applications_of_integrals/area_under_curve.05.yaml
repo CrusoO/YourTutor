@@ -1,0 +1,31 @@
+id: A.12.maths.applications_of_integrals.area_under_curve.05
+skill_ids:
+- SK.A.12.maths.area_under_curve
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Find the area of the region bounded by the parabola y = x^2 - 4 and the x-axis, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Find where the parabola crosses the x-axis.
+- level: 2
+  en: Determine on which part of the interval the curve lies below the axis.
+- level: 3
+  en: Take the integral of the negative of the function on that part.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '10.667'
+  accept: []
+solution_steps:
+- en: The curve crosses the axis at x = -2 and x = 2 and lies below it between them.
+- en: The area is the integral of 4 - x^2 from -2 to 2, which is 32/3, about 10.667.
+- en: Answer = 10.667
+tier: C
+diagram_note: Upward opening parabola with its vertex below the horizontal axis, crossing the axis at two points, and the region between the curve and the axis shaded.

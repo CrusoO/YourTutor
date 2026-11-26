@@ -1,0 +1,48 @@
+id: A.11.physics.thermal_properties_of_matter.change_of_state_latent.06
+skill_ids:
+- SK.A.11.physics.change_of_state_latent
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A liquid boils at constant pressure and turns into vapour at its boiling point. Which statement about its internal energy is correct?
+hints:
+- level: 1
+  en: Energy is needed to overcome the attraction between molecules during vaporisation.
+- level: 2
+  en: Temperature is linked to the average molecular kinetic energy.
+- level: 3
+  en: Separate the energy going into bonds from the energy in molecular motion.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: temperature falls while internal energy stays fixed
+- id: b
+  en: internal energy decreases while the temperature stays the same
+- id: c
+  en: internal energy stays constant while the temperature rises
+- id: d
+  en: internal energy increases while the temperature stays the same
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9B5C9DC4FF33
+  when_answer_equals:
+  - b
+- id: MC.A.4DDA6486478F
+  when_answer_equals:
+  - c
+- id: MC.A.612ABF53A531
+  when_answer_equals:
+  - a
+solution_steps:
+- en: During vaporisation the absorbed heat breaks intermolecular bonds, so the internal energy rises while the temperature stays fixed at the boiling point.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.chemistry.surface_chemistry.colloids_emulsions.06
+skill_ids:
+- SK.A.12.chemistry.colloids_emulsions
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why is the Tyndall effect weaker in a true solution than in a colloid?
+hints:
+- level: 1
+  en: Compare particle size in a solution and in a colloid with the wavelength of visible light.
+- level: 2
+  en: Think about which size range scatters light strongly.
+- level: 3
+  en: Consider whether the dissolved particles are large enough to deflect the beam.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Solutions contain no particles at all
+- id: b
+  en: Solutions are denser, so light is refracted away
+- id: c
+  en: Solute particles absorb all visible light
+- id: d
+  en: Solute particles are too small to scatter visible light efficiently
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.45F75B970BFD
+  when_answer_equals:
+  - c
+- id: MC.A.82FA3A140F5F
+  when_answer_equals:
+  - b
+- id: MC.A.577F1C873857
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Scattering of visible light is strong only when particles are comparable to the wavelength of light, as in colloids.
+- en: Dissolved molecules are far smaller, so they scatter very little.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.atoms.bohr_model_12.05
+skill_ids:
+- SK.A.12.physics.bohr_model_12
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In hydrogen, a photon is emitted when an electron falls from the n equal to 3 level to the n equal to 1 level. Which statement about its energy is correct? Use E_n equal to minus 13.6 eV divided by n squared.
+hints:
+- level: 1
+  en: The photon energy equals the energy of the starting level minus the energy of the final level.
+- level: 2
+  en: Find the two level energies using minus 13.6 over n squared.
+- level: 3
+  en: Use the difference between the levels, not the energy of either level alone.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The photon energy equals the ionisation energy of 13.6 eV
+- id: b
+  en: The photon energy equals the magnitude of the n equal to 3 level, about 1.5 eV
+- id: c
+  en: The photon energy is negative because the electron loses energy
+- id: d
+  en: The photon energy is the difference of the two level energies, about 12.1 eV
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.1F7856901DE7
+  when_answer_equals:
+  - a
+- id: MC.A.F1B3CE2BC27E
+  when_answer_equals:
+  - b
+- id: MC.A.C3A63BE60CAB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The photon energy equals E3 minus E1, which is minus 1.51 minus minus 13.6, giving about 12.1 eV.
+- en: The correct option is d.
+tier: C

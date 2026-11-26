@@ -1,0 +1,48 @@
+id: A.12.maths.relations_and_functions.types_of_relations.05
+skill_ids:
+- SK.A.12.maths.types_of_relations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let R be the relation on the integers given by a R b if and only if a minus b is divisible by 3. Which set is the equivalence class of 1?
+hints:
+- level: 1
+  en: Write the condition for a to be related to 1 as a divisibility statement.
+- level: 2
+  en: Write a as 1 plus something and ask what that something must satisfy.
+- level: 3
+  en: Express the answer as a general form with an integer parameter.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: All integers of the form 3k + 2 for some integer k
+- id: b
+  en: All integers of the form 3k for some integer k
+- id: c
+  en: All integers of the form 3k + 1 for some integer k
+- id: d
+  en: The set {1, 4, 7} only
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DA2AFEA791A3
+  when_answer_equals:
+  - b
+- id: MC.A.F5418FDCF23E
+  when_answer_equals:
+  - a
+- id: MC.A.87E31B3AFBE6
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An integer a is in the class of 1 exactly when a minus 1 is a multiple of 3, which means a takes the form 3k + 1 for some integer k.
+- en: The correct option is c.
+tier: C

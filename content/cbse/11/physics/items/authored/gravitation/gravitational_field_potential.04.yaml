@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.gravitational_field_potential.04
+skill_ids:
+- SK.A.11.physics.gravitational_field_potential
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Near Earth's surface, which statement about gravitational potential is correct?
+hints:
+- level: 1
+  en: Potential energy rises when an object is lifted against gravity.
+- level: 2
+  en: Relate height to the energy stored against gravity.
+- level: 3
+  en: Lifting an object requires work to be done against the pull of gravity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: potential is zero everywhere near the surface
+- id: b
+  en: potential decreases as the height above the surface increases
+- id: c
+  en: potential is numerically equal to the field strength
+- id: d
+  en: potential increases as the height above the surface increases
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.1E7331108570
+  when_answer_equals:
+  - b
+- id: MC.A.4F9C9A5FFB52
+  when_answer_equals:
+  - a
+- id: MC.A.86668B981189
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Lifting an object does work against gravity, so its gravitational potential rises with height above the surface.
+- en: The correct option is d.
+tier: C

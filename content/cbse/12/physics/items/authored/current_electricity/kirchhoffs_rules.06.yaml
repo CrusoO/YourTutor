@@ -1,0 +1,50 @@
+id: A.12.physics.current_electricity.kirchhoffs_rules.06
+skill_ids:
+- SK.A.12.physics.kirchhoffs_rules
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: At a junction, 2 A flows in through one wire and 5 A flows out through another wire. What is true about the third wire at the junction?
+hints:
+- level: 1
+  en: Write the current balance at the junction with entering and leaving currents.
+- level: 2
+  en: Compare the total leaving current with the total entering current.
+- level: 3
+  en: Let the unknown current be positive when it leaves the junction and see what sign results.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3 A flows out of the junction through it
+- id: b
+  en: 2 A flows out of the junction through it
+- id: c
+  en: 3 A flows into the junction through it
+- id: d
+  en: 5 A flows into the junction through it
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F4AEBBB98785
+  when_answer_equals:
+  - a
+- id: MC.A.7D3B6E18AA1B
+  when_answer_equals:
+  - d
+- id: MC.A.62C27F1C3DBB
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Current entering the junction must equal current leaving it.
+- en: Five amperes leave and only two enter, so three amperes must enter through the third wire.
+- en: The correct option is c.
+tier: C
+diagram_note: 'A junction with three branches drawn as arrows: one arrow pointing in labelled 2 A, one arrow pointing out labelled 5 A, and a third branch left unlabelled.'

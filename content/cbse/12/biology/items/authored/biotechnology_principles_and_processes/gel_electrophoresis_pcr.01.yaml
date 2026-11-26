@@ -1,0 +1,49 @@
+id: A.12.biology.biotechnology_principles_and_processes.gel_electrophoresis_pcr.01
+skill_ids:
+- SK.A.12.biology.gel_electrophoresis_pcr
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In PCR, which step separates the two strands of the template DNA?
+hints:
+- level: 1
+  en: Think about the step that uses the highest temperature in each cycle.
+- level: 2
+  en: Consider which step breaks hydrogen bonds between the two strands.
+- level: 3
+  en: Separate the strand separation step from the primer binding and building steps.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Annealing of primers at low temperature
+- id: b
+  en: Extension by the polymerase
+- id: c
+  en: Denaturation at high temperature
+- id: d
+  en: Ligation of fragments
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0F699A6371A8
+  when_answer_equals:
+  - a
+- id: MC.A.5562299DE312
+  when_answer_equals:
+  - b
+- id: MC.A.F52D4BEC1EDE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Heating to a high temperature breaks the hydrogen bonds between the template strands, which is the denaturation step.
+- en: Annealing and extension follow at lower temperatures.
+- en: The correct option is c.
+tier: C

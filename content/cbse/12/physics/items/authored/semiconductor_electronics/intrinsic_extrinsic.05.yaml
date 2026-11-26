@@ -1,0 +1,49 @@
+id: A.12.physics.semiconductor_electronics.intrinsic_extrinsic.05
+skill_ids:
+- SK.A.12.physics.intrinsic_extrinsic
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: An n-type semiconductor is electrically neutral overall, even though it contains many mobile electrons. Why?
+hints:
+- level: 1
+  en: Think about what remains in the lattice after a donor atom gives up its extra electron.
+- level: 2
+  en: Consider which charges are fixed in the crystal and which are mobile.
+- level: 3
+  en: Recall that the net charge of the whole crystal must be zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The electrons are pushed entirely to the surface
+- id: b
+  en: The electrons are absorbed into the crystal lattice
+- id: c
+  en: The holes cancel the electrons exactly
+- id: d
+  en: The donor ions are fixed positive charges that balance the mobile electrons
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D13D8C8615F6
+  when_answer_equals:
+  - b
+- id: MC.A.11DDCDD3FFBC
+  when_answer_equals:
+  - c
+- id: MC.A.BE4840AE67B9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each donor atom gives up an electron but stays as a fixed positive ion in the lattice.
+- en: The positive ions balance the mobile electrons, so the material is neutral.
+- en: The correct option is d.
+tier: C

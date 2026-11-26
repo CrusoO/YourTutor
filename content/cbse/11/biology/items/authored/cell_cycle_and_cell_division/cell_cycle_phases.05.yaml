@@ -1,0 +1,50 @@
+id: A.11.biology.cell_cycle_and_cell_division.cell_cycle_phases.05
+skill_ids:
+- SK.A.11.biology.cell_cycle_phases
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A drug blocks cells at the checkpoint that controls entry into S phase. Which consequence is most likely?
+hints:
+- level: 1
+  en: Think about what the checkpoint controls at the start of synthesis.
+- level: 2
+  en: Consider which phase follows the checkpoint.
+- level: 3
+  en: Ask whether replication can happen without entering the phase that performs it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Cells cannot enter S phase, so DNA replication does not begin
+- id: b
+  en: Cells enter meiosis instead of mitosis
+- id: c
+  en: Cells replicate DNA but never divide
+- id: d
+  en: Cells complete mitosis without replicating DNA
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6C068E00A3C4
+  when_answer_equals:
+  - d
+- id: MC.A.EAF5211E48BB
+  when_answer_equals:
+  - c
+- id: MC.A.5F3C2A9FD69D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The checkpoint before S phase verifies that conditions are suitable for replication.
+- en: Blocking it prevents the cell from starting DNA synthesis, so it stays in the earlier phase.
+- en: The correct option is a.
+tier: C
+diagram_note: Draw a cell cycle circle with G1, S, G2 and M, marking the checkpoint at the entry to S phase with an arrow and an X to show the block.

@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.variable_separable.06
+skill_ids:
+- SK.A.12.maths.variable_separable
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the general solution of dy/dx = e^(x + y)?
+hints:
+- level: 1
+  en: Write e^(x + y) as a product of two exponentials.
+- level: 2
+  en: Separate the terms involving y from those involving x.
+- level: 3
+  en: Integrate both sides and combine the constants.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: e^(x + y) = C
+- id: b
+  en: e^(-y) + e^x = C
+- id: c
+  en: y = ln x + C
+- id: d
+  en: e^y + e^x = C
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.87BD71914029
+  when_answer_equals:
+  - d
+- id: MC.A.FAB987C31BC6
+  when_answer_equals:
+  - a
+- id: MC.A.FD8EECEFF705
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Writing e^(x + y) as e^x times e^y gives e^(-y) dy = e^x dx, and integrating both sides gives -e^(-y) = e^x + constant, which can be written as e^(-y) + e^x = C.
+- en: The correct option is b.
+tier: C

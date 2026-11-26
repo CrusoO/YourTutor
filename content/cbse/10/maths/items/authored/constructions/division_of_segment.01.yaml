@@ -1,0 +1,50 @@
+id: A.10.maths.constructions.division_of_segment.01
+skill_ids:
+- SK.A.10.maths.division_of_segment
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'To divide a segment AB internally in the ratio 3 : 2 by construction, how many equal parts should be marked on a ray from A?'
+hints:
+- level: 1
+  en: Add the two numbers in the ratio.
+- level: 2
+  en: Count the total number of parts the segment is split into.
+- level: 3
+  en: Ask how many marks the ray needs to show those parts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '5'
+- id: c
+  en: '3'
+- id: d
+  en: '6'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.198E460715EB
+  when_answer_equals:
+  - c
+- id: MC.A.29C195FF5C9D
+  when_answer_equals:
+  - a
+- id: MC.A.DABC6B2191F6
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'The ratio 3 : 2 has 3 + 2 = 5 parts, so five equal steps are marked on the ray from A.'
+- en: The construction then carries the division onto AB.
+- en: The correct option is b.
+tier: C
+diagram_note: Segment AB drawn horizontally, with a ray from A drawn at an acute angle to AB and equal marks made along that ray.

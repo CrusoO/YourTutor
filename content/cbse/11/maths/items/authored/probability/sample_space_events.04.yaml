@@ -1,0 +1,48 @@
+id: A.11.maths.probability.sample_space_events.04
+skill_ids:
+- SK.A.11.maths.sample_space_events
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: From a standard deck of 52 playing cards, let A be the event that the card is a heart and B be the event that the card is a king. Which card lies in A intersection B?
+hints:
+- level: 1
+  en: An outcome in the intersection must satisfy both conditions at once.
+- level: 2
+  en: Check each candidate card against the heart condition and against the king condition.
+- level: 3
+  en: Find the single card that passes both checks.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the king of hearts
+- id: b
+  en: the two of hearts
+- id: c
+  en: the king of clubs
+- id: d
+  en: the king of spades
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C0E0351EDC7C
+  when_answer_equals:
+  - d
+- id: MC.A.48AAF9484A48
+  when_answer_equals:
+  - b
+- id: MC.A.B5AEE16CC8B2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The king of hearts is both a heart and a king, so it is the only card in the intersection of the two events.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystal_defects.05
+skill_ids:
+- SK.A.12.chemistry.crystal_defects
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A crystal of AB has equal numbers of cation and anion vacancies and no displaced ions. Which defect name and density effect apply?
+hints:
+- level: 1
+  en: Count how many ions of each type are missing from the lattice.
+- level: 2
+  en: Check whether any ion has been pushed into a gap.
+- level: 3
+  en: Think about the mass lost compared with the volume that remains.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Schottky defect, lowering density
+- id: b
+  en: Interstitial defect, lowering density
+- id: c
+  en: Schottky defect, raising density
+- id: d
+  en: Frenkel defect, density unchanged
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.777D9166FDF9
+  when_answer_equals:
+  - d
+- id: MC.A.B0D9012489CE
+  when_answer_equals:
+  - c
+- id: MC.A.264BFBF6B4BD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Equal numbers of cation and anion vacancies with no displaced ions is the Schottky pattern.
+- en: Mass is removed while the volume stays about the same, so the density falls.
+- en: The correct option is a.
+tier: C

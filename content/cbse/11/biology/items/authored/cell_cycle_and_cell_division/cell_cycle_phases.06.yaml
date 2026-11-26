@@ -1,0 +1,50 @@
+id: A.11.biology.cell_cycle_and_cell_division.cell_cycle_phases.06
+skill_ids:
+- SK.A.11.biology.cell_cycle_phases
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A cell has replicated its DNA but its cytoplasm does not divide after nuclear division. Which phase is most likely affected?
+hints:
+- level: 1
+  en: Think about the last part of division, which separates the cytoplasm.
+- level: 2
+  en: Consider which phase follows nuclear division.
+- level: 3
+  en: Check whether the failure happened before or after the DNA was copied.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Cytokinesis at the end of M phase
+- id: b
+  en: G0 phase
+- id: c
+  en: S phase
+- id: d
+  en: G1 phase
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1CEEF72816D0
+  when_answer_equals:
+  - b
+- id: MC.A.06CBEDF62FB8
+  when_answer_equals:
+  - c
+- id: MC.A.5B46930E3C05
+  when_answer_equals:
+  - d
+solution_steps:
+- en: DNA replication and nuclear division are complete, so the failure lies in cytokinesis, which divides the cytoplasm at the end of M phase.
+- en: The result can be a binucleate cell.
+- en: The correct option is a.
+tier: C
+diagram_note: Draw a cell after nuclear division, showing two nuclei within one undivided cytoplasm with a cleavage furrow missing, and label the cytokinesis step.

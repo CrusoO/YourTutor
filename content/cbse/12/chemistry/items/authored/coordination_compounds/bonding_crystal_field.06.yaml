@@ -1,0 +1,50 @@
+id: A.12.chemistry.coordination_compounds.bonding_crystal_field.06
+skill_ids:
+- SK.A.12.chemistry.bonding_crystal_field
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which aqueous complex is coloured because of a d to d transition?
+hints:
+- level: 1
+  en: Count the d electrons of the metal ion in each complex.
+- level: 2
+  en: Check whether the d subshell is empty, full or partly filled.
+- level: 3
+  en: Consider whether an electron can move between two split levels.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '[Zn(H2O)6]2+'
+- id: b
+  en: '[Sc(H2O)6]3+'
+- id: c
+  en: '[Ti(H2O)6]3+'
+- id: d
+  en: '[Ag(NH3)2]+'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9DE16C37DC15
+  when_answer_equals:
+  - b
+- id: MC.A.B05BF3F432DC
+  when_answer_equals:
+  - a
+- id: MC.A.E0D49C83CAAB
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Ti3+ has one d electron, which can be promoted between the split t2g and eg levels by visible light.
+- en: The d0 and d10 ions in the other options cannot make this transition.
+- en: The correct option is c.
+tier: C
+diagram_note: Octahedral arrangement with a metal ion at the centre and six water ligands on the axes, beside a bar diagram of d levels split into a lower set and an upper set.

@@ -1,0 +1,49 @@
+id: A.11.biology.respiration_in_plants.fermentation_and_respiratory_quotient.03
+skill_ids:
+- SK.A.11.biology.fermentation_and_respiratory_quotient
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the respiratory quotient, and what does a value of exactly one suggest about the substrate?
+hints:
+- level: 1
+  en: Think about the ratio of the two gases exchanged.
+- level: 2
+  en: Consider which gas is released and which is taken in.
+- level: 3
+  en: Compare the ratio expected from carbohydrates with the ratios from fats and proteins.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: RQ is the O2 released divided by the CO2 consumed, and the value suggests fat
+- id: b
+  en: RQ is the ATP produced divided by the O2 used, and the value suggests protein
+- id: c
+  en: RQ is the glucose used divided by the pyruvate formed, and the value suggests fermentation only
+- id: d
+  en: RQ is the volume of CO2 released divided by the volume of O2 consumed, and a value of exactly one suggests carbohydrate is the substrate
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3707FA108838
+  when_answer_equals:
+  - a
+- id: MC.A.580788EE23E1
+  when_answer_equals:
+  - b
+- id: MC.A.41B079C6C3F9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The respiratory quotient compares CO2 produced with O2 consumed.
+- en: A value near one points to carbohydrate, while fats give lower values and proteins give values in between.
+- en: The correct option is d.
+tier: C

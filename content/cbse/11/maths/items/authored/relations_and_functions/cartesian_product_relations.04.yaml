@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.cartesian_product_relations.04
+skill_ids:
+- SK.A.11.maths.cartesian_product_relations
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Let A = {1, 2} and B = {1, 2, 3}. Which of these sets is a relation from A to B?
+hints:
+- level: 1
+  en: Check the first coordinate of every pair against the first set.
+- level: 2
+  en: Check the second coordinate of every pair against the second set.
+- level: 3
+  en: Reject any candidate that contains an entry which is not a pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '{(1, 4), (2, 1)}'
+- id: b
+  en: '{(1, 1), (2, 3)}'
+- id: c
+  en: '{(1, 2, 3)}'
+- id: d
+  en: '{(3, 1)}'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EFF2232FB9E1
+  when_answer_equals:
+  - a
+- id: MC.A.A163972534CA
+  when_answer_equals:
+  - d
+- id: MC.A.5542ED97A83F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Every first coordinate must lie in A and every second coordinate in B, and only the set with (1, 1) and (2, 3) meets both conditions.
+- en: The correct option is b.
+tier: C

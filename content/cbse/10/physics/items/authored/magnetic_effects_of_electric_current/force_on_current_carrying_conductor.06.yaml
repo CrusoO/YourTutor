@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.force_on_current_carrying_conductor.06
+skill_ids:
+- SK.A.10.physics.force_on_current_carrying_conductor
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A straight conductor carries a current in a uniform magnetic field. For which angle between the conductor and the field is the force largest?
+hints:
+- level: 1
+  en: Recall the trigonometric factor in the force formula.
+- level: 2
+  en: Ask which angle makes that factor equal to its largest value.
+- level: 3
+  en: Consider what happens to the force when the conductor lies along the field.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 90 degrees
+- id: b
+  en: Any angle gives the same force
+- id: c
+  en: 45 degrees
+- id: d
+  en: 0 degrees
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0E7E4B8E2DFE
+  when_answer_equals:
+  - d
+- id: MC.A.16D0E441F428
+  when_answer_equals:
+  - c
+- id: MC.A.ECFC531503F7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The force on a conductor is F = BIL sin(theta), where theta is the angle between the conductor and the field.
+- en: Since sin(theta) is largest at 90 degrees, the force is greatest when the conductor is perpendicular to the field.
+- en: The force falls to zero when the conductor is parallel to the field.
+- en: The correct option is a.
+tier: C

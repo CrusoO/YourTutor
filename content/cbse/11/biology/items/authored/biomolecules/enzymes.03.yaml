@@ -1,0 +1,49 @@
+id: A.11.biology.biomolecules.enzymes.03
+skill_ids:
+- SK.A.11.biology.enzymes
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does an enzyme-catalysed reaction slow down at very high temperatures?
+hints:
+- level: 1
+  en: Think about the shape of the enzyme and whether heat can alter it.
+- level: 2
+  en: Consider what happens to the fit between enzyme and substrate.
+- level: 3
+  en: Compare the effect of heat on enzymes with its effect on other proteins.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The enzyme absorbs more substrate than it needs
+- id: b
+  en: The reaction stops because energy is no longer produced
+- id: c
+  en: The enzyme denatures, changing the shape of the active site
+- id: d
+  en: The substrate becomes a catalyst at high temperatures
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DABD99416443
+  when_answer_equals:
+  - d
+- id: MC.A.D0ABF5AD23F6
+  when_answer_equals:
+  - a
+- id: MC.A.22D796140912
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Excess heat disrupts the weak bonds that maintain the enzyme's three-dimensional shape.
+- en: The active site is then distorted, and the substrate no longer fits well.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,50 @@
+id: A.11.physics.laws_of_motion.circular_motion_dynamics.06
+skill_ids:
+- SK.A.11.physics.circular_motion_dynamics
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A stone is whirled in a horizontal circle at a fixed speed on a string. If the string length is doubled while the speed stays the same, how does the required tension change?
+hints:
+- level: 1
+  en: The tension supplies the centripetal force in this situation.
+- level: 2
+  en: Look at the formula where the radius sits in the denominator.
+- level: 3
+  en: A quantity in the denominator makes the result smaller when it grows.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: becomes twice as large
+- id: b
+  en: becomes four times larger
+- id: c
+  en: becomes half as large
+- id: d
+  en: stays the same
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.AA055DDEF390
+  when_answer_equals:
+  - a
+- id: MC.A.6F29A59D151B
+  when_answer_equals:
+  - d
+- id: MC.A.72DCF4DDBF16
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The tension equals m v^2 / r.
+- en: Doubling r at fixed speed and mass halves the required tension.
+- en: The correct option is c.
+tier: C
+diagram_note: A horizontal circle traced by a stone on a string, with the radius marked. A second, larger circle is drawn beside it, with its longer radius labelled.

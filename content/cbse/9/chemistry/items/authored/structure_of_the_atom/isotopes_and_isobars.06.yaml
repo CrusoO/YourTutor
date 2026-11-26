@@ -1,0 +1,49 @@
+id: A.9.chemistry.structure_of_the_atom.isotopes_and_isobars.06
+skill_ids:
+- SK.A.9.chemistry.isotopes_and_isobars
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A sample of an element contains two isotopes of mass numbers 35 and 37, in roughly a 3 to 1 abundance ratio. Which statement about its average atomic mass is most accurate?
+hints:
+- level: 1
+  en: Weight each isotope mass by how common that isotope is.
+- level: 2
+  en: Ask whether a plain midpoint is the right average when abundances differ.
+- level: 3
+  en: Consider which isotope the larger share of atoms belongs to.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it equals 72, the sum of the two mass numbers
+- id: b
+  en: it is closer to 37 because heavier isotopes dominate
+- id: c
+  en: it lies closer to 35 than to 37, because the lighter isotope is more abundant
+- id: d
+  en: it is exactly 36, the midpoint of the two values
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.26AAAB2AF638
+  when_answer_equals:
+  - d
+- id: MC.A.04AC37E06B0B
+  when_answer_equals:
+  - b
+- id: MC.A.AE576FAB2572
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Weighting by abundance gives (3 times 35 plus 1 times 37) divided by 4, which is 35.5.
+- en: That is closer to 35 because the lighter isotope is more abundant.
+- en: The correct option is c.
+tier: C

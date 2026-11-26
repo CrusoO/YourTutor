@@ -1,0 +1,48 @@
+id: A.12.maths.probability.binomial_distribution.06
+skill_ids:
+- SK.A.12.maths.binomial_distribution
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A binomial variable with a fixed number of trials has mean 6 and variance 4.8. How many trials are there?
+hints:
+- level: 1
+  en: Write the mean and the variance in terms of n and p.
+- level: 2
+  en: Use the ratio of the variance to the mean to find the failure probability.
+- level: 3
+  en: Solve for p first, then for n.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '30'
+- id: b
+  en: '24'
+- id: c
+  en: '20'
+- id: d
+  en: '36'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.AFCB0DCED5F7
+  when_answer_equals:
+  - b
+- id: MC.A.FC682265910D
+  when_answer_equals:
+  - c
+- id: MC.A.BCADDA7A8DF4
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Mean np = 6 and variance npq = 4.8 give q = 0.8, so p = 0.2 and n = 6 divided by 0.2, which is 30.
+- en: The correct option is a.
+tier: C

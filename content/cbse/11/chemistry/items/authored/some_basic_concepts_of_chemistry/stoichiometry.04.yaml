@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.stoichiometry.04
+skill_ids:
+- SK.A.11.chemistry.stoichiometry
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In N2 + 3 H2 -> 2 NH3, 6 mol of hydrogen reacts with excess nitrogen. How many moles of ammonia can form?
+hints:
+- level: 1
+  en: Find the ratio of ammonia to hydrogen from the coefficients.
+- level: 2
+  en: Hydrogen is the species that limits the reaction here, so use its amount.
+- level: 3
+  en: Multiply the hydrogen amount by the ratio and check the answer against the equation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3 mol
+- id: b
+  en: 6 mol
+- id: c
+  en: 4 mol
+- id: d
+  en: 2 mol
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.95E680F19BBD
+  when_answer_equals:
+  - d
+- id: MC.A.7E6D861D8AA4
+  when_answer_equals:
+  - b
+- id: MC.A.67EC515A86AA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each 3 mol of hydrogen gives 2 mol of ammonia, so 6 mol of hydrogen gives 4 mol of ammonia.
+- en: The correct option is c.
+tier: C

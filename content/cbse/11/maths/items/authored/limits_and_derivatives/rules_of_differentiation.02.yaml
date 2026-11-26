@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.rules_of_differentiation.02
+skill_ids:
+- SK.A.11.maths.rules_of_differentiation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the derivative of the product x times sin x with respect to x?
+hints:
+- level: 1
+  en: Identify the two factors in the product and their individual derivatives.
+- level: 2
+  en: Apply the rule for differentiating a product of two functions.
+- level: 3
+  en: Combine the two resulting terms with the correct sign.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin x plus x cos x
+- id: b
+  en: sin x minus x cos x
+- id: c
+  en: x cos x
+- id: d
+  en: cos x plus sin x
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.51CDD4010F1E
+  when_answer_equals:
+  - c
+- id: MC.A.5E3EE963B1F7
+  when_answer_equals:
+  - b
+- id: MC.A.249AA249D3AC
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The product rule gives the derivative of the first factor times the second plus the first times the derivative of the second, which is sin x plus x cos x.
+- en: The correct option is a.
+tier: C

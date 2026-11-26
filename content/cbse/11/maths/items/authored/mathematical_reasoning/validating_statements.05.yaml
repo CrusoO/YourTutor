@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.05
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: Which argument proves that the square root of 2 is irrational?
+hints:
+- level: 1
+  en: Start by supposing the opposite of the claim and reason from that supposition.
+- level: 2
+  en: Write the supposed rational value in lowest terms.
+- level: 3
+  en: Square the expression and examine whether the numerator and denominator can both be even.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: check that the squares of several rational numbers are never equal to 2
+- id: b
+  en: prove that 2 is not a perfect square of any integer
+- id: c
+  en: show that the square root of 2 is approximately 1.414
+- id: d
+  en: assume it equals p over q in lowest terms and derive a conflict between the parts of the fraction
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4C7CB319E694
+  when_answer_equals:
+  - a
+- id: MC.A.C1574C1D1C4A
+  when_answer_equals:
+  - c
+- id: MC.A.CECE37111EF5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Assuming the square root of 2 equals p over q in lowest terms forces both p and q to be even, which conflicts with lowest terms.
+- en: The correct option is d.
+tier: C

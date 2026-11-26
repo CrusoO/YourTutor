@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_fluids.surface_tension.01
+skill_ids:
+- SK.A.11.physics.surface_tension
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'Surface tension arises because molecules at a liquid surface experience:'
+hints:
+- level: 1
+  en: Compare a molecule in the middle of the liquid with one at the surface.
+- level: 2
+  en: Think about cohesion between molecules of the same liquid.
+- level: 3
+  en: Count which neighbours a surface molecule lacks.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: only their own weight
+- id: b
+  en: no net force at all
+- id: c
+  en: a net inward pull from their neighbours
+- id: d
+  en: a net outward push from their neighbours
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.35CB76CB538A
+  when_answer_equals:
+  - d
+- id: MC.A.7055566E0CDB
+  when_answer_equals:
+  - b
+- id: MC.A.E2D8D86BBA16
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A molecule at the surface has fewer neighbours above it than below, so it feels a net pull into the liquid.
+- en: This inward pull makes the surface behave like a stretched membrane.
+- en: The correct option is c.
+tier: C

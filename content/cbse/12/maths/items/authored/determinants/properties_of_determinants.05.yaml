@@ -1,0 +1,29 @@
+id: A.12.maths.determinants.properties_of_determinants.05
+skill_ids:
+- SK.A.12.maths.properties_of_determinants
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Find the value of k for which the determinant of [[1, 2, 3], [4, 5, 6], [7, 8, k]] equals zero.
+hints:
+- level: 1
+  en: Expand the determinant along the first row while keeping k as a symbol.
+- level: 2
+  en: Collect the terms that contain k together.
+- level: 3
+  en: Set the resulting linear expression equal to zero and solve.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '9'
+  accept: []
+solution_steps:
+- en: Expanding gives 1 times (5k minus 48) minus 2 times (4k minus 42) plus 3 times (32 minus 35), which simplifies to 27 minus 3k, and this is zero when k is 9.
+- en: Answer = 9
+tier: C

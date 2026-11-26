@@ -1,0 +1,31 @@
+id: A.12.physics.wave_optics.polarisation.05
+skill_ids:
+- SK.A.12.physics.polarisation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Unpolarised light of intensity 64 units passes through three ideal polarisers in a line. Each successive polariser axis is turned 30 degrees from the previous one. What is the final transmitted intensity in units?
+hints:
+- level: 1
+  en: The first polariser halves unpolarised light.
+- level: 2
+  en: Each further polariser multiplies the intensity by the cosine squared of its angle to the previous one.
+- level: 3
+  en: Multiply the factors step by step, one polariser at a time.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '18'
+  accept: []
+solution_steps:
+- en: The first polariser gives 32 units.
+- en: Each of the next two multiplies by cos squared 30 degrees, which is 0.75, so the final intensity is 32 times 0.75 times 0.75, which is 18 units.
+- en: Answer = 18
+tier: C
+diagram_note: Three polarising filters in a line with light passing through them, each axis drawn at successive 30 degree angles to the one before it.

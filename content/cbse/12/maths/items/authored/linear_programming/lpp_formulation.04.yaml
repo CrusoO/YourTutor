@@ -1,0 +1,48 @@
+id: A.12.maths.linear_programming.lpp_formulation.04
+skill_ids:
+- SK.A.12.maths.lpp_formulation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In a blend, the mass of ingredient A must be at least 40 percent of the total mass of the blend. If x kg of A and y kg of B are used, which constraint is correct?
+hints:
+- level: 1
+  en: Write the total mass as x plus y and state the 40 percent requirement for A.
+- level: 2
+  en: Move all terms to one side and collect the coefficients.
+- level: 3
+  en: Clear any decimals by multiplying the inequality by a suitable number.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3x - 2y >= 0
+- id: b
+  en: 3x + 2y >= 0
+- id: c
+  en: x <= 0.4(x + y)
+- id: d
+  en: x - 0.4y >= 0
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.475B09A2AC0B
+  when_answer_equals:
+  - b
+- id: MC.A.63E0593CDA10
+  when_answer_equals:
+  - c
+- id: MC.A.B31DB290AB8E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The requirement is x >= 0.4(x + y), which simplifies to 0.6x - 0.4y >= 0, and multiplying by 5 gives 3x - 2y >= 0.
+- en: The correct option is a.
+tier: C

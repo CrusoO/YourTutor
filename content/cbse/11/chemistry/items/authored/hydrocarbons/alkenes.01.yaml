@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkenes.01
+skill_ids:
+- SK.A.11.chemistry.alkenes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the general molecular formula of an alkene with one carbon-carbon double bond?
+hints:
+- level: 1
+  en: A single double bond removes a pair of hydrogens compared with the saturated chain.
+- level: 2
+  en: Start from the alkane formula and subtract the hydrogens lost to the double bond.
+- level: 3
+  en: Check the formula for ethene.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CnH2n-2
+- id: b
+  en: CnH2n
+- id: c
+  en: CnH2n+2
+- id: d
+  en: CnHn
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0DEDA94F1A27
+  when_answer_equals:
+  - c
+- id: MC.A.C355F240E85D
+  when_answer_equals:
+  - a
+- id: MC.A.C6ED6C3950B7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: One double bond removes two hydrogens compared with the saturated chain, so an alkene with n carbons has 2n hydrogens.
+- en: The correct option is b.
+tier: C

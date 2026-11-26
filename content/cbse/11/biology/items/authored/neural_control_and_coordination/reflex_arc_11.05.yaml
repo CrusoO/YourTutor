@@ -1,0 +1,49 @@
+id: A.11.biology.neural_control_and_coordination.reflex_arc_11.05
+skill_ids:
+- SK.A.11.biology.reflex_arc_11
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: The motor neuron to the quadriceps muscle is cut, but the sensory neuron is intact. What happens when the patellar tendon is tapped?
+hints:
+- level: 1
+  en: Think about which part of the arc carries the response to the muscle.
+- level: 2
+  en: Consider what the reflex needs at every step.
+- level: 3
+  en: Ask whether the signal can reach the muscle if one link is cut.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The knee jerk is stronger because the sensory input is unopposed
+- id: b
+  en: The brain signals a knee jerk despite the cut
+- id: c
+  en: The knee jerk occurs at double speed
+- id: d
+  en: No knee jerk occurs, because the reflex arc needs an intact motor pathway to the muscle
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.870928D8765A
+  when_answer_equals:
+  - a
+- id: MC.A.67A4987077BC
+  when_answer_equals:
+  - c
+- id: MC.A.6D5FE7BF5AF8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The stretch signal still reaches the spinal cord, but the motor neuron that would carry the response to the muscle is cut.
+- en: Without this link the arc is incomplete, so no contraction follows.
+- en: The correct option is d.
+tier: C

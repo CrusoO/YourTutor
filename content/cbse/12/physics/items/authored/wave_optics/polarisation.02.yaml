@@ -1,0 +1,30 @@
+id: A.12.physics.wave_optics.polarisation.02
+skill_ids:
+- SK.A.12.physics.polarisation
+difficulty: 0.2
+pool: practice
+role: apply
+stem:
+  en: Plane polarised light of intensity 80 units passes through an analyser whose axis is at 60 degrees to the polarisation direction. What is the transmitted intensity in units?
+hints:
+- level: 1
+  en: Use Malus's law with the cosine of the angle between the axes.
+- level: 2
+  en: Square the cosine of 60 degrees.
+- level: 3
+  en: Multiply the squared cosine by the incident intensity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '20'
+  accept: []
+solution_steps:
+- en: Malus's law gives I equal to I0 cos squared theta.
+- en: Since cos 60 degrees is one half, cos squared is one quarter, so the transmitted intensity is 20 units.
+- en: Answer = 20
+tier: C

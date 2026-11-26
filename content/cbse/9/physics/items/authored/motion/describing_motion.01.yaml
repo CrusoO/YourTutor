@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.01
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'A passenger sits still in a moving bus while the bus travels along a straight road. Relative to the seat next to the passenger, the passenger is:'
+hints:
+- level: 1
+  en: Ask what the passenger's position is being compared with.
+- level: 2
+  en: Check whether the distance between the passenger and the seat changes over time.
+- level: 3
+  en: Decide whether the position changes when compared with the chosen object.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: moving at the speed of the bus
+- id: b
+  en: moving backwards
+- id: c
+  en: at rest
+- id: d
+  en: changing position continuously
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CF331F40B20B
+  when_answer_equals:
+  - a
+- id: MC.A.7E19A0C43BAB
+  when_answer_equals:
+  - b
+- id: MC.A.87DA7CD17452
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The passenger keeps the same position relative to the seat, so relative to that seat the passenger is at rest even though the bus is moving relative to the road.
+- en: The correct option is c.
+tier: C

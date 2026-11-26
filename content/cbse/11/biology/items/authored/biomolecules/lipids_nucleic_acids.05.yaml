@@ -1,0 +1,50 @@
+id: A.11.biology.biomolecules.lipids_nucleic_acids.05
+skill_ids:
+- SK.A.11.biology.lipids_nucleic_acids
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A DNA strand has the base sequence AATTGC. What is the sequence of its complementary strand, read in the same direction?
+hints:
+- level: 1
+  en: Replace each base with its partner from the list of pairing rules.
+- level: 2
+  en: Pair the bases one by one, starting with the first letter.
+- level: 3
+  en: Remember that the two strands run in opposite directions, so read the complement carefully.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: AAUUGC
+- id: b
+  en: TTAACG
+- id: c
+  en: GCAATT
+- id: d
+  en: TTGGCA
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.55D4D8BD56A5
+  when_answer_equals:
+  - c
+- id: MC.A.9E70A9A2535C
+  when_answer_equals:
+  - d
+- id: MC.A.7ABAD1B2CE1C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: 'Each base pairs with its partner: A with T, T with A, G with C, C with G.'
+- en: Pairing the sequence AATTGC gives TTAACG when read in the same direction, though the strands run antiparallel.
+- en: The correct option is b.
+tier: C
+diagram_note: Write the two antiparallel strands as horizontal rows with pairing lines between matching bases, labelling the 5 prime and 3 prime ends of each strand.

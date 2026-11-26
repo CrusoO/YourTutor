@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.log_and_parametric_derivatives.06
+skill_ids:
+- SK.A.12.maths.log_and_parametric_derivatives
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For x = a cos t and y = b sin t, which expression gives d2y/dx2?
+hints:
+- level: 1
+  en: Find dy/dx as a function of t first.
+- level: 2
+  en: Differentiate that expression with respect to t.
+- level: 3
+  en: Divide by dx/dt, keeping track of its sign.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: -b/(a sin^2 t)
+- id: b
+  en: b/(a^2 sin^3 t)
+- id: c
+  en: -b cos t/(a^2 sin^3 t)
+- id: d
+  en: -b/(a^2 sin^3 t)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.5BABBCA6BD31
+  when_answer_equals:
+  - b
+- id: MC.A.71209B7C2E10
+  when_answer_equals:
+  - a
+- id: MC.A.66F61B477F46
+  when_answer_equals:
+  - c
+solution_steps:
+- en: dy/dx equals minus (b/a) cot t, its t-derivative is (b/a) csc squared t, and dividing by dx/dt = minus a sin t gives minus b over (a^2 sin^3 t).
+- en: The correct option is d.
+tier: C

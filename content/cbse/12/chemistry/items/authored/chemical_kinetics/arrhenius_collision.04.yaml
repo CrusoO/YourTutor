@@ -1,0 +1,50 @@
+id: A.12.chemistry.chemical_kinetics.arrhenius_collision.04
+skill_ids:
+- SK.A.12.chemistry.arrhenius_collision
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does the rate of a reaction increase steeply when the temperature rises by a modest amount?
+hints:
+- level: 1
+  en: Consider how the energy distribution of the molecules changes when temperature rises.
+- level: 2
+  en: Think about how many molecules have enough energy to cross the barrier.
+- level: 3
+  en: Decide whether the barrier itself changes with temperature.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: More molecules have energy above the activation barrier
+- id: b
+  en: The activation energy falls as temperature rises
+- id: c
+  en: Collisions become exactly twice as frequent for every 10 K
+- id: d
+  en: Products are removed faster from the mixture
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DD2EF9AF0568
+  when_answer_equals:
+  - b
+- id: MC.A.728C46BC1CF2
+  when_answer_equals:
+  - c
+- id: MC.A.D889655C6B10
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A small rise in temperature shifts the energy distribution, so a much larger fraction of molecules exceeds the activation barrier.
+- en: The barrier itself stays the same.
+- en: The correct option is a.
+tier: C
+diagram_note: Axes with temperature on the horizontal axis and rate constant on the vertical axis; a curve rises steeply and bends upward as the temperature increases.

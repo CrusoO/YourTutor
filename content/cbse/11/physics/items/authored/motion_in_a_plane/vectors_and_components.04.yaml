@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_plane.vectors_and_components.04
+skill_ids:
+- SK.A.11.physics.vectors_and_components
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A force of 10 N acts at 60 degrees above the horizontal. What is its horizontal component?
+hints:
+- level: 1
+  en: The horizontal part of a vector is adjacent to the angle measured from the horizontal.
+- level: 2
+  en: Use the cosine of the angle multiplied by the magnitude.
+- level: 3
+  en: Check that your component is smaller than the full magnitude.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 20 N
+- id: b
+  en: 10 N
+- id: c
+  en: 8.66 N
+- id: d
+  en: 5 N
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.98183CF2CCC0
+  when_answer_equals:
+  - c
+- id: MC.A.B3AA52EE839F
+  when_answer_equals:
+  - b
+- id: MC.A.789EA2594AB6
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The horizontal component is the magnitude times the cosine of the angle with the horizontal, which is 10 times cos 60 degrees, giving 5 N.
+- en: The correct option is d.
+tier: C

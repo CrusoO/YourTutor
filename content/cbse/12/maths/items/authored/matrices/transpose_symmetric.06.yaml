@@ -1,0 +1,29 @@
+id: A.12.maths.matrices.transpose_symmetric.06
+skill_ids:
+- SK.A.12.maths.transpose_symmetric
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let A = [[1, 2], [0, 3]] and P = A + A transpose. Find the sum of all four entries of P.
+hints:
+- level: 1
+  en: Write A transpose by swapping its off-diagonal entries.
+- level: 2
+  en: Add the two matrices entry by entry.
+- level: 3
+  en: Sum the four entries of the resulting matrix.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '12'
+  accept: []
+solution_steps:
+- en: A transpose is [[1, 0], [2, 3]], so P is [[2, 2], [2, 6]], and its four entries sum to 12.
+- en: Answer = 12
+tier: C

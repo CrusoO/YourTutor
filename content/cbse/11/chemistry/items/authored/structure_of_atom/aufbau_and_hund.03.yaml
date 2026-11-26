@@ -1,0 +1,49 @@
+id: A.11.chemistry.structure_of_atom.aufbau_and_hund.03
+skill_ids:
+- SK.A.11.chemistry.aufbau_and_hund
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which is the correct ground state electronic configuration of oxygen, atomic number 8?
+hints:
+- level: 1
+  en: Fill subshells in the order 1s, 2s, then 2p, counting electrons as you go.
+- level: 2
+  en: Stop once you have placed as many electrons as the atomic number states.
+- level: 3
+  en: Use Hund's rule to place electrons singly in the p orbitals before pairing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1s2 2s2 2p4
+- id: b
+  en: 1s2 2s1 2p5
+- id: c
+  en: 1s2 2s2 2p6
+- id: d
+  en: 1s2 2s2 2p2 3s2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.10ACA96E663E
+  when_answer_equals:
+  - b
+- id: MC.A.AC283F4C76F8
+  when_answer_equals:
+  - c
+- id: MC.A.E642193E2ACE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Oxygen has eight electrons, which fill 1s with two, 2s with two and then four electrons across the three 2p orbitals.
+- en: The correct option is a.
+tier: C
+diagram_note: Orbital box diagram with boxes for 1s, 2s and three 2p boxes in a row. The 1s and 2s boxes hold pairs of arrows, and the 2p boxes hold four arrows, with one box containing a pair.

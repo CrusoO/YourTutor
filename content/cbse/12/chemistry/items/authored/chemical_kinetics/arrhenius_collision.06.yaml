@@ -1,0 +1,50 @@
+id: A.12.chemistry.chemical_kinetics.arrhenius_collision.06
+skill_ids:
+- SK.A.12.chemistry.arrhenius_collision
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The energy profile of a reaction is drawn with and without a second curve. Which change lowers the energy barrier without altering the energy of the reactants or products?
+hints:
+- level: 1
+  en: Compare what changes in the diagram with what stays the same.
+- level: 2
+  en: Think about which species speeds up the reaction without being used up.
+- level: 3
+  en: Focus on the height of the peak rather than the starting level.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Diluting the reactants
+- id: b
+  en: Adding a catalyst
+- id: c
+  en: Increasing the volume of the vessel
+- id: d
+  en: Raising the temperature
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7AE2EB4BFAB2
+  when_answer_equals:
+  - d
+- id: MC.A.BCFAC79B7203
+  when_answer_equals:
+  - a
+- id: MC.A.8A2DED7D46AB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A catalyst provides an alternative pathway with a lower peak.
+- en: It is not consumed and it leaves the start and end energies unchanged.
+- en: The correct option is b.
+tier: C
+diagram_note: 'Energy against reaction coordinate: reactants on a starting level, a peak for the transition state, and products on a lower final level; a dashed second curve has a lower peak with the same start and end levels.'

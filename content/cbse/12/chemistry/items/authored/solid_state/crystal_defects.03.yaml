@@ -1,0 +1,50 @@
+id: A.12.chemistry.solid_state.crystal_defects.03
+skill_ids:
+- SK.A.12.chemistry.crystal_defects
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does a Frenkel defect leave the density of an ionic solid essentially unchanged?
+hints:
+- level: 1
+  en: Ask whether any ion leaves the crystal or only changes its position.
+- level: 2
+  en: Count the ions before and after the defect forms.
+- level: 3
+  en: Consider the volume the crystal occupies once the ion has moved.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The crystal gains a whole new layer of ions
+- id: b
+  en: Two ions are removed for each defect
+- id: c
+  en: No ion is removed, so the number of ions per unit volume stays the same
+- id: d
+  en: Extra electrons fill the gaps and add mass
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5DEBAE3A78AE
+  when_answer_equals:
+  - b
+- id: MC.A.850D2F293006
+  when_answer_equals:
+  - d
+- id: MC.A.6BC0E1CC4C7C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A Frenkel defect only moves an ion from its site into a nearby gap.
+- en: The number of ions and the volume are both unchanged, so the density stays about the same.
+- en: The correct option is c.
+tier: C
+diagram_note: Ionic grid of plus and minus symbols showing one cation moved into a gap beside its original empty site, with the outline of the crystal unchanged.

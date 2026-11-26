@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_derivatives.increasing_decreasing.05
+skill_ids:
+- SK.A.12.maths.increasing_decreasing
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For f(x) = e^x - e x on the real numbers, which describes the behaviour of f?
+hints:
+- level: 1
+  en: Find the derivative and the single point where it vanishes.
+- level: 2
+  en: Test the sign of the derivative on each side of that point.
+- level: 3
+  en: Relate the sign of the derivative to whether the function rises or falls.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Decreasing on (-infinity, 1) and increasing on (1, infinity)
+- id: b
+  en: Decreasing on (1, infinity)
+- id: c
+  en: Increasing everywhere
+- id: d
+  en: Increasing on (-infinity, 1)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E0A4EED2CB8E
+  when_answer_equals:
+  - c
+- id: MC.A.C4341639194D
+  when_answer_equals:
+  - b
+- id: MC.A.BCD2BBC6BA92
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The derivative e^x - e is negative for x less than 1 and positive for x greater than 1, so f decreases first and then increases.
+- en: The correct option is a.
+tier: C
+diagram_note: Curve of e^x minus e times x drawn on axes, with its lowest point marked at x = 1 and the curve falling on the left of it and rising on the right.

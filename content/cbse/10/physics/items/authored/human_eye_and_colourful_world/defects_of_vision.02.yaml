@@ -1,0 +1,49 @@
+id: A.10.physics.human_eye_and_colourful_world.defects_of_vision.02
+skill_ids:
+- SK.A.10.physics.defects_of_vision
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which lens is used to correct hypermetropia?
+hints:
+- level: 1
+  en: Consider which way the lens must bend the light.
+- level: 2
+  en: Ask where the image forms in hypermetropia, before or after the retina.
+- level: 3
+  en: Compare this with the lens used for the opposite defect.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A cylindrical lens
+- id: b
+  en: A converging (convex) lens
+- id: c
+  en: A diverging (concave) lens
+- id: d
+  en: A plane glass sheet
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.1283A6F803E2
+  when_answer_equals:
+  - c
+- id: MC.A.B4026DCB9F96
+  when_answer_equals:
+  - a
+- id: MC.A.E0F209D97545
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In hypermetropia, the eye cannot focus near objects, because the image forms behind the retina.
+- en: A converging lens adds extra convergence so that the rays meet on the retina for near objects.
+- en: The correct option is b.
+tier: C

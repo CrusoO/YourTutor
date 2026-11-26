@@ -1,0 +1,49 @@
+id: A.12.maths.differential_equations.linear_de.06
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the general solution of x dy/dx + 2y = x^3 for x not equal to 0?
+hints:
+- level: 1
+  en: Divide through by x to write the equation in standard linear form.
+- level: 2
+  en: Find the integrating factor from the coefficient of y.
+- level: 3
+  en: Multiply out, integrate and then divide by the integrating factor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = x^3/5 + C x^2
+- id: b
+  en: y = x^3/5 + C/x^2
+- id: c
+  en: y = x^2/5 + C/x^2
+- id: d
+  en: y = x^3/3 + C/x^2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AAC3224E4A9F
+  when_answer_equals:
+  - a
+- id: MC.A.C67BEA26652A
+  when_answer_equals:
+  - c
+- id: MC.A.706E0303BC03
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Dividing by x gives dy/dx + 2y/x = x^2, with integrating factor x^2.
+- en: Then d(x^2 y)/dx = x^4, so x^2 y = x^5/5 + C, which gives y = x^3/5 + C/x^2.
+- en: The correct option is b.
+tier: C

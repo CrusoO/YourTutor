@@ -1,0 +1,48 @@
+id: A.12.maths.probability.random_variables_distribution.06
+skill_ids:
+- SK.A.12.maths.random_variables_distribution
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A discrete random variable has P(X = k) proportional to k for k = 1, 2 and 3. What is the constant of proportionality c in P(X = k) = c k?
+hints:
+- level: 1
+  en: The probabilities must sum to 1.
+- level: 2
+  en: Add the values of k at the three points.
+- level: 3
+  en: Solve the resulting equation for the constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/3
+- id: b
+  en: 1/36
+- id: c
+  en: 1/6
+- id: d
+  en: 1/14
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5AA523B11E9F
+  when_answer_equals:
+  - a
+- id: MC.A.A45CABDEB289
+  when_answer_equals:
+  - d
+- id: MC.A.6F8ECCFCDB3D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The probabilities must sum to 1, so c(1 + 2 + 3) = 1, which gives c = 1/6.
+- en: The correct option is c.
+tier: C

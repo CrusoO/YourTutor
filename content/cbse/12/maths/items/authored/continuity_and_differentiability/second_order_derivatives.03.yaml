@@ -1,0 +1,30 @@
+id: A.12.maths.continuity_and_differentiability.second_order_derivatives.03
+skill_ids:
+- SK.A.12.maths.second_order_derivatives
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: The curve x^2 + y^2 = 1 near the point (0, 1) defines y as a function of x. Find d2y/dx2 at (0, 1).
+hints:
+- level: 1
+  en: Differentiate the relation once to obtain dy/dx.
+- level: 2
+  en: Differentiate that expression again, using the first derivative relation.
+- level: 3
+  en: Substitute the point at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '-1'
+  accept: []
+solution_steps:
+- en: Differentiating implicitly gives dy/dx = minus x over y, which is 0 at the point.
+- en: Differentiating again gives d2y/dx2 = minus (1 plus (dy/dx) squared) over y, which at (0, 1) equals minus 1.
+- en: Answer = -1
+tier: C

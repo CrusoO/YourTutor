@@ -1,0 +1,48 @@
+id: A.12.physics.alternating_current.resonance_power_ac.04
+skill_ids:
+- SK.A.12.physics.resonance_power_ac
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which change increases the quality factor of a series resonant circuit and makes its resonance peak sharper?
+hints:
+- level: 1
+  en: Think about which quantity appears in the denominator of the quality factor.
+- level: 2
+  en: Consider how losses in the circuit affect the sharpness of the peak.
+- level: 3
+  en: Compare the series resistance with the reactances at resonance.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Lowering the resistance
+- id: b
+  en: Increasing the bandwidth of the response
+- id: c
+  en: Adding a resistor in series
+- id: d
+  en: Raising the resistance
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8BBF622D5540
+  when_answer_equals:
+  - d
+- id: MC.A.941F6CA44570
+  when_answer_equals:
+  - c
+- id: MC.A.6FFA7AEFB444
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The quality factor is omega zero times L over R, so a smaller resistance gives a larger Q and a sharper resonance peak.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.entropy_gibbs.06
+skill_ids:
+- SK.A.11.chemistry.entropy_gibbs
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A reaction has delta G equal to +15 kJ/mol at 298 K. Which statement is correct?
+hints:
+- level: 1
+  en: Recall what a negative sign of Gibbs energy change indicates.
+- level: 2
+  en: Compare the sign given in the question with the criterion for spontaneity.
+- level: 3
+  en: Decide which direction the reaction would proceed on its own.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: delta H must be exactly zero
+- id: b
+  en: the reaction is spontaneous in the forward direction
+- id: c
+  en: the reaction is at equilibrium
+- id: d
+  en: the reaction is not spontaneous in the forward direction under these conditions
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4FF1D6CDD809
+  when_answer_equals:
+  - b
+- id: MC.A.24AA43E317F3
+  when_answer_equals:
+  - c
+- id: MC.A.086709FD01FE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A positive Gibbs energy change means the forward reaction is not spontaneous under those conditions, and the reverse direction is favoured.
+- en: The correct option is d.
+tier: C

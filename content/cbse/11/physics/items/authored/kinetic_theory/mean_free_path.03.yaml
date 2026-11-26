@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.mean_free_path.03
+skill_ids:
+- SK.A.11.physics.mean_free_path
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which change increases the mean free path of gas molecules at fixed temperature?
+hints:
+- level: 1
+  en: The mean free path is inversely related to how crowded the gas is.
+- level: 2
+  en: Lower density means fewer collisions.
+- level: 3
+  en: At fixed temperature, pressure is a measure of how crowded the gas is.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: using larger molecules
+- id: b
+  en: increasing the number density
+- id: c
+  en: reducing the pressure
+- id: d
+  en: compressing the gas at constant temperature
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9B9E202913E0
+  when_answer_equals:
+  - b
+- id: MC.A.86E789939B39
+  when_answer_equals:
+  - a
+- id: MC.A.E36C39342C12
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At fixed temperature, lowering the pressure lowers the number density, so molecules collide less often and travel farther between collisions.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,50 @@
+id: A.12.chemistry.solid_state.close_packing.04
+skill_ids:
+- SK.A.12.chemistry.close_packing
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which stacking sequence of layers describes hexagonal close packing?
+hints:
+- level: 1
+  en: Find the sequence that repeats after only two layers.
+- level: 2
+  en: Each layer nests in the hollows of the layer below it.
+- level: 3
+  en: Check where the third layer sits relative to the first.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ABCD
+- id: b
+  en: ABCABC
+- id: c
+  en: AAAA
+- id: d
+  en: ABAB
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.C6F7C6D320C1
+  when_answer_equals:
+  - b
+- id: MC.A.475FA8562765
+  when_answer_equals:
+  - c
+- id: MC.A.0BC00CEFFC29
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In hexagonal close packing the third layer lies directly over the first, so the pattern repeats every two layers.
+- en: Cubic close packing repeats every three layers.
+- en: The correct option is d.
+tier: C
+diagram_note: Three stacked triangular layers drawn offset, with the second layer in the hollows of the first and the third layer exactly above the first.

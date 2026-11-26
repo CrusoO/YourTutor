@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.kepler_laws.06
+skill_ids:
+- SK.A.11.physics.kepler_laws
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two planets orbit the same star and have exactly the same orbital period. What can be concluded about their orbital semi-major axes?
+hints:
+- level: 1
+  en: Kepler's third law links the period and the semi-major axis around the same central body.
+- level: 2
+  en: Check which quantities the third law depends on besides the period.
+- level: 3
+  en: Both planets orbit the same central mass in this setting.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the larger planet always has the larger semi-major axis
+- id: b
+  en: they are inversely proportional to their speeds
+- id: c
+  en: they are in the ratio of their masses
+- id: d
+  en: they are equal
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A34A348AA123
+  when_answer_equals:
+  - c
+- id: MC.A.F9F1A17B98C9
+  when_answer_equals:
+  - b
+- id: MC.A.893A03C72479
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Kepler's third law says T^2 is proportional to a^3 for a common central star, so equal periods imply equal semi-major axes.
+- en: The correct option is d.
+tier: C

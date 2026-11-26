@@ -1,0 +1,50 @@
+id: A.12.maths.relations_and_functions.one_one_onto_functions.03
+skill_ids:
+- SK.A.12.maths.one_one_onto_functions
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Let f be the function from {1, 2, 3} to {a, b, c} with f(1) = a, f(2) = c and f(3) = a. Which statement is correct?
+hints:
+- level: 1
+  en: Compare the outputs of the inputs 1 and 3.
+- level: 2
+  en: List the set of values the function actually takes.
+- level: 3
+  en: Check each property separately using that list.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: f is neither one-one nor onto
+- id: b
+  en: f is a bijection
+- id: c
+  en: f is one-one but not onto
+- id: d
+  en: f is onto but not one-one
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A16408EF40E9
+  when_answer_equals:
+  - c
+- id: MC.A.6555D0ABAC3D
+  when_answer_equals:
+  - d
+- id: MC.A.32AFAF9F5000
+  when_answer_equals:
+  - b
+solution_steps:
+- en: f(1) and f(3) are both a, so f is not one-one.
+- en: The image is {a, c}, which misses b, so f is not onto.
+- en: The correct option is a.
+tier: C
+diagram_note: Arrow diagram with three inputs 1, 2, 3 on the left and three outputs a, b, c on the right, where two arrows from different inputs land on a and output b has no arrow.

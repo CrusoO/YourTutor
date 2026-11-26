@@ -1,0 +1,49 @@
+id: A.12.biology.evolution.natural_selection_hardy_weinberg.01
+skill_ids:
+- SK.A.12.biology.natural_selection_hardy_weinberg
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which condition is NOT required for a population to remain in Hardy-Weinberg equilibrium?
+hints:
+- level: 1
+  en: Think about what would change allele frequencies from one generation to the next.
+- level: 2
+  en: Compare which conditions keep frequencies constant.
+- level: 3
+  en: Identify the factor that introduces new alleles over time.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: No gene flow between populations
+- id: b
+  en: Mutations occur frequently in every generation
+- id: c
+  en: Random mating in the population
+- id: d
+  en: A very large population size
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8B0BCAD02C54
+  when_answer_equals:
+  - c
+- id: MC.A.5934CBFA5390
+  when_answer_equals:
+  - a
+- id: MC.A.5839C5FF3FB7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Equilibrium requires no mutation, no selection, no migration, no drift and random mating.
+- en: Frequent mutation would itself change allele frequencies, so it is the one listed condition that breaks the model.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.quadratic_in_complex.05
+skill_ids:
+- SK.A.11.maths.quadratic_in_complex
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: Solve the equation 2x squared minus 2x plus 1 equals 0.
+hints:
+- level: 1
+  en: Apply the quadratic formula with the correct coefficients.
+- level: 2
+  en: Find the square root of the discriminant, which is negative, using the imaginary unit.
+- level: 3
+  en: Divide the whole expression by twice the leading coefficient.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1 + i and 1 - i
+- id: b
+  en: (-1 + i)/2 and (-1 - i)/2
+- id: c
+  en: (1 + i)/2 and (1 - i)/2
+- id: d
+  en: (1 + 2i)/2 and (1 - 2i)/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.947F1FDB626F
+  when_answer_equals:
+  - d
+- id: MC.A.99A5CB005D50
+  when_answer_equals:
+  - a
+- id: MC.A.EB25B3AA60C2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The discriminant is 4 minus 8, which is negative 4, so x equals (2 plus or minus 2i) over 4, giving (1 plus or minus i) over 2.
+- en: The correct option is c.
+tier: C

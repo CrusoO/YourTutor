@@ -1,0 +1,48 @@
+id: A.11.chemistry.organic_chemistry_basic_principles.electronic_effects.04
+skill_ids:
+- SK.A.11.chemistry.electronic_effects
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which is the stronger acid, CH3COOH or ClCH2COOH?
+hints:
+- level: 1
+  en: Withdrawing groups stabilise the conjugate base, so compare how strongly each pulls electrons.
+- level: 2
+  en: Think about which acid has an atom that pulls electron density away from the carboxyl group.
+- level: 3
+  en: Consider which conjugate base is more stable.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CH3COOH
+- id: b
+  en: neither is an acid
+- id: c
+  en: both are equally strong
+- id: d
+  en: ClCH2COOH
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.026CA003A62B
+  when_answer_equals:
+  - a
+- id: MC.A.BACDCC9BD872
+  when_answer_equals:
+  - c
+- id: MC.A.779F07AFE808
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The chlorine withdraws electron density inductively and stabilises the conjugate carboxylate ion, so chloroacetic acid is the stronger acid.
+- en: The correct option is d.
+tier: C

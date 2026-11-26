@@ -1,0 +1,49 @@
+id: A.11.physics.work_energy_and_power.collisions_energy.06
+skill_ids:
+- SK.A.11.physics.collisions_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two 5 kg bodies moving at 2 m/s toward each other stick together after colliding. How much kinetic energy remains afterwards?
+hints:
+- level: 1
+  en: Find the total momentum of the two bodies before the collision first.
+- level: 2
+  en: Opposite velocities of equal mass give a total momentum that is zero.
+- level: 3
+  en: A body that is not moving has no kinetic energy.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 20 joules
+- id: b
+  en: 10 joules
+- id: c
+  en: zero joules
+- id: d
+  en: 5 joules
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5308FF671E07
+  when_answer_equals:
+  - d
+- id: MC.A.BD51E24BB095
+  when_answer_equals:
+  - b
+- id: MC.A.79F6EA743261
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The total momentum before is zero, so the combined body is at rest afterwards and no kinetic energy remains.
+- en: Before the collision the total kinetic energy was 20 J, all of which is lost.
+- en: The correct option is c.
+tier: C

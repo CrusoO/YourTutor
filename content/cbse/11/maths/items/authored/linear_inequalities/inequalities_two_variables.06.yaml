@@ -1,0 +1,48 @@
+id: A.11.maths.linear_inequalities.inequalities_two_variables.06
+skill_ids:
+- SK.A.11.maths.inequalities_two_variables
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which system of inequalities has a bounded feasible region?
+hints:
+- level: 1
+  en: Ask whether the region can extend indefinitely in some direction.
+- level: 2
+  en: Check which inequalities impose an upper limit on the variables.
+- level: 3
+  en: Sketch each half plane and see whether they close off a finite area.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x >= 0, y >= 0 and x plus y <= 5
+- id: b
+  en: x minus y <= 1 and x plus y >= 3
+- id: c
+  en: x plus y >= 5 and x >= 0
+- id: d
+  en: x >= 0 and y >= 0
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.675913FD0AEA
+  when_answer_equals:
+  - d
+- id: MC.A.0FE7F8A869A5
+  when_answer_equals:
+  - c
+- id: MC.A.B2C1138466EF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The non-negativity conditions and the single upper bound on x plus y enclose a triangle, so the region is bounded.
+- en: The correct option is a.
+tier: C

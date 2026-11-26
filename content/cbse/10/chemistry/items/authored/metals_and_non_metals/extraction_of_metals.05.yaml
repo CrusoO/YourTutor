@@ -1,0 +1,49 @@
+id: A.10.chemistry.metals_and_non_metals.extraction_of_metals.05
+skill_ids:
+- SK.A.10.chemistry.extraction_of_metals
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Iron(III) oxide is reduced to iron in a blast furnace using carbon. Which statement is correct?
+hints:
+- level: 1
+  en: Track which substance loses oxygen.
+- level: 2
+  en: Track which substance gains oxygen.
+- level: 3
+  en: Ask why the furnace must be very hot.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Carbon is reduced while the iron oxide stays unchanged
+- id: b
+  en: Iron oxide is oxidised to iron, which gains oxygen
+- id: c
+  en: The reduction takes place at room temperature without heating
+- id: d
+  en: Carbon is oxidised to carbon monoxide, and the iron oxide is reduced to iron
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.612211068B64
+  when_answer_equals:
+  - b
+- id: MC.A.917F89DC5E7A
+  when_answer_equals:
+  - a
+- id: MC.A.81628D50E2DA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The iron oxide loses oxygen, so it is reduced.
+- en: Carbon gains oxygen to form carbon monoxide, so it is oxidised.
+- en: The correct option is d.
+tier: C

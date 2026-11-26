@@ -1,0 +1,48 @@
+id: A.11.maths.three_dimensional_geometry.coordinates_in_space.06
+skill_ids:
+- SK.A.11.maths.coordinates_in_space
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which set describes all the points on the plane x equal to 2?
+hints:
+- level: 1
+  en: Identify which coordinate is held constant for a plane parallel to the yz-plane.
+- level: 2
+  en: The other two coordinates on that plane are free to vary.
+- level: 3
+  en: Describe the set using only the constraint that the fixed coordinate imposes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all points with y equal to 2, with x and z arbitrary
+- id: b
+  en: the single point (2, 0, 0)
+- id: c
+  en: all points with x equal to 2 and y equal to 0
+- id: d
+  en: all points with x equal to 2, with y and z arbitrary
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.015087843685
+  when_answer_equals:
+  - a
+- id: MC.A.DCAA8A7CC5B0
+  when_answer_equals:
+  - b
+- id: MC.A.303FFC0FE0E0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A plane x equal to 2 is the set of all points whose first coordinate is 2, while y and z can take any real value.
+- en: The correct option is d.
+tier: C

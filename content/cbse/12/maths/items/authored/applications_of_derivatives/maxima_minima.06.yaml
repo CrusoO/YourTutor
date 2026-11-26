@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_derivatives.maxima_minima.06
+skill_ids:
+- SK.A.12.maths.maxima_minima
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the maximum value of f(x) = sin x + cos x on the closed interval from 0 to pi/2, and where is it attained?
+hints:
+- level: 1
+  en: Differentiate and find the critical point inside the interval.
+- level: 2
+  en: Compare the value at that point with the values at the endpoints.
+- level: 3
+  en: Consider the identity that writes the sum as a single sine.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: square root of 2, attained at x = pi/4
+- id: b
+  en: 1, attained at x = 0
+- id: c
+  en: square root of 2, attained at x = pi/2
+- id: d
+  en: 2, attained at x = pi/4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E9C39D3AED69
+  when_answer_equals:
+  - b
+- id: MC.A.962D2AFE2CCC
+  when_answer_equals:
+  - d
+- id: MC.A.63938BF00415
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The derivative cos x - sin x vanishes at x = pi/4, where f equals square root of 2.
+- en: The endpoint values are 1, so the interior point gives the maximum.
+- en: The correct option is a.
+tier: C

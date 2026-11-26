@@ -1,0 +1,49 @@
+id: A.9.chemistry.atoms_and_molecules.atomic_mass.04
+skill_ids:
+- SK.A.9.chemistry.atomic_mass
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Two samples each contain exactly one mole of particles, one of carbon atoms and one of iron atoms. Which statement about their masses is correct?
+hints:
+- level: 1
+  en: Compare the masses of single atoms of the two elements.
+- level: 2
+  en: Ask whether equal numbers of particles always have equal mass.
+- level: 3
+  en: Consider what the atomic mass of each element tells you about its atoms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: both samples have equal mass because they contain the same number of particles
+- id: b
+  en: the carbon sample is heavier because carbon atoms are smaller in volume
+- id: c
+  en: the carbon sample is heavier because carbon has more electrons
+- id: d
+  en: the iron sample has the greater mass because iron atoms are heavier
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.389BB4C6A68B
+  when_answer_equals:
+  - c
+- id: MC.A.14EBAF3F606A
+  when_answer_equals:
+  - a
+- id: MC.A.D2DD0C421BC8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Equal numbers of particles do not have equal mass when the particles differ.
+- en: Iron atoms have a much larger atomic mass than carbon atoms, so one mole of iron has a larger mass.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.01
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the negation of the statement 'all triangles have three sides'?
+hints:
+- level: 1
+  en: Think about what would have to be true for the original claim to be false.
+- level: 2
+  en: A universal claim fails when a single exception exists.
+- level: 3
+  en: Express that single exception as an existence statement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all triangles do not have three sides
+- id: b
+  en: some triangle does not have three sides
+- id: c
+  en: some triangles have three sides
+- id: d
+  en: all triangles have more than three sides
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E24AE0E78F6C
+  when_answer_equals:
+  - a
+- id: MC.A.254307C7B968
+  when_answer_equals:
+  - d
+- id: MC.A.5499ED021A55
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The negation of a statement that holds for all members is that at least one member fails the property.
+- en: The correct option is b.
+tier: C

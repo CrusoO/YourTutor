@@ -1,0 +1,49 @@
+id: A.10.maths.introduction_to_trigonometry.trig_identities.04
+skill_ids:
+- SK.A.10.maths.trig_identities
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does tan θ equal sin θ divided by cos θ?
+hints:
+- level: 1
+  en: Write sin θ and cos θ as fractions of the hypotenuse.
+- level: 2
+  en: Divide one fraction by the other.
+- level: 3
+  en: Look for a common factor that cancels.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because the hypotenuse cancels only in isosceles triangles.
+- id: b
+  en: Because dividing opposite over hypotenuse by adjacent over hypotenuse leaves opposite over adjacent.
+- id: c
+  en: Because sine and cosine are equal at 45 degrees.
+- id: d
+  en: Because tan θ is the reciprocal of sin θ.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8EF9415C312E
+  when_answer_equals:
+  - d
+- id: MC.A.409196447466
+  when_answer_equals:
+  - c
+- id: MC.A.0A21DE2D977F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Sine is opposite over hypotenuse and cosine is adjacent over hypotenuse.
+- en: Dividing one by the other cancels the hypotenuse and leaves opposite over adjacent, which is tan θ.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.nuclei.nuclear_fission_fusion.03
+skill_ids:
+- SK.A.12.physics.nuclear_fission_fusion
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What makes a self-sustaining chain reaction possible in nuclear fission?
+hints:
+- level: 1
+  en: Think about which particles can strike and split another heavy nucleus.
+- level: 2
+  en: Consider what the products of one fission event can do to other nuclei.
+- level: 3
+  en: Recall the particle that has no charge and can penetrate nuclei easily.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Each fission produces electrons that trigger new fissions
+- id: b
+  en: Each fission releases photons that split other nuclei
+- id: c
+  en: Each fission releases only alpha particles
+- id: d
+  en: Each fission releases neutrons that can cause further fissions
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.58DE8945AB81
+  when_answer_equals:
+  - c
+- id: MC.A.F16141208C5F
+  when_answer_equals:
+  - a
+- id: MC.A.050F4BC2FDDA
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Fission releases several neutrons, and some of these can strike other heavy nuclei and cause them to fission, which sustains the reaction.
+- en: The correct option is d.
+tier: C

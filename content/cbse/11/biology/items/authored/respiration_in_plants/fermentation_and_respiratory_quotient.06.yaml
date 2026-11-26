@@ -1,0 +1,49 @@
+id: A.11.biology.respiration_in_plants.fermentation_and_respiratory_quotient.06
+skill_ids:
+- SK.A.11.biology.fermentation_and_respiratory_quotient
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A muscle cell in oxygen debt keeps contracting for some time. Which process explains the continued ATP supply, and what happens to the lactate later?
+hints:
+- level: 1
+  en: Think about which molecule must be regenerated for glycolysis to continue.
+- level: 2
+  en: Consider where lactate goes after it leaves the muscle.
+- level: 3
+  en: Ask whether the muscle has enough oxygen to run full aerobic respiration during the debt.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Aerobic respiration speeds up and lactate is converted into starch in muscle
+- id: b
+  en: Lactic acid fermentation regenerates NAD+ for glycolysis, and the lactate is later carried to the liver and reconverted or oxidised
+- id: c
+  en: The Krebs cycle stops and ethanol builds up in the blood
+- id: d
+  en: Photosynthesis in muscle supplies ATP and lactate is excreted as CO2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EA210379CB1B
+  when_answer_equals:
+  - a
+- id: MC.A.BBEA9D58B6D6
+  when_answer_equals:
+  - d
+- id: MC.A.FA6EB7ED9114
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Without enough oxygen, glycolysis continues and lactic acid fermentation regenerates NAD+.
+- en: The lactate is transported to the liver, where it can be converted back to glucose or oxidised.
+- en: The correct option is b.
+tier: C

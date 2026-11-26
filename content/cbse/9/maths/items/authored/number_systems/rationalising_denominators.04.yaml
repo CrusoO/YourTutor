@@ -1,0 +1,48 @@
+id: A.9.maths.number_systems.rationalising_denominators.04
+skill_ids:
+- SK.A.9.maths.rationalising_denominators
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is five over three plus root two, written with a rational denominator?
+hints:
+- level: 1
+  en: Pick the conjugate of the denominator.
+- level: 2
+  en: Multiply the numerator and the denominator by the same conjugate.
+- level: 3
+  en: The new denominator is a difference of squares.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (15 - 5 sqrt(2))/7
+- id: b
+  en: (15 - 5 sqrt(2))/11
+- id: c
+  en: (15 + 5 sqrt(2))/7
+- id: d
+  en: 15 - 5 sqrt(2)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A5C4B6686AD0
+  when_answer_equals:
+  - d
+- id: MC.A.60F2C1B8E3F2
+  when_answer_equals:
+  - c
+- id: MC.A.D00616DF087E
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Multiplying by three minus root two makes the denominator nine minus two, which is seven, leaving (15 minus 5 root 2) over 7.
+- en: The correct option is a.
+tier: C

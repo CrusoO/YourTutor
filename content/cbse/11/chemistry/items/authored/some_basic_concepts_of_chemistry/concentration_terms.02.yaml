@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.concentration_terms.02
+skill_ids:
+- SK.A.11.chemistry.concentration_terms
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Which concentration term is defined as moles of solute per kilogram of solvent?
+hints:
+- level: 1
+  en: Look for the term whose denominator is a mass of the solvent, not a volume.
+- level: 2
+  en: The solvent mass is measured in kilograms for this definition.
+- level: 3
+  en: Compare how each term uses the solvent in its definition.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: molality
+- id: b
+  en: molarity
+- id: c
+  en: mass percent
+- id: d
+  en: mole fraction
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6A009A6BA777
+  when_answer_equals:
+  - b
+- id: MC.A.54D8ACBC922F
+  when_answer_equals:
+  - d
+- id: MC.A.451AD16404DC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Molality is moles of solute divided by the mass of solvent in kilograms, so it does not depend on the volume of the solution.
+- en: The correct option is a.
+tier: C

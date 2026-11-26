@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.diazonium_salts.03
+skill_ids:
+- SK.A.12.chemistry.diazonium_salts
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In the Sandmeyer reaction, benzenediazonium chloride treated with copper(I) chloride gives which product?
+hints:
+- level: 1
+  en: Think about the copper(I) salt used to transfer a halide to the ring.
+- level: 2
+  en: Consider which halogen the copper(I) salt supplies.
+- level: 3
+  en: Check what leaves the diazonium group as nitrogen gas.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Benzene alone
+- id: b
+  en: Chlorobenzene
+- id: c
+  en: Phenol without copper
+- id: d
+  en: Benzoic acid
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9FDDC064D4B5
+  when_answer_equals:
+  - d
+- id: MC.A.4863757C0447
+  when_answer_equals:
+  - a
+- id: MC.A.AB8B1CBA9F70
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Copper(I) chloride transfers chloride to the aryl radical formed from the diazonium salt, releasing nitrogen and giving chlorobenzene.
+- en: The correct option is b.
+tier: C

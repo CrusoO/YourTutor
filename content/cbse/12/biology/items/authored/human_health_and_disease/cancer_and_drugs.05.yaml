@@ -1,0 +1,49 @@
+id: A.12.biology.human_health_and_disease.cancer_and_drugs.05
+skill_ids:
+- SK.A.12.biology.cancer_and_drugs
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A patient has a severe allergic reaction to a drug and is having difficulty breathing. What is the most urgent step?
+hints:
+- level: 1
+  en: Think about a treatment that acts quickly across the whole body.
+- level: 2
+  en: Consider whether the reaction could become life threatening.
+- level: 3
+  en: Focus on the step that opens the airway quickly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Continue the drug to test the reaction
+- id: b
+  en: Give adrenaline and seek emergency care
+- id: c
+  en: Give a stronger antibiotic
+- id: d
+  en: Wait for the reaction to pass without treatment
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8BA4FEA228D7
+  when_answer_equals:
+  - a
+- id: MC.A.0EB8ABC17FC4
+  when_answer_equals:
+  - d
+- id: MC.A.40A793369D87
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Severe allergic reactions can block the airway quickly, and adrenaline is the first line treatment that reverses this, followed by urgent medical care.
+- en: Delay can be fatal.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.chemistry.structure_of_atom.aufbau_and_hund.05
+skill_ids:
+- SK.A.11.chemistry.aufbau_and_hund
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which orbital box diagram for three electrons in the 2p subshell obeys Hund's rule?
+hints:
+- level: 1
+  en: Place electrons into empty orbitals of equal energy first, one in each.
+- level: 2
+  en: Pairing only begins after every orbital at that energy has one electron.
+- level: 3
+  en: Check that the spins of the single electrons are aligned in the same direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: one electron in each of three boxes with parallel spins
+- id: b
+  en: all three electrons in one box with parallel spins
+- id: c
+  en: one electron in each of two boxes with opposite spins and one box empty
+- id: d
+  en: two electrons paired in one box, one in another box and the last box empty
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.D709DD561B33
+  when_answer_equals:
+  - d
+- id: MC.A.B799FB08E166
+  when_answer_equals:
+  - b
+- id: MC.A.E97FF0F796D4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Hund's rule says that electrons spread across degenerate orbitals with parallel spins before any pairing begins, so three electrons occupy three separate boxes.
+- en: The correct option is a.
+tier: C
+diagram_note: Three adjacent boxes representing the 2p orbitals, each drawn with a single arrow pointing up, shown side by side at the same energy level.

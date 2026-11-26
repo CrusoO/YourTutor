@@ -1,0 +1,48 @@
+id: A.11.physics.mechanical_properties_of_solids.stress_strain_curve.04
+skill_ids:
+- SK.A.11.physics.stress_strain_curve
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A ductile metal wire is loaded beyond its yield point and then unloaded completely. What happens to its length?
+hints:
+- level: 1
+  en: Beyond yield, part of the deformation is no longer reversible.
+- level: 2
+  en: Permanent deformation changes the shape of the material for good.
+- level: 3
+  en: Think about the difference between elastic and plastic behaviour.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it ends up shorter than its original length
+- id: b
+  en: it returns only if the load exceeded the breaking point
+- id: c
+  en: it stays permanently longer than its original length
+- id: d
+  en: it returns exactly to its original length
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5BBF45CCCBD4
+  when_answer_equals:
+  - d
+- id: MC.A.9855BD416677
+  when_answer_equals:
+  - a
+- id: MC.A.22ECDA74BB77
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Beyond the yield point part of the deformation is plastic, so the wire does not recover its original length when unloaded.
+- en: The correct option is c.
+tier: C

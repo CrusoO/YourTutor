@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.integration_by_parts.06
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Evaluate the indefinite integral of e^x sin x dx.
+hints:
+- level: 1
+  en: Apply integration by parts twice and watch for the original integral reappearing.
+- level: 2
+  en: Collect the two copies of the integral on one side.
+- level: 3
+  en: Check the result by differentiating and comparing with e^x sin x.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: -e^x cos x + C
+- id: b
+  en: e^x(sin x - cos x) + C
+- id: c
+  en: (e^x/2)(sin x - cos x) + C
+- id: d
+  en: (e^x/2)(sin x + cos x) + C
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.ECA363BFD4E9
+  when_answer_equals:
+  - d
+- id: MC.A.FCFEA20907F1
+  when_answer_equals:
+  - b
+- id: MC.A.94FC22006075
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Applying parts twice brings back the original integral, and collecting the two copies gives I = (e^x/2)(sin x - cos x) plus a constant.
+- en: The correct option is c.
+tier: C

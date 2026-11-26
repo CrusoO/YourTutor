@@ -1,0 +1,48 @@
+id: A.12.maths.probability.conditional_probability.02
+skill_ids:
+- SK.A.12.maths.conditional_probability
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A card is drawn at random from a standard 52-card deck and is known to be a heart. What is the probability that it is a queen?
+hints:
+- level: 1
+  en: Count the hearts, which form the reduced sample space.
+- level: 2
+  en: Count the queens among those hearts.
+- level: 3
+  en: Divide the favourable count by the number of hearts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: 1/13
+- id: c
+  en: 1/52
+- id: d
+  en: 4/52
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.82FDD3BDEBB0
+  when_answer_equals:
+  - c
+- id: MC.A.2BCF2E650EA1
+  when_answer_equals:
+  - d
+- id: MC.A.C47CEC365003
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Given a heart, there are 13 equally likely cards, and exactly one of them is a queen, so the probability is 1/13.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.maths.inverse_trigonometric_functions.principal_values.03
+skill_ids:
+- SK.A.12.maths.principal_values
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the value of cos^-1(cos(7pi/6))?
+hints:
+- level: 1
+  en: Recall the interval from 0 to pi that the principal values of cos^-1 must lie in.
+- level: 2
+  en: Find an angle in that interval with the same cosine as 7pi/6.
+- level: 3
+  en: Use the symmetry of cosine about the horizontal axis to locate it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pi/6
+- id: b
+  en: -5pi/6
+- id: c
+  en: 5pi/6
+- id: d
+  en: 7pi/6
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0436609C46CD
+  when_answer_equals:
+  - d
+- id: MC.A.363AA4387306
+  when_answer_equals:
+  - a
+- id: MC.A.6685BC27975C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The principal range of cos^-1 is from 0 to pi, and cos(7pi/6) equals cos(5pi/6), with 5pi/6 lying in that range.
+- en: The correct option is c.
+tier: C
+diagram_note: Graph of y = cos x on the interval from 0 to pi, with the point where the curve reaches the value negative square root of three over two marked on the vertical axis.

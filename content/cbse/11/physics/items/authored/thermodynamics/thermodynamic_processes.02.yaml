@@ -1,0 +1,49 @@
+id: A.11.physics.thermodynamics.thermodynamic_processes.02
+skill_ids:
+- SK.A.11.physics.thermodynamic_processes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In an isochoric process, which quantity stays constant?
+hints:
+- level: 1
+  en: Iso means the same, and the root points to the space the gas fills.
+- level: 2
+  en: Think of a rigid container being heated.
+- level: 3
+  en: The gas cannot expand or contract in this process.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: internal energy
+- id: b
+  en: volume
+- id: c
+  en: temperature
+- id: d
+  en: pressure
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5D9A8585801F
+  when_answer_equals:
+  - d
+- id: MC.A.B71A19CFC5EC
+  when_answer_equals:
+  - c
+- id: MC.A.15D7ACB62A05
+  when_answer_equals:
+  - a
+solution_steps:
+- en: An isochoric process keeps the volume constant, so the gas does no work and its pressure and temperature can change.
+- en: The correct option is b.
+tier: C
+diagram_note: A pressure-volume diagram with a vertical line segment at a fixed volume, going from a lower pressure to a higher pressure.

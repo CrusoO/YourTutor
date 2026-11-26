@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.functions_domain_range.04
+skill_ids:
+- SK.A.11.maths.functions_domain_range
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For f(x) = 1 divided by (x - 2), with real inputs, which set is the domain of f?
+hints:
+- level: 1
+  en: Find which input would make the denominator equal to zero.
+- level: 2
+  en: Solve the denominator set equal to zero for x.
+- level: 3
+  en: Any input that breaks the rule is left out of the domain.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all real numbers greater than 2
+- id: b
+  en: all real numbers except 1
+- id: c
+  en: all real numbers except 0
+- id: d
+  en: all real numbers except 2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2E32DA2485D2
+  when_answer_equals:
+  - b
+- id: MC.A.40A11951FC70
+  when_answer_equals:
+  - c
+- id: MC.A.3FFB06FF7570
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The denominator is zero only when x equals 2, so that single input must be removed from the domain.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.permutations.04
+skill_ids:
+- SK.A.11.maths.permutations
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: From a group of 7 students, 3 are chosen and placed in a ranked order of first, second and third. How many ordered outcomes are possible?
+hints:
+- level: 1
+  en: Each rank can be filled by a student not yet ranked.
+- level: 2
+  en: Count the choices for the first rank and then the choices that remain for later ranks.
+- level: 3
+  en: Multiply those counts together.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '210'
+  accept: []
+solution_steps:
+- en: The first rank has 7 choices, the second 6 and the third 5, giving 7 times 6 times 5 which is 210.
+- en: Answer = 210
+tier: C

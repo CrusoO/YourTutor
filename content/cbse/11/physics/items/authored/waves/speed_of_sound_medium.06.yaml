@@ -1,0 +1,49 @@
+id: A.11.physics.waves.speed_of_sound_medium.06
+skill_ids:
+- SK.A.11.physics.speed_of_sound_medium
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: At the same temperature, why is the speed of sound in helium larger than in air?
+hints:
+- level: 1
+  en: Speed in a gas depends on the molar mass through an inverse square root.
+- level: 2
+  en: Compare the molar masses of the two gases.
+- level: 3
+  en: Lighter molecules move faster at the same temperature.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: helium is denser than air
+- id: b
+  en: helium is hotter than air at the same temperature
+- id: c
+  en: helium has a lower molar mass
+- id: d
+  en: helium has a higher pressure at the same temperature
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.76FF39933133
+  when_answer_equals:
+  - a
+- id: MC.A.B97AEFFEC723
+  when_answer_equals:
+  - d
+- id: MC.A.2CEEA5D5AD76
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Speed in an ideal gas scales as the inverse square root of molar mass at fixed temperature.
+- en: Helium is much lighter than air, so sound travels faster in it.
+- en: The correct option is c.
+tier: C

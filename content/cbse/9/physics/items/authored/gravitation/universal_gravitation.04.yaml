@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.universal_gravitation.04
+skill_ids:
+- SK.A.9.physics.universal_gravitation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: At a distance 60 times Earth's radius from its centre, how does Earth's gravitational pull compare with its pull at the surface?
+hints:
+- level: 1
+  en: Gravity depends on the square of the distance from the centre.
+- level: 2
+  en: Find how many times larger the distance is than the radius.
+- level: 3
+  en: Square that ratio and take its reciprocal.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: about 1/60 as strong
+- id: b
+  en: about 1/3600 as strong
+- id: c
+  en: exactly the same
+- id: d
+  en: about 60 times stronger
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A6F7E9CBC5C4
+  when_answer_equals:
+  - a
+- id: MC.A.8C78CF2ADAD7
+  when_answer_equals:
+  - d
+- id: MC.A.C78B234FE547
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The distance is 60 times the radius, so the pull is one over 60 squared, or about one three-thousand-six-hundredth as strong.
+- en: The correct option is b.
+tier: C

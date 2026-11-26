@@ -1,0 +1,49 @@
+id: A.11.maths.limits_and_derivatives.derivative_first_principles.06
+skill_ids:
+- SK.A.11.maths.derivative_first_principles
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which statement is true about the function f(x) equal to absolute value of x at x equal to 0, judged from first principles?
+hints:
+- level: 1
+  en: Compute the difference quotient approaching from the right and from the left separately.
+- level: 2
+  en: Compare the two one-sided values you obtain.
+- level: 3
+  en: A derivative requires the two one-sided values to agree.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the derivative is 1 from both sides
+- id: b
+  en: the derivative is 0 because the function value at zero is zero
+- id: c
+  en: the derivative does not exist because the one-sided limits differ
+- id: d
+  en: the derivative is minus 1 from both sides
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C3E89261C5C8
+  when_answer_equals:
+  - b
+- id: MC.A.0ABD2B7F2760
+  when_answer_equals:
+  - a
+- id: MC.A.24B7038BF584
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The right-hand quotient is 1 and the left-hand quotient is minus 1, so the two one-sided limits differ and no derivative exists at zero.
+- en: The correct option is c.
+tier: C
+diagram_note: A V-shaped graph of the absolute value function with the vertex at the origin and the one-sided slopes marked on each arm.

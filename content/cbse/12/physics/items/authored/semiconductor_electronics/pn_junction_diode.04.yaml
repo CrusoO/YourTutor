@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.04
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is a Zener diode most commonly used for in a circuit?
+hints:
+- level: 1
+  en: Think about the region of operation in which the Zener voltage stays nearly constant.
+- level: 2
+  en: Consider which bias the Zener diode uses.
+- level: 3
+  en: Recall what a voltage regulator is meant to keep constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: As a rectifier that blocks current in both directions
+- id: b
+  en: As an amplifier operating in forward bias
+- id: c
+  en: As a voltage regulator, operating in reverse breakdown
+- id: d
+  en: As a capacitor that stores charge
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.880BDC3076DE
+  when_answer_equals:
+  - a
+- id: MC.A.C8515EEA7C82
+  when_answer_equals:
+  - b
+- id: MC.A.05638ECFB339
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A Zener diode is designed to operate in reverse breakdown, where its voltage stays nearly constant over a range of currents, which is useful for regulating a supply.
+- en: The correct option is c.
+tier: C

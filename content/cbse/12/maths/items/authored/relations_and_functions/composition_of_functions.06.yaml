@@ -1,0 +1,29 @@
+id: A.12.maths.relations_and_functions.composition_of_functions.06
+skill_ids:
+- SK.A.12.maths.composition_of_functions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let f(x) = x^2 + 1 for x >= 0 and g(x) = square root of (x - 1) for x >= 1. Find (g o f)(2).
+hints:
+- level: 1
+  en: Evaluate f at the given input first and check that the result lies in the domain of g.
+- level: 2
+  en: Then feed that result into g.
+- level: 3
+  en: Evaluate the square root of the expression you obtain, keeping only the nonnegative root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2'
+  accept: []
+solution_steps:
+- en: f(2) = 5, which is at least 1 so it lies in the domain of g, and g(5) = square root of 4, which equals 2.
+- en: Answer = 2
+tier: C

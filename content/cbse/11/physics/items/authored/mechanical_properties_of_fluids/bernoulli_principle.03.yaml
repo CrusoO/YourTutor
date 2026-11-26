@@ -1,0 +1,30 @@
+id: A.11.physics.mechanical_properties_of_fluids.bernoulli_principle.03
+skill_ids:
+- SK.A.11.physics.bernoulli_principle
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Air flows along a horizontal pipe. At one point the speed is 3 m/s and the pressure is 100 kPa. The air density is 1.2 kg/m^3. What is the pressure in kilopascals at a point where the speed is 9 m/s, to two decimal places?
+hints:
+- level: 1
+  en: Along a horizontal streamline the energy terms are the pressure and the kinetic energy per unit volume.
+- level: 2
+  en: Write the pressure difference as half the density times the difference of the squared speeds.
+- level: 3
+  en: Convert the final pressure to kilopascals.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '99.96'
+  accept: []
+solution_steps:
+- en: Bernoulli gives P2 = P1 + one half rho (v1^2 - v2^2) = 100000 + 0.6 times (9 - 81) = 99956.8 Pa, which is 99.96 kPa.
+- en: The unit of the answer is kPa.
+- en: Answer = 99.96
+tier: C

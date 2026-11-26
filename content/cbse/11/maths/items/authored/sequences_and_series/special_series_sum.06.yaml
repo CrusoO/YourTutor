@@ -1,0 +1,48 @@
+id: A.11.maths.sequences_and_series.special_series_sum.06
+skill_ids:
+- SK.A.11.maths.special_series_sum
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which expression gives the sum 1 times 2 plus 2 times 3 plus 3 times 4 plus up to n times (n plus 1)?
+hints:
+- level: 1
+  en: Write each term as a product of consecutive integers and look for a pattern in the partial sums.
+- level: 2
+  en: Compute the partial sums for the first few values of n and compare them with candidate formulas.
+- level: 3
+  en: Check that the chosen formula reproduces every partial sum you computed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: n squared (n+1)/2
+- id: b
+  en: (n+1)(n+2)/2
+- id: c
+  en: n(n+1)(n+2)/3
+- id: d
+  en: n(n+1)(2n+1)/6
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1EA7F3007CDD
+  when_answer_equals:
+  - d
+- id: MC.A.ECD681C5C5AB
+  when_answer_equals:
+  - a
+- id: MC.A.4E673D18C898
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Checking partial sums gives 2, 8 and 20 for n equal to 1, 2 and 3, and n times (n plus 1) times (n plus 2) divided by 3 reproduces each of them.
+- en: The correct option is c.
+tier: C

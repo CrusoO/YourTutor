@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.permutations.06
+skill_ids:
+- SK.A.11.maths.permutations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which expression counts the distinct arrangements of the letters of the word ALLOY?
+hints:
+- level: 1
+  en: Start from the number of ways to arrange five letters if each were different.
+- level: 2
+  en: Find which letter repeats and how many times it appears.
+- level: 3
+  en: Divide out the orderings that swap identical copies.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5 factorial
+- id: b
+  en: 5 factorial times 2 factorial
+- id: c
+  en: 5 factorial over 2 factorial
+- id: d
+  en: 4 factorial over 2 factorial
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.810F5E362839
+  when_answer_equals:
+  - a
+- id: MC.A.6D5EFC33F5F0
+  when_answer_equals:
+  - d
+- id: MC.A.B00E3DE54025
+  when_answer_equals:
+  - b
+solution_steps:
+- en: ALLOY has 5 letters with one letter repeated twice, so the arrangements number 5 factorial divided by 2 factorial.
+- en: The correct option is c.
+tier: C

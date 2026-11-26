@@ -1,0 +1,48 @@
+id: A.11.chemistry.organic_chemistry_basic_principles.purification_and_analysis.06
+skill_ids:
+- SK.A.11.chemistry.purification_and_analysis
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In chromatography, how is the Rf value of a spot defined?
+hints:
+- level: 1
+  en: Both distances are measured from the same starting line.
+- level: 2
+  en: The spot cannot move farther than the solvent front, so the ratio stays below a limit.
+- level: 3
+  en: Think about which distance goes on top in the ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: distance moved by the spot divided by distance moved by the solvent front
+- id: b
+  en: solvent speed divided by the time taken
+- id: c
+  en: distance moved by the spot plus distance moved by the solvent front
+- id: d
+  en: distance moved by the solvent front divided by distance moved by the spot
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5F5E3473A868
+  when_answer_equals:
+  - d
+- id: MC.A.75F9145E15E4
+  when_answer_equals:
+  - c
+- id: MC.A.72ABECCF4D35
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The Rf value is always less than one because the spot cannot travel farther than the solvent front, and it is a ratio of the two distances measured from the same starting line.
+- en: The correct option is a.
+tier: C

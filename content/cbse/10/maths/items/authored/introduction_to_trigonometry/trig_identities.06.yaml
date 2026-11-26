@@ -1,0 +1,49 @@
+id: A.10.maths.introduction_to_trigonometry.trig_identities.06
+skill_ids:
+- SK.A.10.maths.trig_identities
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A student says sin²θ + cos²θ = 1 holds only for 30 and 60 degrees. What is the best response?
+hints:
+- level: 1
+  en: Think about which sides the identity is built from.
+- level: 2
+  en: Ask whether the proof depends on a specific angle.
+- level: 3
+  en: Consider whether a general proof can be checked on only a few examples.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The student is right, because it is only true for special angles.
+- id: b
+  en: The identity holds for every acute angle, because it follows from Pythagoras in any right triangle.
+- id: c
+  en: The identity is true only at 45 degrees.
+- id: d
+  en: The identity holds only when the triangle is isosceles.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A883CC1714E9
+  when_answer_equals:
+  - a
+- id: MC.A.FCAFCEB03F5C
+  when_answer_equals:
+  - d
+- id: MC.A.4E6B83457ED3
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The proof uses only the sides of a right triangle, so it applies to any acute angle.
+- en: Checking a few special angles can illustrate the identity but cannot limit it.
+- en: The correct option is b.
+tier: C

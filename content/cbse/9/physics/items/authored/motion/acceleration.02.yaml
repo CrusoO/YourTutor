@@ -1,0 +1,48 @@
+id: A.9.physics.motion.acceleration.02
+skill_ids:
+- SK.A.9.physics.acceleration
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: When an object slows down, which description best matches its acceleration?
+hints:
+- level: 1
+  en: Acceleration points in the direction in which velocity is being pushed.
+- level: 2
+  en: Consider which way the velocity is being changed while the object slows.
+- level: 3
+  en: The sign of the change tells you the direction of acceleration.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: opposite to its velocity, so the speed decreases
+- id: b
+  en: zero, since it is not speeding up
+- id: c
+  en: equal in size to its velocity
+- id: d
+  en: in the same direction as its velocity
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B27D19A3DA9A
+  when_answer_equals:
+  - d
+- id: MC.A.58C2E6A47C67
+  when_answer_equals:
+  - b
+- id: MC.A.525E0AF0569D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Slowing down means the velocity is decreasing, so the acceleration points against the motion, and acceleration is nonzero whenever velocity changes.
+- en: The correct option is a.
+tier: C

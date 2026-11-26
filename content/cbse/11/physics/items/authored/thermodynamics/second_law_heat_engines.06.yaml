@@ -1,0 +1,48 @@
+id: A.11.physics.thermodynamics.second_law_heat_engines.06
+skill_ids:
+- SK.A.11.physics.second_law_heat_engines
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A Carnot refrigerator operates between a cold reservoir at 250 K and a hot reservoir at 300 K. What is its coefficient of performance?
+hints:
+- level: 1
+  en: The coefficient of performance of a refrigerator puts the cold temperature in the numerator.
+- level: 2
+  en: The denominator is the temperature gap between the two reservoirs.
+- level: 3
+  en: Use absolute temperatures in kelvin, not degrees Celsius.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '0.2'
+- id: c
+  en: '1.2'
+- id: d
+  en: '6'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4857804556F4
+  when_answer_equals:
+  - d
+- id: MC.A.BB840734F3E7
+  when_answer_equals:
+  - b
+- id: MC.A.929C5FF62897
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The coefficient of performance of a Carnot refrigerator is T_cold / (T_hot - T_cold), which is 250 / 50 = 5.
+- en: The correct option is a.
+tier: C

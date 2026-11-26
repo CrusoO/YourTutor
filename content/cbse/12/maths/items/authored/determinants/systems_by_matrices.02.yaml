@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.systems_by_matrices.02
+skill_ids:
+- SK.A.12.maths.systems_by_matrices
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For a system AX = B where det A is zero, which statement is correct about solving by matrix inversion?
+hints:
+- level: 1
+  en: Recall when the inverse of a coefficient matrix exists.
+- level: 2
+  en: Think about what a zero determinant means for solving by inversion.
+- level: 3
+  en: Consider whether the inversion method can produce one answer in this case.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The matrix method does not give a unique solution
+- id: b
+  en: X equals B times A
+- id: c
+  en: A inverse always exists
+- id: d
+  en: It always has exactly one solution
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.36043A5B8A1C
+  when_answer_equals:
+  - d
+- id: MC.A.725EFCDFC325
+  when_answer_equals:
+  - c
+- id: MC.A.AD6F1E1957B3
+  when_answer_equals:
+  - b
+solution_steps:
+- en: When det A is zero the inverse of A does not exist, so the inversion method cannot produce a single unique solution.
+- en: The correct option is a.
+tier: C

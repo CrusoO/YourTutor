@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_straight_line.position_displacement_velocity.03
+skill_ids:
+- SK.A.11.physics.position_displacement_velocity
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A car covers the first half of a 120 km journey at 40 km/h and the second half at 60 km/h. What is its average speed for the whole trip?
+hints:
+- level: 1
+  en: Average speed uses the total distance and the total time.
+- level: 2
+  en: Work out the time for each half separately.
+- level: 3
+  en: Divide each half distance by its speed to get that part's time.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 50 km/h
+- id: b
+  en: 40 km/h
+- id: c
+  en: 96 km/h
+- id: d
+  en: 48 km/h
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7CE7550E3DDE
+  when_answer_equals:
+  - a
+- id: MC.A.56E7267F35B7
+  when_answer_equals:
+  - b
+- id: MC.A.058F86EB0464
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first half takes 1.5 h and the second half takes 1 h.
+- en: Total distance 120 km over 2.5 h gives 48 km/h.
+- en: The correct option is d.
+tier: C

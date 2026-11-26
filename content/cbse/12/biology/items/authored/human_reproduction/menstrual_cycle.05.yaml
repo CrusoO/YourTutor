@@ -1,0 +1,49 @@
+id: A.12.biology.human_reproduction.menstrual_cycle.05
+skill_ids:
+- SK.A.12.biology.menstrual_cycle
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A drug stops the pituitary from releasing FSH. What is the most likely effect on the menstrual cycle?
+hints:
+- level: 1
+  en: Think about what FSH normally does to the follicles.
+- level: 2
+  en: Consider whether ovulation can occur without a mature follicle.
+- level: 3
+  en: Ask what happens to the cycle when the first step is missing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Menstruation would begin on day one regardless
+- id: b
+  en: The corpus luteum would grow larger
+- id: c
+  en: The uterine lining would thicken without limit
+- id: d
+  en: Follicles would not mature, so ovulation would not occur
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.71BF36CA90B1
+  when_answer_equals:
+  - b
+- id: MC.A.D0BD0A3C76C3
+  when_answer_equals:
+  - c
+- id: MC.A.7E3E5BB8FAAA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: FSH drives follicle growth, and without it follicles do not mature enough to release an egg.
+- en: The rest of the cycle depends on that ovarian step.
+- en: The correct option is d.
+tier: C

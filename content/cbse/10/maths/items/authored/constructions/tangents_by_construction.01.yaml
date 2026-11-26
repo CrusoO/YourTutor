@@ -1,0 +1,50 @@
+id: A.10.maths.constructions.tangents_by_construction.01
+skill_ids:
+- SK.A.10.maths.tangents_by_construction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: To construct tangents from an external point T to a circle with centre O, what is the first step?
+hints:
+- level: 1
+  en: Think about which point is the centre of the given circle.
+- level: 2
+  en: The tangents touch the circle at points where a right angle appears.
+- level: 3
+  en: Find the midpoint of a segment joining the centre and T.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Join T to the centre O.
+- id: b
+  en: Draw a perpendicular from T to a diameter.
+- id: c
+  en: Draw a tangent at any point on the circle.
+- id: d
+  en: Measure the radius and draw a circle with centre T.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.26E870475322
+  when_answer_equals:
+  - c
+- id: MC.A.A79B15E6885C
+  when_answer_equals:
+  - b
+- id: MC.A.5D0F87984E0E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Joining T to O gives a segment whose midpoint is the centre of a helper circle.
+- en: That helper circle cuts the original circle at the two contact points.
+- en: The correct option is a.
+tier: C
+diagram_note: A circle with centre O and an external point T marked outside it, with the segment OT not yet drawn.

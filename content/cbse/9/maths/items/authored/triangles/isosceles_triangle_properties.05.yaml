@@ -1,0 +1,49 @@
+id: A.9.maths.triangles.isosceles_triangle_properties.05
+skill_ids:
+- SK.A.9.maths.isosceles_triangle_properties
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In triangle ABC, AB equals AC. The bisector of angle A meets BC at D. Which statement necessarily follows?
+hints:
+- level: 1
+  en: Use the symmetry of the isosceles triangle about its axis.
+- level: 2
+  en: Compare the two triangles ABD and ACD.
+- level: 3
+  en: Check the angles that meet at D along the base line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: BD is twice DC.
+- id: b
+  en: Angle B is a right angle.
+- id: c
+  en: Angle ADB is a right angle.
+- id: d
+  en: Angle ABD is three times angle ADB.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.12F4DDEA543E
+  when_answer_equals:
+  - a
+- id: MC.A.D005C7CE1BD6
+  when_answer_equals:
+  - d
+- id: MC.A.FF3046A747B2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The bisector from the apex of an isosceles triangle is also the perpendicular bisector of the base, so the angle at D is a right angle.
+- en: The correct option is c.
+tier: C
+diagram_note: Isosceles triangle with apex A, the angle bisector AD drawn to the base BC, and the angle at D marked.

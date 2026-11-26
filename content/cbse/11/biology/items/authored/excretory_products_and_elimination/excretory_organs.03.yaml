@@ -1,0 +1,49 @@
+id: A.11.biology.excretory_products_and_elimination.excretory_organs.03
+skill_ids:
+- SK.A.11.biology.excretory_organs
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does the ascending limb of the loop of Henle help create a concentrated medulla?
+hints:
+- level: 1
+  en: Think about which limb of the loop is impermeable to water.
+- level: 2
+  en: Consider which ions are pumped out to build the gradient.
+- level: 3
+  en: The gradient is created in the surrounding interstitial fluid.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Glucose is secreted into the medulla from the ascending limb
+- id: b
+  en: Urea is absorbed from the collecting duct only
+- id: c
+  en: Salt is actively pumped out of the ascending limb, which is impermeable to water, so the surrounding medulla becomes concentrated
+- id: d
+  en: Water is actively pumped into the descending limb
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.03B734214FC6
+  when_answer_equals:
+  - d
+- id: MC.A.D29207C9336C
+  when_answer_equals:
+  - a
+- id: MC.A.7ACD1B6CB3A9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The ascending limb is impermeable to water but actively transports sodium and chloride out.
+- en: This leaves the interstitial fluid of the medulla concentrated, which lets the collecting duct recover water.
+- en: The correct option is c.
+tier: C

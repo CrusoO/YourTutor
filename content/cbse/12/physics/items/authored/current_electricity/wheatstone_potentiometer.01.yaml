@@ -1,0 +1,48 @@
+id: A.12.physics.current_electricity.wheatstone_potentiometer.01
+skill_ids:
+- SK.A.12.physics.wheatstone_potentiometer
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A Wheatstone bridge is balanced when which condition holds?
+hints:
+- level: 1
+  en: Think about the current through the galvanometer when the bridge is balanced.
+- level: 2
+  en: Recall which relation between the two arms makes the potentials at the two middle points equal.
+- level: 3
+  en: Consider whether the four resistors must all be the same value.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The galvanometer shows its maximum deflection
+- id: b
+  en: The battery voltage equals the galvanometer reading
+- id: c
+  en: The ratios of resistances in the two arms are equal
+- id: d
+  en: All four resistors are equal
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.53B5EB0B61EA
+  when_answer_equals:
+  - a
+- id: MC.A.49D7B4A06BDF
+  when_answer_equals:
+  - d
+- id: MC.A.0C189D2DF0B2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: No current flows through the galvanometer when the bridge is balanced, which happens when the resistance ratios in the two arms match.
+- en: The correct option is c.
+tier: C

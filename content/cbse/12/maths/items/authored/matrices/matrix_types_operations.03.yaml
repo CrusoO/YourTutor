@@ -1,0 +1,48 @@
+id: A.12.maths.matrices.matrix_types_operations.03
+skill_ids:
+- SK.A.12.maths.matrix_types_operations
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A = [[2, 1], [0, 3]] and B = [[1, 0], [2, 1]]. Which number is the entry in row 1, column 2 of AB?
+hints:
+- level: 1
+  en: The entry in row i, column j of a product uses row i of the first matrix and column j of the second.
+- level: 2
+  en: Multiply the paired entries and add the products.
+- level: 3
+  en: Work out the pairs one at a time and keep the order straight.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '2'
+- id: c
+  en: '1'
+- id: d
+  en: '0'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BCA97D163EEB
+  when_answer_equals:
+  - d
+- id: MC.A.B1B1625BB9BC
+  when_answer_equals:
+  - a
+- id: MC.A.5F2A66E3E476
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The entry in row 1, column 2 of AB is the first row of A times the second column of B, which is 2 times 0 plus 1 times 1, giving 1.
+- en: The correct option is c.
+tier: C

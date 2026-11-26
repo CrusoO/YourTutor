@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.04
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which statement is the contrapositive of 'if a number is divisible by 4, then it is even'?
+hints:
+- level: 1
+  en: Swap the hypothesis and the conclusion, and negate both of them.
+- level: 2
+  en: Keep the direction of the implication while making both parts negative.
+- level: 3
+  en: Compare the resulting statement with the original to check equivalence.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: if a number is not divisible by 4, then it is not even
+- id: b
+  en: if a number is not even, then it is not divisible by 4
+- id: c
+  en: if a number is odd, then it is not divisible by 4
+- id: d
+  en: if a number is even, then it is divisible by 4
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C78B3A0ACEB8
+  when_answer_equals:
+  - d
+- id: MC.A.D0093955153E
+  when_answer_equals:
+  - a
+- id: MC.A.236594E7DE52
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The contrapositive swaps and negates both parts, so 'not even' implies 'not divisible by 4', which is logically equivalent to the original.
+- en: The correct option is b.
+tier: C

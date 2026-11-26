@@ -1,0 +1,30 @@
+id: A.12.maths.probability.total_probability_bayes.03
+skill_ids:
+- SK.A.12.maths.total_probability_bayes
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Machine X makes 60 percent of the items and has a defect rate of 0.02. Machine Y makes the other 40 percent with a defect rate of 0.05. Find the overall probability that a randomly chosen item is defective.
+hints:
+- level: 1
+  en: Weight each machine's defect rate by its share of production.
+- level: 2
+  en: Add the two weighted rates.
+- level: 3
+  en: Check that the shares of production add to one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.032'
+  accept: []
+solution_steps:
+- en: The total defect probability is 0.6 times 0.02 plus 0.4 times 0.05, which equals 0.012 plus 0.02, giving 0.032.
+- en: Answer = 0.032
+tier: C
+diagram_note: Tree diagram with two machine branches labelled 60 percent and 40 percent, each followed by defective and not defective branches.

@@ -1,0 +1,49 @@
+id: A.9.maths.triangles.inequalities_in_triangles.05
+skill_ids:
+- SK.A.9.maths.inequalities_in_triangles
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In triangle ABC, the exterior angle at C is larger than the interior angle at A. Which statement is necessarily true?
+hints:
+- level: 1
+  en: Recall how an exterior angle relates to the two remote interior angles.
+- level: 2
+  en: Write the exterior angle as a sum of two angles.
+- level: 3
+  en: Compare each remote angle with that sum.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Angle B is larger than the exterior angle at C.
+- id: b
+  en: Angle A equals angle B.
+- id: c
+  en: Side AB is the shortest side of the triangle.
+- id: d
+  en: Angle B is smaller than the exterior angle at C.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.6F06ED10746D
+  when_answer_equals:
+  - a
+- id: MC.A.6E7C2BD11112
+  when_answer_equals:
+  - b
+- id: MC.A.F7C1D53401DB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The exterior angle at C equals the sum of the two remote interior angles A and B, so it is larger than each of them, including angle B.
+- en: The correct option is d.
+tier: C
+diagram_note: Triangle ABC with side BC extended beyond C, the exterior angle at C marked, and the interior angles A and B labelled.

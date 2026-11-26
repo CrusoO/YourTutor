@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.gas_laws_kinetic_model.06
+skill_ids:
+- SK.A.11.physics.gas_laws_kinetic_model
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The absolute temperature of an ideal gas is doubled in kelvin. What happens to the average translational kinetic energy of its molecules?
+hints:
+- level: 1
+  en: Average kinetic energy is directly proportional to the absolute temperature.
+- level: 2
+  en: Use kelvin, not Celsius, when forming the ratio.
+- level: 3
+  en: Check whether the relation is linear or involves a square.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it halves
+- id: b
+  en: it quadruples
+- id: c
+  en: it doubles
+- id: d
+  en: it stays the same
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2F169B4CD12E
+  when_answer_equals:
+  - b
+- id: MC.A.98EB57045C1D
+  when_answer_equals:
+  - d
+- id: MC.A.055330852DC2
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The average translational kinetic energy is three halves k_B T, which is directly proportional to the absolute temperature, so doubling T doubles it.
+- en: The correct option is c.
+tier: C

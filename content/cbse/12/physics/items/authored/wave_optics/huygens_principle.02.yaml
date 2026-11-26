@@ -1,0 +1,49 @@
+id: A.12.physics.wave_optics.huygens_principle.02
+skill_ids:
+- SK.A.12.physics.huygens_principle
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: A plane wavefront passes through a very narrow slit. What shape does the wavefront take just after the slit?
+hints:
+- level: 1
+  en: Think about the wavelets that each point in the slit emits.
+- level: 2
+  en: Consider how a very narrow opening behaves as a source.
+- level: 3
+  en: Compare the wavefront just after the slit with the original plane wave.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Rectangular, matching the slit shape
+- id: b
+  en: Still plane and unchanged
+- id: c
+  en: Converging to a single focus at the slit
+- id: d
+  en: Circular, spreading out from the slit
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.C80CC9F50CDB
+  when_answer_equals:
+  - b
+- id: MC.A.CAD1835FB9C5
+  when_answer_equals:
+  - c
+- id: MC.A.3318C4E3796D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The narrow slit acts as a new source of secondary wavelets, so the wavefront beyond it spreads out in a circular pattern.
+- en: The correct option is d.
+tier: C
+diagram_note: A plane wavefront approaching a narrow slit from the left, with curved wavefronts drawn on the right side of the slit spreading outward.

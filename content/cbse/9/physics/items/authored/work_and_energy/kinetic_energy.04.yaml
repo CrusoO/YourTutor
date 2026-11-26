@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.kinetic_energy.04
+skill_ids:
+- SK.A.9.physics.kinetic_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Two cars of masses 1000 kg and 2000 kg travel at the same speed. Which car has the larger kinetic energy?
+hints:
+- level: 1
+  en: Kinetic energy is proportional to the mass when the speed is fixed.
+- level: 2
+  en: Compare the two masses while the speed stays the same.
+- level: 3
+  en: Kinetic energy does not depend on whether the car is accelerating.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: both have equal kinetic energy
+- id: b
+  en: neither has kinetic energy unless it is accelerating
+- id: c
+  en: the 2000 kg car, which has twice the energy
+- id: d
+  en: the 1000 kg car
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.77B286D97B3D
+  when_answer_equals:
+  - d
+- id: MC.A.1804268D55FC
+  when_answer_equals:
+  - a
+- id: MC.A.D9AAACABBB8D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: At equal speeds kinetic energy is proportional to mass, so the heavier 2000 kg car has twice the energy of the 1000 kg car.
+- en: The correct option is c.
+tier: C

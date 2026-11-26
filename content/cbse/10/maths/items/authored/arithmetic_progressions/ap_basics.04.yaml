@@ -1,0 +1,49 @@
+id: A.10.maths.arithmetic_progressions.ap_basics.04
+skill_ids:
+- SK.A.10.maths.ap_basics
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does the formula a + (n - 1)d give the first term when n = 1?
+hints:
+- level: 1
+  en: Substitute n = 1 into the formula and simplify.
+- level: 2
+  en: Ask how many steps you have taken to reach the first term.
+- level: 3
+  en: Think about what the factor (n - 1) counts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because the (n - 1) part becomes 0, leaving just a.
+- id: b
+  en: Because a is replaced by n.
+- id: c
+  en: Because the formula only works for odd values of n.
+- id: d
+  en: Because d is always set to 1 at the start.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.360D854905BA
+  when_answer_equals:
+  - d
+- id: MC.A.58A7B98E0F56
+  when_answer_equals:
+  - b
+- id: MC.A.C2A4A60F365D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Substituting n = 1 gives a + 0 × d = a.
+- en: The formula counts how many steps of size d are added after the first term.
+- en: The correct option is a.
+tier: C

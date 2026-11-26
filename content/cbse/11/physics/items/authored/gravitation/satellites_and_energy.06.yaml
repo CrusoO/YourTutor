@@ -1,0 +1,49 @@
+id: A.11.physics.gravitation.satellites_and_energy.06
+skill_ids:
+- SK.A.11.physics.satellites_and_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The orbital radius of a satellite is increased. Which statement about its kinetic energy is correct?
+hints:
+- level: 1
+  en: Orbital speed falls as the orbit becomes larger.
+- level: 2
+  en: Kinetic energy depends on the square of the speed.
+- level: 3
+  en: Relate the orbital radius to the speed through gravity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: kinetic energy becomes negative
+- id: b
+  en: kinetic energy decreases
+- id: c
+  en: kinetic energy stays unchanged
+- id: d
+  en: kinetic energy increases
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AAC31BDB1417
+  when_answer_equals:
+  - d
+- id: MC.A.879E7CB9E039
+  when_answer_equals:
+  - c
+- id: MC.A.18FF5B400164
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Orbital speed falls as the radius grows, since v^2 = G M / r.
+- en: The kinetic energy is one half m v^2, so it decreases.
+- en: The correct option is b.
+tier: C

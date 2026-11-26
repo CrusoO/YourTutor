@@ -1,0 +1,48 @@
+id: A.11.physics.thermodynamics.first_law.06
+skill_ids:
+- SK.A.11.physics.first_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A gas undergoes a full cyclic process and returns to its starting state. Which statement is correct?
+hints:
+- level: 1
+  en: Internal energy returns to its starting value after one full cycle.
+- level: 2
+  en: Apply the first law across the whole cycle.
+- level: 3
+  en: Whatever net heat enters the gas must leave as net work over a full cycle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: net heat absorbed is zero but net work is not zero
+- id: b
+  en: net work done is always zero
+- id: c
+  en: net heat absorbed equals net work done by the gas
+- id: d
+  en: net internal energy change is positive
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.936D47E80782
+  when_answer_equals:
+  - a
+- id: MC.A.7F9F4DDB2C57
+  when_answer_equals:
+  - b
+- id: MC.A.08F26B578CFA
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Over a full cycle the internal energy returns to its starting value, so the net heat absorbed equals the net work done by the gas, as the first law requires.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.chemistry.alcohols_phenols_and_ethers.alcohol_preparation_reactions.05
+skill_ids:
+- SK.A.12.chemistry.alcohol_preparation_reactions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which mechanism applies when a secondary alcohol reacts with concentrated HBr?
+hints:
+- level: 1
+  en: Think about the leaving group, which is water after protonation, and the carbon's ability to stabilise a positive charge.
+- level: 2
+  en: Consider whether the carbon forms an intermediate cation.
+- level: 3
+  en: Compare the substrate with a primary alcohol, which reacts differently.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Electrophilic addition to a double bond
+- id: b
+  en: SN2 at the oxygen only
+- id: c
+  en: Radical chain substitution
+- id: d
+  en: SN1 via a carbocation
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.20F8B3471787
+  when_answer_equals:
+  - b
+- id: MC.A.DB71D7ADABC1
+  when_answer_equals:
+  - c
+- id: MC.A.5554525A4D99
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The hydroxyl is protonated and leaves as water, giving a secondary carbocation that bromide attacks.
+- en: The step is SN1 in character.
+- en: The correct option is d.
+tier: C

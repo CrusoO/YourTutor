@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.variable_separable.03
+skill_ids:
+- SK.A.12.maths.variable_separable
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Solve dy/dx = x y with y(0) = 2. Find y(2), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Separate the variables with y on one side and x on the other.
+- level: 2
+  en: Integrate the function of x on the right side.
+- level: 3
+  en: Apply the initial condition, then evaluate at x equal to 2.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '14.778'
+  accept: []
+solution_steps:
+- en: Separating gives dy/y = x dx, so y = 2 e^(x^2/2).
+- en: At x = 2 this gives 2e^2, about 14.778.
+- en: Answer = 14.778
+tier: C

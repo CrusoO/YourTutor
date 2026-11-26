@@ -1,0 +1,29 @@
+id: A.12.maths.continuity_and_differentiability.continuity_check.03
+skill_ids:
+- SK.A.12.maths.continuity_check
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Let f(x) = sin(3x)/x for x not equal to 0, and f(0) = k. Find k so that f is continuous at 0.
+hints:
+- level: 1
+  en: Recall the standard limit of sin t divided by t as t approaches zero.
+- level: 2
+  en: Rewrite the fraction so that the denominator matches the angle inside the sine.
+- level: 3
+  en: Set the value at zero equal to the limit you found.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3'
+  accept: []
+solution_steps:
+- en: Writing sin(3x)/x as 3 times sin(3x)/(3x) and using the standard limit of sin t over t gives a limit of 3 at zero, so k is 3.
+- en: Answer = 3
+tier: C

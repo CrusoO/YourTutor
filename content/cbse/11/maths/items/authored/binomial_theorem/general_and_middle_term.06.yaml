@@ -1,0 +1,48 @@
+id: A.11.maths.binomial_theorem.general_and_middle_term.06
+skill_ids:
+- SK.A.11.maths.general_and_middle_term
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In the expansion of (1 + x) to the power 10, which term has the greatest binomial coefficient?
+hints:
+- level: 1
+  en: Binomial coefficients are symmetric, so the largest ones sit near the middle.
+- level: 2
+  en: Find the central index of the sequence of coefficients.
+- level: 3
+  en: Convert the index you found into the position of the term, counting from one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the fourth term
+- id: b
+  en: the seventh term
+- id: c
+  en: the sixth term
+- id: d
+  en: the fifth term
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F5EE54E39CA0
+  when_answer_equals:
+  - d
+- id: MC.A.3EBB1DD47D46
+  when_answer_equals:
+  - b
+- id: MC.A.02C8711A18F3
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The coefficients are symmetric and largest at the centre, which is the index 5, so the sixth term holds the largest coefficient.
+- en: The correct option is c.
+tier: C

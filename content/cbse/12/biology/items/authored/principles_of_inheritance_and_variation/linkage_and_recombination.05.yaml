@@ -1,0 +1,49 @@
+id: A.12.biology.principles_of_inheritance_and_variation.linkage_and_recombination.05
+skill_ids:
+- SK.A.12.biology.linkage_and_recombination
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Genes A, B and C lie on one chromosome. Recombination is 5 percent between A and B, 10 percent between B and C, and 15 percent between A and C. Which is the gene order?
+hints:
+- level: 1
+  en: Compare the distances and see which pair adds up to the third distance.
+- level: 2
+  en: The middle gene must lie between the two end genes.
+- level: 3
+  en: Trace the sum of the two smaller distances.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A C B
+- id: b
+  en: B A C
+- id: c
+  en: A B C
+- id: d
+  en: B C A
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C6D29AEB2918
+  when_answer_equals:
+  - b
+- id: MC.A.311D94B2A778
+  when_answer_equals:
+  - a
+- id: MC.A.0677369696B8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The A to C distance equals the sum of the A to B and B to C distances, so B lies between A and C.
+- en: The order is A B C.
+- en: The correct option is c.
+tier: C

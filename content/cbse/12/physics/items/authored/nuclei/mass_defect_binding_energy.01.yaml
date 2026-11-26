@@ -1,0 +1,49 @@
+id: A.12.physics.nuclei.mass_defect_binding_energy.01
+skill_ids:
+- SK.A.12.physics.mass_defect_binding_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the binding energy of a nucleus?
+hints:
+- level: 1
+  en: Compare the mass of the nucleus with the sum of the masses of its free nucleons.
+- level: 2
+  en: Think about what happens to the missing mass when the nucleus forms.
+- level: 3
+  en: Recall the link between mass and energy.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The kinetic energy of the nucleons inside it
+- id: b
+  en: The energy needed to remove an electron from the atom
+- id: c
+  en: The mass of the nucleus expressed in energy units
+- id: d
+  en: The energy equivalent of its mass defect
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2DF167CE8F4D
+  when_answer_equals:
+  - b
+- id: MC.A.C457B2B20F20
+  when_answer_equals:
+  - a
+- id: MC.A.3C381D14F570
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The mass of a bound nucleus is less than the sum of its nucleons.
+- en: The lost mass, the mass defect, is the energy that was released when the nucleus formed, given by E equal to mc squared.
+- en: The correct option is d.
+tier: C

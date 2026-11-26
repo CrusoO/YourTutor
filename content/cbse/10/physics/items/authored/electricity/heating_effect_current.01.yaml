@@ -1,0 +1,50 @@
+id: A.10.physics.electricity.heating_effect_current.01
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A wire becomes hot when a current flows through it. What causes the heating?
+hints:
+- level: 1
+  en: Think about what the electrons do as they move through the metal.
+- level: 2
+  en: Ask what the moving charges transfer when they meet the atoms of the wire.
+- level: 3
+  en: Consider where the energy supplied by the battery finally goes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Moving electrons collide with the atoms of the conductor and transfer energy to them
+- id: b
+  en: The current is converted into light inside the wire
+- id: c
+  en: The battery supplies heat energy directly to the wire
+- id: d
+  en: The wire stores charge and releases it as heat
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0BF3E1943853
+  when_answer_equals:
+  - b
+- id: MC.A.17BB2DD7F0AB
+  when_answer_equals:
+  - d
+- id: MC.A.76554D1AD752
+  when_answer_equals:
+  - c
+solution_steps:
+- en: As electrons drift through a conductor, they collide with the atoms of the metal.
+- en: Each collision transfers some energy to the atoms, which vibrate more and raise the temperature of the wire.
+- en: This energy transfer is the heating effect of current.
+- en: The correct option is a.
+tier: C

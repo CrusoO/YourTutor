@@ -1,0 +1,30 @@
+id: A.11.chemistry.equilibrium.equilibrium_constant_calc.03
+skill_ids:
+- SK.A.11.chemistry.equilibrium_constant_calc
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: For H2 + I2 <=> 2 HI, Kc = 50 at a given temperature. Starting with 1 mol/L of H2 and 1 mol/L of I2, what is the equilibrium concentration of HI in mol/L?
+hints:
+- level: 1
+  en: Take the square root of the equilibrium constant, since the stoichiometry is symmetric here.
+- level: 2
+  en: Set up the changes in the reactant concentrations using a single unknown.
+- level: 3
+  en: Solve the resulting linear equation for the unknown and then double it for HI.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.56'
+  accept: []
+solution_steps:
+- en: Letting y mol/L of each reactant react gives Kc = (2y)^2/(1 - y)^2 = 50, so 2y/(1 - y) = 7.07 and y is about 0.78, making [HI] about 1.56 mol/L.
+- en: The unit of the answer is mol/L.
+- en: Answer = 1.56
+tier: C

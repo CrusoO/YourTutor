@@ -1,0 +1,49 @@
+id: A.10.physics.human_eye_and_colourful_world.defects_of_vision.01
+skill_ids:
+- SK.A.10.physics.defects_of_vision
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'A person can see nearby objects clearly but cannot see distant objects clearly. This defect of vision is called:'
+hints:
+- level: 1
+  en: Think about which objects are seen clearly, near or far.
+- level: 2
+  en: Ask where the image forms when the eye cannot focus a distant object on the retina.
+- level: 3
+  en: Consider the common name for this defect.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Astigmatism
+- id: b
+  en: Hypermetropia (long-sightedness)
+- id: c
+  en: Presbyopia
+- id: d
+  en: Myopia (short-sightedness)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2D711803DF02
+  when_answer_equals:
+  - b
+- id: MC.A.9EFB9241AA0A
+  when_answer_equals:
+  - c
+- id: MC.A.5981E43401F0
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In myopia, the eye can see nearby objects but not distant ones, because the image of a distant object forms in front of the retina.
+- en: It is corrected with a diverging lens.
+- en: The correct option is d.
+tier: C

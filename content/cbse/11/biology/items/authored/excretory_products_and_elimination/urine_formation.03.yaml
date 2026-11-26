@@ -1,0 +1,49 @@
+id: A.11.biology.excretory_products_and_elimination.urine_formation.03
+skill_ids:
+- SK.A.11.biology.urine_formation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does glucose appearing in urine indicate a problem?
+hints:
+- level: 1
+  en: Think about what normal reabsorption should remove from the filtrate.
+- level: 2
+  en: Consider which blood level would exceed the reabsorption capacity.
+- level: 3
+  en: The problem is a blood sugar level that is too high for the kidneys to handle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Glucose is normally secreted into the urine in large amounts
+- id: b
+  en: Glucose is normally fully reabsorbed, so its presence suggests blood glucose exceeds the reabsorption capacity
+- id: c
+  en: Glucose is a waste product that should always be present in urine
+- id: d
+  en: Glucose in urine shows that the kidney is making insulin
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B35EB6D7575A
+  when_answer_equals:
+  - a
+- id: MC.A.666ADC86D1B8
+  when_answer_equals:
+  - d
+- id: MC.A.D22B8935F5CB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Under normal conditions the proximal tubule reabsorbs all filtered glucose.
+- en: When blood glucose is high enough to exceed the transport capacity, glucose spills into the urine.
+- en: The correct option is b.
+tier: C

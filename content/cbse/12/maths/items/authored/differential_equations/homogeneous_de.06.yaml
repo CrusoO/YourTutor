@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.homogeneous_de.06
+skill_ids:
+- SK.A.12.maths.homogeneous_de
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the general solution of dy/dx = y/x + tan(y/x)?
+hints:
+- level: 1
+  en: Substitute y = vx and cancel the common term.
+- level: 2
+  en: Separate v and x in the resulting equation.
+- level: 3
+  en: Integrate both sides and rewrite the logarithm as an exponential.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin(y/x) = Cx
+- id: b
+  en: sin(y/x) = C/x
+- id: c
+  en: y = Cx tan(y/x)
+- id: d
+  en: cos(y/x) = Cx
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.264DA6BAF4C6
+  when_answer_equals:
+  - b
+- id: MC.A.D88D7CA0BA28
+  when_answer_equals:
+  - d
+- id: MC.A.1B6901ED5B80
+  when_answer_equals:
+  - c
+solution_steps:
+- en: With y = vx, the equation becomes x dv/dx = tan v, so cot v dv = dx/x, which integrates to ln|sin v| = ln|x| + constant, giving sin(y/x) = Cx.
+- en: The correct option is a.
+tier: C

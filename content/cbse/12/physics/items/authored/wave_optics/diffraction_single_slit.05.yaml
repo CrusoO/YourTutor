@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.diffraction_single_slit.05
+skill_ids:
+- SK.A.12.physics.diffraction_single_slit
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: In a single slit diffraction pattern, roughly how bright is the first secondary maximum compared with the central maximum?
+hints:
+- level: 1
+  en: Think about how the light is distributed between the central band and the side bands.
+- level: 2
+  en: Consider whether the side bands can be as bright as the central band.
+- level: 3
+  en: Recall which maximum in a single slit pattern is the brightest.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: About twice the central intensity
+- id: b
+  en: Less than about five percent of the central intensity
+- id: c
+  en: About half the central intensity
+- id: d
+  en: The same as the central intensity
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EF189CC04CD8
+  when_answer_equals:
+  - c
+- id: MC.A.4818333C5D25
+  when_answer_equals:
+  - d
+- id: MC.A.5741CBD26ABE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The first secondary maximum has only about 4.5 percent of the central intensity, so the central band carries most of the light.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.acids_bases_ph_11.02
+skill_ids:
+- SK.A.11.chemistry.acids_bases_ph_11
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Which statement about pH and pOH is correct at 25 degrees Celsius?
+hints:
+- level: 1
+  en: The ion product of water at this temperature sets the relation between the two logarithms.
+- level: 2
+  en: Take the negative logarithm of the ion product to see how the two values combine.
+- level: 3
+  en: Look for the option that describes a sum rather than a product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pH plus pOH equals 14
+- id: b
+  en: pH times pOH equals 14
+- id: c
+  en: pOH equals pH at all temperatures
+- id: d
+  en: pH plus pOH equals 7
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.231E14F80743
+  when_answer_equals:
+  - d
+- id: MC.A.2CA5C479CE5D
+  when_answer_equals:
+  - b
+- id: MC.A.32028E3D668C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: At 25 degrees Celsius the ion product of water is 1 x 10^-14, and taking negative logarithms gives pH plus pOH equal to 14.
+- en: The correct option is a.
+tier: C

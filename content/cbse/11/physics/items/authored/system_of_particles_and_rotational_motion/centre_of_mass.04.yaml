@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.centre_of_mass.04
+skill_ids:
+- SK.A.11.physics.centre_of_mass
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Where is the centre of mass of a uniform circular ring?
+hints:
+- level: 1
+  en: Symmetry places the centre where the ring has no preferred side.
+- level: 2
+  en: The centre of mass of a symmetric body lies at its middle.
+- level: 3
+  en: Look for the point that is equally far from every part of the ring.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: at the lowest point of the ring
+- id: b
+  en: on the circumference of the ring
+- id: c
+  en: outside the ring at its edge
+- id: d
+  en: at the geometric centre of the ring
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.669CD87D8423
+  when_answer_equals:
+  - b
+- id: MC.A.80F8C18197CF
+  when_answer_equals:
+  - c
+- id: MC.A.45844A7CB993
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The ring is symmetric and uniform, so its centre of mass lies at its geometric centre, which is empty space.
+- en: The correct option is d.
+tier: C

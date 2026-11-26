@@ -1,0 +1,49 @@
+id: A.10.maths.quadratic_equations.standard_form_quadratic.06
+skill_ids:
+- SK.A.10.maths.standard_form_quadratic
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which equation has exactly the same roots as x² - 5x + 6 = 0?
+hints:
+- level: 1
+  en: Multiply the candidate equation by 2 and see what you get.
+- level: 2
+  en: Compare the coefficients of each term with the original equation.
+- level: 3
+  en: Check whether scaling every term by the same nonzero number changes the roots.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2x² - 5x + 6 = 0
+- id: b
+  en: x²/2 - 5x/2 + 3 = 0
+- id: c
+  en: x² + 5x + 6 = 0
+- id: d
+  en: x² - 5x - 6 = 0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2E2DD0C35360
+  when_answer_equals:
+  - d
+- id: MC.A.CE6F274A5AF9
+  when_answer_equals:
+  - a
+- id: MC.A.08A99D53E68C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Multiplying x²/2 - 5x/2 + 3 = 0 by 2 gives x² - 5x + 6 = 0, so the roots are the same.
+- en: The other options change a coefficient in a way that alters the roots.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,33 @@
+id: A.11.physics.mechanical_properties_of_solids.hookes_law_elasticity.05
+skill_ids:
+- SK.A.11.physics.hookes_law_elasticity
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A rod of original length 1 m and diameter 2 mm, with Young's modulus 200 GPa, is stretched by 0.1 mm. Using pi as 3.14, what force in newtons is applied?
+hints:
+- level: 1
+  en: The cross-sectional area is pi times the radius squared, and the radius is half the diameter.
+- level: 2
+  en: Stress equals Young's modulus times strain.
+- level: 3
+  en: Multiply the stress by the area to get the force.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '62.8'
+  accept: []
+solution_steps:
+- en: The area is pi times the radius squared, with radius 1 mm, so A = 3.14 times 10^-6 m^2.
+- en: The strain is 0.1 / 1000 = 10^-4 and the stress is 2 times 10^7 Pa.
+- en: The force is stress times area, about 62.8 N.
+- en: The unit of the answer is N.
+- en: Answer = 62.8
+tier: C
+diagram_note: A horizontal rod of length 1 m with a circular cross-section 2 mm across, shown as an enlarged end view. An arrow at each end pulls the rod outward.

@@ -1,0 +1,50 @@
+id: A.10.physics.electricity.heating_effect_current.02
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the heat H produced in a resistor of resistance R when a steady current I flows through it for time t?
+hints:
+- level: 1
+  en: Think about how the heat per second depends on the current.
+- level: 2
+  en: Ask whether the heat depends on the current linearly or through a square.
+- level: 3
+  en: Recall which quantity is multiplied by the time to give the total energy.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: H = I times R times t
+- id: b
+  en: H = I times R squared times t
+- id: c
+  en: H = I squared times t divided by R
+- id: d
+  en: H = I squared times R times t
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7D934A516C07
+  when_answer_equals:
+  - a
+- id: MC.A.C29957F265C2
+  when_answer_equals:
+  - b
+- id: MC.A.D7F229F5FFD8
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The heat produced in a resistor is given by H = I squared R t.
+- en: The power dissipated is I squared R, and multiplying by the time gives the energy converted into heat.
+- en: The current appears squared, so doubling the current increases the heat four times.
+- en: The correct option is d.
+tier: C

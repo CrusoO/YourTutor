@@ -1,0 +1,49 @@
+id: A.9.maths.constructions.basic_constructions.03
+skill_ids:
+- SK.A.9.maths.basic_constructions
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A right angle is to be constructed at a point on a straight line using only compass and straightedge. Which method is correct?
+hints:
+- level: 1
+  en: Start with an angle whose measure is already known.
+- level: 2
+  en: Bisect a straight angle to halve it into two equal parts.
+- level: 3
+  en: Use arcs of equal radius on both sides of the point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Draw an arc of radius 90 cm from the point.
+- id: b
+  en: Draw any line that looks perpendicular and stop there.
+- id: c
+  en: Mark 90 degrees by eye with a protractor.
+- id: d
+  en: Draw equal arcs on both sides of the point, then bisect the straight angle they create.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DEFD1A014F80
+  when_answer_equals:
+  - c
+- id: MC.A.641DE9B62862
+  when_answer_equals:
+  - b
+- id: MC.A.ADE92FD83BC2
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Bisecting the straight angle at the point produces two equal angles of 90 degrees, which is the standard construction of a right angle.
+- en: The correct option is d.
+tier: C
+diagram_note: A horizontal line with a point marked on it, equal arcs drawn on both sides, and a perpendicular raised through the point.

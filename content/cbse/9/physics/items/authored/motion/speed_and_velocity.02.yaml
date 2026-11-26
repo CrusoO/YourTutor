@@ -1,0 +1,48 @@
+id: A.9.physics.motion.speed_and_velocity.02
+skill_ids:
+- SK.A.9.physics.speed_and_velocity
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the average speed for a whole journey?
+hints:
+- level: 1
+  en: Speed measures how much path is covered per unit of time.
+- level: 2
+  en: Put the path length on top of the ratio.
+- level: 3
+  en: 'Check the units: the result should be length per time.'
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: total displacement divided by total time
+- id: b
+  en: final velocity minus initial velocity
+- id: c
+  en: total distance divided by total time
+- id: d
+  en: total time divided by total distance
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.AD6840D45CF3
+  when_answer_equals:
+  - a
+- id: MC.A.DA56D9FB9F7D
+  when_answer_equals:
+  - d
+- id: MC.A.A39EB9A70A92
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Average speed is the total path length covered divided by the total time taken, and it is always positive.
+- en: The correct option is c.
+tier: C

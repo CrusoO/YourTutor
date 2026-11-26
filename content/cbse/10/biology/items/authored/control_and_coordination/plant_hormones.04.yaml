@@ -1,0 +1,49 @@
+id: A.10.biology.control_and_coordination.plant_hormones.04
+skill_ids:
+- SK.A.10.biology.plant_hormones
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does a shoot bend towards a light source?
+hints:
+- level: 1
+  en: Think about which side of the shoot grows more.
+- level: 2
+  en: Consider how light changes the position of auxin.
+- level: 3
+  en: The shaded side is the side that grows faster.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Auxin accumulates on the shaded side, causing those cells to elongate more
+- id: b
+  en: Light destroys auxin on the shaded side, so those cells divide
+- id: c
+  en: Cytokinin moves to the sunny side to stop its growth
+- id: d
+  en: Auxin accumulates on the sunny side, causing those cells to elongate more
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.AA169E1712AE
+  when_answer_equals:
+  - d
+- id: MC.A.461D247C019B
+  when_answer_equals:
+  - b
+- id: MC.A.FBA129299B3A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Light causes auxin to move away from the lit side, so the shaded side has more auxin and its cells grow longer.
+- en: The unequal growth bends the shoot towards the light.
+- en: The correct option is a.
+tier: C

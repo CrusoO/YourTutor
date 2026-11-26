@@ -1,0 +1,49 @@
+id: A.11.physics.units_and_measurements.si_units_dimensions.03
+skill_ids:
+- SK.A.11.physics.si_units_dimensions
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which equation is dimensionally consistent? Here s is displacement, u and v are velocities, a is acceleration and t is time.
+hints:
+- level: 1
+  en: Check the dimensions of each term on both sides separately.
+- level: 2
+  en: Velocity has dimensions of length over time, and acceleration has length over time squared.
+- level: 3
+  en: Every term in a valid equation must share the same dimensions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: s = ut + (1/2)at^2
+- id: b
+  en: v = u + at^2
+- id: c
+  en: s = v divided by t
+- id: d
+  en: s = ut + at
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6BC0FF6F621A
+  when_answer_equals:
+  - d
+- id: MC.A.76E41D67C446
+  when_answer_equals:
+  - b
+- id: MC.A.122A6F174FA2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each term of s = ut + (1/2)at^2 has the dimensions of length.
+- en: The other options mix terms with different dimensions.
+- en: The correct option is a.
+tier: C

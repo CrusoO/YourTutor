@@ -1,0 +1,49 @@
+id: A.12.maths.differential_equations.order_and_degree.05
+skill_ids:
+- SK.A.12.maths.order_and_degree
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What are the order and degree of d^2y/dx^2 + sin(dy/dx) = 0?
+hints:
+- level: 1
+  en: Find the highest order derivative that occurs in the equation.
+- level: 2
+  en: Ask whether the equation is a polynomial in the derivatives.
+- level: 3
+  en: Consider whether a degree can be read off when a trigonometric function of a derivative appears.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Order 2, degree not defined
+- id: b
+  en: Order 2, degree 2
+- id: c
+  en: Order 1, degree 1
+- id: d
+  en: Order 2, degree 1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.93C3C15E838B
+  when_answer_equals:
+  - d
+- id: MC.A.A6E3503332A2
+  when_answer_equals:
+  - c
+- id: MC.A.E815E9ED4214
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The highest derivative is of order 2.
+- en: Because the first derivative appears inside a sine, the equation is not a polynomial in the derivatives, so the degree is not defined.
+- en: The correct option is a.
+tier: C

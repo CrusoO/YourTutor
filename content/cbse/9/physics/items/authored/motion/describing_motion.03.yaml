@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.03
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Two students watch the same bus. One says the bus is at rest, the other says it is moving. Which statement best resolves the disagreement?
+hints:
+- level: 1
+  en: Ask what each student has in mind as the object the bus is compared with.
+- level: 2
+  en: If the comparison object changes, the answer can change for the same bus.
+- level: 3
+  en: A clock does not change where the bus is located.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The bus changes its mass while it moves
+- id: b
+  en: One student must be using a faulty clock
+- id: c
+  en: Rest and motion depend on what each student compares the bus with
+- id: d
+  en: Only objects with engines can ever be moving
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C35DFEBD1A19
+  when_answer_equals:
+  - b
+- id: MC.A.9A6BD21F109D
+  when_answer_equals:
+  - a
+- id: MC.A.7243497B739B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Whether a body is moving depends on the object it is compared with, and each student made a different comparison, so both statements can be correct.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.9.maths.number_systems.irrationals_number_line.05
+skill_ids:
+- SK.A.9.maths.irrationals_number_line
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: To mark the square root of five on a number line, a right triangle with legs of one and two is drawn. What length must the hypotenuse have?
+hints:
+- level: 1
+  en: Square each leg before adding anything.
+- level: 2
+  en: The squares of the legs add up to the square of the hypotenuse.
+- level: 3
+  en: Take the square root of the total only at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sqrt(3)
+- id: b
+  en: '3'
+- id: c
+  en: '2.5'
+- id: d
+  en: sqrt(5)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A25A62EF84FB
+  when_answer_equals:
+  - b
+- id: MC.A.AFECF5EA2821
+  when_answer_equals:
+  - a
+- id: MC.A.59D072248E5D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The squares of the legs are one and four, which add to five, so the hypotenuse is the square root of five.
+- en: The correct option is d.
+tier: C
+diagram_note: Right triangle with a horizontal leg of length two and a vertical leg of length one, placed at the origin of a number line, with the hypotenuse arc drawn to the line.

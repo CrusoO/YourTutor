@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.potential_energy.06
+skill_ids:
+- SK.A.9.physics.potential_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A stone of mass m is raised through a height h on Earth and then, on a planet with half Earth's gravity, through the same height h. How does the gain in potential energy on the planet compare with Earth?
+hints:
+- level: 1
+  en: Potential energy gain equals mass times gravity times height.
+- level: 2
+  en: Only the gravity term changes between the two cases.
+- level: 3
+  en: Compare the two gravity values as a ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: half as large
+- id: b
+  en: the same
+- id: c
+  en: twice as large
+- id: d
+  en: a quarter as large
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.894174186F1A
+  when_answer_equals:
+  - c
+- id: MC.A.2D09537F19DB
+  when_answer_equals:
+  - b
+- id: MC.A.F15493A72DA7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The gain is m g h, and the planet's gravity is half of Earth's, so the potential energy gain is half as large.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.9.maths.probability.experimental_probability.04
+skill_ids:
+- SK.A.9.maths.experimental_probability
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A spinner landed on red in 18 of its 60 spins. What is the experimental probability of landing on red?
+hints:
+- level: 1
+  en: Count the red outcomes and the total number of spins.
+- level: 2
+  en: The probability is the red count divided by the total.
+- level: 3
+  en: 'Check the size of your answer: it must lie between 0 and 1.'
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '3.3'
+- id: b
+  en: '0.33'
+- id: c
+  en: '0.3'
+- id: d
+  en: '0.6'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7DF5BDA4A844
+  when_answer_equals:
+  - b
+- id: MC.A.D07A3B22494D
+  when_answer_equals:
+  - d
+- id: MC.A.A4075F640F31
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Red occurred 18 times in 60 spins, and 18 divided by 60 equals 0.3.
+- en: The correct option is c.
+tier: C

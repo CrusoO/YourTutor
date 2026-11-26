@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.domestic_electric_circuits.05
+skill_ids:
+- SK.A.10.physics.domestic_electric_circuits
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A home uses a higher-rated fuse for an appliance that draws a larger power. Why is this correct?
+hints:
+- level: 1
+  en: Recall how power is related to voltage and current.
+- level: 2
+  en: Ask what the fuse must allow to pass under normal operation.
+- level: 3
+  en: Consider which quantity the fuse rating is measured in.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The fuse rating is an arbitrary label with no link to current
+- id: b
+  en: The fuse rating depends only on the resistance of the appliance
+- id: c
+  en: A higher-power appliance draws a smaller current
+- id: d
+  en: A higher-power appliance draws a larger current, so its fuse must carry that current without melting
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F21FF1B268DF
+  when_answer_equals:
+  - c
+- id: MC.A.3276BB8C9504
+  when_answer_equals:
+  - b
+- id: MC.A.25FF53359FA5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: For a fixed supply voltage, power is proportional to current, so a higher-power appliance draws a larger current.
+- en: The fuse must allow this normal current to pass without melting, while melting for a current that is too large.
+- en: Its rating must therefore be matched to the appliance.
+- en: The correct option is d.
+tier: C

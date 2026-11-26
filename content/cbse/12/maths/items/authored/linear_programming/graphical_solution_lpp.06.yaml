@@ -1,0 +1,49 @@
+id: A.12.maths.linear_programming.graphical_solution_lpp.06
+skill_ids:
+- SK.A.12.maths.graphical_solution_lpp
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For the region x >= 0, y >= 0 and x + y >= 3, what can be said about the maximum of Z = x + y?
+hints:
+- level: 1
+  en: Check whether you can keep increasing x + y while staying in the region.
+- level: 2
+  en: Sketch the region and see whether it extends without bound.
+- level: 3
+  en: Consider the direction in which the objective increases.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The maximum is 6 at (3, 3)
+- id: b
+  en: The maximum is 0 at the origin
+- id: c
+  en: The maximum does not exist because Z is unbounded
+- id: d
+  en: The maximum is 3 at (3, 0)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0953CB9AEA59
+  when_answer_equals:
+  - d
+- id: MC.A.EEA5A9498C2C
+  when_answer_equals:
+  - b
+- id: MC.A.38EA3445816C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Points with x + y arbitrarily large lie in the region, so Z has no upper bound and no maximum exists.
+- en: The correct option is c.
+tier: C
+diagram_note: Unbounded region in the first quadrant lying above the line x + y = 3, with arrows showing it extends outward.

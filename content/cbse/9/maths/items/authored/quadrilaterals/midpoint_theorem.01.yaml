@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.midpoint_theorem.01
+skill_ids:
+- SK.A.9.maths.midpoint_theorem
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In triangle ABC, D and E are the midpoints of AB and AC. What does the mid-point theorem say about the segment DE?
+hints:
+- level: 1
+  en: Think about what a segment joining two midpoints does to the third side.
+- level: 2
+  en: Consider how its length compares with the third side.
+- level: 3
+  en: Only one of the statements about length is correct.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: DE is perpendicular to BC.
+- id: b
+  en: DE is parallel to BC and half its length.
+- id: c
+  en: DE is twice the length of BC.
+- id: d
+  en: DE is equal in length to BC.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.46C219912D2B
+  when_answer_equals:
+  - d
+- id: MC.A.60D004C067B2
+  when_answer_equals:
+  - a
+- id: MC.A.7E222CDB2568
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The segment joining the midpoints of two sides is parallel to the third side and equal to half of it.
+- en: The correct option is b.
+tier: C
+diagram_note: Triangle ABC with midpoints D on AB and E on AC joined by segment DE, which is parallel to BC.

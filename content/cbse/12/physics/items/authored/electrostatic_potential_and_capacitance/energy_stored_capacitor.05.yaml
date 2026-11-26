@@ -1,0 +1,49 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.energy_stored_capacitor.05
+skill_ids:
+- SK.A.12.physics.energy_stored_capacitor
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A parallel plate capacitor stays connected to a battery while its plate separation is doubled. What happens to the energy stored in it?
+hints:
+- level: 1
+  en: Note whether the voltage or the charge is fixed while the battery is connected.
+- level: 2
+  en: Find how the capacitance depends on the plate separation.
+- level: 3
+  en: Use the energy formula that matches the quantity that stays fixed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It becomes four times larger
+- id: b
+  en: It halves
+- id: c
+  en: It stays the same
+- id: d
+  en: It doubles
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E3C7DA78DD72
+  when_answer_equals:
+  - d
+- id: MC.A.12AD01309E58
+  when_answer_equals:
+  - c
+- id: MC.A.6A5567F29835
+  when_answer_equals:
+  - a
+solution_steps:
+- en: With the battery connected the voltage is fixed.
+- en: Doubling the separation halves the capacitance, so the energy one half C V squared halves.
+- en: The correct option is b.
+tier: C

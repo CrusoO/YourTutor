@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_plane.relative_velocity_2d.03
+skill_ids:
+- SK.A.11.physics.relative_velocity_2d
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A man walks at 4 km/h north on a train that moves east at 3 km/h. What is his speed relative to the ground?
+hints:
+- level: 1
+  en: The man's motion relative to the train and the train's motion are perpendicular.
+- level: 2
+  en: Combine perpendicular components with the Pythagorean approach.
+- level: 3
+  en: Square each component, add them, then take the square root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4 km/h
+- id: b
+  en: 1 km/h
+- id: c
+  en: 7 km/h
+- id: d
+  en: 5 km/h
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.13808F106F91
+  when_answer_equals:
+  - c
+- id: MC.A.A085DE8EB894
+  when_answer_equals:
+  - b
+- id: MC.A.DF54B54BE0E3
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The man's velocity relative to the ground has components 3 km/h east and 4 km/h north.
+- en: The magnitude is the square root of 9 plus 16, which is 5 km/h.
+- en: The correct option is d.
+tier: C

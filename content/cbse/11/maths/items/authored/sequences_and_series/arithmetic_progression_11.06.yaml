@@ -1,0 +1,48 @@
+id: A.11.maths.sequences_and_series.arithmetic_progression_11.06
+skill_ids:
+- SK.A.11.maths.arithmetic_progression_11
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The sum of the first 5 terms of an arithmetic progression is 40 and its first term is 2. What is the common difference?
+hints:
+- level: 1
+  en: Write the sum formula for a fixed number of terms using the given first term.
+- level: 2
+  en: Simplify the expression so that the common difference is the only unknown.
+- level: 3
+  en: Solve the resulting linear equation for the difference.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '6'
+- id: c
+  en: '2'
+- id: d
+  en: '4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.CBBD6EA31B54
+  when_answer_equals:
+  - c
+- id: MC.A.CE800F55302E
+  when_answer_equals:
+  - d
+- id: MC.A.42CAA6048C8C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The sum of 5 terms is 5 over 2 times (4 plus 4d), which equals 10 plus 10d, and setting this to 40 gives d equal to 3.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,30 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_line_3d.03
+skill_ids:
+- SK.A.12.maths.equation_of_line_3d
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A line passes through A = (1, 2, 3) and B = (3, 4, 7). Its point at parameter t is A + t(B - A). Find the y-coordinate of this point when t = 0.5.
+hints:
+- level: 1
+  en: Find the direction vector as B minus A.
+- level: 2
+  en: Substitute the parameter into the y component of A plus t times the direction.
+- level: 3
+  en: Add the scaled direction component to the starting y-coordinate.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3'
+  accept: []
+solution_steps:
+- en: B minus A is (2, 2, 4), so the y-coordinate is 2 + 0.5 times 2, which equals 3.
+- en: Answer = 3
+tier: C
+diagram_note: Three-dimensional line with two labelled points A and B and a point marked halfway between them on the segment.

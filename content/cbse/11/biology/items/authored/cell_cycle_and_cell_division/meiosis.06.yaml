@@ -1,0 +1,50 @@
+id: A.11.biology.cell_cycle_and_cell_division.meiosis.06
+skill_ids:
+- SK.A.11.biology.meiosis
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A gamete carries an extra chromosome because of non-disjunction in meiosis I. What is the likely result after fertilisation with a normal gamete?
+hints:
+- level: 1
+  en: Ask whether the extra chromosome can be removed by fertilisation.
+- level: 2
+  en: Consider what the normal gamete contributes to the zygote's chromosome count.
+- level: 3
+  en: Think about whether the zygote's count matches the parent's count.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: An identical copy of the parent cell
+- id: b
+  en: A zygote with an abnormal chromosome number, a condition called aneuploidy
+- id: c
+  en: A normal diploid zygote
+- id: d
+  en: A haploid zygote with half the chromosomes
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0178E3F60D7B
+  when_answer_equals:
+  - c
+- id: MC.A.1A58A46EFB75
+  when_answer_equals:
+  - d
+- id: MC.A.E957B6FBD3C5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Non-disjunction gives a gamete with one extra or missing chromosome.
+- en: Fertilisation with a normal gamete produces a zygote with an abnormal count, which is aneuploidy.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw two gametes, one normal and one with an extra chromosome, joining to form a zygote, and label the resulting chromosome number as abnormal.

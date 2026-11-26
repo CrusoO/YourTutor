@@ -1,0 +1,50 @@
+id: A.10.maths.constructions.tangents_by_construction.03
+skill_ids:
+- SK.A.10.maths.tangents_by_construction
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: After drawing the helper circle on OT as diameter, it crosses the original circle at two points X and Y. What do X and Y give?
+hints:
+- level: 1
+  en: Think about which circle the points X and Y lie on.
+- level: 2
+  en: Consider the angle that a diameter subtends at a point on the circle.
+- level: 3
+  en: Decide whether the line TX can meet the original circle only once.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Points where the radii are extended beyond the circle.
+- id: b
+  en: The points of contact of the tangents from T.
+- id: c
+  en: The midpoints of the tangent lengths.
+- id: d
+  en: The centre of the original circle.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0648BDDE7F92
+  when_answer_equals:
+  - d
+- id: MC.A.2A1E48E85469
+  when_answer_equals:
+  - c
+- id: MC.A.38467BBDB1FE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Any point on a circle with diameter OT sees OT at a right angle.
+- en: So the line TX meets the radius OX at a right angle at X, which makes TX a tangent at X.
+- en: The correct option is b.
+tier: C
+diagram_note: The original circle with centre O and an external point T. A second circle is drawn on the segment OT as diameter, crossing the original circle at X and Y.

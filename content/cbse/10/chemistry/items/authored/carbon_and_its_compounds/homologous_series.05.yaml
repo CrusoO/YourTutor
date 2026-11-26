@@ -1,0 +1,49 @@
+id: A.10.chemistry.carbon_and_its_compounds.homologous_series.05
+skill_ids:
+- SK.A.10.chemistry.homologous_series
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A compound has the formula C5H10 and contains one carbon-carbon double bond. Which homologous series does it belong to?
+hints:
+- level: 1
+  en: Recall how the general formula of alkenes differs from that of alkanes.
+- level: 2
+  en: Compare the number of hydrogen atoms with the number of carbon atoms.
+- level: 3
+  en: Think about what a double bond does to the number of hydrogen atoms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Alkenes, since the general formula CnH2n fits one double bond
+- id: b
+  en: Alkynes, since it has one multiple bond
+- id: c
+  en: Alkanoic acids, since it has many carbon atoms
+- id: d
+  en: Alkanes, since they contain ten hydrogen atoms
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DFB71BA0BC36
+  when_answer_equals:
+  - d
+- id: MC.A.F2A3B3AEF9B9
+  when_answer_equals:
+  - b
+- id: MC.A.F60BC8CD75F0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: One double bond corresponds to the general formula CnH2n, which fits C5H10.
+- en: Alkanes follow CnH2n+2, so C5H10 does not fit that series.
+- en: The correct option is a.
+tier: C

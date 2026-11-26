@@ -1,0 +1,48 @@
+id: A.12.physics.electromagnetic_induction.faraday_lenz.01
+skill_ids:
+- SK.A.12.physics.faraday_lenz
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: According to Lenz's law, what does an induced current always oppose?
+hints:
+- level: 1
+  en: Think about what is changing in the loop when the current is induced.
+- level: 2
+  en: Consider the effect the induced current has on that change.
+- level: 3
+  en: Recall that the law is about the sign of the induced quantity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The magnetic field everywhere in space
+- id: b
+  en: The electric field that drives the circuit
+- id: c
+  en: The resistance of the circuit
+- id: d
+  en: The change in magnetic flux that produces it
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.665305DC9A0F
+  when_answer_equals:
+  - b
+- id: MC.A.CB04BA9D05E8
+  when_answer_equals:
+  - c
+- id: MC.A.925EC0A7C26F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Lenz's law says the induced current flows in the direction that creates a field opposing the change in flux that produced it.
+- en: The correct option is d.
+tier: C

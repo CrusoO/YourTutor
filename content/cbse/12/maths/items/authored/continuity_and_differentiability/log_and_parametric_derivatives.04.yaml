@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.log_and_parametric_derivatives.04
+skill_ids:
+- SK.A.12.maths.log_and_parametric_derivatives
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Using logarithmic differentiation, which expression gives dy/dx for y = x^2 times (x + 1)^3?
+hints:
+- level: 1
+  en: Take logarithms of both sides so that the product becomes a sum.
+- level: 2
+  en: Differentiate each logarithm term separately.
+- level: 3
+  en: Multiply back by y and simplify.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x^2(x + 1)^3(2x + 3)
+- id: b
+  en: 2x(x + 1)^3
+- id: c
+  en: 3x^2(x + 1)^2
+- id: d
+  en: 2x(x + 1)^3 + 3x^2(x + 1)^2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0E881B905FD9
+  when_answer_equals:
+  - b
+- id: MC.A.0113038681E6
+  when_answer_equals:
+  - c
+- id: MC.A.2BED61175A21
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The logarithmic derivative gives dy/dx = y times (2/x + 3/(x + 1)), which expands to 2x(x + 1)^3 + 3x^2(x + 1)^2.
+- en: The correct option is d.
+tier: C

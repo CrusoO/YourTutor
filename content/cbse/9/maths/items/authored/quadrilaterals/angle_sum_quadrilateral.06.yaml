@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.angle_sum_quadrilateral.06
+skill_ids:
+- SK.A.9.maths.angle_sum_quadrilateral
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A quadrilateral has angles a, b, c and d. If a plus c equals 200 degrees, what is b plus d?
+hints:
+- level: 1
+  en: Use the total for the four interior angles.
+- level: 2
+  en: Subtract the known pair from that total.
+- level: 3
+  en: The remaining two angles make up what is left.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 360 degrees
+- id: b
+  en: 160 degrees
+- id: c
+  en: 100 degrees
+- id: d
+  en: 200 degrees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.4DF5AA9A376E
+  when_answer_equals:
+  - d
+- id: MC.A.5143CE60EEE1
+  when_answer_equals:
+  - a
+- id: MC.A.8742E7B49BE5
+  when_answer_equals:
+  - c
+solution_steps:
+- en: All four angles add to 360 degrees, so b plus d equals 360 minus 200, which is 160 degrees.
+- en: The correct option is b.
+tier: C
+diagram_note: Quadrilateral with vertices labelled a, b, c and d in order around the shape.

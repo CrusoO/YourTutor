@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.indefinite_integral_basics.04
+skill_ids:
+- SK.A.12.maths.indefinite_integral_basics
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the integral of 1/x with respect to x?
+hints:
+- level: 1
+  en: Think about which function has derivative 1 over x.
+- level: 2
+  en: Recall that the power rule fails for exponent minus one.
+- level: 3
+  en: Remember that the integrand is defined for negative values of x as well.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 ln|x| + C
+- id: b
+  en: ln|x| + C
+- id: c
+  en: -1/x^2 + C
+- id: d
+  en: x ln x - x + C
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A6B675AB9784
+  when_answer_equals:
+  - c
+- id: MC.A.F81E5C48DB45
+  when_answer_equals:
+  - d
+- id: MC.A.34CB0A761144
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The antiderivative of 1/x is the natural logarithm of the absolute value of x, because the power rule does not apply at exponent minus one.
+- en: The correct option is b.
+tier: C

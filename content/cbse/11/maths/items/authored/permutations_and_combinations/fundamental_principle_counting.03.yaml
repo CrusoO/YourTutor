@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.fundamental_principle_counting.03
+skill_ids:
+- SK.A.11.maths.fundamental_principle_counting
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: How many three-digit numbers can be formed using the digits 1 to 5 with no digit repeated?
+hints:
+- level: 1
+  en: Fill the three positions one at a time, starting from the hundreds place.
+- level: 2
+  en: Each position loses one digit that was already used in an earlier place.
+- level: 3
+  en: Multiply the number of choices at the three positions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '60'
+  accept: []
+solution_steps:
+- en: There are 5 choices for the hundreds, 4 for the tens and 3 for the units, giving 5 times 4 times 3.
+- en: Answer = 60
+tier: C

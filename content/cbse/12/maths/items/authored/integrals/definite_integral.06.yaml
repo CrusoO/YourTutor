@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.definite_integral.06
+skill_ids:
+- SK.A.12.maths.definite_integral
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the value of the definite integral of cos x divided by (1 + sin^2 x) from 0 to pi/2?
+hints:
+- level: 1
+  en: Substitute u equal to sin x.
+- level: 2
+  en: Change the limits of integration to match the new variable.
+- level: 3
+  en: Recall the antiderivative of 1 over (1 + u squared).
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ln 2
+- id: b
+  en: pi/2
+- id: c
+  en: pi/4
+- id: d
+  en: 1/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9F15CEBA5E3F
+  when_answer_equals:
+  - b
+- id: MC.A.D3B99B9F339E
+  when_answer_equals:
+  - a
+- id: MC.A.664E51CD223D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: With u = sin x the integral becomes the integral of 1/(1 + u^2) from 0 to 1, which is arctan(1) minus arctan(0), equal to pi/4.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.scalar_and_vector_product.05
+skill_ids:
+- SK.A.12.maths.scalar_and_vector_product
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Vectors a and b are unit vectors with a dot b equal to 1/2. What is the magnitude of a x b?
+hints:
+- level: 1
+  en: Relate the dot product of two unit vectors to the cosine of the angle between them.
+- level: 2
+  en: Find the sine of that angle from the cosine.
+- level: 3
+  en: Recall that the cross product magnitude uses the sine of the angle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: square root of 3 divided by 2
+- id: b
+  en: 1/2
+- id: c
+  en: '1'
+- id: d
+  en: square root of (1/2)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.EC658BE78F6E
+  when_answer_equals:
+  - b
+- id: MC.A.79FFAFF97B1F
+  when_answer_equals:
+  - c
+- id: MC.A.45BD77E2A900
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The dot product gives cos of the angle equal to 1/2, so the angle is 60 degrees and the sine is square root of 3 over 2, which is the magnitude of the cross product of unit vectors.
+- en: The correct option is a.
+tier: C

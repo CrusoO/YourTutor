@@ -1,0 +1,30 @@
+id: A.12.biology.evolution.natural_selection_hardy_weinberg.05
+skill_ids:
+- SK.A.12.biology.natural_selection_hardy_weinberg
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A population of 500 individuals has 20 homozygous recessive individuals and is at equilibrium. How many heterozygotes are expected? Give the count only.
+hints:
+- level: 1
+  en: Find the frequency of the recessive genotype first.
+- level: 2
+  en: Derive q from that frequency.
+- level: 3
+  en: Apply the heterozygote term to the whole population.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '160'
+  accept: []
+solution_steps:
+- en: The recessive frequency 20 out of 500 is 0.04, so q is 0.2 and p is 0.8.
+- en: Then 2pq is 0.32, and 0.32 times 500 gives 160 heterozygotes.
+- en: Answer = 160
+tier: C

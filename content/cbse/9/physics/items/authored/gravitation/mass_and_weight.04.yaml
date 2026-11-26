@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.mass_and_weight.04
+skill_ids:
+- SK.A.9.physics.mass_and_weight
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A 10 kg object is taken from Earth to the Moon. Which statement about its mass on the Moon is correct?
+hints:
+- level: 1
+  en: Mass measures the amount of matter in the object.
+- level: 2
+  en: Only the weight changes when the local gravity changes.
+- level: 3
+  en: Think about whether moving to another place changes how much matter there is.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: about 1.6 kg
+- id: b
+  en: about 16 N
+- id: c
+  en: zero, since there is less gravity
+- id: d
+  en: it is still 10 kg
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.13D80077F769
+  when_answer_equals:
+  - a
+- id: MC.A.DC011503A0AD
+  when_answer_equals:
+  - b
+- id: MC.A.E9F8FA92C4ED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Mass is the same everywhere, whereas weight depends on the local gravitational field, so the mass stays 10 kg on the Moon.
+- en: The correct option is d.
+tier: C

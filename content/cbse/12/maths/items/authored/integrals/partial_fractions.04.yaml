@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.partial_fractions.04
+skill_ids:
+- SK.A.12.maths.partial_fractions
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the integral of x squared divided by (x squared minus 1) with respect to x?
+hints:
+- level: 1
+  en: Start by dividing the numerator by the denominator.
+- level: 2
+  en: Decompose the remaining proper fraction into two simple fractions.
+- level: 3
+  en: Integrate each term and combine the logarithms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x - (1/2) ln|(x - 1)/(x + 1)| + C
+- id: b
+  en: x^3/3 + C
+- id: c
+  en: x + ln|x^2 - 1| + C
+- id: d
+  en: x + (1/2) ln|(x - 1)/(x + 1)| + C
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.937AD4AEB9F7
+  when_answer_equals:
+  - a
+- id: MC.A.2A561570418F
+  when_answer_equals:
+  - c
+- id: MC.A.DC103B7C4BF1
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Dividing gives x squared over (x squared minus 1) equal to 1 plus 1 over (x squared minus 1), and the second term decomposes into one half of the difference of 1 over (x - 1) and 1 over (x + 1).
+- en: The correct option is d.
+tier: C

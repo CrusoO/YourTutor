@@ -1,0 +1,29 @@
+id: A.12.maths.matrices.elementary_operations.03
+skill_ids:
+- SK.A.12.maths.elementary_operations
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Let A = [[1, 2], [3, 4]]. Using elementary row operations on the augmented matrix [A | I], find the entry in row 1, column 1 of the inverse of A.
+hints:
+- level: 1
+  en: Write A and the identity side by side and reduce the left block.
+- level: 2
+  en: Use the first column to clear the entry below the first pivot.
+- level: 3
+  en: Scale the second row so its pivot becomes one, then clear the entry above it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '-2'
+  accept: []
+solution_steps:
+- en: The inverse of A is (1 divided by -2) times [[4, -2], [-3, 1]], so the row 1, column 1 entry is 4 times minus one half, which is -2.
+- en: Answer = -2
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.01
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which method best shows that there is a whole number whose square is greater than 100?
+hints:
+- level: 1
+  en: An existence claim is settled by producing one case that satisfies it.
+- level: 2
+  en: Try small whole numbers and check their squares against the bound.
+- level: 3
+  en: Once you find a suitable number, confirm the inequality for it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: exhibit a specific number such as 11
+- id: b
+  en: proof by induction
+- id: c
+  en: proof by contradiction
+- id: d
+  en: argue from a general property without naming any number
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1CB4B9F61121
+  when_answer_equals:
+  - c
+- id: MC.A.D5BE21DDEF65
+  when_answer_equals:
+  - b
+- id: MC.A.3AE1D0796532
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Eleven squared is 121, which exceeds 100, so naming that number verifies the existence claim directly.
+- en: The correct option is a.
+tier: C

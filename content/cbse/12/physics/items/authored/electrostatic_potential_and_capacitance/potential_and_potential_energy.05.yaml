@@ -1,0 +1,50 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.potential_and_potential_energy.05
+skill_ids:
+- SK.A.12.physics.potential_and_potential_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A point charge +q sits at point A and a point charge -q sits at point B. A point P is equally far from the two charges. What is the electric potential at P?
+hints:
+- level: 1
+  en: Find the potential at P due to each charge separately.
+- level: 2
+  en: Use the sign of each charge when you write its potential.
+- level: 3
+  en: Consider the distances from P to the two charges.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Positive and equal to the potential of the positive charge
+- id: b
+  en: Twice the potential due to one charge
+- id: c
+  en: Zero
+- id: d
+  en: Negative and equal to the potential of the negative charge
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E900D026B2A7
+  when_answer_equals:
+  - b
+- id: MC.A.26753BAD8F47
+  when_answer_equals:
+  - a
+- id: MC.A.44C0C41D2435
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The two potentials at P have equal magnitudes and opposite signs because the charges are equal and opposite at equal distances.
+- en: Their sum is therefore zero.
+- en: The correct option is c.
+tier: C
+diagram_note: Two dots labelled plus q and minus q on a horizontal line, with a third point P placed on the perpendicular bisector above the midpoint at equal distances from both dots.

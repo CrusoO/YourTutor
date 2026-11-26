@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_induction.self_and_mutual_induction.01
+skill_ids:
+- SK.A.12.physics.self_and_mutual_induction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: On which factors does the self-inductance of a coil depend?
+hints:
+- level: 1
+  en: Think about which physical properties belong to the coil itself.
+- level: 2
+  en: Consider whether inductance changes when the current changes.
+- level: 3
+  en: Recall what sets the flux linkage through the coil.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The frequency of the AC supply
+- id: b
+  en: The current flowing through it
+- id: c
+  en: Its geometry and number of turns
+- id: d
+  en: The voltage applied across it
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7AE4BFACB7C8
+  when_answer_equals:
+  - b
+- id: MC.A.EA25E9C7329E
+  when_answer_equals:
+  - d
+- id: MC.A.45C3137B1FE9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Self-inductance is a property of the coil set by its shape, size, number of turns and core.
+- en: It does not depend on the current or on the voltage applied.
+- en: The correct option is c.
+tier: C

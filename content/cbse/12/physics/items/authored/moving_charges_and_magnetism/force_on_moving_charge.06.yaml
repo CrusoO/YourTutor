@@ -1,0 +1,49 @@
+id: A.12.physics.moving_charges_and_magnetism.force_on_moving_charge.06
+skill_ids:
+- SK.A.12.physics.force_on_moving_charge
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A charged particle moves in a uniform magnetic field along a circular path with constant speed. What is true about its kinetic energy?
+hints:
+- level: 1
+  en: Think about the direction of the magnetic force relative to the velocity.
+- level: 2
+  en: Consider the work done by a force that is always perpendicular to the displacement.
+- level: 3
+  en: Recall what the work-energy relation says about a force that does no work.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It depends only on the radius of the path
+- id: b
+  en: It stays the same because the magnetic force does no work
+- id: c
+  en: It falls to zero after one revolution
+- id: d
+  en: It increases steadily as the particle goes round
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E1829B444C1C
+  when_answer_equals:
+  - d
+- id: MC.A.D8F8EB8FED90
+  when_answer_equals:
+  - c
+- id: MC.A.33EEDD7F4330
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The magnetic force is always perpendicular to the velocity, so it changes only the direction of motion.
+- en: Its work is zero and the kinetic energy stays constant.
+- en: The correct option is b.
+tier: C

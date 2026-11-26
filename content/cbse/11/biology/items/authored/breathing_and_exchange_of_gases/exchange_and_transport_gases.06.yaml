@@ -1,0 +1,50 @@
+id: A.11.biology.breathing_and_exchange_of_gases.exchange_and_transport_gases.06
+skill_ids:
+- SK.A.11.biology.exchange_and_transport_gases
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A patient with carbon monoxide poisoning breathes normally but shows poor oxygen delivery to the tissues. Why?
+hints:
+- level: 1
+  en: Think about what carbon monoxide competes with at the haemoglobin binding site.
+- level: 2
+  en: Consider which gas binds haemoglobin more strongly than oxygen does.
+- level: 3
+  en: The poisoning affects transport of oxygen rather than the airway.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Carbon monoxide destroys the alveoli directly
+- id: b
+  en: Carbon monoxide prevents the diaphragm from contracting
+- id: c
+  en: Carbon monoxide binds haemoglobin with much higher affinity than oxygen, blocking oxygen transport
+- id: d
+  en: Carbon monoxide makes the lungs produce less air
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7229003F1D12
+  when_answer_equals:
+  - a
+- id: MC.A.CD6DAE9592B1
+  when_answer_equals:
+  - b
+- id: MC.A.17137466D048
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Carbon monoxide competes for the oxygen binding sites on haemoglobin and binds far more tightly.
+- en: The oxygen carried by the blood then falls, even though breathing and the airways are normal.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a haemoglobin molecule with four binding sites, showing oxygen molecules on some sites and carbon monoxide blocking the others, labelled to show the blocked transport.

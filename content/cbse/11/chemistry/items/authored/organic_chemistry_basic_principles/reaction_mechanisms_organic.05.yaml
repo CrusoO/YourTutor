@@ -1,0 +1,49 @@
+id: A.11.chemistry.organic_chemistry_basic_principles.reaction_mechanisms_organic.05
+skill_ids:
+- SK.A.11.chemistry.reaction_mechanisms_organic
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: In an SN1 reaction, which step is the rate-determining step?
+hints:
+- level: 1
+  en: Consider which step has the highest activation energy hump in the energy profile.
+- level: 2
+  en: Look at the first step of the mechanism, where the leaving group departs.
+- level: 3
+  en: The rate depends only on the species in the slowest step.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: formation of the carbocation
+- id: b
+  en: attack of the nucleophile on the carbocation
+- id: c
+  en: reaction of the solvent with a proton
+- id: d
+  en: loss of a proton from the product
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.75A71F7B23D8
+  when_answer_equals:
+  - b
+- id: MC.A.FD7CB8B4C7F9
+  when_answer_equals:
+  - d
+- id: MC.A.852529658BEF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first step, in which the leaving group departs to form a carbocation, has the highest activation energy and so controls the rate.
+- en: The correct option is a.
+tier: C
+diagram_note: Two-step energy profile for an SN1 reaction with a higher first hump leading to a carbocation intermediate, followed by a lower second hump.

@@ -1,0 +1,49 @@
+id: A.12.physics.wave_optics.diffraction_single_slit.02
+skill_ids:
+- SK.A.12.physics.diffraction_single_slit
+difficulty: 0.2
+pool: practice
+role: apply
+stem:
+  en: What happens to the central maximum of a single slit diffraction pattern when the slit is made wider?
+hints:
+- level: 1
+  en: Think about how the diffraction angle depends on the ratio of wavelength to slit width.
+- level: 2
+  en: Consider what a wider slit does to the spreading of the light.
+- level: 3
+  en: Compare the angular spread for a larger slit with that for a smaller slit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It stays unchanged
+- id: b
+  en: It becomes narrower
+- id: c
+  en: It becomes wider
+- id: d
+  en: It shifts to one side of the screen
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9C0CB8B20390
+  when_answer_equals:
+  - c
+- id: MC.A.82E0C0DD2827
+  when_answer_equals:
+  - a
+- id: MC.A.7D13696C4480
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angular width of the central maximum is proportional to lambda over the slit width, so a wider slit gives a narrower central maximum.
+- en: The correct option is b.
+tier: C
+diagram_note: A single slit with parallel rays passing through it and a narrow central band on a distant screen, with a second drawing showing a wider slit and a narrower band.

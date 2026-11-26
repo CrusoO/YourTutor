@@ -1,0 +1,50 @@
+id: A.12.biology.biodiversity_and_conservation.biodiversity_patterns.04
+skill_ids:
+- SK.A.12.biology.biodiversity_patterns
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: On a graph of species number against island area, which pattern is most typical?
+hints:
+- level: 1
+  en: Think about whether a larger area holds more kinds of habitat.
+- level: 2
+  en: Consider whether the curve bends as the area grows.
+- level: 3
+  en: Ask whether each added area gives the same number of new species.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Species number falls as island area grows
+- id: b
+  en: Species number is independent of area
+- id: c
+  en: Species number rises linearly without any limit
+- id: d
+  en: Species number rises with area, at a decreasing rate
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.FD2124031825
+  when_answer_equals:
+  - a
+- id: MC.A.309B68DCFC02
+  when_answer_equals:
+  - b
+- id: MC.A.456DA903D456
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Larger areas hold more habitats and more species, but each extra unit of area adds fewer new species, so the curve bends and levels off.
+- en: This is the species area relationship.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw a plot of species number on the vertical axis against island area on the horizontal axis, with a curve rising and levelling off.

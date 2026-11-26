@@ -1,0 +1,49 @@
+id: A.11.physics.thermal_properties_of_matter.specific_heat_calorimetry.06
+skill_ids:
+- SK.A.11.physics.specific_heat_calorimetry
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: 'Two equal masses of different substances receive the same amount of heat. The substance with the larger specific heat capacity shows:'
+hints:
+- level: 1
+  en: The temperature change equals heat divided by mass times specific heat.
+- level: 2
+  en: Compare the denominators of the two cases.
+- level: 3
+  en: A larger denominator makes the quotient smaller.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the same temperature rise
+- id: b
+  en: a larger temperature rise
+- id: c
+  en: a smaller temperature rise
+- id: d
+  en: a temperature rise that depends only on the time taken
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6F7E0EE104A4
+  when_answer_equals:
+  - b
+- id: MC.A.806AB0EB3B16
+  when_answer_equals:
+  - a
+- id: MC.A.238EC65CD433
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The temperature rise equals Q divided by m c.
+- en: A larger specific heat makes the denominator bigger, so the temperature rise is smaller.
+- en: The correct option is c.
+tier: C

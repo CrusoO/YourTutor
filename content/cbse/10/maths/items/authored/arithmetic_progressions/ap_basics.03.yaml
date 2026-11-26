@@ -1,0 +1,49 @@
+id: A.10.maths.arithmetic_progressions.ap_basics.03
+skill_ids:
+- SK.A.10.maths.ap_basics
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: An arithmetic progression has common difference d. If every term is doubled, what is the common difference of the new progression?
+hints:
+- level: 1
+  en: Write the first three terms using a and d.
+- level: 2
+  en: Double each of those terms.
+- level: 3
+  en: Subtract consecutive doubled terms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: d
+- id: b
+  en: 2d
+- id: c
+  en: d squared
+- id: d
+  en: d + 2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9B3318E43805
+  when_answer_equals:
+  - a
+- id: MC.A.5B1A6288E196
+  when_answer_equals:
+  - d
+- id: MC.A.8584948B0F20
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Write the terms as a, a + d, a + 2d and so on.
+- en: Doubling gives 2a, 2a + 2d, 2a + 4d, whose common difference is 2d.
+- en: The correct option is b.
+tier: C

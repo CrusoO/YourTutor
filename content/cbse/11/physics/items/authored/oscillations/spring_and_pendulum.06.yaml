@@ -1,0 +1,49 @@
+id: A.11.physics.oscillations.spring_and_pendulum.06
+skill_ids:
+- SK.A.11.physics.spring_and_pendulum
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A pendulum clock runs slow at a particular place. To correct it at that place, what should be done?
+hints:
+- level: 1
+  en: The period grows as the pendulum length grows.
+- level: 2
+  en: A slow clock has a period that is too long.
+- level: 3
+  en: The mass of the bob does not appear in the simple pendulum period.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: lengthen the pendulum
+- id: b
+  en: shorten the pendulum
+- id: c
+  en: move the clock to a place with weaker gravity
+- id: d
+  en: add more mass to the bob
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D26075693014
+  when_answer_equals:
+  - a
+- id: MC.A.5A451C6A791F
+  when_answer_equals:
+  - d
+- id: MC.A.19B55677E17F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A slow clock has a period that is too long.
+- en: Since the period grows with the length, shortening the pendulum reduces the period and corrects the clock.
+- en: The correct option is b.
+tier: C

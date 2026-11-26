@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.06
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which statement is logically equivalent to 'if p, then q'?
+hints:
+- level: 1
+  en: Build the truth table for both statements and compare the outcomes.
+- level: 2
+  en: Check the cases where p is true and q is false.
+- level: 3
+  en: Consider which statement remains true in exactly the same situations.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: if not p, then not q
+- id: b
+  en: if q, then p
+- id: c
+  en: if not q, then not p
+- id: d
+  en: p and not q
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4203BDF6E8AA
+  when_answer_equals:
+  - b
+- id: MC.A.4818D1A005CA
+  when_answer_equals:
+  - a
+- id: MC.A.6BD1E941E1C9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An implication and its contrapositive always have the same truth value, so 'if not q, then not p' is equivalent to 'if p, then q'.
+- en: The correct option is c.
+tier: C

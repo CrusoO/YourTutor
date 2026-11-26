@@ -1,0 +1,51 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electric_motor.03
+skill_ids:
+- SK.A.10.physics.electric_motor
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A rectangular coil in a magnetic field is placed so that its two long sides are perpendicular to the field. The current flows in opposite directions in these two sides. What is the resulting force on the two sides?
+hints:
+- level: 1
+  en: Think about the direction of the current in the two long sides.
+- level: 2
+  en: Ask whether the two forces act along the same line or in opposite directions.
+- level: 3
+  en: Consider whether two equal and opposite forces that are not along one line can turn an object.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: In the same direction, pushing the coil sideways
+- id: b
+  en: Parallel to the axis of the coil
+- id: c
+  en: Zero, because the forces cancel completely in every position
+- id: d
+  en: Equal and opposite, which produces a turning effect (torque) on the coil
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B6ADCD0A03E1
+  when_answer_equals:
+  - a
+- id: MC.A.A5C14536D6FE
+  when_answer_equals:
+  - c
+- id: MC.A.AA2994740246
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The current in the two long sides flows in opposite directions, so the forces on them are equal in size and opposite in direction.
+- en: These forces form a couple, which produces a torque that turns the coil.
+- en: The turning effect is what drives the motor.
+- en: The correct option is d.
+tier: C
+diagram_note: Rectangular coil drawn in the page plane between the N and S poles of a magnet. Mark the current direction in the two long sides, with one going up and the other going down. Draw an arrow for the force on each long side and show the coil in a vertical position.

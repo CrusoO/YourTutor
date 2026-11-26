@@ -1,0 +1,29 @@
+id: A.11.maths.limits_and_derivatives.limit_algebra.06
+skill_ids:
+- SK.A.11.maths.limit_algebra
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Find the limit as x approaches 0 of (1 minus cos 6x) divided by x squared.
+hints:
+- level: 1
+  en: Use a double-angle identity to write one minus the cosine as a squared sine.
+- level: 2
+  en: Split the expression into a square of a sine ratio and a constant.
+- level: 3
+  en: Apply the standard sine limit to the ratio after adjusting its argument.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '18'
+  accept: []
+solution_steps:
+- en: One minus cos 6x equals 2 sin squared 3x, so the expression is 2 times (sin 3x over x) squared, which tends to 2 times 9, or 18.
+- en: Answer = 18
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.biology.biomolecules.metabolism_overview.06
+skill_ids:
+- SK.A.11.biology.metabolism_overview
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A cell has two pathways that both make the same product, and that product inhibits only one of the two pathways. What does this arrangement allow the cell to do?
+hints:
+- level: 1
+  en: Think about whether the cell can control the two routes independently.
+- level: 2
+  en: Consider what a partial inhibition gives the cell.
+- level: 3
+  en: Ask whether one route keeps running when the other is shut down.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Adjust the output of each pathway separately to fine-tune supply
+- id: b
+  en: Make the product only inside the nucleus
+- id: c
+  en: Remove the need for enzymes in both pathways
+- id: d
+  en: Stop all synthesis of the product permanently
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.BC059C28BFE5
+  when_answer_equals:
+  - d
+- id: MC.A.4B6FABEDB794
+  when_answer_equals:
+  - b
+- id: MC.A.3D2793432742
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Because only one pathway is inhibited, the other keeps producing the compound.
+- en: The cell can therefore tune each route independently to match its needs.
+- en: The correct option is a.
+tier: C

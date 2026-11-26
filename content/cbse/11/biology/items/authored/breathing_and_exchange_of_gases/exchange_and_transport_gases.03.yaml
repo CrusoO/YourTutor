@@ -1,0 +1,49 @@
+id: A.11.biology.breathing_and_exchange_of_gases.exchange_and_transport_gases.03
+skill_ids:
+- SK.A.11.biology.exchange_and_transport_gases
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does the oxygen dissociation curve of haemoglobin have a sigmoid shape?
+hints:
+- level: 1
+  en: Think about how the first oxygen molecule affects the others.
+- level: 2
+  en: Consider whether each binding event is independent of the last.
+- level: 3
+  en: The shape of the curve reflects a feature of how the molecule behaves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Oxygen binds only at high temperature
+- id: b
+  en: Haemoglobin has no binding sites for oxygen
+- id: c
+  en: Binding one oxygen increases the affinity of the remaining sites, a cooperative effect
+- id: d
+  en: Each oxygen molecule blocks the next binding site
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.362B74707BB7
+  when_answer_equals:
+  - d
+- id: MC.A.8AF6FE14A9B8
+  when_answer_equals:
+  - a
+- id: MC.A.1671829E9205
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The four subunits of haemoglobin show cooperative binding, so each oxygen that binds makes the next one easier to bind.
+- en: This produces the steep middle part of the curve.
+- en: The correct option is c.
+tier: C

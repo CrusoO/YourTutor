@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.04
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which claim can be disproved by exhibiting a single example?
+hints:
+- level: 1
+  en: A universal claim fails when a single member of the category does not satisfy it.
+- level: 2
+  en: Think about which shapes meet the definition of a square and which do not.
+- level: 3
+  en: Look for a rectangle whose sides differ in length.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: some rectangle is a square
+- id: b
+  en: every rectangle is a square
+- id: c
+  en: some square has a side of length 3
+- id: d
+  en: every square is a rectangle
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F8B4BFD3667C
+  when_answer_equals:
+  - a
+- id: MC.A.08AF267B3020
+  when_answer_equals:
+  - d
+- id: MC.A.52F7EA380B3E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A rectangle with unequal sides, such as one that is 2 by 1, is not a square, which disproves the claim that every rectangle is a square.
+- en: The correct option is b.
+tier: C

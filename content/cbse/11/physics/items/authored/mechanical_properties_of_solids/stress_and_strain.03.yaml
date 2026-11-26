@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.stress_and_strain.03
+skill_ids:
+- SK.A.11.physics.stress_and_strain
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A wire carries a load F through a cross-sectional area A. Which change doubles the stress in the wire?
+hints:
+- level: 1
+  en: Stress is force divided by area.
+- level: 2
+  en: Ask what happens to a quotient when its denominator shrinks.
+- level: 3
+  en: The length of the wire does not appear in the definition of stress.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: doubling the load and the area together
+- id: b
+  en: doubling the cross-sectional area while the load stays the same
+- id: c
+  en: doubling the length of the wire
+- id: d
+  en: halving the cross-sectional area while the load stays the same
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.64D4B1FA8590
+  when_answer_equals:
+  - b
+- id: MC.A.AB2896E43D98
+  when_answer_equals:
+  - c
+- id: MC.A.2C09FF82EE39
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Stress is F divided by A.
+- en: Halving A while keeping F fixed doubles the stress.
+- en: The correct option is d.
+tier: C

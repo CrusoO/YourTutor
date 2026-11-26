@@ -1,0 +1,48 @@
+id: A.11.maths.conic_sections.hyperbola.03
+skill_ids:
+- SK.A.11.maths.hyperbola
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: What are the vertices of the hyperbola y squared over 4 minus x squared over 5 equals 1?
+hints:
+- level: 1
+  en: Look at which variable has the positive term to find the transverse axis.
+- level: 2
+  en: The vertex distance is the square root of the denominator under that variable.
+- level: 3
+  en: Place the two vertices on the transverse axis symmetrically about the centre.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (plus or minus 2, 0)
+- id: b
+  en: (plus or minus sqrt 5, 0)
+- id: c
+  en: (0, plus or minus 3)
+- id: d
+  en: (0, plus or minus 2)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9999A203A8E5
+  when_answer_equals:
+  - a
+- id: MC.A.AD8AE76A5568
+  when_answer_equals:
+  - c
+- id: MC.A.1E0E3E1BCED7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The term with y comes first and is positive, so the transverse axis is vertical and the vertices lie at distance square root of 4, which is 2, from the centre.
+- en: The correct option is d.
+tier: C

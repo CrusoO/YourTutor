@@ -1,0 +1,50 @@
+id: A.11.biology.neural_control_and_coordination.nerve_impulse.06
+skill_ids:
+- SK.A.11.biology.nerve_impulse
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A myelinated axon conducts impulses faster than an unmyelinated axon of the same diameter. What is the main reason?
+hints:
+- level: 1
+  en: Think about where the voltage-gated channels are concentrated in a myelinated fibre.
+- level: 2
+  en: Consider how the impulse moves between the gaps in the sheath.
+- level: 3
+  en: The movement is discontinuous rather than step by step along the membrane.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Myelin has a higher sodium content than the axon membrane
+- id: b
+  en: Myelin releases a neurotransmitter that speeds the impulse
+- id: c
+  en: Unmyelinated axons have no ion channels
+- id: d
+  en: Saltatory conduction lets the impulse jump from one node of Ranvier to the next
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3EE816F41672
+  when_answer_equals:
+  - a
+- id: MC.A.6D47D01D3EC9
+  when_answer_equals:
+  - c
+- id: MC.A.DD96687E4873
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Myelin insulates the axon so that the impulse regenerates only at the nodes of Ranvier.
+- en: This saltatory conduction covers the axon faster than a continuous spread along the membrane.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw a myelinated axon with nodes of Ranvier marked, showing the impulse jumping from node to node with arrows, and label the insulated internodes.

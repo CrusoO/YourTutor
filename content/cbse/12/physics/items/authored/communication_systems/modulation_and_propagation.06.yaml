@@ -1,0 +1,48 @@
+id: A.12.physics.communication_systems.modulation_and_propagation.06
+skill_ids:
+- SK.A.12.physics.modulation_and_propagation
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A carrier of frequency 1000 kHz is amplitude modulated by a message of frequency 5 kHz. What is the frequency of the upper sideband?
+hints:
+- level: 1
+  en: The upper sideband is the carrier frequency plus the message frequency.
+- level: 2
+  en: Add the message frequency to the carrier frequency.
+- level: 3
+  en: The lower sideband is found by subtracting instead.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1010 kHz
+- id: b
+  en: 1005 kHz
+- id: c
+  en: 1000 kHz
+- id: d
+  en: 995 kHz
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8964A63CE5C1
+  when_answer_equals:
+  - d
+- id: MC.A.C3928E567776
+  when_answer_equals:
+  - a
+- id: MC.A.2C2F700CC8E3
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The upper sideband is the carrier frequency plus the message frequency, which is 1000 kHz plus 5 kHz, equal to 1005 kHz.
+- en: The correct option is b.
+tier: C

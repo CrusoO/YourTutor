@@ -1,0 +1,49 @@
+id: A.10.maths.pair_of_linear_equations.graphical_method.01
+skill_ids:
+- SK.A.10.maths.graphical_method
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: The equations 2x + 3y = 6 and 4x + 6y = 12 are graphed on the same axes. What do the graphs look like?
+hints:
+- level: 1
+  en: Divide the second equation by 2 and compare it with the first.
+- level: 2
+  en: Compare the ratios of the x-coefficients, y-coefficients and constants.
+- level: 3
+  en: Ask how many points a single line has in common with itself.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The lines cross at exactly (0, 2) only.
+- id: b
+  en: The lines cross at exactly one point.
+- id: c
+  en: The two lines coincide, so there are infinitely many solutions.
+- id: d
+  en: The lines are parallel, so there is no solution.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3AC3BB520276
+  when_answer_equals:
+  - d
+- id: MC.A.7B689D7800F9
+  when_answer_equals:
+  - b
+- id: MC.A.4C5CA19BACCA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The second equation is twice the first, so both describe the same line.
+- en: Every point on that line satisfies both equations, which gives infinitely many solutions.
+- en: The correct option is c.
+tier: C

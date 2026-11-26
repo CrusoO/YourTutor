@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.buoyancy_and_archimedes.04
+skill_ids:
+- SK.A.9.physics.buoyancy_and_archimedes
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: An iron block and a wooden block have equal volumes and are both fully submerged in water. Which statement is correct?
+hints:
+- level: 1
+  en: Upthrust depends on the fluid displaced by the object.
+- level: 2
+  en: Both blocks displace the same volume of water here.
+- level: 3
+  en: The material of the block does not enter the upthrust formula directly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the wooden block experiences more upthrust
+- id: b
+  en: upthrust depends mainly on the shape of the block
+- id: c
+  en: the iron block experiences more upthrust
+- id: d
+  en: they experience the same upthrust
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.6BCA0E6A5324
+  when_answer_equals:
+  - c
+- id: MC.A.FC8A36C2E985
+  when_answer_equals:
+  - a
+- id: MC.A.D79635F88A87
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Upthrust equals the weight of the displaced fluid, which depends on the displaced volume and the fluid density; equal volumes give equal upthrust.
+- en: The correct option is d.
+tier: C

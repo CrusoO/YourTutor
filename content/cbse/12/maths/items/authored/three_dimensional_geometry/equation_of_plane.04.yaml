@@ -1,0 +1,50 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_plane.04
+skill_ids:
+- SK.A.12.maths.equation_of_plane
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the equation of the plane through (1, 0, 0), (0, 2, 0) and (0, 0, 3)?
+hints:
+- level: 1
+  en: Use the intercept form of a plane with the three axis intercepts.
+- level: 2
+  en: Clear the fractions by multiplying through by the common denominator.
+- level: 3
+  en: Check the final equation by substituting each of the three points.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 6x + 3y + 2z = 0
+- id: b
+  en: 6x + 3y + 2z = 6
+- id: c
+  en: 6x + 3y + 2z = 1
+- id: d
+  en: x + 2y + 3z = 6
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FF40F478856A
+  when_answer_equals:
+  - a
+- id: MC.A.333009A9D165
+  when_answer_equals:
+  - d
+- id: MC.A.6156C726C9A2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The intercept form is x + y/2 + z/3 = 1.
+- en: Multiplying by 6 gives 6x + 3y + 2z = 6.
+- en: The correct option is b.
+tier: C
+diagram_note: Plane cutting the three coordinate axes at the labelled points (1, 0, 0), (0, 2, 0) and (0, 0, 3).

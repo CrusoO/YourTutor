@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.chain_rule_implicit.02
+skill_ids:
+- SK.A.12.maths.chain_rule_implicit
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is dy/dx when y = sin(x^2)?
+hints:
+- level: 1
+  en: Identify the outer and the inner function.
+- level: 2
+  en: Differentiate the outer function and keep the inner one unchanged.
+- level: 3
+  en: Multiply by the derivative of the inner function.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2x sin(x^2)
+- id: b
+  en: 2x cos(x^2)
+- id: c
+  en: -2x cos(x^2)
+- id: d
+  en: cos(x^2)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CD289EA03EB2
+  when_answer_equals:
+  - d
+- id: MC.A.C634A0FC572A
+  when_answer_equals:
+  - a
+- id: MC.A.2D8F4A22A56A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The outer function is sine, whose derivative is cosine of the inner expression, and the inner function x squared has derivative 2x.
+- en: The correct option is b.
+tier: C

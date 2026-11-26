@@ -1,0 +1,49 @@
+id: A.11.physics.oscillations.damped_and_forced.06
+skill_ids:
+- SK.A.11.physics.damped_and_forced
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A driven oscillator is at resonance with weak damping. If the damping is then increased, what happens to the peak amplitude?
+hints:
+- level: 1
+  en: More damping drains energy from each cycle.
+- level: 2
+  en: A flatter response curve has less height at resonance.
+- level: 3
+  en: Compare the height of the response peak before and after increasing the damping.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the peak amplitude decreases and the resonance broadens
+- id: b
+  en: the resonance frequency rises sharply
+- id: c
+  en: the peak amplitude stays the same
+- id: d
+  en: the peak amplitude increases
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.98B64A7E9072
+  when_answer_equals:
+  - d
+- id: MC.A.A3CA052533E0
+  when_answer_equals:
+  - c
+- id: MC.A.6B01831691D4
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Greater damping drains more energy from each cycle, lowering and broadening the resonance peak, while the peak frequency changes only slightly.
+- en: The correct option is a.
+tier: C
+diagram_note: Two resonance curves plotted as amplitude against driving frequency. One is tall and narrow, labelled light damping, and the other is lower and wider, labelled heavy damping.

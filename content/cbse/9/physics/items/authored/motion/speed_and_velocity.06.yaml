@@ -1,0 +1,48 @@
+id: A.9.physics.motion.speed_and_velocity.06
+skill_ids:
+- SK.A.9.physics.speed_and_velocity
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A boat is steered straight across a river at 4 m/s relative to the water, while the water flows at 3 m/s. What is the boat's speed relative to the bank?
+hints:
+- level: 1
+  en: The two velocities are at right angles to each other.
+- level: 2
+  en: Combine perpendicular velocities using the right-angled triangle rule.
+- level: 3
+  en: Adding the numbers directly is wrong when the directions differ.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 7 m/s
+- id: b
+  en: 5 m/s
+- id: c
+  en: 4 m/s
+- id: d
+  en: 1 m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F741E18BF7A6
+  when_answer_equals:
+  - a
+- id: MC.A.EEBAC2A415F4
+  when_answer_equals:
+  - d
+- id: MC.A.1D5A3B6951B0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The two velocities are at right angles, so the resultant is the hypotenuse of a right-angled triangle, giving 5 m/s.
+- en: The correct option is b.
+tier: C

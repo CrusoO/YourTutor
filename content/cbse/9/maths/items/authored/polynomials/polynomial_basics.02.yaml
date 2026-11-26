@@ -1,0 +1,49 @@
+id: A.9.maths.polynomials.polynomial_basics.02
+skill_ids:
+- SK.A.9.maths.polynomial_basics
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of these expressions is a polynomial in one variable?
+hints:
+- level: 1
+  en: Check every exponent that sits on the variable.
+- level: 2
+  en: Whole-number powers are the only kind a polynomial allows.
+- level: 3
+  en: Look for the variable in a denominator or under a root sign.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/x + 1
+- id: b
+  en: y^2 + 2y - 5
+- id: c
+  en: 2^x + 1
+- id: d
+  en: sqrt(z) + 3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8DD78F139D91
+  when_answer_equals:
+  - a
+- id: MC.A.60A322708F4F
+  when_answer_equals:
+  - d
+- id: MC.A.4A2D81D9408D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A polynomial uses only whole-number powers of the variable with coefficients, combined by addition and subtraction.
+- en: The other expressions use division by a variable, a root, or a variable in the exponent.
+- en: The correct option is b.
+tier: C

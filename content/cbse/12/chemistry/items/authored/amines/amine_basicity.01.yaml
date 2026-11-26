@@ -1,0 +1,49 @@
+id: A.12.chemistry.amines.amine_basicity.01
+skill_ids:
+- SK.A.12.chemistry.amine_basicity
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Which of these is the strongest base in aqueous solution?
+hints:
+- level: 1
+  en: Consider the inductive effect of alkyl groups and the steric hindrance to protonation.
+- level: 2
+  en: Think about whether the groups on nitrogen push electrons towards it.
+- level: 3
+  en: Compare the effect of aryl groups with that of alkyl groups.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Triphenylamine
+- id: b
+  en: Dimethylamine
+- id: c
+  en: Ammonia
+- id: d
+  en: Aniline
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CEE973DBC259
+  when_answer_equals:
+  - d
+- id: MC.A.DF22B0F3E411
+  when_answer_equals:
+  - c
+- id: MC.A.41DF5CFF7963
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Alkyl groups donate electron density to nitrogen and raise its basicity.
+- en: Dimethylamine is more basic than ammonia, and aryl amines are much weaker.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.10.maths.triangles.similarity_criteria.06
+skill_ids:
+- SK.A.10.maths.similarity_criteria
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Triangle P has sides 3, 4 and 5 cm. Triangle Q has sides 6, 8 and 10 cm. No angles are given. Which statement is correct?
+hints:
+- level: 1
+  en: Divide each side of Q by the matching side of P.
+- level: 2
+  en: Check whether all the ratios are equal.
+- level: 3
+  en: Decide whether a common ratio other than 1 is compatible with congruence.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are not similar, because 3 and 6 are not equal.
+- id: b
+  en: They are similar by SSS similarity, since 6/3 = 8/4 = 10/5 = 2.
+- id: c
+  en: They are not similar, because no angle is given.
+- id: d
+  en: They are congruent, since the ratio of the sides is 2.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C5309B03813C
+  when_answer_equals:
+  - d
+- id: MC.A.50417D00F11E
+  when_answer_equals:
+  - c
+- id: MC.A.1A405772A58F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: All three side ratios equal 2, so the sides are proportional and the triangles are similar by SSS.
+- en: A common ratio of 2 rules out congruence, since congruent triangles have a ratio of 1.
+- en: The correct option is b.
+tier: C

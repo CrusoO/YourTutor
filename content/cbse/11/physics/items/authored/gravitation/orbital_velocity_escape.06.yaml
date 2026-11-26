@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.orbital_velocity_escape.06
+skill_ids:
+- SK.A.11.physics.orbital_velocity_escape
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: If the mass of a planet is doubled while its radius stays the same, how does its escape velocity change?
+hints:
+- level: 1
+  en: Escape speed depends on the planet's mass through a square root.
+- level: 2
+  en: Escape speed squared is proportional to mass divided by radius.
+- level: 3
+  en: Look at how a square root responds when its argument doubles.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: doubles
+- id: b
+  en: is halved
+- id: c
+  en: increases by a factor of the square root of 2
+- id: d
+  en: stays the same
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BA732B0BA2BA
+  when_answer_equals:
+  - a
+- id: MC.A.E5716AEC6BBF
+  when_answer_equals:
+  - d
+- id: MC.A.E741E115760A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Escape velocity is the square root of 2 G M / R, so doubling M multiplies the escape velocity by the square root of 2.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.02
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is needed to disprove the claim that every prime number is odd?
+hints:
+- level: 1
+  en: Look for one case that breaks a claim about all primes.
+- level: 2
+  en: Consider the smallest primes and check their properties.
+- level: 3
+  en: A single exception is enough to show that a universal claim is false.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a single prime that is even, such as 2
+- id: b
+  en: a demonstration that some odd number is prime
+- id: c
+  en: a proof that all primes are even
+- id: d
+  en: a long list of odd primes
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A1C46801C9DF
+  when_answer_equals:
+  - c
+- id: MC.A.264587B5EDDB
+  when_answer_equals:
+  - b
+- id: MC.A.55D5186A4FA5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A universal claim is disproved by one case that breaks it, and the prime 2 is even, so the claim fails.
+- en: The correct option is a.
+tier: C

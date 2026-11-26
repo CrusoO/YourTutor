@@ -1,0 +1,49 @@
+id: A.11.chemistry.states_of_matter.real_gases.05
+skill_ids:
+- SK.A.11.chemistry.real_gases
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: The compressibility factor Z of CO2 at 300 K falls below 1 at moderate pressure. What does this indicate about the intermolecular forces?
+hints:
+- level: 1
+  en: A value below one means the gas is more compressed than an ideal gas would be.
+- level: 2
+  en: Consider which kind of intermolecular interaction pulls molecules together.
+- level: 3
+  en: Look for the option that names the interaction responsible for the compression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the gas is behaving exactly as an ideal gas
+- id: b
+  en: molecular size dominates at this pressure
+- id: c
+  en: the gas has become a solid
+- id: d
+  en: attraction between molecules is significant
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3D8C3C8ACBC8
+  when_answer_equals:
+  - b
+- id: MC.A.8C7EFD568748
+  when_answer_equals:
+  - a
+- id: MC.A.9C963845763B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A Z value below one means the molecules are pulled together by attraction, so the gas occupies less volume than an ideal gas would at the same pressure and temperature.
+- en: The correct option is d.
+tier: C
+diagram_note: Plot of Z against pressure with a dip below the line for Z equal to one at moderate pressures, labelled as the region where attraction dominates.

@@ -1,0 +1,49 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.argand_plane.06
+skill_ids:
+- SK.A.11.maths.argand_plane
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A complex number z has modulus 1 and argument pi over 2 radians. Which number is z?
+hints:
+- level: 1
+  en: Imagine a ray from the origin turned by the given angle anticlockwise.
+- level: 2
+  en: Place the point at the given distance along that ray.
+- level: 3
+  en: Read the coordinates of the point and turn them back into a number.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: -i
+- id: b
+  en: i
+- id: c
+  en: '-1'
+- id: d
+  en: '1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7EA82B3C4C9D
+  when_answer_equals:
+  - a
+- id: MC.A.78F295DEA34A
+  when_answer_equals:
+  - d
+- id: MC.A.DA81F537FECD
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A point at distance 1 in the direction of pi over 2 lies at (0, 1) on the Argand plane, which is the number i.
+- en: The correct option is b.
+tier: C
+diagram_note: Argand plane with a unit circle, a ray from the origin at a right angle to the positive real axis, and the point where it crosses the circle marked.

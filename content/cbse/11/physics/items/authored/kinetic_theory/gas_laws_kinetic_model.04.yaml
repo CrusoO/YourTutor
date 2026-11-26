@@ -1,0 +1,49 @@
+id: A.11.physics.kinetic_theory.gas_laws_kinetic_model.04
+skill_ids:
+- SK.A.11.physics.gas_laws_kinetic_model
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'For a fixed amount of ideal gas at constant temperature, a graph of pressure against inverse volume is:'
+hints:
+- level: 1
+  en: Pressure times volume is constant for this process.
+- level: 2
+  en: Rearrange P V equals a constant to see how P depends on 1 over V.
+- level: 3
+  en: Check the slope and the intercept of that rearranged form.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: an exponential decay curve
+- id: b
+  en: a parabola opening upward
+- id: c
+  en: a straight line through the origin
+- id: d
+  en: a horizontal line
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.34EDF0114F89
+  when_answer_equals:
+  - b
+- id: MC.A.13A8D80703D6
+  when_answer_equals:
+  - d
+- id: MC.A.94E309FFEF5E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Boyle's law gives P V = constant, so P = constant times 1/V.
+- en: Plotting P against 1/V gives a straight line through the origin.
+- en: The correct option is c.
+tier: C

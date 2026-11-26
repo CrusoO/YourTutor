@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_basicity.04
+skill_ids:
+- SK.A.12.chemistry.amine_basicity
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which amine is the least basic in aqueous solution?
+hints:
+- level: 1
+  en: Count the aryl groups attached to nitrogen and consider how they affect the lone pair.
+- level: 2
+  en: Think about how delocalisation into rings reduces basicity.
+- level: 3
+  en: Compare the groups on nitrogen in each option.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Triphenylamine
+- id: b
+  en: Ammonia
+- id: c
+  en: Methylamine
+- id: d
+  en: Diethylamine
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.09E3E107E88C
+  when_answer_equals:
+  - c
+- id: MC.A.C0CE39808C63
+  when_answer_equals:
+  - b
+- id: MC.A.546F2FA372EA
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Three phenyl groups delocalise the nitrogen lone pair strongly and crowd the site of protonation, so triphenylamine is extremely weakly basic.
+- en: The correct option is a.
+tier: C

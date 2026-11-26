@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.adjoint_inverse.04
+skill_ids:
+- SK.A.12.maths.adjoint_inverse
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: If A is an invertible 3 by 3 matrix, what is the product of A and its adjoint?
+hints:
+- level: 1
+  en: Use the identity relating a matrix, its adjoint and its determinant.
+- level: 2
+  en: Write the product as a scalar multiple of the identity.
+- level: 3
+  en: Identify the scalar from the determinant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: det(A) times the identity matrix
+- id: b
+  en: The identity matrix
+- id: c
+  en: The zero matrix
+- id: d
+  en: The adjoint itself
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.26176A02B425
+  when_answer_equals:
+  - b
+- id: MC.A.FFAF559EDDD2
+  when_answer_equals:
+  - c
+- id: MC.A.D6AA55CF867A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A times adj A equals det(A) times the identity, which is a standard identity linking a matrix, its adjoint and its determinant.
+- en: The correct option is a.
+tier: C

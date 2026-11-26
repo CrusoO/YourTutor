@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.entropy_gibbs.01
+skill_ids:
+- SK.A.11.chemistry.entropy_gibbs
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which change normally increases the entropy of a system?
+hints:
+- level: 1
+  en: Think about which change gives molecules more freedom of position and motion.
+- level: 2
+  en: Consider whether the particles become more or less spread out.
+- level: 3
+  en: Look for the change that moves particles from a more confined phase to a freer one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a gas being compressed into a smaller volume at constant temperature
+- id: b
+  en: a gas condensing into a liquid
+- id: c
+  en: a liquid evaporating into a gas
+- id: d
+  en: a crystal forming from a solution
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.45F0E5C4F0BE
+  when_answer_equals:
+  - b
+- id: MC.A.CF9011337CAC
+  when_answer_equals:
+  - d
+- id: MC.A.6C795FFFB67E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Gas molecules have far more positions and motions available than liquid molecules, so evaporation sharply increases the entropy of the system.
+- en: The correct option is c.
+tier: C

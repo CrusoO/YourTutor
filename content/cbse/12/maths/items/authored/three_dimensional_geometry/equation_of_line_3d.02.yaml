@@ -1,0 +1,48 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_line_3d.02
+skill_ids:
+- SK.A.12.maths.equation_of_line_3d
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the Cartesian form of the line through (1, 2, 3) with direction ratios (2, 3, 4)?
+hints:
+- level: 1
+  en: Use the given point and the direction ratios in the symmetric form.
+- level: 2
+  en: Each coordinate difference is divided by its matching direction ratio.
+- level: 3
+  en: Keep the sign of each point coordinate when you form the difference.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (x - 1)/2 = (y - 2)/3 = (z - 3)/4
+- id: b
+  en: (x + 1)/2 = (y + 2)/3 = (z + 3)/4
+- id: c
+  en: (x - 1)/4 = (y - 2)/3 = (z - 3)/2
+- id: d
+  en: (x - 1)/2 = (y - 2)/3 = (z - 3)/-4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.85A1ADAA46AF
+  when_answer_equals:
+  - b
+- id: MC.A.5A60E0B7E789
+  when_answer_equals:
+  - c
+- id: MC.A.18D84CE5D7CE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The symmetric form divides each coordinate difference from the point by the matching direction ratio, giving (x - 1)/2 = (y - 2)/3 = (z - 3)/4.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.biology.chemical_coordination_and_integration.feedback_control_hormones.03
+skill_ids:
+- SK.A.11.biology.feedback_control_hormones
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the release of thyroxine described as following a negative feedback loop?
+hints:
+- level: 1
+  en: Think about how the hypothalamus and pituitary respond to high hormone levels.
+- level: 2
+  en: Consider what a loop that reduces its own initial signal does.
+- level: 3
+  en: Trace the signal from the hypothalamus to the pituitary to the thyroid and back.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: High thyroxine stimulates more TSH, which raises output further
+- id: b
+  en: Thyroxine has no effect on the pituitary or hypothalamus
+- id: c
+  en: Thyroxine is released only at night
+- id: d
+  en: High thyroxine inhibits the release of TRH and TSH, which lowers further thyroxine production
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7A426C73D494
+  when_answer_equals:
+  - a
+- id: MC.A.C1261C871158
+  when_answer_equals:
+  - c
+- id: MC.A.8461AEB2BC0F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Thyroxine acts on the hypothalamus and pituitary to reduce TRH and TSH.
+- en: Less TSH means less thyroxine is produced, which brings the level back toward the set point.
+- en: The correct option is d.
+tier: C

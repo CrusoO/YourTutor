@@ -1,0 +1,49 @@
+id: A.11.physics.thermodynamics.second_law_heat_engines.04
+skill_ids:
+- SK.A.11.physics.second_law_heat_engines
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A refrigerator removes heat from its cold interior. Which statement correctly describes how it works?
+hints:
+- level: 1
+  en: Heat flows naturally only from hot to cold.
+- level: 2
+  en: Reversing that natural flow requires an external energy supply.
+- level: 3
+  en: Think about what the compressor adds to the system.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it moves heat from cold to hot spontaneously
+- id: b
+  en: it works without any energy input
+- id: c
+  en: it converts heat completely into work
+- id: d
+  en: it needs external work input to move heat from the cold region to the warm room
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.6DA3F68D6156
+  when_answer_equals:
+  - c
+- id: MC.A.20F2B98665C1
+  when_answer_equals:
+  - a
+- id: MC.A.D2379F9D1695
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Heat does not flow from cold to hot by itself.
+- en: A refrigerator uses external work, usually from an electric motor, to pump heat against the temperature gradient.
+- en: The correct option is d.
+tier: C

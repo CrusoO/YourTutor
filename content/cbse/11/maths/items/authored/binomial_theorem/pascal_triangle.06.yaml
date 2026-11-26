@@ -1,0 +1,48 @@
+id: A.11.maths.binomial_theorem.pascal_triangle.06
+skill_ids:
+- SK.A.11.maths.pascal_triangle
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the total of all entries in rows 0 to 3 of Pascal's triangle, taken together?
+hints:
+- level: 1
+  en: Find the total of each row separately using the power of two pattern.
+- level: 2
+  en: Add the row totals for the rows you were asked to include.
+- level: 3
+  en: Stop the sum at the last row named in the question.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '15'
+- id: b
+  en: '14'
+- id: c
+  en: '12'
+- id: d
+  en: '16'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DAD604662154
+  when_answer_equals:
+  - d
+- id: MC.A.F37BB3C54B12
+  when_answer_equals:
+  - b
+- id: MC.A.E806401548A9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The row totals are 1, 2, 4 and 8 for rows 0 to 3, and these add to 15.
+- en: The correct option is a.
+tier: C

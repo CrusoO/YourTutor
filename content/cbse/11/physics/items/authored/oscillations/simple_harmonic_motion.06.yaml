@@ -1,0 +1,50 @@
+id: A.11.physics.oscillations.simple_harmonic_motion.06
+skill_ids:
+- SK.A.11.physics.simple_harmonic_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A block of mass m on a spring of constant k oscillates vertically. If the mass is quadrupled while k stays the same, how does the period change?
+hints:
+- level: 1
+  en: The period depends on the square root of the mass.
+- level: 2
+  en: Compare the mass ratio and take its square root.
+- level: 3
+  en: The spring constant is fixed in this comparison.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: stays the same
+- id: b
+  en: quadruples
+- id: c
+  en: doubles
+- id: d
+  en: halves
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.015ACC3F24E6
+  when_answer_equals:
+  - b
+- id: MC.A.CE261DDDAED5
+  when_answer_equals:
+  - a
+- id: MC.A.EADA2727DF0D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The period is 2 pi times the square root of m over k.
+- en: Quadrupling m multiplies the square root by two, so the period doubles.
+- en: The correct option is c.
+tier: C
+diagram_note: A spring with a block hanging from it. The mass is labelled m and a double-headed arrow shows the oscillation up and down.

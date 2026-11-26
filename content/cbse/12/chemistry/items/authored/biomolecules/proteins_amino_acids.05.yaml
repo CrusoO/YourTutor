@@ -1,0 +1,50 @@
+id: A.12.chemistry.biomolecules.proteins_amino_acids.05
+skill_ids:
+- SK.A.12.chemistry.proteins_amino_acids
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why does denaturation destroy the tertiary structure of a protein without breaking its peptide bonds?
+hints:
+- level: 1
+  en: Consider which bonds are strong covalent links and which are weaker interactions.
+- level: 2
+  en: Think about which interactions hold a folded protein in shape.
+- level: 3
+  en: Compare the energy needed to break a covalent bond with that needed to disrupt the fold.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The primary sequence becomes branched
+- id: b
+  en: Heat or pH changes disrupt the non-covalent interactions that hold the fold
+- id: c
+  en: Peptide bonds are broken by mild heat
+- id: d
+  en: Amino acids change into sugars
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.4A21AEF95F96
+  when_answer_equals:
+  - c
+- id: MC.A.95D971E8635B
+  when_answer_equals:
+  - d
+- id: MC.A.750DDAC8EC95
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The fold is held by hydrogen bonds, salt bridges and hydrophobic contacts, which are weaker than covalent bonds.
+- en: Heat or pH change breaks these and the chain unfolds while the backbone stays intact.
+- en: The correct option is b.
+tier: C
+diagram_note: Folded protein drawn as a tangled ribbon, with arrows showing heat and acid breaking hydrogen bonds and salt bridges while the backbone remains a continuous chain.

@@ -1,0 +1,50 @@
+id: A.11.biology.respiration_in_plants.krebs_cycle_etc.04
+skill_ids:
+- SK.A.11.biology.krebs_cycle_etc
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which order of stages is correct as pyruvate is fully oxidised in aerobic respiration?
+hints:
+- level: 1
+  en: Start with the step that converts pyruvate into acetyl CoA.
+- level: 2
+  en: The cycle must come after acetyl CoA is formed.
+- level: 3
+  en: Electrons from the cycle are passed to the chain last.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Link reaction, then Krebs cycle, then electron transport chain
+- id: b
+  en: Krebs cycle, then link reaction, then electron transport chain
+- id: c
+  en: Link reaction, then electron transport chain, then Krebs cycle
+- id: d
+  en: Electron transport chain, then Krebs cycle, then link reaction
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.BA76E22465A8
+  when_answer_equals:
+  - b
+- id: MC.A.EB69C2633DA7
+  when_answer_equals:
+  - d
+- id: MC.A.A5E1E4E71B9A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Pyruvate is first converted to acetyl CoA by the link reaction, which feeds the Krebs cycle.
+- en: The reduced carriers then pass their electrons to the electron transport chain.
+- en: The correct option is a.
+tier: C
+diagram_note: Draw a flow from pyruvate through the link reaction to acetyl CoA, then into the Krebs cycle, then to the electron transport chain, labelling each stage and its location in the mitochondrion.

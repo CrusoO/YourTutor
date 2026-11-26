@@ -1,0 +1,49 @@
+id: A.9.maths.constructions.triangle_constructions.05
+skill_ids:
+- SK.A.9.maths.triangle_constructions
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A triangle is to be constructed with sides of 2 cm, 3 cm and 6 cm. Which statement is correct?
+hints:
+- level: 1
+  en: Add the two shorter sides and compare the total with the longest.
+- level: 2
+  en: A triangle needs every pair of sides to exceed the third side.
+- level: 3
+  en: Test whether the condition holds before choosing a construction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It can be constructed as an equilateral triangle.
+- id: b
+  en: It cannot be constructed, because two sides sum to less than the third.
+- id: c
+  en: It can be constructed if the 6 cm side faces the largest angle.
+- id: d
+  en: It can be constructed as a right triangle.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.759DF781913E
+  when_answer_equals:
+  - d
+- id: MC.A.DC9C6FFE6260
+  when_answer_equals:
+  - a
+- id: MC.A.E098BA650E58
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Two sides of 2 cm and 3 cm sum to 5 cm, which is less than 6 cm, so no triangle with these sides exists.
+- en: The correct option is b.
+tier: C
+diagram_note: Three segments of lengths 2 cm, 3 cm and 6 cm, with the attempt to join their ends shown.

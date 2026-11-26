@@ -1,0 +1,31 @@
+id: A.12.chemistry.solid_state.unit_cells_and_lattices.01
+skill_ids:
+- SK.A.12.chemistry.unit_cells_and_lattices
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: How many atoms belong to one simple cubic unit cell when atoms sit only at the corners?
+hints:
+- level: 1
+  en: Each corner atom is shared among the cells that meet at that corner.
+- level: 2
+  en: Work out what fraction of a corner atom lies inside the single cell.
+- level: 3
+  en: Add up the fractions contributed by all the corners.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1'
+  accept: []
+solution_steps:
+- en: Each corner atom is shared by eight neighbouring cells, so it contributes one eighth to a single cell.
+- en: Eight such fractions add up to one atom per cell.
+- en: Answer = 1
+tier: C
+diagram_note: Cube drawn with one atom at each of its eight corners and no atom at the centre or on the faces.

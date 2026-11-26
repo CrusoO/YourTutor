@@ -1,0 +1,49 @@
+id: A.11.physics.waves.speed_of_sound_medium.04
+skill_ids:
+- SK.A.11.physics.speed_of_sound_medium
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For sound in an ideal gas at fixed temperature, which factor does NOT change the speed of sound?
+hints:
+- level: 1
+  en: Use the ideal gas speed relation as a guide.
+- level: 2
+  en: Check which variables actually appear in the formula.
+- level: 3
+  en: Compare each candidate with the terms of the formula.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: molar mass of the gas
+- id: b
+  en: ratio of specific heats
+- id: c
+  en: temperature
+- id: d
+  en: pressure
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3E48C8CC2699
+  when_answer_equals:
+  - a
+- id: MC.A.EA6F9CF2046A
+  when_answer_equals:
+  - c
+- id: MC.A.D77FA4390CB2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: For an ideal gas the speed of sound is the square root of gamma R T over M.
+- en: Pressure does not appear, so it does not change the speed at a fixed temperature.
+- en: The correct option is d.
+tier: C

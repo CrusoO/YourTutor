@@ -1,0 +1,49 @@
+id: A.12.chemistry.amines.amine_basicity.05
+skill_ids:
+- SK.A.12.chemistry.amine_basicity
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why is trimethylamine less basic in water than dimethylamine?
+hints:
+- level: 1
+  en: Think about how many N-H hydrogens the protonated amine has available to bond with water.
+- level: 2
+  en: Consider how solvation of the cation in water affects basicity.
+- level: 3
+  en: Compare the effect of solvation with the effect of alkyl groups alone.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Solvation of the trimethylammonium ion is reduced by steric crowding of hydrogen bonds
+- id: b
+  en: Methyl groups are electron withdrawing
+- id: c
+  en: Trimethylamine cannot accept protons
+- id: d
+  en: Trimethylamine has a higher pKa
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B6F6302408A2
+  when_answer_equals:
+  - b
+- id: MC.A.1325748F4C60
+  when_answer_equals:
+  - d
+- id: MC.A.54EB29908617
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In water the protonated amine is stabilised by hydrogen bonds to water.
+- en: A trimethylammonium ion has only one N-H, so it is less solvated than the dimethylammonium ion, and trimethylamine is the weaker base in water.
+- en: The correct option is a.
+tier: C

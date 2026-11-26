@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkanes.04
+skill_ids:
+- SK.A.11.chemistry.alkanes
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'Which of these alkanes has the highest boiling point: n-butane, n-pentane, n-hexane or 2,2-dimethylbutane?'
+hints:
+- level: 1
+  en: Longer chains give larger surface contact and stronger dispersion forces.
+- level: 2
+  en: Branching reduces the contact area between molecules.
+- level: 3
+  en: Compare the chain length of each compound before the branching.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2,2-dimethylbutane
+- id: b
+  en: n-butane
+- id: c
+  en: n-pentane
+- id: d
+  en: n-hexane
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.FAAA20ADF3A6
+  when_answer_equals:
+  - c
+- id: MC.A.8BBC7F8497DB
+  when_answer_equals:
+  - a
+- id: MC.A.C13D2EB63EAE
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Boiling point rises with chain length because longer chains have larger surface contact and stronger London dispersion forces, so n-hexane boils highest of these.
+- en: The correct option is d.
+tier: C

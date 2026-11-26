@@ -1,0 +1,48 @@
+id: A.11.maths.sets.laws_of_sets.06
+skill_ids:
+- SK.A.11.maths.laws_of_sets
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For finite sets A and B, n(A) equals n(B) and A union B has the same size as A. Which statement must hold?
+hints:
+- level: 1
+  en: Use the union condition to decide where the members of B must sit.
+- level: 2
+  en: Combine that containment with the fact that the two sizes agree.
+- level: 3
+  en: Ask whether a strict containment is possible when the sizes match.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A intersection B is empty
+- id: b
+  en: A is a proper subset of B
+- id: c
+  en: A equals B
+- id: d
+  en: A and B are disjoint
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B043241AA997
+  when_answer_equals:
+  - b
+- id: MC.A.07B6D48F88C3
+  when_answer_equals:
+  - d
+- id: MC.A.F03CE03912FD
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The union not growing forces B to lie inside A, and equal sizes then force the two sets to coincide.
+- en: The correct option is c.
+tier: C

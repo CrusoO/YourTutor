@@ -1,0 +1,50 @@
+id: A.10.biology.control_and_coordination.nervous_system.05
+skill_ids:
+- SK.A.10.biology.nervous_system
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: During a nerve impulse, why does the inside of the axon membrane become briefly positive?
+hints:
+- level: 1
+  en: Think about which ion moves in first during the spike.
+- level: 2
+  en: 'Recall the resting state: outside positive, inside negative.'
+- level: 3
+  en: Focus on the ion that enters the cell quickly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Chloride ions leave, leaving more positive charge inside
+- id: b
+  en: Potassium ions rush into the axon from outside
+- id: c
+  en: Sodium ions rush into the axon, reversing the charge at that point
+- id: d
+  en: Water enters the axon through the myelin sheath
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.FCD42EE11B98
+  when_answer_equals:
+  - b
+- id: MC.A.A9D6693D2AD6
+  when_answer_equals:
+  - a
+- id: MC.A.C0FF1FB2B602
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Sodium channels open at the point of stimulation, and sodium ions flow in, making the inside positive for a moment.
+- en: Potassium then leaves the axon to restore the resting state.
+- en: The correct option is c.
+tier: C
+diagram_note: 'Draw a section of axon membrane in three stages: resting state with the outside positive and inside negative, the local reversal during the impulse, and the recovery. Mark the + and - signs and arrows for the ion movement at each stage.'

@@ -1,0 +1,48 @@
+id: A.11.maths.straight_lines.intercept_and_general_form.02
+skill_ids:
+- SK.A.11.maths.intercept_and_general_form
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which equation is the general form of the line with intercepts 2 on the x-axis and 5 on the y-axis?
+hints:
+- level: 1
+  en: Start from the intercept form, with each variable divided by its intercept.
+- level: 2
+  en: Clear the fractions by multiplying through by the product of the intercepts.
+- level: 3
+  en: Move every term to one side to get the general form.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5x + 2y - 10 = 0
+- id: b
+  en: 5x - 2y - 10 = 0
+- id: c
+  en: 2x + 5y - 10 = 0
+- id: d
+  en: 5x + 2y + 10 = 0
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C5AFAA90DE14
+  when_answer_equals:
+  - d
+- id: MC.A.A7B40F3F6DFC
+  when_answer_equals:
+  - c
+- id: MC.A.8FDA68F9C237
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The intercept form x over 2 plus y over 5 equals 1, multiplied by 10, gives 5x plus 2y equal to 10.
+- en: The correct option is a.
+tier: C

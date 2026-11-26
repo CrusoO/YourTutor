@@ -1,0 +1,30 @@
+id: A.11.physics.gravitation.orbital_velocity_escape.05
+skill_ids:
+- SK.A.11.physics.orbital_velocity_escape
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A planet has radius 3 m and surface gravity 32 m/s^2. A satellite circles at a distance of 18 m from the planet's centre in a circular orbit. What is its speed in metres per second?
+hints:
+- level: 1
+  en: Gravity at a distance r is the surface gravity scaled by the square of the radius ratio.
+- level: 2
+  en: Set that gravity equal to v squared over the orbit radius.
+- level: 3
+  en: Solve for the speed after writing gravity at the orbit radius.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '4'
+  accept: []
+solution_steps:
+- en: At distance r the gravity is g R^2 / r^2, so v^2 = g R^2 / r = 32 times 9 / 18 = 16 and v = 4 m/s.
+- en: The unit of the answer is m/s.
+- en: Answer = 4
+tier: C

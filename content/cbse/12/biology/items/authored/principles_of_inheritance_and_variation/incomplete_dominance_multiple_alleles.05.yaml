@@ -1,0 +1,50 @@
+id: A.12.biology.principles_of_inheritance_and_variation.incomplete_dominance_multiple_alleles.05
+skill_ids:
+- SK.A.12.biology.incomplete_dominance_multiple_alleles
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A man with blood type AB marries a woman with blood type O. Which blood groups can their children have?
+hints:
+- level: 1
+  en: Write the woman's possible gametes first.
+- level: 2
+  en: Combine each of the man's gametes with the woman's gamete.
+- level: 3
+  en: Map each resulting genotype to its blood group.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: O only
+- id: b
+  en: A, B and O
+- id: c
+  en: A and B only
+- id: d
+  en: AB and O
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.37C20EF7B31D
+  when_answer_equals:
+  - a
+- id: MC.A.81AFC089EE9B
+  when_answer_equals:
+  - d
+- id: MC.A.F231044746F8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The man gives IA or IB, and the woman gives only i, so each child is IA i or IB i, which are blood types A and B.
+- en: Type O and type AB are not possible.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a Punnett square with the man's gametes IA and IB along one side and the woman's gamete i along the other, labelling the genotype and blood group in each cell.

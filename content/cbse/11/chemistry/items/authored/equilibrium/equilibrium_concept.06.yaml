@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_concept.06
+skill_ids:
+- SK.A.11.chemistry.equilibrium_concept
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For a reaction at equilibrium, the reaction quotient Q is less than the equilibrium constant K. Which direction does the reaction proceed to reach equilibrium?
+hints:
+- level: 1
+  en: Think about whether the ratio of products to reactants is too small or too large compared with K.
+- level: 2
+  en: A mixture that needs more products to reach the constant must move in one direction.
+- level: 3
+  en: Compare the two numbers before deciding on the direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: reverse, so that reactants increase
+- id: b
+  en: the equilibrium constant falls to match Q
+- id: c
+  en: forward, so that products increase
+- id: d
+  en: no direction, because the reaction is already at equilibrium
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.FEF1369FA743
+  when_answer_equals:
+  - a
+- id: MC.A.466E21F643BC
+  when_answer_equals:
+  - b
+- id: MC.A.89C009689CF7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: When Q is below K the ratio of products to reactants is too small, so the reaction moves forward and the products increase until Q equals K.
+- en: The correct option is c.
+tier: C

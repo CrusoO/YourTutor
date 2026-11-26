@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.kinetic_energy.02
+skill_ids:
+- SK.A.9.physics.kinetic_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If the speed of an object doubles, its kinetic energy
+hints:
+- level: 1
+  en: Kinetic energy depends on speed in a squared way.
+- level: 2
+  en: Write the energy with the speed raised to a power.
+- level: 3
+  en: Consider what squaring two gives.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: does not change
+- id: b
+  en: doubles
+- id: c
+  en: becomes four times as large
+- id: d
+  en: becomes half as large
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6B983C4D1968
+  when_answer_equals:
+  - b
+- id: MC.A.CD30E4F73907
+  when_answer_equals:
+  - d
+- id: MC.A.948629D57E2E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Kinetic energy is proportional to speed squared, so doubling the speed multiplies the energy by two squared, which is four.
+- en: The correct option is c.
+tier: C

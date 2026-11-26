@@ -1,0 +1,49 @@
+id: A.10.maths.real_numbers.irrationality_proofs.05
+skill_ids:
+- SK.A.10.maths.irrationality_proofs
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which of the following numbers is irrational?
+hints:
+- level: 1
+  en: Try assuming the number is rational and rearrange to isolate √2.
+- level: 2
+  en: Simplify each option before deciding.
+- level: 3
+  en: Check what the integer parts of the expression do to rationality.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 + 3√2
+- id: b
+  en: √4 + √9
+- id: c
+  en: 3 + √5 - √5
+- id: d
+  en: (√3)(√3)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E5B979C80DC4
+  when_answer_equals:
+  - c
+- id: MC.A.DECF37EBFACD
+  when_answer_equals:
+  - b
+- id: MC.A.943B96081F05
+  when_answer_equals:
+  - d
+solution_steps:
+- en: '2 + 3√2 is irrational: if it were rational, then √2 = (r - 2)/3 would be rational, which is false.'
+- en: The other options simplify to 3, 5 and 3, which are all rational.
+- en: The correct option is a.
+tier: C

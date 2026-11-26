@@ -1,0 +1,49 @@
+id: A.12.maths.linear_programming.graphical_solution_lpp.02
+skill_ids:
+- SK.A.12.maths.graphical_solution_lpp
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Over the region x >= 0, y >= 0, x + y <= 4, where is the maximum of Z = 2x + y attained?
+hints:
+- level: 1
+  en: Identify the corner points of the feasible region.
+- level: 2
+  en: Evaluate the objective at each corner point.
+- level: 3
+  en: Compare the values to find the largest one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: At (4, 0), with value 8
+- id: b
+  en: At (2, 2), with value 6
+- id: c
+  en: At (0, 0), with value 0
+- id: d
+  en: At (0, 4), with value 4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1558285FA2FF
+  when_answer_equals:
+  - d
+- id: MC.A.89CF152B01FD
+  when_answer_equals:
+  - b
+- id: MC.A.2B266831C670
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The corners of the triangle are (0, 0), (4, 0) and (0, 4), with Z values 0, 8 and 4, so the maximum 8 is at (4, 0).
+- en: The correct option is a.
+tier: C
+diagram_note: Triangle in the first quadrant bounded by the two axes and the line x + y = 4, with its three corners labelled.

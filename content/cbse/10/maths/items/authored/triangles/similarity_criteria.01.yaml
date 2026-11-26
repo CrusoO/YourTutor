@@ -1,0 +1,49 @@
+id: A.10.maths.triangles.similarity_criteria.01
+skill_ids:
+- SK.A.10.maths.similarity_criteria
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Triangle X has angles 40 degrees, 60 degrees and 80 degrees. Triangle Y also has angles 40 degrees, 60 degrees and 80 degrees. Which conclusion is correct?
+hints:
+- level: 1
+  en: Compare the angles of the two triangles pair by pair.
+- level: 2
+  en: Ask which criterion uses only angles.
+- level: 3
+  en: Decide whether side lengths are needed for the conclusion.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are similar by the angle-angle-angle criterion.
+- id: b
+  en: They are similar only by SAS, because a side ratio must be given.
+- id: c
+  en: They are right-angled and congruent.
+- id: d
+  en: They are congruent by SSS.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.480DE3D709C5
+  when_answer_equals:
+  - d
+- id: MC.A.B2A70AE8D191
+  when_answer_equals:
+  - b
+- id: MC.A.2BA396224C1C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equal angles in all three pairs make the triangles similar.
+- en: Equal angles do not force equal side lengths, so congruence cannot be concluded.
+- en: The correct option is a.
+tier: C

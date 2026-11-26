@@ -1,0 +1,49 @@
+id: A.12.maths.determinants.properties_of_determinants.06
+skill_ids:
+- SK.A.12.maths.properties_of_determinants
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A is a 3 by 3 matrix with determinant 3. What is the determinant of its adjoint?
+hints:
+- level: 1
+  en: Recall the general formula linking the determinant of a matrix and of its adjoint.
+- level: 2
+  en: Check the power, which depends on the order of the matrix.
+- level: 3
+  en: Substitute the given determinant into that power.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '27'
+- id: c
+  en: '3'
+- id: d
+  en: 1/3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.82320150D8B6
+  when_answer_equals:
+  - c
+- id: MC.A.10E9C2328E1C
+  when_answer_equals:
+  - b
+- id: MC.A.5AC143199972
+  when_answer_equals:
+  - d
+solution_steps:
+- en: For an n by n matrix the determinant of the adjoint is the determinant of A raised to the power n minus 1.
+- en: With n equal to 3 and determinant 3, the result is 3 squared, which is 9.
+- en: The correct option is a.
+tier: C

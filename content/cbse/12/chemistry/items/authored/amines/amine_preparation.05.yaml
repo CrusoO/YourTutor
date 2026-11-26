@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_preparation.05
+skill_ids:
+- SK.A.12.chemistry.amine_preparation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which reagents are used in the Hofmann bromamide reaction?
+hints:
+- level: 1
+  en: Think of the halogen with base that forms an N-halo amide intermediate.
+- level: 2
+  en: Consider which halogen and base are paired in this degradation.
+- level: 3
+  en: Compare the conditions with the basic conditions used for the iodoform test.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Iodine in ethanol
+- id: b
+  en: Bromine in aqueous sodium hydroxide
+- id: c
+  en: Chlorine in dilute acid
+- id: d
+  en: Hydrogen peroxide in water
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.976AD598DE29
+  when_answer_equals:
+  - c
+- id: MC.A.20EAF9F3A5B5
+  when_answer_equals:
+  - a
+- id: MC.A.F3D0EFA6FD8A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Bromine and hot alkali form an N-bromo amide, which rearranges with loss of carbon dioxide to the primary amine.
+- en: The correct option is b.
+tier: C

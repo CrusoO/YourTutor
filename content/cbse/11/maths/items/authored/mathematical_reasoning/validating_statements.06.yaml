@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.validating_statements.06
+skill_ids:
+- SK.A.11.maths.validating_statements
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which method proves that for every positive integer n, the sum 1 plus 2 plus up to n equals n(n plus 1) over 2?
+hints:
+- level: 1
+  en: Consider a method that handles infinitely many cases through a repeating step.
+- level: 2
+  en: Check the simplest case first and then find how one case leads to the next.
+- level: 3
+  en: Describe the repeating step that carries the result from one value to the following value.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: mathematical induction
+- id: b
+  en: an argument using the largest possible value of n
+- id: c
+  en: checking the formula for each n up to 10
+- id: d
+  en: proof by counterexample
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8114B691738F
+  when_answer_equals:
+  - c
+- id: MC.A.7B027367DA82
+  when_answer_equals:
+  - d
+- id: MC.A.D1DF8C14806F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Induction verifies the base case and shows that truth for n implies truth for n plus 1, which covers every positive integer.
+- en: The correct option is a.
+tier: C

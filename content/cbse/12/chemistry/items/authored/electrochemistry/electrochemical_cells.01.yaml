@@ -1,0 +1,49 @@
+id: A.12.chemistry.electrochemistry.electrochemical_cells.01
+skill_ids:
+- SK.A.12.chemistry.electrochemical_cells
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a galvanic cell, where does oxidation occur?
+hints:
+- level: 1
+  en: Recall which electrode loses electrons in a spontaneous cell.
+- level: 2
+  en: Consider where electrons leave the cell.
+- level: 3
+  en: Think about the electrode where a species is oxidised.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: At the cathode
+- id: b
+  en: In the external wire only
+- id: c
+  en: At the salt bridge
+- id: d
+  en: At the anode
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3CE5346DE618
+  when_answer_equals:
+  - a
+- id: MC.A.97B1161EDB28
+  when_answer_equals:
+  - c
+- id: MC.A.154023A08EAC
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Oxidation happens where electrons are released, which is the anode of a galvanic cell.
+- en: Reduction happens at the cathode.
+- en: The correct option is d.
+tier: C

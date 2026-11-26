@@ -1,0 +1,48 @@
+id: A.11.maths.statistics.standard_deviation.02
+skill_ids:
+- SK.A.11.maths.standard_deviation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement about the standard deviation is correct?
+hints:
+- level: 1
+  en: Think about how variance is calculated and what step converts it back to original units.
+- level: 2
+  en: Compare the definitions of the spread measures you know.
+- level: 3
+  en: Check the statement against a simple data set you can compute.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it is always larger than the variance
+- id: b
+  en: it is the mean of the absolute deviations
+- id: c
+  en: it is the square root of the variance
+- id: d
+  en: it is zero whenever the mean is zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6C9BB7D8AC9C
+  when_answer_equals:
+  - a
+- id: MC.A.C7505F66478C
+  when_answer_equals:
+  - b
+- id: MC.A.2C32763BB646
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The standard deviation equals the square root of the variance, which puts the spread back in the original units.
+- en: The correct option is c.
+tier: C

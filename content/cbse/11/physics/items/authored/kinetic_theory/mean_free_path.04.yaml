@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.mean_free_path.04
+skill_ids:
+- SK.A.11.physics.mean_free_path
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: On which of the following does the mean free path of gas molecules depend?
+hints:
+- level: 1
+  en: The mean free path is about collisions, so molecular size and crowding matter.
+- level: 2
+  en: Speed changes how often collisions happen but not the path between them.
+- level: 3
+  en: Think about the cross-section a molecule presents to others.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the molecular speed alone
+- id: b
+  en: the molecular mass alone
+- id: c
+  en: the shape of the container
+- id: d
+  en: the molecular diameter and the number density
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.749225307FCF
+  when_answer_equals:
+  - a
+- id: MC.A.098DF9C04260
+  when_answer_equals:
+  - b
+- id: MC.A.61D6EA49C8F2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The mean free path is inversely proportional to the collision cross-section, which depends on molecular diameter, and to the number density of the gas.
+- en: The correct option is d.
+tier: C

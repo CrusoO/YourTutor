@@ -1,0 +1,48 @@
+id: A.11.maths.sets.venn_and_operations.06
+skill_ids:
+- SK.A.11.maths.venn_and_operations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For sets A and B, the union of A and B equals B. Which statement must be true?
+hints:
+- level: 1
+  en: Picture what the union adds to B when A is combined with it.
+- level: 2
+  en: If A brings nothing new into the union, what must be true of its members?
+- level: 3
+  en: Check the direction of containment carefully before choosing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A and B are disjoint
+- id: b
+  en: A is a subset of B
+- id: c
+  en: B is a subset of A
+- id: d
+  en: A and B have the same number of elements
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.3EBE4CF5A098
+  when_answer_equals:
+  - a
+- id: MC.A.B7647040DB94
+  when_answer_equals:
+  - c
+- id: MC.A.F022A898C479
+  when_answer_equals:
+  - d
+solution_steps:
+- en: If A union B equals B, then every element of A already belongs to B, which is exactly the subset condition.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.circle_equation.04
+skill_ids:
+- SK.A.11.maths.circle_equation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which equation describes the circle with centre (1, -2) that passes through the point (4, 2)?
+hints:
+- level: 1
+  en: Find the distance from the given centre to the given point on the circle.
+- level: 2
+  en: The right side of the standard form is the square of that distance.
+- level: 3
+  en: Write the equation using the centre coordinates with the correct signs.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (x + 1) squared plus (y - 2) squared equals 25
+- id: b
+  en: (x - 1) squared plus (y + 2) squared equals 25
+- id: c
+  en: (x - 1) squared plus (y + 2) squared equals 7
+- id: d
+  en: (x - 1) squared plus (y + 2) squared equals 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FAD064B7CC5E
+  when_answer_equals:
+  - a
+- id: MC.A.93C826E3FF49
+  when_answer_equals:
+  - d
+- id: MC.A.D7B4D3606325
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The radius squared is the squared distance from (1, -2) to (4, 2), which is 9 plus 16 equal to 25.
+- en: The correct option is b.
+tier: C
+diagram_note: Coordinate axes with a circle centred at a marked point below the horizontal axis and a second marked point on its circumference connected by a radius.

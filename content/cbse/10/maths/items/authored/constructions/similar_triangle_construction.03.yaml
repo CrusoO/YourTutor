@@ -1,0 +1,50 @@
+id: A.10.maths.constructions.similar_triangle_construction.03
+skill_ids:
+- SK.A.10.maths.similar_triangle_construction
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: To construct a triangle similar to ABC with scale factor 2/3 on side BC, you mark 3 equal steps on a ray from B and join the last mark to C. What is the next step?
+hints:
+- level: 1
+  en: 'Think about how the marks on the ray measure the ratio 2 : 3.'
+- level: 2
+  en: Decide which kind of line must be drawn to keep the angles.
+- level: 3
+  en: Check where the parallel line meets BC.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Join the first mark to A.
+- id: b
+  en: Draw a line through the third mark perpendicular to BC.
+- id: c
+  en: Draw a circle centred at B with an arbitrary radius.
+- id: d
+  en: Draw a line through the second mark parallel to the join, and let it meet BC at the new point.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.86EC92DD71BE
+  when_answer_equals:
+  - b
+- id: MC.A.FF7EB503A5E0
+  when_answer_equals:
+  - c
+- id: MC.A.4D553C55C476
+  when_answer_equals:
+  - a
+solution_steps:
+- en: 'The parallel through the second mark cuts BC at a point C'' with BC'' : BC = 2 : 3, so BC'' is the scaled side.'
+- en: Parallels drawn from there give the new triangle with scale factor 2/3.
+- en: The correct option is d.
+tier: C
+diagram_note: Triangle ABC with side BC along the bottom; a ray drawn from B at an acute angle with three equal marks, and the last mark joined to C.

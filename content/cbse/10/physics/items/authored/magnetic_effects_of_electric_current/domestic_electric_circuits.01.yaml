@@ -1,0 +1,49 @@
+id: A.10.physics.magnetic_effects_of_electric_current.domestic_electric_circuits.01
+skill_ids:
+- SK.A.10.physics.domestic_electric_circuits
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'In a domestic electric circuit, the appliances are connected:'
+hints:
+- level: 1
+  en: Think about what happens to the other appliances when one is switched off.
+- level: 2
+  en: Ask whether each appliance receives the full mains voltage.
+- level: 3
+  en: Consider whether the appliances share a single path for the current.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: In series, so they all share one current path
+- id: b
+  en: In a single loop with one fuse for the whole house
+- id: c
+  en: In parallel, so each one can work independently at the mains voltage
+- id: d
+  en: Partly in series and partly in parallel, with no rule
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4D62795070C7
+  when_answer_equals:
+  - a
+- id: MC.A.1A720B872A67
+  when_answer_equals:
+  - d
+- id: MC.A.6569C882B2AE
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Appliances in a home are connected in parallel across the live and neutral wires.
+- en: This means each appliance receives the full supply voltage, and switching one off does not affect the others.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.le_chatelier.02
+skill_ids:
+- SK.A.11.chemistry.le_chatelier
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: For the exothermic reaction N2 + 3 H2 <=> 2 NH3 at equilibrium, what happens to the yield of ammonia when the temperature is raised?
+hints:
+- level: 1
+  en: Heat can be treated as a product of an exothermic reaction.
+- level: 2
+  en: Consider which direction the reaction moves when heat is added.
+- level: 3
+  en: Look for the option that matches a shift away from the products.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it doubles
+- id: b
+  en: it stays the same
+- id: c
+  en: it rises
+- id: d
+  en: it falls
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9F0E4F120B28
+  when_answer_equals:
+  - c
+- id: MC.A.E712F072EB13
+  when_answer_equals:
+  - b
+- id: MC.A.080B924E80DA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Because the forward reaction releases heat, raising the temperature shifts the equilibrium back toward the reactants, reducing the yield of ammonia.
+- en: The correct option is d.
+tier: C

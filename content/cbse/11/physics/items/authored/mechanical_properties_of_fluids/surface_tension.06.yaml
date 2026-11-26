@@ -1,0 +1,48 @@
+id: A.11.physics.mechanical_properties_of_fluids.surface_tension.06
+skill_ids:
+- SK.A.11.physics.surface_tension
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two soap bubbles of different radii are connected by a narrow tube open between them. Which way does air flow?
+hints:
+- level: 1
+  en: The pressure inside a small bubble is larger for the same surface tension.
+- level: 2
+  en: The excess pressure in a bubble is inversely related to its radius.
+- level: 3
+  en: Gas moves from high pressure toward low pressure.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: from the larger bubble to the smaller bubble
+- id: b
+  en: from the smaller bubble to the larger bubble
+- id: c
+  en: it oscillates back and forth
+- id: d
+  en: there is no flow because the pressures are equal
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.607A434D07B7
+  when_answer_equals:
+  - a
+- id: MC.A.B40061B6650C
+  when_answer_equals:
+  - d
+- id: MC.A.A52E28987CD2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A smaller bubble has a larger excess pressure, 4T/r, so air flows from the smaller bubble toward the larger one until the pressures balance.
+- en: The correct option is b.
+tier: C

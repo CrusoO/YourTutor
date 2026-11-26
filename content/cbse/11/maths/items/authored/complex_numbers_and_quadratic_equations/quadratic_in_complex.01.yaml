@@ -1,0 +1,48 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.quadratic_in_complex.01
+skill_ids:
+- SK.A.11.maths.quadratic_in_complex
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What are the roots of the equation x squared plus 1 equals 0?
+hints:
+- level: 1
+  en: Rearrange the equation so that the squared term stands alone.
+- level: 2
+  en: Think about which numbers square to a negative result.
+- level: 3
+  en: Remember that the roots of such an equation come in a conjugate pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1 and -1
+- id: b
+  en: i and -i
+- id: c
+  en: 0 and i
+- id: d
+  en: i only
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D69FF7C3123C
+  when_answer_equals:
+  - a
+- id: MC.A.8163F0D56234
+  when_answer_equals:
+  - c
+- id: MC.A.91279273511E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Rearranging gives x squared equal to negative one, so the roots are i and minus i, a conjugate pair.
+- en: The correct option is b.
+tier: C

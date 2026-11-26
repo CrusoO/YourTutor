@@ -1,0 +1,48 @@
+id: A.9.maths.linear_equations_two_variables.graph_of_linear_equation.02
+skill_ids:
+- SK.A.9.maths.graph_of_linear_equation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which table of points lies on the line y = x - 2?
+hints:
+- level: 1
+  en: Substitute each x-value into the equation.
+- level: 2
+  en: Check the sign of the constant term carefully.
+- level: 3
+  en: A point lies on the line only if every substitution is correct.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0, -2), (1, -1), (2, 0)
+- id: b
+  en: (0, -2), (1, 1), (2, 0)
+- id: c
+  en: (0, 2), (1, 3), (2, 4)
+- id: d
+  en: (2, 0), (3, 2), (4, 4)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.CD3079CCE2DE
+  when_answer_equals:
+  - c
+- id: MC.A.634E25586888
+  when_answer_equals:
+  - b
+- id: MC.A.40802F63C1F7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Each point satisfies y equal to x minus 2: zero gives minus 2, one gives minus 1, and two gives 0.'
+- en: The correct option is a.
+tier: C

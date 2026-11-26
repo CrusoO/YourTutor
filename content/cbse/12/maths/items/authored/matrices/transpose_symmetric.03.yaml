@@ -1,0 +1,49 @@
+id: A.12.maths.matrices.transpose_symmetric.03
+skill_ids:
+- SK.A.12.maths.transpose_symmetric
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Express A = [[3, 1], [5, 2]] as the sum of a symmetric matrix and a skew-symmetric matrix. Which is the symmetric part?
+hints:
+- level: 1
+  en: The symmetric part averages each entry with its mirror entry.
+- level: 2
+  en: Compute A transpose first and add it to A.
+- level: 3
+  en: Remember the factor that the sum must be multiplied or divided by.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '[[3, 3], [3, 2]]'
+- id: b
+  en: '[[6, 6], [6, 4]]'
+- id: c
+  en: '[[3, 1], [5, 2]]'
+- id: d
+  en: '[[0, -2], [2, 0]]'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.25DFD3DE2F10
+  when_answer_equals:
+  - d
+- id: MC.A.242EC10B59C2
+  when_answer_equals:
+  - c
+- id: MC.A.11632FDFF213
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The symmetric part is (A + A transpose) divided by 2.
+- en: Here A + A transpose is [[6, 6], [6, 4]], and halving it gives [[3, 3], [3, 2]].
+- en: The correct option is a.
+tier: C

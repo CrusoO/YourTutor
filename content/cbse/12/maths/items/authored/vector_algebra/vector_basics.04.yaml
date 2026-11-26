@@ -1,0 +1,49 @@
+id: A.12.maths.vector_algebra.vector_basics.04
+skill_ids:
+- SK.A.12.maths.vector_basics
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A point P divides the segment from A = (1, 2, 3) to B = (4, 5, 6) internally in the ratio 2:1, with P closer to B. What are the coordinates of P?
+hints:
+- level: 1
+  en: Write the section formula for internal division in the ratio m:n.
+- level: 2
+  en: Identify which endpoint gets which weight.
+- level: 3
+  en: Divide the weighted sum by the total of the ratio parts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (3, 4, 5)
+- id: b
+  en: (2.5, 3.5, 4.5)
+- id: c
+  en: (4, 5, 6)
+- id: d
+  en: (2, 3, 4)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.FC021DF2E377
+  when_answer_equals:
+  - d
+- id: MC.A.B9068FED86AB
+  when_answer_equals:
+  - b
+- id: MC.A.5725D98C4D06
+  when_answer_equals:
+  - c
+solution_steps:
+- en: For internal division in the ratio m:n, the position vector is (nA + mB)/(m + n).
+- en: With m = 2 and n = 1 this gives (A + 2B)/3, which is (3, 4, 5).
+- en: The correct option is a.
+tier: C

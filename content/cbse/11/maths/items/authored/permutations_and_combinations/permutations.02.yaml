@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.permutations.02
+skill_ids:
+- SK.A.11.maths.permutations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the value of P(6, 2), the number of ordered arrangements of 2 objects chosen from 6?
+hints:
+- level: 1
+  en: Think about how many choices there are for the first object.
+- level: 2
+  en: Count the remaining choices for the second object after the first is placed.
+- level: 3
+  en: Multiply the two counts to get the ordered arrangements.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 6 times 4
+- id: b
+  en: 6 times 5
+- id: c
+  en: 6 factorial over 2 factorial
+- id: d
+  en: 6 plus 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.6A69DF0E5363
+  when_answer_equals:
+  - a
+- id: MC.A.BE3070141F7B
+  when_answer_equals:
+  - d
+- id: MC.A.10A240AF9A78
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first object has 6 choices and the second has 5, so P(6, 2) equals 6 times 5, which is 30.
+- en: The correct option is b.
+tier: C

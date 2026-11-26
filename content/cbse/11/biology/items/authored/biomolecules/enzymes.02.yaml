@@ -1,0 +1,49 @@
+id: A.11.biology.biomolecules.enzymes.02
+skill_ids:
+- SK.A.11.biology.enzymes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement correctly describes how a catalyst affects a chemical reaction?
+hints:
+- level: 1
+  en: Think about the energy barrier that reactants must cross.
+- level: 2
+  en: Consider whether the catalyst is consumed in the reaction.
+- level: 3
+  en: Ask whether a catalyst changes the end result or only the rate.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It adds energy to the reactants
+- id: b
+  en: It changes the equilibrium position of the reaction
+- id: c
+  en: It is consumed in the reaction and must be replenished
+- id: d
+  en: It lowers the activation energy so the reaction proceeds faster
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.53F4BAB2BDC4
+  when_answer_equals:
+  - c
+- id: MC.A.E829FE623621
+  when_answer_equals:
+  - b
+- id: MC.A.A2FD06F34878
+  when_answer_equals:
+  - a
+solution_steps:
+- en: An enzyme catalyst lowers the activation energy of a reaction without being used up, so the reaction proceeds faster.
+- en: It does not change the position of the equilibrium.
+- en: The correct option is d.
+tier: C

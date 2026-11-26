@@ -1,0 +1,48 @@
+id: A.9.physics.sound.audible_range.03
+skill_ids:
+- SK.A.9.physics.audible_range
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A dog hears a whistle that a person standing nearby cannot hear. What is the most likely reason?
+hints:
+- level: 1
+  en: Think about the frequency of the whistle rather than its loudness.
+- level: 2
+  en: Human hearing has a limit at the high end.
+- level: 3
+  en: Ask which range the whistle sits in compared with a person's.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: dogs have no upper limit on hearing
+- id: b
+  en: the whistle is too quiet for any ear to detect
+- id: c
+  en: the whistle is made of a different material
+- id: d
+  en: the whistle's frequency is above the human audible range
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2EAB0E127955
+  when_answer_equals:
+  - b
+- id: MC.A.60AFFB85992E
+  when_answer_equals:
+  - c
+- id: MC.A.EC467B0983CB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Dogs can hear higher frequencies than people, so a high-pitched whistle can be audible to the dog while silent to the person.
+- en: The correct option is d.
+tier: C

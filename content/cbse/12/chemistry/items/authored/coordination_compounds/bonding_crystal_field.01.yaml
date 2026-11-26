@@ -1,0 +1,49 @@
+id: A.12.chemistry.coordination_compounds.bonding_crystal_field.01
+skill_ids:
+- SK.A.12.chemistry.bonding_crystal_field
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the d electron count of the Fe2+ ion?
+hints:
+- level: 1
+  en: Start from the neutral atom's electron count and remove electrons according to the charge.
+- level: 2
+  en: Think about which subshell loses electrons first when a transition metal is ionised.
+- level: 3
+  en: Count only the d electrons remaining after the ion forms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '2'
+- id: c
+  en: '8'
+- id: d
+  en: '4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.7B60F0CB8251
+  when_answer_equals:
+  - d
+- id: MC.A.44D3E83F086D
+  when_answer_equals:
+  - c
+- id: MC.A.B197CC91F55B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Neutral iron has 3d6 4s2.
+- en: Losing two electrons from the 4s level leaves 3d6, so Fe2+ has six d electrons.
+- en: The correct option is a.
+tier: C

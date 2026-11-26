@@ -1,0 +1,49 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.energy_stored_capacitor.01
+skill_ids:
+- SK.A.12.physics.energy_stored_capacitor
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the energy stored in a charged capacitor of capacitance C at voltage V?
+hints:
+- level: 1
+  en: Think about how the energy depends on the voltage, which may not be linear.
+- level: 2
+  en: The factor in the formula comes from building up the charge gradually.
+- level: 3
+  en: Compare with the energy of a body whose speed increases steadily.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: C times V squared
+- id: b
+  en: One half times C times V squared
+- id: c
+  en: One half times C squared times V
+- id: d
+  en: C times V
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.519D9864E5AB
+  when_answer_equals:
+  - d
+- id: MC.A.3D08A010184C
+  when_answer_equals:
+  - a
+- id: MC.A.04A644153AEA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The work needed to charge a capacitor is the integral of the voltage over the charge built up.
+- en: This gives one half C V squared.
+- en: The correct option is b.
+tier: C

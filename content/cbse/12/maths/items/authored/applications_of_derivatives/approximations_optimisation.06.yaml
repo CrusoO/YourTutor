@@ -1,0 +1,30 @@
+id: A.12.maths.applications_of_derivatives.approximations_optimisation.06
+skill_ids:
+- SK.A.12.maths.approximations_optimisation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two positive numbers x and y satisfy x + y = 12. Find the maximum value of x times y squared.
+hints:
+- level: 1
+  en: Write the second number in terms of the first using the sum condition.
+- level: 2
+  en: Form the function to maximise with a single variable.
+- level: 3
+  en: Set its derivative equal to zero and keep the root that lies inside the allowed range.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '256'
+  accept: []
+solution_steps:
+- en: Substituting y = 12 - x gives g(x) = x(12 - x)^2, whose derivative is (12 - x)(12 - 3x), which vanishes at x = 4.
+- en: Then y = 8 and the product is 4 times 64, equal to 256.
+- en: Answer = 256
+tier: C

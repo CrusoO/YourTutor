@@ -1,0 +1,48 @@
+id: A.12.physics.nuclei.nuclear_fission_fusion.01
+skill_ids:
+- SK.A.12.physics.nuclear_fission_fusion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In nuclear fission, where does the released energy come from?
+hints:
+- level: 1
+  en: Think about how tightly bound the nucleons are after the split compared with before.
+- level: 2
+  en: Consider where the energy released in fission ends up.
+- level: 3
+  en: Recall what binding energy per nucleon means for a nucleus.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The increase in binding energy per nucleon as the nucleus splits into lighter nuclei
+- id: b
+  en: Electrons are emitted with very high energy
+- id: c
+  en: Mass is created from nothing during the split
+- id: d
+  en: The nucleus is compressed into a smaller electron cloud
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B30AD86500D5
+  when_answer_equals:
+  - c
+- id: MC.A.69A725CBC6B2
+  when_answer_equals:
+  - b
+- id: MC.A.957C01AE4DD0
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The fragments are more tightly bound per nucleon than the original heavy nucleus, and the difference in binding energy is released as kinetic energy of the fragments and radiation.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.parabola.06
+skill_ids:
+- SK.A.11.maths.parabola
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which point on the parabola y squared equals 4x lies at distance 5 from its focus?
+hints:
+- level: 1
+  en: Use the focal distance of the parabola to find the focus.
+- level: 2
+  en: The focal distance formula for a point on the parabola equals its x coordinate plus the focal distance.
+- level: 3
+  en: Check the candidate points against the parabola equation before measuring distances.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (5, 2 sqrt 5)
+- id: b
+  en: (4, 4)
+- id: c
+  en: (1, 2)
+- id: d
+  en: (4, 2)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9ECEE9780091
+  when_answer_equals:
+  - a
+- id: MC.A.9298A04189F5
+  when_answer_equals:
+  - c
+- id: MC.A.73E5A9E41BF9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The focus is (1, 0), and the distance from (4, 4) to (1, 0) is the square root of 9 plus 16, which is 5, with (4, 4) on the parabola.
+- en: The correct option is b.
+tier: C
+diagram_note: Coordinate axes with a parabola opening to the right, the focus marked on the axis, and a candidate point on the curve joined to the focus by a segment.

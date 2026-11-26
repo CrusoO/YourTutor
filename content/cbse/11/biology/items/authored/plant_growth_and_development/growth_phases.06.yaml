@@ -1,0 +1,50 @@
+id: A.11.biology.plant_growth_and_development.growth_phases.06
+skill_ids:
+- SK.A.11.biology.growth_phases
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A plant grows under continuous light and never enters dormancy, yet its growth curve still levels off. What causes this plateau?
+hints:
+- level: 1
+  en: Think about what a growing plant needs and what can run out.
+- level: 2
+  en: Consider whether the plateau would happen even without any dormancy.
+- level: 3
+  en: Ask what limits the rate of production when resources are finite.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The plant stops growing at a fixed age set by genes alone
+- id: b
+  en: Cells switch to meiosis at the plateau and stop dividing
+- id: c
+  en: Limitation of resources and space, which slows the rate of new cell production
+- id: d
+  en: The plateau results from excessive photosynthesis
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A3837A203D2B
+  when_answer_equals:
+  - a
+- id: MC.A.DFD0E25B5285
+  when_answer_equals:
+  - d
+- id: MC.A.BCFD59CDC111
+  when_answer_equals:
+  - b
+solution_steps:
+- en: As nutrients, water, light and space become limiting, the rate of new cell production falls and the curve flattens.
+- en: The plateau reflects these environmental limits rather than a fixed programme.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a sigmoid growth curve with a plateau at the top, labelling the lag, exponential and plateau phases, and noting the resource limit near the plateau.

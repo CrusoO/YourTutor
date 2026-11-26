@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.intrinsic_extrinsic.01
+skill_ids:
+- SK.A.12.physics.intrinsic_extrinsic
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Silicon is doped with phosphorus, which has five valence electrons. What type of semiconductor results?
+hints:
+- level: 1
+  en: Compare the number of valence electrons of the dopant with that of silicon.
+- level: 2
+  en: Think about which carriers the extra electron adds to the material.
+- level: 3
+  en: Consider how a dopant with fewer valence electrons would behave.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Intrinsic, because the dopant has no effect
+- id: b
+  en: p-type, with holes as the majority carriers
+- id: c
+  en: An insulator with no free carriers
+- id: d
+  en: n-type, with excess electrons as the majority carriers
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.30974A9B3BE5
+  when_answer_equals:
+  - b
+- id: MC.A.F6ABD2C80818
+  when_answer_equals:
+  - a
+- id: MC.A.02E024123CB5
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Phosphorus has one more valence electron than silicon, so the extra electron becomes a mobile carrier and the material is n-type.
+- en: The correct option is d.
+tier: C

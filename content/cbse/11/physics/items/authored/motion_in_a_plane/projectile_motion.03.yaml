@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_plane.projectile_motion.03
+skill_ids:
+- SK.A.11.physics.projectile_motion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which launch angle gives the maximum horizontal range for a projectile launched from ground level, ignoring air resistance?
+hints:
+- level: 1
+  en: The range depends on the product of the sine and cosine of the launch angle.
+- level: 2
+  en: Write that product as half of the sine of twice the angle.
+- level: 3
+  en: Find the angle that makes that sine as large as possible.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 30 degrees
+- id: b
+  en: 90 degrees
+- id: c
+  en: 45 degrees
+- id: d
+  en: 60 degrees
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.26B8503497FD
+  when_answer_equals:
+  - a
+- id: MC.A.68B710E632D5
+  when_answer_equals:
+  - d
+- id: MC.A.690F4A894F21
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The range is proportional to sin 2 theta, which is largest when 2 theta is 90 degrees, so theta is 45 degrees.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,50 @@
+id: A.10.maths.circles.tangent_to_circle.03
+skill_ids:
+- SK.A.10.maths.tangent_to_circle
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the tangent at a point perpendicular to the radius through that point?
+hints:
+- level: 1
+  en: Consider how many points a line shares with a circle in each direction.
+- level: 2
+  en: Think about which line from the centre is the shortest distance to a line.
+- level: 3
+  en: Ask which direction from P keeps the line outside the circle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because the radius is always longer than the tangent.
+- id: b
+  en: Because any other line through P enters the circle and meets it again, while the perpendicular stays outside.
+- id: c
+  en: Because the radius bisects the tangent.
+- id: d
+  en: Because the tangent is always horizontal.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2006A3B7EDF7
+  when_answer_equals:
+  - c
+- id: MC.A.D748F346416B
+  when_answer_equals:
+  - d
+- id: MC.A.F0136E6152DA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A line through P that is not perpendicular to the radius goes inside the circle and meets it again.
+- en: Only the perpendicular touches the circle at a single point, so it is the tangent.
+- en: The correct option is b.
+tier: C
+diagram_note: A circle with centre O, a radius OP, and a straight line through P drawn perpendicular to OP, labelled as the tangent at P.

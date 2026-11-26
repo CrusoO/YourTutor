@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.indefinite_integral_basics.01
+skill_ids:
+- SK.A.12.maths.indefinite_integral_basics
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the integral of x^2 with respect to x?
+hints:
+- level: 1
+  en: Use the power rule for integration.
+- level: 2
+  en: Increase the exponent by one first.
+- level: 3
+  en: Divide by the new exponent and then add the constant of integration.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x^3/3 + C
+- id: b
+  en: x^3 + C
+- id: c
+  en: 3x^3 + C
+- id: d
+  en: x^2/2 + C
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5491EF2FE283
+  when_answer_equals:
+  - b
+- id: MC.A.198F011D98F2
+  when_answer_equals:
+  - d
+- id: MC.A.36ECEFC0B959
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The power rule raises the exponent by one and divides by the new exponent, so x squared becomes x cubed over 3, plus a constant.
+- en: The correct option is a.
+tier: C

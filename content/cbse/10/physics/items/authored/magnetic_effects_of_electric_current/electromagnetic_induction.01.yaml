@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electromagnetic_induction.01
+skill_ids:
+- SK.A.10.physics.electromagnetic_induction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'Electromagnetic induction occurs when:'
+hints:
+- level: 1
+  en: 'Think about what the induced emf depends on: a steady value or a change.'
+- level: 2
+  en: Ask whether a magnet that is not moving can change the flux through a coil.
+- level: 3
+  en: Consider whether a battery produces a changing magnetic field.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The magnetic flux linked with a coil changes
+- id: b
+  en: A magnet is held still beside a coil
+- id: c
+  en: A steady current flows in a coil
+- id: d
+  en: A coil is connected to a battery
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.EDBA64AA7041
+  when_answer_equals:
+  - c
+- id: MC.A.3C68106CC879
+  when_answer_equals:
+  - b
+- id: MC.A.E107B7596C0E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An emf is induced in a coil when the magnetic flux linked with it changes.
+- en: This can happen when the magnet moves, when the coil moves, or when the current in another coil changes.
+- en: A steady field gives no induced emf.
+- en: The correct option is a.
+tier: C

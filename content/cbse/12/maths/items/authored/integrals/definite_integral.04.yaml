@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.definite_integral.04
+skill_ids:
+- SK.A.12.maths.definite_integral
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the value of the definite integral of the absolute value of (x - 1) from 0 to 2?
+hints:
+- level: 1
+  en: Split the interval at the point where the expression changes sign.
+- level: 2
+  en: Integrate each piece separately with the correct sign.
+- level: 3
+  en: Compare each piece with the area of a triangle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '0'
+- id: c
+  en: 3/2
+- id: d
+  en: '2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.7DD5432861EF
+  when_answer_equals:
+  - d
+- id: MC.A.8A9DCEAE5D17
+  when_answer_equals:
+  - b
+- id: MC.A.5D08CE758388
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The expression changes sign at x = 1, and the two pieces are each triangles with area one half, giving a total of 1.
+- en: The correct option is a.
+tier: C

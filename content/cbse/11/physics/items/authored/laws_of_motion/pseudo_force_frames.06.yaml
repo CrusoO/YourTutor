@@ -1,0 +1,48 @@
+id: A.11.physics.laws_of_motion.pseudo_force_frames.06
+skill_ids:
+- SK.A.11.physics.pseudo_force_frames
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A pendulum hangs in a lift that falls freely with acceleration g. What is the effective gravity acting on the bob as seen from inside the lift?
+hints:
+- level: 1
+  en: Take a frame falling with the same acceleration as gravity.
+- level: 2
+  en: The pseudo force points opposite to the acceleration of the frame.
+- level: 3
+  en: Add the real weight and the pseudo force as vectors.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: g upward
+- id: b
+  en: g downward
+- id: c
+  en: 2g downward
+- id: d
+  en: zero
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4EBC797D79D1
+  when_answer_equals:
+  - b
+- id: MC.A.944E841C479F
+  when_answer_equals:
+  - c
+- id: MC.A.4624155714BD
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In the freely falling lift the pseudo force m g points upward and cancels the real weight m g, so the effective gravity is zero.
+- en: The correct option is d.
+tier: C

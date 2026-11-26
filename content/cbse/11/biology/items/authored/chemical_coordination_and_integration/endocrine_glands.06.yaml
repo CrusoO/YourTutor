@@ -1,0 +1,50 @@
+id: A.11.biology.chemical_coordination_and_integration.endocrine_glands.06
+skill_ids:
+- SK.A.11.biology.endocrine_glands
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A tumour destroys the beta cells of the pancreas. Which change in blood glucose is most likely, and why?
+hints:
+- level: 1
+  en: Think about what insulin does to glucose after a meal.
+- level: 2
+  en: Consider which hormone normally lowers blood glucose.
+- level: 3
+  en: Ask what happens to glucose uptake when that hormone is missing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Blood glucose falls, because glucagon is no longer produced
+- id: b
+  en: Blood glucose rises, because the adrenal gland stops working
+- id: c
+  en: Blood glucose stays normal, because the liver makes insulin
+- id: d
+  en: Blood glucose rises, because too little insulin is available to drive glucose uptake and storage
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.FAA317FCEDDC
+  when_answer_equals:
+  - a
+- id: MC.A.D1CAE1E109B6
+  when_answer_equals:
+  - c
+- id: MC.A.A3B794DAA57B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Beta cells produce insulin, which lets body cells take up and store glucose.
+- en: Without insulin, glucose stays in the blood, so blood glucose rises after a meal.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw the pancreatic islet with beta cells destroyed and an arrow showing blood glucose rising in the blood, labelling the missing insulin signal to the body cells.

@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.vector_basics.02
+skill_ids:
+- SK.A.12.maths.vector_basics
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which vector is a unit vector in the direction of 3i + 4j?
+hints:
+- level: 1
+  en: Divide a vector by its magnitude to get a unit vector.
+- level: 2
+  en: Find the magnitude first.
+- level: 3
+  en: Check that the magnitude of your result equals 1.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (3i + 4j)/7
+- id: b
+  en: 3i + 4j
+- id: c
+  en: (3i + 4j)/5
+- id: d
+  en: (3i + 4j)/25
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C10A7A9A7BFF
+  when_answer_equals:
+  - b
+- id: MC.A.6B42100E3247
+  when_answer_equals:
+  - a
+- id: MC.A.D4053D33CED2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Dividing a vector by its magnitude gives a unit vector in the same direction, and the magnitude of 3i + 4j is 5.
+- en: The correct option is c.
+tier: C

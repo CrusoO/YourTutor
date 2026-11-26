@@ -1,0 +1,48 @@
+id: A.12.chemistry.chemical_kinetics.integrated_rate_laws.02
+skill_ids:
+- SK.A.12.chemistry.integrated_rate_laws
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which plot gives a straight line for a first order reaction?
+hints:
+- level: 1
+  en: Recall the integrated rate equation for first order decay.
+- level: 2
+  en: Identify which function of concentration appears linearly in that equation.
+- level: 3
+  en: Consider the plot that gives a straight line with slope minus k.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Concentration squared against time
+- id: b
+  en: Natural logarithm of concentration against time
+- id: c
+  en: Concentration against time
+- id: d
+  en: Reciprocal of concentration against time
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D5A3E93FD5E7
+  when_answer_equals:
+  - c
+- id: MC.A.67EC53FAA32C
+  when_answer_equals:
+  - d
+- id: MC.A.99EA6970FF84
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The integrated first order rate law gives ln [A] as a linear function of time, with slope equal to minus k.
+- en: The correct option is b.
+tier: C

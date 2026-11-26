@@ -1,0 +1,49 @@
+id: A.11.chemistry.chemical_bonding_and_molecular_structure.lewis_structures_octet.06
+skill_ids:
+- SK.A.11.chemistry.lewis_structures_octet
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which species has a formal charge of +1 on its nitrogen atom in the best Lewis structure?
+hints:
+- level: 1
+  en: Compare the bonding electrons shared by the atom with the valence electrons the atom owns.
+- level: 2
+  en: Count the bonds on the nitrogen and the lone pairs it keeps.
+- level: 3
+  en: The formal charge is the valence count minus the lone electrons minus half the bonding electrons.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: NO2
+- id: b
+  en: NH3
+- id: c
+  en: N2H4
+- id: d
+  en: NH4+
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.73C70306FE41
+  when_answer_equals:
+  - b
+- id: MC.A.54C3A05ECD4C
+  when_answer_equals:
+  - a
+- id: MC.A.4A2F31F97CA9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In NH4+ nitrogen has five valence electrons, no lone pairs and four bonds, giving a formal charge of 5 minus 0 minus 4, which equals +1.
+- en: The correct option is d.
+tier: C
+diagram_note: Lewis dot diagram of the ammonium ion with a nitrogen atom at the centre, four hydrogen atoms bonded to it, and a bracket around the structure with a plus sign at the top right.

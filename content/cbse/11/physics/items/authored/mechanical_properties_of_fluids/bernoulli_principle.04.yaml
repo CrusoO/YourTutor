@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_fluids.bernoulli_principle.04
+skill_ids:
+- SK.A.11.physics.bernoulli_principle
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In a horizontal pipe, why does the pressure of a fluid drop where its speed increases?
+hints:
+- level: 1
+  en: Bernoulli's principle keeps the energy per unit volume constant along a streamline.
+- level: 2
+  en: On a horizontal line the potential energy from height does not change.
+- level: 3
+  en: The kinetic and pressure terms trade off against each other.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the fluid becomes denser at higher speed
+- id: b
+  en: kinetic energy per unit volume rises, so the pressure falls
+- id: c
+  en: gravity pulls the fluid down faster
+- id: d
+  en: friction at the walls raises the pressure
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F5B50AC634DF
+  when_answer_equals:
+  - a
+- id: MC.A.4FDEF6CAEBC3
+  when_answer_equals:
+  - d
+- id: MC.A.21857F61CB86
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Bernoulli's principle keeps the total energy per unit volume constant along a streamline.
+- en: On a horizontal line, a rise in kinetic energy per unit volume must be matched by a fall in pressure.
+- en: The correct option is b.
+tier: C

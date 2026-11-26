@@ -1,0 +1,29 @@
+id: A.12.maths.probability.binomial_distribution.05
+skill_ids:
+- SK.A.12.maths.binomial_distribution
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: X follows a binomial distribution with n = 3 and p = 0.5. Find P(X is at least 1), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Consider the complement event of having at least one success.
+- level: 2
+  en: Find the probability of no successes at all.
+- level: 3
+  en: Subtract that probability from one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.875'
+  accept: []
+solution_steps:
+- en: The probability of no successes is 0.5 cubed, which is 0.125, so P(X at least 1) = 1 minus 0.125 = 0.875.
+- en: Answer = 0.875
+tier: C

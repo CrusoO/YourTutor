@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.second_order_derivatives.04
+skill_ids:
+- SK.A.12.maths.second_order_derivatives
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: For x = t^2 and y = t^3, which expression gives d2y/dx2?
+hints:
+- level: 1
+  en: Find dy/dx as a function of t first.
+- level: 2
+  en: Differentiate that function with respect to t.
+- level: 3
+  en: Divide by dx/dt at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3t/2
+- id: b
+  en: 3/(2t)
+- id: c
+  en: 3t^2/4
+- id: d
+  en: 3/(4t)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0760418BED29
+  when_answer_equals:
+  - a
+- id: MC.A.C4B6ADB98340
+  when_answer_equals:
+  - b
+- id: MC.A.BF5627022D9B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: dy/dx is 3t over 2, its derivative with respect to t is 3/2, and dividing by dx/dt = 2t gives 3/(4t).
+- en: The correct option is d.
+tier: C

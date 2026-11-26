@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.conservation_of_energy.04
+skill_ids:
+- SK.A.9.physics.conservation_of_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A roller coaster starts from rest at the top of a hill. At the bottom of the hill, which description of its energy is correct?
+hints:
+- level: 1
+  en: Compare the energy at the top with the energy at the bottom.
+- level: 2
+  en: Ignore friction in this comparison.
+- level: 3
+  en: Consider where the potential energy went as the coaster descended.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: its total energy is greater than at the top
+- id: b
+  en: it has no energy because it is at ground level
+- id: c
+  en: its potential energy is greater than at the top
+- id: d
+  en: its kinetic energy equals the potential energy it lost
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B9B1059C4FB0
+  when_answer_equals:
+  - a
+- id: MC.A.ED43FE42700B
+  when_answer_equals:
+  - c
+- id: MC.A.E35CC605B50C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Without losses the coaster's total energy is conserved, so the kinetic energy at the bottom equals the potential energy lost on the way down.
+- en: The correct option is d.
+tier: C

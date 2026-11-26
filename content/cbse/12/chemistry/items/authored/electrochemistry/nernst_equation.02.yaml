@@ -1,0 +1,49 @@
+id: A.12.chemistry.electrochemistry.nernst_equation.02
+skill_ids:
+- SK.A.12.chemistry.nernst_equation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: At 298 K, what is the coefficient multiplying log Q in the Nernst equation for a reaction with n electrons, in volts?
+hints:
+- level: 1
+  en: The coefficient comes from 2.303 times R times T, divided by n times F.
+- level: 2
+  en: Evaluate that group at 298 K and express the result in volts.
+- level: 3
+  en: Check whether the number of electrons sits in the numerator or the denominator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 0.0591 multiplied by n
+- id: b
+  en: 0.0821 divided by n
+- id: c
+  en: 0.0591 divided by n
+- id: d
+  en: 8.314 times 298
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.EDE720EC0CE6
+  when_answer_equals:
+  - a
+- id: MC.A.0015ED04F908
+  when_answer_equals:
+  - d
+- id: MC.A.7D132D2CDAA9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The coefficient is 2.303 times R times T divided by n times F.
+- en: At 298 K this evaluates to about 0.0591 divided by n volts.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,31 @@
+id: A.12.maths.integrals.definite_integral.05
+skill_ids:
+- SK.A.12.maths.definite_integral
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Evaluate the definite integral of x sin x with respect to x from 0 to pi, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Use integration by parts with x as the function to differentiate.
+- level: 2
+  en: Find the antiderivative including the sine term.
+- level: 3
+  en: Evaluate at the limits, noting the values of sine and cosine at 0 and pi.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3.142'
+  accept: []
+solution_steps:
+- en: Integration by parts gives the antiderivative sin x minus x cos x.
+- en: At pi it equals pi, and at 0 it equals 0, so the value is pi, about 3.142.
+- en: Answer = 3.142
+tier: C
+diagram_note: Graph of x sin x on the interval from 0 to pi, with the area between the curve and the horizontal axis shaded.

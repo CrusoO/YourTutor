@@ -1,0 +1,49 @@
+id: A.12.maths.relations_and_functions.composition_of_functions.05
+skill_ids:
+- SK.A.12.maths.composition_of_functions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: 'Let f: R to R be f(x) = x + 2 and g: R to R be g(x) = x - 2. Which statement about f o g is correct?'
+hints:
+- level: 1
+  en: Write f(g(x)) by substituting g(x) into f.
+- level: 2
+  en: Track the constants that appear after the substitution.
+- level: 3
+  en: Compare the simplified result with the simplest function on R.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: f o g(x) = x + 4
+- id: b
+  en: f o g = g o f = identity on R
+- id: c
+  en: f o g is a constant function
+- id: d
+  en: f o g is not defined on R
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.118A732ADE60
+  when_answer_equals:
+  - a
+- id: MC.A.70D60D5B4C8F
+  when_answer_equals:
+  - d
+- id: MC.A.7C4F4CBECD94
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Substituting g(x) = x - 2 into f gives (x - 2) + 2, which equals x.
+- en: The same holds in the other order, so both composites are the identity on R.
+- en: The correct option is b.
+tier: C

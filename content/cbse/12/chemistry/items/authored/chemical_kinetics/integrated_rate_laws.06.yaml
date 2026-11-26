@@ -1,0 +1,31 @@
+id: A.12.chemistry.chemical_kinetics.integrated_rate_laws.06
+skill_ids:
+- SK.A.12.chemistry.integrated_rate_laws
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A second order reaction has k = 0.05 L/mol/s and starts at 0.2 mol/L. How many seconds does it take for the concentration to reach 0.1 mol/L?
+hints:
+- level: 1
+  en: For second order reactions a plot of the reciprocal of concentration against time is linear.
+- level: 2
+  en: Find the reciprocal of each concentration before subtracting.
+- level: 3
+  en: Divide the difference of reciprocals by the rate constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '100'
+  accept: []
+solution_steps:
+- en: For second order, 1/[A] minus 1/[A]0 equals kt.
+- en: The reciprocals are 10 and 5 L/mol, and their difference of 5 divided by 0.05 gives 100 s.
+- en: The unit of the answer is s.
+- en: Answer = 100
+tier: C

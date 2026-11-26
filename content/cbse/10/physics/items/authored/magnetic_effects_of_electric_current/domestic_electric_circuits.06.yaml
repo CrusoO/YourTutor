@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.domestic_electric_circuits.06
+skill_ids:
+- SK.A.10.physics.domestic_electric_circuits
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A person standing on the floor touches the live wire of a circuit. Why is this dangerous?
+hints:
+- level: 1
+  en: Think about which path the current needs to complete its circuit.
+- level: 2
+  en: Ask where the current goes after it passes through the person.
+- level: 3
+  en: Consider whether the floor is always a perfect insulator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Current passes through the person's body to earth, because the body is a conducting path
+- id: b
+  en: The earth wire absorbs the voltage so no current passes
+- id: c
+  en: The floor insulates the person, so no current can flow
+- id: d
+  en: Current flows only through the neutral wire
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.AAA3CA363D54
+  when_answer_equals:
+  - d
+- id: MC.A.933FBF246B2F
+  when_answer_equals:
+  - b
+- id: MC.A.8A7298EF42F5
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The person touching the live wire, while in contact with the earth through the floor, provides a path for current to flow through the body to earth.
+- en: The current can be large enough to cause serious harm, which is why the fuse, the earth wire and insulation are all needed.
+- en: The correct option is a.
+tier: C
+diagram_note: Simple diagram of a person touching the live wire while standing on the floor. Label the live, neutral and earth wires. Draw an arrow showing the current path from the live wire through the person's body to the ground, and a return path to the neutral wire.

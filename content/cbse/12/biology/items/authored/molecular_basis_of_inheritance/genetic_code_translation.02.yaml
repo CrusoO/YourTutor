@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.genetic_code_translation.02
+skill_ids:
+- SK.A.12.biology.genetic_code_translation
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Which codon signals the start of translation in most mRNAs?
+hints:
+- level: 1
+  en: Think about the codon that also specifies methionine.
+- level: 2
+  en: Stop codons end translation rather than begin it.
+- level: 3
+  en: Focus on the codon that is read first in most messages.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: AUG
+- id: b
+  en: UAA
+- id: c
+  en: GGC
+- id: d
+  en: UGA
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1AE0D4BE116A
+  when_answer_equals:
+  - b
+- id: MC.A.08113F69B98E
+  when_answer_equals:
+  - d
+- id: MC.A.6449C9D53102
+  when_answer_equals:
+  - c
+solution_steps:
+- en: AUG is the start codon and also specifies methionine, so the first amino acid of most proteins is methionine.
+- en: The codons UAA and UGA are stop codons.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.rectifiers_logic_gates.01
+skill_ids:
+- SK.A.12.physics.rectifiers_logic_gates
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: When is the output of a two-input AND gate high?
+hints:
+- level: 1
+  en: Think about how many inputs must be high for the output to be high.
+- level: 2
+  en: Compare with the behaviour of two switches placed in series.
+- level: 3
+  en: Recall the truth table of the AND gate.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: When any one input is high
+- id: b
+  en: When exactly one input is high
+- id: c
+  en: When no input is high
+- id: d
+  en: Only when all inputs are high
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.321B2D1DA269
+  when_answer_equals:
+  - a
+- id: MC.A.7DC7F237A764
+  when_answer_equals:
+  - c
+- id: MC.A.D9107A40EF3B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: An AND gate gives a high output only when every input is high, which is the same as a series arrangement of switches that all must close.
+- en: The correct option is d.
+tier: C

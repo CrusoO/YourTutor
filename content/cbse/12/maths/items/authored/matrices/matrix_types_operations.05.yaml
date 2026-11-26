@@ -1,0 +1,49 @@
+id: A.12.maths.matrices.matrix_types_operations.05
+skill_ids:
+- SK.A.12.maths.matrix_types_operations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A and B are square matrices of the same order. Which statement is correct about (A + B) squared?
+hints:
+- level: 1
+  en: Expand the product carefully and keep the order of each factor.
+- level: 2
+  en: Check whether the two cross terms are the same matrix.
+- level: 3
+  en: Compare with the expansion for numbers and find the step that can fail for matrices.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It always equals A^2 + B^2
+- id: b
+  en: It equals A^2 + AB + BA + B^2 for all A and B, and it equals A^2 + 2AB + B^2 only when AB = BA
+- id: c
+  en: It always equals A^2 + 2AB + B^2
+- id: d
+  en: It equals A^2 + AB + B^2 for all A and B
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C99A73359239
+  when_answer_equals:
+  - c
+- id: MC.A.0DEAEB1D55FE
+  when_answer_equals:
+  - a
+- id: MC.A.2188E15BDB6D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Expanding (A + B)(A + B) keeps the order of each factor, which gives A^2 + AB + BA + B^2.
+- en: The two cross terms combine into 2AB only when AB and BA are equal.
+- en: The correct option is b.
+tier: C

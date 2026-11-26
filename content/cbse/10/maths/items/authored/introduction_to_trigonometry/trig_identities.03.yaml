@@ -1,0 +1,49 @@
+id: A.10.maths.introduction_to_trigonometry.trig_identities.03
+skill_ids:
+- SK.A.10.maths.trig_identities
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: For an acute angle θ, what is (1 - cos²θ) / sin θ?
+hints:
+- level: 1
+  en: Rewrite 1 - cos²θ using the basic identity.
+- level: 2
+  en: Simplify the fraction after substituting.
+- level: 3
+  en: Check how many identical factors the numerator and the denominator share.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin θ
+- id: b
+  en: cos θ
+- id: c
+  en: 1 / sin θ
+- id: d
+  en: sin²θ
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.975CCDB9D626
+  when_answer_equals:
+  - b
+- id: MC.A.EB36A0BE533D
+  when_answer_equals:
+  - d
+- id: MC.A.BD8078ED11DD
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Using sin²θ + cos²θ = 1, the numerator becomes sin²θ.
+- en: Dividing sin²θ by sin θ leaves sin θ, since sin θ is not zero for an acute angle.
+- en: The correct option is a.
+tier: C

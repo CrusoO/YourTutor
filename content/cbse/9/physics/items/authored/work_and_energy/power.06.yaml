@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.power.06
+skill_ids:
+- SK.A.9.physics.power
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A pump lifts a fixed mass of water in a fixed time. If the lifting height is doubled, what happens to the power the pump needs?
+hints:
+- level: 1
+  en: Work done against gravity depends on mass, g and height.
+- level: 2
+  en: Power is that work divided by the time, which is fixed here.
+- level: 3
+  en: Consider how the work changes when only the height changes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it halves
+- id: b
+  en: it doubles
+- id: c
+  en: it quadruples
+- id: d
+  en: it stays the same
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8F7B85398A88
+  when_answer_equals:
+  - a
+- id: MC.A.0A80133528C3
+  when_answer_equals:
+  - d
+- id: MC.A.72EFDC0CCA90
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Work against gravity is proportional to height, so doubling the height doubles the work per unit time and therefore the power.
+- en: The correct option is b.
+tier: C

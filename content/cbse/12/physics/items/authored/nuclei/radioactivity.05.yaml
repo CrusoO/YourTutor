@@ -1,0 +1,49 @@
+id: A.12.physics.nuclei.radioactivity.05
+skill_ids:
+- SK.A.12.physics.radioactivity
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Which quantity is measured in becquerel?
+hints:
+- level: 1
+  en: Think about the rate at which the sample emits radiation.
+- level: 2
+  en: Consider which quantity is expressed per second.
+- level: 3
+  en: Compare the rate of decay with the energy or dose delivered by the radiation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The activity, the number of decays per second
+- id: b
+  en: The energy of each emitted particle
+- id: c
+  en: The absorbed dose in the body
+- id: d
+  en: The half-life of the nuclide
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B099B2DD80BB
+  when_answer_equals:
+  - d
+- id: MC.A.223C7534EC23
+  when_answer_equals:
+  - b
+- id: MC.A.755761544CF2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: One becquerel is one decay per second.
+- en: Activity is the rate of decay of a sample, and it falls as the number of undecayed nuclei falls.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.thrust_and_pressure.04
+skill_ids:
+- SK.A.9.physics.thrust_and_pressure
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A sharp nail and a blunt nail are each pushed into wood with the same force. Why does the sharp nail penetrate more easily?
+hints:
+- level: 1
+  en: Compare the area in contact with the wood at the tip.
+- level: 2
+  en: Divide the push by the contact size to judge how hard the tip presses.
+- level: 3
+  en: Think about what happens when the contact shrinks but the push stays the same.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the sharp tip increases the force applied by the hand
+- id: b
+  en: the same force acts on a smaller area, so the pressure is greater
+- id: c
+  en: the wood pushes back less on sharp nails
+- id: d
+  en: sharp nails have less mass than blunt ones
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E876980B56A1
+  when_answer_equals:
+  - a
+- id: MC.A.00E7589DE548
+  when_answer_equals:
+  - d
+- id: MC.A.FE2DB0AD030E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Pressure equals force over area, so a smaller tip area produces a higher pressure with the same push, which lets the nail enter the wood.
+- en: The correct option is b.
+tier: C

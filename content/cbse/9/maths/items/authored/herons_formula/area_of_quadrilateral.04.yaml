@@ -1,0 +1,49 @@
+id: A.9.maths.herons_formula.area_of_quadrilateral.04
+skill_ids:
+- SK.A.9.maths.area_of_quadrilateral
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A convex quadrilateral can be split by either of its two diagonals. What is true about the total area found each way?
+hints:
+- level: 1
+  en: Think about whether the region itself changes when a different diagonal is drawn.
+- level: 2
+  en: Both diagonals lie inside the same boundary.
+- level: 3
+  en: Check whether the total covers the same region in both cases.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The diagonal that is longer gives a larger total area.
+- id: b
+  en: Both diagonals give the same total area.
+- id: c
+  en: Splitting by either diagonal gives an area twice as large.
+- id: d
+  en: Only the shorter diagonal gives a valid split.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.052D7CADD643
+  when_answer_equals:
+  - a
+- id: MC.A.03FE75616067
+  when_answer_equals:
+  - d
+- id: MC.A.B8C47E7D3F23
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Either diagonal divides the same region into two pieces whose areas add to the total, so the area does not depend on which diagonal is used.
+- en: The correct option is b.
+tier: C
+diagram_note: Convex quadrilateral with both of its diagonals drawn, meeting inside the shape.

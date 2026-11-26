@@ -1,0 +1,30 @@
+id: A.9.maths.herons_formula.heron_area_of_triangle.01
+skill_ids:
+- SK.A.9.maths.heron_area_of_triangle
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: A triangle has sides 5 cm, 5 cm and 6 cm. Using Heron's formula, what is its area, in square cm?
+hints:
+- level: 1
+  en: Find the semi-perimeter first, which is half the sum of the three sides.
+- level: 2
+  en: Subtract each side from the semi-perimeter to get three differences.
+- level: 3
+  en: Multiply the semi-perimeter by those three differences and take the square root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '12'
+  accept: []
+solution_steps:
+- en: The semi-perimeter is 8, and the product 8 times 3 times 3 times 2 is 144, whose square root is 12 square cm.
+- en: The unit of the answer is cm^2.
+- en: Answer = 12
+tier: C

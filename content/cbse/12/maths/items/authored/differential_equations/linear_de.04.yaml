@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.linear_de.04
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the general solution of dy/dx - y = e^x?
+hints:
+- level: 1
+  en: Find the integrating factor from the coefficient of y.
+- level: 2
+  en: Multiply both sides and check that the left side is a derivative.
+- level: 3
+  en: Integrate and multiply back to solve for y.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = x e^x
+- id: b
+  en: y = (x + C) e^x
+- id: c
+  en: y = (x + C) e^(-x)
+- id: d
+  en: y = e^x + C e^x
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7AAF093FD476
+  when_answer_equals:
+  - d
+- id: MC.A.ADDE01F7B88A
+  when_answer_equals:
+  - a
+- id: MC.A.AAC3224E4A9F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The integrating factor is e^(-x), and multiplying through gives d(y e^(-x))/dx = 1, so y e^(-x) = x + C, which means y = (x + C) e^x.
+- en: The correct option is b.
+tier: C

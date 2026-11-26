@@ -1,0 +1,48 @@
+id: A.11.maths.straight_lines.slope_and_forms.02
+skill_ids:
+- SK.A.11.maths.slope_and_forms
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which equation is the point-slope form of the line through (2, -1) with slope 4?
+hints:
+- level: 1
+  en: Write the point-slope form using a general point on the line.
+- level: 2
+  en: Subtract the coordinates of the given point, keeping their signs in mind.
+- level: 3
+  en: Substitute the slope into the form you wrote.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y + 1 = 4(x - 2)
+- id: b
+  en: y + 1 = 4(x + 2)
+- id: c
+  en: y - 1 = 4(x + 2)
+- id: d
+  en: y - 1 = 4(x - 2)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0CF003317539
+  when_answer_equals:
+  - c
+- id: MC.A.BDCCA32DE672
+  when_answer_equals:
+  - b
+- id: MC.A.B418DAE3CC9C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The point-slope form is y minus y1 equals m times (x minus x1), and with (2, -1) this becomes y + 1 = 4(x - 2).
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.parallelogram_properties.05
+skill_ids:
+- SK.A.9.maths.parallelogram_properties
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In parallelogram ABCD, the diagonals AC and BD intersect at O. Which pair of triangles is congruent?
+hints:
+- level: 1
+  en: List the equal segments created where the diagonals cross.
+- level: 2
+  en: Look for a pair of angles that are opposite at the crossing point.
+- level: 3
+  en: Match the corresponding parts of the two triangles before choosing a criterion.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: triangle AOB and triangle AOD
+- id: b
+  en: triangle AOB and triangle COD
+- id: c
+  en: triangle AOB and triangle BOC
+- id: d
+  en: triangle AOB and triangle BCD
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CF89D8064979
+  when_answer_equals:
+  - c
+- id: MC.A.4B9FB7402F44
+  when_answer_equals:
+  - a
+- id: MC.A.E288996CCC5B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The diagonals bisect each other, so AO equals OC and BO equals OD, and the vertically opposite angles at O are equal, giving congruence by SAS.
+- en: The correct option is b.
+tier: C
+diagram_note: Parallelogram ABCD with both diagonals drawn, meeting at O, and the equal halves marked.

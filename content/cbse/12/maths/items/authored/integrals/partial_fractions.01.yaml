@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.partial_fractions.01
+skill_ids:
+- SK.A.12.maths.partial_fractions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the partial fraction decomposition of 1 divided by (x - 1)(x + 2)?
+hints:
+- level: 1
+  en: Write the expression as A over (x - 1) plus B over (x + 2).
+- level: 2
+  en: Multiply through by the product of the denominators.
+- level: 3
+  en: Substitute the two roots of the denominator to find A and B.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (1/3)/(x + 1) - (1/3)/(x + 2)
+- id: b
+  en: (1/3)/(x - 1) - (1/3)/(x + 2)
+- id: c
+  en: 1/(x - 1) + 1/(x + 2)
+- id: d
+  en: (1/3)/(x - 1) + (1/3)/(x + 2)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2E2E56D1FFC3
+  when_answer_equals:
+  - c
+- id: MC.A.24FCE13BA098
+  when_answer_equals:
+  - d
+- id: MC.A.852629CD19C4
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Writing 1/((x - 1)(x + 2)) as A/(x - 1) + B/(x + 2) and substituting x = 1 and x = -2 gives A = 1/3 and B = -1/3.
+- en: The correct option is b.
+tier: C

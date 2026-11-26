@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electromagnetic_induction.05
+skill_ids:
+- SK.A.10.physics.electromagnetic_induction
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The coil of an AC generator is rotated faster. What happens to the output?
+hints:
+- level: 1
+  en: Think about how the rate of change of flux depends on the speed of rotation.
+- level: 2
+  en: Ask how many complete cycles the coil makes in a second when it turns faster.
+- level: 3
+  en: Consider whether an AC generator uses a commutator or slip rings.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The current changes direction less often
+- id: b
+  en: The output becomes direct current
+- id: c
+  en: The frequency decreases while the peak emf stays the same
+- id: d
+  en: The peak induced emf increases and the frequency of the output also increases
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A78429749328
+  when_answer_equals:
+  - c
+- id: MC.A.71A34407E3BF
+  when_answer_equals:
+  - a
+- id: MC.A.386C08691829
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Faster rotation means the flux changes more rapidly, so the peak induced emf is larger.
+- en: The output also completes more cycles each second, so its frequency increases.
+- en: The current still alternates, because the slip rings do not reverse its direction in an AC generator.
+- en: The correct option is d.
+tier: C

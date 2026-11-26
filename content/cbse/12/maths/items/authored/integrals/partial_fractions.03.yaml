@@ -1,0 +1,30 @@
+id: A.12.maths.integrals.partial_fractions.03
+skill_ids:
+- SK.A.12.maths.partial_fractions
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Evaluate the definite integral of 1 divided by (x + 1)(x + 2) with respect to x from 0 to 1, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Decompose the fraction into two simple fractions with unknown constants.
+- level: 2
+  en: Integrate each simple fraction to a logarithm.
+- level: 3
+  en: Combine the logarithms and evaluate at the two limits.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.288'
+  accept: []
+solution_steps:
+- en: The decomposition is 1/(x + 1) minus 1/(x + 2), whose integral is ln((x + 1)/(x + 2)).
+- en: Evaluating from 0 to 1 gives ln(4/3), about 0.288.
+- en: Answer = 0.288
+tier: C

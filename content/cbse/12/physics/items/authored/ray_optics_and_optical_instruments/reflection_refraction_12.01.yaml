@@ -1,0 +1,48 @@
+id: A.12.physics.ray_optics_and_optical_instruments.reflection_refraction_12.01
+skill_ids:
+- SK.A.12.physics.reflection_refraction_12
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression is the refraction formula for a single spherical surface separating media of refractive indices n1 and n2, with object distance u, image distance v and radius R?
+hints:
+- level: 1
+  en: Write the two refractive index terms with the image and object distances.
+- level: 2
+  en: Think about which medium the light enters at the surface.
+- level: 3
+  en: Check where the radius term sits in the expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: n2 over v minus n1 over u equals (n2 minus n1) over R
+- id: b
+  en: n1 over v minus n2 over u equals (n2 minus n1) over R
+- id: c
+  en: n1 over v plus n2 over u equals (n1 minus n2) over R
+- id: d
+  en: n2 over v plus n1 over u equals R
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E2EF501EAAB7
+  when_answer_equals:
+  - b
+- id: MC.A.5D1BAD2E35CF
+  when_answer_equals:
+  - d
+- id: MC.A.F76A80AA23E7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The refraction formula for a single spherical surface uses the index on the far side over the image distance, minus the index on the near side over the object distance, equal to the index difference over the radius.
+- en: The correct option is a.
+tier: C

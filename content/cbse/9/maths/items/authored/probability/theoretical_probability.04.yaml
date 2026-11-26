@@ -1,0 +1,48 @@
+id: A.9.maths.probability.theoretical_probability.04
+skill_ids:
+- SK.A.9.maths.theoretical_probability
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A card is drawn from a standard pack of 52 cards. What is the probability that it is a king?
+hints:
+- level: 1
+  en: Count the kings in the pack.
+- level: 2
+  en: Count all the cards in the pack.
+- level: 3
+  en: Simplify the fraction you get.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: 1/13
+- id: c
+  en: 1/52
+- id: d
+  en: 4/13
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5CB29349A63A
+  when_answer_equals:
+  - a
+- id: MC.A.F6AECAD3CEA4
+  when_answer_equals:
+  - d
+- id: MC.A.92A3B66A05B8
+  when_answer_equals:
+  - c
+solution_steps:
+- en: There are 4 kings among 52 equally likely cards, and 4 out of 52 simplifies to 1 in 13.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,50 @@
+id: A.10.maths.triangles.similar_triangles.03
+skill_ids:
+- SK.A.10.maths.similar_triangles
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In triangle ABC, DE is parallel to BC with D on AB and E on AC. What can you conclude about triangles ADE and ABC?
+hints:
+- level: 1
+  en: Look for pairs of equal angles created by the parallel lines.
+- level: 2
+  en: Think about which angle the two triangles share.
+- level: 3
+  en: Decide which similarity criterion uses only angles.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are similar only if D is the midpoint of AB.
+- id: b
+  en: They are congruent.
+- id: c
+  en: They are similar, with equal corresponding angles.
+- id: d
+  en: They have equal areas.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.308B11F5698E
+  when_answer_equals:
+  - b
+- id: MC.A.8901330EB9FC
+  when_answer_equals:
+  - a
+- id: MC.A.B6EB7B261994
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Since DE is parallel to BC, the angles at D and E equal those at B and C, and angle A is shared.
+- en: The triangles are therefore similar by AA.
+- en: The correct option is c.
+tier: C
+diagram_note: Triangle ABC with base BC at the bottom and a segment DE drawn across the triangle parallel to BC, with D on AB and E on AC.

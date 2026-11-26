@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.energy_bands.02
+skill_ids:
+- SK.A.12.physics.energy_bands
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which band gap range is typical of an insulator?
+hints:
+- level: 1
+  en: Think about how much energy is needed to lift an electron across the gap.
+- level: 2
+  en: Compare that energy with the thermal energy available at room temperature.
+- level: 3
+  en: Recall how the gap of an insulator differs from that of a semiconductor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A few microelectronvolt
+- id: b
+  en: About 1 eV
+- id: c
+  en: Several electronvolt or more
+- id: d
+  en: Zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.FCFB12F7D933
+  when_answer_equals:
+  - d
+- id: MC.A.D9D8F052F5B4
+  when_answer_equals:
+  - b
+- id: MC.A.F9906C110544
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Insulators have wide band gaps, several electronvolt or more, so very few electrons can be thermally excited into the conduction band.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,50 @@
+id: A.10.physics.human_eye_and_colourful_world.atmospheric_phenomena.03
+skill_ids:
+- SK.A.10.physics.atmospheric_phenomena
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: At sunset the sun looks red. Which explanation is correct?
+hints:
+- level: 1
+  en: Think about how far sunlight travels through the air at sunset compared with noon.
+- level: 2
+  en: Ask which colours are scattered out along a longer path.
+- level: 3
+  en: Consider whether the sun actually changes colour or only the light reaching you does.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The sun emits only red light at sunset
+- id: b
+  en: Red light is refracted more than blue light at sunset
+- id: c
+  en: Light from the setting sun passes through more air, so most of the blue is scattered away and mainly red reaches the eye
+- id: d
+  en: Air molecules absorb all the blue light only at sunset
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6246902AB3D0
+  when_answer_equals:
+  - a
+- id: MC.A.225864403342
+  when_answer_equals:
+  - b
+- id: MC.A.6B0E53EA1CBD
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At sunset, sunlight travels through a much longer path of air.
+- en: Most of the blue and violet light is scattered out of the beam, so the light that reaches the eye is rich in red and orange.
+- en: The sun itself does not change colour.
+- en: The correct option is c.
+tier: C

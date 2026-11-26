@@ -1,0 +1,49 @@
+id: A.12.chemistry.d_and_f_block_elements.transition_reactions.06
+skill_ids:
+- SK.A.12.chemistry.transition_reactions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the equivalent mass of KMnO4 when it acts as an oxidant in acidic solution?
+hints:
+- level: 1
+  en: Count the electrons gained per permanganate ion when it is reduced to manganese(II) in acid.
+- level: 2
+  en: Equivalent mass depends on the number of electrons exchanged, not on the oxidation state.
+- level: 3
+  en: Write the reduction half reaction to find the electrons gained.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Molar mass divided by five
+- id: b
+  en: Molar mass divided by one
+- id: c
+  en: Molar mass divided by seven
+- id: d
+  en: Molar mass divided by three
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.45DED0E9E5B5
+  when_answer_equals:
+  - b
+- id: MC.A.A5A3C21CF09E
+  when_answer_equals:
+  - d
+- id: MC.A.B61101F1EC68
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equivalent mass is molar mass divided by the number of electrons gained per formula unit.
+- en: Reduction to Mn2+ gains five electrons, so the divisor is five.
+- en: The correct option is a.
+tier: C

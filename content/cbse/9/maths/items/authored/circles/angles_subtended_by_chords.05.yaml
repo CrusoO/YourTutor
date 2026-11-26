@@ -1,0 +1,49 @@
+id: A.9.maths.circles.angles_subtended_by_chords.05
+skill_ids:
+- SK.A.9.maths.angles_subtended_by_chords
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A chord of a circle subtends an angle of 130 degrees at the centre. What angle does the same chord subtend at a point on the major arc?
+hints:
+- level: 1
+  en: The relation between central and circumference angles is a fixed factor.
+- level: 2
+  en: Choose the arc on which the point lies.
+- level: 3
+  en: Divide the central angle by that factor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 260 degrees
+- id: b
+  en: 50 degrees
+- id: c
+  en: 130 degrees
+- id: d
+  en: 65 degrees
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.BCDE606EF68D
+  when_answer_equals:
+  - c
+- id: MC.A.063C46081795
+  when_answer_equals:
+  - b
+- id: MC.A.2BC3F40F2576
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The angle at the circumference is half the angle at the centre on the same arc, so 130 halves to 65 degrees.
+- en: The correct option is d.
+tier: C
+diagram_note: Circle with a chord, the centre marked, the central angle of 130 degrees, and a point on the major arc.

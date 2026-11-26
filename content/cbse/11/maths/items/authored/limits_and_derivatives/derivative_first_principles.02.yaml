@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.derivative_first_principles.02
+skill_ids:
+- SK.A.11.maths.derivative_first_principles
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the derivative of the constant function f(x) equal to 5, found from first principles?
+hints:
+- level: 1
+  en: Write the difference quotient for a constant function and simplify the numerator.
+- level: 2
+  en: Notice what the numerator equals for any two inputs.
+- level: 3
+  en: A horizontal line has no change in height, so its slope is found from that.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: '1'
+- id: c
+  en: 5x
+- id: d
+  en: '5'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C1FC4912BDBC
+  when_answer_equals:
+  - d
+- id: MC.A.2FC3FA234DE8
+  when_answer_equals:
+  - b
+- id: MC.A.3FF9A4206F1A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The difference of two equal values is zero, so every difference quotient is zero and the derivative is 0.
+- en: The correct option is a.
+tier: C

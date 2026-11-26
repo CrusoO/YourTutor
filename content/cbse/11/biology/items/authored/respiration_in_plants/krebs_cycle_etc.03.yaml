@@ -1,0 +1,49 @@
+id: A.11.biology.respiration_in_plants.krebs_cycle_etc.03
+skill_ids:
+- SK.A.11.biology.krebs_cycle_etc
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why do the Krebs cycle and the electron transport chain depend on each other?
+hints:
+- level: 1
+  en: Think about which carriers the Krebs cycle reduces.
+- level: 2
+  en: Consider what happens to NAD+ if it is not regenerated.
+- level: 3
+  en: Ask where the electrons from the cycle go next.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The Krebs cycle makes the oxygen that the chain consumes
+- id: b
+  en: Neither needs the other because both produce ATP directly in the matrix
+- id: c
+  en: The chain supplies acetyl CoA to the Krebs cycle
+- id: d
+  en: The Krebs cycle supplies NADH and FADH2, which feed electrons into the chain that regenerates NAD+ and FAD
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.E072E1429F44
+  when_answer_equals:
+  - c
+- id: MC.A.9A616DF95318
+  when_answer_equals:
+  - a
+- id: MC.A.81DF3FBF625B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The cycle reduces NAD+ and FAD to NADH and FADH2, and the chain reoxidises them.
+- en: Without the chain, the carriers stay reduced and the cycle stops.
+- en: The correct option is d.
+tier: C

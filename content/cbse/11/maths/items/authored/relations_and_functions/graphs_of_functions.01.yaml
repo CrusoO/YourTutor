@@ -1,0 +1,49 @@
+id: A.11.maths.relations_and_functions.graphs_of_functions.01
+skill_ids:
+- SK.A.11.maths.graphs_of_functions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which description matches the graph of the identity function f(x) = x over the real numbers?
+hints:
+- level: 1
+  en: Pick a few inputs and find their outputs under the rule.
+- level: 2
+  en: Notice how the output changes when the input increases by one.
+- level: 3
+  en: Plot the points you computed and see whether they lie on a single line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a straight line through the origin with slope 2
+- id: b
+  en: a parabola opening upward
+- id: c
+  en: a straight line through the origin with slope 1
+- id: d
+  en: a horizontal line at height 1
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E7FD3218C066
+  when_answer_equals:
+  - d
+- id: MC.A.E8D56DA3A23E
+  when_answer_equals:
+  - b
+- id: MC.A.35E99196581A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each output equals its input, so the graph passes through the origin and rises one unit for every unit moved right.
+- en: The correct option is c.
+tier: C
+diagram_note: Coordinate axes with a straight line passing through the origin at a 45 degree angle, labelled y equals x.

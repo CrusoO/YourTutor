@@ -1,0 +1,49 @@
+id: A.9.maths.herons_formula.area_of_quadrilateral.02
+skill_ids:
+- SK.A.9.maths.area_of_quadrilateral
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Why is a quadrilateral split along a diagonal when its area is found by Heron's formula?
+hints:
+- level: 1
+  en: Ask what the diagonal does to the shape.
+- level: 2
+  en: Think about how the areas of the parts relate to the whole.
+- level: 3
+  en: Each piece is a triangle whose three sides are known.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It doubles the area automatically.
+- id: b
+  en: It turns the quadrilateral into a square.
+- id: c
+  en: It removes the need for any side lengths.
+- id: d
+  en: It turns the area into the sum of two triangle areas, each of which Heron's formula can handle.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A2CA1B157126
+  when_answer_equals:
+  - b
+- id: MC.A.76263214A529
+  when_answer_equals:
+  - a
+- id: MC.A.0EA0F24935C1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Splitting along a diagonal gives two triangles whose areas add to the area of the quadrilateral, and each triangle can use Heron's formula.
+- en: The correct option is d.
+tier: C
+diagram_note: Quadrilateral split by one diagonal into two triangles, with the diagonal labelled.

@@ -1,0 +1,48 @@
+id: A.9.physics.sound.reflection_of_sound.04
+skill_ids:
+- SK.A.9.physics.reflection_of_sound
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Why can you hear a clear echo in a large hall but not in a small room?
+hints:
+- level: 1
+  en: Compare the travel distances for sound in the two spaces.
+- level: 2
+  en: Ask how much time the reflection needs to return.
+- level: 3
+  en: Think about the separation in time between the direct sound and the bounced sound.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the reflected sound must arrive a noticeable time after the original sound to be heard separately
+- id: b
+  en: sound is always louder in a large hall
+- id: c
+  en: small rooms absorb all sound completely
+- id: d
+  en: small rooms contain no air to reflect sound
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.079EDEB25BF2
+  when_answer_equals:
+  - d
+- id: MC.A.ACE7CECE342B
+  when_answer_equals:
+  - b
+- id: MC.A.F491213B6D8D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In a large hall the reflection takes long enough to return that the brain hears it separately, while in a small room the reflection merges with the original sound.
+- en: The correct option is a.
+tier: C

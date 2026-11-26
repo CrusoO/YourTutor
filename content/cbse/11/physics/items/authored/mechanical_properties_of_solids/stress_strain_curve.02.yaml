@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.stress_strain_curve.02
+skill_ids:
+- SK.A.11.physics.stress_strain_curve
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: On a stress-strain graph, what does the slope of the straight initial portion represent?
+hints:
+- level: 1
+  en: Slope is rise over run, which here is stress over strain.
+- level: 2
+  en: The straight initial portion follows Hooke's law.
+- level: 3
+  en: Name the elastic constant that governs stretching.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Young's modulus
+- id: b
+  en: elastic limit
+- id: c
+  en: yield strain
+- id: d
+  en: breaking stress
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1B2BAE9E8526
+  when_answer_equals:
+  - b
+- id: MC.A.5468DBB076CC
+  when_answer_equals:
+  - d
+- id: MC.A.2B91D88CC846
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In the linear region the slope is stress divided by strain, which is the Young's modulus of the material.
+- en: The correct option is a.
+tier: C
+diagram_note: A stress-strain curve with a straight initial segment through the origin. The slope of that segment is marked with a small triangle, and the curve bends above the linear portion.

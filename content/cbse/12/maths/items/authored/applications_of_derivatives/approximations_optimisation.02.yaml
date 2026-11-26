@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.approximations_optimisation.02
+skill_ids:
+- SK.A.12.maths.approximations_optimisation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For y = x^2, what is the differential dy at x = 3 when dx = 0.1?
+hints:
+- level: 1
+  en: Find the derivative of x squared.
+- level: 2
+  en: Multiply the derivative at x = 3 by the change in x.
+- level: 3
+  en: Keep the size and sign of dx in your product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.3'
+- id: b
+  en: '0.6'
+- id: c
+  en: '0.9'
+- id: d
+  en: '0.09'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.22F53AEABAC6
+  when_answer_equals:
+  - a
+- id: MC.A.13C87B0A2A68
+  when_answer_equals:
+  - c
+- id: MC.A.40A573C8D522
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The differential is dy = 2x dx, which at x = 3 and dx = 0.1 equals 0.6.
+- en: The correct option is b.
+tier: C

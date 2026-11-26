@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.03
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the negation of the statement 'x is greater than 3 or x is less than 1' for a real number x?
+hints:
+- level: 1
+  en: Negate the two parts of the disjunction separately.
+- level: 2
+  en: A negated disjunction becomes a conjunction of the negated parts.
+- level: 3
+  en: Convert each negated inequality and combine them into one interval.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x is less than 3 or x is greater than 1
+- id: b
+  en: x is greater than or equal to 3 and x is less than or equal to 1
+- id: c
+  en: x is at most 3 or x is at least 1
+- id: d
+  en: 1 less than or equal to x less than or equal to 3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CFD9858AA031
+  when_answer_equals:
+  - a
+- id: MC.A.1DE22487425A
+  when_answer_equals:
+  - b
+- id: MC.A.DC34E81B1B12
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The negation of the disjunction requires both parts to fail, so x is at most 3 and at least 1, which is the interval from 1 to 3.
+- en: The correct option is d.
+tier: C

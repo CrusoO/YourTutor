@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electric_motor.04
+skill_ids:
+- SK.A.10.physics.electric_motor
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: The number of turns in the coil of a motor is increased, keeping the current and the magnetic field the same. What happens to the turning effect on the coil?
+hints:
+- level: 1
+  en: Think about whether each turn of the coil feels a force.
+- level: 2
+  en: Ask whether the forces on the turns add up or cancel.
+- level: 3
+  en: Consider which quantities decide the direction of rotation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It stays the same
+- id: b
+  en: The direction of rotation reverses
+- id: c
+  en: It decreases
+- id: d
+  en: It increases
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.BD1AD7DDA006
+  when_answer_equals:
+  - c
+- id: MC.A.0FA1C92D8BBA
+  when_answer_equals:
+  - a
+- id: MC.A.1A5C239736EB
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Each turn of the coil experiences a force, so the total turning effect is proportional to the number of turns.
+- en: Increasing the turns, with the same current and field, increases the torque.
+- en: The direction of rotation is not changed by the number of turns.
+- en: The correct option is d.
+tier: C

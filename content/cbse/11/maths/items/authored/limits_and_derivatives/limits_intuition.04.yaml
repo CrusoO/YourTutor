@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.limits_intuition.04
+skill_ids:
+- SK.A.11.maths.limits_intuition
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the limit of (x squared plus 2x) divided by x as x approaches 0?
+hints:
+- level: 1
+  en: Divide each term of the numerator by the denominator.
+- level: 2
+  en: Simplify the expression for values of x that are not zero.
+- level: 3
+  en: Find the value that the simplified expression approaches.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: does not exist
+- id: c
+  en: '2'
+- id: d
+  en: '0'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E3DEC799F840
+  when_answer_equals:
+  - d
+- id: MC.A.22918D7A9F70
+  when_answer_equals:
+  - a
+- id: MC.A.C079B884054D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Dividing each term by x gives x plus 2 for x not equal to zero, and as x approaches 0 this tends to 2.
+- en: The correct option is c.
+tier: C

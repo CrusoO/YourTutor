@@ -1,0 +1,49 @@
+id: A.12.physics.magnetism_and_matter.magnetic_materials.05
+skill_ids:
+- SK.A.12.physics.magnetic_materials
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A paramagnetic sample is placed in a non-uniform magnetic field. Which statement describes the net force on it?
+hints:
+- level: 1
+  en: Think about the direction of the induced moment in a paramagnetic material.
+- level: 2
+  en: Consider how a gradient in the field acts on a magnetic dipole.
+- level: 3
+  en: Compare with the behaviour of a diamagnetic sample in the same field.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It is pushed away from the region of stronger field
+- id: b
+  en: It is pulled towards the region of stronger field
+- id: c
+  en: It rotates but feels no net force
+- id: d
+  en: It feels no net force because it is not ferromagnetic
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AE687043C95D
+  when_answer_equals:
+  - a
+- id: MC.A.FC6E947AB598
+  when_answer_equals:
+  - d
+- id: MC.A.3AABEA420D30
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A paramagnetic sample acquires an induced moment aligned with the field.
+- en: In a non-uniform field this dipole is pulled towards the stronger region.
+- en: The correct option is b.
+tier: C

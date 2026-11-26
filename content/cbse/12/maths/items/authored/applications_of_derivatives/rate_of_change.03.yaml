@@ -1,0 +1,30 @@
+id: A.12.maths.applications_of_derivatives.rate_of_change.03
+skill_ids:
+- SK.A.12.maths.rate_of_change
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: The area of a circle is A = pi r^2. When the radius is 3 units and is increasing at 2 units per second, find dA/dt, rounded to 3 significant figures.
+hints:
+- level: 1
+  en: Differentiate the area with respect to time using the chain rule.
+- level: 2
+  en: Substitute the radius and the rate at which the radius grows.
+- level: 3
+  en: Keep pi exact until the final step, then round.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '37.7'
+  accept: []
+solution_steps:
+- en: dA/dt = 2 pi r dr/dt, which at r = 3 and dr/dt = 2 is 12 pi, about 37.7.
+- en: Answer = 37.7
+tier: C
+diagram_note: A circle with radius r marked, and an arrow on the radius showing it lengthening over time.

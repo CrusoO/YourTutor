@@ -1,0 +1,48 @@
+id: A.11.physics.oscillations.simple_harmonic_motion.04
+skill_ids:
+- SK.A.11.physics.simple_harmonic_motion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For a particle in SHM, what is the phase relation between its displacement and its velocity?
+hints:
+- level: 1
+  en: Compare the time derivatives of a sine or cosine function.
+- level: 2
+  en: The derivative of cosine involves a sine with a minus sign.
+- level: 3
+  en: A shift of a quarter period corresponds to a right-angle phase change.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: velocity leads displacement by pi/2
+- id: b
+  en: velocity leads displacement by pi
+- id: c
+  en: velocity lags displacement by pi/2
+- id: d
+  en: they are in phase
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.39987D21D24D
+  when_answer_equals:
+  - c
+- id: MC.A.919E83CA40CE
+  when_answer_equals:
+  - d
+- id: MC.A.E701A197C073
+  when_answer_equals:
+  - b
+solution_steps:
+- en: If x = A cos(omega t), then v = -A omega sin(omega t) = A omega cos(omega t + pi/2), so velocity leads displacement by a quarter cycle.
+- en: The correct option is a.
+tier: C

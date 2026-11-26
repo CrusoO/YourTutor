@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.intrinsic_extrinsic.04
+skill_ids:
+- SK.A.12.physics.intrinsic_extrinsic
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does adding a small amount of dopant increase the conductivity of a semiconductor so much?
+hints:
+- level: 1
+  en: Think about how many carriers a small dopant concentration can supply.
+- level: 2
+  en: Compare the carriers from doping with those from thermal excitation in the pure crystal.
+- level: 3
+  en: Consider which property of the material controls how much current it carries.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The dopant atoms widen the band gap
+- id: b
+  en: The dopant atoms supply many extra charge carriers
+- id: c
+  en: The dopant atoms reduce the number of carriers
+- id: d
+  en: The dopant atoms make the crystal stronger
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.851F4C716458
+  when_answer_equals:
+  - d
+- id: MC.A.E82BF7D9E88E
+  when_answer_equals:
+  - a
+- id: MC.A.B4D327134A67
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Even a tiny concentration of donor or acceptor atoms supplies far more carriers than the thermal excitation of the pure crystal, so the conductivity rises sharply.
+- en: The correct option is b.
+tier: C

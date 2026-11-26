@@ -1,0 +1,50 @@
+id: A.12.maths.applications_of_integrals.area_between_curves.04
+skill_ids:
+- SK.A.12.maths.area_between_curves
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which integral with respect to y gives the area between x = y^2 and x = y + 2?
+hints:
+- level: 1
+  en: Find where the two curves intersect by solving for y.
+- level: 2
+  en: Decide which curve is further to the right between those values.
+- level: 3
+  en: Integrate the right curve minus the left curve with respect to y.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The integral from -1 to 2 of (y + 2 - y^2)
+- id: b
+  en: The integral from 0 to 2 of (y + 2 - y^2)
+- id: c
+  en: The integral from -2 to 1 of (y + 2 - y^2)
+- id: d
+  en: The integral from -1 to 2 of (y^2 - y - 2)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.CC1FD32C354E
+  when_answer_equals:
+  - d
+- id: MC.A.C314C14D348A
+  when_answer_equals:
+  - b
+- id: MC.A.BC2EC687CD14
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The curves meet where y^2 = y + 2, so y = -1 and y = 2.
+- en: Between these values the line x = y + 2 lies to the right, so the area is the integral of (y + 2 - y^2) from -1 to 2.
+- en: The correct option is a.
+tier: C
+diagram_note: Parabola x = y squared opening to the right and straight line x = y + 2 crossing it at two points, with the enclosed region shaded.

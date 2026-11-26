@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_straight_line.instantaneous_velocity_acceleration.06
+skill_ids:
+- SK.A.11.physics.instantaneous_velocity_acceleration
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A ball thrown upward has velocity v = 20 - 10t metres per second, with t in seconds. Which statement about its acceleration is correct?
+hints:
+- level: 1
+  en: Acceleration is the rate of change of velocity with time.
+- level: 2
+  en: Look at how much the velocity changes in each unit of time.
+- level: 3
+  en: A velocity that changes at a fixed rate gives a constant acceleration.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: increasing with time
+- id: b
+  en: 10 m/s^2 directed upward
+- id: c
+  en: zero at the top of the path only
+- id: d
+  en: uniform acceleration of 10 m/s^2 directed downward
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F48AC0FC4CB6
+  when_answer_equals:
+  - c
+- id: MC.A.B263DC9B9508
+  when_answer_equals:
+  - a
+- id: MC.A.F9F8881FC9E6
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The velocity changes at a fixed rate of minus 10 m/s every second, so the acceleration is constant at 10 m/s^2 directed downward.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.9.physics.motion.uniform_circular_motion.03
+skill_ids:
+- SK.A.9.physics.uniform_circular_motion
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does an object moving in a circle at constant speed still have an acceleration?
+hints:
+- level: 1
+  en: Acceleration is the rate of change of velocity, which is a vector.
+- level: 2
+  en: Ask whether velocity can change even if its size does not.
+- level: 3
+  en: Check whether the velocity points the same way at two different moments on the circle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: its speed increases with time
+- id: b
+  en: an engine keeps pushing it forward
+- id: c
+  en: its velocity changes direction continuously
+- id: d
+  en: its mass increases as it turns
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.713C9AF2976D
+  when_answer_equals:
+  - a
+- id: MC.A.20B2CF3D25DA
+  when_answer_equals:
+  - b
+- id: MC.A.D435947AA356
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Velocity is a vector, so a change of direction counts as acceleration even when the speed stays constant.
+- en: The correct option is c.
+tier: C

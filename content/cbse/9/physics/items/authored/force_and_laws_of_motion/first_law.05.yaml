@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.first_law.05
+skill_ids:
+- SK.A.9.physics.first_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A spaceship coasts through empty space with its engines switched off. Which statement about its motion is correct?
+hints:
+- level: 1
+  en: Consider what forces remain acting on the spaceship in empty space.
+- level: 2
+  en: Newton's first law describes objects in this situation.
+- level: 3
+  en: Ask whether anything is changing the state of motion.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: its engines must keep running to keep its velocity
+- id: b
+  en: it slows gradually because it has no fuel
+- id: c
+  en: it stops after a certain distance
+- id: d
+  en: it keeps its velocity unchanged because no net force acts on it
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.92B31C713197
+  when_answer_equals:
+  - b
+- id: MC.A.1A1A2517BB8E
+  when_answer_equals:
+  - c
+- id: MC.A.3933C982E499
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Without a net force the spaceship's velocity stays the same; the engines only change velocity when they fire.
+- en: The correct option is d.
+tier: C

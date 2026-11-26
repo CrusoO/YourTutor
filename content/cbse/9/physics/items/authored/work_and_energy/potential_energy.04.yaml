@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.potential_energy.04
+skill_ids:
+- SK.A.9.physics.potential_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A ball is released from height h and falls. At a point halfway down, how does its gravitational potential energy compare with its starting value?
+hints:
+- level: 1
+  en: Potential energy is proportional to the height above the reference level.
+- level: 2
+  en: Think about how the height changes at the halfway point.
+- level: 3
+  en: The starting height is the reference for the comparison.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: twice its starting value
+- id: b
+  en: half its starting value
+- id: c
+  en: equal to its starting value
+- id: d
+  en: zero, because it is in motion
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.392A903CC62C
+  when_answer_equals:
+  - c
+- id: MC.A.E0CF52CE2C07
+  when_answer_equals:
+  - a
+- id: MC.A.5232F614BFCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At halfway down the height is half of the starting height, so the gravitational potential energy is half its starting value.
+- en: The correct option is b.
+tier: C

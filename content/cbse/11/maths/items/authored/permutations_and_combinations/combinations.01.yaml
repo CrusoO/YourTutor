@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.combinations.01
+skill_ids:
+- SK.A.11.maths.combinations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: How many different committees of 2 people can be chosen from a group of 5 people?
+hints:
+- level: 1
+  en: Order does not matter for a committee, so pairs that differ only in order count once.
+- level: 2
+  en: Count the ordered choices first and then remove the duplicates.
+- level: 3
+  en: Divide the ordered count by the number of ways to arrange the chosen pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '10'
+  accept: []
+solution_steps:
+- en: The number of ways to choose 2 from 5 is 5 times 4 divided by 2, which is 10.
+- en: Answer = 10
+tier: C

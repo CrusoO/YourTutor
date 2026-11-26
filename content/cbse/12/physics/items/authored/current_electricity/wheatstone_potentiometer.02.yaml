@@ -1,0 +1,31 @@
+id: A.12.physics.current_electricity.wheatstone_potentiometer.02
+skill_ids:
+- SK.A.12.physics.wheatstone_potentiometer
+difficulty: 0.2
+pool: practice
+role: apply
+stem:
+  en: In a balanced Wheatstone bridge, the arm ratio is P over Q, with P equal to 10 ohm and Q equal to 20 ohm. The resistor R in the adjacent arm is 15 ohm. What is the value of S in ohm?
+hints:
+- level: 1
+  en: Write the balance condition as P over Q equals R over S.
+- level: 2
+  en: Rearrange the condition to find S.
+- level: 3
+  en: Multiply by Q before dividing by P.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '30'
+  accept: []
+solution_steps:
+- en: The balance condition P over Q equals R over S gives S equal to R times Q over P.
+- en: Substituting gives 15 times 20 over 10, which is 30 ohm.
+- en: The unit of the answer is ohm.
+- en: Answer = 30
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.current_electricity.kirchhoffs_rules.01
+skill_ids:
+- SK.A.12.physics.kirchhoffs_rules
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Kirchhoff's current law at a junction expresses the conservation of which quantity?
+hints:
+- level: 1
+  en: Think about what flows into a junction and what flows out.
+- level: 2
+  en: Ask which quantity cannot pile up at a point in a circuit.
+- level: 3
+  en: Recall which law relates the currents at a junction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Electric charge
+- id: b
+  en: Mass
+- id: c
+  en: Momentum
+- id: d
+  en: Energy
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2801D3E6C696
+  when_answer_equals:
+  - d
+- id: MC.A.F4B307619074
+  when_answer_equals:
+  - c
+- id: MC.A.3F0EFF50576E
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Charge cannot build up at a junction, so the total current entering a junction equals the total current leaving it.
+- en: The correct option is a.
+tier: C

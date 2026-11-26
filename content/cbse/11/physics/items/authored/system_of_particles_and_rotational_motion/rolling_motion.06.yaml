@@ -1,0 +1,49 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.rolling_motion.06
+skill_ids:
+- SK.A.11.physics.rolling_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A solid sphere rolls down an incline without slipping. What fraction of its total kinetic energy is rotational?
+hints:
+- level: 1
+  en: Compare the rotational energy with the translational energy term by term.
+- level: 2
+  en: The rotational part is a fixed fraction of the translational part, set by the moment of inertia.
+- level: 3
+  en: Write the total as a sum and take the ratio of the rotational part to it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: one third
+- id: b
+  en: two sevenths
+- id: c
+  en: one half
+- id: d
+  en: two fifths
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7BB229D4E731
+  when_answer_equals:
+  - d
+- id: MC.A.77300F8AAE46
+  when_answer_equals:
+  - c
+- id: MC.A.521E969DF27A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The rotational energy is (2/5) M v^2 / 2 and the translational energy is M v^2 / 2.
+- en: Their ratio is (2/5) divided by (7/5), which is 2/7.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.chemistry.hydrocarbons.aromatic_hydrocarbons.03
+skill_ids:
+- SK.A.11.chemistry.aromatic_hydrocarbons
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which of the following species is aromatic according to Huckel's rule?
+hints:
+- level: 1
+  en: Count the pi electrons in the ring and check whether the total fits the rule.
+- level: 2
+  en: Consider whether the ring is planar and fully conjugated.
+- level: 3
+  en: Saturated rings cannot be aromatic because they have no delocalised pi system.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: cyclooctatetraene
+- id: b
+  en: cyclobutadiene
+- id: c
+  en: benzene
+- id: d
+  en: cyclohexane
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.502A75C4E733
+  when_answer_equals:
+  - b
+- id: MC.A.6FE0EE7A47D1
+  when_answer_equals:
+  - a
+- id: MC.A.0A6057C85A4D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Benzene is a planar ring with six pi electrons, which fits the 4n plus 2 rule for n equal to 1, so it is aromatic.
+- en: The correct option is c.
+tier: C
+diagram_note: A hexagonal ring with alternating double bonds drawn inside, shown alongside a square ring with two double bonds for comparison.

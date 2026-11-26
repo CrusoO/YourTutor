@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.cartesian_product_relations.02
+skill_ids:
+- SK.A.11.maths.cartesian_product_relations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Let A have the single element x and let B have the two elements y and z. Which ordered pair belongs to the Cartesian product of A with B?
+hints:
+- level: 1
+  en: The first slot of every pair must come from the first set.
+- level: 2
+  en: The second slot must come from the second set.
+- level: 3
+  en: Check each candidate pair against both of those rules.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (x, y)
+- id: b
+  en: (y, x)
+- id: c
+  en: (z, y)
+- id: d
+  en: (x, x)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3D7788C646EE
+  when_answer_equals:
+  - b
+- id: MC.A.46CC575D25EB
+  when_answer_equals:
+  - d
+- id: MC.A.F33A1C7B1B06
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first coordinate must come from {x} and the second from {y, z}, so (x, y) is valid and the others are not.
+- en: The correct option is a.
+tier: C

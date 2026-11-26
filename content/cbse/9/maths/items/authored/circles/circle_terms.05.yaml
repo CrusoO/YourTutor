@@ -1,0 +1,49 @@
+id: A.9.maths.circles.circle_terms.05
+skill_ids:
+- SK.A.9.maths.circle_terms
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A chord AB of a circle cuts off a region between itself and the arc. Which term names that region?
+hints:
+- level: 1
+  en: The chord is a straight line, so the region has one straight edge.
+- level: 2
+  en: Compare with the region bounded by two radii.
+- level: 3
+  en: Identify the term for a region cut off by a chord.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sector
+- id: b
+  en: annulus
+- id: c
+  en: segment
+- id: d
+  en: arc
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.35C6A04D3250
+  when_answer_equals:
+  - a
+- id: MC.A.DE7A5F484AA7
+  when_answer_equals:
+  - b
+- id: MC.A.4EFB2AC01BDC
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The segment is the region between a chord and the arc it cuts off, while a sector needs two radii as its straight edges.
+- en: The correct option is c.
+tier: C
+diagram_note: Circle with a chord drawn and the minor region between the chord and the arc shaded.

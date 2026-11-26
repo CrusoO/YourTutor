@@ -1,0 +1,49 @@
+id: A.11.maths.binomial_theorem.pascal_triangle.03
+skill_ids:
+- SK.A.11.maths.pascal_triangle
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which identity is expressed by Pascal's rule for binomial coefficients?
+hints:
+- level: 1
+  en: Look at which two entries of the previous row lie above an entry.
+- level: 2
+  en: Think about whether the rule adds or multiplies those two entries.
+- level: 3
+  en: Check the identity on a small row that you can write out fully.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: C(n, r) = C(n-1, r) times C(n-1, r-1)
+- id: b
+  en: C(n, r) = C(n+1, r)
+- id: c
+  en: C(n, r) = C(n-1, r-1) + C(n-1, r)
+- id: d
+  en: C(n, r) = C(n, n-r) + 1
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.232CA785148E
+  when_answer_equals:
+  - a
+- id: MC.A.7677C9ACEE16
+  when_answer_equals:
+  - d
+- id: MC.A.6ECFF31ED34F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Each entry is the sum of the two entries directly above it in the previous row, which is the content of Pascal's rule.
+- en: The correct option is c.
+tier: C
+diagram_note: A small section of Pascal's triangle with one entry highlighted and the two entries above it joined to it by arrows.

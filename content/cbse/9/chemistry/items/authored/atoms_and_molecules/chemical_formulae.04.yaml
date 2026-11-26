@@ -1,0 +1,48 @@
+id: A.9.chemistry.atoms_and_molecules.chemical_formulae.04
+skill_ids:
+- SK.A.9.chemistry.chemical_formulae
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the formula of calcium chloride written as CaCl2 rather than CaCl?
+hints:
+- level: 1
+  en: Look up the valency of the metal from its group in the periodic table.
+- level: 2
+  en: Check whether the total positive charge equals the total negative charge.
+- level: 3
+  en: Consider what the metal's valency tells you about the number of chloride ions required.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: calcium has a valency of one, so one chloride is enough
+- id: b
+  en: calcium has a valency of two, so two chloride ions are needed to balance it
+- id: c
+  en: chlorine must always appear twice in any formula
+- id: d
+  en: CaCl is wrong because it is a molecule with unequal charges
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2E9ACCAFE430
+  when_answer_equals:
+  - c
+- id: MC.A.98AC36935129
+  when_answer_equals:
+  - a
+- id: MC.A.35CD6A7081B5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Calcium forms Ca2+ and chloride forms Cl-, so two chloride ions are needed to cancel the charge of one calcium ion, giving CaCl2.
+- en: The correct option is b.
+tier: C

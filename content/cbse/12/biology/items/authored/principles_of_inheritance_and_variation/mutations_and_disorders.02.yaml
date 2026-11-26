@@ -1,0 +1,49 @@
+id: A.12.biology.principles_of_inheritance_and_variation.mutations_and_disorders.02
+skill_ids:
+- SK.A.12.biology.mutations_and_disorders
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What is a frameshift mutation?
+hints:
+- level: 1
+  en: Think about what happens when bases are added or removed.
+- level: 2
+  en: Consider how the codons are read after the change.
+- level: 3
+  en: Focus on whether the number of bases changed is a multiple of three.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Replacement of one base with another without any other change
+- id: b
+  en: Duplication of an entire chromosome
+- id: c
+  en: An insertion or deletion that shifts the reading frame of the codons downstream
+- id: d
+  en: Exchange of segments between sister chromatids
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D1A3B47B5112
+  when_answer_equals:
+  - a
+- id: MC.A.C595A3AE80E3
+  when_answer_equals:
+  - b
+- id: MC.A.E1C0E911CB1D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Adding or removing bases that is not a multiple of three changes how every later codon is grouped.
+- en: The result is usually a completely different downstream sequence.
+- en: The correct option is c.
+tier: C

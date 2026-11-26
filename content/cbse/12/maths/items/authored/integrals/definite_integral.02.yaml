@@ -1,0 +1,49 @@
+id: A.12.maths.integrals.definite_integral.02
+skill_ids:
+- SK.A.12.maths.definite_integral
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the value of the definite integral of x cubed from minus 1 to 1?
+hints:
+- level: 1
+  en: Consider whether the integrand is odd or even.
+- level: 2
+  en: Think about the regions above and below the axis on a symmetric interval.
+- level: 3
+  en: Use the symmetry property of definite integrals over an interval centred at zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: -1/2
+- id: c
+  en: '2'
+- id: d
+  en: '0'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.55E543C9B917
+  when_answer_equals:
+  - c
+- id: MC.A.669AA9947270
+  when_answer_equals:
+  - a
+- id: MC.A.66E79CECB0FF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The integrand is odd and the interval is symmetric about zero, so the area above the axis cancels the area below it, giving 0.
+- en: The correct option is d.
+tier: C
+diagram_note: Graph of x cubed on the interval from minus 1 to 1, with the region above the horizontal axis on the right shaded and the region below it on the left shaded in the same size.

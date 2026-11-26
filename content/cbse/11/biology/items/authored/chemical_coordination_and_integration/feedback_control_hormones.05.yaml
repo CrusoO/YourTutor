@@ -1,0 +1,50 @@
+id: A.11.biology.chemical_coordination_and_integration.feedback_control_hormones.05
+skill_ids:
+- SK.A.11.biology.feedback_control_hormones
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A person has an overactive thyroid producing high levels of thyroxine. Which change in TSH is expected, and why?
+hints:
+- level: 1
+  en: Think about what the pituitary responds to when thyroxine is high.
+- level: 2
+  en: Consider the direction in which the feedback loop pushes TSH.
+- level: 3
+  en: Compare what happens to TSH with what happens to thyroxine.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: TSH rises to match the thyroid activity
+- id: b
+  en: TSH falls, because high thyroxine feeds back to suppress the pituitary
+- id: c
+  en: TSH stays the same, because the thyroid does not respond to it
+- id: d
+  en: TSH rises, because thyroxine stimulates the pituitary
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E87513A17CC2
+  when_answer_equals:
+  - d
+- id: MC.A.D47087765511
+  when_answer_equals:
+  - c
+- id: MC.A.DEF5FDD2A048
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Thyroxine at high levels inhibits TRH and TSH secretion.
+- en: Blood TSH therefore falls, which is the expected pattern in primary hyperthyroidism.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw the hypothalamus, pituitary and thyroid in a loop, with the high thyroxine arrow feeding back to suppress TSH, labelling the direction of each effect.

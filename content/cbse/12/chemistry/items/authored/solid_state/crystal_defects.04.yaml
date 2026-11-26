@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystal_defects.04
+skill_ids:
+- SK.A.12.chemistry.crystal_defects
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Why can a Schottky defect allow an ionic crystal to conduct electricity?
+hints:
+- level: 1
+  en: Think about what a neighbouring ion needs in order to move a short distance.
+- level: 2
+  en: Consider where an ion can go when a site next to it is empty.
+- level: 3
+  en: Identify whether the carrier of charge is an ion or an electron.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Neighbouring ions can hop into the vacant sites and carry charge
+- id: b
+  en: Ions escape into the vapour phase
+- id: c
+  en: Electrons are released from the vacant sites
+- id: d
+  en: The lattice expands so ions flow in bulk
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.23F7FCA4BEF7
+  when_answer_equals:
+  - c
+- id: MC.A.AE52875F340A
+  when_answer_equals:
+  - d
+- id: MC.A.7D9274AB60E9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Vacant sites let neighbouring ions move through the crystal, and this ionic movement carries charge.
+- en: The defect therefore gives the crystal ionic conductivity.
+- en: The correct option is a.
+tier: C

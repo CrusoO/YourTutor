@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.integration_by_parts.01
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the integral of x times e^x with respect to x?
+hints:
+- level: 1
+  en: Choose the factor that becomes simpler when differentiated as u.
+- level: 2
+  en: Apply the parts formula with u and dv.
+- level: 3
+  en: Differentiate your answer to check it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (x - 1)e^x + C
+- id: b
+  en: x e^x + C
+- id: c
+  en: (x + 1)e^x + C
+- id: d
+  en: e^x + C
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8CC0B0D046EC
+  when_answer_equals:
+  - b
+- id: MC.A.7CE39B46DD09
+  when_answer_equals:
+  - d
+- id: MC.A.D6442FE114AF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Take u = x and dv = e^x dx, so the integral is x e^x minus the integral of e^x, which is (x - 1) e^x plus a constant.
+- en: The correct option is a.
+tier: C

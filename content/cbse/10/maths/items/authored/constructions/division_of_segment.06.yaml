@@ -1,0 +1,49 @@
+id: A.10.maths.constructions.division_of_segment.06
+skill_ids:
+- SK.A.10.maths.division_of_segment
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: 'A student divides AB in the ratio 3 : 2 by marking only 3 equal steps on a ray from A and joining the last mark to B. What is the error?'
+hints:
+- level: 1
+  en: Count the total number of parts in the ratio.
+- level: 2
+  en: Ask how many steps the ray needs to represent the whole ratio.
+- level: 3
+  en: Check the division point you would get with the wrong number of steps.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: There is no error, because the first number of the ratio is enough.
+- id: b
+  en: 'The construction is correct but gives the ratio 2 : 3.'
+- id: c
+  en: The ray needs 5 equal steps, one for each part of the ratio, so the parallel line lands in the right place.
+- id: d
+  en: The ray must be perpendicular to AB.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DE5A1F13FDAE
+  when_answer_equals:
+  - a
+- id: MC.A.55C1BCE26988
+  when_answer_equals:
+  - d
+- id: MC.A.2E0FDAF975C7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The total number of equal steps must equal 3 + 2 = 5, because the parallel construction uses the whole ratio.
+- en: With only 3 steps the point found divides AB in the wrong proportion.
+- en: The correct option is c.
+tier: C

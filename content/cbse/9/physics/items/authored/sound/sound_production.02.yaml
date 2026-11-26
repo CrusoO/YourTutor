@@ -1,0 +1,48 @@
+id: A.9.physics.sound.sound_production.02
+skill_ids:
+- SK.A.9.physics.sound_production
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which medium cannot carry sound?
+hints:
+- level: 1
+  en: Sound needs particles that can pass the disturbance along.
+- level: 2
+  en: Think about whether there is any matter in the region.
+- level: 3
+  en: Consider which of these options has no matter at all.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: water
+- id: b
+  en: a vacuum
+- id: c
+  en: steel
+- id: d
+  en: air
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B5ACA2A17970
+  when_answer_equals:
+  - c
+- id: MC.A.C62A548C886B
+  when_answer_equals:
+  - a
+- id: MC.A.504862828A7D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Sound is a mechanical wave that needs particles to carry it, so it cannot travel through empty space.
+- en: The correct option is b.
+tier: C

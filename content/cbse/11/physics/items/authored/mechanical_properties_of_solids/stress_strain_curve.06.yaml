@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.stress_strain_curve.06
+skill_ids:
+- SK.A.11.physics.stress_strain_curve
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A metal specimen is pulled until it necks and then fractures. On its stress-strain curve, at which point is the stress highest?
+hints:
+- level: 1
+  en: Look for where the curve reaches its highest vertical value.
+- level: 2
+  en: Fracture occurs after the peak of the curve, not at it.
+- level: 3
+  en: Necking happens after the peak as the cross-section becomes narrower.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the elastic limit
+- id: b
+  en: the ultimate tensile strength point
+- id: c
+  en: the origin
+- id: d
+  en: the breaking point
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.09F632DF00F1
+  when_answer_equals:
+  - a
+- id: MC.A.F3C537635064
+  when_answer_equals:
+  - d
+- id: MC.A.A698483116A8
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The stress reaches its maximum at the ultimate tensile strength.
+- en: Necking reduces the cross-section afterwards, so the recorded stress falls before fracture at the breaking point.
+- en: The correct option is b.
+tier: C

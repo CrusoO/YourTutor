@@ -1,0 +1,48 @@
+id: A.12.chemistry.haloalkanes_and_haloarenes.elimination_haloalkanes.06
+skill_ids:
+- SK.A.12.chemistry.elimination_haloalkanes
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which factor makes E2 elimination more likely for a tertiary haloalkane than for a primary one when a strong base is used?
+hints:
+- level: 1
+  en: Count the hydrogens on carbons next to the one bearing the halogen in each substrate.
+- level: 2
+  en: Think about how many sites a base has to remove a proton.
+- level: 3
+  en: Consider which substrate gives more options for the base to act on.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Primary substrates have no beta hydrogens
+- id: b
+  en: Tertiary substrates cannot form any carbocation
+- id: c
+  en: Primary substrates eliminate only by a radical path
+- id: d
+  en: The tertiary substrate offers more beta hydrogens for the base to remove
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.249A937D49CC
+  when_answer_equals:
+  - a
+- id: MC.A.EC7315D3E2B9
+  when_answer_equals:
+  - b
+- id: MC.A.C37DB8AA17F6
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A tertiary haloalkane has several hydrogens on neighbouring carbons, which gives many sites for a strong base to remove, so elimination is favoured.
+- en: The correct option is d.
+tier: C

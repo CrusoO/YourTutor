@@ -1,0 +1,50 @@
+id: A.12.physics.electromagnetic_induction.self_and_mutual_induction.06
+skill_ids:
+- SK.A.12.physics.self_and_mutual_induction
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Two coils are moved closer together while the currents in them are unchanged. What happens to their mutual inductance?
+hints:
+- level: 1
+  en: Think about how much of the flux from one coil passes through the other coil when they are close.
+- level: 2
+  en: Consider whether the distance between the coils affects the coupling.
+- level: 3
+  en: Recall what mutual inductance measures about the two coils.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It stays unchanged
+- id: b
+  en: It decreases
+- id: c
+  en: It becomes negative
+- id: d
+  en: It increases
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4AADC62996EA
+  when_answer_equals:
+  - b
+- id: MC.A.AB73F23B85A6
+  when_answer_equals:
+  - a
+- id: MC.A.E0DBCFEE8522
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Mutual inductance depends on how much flux from one coil links the other.
+- en: Bringing the coils closer increases the coupling, so M increases.
+- en: The correct option is d.
+tier: C
+diagram_note: Two coils drawn with a gap between them and an arrow showing that they are being moved closer together, with field lines passing from one coil through the other.

@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrogen.position_and_isotopes_h.05
+skill_ids:
+- SK.A.11.chemistry.position_and_isotopes_h
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which hydrogen isotope is radioactive?
+hints:
+- level: 1
+  en: The isotope with two neutrons decays slowly by emitting an electron.
+- level: 2
+  en: Protium and deuterium are stable and do not decay.
+- level: 3
+  en: Look for the heaviest hydrogen isotope in your list.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: protium
+- id: b
+  en: deuterium
+- id: c
+  en: tritium
+- id: d
+  en: helium-3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.202E2CF64686
+  when_answer_equals:
+  - a
+- id: MC.A.779A850DE774
+  when_answer_equals:
+  - b
+- id: MC.A.9809245F109F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Tritium decays by beta emission with a half life of about twelve years, so it is the radioactive isotope of hydrogen, while protium and deuterium are stable.
+- en: The correct option is c.
+tier: C

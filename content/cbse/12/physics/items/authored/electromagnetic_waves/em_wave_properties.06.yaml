@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_waves.em_wave_properties.06
+skill_ids:
+- SK.A.12.physics.em_wave_properties
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An electromagnetic wave in vacuum has a magnetic field amplitude of 2 x 10^-8 T. What is the electric field amplitude? Use c equal to 3 x 10^8 m/s.
+hints:
+- level: 1
+  en: The electric amplitude is the speed of light times the magnetic amplitude.
+- level: 2
+  en: Multiply the magnetic amplitude by the speed of light.
+- level: 3
+  en: Check that the unit of your answer is the unit of the electric field.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 6 V/m
+- id: b
+  en: 600 V/m
+- id: c
+  en: 0.067 V/m
+- id: d
+  en: 6 T
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6951B0CB4ABA
+  when_answer_equals:
+  - c
+- id: MC.A.395E0C12F205
+  when_answer_equals:
+  - b
+- id: MC.A.554FCE09B10A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The electric amplitude equals c times the magnetic amplitude.
+- en: Multiplying 3 x 10^8 by 2 x 10^-8 gives 6 V/m.
+- en: The correct option is a.
+tier: C

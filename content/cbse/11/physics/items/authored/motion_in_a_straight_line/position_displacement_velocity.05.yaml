@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_straight_line.position_displacement_velocity.05
+skill_ids:
+- SK.A.11.physics.position_displacement_velocity
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: On a position-time graph, the average velocity between two instants is represented by which quantity?
+hints:
+- level: 1
+  en: Average velocity is displacement divided by time.
+- level: 2
+  en: Compare the rise and the run between the two marked points.
+- level: 3
+  en: A tangent touches the curve at only one instant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: height of the curve at the midpoint
+- id: b
+  en: slope of the chord joining the two points
+- id: c
+  en: area under the curve between the instants
+- id: d
+  en: slope of the tangent at the start
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0C41E8957D1C
+  when_answer_equals:
+  - c
+- id: MC.A.EFD48605A95C
+  when_answer_equals:
+  - a
+- id: MC.A.F6717F1AD24C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Average velocity is the change in position divided by the change in time, which is the slope of the straight chord between the two points on the graph.
+- en: The correct option is b.
+tier: C
+diagram_note: A position against time curve with two marked points A and B on it. A straight chord joins A and B, and a tangent line touches the curve at A only.

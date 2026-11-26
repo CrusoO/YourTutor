@@ -1,0 +1,29 @@
+id: A.12.maths.differential_equations.linear_de.02
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: Solve dy/dx + 2y = 0 with y(0) = 3. Find y(1), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Identify the integrating factor for the coefficient 2.
+- level: 2
+  en: Multiply the equation by it and recognise the left side as a derivative.
+- level: 3
+  en: Use y(0) to find the constant, then evaluate at x equal to 1.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.406'
+  accept: []
+solution_steps:
+- en: The solution is y = C e^(-2x), and y(0) = 3 gives C = 3, so y(1) = 3 e^(-2), about 0.406.
+- en: Answer = 0.406
+tier: C

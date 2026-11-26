@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.approximations_optimisation.04
+skill_ids:
+- SK.A.12.maths.approximations_optimisation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A rectangular enclosure has a total perimeter of 40 m. What is the largest possible area in square metres?
+hints:
+- level: 1
+  en: Write the perimeter condition in terms of the two side lengths.
+- level: 2
+  en: Express the area using only one side.
+- level: 3
+  en: Find the critical point of the area function.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '200'
+- id: b
+  en: '400'
+- id: c
+  en: '50'
+- id: d
+  en: '100'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0CB11B79AB58
+  when_answer_equals:
+  - b
+- id: MC.A.CCB1CA5A1FA2
+  when_answer_equals:
+  - c
+- id: MC.A.004B7B9A1043
+  when_answer_equals:
+  - a
+solution_steps:
+- en: With sides x and 20 minus x the area is x(20 - x), which is largest at x = 10, giving 100, achieved by a square.
+- en: The correct option is d.
+tier: C

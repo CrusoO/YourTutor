@@ -1,0 +1,48 @@
+id: A.12.physics.electromagnetic_waves.displacement_current.02
+skill_ids:
+- SK.A.12.physics.displacement_current
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: On which quantity does the displacement current density depend?
+hints:
+- level: 1
+  en: Write the displacement current density in terms of a derivative with respect to time.
+- level: 2
+  en: Think about whether a steady field gives any change over time.
+- level: 3
+  en: Recall the constant that multiplies the time derivative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The charge density at the point
+- id: b
+  en: The electric field itself
+- id: c
+  en: The magnetic field
+- id: d
+  en: The rate of change of the electric field
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A4C02CCD1F7F
+  when_answer_equals:
+  - b
+- id: MC.A.C2A8D2FC08B0
+  when_answer_equals:
+  - c
+- id: MC.A.6DC6F3B23344
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Displacement current density is epsilon zero times the time derivative of the electric field, so only a changing field gives a displacement current.
+- en: The correct option is d.
+tier: C

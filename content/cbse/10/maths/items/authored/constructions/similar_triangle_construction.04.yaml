@@ -1,0 +1,49 @@
+id: A.10.maths.constructions.similar_triangle_construction.04
+skill_ids:
+- SK.A.10.maths.similar_triangle_construction
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why do the parallel lines in the construction produce a triangle with the same angles as the original?
+hints:
+- level: 1
+  en: Recall what parallel lines do to angles formed with a transversal.
+- level: 2
+  en: Ask whether the construction involves any measuring.
+- level: 3
+  en: Think about whether the new triangle has the same shape or the same size.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Parallel lines make corresponding angles equal, so the new triangle matches the original in angle.
+- id: b
+  en: Because parallel lines bisect every angle.
+- id: c
+  en: Because the new triangle is congruent to the original.
+- id: d
+  en: Because the angles are measured with a protractor.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.ED8F55681540
+  when_answer_equals:
+  - c
+- id: MC.A.A3551C3176BB
+  when_answer_equals:
+  - d
+- id: MC.A.0FB920704DFB
+  when_answer_equals:
+  - b
+solution_steps:
+- en: When a line is parallel to a side, the angles it makes with the other sides match the original angles.
+- en: So the new triangle has the same angles, and similarity follows.
+- en: The correct option is a.
+tier: C

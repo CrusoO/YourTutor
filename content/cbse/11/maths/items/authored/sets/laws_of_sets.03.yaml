@@ -1,0 +1,29 @@
+id: A.11.maths.sets.laws_of_sets.03
+skill_ids:
+- SK.A.11.maths.laws_of_sets
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A universal set has 30 elements, A has 18 elements, B has 14 elements and A intersection B has 6 elements. How many elements lie outside A and also outside B?
+hints:
+- level: 1
+  en: Find how many elements lie in at least one of the two sets.
+- level: 2
+  en: Use the counting formula for the union, which subtracts the overlap once.
+- level: 3
+  en: Subtract the union count from the universal set total.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '4'
+  accept: []
+solution_steps:
+- en: The union of A and B has 18 plus 14 minus 6, which is 26 elements, leaving 30 minus 26 for the outside region.
+- en: Answer = 4
+tier: C

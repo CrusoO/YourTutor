@@ -1,0 +1,48 @@
+id: A.12.physics.alternating_current.transformers.01
+skill_ids:
+- SK.A.12.physics.transformers
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which feature describes a step-up transformer?
+hints:
+- level: 1
+  en: Consider how the voltage ratio relates to the turns ratio.
+- level: 2
+  en: Think about which coil must have more turns to raise the voltage.
+- level: 3
+  en: Recall whether a transformer works with changing flux or steady flux.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Equal numbers of turns on both coils
+- id: b
+  en: A direct current supply on the primary
+- id: c
+  en: More turns on the secondary than on the primary
+- id: d
+  en: More turns on the primary than on the secondary
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.561AAAE9BE86
+  when_answer_equals:
+  - d
+- id: MC.A.3F9BC3239C1C
+  when_answer_equals:
+  - a
+- id: MC.A.5ADFD7E34664
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A step-up transformer has more turns on the secondary than on the primary, which raises the output voltage above the input voltage.
+- en: The correct option is c.
+tier: C

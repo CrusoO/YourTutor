@@ -1,0 +1,49 @@
+id: A.9.maths.circles.circle_terms.06
+skill_ids:
+- SK.A.9.maths.circle_terms
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A line from the centre of a circle meets a chord at right angles. Which statement is always true?
+hints:
+- level: 1
+  en: Consider how the perpendicular interacts with the two ends of the chord.
+- level: 2
+  en: A tangent touches the circle at only one point, so compare that idea.
+- level: 3
+  en: Think about the symmetry of the circle about that line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It touches the circle at exactly one point.
+- id: b
+  en: It is twice the length of the chord.
+- id: c
+  en: It is equal in length to the radius.
+- id: d
+  en: It cuts the chord into two equal parts.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.8381D2DB2B6A
+  when_answer_equals:
+  - c
+- id: MC.A.FCB5918A215F
+  when_answer_equals:
+  - a
+- id: MC.A.F9CCFEF650D3
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The perpendicular from the centre to a chord bisects the chord, a standard property that follows from the symmetry of the circle.
+- en: The correct option is d.
+tier: C
+diagram_note: Circle with a chord and a perpendicular from the centre meeting the chord at its midpoint.

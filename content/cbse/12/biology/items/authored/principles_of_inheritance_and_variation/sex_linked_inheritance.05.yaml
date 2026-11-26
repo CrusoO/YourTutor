@@ -1,0 +1,49 @@
+id: A.12.biology.principles_of_inheritance_and_variation.sex_linked_inheritance.05
+skill_ids:
+- SK.A.12.biology.sex_linked_inheritance
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A colour-blind man has a daughter with a mother who has normal colour vision and no carrier allele. What is the most likely status of the daughter?
+hints:
+- level: 1
+  en: Trace which X chromosome the daughter gets from her father.
+- level: 2
+  en: Check what the mother contributes to the daughter's X pair.
+- level: 3
+  en: Decide whether one copy of a recessive allele causes the trait in a female.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: She will be colour-blind
+- id: b
+  en: Her sons will be carriers
+- id: c
+  en: She cannot inherit any X from her father
+- id: d
+  en: She will be a carrier but not colour-blind
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.12EE52D46CD3
+  when_answer_equals:
+  - a
+- id: MC.A.52E9A3FE0043
+  when_answer_equals:
+  - c
+- id: MC.A.5759F86E8863
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The daughter receives the colour-blind X from her father and a normal X from her mother, so she is a carrier who is not affected.
+- en: Her sons would receive her X with the allele only if she passed it on, which is possible but depends on her gamete.
+- en: The correct option is d.
+tier: C

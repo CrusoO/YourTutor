@@ -1,0 +1,29 @@
+id: A.12.maths.continuity_and_differentiability.differentiability.06
+skill_ids:
+- SK.A.12.maths.differentiability
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let f(x) = x^2 sin(1/x) for x not equal to 0, and f(0) = 0. Find f'(0).
+hints:
+- level: 1
+  en: Write the difference quotient at the point using the function value given there.
+- level: 2
+  en: Use the fact that sine stays between minus one and one.
+- level: 3
+  en: Consider the limit of h multiplied by a bounded quantity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0'
+  accept: []
+solution_steps:
+- en: The difference quotient at 0 is h sin(1/h), and since sine is bounded by 1 in size, this tends to 0 as h approaches 0.
+- en: Answer = 0
+tier: C

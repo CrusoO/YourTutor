@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_constant_calc.02
+skill_ids:
+- SK.A.11.chemistry.equilibrium_constant_calc
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What is the reaction quotient Q for a reaction at any moment before equilibrium is reached?
+hints:
+- level: 1
+  en: Compute it with the same expression as the equilibrium constant, using current values.
+- level: 2
+  en: Compare its value with the equilibrium constant to predict the direction.
+- level: 3
+  en: It describes the mixture at a particular time rather than at equilibrium.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the number of moles of product formed so far
+- id: b
+  en: the equilibrium constant, which is always equal to it
+- id: c
+  en: a ratio of the current concentrations written in the same form as the equilibrium constant
+- id: d
+  en: the rate constant of the forward reaction
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A857E6CEF850
+  when_answer_equals:
+  - b
+- id: MC.A.4EE37100FD53
+  when_answer_equals:
+  - d
+- id: MC.A.C13969413F03
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The reaction quotient uses the actual concentrations at a given moment in the same expression as Kc, and comparing it with Kc shows which way the reaction will move.
+- en: The correct option is c.
+tier: C

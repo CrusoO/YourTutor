@@ -1,0 +1,48 @@
+id: A.12.maths.probability.binomial_distribution.02
+skill_ids:
+- SK.A.12.maths.binomial_distribution
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: X follows a binomial distribution with n = 5 and p = 0.2. Which expression gives P(X = 0)?
+hints:
+- level: 1
+  en: P(X = 0) means no successes in the five trials.
+- level: 2
+  en: Each trial fails with probability one minus the success probability.
+- level: 3
+  en: Raise that failure probability to the number of trials.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0.2)^5
+- id: b
+  en: 1 minus 0.2^5
+- id: c
+  en: 5 times 0.2
+- id: d
+  en: (0.8)^5
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.5578AE58F730
+  when_answer_equals:
+  - a
+- id: MC.A.F947B9180303
+  when_answer_equals:
+  - c
+- id: MC.A.41187ECFA89F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: P(X = 0) means every trial fails, and each failure has probability 0.8, so the probability is (0.8)^5.
+- en: The correct option is d.
+tier: C

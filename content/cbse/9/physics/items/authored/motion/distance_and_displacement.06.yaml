@@ -1,0 +1,48 @@
+id: A.9.physics.motion.distance_and_displacement.06
+skill_ids:
+- SK.A.9.physics.distance_and_displacement
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A person's displacement is zero at the end of a trip, yet the distance travelled is positive. Which kind of trip gives this result?
+hints:
+- level: 1
+  en: Displacement depends only on where the trip begins and ends.
+- level: 2
+  en: Ask which trip keeps the end point the same as the start point.
+- level: 3
+  en: Distance keeps growing with every step along the path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a round trip that returns to the starting point
+- id: b
+  en: a trip made at constant speed
+- id: c
+  en: a trip with a very long total time
+- id: d
+  en: a straight trip with no turns
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0E948A1FF13E
+  when_answer_equals:
+  - d
+- id: MC.A.92173BA3E89B
+  when_answer_equals:
+  - b
+- id: MC.A.19E37F56A1DE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Displacement compares the final position with the start, so a trip that returns to its starting point has zero displacement while its distance is still positive.
+- en: The correct option is a.
+tier: C

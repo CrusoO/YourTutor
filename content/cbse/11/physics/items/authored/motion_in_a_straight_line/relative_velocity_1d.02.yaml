@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_straight_line.relative_velocity_1d.02
+skill_ids:
+- SK.A.11.physics.relative_velocity_1d
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Two cars move toward each other along a straight road. Car X moves east at 15 m/s and car Y moves west at 10 m/s. What is the speed of X relative to Y?
+hints:
+- level: 1
+  en: Take east as positive, so the westward velocity is negative.
+- level: 2
+  en: Find the velocity of X minus the velocity of Y.
+- level: 3
+  en: Decide whether the two velocities add or cancel once their signs are set.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 15 m/s
+- id: b
+  en: 25 m/s
+- id: c
+  en: 5 m/s
+- id: d
+  en: 10 m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D1FE56D7AB55
+  when_answer_equals:
+  - c
+- id: MC.A.779994B70711
+  when_answer_equals:
+  - a
+- id: MC.A.9F753F82941D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Taking east as positive, Y has velocity minus 10 m/s.
+- en: The velocity of X relative to Y is 15 minus minus 10, which is 25 m/s.
+- en: The correct option is b.
+tier: C

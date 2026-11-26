@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.mass_and_weight.06
+skill_ids:
+- SK.A.9.physics.mass_and_weight
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A 5 kg object is weighed on a spring balance on Earth and then on a planet where the field strength is 3.2 N/kg. How does the reading change?
+hints:
+- level: 1
+  en: Find the weight on Earth first, using the standard value of g.
+- level: 2
+  en: Then find the weight on the planet with its field strength.
+- level: 3
+  en: Subtract the two weights and note which one is larger.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: no change, since the mass stays the same
+- id: b
+  en: 16 N lower on the planet
+- id: c
+  en: 33 N higher on the planet
+- id: d
+  en: 33 N lower on the planet
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CBD8C75704D7
+  when_answer_equals:
+  - b
+- id: MC.A.F5D90CF64EFD
+  when_answer_equals:
+  - c
+- id: MC.A.1B8764C50BBE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Earth gives 49 N and the planet gives 16 N, so the spring balance reads 33 N lower on the planet, because the mass is unchanged but the field is weaker.
+- en: The correct option is d.
+tier: C

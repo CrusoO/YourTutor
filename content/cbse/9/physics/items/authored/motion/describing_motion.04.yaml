@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.04
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.6
+pool: practice
+role: transfer
+stem:
+  en: 'Two cars travel side by side at equal speed on a highway. For a driver in one car, the other car appears to be:'
+hints:
+- level: 1
+  en: Compare the other car's position with your own car over time.
+- level: 2
+  en: Both cars share the same velocity.
+- level: 3
+  en: Ask whether the gap between the two cars changes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: moving backward
+- id: b
+  en: at rest
+- id: c
+  en: moving forward slowly
+- id: d
+  en: moving sideways
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5F80D6ACE04C
+  when_answer_equals:
+  - c
+- id: MC.A.E1F71F5D6B7C
+  when_answer_equals:
+  - a
+- id: MC.A.D060D39F41A8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Both cars have the same velocity, so the gap between them stays fixed and the driver sees the other car as not moving.
+- en: The correct option is b.
+tier: C

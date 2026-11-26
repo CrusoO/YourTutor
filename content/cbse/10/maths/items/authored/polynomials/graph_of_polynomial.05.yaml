@@ -1,0 +1,49 @@
+id: A.10.maths.polynomials.graph_of_polynomial.05
+skill_ids:
+- SK.A.10.maths.graph_of_polynomial
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: The graph of a quadratic polynomial lies entirely above the x-axis. What can be said about its zeros?
+hints:
+- level: 1
+  en: A zero is a point where the graph reaches y = 0.
+- level: 2
+  en: Ask whether the curve ever touches or crosses the axis.
+- level: 3
+  en: Think about what 'entirely above' says about the y-values.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It has two real zeros with opposite signs.
+- id: b
+  en: It has exactly one real zero.
+- id: c
+  en: It has no real zeros.
+- id: d
+  en: Both zeros are positive.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F0B3B0E62575
+  when_answer_equals:
+  - b
+- id: MC.A.0B8FD962F606
+  when_answer_equals:
+  - d
+- id: MC.A.C78C8915FADD
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A graph that stays strictly above the x-axis never reaches y = 0, so no x-value makes the polynomial zero.
+- en: A parabola of this kind has no real zeros.
+- en: The correct option is c.
+tier: C

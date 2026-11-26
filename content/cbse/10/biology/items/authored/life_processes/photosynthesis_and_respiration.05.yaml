@@ -1,0 +1,49 @@
+id: A.10.biology.life_processes.photosynthesis_and_respiration.05
+skill_ids:
+- SK.A.10.biology.photosynthesis_and_respiration
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A potted plant is kept in a dark room for two days. Which change is most likely in its leaves?
+hints:
+- level: 1
+  en: Which of the two processes needs light?
+- level: 2
+  en: Think about what the plant does with its stored food when it cannot make more.
+- level: 3
+  en: Respiration does not stop in the dark.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Glucose is made faster because the plant is at rest
+- id: b
+  en: Oxygen production rises because the plant is resting
+- id: c
+  en: Starch reserves fall because respiration continues while photosynthesis has stopped
+- id: d
+  en: Starch reserves rise because respiration stops in the dark
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BBE312FCB499
+  when_answer_equals:
+  - d
+- id: MC.A.4927AD2F57D2
+  when_answer_equals:
+  - b
+- id: MC.A.42BFB18FA5F5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Without light, photosynthesis stops, but respiration continues, so the plant uses its stored starch.
+- en: The leaves therefore lose starch over the two days.
+- en: The correct option is c.
+tier: C

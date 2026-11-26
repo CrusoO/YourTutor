@@ -1,0 +1,48 @@
+id: A.11.physics.laws_of_motion.friction.04
+skill_ids:
+- SK.A.11.physics.friction
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A block on a rough plane tilted at 30 degrees is just on the point of sliding. What is the coefficient of static friction?
+hints:
+- level: 1
+  en: At the point of sliding, friction balances the weight component along the plane.
+- level: 2
+  en: Compare the component along the plane with the component perpendicular to it.
+- level: 3
+  en: Their ratio is a trigonometric ratio of the angle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.5'
+- id: b
+  en: '1.732'
+- id: c
+  en: '0.577'
+- id: d
+  en: '0.866'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A4476347A8A1
+  when_answer_equals:
+  - a
+- id: MC.A.2F6508B07DDE
+  when_answer_equals:
+  - d
+- id: MC.A.D74D724E7CA5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: At the point of sliding, the friction equals the weight component along the plane, so the coefficient equals the tangent of the angle, about 0.577.
+- en: The correct option is c.
+tier: C

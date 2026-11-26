@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.determinant_evaluation.02
+skill_ids:
+- SK.A.12.maths.determinant_evaluation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which value is the determinant of [[1, 2, 0], [0, 1, 2], [2, 0, 1]]?
+hints:
+- level: 1
+  en: Expand the determinant along its first row.
+- level: 2
+  en: Each entry multiplies a signed minor obtained by deleting its row and column.
+- level: 3
+  en: Evaluate each 2 by 2 minor carefully before combining them.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '-9'
+- id: b
+  en: '1'
+- id: c
+  en: '9'
+- id: d
+  en: '-7'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8B11AEE483FF
+  when_answer_equals:
+  - a
+- id: MC.A.32382DA2E3FA
+  when_answer_equals:
+  - d
+- id: MC.A.1C03DC8D5CDB
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Expanding along the first row gives 1 times (1 minus 0) minus 2 times (0 minus 4) plus 0, which equals 1 plus 8, so the determinant is 9.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.physics.laws_of_motion.pseudo_force_frames.04
+skill_ids:
+- SK.A.11.physics.pseudo_force_frames
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A bob hangs from the roof of a trolley that accelerates along a track at a constant rate. At equilibrium the string makes an angle with the vertical. Which expression gives the tangent of that angle?
+hints:
+- level: 1
+  en: Use the balance of forces on the bob in the trolley's frame.
+- level: 2
+  en: Draw the string tension, the weight of the bob and the pseudo force.
+- level: 3
+  en: Find the ratio of the horizontal balance to the vertical balance.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a times g
+- id: b
+  en: a divided by g
+- id: c
+  en: g divided by a
+- id: d
+  en: a squared divided by g
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.11BAB6E02819
+  when_answer_equals:
+  - c
+- id: MC.A.60D6735604F3
+  when_answer_equals:
+  - a
+- id: MC.A.6479994305D1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In the trolley frame the pseudo force m a and the weight m g balance the string tension.
+- en: The tangent of the angle is the ratio of horizontal to vertical balance, so tan theta = a / g.
+- en: The correct option is b.
+tier: C

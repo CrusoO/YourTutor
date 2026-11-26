@@ -1,0 +1,32 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.03
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A diode with a forward voltage drop of 0.7 V is connected in series with a 430 ohm resistor to a 5 V supply. What is the current in mA?
+hints:
+- level: 1
+  en: Subtract the diode drop from the supply voltage to find the voltage across the resistor.
+- level: 2
+  en: Divide that voltage by the series resistance.
+- level: 3
+  en: Convert amperes to milliampere at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '10'
+  accept: []
+solution_steps:
+- en: The voltage across the resistor is 5 minus 0.7, which is 4.3 V.
+- en: The current is 4.3 divided by 430, which is 0.01 A, or 10 mA.
+- en: The unit of the answer is mA.
+- en: Answer = 10
+tier: C
+diagram_note: A circuit loop with a battery, a series resistor and a diode in forward bias, with the supply voltage, the diode drop and the resistance all labelled.

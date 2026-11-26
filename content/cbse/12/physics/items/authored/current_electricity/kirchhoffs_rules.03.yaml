@@ -1,0 +1,31 @@
+id: A.12.physics.current_electricity.kirchhoffs_rules.03
+skill_ids:
+- SK.A.12.physics.kirchhoffs_rules
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A 12 V ideal source is connected across two parallel resistors of 4 ohm and 6 ohm. What is the total current drawn from the source in ampere?
+hints:
+- level: 1
+  en: Find the equivalent resistance of the two parallel branches first.
+- level: 2
+  en: Divide the source voltage by that equivalent resistance.
+- level: 3
+  en: Check that the total current is larger than the current in the 4 ohm branch.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '5'
+  accept: []
+solution_steps:
+- en: The equivalent parallel resistance is 4 times 6 over 10, which is 2.4 ohm.
+- en: The total current is 12 divided by 2.4, which equals 5 A.
+- en: The unit of the answer is A.
+- en: Answer = 5
+tier: C

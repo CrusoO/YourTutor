@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.gravitational_field_potential.01
+skill_ids:
+- SK.A.11.physics.gravitational_field_potential
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the SI unit of gravitational field strength?
+hints:
+- level: 1
+  en: Field strength is force divided by mass.
+- level: 2
+  en: Force is measured in newtons.
+- level: 3
+  en: Divide the force unit by the mass unit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: newton metre
+- id: b
+  en: newton per kilogram
+- id: c
+  en: joule per kilogram
+- id: d
+  en: kilogram per newton
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0413FE83F9F7
+  when_answer_equals:
+  - c
+- id: MC.A.6152558FEE95
+  when_answer_equals:
+  - a
+- id: MC.A.AB98596E41A5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Gravitational field strength is force per unit mass, so its SI unit is newton per kilogram.
+- en: The correct option is b.
+tier: C

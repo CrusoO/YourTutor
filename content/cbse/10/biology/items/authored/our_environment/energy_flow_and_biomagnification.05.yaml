@@ -1,0 +1,50 @@
+id: A.10.biology.our_environment.energy_flow_and_biomagnification.05
+skill_ids:
+- SK.A.10.biology.energy_flow_and_biomagnification
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A persistent pesticide is found at much higher concentration in a hawk than in the grass where it started. What is the best explanation?
+hints:
+- level: 1
+  en: Think about whether the animal can get rid of the chemical quickly.
+- level: 2
+  en: Consider how many contaminated prey one predator eats.
+- level: 3
+  en: Ask where the chemical is stored in the body.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The chemical is produced by the hawk's own metabolism
+- id: b
+  en: Each feeding step concentrates the chemical because the animal retains it while eating many prey
+- id: c
+  en: The substance breaks down faster in plants than in animals
+- id: d
+  en: Energy moving up the chain carries the toxin upward without any loss
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EF9AAE3EB622
+  when_answer_equals:
+  - a
+- id: MC.A.8EC997A94E99
+  when_answer_equals:
+  - c
+- id: MC.A.72FD183BCA38
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Persistent chemicals are stored in fat and are not excreted quickly, so each animal that eats many contaminated prey ends up with a higher total amount in its body.
+- en: This is biomagnification.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw a food chain of grass, grasshopper, frog and hawk, with a column beside showing the pesticide concentration rising at each level.

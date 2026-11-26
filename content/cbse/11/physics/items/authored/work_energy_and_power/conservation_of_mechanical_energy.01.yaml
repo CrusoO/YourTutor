@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.conservation_of_mechanical_energy.01
+skill_ids:
+- SK.A.11.physics.conservation_of_mechanical_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a frictionless motion where only gravity does work, which total is conserved?
+hints:
+- level: 1
+  en: Energy can change form between kinetic and potential.
+- level: 2
+  en: Add the two forms together at each position along the path.
+- level: 3
+  en: Look for the quantity that stays fixed along the whole path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sum of kinetic and potential energy
+- id: b
+  en: momentum alone
+- id: c
+  en: kinetic energy alone
+- id: d
+  en: potential energy alone
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8F2C1884B0BA
+  when_answer_equals:
+  - c
+- id: MC.A.B28D3EC23950
+  when_answer_equals:
+  - d
+- id: MC.A.D0CFE357CBA9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: When only conservative forces such as gravity act, the sum of kinetic and potential energy stays the same, while the two forms exchange with each other.
+- en: The correct option is a.
+tier: C

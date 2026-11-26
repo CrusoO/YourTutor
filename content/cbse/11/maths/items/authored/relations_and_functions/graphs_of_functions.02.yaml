@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.graphs_of_functions.02
+skill_ids:
+- SK.A.11.maths.graphs_of_functions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the shape of the graph of the absolute value function f(x) = |x| over the real numbers?
+hints:
+- level: 1
+  en: Compare the outputs for a positive input and its negative partner.
+- level: 2
+  en: Notice where the output is smallest.
+- level: 3
+  en: Think about how the two arms of the graph meet.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a V shape with its vertex at the origin
+- id: b
+  en: a straight line with slope -1
+- id: c
+  en: a horizontal line through the origin
+- id: d
+  en: a U shape with its vertex at (1, 0)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C4E8CE1356BB
+  when_answer_equals:
+  - d
+- id: MC.A.04F481EA9118
+  when_answer_equals:
+  - b
+- id: MC.A.F5D2F364B214
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Outputs are always non-negative, falling to zero at the origin and rising on both sides, which forms a V.
+- en: The correct option is a.
+tier: C

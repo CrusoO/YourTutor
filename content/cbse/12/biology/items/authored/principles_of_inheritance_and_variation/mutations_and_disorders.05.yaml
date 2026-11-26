@@ -1,0 +1,49 @@
+id: A.12.biology.principles_of_inheritance_and_variation.mutations_and_disorders.05
+skill_ids:
+- SK.A.12.biology.mutations_and_disorders
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mutation changes the codon AAA, which codes lysine, to AAG. What is the most likely effect on the protein?
+hints:
+- level: 1
+  en: Look up the amino acid each codon specifies in the genetic code table.
+- level: 2
+  en: Check whether two codons specify the same amino acid.
+- level: 3
+  en: A change at the third position may leave the amino acid unchanged.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: All downstream codons are shifted
+- id: b
+  en: The amino acid stays lysine, so the protein is likely unchanged at that site
+- id: c
+  en: The protein becomes longer by one residue
+- id: d
+  en: Lysine is replaced by a stop codon
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CD4E2BF60629
+  when_answer_equals:
+  - d
+- id: MC.A.26A7C9683BB1
+  when_answer_equals:
+  - c
+- id: MC.A.54F4154557C9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: AAG also codes for lysine, so this substitution is silent at the protein level.
+- en: The genetic code is degenerate, so some third position changes leave the amino acid unchanged.
+- en: The correct option is b.
+tier: C

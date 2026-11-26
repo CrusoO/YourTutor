@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.buoyancy_and_archimedes.01
+skill_ids:
+- SK.A.9.physics.buoyancy_and_archimedes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: An object floats in a liquid when
+hints:
+- level: 1
+  en: A floating object is in equilibrium.
+- level: 2
+  en: Think about which two forces must balance on the floating object.
+- level: 3
+  en: Compare the upward force with the downward force on the object.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: its density is greater than the liquid's
+- id: b
+  en: it has no mass at all
+- id: c
+  en: the upthrust on it is zero
+- id: d
+  en: the upthrust on it equals its weight
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.8BB821403B67
+  when_answer_equals:
+  - a
+- id: MC.A.ACDB43111AEF
+  when_answer_equals:
+  - b
+- id: MC.A.02644804A07F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A floating object is in equilibrium, so the upthrust from the liquid balances its weight exactly.
+- en: The correct option is d.
+tier: C

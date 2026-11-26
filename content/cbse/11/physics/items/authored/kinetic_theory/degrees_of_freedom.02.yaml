@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.degrees_of_freedom.02
+skill_ids:
+- SK.A.11.physics.degrees_of_freedom
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: 'The equipartition principle states that each quadratic energy term of a molecule contributes:'
+hints:
+- level: 1
+  en: Each quadratic term in the energy gets an equal share of the thermal energy.
+- level: 2
+  en: Each independent term gets one share, and the share is the same for all terms.
+- level: 3
+  en: Think of the average energy per independent term.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: k_B T per molecule
+- id: b
+  en: one half k_B T per molecule
+- id: c
+  en: nothing at low temperature
+- id: d
+  en: two k_B T per molecule
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.28FECF353C48
+  when_answer_equals:
+  - a
+- id: MC.A.E8E7468BB3A0
+  when_answer_equals:
+  - d
+- id: MC.A.C864BB62CCC7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equipartition gives one half k_B T of average energy for each independent quadratic term in the energy, which is the basis of the heat capacity of gases.
+- en: The correct option is b.
+tier: C

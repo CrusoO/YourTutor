@@ -1,0 +1,49 @@
+id: A.9.maths.linear_equations_two_variables.graph_of_linear_equation.06
+skill_ids:
+- SK.A.9.maths.graph_of_linear_equation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two lines y = 2x + 1 and y = 2x - 3 are drawn on the same grid. Which statement is correct?
+hints:
+- level: 1
+  en: Compare the coefficients of x in both equations.
+- level: 2
+  en: Lines with equal slopes behave in a specific way.
+- level: 3
+  en: Check whether the constant terms differ.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are parallel and never meet.
+- id: b
+  en: They are perpendicular.
+- id: c
+  en: They meet at the point (1, 3).
+- id: d
+  en: They meet at the origin.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.44929A25EE33
+  when_answer_equals:
+  - d
+- id: MC.A.97783F504AB6
+  when_answer_equals:
+  - c
+- id: MC.A.6E3711600564
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Both lines have slope 2 but different intercepts, so they are parallel and never intersect.
+- en: The correct option is a.
+tier: C
+diagram_note: Two straight lines drawn on the same grid with the same steepness and different heights.

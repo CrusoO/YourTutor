@@ -1,0 +1,49 @@
+id: A.11.maths.relations_and_functions.graphs_of_functions.03
+skill_ids:
+- SK.A.11.maths.graphs_of_functions
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: The graph of y = x squared is shifted 3 units to the left. Which equation describes the shifted graph?
+hints:
+- level: 1
+  en: Recall how replacing the input with a shifted expression moves the graph.
+- level: 2
+  en: A move to the left corresponds to adding inside the bracket.
+- level: 3
+  en: Check that the vertex of the new parabola sits at the expected horizontal position.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = (x + 3) squared
+- id: b
+  en: y = x squared + 3
+- id: c
+  en: y = (x - 3) squared
+- id: d
+  en: y = (x + 3) squared + 3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.31A02DDC116E
+  when_answer_equals:
+  - c
+- id: MC.A.75ADB94E120D
+  when_answer_equals:
+  - b
+- id: MC.A.AC12A07CF942
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A leftward shift by h replaces x with x plus h, so the shifted parabola is y equals (x + 3) squared.
+- en: The correct option is a.
+tier: C
+diagram_note: A parabola y equals x squared with its vertex at the origin, and a second copy whose vertex has moved left along the x axis.

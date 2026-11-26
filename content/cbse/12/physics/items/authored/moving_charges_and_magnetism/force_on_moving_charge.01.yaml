@@ -1,0 +1,49 @@
+id: A.12.physics.moving_charges_and_magnetism.force_on_moving_charge.01
+skill_ids:
+- SK.A.12.physics.force_on_moving_charge
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A charged particle moves parallel to a uniform magnetic field. What is the magnetic force acting on it?
+hints:
+- level: 1
+  en: Use the magnetic force formula that contains the sine of the angle between velocity and field.
+- level: 2
+  en: Find the sine of the angle between the velocity and the field here.
+- level: 3
+  en: Think about the angle at which the force has no magnitude at all.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Perpendicular to both velocity and field with magnitude qvB
+- id: b
+  en: Zero
+- id: c
+  en: Maximum and perpendicular to the velocity
+- id: d
+  en: Along the field direction with magnitude qvB
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2A991FF558D4
+  when_answer_equals:
+  - c
+- id: MC.A.0A73150C4B7F
+  when_answer_equals:
+  - d
+- id: MC.A.6346FE1C6E44
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The magnetic force is q v B sin theta, where theta is the angle between velocity and field.
+- en: For motion parallel to the field the angle is zero, so the force vanishes.
+- en: The correct option is b.
+tier: C

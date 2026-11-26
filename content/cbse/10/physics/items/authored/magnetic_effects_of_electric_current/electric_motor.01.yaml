@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electric_motor.01
+skill_ids:
+- SK.A.10.physics.electric_motor
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the function of the commutator in a simple DC motor?
+hints:
+- level: 1
+  en: Think about what would happen to the coil if the current never reversed.
+- level: 2
+  en: Ask at what point in the rotation the current must change direction.
+- level: 3
+  en: Consider which part of the motor touches the brushes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: To reverse the direction of the current in the coil every half turn, so the coil keeps rotating in the same direction
+- id: b
+  en: To increase the strength of the magnetic field
+- id: c
+  en: To store energy for a sudden start
+- id: d
+  en: To supply the current to the magnet
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4F44DB14A463
+  when_answer_equals:
+  - b
+- id: MC.A.3C88FEC56A42
+  when_answer_equals:
+  - c
+- id: MC.A.982BEDEB185A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The split-ring commutator changes the connection of the coil to the battery every half turn.
+- en: This reverses the current in the coil at the right moment, so the torque keeps turning the coil in the same direction.
+- en: Without it, the coil would swing back and forth.
+- en: The correct option is a.
+tier: C

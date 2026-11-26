@@ -1,0 +1,48 @@
+id: A.9.maths.herons_formula.heron_area_of_triangle.04
+skill_ids:
+- SK.A.9.maths.heron_area_of_triangle
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Using Heron's formula, what is the area of a triangle with sides 6 cm, 8 cm and 10 cm?
+hints:
+- level: 1
+  en: Compute the semi-perimeter, then the three differences.
+- level: 2
+  en: The area is the square root of a product of four factors.
+- level: 3
+  en: Take the root of the full product at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 12 square cm
+- id: b
+  en: 24 square cm
+- id: c
+  en: 48 square cm
+- id: d
+  en: 576 square cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.220734985E78
+  when_answer_equals:
+  - c
+- id: MC.A.E7CCC824A28C
+  when_answer_equals:
+  - a
+- id: MC.A.8C5F3EF9FAE5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The semi-perimeter is 12, so the product 12 times 6 times 4 times 2 is 576, and its square root is 24 square cm.
+- en: The correct option is b.
+tier: C

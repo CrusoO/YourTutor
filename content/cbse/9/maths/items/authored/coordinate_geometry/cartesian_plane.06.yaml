@@ -1,0 +1,48 @@
+id: A.9.maths.coordinate_geometry.cartesian_plane.06
+skill_ids:
+- SK.A.9.maths.cartesian_plane
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The point (-2, 5) is reflected in the line y = x. Which ordered pair is its image?
+hints:
+- level: 1
+  en: Think about which line the mirror is.
+- level: 2
+  en: On that mirror line, each point keeps its position relative to it.
+- level: 3
+  en: Try swapping the two coordinates in the ordered pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (2, -5)
+- id: b
+  en: (5, -2)
+- id: c
+  en: (-2, -5)
+- id: d
+  en: (-5, 2)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5566DCF64B2F
+  when_answer_equals:
+  - d
+- id: MC.A.6956FFA36D21
+  when_answer_equals:
+  - a
+- id: MC.A.AB84EF61D072
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Reflection in the line y equals x swaps the two coordinates, so (-2, 5) becomes (5, -2).
+- en: The correct option is b.
+tier: C

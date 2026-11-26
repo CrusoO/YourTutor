@@ -1,0 +1,48 @@
+id: A.12.chemistry.chemical_kinetics.rate_law_order.04
+skill_ids:
+- SK.A.12.chemistry.rate_law_order
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For a rate law rate = k[A]^2 with concentration in mol/L and time in s, what are the units of k?
+hints:
+- level: 1
+  en: Divide the units of rate by the units of concentration raised to the order.
+- level: 2
+  en: Write each unit with its exponent and combine the powers.
+- level: 3
+  en: Keep the units of concentration in the denominator when the order is two.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: L mol-1 s-1
+- id: b
+  en: mol L-1 s-1
+- id: c
+  en: mol-1 L s
+- id: d
+  en: s-1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.EB1B0FE15C65
+  when_answer_equals:
+  - b
+- id: MC.A.832B51020159
+  when_answer_equals:
+  - d
+- id: MC.A.AA3FE4C414C7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Units of k equal the units of rate divided by the units of concentration squared, which gives litres per mole per second.
+- en: The correct option is a.
+tier: C

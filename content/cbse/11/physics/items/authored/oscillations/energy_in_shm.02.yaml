@@ -1,0 +1,32 @@
+id: A.11.physics.oscillations.energy_in_shm.02
+skill_ids:
+- SK.A.11.physics.energy_in_shm
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A block in simple harmonic motion has total energy 8 J and amplitude 0.2 m. What is its potential energy in joules when its displacement from the mean position is 0.1 m?
+hints:
+- level: 1
+  en: Potential energy grows with the square of the displacement.
+- level: 2
+  en: Find the spring constant from the total energy and the amplitude first.
+- level: 3
+  en: Then use that constant with the given displacement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2'
+  accept: []
+solution_steps:
+- en: The spring constant is k = 2E / A^2 = 400 N/m.
+- en: The potential energy at x = 0.1 m is one half times 400 times 0.01, which is 2 J.
+- en: The unit of the answer is J.
+- en: Answer = 2
+tier: C
+diagram_note: A graph of potential energy against displacement shaped as a parabola. A horizontal line marks the total energy, and the point at the given displacement is marked on the curve.

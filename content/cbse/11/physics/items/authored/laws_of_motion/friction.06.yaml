@@ -1,0 +1,50 @@
+id: A.11.physics.laws_of_motion.friction.06
+skill_ids:
+- SK.A.11.physics.friction
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A block slides down a rough incline. If the incline angle is increased while the block keeps sliding, what happens to the kinetic friction force on the block?
+hints:
+- level: 1
+  en: Friction depends on the normal force pressing the two surfaces together.
+- level: 2
+  en: Find how the component of weight perpendicular to the slope changes with the angle.
+- level: 3
+  en: Consider how the cosine of the incline angle behaves as the angle grows.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it reverses direction
+- id: b
+  en: it decreases in magnitude
+- id: c
+  en: it increases with the angle
+- id: d
+  en: it stays the same
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.88F6BDC9F04D
+  when_answer_equals:
+  - c
+- id: MC.A.068EA5C2901F
+  when_answer_equals:
+  - d
+- id: MC.A.B575D633E1BF
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Kinetic friction equals mu times the normal force, and the normal force is mg cos theta.
+- en: As the angle grows, cos theta falls, so the friction decreases.
+- en: The correct option is b.
+tier: C
+diagram_note: A block on an incline with the perpendicular normal force and the weight components marked. A second, steeper incline is drawn beside it for comparison.

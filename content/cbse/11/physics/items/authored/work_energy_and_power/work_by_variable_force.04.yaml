@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.work_by_variable_force.04
+skill_ids:
+- SK.A.11.physics.work_by_variable_force
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A spring obeys F = kx. What is the work done in stretching it from zero to a stretch x?
+hints:
+- level: 1
+  en: The force grows in a straight line with the stretch.
+- level: 2
+  en: The area under a straight line from the origin is a triangle.
+- level: 3
+  en: Use half of base times height with the force at the end point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: one half k squared x
+- id: b
+  en: k x
+- id: c
+  en: one half k x squared
+- id: d
+  en: k x squared
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.025F80EF24AE
+  when_answer_equals:
+  - d
+- id: MC.A.08BE6B0B376E
+  when_answer_equals:
+  - b
+- id: MC.A.E5E713787751
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The force grows linearly with the stretch, so the area under the force-stretch line is a triangle with base x and height kx, which gives one half k x squared.
+- en: The correct option is c.
+tier: C

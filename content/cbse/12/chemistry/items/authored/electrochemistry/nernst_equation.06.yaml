@@ -1,0 +1,30 @@
+id: A.12.chemistry.electrochemistry.nernst_equation.06
+skill_ids:
+- SK.A.12.chemistry.nernst_equation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A cell has a standard EMF of 0.46 V and transfers two electrons per reaction at 298 K. What is log K for the cell reaction? Give two decimal places.
+hints:
+- level: 1
+  en: At equilibrium the cell EMF is zero, so the Nernst relation can be solved for the logarithm of the constant.
+- level: 2
+  en: Rearrange so that n times E sits on one side and the factor 0.0591 on the other.
+- level: 3
+  en: Keep enough decimal places during division before rounding.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '15.57'
+  accept: []
+solution_steps:
+- en: At equilibrium the EMF is zero, so log K equals n times E divided by 0.0591.
+- en: That gives 2 times 0.46 over 0.0591, which is about 15.57.
+- en: Answer = 15.57
+tier: C

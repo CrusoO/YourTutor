@@ -1,0 +1,48 @@
+id: A.11.chemistry.structure_of_atom.quantum_numbers.05
+skill_ids:
+- SK.A.11.chemistry.quantum_numbers
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which combination of quantum numbers is NOT allowed for an electron in a 3d orbital?
+hints:
+- level: 1
+  en: Recall the rule that links the azimuthal number to the principal number.
+- level: 2
+  en: Check the value of the azimuthal number against the principal number in each set.
+- level: 3
+  en: Only one of the sets breaks the rule that the azimuthal number is smaller than the principal number.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: n = 3, l = 2, m = 0
+- id: b
+  en: n = 3, l = 2, m = 2
+- id: c
+  en: n = 3, l = 3, m = 0
+- id: d
+  en: n = 3, l = 2, m = -2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CB49D9515006
+  when_answer_equals:
+  - d
+- id: MC.A.AF897153F955
+  when_answer_equals:
+  - a
+- id: MC.A.6947A672A831
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The azimuthal number must be less than the principal number, so l = 3 is not possible in the third shell, while the other three sets describe valid d orbitals.
+- en: The correct option is c.
+tier: C

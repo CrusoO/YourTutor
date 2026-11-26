@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.properties_of_determinants.01
+skill_ids:
+- SK.A.12.maths.properties_of_determinants
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If A is a 3 by 3 matrix with determinant 4, what is the determinant of 2A?
+hints:
+- level: 1
+  en: Consider how many rows are multiplied when the whole matrix is scaled.
+- level: 2
+  en: Each row scaling multiplies the determinant by the same factor.
+- level: 3
+  en: Apply the power of the scalar that matches the number of rows.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '32'
+- id: b
+  en: '16'
+- id: c
+  en: '4'
+- id: d
+  en: '8'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.838629F0C722
+  when_answer_equals:
+  - d
+- id: MC.A.4C5AB0D9832D
+  when_answer_equals:
+  - b
+- id: MC.A.A937E3CA7920
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each of the 3 rows is multiplied by 2, which multiplies the determinant by 2 cubed, giving 8 times 4, which is 32.
+- en: The correct option is a.
+tier: C

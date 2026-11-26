@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.work_done.02
+skill_ids:
+- SK.A.9.physics.work_done
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A force does no work on an object when
+hints:
+- level: 1
+  en: Look at the angle between the force and the displacement.
+- level: 2
+  en: Work depends on the component of the force along the motion.
+- level: 3
+  en: A right angle means the cosine of the angle is zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the force is very large
+- id: b
+  en: the force acts in the direction of motion
+- id: c
+  en: the object moves a long distance
+- id: d
+  en: the force acts perpendicular to the displacement
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7725E36C9968
+  when_answer_equals:
+  - b
+- id: MC.A.75F0E62F0EA6
+  when_answer_equals:
+  - c
+- id: MC.A.EB1B36459F15
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Work is force times displacement times the cosine of the angle between them, and a perpendicular force has a zero component along the motion.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.9.physics.motion.uniform_circular_motion.05
+skill_ids:
+- SK.A.9.physics.uniform_circular_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A car goes around a circular bend at constant speed. Which statement about its kinetic energy during the bend is correct?
+hints:
+- level: 1
+  en: Kinetic energy depends on the mass and the size of the speed only.
+- level: 2
+  en: Consider whether the quantity that enters the energy formula is changing.
+- level: 3
+  en: The direction of motion alone does not enter the energy expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it is zero because the velocity is changing
+- id: b
+  en: it stays the same because the speed does not change
+- id: c
+  en: it decreases as the car turns
+- id: d
+  en: it increases because the car is accelerating
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.63C0FD8C0C87
+  when_answer_equals:
+  - d
+- id: MC.A.4364FBECB0F8
+  when_answer_equals:
+  - c
+- id: MC.A.1D2BB51AB1C0
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Kinetic energy depends on mass and the square of speed, not on direction, so constant speed means constant kinetic energy even though the car accelerates toward the centre.
+- en: The correct option is b.
+tier: C

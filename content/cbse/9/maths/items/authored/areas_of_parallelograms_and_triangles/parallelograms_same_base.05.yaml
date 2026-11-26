@@ -1,0 +1,49 @@
+id: A.9.maths.areas_of_parallelograms_and_triangles.parallelograms_same_base.05
+skill_ids:
+- SK.A.9.maths.parallelograms_same_base
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A triangle and a parallelogram lie on the same base between the same parallel lines. The parallelogram has an area of 48 square cm. What is the area of the triangle?
+hints:
+- level: 1
+  en: Compare the triangle's base and height with those of the parallelogram.
+- level: 2
+  en: A triangle on the same base and height is half of the parallelogram.
+- level: 3
+  en: Halve the given area of the parallelogram.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 12 square cm
+- id: b
+  en: 48 square cm
+- id: c
+  en: 96 square cm
+- id: d
+  en: 24 square cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.97010D463259
+  when_answer_equals:
+  - b
+- id: MC.A.4CA9B9163BF7
+  when_answer_equals:
+  - a
+- id: MC.A.2E5D6E0267F7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A triangle on the same base between the same parallels has half the parallelogram's area, so it is 24 square cm.
+- en: The correct option is d.
+tier: C
+diagram_note: Parallelogram with a triangle drawn on the same base, its apex on the opposite parallel line, and the heights marked.

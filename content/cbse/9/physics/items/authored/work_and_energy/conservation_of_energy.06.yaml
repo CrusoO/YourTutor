@@ -1,0 +1,49 @@
+id: A.9.physics.work_and_energy.conservation_of_energy.06
+skill_ids:
+- SK.A.9.physics.conservation_of_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A swinging pendulum loses a little energy on every swing. Which description is most accurate?
+hints:
+- level: 1
+  en: Ask what happens to the mechanical energy when friction and air act.
+- level: 2
+  en: Consider where the lost energy ends up in the surroundings.
+- level: 3
+  en: The total energy of an isolated system does not drop to zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the total energy is destroyed on each swing
+- id: b
+  en: its mechanical energy changes into thermal energy and sound, and the total energy is still conserved
+- id: c
+  en: its kinetic energy never changes
+- id: d
+  en: the pendulum creates energy on each swing
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F17A3D8C3AD6
+  when_answer_equals:
+  - d
+- id: MC.A.609A468F6CD3
+  when_answer_equals:
+  - a
+- id: MC.A.D7119ED55489
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Friction and air resistance convert mechanical energy to thermal energy and sound, so the swings shrink while the total energy stays conserved.
+- en: The correct option is b.
+tier: C
+diagram_note: A pendulum with a bob that reaches slightly lower heights on each successive swing, drawn as a series of smaller arcs.

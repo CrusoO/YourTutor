@@ -1,0 +1,30 @@
+id: A.12.biology.reproduction_in_organisms.modes_of_reproduction.02
+skill_ids:
+- SK.A.12.biology.modes_of_reproduction
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: A single bacterium divides by binary fission every 20 minutes and none die. How many bacteria are present after 2 hours? Give the count only.
+hints:
+- level: 1
+  en: Count how many 20 minute intervals fit into two hours.
+- level: 2
+  en: Each division doubles the number of cells present.
+- level: 3
+  en: Multiply the starting number by two once for every division.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '64'
+  accept: []
+solution_steps:
+- en: Two hours is 120 minutes, which holds six intervals of 20 minutes.
+- en: Each division doubles the number, so the count after six divisions is two to the power six.
+- en: Answer = 64
+tier: C

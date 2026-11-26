@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.huygens_principle.01
+skill_ids:
+- SK.A.12.physics.huygens_principle
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: According to Huygens' principle, what does each point on a wavefront act as?
+hints:
+- level: 1
+  en: Think about what kind of waves each point on a wavefront generates.
+- level: 2
+  en: Consider the shape of the waves emitted by a point source.
+- level: 3
+  en: Recall how the new wavefront is found from the earlier one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A point where the wave stops
+- id: b
+  en: A sink that absorbs the wave
+- id: c
+  en: A source of secondary spherical wavelets
+- id: d
+  en: A source of plane waves only
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2C742FFF89F0
+  when_answer_equals:
+  - b
+- id: MC.A.A518576D1562
+  when_answer_equals:
+  - d
+- id: MC.A.BD5D85C9A34F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each point on a wavefront emits a secondary wavelet, and the new wavefront at a later time is the envelope of all these wavelets.
+- en: The correct option is c.
+tier: C

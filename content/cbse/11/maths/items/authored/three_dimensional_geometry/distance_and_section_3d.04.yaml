@@ -1,0 +1,48 @@
+id: A.11.maths.three_dimensional_geometry.distance_and_section_3d.04
+skill_ids:
+- SK.A.11.maths.distance_and_section_3d
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the distance between the points (1, 0, 2) and (4, 4, 2)?
+hints:
+- level: 1
+  en: Find the difference between the matching coordinates of the two points.
+- level: 2
+  en: Square each difference, including any that is zero.
+- level: 3
+  en: Add the squares and take the square root of the total.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: square root of 41
+- id: c
+  en: '25'
+- id: d
+  en: '5'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F5FCA048DD80
+  when_answer_equals:
+  - a
+- id: MC.A.8DDD2BA22085
+  when_answer_equals:
+  - c
+- id: MC.A.9D00BBA3B8F7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The differences are 3, 4 and 0, so the distance is the square root of 9 plus 16 plus 0, which is 5.
+- en: The correct option is d.
+tier: C

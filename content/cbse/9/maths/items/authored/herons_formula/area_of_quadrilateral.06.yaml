@@ -1,0 +1,49 @@
+id: A.9.maths.herons_formula.area_of_quadrilateral.06
+skill_ids:
+- SK.A.9.maths.area_of_quadrilateral
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A convex quadrilateral has a diagonal d, and the other two vertices lie at perpendicular distances h1 and h2 from that diagonal. Which expression gives its area?
+hints:
+- level: 1
+  en: Write each triangle's area with the diagonal as its base.
+- level: 2
+  en: Add the two areas together.
+- level: 3
+  en: Factor the common base and the one half out of the sum.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: d times (h1 + h2) divided by 2
+- id: b
+  en: d times h1 times h2
+- id: c
+  en: (h1 + h2) divided by 2
+- id: d
+  en: d plus h1 plus h2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.40E7BE27D0FF
+  when_answer_equals:
+  - b
+- id: MC.A.752D56589524
+  when_answer_equals:
+  - d
+- id: MC.A.D5DFCBEE85E1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each triangle on one side of the diagonal has that diagonal as its base, so their areas add to half of d times the sum of the heights.
+- en: The correct option is a.
+tier: C
+diagram_note: Convex quadrilateral with a diagonal drawn as a horizontal line, and the perpendicular distances from the other two vertices marked.

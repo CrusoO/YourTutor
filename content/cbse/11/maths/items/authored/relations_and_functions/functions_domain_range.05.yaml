@@ -1,0 +1,48 @@
+id: A.11.maths.relations_and_functions.functions_domain_range.05
+skill_ids:
+- SK.A.11.maths.functions_domain_range
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: For f(x) = square root of (x - 3), with real inputs, which set is the range of f?
+hints:
+- level: 1
+  en: Ask which input makes the quantity under the square root equal to zero.
+- level: 2
+  en: A square root symbol produces outputs of only one sign.
+- level: 3
+  en: Compare the output at the smallest allowed input with the outputs that follow it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all positive real numbers
+- id: b
+  en: all real numbers
+- id: c
+  en: all real numbers from 3 onwards
+- id: d
+  en: all non-negative real numbers
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9483FD8DC43E
+  when_answer_equals:
+  - b
+- id: MC.A.B24BB549412E
+  when_answer_equals:
+  - c
+- id: MC.A.F36FE16F6EF9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The input must be at least 3, where the root is 0, and the root then grows without bound, so outputs cover all non-negative reals.
+- en: The correct option is d.
+tier: C

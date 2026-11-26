@@ -1,0 +1,49 @@
+id: A.11.physics.oscillations.spring_and_pendulum.04
+skill_ids:
+- SK.A.11.physics.spring_and_pendulum
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Two identical springs, each of stiffness k, are placed side by side in parallel and both attached to a mass m. What is the period of the mass?
+hints:
+- level: 1
+  en: Parallel springs share the same extension, and their stiffnesses add.
+- level: 2
+  en: Find the total stiffness of the combination first.
+- level: 3
+  en: Use the period formula with that total stiffness.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 pi times the square root of m over k
+- id: b
+  en: 2 pi times the square root of m over 4k
+- id: c
+  en: 2 pi times the square root of 2m over k
+- id: d
+  en: 2 pi times the square root of m over 2k
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.67E8C34941E5
+  when_answer_equals:
+  - c
+- id: MC.A.4A2C57C929FC
+  when_answer_equals:
+  - a
+- id: MC.A.493F1DCF21B2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Parallel springs share the same extension, so their stiffnesses add to 2k.
+- en: The period is then 2 pi times the square root of m over 2k.
+- en: The correct option is d.
+tier: C

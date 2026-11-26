@@ -1,0 +1,49 @@
+id: A.12.physics.current_electricity.cells_emf_internal_resistance.05
+skill_ids:
+- SK.A.12.physics.cells_emf_internal_resistance
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Two identical cells are connected in parallel with each other. Compared with a single cell, what is the EMF of this combination?
+hints:
+- level: 1
+  en: Think about whether the EMFs add or only the internal resistances combine.
+- level: 2
+  en: Recall what a parallel arrangement does to the voltage across each branch.
+- level: 3
+  en: Consider the voltage around the loop formed by the two cells.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The same as one cell
+- id: b
+  en: Twice the EMF of one cell
+- id: c
+  en: Zero, because the cells oppose each other
+- id: d
+  en: Half the EMF of one cell
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5CB76F021268
+  when_answer_equals:
+  - b
+- id: MC.A.1CD67CD1B597
+  when_answer_equals:
+  - d
+- id: MC.A.29D3EB215498
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Identical cells in parallel have the same EMF as one cell, while their internal resistances combine in parallel to a smaller value.
+- en: The correct option is a.
+tier: C
+diagram_note: Two cell symbols placed side by side, with their positive terminals joined to one wire and their negative terminals joined to another wire, forming a parallel pair.

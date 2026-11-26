@@ -1,0 +1,29 @@
+id: A.11.maths.probability.axiomatic_probability.06
+skill_ids:
+- SK.A.11.maths.axiomatic_probability
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: P(A) is 0.5, P(B) is 0.4 and P(A or B) is 0.7. What is the probability that exactly one of the events A and B occurs?
+hints:
+- level: 1
+  en: Find the probability that both events occur using the addition rule.
+- level: 2
+  en: Exactly one event occurs when the union is taken without the overlap.
+- level: 3
+  en: Subtract the overlap probability from the union probability.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.5'
+  accept: []
+solution_steps:
+- en: P(A and B) is 0.5 plus 0.4 minus 0.7, which is 0.2, and exactly one occurs with probability 0.7 minus 0.2, which is 0.5.
+- en: Answer = 0.5
+tier: C

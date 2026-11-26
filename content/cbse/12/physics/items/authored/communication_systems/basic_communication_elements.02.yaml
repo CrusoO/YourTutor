@@ -1,0 +1,49 @@
+id: A.12.physics.communication_systems.basic_communication_elements.02
+skill_ids:
+- SK.A.12.physics.basic_communication_elements
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which element of a communication system recovers the original message from the received signal?
+hints:
+- level: 1
+  en: Think about the element at the far end of the link.
+- level: 2
+  en: Consider which element extracts the message from the carrier.
+- level: 3
+  en: Compare with the element that starts the process at the source.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Transmitter
+- id: b
+  en: Antenna alone
+- id: c
+  en: Channel
+- id: d
+  en: Receiver
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.20526B6D3170
+  when_answer_equals:
+  - a
+- id: MC.A.82ABF30871F0
+  when_answer_equals:
+  - b
+- id: MC.A.309DD2CB6715
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The receiver picks up the signal, demodulates it and recovers the original message for the destination.
+- en: The correct option is d.
+tier: C
+diagram_note: A block diagram of a communication system showing the source, transmitter, channel, receiver and destination in a line from left to right.

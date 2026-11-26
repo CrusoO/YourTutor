@@ -1,0 +1,50 @@
+id: A.12.physics.moving_charges_and_magnetism.cyclotron_and_galvanometer.03
+skill_ids:
+- SK.A.12.physics.cyclotron_and_galvanometer
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In a moving coil galvanometer, the deflection of the coil is proportional to which quantity?
+hints:
+- level: 1
+  en: Write the magnetic torque on the coil in terms of the number of turns, area and field.
+- level: 2
+  en: Think about which quantity in that torque depends on the supply.
+- level: 3
+  en: The restoring spring torque balances the magnetic torque at equilibrium.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The resistance of the coil
+- id: b
+  en: The current through the coil
+- id: c
+  en: The voltage applied across the coil alone
+- id: d
+  en: The square of the current through the coil
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2BFDAF5F69BE
+  when_answer_equals:
+  - d
+- id: MC.A.A7C6240AF717
+  when_answer_equals:
+  - c
+- id: MC.A.F76F22855976
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The magnetic torque on the coil is N I A B, which is proportional to current.
+- en: The restoring spring torque balances it, so the deflection is proportional to current.
+- en: The correct option is b.
+tier: C
+diagram_note: A rectangular coil suspended between the poles of a magnet with a radial magnetic field, a spring attached to the coil, and a pointer moving over a scale.

@@ -1,0 +1,30 @@
+id: A.11.physics.mechanical_properties_of_fluids.viscosity_and_stokes.02
+skill_ids:
+- SK.A.11.physics.viscosity_and_stokes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A small sphere falls at terminal velocity through a viscous liquid. If its radius is doubled and everything else stays the same, by what factor does its terminal velocity change?
+hints:
+- level: 1
+  en: Terminal speed depends on the radius through its square.
+- level: 2
+  en: Stokes' law gives a drag force proportional to the radius.
+- level: 3
+  en: Balance the weight with the drag and see how the radius enters the result.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '4'
+  accept: []
+solution_steps:
+- en: Stokes' law gives terminal speed proportional to the square of the radius, so doubling the radius multiplies the terminal speed by four.
+- en: Answer = 4
+tier: C
+diagram_note: A tall glass cylinder of viscous liquid with a small sphere falling through it. Arrows show the weight pointing down and the drag pointing up, equal in magnitude at terminal velocity.

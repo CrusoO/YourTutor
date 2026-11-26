@@ -1,0 +1,48 @@
+id: A.9.maths.quadrilaterals.midpoint_theorem.06
+skill_ids:
+- SK.A.9.maths.midpoint_theorem
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two sides of a triangle have midpoints M and N, and the segment MN measures 5 cm. Which statement about the third side is correct?
+hints:
+- level: 1
+  en: Recall how the segment compares with the third side.
+- level: 2
+  en: Undo the factor that the theorem gives.
+- level: 3
+  en: Check which direction that factor works.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The third side measures 2.5 cm.
+- id: b
+  en: The third side measures 15 cm.
+- id: c
+  en: The third side measures 5 cm.
+- id: d
+  en: The third side measures 10 cm.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.ADA397ECA09B
+  when_answer_equals:
+  - a
+- id: MC.A.E606C3262BC7
+  when_answer_equals:
+  - c
+- id: MC.A.3DB6A44BF78B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The segment joining the midpoints of two sides is parallel to and half of the third side, so the third side is 10 cm.
+- en: The correct option is d.
+tier: C

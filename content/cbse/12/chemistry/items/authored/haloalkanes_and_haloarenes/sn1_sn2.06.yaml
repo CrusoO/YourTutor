@@ -1,0 +1,49 @@
+id: A.12.chemistry.haloalkanes_and_haloarenes.sn1_sn2.06
+skill_ids:
+- SK.A.12.chemistry.sn1_sn2
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does SN1 substitution of a chiral haloalkane give an almost racemic product?
+hints:
+- level: 1
+  en: Think about the geometry of the carbocation intermediate.
+- level: 2
+  en: Consider which faces of the intermediate the nucleophile can reach.
+- level: 3
+  en: Compare the outcome with the single inversion seen in SN2.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The nucleophile is achiral
+- id: b
+  en: The planar carbocation is attacked from both faces
+- id: c
+  en: Only half of the substrate reacts
+- id: d
+  en: The leaving group stays bonded to the carbon
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.742D41B8574B
+  when_answer_equals:
+  - d
+- id: MC.A.7EBEF9EA5078
+  when_answer_equals:
+  - a
+- id: MC.A.C04C6EA448E7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The carbocation is planar, so the nucleophile can approach from either face with similar ease.
+- en: Equal amounts of the two enantiomers form.
+- en: The correct option is b.
+tier: C

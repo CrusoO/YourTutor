@@ -1,0 +1,31 @@
+id: A.11.physics.oscillations.spring_and_pendulum.05
+skill_ids:
+- SK.A.11.physics.spring_and_pendulum
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A simple pendulum has a period of 2.0 s at a place where g = 9.8 m/s^2. Using pi as 3.14, what is its length in metres, to two decimal places?
+hints:
+- level: 1
+  en: Square the period formula to isolate the length.
+- level: 2
+  en: Multiply gravity by the square of the period first.
+- level: 3
+  en: Divide by four times pi squared.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.99'
+  accept: []
+solution_steps:
+- en: From T = 2 pi sqrt(L/g), L = g T^2 / (4 pi^2) = 9.8 times 4 / 39.44, which is about 0.99 m.
+- en: The unit of the answer is m.
+- en: Answer = 0.99
+tier: C
+diagram_note: A simple pendulum drawn as a string from a fixed pivot to a bob. The length L is labelled and the arc of the swing is shown.

@@ -1,0 +1,48 @@
+id: A.12.chemistry.biomolecules.proteins_amino_acids.02
+skill_ids:
+- SK.A.12.chemistry.proteins_amino_acids
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which bond links amino acids together in a protein chain?
+hints:
+- level: 1
+  en: Think about the bond formed between an amino group and a carboxyl group with loss of water.
+- level: 2
+  en: Consider which functional group pairs give amides.
+- level: 3
+  en: Compare the backbone link with the links between side chains.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Peptide bond
+- id: b
+  en: Ester bond
+- id: c
+  en: Disulphide bond
+- id: d
+  en: Glycosidic bond
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.84B31834D11C
+  when_answer_equals:
+  - d
+- id: MC.A.06110BD0E5E2
+  when_answer_equals:
+  - b
+- id: MC.A.D3B5E39797C0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A peptide bond is an amide link formed when the amino group of one amino acid condenses with the carboxyl group of the next, releasing water.
+- en: The correct option is a.
+tier: C

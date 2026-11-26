@@ -1,0 +1,48 @@
+id: A.9.physics.motion.uniform_circular_motion.04
+skill_ids:
+- SK.A.9.physics.uniform_circular_motion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A satellite orbits Earth in a circle at constant speed. Which force supplies the centripetal acceleration?
+hints:
+- level: 1
+  en: Think about what pulls the satellite inward.
+- level: 2
+  en: Ask which interaction acts between the satellite and the planet.
+- level: 3
+  en: The force is directed toward the centre of the orbit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: air resistance pushing it outward
+- id: b
+  en: the satellite's engines pushing it forward
+- id: c
+  en: gravity pulling it toward Earth's centre
+- id: d
+  en: its own inertia pulling it outward
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.59E5001F361E
+  when_answer_equals:
+  - b
+- id: MC.A.86114E45FCCE
+  when_answer_equals:
+  - a
+- id: MC.A.4E4C6273B502
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Gravity acts on the satellite toward the centre of Earth, and this inward force continuously changes its direction of motion.
+- en: The correct option is c.
+tier: C

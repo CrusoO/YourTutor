@@ -1,0 +1,48 @@
+id: A.11.maths.binomial_theorem.binomial_expansion.03
+skill_ids:
+- SK.A.11.maths.binomial_expansion
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which is the correct expansion of (2a minus b) squared?
+hints:
+- level: 1
+  en: Write the binomial as a first term and a second term, then square each part.
+- level: 2
+  en: The cross term carries the sign of the second term in the original bracket.
+- level: 3
+  en: Check the cross term by doubling the product of the two terms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4a squared minus 4ab plus b squared
+- id: b
+  en: 4a squared minus b squared
+- id: c
+  en: 2a squared minus 4ab plus b squared
+- id: d
+  en: 4a squared plus 4ab plus b squared
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.56E13523C373
+  when_answer_equals:
+  - d
+- id: MC.A.FD41A1A11012
+  when_answer_equals:
+  - b
+- id: MC.A.3775C8C84FAC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Using the square of a difference, (2a) squared minus 2 times 2a times b plus b squared, gives 4a squared minus 4ab plus b squared.
+- en: The correct option is a.
+tier: C

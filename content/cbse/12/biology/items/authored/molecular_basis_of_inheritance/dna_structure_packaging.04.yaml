@@ -1,0 +1,50 @@
+id: A.12.biology.molecular_basis_of_inheritance.dna_structure_packaging.04
+skill_ids:
+- SK.A.12.biology.dna_structure_packaging
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In a labelled nucleosome diagram, how many histone protein molecules form the core that DNA wraps around?
+hints:
+- level: 1
+  en: Count how many histone types form the core.
+- level: 2
+  en: Each core histone type appears in pairs within the core.
+- level: 3
+  en: Think about the symmetric pairing of the core.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Two histone proteins
+- id: b
+  en: Four histone proteins, one of each type
+- id: c
+  en: Twelve histone proteins including the linker
+- id: d
+  en: Eight histone proteins, two each of H2A, H2B, H3 and H4
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F0D11EE3F386
+  when_answer_equals:
+  - b
+- id: MC.A.207CEEAF227A
+  when_answer_equals:
+  - a
+- id: MC.A.070BEFCB4D7C
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The nucleosome core is an octamer made of two copies each of H2A, H2B, H3 and H4, giving eight histone molecules.
+- en: The linker histone H1 sits outside the core and is not counted in the octamer.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw a nucleosome as a disc-shaped histone core with DNA wrapping around it in about two turns, with linker DNA extending out, and label the core and linker.

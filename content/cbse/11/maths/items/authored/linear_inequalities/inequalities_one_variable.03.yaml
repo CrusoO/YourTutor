@@ -1,0 +1,48 @@
+id: A.11.maths.linear_inequalities.inequalities_one_variable.03
+skill_ids:
+- SK.A.11.maths.inequalities_one_variable
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Solve the inequality minus 3x plus 2 greater than or equal to 11 for real x.
+hints:
+- level: 1
+  en: First move the constant term to the other side of the inequality.
+- level: 2
+  en: Before dividing, check the sign of the coefficient of x.
+- level: 3
+  en: Think about what happens to the direction of an inequality when both sides are multiplied by a negative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x <= -3
+- id: b
+  en: x >= -3
+- id: c
+  en: x >= 3
+- id: d
+  en: x <= 3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.7912C5FE2529
+  when_answer_equals:
+  - b
+- id: MC.A.B545F05C63C2
+  when_answer_equals:
+  - d
+- id: MC.A.B6D7280F3299
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Subtracting 2 gives minus 3x at least 9, and dividing by minus 3 reverses the sign so x is at most minus 3.
+- en: The correct option is a.
+tier: C

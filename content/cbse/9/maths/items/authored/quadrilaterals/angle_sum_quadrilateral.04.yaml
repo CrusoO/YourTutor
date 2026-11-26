@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.angle_sum_quadrilateral.04
+skill_ids:
+- SK.A.9.maths.angle_sum_quadrilateral
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'The angles of a quadrilateral are in the ratio 1 : 2 : 3 : 2. Which is the largest angle?'
+hints:
+- level: 1
+  en: Add the parts of the ratio first.
+- level: 2
+  en: Find the size of one part using the angle total of the quadrilateral.
+- level: 3
+  en: Multiply the largest ratio part by that size.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 180 degrees
+- id: b
+  en: 135 degrees
+- id: c
+  en: 90 degrees
+- id: d
+  en: 120 degrees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.8BC898145670
+  when_answer_equals:
+  - c
+- id: MC.A.5D30A901383A
+  when_answer_equals:
+  - d
+- id: MC.A.4AEF5FABB83D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The parts add to 8, so each part is 45 degrees, and the largest part is three times 45, which is 135 degrees.
+- en: The correct option is b.
+tier: C
+diagram_note: Quadrilateral with its four vertices labelled with angles in the ratio given.

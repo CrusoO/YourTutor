@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.transcription.05
+skill_ids:
+- SK.A.12.biology.transcription
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mutation in the TATA box of a gene reduces its transcription. Which step is most directly affected?
+hints:
+- level: 1
+  en: Consider which step is controlled by the sequence before the gene.
+- level: 2
+  en: Think about what happens before RNA polymerase starts moving.
+- level: 3
+  en: Ask which molecules must bind the DNA to start the process.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Addition of amino acids to the growing chain
+- id: b
+  en: Binding of the transcription machinery at the start site
+- id: c
+  en: The rate of translation on ribosomes
+- id: d
+  en: Splicing of introns in the nucleus
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.997BFFCD8955
+  when_answer_equals:
+  - c
+- id: MC.A.C2BF275CC1C2
+  when_answer_equals:
+  - d
+- id: MC.A.4CF9B704E3C8
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The TATA box is a promoter element that helps assemble the transcription machinery at the start site before RNA polymerase begins to move.
+- en: A mutation there reduces that assembly.
+- en: The correct option is b.
+tier: C

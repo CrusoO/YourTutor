@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_plane.projectile_motion.01
+skill_ids:
+- SK.A.11.physics.projectile_motion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: At the highest point of a projectile's path, which quantity is zero, ignoring air resistance?
+hints:
+- level: 1
+  en: Gravity changes only the vertical part of the velocity.
+- level: 2
+  en: At the top of the path the motion is momentarily flat.
+- level: 3
+  en: Think about which component changes sign on the way up.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: vertical velocity
+- id: b
+  en: speed
+- id: c
+  en: horizontal velocity
+- id: d
+  en: acceleration
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1705B95DFBB9
+  when_answer_equals:
+  - c
+- id: MC.A.79B59C56313C
+  when_answer_equals:
+  - d
+- id: MC.A.E3206FD8E40E
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Gravity changes only the vertical part of the velocity.
+- en: At the top the vertical velocity is zero while the horizontal velocity remains unchanged.
+- en: The correct option is a.
+tier: C

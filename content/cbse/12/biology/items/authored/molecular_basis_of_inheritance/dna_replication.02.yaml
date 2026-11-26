@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.dna_replication.02
+skill_ids:
+- SK.A.12.biology.dna_replication
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Which strand is synthesised as short fragments that are later joined?
+hints:
+- level: 1
+  en: Consider which strand is made in the direction away from the fork.
+- level: 2
+  en: Think about which strand must be made in the opposite orientation to the fork.
+- level: 3
+  en: Separate the strand made continuously from the strand made in pieces.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Primer strand
+- id: b
+  en: Leading strand
+- id: c
+  en: Lagging strand
+- id: d
+  en: Template strand
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9E5F8B1D6601
+  when_answer_equals:
+  - b
+- id: MC.A.3AFB82BAF366
+  when_answer_equals:
+  - d
+- id: MC.A.ED57DCD40B1B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The lagging strand is made in short Okazaki fragments because polymerase can only extend in one direction, away from the fork.
+- en: The fragments are then joined by ligase.
+- en: The correct option is c.
+tier: C

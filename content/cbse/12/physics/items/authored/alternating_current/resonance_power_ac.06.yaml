@@ -1,0 +1,49 @@
+id: A.12.physics.alternating_current.resonance_power_ac.06
+skill_ids:
+- SK.A.12.physics.resonance_power_ac
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A circuit has a resistance of 3 ohm and a net reactance of 4 ohm in series. What is its power factor?
+hints:
+- level: 1
+  en: The power factor is the resistance divided by the impedance.
+- level: 2
+  en: Find the impedance from the resistance and the reactance first.
+- level: 3
+  en: Take the ratio of the resistance to that impedance.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1.33'
+- id: b
+  en: '0.4'
+- id: c
+  en: '0.8'
+- id: d
+  en: '0.6'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.46F40CE0D9BE
+  when_answer_equals:
+  - c
+- id: MC.A.F506832EA2DF
+  when_answer_equals:
+  - b
+- id: MC.A.5958CF063196
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The impedance is 5 ohm.
+- en: The power factor is the resistance over the impedance, which is 3 divided by 5, giving 0.6.
+- en: The correct option is d.
+tier: C

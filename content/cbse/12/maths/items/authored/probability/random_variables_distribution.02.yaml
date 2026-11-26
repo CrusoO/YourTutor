@@ -1,0 +1,48 @@
+id: A.12.maths.probability.random_variables_distribution.02
+skill_ids:
+- SK.A.12.maths.random_variables_distribution
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of the following is a valid probability distribution for a random variable X taking the values 0, 1 and 2?
+hints:
+- level: 1
+  en: Each probability must lie between 0 and 1.
+- level: 2
+  en: The probabilities must add up to a fixed total.
+- level: 3
+  en: Check each option against both conditions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: P(X=0)=-0.2, P(X=1)=0.6, P(X=2)=0.6
+- id: b
+  en: P(X=0)=0.1, P(X=1)=0.2, P(X=2)=0.3
+- id: c
+  en: P(X=0)=0.2, P(X=1)=0.3, P(X=2)=0.5
+- id: d
+  en: P(X=0)=0.5, P(X=1)=0.5, P(X=2)=0.5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9D5A71200B10
+  when_answer_equals:
+  - d
+- id: MC.A.8145CADC526A
+  when_answer_equals:
+  - b
+- id: MC.A.75466478FDD5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each probability lies between 0 and 1 and the three values add to 1, so only the first option is a valid distribution.
+- en: The correct option is c.
+tier: C

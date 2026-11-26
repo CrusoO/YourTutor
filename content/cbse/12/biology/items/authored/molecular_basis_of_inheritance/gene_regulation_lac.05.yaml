@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.gene_regulation_lac.05
+skill_ids:
+- SK.A.12.biology.gene_regulation_lac
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mutation prevents the repressor from binding the operator. What is the expected result?
+hints:
+- level: 1
+  en: Think about what the repressor does at the operator.
+- level: 2
+  en: Consider whether transcription can proceed when the operator is unoccupied.
+- level: 3
+  en: Ask what the lack of a repressor does to the default state of the operon.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Constitutive expression of the lac genes even without lactose
+- id: b
+  en: Expression only when glucose is present
+- id: c
+  en: Loss of all lac gene expression
+- id: d
+  en: No change, because the repressor binds elsewhere
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.73DD823A9054
+  when_answer_equals:
+  - c
+- id: MC.A.DDCA8ACB2D41
+  when_answer_equals:
+  - b
+- id: MC.A.BC31F5A9E606
+  when_answer_equals:
+  - d
+solution_steps:
+- en: If the repressor cannot bind the operator, RNA polymerase can transcribe the lac genes whether or not lactose is present.
+- en: The operon is then constitutively expressed.
+- en: The correct option is a.
+tier: C

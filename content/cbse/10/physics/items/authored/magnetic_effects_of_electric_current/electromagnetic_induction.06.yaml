@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electromagnetic_induction.06
+skill_ids:
+- SK.A.10.physics.electromagnetic_induction
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: 'A straight conductor moves at right angles to a uniform magnetic field and produces an induced emf. If its speed is doubled and everything else is kept the same, the induced emf:'
+hints:
+- level: 1
+  en: Recall how the induced emf in a moving conductor depends on its speed.
+- level: 2
+  en: Ask whether the speed appears as a simple multiplier or in some other form.
+- level: 3
+  en: Think about whether the field or the length of the conductor has changed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Doubles
+- id: b
+  en: Quadruples
+- id: c
+  en: Is unchanged
+- id: d
+  en: Halves
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3F210D96FBC3
+  when_answer_equals:
+  - d
+- id: MC.A.988A59DB3612
+  when_answer_equals:
+  - b
+- id: MC.A.37BF9617F3A1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: For a conductor of length L moving at speed v perpendicular to a field B, the induced emf is BLv.
+- en: The emf is directly proportional to the speed, so doubling the speed doubles the emf.
+- en: The correct option is a.
+tier: C
+diagram_note: Conductor drawn as a horizontal rod sliding across two parallel rails in the page plane. Magnetic field into the page marked with crosses. An arrow shows the direction of motion of the rod along the rails.

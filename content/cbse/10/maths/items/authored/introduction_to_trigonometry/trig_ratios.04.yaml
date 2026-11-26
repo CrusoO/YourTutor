@@ -1,0 +1,49 @@
+id: A.10.maths.introduction_to_trigonometry.trig_ratios.04
+skill_ids:
+- SK.A.10.maths.trig_ratios
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is sin θ always less than 1 for an acute angle θ in a right triangle?
+hints:
+- level: 1
+  en: Recall which side is longest in a right triangle.
+- level: 2
+  en: Think about the size of the opposite side compared with the hypotenuse.
+- level: 3
+  en: Ask whether the hypotenuse can be shorter than either leg.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because the hypotenuse is always 1 unit long.
+- id: b
+  en: Because the angle is always below 45 degrees.
+- id: c
+  en: Because the opposite side is shorter than the hypotenuse.
+- id: d
+  en: Because sine measures the adjacent side.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DA8795D3E4F2
+  when_answer_equals:
+  - d
+- id: MC.A.0E951FD005FA
+  when_answer_equals:
+  - b
+- id: MC.A.F60D8B8D6873
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The hypotenuse is the longest side of a right triangle, so the opposite side divided by it is less than 1.
+- en: It would equal 1 only if the opposite side equalled the hypotenuse, which cannot happen for an acute angle.
+- en: The correct option is c.
+tier: C

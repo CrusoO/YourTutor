@@ -1,0 +1,49 @@
+id: A.12.physics.moving_charges_and_magnetism.solenoid_toroid.01
+skill_ids:
+- SK.A.12.physics.solenoid_toroid
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the direction and nature of the magnetic field inside a long, tightly wound solenoid carrying current?
+hints:
+- level: 1
+  en: Consider the direction of the field lines inside a long coil.
+- level: 2
+  en: Think about how uniform the field is well away from the ends.
+- level: 3
+  en: Relate the field direction to the axis along which the coil is wound.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero
+- id: b
+  en: Uniform and perpendicular to the axis
+- id: c
+  en: Radial and increasing with distance from the axis
+- id: d
+  en: Uniform and parallel to the axis
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A523BE09DCD4
+  when_answer_equals:
+  - a
+- id: MC.A.4011BD26E0AC
+  when_answer_equals:
+  - c
+- id: MC.A.C7FC588C6AB1
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Deep inside a long solenoid the field is uniform and runs along the axis.
+- en: Near the ends the field weakens and spreads out.
+- en: The correct option is d.
+tier: C

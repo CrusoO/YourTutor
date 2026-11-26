@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.vector_basics.06
+skill_ids:
+- SK.A.12.maths.vector_basics
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A vector of magnitude 6 makes equal angles with the three coordinate axes. What is each of its components?
+hints:
+- level: 1
+  en: Equal angles with the axes give equal components.
+- level: 2
+  en: The sum of the squares of the components equals the squared magnitude.
+- level: 3
+  en: Solve for one component.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: 2 times the square root of 3
+- id: c
+  en: '6'
+- id: d
+  en: '2'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.03FDAB151787
+  when_answer_equals:
+  - d
+- id: MC.A.F4E7412F5E71
+  when_answer_equals:
+  - c
+- id: MC.A.80D49B71A553
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Equal angles give equal components, and the sum of the squares of the three components equals 36, so each component is 6 over the square root of 3, which equals 2 times the square root of 3.
+- en: The correct option is b.
+tier: C

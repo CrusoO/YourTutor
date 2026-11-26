@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.rms_speed_and_energy.06
+skill_ids:
+- SK.A.11.physics.rms_speed_and_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: 'For the molecules of a gas, which is larger: the rms speed or the mean speed?'
+hints:
+- level: 1
+  en: Squaring emphasises the faster molecules before averaging.
+- level: 2
+  en: Compare the mean of the squares with the square of the mean.
+- level: 3
+  en: Think about how taking a square root after averaging the squares behaves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the rms speed is larger than the mean speed
+- id: b
+  en: they are always exactly equal
+- id: c
+  en: the mean speed is zero because velocities average out
+- id: d
+  en: the mean speed is larger than the rms speed
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.7F10F600566F
+  when_answer_equals:
+  - d
+- id: MC.A.EF5DCF3F69EB
+  when_answer_equals:
+  - b
+- id: MC.A.8A282E6E1620
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Squaring the speeds before averaging gives more weight to the fastest molecules, so the rms speed is always at least as large as the mean speed.
+- en: The correct option is a.
+tier: C

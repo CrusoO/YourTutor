@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_classification_nomenclature.03
+skill_ids:
+- SK.A.12.chemistry.amine_classification_nomenclature
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the IUPAC name of (CH3)3N?
+hints:
+- level: 1
+  en: Count the carbons in each group and the number of groups attached to nitrogen.
+- level: 2
+  en: Choose the parent amine from the largest alkyl group.
+- level: 3
+  en: Use the N prefix for each substituent on nitrogen.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: N-methylpropan-2-amine
+- id: b
+  en: N,N-dimethylmethanamine
+- id: c
+  en: N,N-dimethylpropanamine
+- id: d
+  en: Ethanamine
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FAEA011A5E30
+  when_answer_equals:
+  - c
+- id: MC.A.EF03AD53BA28
+  when_answer_equals:
+  - d
+- id: MC.A.A15E051434AB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The parent is methanamine, and the two extra methyl groups on nitrogen are shown by the N,N prefix.
+- en: The correct option is b.
+tier: C

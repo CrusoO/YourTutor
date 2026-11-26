@@ -1,0 +1,48 @@
+id: A.11.maths.mathematical_reasoning.statements_and_connectives.02
+skill_ids:
+- SK.A.11.maths.statements_and_connectives
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Is the statement 'every even number greater than 2 is composite' true or false?
+hints:
+- level: 1
+  en: Ask whether every such number has a factor other than one and itself.
+- level: 2
+  en: Look for a counterexample; if none exists the universal claim holds.
+- level: 3
+  en: Check the claim on a few even numbers greater than two.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: neither true nor false
+- id: b
+  en: it depends on which number is chosen
+- id: c
+  en: 'true'
+- id: d
+  en: 'false'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DAD9ADA01438
+  when_answer_equals:
+  - d
+- id: MC.A.3E99DE1DF701
+  when_answer_equals:
+  - a
+- id: MC.A.30529BDB825A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Every even number greater than 2 is divisible by 2 and by itself, so it has factors other than 1 and itself, making it composite.
+- en: The correct option is c.
+tier: C

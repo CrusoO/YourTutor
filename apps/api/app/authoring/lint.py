@@ -19,6 +19,7 @@ from app.authoring.files import draft_files, drafts_root, read_draft
 from app.authoring.hooks import NUMERIC_RECHECKS, NumericRecheck
 from app.authoring.schema import SUBJECTS, DraftFile, DraftItem
 from app.authoring.syllabus import MapTopic, SyllabusMap, load_map
+from app.content.language import lint_texts
 
 STEM_MIN_CHARS = 12
 STEM_MAX_CHARS = 450
@@ -164,6 +165,15 @@ def _sig_figs(text: str) -> int:
     return len(digits.rstrip("0")) if "." not in text else len(digits)
 
 
+def _language_errors(texts: list[str]) -> list[str]:
+    """The content validator's own language rules (unfilled {placeholders}, repeated adjacent
+    words) on the stem, options and hints, so a draft fails here in seconds instead of in the
+    12-minute validator run. A bracketed "(aq)" or "(OH)" is real chemistry in a draft, so that one
+    rule is skipped, as in the validator. Explanations are not checked, as in the validator."""
+    errors, _warnings = lint_texts([t for t in texts if t])
+    return [e for e in errors if not e.startswith("parenthesised leftover")]
+
+
 def lint_item(
     file: str,
     position: int,
@@ -190,6 +200,10 @@ def lint_item(
     hit = next((m.group(0) for t in texts if (m := _BANNED.search(t))), None)
     if hit:
         add("banned_name", "error", f"board, exam, publisher or book name {hit!r} is not allowed")
+    for message in _language_errors(
+        [item.stem, item.correct, *(w.text for w in item.wrong), *item.hints]
+    ):
+        add("language", "error", message)
     phrase = next(
         (
             m.group(0)
@@ -501,6 +515,25 @@ def lint_paths(
             )
             entries.append((shown, position, f"{draft.class_}.{draft.subject}", item.stem))
             owners.append((result, position))
+    seen: dict[str, tuple[str, int]] = {}
+    for (shown, position, _scope, stem), (result, _same) in zip(entries, owners, strict=True):
+        text = " ".join(stem.casefold().split())
+        if text in seen:
+            earlier = seen[text]
+            topic = result.draft.items[position].topic if result.draft else ""
+            result.findings.append(
+                Finding(
+                    result.path,
+                    position,
+                    topic,
+                    "duplicate_stem",
+                    "error",
+                    f"stem repeats item {earlier[1] + 1} of {earlier[0]} (the content validator "
+                    "rejects a stem used twice, even in another class)",
+                )
+            )
+        else:
+            seen[text] = (shown, position)
     for first, second, score in near_duplicates(entries):
         result, position = owners[second]
         other = entries[first]

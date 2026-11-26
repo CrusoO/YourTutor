@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.first_law_enthalpy.06
+skill_ids:
+- SK.A.11.chemistry.first_law_enthalpy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For a reaction in which the number of moles of gas decreases by 2 at 298 K, which statement about delta H and delta U is correct?
+hints:
+- level: 1
+  en: Work out whether the gas moles are increasing or decreasing across the reaction.
+- level: 2
+  en: Use the relation between enthalpy and internal energy that includes the gas moles.
+- level: 3
+  en: Check the sign of the correction term before comparing the two values.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: delta H is zero
+- id: b
+  en: delta H is always equal to delta U
+- id: c
+  en: delta H is greater than delta U
+- id: d
+  en: delta H is less than delta U
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.40B171A82DA2
+  when_answer_equals:
+  - c
+- id: MC.A.40F958D4FE22
+  when_answer_equals:
+  - b
+- id: MC.A.E64E45BF32D2
+  when_answer_equals:
+  - a
+solution_steps:
+- en: delta H equals delta U plus delta n times RT, and a decrease in gas moles makes delta n negative, so delta H is smaller than delta U.
+- en: The correct option is d.
+tier: C

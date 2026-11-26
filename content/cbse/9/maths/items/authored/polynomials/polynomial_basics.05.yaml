@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.polynomial_basics.05
+skill_ids:
+- SK.A.9.maths.polynomial_basics
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two non-zero polynomials in one variable are added. Which statement about the degree of the sum is always correct?
+hints:
+- level: 1
+  en: Think about what happens to the highest power when you add terms.
+- level: 2
+  en: Consider whether two leading terms can cancel each other.
+- level: 3
+  en: Compare the degree of the sum with the two original degrees.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The degree of the sum is at most the larger of the two degrees.
+- id: b
+  en: The degree of the sum is always the smaller of the two degrees.
+- id: c
+  en: The degree of the sum is always exactly the larger of the two degrees.
+- id: d
+  en: The degree of the sum is always the product of the two degrees.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.74AFC1D7FCF1
+  when_answer_equals:
+  - d
+- id: MC.A.ACDBA4DA4DC3
+  when_answer_equals:
+  - b
+- id: MC.A.C85CC9774FEF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Adding polynomials combines like terms, and the leading terms may cancel, which can lower the degree but never raise it above the larger of the two degrees.
+- en: The correct option is a.
+tier: C

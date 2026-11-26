@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_plane.projectile_motion.06
+skill_ids:
+- SK.A.11.physics.projectile_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A projectile is launched from the ground at a fixed angle and lands at the same level. If its launch speed is doubled at the same angle, how does its range change?
+hints:
+- level: 1
+  en: The range depends on the launch speed through a power that is not one.
+- level: 2
+  en: Look at how the range formula contains the launch speed.
+- level: 3
+  en: A squared speed appears in the range formula.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: stays the same
+- id: b
+  en: becomes twice as large
+- id: c
+  en: becomes four times as large
+- id: d
+  en: becomes half as large
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1434098FBFF5
+  when_answer_equals:
+  - b
+- id: MC.A.D8A769550B64
+  when_answer_equals:
+  - a
+- id: MC.A.00F066FB6FF4
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The range is proportional to the square of the launch speed for a fixed angle, so doubling the speed multiplies the range by four.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.01
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: When does a p-n junction diode conduct easily?
+hints:
+- level: 1
+  en: Think about which polarity of the applied voltage lowers the barrier at the junction.
+- level: 2
+  en: Consider how the depletion region changes with that polarity.
+- level: 3
+  en: Recall which bias allows majority carriers to cross the junction easily.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: When it is left unbiased
+- id: b
+  en: When it is forward biased
+- id: c
+  en: When it is reverse biased below its breakdown voltage
+- id: d
+  en: When it is reverse biased
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2A087B478544
+  when_answer_equals:
+  - d
+- id: MC.A.F9779AA4DFFC
+  when_answer_equals:
+  - a
+- id: MC.A.CEDD5C2A28D9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Forward bias reduces the depletion region barrier, allowing majority carriers to cross the junction and produce a large current.
+- en: The correct option is b.
+tier: C

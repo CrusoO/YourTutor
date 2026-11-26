@@ -1,0 +1,49 @@
+id: A.12.chemistry.solutions.colligative_properties.06
+skill_ids:
+- SK.A.12.chemistry.colligative_properties
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two solutions have equal molality. One contains a non-electrolyte and the other a salt that dissociates completely into two ions. Which solution has the lower freezing point?
+hints:
+- level: 1
+  en: Count the solute particles in each solution rather than the solute formula units added.
+- level: 2
+  en: Consider how dissociation changes the number of particles.
+- level: 3
+  en: Recall that freezing point depression depends on the particle count per kilogram of solvent.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The non-electrolyte solution, because its molecules are larger
+- id: b
+  en: Both freeze at the same temperature, since the molality is equal
+- id: c
+  en: The electrolyte solution, since it gives more particles
+- id: d
+  en: The electrolyte solution, because its molar mass is lower
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.72C852CA47EB
+  when_answer_equals:
+  - a
+- id: MC.A.7BD9B44E5034
+  when_answer_equals:
+  - b
+- id: MC.A.997CC3668EE6
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The depression depends on the total particle concentration.
+- en: The dissociated salt gives twice as many particles, so its freezing point is lower.
+- en: The correct option is c.
+tier: C

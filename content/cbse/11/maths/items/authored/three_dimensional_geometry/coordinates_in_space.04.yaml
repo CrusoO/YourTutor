@@ -1,0 +1,49 @@
+id: A.11.maths.three_dimensional_geometry.coordinates_in_space.04
+skill_ids:
+- SK.A.11.maths.coordinates_in_space
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: The point (2, 5, -1) is reflected in the xy-plane. What are the coordinates of its image?
+hints:
+- level: 1
+  en: Decide which coordinate is zero on the plane of reflection.
+- level: 2
+  en: A reflection across a plane leaves the coordinates lying in that plane unchanged.
+- level: 3
+  en: Only the coordinate perpendicular to the mirror plane changes sign.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (2, 5, 1)
+- id: b
+  en: (-2, 5, -1)
+- id: c
+  en: (-2, -5, 1)
+- id: d
+  en: (2, -5, -1)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1C9F69A97003
+  when_answer_equals:
+  - b
+- id: MC.A.4C038D58EE8A
+  when_answer_equals:
+  - d
+- id: MC.A.E332ED7664C4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Reflection in the xy-plane keeps x and y unchanged and flips the sign of z, giving (2, 5, 1).
+- en: The correct option is a.
+tier: C
+diagram_note: Three axes with a point marked above the xy-plane and its mirror image marked symmetrically below the plane, joined by a dashed perpendicular line.

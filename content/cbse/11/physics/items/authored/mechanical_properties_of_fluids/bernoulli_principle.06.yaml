@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_fluids.bernoulli_principle.06
+skill_ids:
+- SK.A.11.physics.bernoulli_principle
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An aircraft wing is shaped so that air flows faster over the upper surface than under the lower surface. What is the resulting net effect on pressure?
+hints:
+- level: 1
+  en: Faster air has lower pressure according to Bernoulli's principle.
+- level: 2
+  en: Compare the speed of the air over the top with the speed underneath.
+- level: 3
+  en: The net upward push comes from the pressure difference across the wing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: lower pressure below the wing, giving a net downward lift
+- id: b
+  en: lower pressure above the wing, giving a net upward lift
+- id: c
+  en: higher pressure above the wing, giving a net upward lift
+- id: d
+  en: equal pressures above and below, so no lift
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.568BA656D99E
+  when_answer_equals:
+  - c
+- id: MC.A.B60203AD8398
+  when_answer_equals:
+  - d
+- id: MC.A.FE5DB0D821F2
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Faster air above the wing has lower pressure than the slower air below it.
+- en: The pressure difference across the wing produces a net upward force.
+- en: The correct option is b.
+tier: C

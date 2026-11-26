@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_classification_nomenclature.01
+skill_ids:
+- SK.A.12.chemistry.amine_classification_nomenclature
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Classify the amine (CH3)2NH.
+hints:
+- level: 1
+  en: Count the alkyl groups bonded to the nitrogen atom.
+- level: 2
+  en: Ignore hydrogens when counting the alkyl groups.
+- level: 3
+  en: Compare the count with the classes primary, secondary and tertiary.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Tertiary amine
+- id: b
+  en: Quaternary ammonium salt
+- id: c
+  en: Secondary amine
+- id: d
+  en: Primary amine
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.97635B15AD8B
+  when_answer_equals:
+  - d
+- id: MC.A.FB6BAF056459
+  when_answer_equals:
+  - a
+- id: MC.A.3C872723F9FC
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Nitrogen in dimethylamine is bonded to two methyl groups and one hydrogen, so it is a secondary amine.
+- en: The correct option is c.
+tier: C

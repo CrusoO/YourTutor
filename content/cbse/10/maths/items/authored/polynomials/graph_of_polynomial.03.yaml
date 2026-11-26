@@ -1,0 +1,50 @@
+id: A.10.maths.polynomials.graph_of_polynomial.03
+skill_ids:
+- SK.A.10.maths.graph_of_polynomial
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A parabola touches the x-axis at exactly one point, x = 3. What does this tell you about the zeros of the polynomial?
+hints:
+- level: 1
+  en: A zero is any x-value where the graph meets the x-axis.
+- level: 2
+  en: Think about whether the curve crosses the axis or just touches it.
+- level: 3
+  en: Consider how many distinct points the graph shares with the axis.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The graph has no vertex.
+- id: b
+  en: The polynomial has two distinct zeros, x = 3 and another value.
+- id: c
+  en: The polynomial has no zeros.
+- id: d
+  en: The polynomial has one repeated zero, x = 3.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3801E70DD4A6
+  when_answer_equals:
+  - c
+- id: MC.A.3C3FF578293E
+  when_answer_equals:
+  - b
+- id: MC.A.036A82E23AFB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A point where the graph touches the axis is still a zero, and it is repeated because the curve does not cross the axis there.
+- en: So the polynomial has one distinct zero, x = 3, counted twice.
+- en: The correct option is d.
+tier: C
+diagram_note: A parabola opening upward whose lowest point sits exactly on the horizontal x-axis at x = 3, with that point labelled.

@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.ellipse.02
+skill_ids:
+- SK.A.11.maths.ellipse
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What are the foci of the ellipse x squared over 25 plus y squared over 9 equals 1?
+hints:
+- level: 1
+  en: Identify the major axis from the larger denominator.
+- level: 2
+  en: Find c using the relation between the semi-axes.
+- level: 3
+  en: Place the foci on the major axis at that distance from the centre.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0, 4) and (0, -4)
+- id: b
+  en: (3, 0) and (-3, 0)
+- id: c
+  en: (0, 5) and (0, -5)
+- id: d
+  en: (4, 0) and (-4, 0)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F308CE11AA49
+  when_answer_equals:
+  - b
+- id: MC.A.FC67CCA763A8
+  when_answer_equals:
+  - c
+- id: MC.A.1E478513AF27
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The focal distance satisfies c squared equal to 25 minus 9, which is 16, so the foci are at (4, 0) and (-4, 0).
+- en: The correct option is d.
+tier: C
+diagram_note: Coordinate axes with an ellipse wider along the horizontal direction, its two foci marked on the horizontal axis symmetric about the centre.

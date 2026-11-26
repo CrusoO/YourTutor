@@ -1,0 +1,48 @@
+id: A.11.physics.laws_of_motion.circular_motion_dynamics.04
+skill_ids:
+- SK.A.11.physics.circular_motion_dynamics
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A car goes round a banked curve at the designed speed, with no friction needed. What supplies the centripetal force?
+hints:
+- level: 1
+  en: Split the contact force into a vertical part and a horizontal part.
+- level: 2
+  en: The vertical part of the contact force balances the car's weight.
+- level: 3
+  en: Which part of the contact force points toward the centre of the circle?
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the weight of the car
+- id: b
+  en: vertical component of the normal reaction
+- id: c
+  en: horizontal component of the normal reaction
+- id: d
+  en: friction along the slope
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7957B3513128
+  when_answer_equals:
+  - a
+- id: MC.A.2E36FEC7CC6E
+  when_answer_equals:
+  - d
+- id: MC.A.676E3DD6E938
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The normal reaction on a banked road has a horizontal component that points toward the centre of the bend, and that component supplies the centripetal force.
+- en: The correct option is c.
+tier: C

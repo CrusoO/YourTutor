@@ -1,0 +1,49 @@
+id: A.12.maths.determinants.adjoint_inverse.06
+skill_ids:
+- SK.A.12.maths.adjoint_inverse
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A is a 3 by 3 matrix with determinant 2. Which expression equals adj(adj A)?
+hints:
+- level: 1
+  en: Apply the rule for the adjoint of an adjoint using the order of the matrix.
+- level: 2
+  en: Keep the scalar factor coming from the determinant.
+- level: 3
+  en: Compare the power of the determinant with the order of the matrix minus two.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2A
+- id: b
+  en: 4A
+- id: c
+  en: A
+- id: d
+  en: A inverse
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C6E4BB885165
+  when_answer_equals:
+  - c
+- id: MC.A.8EC18B73BEB9
+  when_answer_equals:
+  - d
+- id: MC.A.677B05918E29
+  when_answer_equals:
+  - b
+solution_steps:
+- en: For an n by n matrix, adj(adj A) equals det(A) raised to the power n minus 2 times A.
+- en: With n equal to 3 and det A equal to 2, this is 2 times A.
+- en: The correct option is a.
+tier: C

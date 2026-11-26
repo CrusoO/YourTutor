@@ -1,0 +1,49 @@
+id: A.11.biology.neural_control_and_coordination.neuron_structure.03
+skill_ids:
+- SK.A.11.biology.neuron_structure
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the axon membrane at rest more permeable to potassium than to sodium?
+hints:
+- level: 1
+  en: Think about which ion channels are open at rest.
+- level: 2
+  en: Consider which ion is more abundant inside the cell and how it leaks out.
+- level: 3
+  en: Compare the permeability of the membrane to each of the two ions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Sodium channels are fully open at rest
+- id: b
+  en: Potassium is actively pumped into the axon at rest
+- id: c
+  en: Open potassium leak channels let K+ leave down its gradient more readily than Na+ can enter, so the inside becomes negative
+- id: d
+  en: Resting membranes have no ion channels at all
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.FAA292E2C481
+  when_answer_equals:
+  - a
+- id: MC.A.F15BE29DC2F1
+  when_answer_equals:
+  - b
+- id: MC.A.DA548AF3FE99
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At rest the membrane contains many open potassium leak channels and few open sodium channels.
+- en: Potassium leaves the cell down its gradient, which makes the inside negative.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.physics.wave_optics.polarisation.04
+skill_ids:
+- SK.A.12.physics.polarisation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: At Brewster's angle for reflection from a surface, the reflected light is fully polarised. If the refractive index of the medium is the square root of 3, what is Brewster's angle?
+hints:
+- level: 1
+  en: Brewster's angle satisfies a relation between its tangent and the refractive index.
+- level: 2
+  en: Find the angle whose tangent is the square root of 3.
+- level: 3
+  en: Recall the standard angle with a tangent of root three.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 30 degrees
+- id: b
+  en: 60 degrees
+- id: c
+  en: 45 degrees
+- id: d
+  en: 90 degrees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7008170640CC
+  when_answer_equals:
+  - a
+- id: MC.A.C1B7984A9FA5
+  when_answer_equals:
+  - c
+- id: MC.A.000419EB1904
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Brewster's angle satisfies tan i equal to the refractive index.
+- en: Since tan 60 degrees is the square root of 3, the angle is 60 degrees.
+- en: The correct option is b.
+tier: C

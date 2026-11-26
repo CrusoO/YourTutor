@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.gene_regulation_lac.01
+skill_ids:
+- SK.A.12.biology.gene_regulation_lac
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the inducer of the lac operon in Escherichia coli?
+hints:
+- level: 1
+  en: Think about a lactose derived molecule that binds the repressor.
+- level: 2
+  en: Consider a modified form of the sugar that is made inside the cell.
+- level: 3
+  en: Remember the inducer binds the repressor, not the operator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Allolactose
+- id: b
+  en: Glycerol
+- id: c
+  en: Lactose repressor
+- id: d
+  en: Glucose
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1A17166604EC
+  when_answer_equals:
+  - d
+- id: MC.A.2CA3719A10E5
+  when_answer_equals:
+  - c
+- id: MC.A.B2428FDE4B42
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Allolactose, an isomer of lactose formed inside the cell, binds the repressor and releases it from the operator.
+- en: Glucose represses the operon indirectly through catabolite control.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.physics.oscillations.damped_and_forced.04
+skill_ids:
+- SK.A.11.physics.damped_and_forced
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'A forced oscillator reaches its largest steady-state amplitude when:'
+hints:
+- level: 1
+  en: The largest response occurs when the inputs add in step with the motion.
+- level: 2
+  en: Compare how the input rhythm and the natural rhythm line up.
+- level: 3
+  en: Damping reduces the height of the resonance peak.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the damping is very large
+- id: b
+  en: the driving frequency is far above the natural frequency
+- id: c
+  en: the driving frequency is close to the natural frequency and damping is small
+- id: d
+  en: the driving frequency is zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9906E8DC1201
+  when_answer_equals:
+  - d
+- id: MC.A.98182BE89539
+  when_answer_equals:
+  - a
+- id: MC.A.B3FFE1107AB9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The steady-state amplitude peaks near the natural frequency, and light damping makes that peak tall and sharp.
+- en: The correct option is c.
+tier: C

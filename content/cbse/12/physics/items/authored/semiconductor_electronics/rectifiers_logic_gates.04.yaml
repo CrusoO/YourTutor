@@ -1,0 +1,49 @@
+id: A.12.physics.semiconductor_electronics.rectifiers_logic_gates.04
+skill_ids:
+- SK.A.12.physics.rectifiers_logic_gates
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the output of a NAND gate when both of its inputs are high?
+hints:
+- level: 1
+  en: Start by finding the output of the AND stage for these two inputs.
+- level: 2
+  en: Apply the inversion that follows the AND stage.
+- level: 3
+  en: Consider what an inverter does to a high input.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Equal to input A
+- id: b
+  en: Low
+- id: c
+  en: Undefined
+- id: d
+  en: High
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AB343239A74D
+  when_answer_equals:
+  - d
+- id: MC.A.2872501F8D9F
+  when_answer_equals:
+  - c
+- id: MC.A.11BDEC22B424
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A NAND gate is an AND gate followed by a NOT.
+- en: With both inputs high the AND output is high, and the inversion makes the NAND output low.
+- en: The correct option is b.
+tier: C

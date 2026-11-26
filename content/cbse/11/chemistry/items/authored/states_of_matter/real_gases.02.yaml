@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.real_gases.02
+skill_ids:
+- SK.A.11.chemistry.real_gases
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: In the van der Waals equation, which constant corrects for the finite size of the gas molecules?
+hints:
+- level: 1
+  en: The size correction appears as a term subtracted from the volume.
+- level: 2
+  en: The attraction correction is the other constant in the equation.
+- level: 3
+  en: Look for the symbol that represents the excluded volume.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a
+- id: b
+  en: b
+- id: c
+  en: R
+- id: d
+  en: n
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.759979D16572
+  when_answer_equals:
+  - a
+- id: MC.A.4FDF024D7D75
+  when_answer_equals:
+  - c
+- id: MC.A.C4891E635AAE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The constant b is the excluded volume per mole, which corrects the container volume for the space the molecules themselves occupy.
+- en: The correct option is b.
+tier: C

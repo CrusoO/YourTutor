@@ -1,0 +1,50 @@
+id: A.12.chemistry.solid_state.unit_cells_and_lattices.06
+skill_ids:
+- SK.A.12.chemistry.unit_cells_and_lattices
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In a face-centred cubic cell, atoms touch along a face diagonal. Which relation links the edge length a with the atomic radius r?
+hints:
+- level: 1
+  en: The face diagonal of the cube is sqrt(2) times the edge length.
+- level: 2
+  en: Four radii span the length of the face diagonal.
+- level: 3
+  en: Set the face diagonal equal to the total length covered by the touching atoms along it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a = 2 x r
+- id: b
+  en: a = 4 x r / sqrt(3)
+- id: c
+  en: a = r / sqrt(2)
+- id: d
+  en: a = 2 x sqrt(2) x r
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.172802617721
+  when_answer_equals:
+  - a
+- id: MC.A.0991A17DC131
+  when_answer_equals:
+  - b
+- id: MC.A.F225B6317CAC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The face diagonal equals sqrt(2) times the edge and spans four atomic radii.
+- en: Equating the two gives a equal to 2 times sqrt(2) times r.
+- en: The correct option is d.
+tier: C
+diagram_note: Square face of a cube with atoms at the four corners and one at the face centre; the diagonal passes through a corner atom, the face-centre atom and the opposite corner atom.

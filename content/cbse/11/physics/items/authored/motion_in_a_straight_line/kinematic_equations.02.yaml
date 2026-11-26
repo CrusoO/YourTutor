@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_straight_line.kinematic_equations.02
+skill_ids:
+- SK.A.11.physics.kinematic_equations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which equation relates final velocity v, initial velocity u, acceleration a and displacement s without using time?
+hints:
+- level: 1
+  en: Look for the equation that contains displacement but not time.
+- level: 2
+  en: Check each option for whether time appears in it.
+- level: 3
+  en: Squared velocities pair naturally with displacement in this relation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: v = at^2 + u
+- id: b
+  en: v^2 = u^2 + 2as
+- id: c
+  en: s = ut + (1/2)at^2
+- id: d
+  en: v = u + at
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.088F77BAC3F6
+  when_answer_equals:
+  - d
+- id: MC.A.5E7EF96CB655
+  when_answer_equals:
+  - c
+- id: MC.A.CAF3D7CDABB8
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The equation v^2 = u^2 + 2as is the time-free relation between velocity, acceleration and displacement for constant acceleration.
+- en: The correct option is b.
+tier: C

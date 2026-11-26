@@ -1,0 +1,49 @@
+id: A.12.maths.integrals.substitution_method.04
+skill_ids:
+- SK.A.12.maths.substitution_method
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the integral of x divided by (x^2 + 1) with respect to x?
+hints:
+- level: 1
+  en: Let u equal the expression in the denominator.
+- level: 2
+  en: Compare du with the numerator.
+- level: 3
+  en: Keep the constant factor that comes from differentiating u.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ln(x^2 + 1) + C
+- id: b
+  en: arctan(x) + C
+- id: c
+  en: (1/2) ln(x^2 + 1) + C
+- id: d
+  en: x^2/2 + C
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.213FE9AB7878
+  when_answer_equals:
+  - a
+- id: MC.A.8C7C127035E1
+  when_answer_equals:
+  - b
+- id: MC.A.53031EA30393
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let u = x^2 + 1, so du = 2x dx, and x dx is half of du.
+- en: The integral becomes one half of the natural logarithm of u.
+- en: The correct option is c.
+tier: C

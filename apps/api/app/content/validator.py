@@ -138,11 +138,20 @@ def _model(cls, path: Path):  # type: ignore[no-untyped-def]
     return cls.model_validate(_read_yaml(path))
 
 
+def _text_norm(text: str) -> str:
+    """`normalize`, but text that reads as a decimal comma (chemical names such as
+    "2,2-dimethylbutane") is compared as plain lower-case text instead of failing."""
+    try:
+        return normalize(text)
+    except ParseError:
+        return " ".join(text.casefold().split())
+
+
 def last_step_matches_answer(
     step_en: str, answer_sympy: str, *, item_type: ItemType | None = None
 ) -> bool:
     if item_type == ItemType.mcq:
-        return normalize(answer_sympy) in normalize(step_en) or normalize(step_en) == normalize(
+        return _text_norm(answer_sympy) in _text_norm(step_en) or _text_norm(step_en) == _text_norm(
             answer_sympy
         )
     if expressions_equivalent(step_en, answer_sympy):
@@ -625,7 +634,7 @@ def _hint_diversity(bundle: ContentBundle, report: ValidationReport) -> None:
         for item in items:
             for hint in item.hints:
                 if hint.level <= 2:
-                    counts[normalize(hint.en)] += 1
+                    counts[_text_norm(hint.en)] += 1
         for text, n in counts.items():
             if n / len(items) > HINT_SHARE:
                 report.warnings.append(
@@ -681,7 +690,7 @@ def _structure_and_tiers(bundle: ContentBundle, report: ValidationReport) -> Non
 
 
 def _hint_tokens(text: str) -> set[str]:
-    return set(_HINT_TOKEN.findall(normalize(text).lower()))
+    return set(_HINT_TOKEN.findall(_text_norm(text).lower()))
 
 
 def hint3_overlap_ratio(hint2: str, hint3: str) -> float:
@@ -868,7 +877,7 @@ def _stem_answers(
 
 
 def _stem_text(item: Item) -> str:
-    return normalize(item.stem.en)
+    return _text_norm(item.stem.en)
 
 
 def _stem_uniqueness(bundle: ContentBundle, report: ValidationReport) -> None:

@@ -1,0 +1,48 @@
+id: A.12.chemistry.solutions.abnormal_molar_mass.02
+skill_ids:
+- SK.A.12.chemistry.abnormal_molar_mass
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What does a van't Hoff factor greater than 1 indicate?
+hints:
+- level: 1
+  en: Ask whether the number of particles in solution goes up or down compared with the formula units added.
+- level: 2
+  en: Think about what a salt does when it separates into ions in water.
+- level: 3
+  en: Consider the direction in which the particle count changes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: No change in the number of particles
+- id: b
+  en: The solute is insoluble in the solvent
+- id: c
+  en: Association of solute molecules into fewer particles
+- id: d
+  en: Dissociation of the solute into more particles
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.437DEE140A45
+  when_answer_equals:
+  - c
+- id: MC.A.A2CBFCEE8BF0
+  when_answer_equals:
+  - a
+- id: MC.A.83C421355CB1
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A factor above 1 means the solute produces more particles than its formula units, which happens on dissociation.
+- en: The correct option is d.
+tier: C

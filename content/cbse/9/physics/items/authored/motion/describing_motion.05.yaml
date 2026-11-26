@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.05
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A ball is released from rest relative to a train that moves at constant speed along a straight track. An observer on the train and an observer standing on the ground both watch it fall. Which description is correct?
+hints:
+- level: 1
+  en: Ask how the ball moves relative to the train as it falls.
+- level: 2
+  en: For the ground observer, add the train's sideways motion to the fall.
+- level: 3
+  en: Describe the shape traced by the combined motion.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The ball is at rest for the ground observer
+- id: b
+  en: The path looks horizontal to the train observer
+- id: c
+  en: The path looks vertical to the train observer and curved to the ground observer
+- id: d
+  en: The path looks vertical to both observers
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.42B42F9ABA12
+  when_answer_equals:
+  - d
+- id: MC.A.4FC95A653C57
+  when_answer_equals:
+  - b
+- id: MC.A.2933B0040A75
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Relative to the train the ball falls straight down, but relative to the ground it also moves forward with the train, so its path is curved.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.continuity_check.06
+skill_ids:
+- SK.A.12.maths.continuity_check
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let f(x) = x|x|. Which statement about f at x = 0 is correct?
+hints:
+- level: 1
+  en: Write f separately for positive and negative values of x.
+- level: 2
+  en: Compute the limit of the difference quotient at 0 from both sides.
+- level: 3
+  en: Check whether the two one-sided limits agree.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Differentiable at 0 with derivative 1
+- id: b
+  en: Differentiable at 0 with derivative 0
+- id: c
+  en: Continuous but not differentiable at 0
+- id: d
+  en: Not continuous at 0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0C6FC294F14C
+  when_answer_equals:
+  - c
+- id: MC.A.A448221C49D9
+  when_answer_equals:
+  - d
+- id: MC.A.22B03C4EDC12
+  when_answer_equals:
+  - a
+solution_steps:
+- en: For h not equal to 0 the difference quotient (f(h) minus f(0)) divided by h equals |h|, which tends to 0, so the derivative at 0 exists and equals 0.
+- en: The correct option is b.
+tier: C

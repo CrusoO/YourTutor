@@ -1,0 +1,50 @@
+id: A.12.maths.relations_and_functions.one_one_onto_functions.01
+skill_ids:
+- SK.A.12.maths.one_one_onto_functions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'Let f: R to R be f(x) = 2x + 3. Which statement about f is correct?'
+hints:
+- level: 1
+  en: Ask whether two different inputs can ever give the same output.
+- level: 2
+  en: Try solving the equation y = 2x + 3 for x when y is a general number.
+- level: 3
+  en: Check the two properties separately before combining them.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: f is neither one-one nor onto
+- id: b
+  en: f is one-one but not onto
+- id: c
+  en: f is onto but not one-one
+- id: d
+  en: f is one-one and onto
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9AB0800272BC
+  when_answer_equals:
+  - b
+- id: MC.A.B5E3090155DE
+  when_answer_equals:
+  - c
+- id: MC.A.90B320BD7F49
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Different inputs give different outputs because the slope is nonzero, so f is one-one.
+- en: Every real y is reached by solving y = 2x + 3 for x, so f is onto.
+- en: The correct option is d.
+tier: C
+diagram_note: Straight line y = 2x + 3 drawn on labelled axes, with several horizontal lines at different heights each cutting the line exactly once.

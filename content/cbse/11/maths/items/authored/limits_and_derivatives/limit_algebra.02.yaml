@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.limit_algebra.02
+skill_ids:
+- SK.A.11.maths.limit_algebra
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement is a correct rule for limits when each limit exists?
+hints:
+- level: 1
+  en: Think about what the rule says when a function is split into two pieces that are added.
+- level: 2
+  en: Check the required conditions under which each rule applies.
+- level: 3
+  en: Test the rule with two simple functions whose limits you already know.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the limit of a sum always exists
+- id: b
+  en: the limit of a quotient equals the quotient of the limits even when the denominator limit is zero
+- id: c
+  en: the limit of a sum equals the sum of the limits
+- id: d
+  en: the limit of a product equals the sum of the limits
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3FADFB9159B4
+  when_answer_equals:
+  - d
+- id: MC.A.C9B8C02368E7
+  when_answer_equals:
+  - b
+- id: MC.A.39473DF8522D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: When each individual limit exists, the limit of a sum is the sum of the individual limits, which is one of the basic algebra rules.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.le_chatelier.03
+skill_ids:
+- SK.A.11.chemistry.le_chatelier
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: An inert gas is added at constant volume to an equilibrium mixture of gases. What happens to the composition of the mixture?
+hints:
+- level: 1
+  en: An inert gas does not change the concentrations of the reacting species at constant volume.
+- level: 2
+  en: Think about whether the added gas takes part in the reaction.
+- level: 3
+  en: Compare the partial pressures of the reacting gases before and after the addition.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the equilibrium shifts toward the products
+- id: b
+  en: no change in composition
+- id: c
+  en: the equilibrium constant doubles
+- id: d
+  en: the equilibrium shifts toward the reactants
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9D2A82F3AA62
+  when_answer_equals:
+  - a
+- id: MC.A.CB7EA32E1A4F
+  when_answer_equals:
+  - d
+- id: MC.A.EF4ED5045C16
+  when_answer_equals:
+  - c
+solution_steps:
+- en: At constant volume an inert gas raises the total pressure but leaves the partial pressures and concentrations of the reacting species unchanged, so the composition does not shift.
+- en: The correct option is b.
+tier: C

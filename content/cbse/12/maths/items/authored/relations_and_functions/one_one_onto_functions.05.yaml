@@ -1,0 +1,49 @@
+id: A.12.maths.relations_and_functions.one_one_onto_functions.05
+skill_ids:
+- SK.A.12.maths.one_one_onto_functions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: 'Let f: R to R be f(x) = x^3 + x. Which statement is correct?'
+hints:
+- level: 1
+  en: Study how the function changes as x increases, using a derivative.
+- level: 2
+  en: Find out whether the function can ever decrease.
+- level: 3
+  en: Consider how large the outputs become for large inputs of both signs.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: f is neither one-one nor onto
+- id: b
+  en: f is one-one but not onto
+- id: c
+  en: f is one-one and onto
+- id: d
+  en: f is onto but not one-one
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A8C56B78FF59
+  when_answer_equals:
+  - b
+- id: MC.A.F6954A4C4B8F
+  when_answer_equals:
+  - d
+- id: MC.A.94BAF1B998F5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The derivative 3x^2 + 1 is always positive, so f is strictly increasing and therefore one-one.
+- en: As x becomes large in either direction, f takes arbitrarily large positive or negative values, so f is onto.
+- en: The correct option is c.
+tier: C

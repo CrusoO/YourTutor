@@ -1,0 +1,49 @@
+id: A.9.physics.gravitation.buoyancy_and_archimedes.06
+skill_ids:
+- SK.A.9.physics.buoyancy_and_archimedes
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A boat floats on a lake and then more cargo is loaded onto it. What happens to the volume of water the boat displaces?
+hints:
+- level: 1
+  en: A floating boat's upthrust must equal its total weight.
+- level: 2
+  en: Consider what happens to the total weight after cargo is added.
+- level: 3
+  en: Think about how much water must be pushed aside for the upthrust to grow.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it decreases because the boat sits higher
+- id: b
+  en: it increases until the upthrust matches the new total weight
+- id: c
+  en: it stays the same because the boat is already floating
+- id: d
+  en: it becomes zero once the boat is loaded
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.89CD4EA65D6C
+  when_answer_equals:
+  - a
+- id: MC.A.EAFA98D23380
+  when_answer_equals:
+  - c
+- id: MC.A.9159A1937BB5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A floating boat displaces water whose weight equals its total weight, so adding cargo makes it sink until the greater displaced volume supplies enough upthrust.
+- en: The correct option is b.
+tier: C
+diagram_note: Side view of a boat on a horizontal water surface line, with cargo added above the deck and the waterline drawn lower than before.

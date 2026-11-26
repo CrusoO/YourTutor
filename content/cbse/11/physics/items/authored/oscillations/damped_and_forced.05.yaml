@@ -1,0 +1,49 @@
+id: A.11.physics.oscillations.damped_and_forced.05
+skill_ids:
+- SK.A.11.physics.damped_and_forced
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A lightly damped oscillator has a high quality factor Q. What does a high Q indicate?
+hints:
+- level: 1
+  en: A high quality factor means low energy loss per cycle.
+- level: 2
+  en: Sharp resonance peaks come from little damping.
+- level: 3
+  en: Think about how much energy the system loses each cycle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: damping is light, so the resonance peak is sharp and tall
+- id: b
+  en: damping is heavy, so the resonance peak is broad
+- id: c
+  en: the driving force is very large
+- id: d
+  en: the natural frequency is zero
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9EBCD6FD05CC
+  when_answer_equals:
+  - b
+- id: MC.A.7C54B50CAED0
+  when_answer_equals:
+  - c
+- id: MC.A.C292D69CB676
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A high quality factor means little energy is lost per cycle.
+- en: Light damping produces a sharp, tall resonance peak.
+- en: The correct option is a.
+tier: C

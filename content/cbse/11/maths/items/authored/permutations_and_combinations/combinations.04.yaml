@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.combinations.04
+skill_ids:
+- SK.A.11.maths.combinations
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which statement about the values of C(10, 3) and C(10, 7) is true?
+hints:
+- level: 1
+  en: Think about what it means to choose a group to include versus to leave out.
+- level: 2
+  en: Compare the number of objects in the chosen group with the number left behind.
+- level: 3
+  en: Consider whether the two selections can be paired one to one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: they differ by 7
+- id: b
+  en: C(10, 7) is greater than C(10, 3)
+- id: c
+  en: they are equal
+- id: d
+  en: C(10, 3) is ten times larger than C(10, 7)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7CF54668384D
+  when_answer_equals:
+  - d
+- id: MC.A.0460322095C0
+  when_answer_equals:
+  - b
+- id: MC.A.ADD09B97061A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Choosing 3 objects to include is the same as choosing 7 to leave out, so C(10, 3) and C(10, 7) are equal.
+- en: The correct option is c.
+tier: C

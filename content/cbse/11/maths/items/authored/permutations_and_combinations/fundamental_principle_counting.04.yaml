@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.fundamental_principle_counting.04
+skill_ids:
+- SK.A.11.maths.fundamental_principle_counting
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In how many ways can 4 people sit in a row if two specific people must sit next to each other?
+hints:
+- level: 1
+  en: Glue the two specific people together as one unit.
+- level: 2
+  en: Arrange the units that remain, then consider the order inside the glued unit.
+- level: 3
+  en: Multiply the arrangements of the units by the internal orders.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '12'
+- id: c
+  en: '24'
+- id: d
+  en: '8'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7508DA2AC6B5
+  when_answer_equals:
+  - c
+- id: MC.A.ACCDFAE09963
+  when_answer_equals:
+  - a
+- id: MC.A.37DDBDFB0B79
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Treat the pair as one block, giving 3 units to arrange in 3 times 2 ways, so there are 6 times 2 equal 12 arrangements.
+- en: The correct option is b.
+tier: C

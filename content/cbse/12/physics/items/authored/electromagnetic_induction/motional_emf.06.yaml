@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_induction.motional_emf.06
+skill_ids:
+- SK.A.12.physics.motional_emf
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: When a rod moves in a magnetic field and carries an induced current, why must an external agent keep doing work on it?
+hints:
+- level: 1
+  en: Consider the direction of the force on the induced current in the rod.
+- level: 2
+  en: Think about what the external agent has to counter to keep the speed constant.
+- level: 3
+  en: Ask where the energy supplied to the rod goes in the circuit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The magnetic field stores the energy and releases it slowly
+- id: b
+  en: The induced current produces a force that opposes the motion
+- id: c
+  en: The EMF is zero once the rod has started to move
+- id: d
+  en: The rod gains kinetic energy that must be supplied continually
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C35F61D27D7C
+  when_answer_equals:
+  - a
+- id: MC.A.0D523B2CD304
+  when_answer_equals:
+  - d
+- id: MC.A.B7B216D188B2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The induced current experiences a magnetic force that opposes the motion, so an external force must do work to keep the rod moving at constant speed.
+- en: That work is converted into electrical energy and heat.
+- en: The correct option is b.
+tier: C

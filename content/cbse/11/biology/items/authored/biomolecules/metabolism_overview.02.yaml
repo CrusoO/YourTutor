@@ -1,0 +1,48 @@
+id: A.11.biology.biomolecules.metabolism_overview.02
+skill_ids:
+- SK.A.11.biology.metabolism_overview
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the term for a reaction pathway that ends in a product that switches off its own early enzyme?
+hints:
+- level: 1
+  en: Think about how the end product of a pathway can control its own production.
+- level: 2
+  en: Consider the regulatory signal that goes backwards up the pathway.
+- level: 3
+  en: The term describes a regulation loop that slows the pathway when the product builds up.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Feed-forward activation
+- id: b
+  en: Feedback inhibition
+- id: c
+  en: Competitive binding
+- id: d
+  en: Denaturation
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9C1361D68D54
+  when_answer_equals:
+  - a
+- id: MC.A.6BB0E21EA2F1
+  when_answer_equals:
+  - c
+- id: MC.A.7CFB7DE67250
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Feedback inhibition occurs when the end product of a pathway inhibits an early enzyme in that pathway, which slows production when the product is abundant.
+- en: The correct option is b.
+tier: C

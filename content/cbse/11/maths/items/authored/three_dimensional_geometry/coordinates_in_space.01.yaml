@@ -1,0 +1,49 @@
+id: A.11.maths.three_dimensional_geometry.coordinates_in_space.01
+skill_ids:
+- SK.A.11.maths.coordinates_in_space
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which point lies in the xy-plane of a three-dimensional coordinate system?
+hints:
+- level: 1
+  en: Recall which coordinate measures the height above the horizontal plane.
+- level: 2
+  en: A point on a particular plane has one coordinate fixed, so look for that coordinate.
+- level: 3
+  en: Check each candidate for the coordinate that must be zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0, 4, 3)
+- id: b
+  en: (3, 4, 1)
+- id: c
+  en: (3, 0, 4)
+- id: d
+  en: (3, 4, 0)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.115EC3155942
+  when_answer_equals:
+  - a
+- id: MC.A.8C793669E9BC
+  when_answer_equals:
+  - c
+- id: MC.A.C38AFF0D679F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Every point in the xy-plane has zero as its z coordinate, so only (3, 4, 0) qualifies.
+- en: The correct option is d.
+tier: C
+diagram_note: Three mutually perpendicular axes labelled x, y and z meeting at the origin, with the xy-plane shaded and a point marked on it.
