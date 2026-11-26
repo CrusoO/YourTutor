@@ -310,6 +310,36 @@ def hindi_texts(root: Path, item_id: str) -> dict[str, Any]:
     return {"stem": None, "options": {}}
 
 
+CHECK_TAGS = ("machine_checked", "needs_person")
+# Student-neutral wording; no board or publisher names.
+CHECK_LABELS = {"machine_checked": "Machine-checked", "needs_person": "Needs a person to check"}
+
+
+def check_tag(item: Item) -> str:
+    """`machine_checked`: tier A with an intact verification record that names this content.
+    Everything else (tier C, model-drafted, no tier, a record that does not back the tier) is
+    `needs_person`. Pure: the stamp ledger itself is checked when content is loaded."""
+    from app.content.verification import record_errors
+
+    record = item.verification.as_record() if item.verification is not None else None
+    if (
+        item.tier is not None
+        and item.tier.value == "A"
+        and record is not None
+        and record.get("tier") == "A"
+        and not record_errors(record, item_hash=item_content_hash(item))
+    ):
+        return "machine_checked"
+    return "needs_person"
+
+
+def tag_counts(items: Sequence[Item]) -> dict[str, int]:
+    counts = dict.fromkeys(CHECK_TAGS, 0)
+    for item in items:
+        counts[check_tag(item)] += 1
+    return counts
+
+
 def verification(item: Item) -> dict[str, str]:
     """Is the authored answer confirmed by solving the item? Never raises."""
     try:
@@ -604,6 +634,9 @@ def card(
         "answer": item.answer.sympy,
         "answer_text": next((o.en for o in item.options if o.id == item.answer.sympy), None),
         "verification": verification(item),
+        "check_tag": check_tag(item),
+        "check_label": CHECK_LABELS[check_tag(item)],
+        "diagram_note": item.diagram_note,
         "wrong_options": _wrong_options(item, labels, explanations),
         "solution_steps": [s.en for s in item.solution_steps],
         "hints": [h.en for h in sorted(item.hints, key=lambda h: h.level)],
@@ -816,9 +849,11 @@ def chapter_groups(
     pairs = {item.id: (item.id, item_content_hash(item)) for item in drafts}
     reviews = reviews_for_items(db, list(pairs.values()))
     totals: dict[str, list[int]] = {}
+    tagged: dict[str, dict[str, int]] = {}
     for item in drafts:
         chapter_id = data.item_chapter.get(item.id, snapshot.UNMAPPED_ID)
         entry = totals.setdefault(chapter_id, [0, 0])
+        tagged.setdefault(chapter_id, dict.fromkeys(CHECK_TAGS, 0))[check_tag(item)] += 1
         entry[0] += 1
         if not has_decided(reviews[pairs[item.id]], me):
             entry[1] += 1
@@ -839,6 +874,7 @@ def chapter_groups(
                 "in_curriculum": chapter.in_curriculum,
                 "total": total,
                 "pending": pending,
+                "by_check": tagged[chapter_id],
             }
         )
     groups.sort(

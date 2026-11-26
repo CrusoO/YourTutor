@@ -53,6 +53,17 @@ const DOT: Record<string, string> = {
 };
 
 /** The reviewer desk: pick a chapter, then one question at a time with three checks. The API is the authority on every rule. */
+/** Text chip: was the answer checked by a machine, or does a person have to check it? Nothing is shown for an older API build. */
+export function CheckChip({ tag }: { tag?: "machine_checked" | "needs_person" }) {
+  if (!tag) return null;
+  const tone = tag === "machine_checked" ? "border-success bg-success-soft text-success" : "border-warning bg-warning-soft text-warning";
+  return (
+    <p className="my-0 mb-2" data-testid="desk-check-tag" data-tag={tag}>
+      <span className={cn("inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold", tone)}>{desk.checkTag[tag]}</span>
+    </p>
+  );
+}
+
 export default function ReviewerDesk() {
   const [cards, setCards] = useState<DeskCard[]>([]);
   const [rest, setRest] = useState(0); // questions left for you beyond the ones loaded
@@ -647,6 +658,12 @@ function StudentView({
               <span>{card.type}</span>
             </p>
           </details>
+          <CheckChip tag={card.check_tag} />
+          {card.diagram_note ? (
+            <p className="my-0 mb-2 rounded-lg bg-surface-2 p-2 text-sm text-muted" data-testid="desk-diagram-note">
+              <b>{desk.diagramNote}</b> {card.diagram_note}
+            </p>
+          ) : null}
           <p className="my-0 mb-3 text-lg" data-testid="desk-stem">
             {card.stem}
           </p>

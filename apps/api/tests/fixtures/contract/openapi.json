@@ -6115,6 +6115,58 @@
     ]
    }
   },
+  "/staff/review/check-tags": {
+   "get": {
+    "description": "Admin only, read-only: how many draft items carry each check tag, in total and per class\nand subject. Records only; nothing a learner is served depends on it.",
+    "operationId": "check_tag_summary_staff_review_check_tags_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "title": "Response Check Tag Summary Staff Review Check Tags Get",
+         "type": "object"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Check Tag Summary",
+    "tags": [
+     "staff-review"
+    ]
+   }
+  },
   "/staff/review/export": {
    "get": {
     "description": "Admin only, read-only: per reviewer, decisions by type and total active seconds between two\ndates (both included, UTC). Ids and pseudonymous labels only; no email, no learner data.",
@@ -6189,7 +6241,7 @@
   },
   "/staff/review/items": {
    "get": {
-    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,\nan item you have not decided yet always counts as pending (so a filter cannot show how others\nvoted). todo (desk on only): the drafts you have no standing decision on for their current\ncontent (a withdrawn decision is undecided again, a skip is not a decision), whatever others\nvoted: the same rule as the `pending` count in `/chapters`. Desk on only: `class`, `subject`\nand `chapter` (from `/chapters`) narrow the list.",
+    "description": "Draft items, in id order, one page at a time (each card runs the solver).\n\npending: draft, not yet two approvals, nothing blocking. ready: two approvals, waiting for\n`apply-reviews`. flagged: a reject or fix stands. all: every draft. With the reviewer desk on,\nan item you have not decided yet always counts as pending (so a filter cannot show how others\nvoted). todo (desk on only): the drafts you have no standing decision on for their current\ncontent (a withdrawn decision is undecided again, a skip is not a decision), whatever others\nvoted: the same rule as the `pending` count in `/chapters`. Desk on only: `class`, `subject`\nand `chapter` (from `/chapters`) narrow the list. `check` (needs_person or machine_checked;\ndefault both) narrows by how the answer was checked.",
     "operationId": "list_items_staff_review_items_get",
     "parameters": [
      {
@@ -6282,6 +6334,26 @@
         }
        ],
        "title": "Chapter"
+      }
+     },
+     {
+      "in": "query",
+      "name": "check",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "needs_person",
+          "machine_checked"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Check"
       }
      },
      {

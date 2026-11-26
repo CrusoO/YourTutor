@@ -899,6 +899,11 @@ export type DeskCard = {
   others: DeskOther[];
   my_decision: (Pick<DeskOther, "severity" | "reason_code" | "checks" | "fix_notes"> & { decision: string; note: string | null }) | null;
   my_history: { decision: string; severity: DeskSeverity | null; created_at: string; changed_after_seeing?: boolean }[];
+  /** How the answer was checked: a machine (factory-stamped) or a person must do it. Absent from older API builds. */
+  check_tag?: "machine_checked" | "needs_person";
+  check_label?: string;
+  /** Plain-text description of a diagram the question needs (model-drafted items only). */
+  diagram_note?: string | null;
   /** Only when template approval is on: which sample of its question type this is, or null when it is not a sample. */
   template?: { template_id: string; sample_index: number; sample_count: number; questions: number } | null;
 };
