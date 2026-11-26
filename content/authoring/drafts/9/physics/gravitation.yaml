@@ -1,0 +1,506 @@
+class: 9
+subject: physics
+chapter: gravitation
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: universal_gravitation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The gravitational force between two masses is always"
+    correct: "attractive"
+    unit: ""
+    wrong:
+      - {text: "repulsive", mistake: "confuses gravity with the force between like charges"}
+      - {text: "attractive only for very large masses", mistake: "believes small masses do not attract"}
+      - {text: "zero between objects on the surface of Earth", mistake: "treats surface objects as shielded from gravity"}
+    explanation: "Gravitation is always an attraction between any two masses, although it is weak unless at least one mass is very large."
+    hints:
+      - "Gravity pulls masses together rather than pushing them apart."
+      - "Think about the direction the force acts on each mass."
+      - "Ask whether a small mass still interacts gravitationally."
+    diagram: null
+    confidence: high
+  - topic: universal_gravitation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "If the distance between two masses is doubled, the gravitational force between them becomes"
+    correct: "one quarter of its original value"
+    unit: ""
+    wrong:
+      - {text: "half its original value", mistake: "treats the force as inversely proportional to distance"}
+      - {text: "twice its original value", mistake: "believes larger separation increases the force"}
+      - {text: "the same as before", mistake: "assumes distance does not matter"}
+    explanation: "Gravitational force varies as one over the square of the distance, so doubling the distance divides the force by four."
+    hints:
+      - "The force depends on the square of the separation."
+      - "Double the distance and then square the factor it causes."
+      - "Think about how the denominator changes when the separation grows."
+    diagram: null
+    confidence: high
+  - topic: universal_gravitation
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why do you not feel an obvious gravitational pull toward a nearby desk?"
+    correct: "the desk's mass is small, so its pull on you is tiny"
+    unit: ""
+    wrong:
+      - {text: "desks do not attract anything with mass", mistake: "assumes only planets attract"}
+      - {text: "the desk pushes you away", mistake: "invents a repulsive force from furniture"}
+      - {text: "air between you and the desk blocks gravity", mistake: "believes air shields gravitational force"}
+    explanation: "Gravity between two bodies is proportional to both masses, and a desk's mass is far too small to produce a noticeable pull on a person."
+    hints:
+      - "Think about how the strength of the pull depends on the masses."
+      - "Compare the desk's mass with that of Earth."
+      - "Gravitational attraction exists between all masses, but its size varies."
+    diagram: null
+    confidence: high
+  - topic: universal_gravitation
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "At a distance 60 times Earth's radius from its centre, how does Earth's gravitational pull compare with its pull at the surface?"
+    correct: "about 1/3600 as strong"
+    unit: ""
+    wrong:
+      - {text: "about 1/60 as strong", mistake: "uses the distance ratio without squaring it"}
+      - {text: "about 60 times stronger", mistake: "reverses the inverse relation"}
+      - {text: "exactly the same", mistake: "assumes gravity does not weaken with altitude"}
+    explanation: "The distance is 60 times the radius, so the pull is one over 60 squared, or about one three-thousand-six-hundredth as strong."
+    hints:
+      - "Gravity depends on the square of the distance from the centre."
+      - "Find how many times larger the distance is than the radius."
+      - "Square that ratio and take its reciprocal."
+    diagram: null
+    confidence: high
+  - topic: universal_gravitation
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "The gravitational force between two bodies is 36 N when they are 2 m apart. What is the force, in newtons, when they are 6 m apart?"
+    correct: "4"
+    unit: "N"
+    wrong: []
+    explanation: "Tripling the separation divides the force by nine, so 36 N divided by 9 gives 4 N."
+    hints:
+      - "The force varies inversely with the square of the separation."
+      - "Find the ratio of the two separations and square it."
+      - "Divide the original force by the square of that ratio."
+    diagram: null
+    confidence: high
+  - topic: universal_gravitation
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A mass is moved from Earth's surface to a height equal to Earth's radius above the surface. Its weight there compared with its surface weight is"
+    correct: "one quarter"
+    unit: ""
+    wrong:
+      - {text: "one half", mistake: "uses the height ratio directly instead of the distance from the centre"}
+      - {text: "the same", mistake: "assumes weight depends only on the mass"}
+      - {text: "four times", mistake: "reverses the inverse square dependence"}
+    explanation: "At a height equal to the radius, the distance from the centre is twice the radius, so weight falls to one over two squared, which is one quarter."
+    hints:
+      - "Measure the distance from Earth's centre, not from the surface."
+      - "The new distance from the centre is twice the radius."
+      - "Apply the inverse square dependence to that ratio."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A stone is dropped from rest. Taking g as 9.8 m/s2, what is its speed in m/s after 3 s?"
+    correct: "29.4"
+    unit: "m/s"
+    wrong: []
+    explanation: "With zero initial speed, v = g t gives 9.8 m/s2 times 3 s, which is 29.4 m/s."
+    hints:
+      - "Starting from rest, the speed grows by g each second."
+      - "Multiply g by the time elapsed."
+      - "Ignore air resistance in this calculation."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Ignoring air resistance, how does the acceleration of a falling object change as it falls?"
+    correct: "it stays constant"
+    unit: ""
+    wrong:
+      - {text: "it increases steadily", mistake: "assumes acceleration grows with speed"}
+      - {text: "it decreases to zero", mistake: "assumes the object stops accelerating as it gains speed"}
+      - {text: "it depends on the object's mass", mistake: "believes heavier objects accelerate more"}
+    explanation: "Near Earth's surface the gravitational acceleration is nearly uniform, so a falling object gains speed at the same rate regardless of its mass."
+    hints:
+      - "Gravity pulls with the same strength at each point of a short fall."
+      - "Think about whether the speed changes the pull of gravity."
+      - "Compare the acceleration at the start and at the end of the fall."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A ball is dropped from rest from a height of 19.6 m. Taking g as 9.8 m/s2, how many seconds does it take to reach the ground?"
+    correct: "2"
+    unit: "s"
+    wrong: []
+    explanation: "From h = half g t squared, t squared equals 2h divided by g, which is 4, so t is 2 s."
+    hints:
+      - "Use the distance fallen from rest in terms of g and time."
+      - "Solve for the square of the time first."
+      - "Take the square root at the end."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A 1 kg stone and a 5 kg stone are dropped together from the same height. Ignoring air resistance, which statement is correct?"
+    correct: "they hit the ground at the same time"
+    unit: ""
+    wrong:
+      - {text: "the 5 kg stone hits first", mistake: "assumes heavier objects fall faster"}
+      - {text: "the 1 kg stone hits first", mistake: "assumes lighter objects fall faster through air"}
+      - {text: "the 5 kg stone hits with five times the speed", mistake: "links impact speed with mass"}
+    explanation: "All freely falling objects near Earth's surface share the same acceleration, so the stones land together when air resistance is ignored."
+    hints:
+      - "Compare the acceleration of each stone in free fall."
+      - "Mass changes the weight but not the acceleration in free fall."
+      - "Think about whether the two stones start from the same height."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A stone is thrown straight down at 5 m/s from a cliff and hits the ground after 2 s. Taking g as 9.8 m/s2, how far did it fall, in metres?"
+    correct: "29.6"
+    unit: "m"
+    wrong: []
+    explanation: "The displacement is 5 m/s times 2 s plus half of 9.8 m/s2 times 4 s squared, which gives 10 plus 19.6, a total of 29.6 m."
+    hints:
+      - "Start from the given initial downward speed rather than from rest."
+      - "Add the distance from the initial speed to the distance from gravity."
+      - "Use the displacement equation with a nonzero starting velocity."
+    diagram: null
+    confidence: high
+  - topic: free_fall
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A ball is thrown straight up at 10 m/s. Ignoring air resistance, what is its speed when it returns to the level of the thrower's hand?"
+    correct: "10 m/s"
+    unit: ""
+    wrong:
+      - {text: "zero", mistake: "assumes the ball stops at the top means it stops at the hand"}
+      - {text: "20 m/s", mistake: "adds the upward and downward speeds"}
+      - {text: "9.8 m/s", mistake: "uses g as the final speed"}
+    explanation: "Without air resistance the ball returns to the same height with the same speed it had at launch, but in the opposite direction."
+    hints:
+      - "Ignoring air resistance, speeds match at the same height on the way up and down."
+      - "Think about the motion as a symmetric up and down path."
+      - "Ask how the speed at the launch height compares with the return speed."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the weight, in newtons, of a 6 kg object on Earth, taking g as 9.8 m/s2?"
+    correct: "58.8"
+    unit: "N"
+    wrong: []
+    explanation: "Weight equals mass times g, so 6 kg times 9.8 m/s2 gives 58.8 N."
+    hints:
+      - "Weight is mass times the local gravitational acceleration."
+      - "Multiply the mass by the value of g."
+      - "The result is a force, so it is measured in newtons."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The SI unit used to measure mass is the"
+    correct: "kilogram"
+    unit: ""
+    wrong:
+      - {text: "newton", mistake: "confuses weight with mass"}
+      - {text: "metre per second", mistake: "confuses mass with speed"}
+      - {text: "pascal", mistake: "confuses mass with pressure"}
+    explanation: "Mass is measured in kilograms, a base unit of the SI system, whereas weight is a force measured in newtons."
+    hints:
+      - "Mass measures the amount of matter, not a force."
+      - "Think about the base unit of mass in the SI system."
+      - "Units of force are different from units of mass."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 12 kg bag is taken to the Moon, where the gravitational field strength is 1.6 N/kg. What is its weight there, in newtons?"
+    correct: "19.2"
+    unit: "N"
+    wrong: []
+    explanation: "Weight equals mass times field strength, so 12 kg times 1.6 N/kg gives 19.2 N."
+    hints:
+      - "Multiply the mass by the field strength given per kilogram."
+      - "The field strength already has units of newtons per kilogram."
+      - "Weight on the Moon depends on lunar gravity, not the Earth value."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A 10 kg object is taken from Earth to the Moon. Which statement about its mass on the Moon is correct?"
+    correct: "it is still 10 kg"
+    unit: ""
+    wrong:
+      - {text: "about 1.6 kg", mistake: "scales mass by the lunar gravity ratio"}
+      - {text: "about 16 N", mistake: "reports weight in place of mass"}
+      - {text: "zero, since there is less gravity", mistake: "assumes that mass depends on gravity"}
+    explanation: "Mass is the same everywhere, whereas weight depends on the local gravitational field, so the mass stays 10 kg on the Moon."
+    hints:
+      - "Mass measures the amount of matter in the object."
+      - "Only the weight changes when the local gravity changes."
+      - "Think about whether moving to another place changes how much matter there is."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "An object of mass 70 kg weighs 140 N on another planet. What is the gravitational field strength there, in N/kg?"
+    correct: "2"
+    unit: "N/kg"
+    wrong: []
+    explanation: "Field strength equals weight divided by mass, so 140 N divided by 70 kg is 2 N/kg."
+    hints:
+      - "Divide the weight by the mass."
+      - "The field strength is weight per unit mass."
+      - "Check the units: newtons divided by kilograms."
+    diagram: null
+    confidence: high
+  - topic: mass_and_weight
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A 5 kg object is weighed on a spring balance on Earth and then on a planet where the field strength is 3.2 N/kg. How does the reading change?"
+    correct: "33 N lower on the planet"
+    unit: ""
+    wrong:
+      - {text: "16 N lower on the planet", mistake: "uses the planet's weight as the change"}
+      - {text: "33 N higher on the planet", mistake: "reverses the direction of change"}
+      - {text: "no change, since the mass stays the same", mistake: "reads mass as the reading"}
+    explanation: "Earth gives 49 N and the planet gives 16 N, so the spring balance reads 33 N lower on the planet, because the mass is unchanged but the field is weaker."
+    hints:
+      - "Find the weight on Earth first, using the standard value of g."
+      - "Then find the weight on the planet with its field strength."
+      - "Subtract the two weights and note which one is larger."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A force of 200 N acts perpendicularly on an area of 4 m2. What is the pressure, in N/m2?"
+    correct: "50"
+    unit: "N/m2"
+    wrong: []
+    explanation: "Pressure equals force divided by area, so 200 N divided by 4 m2 gives 50 N/m2."
+    hints:
+      - "Pressure is force per unit area."
+      - "Divide the force by the area."
+      - "Check that the units come out as newtons per square metre."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Pressure is defined as"
+    correct: "the perpendicular force on a surface divided by the area"
+    unit: ""
+    wrong:
+      - {text: "the force multiplied by the area", mistake: "multiplies rather than divides"}
+      - {text: "the area divided by the force", mistake: "inverts the ratio"}
+      - {text: "the weight multiplied by the speed", mistake: "combines unrelated quantities"}
+    explanation: "Pressure is the normal force per unit area, so spreading the same force over a larger area reduces the pressure."
+    hints:
+      - "It is a ratio of a force to a surface size."
+      - "The force must act at right angles to the surface."
+      - "Think about which quantity goes on top of the ratio."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 60 kg person stands on one foot, and the contact area of that foot is 0.02 m2. Taking g as 9.8 m/s2, what is the pressure on the ground in N/m2?"
+    correct: "29400"
+    unit: "N/m2"
+    wrong: []
+    explanation: "The weight is 588 N, and 588 N divided by 0.02 m2 gives 29400 N/m2."
+    hints:
+      - "First find the person's weight from the mass."
+      - "Divide the weight by the contact area."
+      - "Remember that pressure is force per unit area."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A sharp nail and a blunt nail are each pushed into wood with the same force. Why does the sharp nail penetrate more easily?"
+    correct: "the same force acts on a smaller area, so the pressure is greater"
+    unit: ""
+    wrong:
+      - {text: "the sharp tip increases the force applied by the hand", mistake: "assumes the tip changes the push"}
+      - {text: "sharp nails have less mass than blunt ones", mistake: "explains penetration by mass alone"}
+      - {text: "the wood pushes back less on sharp nails", mistake: "assumes the wood's reaction depends on the tip"}
+    explanation: "Pressure equals force over area, so a smaller tip area produces a higher pressure with the same push, which lets the nail enter the wood."
+    hints:
+      - "Compare the area in contact with the wood at the tip."
+      - "Divide the push by the contact size to judge how hard the tip presses."
+      - "Think about what happens when the contact shrinks but the push stays the same."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A box of weight 300 N rests on a floor. Its base measures 0.5 m by 0.4 m. What pressure, in N/m2, does it exert on the floor?"
+    correct: "1500"
+    unit: "N/m2"
+    wrong: []
+    explanation: "The base area is 0.2 m2, so 300 N divided by 0.2 m2 gives 1500 N/m2."
+    hints:
+      - "Find the base area from its two side lengths."
+      - "Multiply the two sides together."
+      - "Divide the weight by that base area."
+    diagram: null
+    confidence: high
+  - topic: thrust_and_pressure
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A block of weight 40 N rests on a table. It is turned so that its contact area is halved while the weight stays the same. What happens to the pressure?"
+    correct: "it doubles"
+    unit: ""
+    wrong:
+      - {text: "it halves", mistake: "reverses the relation between area and pressure"}
+      - {text: "it stays the same", mistake: "assumes pressure depends only on weight"}
+      - {text: "it becomes four times greater", mistake: "squares the area change"}
+    explanation: "Pressure is force over area, so with the same force and half the area, the pressure is doubled."
+    hints:
+      - "Pressure depends on the force and the area in contact."
+      - "Keep the force fixed and see how the area change alters the ratio."
+      - "Consider what happens to a quotient when its divisor is made smaller."
+    diagram: null
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "An object floats in a liquid when"
+    correct: "the upthrust on it equals its weight"
+    unit: ""
+    wrong:
+      - {text: "its density is greater than the liquid's", mistake: "reverses which density makes an object float"}
+      - {text: "it has no mass at all", mistake: "confuses floating with weightlessness"}
+      - {text: "the upthrust on it is zero", mistake: "assumes floating needs no upward force"}
+    explanation: "A floating object is in equilibrium, so the upthrust from the liquid balances its weight exactly."
+    hints:
+      - "A floating object is in equilibrium."
+      - "Think about which two forces must balance on the floating object."
+      - "Compare the upward force with the downward force on the object."
+    diagram: null
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "An object displaces 0.002 m3 of water when fully submerged. Using water density 1000 kg/m3 and g as 9.8 m/s2, what is the upthrust, in newtons?"
+    correct: "19.6"
+    unit: "N"
+    wrong: []
+    explanation: "The displaced water has mass 2 kg, so its weight, and therefore the upthrust, is 2 kg times 9.8 m/s2, which is 19.6 N."
+    hints:
+      - "Find the mass of the displaced water from its density and volume."
+      - "Multiply that mass by g."
+      - "The upthrust equals the weight of the displaced fluid."
+    diagram: null
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A solid block of volume 0.5 m3 is fully submerged in water of density 1000 kg/m3. Using g as 9.8 m/s2, what is the upthrust, in newtons?"
+    correct: "4900"
+    unit: "N"
+    wrong: []
+    explanation: "The displaced water has mass 500 kg, so the upthrust is 500 kg times 9.8 m/s2, which is 4900 N."
+    hints:
+      - "The submerged volume equals the displaced volume."
+      - "Multiply the density, the volume and g together."
+      - "The answer is the weight of the water displaced."
+    diagram: "A rectangular block drawn fully below a horizontal water surface line, with an arrow pointing up labelled upthrust and an arrow pointing down labelled weight."
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "An iron block and a wooden block have equal volumes and are both fully submerged in water. Which statement is correct?"
+    correct: "they experience the same upthrust"
+    unit: ""
+    wrong:
+      - {text: "the iron block experiences more upthrust", mistake: "links upthrust with density or weight"}
+      - {text: "the wooden block experiences more upthrust", mistake: "assumes lighter objects feel more lift"}
+      - {text: "upthrust depends mainly on the shape of the block", mistake: "ignores the volume of fluid displaced"}
+    explanation: "Upthrust equals the weight of the displaced fluid, which depends on the displaced volume and the fluid density; equal volumes give equal upthrust."
+    hints:
+      - "Upthrust depends on the fluid displaced by the object."
+      - "Both blocks displace the same volume of water here."
+      - "The material of the block does not enter the upthrust formula directly."
+    diagram: null
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A cylinder with base area 0.01 m2 and height 0.2 m is fully submerged in a liquid of density 500 kg/m3. Using g as 9.8 m/s2, what is the upthrust, in newtons?"
+    correct: "9.8"
+    unit: "N"
+    wrong: []
+    explanation: "The volume is 0.002 m3, so the displaced liquid has mass 1 kg and the upthrust is 1 kg times 9.8 m/s2, which is 9.8 N."
+    hints:
+      - "Find the cylinder's volume from its base area and height."
+      - "Multiply the fluid density by that volume to get the mass displaced."
+      - "Multiply the resulting mass by g."
+    diagram: "An upright cylinder fully below a liquid surface line, with an upward arrow labelled upthrust and a downward arrow labelled weight, and its base and height dimensions marked."
+    confidence: high
+  - topic: buoyancy_and_archimedes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A boat floats on a lake and then more cargo is loaded onto it. What happens to the volume of water the boat displaces?"
+    correct: "it increases until the upthrust matches the new total weight"
+    unit: ""
+    wrong:
+      - {text: "it decreases because the boat sits higher", mistake: "reverses the link between load and displacement"}
+      - {text: "it stays the same because the boat is already floating", mistake: "assumes floating always fixes the displaced volume"}
+      - {text: "it becomes zero once the boat is loaded", mistake: "assumes loaded boats displace no water"}
+    explanation: "A floating boat displaces water whose weight equals its total weight, so adding cargo makes it sink until the greater displaced volume supplies enough upthrust."
+    hints:
+      - "A floating boat's upthrust must equal its total weight."
+      - "Consider what happens to the total weight after cargo is added."
+      - "Think about how much water must be pushed aside for the upthrust to grow."
+    diagram: "Side view of a boat on a horizontal water surface line, with cargo added above the deck and the waterline drawn lower than before."
+    confidence: low

@@ -1,0 +1,611 @@
+class: 9
+subject: physics
+chapter: work_and_energy
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: work_done
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A force of 10 N moves a box 5 m in the direction of the force. How much work is done, in joules?"
+    correct: "50"
+    unit: "J"
+    wrong: []
+    explanation: "Work equals force times displacement in the same direction, so 10 N times 5 m gives 50 J."
+    hints:
+      - "Work is force multiplied by the displacement along the force."
+      - "Multiply the force by the distance moved."
+      - "Check that the unit comes out as newton metres, which is the joule."
+    diagram: null
+    confidence: high
+  - topic: work_done
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A force does no work on an object when"
+    correct: "the force acts perpendicular to the displacement"
+    unit: ""
+    wrong:
+      - {text: "the force acts in the direction of motion", mistake: "assumes any force always does work"}
+      - {text: "the object moves a long distance", mistake: "ignores the direction of the force"}
+      - {text: "the force is very large", mistake: "ties work to magnitude only"}
+    explanation: "Work is force times displacement times the cosine of the angle between them, and a perpendicular force has a zero component along the motion."
+    hints:
+      - "Look at the angle between the force and the displacement."
+      - "Work depends on the component of the force along the motion."
+      - "A right angle means the cosine of the angle is zero."
+    diagram: null
+    confidence: high
+  - topic: work_done
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 20 N force acts at 60 degrees above the horizontal and moves a trolley 4 m horizontally. What work is done, in joules? (cos 60 degrees is 0.5)"
+    correct: "40"
+    unit: "J"
+    wrong: []
+    explanation: "The horizontal component is 20 N times 0.5, which is 10 N, and 10 N times 4 m gives 40 J."
+    hints:
+      - "Only the component of the force along the displacement does work."
+      - "The horizontal component is the force times the cosine of the angle."
+      - "Multiply that component by the horizontal distance."
+    diagram: null
+    confidence: high
+  - topic: work_done
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A person carries a heavy bag across a level floor at constant height. What is the work done by the lifting force on the bag?"
+    correct: "zero, since the lifting force is perpendicular to the horizontal motion"
+    unit: ""
+    wrong:
+      - {text: "positive, because the person is exerting effort", mistake: "treats muscle effort as work done on the bag"}
+      - {text: "negative, because the bag resists the motion", mistake: "assigns the sign from resistance"}
+      - {text: "equal to the bag's weight times the distance", mistake: "uses the weight along the horizontal path"}
+    explanation: "The lifting force points up and the bag moves sideways, so the force does no work on the bag."
+    hints:
+      - "Compare the direction of the lifting force with the direction of motion."
+      - "The motion here is horizontal while the lift is vertical."
+      - "Work is zero when the force has no component along the displacement."
+    diagram: null
+    confidence: high
+  - topic: work_done
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A block slides 12 m across a rough floor while friction of 6 N opposes its motion. What work is done by friction, in joules?"
+    correct: "-72"
+    unit: "J"
+    wrong: []
+    explanation: "Friction acts opposite to the displacement, so the work is negative: minus 6 N times 12 m equals minus 72 J."
+    hints:
+      - "Friction and the displacement point in opposite directions here."
+      - "The sign of the work follows the direction of the force relative to the motion."
+      - "Multiply the friction magnitude by the distance."
+    diagram: null
+    confidence: high
+  - topic: work_done
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A 2 kg block is lifted vertically by 3 m at constant speed. Taking g as 9.8 m/s2, what work does the lifting force do on the block?"
+    correct: "58.8 J"
+    unit: ""
+    wrong:
+      - {text: "6 J", mistake: "omits the gravitational acceleration from the calculation"}
+      - {text: "19.6 J", mistake: "forgets the height and uses only the weight"}
+      - {text: "-58.8 J", mistake: "assigns a negative sign to the lift"}
+    explanation: "At constant speed the lift equals the weight, so 2 kg times 9.8 m/s2 gives 19.6 N, and 19.6 N times 3 m gives 58.8 J of positive work."
+    hints:
+      - "At constant speed the lifting force equals the weight."
+      - "Use the weight times the vertical displacement."
+      - "The lift and the displacement point in the same direction, so think about the sign carefully."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Energy stored in a stretched rubber band is called"
+    correct: "elastic potential energy"
+    unit: ""
+    wrong:
+      - {text: "kinetic energy", mistake: "treats stored energy as motion energy"}
+      - {text: "chemical energy", mistake: "confuses stored energy in fuels with stretched materials"}
+      - {text: "thermal energy", mistake: "assumes all stored energy is heat"}
+    explanation: "A stretched elastic material stores energy because of its deformation, and this stored energy is elastic potential energy."
+    hints:
+      - "Think about energy stored by changing the band's shape."
+      - "Consider what makes the band return to its original shape."
+      - "Stored energy here is not motion energy."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an electric fan, which energy form is the main useful output?"
+    correct: "kinetic energy of the blades"
+    unit: ""
+    wrong:
+      - {text: "light energy from the blades", mistake: "assumes the fan produces light"}
+      - {text: "nuclear energy released in the motor", mistake: "confuses electric motors with nuclear reactors"}
+      - {text: "sound energy as its only output", mistake: "ignores the motion of the blades"}
+    explanation: "The electric motor converts electrical energy into the motion of the blades, which is kinetic energy, along with some unwanted thermal and sound energy."
+    hints:
+      - "Think about the form of energy that makes the blades turn."
+      - "The useful output of a fan is the motion of its parts."
+      - "Ask what the blades gain from the electricity."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A kicked ball slows down and stops on grass. Where does its kinetic energy go?"
+    correct: "into thermal energy and sound in the grass and air"
+    unit: ""
+    wrong:
+      - {text: "it disappears completely", mistake: "believes energy can be destroyed"}
+      - {text: "it becomes the ball's extra mass", mistake: "turns energy into mass"}
+      - {text: "it all becomes potential energy of the ball", mistake: "assumes the ball gains height"}
+    explanation: "Friction and air resistance convert the kinetic energy into thermal energy and sound, so the energy is transferred to the surroundings rather than lost."
+    hints:
+      - "Think about the surfaces that rub and the air that is disturbed."
+      - "Energy changes form rather than vanishing."
+      - "Consider what the rubbing surfaces and the disturbed air experience."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A battery lights a bulb. Which energy change takes place in the bulb?"
+    correct: "electrical energy changes into light and thermal energy"
+    unit: ""
+    wrong:
+      - {text: "light energy changes into electrical energy", mistake: "reverses the direction of the energy change"}
+      - {text: "electrical energy is destroyed in the filament", mistake: "assumes energy can be destroyed"}
+      - {text: "chemical energy is created inside the bulb", mistake: "believes new energy appears in the bulb"}
+    explanation: "The bulb takes in electrical energy and gives out light and thermal energy, so the energy changes form rather than being created or destroyed."
+    hints:
+      - "Consider what the electricity from the battery supplies to the bulb."
+      - "The bulb is a receiver of energy rather than a source of it."
+      - "Think about the forms energy takes when the filament heats up and glows."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A pendulum swings back and forth and gradually comes to rest. Which statement about its energy is correct?"
+    correct: "its total energy stays the same, but some of it transfers to thermal energy and sound"
+    unit: ""
+    wrong:
+      - {text: "its total energy increases with each swing", mistake: "assumes motion creates energy"}
+      - {text: "its kinetic energy remains constant throughout", mistake: "ignores that the swing slows down"}
+      - {text: "its energy is destroyed completely when it stops", mistake: "believes energy can be destroyed"}
+    explanation: "Energy is conserved overall; the pendulum's mechanical energy is gradually converted to thermal energy and sound in the air and support."
+    hints:
+      - "Ask where the energy goes when a swinging object loses speed."
+      - "Compare the energy at the start with the energy at the end, including the surroundings."
+      - "Think about what the air and the support experience during each swing."
+    diagram: null
+    confidence: high
+  - topic: forms_of_energy
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A solar panel converts sunlight into electricity that charges a battery. Which chain of energy changes is the best description?"
+    correct: "light, then electrical, then chemical energy stored in the battery"
+    unit: ""
+    wrong:
+      - {text: "chemical, then electrical, then light", mistake: "reverses the order of the chain"}
+      - {text: "light, then sound, then chemical", mistake: "inserts a sound step that is not involved"}
+      - {text: "electrical, then light, then thermal only", mistake: "reverses the first step and ignores storage"}
+    explanation: "Sunlight is the input, the panel produces electricity, and the battery stores it as chemical energy during charging."
+    hints:
+      - "Start from the energy source that arrives at the panel."
+      - "Each step converts one form into the next, ending in storage."
+      - "Think about what the battery does with the electricity it receives."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 2 kg ball moves at 3 m/s. What is its kinetic energy, in joules?"
+    correct: "9"
+    unit: "J"
+    wrong: []
+    explanation: "Kinetic energy is half times the mass times the square of the speed, so half of 2 kg times 9 m2/s2 gives 9 J."
+    hints:
+      - "Use one half times the mass times the square of the speed."
+      - "Square the speed before multiplying."
+      - "Multiply everything together at the end."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "If the speed of an object doubles, its kinetic energy"
+    correct: "becomes four times as large"
+    unit: ""
+    wrong:
+      - {text: "doubles", mistake: "treats kinetic energy as proportional to speed"}
+      - {text: "becomes half as large", mistake: "assumes the energy falls as speed rises"}
+      - {text: "does not change", mistake: "believes speed does not affect energy"}
+    explanation: "Kinetic energy is proportional to speed squared, so doubling the speed multiplies the energy by two squared, which is four."
+    hints:
+      - "Kinetic energy depends on speed in a squared way."
+      - "Write the energy with the speed raised to a power."
+      - "Consider what squaring two gives."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A cricket ball of mass 0.4 kg moves at 20 m/s. What is its kinetic energy, in joules?"
+    correct: "80"
+    unit: "J"
+    wrong: []
+    explanation: "Kinetic energy equals 0.5 times 0.4 kg times 400 m2/s2, which gives 80 J."
+    hints:
+      - "Square the speed first."
+      - "Multiply the squared speed by the mass."
+      - "Apply the half factor before giving the result."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two cars of masses 1000 kg and 2000 kg travel at the same speed. Which car has the larger kinetic energy?"
+    correct: "the 2000 kg car, which has twice the energy"
+    unit: ""
+    wrong:
+      - {text: "the 1000 kg car", mistake: "judges lighter objects as more energetic"}
+      - {text: "both have equal kinetic energy", mistake: "ignores the mass"}
+      - {text: "neither has kinetic energy unless it is accelerating", mistake: "links kinetic energy with acceleration"}
+    explanation: "At equal speeds kinetic energy is proportional to mass, so the heavier 2000 kg car has twice the energy of the 1000 kg car."
+    hints:
+      - "Kinetic energy is proportional to the mass when the speed is fixed."
+      - "Compare the two masses while the speed stays the same."
+      - "Kinetic energy does not depend on whether the car is accelerating."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A 1200 kg car slows from 15 m/s to 5 m/s. By how many joules does its kinetic energy decrease?"
+    correct: "120000"
+    unit: "J"
+    wrong: []
+    explanation: "The energy falls from 135000 J to 15000 J, a decrease of 120000 J."
+    hints:
+      - "Compute the kinetic energy at each speed separately."
+      - "Subtract the smaller energy from the larger one."
+      - "Use half the mass in each calculation."
+    diagram: null
+    confidence: high
+  - topic: kinetic_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A bullet of mass 0.01 kg moves at 300 m/s, and a stone of mass 0.05 kg moves at 60 m/s. Which has the greater kinetic energy?"
+    correct: "the bullet, with 450 J"
+    unit: ""
+    wrong:
+      - {text: "the stone, since it has more mass", mistake: "judges energy by mass alone"}
+      - {text: "they have equal energy", mistake: "assumes the two speeds give equal energy"}
+      - {text: "the bullet, with 1.5 J", mistake: "uses speed instead of speed squared"}
+    explanation: "The bullet has 0.5 times 0.01 kg times 90000 m2/s2, which is 450 J, while the stone has 90 J."
+    hints:
+      - "Use half times mass times speed squared for both objects."
+      - "Compare the two results directly."
+      - "Speed enters the formula squared, so it matters more than mass here."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 5 kg object is raised 4 m above the ground. Taking g as 9.8 m/s2, what is its gravitational potential energy, in joules?"
+    correct: "196"
+    unit: "J"
+    wrong: []
+    explanation: "Potential energy equals m g h, so 5 kg times 9.8 m/s2 times 4 m gives 196 J."
+    hints:
+      - "Multiply mass, gravity and height together."
+      - "Measure the height from the ground as the reference level."
+      - "Use the product of the three quantities."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Gravitational potential energy of an object depends on"
+    correct: "its mass, the gravitational field and its height above a reference level"
+    unit: ""
+    wrong:
+      - {text: "its speed only", mistake: "links potential energy with motion"}
+      - {text: "its colour and surface finish", mistake: "uses appearance as a factor"}
+      - {text: "its temperature only", mistake: "links potential energy with heat"}
+    explanation: "Gravitational potential energy is mass times g times height above a chosen reference level, so it depends on those three things."
+    hints:
+      - "Think about what sets how much energy is stored by lifting."
+      - "Three quantities multiply together in the formula."
+      - "Consider what must be chosen before you can measure height."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 2.5 kg object is lifted 4 m vertically. Taking g as 9.8 m/s2, how many joules of gravitational potential energy does it gain?"
+    correct: "98"
+    unit: "J"
+    wrong: []
+    explanation: "The gain is 2.5 kg times 9.8 m/s2 times 4 m, which is 98 J."
+    hints:
+      - "The gain depends on the change in height only."
+      - "Multiply the mass, g and the height change."
+      - "Take the product in that order."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A ball is released from height h and falls. At a point halfway down, how does its gravitational potential energy compare with its starting value?"
+    correct: "half its starting value"
+    unit: ""
+    wrong:
+      - {text: "equal to its starting value", mistake: "assumes energy stays fixed during the fall"}
+      - {text: "twice its starting value", mistake: "assumes height increases the energy as it falls"}
+      - {text: "zero, because it is in motion", mistake: "treats moving objects as having no potential energy"}
+    explanation: "At halfway down the height is half of the starting height, so the gravitational potential energy is half its starting value."
+    hints:
+      - "Potential energy is proportional to the height above the reference level."
+      - "Think about how the height changes at the halfway point."
+      - "The starting height is the reference for the comparison."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A 0.5 kg ball slides from the top of a 10 m high slope to a point 2 m high. Taking g as 9.8 m/s2, by how many joules does its gravitational potential energy decrease?"
+    correct: "39.2"
+    unit: "J"
+    wrong: []
+    explanation: "The height drops by 8 m, so the energy decreases by 0.5 kg times 9.8 m/s2 times 8 m, which is 39.2 J."
+    hints:
+      - "Find the drop in height first."
+      - "The energy change depends only on the change in height."
+      - "Multiply the mass, g and the drop in height."
+    diagram: null
+    confidence: high
+  - topic: potential_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A stone of mass m is raised through a height h on Earth and then, on a planet with half Earth's gravity, through the same height h. How does the gain in potential energy on the planet compare with Earth?"
+    correct: "half as large"
+    unit: ""
+    wrong:
+      - {text: "twice as large", mistake: "inverts the dependence on gravity"}
+      - {text: "the same", mistake: "ignores the change in gravity"}
+      - {text: "a quarter as large", mistake: "squares the gravity ratio"}
+    explanation: "The gain is m g h, and the planet's gravity is half of Earth's, so the potential energy gain is half as large."
+    hints:
+      - "Potential energy gain equals mass times gravity times height."
+      - "Only the gravity term changes between the two cases."
+      - "Compare the two gravity values as a ratio."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "As a stone falls freely with no air resistance and its height decreases, its kinetic energy"
+    correct: "increases"
+    unit: ""
+    wrong:
+      - {text: "decreases", mistake: "assumes kinetic energy falls as height falls"}
+      - {text: "stays constant at every instant", mistake: "believes motion does not change energy"}
+      - {text: "becomes zero during the fall", mistake: "confuses the start of the fall with its finish"}
+    explanation: "As the stone falls, its potential energy is converted into kinetic energy, so the kinetic energy rises while the total stays constant."
+    hints:
+      - "Think about what happens to the speed as the stone drops."
+      - "Energy is traded between two forms during the fall."
+      - "Consider the kinetic energy formula with a growing speed."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The law of conservation of energy states that energy"
+    correct: "cannot be created or destroyed, only transformed"
+    unit: ""
+    wrong:
+      - {text: "is always lost in every motion", mistake: "assumes friction removes energy permanently from the universe"}
+      - {text: "can be created inside a closed system", mistake: "believes systems generate energy"}
+      - {text: "is conserved only for objects at rest", mistake: "limits the law to stationary bodies"}
+    explanation: "The total energy of an isolated system stays the same; energy can move between forms but is never made or lost from nothing."
+    hints:
+      - "Think about the energy in an isolated system over time."
+      - "The law is about the total energy in a process."
+      - "Ask whether the total can increase or decrease for a closed system."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A pendulum bob of mass 0.5 kg is released from rest at a height of 2.5 m above its lowest point. Taking g as 9.8 m/s2, what is its speed at the lowest point, in m/s?"
+    correct: "7"
+    unit: "m/s"
+    wrong: []
+    explanation: "The bob loses 0.5 times 9.8 times 2.5 J of potential energy, which becomes kinetic energy, so v squared is 49 and v is 7 m/s."
+    hints:
+      - "Set the potential energy lost equal to the kinetic energy gained."
+      - "The mass cancels when both sides are divided by it."
+      - "Solve for the speed by taking a square root at the end."
+    diagram: "A pendulum drawn as a string from a fixed pivot at the top to a bob released from a point 2.5 m above a dashed horizontal line marking the lowest point."
+    confidence: high
+  - topic: conservation_of_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A roller coaster starts from rest at the top of a hill. At the bottom of the hill, which description of its energy is correct?"
+    correct: "its kinetic energy equals the potential energy it lost"
+    unit: ""
+    wrong:
+      - {text: "its total energy is greater than at the top", mistake: "assumes energy is added by the track"}
+      - {text: "its potential energy is greater than at the top", mistake: "reverses the height change"}
+      - {text: "it has no energy because it is at ground level", mistake: "takes zero height as zero energy in every case"}
+    explanation: "Without losses the coaster's total energy is conserved, so the kinetic energy at the bottom equals the potential energy lost on the way down."
+    hints:
+      - "Compare the energy at the top with the energy at the bottom."
+      - "Ignore friction in this comparison."
+      - "Consider where the potential energy went as the coaster descended."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_energy
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A 2 kg ball falls from rest from a height of 10 m onto the ground with no energy losses. Taking g as 9.8 m/s2, how many joules of kinetic energy does it have just before landing?"
+    correct: "196"
+    unit: "J"
+    wrong: []
+    explanation: "The ball loses 2 kg times 9.8 m/s2 times 10 m, which is 196 J, and all of it is converted into kinetic energy just before landing."
+    hints:
+      - "All the potential energy lost turns into kinetic energy."
+      - "Find the potential energy at the top relative to the ground."
+      - "Multiply the mass, g and the height."
+    diagram: "A vertical arrow from a point 10 m above the ground down to the ground, with a small ball drawn at the top of the arrow."
+    confidence: high
+  - topic: conservation_of_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A swinging pendulum loses a little energy on every swing. Which description is most accurate?"
+    correct: "its mechanical energy changes into thermal energy and sound, and the total energy is still conserved"
+    unit: ""
+    wrong:
+      - {text: "the pendulum creates energy on each swing", mistake: "assumes the motion produces new energy"}
+      - {text: "the total energy is destroyed on each swing", mistake: "believes energy can be destroyed"}
+      - {text: "its kinetic energy never changes", mistake: "ignores that the swing gets smaller"}
+    explanation: "Friction and air resistance convert mechanical energy to thermal energy and sound, so the swings shrink while the total energy stays conserved."
+    hints:
+      - "Ask what happens to the mechanical energy when friction and air act."
+      - "Consider where the lost energy ends up in the surroundings."
+      - "The total energy of an isolated system does not drop to zero."
+    diagram: "A pendulum with a bob that reaches slightly lower heights on each successive swing, drawn as a series of smaller arcs."
+    confidence: medium
+  - topic: power
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A motor does 600 J of work in 3 s. What is its power, in watts?"
+    correct: "200"
+    unit: "W"
+    wrong: []
+    explanation: "Power equals work over time, so 600 J divided by 3 s gives 200 W."
+    hints:
+      - "Power is the work done divided by the time taken."
+      - "Divide the energy by the number of seconds."
+      - "Joules per second is the unit of power."
+    diagram: null
+    confidence: high
+  - topic: power
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The SI unit of power is the"
+    correct: "watt"
+    unit: ""
+    wrong:
+      - {text: "joule", mistake: "confuses power with energy"}
+      - {text: "newton", mistake: "confuses power with force"}
+      - {text: "pascal", mistake: "confuses power with pressure"}
+    explanation: "Power is work per unit time, measured in watts, where one watt equals one joule per second."
+    hints:
+      - "Power is the rate at which energy is transferred."
+      - "It is energy per second."
+      - "The unit is named after an engineer who worked on steam power."
+    diagram: null
+    confidence: high
+  - topic: power
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A lift motor raises a 500 kg load through 12 m in 20 s. Taking g as 9.8 m/s2, what is the average power, in watts?"
+    correct: "2940"
+    unit: "W"
+    wrong: []
+    explanation: "The work is 500 kg times 9.8 m/s2 times 12 m, which is 58800 J, and dividing by 20 s gives 2940 W."
+    hints:
+      - "Find the work done against gravity first."
+      - "Work done against gravity is weight times height."
+      - "Divide the total work by the time taken."
+    diagram: null
+    confidence: high
+  - topic: power
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two machines do the same amount of work, but machine X finishes in half the time that machine Y takes. Which statement is correct?"
+    correct: "machine X has twice the power of machine Y"
+    unit: ""
+    wrong:
+      - {text: "machine Y has twice the power of machine X", mistake: "reverses the ratio of work to time"}
+      - {text: "both machines have equal power", mistake: "ignores the difference in time"}
+      - {text: "machine X does more work than machine Y", mistake: "confuses speed with the amount of work"}
+    explanation: "With equal work done in half the time, machine X's power is double that of machine Y."
+    hints:
+      - "Power is work divided by time."
+      - "Halving the time changes the value of the ratio."
+      - "Compare the two ratios with the same work in each case."
+    diagram: null
+    confidence: high
+  - topic: power
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A 50 kg climber rises 20 m up a rock face in 40 s. Taking g as 9.8 m/s2, what is the average power, in watts?"
+    correct: "245"
+    unit: "W"
+    wrong: []
+    explanation: "The work is 50 kg times 9.8 m/s2 times 20 m, which is 9800 J, so the power is 9800 divided by 40, or 245 W."
+    hints:
+      - "Compute the work done against gravity as weight times height."
+      - "Divide that work by the time taken."
+      - "Keep track of the units: newtons, metres and seconds."
+    diagram: null
+    confidence: high
+  - topic: power
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A pump lifts a fixed mass of water in a fixed time. If the lifting height is doubled, what happens to the power the pump needs?"
+    correct: "it doubles"
+    unit: ""
+    wrong:
+      - {text: "it halves", mistake: "inverts the relation between height and work"}
+      - {text: "it stays the same", mistake: "assumes height does not change the work"}
+      - {text: "it quadruples", mistake: "squares the height in the work formula"}
+    explanation: "Work against gravity is proportional to height, so doubling the height doubles the work per unit time and therefore the power."
+    hints:
+      - "Work done against gravity depends on mass, g and height."
+      - "Power is that work divided by the time, which is fixed here."
+      - "Consider how the work changes when only the height changes."
+    diagram: null
+    confidence: high

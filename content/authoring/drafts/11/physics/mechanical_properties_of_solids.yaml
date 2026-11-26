@@ -1,0 +1,305 @@
+class: 11
+subject: physics
+chapter: mechanical_properties_of_solids
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: stress_and_strain
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the SI unit of stress?"
+    correct: "pascal"
+    unit: ""
+    wrong:
+      - {text: "newton", mistake: "confuses stress with force"}
+      - {text: "metre", mistake: "uses a length unit for a quantity that is force per area"}
+      - {text: "joule", mistake: "uses the unit of energy for stress"}
+    explanation: "Stress is force per unit area, measured in newtons per square metre, which is the pascal."
+    hints:
+      - "Stress is force divided by the area over which it acts."
+      - "Force is measured in newtons and area in square metres."
+      - "The unit is named after a scientist who studied pressure."
+    diagram: null
+    confidence: high
+  - topic: stress_and_strain
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A force of 20 N acts uniformly over a cross-sectional area of 0.5 m^2. What is the stress in pascals?"
+    correct: "40"
+    unit: "Pa"
+    wrong: []
+    explanation: "Stress is force divided by area, which is 20 / 0.5 = 40 Pa."
+    hints:
+      - "Stress equals force divided by the area it acts over."
+      - "Divide the force by the area directly."
+      - "The result is in pascals with no further conversion."
+    diagram: null
+    confidence: high
+  - topic: stress_and_strain
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A wire carries a load F through a cross-sectional area A. Which change doubles the stress in the wire?"
+    correct: "halving the cross-sectional area while the load stays the same"
+    unit: ""
+    wrong:
+      - {text: "doubling the cross-sectional area while the load stays the same", mistake: "treats stress as proportional to the area"}
+      - {text: "doubling the length of the wire", mistake: "thinks the length of the wire changes the stress"}
+      - {text: "doubling the load and the area together", mistake: "assumes the stress changes in the same way as both quantities"}
+    explanation: "Stress is F divided by A. Halving A while keeping F fixed doubles the stress."
+    hints:
+      - "Stress is force divided by area."
+      - "Ask what happens to a quotient when its denominator shrinks."
+      - "The length of the wire does not appear in the definition of stress."
+    diagram: null
+    confidence: high
+  - topic: stress_and_strain
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A steel wire of original length 2 m is stretched by 0.5 mm. What is its longitudinal strain, written as a plain decimal?"
+    correct: "0.00025"
+    unit: ""
+    wrong: []
+    explanation: "Strain is the change in length divided by the original length. With 0.5 mm = 0.0005 m, the strain is 0.0005 / 2 = 0.00025."
+    hints:
+      - "Strain is the change in length divided by the original length."
+      - "Convert the millimetres to metres before dividing."
+      - "Divide the extension by the original length once both are in metres."
+    diagram: null
+    confidence: high
+  - topic: stress_and_strain
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A wire is stretched within its elastic limit. Which expression gives the elastic energy stored per unit volume?"
+    correct: "one half times stress times strain"
+    unit: ""
+    wrong:
+      - {text: "stress times strain", mistake: "forgets the factor of one half from the triangular area under the graph"}
+      - {text: "strain divided by stress", mistake: "inverts the relationship between stress and strain"}
+      - {text: "stress squared", mistake: "confuses the dimensions of energy density with those of stress"}
+    explanation: "The stress-strain line is straight up to the elastic limit. The stored energy per unit volume is the triangular area under it, one half stress times strain."
+    hints:
+      - "The stress-strain relation is a straight line up to the elastic limit."
+      - "The area under a straight line from the origin is a triangle."
+      - "Use half of base times height on the stress-strain plot."
+    diagram: null
+    confidence: high
+  - topic: stress_and_strain
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A material follows a straight stress-strain line up to a stress of 200 MPa. Its Young's modulus is 200 GPa. What is the strain at that stress, as a plain decimal?"
+    correct: "0.001"
+    unit: ""
+    wrong: []
+    explanation: "Young's modulus is stress divided by strain, so the strain is 200 MPa / 200 GPa = 200 times 10^6 / 200 times 10^9 = 0.001."
+    hints:
+      - "Young's modulus is the ratio of stress to strain."
+      - "Rearrange the modulus relation to isolate the strain."
+      - "Put both stress and modulus in pascals before dividing."
+    diagram: null
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "According to Hooke's law, within the elastic limit, the extension of a spring is:"
+    correct: "proportional to the applied force"
+    unit: ""
+    wrong:
+      - {text: "inversely proportional to the applied force", mistake: "inverts the relation between force and extension"}
+      - {text: "independent of the applied force", mistake: "thinks the extension is set only by the material"}
+      - {text: "proportional to the square of the applied force", mistake: "assumes the relation is non-linear"}
+    explanation: "Hooke's law states that within the elastic limit the extension is directly proportional to the applied force, so the graph is a straight line through the origin."
+    hints:
+      - "The law describes a linear relationship."
+      - "Plot the extension against the load to visualise it."
+      - "Look for a straight line passing through the origin on that graph."
+    diagram: null
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A spring of spring constant 200 N/m is stretched by 0.05 m. What force in newtons is needed?"
+    correct: "10"
+    unit: "N"
+    wrong: []
+    explanation: "Hooke's law gives F = k x = 200 times 0.05 = 10 N."
+    hints:
+      - "Hooke's law says the force equals the constant times the extension."
+      - "Multiply the spring constant by the extension."
+      - "Keep the units consistent, with newtons per metre multiplied by metres."
+    diagram: "A helical spring hanging vertically from a fixed support with a mass attached at its lower end. The extension beyond the natural length is marked on the spring."
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A wire of cross-sectional area 1 times 10^-6 m^2 and length 2 m is stretched by 1 mm under a load of 100 N. What is its Young's modulus in gigapascals?"
+    correct: "200"
+    unit: "GPa"
+    wrong: []
+    explanation: "Stress is 100 / 10^-6 = 10^8 Pa and strain is 0.001 / 2 = 5 times 10^-4. Young's modulus is 2 times 10^11 Pa, which is 200 GPa."
+    hints:
+      - "Young's modulus is stress divided by strain."
+      - "Compute the stress from the load and the area, and the strain from the extension and the length."
+      - "Convert the final answer from pascals to gigapascals."
+    diagram: null
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two identical springs, each of stiffness k, are joined end to end in series. What is the effective stiffness of the combination?"
+    correct: "half of k"
+    unit: ""
+    wrong:
+      - {text: "2k", mistake: "adds the stiffnesses as if the springs were in parallel"}
+      - {text: "k", mistake: "ignores the second spring completely"}
+      - {text: "k squared", mistake: "multiplies the stiffnesses instead of combining them correctly"}
+    explanation: "In series the same force passes through each spring and the extensions add. The effective stiffness is k over 2, which is half of k."
+    hints:
+      - "In series, the same force passes through each spring."
+      - "The total extension is the sum of the extensions of the two springs."
+      - "Stiffness is the reciprocal of the total flexibility."
+    diagram: null
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A rod of original length 1 m and diameter 2 mm, with Young's modulus 200 GPa, is stretched by 0.1 mm. Using pi as 3.14, what force in newtons is applied?"
+    correct: "62.8"
+    unit: "N"
+    wrong: []
+    explanation: "The area is pi times the radius squared, with radius 1 mm, so A = 3.14 times 10^-6 m^2. The strain is 0.1 / 1000 = 10^-4 and the stress is 2 times 10^7 Pa. The force is stress times area, about 62.8 N."
+    hints:
+      - "The cross-sectional area is pi times the radius squared, and the radius is half the diameter."
+      - "Stress equals Young's modulus times strain."
+      - "Multiply the stress by the area to get the force."
+    diagram: "A horizontal rod of length 1 m with a circular cross-section 2 mm across, shown as an enlarged end view. An arrow at each end pulls the rod outward."
+    confidence: high
+  - topic: hookes_law_elasticity
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A wire obeying Hooke's law is pulled with the same force, but its length is doubled and its radius is doubled. How does its extension change?"
+    correct: "halves"
+    unit: ""
+    wrong:
+      - {text: "doubles", mistake: "ignores the effect of the radius on the cross-sectional area"}
+      - {text: "stays the same", mistake: "assumes doubling both quantities cancels out"}
+      - {text: "becomes four times as large", mistake: "squares the radius in the wrong place of the formula"}
+    explanation: "The extension is F L / (pi r^2 Y). Doubling L doubles the numerator, while doubling r quadruples the area, so the extension is multiplied by 2 / 4, which halves it."
+    hints:
+      - "The extension depends on the length in the numerator."
+      - "The cross-sectional area depends on the square of the radius."
+      - "Compare the length factor with the area factor."
+    diagram: null
+    confidence: high
+  - topic: stress_strain_curve
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which point on a stress-strain curve marks the place where the material finally fractures?"
+    correct: "breaking point"
+    unit: ""
+    wrong:
+      - {text: "elastic limit", mistake: "confuses the onset of permanent change with fracture"}
+      - {text: "origin", mistake: "thinks fracture starts at zero load"}
+      - {text: "proportional limit", mistake: "treats the end of the straight region as the point of fracture"}
+    explanation: "The breaking point is the last point on the stress-strain curve, where the specimen fractures."
+    hints:
+      - "Fracture is the final point of the curve."
+      - "Think about where the wire snaps when it is pulled apart."
+      - "The curve continues past the elastic region before the material gives way."
+    diagram: null
+    confidence: high
+  - topic: stress_strain_curve
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On a stress-strain graph, what does the slope of the straight initial portion represent?"
+    correct: "Young's modulus"
+    unit: ""
+    wrong:
+      - {text: "elastic limit", mistake: "reads the slope as the stress at which the straight line ends"}
+      - {text: "breaking stress", mistake: "uses the maximum stress of the curve as the slope"}
+      - {text: "yield strain", mistake: "reads the slope as the strain at which yielding begins"}
+    explanation: "In the linear region the slope is stress divided by strain, which is the Young's modulus of the material."
+    hints:
+      - "Slope is rise over run, which here is stress over strain."
+      - "The straight initial portion follows Hooke's law."
+      - "Name the elastic constant that governs stretching."
+    diagram: "A stress-strain curve with a straight initial segment through the origin. The slope of that segment is marked with a small triangle, and the curve bends above the linear portion."
+    confidence: high
+  - topic: stress_strain_curve
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "On a stress-strain graph, the straight line from the origin reaches a stress of 150 MPa at a strain of 0.001. What is the Young's modulus in gigapascals?"
+    correct: "150"
+    unit: "GPa"
+    wrong: []
+    explanation: "Young's modulus is stress over strain, which is 150 MPa / 0.001 = 150000 MPa, equal to 150 GPa."
+    hints:
+      - "Use modulus equals stress over strain at any point on the straight part."
+      - "Convert megapascals to gigapascals by dividing by one thousand."
+      - "Divide the stress by the strain first, then convert the units."
+    diagram: null
+    confidence: high
+  - topic: stress_strain_curve
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A ductile metal wire is loaded beyond its yield point and then unloaded completely. What happens to its length?"
+    correct: "it stays permanently longer than its original length"
+    unit: ""
+    wrong:
+      - {text: "it returns exactly to its original length", mistake: "assumes all deformation beyond yield is elastic"}
+      - {text: "it ends up shorter than its original length", mistake: "reverses the direction of the deformation"}
+      - {text: "it returns only if the load exceeded the breaking point", mistake: "confuses the yield point with the breaking point"}
+    explanation: "Beyond the yield point part of the deformation is plastic, so the wire does not recover its original length when unloaded."
+    hints:
+      - "Beyond yield, part of the deformation is no longer reversible."
+      - "Permanent deformation changes the shape of the material for good."
+      - "Think about the difference between elastic and plastic behaviour."
+    diagram: null
+    confidence: high
+  - topic: stress_strain_curve
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A material follows a straight stress-strain line up to a stress of 400 MPa at a strain of 0.002. What is the stored elastic energy per unit volume, in kilojoules per cubic metre?"
+    correct: "400"
+    unit: "kJ/m^3"
+    wrong: []
+    explanation: "The energy per unit volume is the triangular area under the line, one half times 400 MPa times 0.002, which is 0.4 MJ/m^3, or 400 kJ/m^3."
+    hints:
+      - "The energy stored equals the area under the linear stress-strain graph."
+      - "The area of a triangle is half of base times height."
+      - "Multiply stress by strain and then halve the product."
+    diagram: "A stress-strain line from the origin up to a point at a strain of 0.002 and a stress of 400 MPa, with the triangle under the line shaded."
+    confidence: high
+  - topic: stress_strain_curve
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A metal specimen is pulled until it necks and then fractures. On its stress-strain curve, at which point is the stress highest?"
+    correct: "the ultimate tensile strength point"
+    unit: ""
+    wrong:
+      - {text: "the elastic limit", mistake: "assumes the maximum stress occurs where yielding starts"}
+      - {text: "the breaking point", mistake: "assumes the maximum stress occurs at fracture"}
+      - {text: "the origin", mistake: "believes stress is largest when the load is zero"}
+    explanation: "The stress reaches its maximum at the ultimate tensile strength. Necking reduces the cross-section afterwards, so the recorded stress falls before fracture at the breaking point."
+    hints:
+      - "Look for where the curve reaches its highest vertical value."
+      - "Fracture occurs after the peak of the curve, not at it."
+      - "Necking happens after the peak as the cross-section becomes narrower."
+    diagram: null
+    confidence: medium

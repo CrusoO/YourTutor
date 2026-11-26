@@ -1,0 +1,434 @@
+class: 11
+subject: biology
+chapter: neural_control_and_coordination
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: neuron_structure
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which part of a neuron receives signals from other neurons?"
+    correct: "Dendrites"
+    unit: ""
+    wrong:
+      - {text: "Axon terminal", mistake: "assigns the release site the receiving role"}
+      - {text: "Myelin sheath", mistake: "assigns the insulating layer the receiving role"}
+      - {text: "Nucleus", mistake: "assigns the genetic store the receiving role"}
+    explanation: "Dendrites are branched extensions of the cell body that collect incoming signals from other neurons, and they pass these inputs toward the cell body."
+    hints:
+      - "These are branched extensions that grow out from the cell body."
+      - "Think about the parts that collect incoming signals."
+      - "The branches are usually numerous and relatively short."
+    diagram: null
+    confidence: high
+  - topic: neuron_structure
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the approximate resting membrane potential of a typical neuron?"
+    correct: "-70 mV"
+    unit: ""
+    wrong:
+      - {text: "+40 mV", mistake: "confuses resting potential with the peak of an impulse"}
+      - {text: "0 mV", mistake: "assumes the membrane is electrically neutral at rest"}
+      - {text: "-20 mV", mistake: "uses a value near the firing threshold instead of rest"}
+    explanation: "At rest the inside of the neuron is about 70 mV negative relative to the outside, maintained by the sodium-potassium pump and leaky potassium channels."
+    hints:
+      - "At rest the inside of the membrane is negative relative to the outside."
+      - "Think about the potassium leak that helps make the inside negative."
+      - "The value lies in the negative tens of millivolts."
+    diagram: null
+    confidence: high
+  - topic: neuron_structure
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the axon membrane at rest more permeable to potassium than to sodium?"
+    correct: "Open potassium leak channels let K+ leave down its gradient more readily than Na+ can enter, so the inside becomes negative"
+    unit: ""
+    wrong:
+      - {text: "Sodium channels are fully open at rest", mistake: "reverses the resting permeability of the two ions"}
+      - {text: "Potassium is actively pumped into the axon at rest", mistake: "assigns active potassium pumping inward at rest"}
+      - {text: "Resting membranes have no ion channels at all", mistake: "denies the channels that set resting permeability"}
+    explanation: "At rest the membrane contains many open potassium leak channels and few open sodium channels. Potassium leaves the cell down its gradient, which makes the inside negative."
+    hints:
+      - "Think about which ion channels are open at rest."
+      - "Consider which ion is more abundant inside the cell and how it leaks out."
+      - "Compare the permeability of the membrane to each of the two ions."
+    diagram: null
+    confidence: high
+  - topic: neuron_structure
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which structure insulates the axon in many neurons and allows the impulse to travel faster?"
+    correct: "Myelin sheath"
+    unit: ""
+    wrong:
+      - {text: "Dendritic spine", mistake: "assigns insulation to the receiving branches"}
+      - {text: "Synaptic cleft", mistake: "assigns insulation to the gap between neurons"}
+      - {text: "Cell wall", mistake: "assigns a plant structure to the neuron"}
+    explanation: "Myelin is a fatty layer formed by glial cells that wraps the axon in segments. The gaps between segments, the nodes of Ranvier, are where the impulse is regenerated."
+    hints:
+      - "Think about a fatty layer that wraps the axon in segments."
+      - "The gaps in this layer are the nodes of Ranvier."
+      - "The sheath is made by glial cells rather than by the neuron itself."
+    diagram: "Draw a myelinated neuron with the cell body, dendrites, a myelinated axon, nodes of Ranvier and axon terminals, labelled in order."
+    confidence: high
+  - topic: neuron_structure
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A neuron has a resting potential of -70 mV and a firing threshold of -55 mV. By how many mV must the membrane depolarise to reach threshold?"
+    correct: "15"
+    unit: "mV"
+    wrong: []
+    explanation: "The change needed is the threshold minus the resting value, which is -55 minus (-70), giving 15 mV of depolarisation."
+    hints:
+      - "Subtract the resting value from the threshold value, keeping track of the signs."
+      - "Think about the distance between the two values on the voltage scale."
+      - "The answer is a positive change in voltage."
+    diagram: null
+    confidence: high
+  - topic: neuron_structure
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A drug keeps voltage-gated sodium channels in an open state in an axon. What is the most likely effect?"
+    correct: "The membrane stays depolarised, so it cannot repolarise and normal signalling is disrupted"
+    unit: ""
+    wrong:
+      - {text: "The axon becomes permanently hyperpolarised", mistake: "reverses the direction of sodium flow"}
+      - {text: "The neuron fires more often with no change in the spike", mistake: "ignores the failure to repolarise"}
+      - {text: "Potassium channels close immediately in response", mistake: "assumes the drug triggers potassium closure"}
+    explanation: "Sodium channels must inactivate for the membrane to repolarise. Holding them open keeps sodium flowing in, so the membrane cannot return to rest and the neuron cannot send normal impulses."
+    hints:
+      - "Think about what must happen to sodium channels for the membrane to return to rest."
+      - "Consider whether the sodium channels can close again under the drug."
+      - "Ask what the membrane does when sodium keeps entering."
+    diagram: "Draw the membrane voltage over time for a normal spike and for a spike with persistently open sodium channels, labelling the failure to return to rest."
+    confidence: medium
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the name of the all-or-none electrical event that travels along an axon?"
+    correct: "Action potential"
+    unit: ""
+    wrong:
+      - {text: "Resting potential", mistake: "confuses the steady state with the travelling impulse"}
+      - {text: "Synaptic delay", mistake: "confuses the transmission pause with the impulse"}
+      - {text: "Graded potential only", mistake: "assumes graded potentials are all-or-none events"}
+    explanation: "An action potential is a rapid reversal of the membrane voltage that is all-or-none and regenerates along the axon, so the signal does not weaken as it travels."
+    hints:
+      - "Think about the rapid reversal of the membrane voltage."
+      - "The event is all-or-none and regenerates along the axon."
+      - "It is the signal that moves along a nerve fibre."
+    diagram: null
+    confidence: high
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which ion's rapid influx causes the rising phase of an action potential?"
+    correct: "Sodium"
+    unit: ""
+    wrong:
+      - {text: "Potassium", mistake: "assigns the falling phase ion to the rising phase"}
+      - {text: "Chloride", mistake: "assigns an anion with a different role to the rising phase"}
+      - {text: "Magnesium", mistake: "assigns an unrelated divalent ion to the impulse"}
+    explanation: "Voltage-gated sodium channels open at threshold and sodium rushes in down its gradient, producing the rising phase. Potassium efflux later causes repolarisation."
+    hints:
+      - "The rising phase is driven by an ion that is much more concentrated outside the cell."
+      - "Think about the channels that open first during depolarisation."
+      - "The channels for this ion open rapidly and then inactivate."
+    diagram: null
+    confidence: high
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does the action potential travel in only one direction along an axon?"
+    correct: "The membrane behind the wave is still inactivated after the spike and cannot be excited again yet"
+    unit: ""
+    wrong:
+      - {text: "Action potentials travel equally well in both directions", mistake: "assumes conduction is symmetric"}
+      - {text: "Nerves are too short for backward flow to matter", mistake: "assigns directionality to nerve length"}
+      - {text: "Myelin alone blocks the backward signal", mistake: "assigns the directional role to myelin only"}
+    explanation: "After a spike the sodium channels behind the wave are inactivated and the membrane is hyperpolarised, so that region cannot fire again immediately. The impulse therefore moves forward only."
+    hints:
+      - "Think about what the membrane just behind the impulse is doing."
+      - "Consider the state of the sodium channels in the membrane just behind the wave."
+      - "Ask which region cannot be re-excited right after a spike."
+    diagram: null
+    confidence: high
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which order describes the events at one point on the membrane during an action potential?"
+    correct: "Depolarisation by sodium influx, then repolarisation by potassium efflux, then hyperpolarisation"
+    unit: ""
+    wrong:
+      - {text: "Repolarisation, then depolarisation, then hyperpolarisation", mistake: "places repolarisation before depolarisation"}
+      - {text: "Potassium influx, then sodium efflux, then depolarisation", mistake: "reverses the ions and the direction of flow"}
+      - {text: "Hyperpolarisation, then depolarisation, then repolarisation", mistake: "places the overshoot first"}
+    explanation: "The membrane first depolarises as sodium enters, then repolarises as potassium leaves, and often overshoots slightly into hyperpolarisation before returning to rest."
+    hints:
+      - "Start with the event that makes the inside less negative."
+      - "Next consider the event in which potassium leaves the cell."
+      - "The final event is an overshoot below the resting potential."
+    diagram: "Draw one spike of the membrane voltage over time, labelling depolarisation, repolarisation and the hyperpolarisation overshoot, with the ion flow for each phase."
+    confidence: high
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "Local anaesthetics block voltage-gated sodium channels in a nerve. What is the most direct consequence for nerve conduction?"
+    correct: "Action potentials fail to start or to propagate, so the pain signal is blocked"
+    unit: ""
+    wrong:
+      - {text: "Potassium channels open to stop the impulse", mistake: "assigns the stopping role to potassium"}
+      - {text: "The nerve fires twice as fast", mistake: "reverses the effect of blocking the channel"}
+      - {text: "Myelin thickens rapidly to compensate", mistake: "assigns a rapid structural change to the drug effect"}
+    explanation: "Sodium entry is needed to generate an action potential. Blocking the channels prevents the depolarising phase, so the impulse cannot start or travel, and the sensation is not transmitted."
+    hints:
+      - "Think about which channel the anaesthetic targets."
+      - "Consider whether an impulse can be generated without sodium entry."
+      - "Ask what the nerve needs in order to carry a signal along the axon."
+    diagram: null
+    confidence: high
+  - topic: nerve_impulse
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A myelinated axon conducts impulses faster than an unmyelinated axon of the same diameter. What is the main reason?"
+    correct: "Saltatory conduction lets the impulse jump from one node of Ranvier to the next"
+    unit: ""
+    wrong:
+      - {text: "Myelin has a higher sodium content than the axon membrane", mistake: "assigns ion content to myelin as the cause"}
+      - {text: "Unmyelinated axons have no ion channels", mistake: "denies channels in unmyelinated fibres"}
+      - {text: "Myelin releases a neurotransmitter that speeds the impulse", mistake: "assigns a chemical signal to myelin"}
+    explanation: "Myelin insulates the axon so that the impulse regenerates only at the nodes of Ranvier. This saltatory conduction covers the axon faster than a continuous spread along the membrane."
+    hints:
+      - "Think about where the voltage-gated channels are concentrated in a myelinated fibre."
+      - "Consider how the impulse moves between the gaps in the sheath."
+      - "The movement is discontinuous rather than step by step along the membrane."
+    diagram: "Draw a myelinated axon with nodes of Ranvier marked, showing the impulse jumping from node to node with arrows, and label the insulated internodes."
+    confidence: high
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which brain region coordinates balance and fine control of voluntary movement?"
+    correct: "Cerebellum"
+    unit: ""
+    wrong:
+      - {text: "Medulla oblongata", mistake: "assigns the breathing centre the coordination role"}
+      - {text: "Thalamus", mistake: "assigns the sensory relay the coordination role"}
+      - {text: "Cerebrum", mistake: "assigns the higher centre the fine balance role"}
+    explanation: "The cerebellum at the back of the brain receives information about posture and movement and fine-tunes the timing of muscle activity to keep balance and coordination."
+    hints:
+      - "This region is at the back of the brain, beneath the cerebrum."
+      - "Think about the structure that fine-tunes muscle movements."
+      - "It has a folded surface that looks like a smaller brain."
+    diagram: null
+    confidence: high
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which part of the brain is the seat of thinking, memory and voluntary action?"
+    correct: "Cerebrum"
+    unit: ""
+    wrong:
+      - {text: "Hypothalamus", mistake: "assigns homeostatic control to the thinking centre"}
+      - {text: "Cerebellum", mistake: "assigns the balance centre the thinking role"}
+      - {text: "Pons", mistake: "assigns a relay bridge the memory role"}
+    explanation: "The cerebrum is the largest part of the brain. Its outer cortex, divided into two hemispheres, handles conscious thought, memory, sensation and voluntary movement."
+    hints:
+      - "This largest part of the brain is folded into ridges."
+      - "Its outer layer is the cerebral cortex."
+      - "It is divided into two hemispheres."
+    diagram: null
+    confidence: high
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the hypothalamus important for homeostasis?"
+    correct: "It regulates body temperature, thirst and hunger, and links the nervous system with the endocrine system"
+    unit: ""
+    wrong:
+      - {text: "It controls the rhythm of the heartbeat alone", mistake: "limits the hypothalamus to a single cardiac role"}
+      - {text: "It stores long-term memories", mistake: "assigns long-term memory storage to the hypothalamus"}
+      - {text: "It generates the electrical signals of the retina", mistake: "assigns retinal signalling to the hypothalamus"}
+    explanation: "The hypothalamus monitors blood temperature and chemistry and controls thirst, hunger and temperature regulation. It also controls the pituitary gland and so links the two systems."
+    hints:
+      - "Think about the small region below the thalamus that controls many body needs."
+      - "Consider which gland it connects to through the hormone system."
+      - "It responds to signals about body temperature and blood chemistry."
+    diagram: null
+    confidence: high
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which brain region contains the reflex centres for visual and auditory reflexes such as turning the head toward a sudden sound?"
+    correct: "Midbrain"
+    unit: ""
+    wrong:
+      - {text: "Medulla oblongata", mistake: "assigns sensory reflex centres to the breathing region"}
+      - {text: "Cerebellum", mistake: "assigns sensory reflexes to the balance centre"}
+      - {text: "Pons", mistake: "assigns the relay bridge the reflex centre role"}
+    explanation: "The midbrain lies between the forebrain and the hindbrain and contains the superior and inferior colliculi, which coordinate visual and auditory reflexes."
+    hints:
+      - "The region lies between the forebrain and the hindbrain."
+      - "Think about the upper brainstem region with visual and auditory reflex centres."
+      - "It contains structures called colliculi."
+    diagram: "Draw a side view of the brain with the forebrain, midbrain, pons, medulla and cerebellum labelled, and highlight the midbrain region."
+    confidence: high
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A person has a spinal cord injury in the thoracic region. Which effect is most likely?"
+    correct: "Loss of sensation and voluntary movement below the injury, while breathing controlled from the medulla continues"
+    unit: ""
+    wrong:
+      - {text: "Loss of breathing immediately because the medulla is damaged", mistake: "assigns the medulla to a spinal cord injury"}
+      - {text: "Complete loss of all reflexes everywhere in the body", mistake: "assumes a spinal injury affects every reflex"}
+      - {text: "Speech loss because the cerebrum is damaged", mistake: "assigns a cerebral function to the spinal injury"}
+    explanation: "The spinal cord carries sensory and motor pathways to and from the body below the level of injury. The medulla lies above the injury and continues to control the basic breathing rhythm."
+    hints:
+      - "Think about which signals travel through the spinal cord to and from the limbs."
+      - "Consider the regions of the body below the level of the injury."
+      - "The medulla sits above the level of the injury in the brainstem."
+    diagram: null
+    confidence: medium
+  - topic: brain_and_spinal_cord
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A patient with cerebellar damage has trouble touching a finger to the nose. Which deficit best explains this?"
+    correct: "Impaired coordination, with the movement overshooting or shaking near the target"
+    unit: ""
+    wrong:
+      - {text: "Loss of sensation in the fingertip", mistake: "assigns touch loss to the cerebellum"}
+      - {text: "Paralysis of the arm from spinal cord damage", mistake: "assigns a spinal cause to a cerebellar signs"}
+      - {text: "Loss of memory for the movement", mistake: "assigns memory storage to the cerebellum"}
+    explanation: "The cerebellum compares intended and actual movement and corrects errors during the movement. Damage leads to dysmetria, in which the limb overshoots or trembles near the target."
+    hints:
+      - "Think about what the cerebellum does during an ongoing movement."
+      - "Consider what happens to a movement when its error correction is damaged."
+      - "Ask whether the fingertip sensation or the strength of the arm is primarily affected."
+    diagram: "Draw the cerebellum beneath the cerebrum with the arm's path to the nose shown as a movement that overshoots the target, labelling the error-correction loop."
+    confidence: medium
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the name of the neuron that carries signals from a receptor toward the spinal cord in a reflex arc?"
+    correct: "Sensory neuron"
+    unit: ""
+    wrong:
+      - {text: "Motor neuron", mistake: "reverses the direction of the signal"}
+      - {text: "Interneuron", mistake: "confuses the connecting neuron with the input neuron"}
+      - {text: "Glial cell", mistake: "assigns a support cell the signalling role"}
+    explanation: "Sensory neurons carry impulses from receptors in the skin or muscle toward the central nervous system, where the reflex is integrated."
+    hints:
+      - "The neuron begins at a receptor in the skin or a muscle."
+      - "Think about the direction of the signal toward the central nervous system."
+      - "It is the input neuron of the reflex arc."
+    diagram: null
+    confidence: high
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Where is the integration centre of a simple spinal reflex located?"
+    correct: "Grey matter of the spinal cord"
+    unit: ""
+    wrong:
+      - {text: "White matter of the spinal cord", mistake: "assigns the fibre tracts the integrating role"}
+      - {text: "Peripheral nerve trunk", mistake: "places the integration in the nerve outside the cord"}
+      - {text: "Muscle spindle", mistake: "places the integration centre inside a sensory receptor"}
+    explanation: "The grey matter of the spinal cord contains cell bodies, interneurons and synapses, where the sensory input is integrated and passed to motor neurons."
+    hints:
+      - "This region contains cell bodies and synapses."
+      - "The central region is grey because it is rich in cell bodies."
+      - "The white matter is made of fibre tracts instead."
+    diagram: null
+    confidence: high
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is a reflex response faster than a voluntary action?"
+    correct: "Fewer synapses are involved, because the response is processed in the spinal cord rather than the brain"
+    unit: ""
+    wrong:
+      - {text: "Reflex signals travel faster in the brain", mistake: "places the reflex in the brain"}
+      - {text: "Reflexes use no neurons at all", mistake: "denies that reflexes involve neurons"}
+      - {text: "Voluntary actions travel through the heart", mistake: "assigns voluntary signals to the circulation"}
+    explanation: "A reflex is processed in the spinal cord, so the signal makes only a short trip and passes through fewer synapses. The voluntary pathway must reach the brain and return, which takes longer."
+    hints:
+      - "Think about how far the signal must travel before a response occurs."
+      - "Consider where the processing happens in a reflex."
+      - "Count how many junctions the signal crosses in each pathway."
+    diagram: null
+    confidence: high
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which order describes a withdrawal reflex after a painful stimulus to the foot?"
+    correct: "Receptor, sensory neuron, spinal interneuron, motor neuron, effector muscle"
+    unit: ""
+    wrong:
+      - {text: "Effector muscle, motor neuron, interneuron, sensory neuron, receptor", mistake: "reverses the whole arc"}
+      - {text: "Receptor, motor neuron, interneuron, sensory neuron, muscle", mistake: "swaps the sensory and motor neurons"}
+      - {text: "Sensory neuron, receptor, motor neuron, interneuron, muscle", mistake: "places the receptor after the neuron"}
+    explanation: "The stimulus is detected by a receptor, the sensory neuron carries it to the cord, an interneuron integrates it, and a motor neuron signals the muscle to withdraw the foot."
+    hints:
+      - "Start at the place where the stimulus is detected."
+      - "The signal travels inward before it is processed."
+      - "The last part of the arc is the muscle that moves the limb."
+    diagram: "Draw a reflex arc with a receptor in the foot, a sensory neuron to the spinal cord, an interneuron, a motor neuron to the leg muscle, and an arrow showing the withdrawal."
+    confidence: high
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "The motor neuron to the quadriceps muscle is cut, but the sensory neuron is intact. What happens when the patellar tendon is tapped?"
+    correct: "No knee jerk occurs, because the reflex arc needs an intact motor pathway to the muscle"
+    unit: ""
+    wrong:
+      - {text: "The knee jerk is stronger because the sensory input is unopposed", mistake: "assumes an unbroken input creates a stronger reflex"}
+      - {text: "The knee jerk occurs at double speed", mistake: "assumes damage speeds up the reflex"}
+      - {text: "The brain signals a knee jerk despite the cut", mistake: "assumes voluntary control can bypass a broken arc"}
+    explanation: "The stretch signal still reaches the spinal cord, but the motor neuron that would carry the response to the muscle is cut. Without this link the arc is incomplete, so no contraction follows."
+    hints:
+      - "Think about which part of the arc carries the response to the muscle."
+      - "Consider what the reflex needs at every step."
+      - "Ask whether the signal can reach the muscle if one link is cut."
+    diagram: null
+    confidence: high
+  - topic: reflex_arc_11
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A person with a brain injury still shows a withdrawal reflex when a foot is pricked. Why does the reflex still occur?"
+    correct: "The reflex arc is completed in the spinal cord, so it does not require the brain"
+    unit: ""
+    wrong:
+      - {text: "The brain is not needed for any nerve signals", mistake: "assumes the brain plays no role in nerve signalling"}
+      - {text: "The heart acts as the integration centre for the reflex", mistake: "assigns the integrating role to the heart"}
+      - {text: "The muscle contracts by itself without any nerves", mistake: "assumes muscles contract without nerve input"}
+    explanation: "A withdrawal reflex is integrated in the spinal cord, so the arc can run without signals from the brain. The brain may still be needed for conscious awareness of the stimulus and for voluntary control."
+    hints:
+      - "Think about where this reflex is processed."
+      - "Consider whether the integrating centre is in the brain or the spinal cord."
+      - "Ask which part of the nervous system is needed for a simple reflex."
+    diagram: "Draw a reflex arc with the spinal cord highlighted as the integration centre, and the brain shown above with a dashed line to indicate that it is not part of the arc."
+    confidence: medium

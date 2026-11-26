@@ -1,0 +1,107 @@
+class: 10
+subject: maths
+chapter: pair_of_linear_equations
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: graphical_method
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The equations 2x + 3y = 6 and 4x + 6y = 12 are graphed on the same axes. What do the graphs look like?"
+    correct: "The two lines coincide, so there are infinitely many solutions."
+    unit: ""
+    wrong:
+      - {text: "The lines are parallel, so there is no solution.", mistake: "compares only the x-coefficients and misses that the constants match"}
+      - {text: "The lines cross at exactly one point.", mistake: "assumes any two different-looking lines must cross once"}
+      - {text: "The lines cross at exactly (0, 2) only.", mistake: "finds one common point and assumes it is the only one"}
+    explanation: "The second equation is twice the first, so both describe the same line. Every point on that line satisfies both equations, which gives infinitely many solutions."
+    hints:
+      - "Divide the second equation by 2 and compare it with the first."
+      - "Compare the ratios of the x-coefficients, y-coefficients and constants."
+      - "Ask how many points a single line has in common with itself."
+    diagram: null
+    confidence: high
+  - topic: graphical_method
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The lines x + y = 5 and x + y = 7 are drawn on the same axes. How do their graphs appear?"
+    correct: "Parallel lines, so there is no solution."
+    unit: ""
+    wrong:
+      - {text: "Coincident lines, so there are infinitely many solutions.", mistake: "treats two different constants as if they describe the same line"}
+      - {text: "Intersecting at (6, 6).", mistake: "adds the two constants and uses the sum as a point"}
+      - {text: "Intersecting at exactly one point.", mistake: "assumes two linear equations always have one solution"}
+    explanation: "Both lines have slope -1, but their y-intercepts are 5 and 7. Parallel lines never meet, so the system has no solution."
+    hints:
+      - "Rewrite each equation as y = ... to read the slope."
+      - "Compare the y-intercepts of the two lines."
+      - "Ask whether parallel lines can ever meet."
+    diagram: "Two straight lines of slope -1 drawn on the same axes, one crossing the y-axis at 5 and the other crossing it at 7."
+    confidence: high
+  - topic: graphical_method
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The lines x - 2y = 1 and 2x + ky = 4 are parallel and distinct. What is k?"
+    correct: "-4"
+    unit: ""
+    wrong: []
+    explanation: "Parallel lines need equal ratios of x-coefficients and y-coefficients: 1/2 = -2/k, which gives k = -4. The constants 1 and 4 have a different ratio, so the lines are distinct."
+    hints:
+      - "Write each equation in the form ax + by = c."
+      - "Set the ratio of the x-coefficients equal to the ratio of the y-coefficients."
+      - "Solve the resulting equation for k."
+    diagram: null
+    confidence: high
+  - topic: graphical_method
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which description matches the graphs of x + y = 4 and x - y = 0?"
+    correct: "Two lines crossing at (2, 2)."
+    unit: ""
+    wrong:
+      - {text: "Two parallel lines with slope 1.", mistake: "assumes equal-looking coefficients force parallel lines"}
+      - {text: "Two lines crossing at (4, 0).", mistake: "reads an x-intercept of one line as the common point"}
+      - {text: "Two lines crossing at (0, 4).", mistake: "uses the y-intercept of the first line as the common point"}
+    explanation: "Adding the equations gives 2x = 4, so x = 2, and then x - y = 0 gives y = 2. The lines cross at (2, 2)."
+    hints:
+      - "Solve the two equations together, perhaps by adding them."
+      - "Check each option in both equations."
+      - "Look at where each line crosses the axes, but do not stop there."
+    diagram: "Two straight lines on the same axes: one through the points (4, 0) and (0, 4), and the other through the origin with slope 1."
+    confidence: high
+  - topic: graphical_method
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The lines 3x + 2y = 12 and 2x - y = 1 cross at one point. What is the sum of the x- and y-coordinates of that point?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "From the second equation y = 2x - 1. Substituting into the first gives 3x + 4x - 2 = 12, so x = 2 and y = 3. The sum is 5."
+    hints:
+      - "Solve the second equation for y."
+      - "Substitute that expression into the first equation."
+      - "Find both coordinates before adding them."
+    diagram: null
+    confidence: high
+  - topic: graphical_method
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "For which value of k do the lines 2x + 3y = 7 and kx + 6y = 14 coincide?"
+    correct: "k = 4"
+    unit: ""
+    wrong:
+      - {text: "k = 2", mistake: "matches only the x-coefficients and ignores the other terms"}
+      - {text: "k = 3", mistake: "copies the y-coefficient of the first line"}
+      - {text: "k = 6", mistake: "sets k equal to the y-coefficient of the second line"}
+    explanation: "For coincident lines the ratios of the coefficients and constants must match: 2/k = 3/6 = 7/14. Since 3/6 = 1/2, we need 2/k = 1/2, so k = 4."
+    hints:
+      - "Write both equations with their coefficients side by side."
+      - "Set the ratio of the x-coefficients equal to the ratio of the constants."
+      - "Solve a simple equation for k."
+    diagram: "Two straight lines on one set of axes. The first passes through (3.5, 0) and (0, 7/3); the second must lie exactly on the same line."
+    confidence: high

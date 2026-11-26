@@ -1,0 +1,512 @@
+class: 11
+subject: "chemistry"
+chapter: "states_of_matter"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "gas_laws_11"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What does Boyle's law state about a fixed amount of gas at constant temperature?"
+    correct: "pressure is inversely proportional to volume"
+    unit: ""
+    wrong:
+      - {text: "pressure is directly proportional to volume", mistake: "reverses the relationship between pressure and volume"}
+      - {text: "volume is proportional to absolute temperature", mistake: "confuses Boyle's law with Charles's law"}
+      - {text: "pressure doubles whenever volume doubles", mistake: "reads an inverse relation as a direct one"}
+    explanation: "At constant temperature the product of pressure and volume stays fixed, so halving the volume doubles the pressure."
+    hints:
+      - "When one variable goes up at constant temperature, consider what the other must do."
+      - "Think about the product of the two quantities staying the same."
+      - "Consider what happens to the gas molecules when the container shrinks."
+    diagram: null
+    confidence: "high"
+  - topic: "gas_laws_11"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A gas occupies 2 L at 300 K and constant pressure. What volume in litres does it occupy at 600 K at the same pressure?"
+    correct: "4"
+    unit: "L"
+    wrong: []
+    explanation: "At constant pressure volume is proportional to absolute temperature, so doubling the temperature doubles the volume from 2 L to 4 L."
+    hints:
+      - "Charles's law says volume divided by absolute temperature stays constant at fixed pressure."
+      - "Set up the ratio of the two volumes equal to the ratio of the two temperatures."
+      - "Solve for the unknown volume after writing the ratio."
+    diagram: null
+    confidence: "high"
+  - topic: "gas_laws_11"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A gas occupies 500 mL at 1.0 atm. What volume in millilitres does it occupy at 2.5 atm, with temperature held constant?"
+    correct: "200"
+    unit: "mL"
+    wrong: []
+    explanation: "Boyle's law gives V2 = P1 V1 / P2, which is 1.0 times 500 divided by 2.5, equal to 200 mL."
+    hints:
+      - "Multiply the first pressure by the first volume to get a constant."
+      - "Divide that constant by the new pressure to find the new volume."
+      - "Check that the volume decreases when the pressure increases."
+    diagram: null
+    confidence: "high"
+  - topic: "gas_laws_11"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A fixed mass of gas at 27 degrees Celsius is heated to 327 degrees Celsius at constant pressure. How does its volume change?"
+    correct: "doubles"
+    unit: ""
+    wrong:
+      - {text: "halves", mistake: "reads the temperatures on a scale that runs in reverse"}
+      - {text: "increases by 300 units", mistake: "adds the change in Celsius temperature directly to the volume"}
+      - {text: "stays the same", mistake: "treats constant pressure as if it meant constant volume"}
+    explanation: "On the absolute scale the temperature rises from 300 K to 600 K, so at constant pressure the volume doubles."
+    hints:
+      - "Convert both temperatures to the absolute scale before comparing them."
+      - "Volume is proportional to absolute temperature at fixed pressure."
+      - "Find the ratio of the final absolute temperature to the initial one."
+    diagram: null
+    confidence: "high"
+  - topic: "gas_laws_11"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "What pressure in kilopascals is exerted by 2 mol of an ideal gas in a 10 L container at 300 K? Use R = 8.314 J/mol/K."
+    correct: "499"
+    unit: "kPa"
+    wrong: []
+    explanation: "Using P = nRT/V with V = 0.010 m3 gives 2 times 8.314 times 300 divided by 0.010, which is about 4.99 x 10^5 Pa, or 499 kPa."
+    hints:
+      - "Convert the volume into cubic metres before using R in joules."
+      - "Rearrange the ideal gas equation to solve for pressure."
+      - "Give the pressure in pascals first and convert to kilopascals at the end."
+    diagram: null
+    confidence: "high"
+  - topic: "gas_laws_11"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A 4.46 g sample of a gas occupies 1.00 L at 273 K and 101325 Pa. Taking R = 8.314 J/mol/K, what is its molar mass in g/mol?"
+    correct: "99.9"
+    unit: "g/mol"
+    wrong: []
+    explanation: "The amount is PV/RT, about 0.0446 mol, so the molar mass is 4.46 g divided by 0.0446 mol, which is about 99.9 g/mol."
+    hints:
+      - "Find the number of moles from the ideal gas equation first."
+      - "Convert the volume into cubic metres so that the units match R in joules."
+      - "Divide the mass of the sample by the number of moles you found."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What does Dalton's law of partial pressures state about a mixture of gases?"
+    correct: "total pressure equals the sum of the partial pressures"
+    unit: ""
+    wrong:
+      - {text: "total volume equals the sum of the partial volumes", mistake: "swaps the pressure relation for a volume relation"}
+      - {text: "each gas exerts the full total pressure alone", mistake: "assumes each gas fills the container on its own with full effect"}
+      - {text: "partial pressure does not depend on the mole fraction", mistake: "treats partial pressure as unrelated to the composition of the mixture"}
+    explanation: "Each gas in a mixture contributes a partial pressure as if it alone occupied the container, and the total pressure is the sum of these contributions."
+    hints:
+      - "Think about what adds up when separate gases share one container."
+      - "Each gas contributes its own share to the pressure on the walls."
+      - "Look for the statement about summing the individual contributions."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A gas mixture has a total pressure of 2.0 atm, and nitrogen in it has a partial pressure of 1.2 atm. What is the combined partial pressure of the other gases in atm?"
+    correct: "0.8"
+    unit: "atm"
+    wrong: []
+    explanation: "The other gases make up the rest of the total pressure, so 2.0 minus 1.2 gives 0.8 atm."
+    hints:
+      - "Subtract the known partial pressure from the total pressure."
+      - "The remaining pressure belongs to the gases not yet counted."
+      - "Check that the units of the answer are atmospheres."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A container holds oxygen at a partial pressure of 0.4 atm and nitrogen at a partial pressure of 0.6 atm. What is the mole fraction of oxygen?"
+    correct: "0.4"
+    unit: ""
+    wrong: []
+    explanation: "Mole fraction equals partial pressure divided by total pressure, and the total is 1.0 atm, so oxygen has a mole fraction of 0.4."
+    hints:
+      - "Divide the partial pressure of one gas by the total pressure."
+      - "Add the partial pressures of all gases to find the total."
+      - "A mole fraction has no units."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Hydrogen is collected over water at 25 degrees Celsius. The total pressure in the collecting vessel is 1.00 atm and the vapour pressure of water is 0.03 atm. What is the pressure of the dry hydrogen?"
+    correct: "0.97 atm"
+    unit: ""
+    wrong:
+      - {text: "1.03 atm", mistake: "adds the water vapour pressure to the total instead of subtracting it"}
+      - {text: "1.00 atm", mistake: "ignores the water vapour mixed with the hydrogen"}
+      - {text: "0.03 atm", mistake: "reports only the water vapour pressure as the hydrogen pressure"}
+    explanation: "The collected gas is a mixture of hydrogen and water vapour, so the hydrogen partial pressure is the total minus the water vapour pressure, which is 0.97 atm."
+    hints:
+      - "The collected gas is mixed with water vapour in the same space."
+      - "Find the part of the total pressure that is due to the water vapour."
+      - "Subtract that part from the total to isolate the dry gas."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A 3.0 L vessel holds 0.2 mol of helium and 0.3 mol of neon at 300 K. Using R = 8.314 J/mol/K, what is the total pressure in kilopascals?"
+    correct: "416"
+    unit: "kPa"
+    wrong: []
+    explanation: "The total amount is 0.5 mol, so P = nRT/V = 0.5 times 8.314 times 300 divided by 0.0030 m3, which is about 4.16 x 10^5 Pa, or 416 kPa."
+    hints:
+      - "Add the moles of both gases to get the total amount first."
+      - "Convert the volume into cubic metres before substituting."
+      - "Use the ideal gas equation with the total amount."
+    diagram: null
+    confidence: "high"
+  - topic: "dalton_partial_pressure"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A mixture contains 2 mol of hydrogen and 3 mol of carbon dioxide at a total pressure of 6.0 atm. What is the partial pressure of hydrogen in atm?"
+    correct: "2.4"
+    unit: "atm"
+    wrong: []
+    explanation: "Hydrogen is 2 of the 5 mol, a mole fraction of 0.4, so its partial pressure is 0.4 times 6.0 atm, which equals 2.4 atm."
+    hints:
+      - "Find the mole fraction of hydrogen in the mixture first."
+      - "Multiply the mole fraction by the total pressure."
+      - "Add up all the moles in the mixture before dividing."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What does the kinetic molecular theory assume about the volume occupied by gas molecules?"
+    correct: "negligible compared with the volume of the container"
+    unit: ""
+    wrong:
+      - {text: "equal to the volume of the container", mistake: "treats the molecules as filling the whole space they occupy"}
+      - {text: "comparable to the spacing of molecules in a liquid", mistake: "mixes the gas picture with the liquid state"}
+      - {text: "larger for heavier gases only", mistake: "ties the size of molecules to their mass alone"}
+    explanation: "The theory treats gas molecules as point-like particles whose own volume is negligible compared with the empty space between them."
+    hints:
+      - "Think about how much space the molecules occupy compared with the empty space between them."
+      - "A gas is mostly empty space, so consider what that implies for the molecules themselves."
+      - "Look for the statement that treats molecular size as very small."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "Why does the pressure of a gas increase when its temperature rises at constant volume?"
+    correct: "molecules strike the walls more often and with more force"
+    unit: ""
+    wrong:
+      - {text: "molecules grow larger when heated", mistake: "treats heating as an expansion of the molecules themselves"}
+      - {text: "molecules attract each other more strongly", mistake: "assumes attraction between molecules increases with temperature"}
+      - {text: "the number of molecules in the container increases", mistake: "invents extra molecules as the gas is heated in a sealed container"}
+    explanation: "Higher temperature increases the average speed of the molecules, so they hit the walls more frequently and with greater momentum, raising the pressure."
+    hints:
+      - "Think about the speed of the molecules and how often they reach the walls."
+      - "Consider how the momentum of each collision changes with speed."
+      - "Look for the statement that links faster molecules to more forceful collisions."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Which gas has the highest average kinetic energy per molecule at 300 K?"
+    correct: "all gases have equal average kinetic energy at the same temperature"
+    unit: ""
+    wrong:
+      - {text: "hydrogen", mistake: "assumes a lighter molecule must carry more kinetic energy"}
+      - {text: "oxygen", mistake: "assumes heavier molecules store more energy at the same temperature"}
+      - {text: "carbon dioxide", mistake: "associates the largest molecule with the highest energy"}
+    explanation: "For an ideal gas the average kinetic energy depends only on the absolute temperature, so all gases at 300 K share the same average value."
+    hints:
+      - "For an ideal gas the average kinetic energy depends only on temperature."
+      - "Consider whether the identity of the gas changes the energy at a given temperature."
+      - "Look for the option that describes equality across gases."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "What is the average translational kinetic energy, in kJ/mol, of 1 mol of an ideal gas at 300 K? Use R = 8.314 J/mol/K and the expression 3/2 RT."
+    correct: "3.74"
+    unit: "kJ/mol"
+    wrong: []
+    explanation: "The expression 1.5 times 8.314 times 300 gives about 3741 J/mol, which is 3.74 kJ/mol."
+    hints:
+      - "Use the expression given in the question with R in joules."
+      - "Multiply R by the temperature first and then by the fraction in the expression."
+      - "Convert joules into kilojoules at the end."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "Two gases have molar masses of 16 g/mol and 64 g/mol at the same temperature. How many times faster does the lighter gas effuse than the heavier gas?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Graham's law gives a rate ratio equal to the square root of 64 divided by 16, which is 2."
+    hints:
+      - "Effusion rate varies inversely with the square root of the molar mass."
+      - "Take the ratio of the molar masses before finding the square root."
+      - "The lighter gas has the larger rate, so the ratio is greater than one."
+    diagram: null
+    confidence: "high"
+  - topic: "kinetic_theory_gases"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Which change reduces the root mean square speed of the molecules in a gas?"
+    correct: "cooling the gas"
+    unit: ""
+    wrong:
+      - {text: "increasing the volume at constant temperature", mistake: "assumes changing the volume alters the molecular speed directly"}
+      - {text: "adding an inert gas at constant temperature", mistake: "treats the added gas as slowing the molecules of the original gas"}
+      - {text: "compressing the gas at constant temperature", mistake: "thinks compression reduces the speed of individual molecules"}
+    explanation: "Root mean square speed depends only on temperature and molar mass, so lowering the temperature by cooling reduces it."
+    hints:
+      - "Speed depends on one property of the gas, which changes when heat is removed."
+      - "Consider which quantity in the speed formula is controlled by heat."
+      - "Look for the change that lowers that quantity."
+    diagram: null
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Under which conditions do real gases behave most like ideal gases?"
+    correct: "low pressure and high temperature"
+    unit: ""
+    wrong:
+      - {text: "high pressure and low temperature", mistake: "reverses the conditions under which deviations are smallest"}
+      - {text: "high pressure and high temperature", mistake: "ignores the molecular volume effects that become important at high pressure"}
+      - {text: "low pressure and low temperature", mistake: "confuses the conditions favouring condensation with those favouring ideal behaviour"}
+    explanation: "At low pressure molecules are far apart, and at high temperature they move fast enough that attractions matter little, so the gas behaves ideally."
+    hints:
+      - "Think about when molecules are far apart and moving fast enough to avoid attracting each other."
+      - "Consider how the distance between molecules changes with pressure."
+      - "Look for the pair of conditions that makes molecules spread out and move quickly."
+    diagram: null
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "In the van der Waals equation, which constant corrects for the finite size of the gas molecules?"
+    correct: "b"
+    unit: ""
+    wrong:
+      - {text: "a", mistake: "links the size correction to the attraction constant"}
+      - {text: "R", mistake: "treats the gas constant as a size correction"}
+      - {text: "n", mistake: "treats the number of moles as the measure of molecular size"}
+    explanation: "The constant b is the excluded volume per mole, which corrects the container volume for the space the molecules themselves occupy."
+    hints:
+      - "The size correction appears as a term subtracted from the volume."
+      - "The attraction correction is the other constant in the equation."
+      - "Look for the symbol that represents the excluded volume."
+    diagram: null
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Which form is the van der Waals equation for n moles of a real gas?"
+    correct: "(P + a n^2/V^2)(V - n b) = nRT"
+    unit: ""
+    wrong:
+      - {text: "PV = nRT", mistake: "uses the ideal gas law without any correction for real behaviour"}
+      - {text: "(P - a n^2/V^2)(V + n b) = nRT", mistake: "reverses the sign of both corrections"}
+      - {text: "P(V + n b) = nRT", mistake: "keeps the size correction but drops the attraction term"}
+    explanation: "The pressure term is increased by the attraction correction and the volume is reduced by the excluded volume, giving the equation with the pressure plus a n squared over V squared and the volume minus n b."
+    hints:
+      - "Attraction between molecules raises the pressure measured at the walls."
+      - "The molecules occupy part of the container, so the free volume is smaller."
+      - "Check the signs of both corrections against these two effects."
+    diagram: "Plot of PV divided by RT against pressure for a real gas, with a curve that dips below the ideal line at moderate pressures and rises above it at high pressures."
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "At high pressure a real gas has PV/nRT greater than one. What is the main reason?"
+    correct: "molecular volume matters more than attraction"
+    unit: ""
+    wrong:
+      - {text: "attraction dominates at high pressure", mistake: "reverses the trend and says attraction grows at high pressure"}
+      - {text: "molecules move more slowly under pressure", mistake: "invents a slowdown of molecules caused by pressure"}
+      - {text: "the gas has already started to liquefy", mistake: "confuses liquefaction with the deviation seen in the gas phase"}
+    explanation: "When molecules are packed closely the space they occupy becomes significant, so the real volume exceeds the ideal one and PV/nRT rises above one."
+    hints:
+      - "When molecules are packed closely, which effect is larger: the space they occupy or the pull between them?"
+      - "Consider how much room the molecules take up at high density."
+      - "Think about which correction becomes important when the gas is compressed."
+    diagram: null
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "hard"
+    role: "apply"
+    stem: "The compressibility factor Z of CO2 at 300 K falls below 1 at moderate pressure. What does this indicate about the intermolecular forces?"
+    correct: "attraction between molecules is significant"
+    unit: ""
+    wrong:
+      - {text: "molecular size dominates at this pressure", mistake: "reverses the direction of the deviation caused by size"}
+      - {text: "the gas is behaving exactly as an ideal gas", mistake: "treats a Z value near one as proof of ideal behaviour in all regions"}
+      - {text: "the gas has become a solid", mistake: "confuses the compressibility factor with a change of phase"}
+    explanation: "A Z value below one means the molecules are pulled together by attraction, so the gas occupies less volume than an ideal gas would at the same pressure and temperature."
+    hints:
+      - "A value below one means the gas is more compressed than an ideal gas would be."
+      - "Consider which kind of intermolecular interaction pulls molecules together."
+      - "Look for the option that names the interaction responsible for the compression."
+    diagram: "Plot of Z against pressure with a dip below the line for Z equal to one at moderate pressures, labelled as the region where attraction dominates."
+    confidence: "high"
+  - topic: "real_gases"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Which gas deviates most from ideal behaviour at 273 K?"
+    correct: "ammonia"
+    unit: ""
+    wrong:
+      - {text: "helium", mistake: "assumes small atoms deviate most from ideal behaviour"}
+      - {text: "hydrogen", mistake: "treats light molecules as the most non-ideal"}
+      - {text: "neon", mistake: "treats noble gases as the most non-ideal because they are monatomic"}
+    explanation: "Ammonia molecules form hydrogen bonds with one another and have a large van der Waals attraction constant, so they deviate most strongly from ideal behaviour."
+    hints:
+      - "Strong attraction between molecules increases the deviation from ideal behaviour."
+      - "Think about which molecule can form hydrogen bonds with its neighbours."
+      - "Consider which of the four gases has the largest attraction between its molecules."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the vapour pressure of a liquid?"
+    correct: "the pressure of the vapour in equilibrium with the liquid"
+    unit: ""
+    wrong:
+      - {text: "the pressure the liquid exerts on the walls of its container", mistake: "confuses vapour pressure with the hydrostatic pressure of the liquid"}
+      - {text: "the atmospheric pressure at the surface of the liquid", mistake: "treats the external pressure as the vapour pressure"}
+      - {text: "the pressure needed to compress the liquid", mistake: "mixes vapour pressure with the compressibility of the liquid"}
+    explanation: "Vapour pressure is the pressure exerted by the vapour when evaporation and condensation balance in a closed container."
+    hints:
+      - "Think about a closed container where evaporation and condensation balance each other."
+      - "The vapour is the gas phase above the liquid, not the liquid itself."
+      - "Look for the option that describes a balance between two opposing processes."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "How does the vapour pressure of a liquid change when its temperature rises?"
+    correct: "it increases"
+    unit: ""
+    wrong:
+      - {text: "it decreases", mistake: "reverses the effect of kinetic energy on evaporation"}
+      - {text: "it stays unchanged", mistake: "ignores temperature in the equilibrium between liquid and vapour"}
+      - {text: "it increases only for polar liquids", mistake: "restricts the temperature effect to polar molecules alone"}
+    explanation: "A higher temperature gives more molecules enough energy to escape from the surface, so the equilibrium vapour pressure rises."
+    hints:
+      - "Higher temperature gives more molecules enough energy to escape from the surface."
+      - "Consider how many molecules can overcome the attraction of the liquid."
+      - "Think about the direction of the change in the number of escaping molecules."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Why does a liquid with stronger intermolecular forces have a higher boiling point?"
+    correct: "more energy is needed to overcome the forces between molecules"
+    unit: ""
+    wrong:
+      - {text: "its vapour pressure is always higher at the same temperature", mistake: "reverses the relationship between attraction and vapour pressure"}
+      - {text: "it has a smaller surface area", mistake: "treats surface area as the cause of boiling point"}
+      - {text: "it is less dense than other liquids", mistake: "associates the boiling point with density"}
+    explanation: "Boiling needs the vapour pressure to reach the external pressure, and stronger attractions mean more energy must be supplied before molecules can escape."
+    hints:
+      - "Boiling happens when vapour pressure equals the external pressure, so think about what it takes to reach that."
+      - "Consider how strongly the molecules are held in the liquid."
+      - "Compare the energy needed to free molecules from the liquid in each case."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A liquid boils at 353 K under normal pressure. What is its boiling point in degrees Celsius?"
+    correct: "80"
+    unit: "C"
+    wrong: []
+    explanation: "To convert kelvin to Celsius subtract 273, so 353 K minus 273 gives 80 degrees Celsius."
+    hints:
+      - "Subtract the standard offset between the kelvin and Celsius scales."
+      - "The offset is about two hundred and seventy-three."
+      - "Keep the sign positive because the temperature is above freezing."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "mcq"
+    difficulty: "hard"
+    role: "apply"
+    stem: "Why does the surface tension of a liquid decrease as its temperature rises?"
+    correct: "molecules move more and the cohesive attraction between them weakens"
+    unit: ""
+    wrong:
+      - {text: "molecules pack more tightly at higher temperature", mistake: "reverses the effect of thermal motion on the spacing of molecules"}
+      - {text: "the liquid gains more hydrogen bonds as it warms", mistake: "adds new bonds with heating, which does not happen"}
+      - {text: "the surface area of the liquid increases", mistake: "confuses the cause of surface tension with one of its effects"}
+    explanation: "Thermal motion loosens the cohesive forces that pull surface molecules inward, so the surface tension falls as the temperature rises."
+    hints:
+      - "Think about the energy that holds molecules at the surface and how heat affects it."
+      - "Consider how the thermal motion of the molecules competes with cohesion."
+      - "Look for the option that describes weaker cohesion at higher energy."
+    diagram: null
+    confidence: "high"
+  - topic: "liquid_state"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Which of these liquids has the highest viscosity at room temperature?"
+    correct: "glycerol"
+    unit: ""
+    wrong:
+      - {text: "ethanol", mistake: "treats alcohols as being as viscous as glycerol"}
+      - {text: "water", mistake: "assumes hydrogen bonding alone gives the highest viscosity"}
+      - {text: "hexane", mistake: "assumes long nonpolar chains give the thickest liquid"}
+    explanation: "Glycerol has three hydroxyl groups per molecule that form a dense network of hydrogen bonds, which makes it far more viscous than the other liquids."
+    hints:
+      - "Consider how many hydrogen bonding groups each molecule carries."
+      - "Think about how large each molecule is and how it can tangle with neighbours."
+      - "Compare the number of attractive sites among the four liquids."
+    diagram: null
+    confidence: "high"

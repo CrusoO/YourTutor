@@ -1,0 +1,418 @@
+class: 12
+subject: "maths"
+chapter: "applications_of_derivatives"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "rate_of_change"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "The volume of a cube is V = s^3, where s is the side length. When s = 2 and ds/dt = 1, find dV/dt."
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "dV/dt = 3s^2 times ds/dt, which at s = 2 with ds/dt = 1 equals 3 times 4, giving 12."
+    hints:
+      - "Differentiate the volume with respect to time using the chain rule."
+      - "Substitute the side length and the given rate of change of the side."
+      - "Multiply the results carefully at the end."
+    diagram: "A cube whose side s is labelled and whose edges have arrows showing that the side is growing at a steady rate."
+    confidence: high
+
+  - topic: "rate_of_change"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the equation of the tangent to y = x^2 at the point where x = 1?"
+    correct: "y = 2x - 1"
+    unit: ""
+    wrong:
+      - {text: "y = x - 1", mistake: "uses the function value as the slope"}
+      - {text: "y = 2x + 1", mistake: "makes a sign error in the point-slope form"}
+      - {text: "y = x + 1", mistake: "takes the slope to be 1 without differentiating"}
+    explanation: "At x = 1 the point is (1, 1) and the slope is the derivative 2x, which equals 2, so the tangent is y - 1 = 2(x - 1), which is y = 2x - 1."
+    hints:
+      - "Find the point of tangency first by evaluating the function."
+      - "The slope of the tangent is the derivative at that point."
+      - "Use the point-slope form with the point and the slope."
+    diagram: null
+    confidence: high
+
+  - topic: "rate_of_change"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "The area of a circle is A = pi r^2. When the radius is 3 units and is increasing at 2 units per second, find dA/dt, rounded to 3 significant figures."
+    correct: "37.7"
+    unit: ""
+    wrong: []
+    explanation: "dA/dt = 2 pi r dr/dt, which at r = 3 and dr/dt = 2 is 12 pi, about 37.7."
+    hints:
+      - "Differentiate the area with respect to time using the chain rule."
+      - "Substitute the radius and the rate at which the radius grows."
+      - "Keep pi exact until the final step, then round."
+    diagram: "A circle with radius r marked, and an arrow on the radius showing it lengthening over time."
+    confidence: high
+
+  - topic: "rate_of_change"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the equation of the normal to the curve y = x^3 at the point (1, 1)?"
+    correct: "3y + x = 4"
+    unit: ""
+    wrong:
+      - {text: "y = 3x - 2", mistake: "uses the tangent slope instead of the normal slope"}
+      - {text: "y = -3x + 4", mistake: "takes the negative of the slope instead of the negative reciprocal"}
+      - {text: "y = x/3 + 2/3", mistake: "takes the reciprocal of the slope without changing its sign"}
+    explanation: "The tangent slope at (1, 1) is 3, so the normal slope is minus one third, and the line through (1, 1) with that slope is 3y + x = 4."
+    hints:
+      - "Find the slope of the tangent at the point first."
+      - "A normal line is perpendicular to the tangent at the point of contact."
+      - "Write the line through the point using the perpendicular slope."
+    diagram: null
+    confidence: high
+
+  - topic: "rate_of_change"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A ladder of length 5 m leans against a vertical wall. Its foot slides away from the wall at 2 m/s. When the foot is 3 m from the wall, find the rate of change of the height of the top of the ladder in m/s."
+    correct: "-1.5"
+    unit: ""
+    wrong: []
+    explanation: "With x^2 + y^2 = 25, dy/dt = minus (x/y) dx/dt. At x = 3 and y = 4 with dx/dt = 2, this gives minus 1.5, so the top slides down at 1.5 m/s."
+    hints:
+      - "Write the relation between the foot distance, the height and the ladder length."
+      - "Differentiate that relation with respect to time."
+      - "Substitute the height from the relation and then the given rates."
+    diagram: "A ladder leaning against a vertical wall, with its foot on the ground moving away from the wall and its top sliding down the wall, the three lengths labelled."
+    confidence: high
+
+  - topic: "rate_of_change"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A sphere has radius increasing at 0.5 cm per second. When the radius is 2 cm, find the rate of change of its surface area in square cm per second, rounded to 1 decimal place."
+    correct: "25.1"
+    unit: ""
+    wrong: []
+    explanation: "The surface area is 4 pi r^2, so dS/dt = 8 pi r dr/dt. At r = 2 and dr/dt = 0.5 this equals 8 pi, about 25.1."
+    hints:
+      - "Differentiate the surface area formula with respect to time."
+      - "Substitute the radius and the given rate before multiplying."
+      - "Keep pi exact until the last step."
+    diagram: null
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For f(x) = x^3 - 3x, on which set is f increasing?"
+    correct: "(-infinity, -1) and (1, infinity)"
+    unit: ""
+    wrong:
+      - {text: "(-1, 1) only", mistake: "uses the interval where the derivative is negative"}
+      - {text: "(-infinity, 0) only", mistake: "assumes the sign change happens at zero"}
+      - {text: "(0, infinity) only", mistake: "ignores the negative branch of the derivative"}
+    explanation: "The derivative 3x^2 - 3 is positive when the absolute value of x exceeds 1, so f increases on those two outer intervals."
+    hints:
+      - "Find the derivative of f."
+      - "Solve where the derivative is positive."
+      - "Remember that a positive derivative means the function is increasing."
+    diagram: "Cubic curve y = x^3 - 3x drawn on axes, with its local maximum and local minimum marked at x = -1 and x = 1."
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "For f(x) = x^2 - 4x, find the x value at which f' equals zero."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The derivative is 2x - 4, which is zero when x equals 2."
+    hints:
+      - "Differentiate f once."
+      - "Set the derivative equal to zero."
+      - "Solve the resulting linear equation."
+    diagram: null
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "For f(x) = x^3 - 6x^2 + 9x, find the length of the interval on which f is decreasing."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "f'(x) = 3(x - 1)(x - 3), which is negative between 1 and 3, so f decreases on an interval of length 2."
+    hints:
+      - "Find f' and factor it."
+      - "Determine the sign of f' between its two roots."
+      - "Measure the distance between the two endpoints of that interval."
+    diagram: "Cubic curve with two turning points marked on the horizontal axis, and the stretch between them shaded to show where the curve falls."
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "For f(x) = x + 1/x with x greater than 0, on which set is f increasing?"
+    correct: "(1, infinity) only"
+    unit: ""
+    wrong:
+      - {text: "(0, 1) only", mistake: "reverses the sign of the derivative"}
+      - {text: "(0, infinity)", mistake: "assumes a sum of positive terms is always increasing"}
+      - {text: "(-1, 1)", mistake: "ignores the condition that x must be positive"}
+    explanation: "The derivative 1 - 1/x^2 is positive only when x is greater than 1, so f is increasing on (1, infinity)."
+    hints:
+      - "Differentiate f and write the derivative as a single fraction."
+      - "Find when the numerator and denominator have the same sign."
+      - "Check a test value on each side of the critical point."
+    diagram: null
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For f(x) = e^x - e x on the real numbers, which describes the behaviour of f?"
+    correct: "Decreasing on (-infinity, 1) and increasing on (1, infinity)"
+    unit: ""
+    wrong:
+      - {text: "Increasing everywhere", mistake: "takes the growth of e^x to dominate for all x"}
+      - {text: "Decreasing on (1, infinity)", mistake: "reverses the sign analysis of the derivative"}
+      - {text: "Increasing on (-infinity, 1)", mistake: "reads the sign of the derivative backwards for x below the critical point"}
+    explanation: "The derivative e^x - e is negative for x less than 1 and positive for x greater than 1, so f decreases first and then increases."
+    hints:
+      - "Find the derivative and the single point where it vanishes."
+      - "Test the sign of the derivative on each side of that point."
+      - "Relate the sign of the derivative to whether the function rises or falls."
+    diagram: "Curve of e^x minus e times x drawn on axes, with its lowest point marked at x = 1 and the curve falling on the left of it and rising on the right."
+    confidence: high
+
+  - topic: "increasing_decreasing"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For f(x) = x^4 - 8x^2 + 1, how many separate intervals on the real line is f increasing?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "f'(x) = 4x(x^2 - 4) has roots at -2, 0 and 2, and the derivative is positive on (-2, 0) and on (2, infinity), giving two intervals of increase."
+    hints:
+      - "Find the critical points by setting the derivative equal to zero."
+      - "Test the sign of the derivative between consecutive critical points."
+      - "Count the intervals where the sign is positive."
+    diagram: null
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the minimum value of f(x) = x^2 - 6x + 10 on the real numbers."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "The derivative 2x - 6 vanishes at x = 3, where f(3) = 9 - 18 + 10 = 1, and the second derivative is positive, so this is the minimum."
+    hints:
+      - "Differentiate and find the stationary point."
+      - "Check the sign of the second derivative at that point."
+      - "Substitute the stationary point back into the function."
+    diagram: "Upward opening parabola drawn on axes, with its lowest point marked and labelled as the minimum."
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the maximum value of f(x) = -x^2 + 4x on the real numbers?"
+    correct: "4"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "returns the x coordinate of the turning point instead of the function value"}
+      - {text: "-4", mistake: "takes the value at the turning point with the wrong sign"}
+      - {text: "No maximum exists", mistake: "believes a downward parabola is unbounded above"}
+    explanation: "The derivative -2x + 4 vanishes at x = 2, where f(2) = -4 + 8 = 4, and the second derivative is negative, so this is a maximum."
+    hints:
+      - "Find where the derivative is zero."
+      - "Check whether the second derivative is negative there."
+      - "Evaluate the function at the stationary point."
+    diagram: null
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the maximum value of f(x) = x^3 - 3x^2 + 1 on the closed interval from 0 to 3."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "f'(x) = 3x(x - 2) gives the critical point x = 2 in the interval, with f(2) = -3, while f(0) = 1 and f(3) = 1, so the maximum is 1."
+    hints:
+      - "Find the critical points that lie inside the interval."
+      - "Compare the values at those points with the values at both endpoints."
+      - "Substitute each candidate into the function."
+    diagram: "Cubic curve drawn over the interval from 0 to 3, with a turning point inside the interval marked and both endpoints labelled."
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Two positive numbers have a sum of 10. What is the largest possible value of their product?"
+    correct: "25"
+    unit: ""
+    wrong:
+      - {text: "24", mistake: "uses whole number pairs without checking the best split"}
+      - {text: "50", mistake: "adds the two numbers instead of multiplying them"}
+      - {text: "100", mistake: "squares the sum instead of finding the product"}
+    explanation: "Write the numbers as x and 10 minus x, so the product is x(10 - x). This is largest at x = 5, giving 25."
+    hints:
+      - "Write one number as x and express the other in terms of x."
+      - "Form the product as a function of x."
+      - "Find the maximum of that function using the derivative."
+    diagram: null
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the minimum value of f(x) = x + 4/x for x greater than 0."
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "f'(x) = 1 - 4/x^2 vanishes at x = 2, where f(2) = 2 + 2 = 4, and f is decreasing before and increasing after this point, so 4 is the minimum."
+    hints:
+      - "Differentiate the function and set the derivative equal to zero."
+      - "Solve for x, keeping in mind that x must be positive."
+      - "Evaluate the function at that point."
+    diagram: "Graph of x plus 4 over x for positive x, a curve with a single lowest point marked and two branches approaching the axes."
+    confidence: high
+
+  - topic: "maxima_minima"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the maximum value of f(x) = sin x + cos x on the closed interval from 0 to pi/2, and where is it attained?"
+    correct: "square root of 2, attained at x = pi/4"
+    unit: ""
+    wrong:
+      - {text: "1, attained at x = 0", mistake: "takes an endpoint value as the maximum without checking the interior"}
+      - {text: "2, attained at x = pi/4", mistake: "adds the amplitudes of the two terms incorrectly"}
+      - {text: "square root of 2, attained at x = pi/2", mistake: "confuses the location of the maximum with an endpoint"}
+    explanation: "The derivative cos x - sin x vanishes at x = pi/4, where f equals square root of 2. The endpoint values are 1, so the interior point gives the maximum."
+    hints:
+      - "Differentiate and find the critical point inside the interval."
+      - "Compare the value at that point with the values at the endpoints."
+      - "Consider the identity that writes the sum as a single sine."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Use differentials to approximate the square root of 26."
+    correct: "5.1"
+    unit: ""
+    wrong: []
+    explanation: "Taking f(x) = square root of x at x = 25 with dx = 1, the derivative is 1 over 10, so the change is 0.1 and the approximation is 5.1."
+    hints:
+      - "Choose a nearby perfect square as the starting value."
+      - "Use dy = f'(x) dx with the square root function."
+      - "Add the estimated change to the starting value."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For y = x^2, what is the differential dy at x = 3 when dx = 0.1?"
+    correct: "0.6"
+    unit: ""
+    wrong:
+      - {text: "0.3", mistake: "uses dx instead of the derivative times dx"}
+      - {text: "0.9", mistake: "multiplies the derivative by the wrong value of x"}
+      - {text: "0.09", mistake: "squares the change in x instead of multiplying by the derivative"}
+    explanation: "The differential is dy = 2x dx, which at x = 3 and dx = 0.1 equals 0.6."
+    hints:
+      - "Find the derivative of x squared."
+      - "Multiply the derivative at x = 3 by the change in x."
+      - "Keep the size and sign of dx in your product."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "An open-top box is made from a 12 by 12 cm square sheet by cutting equal squares of side x from each corner and folding up the sides. Find the largest possible volume in cubic cm."
+    correct: "128"
+    unit: ""
+    wrong: []
+    explanation: "The volume is x(12 - 2x)^2, which is maximised at x = 2, giving 2 times 8 squared, which is 2 times 64, equal to 128."
+    hints:
+      - "Write the volume as a function of the cut size x."
+      - "Differentiate the volume and set the derivative equal to zero."
+      - "Check the endpoints of the allowed range for x."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A rectangular enclosure has a total perimeter of 40 m. What is the largest possible area in square metres?"
+    correct: "100"
+    unit: ""
+    wrong:
+      - {text: "400", mistake: "multiplies the perimeter by itself"}
+      - {text: "50", mistake: "takes half the perimeter as the area"}
+      - {text: "200", mistake: "doubles the area of the square case"}
+    explanation: "With sides x and 20 minus x the area is x(20 - x), which is largest at x = 10, giving 100, achieved by a square."
+    hints:
+      - "Write the perimeter condition in terms of the two side lengths."
+      - "Express the area using only one side."
+      - "Find the critical point of the area function."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Use differentials to approximate the cube root of 8.01, rounded to 4 decimal places."
+    correct: "2.0008"
+    unit: ""
+    wrong: []
+    explanation: "With f(x) = x^(1/3) at x = 8 and dx = 0.01, the derivative is 1/12, so the change is 0.01/12, about 0.00083, and the approximation is 2.00083, which rounds to 2.0008."
+    hints:
+      - "Choose a nearby perfect cube as the starting point."
+      - "Differentiate the cube root function."
+      - "Multiply the derivative by the small change in x and add it to the starting value."
+    diagram: null
+    confidence: high
+
+  - topic: "approximations_optimisation"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Two positive numbers x and y satisfy x + y = 12. Find the maximum value of x times y squared."
+    correct: "256"
+    unit: ""
+    wrong: []
+    explanation: "Substituting y = 12 - x gives g(x) = x(12 - x)^2, whose derivative is (12 - x)(12 - 3x), which vanishes at x = 4. Then y = 8 and the product is 4 times 64, equal to 256."
+    hints:
+      - "Write the second number in terms of the first using the sum condition."
+      - "Form the function to maximise with a single variable."
+      - "Set its derivative equal to zero and keep the root that lies inside the allowed range."
+    diagram: null
+    confidence: high

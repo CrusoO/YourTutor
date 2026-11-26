@@ -1,0 +1,214 @@
+class: 12
+subject: "maths"
+chapter: "applications_of_integrals"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "area_under_curve"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the area under the curve y = x^2 above the x-axis between x = 0 and x = 2, rounded to 3 decimal places."
+    correct: "2.667"
+    unit: ""
+    wrong: []
+    explanation: "The integral of x squared from 0 to 2 is 8/3, which is about 2.667."
+    hints:
+      - "Set up the integral of the function between the two given x values."
+      - "Find an antiderivative of the function."
+      - "Evaluate it at both ends and subtract."
+    diagram: "Parabola y = x^2 drawn from x = 0 to x = 2, with the region between the curve and the horizontal axis shaded."
+    confidence: high
+
+  - topic: "area_under_curve"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the area of the region bounded by y = 4 - x^2 and the x-axis?"
+    correct: "32/3"
+    unit: ""
+    wrong:
+      - {text: "16/3", mistake: "counts only one half of the region"}
+      - {text: "16", mistake: "integrates only the constant part of the function"}
+      - {text: "4/3", mistake: "uses the wrong upper limit for the integral"}
+    explanation: "The curve meets the axis at x = -2 and x = 2, and the region is symmetric, so the area is the integral of 4 - x^2 from -2 to 2, which is 32/3."
+    hints:
+      - "Find where the curve meets the x-axis to set the limits."
+      - "Notice whether the region is symmetric about the vertical axis."
+      - "Use twice the area on one side if that simplifies the work."
+    diagram: "Downward opening parabola y = 4 - x^2 drawn on axes, with the region between the curve and the horizontal axis from minus 2 to 2 shaded."
+    confidence: high
+
+  - topic: "area_under_curve"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the area of the triangle bounded by the line y = 3 - x, the x-axis and the y-axis."
+    correct: "4.5"
+    unit: ""
+    wrong: []
+    explanation: "The line crosses the axes at (0, 3) and (3, 0), so the region is a triangle with base 3 and height 3, whose area is 4.5."
+    hints:
+      - "Find where the line crosses each axis."
+      - "Integrate the line from the x-intercept to the origin, or use the geometry of the triangle."
+      - "Compare your result with the area of a right triangle with those legs."
+    diagram: "Straight line y = 3 - x drawn in the first quadrant, with the triangle between it and the two axes shaded."
+    confidence: high
+
+  - topic: "area_under_curve"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the area bounded by y = x^3, the x-axis and the line x = 2?"
+    correct: "4"
+    unit: ""
+    wrong:
+      - {text: "16", mistake: "forgets to divide by the new power when integrating"}
+      - {text: "2", mistake: "evaluates the integrand at the upper limit only"}
+      - {text: "8", mistake: "uses the height at x = 2 as the area"}
+    explanation: "The integral of x cubed from 0 to 2 is x to the fourth over 4 evaluated from 0 to 2, which is 16/4 = 4."
+    hints:
+      - "Set up the integral with the correct lower and upper limits."
+      - "Find an antiderivative of x cubed."
+      - "Evaluate at the upper limit and subtract the value at the lower limit."
+    diagram: "Cubic curve y = x^3 between x = 0 and x = 2 with the region under it and above the horizontal axis shaded."
+    confidence: high
+
+  - topic: "area_under_curve"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the area of the region bounded by the parabola y = x^2 - 4 and the x-axis, rounded to 3 decimal places."
+    correct: "10.667"
+    unit: ""
+    wrong: []
+    explanation: "The curve crosses the axis at x = -2 and x = 2 and lies below it between them. The area is the integral of 4 - x^2 from -2 to 2, which is 32/3, about 10.667."
+    hints:
+      - "Find where the parabola crosses the x-axis."
+      - "Determine on which part of the interval the curve lies below the axis."
+      - "Take the integral of the negative of the function on that part."
+    diagram: "Upward opening parabola with its vertex below the horizontal axis, crossing the axis at two points, and the region between the curve and the axis shaded."
+    confidence: high
+
+  - topic: "area_under_curve"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the area bounded by y = 1/x, the x-axis, and the lines x = 1 and x = e?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "e", mistake: "integrates the function without using a logarithm"}
+      - {text: "e - 1", mistake: "subtracts the limits directly from the function values"}
+      - {text: "ln 2", mistake: "uses the wrong upper limit in the logarithm"}
+    explanation: "The integral of 1/x from 1 to e is ln e minus ln 1, which is 1 minus 0, giving 1."
+    hints:
+      - "Set up a definite integral of the reciprocal function over the given limits."
+      - "Recall the antiderivative of the reciprocal function."
+      - "Evaluate the logarithm at the two x values."
+    diagram: "Hyperbola y = 1/x between x = 1 and x = e, with the region between the curve and the horizontal axis shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the area between the curves y = x and y = x^2 for x from 0 to 1, rounded to 3 decimal places."
+    correct: "0.167"
+    unit: ""
+    wrong: []
+    explanation: "On [0, 1] the line lies above the parabola, so the area is the integral of x minus x^2, which is 1/2 minus 1/3, equal to 1/6, about 0.167."
+    hints:
+      - "Decide which curve is higher on the interval."
+      - "Subtract the lower function from the upper one."
+      - "Integrate that difference between the two limits."
+    diagram: "Straight line y = x and parabola y = x squared on the interval from 0 to 1, with the region between them shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which integral gives the area between y = 4 - x^2 and y = x + 2?"
+    correct: "The integral from -2 to 1 of (2 - x - x^2)"
+    unit: ""
+    wrong:
+      - {text: "The integral from -1 to 2 of (2 - x - x^2)", mistake: "uses the wrong intersection points"}
+      - {text: "The integral from -2 to 1 of (x^2 + x - 2)", mistake: "subtracts the curves in the wrong order"}
+      - {text: "The integral from -2 to 2 of (4 - x^2)", mistake: "ignores the straight line completely"}
+    explanation: "The curves meet where x^2 + x - 2 = 0, so x = -2 and x = 1. On that interval the parabola is above the line, so the integrand is (4 - x^2) minus (x + 2), which is 2 - x - x^2."
+    hints:
+      - "Find where the two curves intersect by solving for x."
+      - "Decide which curve is higher between those intersection points."
+      - "Write the integral of upper minus lower."
+    diagram: "Parabola y = 4 - x^2 and straight line y = x + 2 crossing at two points, with the region between them shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the area between the curves y = 2x and y = x^2, rounded to 3 decimal places."
+    correct: "1.333"
+    unit: ""
+    wrong: []
+    explanation: "The curves meet at x = 0 and x = 2, and between them y = 2x is above y = x^2, so the area is the integral of 2x - x^2 from 0 to 2, which is 4 - 8/3 = 4/3."
+    hints:
+      - "Find the points where the two curves intersect."
+      - "Determine which curve lies on top between the intersection points."
+      - "Integrate the top curve minus the bottom curve."
+    diagram: "Parabola y = x squared and straight line y = 2x meeting at the origin and at x = 2, with the enclosed region shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Which integral with respect to y gives the area between x = y^2 and x = y + 2?"
+    correct: "The integral from -1 to 2 of (y + 2 - y^2)"
+    unit: ""
+    wrong:
+      - {text: "The integral from -1 to 2 of (y^2 - y - 2)", mistake: "reverses which curve is on the right"}
+      - {text: "The integral from 0 to 2 of (y + 2 - y^2)", mistake: "uses zero instead of the intersection point"}
+      - {text: "The integral from -2 to 1 of (y + 2 - y^2)", mistake: "solves the intersection equation with a sign error"}
+    explanation: "The curves meet where y^2 = y + 2, so y = -1 and y = 2. Between these values the line x = y + 2 lies to the right, so the area is the integral of (y + 2 - y^2) from -1 to 2."
+    hints:
+      - "Find where the two curves intersect by solving for y."
+      - "Decide which curve is further to the right between those values."
+      - "Integrate the right curve minus the left curve with respect to y."
+    diagram: "Parabola x = y squared opening to the right and straight line x = y + 2 crossing it at two points, with the enclosed region shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the area between the parabola y = x^2 and the line y = 3x - 2, rounded to 3 decimal places."
+    correct: "0.167"
+    unit: ""
+    wrong: []
+    explanation: "The curves meet at x = 1 and x = 2, and the line is above the parabola between them. The area is the integral of (3x - 2 - x^2) from 1 to 2, which is 1/6, about 0.167."
+    hints:
+      - "Find the intersection points of the two curves."
+      - "Determine which function is larger between them."
+      - "Integrate the larger function minus the smaller one over that interval."
+    diagram: "Parabola y = x squared and straight line y = 3x - 2 crossing at two points, with the region between them shaded."
+    confidence: high
+
+  - topic: "area_between_curves"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the total area enclosed between the cubic y = x^3 and the line y = x?"
+    correct: "1/2"
+    unit: ""
+    wrong:
+      - {text: "1/4", mistake: "counts only the region on the positive side of the axis"}
+      - {text: "0", mistake: "cancels the two symmetric regions against each other"}
+      - {text: "1", mistake: "doubles the area without subtracting the curves correctly"}
+    explanation: "The curves meet at x = -1, 0 and 1. On [0, 1] the line is above the cubic, and by symmetry the region on [-1, 0] has the same area, so the total is 2 times the integral of (x - x^3) from 0 to 1, which is 1/2."
+    hints:
+      - "Find all points where the two curves meet."
+      - "Split the region into parts where each curve lies on top."
+      - "Use the symmetry of the picture about the origin to simplify the work."
+    diagram: "Cubic y = x cubed and straight line y = x meeting at x = minus 1, 0 and 1, with the two enclosed regions shaded."
+    confidence: high

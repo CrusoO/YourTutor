@@ -1,0 +1,203 @@
+class: 11
+subject: maths
+chapter: three_dimensional_geometry
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: coordinates_in_space
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which point lies in the xy-plane of a three-dimensional coordinate system?"
+    correct: "(3, 4, 0)"
+    unit: ""
+    wrong:
+      - {text: "(0, 4, 3)", mistake: "places the zero in the first coordinate instead of the third"}
+      - {text: "(3, 0, 4)", mistake: "confuses the xy-plane with the xz-plane"}
+      - {text: "(3, 4, 1)", mistake: "assumes the xy-plane is not flat in the vertical direction"}
+    explanation: "Every point in the xy-plane has zero as its z coordinate, so only (3, 4, 0) qualifies."
+    hints:
+      - "Recall which coordinate measures the height above the horizontal plane."
+      - "A point on a particular plane has one coordinate fixed, so look for that coordinate."
+      - "Check each candidate for the coordinate that must be zero."
+    diagram: "Three mutually perpendicular axes labelled x, y and z meeting at the origin, with the xy-plane shaded and a point marked on it."
+    confidence: high
+  - topic: coordinates_in_space
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In which octant do all three coordinates of a point have negative signs?"
+    correct: "the octant opposite the first octant"
+    unit: ""
+    wrong:
+      - {text: "the first octant", mistake: "treats negative signs as if they were positive"}
+      - {text: "the octant where only the z coordinate is negative", mistake: "counts sign changes along one axis only"}
+      - {text: "the octant where only the x and y coordinates are negative", mistake: "forgets that the z coordinate is also negative in that octant"}
+    explanation: "The octant with all three coordinates negative is the one diagonally opposite the first octant, where every coordinate is positive."
+    hints:
+      - "Think about how the sign of each axis changes as you move through the space."
+      - "The first octant has all three coordinates positive."
+      - "Find the octant that flips every sign relative to the first one."
+    diagram: "Three axes meeting at the origin dividing space into eight regions, with the opposite of the first region marked."
+    confidence: medium
+  - topic: coordinates_in_space
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "What is the distance of the point P(2, -3, 6) from the origin?"
+    correct: "7"
+    unit: "units"
+    wrong: []
+    explanation: "The distance from the origin is the square root of 2 squared plus 3 squared plus 6 squared, which is the square root of 49, equal to 7."
+    hints:
+      - "Extend the two-dimensional distance formula by one more squared term."
+      - "Square each coordinate, ignoring the signs."
+      - "Add the squares and take the square root."
+    diagram: "Three perpendicular axes with a point P marked in space, and a line segment from the origin to P drawn along a rectangular box with edges parallel to the axes."
+    confidence: high
+  - topic: coordinates_in_space
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "The point (2, 5, -1) is reflected in the xy-plane. What are the coordinates of its image?"
+    correct: "(2, 5, 1)"
+    unit: ""
+    wrong:
+      - {text: "(-2, 5, -1)", mistake: "reflects in the yz-plane instead of the xy-plane"}
+      - {text: "(2, -5, -1)", mistake: "reflects in the xz-plane instead of the xy-plane"}
+      - {text: "(-2, -5, 1)", mistake: "reflects through the origin instead of across a plane"}
+    explanation: "Reflection in the xy-plane keeps x and y unchanged and flips the sign of z, giving (2, 5, 1)."
+    hints:
+      - "Decide which coordinate is zero on the plane of reflection."
+      - "A reflection across a plane leaves the coordinates lying in that plane unchanged."
+      - "Only the coordinate perpendicular to the mirror plane changes sign."
+    diagram: "Three axes with a point marked above the xy-plane and its mirror image marked symmetrically below the plane, joined by a dashed perpendicular line."
+    confidence: high
+  - topic: coordinates_in_space
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "What is the distance of the point (3, -4, 12) from the z-axis?"
+    correct: "5"
+    unit: "units"
+    wrong: []
+    explanation: "The distance from the z-axis depends only on x and y, so it is the square root of 9 plus 16, which equals 5."
+    hints:
+      - "The distance from an axis depends only on the coordinates that are not along that axis."
+      - "Square the two coordinates that remain and add them."
+      - "Take the square root of the sum to find the distance."
+    diagram: "Three axes with a vertical z-axis, a point marked off the axis, and a perpendicular segment from the point to the z-axis labelled."
+    confidence: high
+  - topic: coordinates_in_space
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which set describes all the points on the plane x equal to 2?"
+    correct: "all points with x equal to 2, with y and z arbitrary"
+    unit: ""
+    wrong:
+      - {text: "all points with y equal to 2, with x and z arbitrary", mistake: "fixes the wrong coordinate for the plane"}
+      - {text: "the single point (2, 0, 0)", mistake: "treats a whole plane as one point"}
+      - {text: "all points with x equal to 2 and y equal to 0", mistake: "adds a restriction on y that the plane does not have"}
+    explanation: "A plane x equal to 2 is the set of all points whose first coordinate is 2, while y and z can take any real value."
+    hints:
+      - "Identify which coordinate is held constant for a plane parallel to the yz-plane."
+      - "The other two coordinates on that plane are free to vary."
+      - "Describe the set using only the constraint that the fixed coordinate imposes."
+    diagram: null
+    confidence: high
+  - topic: distance_and_section_3d
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the distance between the points (0, 0, 0) and (1, 2, 2)?"
+    correct: "3"
+    unit: "units"
+    wrong: []
+    explanation: "The distance is the square root of 1 plus 4 plus 4, which equals the square root of 9, namely 3."
+    hints:
+      - "Apply the distance formula in three dimensions to the two points."
+      - "Find the differences in each coordinate between the two points."
+      - "Square the differences, add them and take the square root."
+    diagram: null
+    confidence: high
+  - topic: distance_and_section_3d
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which point is the midpoint of the segment joining (1, 2, 3) and (3, 4, 5)?"
+    correct: "(2, 3, 4)"
+    unit: ""
+    wrong:
+      - {text: "(4, 6, 8)", mistake: "adds the coordinates instead of averaging them"}
+      - {text: "(1, 1, 1)", mistake: "takes the differences of the endpoints instead of their average"}
+      - {text: "(2, 3, 5)", mistake: "averages only two of the three coordinates"}
+    explanation: "The midpoint averages each coordinate of the two endpoints, giving ((1 + 3) over 2, (2 + 4) over 2, (3 + 5) over 2), which is (2, 3, 4)."
+    hints:
+      - "The midpoint is found by averaging each coordinate separately."
+      - "Add the first coordinates of the two endpoints and halve the result."
+      - "Repeat the averaging for the second and third coordinates."
+    diagram: "Segment in three dimensions joining two labelled endpoints, with its midpoint marked and the coordinates of each point written beside it."
+    confidence: high
+  - topic: distance_and_section_3d
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "Point P divides the segment joining A(1, -2, 3) and B(4, 1, 6) internally in the ratio 2 to 1, measured from A. What is the x-coordinate of P?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The section formula gives x equal to (1 times 1 plus 2 times 4) over 3, which is 9 over 3, or 3."
+    hints:
+      - "Use the section formula with the given internal ratio."
+      - "Multiply each endpoint coordinate by the part of the ratio on the opposite side."
+      - "Divide the sum by the total of the two ratio parts."
+    diagram: "Segment AB in three dimensions with a point P marked between A and B, and the ratio of the two parts labelled 2 to 1 counting from A."
+    confidence: high
+  - topic: distance_and_section_3d
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the distance between the points (1, 0, 2) and (4, 4, 2)?"
+    correct: "5"
+    unit: ""
+    wrong:
+      - {text: "7", mistake: "adds the coordinate differences instead of squaring them"}
+      - {text: "25", mistake: "forgets to take the square root of the sum"}
+      - {text: "square root of 41", mistake: "includes a difference in the z coordinate that is not present"}
+    explanation: "The differences are 3, 4 and 0, so the distance is the square root of 9 plus 16 plus 0, which is 5."
+    hints:
+      - "Find the difference between the matching coordinates of the two points."
+      - "Square each difference, including any that is zero."
+      - "Add the squares and take the square root of the total."
+    diagram: null
+    confidence: high
+  - topic: distance_and_section_3d
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Points A(1, 2, 3) and B(3, -2, k) are 6 units apart. Find the positive value of k."
+    correct: "7"
+    unit: ""
+    wrong: []
+    explanation: "The squared distance is 4 plus 16 plus (k minus 3) squared, which equals 36, so (k minus 3) squared is 16 and the positive k is 7."
+    hints:
+      - "Write the squared distance formula using the differences in each coordinate."
+      - "Simplify the known terms and isolate the squared term involving k."
+      - "Take the square root and keep the positive solution."
+    diagram: "Two labelled points A and B in three-dimensional axes with the segment between them marked as 6 units, and the vertical coordinate of B marked as an unknown."
+    confidence: high
+  - topic: distance_and_section_3d
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The point that divides the segment joining (1, 1, 1) and (7, 7, 13) internally in the ratio 1 to 2, counted from the first point, has what z-coordinate?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The section formula gives z equal to (2 times 1 plus 1 times 13) over 3, which is 15 over 3, or 5."
+    hints:
+      - "Apply the section formula to the third coordinate."
+      - "Weight each endpoint coordinate by the part of the ratio on the opposite side."
+      - "Divide by the total of the ratio parts."
+    diagram: null
+    confidence: high

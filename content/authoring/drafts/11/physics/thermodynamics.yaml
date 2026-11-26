@@ -1,0 +1,407 @@
+class: 11
+subject: physics
+chapter: thermodynamics
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: thermal_equilibrium_state
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "The zeroth law of thermodynamics is about which relation?"
+    correct: "if A is in equilibrium with C and B is in equilibrium with C, then A is in equilibrium with B"
+    unit: ""
+    wrong:
+      - {text: "energy is conserved in every process", mistake: "confuses the zeroth law with the first law"}
+      - {text: "entropy never decreases in an isolated system", mistake: "confuses the zeroth law with the second law"}
+      - {text: "heat only flows from hot bodies to cold bodies", mistake: "restates the second law instead of the zeroth law"}
+    explanation: "The zeroth law states that thermal equilibrium is transitive. A third body acts as a common reference, which is why thermometers work."
+    hints:
+      - "Think about what it means for two bodies to share a temperature."
+      - "Use a third body as a go-between."
+      - "The statement is about whether equilibrium carries over from one pair to another."
+    diagram: null
+    confidence: high
+  - topic: thermal_equilibrium_state
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is a state variable of a gas?"
+    correct: "internal energy"
+    unit: ""
+    wrong:
+      - {text: "heat supplied", mistake: "treats a quantity that depends on the process as a state variable"}
+      - {text: "work done by the gas", mistake: "treats a path-dependent quantity as a state variable"}
+      - {text: "length of the path taken", mistake: "confuses the process path with the state of the system"}
+    explanation: "Internal energy depends only on the current state of the gas, such as its temperature and amount, not on how the gas got there."
+    hints:
+      - "A state variable depends only on the current condition of the system."
+      - "Path quantities depend on how the change was carried out."
+      - "The energy stored inside the system is set by its current state."
+    diagram: null
+    confidence: high
+  - topic: thermal_equilibrium_state
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "After a gas completes one full cycle and returns to its starting state, what is the net change in its internal energy, in joules?"
+    correct: "0"
+    unit: "J"
+    wrong: []
+    explanation: "Internal energy is a state variable, so after a full cycle it returns to its starting value and the net change is zero."
+    hints:
+      - "Internal energy is a state variable."
+      - "Compare the state at the end of the cycle with the state at the start."
+      - "A full cycle returns the system to where it began."
+    diagram: null
+    confidence: high
+  - topic: thermal_equilibrium_state
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two systems are in thermal equilibrium with each other. What do they have in common?"
+    correct: "the same temperature"
+    unit: ""
+    wrong:
+      - {text: "the same internal energy", mistake: "assumes equal energy means equal temperature"}
+      - {text: "the same volume", mistake: "assumes thermal equilibrium requires equal volumes"}
+      - {text: "equal heat capacities", mistake: "confuses thermal equilibrium with equal heat capacities"}
+    explanation: "Thermal equilibrium means there is no net heat flow between the systems, which happens exactly when their temperatures are equal."
+    hints:
+      - "Equilibrium means no net heat flows between the two systems."
+      - "Think about the quantity that decides the direction of heat flow."
+      - "Equal values of the intensive quantity that controls heat flow decide equilibrium."
+    diagram: null
+    confidence: high
+  - topic: thermal_equilibrium_state
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An ideal monatomic gas sample of 0.2 mol has internal energy 1.5 n R T. Using R = 8.31 J/mol K, what is the change in its internal energy in joules, to the nearest joule, when its temperature rises from 300 K to 400 K?"
+    correct: "249"
+    unit: "J"
+    wrong: []
+    explanation: "The change is 1.5 times 0.2 times 8.31 times 100 = 249.3 J, which rounds to 249 J."
+    hints:
+      - "For an ideal monatomic gas, the internal energy depends only on the temperature."
+      - "Multiply the factor three halves, the moles, the gas constant and the temperature change."
+      - "Keep the moles and the gas constant in consistent units."
+    diagram: null
+    confidence: high
+  - topic: thermal_equilibrium_state
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which of these quantities is NOT a state function of a gas?"
+    correct: "work done in a process"
+    unit: ""
+    wrong:
+      - {text: "pressure", mistake: "treats a state variable as path dependent"}
+      - {text: "temperature", mistake: "treats a state variable as path dependent"}
+      - {text: "entropy", mistake: "treats entropy as a path-dependent quantity"}
+    explanation: "Work depends on the path followed between two states, so it is not a state function. Pressure, temperature and entropy depend only on the state."
+    hints:
+      - "Ask which of these depends on how the process was carried out."
+      - "Work is exchanged during a process rather than stored in the system."
+      - "State functions have the same value for the same end conditions, whatever the path."
+    diagram: null
+    confidence: high
+  - topic: first_law
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The first law of thermodynamics is a statement of which principle?"
+    correct: "conservation of energy"
+    unit: ""
+    wrong:
+      - {text: "conservation of momentum", mistake: "confuses the first law with a mechanics conservation law"}
+      - {text: "increase of entropy", mistake: "confuses the first law with the second law"}
+      - {text: "equal temperatures in equilibrium", mistake: "confuses the first law with the zeroth law"}
+    explanation: "The first law states that the change in internal energy equals the heat added minus the work done by the system, which is energy conservation applied to thermal systems."
+    hints:
+      - "Energy can change form but cannot be created or destroyed."
+      - "Heat and work are two ways energy crosses the boundary of a system."
+      - "Think of an energy balance sheet for the system."
+    diagram: null
+    confidence: high
+  - topic: first_law
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A gas absorbs 300 J of heat and does 120 J of work on its surroundings. Taking work done by the gas as positive, what is the change in its internal energy in joules?"
+    correct: "180"
+    unit: "J"
+    wrong: []
+    explanation: "Using delta U = Q - W with Q = 300 J and W = 120 J gives delta U = 180 J."
+    hints:
+      - "Apply the first law with heat received as positive and work done by the gas as positive."
+      - "Subtract the work done by the system from the heat received."
+      - "Keep the sign of the result."
+    diagram: "A cylinder with a piston containing a gas. An arrow shows heat entering the gas from a flame below, and another arrow shows work leaving the piston upward."
+    confidence: high
+  - topic: first_law
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "One mole of ideal gas expands isothermally at 300 K from 1 litre to 2 litres. Using R = 8.31 J/mol K, what is the work done by the gas in joules, to the nearest joule?"
+    correct: "1728"
+    unit: "J"
+    wrong: []
+    explanation: "For isothermal expansion, W = nRT ln(V2/V1) = 1 times 8.31 times 300 times ln 2 = 2493 times 0.6931, which is about 1728 J."
+    hints:
+      - "For isothermal expansion the work equals n R T times the logarithm of the volume ratio."
+      - "The natural logarithm of the ratio two is a standard value."
+      - "Multiply the constants and the logarithm together."
+    diagram: null
+    confidence: high
+  - topic: first_law
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In an adiabatic process of an ideal gas, which quantity is zero?"
+    correct: "heat exchanged with the surroundings"
+    unit: ""
+    wrong:
+      - {text: "work done by the gas", mistake: "assumes an insulated process does no work"}
+      - {text: "change in internal energy", mistake: "assumes the internal energy cannot change without heat"}
+      - {text: "change in pressure", mistake: "assumes an adiabatic change must keep the pressure fixed"}
+    explanation: "An adiabatic process has no heat exchange with the surroundings, so Q is zero. Work and internal energy can still change."
+    hints:
+      - "Adiabatic means there is no thermal contact with the surroundings."
+      - "Apply the first law with the appropriate term set to zero."
+      - "Think about which term of the first law vanishes in this process."
+    diagram: null
+    confidence: high
+  - topic: first_law
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A gas is heated at a constant pressure of 100 kPa while its volume increases from 0.002 m^3 to 0.005 m^3, and 900 J of heat enters the gas. What is the change in internal energy in joules?"
+    correct: "600"
+    unit: "J"
+    wrong: []
+    explanation: "The work done by the gas is P delta V = 100000 times 0.003 = 300 J. Then delta U = Q - W = 900 - 300 = 600 J."
+    hints:
+      - "Find the work done by the gas first, using the constant pressure relation."
+      - "Then apply the first law with heat entering as positive."
+      - "Subtract the work from the heat to get the change in internal energy."
+    diagram: "A pressure-volume plot with a horizontal line at 100 kPa, running between the two volume values in cubic metres. The rectangle under the line is shaded."
+    confidence: high
+  - topic: first_law
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A gas undergoes a full cyclic process and returns to its starting state. Which statement is correct?"
+    correct: "net heat absorbed equals net work done by the gas"
+    unit: ""
+    wrong:
+      - {text: "net heat absorbed is zero but net work is not zero", mistake: "assumes one of the two terms must vanish on a cycle"}
+      - {text: "net work done is always zero", mistake: "confuses the net work with the net internal energy change"}
+      - {text: "net internal energy change is positive", mistake: "assumes energy keeps accumulating over a cycle"}
+    explanation: "Over a full cycle the internal energy returns to its starting value, so the net heat absorbed equals the net work done by the gas, as the first law requires."
+    hints:
+      - "Internal energy returns to its starting value after one full cycle."
+      - "Apply the first law across the whole cycle."
+      - "Whatever net heat enters the gas must leave as net work over a full cycle."
+    diagram: null
+    confidence: high
+  - topic: thermodynamic_processes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an isothermal process, which quantity stays constant?"
+    correct: "temperature"
+    unit: ""
+    wrong:
+      - {text: "pressure", mistake: "assumes isothermal means isobaric"}
+      - {text: "volume", mistake: "confuses isothermal with isochoric"}
+      - {text: "heat", mistake: "assumes no heat flows at all during the process"}
+    explanation: "An isothermal process keeps the temperature constant, which requires heat exchange with the surroundings as the gas expands or compresses."
+    hints:
+      - "Iso means the same, and the root word refers to heat."
+      - "Think about which property of the gas the prefix iso refers to."
+      - "The gas stays in thermal balance with its surroundings through the whole process."
+    diagram: null
+    confidence: high
+  - topic: thermodynamic_processes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an isochoric process, which quantity stays constant?"
+    correct: "volume"
+    unit: ""
+    wrong:
+      - {text: "pressure", mistake: "assumes the pressure is fixed in every process"}
+      - {text: "temperature", mistake: "confuses isochoric with isothermal"}
+      - {text: "internal energy", mistake: "assumes internal energy cannot change in any process"}
+    explanation: "An isochoric process keeps the volume constant, so the gas does no work and its pressure and temperature can change."
+    hints:
+      - "Iso means the same, and the root points to the space the gas fills."
+      - "Think of a rigid container being heated."
+      - "The gas cannot expand or contract in this process."
+    diagram: "A pressure-volume diagram with a vertical line segment at a fixed volume, going from a lower pressure to a higher pressure."
+    confidence: high
+  - topic: thermodynamic_processes
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An ideal gas is compressed adiabatically, and 200 J of work is done on it. What is the change in its internal energy in joules?"
+    correct: "200"
+    unit: "J"
+    wrong: []
+    explanation: "In an adiabatic process Q = 0. With work done on the gas as positive, delta U = W = 200 J."
+    hints:
+      - "No heat enters or leaves the gas in an adiabatic process."
+      - "Apply the first law with the heat term set to zero."
+      - "Work done on the gas increases its internal energy."
+    diagram: null
+    confidence: high
+  - topic: thermodynamic_processes
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A fixed amount of ideal gas is heated at constant pressure. What happens to its volume?"
+    correct: "it increases in proportion to its absolute temperature"
+    unit: ""
+    wrong:
+      - {text: "it decreases", mistake: "assumes heating always compresses a gas"}
+      - {text: "it stays the same", mistake: "confuses isobaric with isochoric"}
+      - {text: "it increases in proportion to the pressure", mistake: "swaps the roles of pressure and temperature"}
+    explanation: "At constant pressure, V over T is constant for a fixed amount of gas, so the volume grows in proportion to the absolute temperature."
+    hints:
+      - "Use the relation between volume and temperature for a fixed amount of gas at fixed pressure."
+      - "Keep the pressure fixed in mind."
+      - "The absolute temperature scale is the relevant one here."
+    diagram: "A pressure-volume plot with a horizontal isobaric line at a fixed pressure. Two volume points on the line are marked, and the temperature at each point is labelled."
+    confidence: high
+  - topic: thermodynamic_processes
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two moles of an ideal monatomic gas are cooled at constant pressure from 400 K to 300 K. Its molar heat capacity at constant pressure is 2.5 R, with R = 8.31 J/mol K. How many joules of heat are removed?"
+    correct: "4155"
+    unit: "J"
+    wrong: []
+    explanation: "At constant pressure the heat exchanged is n Cp delta T = 2 times 2.5 times 8.31 times 100 = 4155 J. The gas gives this amount up while it cools."
+    hints:
+      - "At constant pressure, the heat exchanged equals moles times molar heat capacity times the temperature change."
+      - "The molar heat capacity at constant pressure is given in the question."
+      - "Multiply the moles, the heat capacity factor, the gas constant and the temperature change, then report the magnitude."
+    diagram: null
+    confidence: high
+  - topic: thermodynamic_processes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which thermodynamic process involves zero work done by the gas?"
+    correct: "isochoric process"
+    unit: ""
+    wrong:
+      - {text: "isothermal process", mistake: "assumes constant temperature means no work"}
+      - {text: "adiabatic process", mistake: "assumes insulation stops the gas from doing work"}
+      - {text: "isobaric process", mistake: "assumes a constant pressure means no work"}
+    explanation: "Work is the area under the P-V curve. In an isochoric process the volume does not change, so the work done by the gas is zero."
+    hints:
+      - "Work is pressure times a volume change in many processes."
+      - "Check which process keeps the volume unchanged."
+      - "If the volume does not change, the area under the P-V curve has no width."
+    diagram: null
+    confidence: high
+  - topic: second_law_heat_engines
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "The second law of thermodynamics implies that:"
+    correct: "no heat engine can convert all of its heat input into work"
+    unit: ""
+    wrong:
+      - {text: "all energy supplied to an engine can become useful work", mistake: "ignores the waste heat any real cycle must reject"}
+      - {text: "heat can flow from a cold body to a hot body with no external work", mistake: "ignores the need for external work to move heat uphill"}
+      - {text: "the efficiency of an engine can reach one hundred percent", mistake: "assumes a cyclic engine can avoid rejecting heat"}
+    explanation: "A cyclic heat engine must reject some heat to a cold reservoir, so its efficiency is always below one hundred percent."
+    hints:
+      - "Think about the waste heat that a real engine must reject."
+      - "Heat cannot be completely turned into work in a repeating cycle."
+      - "Consider how the cold reservoir limits the output of an engine."
+    diagram: null
+    confidence: high
+  - topic: second_law_heat_engines
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A heat engine absorbs 500 J of heat each cycle and does 150 J of work. What is its efficiency as a percentage?"
+    correct: "30"
+    unit: "%"
+    wrong: []
+    explanation: "Efficiency is work out divided by heat in, so 150 / 500 = 0.30, which is 30 percent."
+    hints:
+      - "Efficiency is useful work output divided by heat input."
+      - "Divide the work by the heat absorbed."
+      - "Multiply the fraction by one hundred to get a percentage."
+    diagram: "A block representing the engine, with an arrow of heat entering from a hot reservoir, an arrow of work leaving, and a second arrow of heat rejected to a cold reservoir."
+    confidence: high
+  - topic: second_law_heat_engines
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A Carnot engine operates between a hot reservoir at 500 K and a cold reservoir at 300 K. What is its efficiency as a percentage?"
+    correct: "40"
+    unit: "%"
+    wrong: []
+    explanation: "The Carnot efficiency is 1 - T_cold / T_hot = 1 - 300/500 = 0.4, which is 40 percent."
+    hints:
+      - "Carnot efficiency depends only on the two absolute temperatures."
+      - "Divide the cold temperature by the hot temperature."
+      - "Subtract that ratio from one, then convert to a percentage."
+    diagram: null
+    confidence: high
+  - topic: second_law_heat_engines
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A refrigerator removes heat from its cold interior. Which statement correctly describes how it works?"
+    correct: "it needs external work input to move heat from the cold region to the warm room"
+    unit: ""
+    wrong:
+      - {text: "it converts heat completely into work", mistake: "reverses the purpose of a refrigerator"}
+      - {text: "it moves heat from cold to hot spontaneously", mistake: "ignores the need for work input"}
+      - {text: "it works without any energy input", mistake: "assumes heat can be moved uphill for free"}
+    explanation: "Heat does not flow from cold to hot by itself. A refrigerator uses external work, usually from an electric motor, to pump heat against the temperature gradient."
+    hints:
+      - "Heat flows naturally only from hot to cold."
+      - "Reversing that natural flow requires an external energy supply."
+      - "Think about what the compressor adds to the system."
+    diagram: null
+    confidence: high
+  - topic: second_law_heat_engines
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A heat engine has efficiency 25 percent and produces 200 J of work per cycle. How many joules of heat are rejected to the cold reservoir each cycle?"
+    correct: "600"
+    unit: "J"
+    wrong: []
+    explanation: "The heat input is 200 / 0.25 = 800 J. The rejected heat is 800 - 200 = 600 J."
+    hints:
+      - "The work output equals efficiency times the heat input."
+      - "Find the heat input first, then subtract the work to get the rejected heat."
+      - "Energy conservation links the heat input, the work output and the rejected heat."
+    diagram: "An energy flow diagram. Heat input arrow goes into the engine from the hot reservoir, a work output arrow leaves the engine, and a heat rejected arrow goes down to the cold reservoir."
+    confidence: high
+  - topic: second_law_heat_engines
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A Carnot refrigerator operates between a cold reservoir at 250 K and a hot reservoir at 300 K. What is its coefficient of performance?"
+    correct: "5"
+    unit: ""
+    wrong:
+      - {text: "6", mistake: "uses the hot temperature in the numerator"}
+      - {text: "0.2", mistake: "divides the temperature gap by the cold temperature instead of the reverse"}
+      - {text: "1.2", mistake: "uses the ratio of hot to cold temperatures and ignores the gap"}
+    explanation: "The coefficient of performance of a Carnot refrigerator is T_cold / (T_hot - T_cold), which is 250 / 50 = 5."
+    hints:
+      - "The coefficient of performance of a refrigerator puts the cold temperature in the numerator."
+      - "The denominator is the temperature gap between the two reservoirs."
+      - "Use absolute temperatures in kelvin, not degrees Celsius."
+    diagram: null
+    confidence: high

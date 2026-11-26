@@ -1,0 +1,296 @@
+class: 11
+subject: maths
+chapter: binomial_theorem
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: binomial_expansion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In the expansion of (x + 1) cubed, what is the coefficient of x?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "takes the constant term as the coefficient of x"}
+      - {text: "6", mistake: "uses the factorial of the power instead of the binomial count"}
+      - {text: "9", mistake: "multiplies the constant term by the power squared"}
+    explanation: "The expansion is x cubed plus 3x squared plus 3x plus 1, so the coefficient of x is 3."
+    hints:
+      - "Expand the cube by choosing the x term from some of the factors and the constant from the rest."
+      - "Count the ways to pick exactly one x among the three factors."
+      - "Make sure you collect every term that has the variable to the first power."
+    diagram: null
+    confidence: high
+  - topic: binomial_expansion
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the constant term in the expansion of (x + 2) squared?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The expansion is x squared plus 4x plus 4, and the term with no x is 2 squared, which equals 4."
+    hints:
+      - "Set the variable aside and look only at the term that has no x."
+      - "The constant term comes from multiplying the constant parts of the factors together."
+      - "Square the constant part you were given."
+    diagram: null
+    confidence: high
+  - topic: binomial_expansion
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which is the correct expansion of (2a minus b) squared?"
+    correct: "4a squared minus 4ab plus b squared"
+    unit: ""
+    wrong:
+      - {text: "4a squared plus 4ab plus b squared", mistake: "drops the minus sign on the cross term"}
+      - {text: "4a squared minus b squared", mistake: "leaves out the cross term completely"}
+      - {text: "2a squared minus 4ab plus b squared", mistake: "squares the first term incorrectly"}
+    explanation: "Using the square of a difference, (2a) squared minus 2 times 2a times b plus b squared, gives 4a squared minus 4ab plus b squared."
+    hints:
+      - "Write the binomial as a first term and a second term, then square each part."
+      - "The cross term carries the sign of the second term in the original bracket."
+      - "Check the cross term by doubling the product of the two terms."
+    diagram: null
+    confidence: high
+  - topic: binomial_expansion
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "What is the sum of all the coefficients in the expansion of (x + 2) to the power 4?"
+    correct: "81"
+    unit: ""
+    wrong: []
+    explanation: "Setting x equal to 1 gives the sum of the coefficients, which is 3 to the power 4, equal to 81."
+    hints:
+      - "Substitute the value one for the variable to add up all the coefficients."
+      - "Evaluate the bracket at that substituted value."
+      - "Raise the result to the given power."
+    diagram: null
+    confidence: high
+  - topic: binomial_expansion
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "What is the coefficient of x to the power 4 in the expansion of (1 + 2x) to the power 6?"
+    correct: "240"
+    unit: ""
+    wrong: []
+    explanation: "The general term gives C(6, 4) times 2 to the power 4, which is 15 times 16, equal to 240."
+    hints:
+      - "Write the general term of the binomial expansion with a variable index."
+      - "Find which index gives the required power of x."
+      - "Multiply the binomial coefficient by the matching power of the constant factor."
+    diagram: null
+    confidence: high
+  - topic: binomial_expansion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The coefficient of x squared in the expansion of (1 + x) to the power n is 15. What is the value of the positive integer n?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "The coefficient of x squared is C(n, 2), which equals n times (n minus 1) over 2, and setting this to 15 gives n equal to 6."
+    hints:
+      - "Write the coefficient of x squared in terms of n using the binomial formula."
+      - "Set that expression equal to the given coefficient."
+      - "Solve the resulting equation for the positive integer."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "For the expansion of (x + y) to the power 5, which expression is the general term T(r+1)?"
+    correct: "C(5, r) x to the power (5 minus r) y to the power r"
+    unit: ""
+    wrong:
+      - {text: "C(5, r) x to the power r y to the power (5 minus r)", mistake: "swaps the powers of x and y"}
+      - {text: "C(5, r+1) x to the power (5 minus r) y to the power r", mistake: "shifts the binomial index by one"}
+      - {text: "C(5, r) x to the power (5 minus r) y to the power (r+1)", mistake: "raises the power of y by an extra one"}
+    explanation: "The general term takes r copies of y and the remaining 5 minus r copies of x, weighted by C(5, r)."
+    hints:
+      - "Think about how many factors supply y and how many supply x in each term."
+      - "The binomial coefficient uses the number of y factors as its lower index."
+      - "Check that the exponents of x and y add up to the overall power."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many terms are there in the expansion of (x + y) to the power 7?"
+    correct: "8"
+    unit: ""
+    wrong: []
+    explanation: "A binomial raised to a power n has n plus 1 terms, so the power 7 gives 8 terms."
+    hints:
+      - "Consider how the general term index runs from its first value to its last."
+      - "Count the values of the index starting from zero."
+      - "Add one to the power to get the count."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "Find the term that does not contain x in the expansion of (x plus 1 divided by x) to the power 6. What is its numerical coefficient?"
+    correct: "20"
+    unit: ""
+    wrong: []
+    explanation: "The exponent of x in the general term is 6 minus 2r, which is zero when r equals 3, giving C(6, 3) equal to 20."
+    hints:
+      - "Write the general term and collect the exponents of x from both factors."
+      - "Set the total exponent of x equal to zero."
+      - "Use the index you find in the binomial coefficient."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "What is the coefficient of the middle term in the expansion of (2 + x) to the power 4?"
+    correct: "24"
+    unit: ""
+    wrong: []
+    explanation: "The middle term has x squared, with coefficient C(4, 2) times 2 squared, which equals 6 times 4, giving 24."
+    hints:
+      - "A power of four produces a total number of terms that has a single central one."
+      - "The middle term takes half of the total power from the variable part."
+      - "Multiply the binomial coefficient by the constant raised to the matching power."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "In the expansion of (x squared plus 1 divided by x) to the power 9, the term with x to the power 3 has what coefficient?"
+    correct: "126"
+    unit: ""
+    wrong: []
+    explanation: "The exponent of x in the general term is 18 minus 3r, which equals 3 when r equals 5, giving C(9, 5) equal to 126."
+    hints:
+      - "Write the exponent of x in the general term as a function of the index."
+      - "Set that exponent equal to the required power and solve for the index."
+      - "Use the index in the binomial coefficient of the term."
+    diagram: null
+    confidence: high
+  - topic: general_and_middle_term
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "In the expansion of (1 + x) to the power 10, which term has the greatest binomial coefficient?"
+    correct: "the sixth term"
+    unit: ""
+    wrong:
+      - {text: "the fifth term", mistake: "counts the terms from zero instead of one"}
+      - {text: "the seventh term", mistake: "moves past the centre of the symmetric coefficients"}
+      - {text: "the fourth term", mistake: "uses the index of the earlier coefficient instead of the central one"}
+    explanation: "The coefficients are symmetric and largest at the centre, which is the index 5, so the sixth term holds the largest coefficient."
+    hints:
+      - "Binomial coefficients are symmetric, so the largest ones sit near the middle."
+      - "Find the central index of the sequence of coefficients."
+      - "Convert the index you found into the position of the term, counting from one."
+    diagram: null
+    confidence: high
+  - topic: pascal_triangle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In Pascal's triangle, which row holds the entries 1, 4, 6, 4 and 1 when rows are numbered from zero at the top?"
+    correct: "row 4"
+    unit: ""
+    wrong:
+      - {text: "row 3", mistake: "counts the rows from one instead of zero"}
+      - {text: "row 5", mistake: "miscounts the rows near the top of the triangle"}
+      - {text: "row 6", mistake: "confuses the number of entries with the row number"}
+    explanation: "Row 4 of Pascal's triangle, numbered from zero, has entries 1, 4, 6, 4 and 1 that match the coefficients of (a + b) to the power 4."
+    hints:
+      - "Count the rows downward from the top, starting at zero."
+      - "Compare the entries with the coefficients of a binomial expansion of the same power."
+      - "Check how many entries that row has and match it to its power."
+    diagram: "Top section of Pascal's triangle with rows labelled from zero at the apex, each row's entries shown in order, and the row with five entries highlighted."
+    confidence: high
+  - topic: pascal_triangle
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In Pascal's triangle with rows numbered from zero at the top and entries numbered from zero within each row, what is the entry in row 5, position 2?"
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "The entry in row n at position r is the binomial coefficient C(n, r), which for row 5 and position 2 is C(5, 2) equal to 10."
+    hints:
+      - "Each entry is a binomial coefficient whose top index is the row number."
+      - "The position within the row gives the lower index."
+      - "Evaluate the binomial coefficient with those two indices."
+    diagram: null
+    confidence: high
+  - topic: pascal_triangle
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which identity is expressed by Pascal's rule for binomial coefficients?"
+    correct: "C(n, r) = C(n-1, r-1) + C(n-1, r)"
+    unit: ""
+    wrong:
+      - {text: "C(n, r) = C(n-1, r) times C(n-1, r-1)", mistake: "multiplies the entries instead of adding them"}
+      - {text: "C(n, r) = C(n, n-r) + 1", mistake: "confuses the symmetry property with an addition rule"}
+      - {text: "C(n, r) = C(n+1, r)", mistake: "uses the wrong row index in the relation"}
+    explanation: "Each entry is the sum of the two entries directly above it in the previous row, which is the content of Pascal's rule."
+    hints:
+      - "Look at which two entries of the previous row lie above an entry."
+      - "Think about whether the rule adds or multiplies those two entries."
+      - "Check the identity on a small row that you can write out fully."
+    diagram: "A small section of Pascal's triangle with one entry highlighted and the two entries above it joined to it by arrows."
+    confidence: high
+  - topic: pascal_triangle
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Using Pascal's rule, the entry in row 6 at position 3 is the sum of two entries in row 5. What is the value of that entry in row 6?"
+    correct: "20"
+    unit: ""
+    wrong: []
+    explanation: "The two entries above are C(5, 2) and C(5, 3), both equal to 10, and their sum is 20, which is C(6, 3)."
+    hints:
+      - "Identify the two entries in the previous row that sit directly above the target."
+      - "Recall the rule that each entry equals the sum of the two entries above it."
+      - "Look up or compute the two entries you identified and add them."
+    diagram: "Rows 5 and 6 of Pascal's triangle with the target entry in row 6 highlighted and its two parents in row 5 connected to it."
+    confidence: high
+  - topic: pascal_triangle
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "What is the sum of all the entries in row 7 of Pascal's triangle?"
+    correct: "128"
+    unit: ""
+    wrong: []
+    explanation: "The entries of row n are the binomial coefficients for power n, whose sum is 2 to the power n, so row 7 sums to 128."
+    hints:
+      - "Each entry in a row is a binomial coefficient for that row's power."
+      - "Relate the sum of a row to the expansion of one plus one raised to a power."
+      - "Evaluate that power of the base to get the total."
+    diagram: null
+    confidence: high
+  - topic: pascal_triangle
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the total of all entries in rows 0 to 3 of Pascal's triangle, taken together?"
+    correct: "15"
+    unit: ""
+    wrong:
+      - {text: "16", mistake: "includes the entries of row four in the total"}
+      - {text: "14", mistake: "leaves out one of the single entries from the last row counted"}
+      - {text: "12", mistake: "counts only the entries that are greater than one"}
+    explanation: "The row totals are 1, 2, 4 and 8 for rows 0 to 3, and these add to 15."
+    hints:
+      - "Find the total of each row separately using the power of two pattern."
+      - "Add the row totals for the rows you were asked to include."
+      - "Stop the sum at the last row named in the question."
+    diagram: null
+    confidence: high

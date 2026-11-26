@@ -1,0 +1,404 @@
+class: 12
+subject: chemistry
+chapter: electrochemistry
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: electrochemical_cells
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a galvanic cell, where does oxidation occur?"
+    correct: "At the anode"
+    unit: ""
+    wrong:
+      - {text: "At the cathode", mistake: "swaps the roles of the two electrodes"}
+      - {text: "At the salt bridge", mistake: "assigns electrode reactions to the bridge"}
+      - {text: "In the external wire only", mistake: "confuses electron flow with the reaction site"}
+    explanation: "Oxidation happens where electrons are released, which is the anode of a galvanic cell. Reduction happens at the cathode."
+    hints:
+      - "Recall which electrode loses electrons in a spontaneous cell."
+      - "Consider where electrons leave the cell."
+      - "Think about the electrode where a species is oxidised."
+    diagram: null
+    confidence: high
+  - topic: electrochemical_cells
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the function of the salt bridge in a galvanic cell?"
+    correct: "It completes the circuit by letting ions move and keeps the solutions neutral"
+    unit: ""
+    wrong:
+      - {text: "It supplies electrons to the cathode", mistake: "treats the bridge as an electron conductor"}
+      - {text: "It removes gases formed at the electrodes", mistake: "assigns a gas removal role to the bridge"}
+      - {text: "It converts chemical energy into heat", mistake: "confuses the bridge with a heating element"}
+    explanation: "The salt bridge lets ions migrate between the half cells so that charge balances, which keeps the circuit closed and the solutions neutral."
+    hints:
+      - "Think about what must move through the solution for the charge to balance."
+      - "Consider why the two half cells would become charged without a link between them."
+      - "Identify whether the bridge carries electrons or ions."
+    diagram: null
+    confidence: high
+  - topic: electrochemical_cells
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In the cell Zn | Zn2+ || Cu2+ | Cu, which electrode is the positive terminal?"
+    correct: "Copper"
+    unit: ""
+    wrong:
+      - {text: "Zinc", mistake: "assumes the anode is always the positive terminal"}
+      - {text: "Both electrodes are neutral", mistake: "ignores the charge that builds up in a working cell"}
+      - {text: "The salt bridge", mistake: "treats the bridge as an electrode"}
+    explanation: "Zinc is oxidised at the anode, which is the negative terminal. Copper ions are reduced at the cathode, which is the positive terminal."
+    hints:
+      - "Find the electrode where reduction happens."
+      - "The cathode in a galvanic cell is where electrons are consumed."
+      - "Compare the standard potentials of the two couples."
+    diagram: "Left beaker holds a zinc rod in zinc sulphate solution, right beaker holds a copper rod in copper sulphate solution, a salt bridge joins the beakers, and a voltmeter is wired between the two rods."
+    confidence: high
+  - topic: electrochemical_cells
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The standard EMF of the Daniell cell is 1.10 V and two electrons are transferred per reaction. Using F = 96500 C/mol, what is the magnitude of the standard Gibbs energy change in kJ/mol? Give one decimal place."
+    correct: "212.3"
+    unit: "kJ/mol"
+    wrong: []
+    explanation: "Delta G equals minus n F E. With n = 2, F = 96500 C/mol and E = 1.10 V, the magnitude is 212300 J/mol, or 212.3 kJ/mol."
+    hints:
+      - "Use the relation between the Gibbs energy change, the number of electrons, the Faraday constant and the cell EMF."
+      - "Keep the EMF in volts and the charge in coulombs per mole."
+      - "Convert joules to kilojoules at the end."
+    diagram: null
+    confidence: high
+  - topic: electrochemical_cells
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A galvanic cell has a magnesium anode and a silver cathode. Which description of electron flow is correct?"
+    correct: "From magnesium to silver through the external wire"
+    unit: ""
+    wrong:
+      - {text: "From silver to magnesium through the external wire", mistake: "reverses the direction of flow"}
+      - {text: "Through the salt bridge from magnesium to silver", mistake: "routes electrons through the solution"}
+      - {text: "From magnesium to silver through the solution", mistake: "confuses ionic and electronic paths"}
+    explanation: "Electrons leave the anode where magnesium is oxidised and travel through the external wire to the silver cathode. Ions, not electrons, move through the solution and bridge."
+    hints:
+      - "Electrons leave the electrode where oxidation happens."
+      - "Trace the path of electrons only through the metal conductor."
+      - "Ions move through the bridge while electrons do not."
+    diagram: "Two beakers: a magnesium rod in magnesium salt solution on the left and a silver rod in silver salt solution on the right, joined by a salt bridge, with a wire and voltmeter connecting the two rods."
+    confidence: high
+  - topic: electrochemical_cells
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "The standard reduction potential of the cathode half cell is 0.34 V and that of the anode half cell is -0.76 V. What is the cell EMF in volts? Give two decimal places."
+    correct: "1.10"
+    unit: "V"
+    wrong: []
+    explanation: "The cell EMF is the cathode reduction potential minus the anode reduction potential. Subtracting -0.76 from 0.34 gives 1.10 V."
+    hints:
+      - "Subtract the anode reduction potential from the cathode reduction potential."
+      - "Subtracting a negative number adds its magnitude."
+      - "Report the answer with two decimal places."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A cell has a standard EMF of 0.50 V and its reaction quotient equals 1 at 298 K. What is the cell EMF in volts?"
+    correct: "0.5"
+    unit: "V"
+    wrong: []
+    explanation: "When Q equals 1 the logarithm term vanishes, so the cell EMF equals the standard EMF."
+    hints:
+      - "When the reaction quotient equals one, the logarithm term in the equation disappears."
+      - "Identify which term is left in the equation."
+      - "Compare the cell EMF with the standard EMF under these conditions."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "At 298 K, what is the coefficient multiplying log Q in the Nernst equation for a reaction with n electrons, in volts?"
+    correct: "0.0591 divided by n"
+    unit: ""
+    wrong:
+      - {text: "0.0591 multiplied by n", mistake: "inverts the role of n"}
+      - {text: "8.314 times 298", mistake: "uses the gas constant and temperature without the Faraday constant"}
+      - {text: "0.0821 divided by n", mistake: "uses gas constant units from litre atmospheres"}
+    explanation: "The coefficient is 2.303 times R times T divided by n times F. At 298 K this evaluates to about 0.0591 divided by n volts."
+    hints:
+      - "The coefficient comes from 2.303 times R times T, divided by n times F."
+      - "Evaluate that group at 298 K and express the result in volts."
+      - "Check whether the number of electrons sits in the numerator or the denominator."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A cell has a standard EMF of 1.10 V, transfers two electrons, and has reaction quotient 0.1 at 298 K. What is the cell EMF in volts? Give two decimal places."
+    correct: "1.13"
+    unit: "V"
+    wrong: []
+    explanation: "E equals E standard minus 0.0591 over n times log Q. With log 0.1 equal to minus 1, the correction adds 0.0296 V, giving 1.13 V."
+    hints:
+      - "Apply the Nernst equation with the coefficient for two electrons."
+      - "Find the logarithm of the reaction quotient before multiplying."
+      - "Subtract the correction term from the standard EMF with its sign kept."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does changing the concentration of ions alter the EMF of a cell?"
+    correct: "It shifts the reaction quotient away from equilibrium and changes the Gibbs energy"
+    unit: ""
+    wrong:
+      - {text: "It changes the standard electrode potentials", mistake: "confuses the EMF with the standard value"}
+      - {text: "It alters the number of electrons transferred", mistake: "treats concentration as if it changed the stoichiometry"}
+      - {text: "It replaces the function of the salt bridge", mistake: "links concentration with the bridge function"}
+    explanation: "Concentrations enter the reaction quotient. Changing them changes the Gibbs energy and hence the EMF, while the standard potentials stay fixed."
+    hints:
+      - "Think about what the logarithm term in the Nernst equation accounts for."
+      - "Recall how a reaction quotient is built from product and reactant concentrations."
+      - "Consider whether standard potentials depend on the concentrations used."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A silver concentration cell has electrodes in 0.001 M and 0.1 M silver ion solutions at 298 K. What is its EMF in volts? Give two decimal places."
+    correct: "0.12"
+    unit: "V"
+    wrong: []
+    explanation: "Both half cells have the same standard potential, so only the logarithm term remains. The ratio of concentrations is 100, giving 0.0591 times 2, or 0.12 V."
+    hints:
+      - "A concentration cell has zero standard EMF, so only the logarithm term remains."
+      - "Take the ratio of the two concentrations, with the more dilute one in the denominator."
+      - "Use one electron for silver in the coefficient."
+    diagram: null
+    confidence: high
+  - topic: nernst_equation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A cell has a standard EMF of 0.46 V and transfers two electrons per reaction at 298 K. What is log K for the cell reaction? Give two decimal places."
+    correct: "15.57"
+    unit: ""
+    wrong: []
+    explanation: "At equilibrium the EMF is zero, so log K equals n times E divided by 0.0591. That gives 2 times 0.46 over 0.0591, which is about 15.57."
+    hints:
+      - "At equilibrium the cell EMF is zero, so the Nernst relation can be solved for the logarithm of the constant."
+      - "Rearrange so that n times E sits on one side and the factor 0.0591 on the other."
+      - "Keep enough decimal places during division before rounding."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A current of 1 A flows for 100 s. How much charge in coulombs passes through the circuit?"
+    correct: "100"
+    unit: "C"
+    wrong: []
+    explanation: "Charge equals current multiplied by time. One ampere for 100 seconds gives 100 coulombs."
+    hints:
+      - "Charge equals current multiplied by time."
+      - "Check that the current is in amperes and the time is in seconds."
+      - "Multiply the two values given in the stem."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which unit is used for molar conductivity?"
+    correct: "S cm2 mol-1"
+    unit: ""
+    wrong:
+      - {text: "S cm-1", mistake: "gives the unit of specific conductance instead"}
+      - {text: "ohm mol", mistake: "drops the area term from the unit"}
+      - {text: "A mol-1", mistake: "uses the unit of current instead of conductance"}
+    explanation: "Molar conductivity is conductivity divided by molar concentration, so its unit is siemens square centimetres per mole."
+    hints:
+      - "Molar conductivity is conductivity divided by concentration in moles per unit volume."
+      - "Think about how dividing by moles per litre changes the length and volume units."
+      - "Start from the unit of specific conductance and then adjust for the concentration."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "How many grams of silver are deposited when 0.5 faraday of charge passes through a silver nitrate solution? The molar mass of silver is 108 g/mol."
+    correct: "54"
+    unit: "g"
+    wrong: []
+    explanation: "Each faraday deposits one mole of univalent silver. Half a faraday deposits half a mole, which is 54 g of silver."
+    hints:
+      - "One faraday of charge deposits one mole of a univalent metal."
+      - "Scale the number of faradays to moles of silver."
+      - "Multiply the moles by the molar mass of silver."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A salt solution of concentration 0.02 mol/L has a specific conductance of 0.0025 S/cm. What is its molar conductivity in S cm2/mol?"
+    correct: "125"
+    unit: "S cm2/mol"
+    wrong: []
+    explanation: "Molar conductivity equals the specific conductance times 1000 divided by the concentration in mol/L. That gives 0.0025 times 1000 divided by 0.02, which is 125."
+    hints:
+      - "Multiply the conductivity by one thousand and divide by the concentration in mol/L."
+      - "The factor of one thousand converts the volume unit from cubic centimetres to litres."
+      - "Keep track of the units through the calculation."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "How many grams of copper are deposited by 1930 C passed through copper sulphate solution? Copper has molar mass 63.5 g/mol and is deposited as Cu2+. Use F = 96500 C/mol and give three decimal places."
+    correct: "0.635"
+    unit: "g"
+    wrong: []
+    explanation: "1930 C is 0.02 mol of electrons. Two electrons per copper ion mean 0.01 mol of copper, which weighs 0.635 g."
+    hints:
+      - "Convert the charge to moles of electrons using the Faraday constant."
+      - "Use the valency of copper to find the moles of metal deposited."
+      - "Multiply the moles of metal by its molar mass."
+    diagram: null
+    confidence: high
+  - topic: conductance_electrolysis
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "At infinite dilution the limiting molar conductivities of Na+ and Cl- are 50.1 and 76.3 S cm2/mol. What is the limiting molar conductivity of NaCl in S cm2/mol?"
+    correct: "126.4"
+    unit: "S cm2/mol"
+    wrong: []
+    explanation: "By Kohlrausch's law the limiting molar conductivity of a salt is the sum of the limiting ionic contributions. Adding 50.1 and 76.3 gives 126.4."
+    hints:
+      - "Add the limiting ionic contributions of the two ions."
+      - "Each ion contributes independently at infinite dilution."
+      - "Check the units carried by each contribution."
+    diagram: null
+    confidence: medium
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which cell can be recharged by reversing its cell reaction?"
+    correct: "Lead storage battery"
+    unit: ""
+    wrong:
+      - {text: "Leclanche dry cell", mistake: "assumes all cells can be recharged"}
+      - {text: "Alkaline dry cell", mistake: "treats a primary cell as a secondary cell"}
+      - {text: "Mercury cell", mistake: "assumes any metal electrode can be reversed"}
+    explanation: "A lead storage battery is a secondary cell. Its discharge reaction can be reversed by passing current in the opposite direction."
+    hints:
+      - "Think about the battery used in vehicles that can be charged again."
+      - "Ask which cell is designed as a secondary cell."
+      - "Compare the cells by whether their reactions are reversible."
+    diagram: null
+    confidence: high
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the anode reaction when iron rusts in moist air?"
+    correct: "Fe goes to Fe2+ plus two electrons"
+    unit: ""
+    wrong:
+      - {text: "Oxygen gains electrons to form hydroxide ions", mistake: "mixes up the anode and cathode reactions"}
+      - {text: "Fe3+ is reduced back to iron", mistake: "reverses the oxidation step"}
+      - {text: "Hydrogen gas is released at the anode", mistake: "assigns the cathode product to the anode"}
+    explanation: "At the anode iron is oxidised to Fe2+ and releases electrons. The electrons travel to the cathode, where oxygen is reduced."
+    hints:
+      - "Identify the species that loses electrons at the anode during rusting."
+      - "Think about the metal that is oxidised in a corrosion cell."
+      - "Match the anode with oxidation and the cathode with reduction."
+    diagram: null
+    confidence: high
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: medium
+    role: recall
+    stem: "Which product is formed in a hydrogen oxygen fuel cell?"
+    correct: "Water"
+    unit: ""
+    wrong:
+      - {text: "Carbon dioxide", mistake: "imports the products of combustion"}
+      - {text: "Hydrogen peroxide", mistake: "assumes the product is an oxidant"}
+      - {text: "Ammonia", mistake: "confuses the fuel cell with the Haber process"}
+    explanation: "In a hydrogen oxygen fuel cell hydrogen is oxidised at the anode and oxygen is reduced at the cathode. The overall product is water."
+    hints:
+      - "Think about what hydrogen and oxygen form when they react in a fuel cell."
+      - "Consider the only element that both reactants share in the product."
+      - "Check the overall equation of the cell reaction."
+    diagram: null
+    confidence: high
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "How does a sacrificial anode of zinc protect an iron structure from rusting?"
+    correct: "It is oxidised preferentially, so the iron is not"
+    unit: ""
+    wrong:
+      - {text: "It is reduced in place of the iron", mistake: "reverses the protection mechanism"}
+      - {text: "It acts as a salt bridge", mistake: "gives the metal a bridge role"}
+      - {text: "It raises the pH of the water", mistake: "attributes protection to a pH change"}
+    explanation: "Zinc is more reactive than iron, so it is oxidised first and corrodes in place of the iron. The iron then stays reduced and protected."
+    hints:
+      - "Compare the standard potentials of the protecting metal and iron."
+      - "Think about which metal is more easily oxidised in contact with iron."
+      - "Decide which metal becomes the anode in the corrosion cell."
+    diagram: null
+    confidence: high
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why is a primary cell not practically rechargeable?"
+    correct: "Its electrode reactions are largely irreversible in the cell"
+    unit: ""
+    wrong:
+      - {text: "Its electrolyte evaporates completely each cycle", mistake: "assumes evaporation is the main limit"}
+      - {text: "Its anode dissolves as a gas", mistake: "confuses metal dissolution with gas formation"}
+      - {text: "It produces too high a voltage to be recharged", mistake: "links voltage with rechargeability"}
+    explanation: "The reactions in a primary cell cannot be easily reversed, because the products do not re-form the original reactants at the electrodes. Recharging therefore fails or damages the cell."
+    hints:
+      - "Think about whether the chemical change can be run in reverse inside the cell."
+      - "Consider the products formed at the electrodes during discharge."
+      - "Compare the reversibility of the electrode reactions in primary and secondary cells."
+    diagram: null
+    confidence: high
+  - topic: batteries_corrosion
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A tin coating on iron is scratched and the iron is exposed to moist air. Which statement explains why the iron then rusts faster than it would without the coating?"
+    correct: "Tin is less active than iron, so iron becomes the anode and oxidises"
+    unit: ""
+    wrong:
+      - {text: "Tin is more active than iron and dissolves first", mistake: "reverses the activity order"}
+      - {text: "Tin releases oxygen that attacks the iron", mistake: "assigns a gas-releasing role to the coating"}
+      - {text: "Tin forms a salt bridge that carries electrons", mistake: "treats the coating as an electron conductor in solution"}
+    explanation: "Tin is less reactive than iron. Once the coating is broken, the exposed iron acts as the anode of a corrosion cell and is oxidised."
+    hints:
+      - "Compare the reactivity of tin and iron in the electrochemical series."
+      - "Decide which metal is oxidised when the two are in contact in water."
+      - "Think about which metal acts as the anode in the corrosion cell."
+    diagram: null
+    confidence: high

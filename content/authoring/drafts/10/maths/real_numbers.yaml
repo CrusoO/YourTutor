@@ -1,0 +1,110 @@
+class: 10
+subject: maths
+chapter: real_numbers
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: irrationality_proofs
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is an irrational number?"
+    correct: "√5"
+    unit: ""
+    wrong:
+      - {text: "√16", mistake: "treats the square root of a perfect square as irrational"}
+      - {text: "2.25", mistake: "treats any terminating decimal as irrational"}
+      - {text: "1/3", mistake: "confuses a repeating decimal with a non-repeating one"}
+    explanation: "A square root of a whole number that is not a perfect square, such as √5, cannot be written as a fraction of integers, so it is irrational. √16 = 4, 2.25 = 9/4 and 1/3 are all rational."
+    hints:
+      - "A rational number can be written as p/q with p and q integers and q not zero."
+      - "Check whether the number under the root is a perfect square."
+      - "Decide whether each decimal stops, or repeats in a pattern."
+    diagram: null
+    confidence: high
+  - topic: irrationality_proofs
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the value of √2 × √2? Give the number."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying a square root by itself gives the number under the root, so √2 × √2 = 2. Two irrational numbers can therefore multiply to a rational number."
+    hints:
+      - "Recall what happens when a square root is multiplied by itself."
+      - "Think about the number inside the root."
+      - "Simplify the product using the rule for √a × √a."
+    diagram: null
+    confidence: high
+  - topic: irrationality_proofs
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which opening line correctly starts a proof by contradiction that √7 is irrational?"
+    correct: "Assume √7 = a/b, where a and b are integers with no common factor and b is not zero."
+    unit: ""
+    wrong:
+      - {text: "Assume √7 = a/b, where a and b may share common factors.", mistake: "drops the lowest-terms condition that the later contradiction needs"}
+      - {text: "Assume √7 is a terminating decimal.", mistake: "switches to the decimal form instead of the fraction form"}
+      - {text: "Assume 7 = a/b, with a and b any integers.", mistake: "drops the square root when setting up the assumption"}
+    explanation: "The contradiction method assumes the opposite of the claim, that √7 is rational and can be written as a/b in lowest terms. The lowest-terms condition is what the later argument contradicts."
+    hints:
+      - "Write down the opposite of what you want to prove."
+      - "Think about how a rational number looks when written as a fraction."
+      - "Decide which condition must hold for the contradiction to work."
+    diagram: null
+    confidence: high
+  - topic: irrationality_proofs
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "In the proof that √p is irrational for a prime p, why is it important that p is prime?"
+    correct: "Because if a prime divides a², it must also divide a."
+    unit: ""
+    wrong:
+      - {text: "Because every prime number is odd.", mistake: "uses an irrelevant property of primes"}
+      - {text: "Because primes are the only irrational numbers.", mistake: "confuses primes with irrational numbers"}
+      - {text: "Because the square of a prime is always prime.", mistake: "reverses the idea of prime divisors of squares"}
+    explanation: "If a prime p divides a², then p divides a, which follows from prime factorisation. This gives a common factor of a and b, contradicting the lowest-terms assumption."
+    hints:
+      - "Think about which prime factors a square can have."
+      - "Consider the prime factorisation of a²."
+      - "Find the step where a common factor of a and b appears."
+    diagram: null
+    confidence: high
+  - topic: irrationality_proofs
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which of the following numbers is irrational?"
+    correct: "2 + 3√2"
+    unit: ""
+    wrong:
+      - {text: "3 + √5 - √5", mistake: "does not simplify before judging whether a sum is rational"}
+      - {text: "√4 + √9", mistake: "thinks a root of a perfect square is irrational"}
+      - {text: "(√3)(√3)", mistake: "assumes a product of two irrational numbers must be irrational"}
+    explanation: "2 + 3√2 is irrational: if it were rational, then √2 = (r - 2)/3 would be rational, which is false. The other options simplify to 3, 5 and 3, which are all rational."
+    hints:
+      - "Try assuming the number is rational and rearrange to isolate √2."
+      - "Simplify each option before deciding."
+      - "Check what the integer parts of the expression do to rationality."
+    diagram: null
+    confidence: high
+  - topic: irrationality_proofs
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A student says the sum of two irrational numbers is always irrational. Which pair gives a counterexample?"
+    correct: "√2 and -√2, whose sum is 0"
+    unit: ""
+    wrong:
+      - {text: "√2 and √3, whose sum is about 3.146", mistake: "judges rationality from a rough decimal approximation"}
+      - {text: "√2 and 5, whose sum is 5 + √2", mistake: "thinks a rational number plus an irrational number is rational"}
+      - {text: "√2 and 2√2, whose sum is 3√2", mistake: "reads a neat multiple of an irrational number as a rational sum"}
+    explanation: "Both √2 and -√2 are irrational, since the negative of an irrational number is irrational. Their sum is 0, which is rational, so the student's claim is false."
+    hints:
+      - "Look for two irrational numbers with opposite signs."
+      - "Check whether the sum of the pair is a rational number."
+      - "Think about how the rationality of a number relates to that of its negative."
+    diagram: null
+    confidence: high

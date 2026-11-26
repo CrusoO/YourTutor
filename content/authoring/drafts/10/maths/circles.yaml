@@ -1,0 +1,203 @@
+class: 10
+subject: maths
+chapter: circles
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: tangent_to_circle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A tangent touches a circle at point P, and O is the centre. What is the angle between the radius OP and the tangent at P?"
+    correct: "90 degrees"
+    unit: ""
+    wrong:
+      - {text: "45 degrees", mistake: "assumes the angle is split evenly between the two lines"}
+      - {text: "60 degrees", mistake: "copies the angle from an equilateral triangle"}
+      - {text: "180 degrees", mistake: "reads the straight line of the tangent as the angle"}
+    explanation: "A tangent is perpendicular to the radius drawn to the point of contact. So the angle between OP and the tangent is 90 degrees."
+    hints:
+      - "Think about how the radius meets the circle at the point of contact."
+      - "Recall the property of a tangent at its point of contact."
+      - "Name the type of angle formed at P."
+    diagram: "A circle with centre O, a radius OP drawn to a point P on the circle, and a straight line touching the circle only at P."
+    confidence: high
+  - topic: tangent_to_circle
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A tangent touches a circle with centre O at P, and OP = 12 cm. A point T on the tangent is 5 cm from P. What is OT in cm?"
+    correct: "13"
+    unit: "cm"
+    wrong: []
+    explanation: "OP is perpendicular to PT, so triangle OPT has a right angle at P. Pythagoras gives OT = √(12² + 5²) = √169 = 13 cm."
+    hints:
+      - "Find which angle in triangle OPT is a right angle."
+      - "Apply Pythagoras to triangle OPT."
+      - "Take the square root of the sum of the squares."
+    diagram: "A circle with centre O, a radius OP to the point of contact P, and a tangent line through P with a point T on it 5 cm from P. Triangle OPT has its right angle at P."
+    confidence: high
+  - topic: tangent_to_circle
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the tangent at a point perpendicular to the radius through that point?"
+    correct: "Because any other line through P enters the circle and meets it again, while the perpendicular stays outside."
+    unit: ""
+    wrong:
+      - {text: "Because the radius bisects the tangent.", mistake: "confuses perpendicularity with bisection"}
+      - {text: "Because the tangent is always horizontal.", mistake: "assumes a fixed orientation for every circle"}
+      - {text: "Because the radius is always longer than the tangent.", mistake: "compares lengths instead of directions"}
+    explanation: "A line through P that is not perpendicular to the radius goes inside the circle and meets it again. Only the perpendicular touches the circle at a single point, so it is the tangent."
+    hints:
+      - "Consider how many points a line shares with a circle in each direction."
+      - "Think about which line from the centre is the shortest distance to a line."
+      - "Ask which direction from P keeps the line outside the circle."
+    diagram: "A circle with centre O, a radius OP, and a straight line through P drawn perpendicular to OP, labelled as the tangent at P."
+    confidence: high
+  - topic: tangent_to_circle
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A circle has centre O and radius 7 cm. A tangent touches it at P, and T is a point on the tangent with OT = 25 cm. What is PT in cm?"
+    correct: "24"
+    unit: "cm"
+    wrong: []
+    explanation: "The radius OP is perpendicular to PT, so PT² = OT² - OP² = 625 - 49 = 576. Thus PT = 24 cm."
+    hints:
+      - "Identify the right angle in the figure."
+      - "Use Pythagoras to write PT squared."
+      - "Subtract the square of the radius from the square of OT."
+    diagram: null
+    confidence: high
+  - topic: tangent_to_circle
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two parallel tangents touch a circle of radius 4 cm at the points P and Q. What is the distance PQ?"
+    correct: "8 cm"
+    unit: ""
+    wrong:
+      - {text: "4 cm", mistake: "uses the radius as the separation between the points"}
+      - {text: "4√2 cm", mistake: "treats the two points as corners of a square with the centre"}
+      - {text: "16 cm", mistake: "doubles the diameter"}
+    explanation: "Each radius to a point of contact is perpendicular to both parallel tangents, so the two radii lie along one straight line through the centre. That makes PQ a diameter, which is 2 × 4 = 8 cm."
+    hints:
+      - "Think about the direction of each radius at a point of contact."
+      - "Ask which chord of the circle joins P and Q."
+      - "Use the radius to find the length of that chord."
+    diagram: "A circle of radius 4 cm with two horizontal parallel tangent lines, one touching the top of the circle and one touching the bottom, with the contact points labelled P and Q."
+    confidence: high
+  - topic: tangent_to_circle
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "From an external point T, two tangents TP and TQ are drawn to a circle with centre O and radius 5 cm, and angle PTQ is 90 degrees. What is TP in cm?"
+    correct: "5"
+    unit: "cm"
+    wrong: []
+    explanation: "OP and OQ are perpendicular to the tangents, so OPTQ has right angles at P, Q and T, and OP = OQ. It is therefore a square, and TP = OP = 5 cm."
+    hints:
+      - "Find all the right angles in quadrilateral OPTQ."
+      - "Compare the two radii OP and OQ."
+      - "Decide what shape OPTQ must be."
+    diagram: "A circle with centre O and radius 5 cm, an external point T with two tangents touching the circle at P and Q, the angle at T marked as a right angle, and the radii OP and OQ drawn."
+    confidence: high
+  - topic: tangent_lengths
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "From an external point T, two tangents touch a circle at P and Q. If TP = 7 cm, what is TQ?"
+    correct: "7 cm"
+    unit: ""
+    wrong:
+      - {text: "14 cm", mistake: "adds the two tangent lengths together"}
+      - {text: "3.5 cm", mistake: "halves the tangent length"}
+      - {text: "49 cm", mistake: "squares the tangent length"}
+    explanation: "Tangents drawn from one external point are equal. Triangles OPT and OQT share the hypotenuse OT, have equal radii and right angles at P and Q, so TQ = TP = 7 cm."
+    hints:
+      - "Look at the two right triangles that contain the centre."
+      - "Compare the sides of those triangles."
+      - "Ask which sides are radii."
+    diagram: "An external point T with two straight lines from T touching a circle at points P and Q, and the centre O joined to T, P and Q."
+    confidence: high
+  - topic: tangent_lengths
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "From a point T outside a circle with centre O, the tangent TP has length 8 cm and TO = 10 cm. What is the radius in cm?"
+    correct: "6"
+    unit: "cm"
+    wrong: []
+    explanation: "The radius OP is perpendicular to TP, so OP² = TO² - TP² = 100 - 64 = 36, and OP = 6 cm."
+    hints:
+      - "Identify the right angle in triangle OPT."
+      - "Apply Pythagoras to triangle OPT."
+      - "Solve for the unknown radius."
+    diagram: "Point T outside a circle with centre O. A tangent segment TP of 8 cm touches the circle at P, and a segment TO of 10 cm joins T to the centre."
+    confidence: high
+  - topic: tangent_lengths
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Two tangents TP and TQ are drawn from an external point T to a circle with centre O. The angle PTQ is 60 degrees. What is the angle POQ?"
+    correct: "120 degrees"
+    unit: ""
+    wrong:
+      - {text: "60 degrees", mistake: "copies the angle at the external point"}
+      - {text: "90 degrees", mistake: "assumes the angle at the centre is a right angle"}
+      - {text: "150 degrees", mistake: "adds 90 degrees only once to the angle at T"}
+    explanation: "The radii OP and OQ are perpendicular to the tangents, so quadrilateral OPTQ has angles 90, 90 and 60 degrees at P, Q and T. The angle at O is therefore 360 - 240 = 120 degrees."
+    hints:
+      - "Draw in the radii to P and Q and find the angles at those points."
+      - "Add up the angles of quadrilateral OPTQ."
+      - "Recall the total of the angles in any quadrilateral."
+    diagram: "An external point T with two tangent lines TP and TQ forming a 60 degree angle at T, touching the circle at P and Q, with the centre O joined to P and Q."
+    confidence: high
+  - topic: tangent_lengths
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "From an external point T, a tangent of length 15 cm touches a circle of radius 8 cm. What is the distance TO in cm?"
+    correct: "17"
+    unit: "cm"
+    wrong: []
+    explanation: "The radius to the point of contact is perpendicular to the tangent, so OT² = 15² + 8² = 225 + 64 = 289, giving OT = 17 cm."
+    hints:
+      - "Find the right angle in triangle OPT."
+      - "Write OT squared as the sum of the two squares."
+      - "Take the square root."
+    diagram: null
+    confidence: high
+  - topic: tangent_lengths
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "From an external point T, two tangents of length 12 cm each are drawn to a circle, and the angle between them at T is 90 degrees. What is the radius?"
+    correct: "12 cm"
+    unit: ""
+    wrong:
+      - {text: "6 cm", mistake: "halves the tangent length"}
+      - {text: "12√2 cm", mistake: "takes the diagonal of a square as the radius"}
+      - {text: "13 cm", mistake: "applies Pythagoras to the tangent and a radius of 5 cm"}
+    explanation: "The quadrilateral OPTQ has right angles at P, Q and T, with OP = OQ, so it is a square. Its sides are equal, so the radius equals the tangent length, which is 12 cm."
+    hints:
+      - "Find the shape of quadrilateral OPTQ."
+      - "Look at which sides of that shape are equal."
+      - "Relate the radius to one of the tangent lengths."
+    diagram: null
+    confidence: high
+  - topic: tangent_lengths
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A circle has radius 9 cm. Two tangents are drawn from an external point T, each of length 12 cm, touching the circle at P and Q. What is the length PQ in cm?"
+    correct: "14.4"
+    unit: "cm"
+    wrong: []
+    explanation: "OT = √(9² + 12²) = 15 cm. The kite OPTQ has area 2 × ½ × 9 × 12 = 108 cm², and its diagonals OT and PQ are perpendicular, so ½ × 15 × PQ = 108 and PQ = 14.4 cm."
+    hints:
+      - "Find the length OT first using Pythagoras."
+      - "Find the area of the kite OPTQ by splitting it into two triangles."
+      - "The diagonals of a kite are perpendicular."
+    diagram: "A circle of radius 9 cm with centre O and an external point T joined to O. Two tangents from T touch the circle at P and Q, and the chord PQ is drawn between the contact points."
+    confidence: high

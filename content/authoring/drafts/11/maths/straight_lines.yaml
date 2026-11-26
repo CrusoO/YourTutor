@@ -1,0 +1,296 @@
+class: 11
+subject: maths
+chapter: straight_lines
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: slope_and_forms
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the slope of the straight line passing through the points (1, 2) and (4, 11)?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The slope is the change in y, 11 minus 2, divided by the change in x, 4 minus 1, which gives 9 over 3, or 3."
+    hints:
+      - "Recall the formula for the slope between two points."
+      - "Subtract the y coordinates and the x coordinates in the same order."
+      - "Divide the change in y by the change in x."
+    diagram: null
+    confidence: high
+  - topic: slope_and_forms
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which equation is the point-slope form of the line through (2, -1) with slope 4?"
+    correct: "y + 1 = 4(x - 2)"
+    unit: ""
+    wrong:
+      - {text: "y - 1 = 4(x + 2)", mistake: "flips the signs of both coordinates of the point"}
+      - {text: "y + 1 = 4(x + 2)", mistake: "gets the sign of the x coordinate wrong"}
+      - {text: "y - 1 = 4(x - 2)", mistake: "gets the sign of the y coordinate wrong"}
+    explanation: "The point-slope form is y minus y1 equals m times (x minus x1), and with (2, -1) this becomes y + 1 = 4(x - 2)."
+    hints:
+      - "Write the point-slope form using a general point on the line."
+      - "Subtract the coordinates of the given point, keeping their signs in mind."
+      - "Substitute the slope into the form you wrote."
+    diagram: null
+    confidence: high
+  - topic: slope_and_forms
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A straight line has slope minus 2 and passes through the point (3, 5). What is its y-intercept?"
+    correct: "11"
+    unit: ""
+    wrong: []
+    explanation: "Starting from y minus 5 equal to minus 2 times (x minus 3) gives y equal to minus 2x plus 11, so the intercept is 11."
+    hints:
+      - "Write the point-slope form using the given point and slope."
+      - "Expand the right side and collect the constant terms."
+      - "The constant term that remains after rearranging is the y-intercept."
+    diagram: "Coordinate axes with a straight line of negative slope passing through a marked point, and the point where it crosses the vertical axis labelled."
+    confidence: high
+  - topic: slope_and_forms
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which line is perpendicular to the line y equal to 3x minus 4?"
+    correct: "x + 3y = 6"
+    unit: ""
+    wrong:
+      - {text: "3x + y = 2", mistake: "takes the negative of the slope without taking its reciprocal"}
+      - {text: "y = 3x + 1", mistake: "keeps the same slope, which gives a parallel line"}
+      - {text: "x - 3y = 1", mistake: "takes the reciprocal but keeps the wrong sign"}
+    explanation: "The given slope is 3, so the perpendicular slope is minus one third, and x + 3y = 6 has slope minus one third."
+    hints:
+      - "Find the slope of the given line from its equation."
+      - "Perpendicular lines have slopes whose product is minus one."
+      - "Rearrange each candidate into slope form and test the product."
+    diagram: "Coordinate axes showing the given line of positive slope and a second line crossing it at a right angle."
+    confidence: high
+  - topic: slope_and_forms
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "A line passes through the points (2, 1) and (6, 7). Where does this line cross the horizontal axis? Give the x-coordinate as a decimal rounded to two decimal places."
+    correct: "1.33"
+    unit: ""
+    wrong: []
+    explanation: "The slope is 6 over 4, or 3 over 2, and the line y minus 1 equal to 3 over 2 times (x minus 2) meets y equal to zero at x equal to 4 over 3, about 1.33."
+    hints:
+      - "Find the slope from the two given points first."
+      - "Write the equation of the line using one of the points."
+      - "Set the vertical coordinate to zero and solve for the horizontal one."
+    diagram: "Coordinate axes with a straight line rising through two marked points and extended to meet the horizontal axis at a labelled point on the left."
+    confidence: high
+  - topic: slope_and_forms
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the slope of the line through the point (1, 3) that is perpendicular to a line with slope 2?"
+    correct: "minus one half"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "copies the slope of the given line"}
+      - {text: "one half", mistake: "takes the reciprocal but drops the sign"}
+      - {text: "minus 2", mistake: "keeps the magnitude and only flips the sign"}
+    explanation: "Perpendicular slopes multiply to minus one, so 2 times the new slope equals minus one, giving minus one half."
+    hints:
+      - "Recall the relationship between the slopes of two perpendicular lines."
+      - "Set the product of the two slopes equal to minus one."
+      - "Solve that equation for the unknown slope."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the x-intercept of the line 3x plus 4y equals 12?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Setting y to zero gives 3x equal to 12, so the x-intercept is 4."
+    hints:
+      - "The x-intercept is where the line meets the horizontal axis."
+      - "On that axis the vertical coordinate is zero, so set y to zero."
+      - "Solve the remaining equation for x."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which equation is the general form of the line with intercepts 2 on the x-axis and 5 on the y-axis?"
+    correct: "5x + 2y - 10 = 0"
+    unit: ""
+    wrong:
+      - {text: "5x + 2y + 10 = 0", mistake: "flips the sign of the constant term"}
+      - {text: "2x + 5y - 10 = 0", mistake: "swaps the intercept values between the variables"}
+      - {text: "5x - 2y - 10 = 0", mistake: "changes the sign of the y term"}
+    explanation: "The intercept form x over 2 plus y over 5 equals 1, multiplied by 10, gives 5x plus 2y equal to 10."
+    hints:
+      - "Start from the intercept form, with each variable divided by its intercept."
+      - "Clear the fractions by multiplying through by the product of the intercepts."
+      - "Move every term to one side to get the general form."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the y-intercept of the line 2x minus 3y plus 9 equals 0?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Setting x to zero gives minus 3y plus 9 equal to 0, so y equals 3."
+    hints:
+      - "The y-intercept is where the line crosses the vertical axis, so set the other variable to zero."
+      - "Substitute that value and solve the resulting equation for the remaining variable."
+      - "Take care with the sign when moving the constant term."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which intercept form represents the line 4x minus 6y equals 12?"
+    correct: "x over 3 minus y over 2 equals 1"
+    unit: ""
+    wrong:
+      - {text: "x over 3 plus y over 2 equals 1", mistake: "drops the sign of the y term when dividing"}
+      - {text: "x over 6 minus y over 4 equals 1", mistake: "divides the x term by 2 instead of by 12"}
+      - {text: "x over 3 minus y over 2 equals 0", mistake: "forgets to divide the constant on the right side"}
+    explanation: "Dividing the whole equation by 12 gives x over 3 minus y over 2 equal to 1, which is the intercept form."
+    hints:
+      - "Divide every term of the equation by the constant on the right side."
+      - "Each variable term should end with its coefficient in the denominator."
+      - "Keep track of the sign of each term as you divide."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The line 3x plus 4y equals 24 meets the two axes. What is the distance between its x-intercept and its y-intercept?"
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "The intercepts are (8, 0) and (0, 6), and the distance between them is the square root of 64 plus 36, which is 10."
+    hints:
+      - "Find each intercept by setting the other variable to zero."
+      - "Treat the two intercept points as the ends of a segment."
+      - "Apply the distance formula to those two points."
+    diagram: null
+    confidence: high
+  - topic: intercept_and_general_form
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "The line 5x plus k y equals 15 has equal x-intercept and y-intercept. What is the value of k?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The x-intercept is 3, so the y-intercept 15 over k must also be 3, giving k equal to 5."
+    hints:
+      - "Find the x-intercept by setting y to zero."
+      - "Find the y-intercept by setting x to zero and keeping k as a symbol."
+      - "Equate the two intercepts and solve for k."
+    diagram: null
+    confidence: high
+  - topic: distance_point_line
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the perpendicular distance from the origin to the line 3x plus 4y equals 10?"
+    correct: "2"
+    unit: "units"
+    wrong: []
+    explanation: "The distance is the absolute value of minus 10 divided by the square root of 3 squared plus 4 squared, which is 10 over 5."
+    hints:
+      - "Use the standard formula for the distance from a point to a line."
+      - "Substitute the coordinates of the point into the left side of the line equation."
+      - "Divide the absolute value by the square root of the sum of the squared coefficients."
+    diagram: null
+    confidence: high
+  - topic: distance_point_line
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the perpendicular distance from the point (x1, y1) to the line ax plus by plus c equals 0?"
+    correct: "|a x1 + b y1 + c| / sqrt(a^2 + b^2)"
+    unit: ""
+    wrong:
+      - {text: "|a x1 + b y1 + c| / (a + b)", mistake: "adds the coefficients instead of their squares under a root"}
+      - {text: "(a x1 + b y1 + c) / sqrt(a^2 + b^2)", mistake: "drops the absolute value that keeps the distance positive"}
+      - {text: "|a x1 - b y1 + c| / sqrt(a^2 + b^2)", mistake: "flips the sign of the y term when substituting"}
+    explanation: "The distance formula divides the absolute value of the substituted expression by the square root of the sum of squared coefficients."
+    hints:
+      - "Substitute the point into the left side of the line equation."
+      - "Think about why the distance must always be non-negative."
+      - "The denominator uses the length of the normal vector of the line."
+    diagram: null
+    confidence: high
+  - topic: distance_point_line
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "What is the perpendicular distance from the point (1, 2) to the line y equal to 2x plus 1? Give the answer as a decimal rounded to three places."
+    correct: "0.447"
+    unit: "units"
+    wrong: []
+    explanation: "Writing the line as 2x minus y plus 1 equal to 0 gives an absolute value of 1 over the square root of 5, which is about 0.447."
+    hints:
+      - "Rewrite the line in the general form with all terms on one side."
+      - "Substitute the point into the general form and take the absolute value."
+      - "Divide by the square root of the sum of squared coefficients and round at the end."
+    diagram: "Coordinate axes with a straight line of slope 2 and a marked point above it, with a perpendicular segment dropped from the point to the line."
+    confidence: high
+  - topic: distance_point_line
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which point lies on the line x minus y equals 3?"
+    correct: "(5, 2)"
+    unit: ""
+    wrong:
+      - {text: "(2, 5)", mistake: "swaps the coordinates before substituting"}
+      - {text: "(0, 0)", mistake: "uses the origin as a default answer without substituting"}
+      - {text: "(4, 2)", mistake: "subtracts incorrectly when testing the point"}
+    explanation: "Substituting (5, 2) gives 5 minus 2, which equals 3, so the point lies on the line and its distance from the line is zero."
+    hints:
+      - "A point lies on a line when its coordinates satisfy the line equation."
+      - "Substitute each candidate point and evaluate the left side."
+      - "Check whether the result equals the constant on the right side."
+    diagram: "Coordinate axes with the line x minus y equals 3 drawn as a straight line and several candidate points marked, one of them on the line."
+    confidence: high
+  - topic: distance_point_line
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "What is the distance between the parallel lines 3x plus 4y equals 5 and 3x plus 4y equals 25?"
+    correct: "4"
+    unit: "units"
+    wrong: []
+    explanation: "Taking a point on the first line and applying the distance formula to the second gives an absolute difference of 20 over 5, which is 4."
+    hints:
+      - "Parallel lines have the same coefficients for x and y."
+      - "Pick a convenient point on one line and measure its distance to the other line."
+      - "Use the distance formula with the constant term of the second line."
+    diagram: "Coordinate axes with two parallel straight lines of negative slope, a perpendicular segment drawn between them, and the segment length labelled."
+    confidence: high
+  - topic: distance_point_line
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Find the positive value of c for which the distance from the point (2, 1) to the line 3x minus 4y plus c equals 0 is 1."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Substituting the point gives the absolute value of 2 plus c over 5 equal to 1, so 2 plus c equals 5 for the positive solution, giving c equal to 3."
+    hints:
+      - "Substitute the point into the left side of the line equation."
+      - "Set the absolute value of the result divided by the normal length equal to the given distance."
+      - "Remove the absolute value by considering both signs and keep the solution that is positive."
+    diagram: null
+    confidence: high

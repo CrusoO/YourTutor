@@ -1,0 +1,209 @@
+class: 12
+subject: physics
+chapter: magnetism_and_matter
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: bar_magnet_field
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Inside a bar magnet, in which direction do the magnetic field lines run?"
+    correct: "From the south pole to the north pole"
+    unit: ""
+    wrong:
+      - {text: "From the north pole to the south pole", mistake: "applies the direction of the outside lines to the inside of the magnet"}
+      - {text: "Radially outward from the centre of the magnet", mistake: "assumes the field spreads out from the middle like a point source"}
+      - {text: "Perpendicular to the length of the magnet", mistake: "confuses the field direction with the orientation of the magnet's surface"}
+    explanation: "Field lines form closed loops. Outside the magnet they leave from the north pole, so inside they must run from the south pole back to the north pole."
+    hints:
+      - "Field lines form closed loops that pass through the magnet and the air around it."
+      - "Think about the direction of the lines outside the magnet first."
+      - "Consider how the lines inside must connect to the lines outside to form closed loops."
+    diagram: null
+    confidence: high
+  - topic: bar_magnet_field
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Near the magnetic equator, what is the approximate orientation of the Earth's magnetic field at the surface?"
+    correct: "Horizontal"
+    unit: ""
+    wrong:
+      - {text: "Vertical", mistake: "assumes field lines always point straight up or down"}
+      - {text: "Zero", mistake: "confuses the magnetic equator with a point where the field vanishes"}
+      - {text: "Radially outward from the Earth's centre", mistake: "treats the Earth as a point source of field"}
+    explanation: "At the magnetic equator the dip angle is zero, so the field lines lie parallel to the surface, which means the field is horizontal."
+    hints:
+      - "Think about the dip angle of the field lines near the equator."
+      - "Consider how the field lines tilt as you move from the equator towards the poles."
+      - "Compare the field at the magnetic equator with the field near the magnetic poles."
+    diagram: null
+    confidence: high
+  - topic: bar_magnet_field
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A short bar magnet has a magnetic moment of 1 A m^2. What is the magnitude in tesla of its field on its axis at 0.2 m from its centre? Take mu0 over 4 pi as 1 x 10^-7 T m/A."
+    correct: "0.000025"
+    unit: "T"
+    wrong: []
+    explanation: "On the axis of a short magnet the field is 2 times mu0 over 4 pi times M over d cubed. This gives 2 x 10^-7 divided by 0.008, which is 2.5 x 10^-5 T."
+    hints:
+      - "The axial field of a short magnet has a factor of 2 in its formula."
+      - "Cube the distance before dividing."
+      - "Multiply the constant by the moment and by 2 before dividing."
+    diagram: null
+    confidence: high
+  - topic: bar_magnet_field
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "The same short bar magnet, with moment 1 A m^2, is measured at 0.2 m from its centre on the equatorial line, perpendicular to its axis. What is the field magnitude in tesla? Take mu0 over 4 pi as 1 x 10^-7 T m/A."
+    correct: "0.0000125"
+    unit: "T"
+    wrong: []
+    explanation: "On the equatorial line the field is mu0 over 4 pi times M over d cubed, without the factor of 2 used on the axis. This gives 1 x 10^-7 divided by 0.008, which is 1.25 x 10^-5 T."
+    hints:
+      - "The equatorial formula is the axial formula without its factor of 2."
+      - "Use the same moment and distance as in the axial case."
+      - "Cube the distance before dividing the constant term."
+    diagram: "A short bar magnet drawn horizontally with its axis marked, and a point at distance d from its centre drawn perpendicular to the axis, labelled as the equatorial point."
+    confidence: high
+  - topic: bar_magnet_field
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A bar magnet is cut in two across its middle. What do the two pieces become?"
+    correct: "Two smaller magnets, each with both a north pole and a south pole"
+    unit: ""
+    wrong:
+      - {text: "One piece with only a north pole and one with only a south pole", mistake: "assumes magnetic poles can be separated like electric charges"}
+      - {text: "Two single magnetic monopoles", mistake: "assumes an isolated magnetic pole can exist after the cut"}
+      - {text: "Two demagnetised pieces with no field at all", mistake: "assumes cutting a magnet destroys its magnetism"}
+    explanation: "Magnetic dipoles cannot be split into isolated poles. Each piece of a cut magnet is a smaller magnet with its own north and south poles."
+    hints:
+      - "Consider whether isolated magnetic poles have ever been observed."
+      - "Think about where the field lines of each piece must close."
+      - "Recall what each small piece does to the field around it."
+    diagram: null
+    confidence: high
+  - topic: bar_magnet_field
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Near a bar magnet, where are the magnetic field lines most closely packed together?"
+    correct: "At the two poles"
+    unit: ""
+    wrong:
+      - {text: "At the midpoint of the magnet", mistake: "assumes the centre of a magnet is where the field is strongest"}
+      - {text: "Far away from the magnet", mistake: "assumes the field lines stay dense at large distances"}
+      - {text: "Along the equatorial line", mistake: "confuses the spacing of lines with the direction of the field"}
+    explanation: "The field is strongest where the lines are closest together, which is near the poles of the magnet."
+    hints:
+      - "The density of field lines tells you how strong the field is."
+      - "Think about where the lines leave and enter the magnet."
+      - "Compare the spacing of lines near the ends with the spacing near the middle."
+    diagram: "A sketch of a bar magnet with curved field lines looping from the north pole, around the outside, and back into the south pole, drawn closer together near both ends."
+    confidence: high
+  - topic: magnetic_materials
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which class of material is weakly repelled by a strong magnetic field?"
+    correct: "Diamagnetic"
+    unit: ""
+    wrong:
+      - {text: "Paramagnetic", mistake: "confuses weak repulsion with weak attraction"}
+      - {text: "Ferromagnetic", mistake: "assumes all magnetic materials are strongly attracted"}
+      - {text: "Any material that is not strongly magnetised", mistake: "assumes weak response means no magnetism at all"}
+    explanation: "Diamagnetic materials have an induced moment opposite to the applied field, so they are weakly repelled. All materials show this effect, though it is often masked by stronger effects."
+    hints:
+      - "Consider the direction of the induced moment compared with the applied field."
+      - "Think about which class is repelled by a strong magnet."
+      - "Compare with the class of materials that are attracted and whether the attraction is weak or strong."
+    diagram: null
+    confidence: high
+  - topic: magnetic_materials
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which class of material has permanent atomic magnetic moments that align strongly in an external field and can keep their magnetism?"
+    correct: "Ferromagnetic"
+    unit: ""
+    wrong:
+      - {text: "Diamagnetic", mistake: "assumes a material that is repelled must keep permanent magnetism"}
+      - {text: "Paramagnetic", mistake: "assumes weak attraction implies retained magnetism"}
+      - {text: "Non-magnetic", mistake: "assumes no response to a field means no magnetic moments at all"}
+    explanation: "Ferromagnetic materials have domains of aligned moments that stay aligned after the field is removed, so they keep their magnetism."
+    hints:
+      - "Think about which class shows a strong alignment of its moments with the field."
+      - "Consider which class keeps magnetism after the field is removed."
+      - "Compare the strength of the response in each class."
+    diagram: null
+    confidence: high
+  - topic: magnetic_materials
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A paramagnetic sample has a susceptibility of 0.002 at 300 K. Following Curie's law, what is its susceptibility at 600 K? Give a plain number with no unit."
+    correct: "0.001"
+    unit: ""
+    wrong: []
+    explanation: "Curie's law gives susceptibility inversely proportional to absolute temperature. Doubling the temperature halves the susceptibility, from 0.002 to 0.001."
+    hints:
+      - "Curie's law makes susceptibility inversely proportional to absolute temperature."
+      - "Find the ratio of the two absolute temperatures."
+      - "Divide the original susceptibility by that ratio."
+    diagram: null
+    confidence: high
+  - topic: magnetic_materials
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does a ferromagnetic material lose its permanent magnetism when it is heated above its critical temperature?"
+    correct: "Thermal agitation breaks the alignment of the magnetic domains"
+    unit: ""
+    wrong:
+      - {text: "The magnetic domains become larger", mistake: "assumes heating enlarges domains and strengthens the alignment"}
+      - {text: "The electrons stop spinning", mistake: "assumes electron spin is switched off by heat"}
+      - {text: "The material becomes a superconductor", mistake: "confuses the loss of ferromagnetism with superconductivity"}
+    explanation: "Above the Curie temperature, thermal motion is strong enough to randomise the atomic moments, so the domains lose their alignment and the material is no longer ferromagnetic."
+    hints:
+      - "Think about what temperature does to the alignment of atomic moments."
+      - "Consider how thermal motion affects the ordering of domains."
+      - "Recall the name of the critical temperature above which ferromagnetism disappears."
+    diagram: null
+    confidence: high
+  - topic: magnetic_materials
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A paramagnetic sample is placed in a non-uniform magnetic field. Which statement describes the net force on it?"
+    correct: "It is pulled towards the region of stronger field"
+    unit: ""
+    wrong:
+      - {text: "It is pushed away from the region of stronger field", mistake: "applies the diamagnetic response to a paramagnetic sample"}
+      - {text: "It feels no net force because it is not ferromagnetic", mistake: "assumes only ferromagnetic materials feel a force in a field gradient"}
+      - {text: "It rotates but feels no net force", mistake: "confuses torque on a dipole with the force from a field gradient"}
+    explanation: "A paramagnetic sample acquires an induced moment aligned with the field. In a non-uniform field this dipole is pulled towards the stronger region."
+    hints:
+      - "Think about the direction of the induced moment in a paramagnetic material."
+      - "Consider how a gradient in the field acts on a magnetic dipole."
+      - "Compare with the behaviour of a diamagnetic sample in the same field."
+    diagram: null
+    confidence: high
+  - topic: magnetic_materials
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A material has a relative permeability of 1.5. What is its magnetic susceptibility? Give a plain number."
+    correct: "0.5"
+    unit: ""
+    wrong: []
+    explanation: "Relative permeability equals one plus the susceptibility. Subtracting one from 1.5 gives a susceptibility of 0.5."
+    hints:
+      - "Relative permeability is one plus the susceptibility."
+      - "Subtract one from the given permeability."
+      - "Check that the sign of your result matches the kind of material you expect."
+    diagram: null
+    confidence: high

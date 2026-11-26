@@ -1,0 +1,302 @@
+class: 9
+subject: maths
+chapter: triangles
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: congruence_criteria
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Two triangles have their three sides equal in pairs. Which congruence criterion applies?"
+    correct: "SSS"
+    unit: ""
+    wrong:
+      - {text: "AAA", mistake: "assumes equal angles guarantee equal size"}
+      - {text: "RHS", mistake: "assumes a right angle is present"}
+      - {text: "AAS", mistake: "adds an angle without matching a side in the right place"}
+    explanation: "Three pairs of equal sides fix the triangle completely, which is the SSS criterion, while equal angles alone never fix the size."
+    hints:
+      - "Count which measures are given in each triangle."
+      - "A criterion needs measures that pin down both the shape and the size."
+      - "Look at the letter naming each side in the two triangles."
+    diagram: "Two triangles with each of the three sides marked with matching tick marks."
+    confidence: high
+  - topic: congruence_criteria
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Two triangles are congruent. The sides of the first are 5 cm, 7 cm and 9 cm. What is the perimeter of the second triangle, in cm?"
+    correct: "21"
+    unit: "cm"
+    wrong: []
+    explanation: "Congruent triangles have matching sides, so the perimeter is 5 plus 7 plus 9, which is 21 cm."
+    hints:
+      - "Congruent figures have the same side lengths."
+      - "Add the three side lengths together."
+      - "Check your addition carefully."
+    diagram: null
+    confidence: high
+  - topic: congruence_criteria
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In triangles ABC and PQR, AB equals PQ, angle B equals angle Q, and BC equals QR. Which criterion proves the triangles congruent?"
+    correct: "SAS"
+    unit: ""
+    wrong:
+      - {text: "AAA", mistake: "uses only the angles and ignores the sides"}
+      - {text: "SSA", mistake: "uses a side that is not the one between the given angle and the other side"}
+      - {text: "RHS", mistake: "assumes a right angle is given"}
+    explanation: "Two sides and the angle between them match in both triangles, which is the SAS criterion."
+    hints:
+      - "Locate the given angle and check whether it sits between the two given sides."
+      - "Check whether the angle is between the given sides or outside them."
+      - "Name the criterion using the order of the given parts."
+    diagram: "Two triangles sharing a common angle at the vertices B and Q, with the sides on either side of that angle marked."
+    confidence: high
+  - topic: congruence_criteria
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Two right triangles have equal hypotenuses of 13 cm, and in each one a leg measures 5 cm. What is the length of the other leg, in cm?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "The other leg squared is 169 minus 25, which is 144, so the leg is 12 cm."
+    hints:
+      - "Use the Pythagoras relation for the known leg and the hypotenuse."
+      - "Square the hypotenuse and subtract the square of the known leg."
+      - "Take the square root of the result."
+    diagram: "Right triangle with hypotenuse 13 cm and one leg 5 cm, the other leg left unknown."
+    confidence: high
+  - topic: congruence_criteria
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Triangles PQR and XYZ have PQ equal to XY and QR equal to YZ, but the angles at Q and Y are not known to be equal. Which conclusion is justified?"
+    correct: "The triangles are not necessarily congruent."
+    unit: ""
+    wrong:
+      - {text: "The triangles are congruent by SAS.", mistake: "assumes the angle is included when it is not given"}
+      - {text: "The triangles are congruent by SSS.", mistake: "adds a third side match that is not given"}
+      - {text: "The triangles are similar and therefore congruent.", mistake: "confuses similarity with congruence"}
+    explanation: "Two sides alone do not fix a triangle, since the angle between them could differ, so congruence cannot be concluded from the information given."
+    hints:
+      - "Count the parts that are actually given as equal."
+      - "Check whether the angle is between the two equal sides."
+      - "A triangle needs three independent measures to be fixed."
+    diagram: "Two triangles with pairs of equal sides marked, and the angles at Q and Y left unmarked."
+    confidence: high
+  - topic: congruence_criteria
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two right triangles are congruent by the RHS criterion. Each has a hypotenuse of 10 cm and one leg of 6 cm. What is the area of one triangle, in square cm?"
+    correct: "24"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The missing leg is 8 cm by Pythagoras, so the area is half of 6 times 8, which is 24 square cm."
+    hints:
+      - "Find the missing leg first from the hypotenuse and the known leg."
+      - "Use the Pythagoras relation for a right triangle."
+      - "The area of a right triangle is half the product of its two legs."
+    diagram: "Right triangle with the right angle marked, the hypotenuse labelled 10 cm and one leg labelled 6 cm."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an isosceles triangle, which angles are equal?"
+    correct: "the angles opposite the equal sides"
+    unit: ""
+    wrong:
+      - {text: "the angles at the apex only", mistake: "assumes the apex angle is the only equal pair"}
+      - {text: "all three angles", mistake: "treats an isosceles triangle as equilateral"}
+      - {text: "the base angle and the apex angle", mistake: "pairs unrelated angles together"}
+    explanation: "Equal sides make the angles opposite them equal, which is the isosceles triangle property."
+    hints:
+      - "Look at which sides of the triangle are equal in length."
+      - "Find the angles that face those equal sides."
+      - "Do not assume the third angle matches unless the sides also match."
+    diagram: "Isosceles triangle with two equal sides marked by ticks and the opposite base angles labelled."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In an isosceles triangle, the vertex angle measures 40 degrees. What is each base angle, in degrees?"
+    correct: "70"
+    unit: "degrees"
+    wrong: []
+    explanation: "The angles sum to 180 degrees, so the base angles together are 140 degrees, and each is 70 degrees."
+    hints:
+      - "The angles of any triangle add up to a known total."
+      - "Subtract the vertex angle from that total."
+      - "Divide the remainder equally between the two base angles."
+    diagram: "Isosceles triangle with the apex angle marked 40 degrees and the two equal base angles marked."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In triangle PQR, PQ equals PR, and angle Q measures 3x degrees while angle R measures x + 20 degrees. What is x?"
+    correct: "10"
+    unit: ""
+    wrong:
+      - {text: "20", mistake: "takes the constant in the second expression as the answer"}
+      - {text: "30", mistake: "reports the size of the first angle without solving for x"}
+      - {text: "5", mistake: "halves the constant instead of solving the equation"}
+    explanation: "Equal sides PQ and PR make angles Q and R equal, so 3x equals x plus 20, giving x equal to 10."
+    hints:
+      - "The angles opposite equal sides are equal."
+      - "Set the two expressions for the base angles equal to each other."
+      - "Collect the letter terms and solve."
+    diagram: "Triangle PQR with apex P, the equal sides PQ and PR marked, and the base angles at Q and R labelled."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "An isosceles triangle has two equal sides of 10 cm and a base of 12 cm. What is its altitude from the apex to the base, in cm?"
+    correct: "8"
+    unit: "cm"
+    wrong: []
+    explanation: "Half the base is 6 cm, so the altitude is the square root of 100 minus 36, which is 8 cm."
+    hints:
+      - "The altitude from the apex bisects the base."
+      - "Form a right triangle with the altitude as one of its legs."
+      - "Apply Pythagoras using half the base and one of the equal sides."
+    diagram: "Isosceles triangle with equal sides of 10 cm, a base of 12 cm, and a perpendicular dropped from the apex to the midpoint of the base."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "In triangle ABC, AB equals AC. The bisector of angle A meets BC at D. Which statement necessarily follows?"
+    correct: "Angle ADB is a right angle."
+    unit: ""
+    wrong:
+      - {text: "BD is twice DC.", mistake: "assumes the bisector divides the base in a ratio of two"}
+      - {text: "Angle ABD is three times angle ADB.", mistake: "invents a ratio between angles without support"}
+      - {text: "Angle B is a right angle.", mistake: "assumes the base angles of an isosceles triangle are right angles"}
+    explanation: "The bisector from the apex of an isosceles triangle is also the perpendicular bisector of the base, so the angle at D is a right angle."
+    hints:
+      - "Use the symmetry of the isosceles triangle about its axis."
+      - "Compare the two triangles ABD and ACD."
+      - "Check the angles that meet at D along the base line."
+    diagram: "Isosceles triangle with apex A, the angle bisector AD drawn to the base BC, and the angle at D marked."
+    confidence: high
+  - topic: isosceles_triangle_properties
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Triangle PQR has PQ equal to PR, and its angle at P is 50 degrees. The bisector of angle Q meets side PR at S. What is angle PQS, in degrees?"
+    correct: "32.5"
+    unit: "degrees"
+    wrong: []
+    explanation: "The base angles are 65 degrees each, and the bisector splits angle Q into equal halves, giving 32.5 degrees."
+    hints:
+      - "Find the base angles first from the apex angle."
+      - "The bisector splits the angle at Q into two equal halves."
+      - "Halve the base angle and keep any decimal part."
+    diagram: "Isosceles triangle with apex P, a bisector from Q meeting side PR at S, and the half angles marked."
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a triangle, a side that faces a larger angle is what, compared with a side that faces a smaller angle?"
+    correct: "longer"
+    unit: ""
+    wrong:
+      - {text: "shorter", mistake: "reverses the comparison between sides and angles"}
+      - {text: "equal", mistake: "assumes unequal angles always mean equal sides"}
+      - {text: "unrelated", mistake: "treats sides and angles as independent"}
+    explanation: "In a triangle the larger angle lies opposite the longer side, so sides and angles are ordered in the same way."
+    hints:
+      - "Think about which side faces the bigger angle."
+      - "Compare the opposite positions in the triangle."
+      - "Use the rule that links sides and angles directly."
+    diagram: "Triangle with one obtuse angle labelled at a vertex and the side opposite it marked as the longest side."
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Two sides of a triangle measure 3 cm and 4 cm. The third side must be less than what length, in cm?"
+    correct: "7"
+    unit: "cm"
+    wrong: []
+    explanation: "The sum of any two sides must exceed the third, so the third side is less than 3 plus 4, which is 7 cm."
+    hints:
+      - "Use the triangle inequality for the sum of two sides."
+      - "Add the two given sides."
+      - "The third side must be strictly shorter than that total."
+    diagram: null
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In triangle XYZ, angle X is 80 degrees and angle Y is 60 degrees. Which side is the longest?"
+    correct: "side YZ"
+    unit: ""
+    wrong:
+      - {text: "side XY", mistake: "assumes the side listed first is the longest"}
+      - {text: "side XZ", mistake: "picks a side touching the largest angle instead of the side opposite it"}
+      - {text: "all sides are equal", mistake: "assumes equal sides from the angles without checking"}
+    explanation: "The largest angle is 80 degrees at X, and the side opposite it, YZ, is the longest side."
+    hints:
+      - "Find the largest angle first."
+      - "The longest side faces the largest angle."
+      - "Locate the side that does not touch that vertex."
+    diagram: "Triangle XYZ with the angles marked at each vertex and the sides labelled."
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A triangle has two sides of 7 cm and 10 cm. What is the smallest whole-number length, in cm, that the third side can take?"
+    correct: "4"
+    unit: "cm"
+    wrong: []
+    explanation: "The third side must exceed 10 minus 7, which is 3, and be less than 17, so the smallest whole number is 4 cm."
+    hints:
+      - "The third side must be longer than the difference of the two given sides."
+      - "Subtract the smaller given side from the larger one."
+      - "Take the next whole number above that difference."
+    diagram: "Triangle with two given sides of 7 cm and 10 cm meeting at a vertex, and the third side shown as an unknown."
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "In triangle ABC, the exterior angle at C is larger than the interior angle at A. Which statement is necessarily true?"
+    correct: "Angle B is smaller than the exterior angle at C."
+    unit: ""
+    wrong:
+      - {text: "Angle B is larger than the exterior angle at C.", mistake: "reverses the exterior angle comparison"}
+      - {text: "Angle A equals angle B.", mistake: "assumes the two remote angles must be equal"}
+      - {text: "Side AB is the shortest side of the triangle.", mistake: "links angles to sides without using the opposite-side rule"}
+    explanation: "The exterior angle at C equals the sum of the two remote interior angles A and B, so it is larger than each of them, including angle B."
+    hints:
+      - "Recall how an exterior angle relates to the two remote interior angles."
+      - "Write the exterior angle as a sum of two angles."
+      - "Compare each remote angle with that sum."
+    diagram: "Triangle ABC with side BC extended beyond C, the exterior angle at C marked, and the interior angles A and B labelled."
+    confidence: high
+  - topic: inequalities_in_triangles
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In a triangle, the exterior angle at one vertex is 115 degrees, and one remote interior angle is 45 degrees. What is the other remote interior angle, in degrees?"
+    correct: "70"
+    unit: "degrees"
+    wrong: []
+    explanation: "The exterior angle equals the sum of the two remote interior angles, so the other one is 115 minus 45, which is 70 degrees."
+    hints:
+      - "The exterior angle equals the sum of the two remote interior angles."
+      - "Subtract the given remote angle from the exterior angle."
+      - "Check that the result is less than the exterior angle."
+    diagram: "Triangle with one side extended, the exterior angle marked, and the two remote interior angles labelled."
+    confidence: high

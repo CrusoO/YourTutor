@@ -1,0 +1,401 @@
+class: 9
+subject: maths
+chapter: number_systems
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: rational_irrational
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of the following numbers has a decimal expansion that neither terminates nor repeats?"
+    correct: "sqrt(7)"
+    unit: ""
+    wrong:
+      - {text: "1/3", mistake: "confuses a repeating decimal with a non-repeating one"}
+      - {text: "2.75", mistake: "treats a terminating decimal as irrational"}
+      - {text: "sqrt(16)", mistake: "does not simplify the root before classifying the number"}
+    explanation: "The square root of a prime is irrational, so its decimal form goes on forever without a repeating block. One third repeats, two point seven five terminates, and the square root of sixteen simplifies to four, so all three are rational."
+    hints:
+      - "Ask whether the number can be written as a fraction of two whole numbers."
+      - "Simplify any root first, then look at its decimal form."
+      - "Recall which kinds of decimals terminate or repeat."
+    diagram: null
+    confidence: high
+  - topic: rational_irrational
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the decimal form of the fraction three eighths?"
+    correct: "0.375"
+    unit: ""
+    wrong: []
+    explanation: "Dividing three by eight gives 0.375 exactly. Because the decimal stops, the number is rational."
+    hints:
+      - "Divide the numerator by the denominator using long division."
+      - "Keep adding zeros after the decimal point until the remainder is zero."
+      - "Once the remainder is zero, read off the digits you have written."
+    diagram: null
+    confidence: high
+  - topic: rational_irrational
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A decimal starts 0.1010010001 and continues so that each block of zeros grows by one. How should this number be classified?"
+    correct: "irrational, because the pattern never settles into a repeating block"
+    unit: ""
+    wrong:
+      - {text: "rational, because it shows a visible pattern", mistake: "takes any visible pattern as proof of repetition"}
+      - {text: "rational, because it never ends", mistake: "confuses non-terminating with non-repeating"}
+      - {text: "terminating, because each block is finite", mistake: "reads each finite block as a finite decimal"}
+    explanation: "Each block of zeros is longer than the one before, so no block of digits repeats forever. A decimal that neither terminates nor repeats is irrational."
+    hints:
+      - "Check whether any block of digits repeats forever."
+      - "Compare the length of the zero blocks from one step to the next."
+      - "A rational number's decimal must eventually either stop or repeat."
+    diagram: null
+    confidence: high
+  - topic: rational_irrational
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The decimal 0.6 is written as a fraction in lowest terms. What is the denominator of that fraction?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "Point six is six tenths, which reduces to three fifths, so the denominator is 5."
+    hints:
+      - "Write the decimal as a fraction over a power of ten."
+      - "Cancel the common factor from the top and the bottom."
+      - "Check that the top and bottom share no further factor."
+    diagram: null
+    confidence: high
+  - topic: rational_irrational
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A rational number is added to an irrational number. Which statement about the sum is always true?"
+    correct: "The sum is irrational."
+    unit: ""
+    wrong:
+      - {text: "The sum is rational.", mistake: "assumes the irrational part cancels out"}
+      - {text: "The sum is always an integer.", mistake: "confuses sums with products of integers"}
+      - {text: "The sum is rational only when the rational part is zero.", mistake: "treats zero as the only case without checking the argument"}
+    explanation: "If the sum were rational, subtracting the rational part would leave the irrational number equal to a difference of two rationals, which is rational. That contradiction means the sum must be irrational."
+    hints:
+      - "Suppose the sum is rational and then subtract the rational part."
+      - "Check whether a rational number minus a rational number stays rational."
+      - "Think about what that subtraction does to the irrational term."
+    diagram: null
+    confidence: high
+  - topic: rational_irrational
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "The decimal 0.272727 with the two-digit block 27 repeating forever is written as a fraction p over q in lowest terms. What is q?"
+    correct: "11"
+    unit: ""
+    wrong: []
+    explanation: "Let x equal the repeating decimal, so multiplying by one hundred and subtracting x gives 99x equal to 27. The fraction 27 over 99 reduces to 3 over 11, so q is 11."
+    hints:
+      - "Let the number be a letter and multiply it by a power of ten that shifts one full block."
+      - "Subtract the original number to remove the repeating part."
+      - "Simplify the resulting fraction by its greatest common factor."
+    diagram: null
+    confidence: high
+  - topic: irrationals_number_line
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A point must be placed exactly at the square root of two on a number line. Which construction does this correctly?"
+    correct: "Draw a right triangle with two unit legs and use its hypotenuse as the radius of an arc from zero."
+    unit: ""
+    wrong:
+      - {text: "Divide the segment from zero to two into two equal parts.", mistake: "treats the root as the midpoint of two integers"}
+      - {text: "Mark the point at one point four by eye and call it the root.", mistake: "accepts an approximation as the exact position"}
+      - {text: "Draw a right triangle with legs of two units and use its hypotenuse directly.", mistake: "forgets that a triangle with legs of two has a hypotenuse that is not the root of two"}
+    explanation: "A right triangle with two unit legs has a hypotenuse of root two by Pythagoras. An arc centred at zero with that radius meets the number line at the exact point."
+    hints:
+      - "Think about a right triangle whose two shorter sides are both one unit."
+      - "Let the longest side of that triangle set the radius of a compass arc."
+      - "The construction must keep the length exact rather than estimated."
+    diagram: "Number line from zero to two with a unit square drawn above the segment from zero to one; its diagonal is marked and an arc is drawn from zero to meet the line."
+    confidence: high
+  - topic: irrationals_number_line
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Two legs of a right triangle are each one unit long. Give the length of the hypotenuse in units, rounded to two decimal places."
+    correct: "1.41"
+    unit: "units"
+    wrong: []
+    explanation: "The hypotenuse is the square root of two, which is about 1.4142 and rounds to 1.41."
+    hints:
+      - "Apply the relation between the squares of the legs and the square of the hypotenuse."
+      - "Add the squares of the two known sides."
+      - "Take the square root and round at the second decimal place."
+    diagram: "Right triangle with two equal legs each marked one unit, and the hypotenuse labelled as the unknown side."
+    confidence: high
+  - topic: irrationals_number_line
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which number lies strictly between two and three and cannot be written as a fraction of two integers?"
+    correct: "sqrt(5)"
+    unit: ""
+    wrong:
+      - {text: "2.5", mistake: "takes any decimal between the two endpoints as irrational"}
+      - {text: "sqrt(9)", mistake: "counts the endpoint three as strictly inside the interval"}
+      - {text: "sqrt(4)", mistake: "takes the endpoint two as inside the interval"}
+    explanation: "The square root of five is about 2.236, which lies between two and three, and five is not a perfect square, so the root is irrational."
+    hints:
+      - "Find the squares of the two endpoints first."
+      - "Look for a number whose square falls between those squares."
+      - "Check whether the number is a perfect square before deciding."
+    diagram: null
+    confidence: high
+  - topic: irrationals_number_line
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A right triangle has legs of two units and three units. What is the length of its hypotenuse, in units, rounded to two decimal places?"
+    correct: "3.61"
+    unit: "units"
+    wrong: []
+    explanation: "The hypotenuse is the square root of thirteen, about 3.6056, which rounds to 3.61."
+    hints:
+      - "Square each leg and add the results."
+      - "Take the square root of that sum."
+      - "Round only after the root has been found."
+    diagram: "Right triangle with a horizontal leg marked two units, a vertical leg marked three units, and the hypotenuse as the unknown."
+    confidence: high
+  - topic: irrationals_number_line
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "To mark the square root of five on a number line, a right triangle with legs of one and two is drawn. What length must the hypotenuse have?"
+    correct: "sqrt(5)"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "adds the legs instead of using the squares of the legs"}
+      - {text: "sqrt(3)", mistake: "takes the root of the sum of the legs rather than of the sum of their squares"}
+      - {text: "2.5", mistake: "averages the two legs"}
+    explanation: "The squares of the legs are one and four, which add to five, so the hypotenuse is the square root of five."
+    hints:
+      - "Square each leg before adding anything."
+      - "The squares of the legs add up to the square of the hypotenuse."
+      - "Take the square root of the total only at the end."
+    diagram: "Right triangle with a horizontal leg of length two and a vertical leg of length one, placed at the origin of a number line, with the hypotenuse arc drawn to the line."
+    confidence: high
+  - topic: irrationals_number_line
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A right triangle has one leg of one unit, and its hypotenuse must equal the square root of ten units. What length, in units, must the other leg be?"
+    correct: "3"
+    unit: "units"
+    wrong: []
+    explanation: "Subtract the square of the known leg from the square of the hypotenuse: ten minus one gives nine, whose root is three."
+    hints:
+      - "Square the hypotenuse and square the known leg."
+      - "Subtract the second square from the first."
+      - "Take the square root of what remains."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "Find the value of 2 to the power 3 multiplied by 2 to the power 2, and write it as a single whole number."
+    correct: "32"
+    unit: ""
+    wrong: []
+    explanation: "With the same base, the exponents add, giving 2 to the power 5, which equals 32."
+    hints:
+      - "When the bases are equal, combine the exponents using a rule you know."
+      - "Add the powers of the same base."
+      - "Then evaluate the power of the base using the total exponent."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which value equals five to the power one half, all squared?"
+    correct: "5"
+    unit: ""
+    wrong:
+      - {text: "2.5", mistake: "halves the exponent instead of multiplying the exponents"}
+      - {text: "sqrt(10)", mistake: "adds the exponents and then takes a root"}
+      - {text: "25", mistake: "squares the base instead of multiplying the exponents"}
+    explanation: "Raising a power to another power multiplies the exponents: one half times two is one, so the result is five."
+    hints:
+      - "Recall the rule for a power raised to another power."
+      - "Multiply the two exponents together."
+      - "Simplify the power once you have the product of the exponents."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Find the value of nine to the power one half multiplied by eight to the power one third."
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "Nine to the power one half is three and eight to the power one third is two, so the product is six."
+    hints:
+      - "Write each root as a power and look for a perfect square and a perfect cube."
+      - "Take the square root of the first base and the cube root of the second."
+      - "Multiply the two results you obtain."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which expression equals four raised to the power three over two?"
+    correct: "8"
+    unit: ""
+    wrong:
+      - {text: "6", mistake: "multiplies the numerator and the denominator of the exponent"}
+      - {text: "2", mistake: "uses only the denominator as the root and drops the numerator"}
+      - {text: "16", mistake: "squares the base instead of applying the fractional power"}
+    explanation: "Four to the power one half is two, and cubing two gives eight."
+    hints:
+      - "Split the fractional exponent into a root and a whole power."
+      - "Find the square root of the base first."
+      - "Raise that root to the numerator of the exponent."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Evaluate eight raised to the power minus two thirds, and give the answer as a decimal to two decimal places."
+    correct: "0.25"
+    unit: ""
+    wrong: []
+    explanation: "A negative exponent gives a reciprocal, and eight to the power two thirds is four, so the value is one quarter, which is 0.25."
+    hints:
+      - "Turn the negative exponent into a reciprocal first."
+      - "Find the cube root of the base and raise it to the numerator of the exponent."
+      - "Convert the final fraction into a decimal."
+    diagram: null
+    confidence: high
+  - topic: laws_of_exponents
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "For a positive real number a and whole numbers m and n, which statement about nested powers is correct?"
+    correct: "(a to the power m) to the power n equals a to the power m times n."
+    unit: ""
+    wrong:
+      - {text: "(a to the power m) to the power n equals a to the power m plus n.", mistake: "adds the exponents when powers are nested"}
+      - {text: "(a to the power m) to the power n equals a to the power m minus n.", mistake: "subtracts the exponents of nested powers"}
+      - {text: "(a to the power m) to the power n equals a to the power m divided by n.", mistake: "divides the exponents"}
+    explanation: "Raising a power to another power multiplies the exponents, so the nested form equals a raised to the product of the two exponents."
+    hints:
+      - "Write out the nested power as repeated multiplication of the base."
+      - "Count the total number of copies of the base."
+      - "Relate that count to the two exponents."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "Write one over the square root of two with a rational denominator, then give its value to two decimal places."
+    correct: "0.71"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying the top and bottom by the root gives the root of two over two, which is about 0.7071 and rounds to 0.71."
+    hints:
+      - "Multiply the top and the bottom by the root itself."
+      - "The product of the root with itself is a rational number."
+      - "Find the decimal value of the new fraction and round it."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Rationalise the denominator of three over the square root of three. What is the result?"
+    correct: "sqrt(3)"
+    unit: ""
+    wrong:
+      - {text: "9", mistake: "multiplies only the numerator by the root"}
+      - {text: "sqrt(3)/3", mistake: "multiplies only the top by the root and forgets the denominator"}
+      - {text: "1/3", mistake: "inverts the expression before simplifying"}
+    explanation: "Multiplying the top and bottom by the root gives three times the root over three, which simplifies to the square root of three."
+    hints:
+      - "Multiply the top and the bottom by the same root."
+      - "Cancel the common factor from the top and the bottom."
+      - "Check that the result squared gives back the original numerator."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Express one over the difference of the square root of five and the square root of three with a rational denominator, then give its value to two decimal places."
+    correct: "1.98"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying by the sum of the same two roots gives the sum of the roots over two, about 1.984, which rounds to 1.98."
+    hints:
+      - "Multiply by the same two terms with the sign of the second flipped."
+      - "The denominator then becomes a difference of two squares."
+      - "Divide the remaining sum by the leftover whole number."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is five over three plus root two, written with a rational denominator?"
+    correct: "(15 - 5 sqrt(2))/7"
+    unit: ""
+    wrong:
+      - {text: "15 - 5 sqrt(2)", mistake: "forgets to divide by the new denominator"}
+      - {text: "(15 + 5 sqrt(2))/7", mistake: "keeps the same sign in the conjugate"}
+      - {text: "(15 - 5 sqrt(2))/11", mistake: "adds the squares of three and root two instead of subtracting them"}
+    explanation: "Multiplying by three minus root two makes the denominator nine minus two, which is seven, leaving (15 minus 5 root 2) over 7."
+    hints:
+      - "Pick the conjugate of the denominator."
+      - "Multiply the numerator and the denominator by the same conjugate."
+      - "The new denominator is a difference of squares."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Rationalise the denominator of two over the sum of the square root of seven and the square root of three, then give the value as a decimal to two decimal places."
+    correct: "0.46"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying by the difference of the same roots gives two times that difference over four, about 0.457, which rounds to 0.46."
+    hints:
+      - "Use the difference of the same two roots on the top and the bottom."
+      - "The denominator becomes a difference of two integers."
+      - "Simplify the fraction before turning it into a decimal."
+    diagram: null
+    confidence: high
+  - topic: rationalising_denominators
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A denominator reads four minus root two and is rationalised by multiplying the top and bottom by its conjugate. What is the new denominator?"
+    correct: "14"
+    unit: ""
+    wrong:
+      - {text: "16", mistake: "squares only the whole-number term and drops the root term"}
+      - {text: "8", mistake: "adds the two terms instead of forming a difference of squares"}
+      - {text: "-14", mistake: "keeps the sign of the difference after multiplying"}
+    explanation: "Four squared is sixteen and root two squared is two, so sixteen minus two gives fourteen."
+    hints:
+      - "Multiply the two terms of the form whole number minus root, with the sign flipped on one of them."
+      - "Use the square of each term."
+      - "Subtract the second square from the first."
+    diagram: null
+    confidence: high

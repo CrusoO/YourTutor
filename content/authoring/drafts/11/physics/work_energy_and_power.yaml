@@ -1,0 +1,500 @@
+class: 11
+subject: physics
+chapter: work_energy_and_power
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: work_by_variable_force
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On a graph of force against displacement, what represents the work done by the force?"
+    correct: "area under the force-displacement curve"
+    unit: ""
+    wrong:
+      - {text: "slope of the curve", mistake: "reads the slope of the graph as the work"}
+      - {text: "height of the curve at the endpoint", mistake: "uses the force value at one point alone"}
+      - {text: "area under the velocity-time curve", mistake: "mixes up the graph used for work with a velocity graph"}
+    explanation: "Work is the sum of force times small displacements, which is the area under the force-displacement curve."
+    hints:
+      - "Work is force multiplied by displacement, summed over many small steps."
+      - "Imagine thin vertical strips under the graph."
+      - "Each strip's area is one force value times a small displacement."
+    diagram: null
+    confidence: high
+  - topic: work_by_variable_force
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A constant force of 10 N acts along the direction of motion of a body that moves 4 m. How much work is done, in joules?"
+    correct: "40"
+    unit: "J"
+    wrong: []
+    explanation: "For a constant force in the direction of displacement, work is force times displacement, which is 10 times 4 = 40 J."
+    hints:
+      - "A constant force times a displacement in the same direction gives the work."
+      - "A rectangular force-displacement graph needs no area search."
+      - "Multiply the force by the distance moved."
+    diagram: "A rectangular force-displacement graph. Force is on the vertical axis at a constant height and displacement is on the horizontal axis, with the rectangle under the line shaded."
+    confidence: high
+  - topic: work_by_variable_force
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A force F = 2x newtons acts on a body as it moves from x = 0 m to x = 3 m. What is the work done in joules?"
+    correct: "9"
+    unit: "J"
+    wrong: []
+    explanation: "Work is the integral of 2x dx from 0 to 3, which equals x squared from 0 to 3, giving 9 J. The same answer follows from the triangle area under the straight line."
+    hints:
+      - "Work from a varying force is the area under the force-displacement graph."
+      - "A straight line through the origin forms a triangle with the axis."
+      - "The area of a triangle is half of base times height."
+    diagram: null
+    confidence: high
+  - topic: work_by_variable_force
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A spring obeys F = kx. What is the work done in stretching it from zero to a stretch x?"
+    correct: "one half k x squared"
+    unit: ""
+    wrong:
+      - {text: "k x squared", mistake: "forgets the factor of one half from the triangular area"}
+      - {text: "k x", mistake: "uses the force at the end point as the work"}
+      - {text: "one half k squared x", mistake: "swaps the powers of k and x"}
+    explanation: "The force grows linearly with the stretch, so the area under the force-stretch line is a triangle with base x and height kx, which gives one half k x squared."
+    hints:
+      - "The force grows in a straight line with the stretch."
+      - "The area under a straight line from the origin is a triangle."
+      - "Use half of base times height with the force at the end point."
+    diagram: null
+    confidence: high
+  - topic: work_by_variable_force
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A force is zero from 0 m to 2 m and then rises in a straight line from 0 N at 2 m to 6 N at 6 m. What is the work done from 0 to 6 m, in joules?"
+    correct: "12"
+    unit: "J"
+    wrong: []
+    explanation: "The first 2 m contribute no work. The sloping part is a triangle with base 4 m and height 6 N, with area 12 J."
+    hints:
+      - "Split the displacement at the point where the force starts to change."
+      - "A zero force contributes no work over its interval."
+      - "Find the triangle area for the sloped part using half of base times height."
+    diagram: "A force-displacement graph with a flat zero line from the origin to the 2 m mark, then a straight rising line reaching 6 N at the 6 m mark. The triangle under the rising part is shaded."
+    confidence: high
+  - topic: work_by_variable_force
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A constant force of 4 N makes a 60 degree angle with a displacement of 5 m. What is the work done by the force?"
+    correct: "10 J"
+    unit: ""
+    wrong:
+      - {text: "17.3 J", mistake: "uses the sine of the angle instead of the cosine"}
+      - {text: "20 J", mistake: "ignores the angle between force and displacement"}
+      - {text: "0 J", mistake: "assumes the force is perpendicular to the displacement"}
+    explanation: "Only the component of force along the displacement does work, so W = F s cos theta = 4 times 5 times cos 60 degrees = 10 J."
+    hints:
+      - "Only the component of force in the direction of displacement does work."
+      - "Use the cosine of the angle between the force and the displacement."
+      - "Multiply the force, the displacement and that cosine."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the kinetic energy of a body of mass m moving with speed v?"
+    correct: "one half m v squared"
+    unit: ""
+    wrong:
+      - {text: "m v", mistake: "confuses kinetic energy with momentum"}
+      - {text: "m v squared", mistake: "forgets the factor of one half"}
+      - {text: "one half m v", mistake: "drops the square on the speed"}
+    explanation: "Kinetic energy is one half times mass times the square of speed, written as one half m v squared."
+    hints:
+      - "Kinetic energy depends on the speed through a power that is not one."
+      - "It is the work needed to bring the body from rest up to that speed."
+      - "Use the formula that contains the square of the speed."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 2 kg ball moves at 3 m/s. What is its kinetic energy in joules?"
+    correct: "9"
+    unit: "J"
+    wrong: []
+    explanation: "Kinetic energy is one half times 2 kg times 3 squared, which is 9 J."
+    hints:
+      - "Use mass times speed squared, then halve the product."
+      - "Square the speed first."
+      - "Half of the product gives the energy."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 4 kg body is raised 5 m above the ground. Taking g = 9.8 m/s^2, what is its gravitational potential energy in joules?"
+    correct: "196"
+    unit: "J"
+    wrong: []
+    explanation: "Potential energy relative to the ground is m g h, which is 4 times 9.8 times 5 = 196 J."
+    hints:
+      - "Potential energy relative to the ground is mass times gravity times height."
+      - "Multiply the three quantities together."
+      - "Use the value of g given in the question."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "The kinetic energy of a body is doubled by increasing its speed. By what factor did its speed increase?"
+    correct: "square root of 2"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "assumes speed doubles when energy doubles"}
+      - {text: "4", mistake: "thinks speed scales with the square of the energy ratio"}
+      - {text: "one half", mistake: "inverts the relationship between speed and energy"}
+    explanation: "Kinetic energy depends on speed squared. For the energy to double, the speed squared must double, so the speed increases by the square root of 2."
+    hints:
+      - "Kinetic energy depends on the square of the speed."
+      - "If the energy doubles, the square of the speed must also double."
+      - "Take the square root of the factor by which the squared speed changes."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 0.5 kg ball is thrown straight up with a speed of 10 m/s. Neglecting air resistance and taking g = 9.8 m/s^2, how high does it rise in metres, to one decimal place?"
+    correct: "5.1"
+    unit: "m"
+    wrong: []
+    explanation: "At the top the kinetic energy is zero, so the initial kinetic energy converts to potential energy. The height is v^2 / (2g) = 100 / 19.6, about 5.1 m."
+    hints:
+      - "At the highest point the ball's kinetic energy is zero."
+      - "Equate the initial kinetic energy with the potential energy at the top."
+      - "Divide the speed squared by two times gravity to get the height."
+    diagram: null
+    confidence: high
+  - topic: kinetic_and_potential_11
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two bodies of equal mass move with speeds of 2 m/s and 4 m/s. What is the ratio of the kinetic energy of the faster body to that of the slower body?"
+    correct: "4:1"
+    unit: ""
+    wrong:
+      - {text: "2:1", mistake: "uses the ratio of speeds instead of the ratio of squared speeds"}
+      - {text: "1:4", mistake: "inverts the ratio"}
+      - {text: "16:1", mistake: "squares the speed ratio a second time"}
+    explanation: "Kinetic energy is proportional to the square of speed. The ratio of squares is 16 to 4, which reduces to 4:1 because the masses cancel."
+    hints:
+      - "Kinetic energy depends on the square of the speed."
+      - "The mass cancels out when the two bodies have equal masses."
+      - "Compare the squares of the two speeds."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a frictionless motion where only gravity does work, which total is conserved?"
+    correct: "sum of kinetic and potential energy"
+    unit: ""
+    wrong:
+      - {text: "kinetic energy alone", mistake: "believes kinetic energy stays constant by itself"}
+      - {text: "potential energy alone", mistake: "believes potential energy stays constant by itself"}
+      - {text: "momentum alone", mistake: "mixes up the conservation of momentum with energy"}
+    explanation: "When only conservative forces such as gravity act, the sum of kinetic and potential energy stays the same, while the two forms exchange with each other."
+    hints:
+      - "Energy can change form between kinetic and potential."
+      - "Add the two forms together at each position along the path."
+      - "Look for the quantity that stays fixed along the whole path."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A ball is dropped from rest from a height of 10 m. Taking g = 9.8 m/s^2, what is its speed just before it reaches the ground in metres per second?"
+    correct: "14"
+    unit: "m/s"
+    wrong: []
+    explanation: "All the initial energy is potential, so 0.5 v^2 = g h. This gives v^2 = 2 times 9.8 times 10 = 196, so v = 14 m/s."
+    hints:
+      - "At the top, all of the energy is potential energy."
+      - "Equate that energy with the kinetic energy just before impact."
+      - "Solve for the speed after the mass cancels."
+    diagram: "A vertical drop with a ball at the top of the path, labelled at a height of 10 m above a ground line. An arrow shows the ball falling downward."
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A pendulum bob of mass 2 kg is released from rest at a height of 0.5 m above its lowest point. Taking g = 9.8 m/s^2, what is its speed at the lowest point in metres per second, to two decimal places?"
+    correct: "3.13"
+    unit: "m/s"
+    wrong: []
+    explanation: "Energy is conserved, so m g h = one half m v^2. Then v = square root of 2 g h = square root of 9.8, which is about 3.13 m/s."
+    hints:
+      - "Released from rest, the bob has only potential energy at the start."
+      - "Energy is conserved between the release point and the lowest point."
+      - "The mass cancels, so solve for the speed from the height directly."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A block slides from rest down a frictionless curved track starting at a height of 2.5 m. Taking g = 9.8 m/s^2, what is its speed at the bottom of the track?"
+    correct: "7 m/s"
+    unit: ""
+    wrong:
+      - {text: "4.9 m/s", mistake: "uses the square root of g h instead of the square root of 2 g h"}
+      - {text: "9.8 m/s", mistake: "takes the speed to be numerically equal to g"}
+      - {text: "49 m/s", mistake: "forgets to take the square root after solving for the speed squared"}
+    explanation: "The energy at the top is m g h, which becomes one half m v^2 at the bottom. So v^2 = 2 g h = 49 and v = 7 m/s."
+    hints:
+      - "Energy at the top is all potential energy because the block starts from rest."
+      - "Set the potential energy at the top equal to the kinetic energy at the bottom."
+      - "Take the square root only after solving for the speed squared."
+    diagram: null
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A spring of constant 200 N/m is compressed by 0.1 m and launches a 0.5 kg block along a frictionless horizontal floor. What is the speed of the block in metres per second?"
+    correct: "2"
+    unit: "m/s"
+    wrong: []
+    explanation: "The spring energy one half k x^2 becomes the kinetic energy one half m v^2. So v = x times the square root of k over m, which is 0.1 times 20 = 2 m/s."
+    hints:
+      - "On a frictionless floor, all of the spring's stored energy becomes kinetic energy."
+      - "Write the stored energy as one half times the spring constant times the compression squared."
+      - "Set it equal to one half times the mass times the speed squared, then solve."
+    diagram: "A horizontal spring at the left, compressed against a block on a frictionless floor. An arrow shows the block being launched to the right."
+    confidence: high
+  - topic: conservation_of_mechanical_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A cart starts from rest at a height of 3 m on a frictionless track and passes a point 1 m high. Taking g = 9.8 m/s^2, what is its speed at that lower point?"
+    correct: "6.26 m/s"
+    unit: ""
+    wrong:
+      - {text: "7.67 m/s", mistake: "uses the full starting height of 3 m as the drop"}
+      - {text: "8.85 m/s", mistake: "doubles the height drop before using the energy relation"}
+      - {text: "4.43 m/s", mistake: "omits the factor of two in the energy balance"}
+    explanation: "Only the height lost matters, which is 2 m. Then v^2 = 2 g (2) = 39.2, so v is about 6.26 m/s."
+    hints:
+      - "Only the height that is lost between the two points matters."
+      - "Find the height difference between the starting point and the lower point."
+      - "Set the energy given up equal to the kinetic energy gained, then solve."
+    diagram: "A slope profile with the cart's starting point marked at the greater height and a lower point marked, with the vertical difference between them labelled."
+    confidence: high
+  - topic: collisions_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a perfectly inelastic collision, which quantity is conserved?"
+    correct: "momentum"
+    unit: ""
+    wrong:
+      - {text: "kinetic energy", mistake: "assumes every collision conserves kinetic energy"}
+      - {text: "velocity of each body", mistake: "thinks the velocities of the bodies stay the same"}
+      - {text: "mass of each body", mistake: "thinks the bodies lose their mass when they stick"}
+    explanation: "In a perfectly inelastic collision the bodies stick together, so kinetic energy is lost, but the total momentum is still conserved."
+    hints:
+      - "Check which quantity survives the impact when no external force acts."
+      - "Kinetic energy may turn into heat or sound during a sticky collision."
+      - "Think about the quantity that depends on mass and velocity together."
+    diagram: null
+    confidence: high
+  - topic: collisions_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 2 kg body moving at 6 m/s collides with a 4 kg body at rest, and the two stick together. What is their common velocity in metres per second?"
+    correct: "2"
+    unit: "m/s"
+    wrong: []
+    explanation: "Momentum before is 2 times 6 = 12 kg m/s. Dividing by the total mass 6 kg gives 2 m/s."
+    hints:
+      - "The total momentum before the collision equals the total momentum after it."
+      - "Before the collision only the moving body has momentum, equal to its mass times its velocity."
+      - "Divide the total momentum by the total mass."
+    diagram: null
+    confidence: high
+  - topic: collisions_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 0.2 kg ball moving at 5 m/s hits a wall and rebounds with 5 m/s in the opposite direction. What is the magnitude of the impulse on the ball, in newton seconds?"
+    correct: "2"
+    unit: "N s"
+    wrong: []
+    explanation: "The change in momentum is 0.2 times (5 - (-5)) = 2 kg m/s, which equals the impulse in N s."
+    hints:
+      - "Impulse equals the change in momentum of the ball."
+      - "Take the direction of the incoming motion as positive."
+      - "Subtract the initial momentum from the final momentum, keeping the signs."
+    diagram: null
+    confidence: high
+  - topic: collisions_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In a head-on elastic collision between two bodies of equal mass, one initially at rest, what happens to the moving body?"
+    correct: "it stops and the other body moves off with its original speed"
+    unit: ""
+    wrong:
+      - {text: "both bodies move off at half the original speed", mistake: "assumes the speed is shared equally between the two bodies"}
+      - {text: "both bodies stop", mistake: "thinks all the kinetic energy is lost in the collision"}
+      - {text: "it keeps its speed and the other body stays at rest", mistake: "assumes the bodies do not interact during the collision"}
+    explanation: "With equal masses in an elastic head-on collision, momentum and kinetic energy are both conserved only if the velocities are exchanged, so the moving body stops."
+    hints:
+      - "Use conservation of momentum and conservation of kinetic energy together."
+      - "Consider what happens to the first body's velocity when the two masses are identical."
+      - "Check that the kinetic energy after the collision matches the energy before."
+    diagram: null
+    confidence: high
+  - topic: collisions_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 3 kg body moving at 4 m/s collides elastically and head-on with a 1 kg body at rest. What is the velocity of the 1 kg body after the collision, in metres per second?"
+    correct: "6"
+    unit: "m/s"
+    wrong: []
+    explanation: "For an elastic head-on collision with a target at rest, v2 = 2 m1 u1 / (m1 + m2) = 2 times 3 times 4 / 4 = 6 m/s."
+    hints:
+      - "Use conservation of momentum and kinetic energy together, or the standard result for head-on elastic collisions."
+      - "The velocity of the target involves twice the mass of the moving body."
+      - "Divide by the sum of the two masses."
+    diagram: null
+    confidence: high
+  - topic: collisions_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two 5 kg bodies moving at 2 m/s toward each other stick together after colliding. How much kinetic energy remains afterwards?"
+    correct: "zero joules"
+    unit: ""
+    wrong:
+      - {text: "5 joules", mistake: "uses only half the energy of one body"}
+      - {text: "10 joules", mistake: "assumes the energy of only one body is lost"}
+      - {text: "20 joules", mistake: "forgets that the collision removes kinetic energy"}
+    explanation: "The total momentum before is zero, so the combined body is at rest afterwards and no kinetic energy remains. Before the collision the total kinetic energy was 20 J, all of which is lost."
+    hints:
+      - "Find the total momentum of the two bodies before the collision first."
+      - "Opposite velocities of equal mass give a total momentum that is zero."
+      - "A body that is not moving has no kinetic energy."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the SI unit of power?"
+    correct: "watt"
+    unit: ""
+    wrong:
+      - {text: "joule", mistake: "uses the unit of energy for power"}
+      - {text: "newton", mistake: "uses the unit of force for power"}
+      - {text: "pascal", mistake: "uses the unit of pressure for power"}
+    explanation: "Power is the rate of energy transfer, measured in watts, where one watt equals one joule per second."
+    hints:
+      - "Power is energy transferred per unit time."
+      - "Energy is measured in joules, and the unit of power divides it by seconds."
+      - "The unit is named after a pioneer of the steam engine."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A motor does 600 J of work in 20 s. What is its average power in watts?"
+    correct: "30"
+    unit: "W"
+    wrong: []
+    explanation: "Average power is work divided by time, which is 600 / 20 = 30 W."
+    hints:
+      - "Power is work divided by the time taken."
+      - "Divide the energy by the number of seconds."
+      - "The result is expressed in watts."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 60 kg man climbs a flight of stairs 4 m high in 8 s. Taking g = 9.8 m/s^2, what is his average power in watts?"
+    correct: "294"
+    unit: "W"
+    wrong: []
+    explanation: "The work against gravity is m g h = 60 times 9.8 times 4 = 2352 J. Dividing by 8 s gives 294 W."
+    hints:
+      - "Work done against gravity equals weight times height climbed."
+      - "Power is that work divided by the time taken."
+      - "Multiply the mass, gravity and height first."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A force of 500 N acts on a body moving at 10 m/s in the same direction as the force. What is the instantaneous power delivered by the force?"
+    correct: "5000 W"
+    unit: ""
+    wrong:
+      - {text: "50 W", mistake: "divides the force by the speed"}
+      - {text: "500 W", mistake: "ignores the speed of the body"}
+      - {text: "50000 W", mistake: "multiplies by the speed squared"}
+    explanation: "Instantaneous power is the force times the velocity along the same line, which is 500 times 10 = 5000 W."
+    hints:
+      - "Instantaneous power is force multiplied by velocity along the same line."
+      - "Use the velocity at that instant, not an average velocity."
+      - "Multiply the force by the speed directly."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A pump lifts 240 kg of water every minute through a height of 10 m. Taking g = 9.8 m/s^2, what is the required power in watts?"
+    correct: "392"
+    unit: "W"
+    wrong: []
+    explanation: "The mass lifted per second is 4 kg. The power is 4 times 9.8 times 10 = 392 W."
+    hints:
+      - "Convert the mass lifted per minute into the mass lifted per second."
+      - "Energy per second is work per second, which is power."
+      - "Multiply the mass per second by gravity and by the height."
+    diagram: null
+    confidence: high
+  - topic: power_11
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A car engine delivers constant power while the car moves on a level road. If the car's speed doubles, how does the forward force the engine can deliver change?"
+    correct: "becomes half as large"
+    unit: ""
+    wrong:
+      - {text: "doubles", mistake: "assumes the force grows with the speed"}
+      - {text: "stays the same", mistake: "ignores the speed when power is fixed"}
+      - {text: "becomes four times as large", mistake: "squares the speed in the relation"}
+    explanation: "Power equals force times speed, so force equals P divided by v. Doubling the speed at constant power halves the force."
+    hints:
+      - "Power equals force times speed when the force acts along the motion."
+      - "Solve that relation for the force."
+      - "Notice where the speed sits once the relation is solved for the force."
+    diagram: null
+    confidence: high

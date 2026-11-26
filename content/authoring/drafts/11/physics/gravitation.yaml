@@ -1,0 +1,401 @@
+class: 11
+subject: physics
+chapter: gravitation
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: kepler_laws
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "According to Kepler's second law, the line joining a planet to the Sun sweeps out equal areas in equal what?"
+    correct: "intervals of time"
+    unit: ""
+    wrong:
+      - {text: "distances", mistake: "assumes equal arcs are swept in equal times"}
+      - {text: "speeds", mistake: "assumes the planet moves at constant speed around the orbit"}
+      - {text: "angles", mistake: "uses angular sizes instead of the swept area"}
+    explanation: "The second law says the area swept by the radius vector is the same in equal intervals of time, which means the planet moves faster when it is closer to the Sun."
+    hints:
+      - "The law concerns the area swept, which depends on how long the motion takes."
+      - "Think about how fast a planet moves when it is near the Sun."
+      - "The rate at which area is swept stays fixed over the orbit."
+    diagram: null
+    confidence: high
+  - topic: kepler_laws
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A planet has an orbital period of 8 years, while Earth's is 1 year. Using Kepler's third law, by what factor is the planet's orbital radius larger than Earth's?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Kepler's third law gives T^2 proportional to r^3, so r is proportional to T^(2/3). The ratio 8^(2/3) equals 4."
+    hints:
+      - "Kepler's third law relates the square of the period to the cube of the orbital radius."
+      - "Find the number whose cube root is the square of the period ratio."
+      - "Compare the given periods, not the distances."
+    diagram: null
+    confidence: high
+  - topic: kepler_laws
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Taking Earth's orbital period as 1 year, find the period in years of a planet whose average distance from the Sun is 1.5 times Earth's, using Kepler's third law. Give two decimal places."
+    correct: "1.84"
+    unit: "years"
+    wrong: []
+    explanation: "The period scales as the distance raised to the power three halves. So T = 1.5 to the power 1.5, which is about 1.84 years."
+    hints:
+      - "Find how the period changes when the orbital distance changes."
+      - "The period squared scales with the distance cubed."
+      - "Raise the distance ratio to the power three halves to get the period ratio."
+    diagram: null
+    confidence: high
+  - topic: kepler_laws
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which statement correctly describes Kepler's first law of planetary motion?"
+    correct: "planets move in ellipses with the Sun at one focus"
+    unit: ""
+    wrong:
+      - {text: "planets move in perfect circles with the Sun at the centre", mistake: "assumes all planetary orbits are circular"}
+      - {text: "planets move at constant speed along their orbits", mistake: "confuses the first law with the second law"}
+      - {text: "the period is independent of the orbit size", mistake: "ignores the third law completely"}
+    explanation: "The first law states that each planet's orbit is an ellipse with the Sun at one of the two foci."
+    hints:
+      - "The first law is about the shape of each orbit."
+      - "Think of an oval path rather than a circle."
+      - "Recall which point of the oval the Sun occupies."
+    diagram: null
+    confidence: high
+  - topic: kepler_laws
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A moon orbits a planet at a distance four times that of an inner moon whose period is 3 days. Using Kepler's third law, what is the period of the outer moon in days?"
+    correct: "24"
+    unit: "days"
+    wrong: []
+    explanation: "The period scales with the radius to the power three halves. Four to the power 1.5 is 8, so the outer period is 8 times 3 = 24 days."
+    hints:
+      - "The period grows with the three halves power of the orbital radius."
+      - "Raise the radius ratio to the power three halves to get the period ratio."
+      - "Multiply the inner moon's period by that factor."
+    diagram: null
+    confidence: high
+  - topic: kepler_laws
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two planets orbit the same star and have exactly the same orbital period. What can be concluded about their orbital semi-major axes?"
+    correct: "they are equal"
+    unit: ""
+    wrong:
+      - {text: "they are in the ratio of their masses", mistake: "uses the planet masses instead of the period"}
+      - {text: "they are inversely proportional to their speeds", mistake: "reverses the relation between orbit size and speed"}
+      - {text: "the larger planet always has the larger semi-major axis", mistake: "assumes the planet's mass decides its distance"}
+    explanation: "Kepler's third law says T^2 is proportional to a^3 for a common central star, so equal periods imply equal semi-major axes."
+    hints:
+      - "Kepler's third law links the period and the semi-major axis around the same central body."
+      - "Check which quantities the third law depends on besides the period."
+      - "Both planets orbit the same central mass in this setting."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the SI unit of gravitational field strength?"
+    correct: "newton per kilogram"
+    unit: ""
+    wrong:
+      - {text: "joule per kilogram", mistake: "uses the unit of gravitational potential instead of field strength"}
+      - {text: "newton metre", mistake: "uses the unit of torque"}
+      - {text: "kilogram per newton", mistake: "inverts the ratio"}
+    explanation: "Gravitational field strength is force per unit mass, so its SI unit is newton per kilogram."
+    hints:
+      - "Field strength is force divided by mass."
+      - "Force is measured in newtons."
+      - "Divide the force unit by the mass unit."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Near Earth's surface the gravitational field strength is 9.8 N/kg. Between two points 5 m apart vertically, what is the change in gravitational potential energy per kilogram, in joules per kilogram?"
+    correct: "49"
+    unit: "J/kg"
+    wrong: []
+    explanation: "The change in gravitational potential per unit mass is the field strength times the height difference, 9.8 times 5 = 49 J/kg."
+    hints:
+      - "The change in potential per unit mass equals field strength times the height change."
+      - "Multiply the field strength by the vertical separation."
+      - "Newtons per kilogram times metres gives joules per kilogram."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The gravitational potential energy of a 4 kg mass is 196 J relative to the ground. Taking g = 9.8 m/s^2, what is its height above the ground in metres?"
+    correct: "5"
+    unit: "m"
+    wrong: []
+    explanation: "Potential energy relative to the ground is m g h, so h = 196 / (4 times 9.8) = 196 / 39.2 = 5 m."
+    hints:
+      - "Potential energy relative to the ground is mass times gravity times height."
+      - "Divide the given energy by the mass and by the field strength."
+      - "Solve for the height as the final step."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Near Earth's surface, which statement about gravitational potential is correct?"
+    correct: "potential increases as the height above the surface increases"
+    unit: ""
+    wrong:
+      - {text: "potential decreases as the height above the surface increases", mistake: "assumes potential energy falls as the object rises"}
+      - {text: "potential is zero everywhere near the surface", mistake: "confuses potential with the field strength"}
+      - {text: "potential is numerically equal to the field strength", mistake: "confuses the units and meaning of the two quantities"}
+    explanation: "Lifting an object does work against gravity, so its gravitational potential rises with height above the surface."
+    hints:
+      - "Potential energy rises when an object is lifted against gravity."
+      - "Relate height to the energy stored against gravity."
+      - "Lifting an object requires work to be done against the pull of gravity."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "On a planet where the gravitational field strength is 6 N/kg, a 2 kg object is lifted 5 m. What is its gain in gravitational potential energy in joules?"
+    correct: "60"
+    unit: "J"
+    wrong: []
+    explanation: "The weight is 2 times 6 = 12 N. Lifting it 5 m stores 12 times 5 = 60 J of potential energy."
+    hints:
+      - "The gain in potential energy equals the weight times the height raised."
+      - "Weight equals mass times field strength."
+      - "Multiply the weight by the height."
+    diagram: null
+    confidence: high
+  - topic: gravitational_field_potential
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Taking the potential to be zero at infinity, which expression describes the gravitational potential at distance r from a point mass M?"
+    correct: "negative, equal to minus G M divided by r"
+    unit: ""
+    wrong:
+      - {text: "positive, equal to G M divided by r squared", mistake: "confuses the potential with the field strength"}
+      - {text: "zero at every distance", mistake: "assumes the potential vanishes everywhere away from the mass"}
+      - {text: "positive, equal to G M divided by r", mistake: "forgets the negative sign that marks a bound state"}
+    explanation: "Gravity is attractive, so bringing a mass in from infinity releases energy. The potential is therefore negative and equals minus G M over r."
+    hints:
+      - "Potential is the work per unit mass needed to bring a mass in from infinity."
+      - "Gravity is attractive, so the field itself does work as the mass is brought in."
+      - "Compare the sign of the potential with its value at infinity, where it is zero."
+    diagram: null
+    confidence: high
+  - topic: orbital_velocity_escape
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the escape velocity from a planet?"
+    correct: "the minimum speed needed to leave its gravitational pull, reaching infinity with no bound energy"
+    unit: ""
+    wrong:
+      - {text: "the speed needed to stay in a circular orbit close to the surface", mistake: "confuses escape velocity with orbital velocity"}
+      - {text: "the speed of the planet's rotation at the equator", mistake: "ties escape velocity to the spin of the planet"}
+      - {text: "the maximum speed a satellite can have in orbit", mistake: "mixes up the maximum orbital speed with escape"}
+    explanation: "Escape velocity is the minimum launch speed for an object to reach infinity with zero total energy, so it leaves the planet's gravity completely."
+    hints:
+      - "Escape means getting arbitrarily far from the planet."
+      - "Think of the energy needed to climb out of the gravitational well."
+      - "The question asks about leaving the planet, not about circling it."
+    diagram: null
+    confidence: high
+  - topic: orbital_velocity_escape
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A planet has surface gravity 4 m/s^2 and radius 9 m. What is the orbital speed of a satellite circling just above its surface, in metres per second?"
+    correct: "6"
+    unit: "m/s"
+    wrong: []
+    explanation: "For a close orbit, gravity supplies the centripetal force, so v^2 / R = g and v = square root of g R = square root of 36 = 6 m/s."
+    hints:
+      - "For a close orbit, gravity supplies the centripetal force."
+      - "Set the centripetal acceleration v squared over the radius equal to the surface gravity."
+      - "Solve for the speed and take the square root."
+    diagram: null
+    confidence: high
+  - topic: orbital_velocity_escape
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A planet has surface gravity 9.8 m/s^2 and radius 6.4 times 10 to the power 6 m. What is its escape velocity in kilometres per second, to one decimal place?"
+    correct: "11.2"
+    unit: "km/s"
+    wrong: []
+    explanation: "Escape speed satisfies one half v^2 = g R from the energy balance, so v = square root of 2 g R, about 11200 m/s, which is 11.2 km/s."
+    hints:
+      - "Escape speed follows from an energy balance at the surface."
+      - "The kinetic energy at launch must equal the potential energy depth, which is g R per unit mass."
+      - "Convert metres per second to kilometres per second at the end."
+    diagram: null
+    confidence: medium
+  - topic: orbital_velocity_escape
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For a planet, what is the ratio of the escape speed at its surface to the orbital speed of a satellite skimming its surface?"
+    correct: "square root of 2"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "assumes escape speed is simply double the orbital speed"}
+      - {text: "one half", mistake: "inverts the ratio of the two speeds"}
+      - {text: "1", mistake: "treats both speeds as the same energy level"}
+    explanation: "Escape speed is the square root of 2 g R and orbital speed is the square root of g R. Their ratio is the square root of 2."
+    hints:
+      - "Escape needs the total binding energy to be overcome, not just a circular speed."
+      - "Compare the squares of the two speeds."
+      - "Escape energy is the kinetic energy that balances the potential at the surface."
+    diagram: null
+    confidence: high
+  - topic: orbital_velocity_escape
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A planet has radius 3 m and surface gravity 32 m/s^2. A satellite circles at a distance of 18 m from the planet's centre in a circular orbit. What is its speed in metres per second?"
+    correct: "4"
+    unit: "m/s"
+    wrong: []
+    explanation: "At distance r the gravity is g R^2 / r^2, so v^2 = g R^2 / r = 32 times 9 / 18 = 16 and v = 4 m/s."
+    hints:
+      - "Gravity at a distance r is the surface gravity scaled by the square of the radius ratio."
+      - "Set that gravity equal to v squared over the orbit radius."
+      - "Solve for the speed after writing gravity at the orbit radius."
+    diagram: null
+    confidence: high
+  - topic: orbital_velocity_escape
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "If the mass of a planet is doubled while its radius stays the same, how does its escape velocity change?"
+    correct: "increases by a factor of the square root of 2"
+    unit: ""
+    wrong:
+      - {text: "doubles", mistake: "assumes escape velocity depends linearly on mass"}
+      - {text: "stays the same", mistake: "ignores the planet's mass in the escape condition"}
+      - {text: "is halved", mistake: "inverts the dependence on mass"}
+    explanation: "Escape velocity is the square root of 2 G M / R, so doubling M multiplies the escape velocity by the square root of 2."
+    hints:
+      - "Escape speed depends on the planet's mass through a square root."
+      - "Escape speed squared is proportional to mass divided by radius."
+      - "Look at how a square root responds when its argument doubles."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The total mechanical energy of a satellite in a stable circular orbit around a planet is:"
+    correct: "negative"
+    unit: ""
+    wrong:
+      - {text: "positive", mistake: "confuses the kinetic energy of the satellite with its total energy"}
+      - {text: "zero", mistake: "believes an orbit means zero net energy"}
+      - {text: "always changing", mistake: "assumes the energy must vary around a circle"}
+    explanation: "In a circular orbit the total energy is the kinetic energy plus the more negative potential energy, which gives a negative total energy bound to the planet."
+    hints:
+      - "Total energy is the sum of kinetic energy and gravitational potential energy."
+      - "The potential energy is taken as zero far away and drops below zero near the planet."
+      - "The kinetic energy is half the magnitude of the potential energy in a circular orbit."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "For a satellite in a circular orbit, what multiple of its kinetic energy gives its total mechanical energy? Give the number."
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "In a circular orbit the potential energy is minus twice the kinetic energy, so the total energy is K + (-2K) = -K. The multiple is -1."
+    hints:
+      - "The potential energy in a circular orbit is twice the kinetic energy with the opposite sign."
+      - "Add the kinetic energy and the potential energy."
+      - "The sum is a negative multiple of the kinetic part."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A satellite of mass 200 kg orbits at a speed of 6000 m/s. What is its kinetic energy in gigajoules?"
+    correct: "3.6"
+    unit: "GJ"
+    wrong: []
+    explanation: "Kinetic energy is one half times 200 times 6000 squared, which is 3.6 times 10 to the power 9 J, or 3.6 GJ."
+    hints:
+      - "Kinetic energy is one half times mass times speed squared."
+      - "Square the speed first, which produces a large number."
+      - "Convert joules to gigajoules by dividing by one billion."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "When a satellite moves from its orbit to a lower circular orbit, how does its total mechanical energy change?"
+    correct: "it becomes more negative, so the total energy decreases"
+    unit: ""
+    wrong:
+      - {text: "it increases because the speed rises", mistake: "assumes a faster satellite must have more total energy"}
+      - {text: "it stays the same", mistake: "ignores the change in orbital radius"}
+      - {text: "it becomes positive", mistake: "confuses the sign convention for gravitational energy"}
+    explanation: "Total energy in a circular orbit is minus G M m over 2r. A smaller radius makes the total energy more negative, so it decreases."
+    hints:
+      - "Total energy depends on the orbital radius."
+      - "Total energy is negative and grows in magnitude as the radius shrinks."
+      - "A smaller radius makes the magnitude of the energy larger."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A satellite in a circular orbit has gravitational potential energy of minus 8 gigajoules. What is its total mechanical energy in gigajoules?"
+    correct: "-4"
+    unit: "GJ"
+    wrong: []
+    explanation: "In a circular orbit the total energy is half the potential energy. Half of minus 8 GJ is minus 4 GJ."
+    hints:
+      - "In a circular orbit the potential energy is twice the total energy."
+      - "Find the total energy by halving the potential energy."
+      - "Keep the negative sign in the answer."
+    diagram: null
+    confidence: high
+  - topic: satellites_and_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "The orbital radius of a satellite is increased. Which statement about its kinetic energy is correct?"
+    correct: "kinetic energy decreases"
+    unit: ""
+    wrong:
+      - {text: "kinetic energy increases", mistake: "assumes raising the orbit adds energy to the satellite"}
+      - {text: "kinetic energy stays unchanged", mistake: "ignores the change in orbital speed"}
+      - {text: "kinetic energy becomes negative", mistake: "confuses the sign of the total energy with the kinetic energy"}
+    explanation: "Orbital speed falls as the radius grows, since v^2 = G M / r. The kinetic energy is one half m v^2, so it decreases."
+    hints:
+      - "Orbital speed falls as the orbit becomes larger."
+      - "Kinetic energy depends on the square of the speed."
+      - "Relate the orbital radius to the speed through gravity."
+    diagram: null
+    confidence: high

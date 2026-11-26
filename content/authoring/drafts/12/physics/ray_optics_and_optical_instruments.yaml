@@ -1,0 +1,395 @@
+class: 12
+subject: physics
+chapter: ray_optics_and_optical_instruments
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: reflection_refraction_12
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression is the refraction formula for a single spherical surface separating media of refractive indices n1 and n2, with object distance u, image distance v and radius R?"
+    correct: "n2 over v minus n1 over u equals (n2 minus n1) over R"
+    unit: ""
+    wrong:
+      - {text: "n1 over v minus n2 over u equals (n2 minus n1) over R", mistake: "swaps the refractive indices in the formula"}
+      - {text: "n2 over v plus n1 over u equals R", mistake: "adds the terms and puts the radius in the wrong place"}
+      - {text: "n1 over v plus n2 over u equals (n1 minus n2) over R", mistake: "reverses the sign convention for the surface"}
+    explanation: "The refraction formula for a single spherical surface uses the index on the far side over the image distance, minus the index on the near side over the object distance, equal to the index difference over the radius."
+    hints:
+      - "Write the two refractive index terms with the image and object distances."
+      - "Think about which medium the light enters at the surface."
+      - "Check where the radius term sits in the expression."
+    diagram: null
+    confidence: high
+  - topic: reflection_refraction_12
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A thin plano-convex lens of refractive index 1.5 has a curved face of radius 0.2 m and a flat second face, and is placed in air. What is its focal length in metre?"
+    correct: "0.4"
+    unit: "m"
+    wrong: []
+    explanation: "The lens maker's formula with one infinite radius gives 1 over f equal to 0.5 times 1 over 0.2, which is 2.5 per metre, so the focal length is 0.4 m."
+    hints:
+      - "Use the lens maker's formula with one of the radii set to infinity for a flat face."
+      - "Find the bracket term, the refractive index minus one times the reciprocal radius, first."
+      - "Take the reciprocal of the result to get the focal length."
+    diagram: null
+    confidence: high
+  - topic: reflection_refraction_12
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Light from a point object 0.9 m in front of a convex spherical surface of radius 0.3 m passes from air into a medium of refractive index 1.5. What is the image distance in metre from the surface, measured on the far side?"
+    correct: "2.7"
+    unit: "m"
+    wrong: []
+    explanation: "Using 1.5 over v minus 1 over u equals 0.5 over 0.3 with u equal to minus 0.9 gives 1.5 over v equal to 0.556, so v is 2.7 m on the far side."
+    hints:
+      - "Use the surface formula with the object distance taken as negative in the real-is-positive convention."
+      - "Work out the right hand side from the index difference and the radius first."
+      - "Rearrange the equation for the term containing v before you substitute the numbers."
+    diagram: "A convex spherical surface with its centre of curvature on the far side, an object on the left at 0.9 m, and the refracted light crossing the surface to a marked image point on the right."
+    confidence: high
+  - topic: reflection_refraction_12
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Light travels at 2 x 10^8 m/s in a transparent medium. What is the refractive index of that medium? Use c equal to 3 x 10^8 m/s."
+    correct: "1.5"
+    unit: ""
+    wrong:
+      - {text: "0.67", mistake: "inverts the ratio of the two speeds"}
+      - {text: "2", mistake: "uses the speed in the medium directly as the index"}
+      - {text: "1.33", mistake: "uses the index of water by habit instead of computing it from the given speed"}
+    explanation: "The refractive index is the speed of light in vacuum divided by its speed in the medium. Dividing 3 x 10^8 by 2 x 10^8 gives 1.5."
+    hints:
+      - "The refractive index is the speed in vacuum divided by the speed in the medium."
+      - "Use the vacuum speed of 3 x 10^8 m/s in the division."
+      - "Check that the index is greater than one for a transparent medium."
+    diagram: null
+    confidence: high
+  - topic: reflection_refraction_12
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A thin biconvex lens has its two faces with radii 0.2 m and minus 0.2 m, using the sign convention where the second radius is negative. Its refractive index is 1.5. What is its focal length in metre?"
+    correct: "0.2"
+    unit: "m"
+    wrong: []
+    explanation: "The lens maker's formula gives 1 over f equal to 0.5 times (5 plus 5), which is 5 per metre, so the focal length is 0.2 m."
+    hints:
+      - "Note the sign of the second radius for a biconvex lens in the sign convention."
+      - "Find the bracket term for each face and add them."
+      - "Multiply the sum by the refractive index minus one and then take the reciprocal."
+    diagram: "A biconvex lens with its two faces drawn, the radius of each face marked, and the centres of curvature shown on opposite sides of the lens."
+    confidence: high
+  - topic: reflection_refraction_12
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two thin lenses, each of focal length 0.5 m, are placed in contact. What is the combined power in dioptre?"
+    correct: "4"
+    unit: "D"
+    wrong: []
+    explanation: "The power of a lens is the reciprocal of its focal length in metre. Each lens has power 2 D, and powers of lenses in contact add, giving 4 D."
+    hints:
+      - "The power of a lens is one over its focal length in metre."
+      - "Powers of thin lenses in contact add directly."
+      - "Find the power of each lens and then add the two values."
+    diagram: null
+    confidence: high
+  - topic: total_internal_reflection
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Total internal reflection can occur only when light travels in which way?"
+    correct: "From a denser medium to a rarer medium, at an angle greater than the critical angle"
+    unit: ""
+    wrong:
+      - {text: "From a rarer medium to a denser medium, at any angle", mistake: "assumes any angle of incidence gives total internal reflection in a denser medium"}
+      - {text: "From a denser medium to a rarer medium, at an angle smaller than the critical angle", mistake: "reverses the condition on the angle of incidence"}
+      - {text: "From vacuum into a metal at any angle", mistake: "applies the rule to a boundary where the light is not in the denser medium"}
+    explanation: "Total internal reflection needs light in the denser medium and an angle of incidence larger than the critical angle, so that the refracted ray would have to leave at 90 degrees or more."
+    hints:
+      - "Think about which medium the light starts in for the condition to hold."
+      - "Consider what the refracted ray would do at angles above the critical angle."
+      - "Recall how the critical angle compares with the angle of incidence in this case."
+    diagram: null
+    confidence: high
+  - topic: total_internal_reflection
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A transparent medium has refractive index 2 and is surrounded by air. What is its critical angle in degree?"
+    correct: "30"
+    unit: "degree"
+    wrong: []
+    explanation: "The sine of the critical angle is one over the refractive index, so sin C equals 0.5, which gives a critical angle of 30 degrees."
+    hints:
+      - "Use sin C equal to one over the refractive index."
+      - "Find the sine of the critical angle from the given index."
+      - "Take the inverse sine to get the angle in degrees."
+    diagram: null
+    confidence: high
+  - topic: total_internal_reflection
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Light travels in the core of an optical fibre with refractive index 1.25 and meets the boundary with the cladding of refractive index 1. What is the sine of the critical angle at this boundary?"
+    correct: "0.8"
+    unit: ""
+    wrong: []
+    explanation: "The sine of the critical angle is the refractive index of the cladding divided by that of the core. Dividing 1 by 1.25 gives 0.8."
+    hints:
+      - "The sine of the critical angle equals the ratio of the two refractive indices."
+      - "Put the index of the cladding over the index of the core."
+      - "Work out the division carefully before reading off the answer."
+    diagram: "A cross section of an optical fibre with a central core and a surrounding cladding, and a ray striking the core to cladding boundary at an angle, with the normal drawn."
+    confidence: high
+  - topic: total_internal_reflection
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does a cut diamond sparkle so strongly?"
+    correct: "Light undergoes repeated total internal reflection inside the cut stone"
+    unit: ""
+    wrong:
+      - {text: "Diamond emits its own light", mistake: "confuses sparkle with luminescence"}
+      - {text: "Diamond has a refractive index close to zero", mistake: "reverses the size of the refractive index for diamond"}
+      - {text: "Light is reflected only from the outer surface", mistake: "ignores the path that light takes inside the stone"}
+    explanation: "Diamond has a high refractive index, so its critical angle is small. Light entering a well cut stone is reflected internally many times before leaving through the top."
+    hints:
+      - "Think about the path light takes once it has entered the stone."
+      - "Consider the critical angle for a material with a high refractive index."
+      - "Ask what happens when light meets the internal faces at steep angles."
+    diagram: null
+    confidence: high
+  - topic: total_internal_reflection
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A medium is surrounded by air. Light inside the medium strikes its boundary with air at a critical angle of 30 degrees. What is the refractive index of the medium?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "At the critical angle sin C equals one over n. Since sin 30 degrees is 0.5, n equals 2."
+    hints:
+      - "At the critical angle the sine equals one over the refractive index."
+      - "Find the sine of 30 degrees first."
+      - "Divide one by that sine to get the index."
+    diagram: "A ray inside a medium striking a flat boundary with air at the critical angle, with the normal drawn and the angle of 30 degrees marked between the ray and the normal."
+    confidence: high
+  - topic: total_internal_reflection
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why do optical fibres carry light over long distances with very little loss from the walls?"
+    correct: "Light stays in the core because it is totally internally reflected at the core cladding boundary"
+    unit: ""
+    wrong:
+      - {text: "The fibre amplifies the light at every bend", mistake: "assumes fibres add energy to the signal"}
+      - {text: "Light travels more slowly in the fibre than in air", mistake: "confuses slow propagation with reduced loss"}
+      - {text: "The cladding absorbs sunlight to power the signal", mistake: "assumes the fibre is powered by ambient light"}
+    explanation: "The core has a higher refractive index than the cladding, so light striking the boundary at shallow angles is totally internally reflected and stays in the core."
+    hints:
+      - "Think about how light meets the boundary between the core and the cladding."
+      - "Consider what happens at the boundary when the angle of incidence is large."
+      - "Recall the condition on the refractive indices of the core and the cladding."
+    diagram: "A fibre cross section with a ray bouncing between the core walls, drawn with the total internal reflection at each boundary point."
+    confidence: high
+  - topic: prism_and_dispersion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the angle of deviation produced by a prism?"
+    correct: "The angle between the incident ray and the emergent ray"
+    unit: ""
+    wrong:
+      - {text: "The angle of the prism itself", mistake: "confuses the prism angle with the deviation it produces"}
+      - {text: "The angle of incidence at the first face", mistake: "treats the entry angle as the total bending of the ray"}
+      - {text: "Zero for every prism", mistake: "assumes a prism never changes the direction of light"}
+    explanation: "The deviation is the angle between the direction of the incident ray and the direction of the emergent ray after both refractions."
+    hints:
+      - "Compare the direction of the ray going into the prism with the direction coming out."
+      - "Think about the change of direction over both faces of the prism."
+      - "Consider whether a prism bends light at all."
+    diagram: null
+    confidence: high
+  - topic: prism_and_dispersion
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A thin prism has a refracting angle of 60 degrees and refractive index 1.5. What is its deviation in degree for a thin prism approximation?"
+    correct: "30"
+    unit: "degree"
+    wrong: []
+    explanation: "For a thin prism the deviation is (mu minus 1) times the prism angle. That is 0.5 times 60 degrees, which is 30 degrees."
+    hints:
+      - "Use the thin prism formula that multiplies the prism angle by the index minus one."
+      - "Subtract one from the refractive index first."
+      - "Multiply the result by the prism angle."
+    diagram: null
+    confidence: medium
+  - topic: prism_and_dispersion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A thin prism of refracting angle 4 degrees is made of glass with refractive index 1.5. What is its deviation in degree?"
+    correct: "2"
+    unit: "degree"
+    wrong: []
+    explanation: "The thin prism deviation is (mu minus 1) times the angle, which is 0.5 times 4 degrees, equal to 2 degrees."
+    hints:
+      - "Use the thin prism formula with the index minus one."
+      - "Subtract one from the index before multiplying."
+      - "Multiply by the small prism angle as the last step."
+    diagram: "A thin prism with its apex angle marked, a ray entering one face and deviated towards the base of the prism."
+    confidence: high
+  - topic: prism_and_dispersion
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does a glass prism split white light into a spectrum?"
+    correct: "The refractive index of the glass depends on the wavelength of light"
+    unit: ""
+    wrong:
+      - {text: "The speed of light in vacuum depends on its colour", mistake: "assumes light speed in vacuum varies with colour"}
+      - {text: "The prism absorbs some colours and emits the rest", mistake: "confuses dispersion with absorption and emission"}
+      - {text: "Each colour is reflected from the prism at a different angle", mistake: "ignores refraction and treats the effect as surface reflection"}
+    explanation: "Shorter wavelengths are refracted more strongly in glass, so each colour emerges at a slightly different angle, which spreads the white light into a spectrum."
+    hints:
+      - "Think about what property of the glass changes between colours."
+      - "Consider how different colours bend when they enter the prism."
+      - "Recall the quantity that determines how strongly light bends at a surface."
+    diagram: null
+    confidence: high
+  - topic: prism_and_dispersion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A thin prism of refracting angle 6 degrees has refractive index 1.52 for violet light and 1.50 for red light. What is the angular dispersion in degree, the difference between the violet and red deviations?"
+    correct: "0.12"
+    unit: "degree"
+    wrong: []
+    explanation: "The angular dispersion is the difference of the indices times the prism angle. That is 0.02 times 6 degrees, which is 0.12 degrees."
+    hints:
+      - "Angular dispersion is the difference between the two deviations, which depends on the difference in index."
+      - "Subtract the two refractive indices first."
+      - "Multiply the difference by the prism angle."
+    diagram: "A thin prism with white light entering one face and a fan of separate coloured rays emerging, with the angular spread between violet and red marked."
+    confidence: high
+  - topic: prism_and_dispersion
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why does a rainbow appear in the sky after rain?"
+    correct: "Sunlight is refracted, dispersed and reflected inside water droplets"
+    unit: ""
+    wrong:
+      - {text: "Sunlight is reflected only from the surface of clouds", mistake: "ignores the refraction and dispersion inside the droplets"}
+      - {text: "Water droplets emit coloured light of their own", mistake: "confuses the rainbow with an emitted light source"}
+      - {text: "The atmosphere creates colours from scattered noise", mistake: "gives a vague reason that does not involve refraction or dispersion"}
+    explanation: "Each water droplet refracts sunlight on entry, reflects it internally, and refracts it again on exit. Because the index depends on wavelength, the colours emerge at different angles."
+    hints:
+      - "Think about what sunlight does when it enters and leaves a water droplet."
+      - "Consider the internal path inside a droplet and where the reflection happens."
+      - "Recall why the index of water depends on colour."
+    diagram: null
+    confidence: high
+  - topic: optical_instruments
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a compound microscope, which lens forms the first real image of the object?"
+    correct: "The objective"
+    unit: ""
+    wrong:
+      - {text: "The eyepiece", mistake: "assumes the lens nearest the eye forms the first image"}
+      - {text: "Both lenses together in one step", mistake: "assumes the two lenses act as a single lens"}
+      - {text: "The condenser below the stage", mistake: "confuses the illumination optics with the imaging system"}
+    explanation: "The objective forms a magnified real image close to the eyepiece, and the eyepiece then magnifies that image to give the final virtual image."
+    hints:
+      - "Think about which lens is closest to the object being viewed."
+      - "Consider the order in which the two lenses act on the light."
+      - "Recall which image the eyepiece magnifies."
+    diagram: null
+    confidence: high
+  - topic: optical_instruments
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A refracting telescope has an objective of focal length 100 cm and an eyepiece of focal length 5 cm. What is its angular magnification in normal adjustment?"
+    correct: "20"
+    unit: ""
+    wrong: []
+    explanation: "The angular magnification of a telescope in normal adjustment is the objective focal length divided by the eyepiece focal length, which is 100 divided by 5, giving 20."
+    hints:
+      - "The angular magnification is the objective focal length divided by the eyepiece focal length."
+      - "Use both focal lengths in the same unit."
+      - "Divide the objective focal length by the eyepiece focal length."
+    diagram: null
+    confidence: high
+  - topic: optical_instruments
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A compound microscope has an objective of focal length 1 cm, an eyepiece of focal length 5 cm and a tube length of 20 cm. The final image is at the near point of 25 cm. What is the magnifying power?"
+    correct: "100"
+    unit: ""
+    wrong: []
+    explanation: "The magnifying power is the tube length over the objective focal length times the near point over the eyepiece focal length. That is 20 divided by 1, times 25 divided by 5, which is 100."
+    hints:
+      - "The magnifying power is a product of an objective term and an eyepiece term."
+      - "The objective term uses the tube length divided by its focal length."
+      - "The eyepiece term uses the near point divided by its focal length."
+    diagram: "A compound microscope drawn with its objective and eyepiece labelled, the tube length marked between them, and the focal lengths of each lens noted beside it."
+    confidence: high
+  - topic: optical_instruments
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is a mirror used as the objective in a reflecting telescope instead of a lens?"
+    correct: "Mirrors avoid chromatic aberration and can be made very large"
+    unit: ""
+    wrong:
+      - {text: "Mirrors have a higher refractive index than glass", mistake: "confuses reflection at a mirror with refraction in a lens"}
+      - {text: "Mirrors form a virtual image that is easier to view", mistake: "assumes the objective must always form a virtual image"}
+      - {text: "Mirrors make the eyepiece unnecessary", mistake: "assumes the objective alone gives the final magnified view"}
+    explanation: "A mirror reflects all colours in the same way, so it has no chromatic aberration, and a large mirror can be supported from behind, which lets it collect more light."
+    hints:
+      - "Think about how a mirror treats different colours compared with a lens."
+      - "Consider how easily a large mirror can be supported compared with a large lens."
+      - "Recall what chromatic aberration is in a lens."
+    diagram: null
+    confidence: high
+  - topic: optical_instruments
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A refracting telescope in normal adjustment has an objective of focal length 1 m and an eyepiece of focal length 0.05 m. What is the length of the telescope in metre?"
+    correct: "1.05"
+    unit: "m"
+    wrong: []
+    explanation: "In normal adjustment the objective and eyepiece are separated by the sum of their focal lengths. That is 1 m plus 0.05 m, giving 1.05 m."
+    hints:
+      - "In normal adjustment the two lenses are separated by the sum of their focal lengths."
+      - "Add the two focal lengths in metre."
+      - "Keep both values in metre before adding."
+    diagram: "A refracting telescope with the objective and eyepiece drawn apart, the separation marked as the sum of their focal lengths, and parallel rays from a distant object entering the objective."
+    confidence: high
+  - topic: optical_instruments
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A simple magnifier, an eyepiece of focal length 2.5 cm, forms its final image at the near point of 25 cm. What is its angular magnification?"
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "For a simple lens with the final image at the near point the magnification is D over f. That is 25 divided by 2.5, which gives 10."
+    hints:
+      - "For a simple magnifier with the image at the near point, the magnification is the near point over the focal length."
+      - "Use the near point and focal length in the same unit."
+      - "Divide the near point by the focal length."
+    diagram: null
+    confidence: high

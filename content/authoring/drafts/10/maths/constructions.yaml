@@ -1,0 +1,311 @@
+class: 10
+subject: maths
+chapter: constructions
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: division_of_segment
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "To divide a segment AB internally in the ratio 3 : 2 by construction, how many equal parts should be marked on a ray from A?"
+    correct: "5"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "uses only the first number of the ratio"}
+      - {text: "2", mistake: "uses only the second number of the ratio"}
+      - {text: "6", mistake: "doubles the total of the ratio"}
+    explanation: "The ratio 3 : 2 has 3 + 2 = 5 parts, so five equal steps are marked on the ray from A. The construction then carries the division onto AB."
+    hints:
+      - "Add the two numbers in the ratio."
+      - "Count the total number of parts the segment is split into."
+      - "Ask how many marks the ray needs to show those parts."
+    diagram: "Segment AB drawn horizontally, with a ray from A drawn at an acute angle to AB and equal marks made along that ray."
+    confidence: high
+  - topic: division_of_segment
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "Segment AB is 10 cm long. Point P divides AB internally so that AP : PB = 2 : 3. What is AP in cm?"
+    correct: "4"
+    unit: "cm"
+    wrong: []
+    explanation: "AP is 2 of the 5 equal parts of AB, so AP = 2/5 × 10 = 4 cm."
+    hints:
+      - "Find the total number of parts in the ratio."
+      - "Find what one part equals."
+      - "Multiply the number of parts for AP by that value."
+    diagram: "Segment AB of length 10 cm drawn horizontally, with a point P on it nearer A, and the ratio 2 : 3 marked between the two parts."
+    confidence: high
+  - topic: division_of_segment
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "After marking 5 equal steps on a ray from A, you join the last mark to B and draw a line through the third mark parallel to that join. Where does this line meet AB?"
+    correct: "At the point P with AP : PB = 3 : 2."
+    unit: ""
+    wrong:
+      - {text: "At the point P with AP : PB = 2 : 3.", mistake: "takes the mark on the wrong side of the ray"}
+      - {text: "At the midpoint of AB.", mistake: "assumes parallel lines always bisect the segment"}
+      - {text: "At a point where the line makes a right angle with AB.", mistake: "confuses parallel with perpendicular"}
+    explanation: "By the basic proportionality theorem, the parallel line through the third mark cuts AB so that AP : PB = 3 : 2, matching the required ratio."
+    hints:
+      - "Think about how the marks on the ray measure the parts of the ratio."
+      - "Decide which kind of line the construction uses to carry the division onto AB."
+      - "Check which mark is paired with the point on AB."
+    diagram: "Segment AB, a ray AX from A with five equal marks, the last mark joined to B, and a line drawn through the third mark parallel to that join, meeting AB."
+    confidence: high
+  - topic: division_of_segment
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why are equal steps marked on a ray from A in the division construction?"
+    correct: "Parallel lines carry the proportions of the equal steps onto AB, so the division of AB follows the ratio."
+    unit: ""
+    wrong:
+      - {text: "To make the ray perpendicular to AB.", mistake: "confuses the direction of the ray with its marks"}
+      - {text: "To find only the midpoint of AB.", mistake: "limits the method to the midpoint"}
+      - {text: "To measure the length of AB in centimetres.", mistake: "treats a construction as a measuring method"}
+    explanation: "The ray acts as a scale. The parallel line drawn from a chosen mark to AB keeps the proportions of the steps on AB."
+    hints:
+      - "Think about what the ray is used for in the construction."
+      - "Ask what the parallel line does to the lengths it cuts."
+      - "Consider whether the method needs the ray to be at a special angle."
+    diagram: null
+    confidence: low
+  - topic: division_of_segment
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Segment AB is 12 cm long. Point P divides AB internally in the ratio AP : PB = 3 : 5, and point Q divides AB internally in the ratio AQ : QB = 5 : 3. What is PQ in cm?"
+    correct: "3"
+    unit: "cm"
+    wrong: []
+    explanation: "AP = 3/8 × 12 = 4.5 cm and AQ = 5/8 × 12 = 7.5 cm. So PQ = 7.5 - 4.5 = 3 cm."
+    hints:
+      - "Find the length of AP using the total number of parts."
+      - "Find the length of AQ in the same way."
+      - "Subtract the shorter distance from the longer one."
+    diagram: "Segment AB drawn horizontally and labelled 12 cm, with points P and Q marked on it: P nearer A and Q nearer B."
+    confidence: high
+  - topic: division_of_segment
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A student divides AB in the ratio 3 : 2 by marking only 3 equal steps on a ray from A and joining the last mark to B. What is the error?"
+    correct: "The ray needs 5 equal steps, one for each part of the ratio, so the parallel line lands in the right place."
+    unit: ""
+    wrong:
+      - {text: "There is no error, because the first number of the ratio is enough.", mistake: "ignores the second number of the ratio"}
+      - {text: "The ray must be perpendicular to AB.", mistake: "adds a condition that the method does not need"}
+      - {text: "The construction is correct but gives the ratio 2 : 3.", mistake: "reverses the two parts without checking which one is measured from A"}
+    explanation: "The total number of equal steps must equal 3 + 2 = 5, because the parallel construction uses the whole ratio. With only 3 steps the point found divides AB in the wrong proportion."
+    hints:
+      - "Count the total number of parts in the ratio."
+      - "Ask how many steps the ray needs to represent the whole ratio."
+      - "Check the division point you would get with the wrong number of steps."
+    diagram: null
+    confidence: medium
+  - topic: tangents_by_construction
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "To construct tangents from an external point T to a circle with centre O, what is the first step?"
+    correct: "Join T to the centre O."
+    unit: ""
+    wrong:
+      - {text: "Draw a tangent at any point on the circle.", mistake: "ignores the position of the external point"}
+      - {text: "Draw a perpendicular from T to a diameter.", mistake: "confuses tangent construction with the perpendicular bisector"}
+      - {text: "Measure the radius and draw a circle with centre T.", mistake: "uses the radius as the circle size at the wrong point"}
+    explanation: "Joining T to O gives a segment whose midpoint is the centre of a helper circle. That helper circle cuts the original circle at the two contact points."
+    hints:
+      - "Think about which point is the centre of the given circle."
+      - "The tangents touch the circle at points where a right angle appears."
+      - "Find the midpoint of a segment joining the centre and T."
+    diagram: "A circle with centre O and an external point T marked outside it, with the segment OT not yet drawn."
+    confidence: high
+  - topic: tangents_by_construction
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "To construct tangents from an external point T to a circle with centre O, you draw a helper circle on OT as its diameter. If OT = 10 cm, what is the radius of the helper circle in cm?"
+    correct: "5"
+    unit: "cm"
+    wrong: []
+    explanation: "The helper circle has OT as its diameter, so its radius is half of 10 cm, which is 5 cm."
+    hints:
+      - "Identify the diameter of the helper circle."
+      - "Recall how the radius relates to the diameter."
+      - "Halve the length of the diameter."
+    diagram: "A segment OT of 10 cm joining a centre O to an external point T, with a helper circle drawn on OT as its diameter."
+    confidence: high
+  - topic: tangents_by_construction
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "After drawing the helper circle on OT as diameter, it crosses the original circle at two points X and Y. What do X and Y give?"
+    correct: "The points of contact of the tangents from T."
+    unit: ""
+    wrong:
+      - {text: "The centre of the original circle.", mistake: "confuses points on the circle with its centre"}
+      - {text: "The midpoints of the tangent lengths.", mistake: "adds a midpoint property that is not part of the construction"}
+      - {text: "Points where the radii are extended beyond the circle.", mistake: "confuses intersection points with extensions"}
+    explanation: "Any point on a circle with diameter OT sees OT at a right angle. So the line TX meets the radius OX at a right angle at X, which makes TX a tangent at X."
+    hints:
+      - "Think about which circle the points X and Y lie on."
+      - "Consider the angle that a diameter subtends at a point on the circle."
+      - "Decide whether the line TX can meet the original circle only once."
+    diagram: "The original circle with centre O and an external point T. A second circle is drawn on the segment OT as diameter, crossing the original circle at X and Y."
+    confidence: medium
+  - topic: tangents_by_construction
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the angle at each contact point a right angle in the tangent construction?"
+    correct: "Because the angle in a semicircle is 90 degrees."
+    unit: ""
+    wrong:
+      - {text: "Because the radius bisects the diameter.", mistake: "reverses the semicircle property"}
+      - {text: "Because OT is always the tangent.", mistake: "mislabels the segment"}
+      - {text: "Because the two circles touch at T.", mistake: "assumes the circles touch when they only cross"}
+    explanation: "A point on the circle with OT as diameter sees OT at an angle of 90 degrees. So the radius OX and the line TX meet at a right angle, which is the tangent condition."
+    hints:
+      - "Recall the property of a diameter and a point on the circle."
+      - "Ask which lines form the right angle at the contact point."
+      - "Compare this with the tangent property you already know."
+    diagram: null
+    confidence: medium
+  - topic: tangents_by_construction
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A circle has centre O and radius 5 cm. An external point T is 13 cm from O. Using the tangent construction, what is the length of each tangent from T in cm?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "Each tangent is perpendicular to the radius at its contact point, so its length satisfies length² = 13² - 5² = 144. The tangent length is 12 cm."
+    hints:
+      - "Find the right angle at a contact point."
+      - "Apply Pythagoras with OT as the hypotenuse."
+      - "Take the square root of the difference of the squares."
+    diagram: "A circle with centre O and radius 5 cm, an external point T joined to O with OT = 13 cm, and one tangent from T touching the circle at P."
+    confidence: high
+  - topic: tangents_by_construction
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A student tries the tangent construction from a point T that lies inside the circle. What is the result?"
+    correct: "No tangents exist, because every line through an interior point crosses the circle."
+    unit: ""
+    wrong:
+      - {text: "Two tangents are drawn as usual.", mistake: "ignores where the point lies relative to the circle"}
+      - {text: "The tangents are parallel to each other.", mistake: "assumes parallel lines can be drawn from any point"}
+      - {text: "The tangents pass through the centre O.", mistake: "confuses a tangent with a radius"}
+    explanation: "A tangent touches the circle without entering it, and every line through an interior point crosses the circle. So a point inside the circle has no tangents, and the construction fails."
+    hints:
+      - "Decide whether T is inside, on, or outside the circle."
+      - "Think about whether a line through an interior point can avoid the circle."
+      - "Recall the definition of a tangent."
+    diagram: null
+    confidence: high
+  - topic: similar_triangle_construction
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "When constructing a triangle similar to a given triangle, which property must the new triangle keep from the original?"
+    correct: "Its angles."
+    unit: ""
+    wrong:
+      - {text: "Its sides.", mistake: "assumes that similar means the sides are identical"}
+      - {text: "Its area.", mistake: "thinks similarity preserves area"}
+      - {text: "Its perimeter.", mistake: "believes a scale factor leaves the perimeter unchanged"}
+    explanation: "Similar triangles have equal corresponding angles, while every side is multiplied by the same scale factor. So the angles are kept and the sides change."
+    hints:
+      - "Recall what similarity says about angles."
+      - "Ask which measurements the scale factor changes."
+      - "Compare with congruence, where the sides also stay fixed."
+    diagram: "A given triangle ABC drawn on its own, with its three vertices labelled and no other lines."
+    confidence: high
+  - topic: similar_triangle_construction
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A triangle has sides 4 cm, 5 cm and 6 cm. A similar triangle is drawn with scale factor 2. What is the longest side of the new triangle in cm?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "Each side is doubled, so the new sides are 8, 10 and 12 cm. The longest side is 12 cm."
+    hints:
+      - "Multiply each side by the scale factor."
+      - "Find the longest of the new sides."
+      - "Check that every side has been scaled the same way."
+    diagram: null
+    confidence: high
+  - topic: similar_triangle_construction
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "To construct a triangle similar to ABC with scale factor 2/3 on side BC, you mark 3 equal steps on a ray from B and join the last mark to C. What is the next step?"
+    correct: "Draw a line through the second mark parallel to the join, and let it meet BC at the new point."
+    unit: ""
+    wrong:
+      - {text: "Draw a line through the third mark perpendicular to BC.", mistake: "confuses parallel with perpendicular and uses the wrong mark"}
+      - {text: "Draw a circle centred at B with an arbitrary radius.", mistake: "ignores the ratio and uses a random length"}
+      - {text: "Join the first mark to A.", mistake: "uses a point that does not help set the ratio"}
+    explanation: "The parallel through the second mark cuts BC at a point C' with BC' : BC = 2 : 3, so BC' is the scaled side. Parallels drawn from there give the new triangle with scale factor 2/3."
+    hints:
+      - "Think about how the marks on the ray measure the ratio 2 : 3."
+      - "Decide which kind of line must be drawn to keep the angles."
+      - "Check where the parallel line meets BC."
+    diagram: "Triangle ABC with side BC along the bottom; a ray drawn from B at an acute angle with three equal marks, and the last mark joined to C."
+    confidence: medium
+  - topic: similar_triangle_construction
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why do the parallel lines in the construction produce a triangle with the same angles as the original?"
+    correct: "Parallel lines make corresponding angles equal, so the new triangle matches the original in angle."
+    unit: ""
+    wrong:
+      - {text: "Because the new triangle is congruent to the original.", mistake: "confuses similarity with congruence"}
+      - {text: "Because the angles are measured with a protractor.", mistake: "treats measurement as the justification"}
+      - {text: "Because parallel lines bisect every angle.", mistake: "adds a property parallel lines do not have"}
+    explanation: "When a line is parallel to a side, the angles it makes with the other sides match the original angles. So the new triangle has the same angles, and similarity follows."
+    hints:
+      - "Recall what parallel lines do to angles formed with a transversal."
+      - "Ask whether the construction involves any measuring."
+      - "Think about whether the new triangle has the same shape or the same size."
+    diagram: null
+    confidence: low
+  - topic: similar_triangle_construction
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Triangle ABC has sides 6 cm, 8 cm and 10 cm, so its area is 24 cm². A similar triangle is made with scale factor 2.5. What is its area in cm²?"
+    correct: "150"
+    unit: "cm2"
+    wrong: []
+    explanation: "Areas of similar triangles scale with the square of the scale factor. So the new area is 24 × 2.5² = 24 × 6.25 = 150 cm²."
+    hints:
+      - "Remember that areas scale with the square of the scale factor."
+      - "Square the scale factor first."
+      - "Multiply the original area by that square."
+    diagram: "A right-angled triangle with legs 6 cm and 8 cm and hypotenuse 10 cm labelled, drawn with its right angle at the bottom left."
+    confidence: high
+  - topic: similar_triangle_construction
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A student draws the parallel through the third mark instead of the second, for a scale factor of 2/3 on side BC. What does the new triangle look like?"
+    correct: "The new side equals BC, so the scale factor is 1 and the triangle is congruent to the original."
+    unit: ""
+    wrong:
+      - {text: "It still has the required scale factor 2/3, since only angles matter.", mistake: "ignores that the side lengths must scale too"}
+      - {text: "It is a reflection of the original triangle.", mistake: "confuses scaling with reflection"}
+      - {text: "It is smaller by a factor of 2/3.", mistake: "reads a scale factor below 1 as a reduction of the whole figure"}
+    explanation: "The parallel through the third mark meets BC at C itself. The new side therefore equals BC and the scale factor is 1, so the triangle is congruent to the original rather than scaled by 2/3."
+    hints:
+      - "Find where the parallel through the third mark meets BC."
+      - "Compare the length of the new side with BC."
+      - "Ask what the scale factor is when the side lengths are unchanged."
+    diagram: null
+    confidence: high

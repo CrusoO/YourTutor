@@ -1,0 +1,107 @@
+class: 10
+subject: maths
+chapter: arithmetic_progressions
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: ap_basics
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these lists is an arithmetic progression?"
+    correct: "2, 5, 8, 11"
+    unit: ""
+    wrong:
+      - {text: "2, 4, 8, 16", mistake: "takes a constant ratio for a constant difference"}
+      - {text: "5, 5, 5, 6", mistake: "ignores that the difference must be the same between every pair of consecutive terms"}
+      - {text: "1, 1, 2, 3", mistake: "checks only the first pair of terms"}
+    explanation: "In 2, 5, 8, 11 each term is 3 more than the one before. The other lists change their difference from one step to the next."
+    hints:
+      - "Subtract each term from the term after it."
+      - "Check whether all the differences are equal."
+      - "Look at every consecutive pair, not just the first."
+    diagram: null
+    confidence: high
+  - topic: ap_basics
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In the progression 7, 10, 13, 16, ..., what is the common difference?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Each term is found by adding 3 to the term before it, so the common difference is 3."
+    hints:
+      - "Subtract the first term from the second."
+      - "Check the difference between another pair of consecutive terms."
+      - "Make sure the difference is the same every time."
+    diagram: null
+    confidence: high
+  - topic: ap_basics
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "An arithmetic progression has common difference d. If every term is doubled, what is the common difference of the new progression?"
+    correct: "2d"
+    unit: ""
+    wrong:
+      - {text: "d", mistake: "thinks scaling every term leaves the step unchanged"}
+      - {text: "d + 2", mistake: "adds the multiplier to the difference instead of multiplying"}
+      - {text: "d squared", mistake: "squares the difference when the terms are scaled"}
+    explanation: "Write the terms as a, a + d, a + 2d and so on. Doubling gives 2a, 2a + 2d, 2a + 4d, whose common difference is 2d."
+    hints:
+      - "Write the first three terms using a and d."
+      - "Double each of those terms."
+      - "Subtract consecutive doubled terms."
+    diagram: null
+    confidence: high
+  - topic: ap_basics
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does the formula a + (n - 1)d give the first term when n = 1?"
+    correct: "Because the (n - 1) part becomes 0, leaving just a."
+    unit: ""
+    wrong:
+      - {text: "Because d is always set to 1 at the start.", mistake: "assumes the common difference is fixed at 1"}
+      - {text: "Because a is replaced by n.", mistake: "swaps the roles of the first term and the position"}
+      - {text: "Because the formula only works for odd values of n.", mistake: "restricts the formula to a subset of positions"}
+    explanation: "Substituting n = 1 gives a + 0 × d = a. The formula counts how many steps of size d are added after the first term."
+    hints:
+      - "Substitute n = 1 into the formula and simplify."
+      - "Ask how many steps you have taken to reach the first term."
+      - "Think about what the factor (n - 1) counts."
+    diagram: null
+    confidence: high
+  - topic: ap_basics
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In an arithmetic progression the 3rd term is 11 and the 10th term is 39. What is the first term?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The 10th term minus the 3rd term is 7d = 28, so d = 4. Then the first term is 11 - 2 × 4 = 3."
+    hints:
+      - "Write the two given terms using the first term and the common difference."
+      - "Subtract one equation from the other to find d."
+      - "Use the value of d to go back to the first term."
+    diagram: null
+    confidence: high
+  - topic: ap_basics
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "The nth term of a sequence is 3n² + 1. Is this sequence an arithmetic progression?"
+    correct: "No, because the differences 9 and 15 are not equal."
+    unit: ""
+    wrong:
+      - {text: "Yes, because it increases by a fixed amount each step.", mistake: "assumes that any increasing sequence is an arithmetic progression"}
+      - {text: "Yes, because the formula contains n.", mistake: "reads any formula containing n as linear in n"}
+      - {text: "No, because no term is negative.", mistake: "uses the sign of the terms as the test for an arithmetic progression"}
+    explanation: "The first three terms are 4, 13 and 28, with differences 9 and 15. Since these differ, the sequence is not arithmetic, even though it increases."
+    hints:
+      - "Compute the first three terms from the formula."
+      - "Find the difference between each pair of consecutive terms."
+      - "Check whether those differences match."
+    diagram: null
+    confidence: high

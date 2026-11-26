@@ -1,0 +1,214 @@
+class: 12
+subject: "maths"
+chapter: "linear_programming"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "lpp_formulation"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A factory makes x chairs and y tables. Each chair gives a profit of 50 and each table a profit of 80. Which is the objective function?"
+    correct: "Maximise Z = 50x + 80y"
+    unit: ""
+    wrong:
+      - {text: "Minimise Z = 50x + 80y", mistake: "reverses the direction of optimisation"}
+      - {text: "Maximise Z = 50x - 80y", mistake: "subtracts one of the profit terms"}
+      - {text: "Maximise Z = x + y", mistake: "counts the number of items instead of the profit"}
+    explanation: "The objective is the total profit, which is 50 per chair times x plus 80 per table times y, and the factory wants to maximise it."
+    hints:
+      - "The objective is the quantity to be optimised, here the total profit."
+      - "Multiply the profit per item by the number of that item made."
+      - "Check whether the problem asks for a maximum or a minimum."
+    diagram: null
+    confidence: high
+
+  - topic: "lpp_formulation"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Each chair needs 2 hours of labour and each table needs 3 hours. How many hours of labour do 4 chairs and 2 tables need in total?"
+    correct: "14"
+    unit: "hours"
+    wrong: []
+    explanation: "The chairs need 2 times 4 = 8 hours and the tables need 3 times 2 = 6 hours, giving 14 hours in total."
+    hints:
+      - "Multiply the hours per chair by the number of chairs."
+      - "Multiply the hours per table by the number of tables."
+      - "Add the two amounts."
+    diagram: null
+    confidence: high
+
+  - topic: "lpp_formulation"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A diet must provide at least 10 units of protein. Food X gives 2 units of protein per kg and food Y gives 3 units per kg. If x kg of X and y kg of Y are used, which constraint is correct?"
+    correct: "2x + 3y >= 10"
+    unit: ""
+    wrong:
+      - {text: "2x + 3y <= 10", mistake: "reverses the inequality for a minimum requirement"}
+      - {text: "2x + 3y = 10", mistake: "turns an at-least requirement into an exact amount"}
+      - {text: "x + y >= 10", mistake: "uses the quantities of food as if each gave one unit of protein"}
+    explanation: "The protein supplied is 2x + 3y, and since the diet needs at least 10 units, the constraint is 2x + 3y greater than or equal to 10."
+    hints:
+      - "Translate the phrase at least into the direction of the inequality."
+      - "Write the protein from each food as its rate times its quantity."
+      - "Add the two contributions to get the total protein."
+    diagram: null
+    confidence: high
+
+  - topic: "lpp_formulation"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "In a blend, the mass of ingredient A must be at least 40 percent of the total mass of the blend. If x kg of A and y kg of B are used, which constraint is correct?"
+    correct: "3x - 2y >= 0"
+    unit: ""
+    wrong:
+      - {text: "3x + 2y >= 0", mistake: "drops the sign of the term in y"}
+      - {text: "x <= 0.4(x + y)", mistake: "reverses the requirement on ingredient A"}
+      - {text: "x - 0.4y >= 0", mistake: "takes the 40 percent only against the second ingredient"}
+    explanation: "The requirement is x >= 0.4(x + y), which simplifies to 0.6x - 0.4y >= 0, and multiplying by 5 gives 3x - 2y >= 0."
+    hints:
+      - "Write the total mass as x plus y and state the 40 percent requirement for A."
+      - "Move all terms to one side and collect the coefficients."
+      - "Clear any decimals by multiplying the inequality by a suitable number."
+    diagram: null
+    confidence: high
+
+  - topic: "lpp_formulation"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A bakery must make at least three times as many small loaves as large loaves. If x is the number of small loaves and y the number of large loaves, what constant c makes the constraint x >= c y?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Making at least three times as many small loaves as large loaves means x is at least 3y, so c is 3."
+    hints:
+      - "Translate the phrase three times as many into a multiple of y."
+      - "Decide which side of the inequality the multiple belongs on."
+      - "Read off the constant that multiplies y."
+    diagram: null
+    confidence: high
+
+  - topic: "lpp_formulation"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Product P needs 4 kg of material per unit and product Q needs 6 kg per unit, with 120 kg available. How many kg of material do 10 units of P and 5 units of Q use in total?"
+    correct: "70"
+    unit: "kg"
+    wrong: []
+    explanation: "The material used is 4 times 10 plus 6 times 5, which is 40 plus 30, giving 70 kg."
+    hints:
+      - "Multiply the material per unit of P by the number of units of P."
+      - "Multiply the material per unit of Q by the number of units of Q."
+      - "Add the two amounts and compare the total with the 120 kg available."
+    diagram: null
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Maximise Z = x + y subject to x <= 4, y <= 3 and x, y >= 0. Find the maximum value of Z."
+    correct: "7"
+    unit: ""
+    wrong: []
+    explanation: "The feasible region is the rectangle with corners (0, 0), (4, 0), (4, 3) and (0, 3). Z equals 7 at (4, 3), which is the largest of the corner values."
+    hints:
+      - "Sketch the feasible region bounded by the constraints."
+      - "List the corner points of the region."
+      - "Evaluate the objective at each corner and compare."
+    diagram: "Rectangle in the first quadrant with corners at (0, 0), (4, 0), (4, 3) and (0, 3) and its sides labelled by the constraints."
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Over the region x >= 0, y >= 0, x + y <= 4, where is the maximum of Z = 2x + y attained?"
+    correct: "At (4, 0), with value 8"
+    unit: ""
+    wrong:
+      - {text: "At (0, 4), with value 4", mistake: "uses the coefficient of x where the coefficient of y should apply"}
+      - {text: "At (2, 2), with value 6", mistake: "picks the midpoint of the boundary instead of a corner"}
+      - {text: "At (0, 0), with value 0", mistake: "assumes the origin gives the maximum"}
+    explanation: "The corners of the triangle are (0, 0), (4, 0) and (0, 4), with Z values 0, 8 and 4, so the maximum 8 is at (4, 0)."
+    hints:
+      - "Identify the corner points of the feasible region."
+      - "Evaluate the objective at each corner point."
+      - "Compare the values to find the largest one."
+    diagram: "Triangle in the first quadrant bounded by the two axes and the line x + y = 4, with its three corners labelled."
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Minimise Z = 2x + 3y subject to x + y >= 5, x >= 0 and y >= 0. Find the minimum value of Z."
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "The feasible region is unbounded, with corner points (5, 0) and (0, 5). Z is 10 at (5, 0) and 15 at (0, 5), so the minimum is 10."
+    hints:
+      - "Sketch the region above the line x + y = 5 in the first quadrant."
+      - "The region is unbounded, so check the corner points where it meets the axes."
+      - "Compare the objective values at those corner points."
+    diagram: "First quadrant with the line x + y = 5 drawn, the feasible region above it shaded, and the points where the line meets the axes marked."
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Maximise Z = 5x + 4y subject to 2x + y <= 8, x + 2y <= 8, x >= 0 and y >= 0. Where is the maximum attained?"
+    correct: "24 at (8/3, 8/3)"
+    unit: ""
+    wrong:
+      - {text: "20 at (4, 0)", mistake: "stops at the corner on the x-axis without checking the interior intersection"}
+      - {text: "16 at (0, 4)", mistake: "ignores the coefficient of x"}
+      - {text: "32 at (4, 4)", mistake: "uses a point that violates the constraints"}
+    explanation: "The two constraint lines meet at (8/3, 8/3). Z there is 5 times 8/3 plus 4 times 8/3, which equals 24, and this exceeds the values 20 and 16 at the axis corners."
+    hints:
+      - "Find where the two constraint lines intersect."
+      - "Include the intercepts on the axes as corner points too."
+      - "Evaluate the objective at every corner point and compare."
+    diagram: null
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Maximise Z = 3x + 2y subject to x + y <= 4, x + 3y <= 6, x >= 0 and y >= 0. Find the maximum value of Z."
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "The corners are (0, 0), (4, 0), (3, 1) and (0, 2). Z equals 12 at (4, 0), 11 at (3, 1) and 4 at (0, 2), so the maximum is 12."
+    hints:
+      - "Find the intersection point of the two constraint lines."
+      - "Check each candidate corner against all the constraints."
+      - "Evaluate the objective only at the corners that are feasible."
+    diagram: "Feasible quadrilateral in the first quadrant with corners at the origin, on the x-axis, at the intersection of the two constraint lines, and on the y-axis, all labelled."
+    confidence: high
+
+  - topic: "graphical_solution_lpp"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For the region x >= 0, y >= 0 and x + y >= 3, what can be said about the maximum of Z = x + y?"
+    correct: "The maximum does not exist because Z is unbounded"
+    unit: ""
+    wrong:
+      - {text: "The maximum is 3 at (3, 0)", mistake: "reads a corner of the boundary line as the answer for a maximum"}
+      - {text: "The maximum is 0 at the origin", mistake: "tests only the origin, which is outside the region"}
+      - {text: "The maximum is 6 at (3, 3)", mistake: "picks an arbitrary feasible point as the optimum"}
+    explanation: "Points with x + y arbitrarily large lie in the region, so Z has no upper bound and no maximum exists."
+    hints:
+      - "Check whether you can keep increasing x + y while staying in the region."
+      - "Sketch the region and see whether it extends without bound."
+      - "Consider the direction in which the objective increases."
+    diagram: "Unbounded region in the first quadrant lying above the line x + y = 3, with arrows showing it extends outward."
+    confidence: high
