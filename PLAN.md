@@ -831,6 +831,7 @@ Written from a code inventory of master (read-only) and the plan above. Order is
 
 ### Buildable next
 
+- Book-check tool is built (`apps/api/app/bookcheck/`); the owner pastes PDFs into the private folder and runs `run-all`, then reads the private report. A model judge (option B) is deliberately not built.
 - Reviewer desk check tag (`feat/authored-tags`, PR 2) is built: cards, the queue filter and the admin summary tell a machine-checked item from one that needs a person. Model-drafted tier C items from the authoring pipeline always show "Needs a person to check".
 
 - Authoring pipeline (`feat/authored-content`, PR 1) is built: `python -m app.authoring lint|compile|report` turns model-drafted chapter files (`content/authoring/drafts/`) into tier C, status draft items, skills and misconceptions under `content/cbse/<class>/<subject>/{items,skills,misconceptions}/authored/`. Deterministic lint, no model. Nothing it writes is machine-checked or human-reviewed; the numeric second-check hook is deliberately empty. Next: PR 2 adds the "Needs a person to check" tag to the reviewer desk.
