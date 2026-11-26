@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.LORENTZ.F_from_q_v_B_s.case4.6292a96e
+skill_ids:
+- PHY.C12.MAG.LORENTZ
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a charged particle moving in a magnetic field
+    and records the following. The charge of the particle, q, is 1.6 x 10^-19 C, its
+    speed, v, is 1 x 10^6 m/s, the magnetic field, B, is 100 mT and the sine of the
+    angle between the velocity and the field, s, is 0.5. Find the magnitude of the
+    magnetic force.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: F = q x v x B x sine of the angle.'
+- level: 2
+  en: The relation already gives the force directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 100 mT as 0.1 T, then write F = q x v x B x s, where F is
+    the force, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the force have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.LORENTZ
+generator_version: factory-2
+template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.6 x 10^-14 N
+- id: b
+  en: 8 x 10^-13 N
+- id: c
+  en: 8 x 10^-21 N
+- id: d
+  en: 8 x 10^-15 N
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FIELD_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SPEED_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: F = q x v x B x sine of the angle.'
+- en: 'Put each quantity in SI units: 100 mT = 0.1 T.'
+- en: 'Substitute: F = (1.6 x 10^-19) x (1 x 10^6) x 0.1 x 0.5.'
+- en: 'Calculate: F = 8 x 10^-15 N.'
+- en: So the force is 8 x 10^-15 N.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a544a3d73cee889ad3f78447fca81845cb01398487361146b1a230c3d9b8bd32
+  template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+  certificate_hash: 9d097f5a8ddaa6bda638451eebcc5bc6f1f59ca85339114ced790411b79f212f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:16+00:00'
+  record_hash: 103a955807e49704866af53852a6d06145c86d88bcc824c0b8c0ea2211f89107

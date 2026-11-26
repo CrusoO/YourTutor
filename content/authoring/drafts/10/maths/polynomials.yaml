@@ -1,0 +1,104 @@
+class: 10
+subject: maths
+chapter: polynomials
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: graph_of_polynomial
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A parabola with equation y = x² - 4 meets the x-axis at how many points?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "thinks the graph must stay above the x-axis"}
+      - {text: "1", mistake: "confuses the vertex with the only point on the x-axis"}
+      - {text: "4", mistake: "counts the constant term as a separate zero"}
+    explanation: "The zeros are the x-values where the graph meets the x-axis, so we solve x² - 4 = 0. This gives x = 2 and x = -2, which are two points."
+    hints:
+      - "A zero is an x-value where y equals 0."
+      - "Solve x² - 4 = 0 for x."
+      - "Count the distinct solutions you get."
+    diagram: null
+    confidence: high
+  - topic: graph_of_polynomial
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A parabola that opens upward crosses the x-axis at x = 1 and x = 5, and nowhere else. What is the sum of its zeros?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "The zeros of the polynomial are the x-values where its graph crosses the axis, namely 1 and 5. Their sum is 6."
+    hints:
+      - "The zeros are the x-values where the curve crosses the axis."
+      - "Add the two x-values where the curve meets the axis."
+      - "Make sure you used each zero exactly once."
+    diagram: "Sketch a U-shaped curve opening upward, crossing the horizontal x-axis at the marks x = 1 and x = 5, with both marks labelled."
+    confidence: high
+  - topic: graph_of_polynomial
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A parabola touches the x-axis at exactly one point, x = 3. What does this tell you about the zeros of the polynomial?"
+    correct: "The polynomial has one repeated zero, x = 3."
+    unit: ""
+    wrong:
+      - {text: "The polynomial has no zeros.", mistake: "thinks touching the axis means missing it"}
+      - {text: "The polynomial has two distinct zeros, x = 3 and another value.", mistake: "counts the two arms of the parabola as two zeros"}
+      - {text: "The graph has no vertex.", mistake: "believes the vertex of a parabola never lies on the axis"}
+    explanation: "A point where the graph touches the axis is still a zero, and it is repeated because the curve does not cross the axis there. So the polynomial has one distinct zero, x = 3, counted twice."
+    hints:
+      - "A zero is any x-value where the graph meets the x-axis."
+      - "Think about whether the curve crosses the axis or just touches it."
+      - "Consider how many distinct points the graph shares with the axis."
+    diagram: "A parabola opening upward whose lowest point sits exactly on the horizontal x-axis at x = 3, with that point labelled."
+    confidence: high
+  - topic: graph_of_polynomial
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A quadratic polynomial has its graph crossing the x-axis at x = -2 and x = 4. What is the product of its zeros?"
+    correct: "-8"
+    unit: ""
+    wrong: []
+    explanation: "The zeros are -2 and 4, and their product is (-2) × 4 = -8. The two zeros have opposite signs, so the product is negative."
+    hints:
+      - "Identify both x-values where the graph crosses the axis."
+      - "Multiply the two zeros together."
+      - "Pay attention to the sign of each zero when multiplying."
+    diagram: "A parabola opening upward crossing the horizontal x-axis at two points, labelled x = -2 on the left of the origin and x = 4 on the right."
+    confidence: high
+  - topic: graph_of_polynomial
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "The graph of a quadratic polynomial lies entirely above the x-axis. What can be said about its zeros?"
+    correct: "It has no real zeros."
+    unit: ""
+    wrong:
+      - {text: "It has exactly one real zero.", mistake: "assumes that a graph close to the axis must touch it"}
+      - {text: "Both zeros are positive.", mistake: "equates lying above the axis with having positive x-values"}
+      - {text: "It has two real zeros with opposite signs.", mistake: "assumes that every parabola must cross the axis twice"}
+    explanation: "A graph that stays strictly above the x-axis never reaches y = 0, so no x-value makes the polynomial zero. A parabola of this kind has no real zeros."
+    hints:
+      - "A zero is a point where the graph reaches y = 0."
+      - "Ask whether the curve ever touches or crosses the axis."
+      - "Think about what 'entirely above' says about the y-values."
+    diagram: null
+    confidence: high
+  - topic: graph_of_polynomial
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A quadratic polynomial has zeros p and q, with p + q = 3 and pq = -10. What is p² + q²?"
+    correct: "29"
+    unit: ""
+    wrong: []
+    explanation: "Expanding (p + q)² = p² + q² + 2pq gives p² + q² = 3² - 2(-10) = 9 + 20 = 29."
+    hints:
+      - "Expand (p + q) squared."
+      - "Substitute the given sum and product into the expansion."
+      - "Be careful with the sign when you subtract 2pq."
+    diagram: "A parabola opening upward, crossing the horizontal x-axis at x = p on the left and x = q on the right of the origin, with both points labelled."
+    confidence: high

@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.FORCE_WIRE.F_from_B_I_L_s.num3.f068f4a3
+skill_ids:
+- PHY.C12.MAG.FORCE_WIRE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a current-carrying conductor in a magnetic field. The
+    magnetic field, B, is 500 mT, the current, I, is 5 A, the length of wire in the
+    field, L, is 50 cm and the sine of the angle between the wire and the field, s,
+    is 0.5. Find the force on the wire.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: F = B x I x L x sine of the angle.'
+- level: 2
+  en: The relation already gives the force directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 500 mT as 0.5 T and 50 cm as 0.5 m, then write F = B x I
+    x L x s, where F is the force, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the force have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.FORCE_WIRE
+generator_version: factory-2
+template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 625 mN
+- id: b
+  en: 1250 mN
+- id: c
+  en: 62500 mN
+- id: d
+  en: 2500 mN
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.LENGTH_UNIT_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FIELD_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = B x I x L x sine of the angle.'
+- en: 'Put each quantity in SI units: 500 mT = 0.5 T; 50 cm = 0.5 m.'
+- en: 'Substitute: F = 0.5 x 5 x 0.5 x 0.5.'
+- en: 'Calculate: F = 0.625 N.'
+- en: 'Give it in mN: 625 mN.'
+- en: So the force is 625 mN.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7a18cda04deadd1ecd3bee794e72d1469c77b8a0e60234ee8ae796de880a2919
+  template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+  certificate_hash: 8ad4e43fb1c5d54e9c3626554f29eb087beffef0166b00c77f077d2c011b3ecc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:25+00:00'
+  record_hash: f01cf492e8a99146aabbfb3508d97ed028a795c20b54500846eb79f3c16bf239

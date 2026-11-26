@@ -1,0 +1,43 @@
+id: TPL2.PHY.C12.WAVE.MALUS
+schema: factory-template/1
+lane: physics_c12
+model: WAVE.MALUS
+skill_id: PHY.C12.WAVE.MALUS
+box:
+  variant:
+    choices:
+    - I_from_I0_cs
+    - I0_from_I_cs
+    - cs_from_I_I0
+    - I2_from_I0_cs
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  I0:
+    choices:
+    - '40'
+    - '50'
+    - '100'
+    - '200'
+    - '400'
+  cs:
+    choices:
+    - '0.5'
+    - '0.6'
+    - '0.8'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.wave_optics
+  skill_id: PHY.C12.WAVE.MALUS
+  allowed_methods:
+  - malus_law
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

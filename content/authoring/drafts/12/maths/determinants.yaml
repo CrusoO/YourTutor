@@ -1,0 +1,424 @@
+class: 12
+subject: "maths"
+chapter: "determinants"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "determinant_evaluation"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the determinant of the matrix [[2, 3], [1, 4]]."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The determinant is 2 times 4 minus 3 times 1, which equals 8 minus 3, giving 5."
+    hints:
+      - "Multiply the entries on the main diagonal."
+      - "Multiply the entries on the other diagonal."
+      - "Subtract the second product from the first."
+    diagram: null
+    confidence: high
+
+  - topic: "determinant_evaluation"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which value is the determinant of [[1, 2, 0], [0, 1, 2], [2, 0, 1]]?"
+    correct: "9"
+    unit: ""
+    wrong:
+      - {text: "-9", mistake: "reverses the overall sign of the expansion"}
+      - {text: "-7", mistake: "drops the minus sign in front of the second cofactor term"}
+      - {text: "1", mistake: "keeps only the first diagonal product"}
+    explanation: "Expanding along the first row gives 1 times (1 minus 0) minus 2 times (0 minus 4) plus 0, which equals 1 plus 8, so the determinant is 9."
+    hints:
+      - "Expand the determinant along its first row."
+      - "Each entry multiplies a signed minor obtained by deleting its row and column."
+      - "Evaluate each 2 by 2 minor carefully before combining them."
+    diagram: null
+    confidence: high
+
+  - topic: "determinant_evaluation"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the determinant of the matrix [[1, 2, 3], [0, 1, 4], [5, 6, 0]]."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "Expanding along the first row gives 1 times (0 minus 24) minus 2 times (0 minus 20) plus 3 times (0 minus 5), which is minus 24 plus 40 minus 15, equal to 1."
+    hints:
+      - "Expand along the first row using the minors."
+      - "Keep track of the alternating plus and minus signs."
+      - "Evaluate the 2 by 2 minors before adding the three terms."
+    diagram: null
+    confidence: high
+
+  - topic: "determinant_evaluation"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "For which value of k is the determinant of [[k, 1], [4, k]] equal to zero?"
+    correct: "k = 2 or k = -2"
+    unit: ""
+    wrong:
+      - {text: "k = 4 only", mistake: "takes the product of the off-diagonal entries instead of the diagonal"}
+      - {text: "k = 0 only", mistake: "sets the product of the diagonal entries to zero"}
+      - {text: "k = 2 only", mistake: "solves the quadratic but forgets the negative root"}
+    explanation: "The determinant is k squared minus 4, which is zero when k squared equals 4, so k is 2 or minus 2."
+    hints:
+      - "Write the determinant as an expression in k."
+      - "Set that expression equal to zero."
+      - "Solve the resulting quadratic and list every root."
+    diagram: null
+    confidence: high
+
+  - topic: "determinant_evaluation"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the determinant of the matrix [[1, 1, 1], [1, 2, 3], [1, 4, 9]]."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Subtracting the first row from the other two gives rows [0, 1, 2] and [0, 3, 8]. Expanding along the first column gives the 2 by 2 determinant of those rows, which is 2 times 8 minus 2 times 3, equal to 2 times 2, so the value is 2."
+    hints:
+      - "Subtract the first row from the other two rows to create zeros."
+      - "Expand along the first column after those row operations."
+      - "Factor the remaining 2 by 2 determinant."
+    diagram: null
+    confidence: high
+
+  - topic: "determinant_evaluation"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A 3 by 3 matrix has entry a(i,j) = i + j in row i and column j. What is its determinant?"
+    correct: "0"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "treats the entries as if they formed an identity pattern"}
+      - {text: "-2", mistake: "does not notice that the rows are linearly dependent"}
+      - {text: "48", mistake: "multiplies only the diagonal entries"}
+    explanation: "Each row is the previous row plus a fixed vector, so after subtracting the first row from the others two rows are identical multiples of one pattern, and the determinant is zero."
+    hints:
+      - "Subtract the first row from the second and third rows."
+      - "Look closely at the rows you obtain after subtraction."
+      - "Think about what it means for one row to be a multiple of another."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "If A is a 3 by 3 matrix with determinant 4, what is the determinant of 2A?"
+    correct: "32"
+    unit: ""
+    wrong:
+      - {text: "8", mistake: "scales only one row instead of every row"}
+      - {text: "16", mistake: "squares the scalar and ignores the order of the matrix"}
+      - {text: "4", mistake: "believes scaling a matrix leaves its determinant unchanged"}
+    explanation: "Each of the 3 rows is multiplied by 2, which multiplies the determinant by 2 cubed, giving 8 times 4, which is 32."
+    hints:
+      - "Consider how many rows are multiplied when the whole matrix is scaled."
+      - "Each row scaling multiplies the determinant by the same factor."
+      - "Apply the power of the scalar that matches the number of rows."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A 2 by 2 matrix A has determinant 5. What is the determinant of the transpose of A?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "A matrix and its transpose have the same determinant, so the value stays 5."
+    hints:
+      - "Consider how transposing changes the positions of the entries."
+      - "Think about whether the determinant depends on rows or on columns."
+      - "Compare the value with the determinant of the original matrix."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A determinant has two identical rows. What is its value?"
+    correct: "zero"
+    unit: ""
+    wrong:
+      - {text: "one", mistake: "treats identical rows as if they form an identity pattern"}
+      - {text: "twice the common row value", mistake: "doubles a row instead of noticing the rows are dependent"}
+      - {text: "it cannot be determined from the rows", mistake: "believes repeated rows leave the value open"}
+    explanation: "Swapping the two identical rows leaves the matrix unchanged but flips the sign of the determinant, so the determinant equals its own negative, which forces it to be zero."
+    hints:
+      - "Consider what happens when you interchange two rows of a determinant."
+      - "An interchange changes the sign of the determinant."
+      - "Compare the determinant before and after the interchange, using the fact that the matrix is unchanged."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A 2 by 2 matrix [[a, b], [c, d]] has determinant 7. If its two rows are interchanged, what is the determinant of the new matrix?"
+    correct: "-7"
+    unit: ""
+    wrong: []
+    explanation: "Interchanging two rows multiplies the determinant by minus 1, so the new determinant is minus 7."
+    hints:
+      - "Consider the effect of one interchange of rows on a determinant."
+      - "Work out how the sign of the determinant changes."
+      - "Keep the magnitude of the original value."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the value of k for which the determinant of [[1, 2, 3], [4, 5, 6], [7, 8, k]] equals zero."
+    correct: "9"
+    unit: ""
+    wrong: []
+    explanation: "Expanding gives 1 times (5k minus 48) minus 2 times (4k minus 42) plus 3 times (32 minus 35), which simplifies to 27 minus 3k, and this is zero when k is 9."
+    hints:
+      - "Expand the determinant along the first row while keeping k as a symbol."
+      - "Collect the terms that contain k together."
+      - "Set the resulting linear expression equal to zero and solve."
+    diagram: null
+    confidence: high
+
+  - topic: "properties_of_determinants"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A is a 3 by 3 matrix with determinant 3. What is the determinant of its adjoint?"
+    correct: "9"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "assumes the adjoint has the same determinant as the matrix"}
+      - {text: "27", mistake: "uses the order of the matrix as the power instead of one less than it"}
+      - {text: "1/3", mistake: "applies the inverse rule to the adjoint"}
+    explanation: "For an n by n matrix the determinant of the adjoint is the determinant of A raised to the power n minus 1. With n equal to 3 and determinant 3, the result is 3 squared, which is 9."
+    hints:
+      - "Recall the general formula linking the determinant of a matrix and of its adjoint."
+      - "Check the power, which depends on the order of the matrix."
+      - "Substitute the given determinant into that power."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let A = [[2, 1], [5, 3]]. Find the entry in row 1, column 1 of the adjoint of A."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "For a 2 by 2 matrix the adjoint swaps the two diagonal entries and changes the sign of the off-diagonal entries, so the row 1, column 1 entry is the original row 2, column 2 entry, which is 3."
+    hints:
+      - "Swap the two diagonal entries of the matrix."
+      - "Change the signs of the off-diagonal entries."
+      - "Read off the entry in the top left of the result."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For a 2 by 2 matrix M with determinant 2, which expression gives the inverse of M?"
+    correct: "adj M divided by 2"
+    unit: ""
+    wrong:
+      - {text: "adj M", mistake: "forgets to divide by the determinant"}
+      - {text: "2 times adj M", mistake: "multiplies by the determinant instead of dividing"}
+      - {text: "M divided by 2", mistake: "divides the entries of the matrix instead of using the adjoint"}
+    explanation: "The inverse of an invertible matrix equals its adjoint divided by its determinant, and here the determinant is 2."
+    hints:
+      - "Recall the formula for the inverse in terms of the adjoint."
+      - "Identify which quantity goes in the numerator and which in the denominator."
+      - "Check whether the determinant divides or multiplies the adjoint."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let A = [[1, 2], [3, 4]]. Find the entry in row 2, column 2 of the inverse of A."
+    correct: "-0.5"
+    unit: ""
+    wrong: []
+    explanation: "The adjoint of A is [[4, -2], [-3, 1]], and the determinant of A is -2, so the row 2, column 2 entry of the inverse is 1 divided by -2, which is -0.5."
+    hints:
+      - "Find the adjoint first, using the diagonal swap and sign change."
+      - "The row 2, column 2 entry of the adjoint comes from the top left of the original."
+      - "Divide by the determinant at the end and keep its sign."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "If A is an invertible 3 by 3 matrix, what is the product of A and its adjoint?"
+    correct: "det(A) times the identity matrix"
+    unit: ""
+    wrong:
+      - {text: "The identity matrix", mistake: "forgets the scalar factor given by the determinant"}
+      - {text: "The zero matrix", mistake: "confuses the adjoint with a singular matrix"}
+      - {text: "The adjoint itself", mistake: "believes multiplying by the adjoint returns the adjoint"}
+    explanation: "A times adj A equals det(A) times the identity, which is a standard identity linking a matrix, its adjoint and its determinant."
+    hints:
+      - "Use the identity relating a matrix, its adjoint and its determinant."
+      - "Write the product as a scalar multiple of the identity."
+      - "Identify the scalar from the determinant."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let A = [[1, 2, 0], [0, 1, 3], [2, 0, 1]]. Find the entry in row 1, column 2 of the inverse of A, rounded to 3 decimal places."
+    correct: "-0.154"
+    unit: ""
+    wrong: []
+    explanation: "The determinant of A is 13. The row 1, column 2 entry of the inverse is the cofactor of the row 2, column 1 entry divided by 13, and that cofactor is minus 2, so the result is minus 2 over 13, about minus 0.154."
+    hints:
+      - "The inverse entry in row i, column j uses the cofactor in row j, column i."
+      - "Find the minor by deleting row 2 and column 1 from the matrix."
+      - "Attach the correct sign to that cofactor and divide by the determinant."
+    diagram: null
+    confidence: high
+
+  - topic: "adjoint_inverse"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A is a 3 by 3 matrix with determinant 2. Which expression equals adj(adj A)?"
+    correct: "2A"
+    unit: ""
+    wrong:
+      - {text: "A", mistake: "assumes the adjoint of the adjoint returns the original matrix"}
+      - {text: "A inverse", mistake: "treats the adjoint of the adjoint as the inverse"}
+      - {text: "4A", mistake: "uses the power 2 instead of the correct power"}
+    explanation: "For an n by n matrix, adj(adj A) equals det(A) raised to the power n minus 2 times A. With n equal to 3 and det A equal to 2, this is 2 times A."
+    hints:
+      - "Apply the rule for the adjoint of an adjoint using the order of the matrix."
+      - "Keep the scalar factor coming from the determinant."
+      - "Compare the power of the determinant with the order of the matrix minus two."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Solve the system x + y = 5 and x - y = 1 by matrices. What is the value of x?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Adding the two equations gives 2x = 6, so x is 3."
+    hints:
+      - "Write the system in the form AX = B with the constants in a column."
+      - "Use elimination or the inverse of the coefficient matrix."
+      - "Read off the first entry of the solution column."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For a system AX = B where det A is zero, which statement is correct about solving by matrix inversion?"
+    correct: "The matrix method does not give a unique solution"
+    unit: ""
+    wrong:
+      - {text: "It always has exactly one solution", mistake: "assumes every linear system has a unique solution"}
+      - {text: "A inverse always exists", mistake: "treats a zero determinant as harmless"}
+      - {text: "X equals B times A", mistake: "confuses the order of multiplication with solving"}
+    explanation: "When det A is zero the inverse of A does not exist, so the inversion method cannot produce a single unique solution."
+    hints:
+      - "Recall when the inverse of a coefficient matrix exists."
+      - "Think about what a zero determinant means for solving by inversion."
+      - "Consider whether the inversion method can produce one answer in this case."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Solve the system 2x + 3y = 8 and x + 2y = 5 by matrices. What is the value of y?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The determinant of the coefficient matrix is 1, and the solution is x equals 1 and y equals 2, which satisfies both equations."
+    hints:
+      - "Write the coefficient matrix and compute its determinant."
+      - "Apply the inverse formula for a square matrix of this size."
+      - "Multiply the inverse by the column of constants."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "If A is invertible, which expression gives the solution of AX = B?"
+    correct: "X = A inverse times B"
+    unit: ""
+    wrong:
+      - {text: "X = B times A inverse", mistake: "multiplies on the wrong side of the equation"}
+      - {text: "X = A times B", mistake: "replaces the inverse with the matrix itself"}
+      - {text: "X = B divided by A", mistake: "treats matrix division as entrywise division"}
+    explanation: "Multiplying both sides of AX = B on the left by the inverse of A gives X equal to A inverse times B, because a matrix times its inverse is the identity."
+    hints:
+      - "Multiply both sides of the equation by a suitable matrix on the left."
+      - "Remember that the order of matrix multiplication matters."
+      - "Simplify using the fact that a matrix times its inverse is the identity."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Solve the system 2x - y = 1 and x + 3y = 9 by matrices. What is the value of x, rounded to 3 decimal places?"
+    correct: "1.714"
+    unit: ""
+    wrong: []
+    explanation: "The determinant of the coefficient matrix is 7 and its inverse is (1 divided by 7) times [[3, 1], [-1, 2]]. Multiplying by the constants gives x equal to (3 times 1 plus 1 times 9) divided by 7, which is 12 divided by 7, about 1.714."
+    hints:
+      - "Write the system as AX = B with the constants in a column."
+      - "Compute the determinant of the coefficient matrix."
+      - "Use the inverse formula for a 2 by 2 matrix and read off the first entry."
+    diagram: null
+    confidence: high
+
+  - topic: "systems_by_matrices"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A is a nonzero square matrix with determinant zero, and the system AX = 0 is considered. Which statement is correct?"
+    correct: "It has infinitely many solutions, including nontrivial ones"
+    unit: ""
+    wrong:
+      - {text: "It has only the trivial solution", mistake: "forgets that a singular matrix can send a nonzero vector to zero"}
+      - {text: "It has no solutions", mistake: "assumes a homogeneous system is always inconsistent"}
+      - {text: "It has exactly two solutions", mistake: "counts the equations instead of the free variables"}
+    explanation: "A homogeneous system always has the zero solution, and because det A is zero the rank is less than the order, so there are free variables and infinitely many solutions."
+    hints:
+      - "A homogeneous system always has the all-zero solution."
+      - "Ask whether a singular matrix can map a nonzero vector to zero."
+      - "Think about the rank of A and how many free variables remain."
+    diagram: null
+    confidence: high

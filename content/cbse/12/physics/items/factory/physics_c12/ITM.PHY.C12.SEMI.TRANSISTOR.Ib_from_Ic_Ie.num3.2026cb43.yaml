@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.SEMI.TRANSISTOR.Ib_from_Ic_Ie.num3.2026cb43
+skill_ids:
+- PHY.C12.SEMI.TRANSISTOR
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying a transistor in the common emitter connection. The collector
+    current, Ic, is 2.5 mA and the emitter current, Ie, is 2.525 mA. Find the base
+    current.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: emitter current = base current + collector current.'
+- level: 2
+  en: The relation already gives the base current directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2.5 mA as 0.0025 A and 2.525 mA as 0.002525 A, then write
+    Ib = Ie - Ic, where Ib is the base current, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the base current have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.SEMI.TRANSISTOR
+generator_version: factory-2
+template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 25 μA
+- id: b
+  en: 2525 μA
+- id: c
+  en: 2.5 x 10^7 μA
+- id: d
+  en: 5025 μA
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.EMITTER_CURRENT_COPIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.CURRENTS_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emitter current = base current + collector current.'
+- en: 'Put each quantity in SI units: 2.5 mA = 0.0025 A; 2.525 mA = 0.002525 A.'
+- en: 'Substitute: Ib = 0.002525 - 0.0025.'
+- en: 'Calculate: Ib = 2.5 x 10^-5 A.'
+- en: 'Give it in μA: 25 μA.'
+- en: So the base current is 25 μA.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a82bb4bbe993cb74351ebc430260924866d24c53a08cd19596ed17807110f61d
+  template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+  certificate_hash: 59f909644008100305fd3a79fcccbcc16f6e7d405f735cd508e3759f8a5e2ab5
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.semiconductor_electronics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:49+00:00'
+  record_hash: 6a2829735bdd180f5a4b041567d0b7baa28754dad0c6d28ac2a6da7d651469dd

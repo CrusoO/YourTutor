@@ -1,0 +1,132 @@
+id: ITM.PHY.C12.SEMI.GATES.R_from_n.num3.f8262520
+skill_ids:
+- PHY.C12.SEMI.GATES
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: A student is studying the truth table of a logic gate. The gate has 4 inputs.
+    How many rows does its truth table have?
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Plan the steps: a truth
+    table lists every combination of n inputs, so it has 2^n rows.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write R = 2^n, where R is the number of rows in the truth table,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of rows in the truth
+    table be?
+status: draft
+template_id: TPL2.PHY.C12.SEMI.GATES
+generator_version: factory-2
+template_hash: 04d90ba3c3a9033cb9b91ff55fe139cc5043811dd36b654873bf7f8fb571e2fd
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '160'
+- id: c
+  en: '8'
+- id: d
+  en: '16'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TWO_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.INPUTS_DOUBLED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Plan: a truth table lists every combination of n inputs, so it has 2^n rows.'
+- en: 'Substitute: R = 2^4.'
+- en: 'Calculate: R = 16.'
+- en: So the number of rows in the truth table is 16.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 85fdc4b65885c80b26aae0fb7ba5d1c08943204b39be983b72f7aafc7b5d90e1
+  template_hash: 04d90ba3c3a9033cb9b91ff55fe139cc5043811dd36b654873bf7f8fb571e2fd
+  certificate_hash: 3ec8421525882cce803d59dbe188768198d02198687c29862c266ba3f410bbd5
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.semiconductor_electronics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:38+00:00'
+  record_hash: 804706b2d3721379008a261974de302214f48c34caf7fe50c7863e9bac523a94

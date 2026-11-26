@@ -1,0 +1,209 @@
+class: 11
+subject: maths
+chapter: linear_inequalities
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: inequalities_one_variable
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which set of real numbers x satisfies the inequality x + 3 > 7?"
+    correct: "x > 4"
+    unit: ""
+    wrong:
+      - {text: "x < 4", mistake: "flips the inequality sign without any operation that calls for it"}
+      - {text: "x > 10", mistake: "adds the constant instead of subtracting it from both sides"}
+      - {text: "x >= 4", mistake: "includes the boundary value even though the inequality is strict"}
+    explanation: "Subtracting 3 from both sides gives x > 4, so every number above 4 works and 4 itself does not."
+    hints:
+      - "Isolate the variable by undoing the constant that is added to it."
+      - "Apply the same operation to both sides of the inequality."
+      - "Decide whether the boundary value itself satisfies a strict inequality."
+    diagram: null
+    confidence: high
+  - topic: inequalities_one_variable
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the smallest integer x that satisfies the inequality 2x minus 1 greater than 5?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Adding 1 and dividing by 2 gives x greater than 3, so the smallest integer strictly above 3 is 4."
+    hints:
+      - "Solve the inequality for x in the same way as an equation."
+      - "Remember that the boundary value itself is excluded."
+      - "Choose the first integer that lies strictly beyond the boundary."
+    diagram: null
+    confidence: high
+  - topic: inequalities_one_variable
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Solve the inequality minus 3x plus 2 greater than or equal to 11 for real x."
+    correct: "x <= -3"
+    unit: ""
+    wrong:
+      - {text: "x >= -3", mistake: "forgets to reverse the inequality after dividing by a negative number"}
+      - {text: "x <= 3", mistake: "drops the negative sign when dividing"}
+      - {text: "x >= 3", mistake: "makes both the sign and the direction errors at once"}
+    explanation: "Subtracting 2 gives minus 3x at least 9, and dividing by minus 3 reverses the sign so x is at most minus 3."
+    hints:
+      - "First move the constant term to the other side of the inequality."
+      - "Before dividing, check the sign of the coefficient of x."
+      - "Think about what happens to the direction of an inequality when both sides are multiplied by a negative."
+    diagram: null
+    confidence: high
+  - topic: inequalities_one_variable
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which interval notation represents the solution of the compound inequality 2 < x less than or equal to 5?"
+    correct: "(2, 5]"
+    unit: ""
+    wrong:
+      - {text: "[2, 5)", mistake: "uses closed brackets at the endpoints the wrong way round"}
+      - {text: "(2, 5)", mistake: "excludes the upper boundary that the inequality includes"}
+      - {text: "[2, 5]", mistake: "includes the lower boundary that the strict inequality excludes"}
+    explanation: "The lower end 2 is excluded because the inequality is strict there, while 5 is included, giving the half open interval (2, 5]."
+    hints:
+      - "Decide for each endpoint whether the inequality is strict or inclusive."
+      - "Use a round bracket for an excluded endpoint and a square bracket for an included one."
+      - "Check the order of the endpoints from left to right on the number line."
+    diagram: "Number line from 0 to 6 with an open circle at 2, a filled circle at 5, and the segment between them shaded."
+    confidence: high
+  - topic: inequalities_one_variable
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "What is the largest integer x that satisfies the inequality (x minus 1) divided by 2 less than (3 minus x) divided by 3?"
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "Clearing denominators gives 3x minus 3 less than 6 minus 2x, so 5x is less than 9 and x is less than 1.8, making 1 the largest integer."
+    hints:
+      - "Clear the fractions by multiplying through by a suitable common denominator."
+      - "Gather the terms in x on one side and the constants on the other."
+      - "Consider the integers just below the boundary value you obtain."
+    diagram: "Number line with the boundary point marked as an open circle, and the region to its left shaded to show the solution set."
+    confidence: high
+  - topic: inequalities_one_variable
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which interval is the solution set of the absolute value inequality absolute value of (x minus 2) less than 3?"
+    correct: "(-1, 5)"
+    unit: ""
+    wrong:
+      - {text: "(-5, 1)", mistake: "subtracts the centre instead of adding it at the end"}
+      - {text: "(1, 5)", mistake: "chooses endpoints that are not equidistant from the centre"}
+      - {text: "[-1, 5]", mistake: "includes endpoints for a strict inequality"}
+    explanation: "The inequality means x minus 2 lies between minus 3 and 3, so x lies strictly between minus 1 and 5."
+    hints:
+      - "Rewrite the absolute value inequality as a pair of simpler inequalities."
+      - "Add the centre value to each side of the double inequality."
+      - "Check whether each endpoint is included or excluded."
+    diagram: null
+    confidence: medium
+  - topic: inequalities_two_variables
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which point lies in the solution region of the inequality x + y less than or equal to 4?"
+    correct: "(1, 2)"
+    unit: ""
+    wrong:
+      - {text: "(3, 3)", mistake: "reverses the inequality direction while testing the point"}
+      - {text: "(4, 1)", mistake: "mishandles the sum of the coordinates and gets exactly the boundary"}
+      - {text: "(2, 4)", mistake: "reads the boundary as excluded when the inequality allows equality"}
+    explanation: "The point (1, 2) gives a sum of 3, which is at most 4, so it lies in the region."
+    hints:
+      - "Substitute each candidate point into the inequality and simplify."
+      - "Compare the resulting sum with the bound given in the inequality."
+      - "Check whether the boundary itself is part of the region."
+    diagram: "Coordinate axes with the boundary line x plus y equal to 4 drawn as a solid line, and a candidate point marked on each side of it."
+    confidence: high
+  - topic: inequalities_two_variables
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which type of boundary line is drawn for the strict inequality y greater than 2x?"
+    correct: "dashed line"
+    unit: ""
+    wrong:
+      - {text: "solid line", mistake: "uses the style for inclusive inequalities even though the inequality is strict"}
+      - {text: "vertical line", mistake: "confuses the slope of the boundary with a constant value"}
+      - {text: "no boundary line", mistake: "forgets that a boundary is always needed to shade a region"}
+    explanation: "Because the inequality is strict, the points on the line y equals 2x are excluded, so the boundary is drawn dashed."
+    hints:
+      - "Ask whether the points exactly on the boundary satisfy the inequality."
+      - "Use one style of line for points that are included and another for points that are not."
+      - "Check the boundary equation you get by replacing the inequality sign with an equality."
+    diagram: null
+    confidence: high
+  - topic: inequalities_two_variables
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "The region given by x greater than or equal to 0, y greater than or equal to 0 and x plus y less than or equal to 6 is a triangle. What is its area in square units?"
+    correct: "18"
+    unit: "square units"
+    wrong: []
+    explanation: "The triangle has legs of length 6 along both axes, so its area is one half times 6 times 6, which is 18."
+    hints:
+      - "Sketch the lines bounding the region, including the two axes and the line of the sum."
+      - "Identify the shape formed by those lines and the axes."
+      - "Use the area formula for that shape with the leg lengths you read off."
+    diagram: "Coordinate axes in the first quadrant with a line joining the points on each axis, forming a right triangle that is shaded as the feasible region."
+    confidence: high
+  - topic: inequalities_two_variables
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which point is where the lines x plus y equals 4 and x minus y equals 2 intersect?"
+    correct: "(3, 1)"
+    unit: ""
+    wrong:
+      - {text: "(2, 2)", mistake: "reads the intersection as the point where the two coordinates are equal"}
+      - {text: "(1, 3)", mistake: "swaps the coordinates of the solution"}
+      - {text: "(4, 0)", mistake: "takes an axis intercept of one line instead of the intersection"}
+    explanation: "Adding the two equations gives 2x equals 6, so x is 3 and substituting back gives y equal to 1."
+    hints:
+      - "Add or subtract the two equations to eliminate one variable."
+      - "Solve the resulting single equation for the remaining variable."
+      - "Substitute that value back into one of the original equations."
+    diagram: "Coordinate axes with two straight lines crossing at a single point in the first quadrant, the crossing point marked."
+    confidence: high
+  - topic: inequalities_two_variables
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Maximise P equal to 3x plus 2y subject to x greater than or equal to 0, y greater than or equal to 0, x plus y less than or equal to 4 and x less than or equal to 3. What is the maximum value of P?"
+    correct: "11"
+    unit: ""
+    wrong: []
+    explanation: "The corner points give P values 0, 8, 11 and 9, so the maximum is 11 at the corner where x is 3 and y is 1."
+    hints:
+      - "Identify all the corner points of the feasible region."
+      - "Evaluate the objective expression at each corner point."
+      - "Pick the largest of the values you obtained."
+    diagram: "Feasible region in the first quadrant bounded by the axes, the vertical line at x equal to 3 and the line x plus y equal to 4, with its corner points labelled."
+    confidence: medium
+  - topic: inequalities_two_variables
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which system of inequalities has a bounded feasible region?"
+    correct: "x >= 0, y >= 0 and x plus y <= 5"
+    unit: ""
+    wrong:
+      - {text: "x >= 0 and y >= 0", mistake: "leaves the upper side of the region open to infinity"}
+      - {text: "x plus y >= 5 and x >= 0", mistake: "assumes a half plane is always bounded"}
+      - {text: "x minus y <= 1 and x plus y >= 3", mistake: "treats a pair of crossing lines as if it enclosed a region"}
+    explanation: "The non-negativity conditions and the single upper bound on x plus y enclose a triangle, so the region is bounded."
+    hints:
+      - "Ask whether the region can extend indefinitely in some direction."
+      - "Check which inequalities impose an upper limit on the variables."
+      - "Sketch each half plane and see whether they close off a finite area."
+    diagram: null
+    confidence: medium

@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.AC.LCR.Z_from_R_XL_XC.num3.2a23993f
+skill_ids:
+- PHY.C12.AC.LCR
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying a series LCR circuit on an alternating supply. The resistance,
+    R, is 16 Ω, the inductive reactance, XL, is 30 Ω and the capacitive reactance,
+    XC, is 18 Ω. Find the impedance of the circuit.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: Z = square root of (R^2 + (XL - XC)^2).'
+- level: 2
+  en: The relation already gives the impedance directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write Z = sqrt(R^2 + (XL - XC)^2), where Z is the impedance, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the impedance have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.LCR
+generator_version: factory-2
+template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20 Ω
+- id: b
+  en: 200 Ω
+- id: c
+  en: 400 Ω
+- id: d
+  en: 28 Ω
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ROOT_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.REACTANCES_ADDED_TO_RESISTANCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Z = square root of (R^2 + (XL - XC)^2).'
+- en: 'Substitute: Z = sqrt(16^2 + (30 - 18)^2).'
+- en: 'Calculate: Z = 20 Ω.'
+- en: So the impedance is 20 Ω.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4159f540d927ec51612b6d971670ce2bb862ce37f537139174520957d2b8e4a5
+  template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+  certificate_hash: c9611c788ee73399203f506ea909b389ada18a760a67d2afee78639dff6c81aa
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:05+00:00'
+  record_hash: 4d303e4a6dfa66137c74573c6ea0c48c5b2e3151cd59fb7da69c37a020dd0432

@@ -1,0 +1,132 @@
+id: ITM.PHY.C12.NUC.DECAY.N0_from_N_n.mcq1.e4e3332c
+skill_ids:
+- PHY.C12.NUC.DECAY
+difficulty: 0.25
+pool: practice
+role: procedure
+stem:
+  en: The number of undecayed nuclei left, N, is 2500 and the number of half-lives
+    that pass, n, is 5. Find the starting number of nuclei.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Plan the steps: after
+    n half-lives the number left is N0 / 2^n.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write N0 = N x 2^n, where N0 is the starting number of nuclei,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the starting number of nuclei
+    be?
+status: draft
+template_id: TPL2.PHY.C12.NUC.DECAY
+generator_version: factory-2
+template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5000'
+- id: b
+  en: '78.125'
+- id: c
+  en: '80000'
+- id: d
+  en: '12500'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DOUBLED_ONCE_ONLY
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.HALVED_NOT_DOUBLED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.MULTIPLIED_BY_N
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: after n half-lives the number left is N0 / 2^n.'
+- en: 'Substitute: N0 = 2500 x 2^5.'
+- en: 'Calculate: N0 = 80000.'
+- en: So the starting number of nuclei is 80000.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e245b42b26d84e7eae4e5a09c9d8409eb0f39161845a74e0d57c76764e2b73e8
+  template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+  certificate_hash: 1798236fe98fdce099361589f4db0925506027a16cd27de64f325d027a97d106
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:16+00:00'
+  record_hash: 2da8427b0f59cabff4eafef5144a116fc715c04a075fd0ce9b4ab9ed6679e738

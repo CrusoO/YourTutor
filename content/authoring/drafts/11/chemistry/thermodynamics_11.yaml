@@ -1,0 +1,404 @@
+class: 11
+subject: "chemistry"
+chapter: "thermodynamics_11"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which type of system can exchange energy with its surroundings but not matter?"
+    correct: "closed system"
+    unit: ""
+    wrong:
+      - {text: "open system", mistake: "assumes energy transfer requires matter to cross the boundary as well"}
+      - {text: "isolated system", mistake: "says that no energy can cross the boundary of the system"}
+      - {text: "adiabatic system", mistake: "confuses heat insulation with the type of system defined by exchange"}
+    explanation: "A closed system can exchange energy, such as heat and work, with its surroundings, but it cannot exchange matter across its boundary."
+    hints:
+      - "Think about whether matter can cross the boundary while energy still can."
+      - "The boundary type is set by what it allows to pass, matter or energy."
+      - "Compare the three systems by what each one lets across its boundary."
+    diagram: null
+    confidence: "high"
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which of the following is a state function?"
+    correct: "enthalpy"
+    unit: ""
+    wrong:
+      - {text: "work done", mistake: "treats a path-dependent quantity as a state function"}
+      - {text: "heat absorbed", mistake: "confuses heat exchanged in a process with a property of the state"}
+      - {text: "the path followed", mistake: "assumes the route taken is a property of the system"}
+    explanation: "Enthalpy depends only on the state of the system, so its change depends only on the initial and final states and not on the route."
+    hints:
+      - "A state function depends only on the initial and final conditions, not on the route."
+      - "Quantities that describe the condition of the system itself are state functions."
+      - "Heat and work depend on how the change is carried out."
+    diagram: null
+    confidence: "high"
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Which thermodynamic variable is an extensive property?"
+    correct: "internal energy"
+    unit: ""
+    wrong:
+      - {text: "temperature", mistake: "confuses intensive properties with extensive ones"}
+      - {text: "pressure", mistake: "assumes pressure scales with the amount of matter"}
+      - {text: "density", mistake: "treats density as growing with the amount of matter"}
+    explanation: "Internal energy doubles when the amount of matter doubles, so it is extensive, while temperature, pressure and density do not depend on the amount."
+    hints:
+      - "An extensive property changes in proportion to the amount of matter in the system."
+      - "Check whether doubling the sample would double the quantity."
+      - "Intensive properties stay the same when the sample is divided."
+    diagram: null
+    confidence: "high"
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "In an isolated system, what happens to the total energy of the system?"
+    correct: "it remains constant"
+    unit: ""
+    wrong:
+      - {text: "it increases steadily with time", mistake: "assumes that heating always adds energy to the system without limit"}
+      - {text: "it decreases steadily with time", mistake: "treats energy as continually lost to the walls"}
+      - {text: "it equals zero", mistake: "confuses the total energy with the change in entropy"}
+    explanation: "An isolated system exchanges neither matter nor energy with its surroundings, so its total energy stays constant."
+    hints:
+      - "Think about what can cross the boundary of an isolated system."
+      - "Consider whether any energy can enter or leave the system."
+      - "Look for the statement about the total energy staying unchanged."
+    diagram: null
+    confidence: "high"
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "hard"
+    role: "apply"
+    stem: "Which process is isothermal?"
+    correct: "a gas expanding slowly in contact with a large heat bath"
+    unit: ""
+    wrong:
+      - {text: "a gas compressed in an insulated container", mistake: "treats insulation as a way of keeping the temperature constant"}
+      - {text: "a flask heated at constant volume", mistake: "assumes heating can keep the temperature fixed"}
+      - {text: "a gas expanding into a vacuum with no heat exchange", mistake: "treats free expansion as a temperature-controlled process"}
+    explanation: "An isothermal process keeps the temperature constant, which requires thermal contact with a large reservoir at that temperature during slow expansion."
+    hints:
+      - "Constant temperature needs thermal contact with something at that temperature."
+      - "Consider whether the gas can exchange heat with a large reservoir during the change."
+      - "Look for the process that is slow and in thermal contact with its surroundings."
+    diagram: null
+    confidence: "high"
+  - topic: "system_surroundings_state"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For a system that is taken through a cyclic process and returns to its starting state, which quantity has a change of zero?"
+    correct: "internal energy change"
+    unit: ""
+    wrong:
+      - {text: "heat absorbed", mistake: "assumes heat exchanged over a cycle must also be zero"}
+      - {text: "work done", mistake: "confuses the net work of a cycle with the change of a state property"}
+      - {text: "entropy of the surroundings", mistake: "treats the surroundings as part of the cycle"}
+    explanation: "Internal energy is a state function, so over a complete cycle that returns the system to its starting state its net change is zero, even though heat and work are not zero."
+    hints:
+      - "A cycle returns the system to its starting state."
+      - "Think about which kinds of quantity depend only on the state of the system."
+      - "Only state functions have zero net change around a closed loop."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A system absorbs 100 J of heat and does 40 J of work on the surroundings. What is the change in its internal energy in joules?"
+    correct: "60"
+    unit: "J"
+    wrong: []
+    explanation: "Using delta U equal to q minus w, with q = +100 J and work done by the system w = 40 J, gives a change of 60 J."
+    hints:
+      - "Use the first law with heat added as positive and work done by the system subtracted."
+      - "Identify which quantity is the heat and which is the work before substituting."
+      - "Compute the difference between the heat and the work."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "In the first law written as delta U = q + w, what sign is taken for work done on the system?"
+    correct: "positive"
+    unit: ""
+    wrong:
+      - {text: "negative", mistake: "mixes the sign convention for work done on the system with work done by it"}
+      - {text: "zero", mistake: "assumes work is zero at constant pressure"}
+      - {text: "dependent only on temperature", mistake: "treats work as a state function that depends on temperature"}
+    explanation: "With this convention, work done on the system is positive because it adds energy to the system and raises its internal energy."
+    hints:
+      - "Think about whether the energy supplied to the system raises its internal energy."
+      - "Consider the sign used for energy that enters the system."
+      - "Look for the option that matches energy entering the system."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A gas expands against a constant external pressure of 0.5 atm from 2 L to 4 L. Taking 1 atm L as 101 J, what is the work done by the gas in joules? Report it as a positive number."
+    correct: "101"
+    unit: "J"
+    wrong: []
+    explanation: "Work against a constant pressure is P times the volume change, which is 0.5 atm times 2 L, or 1 atm L, equal to 101 J."
+    hints:
+      - "Multiply the constant external pressure by the change in volume."
+      - "Work done by the gas during expansion equals pressure times the volume change."
+      - "Convert the result using the conversion factor given in the question."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "For a reaction with an increase of 1 mol in gaseous moles, delta U is 20 kJ at 300 K. What is delta H in kJ? Use R = 8.314 J/mol/K."
+    correct: "22.5"
+    unit: "kJ"
+    wrong: []
+    explanation: "delta H equals delta U plus delta n times RT, which is 20 kJ plus 1 times 8.314 times 300 J, about 2.49 kJ, giving 22.5 kJ."
+    hints:
+      - "Multiply the change in gas moles by R and by the temperature."
+      - "Add that product to the internal energy change."
+      - "Keep units consistent by converting joules to kilojoules at the end."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "How many kilojoules of heat are needed to raise the temperature of 50 g of water by 10 K? The specific heat capacity of water is 4.18 J/g/K."
+    correct: "2.09"
+    unit: "kJ"
+    wrong: []
+    explanation: "Heat equals mass times specific heat times temperature change, which is 50 times 4.18 times 10 equal to 2090 J, or 2.09 kJ."
+    hints:
+      - "Multiply the mass, the specific heat capacity and the temperature change."
+      - "Be careful to use the same units for the mass and the specific heat."
+      - "Convert the final value from joules into kilojoules."
+    diagram: null
+    confidence: "high"
+  - topic: "first_law_enthalpy"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For a reaction in which the number of moles of gas decreases by 2 at 298 K, which statement about delta H and delta U is correct?"
+    correct: "delta H is less than delta U"
+    unit: ""
+    wrong:
+      - {text: "delta H is greater than delta U", mistake: "reverses the sign of the change in gas moles"}
+      - {text: "delta H is always equal to delta U", mistake: "ignores the gas moles in the relation between enthalpy and internal energy"}
+      - {text: "delta H is zero", mistake: "assumes a reaction with no net gas change has no enthalpy change"}
+    explanation: "delta H equals delta U plus delta n times RT, and a decrease in gas moles makes delta n negative, so delta H is smaller than delta U."
+    hints:
+      - "Work out whether the gas moles are increasing or decreasing across the reaction."
+      - "Use the relation between enthalpy and internal energy that includes the gas moles."
+      - "Check the sign of the correction term before comparing the two values."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Hess's law is based on which principle?"
+    correct: "enthalpy is a state function, so the total change depends only on the initial and final states"
+    unit: ""
+    wrong:
+      - {text: "mass is conserved in every chemical reaction", mistake: "uses mass conservation as the basis instead of the state-function argument"}
+      - {text: "the reaction rate depends on the number of steps", mistake: "treats the number of steps as a factor in the enthalpy change"}
+      - {text: "entropy of the universe always increases", mistake: "mixes Hess's law with the second law of thermodynamics"}
+    explanation: "Because enthalpy is a state function, the overall enthalpy change of a reaction is the same whatever route is taken, so separate steps can be added together."
+    hints:
+      - "Think about whether the enthalpy change depends on the route taken."
+      - "Consider what happens to the total change when you add steps that form a cycle."
+      - "Look for the principle that allows you to add reaction equations."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Given C + O2 -> CO2 with delta H = -394 kJ and CO + 1/2 O2 -> CO2 with delta H = -283 kJ, what is delta H in kJ for C + 1/2 O2 -> CO?"
+    correct: "-111"
+    unit: "kJ"
+    wrong: []
+    explanation: "Subtracting the second equation from the first gives C + 1/2 O2 -> CO, with delta H equal to -394 minus (-283), which is -111 kJ."
+    hints:
+      - "Reverse the second equation and add it to the first."
+      - "When you reverse an equation, change the sign of its enthalpy change."
+      - "Cancel the species that appear on both sides before adding the values."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Given C + O2 -> CO2 (delta H = -394 kJ/mol), H2 + 1/2 O2 -> H2O (delta H = -286 kJ/mol) and CH4 + 2 O2 -> CO2 + 2 H2O (delta H = -891 kJ/mol), what is delta H in kJ/mol for C + 2 H2 -> CH4?"
+    correct: "-75"
+    unit: "kJ/mol"
+    wrong: []
+    explanation: "Adding the first equation to two times the second and then reversing the methane combustion gives delta H equal to -394 plus 2 times -286 minus -891, which is -75 kJ/mol."
+    hints:
+      - "Reverse the methane combustion equation and multiply the water equation by two."
+      - "Add all the adjusted equations and check that the unwanted species cancel."
+      - "Remember to change the sign of each enthalpy when you reverse an equation."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "If A -> C has delta H1 and C -> B has delta H2, what is delta H for the reaction 2A -> B?"
+    correct: "2 delta H1 + delta H2"
+    unit: ""
+    wrong:
+      - {text: "delta H1 + delta H2", mistake: "forgets the stoichiometric factor needed for two moles of A"}
+      - {text: "delta H2 - delta H1", mistake: "subtracts the steps when they should be added"}
+      - {text: "2 delta H1 - delta H2", mistake: "reverses the second step when it runs in the forward direction"}
+    explanation: "Doubling the first step gives 2A -> 2C with 2 delta H1, and adding the second step gives 2A -> B with 2 delta H1 plus delta H2."
+    hints:
+      - "Multiply each step by the factor needed to match the coefficients of the target reaction."
+      - "Add the adjusted steps together to get the overall reaction."
+      - "Make sure no intermediate species is left over at the end."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "Estimate delta H in kJ/mol for H2 + Cl2 -> 2 HCl using bond enthalpies: H-H 436, Cl-Cl 242 and H-Cl 431 kJ/mol."
+    correct: "-184"
+    unit: "kJ/mol"
+    wrong: []
+    explanation: "Bonds broken total 436 plus 242, or 678 kJ/mol, while bonds formed total 2 times 431, or 862 kJ/mol, so delta H is 678 minus 862, which is -184 kJ/mol."
+    hints:
+      - "Add the energies needed to break the bonds in the reactants."
+      - "Subtract the energy released when the bonds in the products form."
+      - "Check that you counted every bond with its correct multiplier."
+    diagram: null
+    confidence: "high"
+  - topic: "hess_law"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Using standard enthalpies of formation of CO2 = -394, H2O(l) = -286 and CH4 = -75 kJ/mol, what is delta H in kJ/mol for CH4 + 2 O2 -> CO2 + 2 H2O(l)?"
+    correct: "-891"
+    unit: "kJ/mol"
+    wrong: []
+    explanation: "The sum of product values is -394 plus 2 times -286, or -966 kJ/mol, and the reactant sum is -75 kJ/mol, so delta H is -966 minus -75, which equals -891 kJ/mol."
+    hints:
+      - "Subtract the total for the reactants from the total for the products."
+      - "Multiply each enthalpy of formation by its coefficient before adding."
+      - "The element oxygen has a formation value of zero."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which change normally increases the entropy of a system?"
+    correct: "a liquid evaporating into a gas"
+    unit: ""
+    wrong:
+      - {text: "a gas condensing into a liquid", mistake: "reverses the direction in which disorder increases"}
+      - {text: "a crystal forming from a solution", mistake: "treats the ordering of particles as an entropy increase"}
+      - {text: "a gas being compressed into a smaller volume at constant temperature", mistake: "ignores the loss of possible arrangements when the gas is compressed"}
+    explanation: "Gas molecules have far more positions and motions available than liquid molecules, so evaporation sharply increases the entropy of the system."
+    hints:
+      - "Think about which change gives molecules more freedom of position and motion."
+      - "Consider whether the particles become more or less spread out."
+      - "Look for the change that moves particles from a more confined phase to a freer one."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "numeric"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For a reaction with delta H = 100 kJ and T delta S = 40 kJ, what is delta G in kJ?"
+    correct: "60"
+    unit: "kJ"
+    wrong: []
+    explanation: "Gibbs energy change equals enthalpy change minus T delta S, which is 100 minus 40, giving 60 kJ."
+    hints:
+      - "Subtract the product of temperature and entropy change from the enthalpy change."
+      - "Use the standard relation between Gibbs energy, enthalpy and entropy."
+      - "Keep the sign of each term as given in the question."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A reaction has delta H = -92 kJ and delta S = -0.2 kJ/K at 298 K. What is delta G in kJ?"
+    correct: "-32.4"
+    unit: "kJ"
+    wrong: []
+    explanation: "Delta G equals -92 minus 298 times (-0.2), which is -92 + 59.6, giving -32.4 kJ."
+    hints:
+      - "Multiply the temperature by the entropy change first."
+      - "Subtract that product from the enthalpy change, watching the signs carefully."
+      - "Check that the units of the two terms are both kilojoules."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A reaction has positive delta H and positive delta S. At which temperatures is it spontaneous?"
+    correct: "above a certain temperature"
+    unit: ""
+    wrong:
+      - {text: "at no temperature", mistake: "assumes a positive enthalpy change always blocks a reaction"}
+      - {text: "at low temperature only", mistake: "treats the entropy term as negligible when the temperature is low"}
+      - {text: "at all temperatures", mistake: "treats the entropy change as the only factor that decides spontaneity"}
+    explanation: "Delta G equals delta H minus T delta S, and the entropy term grows with temperature, so the reaction becomes spontaneous once T delta S exceeds delta H."
+    hints:
+      - "Compare the enthalpy term with the entropy term multiplied by temperature."
+      - "Consider how the entropy term changes as the temperature rises."
+      - "Find the temperature at which the sign of delta G changes."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A reaction has delta H = 120 kJ and delta S = 0.4 kJ/K. At what temperature in kelvin does delta G equal zero?"
+    correct: "300"
+    unit: "K"
+    wrong: []
+    explanation: "Setting delta G to zero gives T equal to delta H divided by delta S, which is 120 divided by 0.4, equal to 300 K."
+    hints:
+      - "Set the Gibbs energy change to zero and solve for the temperature."
+      - "Rearrange the relation so that temperature is the subject."
+      - "Keep the units of enthalpy and entropy consistent before dividing."
+    diagram: null
+    confidence: "high"
+  - topic: "entropy_gibbs"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A reaction has delta G equal to +15 kJ/mol at 298 K. Which statement is correct?"
+    correct: "the reaction is not spontaneous in the forward direction under these conditions"
+    unit: ""
+    wrong:
+      - {text: "the reaction is spontaneous in the forward direction", mistake: "reads a positive Gibbs energy change as favourable"}
+      - {text: "the reaction is at equilibrium", mistake: "treats any nonzero Gibbs energy change as equilibrium"}
+      - {text: "delta H must be exactly zero", mistake: "requires the entropy change to be zero whenever Gibbs energy is positive"}
+    explanation: "A positive Gibbs energy change means the forward reaction is not spontaneous under those conditions, and the reverse direction is favoured."
+    hints:
+      - "Recall what a negative sign of Gibbs energy change indicates."
+      - "Compare the sign given in the question with the criterion for spontaneity."
+      - "Decide which direction the reaction would proceed on its own."
+    diagram: null
+    confidence: "high"

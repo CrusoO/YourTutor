@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.GALV.I_from_G_Ig_S.num3.69a2f3a1
+skill_ids:
+- PHY.C12.MAG.GALV
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying converting a galvanometer into an ammeter or a voltmeter.
+    The galvanometer coil has a resistance of 100 Ω, its full scale deflection needs
+    1 mA and the shunt resistance, S, is 10 Ω. Find the largest current the ammeter
+    can read.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: Ig x G = (I - Ig) x S, so I = Ig x (G + S) / S.'
+- level: 2
+  en: The relation already gives the ammeter range directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 1 mA as 0.001 A, then write I = Ig x (G + S) / S, where I
+    is the ammeter range, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the ammeter range have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.GALV
+generator_version: factory-2
+template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12 mA
+- id: b
+  en: 0.0909 mA
+- id: c
+  en: 11 mA
+- id: d
+  en: 10 mA
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FULL_SCALE_CURRENT_COPIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.SHUNT_ONLY_CURRENT
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.RESISTANCES_NOT_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Ig x G = (I - Ig) x S, so I = Ig x (G + S) / S.'
+- en: 'Put each quantity in SI units: 1 mA = 0.001 A.'
+- en: 'Substitute: I = 0.001 x (100 + 10) / 10.'
+- en: 'Calculate: I = 0.011 A.'
+- en: 'Give it in mA: 11 mA.'
+- en: So the ammeter range is 11 mA.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ac3000de1737b8210d7f73a53c197b141fdf2c7faef8019760276f6b5c797f87
+  template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+  certificate_hash: 84450371caa6d083ea95a0b9d8a746e2fb274a3e61635fa53fa1aede763ecf6b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:31+00:00'
+  record_hash: dd84e48c2359ddf23734be20b2540ce2e74de164176b9595c10bf970accfe019

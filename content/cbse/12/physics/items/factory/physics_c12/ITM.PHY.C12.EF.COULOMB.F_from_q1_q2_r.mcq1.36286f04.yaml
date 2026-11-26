@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.EF.COULOMB.F_from_q1_q2_r.mcq1.36286f04
+skill_ids:
+- PHY.C12.EF.COULOMB
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The first charge, q1, is 3 nC, the second charge, q2, is 4 nC and the separation
+    of the charges, r, is 3 cm. Find the force between the charges. Take k = 9 x 10^9
+    N m²/C².
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: F = k x q1 x q2 / r^2.'
+- level: 2
+  en: The relation already gives the force directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 3 nC as 3 x 10^-9 C, 4 nC as 4 x 10^-9 C and 3 cm as 0.03
+    m, then write F = k x q1 x q2 / r^2, where F is the force, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the force have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EF.COULOMB
+generator_version: factory-2
+template_hash: d595676a737bfc8ced11ac0895426c7a512d68c194219b81cfcab6aae76fa10a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3.6 x 10^-6 N
+- id: b
+  en: 1.2 x 10^-8 N
+- id: c
+  en: 1.2 x 10^-4 N
+- id: d
+  en: 0.0012 N
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DISTANCE_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DISTANCE_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = k x q1 x q2 / r^2.'
+- en: 'Put each quantity in SI units: 3 nC = 3 x 10^-9 C; 4 nC = 4 x 10^-9 C; 3 cm
+    = 0.03 m.'
+- en: 'Substitute: F = (9 x 10^9) x (3 x 10^-9) x (4 x 10^-9) / 0.03^2.'
+- en: 'Calculate: F = 1.2 x 10^-4 N.'
+- en: So the force is 1.2 x 10^-4 N.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7953b28b82d5ab4b86795a1985627fbf66cd8f3b2b94188aea2deb0cf6b445ab
+  template_hash: d595676a737bfc8ced11ac0895426c7a512d68c194219b81cfcab6aae76fa10a
+  certificate_hash: 61ef8000e32a1463c13f4a892b3c63a44daabd83a4fa33785fc3a3e6dfebf39b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electric_charges_fields
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:50+00:00'
+  record_hash: 0eba273340d31ae2677f637516159b40b819b3415232ce88a7b356d05888fff0

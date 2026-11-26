@@ -1,0 +1,398 @@
+class: 12
+subject: physics
+chapter: nuclei
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: nuclear_size_density
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "How does the radius of a nucleus depend on its mass number A?"
+    correct: "The radius is proportional to A to the power one third"
+    unit: ""
+    wrong:
+      - {text: "The radius is proportional to A", mistake: "assumes radius grows linearly with the number of nucleons"}
+      - {text: "The radius is proportional to A squared", mistake: "assumes the radius grows with the square of the nucleon number"}
+      - {text: "The radius is the same for all nuclei", mistake: "assumes all nuclei have the same size"}
+    explanation: "Nuclear density is roughly constant, so the volume is proportional to A. Since volume scales as R cubed, the radius is proportional to A to the one third."
+    hints:
+      - "Think about how the volume of a nucleus depends on the number of nucleons when density is roughly constant."
+      - "Recall the relation between a sphere's volume and its radius."
+      - "Work backwards from volume to radius."
+    diagram: null
+    confidence: high
+  - topic: nuclear_size_density
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "Using R equal to 1.2 times A to the power one third fm, what is the radius of a nucleus with mass number 27, in fm?"
+    correct: "3.6"
+    unit: "fm"
+    wrong: []
+    explanation: "The cube root of 27 is 3, so the radius is 1.2 times 3, which equals 3.6 fm."
+    hints:
+      - "Use R equal to R0 times A to the one third, with R0 equal to 1.2 fm."
+      - "Find the cube root of the mass number first."
+      - "Multiply the cube root by 1.2 fm."
+    diagram: null
+    confidence: high
+  - topic: nuclear_size_density
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the ratio of the radius of a nucleus with mass number 64 to the radius of a nucleus with mass number 8?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The radius is proportional to the cube root of the mass number. The cube root of 64 is 4 and the cube root of 8 is 2, so the ratio is 2."
+    hints:
+      - "Use the cube root relation for the nuclear radius."
+      - "Compare the cube roots of the two mass numbers."
+      - "Take the ratio of the two cube roots."
+    diagram: null
+    confidence: high
+  - topic: nuclear_size_density
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "Assuming constant nuclear density, how many times greater is the volume of a nucleus with mass number 216 than that of a nucleus with mass number 8?"
+    correct: "27"
+    unit: ""
+    wrong: []
+    explanation: "With constant density the volume is proportional to the mass number. The ratio 216 divided by 8 is 27."
+    hints:
+      - "Volume is proportional to the mass number when density is constant."
+      - "Divide the larger mass number by the smaller one."
+      - "Check the answer against the cube of the ratio of the radii."
+    diagram: null
+    confidence: high
+  - topic: nuclear_size_density
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Experiments show that nuclear density is nearly the same for all nuclei. Why is this so?"
+    correct: "Nuclear forces are short ranged and saturate, so each nucleon interacts only with its neighbours"
+    unit: ""
+    wrong:
+      - {text: "Protons and neutrons have identical masses", mistake: "assumes equal nucleon masses explain the density alone"}
+      - {text: "Electrons confine the nucleus to a fixed size", mistake: "assumes the orbital electrons set the size of the nucleus"}
+      - {text: "Heavier nuclei are more tightly packed in space", mistake: "reverses the observed trend of nuclear density"}
+    explanation: "The strong force saturates, so each nucleon only binds to a fixed number of close neighbours. The volume therefore grows in proportion to the number of nucleons."
+    hints:
+      - "Think about how many nucleons a given nucleon can interact with."
+      - "Consider whether the volume grows in proportion to the number of nucleons."
+      - "Recall the range of the strong nuclear force."
+    diagram: null
+    confidence: high
+  - topic: nuclear_size_density
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A nucleus has a radius of 6 fm. Using R equal to 1.2 times A to the power one third fm, what is its mass number?"
+    correct: "125"
+    unit: ""
+    wrong: []
+    explanation: "Dividing 6 by 1.2 gives 5, which is the cube root of A. Cubing 5 gives A equal to 125."
+    hints:
+      - "Divide the radius by R0 first to get the cube root of A."
+      - "Cube the result to remove the one third power."
+      - "The mass number is a whole number, so check that your result is close to one."
+    diagram: null
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the binding energy of a nucleus?"
+    correct: "The energy equivalent of its mass defect"
+    unit: ""
+    wrong:
+      - {text: "The energy needed to remove an electron from the atom", mistake: "confuses nuclear binding energy with atomic ionisation energy"}
+      - {text: "The kinetic energy of the nucleons inside it", mistake: "confuses binding energy with the motion of the nucleons"}
+      - {text: "The mass of the nucleus expressed in energy units", mistake: "treats the total mass rather than the mass defect as the energy"}
+    explanation: "The mass of a bound nucleus is less than the sum of its nucleons. The lost mass, the mass defect, is the energy that was released when the nucleus formed, given by E equal to mc squared."
+    hints:
+      - "Compare the mass of the nucleus with the sum of the masses of its free nucleons."
+      - "Think about what happens to the missing mass when the nucleus forms."
+      - "Recall the link between mass and energy."
+    diagram: null
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A nucleus has a mass defect of 0.1 u. Using 1 u equal to 931 MeV, what is its binding energy in MeV?"
+    correct: "93.1"
+    unit: "MeV"
+    wrong: []
+    explanation: "The binding energy is the mass defect times 931 MeV per u. That is 0.1 times 931, which is 93.1 MeV."
+    hints:
+      - "Binding energy is the mass defect multiplied by 931 MeV per u."
+      - "Multiply 0.1 by 931."
+      - "Keep the answer in MeV."
+    diagram: null
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A nucleus of mass number 56 has a total binding energy of 504 MeV. What is its binding energy per nucleon in MeV?"
+    correct: "9"
+    unit: "MeV"
+    wrong: []
+    explanation: "Binding energy per nucleon is the total binding energy divided by the mass number. That is 504 divided by 56, which is 9 MeV."
+    hints:
+      - "Binding energy per nucleon is the total binding energy divided by the mass number."
+      - "Divide 504 by 56."
+      - "Keep the unit as MeV."
+    diagram: "A curve of binding energy per nucleon plotted against mass number, with a peak near mass number 56 marked and the axes labelled."
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does nuclear fission of a heavy nucleus release energy?"
+    correct: "The fission products have higher binding energy per nucleon than the original heavy nucleus"
+    unit: ""
+    wrong:
+      - {text: "The fission products have lower binding energy per nucleon than the original nucleus", mistake: "reverses the trend of binding energy per nucleon for heavy nuclei"}
+      - {text: "Mass is created from nothing during the split", mistake: "assumes energy comes from creating mass rather than from the binding energy change"}
+      - {text: "Electrons are converted into energy as the nucleus splits", mistake: "confuses fission with electron emission"}
+    explanation: "Heavy nuclei sit on the falling side of the binding energy curve. Splitting them into medium mass nuclei moves nucleons to a more tightly bound state, releasing the difference as energy."
+    hints:
+      - "Think about how binding energy per nucleon changes for heavy nuclei."
+      - "Consider where the peak of the binding energy curve lies."
+      - "Ask which side of that peak the heavy nuclei sit on."
+    diagram: null
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In a nuclear reaction the total mass decreases by 0.3 u. Using 1 u equal to 931 MeV, how much energy in MeV is released?"
+    correct: "279.3"
+    unit: "MeV"
+    wrong: []
+    explanation: "The energy released is the mass decrease times 931 MeV per u. That is 0.3 times 931, which equals 279.3 MeV."
+    hints:
+      - "The energy released equals the mass decrease times 931 MeV per u."
+      - "Multiply 0.3 by 931."
+      - "Check that the result is in MeV."
+    diagram: null
+    confidence: high
+  - topic: mass_defect_binding_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A nucleus has a total binding energy of 186.2 MeV. What is its mass defect in u, using 1 u equal to 931 MeV?"
+    correct: "0.2"
+    unit: "u"
+    wrong: []
+    explanation: "The mass defect is the binding energy divided by 931 MeV per u. That is 186.2 divided by 931, which equals 0.2 u."
+    hints:
+      - "Mass defect equals binding energy divided by 931 MeV per u."
+      - "Divide 186.2 by 931."
+      - "Check that the result is a small fraction of one u."
+    diagram: "A horizontal energy scale showing a bar for the total binding energy, with the equivalent mass defect marked in atomic mass units on a second scale below it."
+    confidence: high
+  - topic: radioactivity
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "By how much does the mass number of a nucleus change in alpha decay?"
+    correct: "It decreases by four"
+    unit: ""
+    wrong:
+      - {text: "It decreases by two", mistake: "counts the alpha particle as two nucleons instead of four"}
+      - {text: "It stays the same", mistake: "assumes alpha decay does not change the number of nucleons"}
+      - {text: "It increases by four", mistake: "reverses the direction of the change"}
+    explanation: "An alpha particle is a helium nucleus with four nucleons, so emitting one lowers the mass number of the parent by four."
+    hints:
+      - "Think about how many nucleons an alpha particle carries."
+      - "Consider how the mass number of the remaining nucleus compares with the parent."
+      - "Recall the composition of an alpha particle."
+    diagram: null
+    confidence: high
+  - topic: radioactivity
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In beta minus decay, a neutron inside the nucleus is converted into what?"
+    correct: "A proton, an electron and an antineutrino"
+    unit: ""
+    wrong:
+      - {text: "A proton only", mistake: "forgets the particles that are emitted in the process"}
+      - {text: "An alpha particle", mistake: "confuses beta decay with alpha decay"}
+      - {text: "A positron and a neutrino", mistake: "confuses beta minus decay with beta plus decay"}
+    explanation: "In beta minus decay a neutron becomes a proton, emitting an electron and an antineutrino to conserve charge, energy and lepton number."
+    hints:
+      - "Think about the charge that must be conserved when the nucleon changes."
+      - "Consider which particles must be emitted to balance charge and lepton number."
+      - "Compare beta minus decay with beta plus decay."
+    diagram: null
+    confidence: high
+  - topic: radioactivity
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A radioactive sample has a half-life of 10 days. What fraction of the original nuclei remains after 30 days?"
+    correct: "0.125"
+    unit: ""
+    wrong: []
+    explanation: "Thirty days is three half-lives. Each half-life halves the number of nuclei, so the fraction remaining is one half cubed, which is 0.125."
+    hints:
+      - "Count how many half-lives fit into 30 days."
+      - "Each half-life halves the number of nuclei remaining."
+      - "Multiply one half by itself once for each half-life."
+    diagram: "A decay curve of the number of nuclei against time, with markers at 10, 20 and 30 days showing the number halving at each marker."
+    confidence: high
+  - topic: radioactivity
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A nuclide has a half-life of 6.93 hours. What is its decay constant in per hour? Use ln 2 equal to 0.693."
+    correct: "0.1"
+    unit: "per hour"
+    wrong: []
+    explanation: "The decay constant equals ln 2 divided by the half-life. Dividing 0.693 by 6.93 hours gives 0.1 per hour."
+    hints:
+      - "The decay constant equals ln 2 divided by the half-life."
+      - "Use the given value of ln 2."
+      - "Divide that value by the half-life."
+    diagram: null
+    confidence: high
+  - topic: radioactivity
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Which quantity is measured in becquerel?"
+    correct: "The activity, the number of decays per second"
+    unit: ""
+    wrong:
+      - {text: "The half-life of the nuclide", mistake: "confuses a unit of rate with a unit of time"}
+      - {text: "The energy of each emitted particle", mistake: "confuses activity with the energy of the radiation"}
+      - {text: "The absorbed dose in the body", mistake: "confuses activity with absorbed dose, which uses a different unit"}
+    explanation: "One becquerel is one decay per second. Activity is the rate of decay of a sample, and it falls as the number of undecayed nuclei falls."
+    hints:
+      - "Think about the rate at which the sample emits radiation."
+      - "Consider which quantity is expressed per second."
+      - "Compare the rate of decay with the energy or dose delivered by the radiation."
+    diagram: null
+    confidence: high
+  - topic: radioactivity
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The activity of a sample falls from 800 Bq to 100 Bq. How many half-lives have elapsed?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Activity follows the same halving rule as the number of nuclei. Going from 800 to 400, then 200, then 100 takes three halvings."
+    hints:
+      - "Activity follows the same halving rule as the number of nuclei."
+      - "Find how many times 800 must be halved to reach 100."
+      - "Count the halvings step by step."
+    diagram: "A decay curve with activity on the vertical axis, points marked at 800 Bq and 100 Bq, and the halving steps between them shown."
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In nuclear fission, where does the released energy come from?"
+    correct: "The increase in binding energy per nucleon as the nucleus splits into lighter nuclei"
+    unit: ""
+    wrong:
+      - {text: "Mass is created from nothing during the split", mistake: "assumes energy can appear without a corresponding change in binding"}
+      - {text: "Electrons are emitted with very high energy", mistake: "confuses fission energy with beta emission"}
+      - {text: "The nucleus is compressed into a smaller electron cloud", mistake: "confuses nuclear fission with changes in the electron cloud"}
+    explanation: "The fragments are more tightly bound per nucleon than the original heavy nucleus, and the difference in binding energy is released as kinetic energy of the fragments and radiation."
+    hints:
+      - "Think about how tightly bound the nucleons are after the split compared with before."
+      - "Consider where the energy released in fission ends up."
+      - "Recall what binding energy per nucleon means for a nucleus."
+    diagram: null
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which nuclear process provides the energy that powers the Sun?"
+    correct: "Fusion of light nuclei such as hydrogen into helium"
+    unit: ""
+    wrong:
+      - {text: "Fission of heavy uranium nuclei", mistake: "confuses the Sun with a fission reactor"}
+      - {text: "Chemical combustion of hydrogen gas", mistake: "assumes the Sun burns fuel in a chemical reaction"}
+      - {text: "Radioactive decay of carbon nuclei", mistake: "assumes the Sun's energy comes from decay of a common element"}
+    explanation: "In the core of the Sun, hydrogen nuclei fuse into helium, converting a small amount of mass into a large amount of energy."
+    hints:
+      - "Think about which light nuclei fuse inside the core of a star."
+      - "Consider whether the Sun's energy comes from splitting or joining nuclei."
+      - "Compare the amount of energy released by chemistry with that from nuclear reactions."
+    diagram: null
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "What makes a self-sustaining chain reaction possible in nuclear fission?"
+    correct: "Each fission releases neutrons that can cause further fissions"
+    unit: ""
+    wrong:
+      - {text: "Each fission releases only alpha particles", mistake: "assumes alpha particles are the agents that split nuclei"}
+      - {text: "Each fission produces electrons that trigger new fissions", mistake: "assumes electrons drive the splitting of nuclei"}
+      - {text: "Each fission releases photons that split other nuclei", mistake: "assumes photons are the particles that cause fission"}
+    explanation: "Fission releases several neutrons, and some of these can strike other heavy nuclei and cause them to fission, which sustains the reaction."
+    hints:
+      - "Think about which particles can strike and split another heavy nucleus."
+      - "Consider what the products of one fission event can do to other nuclei."
+      - "Recall the particle that has no charge and can penetrate nuclei easily."
+    diagram: null
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Each fission releases 200 MeV. A reactor undergoes 5 x 10^6 fissions per second. What is its power in MeV per second?"
+    correct: "1000000000"
+    unit: "MeV/s"
+    wrong: []
+    explanation: "The power is the energy per fission times the number of fissions per second. That is 200 times 5 x 10^6, which equals 1 x 10^9 MeV/s."
+    hints:
+      - "The power is the energy per fission multiplied by the number of fissions per second."
+      - "Multiply 200 by 5 and then by 10 to the sixth."
+      - "Keep the unit as MeV per second."
+    diagram: null
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why do fusion reactions need a very high temperature to occur?"
+    correct: "To overcome the electrostatic repulsion between positively charged nuclei"
+    unit: ""
+    wrong:
+      - {text: "To break the nuclei apart before they can fuse", mistake: "reverses the purpose of the heating"}
+      - {text: "To increase the mass of the nuclei before they fuse", mistake: "assumes fusion requires nuclei to gain mass first"}
+      - {text: "To make the nuclei decay faster into lighter particles", mistake: "confuses fusion with radioactive decay"}
+    explanation: "Nuclei carry positive charge and repel each other. Very high kinetic energies are needed for them to approach close enough for the short range strong force to bind them."
+    hints:
+      - "Think about what force acts between two positively charged nuclei as they approach."
+      - "Consider how the kinetic energy of the nuclei relates to temperature."
+      - "Recall the range over which the strong nuclear force acts."
+    diagram: null
+    confidence: high
+  - topic: nuclear_fission_fusion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A fusion reaction shows a mass decrease of 0.02 u. Using 1 u equal to 931 MeV, what energy in MeV is released?"
+    correct: "18.62"
+    unit: "MeV"
+    wrong: []
+    explanation: "The energy released is the mass decrease times 931 MeV per u. That is 0.02 times 931, which equals 18.62 MeV."
+    hints:
+      - "The energy released equals the mass decrease multiplied by 931 MeV per u."
+      - "Multiply the mass decrease by 931."
+      - "Give the result to two decimal places."
+    diagram: null
+    confidence: high

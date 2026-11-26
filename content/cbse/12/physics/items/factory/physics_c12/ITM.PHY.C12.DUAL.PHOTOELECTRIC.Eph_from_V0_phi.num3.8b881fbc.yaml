@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.Eph_from_V0_phi.num3.8b881fbc
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the photoelectric effect at a metal surface. The stopping
+    potential, V0, is 3.5 V and the work function of the metal, phi, is 2.5 eV. Find
+    the energy of each photon. Take the charge of one electron, e, = 1.6 x 10^-19
+    C.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: e x V0 = K = photon energy - work function, so photon energy = e x
+    V0 + work function.'
+- level: 2
+  en: The relation already gives the photon energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 2.5 eV as 4 x 10^-19 J, then write Eph = e x V0 + phi, where
+    Eph is the photon energy, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the photon energy have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 eV
+- id: b
+  en: 3.5 eV
+- id: c
+  en: 8.5 eV
+- id: d
+  en: 1 eV
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.WORK_FUNCTION_IGNORED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.CHARGE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.WORK_FUNCTION_SUBTRACTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: e x V0 = K = photon energy - work function, so photon energy
+    = e x V0 + work function.'
+- en: 'Put each quantity in SI units: 2.5 eV = 4 x 10^-19 J.'
+- en: 'Substitute: Eph = (1.6 x 10^-19) x 3.5 + (4 x 10^-19).'
+- en: 'Calculate: Eph = 9.6 x 10^-19 J.'
+- en: 'Give it in eV: 6 eV.'
+- en: So the photon energy is 6 eV.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 404a1db84a3654168a123d8a01424203ee95797050696403d4bbae015c4646ae
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 94628bcf8dd3a5c503f4d95c6722693b0ff22155f210e9a00b959e2a1754b041
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:29+00:00'
+  record_hash: b67f45f6740b1c421f4e5f443be756c9c22bddc6900999b61e86e2d32b1d467c

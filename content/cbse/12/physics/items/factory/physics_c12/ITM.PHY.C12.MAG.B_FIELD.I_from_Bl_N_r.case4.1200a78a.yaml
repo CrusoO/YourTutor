@@ -1,0 +1,141 @@
+id: ITM.PHY.C12.MAG.B_FIELD.I_from_Bl_N_r.case4.1200a78a
+skill_ids:
+- PHY.C12.MAG.B_FIELD
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the magnetic field of a current and records the
+    following. The field at the centre of the loop, Bl, is 1256 μT, the number of
+    turns, N, is 100 and the distance, r, is 5 cm. Find the current in the coil. Take
+    the permeability of free space, mu0, = 1.256 x 10^-6 N/A².'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: B = mu0 x N x I / (2 x r) at the centre of a circular coil.'
+- level: 2
+  en: 'Get the current on its own before you put numbers in: multiply each side by
+    2 x r and divide each side by mu0 x N. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 1256 μT as 0.001256 T and 5 cm as 0.05 m, then write I =
+    2 x r x Bl / (mu0 x N), where I is the current, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.B_FIELD
+generator_version: factory-2
+template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 A
+- id: b
+  en: 1 A
+- id: c
+  en: 100 A
+- id: d
+  en: 0.5 A
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.HALF_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x N x I / (2 x r) at the centre of a circular coil.'
+- en: 'Put each quantity in SI units: 1256 μT = 0.001256 T; 5 cm = 0.05 m.'
+- en: 'Get the current alone: multiply each side by 2 x r and divide each side by
+    mu0 x N.'
+- en: 'Substitute: I = 2 x 0.05 x 0.001256 / ((1.256 x 10^-6) x 100).'
+- en: 'Calculate: I = 1 A.'
+- en: So the current is 1 A.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3807e197d2ee499a0f2156e20c0ab4353bc241c31301f559016c0b40c12e2e26
+  template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+  certificate_hash: 258294ae1820a10cc2caab3ad8e969c0028b5f04cb14123bc7f3abe3b118a093
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:21+00:00'
+  record_hash: 8fc54e47d8e3234df0bd03f2313b51564ec29a358acd08062de210f014886823

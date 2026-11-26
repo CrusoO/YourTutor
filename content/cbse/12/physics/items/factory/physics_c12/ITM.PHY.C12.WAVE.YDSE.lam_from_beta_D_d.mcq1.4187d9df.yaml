@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.WAVE.YDSE.lam_from_beta_D_d.mcq1.4187d9df
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The fringe width, beta, is 2.1 mm, the screen, D, is 1.2 m from the slits and
+    the slits are 0.4 mm apart. Find the wavelength of the light.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: fringe width = wavelength x D / d.'
+- level: 2
+  en: 'Get the wavelength on its own before you put numbers in: multiply each side
+    by d and divide each side by D. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2.1 mm as 0.0021 m and 0.4 mm as 4 x 10^-4 m, then write
+    lam = beta x d / D, where lam is the wavelength, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the wavelength have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 700000 nm
+- id: b
+  en: 4.375 x 10^9 nm
+- id: c
+  en: 700 nm
+- id: d
+  en: 7000 nm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SLIT_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.SLIT_SEPARATION_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: fringe width = wavelength x D / d.'
+- en: 'Put each quantity in SI units: 2.1 mm = 0.0021 m; 0.4 mm = 4 x 10^-4 m.'
+- en: 'Get the wavelength alone: multiply each side by d and divide each side by D.'
+- en: 'Substitute: lam = 0.0021 x (4 x 10^-4) / 1.2.'
+- en: 'Calculate: lam = 7 x 10^-7 m.'
+- en: 'Give it in nm: 700 nm.'
+- en: So the wavelength is 700 nm.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ce6dd9c821a786994af1507ce0900216b214d1cd270b2717b42f774ea7b0462c
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: 9d5056f042122fca59f2a586c940f4f83c798e9cffb510d9c220489c43f18a36
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:10+00:00'
+  record_hash: 7db286f77cd05086a6ca75ee5d8a94ea10ca547f04eda8f43c09b41b6998db4c

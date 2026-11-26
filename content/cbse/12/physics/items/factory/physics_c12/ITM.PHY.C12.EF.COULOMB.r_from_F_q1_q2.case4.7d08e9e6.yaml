@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.EF.COULOMB.r_from_F_q1_q2.case4.7d08e9e6
+skill_ids:
+- PHY.C12.EF.COULOMB
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the force between two point charges and records
+    the following. The force between them, F, is 4 x 10^-5 N, the first charge, q1,
+    is 2 μC and the second charge, q2, is 2 μC. Find the distance between the charges.
+    Take k = 9 x 10^9 N m²/C².'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: F = k x q1 x q2 / r^2.'
+- level: 2
+  en: 'Get the separation on its own before you put numbers in: multiply each side
+    by r^2 and divide each side by F, then take the square root. Do the same operation
+    to each side of the formula. Change every quantity to SI units first, and change
+    back at the end if asked.'
+- level: 3
+  en: 'First step: Write 2 μC as 2 x 10^-6 C, then write r = sqrt(k x q1 x q2 / F),
+    where r is the separation, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the separation have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EF.COULOMB
+generator_version: factory-2
+template_hash: d595676a737bfc8ced11ac0895426c7a512d68c194219b81cfcab6aae76fa10a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 30000 m
+- id: b
+  en: 900 m
+- id: c
+  en: 30 m
+- id: d
+  en: 0.0333 m
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CHARGES_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.ROOT_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = k x q1 x q2 / r^2.'
+- en: 'Put each quantity in SI units: 2 μC = 2 x 10^-6 C.'
+- en: 'Get the separation alone: multiply each side by r^2 and divide each side by
+    F, then take the square root.'
+- en: 'Substitute: r = sqrt((9 x 10^9) x (2 x 10^-6) x (2 x 10^-6) / (4 x 10^-5)).'
+- en: 'Calculate: r = 30 m.'
+- en: So the separation is 30 m.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 93122bfe21ec3ebca14d2c4a59792e65d41ac83bb24f4cf421cb0d28ac4ac1ca
+  template_hash: d595676a737bfc8ced11ac0895426c7a512d68c194219b81cfcab6aae76fa10a
+  certificate_hash: 8c68504278cff17cdd7696d0e3a0786dbcd874a176503d2de5f593c37e3a444b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electric_charges_fields
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:50+00:00'
+  record_hash: 9a61bb01439ce0820e198f2bb45a1e994f63ae4339726eaec231f8898fa76cae

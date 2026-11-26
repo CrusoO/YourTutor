@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.ATOM.BOHR.vn_from_n.num2.fcd23690
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about the hydrogen atom in the Bohr model. The principal quantum
+    number, n, is 2. Find the speed of the electron in that orbit. Take the speed
+    of the electron in the first Bohr orbit, v1, = 2.2 x 10^6 m/s.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Plan the steps: the
+    speed in the n-th orbit is v1 / n.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write vn = v1 / n, where vn is the orbital speed, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the orbital speed have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 550000 m/s
+- id: b
+  en: 8.8 x 10^6 m/s
+- id: c
+  en: 4.4 x 10^6 m/s
+- id: d
+  en: 1.1 x 10^6 m/s
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.QUANTUM_NUMBER_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.QUANTUM_NUMBER_SQUARED_UP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SPEED_INCREASES_WITH_N
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Plan: the speed in the n-th orbit is v1 / n.'
+- en: 'Substitute: vn = (2.2 x 10^6) / 2.'
+- en: 'Calculate: vn = 1.1 x 10^6 m/s.'
+- en: So the orbital speed is 1.1 x 10^6 m/s.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c5e1b3b077d3684957a2690822f1ad7d962dc63f6af26927e569ea5067fb0bcd
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: 792933ef0e9ea8b1dd28a55ee06f8c3c78eab6aa34b462986793978946c7515e
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:50+00:00'
+  record_hash: 4c173c26640e19c159904405f3421a8f9272a55b447ebb5937394789686869e1

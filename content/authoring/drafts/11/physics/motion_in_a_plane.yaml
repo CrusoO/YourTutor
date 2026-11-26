@@ -1,0 +1,386 @@
+class: 11
+subject: physics
+chapter: motion_in_a_plane
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: vectors_and_components
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Two perpendicular forces of 3 N and 4 N act at a point. What is the magnitude of their resultant in newtons?"
+    correct: "5"
+    unit: "N"
+    wrong: []
+    explanation: "Perpendicular vectors form the two legs of a right triangle, so the resultant is the hypotenuse, with magnitude the square root of 9 plus 16, which is 5 N."
+    hints:
+      - "Perpendicular vectors form the two legs of a right triangle."
+      - "Use the relation between the squares of the legs and the hypotenuse."
+      - "Take the square root of the sum of the squares."
+    diagram: null
+    confidence: high
+  - topic: vectors_and_components
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Vector P has components (4, 0) and vector Q has components (0, 3), both in metres. What is the magnitude of P plus Q?"
+    correct: "5 m"
+    unit: ""
+    wrong:
+      - {text: "7 m", mistake: "adds the magnitudes of the components directly"}
+      - {text: "1 m", mistake: "subtracts the components instead of adding them"}
+      - {text: "12 m", mistake: "multiplies the components together"}
+    explanation: "Adding the components gives (4, 3). The magnitude is the square root of 16 plus 9, which is 5 m."
+    hints:
+      - "Add the x-components together and the y-components together."
+      - "The resultant of two perpendicular components is the diagonal of a rectangle."
+      - "Square each component, add the squares, and take the square root."
+    diagram: "A coordinate plane with vector P drawn along the positive x-axis to length 4 and vector Q drawn along the positive y-axis to length 3. Their sum is shown as the diagonal of the rectangle they form."
+    confidence: high
+  - topic: vectors_and_components
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A displacement of 5 m east is followed by a displacement of 12 m north. What is the magnitude of the total displacement in metres?"
+    correct: "13"
+    unit: "m"
+    wrong: []
+    explanation: "East and north are perpendicular, so the total displacement is the hypotenuse of a right triangle with legs 5 m and 12 m, which is 13 m."
+    hints:
+      - "Treat east and north as two perpendicular axes."
+      - "The total displacement is the hypotenuse of a right triangle."
+      - "Square each leg, add them, then take the square root."
+    diagram: null
+    confidence: high
+  - topic: vectors_and_components
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A force of 10 N acts at 60 degrees above the horizontal. What is its horizontal component?"
+    correct: "5 N"
+    unit: ""
+    wrong:
+      - {text: "8.66 N", mistake: "uses the sine of the angle for the horizontal part"}
+      - {text: "10 N", mistake: "takes the full force as horizontal"}
+      - {text: "20 N", mistake: "divides by the cosine instead of multiplying"}
+    explanation: "The horizontal component is the magnitude times the cosine of the angle with the horizontal, which is 10 times cos 60 degrees, giving 5 N."
+    hints:
+      - "The horizontal part of a vector is adjacent to the angle measured from the horizontal."
+      - "Use the cosine of the angle multiplied by the magnitude."
+      - "Check that your component is smaller than the full magnitude."
+    diagram: null
+    confidence: high
+  - topic: vectors_and_components
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two forces of 3 N each act at a point, with an angle of 120 degrees between their directions. What is the magnitude of the resultant in newtons?"
+    correct: "3"
+    unit: "N"
+    wrong: []
+    explanation: "Using the law of cosines, R squared equals 9 + 9 + 2 times 9 times cos 120 degrees, which is 18 minus 9 = 9. So R = 3 N."
+    hints:
+      - "Use the law of cosines for the resultant of two vectors."
+      - "The cosine of 120 degrees is negative, which reduces the resultant."
+      - "Compute the squared resultant first, then take the square root."
+    diagram: "A single point with two arrows of equal length leaving it at 120 degrees to each other. A dashed line shows their resultant as the diagonal of the shape they form."
+    confidence: high
+  - topic: vectors_and_components
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A vector has an x-component of 6 units and a y-component of 8 units. Measured from the positive x-axis, what is its direction, to one decimal place?"
+    correct: "53.1 degrees"
+    unit: ""
+    wrong:
+      - {text: "36.9 degrees", mistake: "takes the inverse tangent of the x-component over the y-component"}
+      - {text: "45 degrees", mistake: "assumes equal components whenever the vector is diagonal"}
+      - {text: "0.75 degrees", mistake: "treats the ratio of components as the angle in degrees"}
+    explanation: "The tangent of the angle is 8 over 6. The inverse tangent of 1.333 is about 53.1 degrees, which lies in the first quadrant."
+    hints:
+      - "The tangent of the angle equals the y-component divided by the x-component."
+      - "Use the inverse tangent function on that ratio."
+      - "Check that the angle lies in the first quadrant for positive components."
+    diagram: null
+    confidence: high
+  - topic: projectile_motion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "At the highest point of a projectile's path, which quantity is zero, ignoring air resistance?"
+    correct: "vertical velocity"
+    unit: ""
+    wrong:
+      - {text: "horizontal velocity", mistake: "thinks the horizontal velocity also vanishes at the top"}
+      - {text: "acceleration", mistake: "thinks the acceleration vanishes at the top"}
+      - {text: "speed", mistake: "confuses the speed with the vertical component alone"}
+    explanation: "Gravity changes only the vertical part of the velocity. At the top the vertical velocity is zero while the horizontal velocity remains unchanged."
+    hints:
+      - "Gravity changes only the vertical part of the velocity."
+      - "At the top of the path the motion is momentarily flat."
+      - "Think about which component changes sign on the way up."
+    diagram: null
+    confidence: high
+  - topic: projectile_motion
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A ball is thrown horizontally from the top of a building 19.6 m high. Taking g = 9.8 m/s^2, how many seconds does it take to reach the ground?"
+    correct: "2"
+    unit: "s"
+    wrong: []
+    explanation: "The vertical motion starts from zero vertical velocity, so 19.6 = 0.5 times 9.8 times t squared. This gives t^2 = 4 and t = 2 s."
+    hints:
+      - "Vertical motion starts with zero vertical velocity for a horizontal throw."
+      - "Use the displacement equal to half of g times time squared."
+      - "Solve for the time from the height, then take the square root."
+    diagram: "A side view of a building edge with a horizontal arrow leaving the top. A vertical dimension line marks the height from the top down to the ground."
+    confidence: high
+  - topic: projectile_motion
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which launch angle gives the maximum horizontal range for a projectile launched from ground level, ignoring air resistance?"
+    correct: "45 degrees"
+    unit: ""
+    wrong:
+      - {text: "30 degrees", mistake: "assumes a shallower angle always travels farther"}
+      - {text: "60 degrees", mistake: "assumes steeper angles travel farther"}
+      - {text: "90 degrees", mistake: "thinks a vertical launch gives the longest flight"}
+    explanation: "The range is proportional to sin 2 theta, which is largest when 2 theta is 90 degrees, so theta is 45 degrees."
+    hints:
+      - "The range depends on the product of the sine and cosine of the launch angle."
+      - "Write that product as half of the sine of twice the angle."
+      - "Find the angle that makes that sine as large as possible."
+    diagram: null
+    confidence: high
+  - topic: projectile_motion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A projectile is launched at 20 m/s at 30 degrees above the horizontal. Taking g = 9.8 m/s^2, what is its maximum height in metres, to one decimal place?"
+    correct: "5.1"
+    unit: "m"
+    wrong: []
+    explanation: "The maximum height is (20 sin 30)^2 divided by 2 times 9.8, which is 100 divided by 19.6, about 5.1 m."
+    hints:
+      - "Only the vertical part of the launch velocity raises the projectile."
+      - "Find the vertical component using the sine of the launch angle."
+      - "Use the vertical speed relation where the final vertical velocity is zero at the top."
+    diagram: null
+    confidence: high
+  - topic: projectile_motion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A projectile is launched from ground level at 49 m/s at an angle whose sine is 0.8. Taking g = 9.8 m/s^2, what is its time of flight in seconds?"
+    correct: "8"
+    unit: "s"
+    wrong: []
+    explanation: "The time of flight for ground-to-ground motion is 2 u sin theta over g. That is 2 times 49 times 0.8 divided by 9.8, which equals 8 s."
+    hints:
+      - "The time of flight depends only on the vertical component of the launch velocity."
+      - "Use the vertical component formula with the sine of the launch angle."
+      - "The time of flight is twice the time needed to reach the top."
+    diagram: "A parabolic path from ground level back to ground level. At the start, the launch velocity arrow is split into horizontal and vertical components, and the launch angle is marked at the ground."
+    confidence: high
+  - topic: projectile_motion
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A projectile is launched from the ground at a fixed angle and lands at the same level. If its launch speed is doubled at the same angle, how does its range change?"
+    correct: "becomes four times as large"
+    unit: ""
+    wrong:
+      - {text: "becomes twice as large", mistake: "assumes range scales linearly with launch speed"}
+      - {text: "stays the same", mistake: "thinks launch speed does not affect horizontal motion"}
+      - {text: "becomes half as large", mistake: "inverts the dependence on launch speed"}
+    explanation: "The range is proportional to the square of the launch speed for a fixed angle, so doubling the speed multiplies the range by four."
+    hints:
+      - "The range depends on the launch speed through a power that is not one."
+      - "Look at how the range formula contains the launch speed."
+      - "A squared speed appears in the range formula."
+    diagram: null
+    confidence: high
+  - topic: uniform_circular_motion_11
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In uniform circular motion, which quantity stays constant?"
+    correct: "speed of the object"
+    unit: ""
+    wrong:
+      - {text: "velocity of the object", mistake: "forgets that velocity is a vector whose direction keeps changing"}
+      - {text: "acceleration of the object", mistake: "treats the centripetal acceleration as constant in direction"}
+      - {text: "direction of motion", mistake: "thinks the direction of motion stays the same around the circle"}
+    explanation: "In uniform circular motion the magnitude of the velocity is constant, but its direction keeps changing, so the speed is the only fixed quantity."
+    hints:
+      - "Velocity has both a magnitude and a direction."
+      - "Ask what changes as the object goes around the circle."
+      - "Only one part of the velocity stays fixed in this motion."
+    diagram: null
+    confidence: high
+  - topic: uniform_circular_motion_11
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A car moves round a circular track of radius 50 m at a constant speed of 10 m/s. What is its centripetal acceleration in metres per second squared?"
+    correct: "2"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "The centripetal acceleration is v squared over r, which is 100 divided by 50, giving 2 m/s^2."
+    hints:
+      - "Centripetal acceleration depends on the speed squared and the radius."
+      - "Divide the square of the speed by the radius."
+      - "Compute the speed squared before dividing."
+    diagram: "A circle with the car marked on its circumference. A radius line runs from the centre to the car, and a velocity arrow touches the circle at that point, perpendicular to the radius."
+    confidence: high
+  - topic: uniform_circular_motion_11
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A stone tied to a string of length 0.5 m moves in a horizontal circle, making 2 revolutions per second. Using pi as 3.14, what is its centripetal acceleration in metres per second squared, to one decimal place?"
+    correct: "78.9"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "The angular speed is 2 pi f, which is 12.56 rad/s. Then a = omega squared times r = 157.75 times 0.5, about 78.9 m/s^2."
+    hints:
+      - "Convert the revolutions per second into an angular speed first."
+      - "Angular speed is two pi times the frequency."
+      - "Centripetal acceleration equals the square of the angular speed times the radius."
+    diagram: null
+    confidence: medium
+  - topic: uniform_circular_motion_11
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A particle moves in a circle of radius 2 m and completes one revolution every 4 s. What is its speed?"
+    correct: "3.14 m/s"
+    unit: ""
+    wrong:
+      - {text: "6.28 m/s", mistake: "uses the diameter in place of the radius"}
+      - {text: "1.57 m/s", mistake: "uses double the period"}
+      - {text: "12.56 m/s", mistake: "forgets to divide the distance by the period"}
+    explanation: "The speed is the circumference 2 pi r divided by the period 4 s. That is 2 pi times 2 over 4, which is pi, or 3.14 m/s."
+    hints:
+      - "Speed in circular motion equals the distance covered divided by the time taken."
+      - "The distance covered in one period is the circumference of the circle."
+      - "Divide the circumference by the period."
+    diagram: null
+    confidence: high
+  - topic: uniform_circular_motion_11
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A particle moves on a circle of radius 1.5 m at a constant speed of 6 m/s. Using pi as 3.14, how many seconds does it take to complete one revolution, to two decimal places?"
+    correct: "1.57"
+    unit: "s"
+    wrong: []
+    explanation: "One revolution covers the circumference 2 pi r, which is 9.42 m. Dividing by the speed 6 m/s gives about 1.57 s."
+    hints:
+      - "The time for one revolution equals the distance around the circle divided by the speed."
+      - "The distance around the circle is two pi times the radius."
+      - "Divide the circumference by the speed at the end."
+    diagram: "A circle of radius 1.5 m with its centre marked and a radius line labelled. A point on the circumference carries a tangential velocity arrow."
+    confidence: high
+  - topic: uniform_circular_motion_11
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A car takes a turn of radius 40 m at a steady speed. If its speed doubles while the radius stays the same, how does its centripetal acceleration change?"
+    correct: "becomes four times larger"
+    unit: ""
+    wrong:
+      - {text: "becomes twice as large", mistake: "treats centripetal acceleration as proportional to speed"}
+      - {text: "stays the same", mistake: "thinks speed does not affect centripetal acceleration"}
+      - {text: "becomes half as large", mistake: "inverts the speed dependence"}
+    explanation: "Centripetal acceleration is v squared over r. Doubling v multiplies v squared by four, so the acceleration becomes four times larger."
+    hints:
+      - "Centripetal acceleration depends on the speed through a power that is not one."
+      - "Look at the formula that contains the speed squared."
+      - "Doubling a number and then squaring it gives a result that is multiplied by the square of the factor."
+    diagram: "A road curve drawn as an arc of a circle. At one point on the arc the velocity arrow is tangential and the centripetal acceleration arrow points toward the centre."
+    confidence: high
+  - topic: relative_velocity_2d
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Two boats move with known velocities in a plane. Which expression gives the velocity of boat A relative to boat B?"
+    correct: "velocity of A minus velocity of B"
+    unit: ""
+    wrong:
+      - {text: "velocity of A plus velocity of B", mistake: "adds the velocities as if the reference boat were still"}
+      - {text: "velocity of B minus velocity of A", mistake: "reverses the subtraction"}
+      - {text: "velocity of A alone", mistake: "forgets that the reference boat is moving"}
+    explanation: "The velocity of A relative to B is found by subtracting the velocity of B from the velocity of A, vector by vector."
+    hints:
+      - "Relative velocity is found by subtracting the reference velocity."
+      - "Place the reference object's velocity in the subtracted position."
+      - "The result is the velocity as seen by the reference object."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_2d
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Rain falls vertically at 12 m/s. A cyclist rides east at 5 m/s. What is the speed of the rain as seen by the cyclist, in metres per second?"
+    correct: "13"
+    unit: "m/s"
+    wrong: []
+    explanation: "Relative to the cyclist, the rain has a horizontal component of 5 m/s backward and a vertical component of 12 m/s. The magnitude is the square root of 25 plus 144, which is 13 m/s."
+    hints:
+      - "The cyclist sees the rain moving both downward and backward."
+      - "Draw the two perpendicular velocity components of the rain relative to the cyclist."
+      - "Find the hypotenuse of the right triangle those components form."
+    diagram: "A right triangle. One leg is vertical and labelled 12 m/s for the rain. The other leg is horizontal and labelled 5 m/s for the cyclist. The hypotenuse is the apparent velocity of the rain."
+    confidence: high
+  - topic: relative_velocity_2d
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A man walks at 4 km/h north on a train that moves east at 3 km/h. What is his speed relative to the ground?"
+    correct: "5 km/h"
+    unit: ""
+    wrong:
+      - {text: "7 km/h", mistake: "adds the two speeds directly"}
+      - {text: "1 km/h", mistake: "subtracts the two speeds"}
+      - {text: "4 km/h", mistake: "ignores the motion of the train"}
+    explanation: "The man's velocity relative to the ground has components 3 km/h east and 4 km/h north. The magnitude is the square root of 9 plus 16, which is 5 km/h."
+    hints:
+      - "The man's motion relative to the train and the train's motion are perpendicular."
+      - "Combine perpendicular components with the Pythagorean approach."
+      - "Square each component, add them, then take the square root."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_2d
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Ship A moves at 8 m/s due north and ship B moves at 6 m/s due east, both measured from the shore. What is the speed of A relative to B, in metres per second?"
+    correct: "10"
+    unit: "m/s"
+    wrong: []
+    explanation: "The relative velocity of A with respect to B is (0, 8) minus (6, 0), which is (-6, 8). Its magnitude is 10 m/s."
+    hints:
+      - "The relative velocity of A with respect to B is a vector difference."
+      - "Treat north and east as two perpendicular components."
+      - "The magnitude comes from the square root of the sum of the squares of the components."
+    diagram: "Arrows for north and east drawn from a common origin, with the relative velocity drawn from the tip of B's arrow to the tip of A's arrow, forming a right triangle."
+    confidence: high
+  - topic: relative_velocity_2d
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Particle one moves with velocity (6, 0) m/s and particle two moves with velocity (0, 8) m/s. What is the magnitude of the velocity of particle one relative to particle two?"
+    correct: "10 m/s"
+    unit: ""
+    wrong:
+      - {text: "14 m/s", mistake: "adds the components of the two velocities"}
+      - {text: "2 m/s", mistake: "subtracts the components of the two velocities"}
+      - {text: "48 m/s", mistake: "multiplies the components of the two velocities"}
+    explanation: "The relative velocity is (6, 0) minus (0, 8), which is (6, -8). Its magnitude is the square root of 36 plus 64, which is 10 m/s."
+    hints:
+      - "Subtract the second velocity from the first, component by component."
+      - "The magnitude of the result is the hypotenuse of a right triangle."
+      - "Square the components, add them, then take the square root."
+    diagram: "Two velocity arrows from a common origin, one along the horizontal axis and one along the vertical axis, with the relative velocity drawn as a third arrow forming a right triangle."
+    confidence: high

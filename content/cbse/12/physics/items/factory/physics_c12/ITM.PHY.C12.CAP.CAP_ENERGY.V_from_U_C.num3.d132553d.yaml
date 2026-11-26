@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.CAP.CAP_ENERGY.V_from_U_C.num3.d132553d
+skill_ids:
+- PHY.C12.CAP.CAP_ENERGY
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a charged capacitor. The energy stored, U, is 96800 μJ
+    and the capacitance, C, is 4 μF. Find the potential difference.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: U = (1/2) x C x V^2.'
+- level: 2
+  en: 'Get the potential difference on its own before you put numbers in: multiply
+    each side by 2, divide each side by C, then take the square root. Do the same
+    operation to each side of the formula. Change every quantity to SI units first,
+    and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 96800 μJ as 0.0968 J and 4 μF as 4 x 10^-6 F, then write
+    V = sqrt(2 x U / C), where V is the potential difference, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the potential difference have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_ENERGY
+generator_version: factory-2
+template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 48400 V
+- id: b
+  en: 0.00455 V
+- id: c
+  en: 2200 V
+- id: d
+  en: 220 V
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ROOT_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: U = (1/2) x C x V^2.'
+- en: 'Put each quantity in SI units: 96800 μJ = 0.0968 J; 4 μF = 4 x 10^-6 F.'
+- en: 'Get the potential difference alone: multiply each side by 2, divide each side
+    by C, then take the square root.'
+- en: 'Substitute: V = sqrt(2 x 0.0968 / (4 x 10^-6)).'
+- en: 'Calculate: V = 220 V.'
+- en: So the potential difference is 220 V.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fdb33c0eeb96327ce13bce304a2869996639bba87907dd340dace77d3ea76fb4
+  template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+  certificate_hash: 0fee697b22608af96b28e85d103bb9dff32b9307d8e6e5429f27b2ef77919616
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:02+00:00'
+  record_hash: 8714f32a7dfe034c6581b300d183ad65712788fff5c3ddba0f84aad21b7fc4f7

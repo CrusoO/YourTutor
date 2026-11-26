@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.EMI.INDUCTOR.U_from_L_I.num3.11b5720b
+skill_ids:
+- PHY.C12.EMI.INDUCTOR
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying an inductor in a circuit. The inductance, L, is 200 mH
+    and the steady current, I, is 5 A. Find the energy stored in the inductor.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: U = (1/2) x L x I^2.'
+- level: 2
+  en: The relation already gives the stored energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 200 mH as 0.2 H, then write U = L x I^2 / 2, where U is the
+    stored energy, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the stored energy have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.INDUCTOR
+generator_version: factory-2
+template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2500 mJ
+- id: b
+  en: 5000 mJ
+- id: c
+  en: 250 mJ
+- id: d
+  en: 500 mJ
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.HALF_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SQUARED_AFTER_HALVING
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.CURRENT_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: U = (1/2) x L x I^2.'
+- en: 'Put each quantity in SI units: 200 mH = 0.2 H.'
+- en: 'Substitute: U = 0.2 x 5^2 / 2.'
+- en: 'Calculate: U = 2.5 J.'
+- en: 'Give it in mJ: 2500 mJ.'
+- en: So the stored energy is 2500 mJ.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 782fdb3b228bc106df883472a015ac59764235fa5438f117217b7d12db3c67c7
+  template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+  certificate_hash: 3688691bdbbf7ec8a3bb9c3b0f9f11014aea35f5e4df9b061806cd576d7fb021
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:54+00:00'
+  record_hash: 9e36b592245110283ec76a588d20c0c80d98b390d4be4f8ce2b557a7fb49a080

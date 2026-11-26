@@ -1,0 +1,141 @@
+id: ITM.PHY.C12.EMI.FARADAY.dt_from_eps_N_dPhi.case4.62f3c288
+skill_ids:
+- PHY.C12.EMI.FARADAY
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a coil in a changing magnetic field and records
+    the following. The induced emf, eps, is 2 V, the number of turns, N, is 100 and
+    the flux through the coil changes by 0.4 mWb. Find the time taken for the flux
+    to change.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: emf = N x flux change / time.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: multiply each side by the
+    time and divide each side by the emf. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 0.4 mWb as 4 x 10^-4 Wb, then write dt = N x dPhi / eps,
+    where dt is the time, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.FARADAY
+generator_version: factory-2
+template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.2 ms
+- id: b
+  en: 50000 ms
+- id: c
+  en: 20 ms
+- id: d
+  en: 80 ms
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emf = N x flux change / time.'
+- en: 'Put each quantity in SI units: 0.4 mWb = 4 x 10^-4 Wb.'
+- en: 'Get the time alone: multiply each side by the time and divide each side by
+    the emf.'
+- en: 'Substitute: dt = 100 x (4 x 10^-4) / 2.'
+- en: 'Calculate: dt = 0.02 s.'
+- en: 'Give it in ms: 20 ms.'
+- en: So the time is 20 ms.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c2f996ddc4cfaac1ef63a2005aae6869d360039e5c633f4bbd03f0313d79ddc5
+  template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+  certificate_hash: f985ba102d0f6d2133c44c3ba84f9f07e9b9c5cd7506fc58222a7b2c361eb5a5
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:42+00:00'
+  record_hash: a9bdf0c2855728f3ba65bd0463ea21a0679fb12244087104d61ad2d64d23036d

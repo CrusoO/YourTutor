@@ -1,0 +1,209 @@
+class: 10
+subject: maths
+chapter: introduction_to_trigonometry
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: trig_ratios
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In right triangle ABC with the right angle at B, which ratio gives sin A?"
+    correct: "BC/AC"
+    unit: ""
+    wrong:
+      - {text: "AB/AC", mistake: "uses the adjacent side in place of the opposite side"}
+      - {text: "BC/AB", mistake: "uses the tangent ratio in place of the sine ratio"}
+      - {text: "AC/BC", mistake: "inverts the ratio"}
+    explanation: "For angle A, the opposite side is BC and the hypotenuse is AC, since the hypotenuse lies opposite the right angle. So sin A = BC/AC."
+    hints:
+      - "Identify which side is opposite the right angle."
+      - "Find the side opposite to angle A."
+      - "Recall the sine ratio: opposite over hypotenuse."
+    diagram: "Right triangle ABC with the right angle at B. The hypotenuse AC is the longest side, and sides AB and BC are labelled."
+    confidence: high
+  - topic: trig_ratios
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In a right triangle, the side opposite an acute angle θ is 3 cm and the hypotenuse is 5 cm. What is sin θ?"
+    correct: "0.6"
+    unit: ""
+    wrong: []
+    explanation: "Sine is the opposite side divided by the hypotenuse, so sin θ = 3/5 = 0.6."
+    hints:
+      - "Name the side opposite to θ and the hypotenuse."
+      - "Write sine as opposite over hypotenuse."
+      - "Divide the two lengths."
+    diagram: null
+    confidence: high
+  - topic: trig_ratios
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "In right triangle PQR, the right angle is at Q, PQ = 4 cm and QR = 3 cm. What is tan P?"
+    correct: "3/4"
+    unit: ""
+    wrong:
+      - {text: "4/5", mistake: "uses cosine in place of tangent"}
+      - {text: "4/3", mistake: "inverts the tangent ratio"}
+      - {text: "5/3", mistake: "uses the hypotenuse in the denominator"}
+    explanation: "For angle P, the opposite side is QR = 3 cm and the adjacent side is PQ = 4 cm, so tan P = opposite over adjacent = 3/4."
+    hints:
+      - "Label the opposite and adjacent sides for angle P."
+      - "Recall which two sides the tangent uses."
+      - "Decide whether the hypotenuse is needed for the tangent."
+    diagram: "Right triangle PQR with the right angle at Q: the leg PQ of 4 cm is drawn horizontally, the leg QR of 3 cm vertically, and the hypotenuse PR of 5 cm."
+    confidence: high
+  - topic: trig_ratios
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is sin θ always less than 1 for an acute angle θ in a right triangle?"
+    correct: "Because the opposite side is shorter than the hypotenuse."
+    unit: ""
+    wrong:
+      - {text: "Because sine measures the adjacent side.", mistake: "mixes up the definitions of sine and cosine"}
+      - {text: "Because the angle is always below 45 degrees.", mistake: "assumes a bound on the angle that is not given"}
+      - {text: "Because the hypotenuse is always 1 unit long.", mistake: "assumes a unit hypotenuse for every triangle"}
+    explanation: "The hypotenuse is the longest side of a right triangle, so the opposite side divided by it is less than 1. It would equal 1 only if the opposite side equalled the hypotenuse, which cannot happen for an acute angle."
+    hints:
+      - "Recall which side is longest in a right triangle."
+      - "Think about the size of the opposite side compared with the hypotenuse."
+      - "Ask whether the hypotenuse can be shorter than either leg."
+    diagram: null
+    confidence: high
+  - topic: trig_ratios
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In right triangle ABC, the right angle is at C, sin A = 5/13 and BC = 5 cm. What is AC in cm?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "sin A = BC/AB = 5/13, so AB = 13 cm. By Pythagoras, AC = √(13² - 5²) = √144 = 12 cm."
+    hints:
+      - "Write sin A as opposite over hypotenuse and find AB."
+      - "Use Pythagoras to find the third side."
+      - "Check that the side you find is the longest side."
+    diagram: "Right triangle ABC with the right angle at C. The hypotenuse AB is the longest side. The leg BC of 5 cm is opposite angle A, and AC is the unknown leg."
+    confidence: high
+  - topic: trig_ratios
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "For an acute angle θ, cos θ = 12/13. What is tan θ?"
+    correct: "5/12"
+    unit: ""
+    wrong:
+      - {text: "12/5", mistake: "inverts the tangent ratio"}
+      - {text: "13/5", mistake: "uses the hypotenuse over the opposite side"}
+      - {text: "5/13", mistake: "gives sine when the tangent is asked for"}
+    explanation: "Take a right triangle with adjacent side 12 and hypotenuse 13. Pythagoras gives an opposite side of 5, so tan θ = 5/12."
+    hints:
+      - "Draw a right triangle where cosine is adjacent over hypotenuse."
+      - "Find the third side with Pythagoras."
+      - "Tangent is opposite over adjacent."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is a standard identity for an acute angle θ?"
+    correct: "sin²θ + cos²θ = 1"
+    unit: ""
+    wrong:
+      - {text: "sin θ + cos θ = 1", mistake: "adds the ratios instead of squaring them"}
+      - {text: "sec θ = sin θ / cos θ", mistake: "confuses sec with tan"}
+      - {text: "tan²θ = cos²θ + 1", mistake: "moves the constant to the wrong side"}
+    explanation: "Pythagoras applied to a right triangle with hypotenuse 1 gives sin²θ + cos²θ = 1. The other statements are false: sec θ is the reciprocal of cos θ, and sin θ + cos θ is not 1 in general."
+    hints:
+      - "Start from Pythagoras in a right triangle."
+      - "Think about the squared lengths of the opposite and adjacent sides."
+      - "Check which options contain squared trigonometric terms."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "For an acute angle θ, sin θ = 0.6. What is cos θ?"
+    correct: "0.8"
+    unit: ""
+    wrong: []
+    explanation: "From sin²θ + cos²θ = 1 we get cos²θ = 1 - 0.36 = 0.64, so cos θ = 0.8 for an acute angle."
+    hints:
+      - "Use the identity that links sin and cos."
+      - "Square the given sine value first."
+      - "Take the positive square root because the angle is acute."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "For an acute angle θ, what is (1 - cos²θ) / sin θ?"
+    correct: "sin θ"
+    unit: ""
+    wrong:
+      - {text: "cos θ", mistake: "cancels the wrong term after the substitution"}
+      - {text: "sin²θ", mistake: "forgets to cancel one factor of sin θ"}
+      - {text: "1 / sin θ", mistake: "inverts the result after cancelling"}
+    explanation: "Using sin²θ + cos²θ = 1, the numerator becomes sin²θ. Dividing sin²θ by sin θ leaves sin θ, since sin θ is not zero for an acute angle."
+    hints:
+      - "Rewrite 1 - cos²θ using the basic identity."
+      - "Simplify the fraction after substituting."
+      - "Check how many identical factors the numerator and the denominator share."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does tan θ equal sin θ divided by cos θ?"
+    correct: "Because dividing opposite over hypotenuse by adjacent over hypotenuse leaves opposite over adjacent."
+    unit: ""
+    wrong:
+      - {text: "Because tan θ is the reciprocal of sin θ.", mistake: "inverts the tangent ratio"}
+      - {text: "Because sine and cosine are equal at 45 degrees.", mistake: "treats one special angle as a general proof"}
+      - {text: "Because the hypotenuse cancels only in isosceles triangles.", mistake: "makes the cancellation depend on a property the triangle need not have"}
+    explanation: "Sine is opposite over hypotenuse and cosine is adjacent over hypotenuse. Dividing one by the other cancels the hypotenuse and leaves opposite over adjacent, which is tan θ."
+    hints:
+      - "Write sin θ and cos θ as fractions of the hypotenuse."
+      - "Divide one fraction by the other."
+      - "Look for a common factor that cancels."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "For an acute angle θ with sin θ = 3/5, what is the value of (1 + tan²θ) × cos²θ?"
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "The identity 1 + tan²θ = 1/cos²θ gives (1 + tan²θ) cos²θ = 1 for any acute angle. The given sine value is not needed."
+    hints:
+      - "Write tan²θ as sin²θ over cos²θ."
+      - "Use a Pythagorean identity to rewrite the bracket in terms of cosine."
+      - "Simplify the product before substituting numbers."
+    diagram: null
+    confidence: high
+  - topic: trig_identities
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A student says sin²θ + cos²θ = 1 holds only for 30 and 60 degrees. What is the best response?"
+    correct: "The identity holds for every acute angle, because it follows from Pythagoras in any right triangle."
+    unit: ""
+    wrong:
+      - {text: "The student is right, because it is only true for special angles.", mistake: "checks special angles and wrongly generalises from them"}
+      - {text: "The identity holds only when the triangle is isosceles.", mistake: "tests a special case that is not the general condition"}
+      - {text: "The identity is true only at 45 degrees.", mistake: "assumes the identity needs one specific angle"}
+    explanation: "The proof uses only the sides of a right triangle, so it applies to any acute angle. Checking a few special angles can illustrate the identity but cannot limit it."
+    hints:
+      - "Think about which sides the identity is built from."
+      - "Ask whether the proof depends on a specific angle."
+      - "Consider whether a general proof can be checked on only a few examples."
+    diagram: null
+    confidence: high

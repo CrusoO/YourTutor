@@ -1,0 +1,401 @@
+class: 12
+subject: physics
+chapter: electromagnetic_induction
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: faraday_lenz
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "According to Lenz's law, what does an induced current always oppose?"
+    correct: "The change in magnetic flux that produces it"
+    unit: ""
+    wrong:
+      - {text: "The electric field that drives the circuit", mistake: "confuses the cause of the current with the effect that opposes it"}
+      - {text: "The resistance of the circuit", mistake: "confuses opposition by the induced current with the resistance of the wire"}
+      - {text: "The magnetic field everywhere in space", mistake: "assumes the induced current cancels the whole field instead of its change"}
+    explanation: "Lenz's law says the induced current flows in the direction that creates a field opposing the change in flux that produced it."
+    hints:
+      - "Think about what is changing in the loop when the current is induced."
+      - "Consider the effect the induced current has on that change."
+      - "Recall that the law is about the sign of the induced quantity."
+    diagram: null
+    confidence: high
+  - topic: faraday_lenz
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A coil of 100 turns has its magnetic flux changed by 0.02 Wb in 0.5 s. What is the magnitude of the induced EMF in volt?"
+    correct: "4"
+    unit: "V"
+    wrong: []
+    explanation: "Faraday's law gives EMF equal to N times the change in flux divided by the time. That is 100 times 0.02 divided by 0.5, which is 4 V."
+    hints:
+      - "Use EMF equal to the number of turns times the rate of change of flux."
+      - "Divide the flux change by the time taken."
+      - "Multiply by the number of turns as the last step."
+    diagram: null
+    confidence: high
+  - topic: faraday_lenz
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A circular coil of 200 turns and area 0.01 m^2 lies perpendicular to a magnetic field that rises uniformly from 0 to 0.5 T in 0.2 s. What is the magnitude of the induced EMF in volt?"
+    correct: "5"
+    unit: "V"
+    wrong: []
+    explanation: "The EMF is N times A times the rate of change of B. That is 200 times 0.01 times 0.5 divided by 0.2, which equals 5 V."
+    hints:
+      - "Write the flux as B times A when the field is perpendicular to the coil."
+      - "Find the rate of change of the field first."
+      - "Multiply the number of turns by the area and by the rate of change of the field."
+    diagram: "A circular coil drawn face-on with a field arrow pointing perpendicularly into the page and a label showing the field increasing from 0 to 0.5 tesla over 0.2 seconds."
+    confidence: high
+  - topic: faraday_lenz
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which action does NOT produce an induced EMF in a closed coil held in a uniform magnetic field?"
+    correct: "Keeping the coil still with its plane perpendicular to a steady uniform field"
+    unit: ""
+    wrong:
+      - {text: "Rotating the coil about an axis in its plane", mistake: "assumes any rotation cannot change the flux through the coil"}
+      - {text: "Moving a bar magnet towards the coil", mistake: "assumes only motion of the coil itself can change the flux"}
+      - {text: "Reducing the area of the coil inside the field", mistake: "ignores that the flux depends on the area inside the field"}
+    explanation: "A steady uniform field through a fixed loop gives constant flux, so there is no change to induce an EMF. Rotation, moving magnets and changing area all change the flux."
+    hints:
+      - "Think about whether the amount of field passing through the loop is changing."
+      - "Consider which action alters the orientation or the size of the loop."
+      - "Ask what the induced EMF needs in order to be produced at all."
+    diagram: null
+    confidence: high
+  - topic: faraday_lenz
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The flux through a 10 turn coil is given by 0.5 t^2 weber, where t is in seconds. What is the magnitude of the induced EMF in volt at t equal to 2 s?"
+    correct: "20"
+    unit: "V"
+    wrong: []
+    explanation: "The rate of change of flux is t, so the EMF is N times t. At t equal to 2 s this is 10 times 2, which is 20 V."
+    hints:
+      - "Differentiate the flux with respect to time first."
+      - "Substitute the time only after you have differentiated."
+      - "Multiply the result by the number of turns."
+    diagram: null
+    confidence: high
+  - topic: faraday_lenz
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A north pole is pushed towards a coil. What is the direction of the magnetic field produced by the induced current near the face of the coil?"
+    correct: "It opposes the approach of the magnet"
+    unit: ""
+    wrong:
+      - {text: "It assists the approach of the magnet", mistake: "reverses the sign in Lenz's law"}
+      - {text: "It is parallel to the magnet's field everywhere", mistake: "assumes the induced field simply copies the source field"}
+      - {text: "It is zero at all times", mistake: "assumes the induced current is always zero when a magnet moves"}
+    explanation: "By Lenz's law the induced current creates a field that opposes the increase in flux from the approaching magnet, so the coil face repels the magnet."
+    hints:
+      - "Apply Lenz's law to the increase in flux as the magnet gets closer."
+      - "Consider what the induced current must do to counter that increase."
+      - "Think about whether the coil face acts like the same pole or the opposite pole of the magnet."
+    diagram: "A bar magnet approaching a coil with its north pole facing the coil end, and the induced current shown as an arrow circulating around the coil."
+    confidence: high
+  - topic: motional_emf
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A straight conductor of length l moves with speed v at right angles to a uniform field B, and both the length and the velocity are perpendicular to the field. What is the induced EMF?"
+    correct: "B l v"
+    unit: ""
+    wrong:
+      - {text: "B l divided by v", mistake: "inverts the velocity term in the formula"}
+      - {text: "B l v squared", mistake: "squares the speed when only the speed appears once"}
+      - {text: "B v divided by l", mistake: "divides by the length instead of multiplying by it"}
+    explanation: "For a conductor moving perpendicular to the field, the motional EMF is B times l times v, because the electrons feel a force that drives them along the rod."
+    hints:
+      - "Think about the force on the charges in the conductor as it moves."
+      - "Consider how the length and speed each contribute once to the EMF."
+      - "Recall the general formula for motional EMF with a sine of an angle."
+    diagram: null
+    confidence: high
+  - topic: motional_emf
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A rod of length 0.5 m moves at 4 m/s perpendicular to a uniform field of 0.2 T, with the rod also perpendicular to the field. What is the induced EMF in volt?"
+    correct: "0.4"
+    unit: "V"
+    wrong: []
+    explanation: "The motional EMF is B l v, which is 0.2 times 0.5 times 4, giving 0.4 V."
+    hints:
+      - "Use EMF equal to the field times the length times the speed."
+      - "Keep the lengths in metre and the speed in metre per second."
+      - "Multiply the three quantities together."
+    diagram: null
+    confidence: high
+  - topic: motional_emf
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 0.3 m rod slides at 2 m/s across a U-shaped frame in a uniform field of 0.5 T perpendicular to the plane of the frame. The total resistance of the closed circuit is 0.2 ohm. What is the induced current in ampere?"
+    correct: "1.5"
+    unit: "A"
+    wrong: []
+    explanation: "The EMF is B l v, which is 0.5 times 0.3 times 2, giving 0.3 V. The current is 0.3 divided by 0.2, which is 1.5 A."
+    hints:
+      - "Find the motional EMF of the rod first."
+      - "Use Ohm's law for the closed circuit with that EMF."
+      - "Divide the EMF by the total resistance of the circuit."
+    diagram: "A U-shaped conducting frame with a sliding rod across its open end, a field drawn into the page, and a resistor closing the circuit, with the direction of motion of the rod marked."
+    confidence: high
+  - topic: motional_emf
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A conductor moves through a magnetic field parallel to the direction of the field. What is the motional EMF across it?"
+    correct: "Zero"
+    unit: ""
+    wrong:
+      - {text: "The maximum possible value", mistake: "uses the perpendicular formula even when the sine of the angle is zero"}
+      - {text: "Half of the maximum possible value", mistake: "assumes motion at an intermediate angle gives an intermediate EMF"}
+      - {text: "B times l times v", mistake: "ignores the direction of motion relative to the field"}
+    explanation: "The motional EMF is B l v sin theta, where theta is the angle between the velocity and the field. For parallel motion theta is zero, so the EMF is zero."
+    hints:
+      - "Use the general motional EMF formula with the sine of the angle between velocity and field."
+      - "Find the sine of the angle for this motion."
+      - "Think about whether the charges in the conductor are pushed across the conductor."
+    diagram: null
+    confidence: high
+  - topic: motional_emf
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 0.2 m rod moves at 10 m/s perpendicular to a uniform 0.5 T field in a closed circuit of total resistance 1 ohm. What is the magnitude of the retarding magnetic force on the rod in newton?"
+    correct: "0.1"
+    unit: "N"
+    wrong: []
+    explanation: "The EMF is 0.2 times 0.5 times 10, which is 1 V, so the current is 1 A. The retarding force is B I l, which is 0.5 times 1 times 0.2, giving 0.1 N."
+    hints:
+      - "Find the current in the rod from the EMF and the circuit resistance first."
+      - "The magnetic force on a current-carrying rod is the field times the current times the length."
+      - "Use the current you found before calculating the force."
+    diagram: "A rod sliding on parallel rails in a field directed into the page, with a closed circuit through a resistor, and an arrow showing the retarding force opposing the motion."
+    confidence: high
+  - topic: motional_emf
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "When a rod moves in a magnetic field and carries an induced current, why must an external agent keep doing work on it?"
+    correct: "The induced current produces a force that opposes the motion"
+    unit: ""
+    wrong:
+      - {text: "The magnetic field stores the energy and releases it slowly", mistake: "assumes the field stores energy that must be replenished"}
+      - {text: "The rod gains kinetic energy that must be supplied continually", mistake: "assumes the rod keeps accelerating under a constant force"}
+      - {text: "The EMF is zero once the rod has started to move", mistake: "assumes the induced EMF disappears as soon as motion begins"}
+    explanation: "The induced current experiences a magnetic force that opposes the motion, so an external force must do work to keep the rod moving at constant speed. That work is converted into electrical energy and heat."
+    hints:
+      - "Consider the direction of the force on the induced current in the rod."
+      - "Think about what the external agent has to counter to keep the speed constant."
+      - "Ask where the energy supplied to the rod goes in the circuit."
+    diagram: null
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On which factors does the self-inductance of a coil depend?"
+    correct: "Its geometry and number of turns"
+    unit: ""
+    wrong:
+      - {text: "The current flowing through it", mistake: "assumes inductance changes with the current like a resistance"}
+      - {text: "The voltage applied across it", mistake: "confuses the applied voltage with a property of the coil"}
+      - {text: "The frequency of the AC supply", mistake: "assumes the coil's inductance depends on the supply it is connected to"}
+    explanation: "Self-inductance is a property of the coil set by its shape, size, number of turns and core. It does not depend on the current or on the voltage applied."
+    hints:
+      - "Think about which physical properties belong to the coil itself."
+      - "Consider whether inductance changes when the current changes."
+      - "Recall what sets the flux linkage through the coil."
+    diagram: null
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A coil has self-inductance 0.5 H. The current through it changes by 2 A in 0.1 s. What is the magnitude of the induced EMF in volt?"
+    correct: "10"
+    unit: "V"
+    wrong: []
+    explanation: "The self-induced EMF is L times the rate of change of current. The rate is 2 divided by 0.1, which is 20 A/s, so the EMF is 0.5 times 20, which is 10 V."
+    hints:
+      - "Use EMF equal to inductance times the rate of change of current."
+      - "Find the rate of change of current first."
+      - "Multiply the inductance by that rate."
+    diagram: null
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A primary coil carries a current that changes at 50 A/s. This induces an EMF of 2 V in a nearby secondary coil. What is the mutual inductance in henry?"
+    correct: "0.04"
+    unit: "H"
+    wrong: []
+    explanation: "The induced EMF in the secondary is M times the rate of change of the primary current. Rearranging gives M equal to 2 divided by 50, which is 0.04 H."
+    hints:
+      - "The secondary EMF equals the mutual inductance times the rate of change of the primary current."
+      - "Rearrange the relation to find the mutual inductance."
+      - "Divide the induced voltage by the rate of change of current."
+    diagram: "Two coils placed side by side, with the primary connected to a current source and the secondary connected to a voltmeter, and the current change indicated on the primary."
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which expression gives the energy stored in an inductor of inductance L carrying a steady current I?"
+    correct: "One half times L times I squared"
+    unit: ""
+    wrong:
+      - {text: "L times I", mistake: "treats energy as linear in the current"}
+      - {text: "L times I squared", mistake: "omits the factor of one half from building up the current gradually"}
+      - {text: "One half times L squared times I", mistake: "confuses the powers of inductance and current"}
+    explanation: "Building up a current in an inductor requires work against the induced EMF. Integrating gives an energy of one half L I squared."
+    hints:
+      - "Think about how the energy depends on the current, which is not linear."
+      - "The factor in the formula comes from building up the current gradually."
+      - "Compare with the energy of a capacitor, which has a similar structure."
+    diagram: null
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An inductor of inductance 0.2 H stores 0.4 J of energy. What is the steady current through it in ampere?"
+    correct: "2"
+    unit: "A"
+    wrong: []
+    explanation: "The energy is one half L I squared. Rearranging gives I squared equal to 2E over L, which is 0.8 divided by 0.2, equal to 4, so I is 2 A."
+    hints:
+      - "Rearrange the energy formula to find the current."
+      - "Multiply the energy by two before dividing by the inductance."
+      - "Take the square root as the last step."
+    diagram: null
+    confidence: high
+  - topic: self_and_mutual_induction
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "Two coils are moved closer together while the currents in them are unchanged. What happens to their mutual inductance?"
+    correct: "It increases"
+    unit: ""
+    wrong:
+      - {text: "It decreases", mistake: "assumes closer coils have less flux linking each other"}
+      - {text: "It stays unchanged", mistake: "assumes only self-inductance depends on geometry"}
+      - {text: "It becomes negative", mistake: "assumes moving the coils reverses the sign of the coupling"}
+    explanation: "Mutual inductance depends on how much flux from one coil links the other. Bringing the coils closer increases the coupling, so M increases."
+    hints:
+      - "Think about how much of the flux from one coil passes through the other coil when they are close."
+      - "Consider whether the distance between the coils affects the coupling."
+      - "Recall what mutual inductance measures about the two coils."
+    diagram: "Two coils drawn with a gap between them and an arrow showing that they are being moved closer together, with field lines passing from one coil through the other."
+    confidence: high
+  - topic: ac_generator_eddy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a rotating coil AC generator, at which orientation is the induced EMF maximum?"
+    correct: "When the coil plane is parallel to the magnetic field"
+    unit: ""
+    wrong:
+      - {text: "When the coil plane is perpendicular to the magnetic field", mistake: "assumes maximum flux gives maximum EMF"}
+      - {text: "When the coil is at rest", mistake: "assumes the EMF is largest when nothing is changing"}
+      - {text: "When the coil axis is aligned with the rotation axis", mistake: "confuses the rotation axis with the orientation that matters for flux"}
+    explanation: "The flux is zero when the plane is parallel to the field but changing fastest, so the EMF is maximum at that orientation."
+    hints:
+      - "Think about the rate of change of flux at each orientation, not the flux itself."
+      - "Consider the orientation where the flux is zero but changing fastest."
+      - "Compare the flux linked at the two special orientations of the coil."
+    diagram: null
+    confidence: high
+  - topic: ac_generator_eddy
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A coil of 100 turns and area 0.1 m^2 rotates at 10 rad/s in a uniform field of 0.5 T. What is the peak induced EMF in volt?"
+    correct: "50"
+    unit: "V"
+    wrong: []
+    explanation: "The peak EMF is N B A omega, which is 100 times 0.5 times 0.1 times 10, giving 50 V."
+    hints:
+      - "The peak EMF is the number of turns times the field, the area and the angular speed."
+      - "Multiply the turns and the field strength first."
+      - "Keep the angular speed in radian per second."
+    diagram: null
+    confidence: high
+  - topic: ac_generator_eddy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A generator coil rotates at 3000 revolutions per minute. What is its frequency in hertz?"
+    correct: "50"
+    unit: "Hz"
+    wrong: []
+    explanation: "Frequency is revolutions per second. 3000 revolutions per minute is 3000 divided by 60, which is 50 revolutions per second, so the frequency is 50 Hz."
+    hints:
+      - "Convert revolutions per minute into revolutions per second."
+      - "Divide the rate by 60 to change the time unit."
+      - "The frequency in hertz equals the revolutions per second."
+    diagram: "A rectangular coil between the poles of a magnet, with a rotation arrow around its axis and slip rings connecting the coil to an external circuit."
+    confidence: high
+  - topic: ac_generator_eddy
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which practical use depends on eddy currents?"
+    correct: "Electromagnetic braking of fast trains"
+    unit: ""
+    wrong:
+      - {text: "Making a permanent magnet stronger", mistake: "assumes induced currents permanently magnetise materials"}
+      - {text: "Increasing the resistance of a metal wire", mistake: "confuses induced currents with the resistance of the material"}
+      - {text: "Improving the efficiency of a transformer core", mistake: "assumes eddy currents help a transformer, when they waste energy"}
+    explanation: "Eddy currents in a moving conductor produce a force opposing the motion, which provides a smooth braking effect in trains and in some balances and meters."
+    hints:
+      - "Think about how induced currents in a moving conductor can resist its motion."
+      - "Consider which application uses a braking force from induced currents."
+      - "Recall why transformer cores are built from thin sheets."
+    diagram: null
+    confidence: high
+  - topic: ac_generator_eddy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A coil of 200 turns and area 0.02 m^2 rotates at 50 rad/s in a uniform field of 0.1 T. What is the peak induced EMF in volt?"
+    correct: "20"
+    unit: "V"
+    wrong: []
+    explanation: "The peak EMF is N B A omega. With N equal to 200, B equal to 0.1, A equal to 0.02 and omega equal to 50, the peak is 20 V."
+    hints:
+      - "Use the peak EMF formula with turns, field, area and angular speed."
+      - "Multiply the turns, field and area before multiplying by the angular speed."
+      - "Keep track of the decimal places in the area and field strength."
+    diagram: "A loop rotating about an axis between the poles of a magnet, with its angular speed marked as an arrow and the field lines drawn across the loop."
+    confidence: high
+  - topic: ac_generator_eddy
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why is the core of a transformer built from thin laminated sheets instead of a solid block?"
+    correct: "To reduce eddy current losses"
+    unit: ""
+    wrong:
+      - {text: "To increase eddy currents that heat the core", mistake: "confuses transformers with induction heating devices"}
+      - {text: "To make the core heavier and more stable", mistake: "assumes the core's mass is the design goal"}
+      - {text: "To store magnetic energy between each cycle", mistake: "assumes the core stores energy in the way a capacitor does"}
+    explanation: "Thin insulated laminations limit the size of the induced current loops, so the energy wasted as heat in the core is much smaller than in a solid block."
+    hints:
+      - "Think about the currents induced in a solid core by a changing flux."
+      - "Consider how thin sheets limit the size of those induced loops."
+      - "Recall what those induced currents do to the energy supplied to the transformer."
+    diagram: null
+    confidence: high

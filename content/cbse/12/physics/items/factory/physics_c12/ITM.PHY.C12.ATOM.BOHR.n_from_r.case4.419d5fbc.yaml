@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.ATOM.BOHR.n_from_r.case4.419d5fbc
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the hydrogen atom in the Bohr model and records
+    the following. The orbit radius, r, is 1325 pm. Find the principal quantum number
+    of the orbit. Take the radius of the first Bohr orbit, a0, = 5.3 x 10^-11 m.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Plan the steps: the
+    radius of the n-th orbit is a0 times n squared.'
+- level: 2
+  en: 'Get the quantum number on its own before you put numbers in: divide each side
+    by a0, then take the square root. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 1325 pm as 1.325 x 10^-9 m, then write n = sqrt(r / a0),
+    where n is the quantum number, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the quantum number be?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '25'
+- id: c
+  en: '0.2'
+- id: d
+  en: '625'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ROOT_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.SQUARE_NOT_ROOT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: the radius of the n-th orbit is a0 times n squared.'
+- en: 'Put each quantity in SI units: 1325 pm = 1.325 x 10^-9 m.'
+- en: 'Get the quantum number alone: divide each side by a0, then take the square
+    root.'
+- en: 'Substitute: n = sqrt((1.325 x 10^-9) / (5.3 x 10^-11)).'
+- en: 'Calculate: n = 5.'
+- en: So the quantum number is 5.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b78b42b37f4998bccfcba14f37fc4dc555db156548f094c0409ae5c093ebc445
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: 869969c3dadcf987eddd7e80c9913cdf1c5ddeca2d9d4eec36b8b78c296553f5
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:50+00:00'
+  record_hash: b42bd4de2f19fcec7956fcf023f436454f5091e0f18a2a50d8e6d56eeec3b006

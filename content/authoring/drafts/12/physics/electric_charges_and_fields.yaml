@@ -1,0 +1,305 @@
+class: 12
+subject: physics
+chapter: electric_charges_and_fields
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: coulombs_law
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Two like charges repel each other. If the distance between them is doubled, how does the electrostatic force between them change?"
+    correct: "It becomes one quarter of the original"
+    unit: ""
+    wrong:
+      - {text: "It becomes half of the original", mistake: "treats the force as inversely proportional to distance instead of distance squared"}
+      - {text: "It doubles", mistake: "assumes a larger separation makes the force stronger"}
+      - {text: "It stays the same", mistake: "assumes distance does not affect electrostatic force"}
+    explanation: "Coulomb's force depends on the inverse square of the separation. Doubling the distance divides the force by four."
+    hints:
+      - "Recall how the force formula depends on the distance r."
+      - "Ask which power of r sits in the denominator of the formula."
+      - "Compare the force at a separation r with the force at a separation of 2r."
+    diagram: null
+    confidence: high
+  - topic: coulombs_law
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "Two point charges of 2 microcoulomb and 3 microcoulomb are placed 0.3 m apart in vacuum. What is the magnitude of the electrostatic force in newtons?"
+    correct: "0.6"
+    unit: "N"
+    wrong: []
+    explanation: "Coulomb's law with k = 9 x 10^9 N m^2 C^-2 gives the force from the product of the charges divided by the square of the separation. Converting the charges to coulombs first gives 0.6 N."
+    hints:
+      - "Write Coulomb's law with k equal to 9 x 10^9 N m^2 C^-2."
+      - "Convert both charges from microcoulomb to coulomb before substituting."
+      - "Check that the units of your result come out in newtons."
+    diagram: "A horizontal line with two dots. The left dot is labelled 2 microcoulomb and the right dot is labelled 3 microcoulomb, with a double arrow of 0.3 m between them."
+    confidence: high
+  - topic: coulombs_law
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Charges of +4 microcoulomb and -4 microcoulomb sit 0.2 m apart in vacuum. What is the magnitude of the electrostatic force in newtons?"
+    correct: "3.6"
+    unit: "N"
+    wrong: []
+    explanation: "The magnitude depends only on the product of the charge magnitudes and the square of the separation. Substituting gives 3.6 N, and the attractive sign does not change the magnitude."
+    hints:
+      - "The force magnitude does not depend on the sign of each charge."
+      - "Square the separation before dividing."
+      - "Keep track of the powers of ten when multiplying the two charges."
+    diagram: null
+    confidence: high
+  - topic: coulombs_law
+    type: mcq
+    difficulty: medium
+    role: transfer
+    stem: "Three equal positive charges are placed at the three corners of an equilateral triangle. What is the net electric field at the centroid of the triangle?"
+    correct: "Zero"
+    unit: ""
+    wrong:
+      - {text: "Along one side of the triangle", mistake: "adds the field magnitudes without considering their directions"}
+      - {text: "Directed towards one corner", mistake: "considers only the charge that is nearest to the centroid"}
+      - {text: "Perpendicular to the plane of the triangle", mistake: "assumes charges in a plane create a field out of the plane"}
+    explanation: "Each charge gives a field of the same magnitude at the centroid, pointing away from that charge. The three directions are 120 degrees apart, so their vector sum cancels."
+    hints:
+      - "Find the field from each charge at the centroid and its direction."
+      - "Consider how the three charges are arranged symmetrically around the centroid."
+      - "Ask whether the three field vectors can add up to something that points in any single direction."
+    diagram: null
+    confidence: high
+  - topic: coulombs_law
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A charge of +2 microcoulomb is fixed at the origin and a charge of -6 microcoulomb is fixed at x = 0.4 m. What is the magnitude of the net electrostatic force in newtons on a charge of +1 microcoulomb placed at x = 0.2 m?"
+    correct: "1.8"
+    unit: "N"
+    wrong: []
+    explanation: "The two forces act along the same line and point in the same direction, so they add. The force from the positive charge is 0.45 N and from the negative charge is 1.35 N, giving 1.8 N."
+    hints:
+      - "Find the force from each fixed charge separately on the charge at x = 0.2 m."
+      - "Decide whether each force pulls or pushes the test charge along the x axis."
+      - "Check whether the two forces point in the same or opposite directions before adding."
+    diagram: "A horizontal axis with three marked points: a +2 microcoulomb charge at the origin, a +1 microcoulomb test charge at x = 0.2 m, and a -6 microcoulomb charge at x = 0.4 m, with arrows showing the forces on the test charge."
+    confidence: high
+  - topic: coulombs_law
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "Two identical conducting spheres carry charges of +3 microcoulomb and -1 microcoulomb. They are touched together and then separated. What is the charge on each sphere afterwards?"
+    correct: "+1 microcoulomb each"
+    unit: ""
+    wrong:
+      - {text: "+2 microcoulomb each", mistake: "forgets to share the net charge equally between the two spheres"}
+      - {text: "Zero on each", mistake: "assumes opposite charges cancel and leave nothing behind"}
+      - {text: "+3 microcoulomb on one and -1 microcoulomb on the other", mistake: "assumes touching does not change the charges"}
+    explanation: "On contact, identical spheres share the net charge equally. The net charge is +3 minus 1, which is +2 microcoulomb, so each sphere keeps +1 microcoulomb."
+    hints:
+      - "Add up the total charge on both spheres before they touch."
+      - "Think about how a total charge is divided between two identical conductors."
+      - "Charge is conserved, so the total afterwards must equal the total before."
+    diagram: null
+    confidence: high
+  - topic: electric_field_lines
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which statement about electric field lines is correct?"
+    correct: "They never cross each other"
+    unit: ""
+    wrong:
+      - {text: "They always form closed loops around a positive charge", mistake: "confuses electric field lines with the closed loops of magnetic field lines"}
+      - {text: "They are denser where the field is weaker", mistake: "reverses the meaning of line density"}
+      - {text: "They start on negative charges and end on positive charges", mistake: "reverses the direction convention for field lines"}
+    explanation: "Field lines start on positive charges and end on negative charges. Two lines cannot cross, because the field has only one direction at any point."
+    hints:
+      - "Think about what it would mean for the field to point two ways at one point."
+      - "Recall which sign of charge the lines begin on."
+      - "Consider what a higher density of lines represents."
+    diagram: null
+    confidence: high
+  - topic: electric_field_lines
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "Two equal and opposite point charges form an electric dipole. Compared with the number of field lines that leave the positive charge, how many field lines end on the negative charge?"
+    correct: "The same number"
+    unit: ""
+    wrong:
+      - {text: "Twice as many", mistake: "assumes the negative charge must have a stronger field"}
+      - {text: "Half as many", mistake: "thinks the lines split between the two charges"}
+      - {text: "None, because lines stop at the positive charge", mistake: "thinks field lines end at the source charge instead of the opposite charge"}
+    explanation: "The number of field lines is proportional to the charge, and each line starts on a positive charge and ends on a negative one. Equal and opposite charges therefore have equal line counts."
+    hints:
+      - "Recall where field lines begin and where they finish."
+      - "Compare the magnitudes of the two charges in the dipole."
+      - "Think about the link between the number of lines and the size of the charge."
+    diagram: "Two dots on a horizontal line. The left dot is labelled plus q and the right dot is labelled minus q, with several curved lines running from the left dot to the right dot."
+    confidence: high
+  - topic: electric_field_lines
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the magnitude of the electric field in newtons per coulomb at a distance of 0.5 m from a point charge of 1 microcoulomb in vacuum?"
+    correct: "36000"
+    unit: "N/C"
+    wrong: []
+    explanation: "The point charge field is k times the charge divided by the square of the distance. With k = 9 x 10^9 N m^2 C^-2, this gives 36000 N/C."
+    hints:
+      - "Use the point charge field formula with k equal to 9 x 10^9 N m^2 C^-2."
+      - "Convert the charge to coulomb before substituting."
+      - "Square the distance before dividing."
+    diagram: null
+    confidence: high
+  - topic: electric_field_lines
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A region between two large parallel charged plates is shown with field lines. Which feature of the lines tells you that the field is uniform?"
+    correct: "Parallel, equally spaced lines"
+    unit: ""
+    wrong:
+      - {text: "Lines radiating outward from a single point", mistake: "confuses a uniform field with the radial field of a point charge"}
+      - {text: "Lines converging towards one side", mistake: "assumes the field strength must increase in one direction"}
+      - {text: "Lines that curve everywhere in the region", mistake: "assumes all electric fields are curved"}
+    explanation: "A uniform field has parallel field lines with the same spacing everywhere, so the field strength is constant. Equal spacing means equal field strength."
+    hints:
+      - "Think about how the lines look far away from any single charge."
+      - "Consider the spacing between neighbouring lines in the region."
+      - "Compare the pattern with the field near one isolated point charge."
+    diagram: "A region between two large parallel plates with straight, evenly spaced arrows running from the positive plate to the negative plate."
+    confidence: high
+  - topic: electric_field_lines
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A charge of +4 microcoulomb sits at x = 0 and a charge of -4 microcoulomb sits at x = 0.6 m in vacuum. What is the magnitude of the net electric field in newtons per coulomb at x = 0.3 m?"
+    correct: "800000"
+    unit: "N/C"
+    wrong: []
+    explanation: "Each charge gives a field of 400000 N/C at the midpoint, and both fields point towards the negative charge. The two magnitudes add to 800000 N/C."
+    hints:
+      - "Find the field from each charge separately at the midpoint."
+      - "Check whether the two fields point in the same direction or opposite directions."
+      - "Each charge is 0.3 m from the midpoint, so use that distance for both."
+    diagram: "A horizontal axis with +4 microcoulomb at x = 0, -4 microcoulomb at x = 0.6 m, and the midpoint marked with two arrows that both point towards the negative charge."
+    confidence: high
+  - topic: electric_field_lines
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A closed surface is drawn in a field diagram. Field lines enter the surface everywhere and none leave it. What does this indicate about the net charge inside the surface?"
+    correct: "The net charge inside is negative"
+    unit: ""
+    wrong:
+      - {text: "The net charge inside is positive", mistake: "reverses the direction of the field lines"}
+      - {text: "The net charge inside is zero", mistake: "assumes lines must leave a surface whenever they enter it"}
+      - {text: "The net charge inside is twice the charge outside", mistake: "confuses the number of lines with a multiple of the charge"}
+    explanation: "Field lines end on negative charges, so lines that only enter a closed surface mean there is a net negative charge inside it."
+    hints:
+      - "Recall where field lines terminate."
+      - "Think about which sign of charge the field lines end on."
+      - "Consider whether the net charge inside can be zero if lines only enter."
+    diagram: null
+    confidence: medium
+  - topic: gauss_law
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the total electric flux in N m^2 C^-1 through a closed surface that encloses a net charge of 8.85 microcoulomb in vacuum? Use epsilon zero equal to 8.85 x 10^-12 C^2 N^-1 m^-2."
+    correct: "1000000"
+    unit: "N m^2 C^-1"
+    wrong: []
+    explanation: "Gauss's law states that the total flux equals the enclosed charge divided by epsilon zero. Dividing 8.85 x 10^-6 by 8.85 x 10^-12 gives 1000000."
+    hints:
+      - "Recall the relation between total flux and the enclosed charge."
+      - "Convert the charge to coulomb before dividing."
+      - "Divide the powers of ten separately from the numerical parts."
+    diagram: null
+    confidence: high
+  - topic: gauss_law
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the direction and dependence on distance of the electric field near a large uniformly charged infinite plane sheet?"
+    correct: "Perpendicular to the sheet and independent of distance"
+    unit: ""
+    wrong:
+      - {text: "Parallel to the sheet and falling as the square of distance", mistake: "applies the point charge rule and the wrong field direction"}
+      - {text: "Perpendicular to the sheet and falling as the square of distance", mistake: "applies the point charge distance rule to a sheet"}
+      - {text: "Zero everywhere outside the sheet", mistake: "assumes that the field of a charged sheet vanishes outside the sheet"}
+    explanation: "Gauss's law with a cylindrical surface through the sheet gives a field of sigma over 2 epsilon zero, which is the same at all distances and points away from the sheet on each side."
+    hints:
+      - "Choose a Gaussian surface that crosses the sheet symmetrically."
+      - "Consider how the flux through the two flat ends depends on the field direction."
+      - "Ask whether the distance from the sheet appears in the final expression."
+    diagram: null
+    confidence: high
+  - topic: gauss_law
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An infinite plane sheet has surface charge density 1.77 x 10^-9 C/m^2. What is the magnitude of the electric field in newtons per coulomb near it? Use epsilon zero equal to 8.85 x 10^-12 C^2 N^-1 m^-2."
+    correct: "100"
+    unit: "N/C"
+    wrong: []
+    explanation: "The field of a sheet is the surface density divided by twice epsilon zero. Substituting gives 1.77 x 10^-9 divided by 1.77 x 10^-11, which is 100 N/C."
+    hints:
+      - "Use the formula for a sheet, which has a factor of two in the denominator."
+      - "Write 2 times epsilon zero before dividing."
+      - "Keep the powers of ten exact when dividing."
+    diagram: null
+    confidence: high
+  - topic: gauss_law
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A conducting sphere of radius R carries a total charge Q. At a point outside the sphere at distance r from its centre, what is the magnitude of the electric field?"
+    correct: "Q divided by 4 pi epsilon zero r squared"
+    unit: ""
+    wrong:
+      - {text: "Q divided by 4 pi epsilon zero times the square of the sphere radius", mistake: "uses the sphere radius instead of the distance to the outside point"}
+      - {text: "Q divided by 4 pi epsilon zero r", mistake: "uses the first power of distance instead of the square"}
+      - {text: "Zero", mistake: "assumes a conductor has no field outside its surface"}
+    explanation: "Outside a charged sphere the field is the same as that of a point charge placed at its centre. It therefore falls off with the square of the distance from the centre."
+    hints:
+      - "Think about how the sphere looks from a point far away from it."
+      - "Consider where the total charge sits on a conducting sphere."
+      - "Compare with the field formula for a point charge."
+    diagram: null
+    confidence: high
+  - topic: gauss_law
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Using k = 9 x 10^9 N m^2 C^-2, find the magnitude of the electric field in newtons per coulomb at 0.1 m from a long straight wire carrying a uniform linear charge density of 2 microcoulomb per metre."
+    correct: "360000"
+    unit: "N/C"
+    wrong: []
+    explanation: "A long wire gives a field of 2k times the linear charge density divided by the distance. With these values the field is 2 x 9 x 10^9 x 2 x 10^-6 divided by 0.1, which is 360000 N/C."
+    hints:
+      - "Use the field of a long wire, which has a factor of 2k in the numerator."
+      - "Keep the inverse dependence on distance in mind when you check the order of magnitude."
+      - "Convert the linear charge density to coulomb per metre before substituting."
+    diagram: "A long straight vertical line representing the wire, with arrows pointing radially outward from it, and a point marked at a perpendicular distance of 0.1 m from the wire."
+    confidence: high
+  - topic: gauss_law
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A point charge Q sits exactly at one corner of a cube. What is the electric flux through the whole cube?"
+    correct: "Q divided by 8 epsilon zero"
+    unit: ""
+    wrong:
+      - {text: "Q divided by epsilon zero", mistake: "uses the flux of the full enclosing sphere for the cube"}
+      - {text: "Zero", mistake: "assumes a charge on the boundary produces no flux through the cube"}
+      - {text: "Q divided by 6 epsilon zero", mistake: "divides the total flux by the number of faces of the cube"}
+    explanation: "Eight identical cubes can meet at a corner to fill the space around the charge. The charge therefore sends one eighth of its total flux through the single cube."
+    hints:
+      - "Imagine eight identical cubes that all share the charge as a common corner."
+      - "Consider what fraction of the full enclosing sphere this cube covers."
+      - "Start from the total flux of a charge that is completely enclosed."
+    diagram: "A cube drawn in perspective with a dot at one bottom corner, and arrows radiating outward from the dot through the faces of the cube."
+    confidence: medium

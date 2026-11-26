@@ -1,0 +1,410 @@
+class: 11
+subject: physics
+chapter: oscillations
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: simple_harmonic_motion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In simple harmonic motion, the acceleration of the particle is:"
+    correct: "proportional to the displacement and directed toward the mean position"
+    unit: ""
+    wrong:
+      - {text: "constant in magnitude and direction", mistake: "assumes the acceleration is uniform, as in projectile motion"}
+      - {text: "proportional to the velocity", mistake: "confuses acceleration with velocity"}
+      - {text: "zero at the extreme positions", mistake: "assumes the acceleration vanishes at the ends of the motion"}
+    explanation: "In SHM the restoring acceleration is proportional to the displacement from the mean position and points back toward that position."
+    hints:
+      - "Think about the restoring force in a stretched spring."
+      - "The acceleration changes as the particle moves."
+      - "Compare where the restoring effect is greatest."
+    diagram: null
+    confidence: high
+  - topic: simple_harmonic_motion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In simple harmonic motion, at which position is the speed of the particle at its maximum?"
+    correct: "the mean position"
+    unit: ""
+    wrong:
+      - {text: "the extreme positions", mistake: "confuses the turning points with the fastest point"}
+      - {text: "wherever the acceleration is largest", mistake: "assumes the greatest acceleration coincides with the greatest speed"}
+      - {text: "where the potential energy is largest", mistake: "confuses the fastest point with the points of greatest potential energy"}
+    explanation: "At the mean position the displacement and potential energy are zero, so all the energy is kinetic and the speed is at its maximum."
+    hints:
+      - "The displacement is zero at the centre of the motion."
+      - "Potential energy is smallest where the displacement is smallest."
+      - "Think about where the particle moves fastest."
+    diagram: "A horizontal spring-mass system with the mean position marked at the centre and the two extreme positions marked on either side. An arrow shows the oscillation between them."
+    confidence: high
+  - topic: simple_harmonic_motion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A particle in SHM has amplitude 4 cm and angular frequency 2 rad/s. What is its maximum speed in cm/s?"
+    correct: "8"
+    unit: "cm/s"
+    wrong: []
+    explanation: "The maximum speed is v_max = A omega = 4 times 2 = 8 cm/s, reached at the mean position."
+    hints:
+      - "The maximum speed occurs at the mean position."
+      - "Multiply the amplitude by the angular frequency."
+      - "Keep the units in centimetres and seconds."
+    diagram: null
+    confidence: high
+  - topic: simple_harmonic_motion
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For a particle in SHM, what is the phase relation between its displacement and its velocity?"
+    correct: "velocity leads displacement by pi/2"
+    unit: ""
+    wrong:
+      - {text: "velocity lags displacement by pi/2", mistake: "reverses the sign convention of the phase shift"}
+      - {text: "they are in phase", mistake: "assumes displacement and velocity peak at the same instant"}
+      - {text: "velocity leads displacement by pi", mistake: "assumes the velocity is opposite to the displacement"}
+    explanation: "If x = A cos(omega t), then v = -A omega sin(omega t) = A omega cos(omega t + pi/2), so velocity leads displacement by a quarter cycle."
+    hints:
+      - "Compare the time derivatives of a sine or cosine function."
+      - "The derivative of cosine involves a sine with a minus sign."
+      - "A shift of a quarter period corresponds to a right-angle phase change."
+    diagram: null
+    confidence: high
+  - topic: simple_harmonic_motion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A particle moves with x = 0.05 sin(10 t) metres, with t in seconds. What is the magnitude of its maximum acceleration in metres per second squared?"
+    correct: "5"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "The acceleration amplitude is A omega^2 = 0.05 times 100 = 5 m/s^2."
+    hints:
+      - "The acceleration amplitude is the amplitude times the square of the angular frequency."
+      - "Read the amplitude and the angular frequency from the sine form."
+      - "Square the angular frequency before multiplying by the amplitude."
+    diagram: null
+    confidence: high
+  - topic: simple_harmonic_motion
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A block of mass m on a spring of constant k oscillates vertically. If the mass is quadrupled while k stays the same, how does the period change?"
+    correct: "doubles"
+    unit: ""
+    wrong:
+      - {text: "quadruples", mistake: "assumes the period is proportional to the mass"}
+      - {text: "stays the same", mistake: "assumes the mass cancels out of the period"}
+      - {text: "halves", mistake: "inverts the dependence of the period on mass"}
+    explanation: "The period is 2 pi times the square root of m over k. Quadrupling m multiplies the square root by two, so the period doubles."
+    hints:
+      - "The period depends on the square root of the mass."
+      - "Compare the mass ratio and take its square root."
+      - "The spring constant is fixed in this comparison."
+    diagram: "A spring with a block hanging from it. The mass is labelled m and a double-headed arrow shows the oscillation up and down."
+    confidence: high
+  - topic: spring_and_pendulum
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A simple pendulum has length 1 m. Taking g = 9.8 m/s^2 and pi as 3.14, what is its period in seconds, to two decimal places?"
+    correct: "2.01"
+    unit: "s"
+    wrong: []
+    explanation: "The period is 2 pi times the square root of L over g, which is 6.28 times 0.3194, about 2.01 s."
+    hints:
+      - "For small swings the period depends only on the length and gravity."
+      - "Use the square root of length divided by gravity."
+      - "Multiply by two pi at the end."
+    diagram: null
+    confidence: high
+  - topic: spring_and_pendulum
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 2 kg mass is attached to a spring of stiffness 50 N/m and set oscillating. Using pi as 3.14, what is the period in seconds, to two decimal places?"
+    correct: "1.26"
+    unit: "s"
+    wrong: []
+    explanation: "The period is 2 pi times the square root of m over k, which is 6.28 times the square root of 0.04, equal to 1.256 s."
+    hints:
+      - "The period of a spring-mass system depends on the mass and the stiffness."
+      - "Take the square root of the mass divided by the stiffness."
+      - "Multiply by two pi at the end."
+    diagram: "A vertical spring hanging from a fixed support with a 2 kg mass attached at its lower end. Arrows show the mass moving up and down about its rest position."
+    confidence: high
+  - topic: spring_and_pendulum
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A simple pendulum of length 0.5 m hangs in a lift accelerating upward at 2.9 m/s^2. Taking g = 9.8 m/s^2 and pi as 3.14, what is its period in seconds, to two decimal places?"
+    correct: "1.25"
+    unit: "s"
+    wrong: []
+    explanation: "The effective gravity is 9.8 + 2.9 = 12.7 m/s^2. The period is 6.28 times the square root of 0.5 / 12.7, which is about 1.25 s."
+    hints:
+      - "In an accelerating lift the effective gravity is the sum of g and the lift acceleration."
+      - "Use that effective value in the period formula."
+      - "Compute the square root of length over effective gravity before multiplying by two pi."
+    diagram: null
+    confidence: high
+  - topic: spring_and_pendulum
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two identical springs, each of stiffness k, are placed side by side in parallel and both attached to a mass m. What is the period of the mass?"
+    correct: "2 pi times the square root of m over 2k"
+    unit: ""
+    wrong:
+      - {text: "2 pi times the square root of 2m over k", mistake: "places the mass in the numerator with the stiffness doubled incorrectly"}
+      - {text: "2 pi times the square root of m over k", mistake: "ignores the second spring"}
+      - {text: "2 pi times the square root of m over 4k", mistake: "multiplies the stiffnesses instead of adding them"}
+    explanation: "Parallel springs share the same extension, so their stiffnesses add to 2k. The period is then 2 pi times the square root of m over 2k."
+    hints:
+      - "Parallel springs share the same extension, and their stiffnesses add."
+      - "Find the total stiffness of the combination first."
+      - "Use the period formula with that total stiffness."
+    diagram: null
+    confidence: high
+  - topic: spring_and_pendulum
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A simple pendulum has a period of 2.0 s at a place where g = 9.8 m/s^2. Using pi as 3.14, what is its length in metres, to two decimal places?"
+    correct: "0.99"
+    unit: "m"
+    wrong: []
+    explanation: "From T = 2 pi sqrt(L/g), L = g T^2 / (4 pi^2) = 9.8 times 4 / 39.44, which is about 0.99 m."
+    hints:
+      - "Square the period formula to isolate the length."
+      - "Multiply gravity by the square of the period first."
+      - "Divide by four times pi squared."
+    diagram: "A simple pendulum drawn as a string from a fixed pivot to a bob. The length L is labelled and the arc of the swing is shown."
+    confidence: high
+  - topic: spring_and_pendulum
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A pendulum clock runs slow at a particular place. To correct it at that place, what should be done?"
+    correct: "shorten the pendulum"
+    unit: ""
+    wrong:
+      - {text: "lengthen the pendulum", mistake: "reverses the relation between length and period"}
+      - {text: "add more mass to the bob", mistake: "assumes the mass of the bob changes the period of a simple pendulum"}
+      - {text: "move the clock to a place with weaker gravity", mistake: "assumes weaker gravity makes the clock run faster"}
+    explanation: "A slow clock has a period that is too long. Since the period grows with the length, shortening the pendulum reduces the period and corrects the clock."
+    hints:
+      - "The period grows as the pendulum length grows."
+      - "A slow clock has a period that is too long."
+      - "The mass of the bob does not appear in the simple pendulum period."
+    diagram: null
+    confidence: high
+  - topic: energy_in_shm
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "At an extreme position of simple harmonic motion, the kinetic energy of the particle is:"
+    correct: "zero"
+    unit: ""
+    wrong:
+      - {text: "at its maximum", mistake: "confuses the extreme positions with the mean position"}
+      - {text: "equal to the total energy", mistake: "confuses the potential energy at the extreme with the kinetic energy"}
+      - {text: "half the total energy", mistake: "assumes the energy is split equally at every position"}
+    explanation: "At the turning points the speed is zero, so the kinetic energy vanishes and all the energy is stored as potential energy."
+    hints:
+      - "Think about the speed of the particle at the turning point of its swing."
+      - "At the turning point the energy is all potential."
+      - "Kinetic energy depends on the square of the speed."
+    diagram: null
+    confidence: high
+  - topic: energy_in_shm
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A block in simple harmonic motion has total energy 8 J and amplitude 0.2 m. What is its potential energy in joules when its displacement from the mean position is 0.1 m?"
+    correct: "2"
+    unit: "J"
+    wrong: []
+    explanation: "The spring constant is k = 2E / A^2 = 400 N/m. The potential energy at x = 0.1 m is one half times 400 times 0.01, which is 2 J."
+    hints:
+      - "Potential energy grows with the square of the displacement."
+      - "Find the spring constant from the total energy and the amplitude first."
+      - "Then use that constant with the given displacement."
+    diagram: "A graph of potential energy against displacement shaped as a parabola. A horizontal line marks the total energy, and the point at the given displacement is marked on the curve."
+    confidence: high
+  - topic: energy_in_shm
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A particle of mass 0.2 kg in SHM has amplitude 0.1 m and angular frequency 5 rad/s. What is its total mechanical energy in joules?"
+    correct: "0.025"
+    unit: "J"
+    wrong: []
+    explanation: "The total energy is one half times m times omega squared times A squared, which is 0.5 times 0.2 times 25 times 0.01 = 0.025 J."
+    hints:
+      - "The total energy equals the maximum kinetic energy at the mean position."
+      - "Use the maximum speed, which is amplitude times angular frequency."
+      - "Half of the mass times that speed squared gives the answer."
+    diagram: null
+    confidence: high
+  - topic: energy_in_shm
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In simple harmonic motion, at what displacement are the kinetic energy and the potential energy equal?"
+    correct: "amplitude divided by the square root of 2"
+    unit: ""
+    wrong:
+      - {text: "at the mean position", mistake: "assumes the two energies are equal at the centre"}
+      - {text: "at the extreme positions", mistake: "assumes the two energies are equal at the turning points"}
+      - {text: "nowhere in the motion", mistake: "assumes the two energies can never match"}
+    explanation: "Kinetic and potential energy are equal when each is half the total energy, which happens at a displacement of A divided by the square root of 2."
+    hints:
+      - "The total energy splits between the kinetic and potential forms."
+      - "Set the potential energy equal to half the total energy."
+      - "Solve for the displacement in terms of the amplitude."
+    diagram: null
+    confidence: high
+  - topic: energy_in_shm
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A mass in SHM has total energy 0.5 J and amplitude 0.2 m. What is the spring constant in newtons per metre?"
+    correct: "25"
+    unit: "N/m"
+    wrong: []
+    explanation: "The total energy is one half k A^2, so k = 2E / A^2 = 1 / 0.04 = 25 N/m."
+    hints:
+      - "The total energy equals half the spring constant times the amplitude squared."
+      - "Rearrange the relation to isolate the spring constant."
+      - "Multiply the energy by two before dividing by the amplitude squared."
+    diagram: null
+    confidence: high
+  - topic: energy_in_shm
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "If the amplitude of a simple harmonic oscillator is doubled while its frequency stays the same, how does its total energy change?"
+    correct: "it quadruples"
+    unit: ""
+    wrong:
+      - {text: "it doubles", mistake: "assumes energy grows linearly with amplitude"}
+      - {text: "it stays the same", mistake: "ignores the amplitude in the energy formula"}
+      - {text: "it halves", mistake: "inverts the dependence on amplitude"}
+    explanation: "The total energy is one half m omega squared A squared. Doubling A multiplies A squared by four, so the total energy quadruples."
+    hints:
+      - "The energy depends on the amplitude squared."
+      - "Compare the new amplitude squared with the old one."
+      - "The energy scales with a power of the amplitude, not the amplitude itself."
+    diagram: "Two sine waves drawn on the same axes. One has amplitude A marked above and below the axis, and the second, taller wave is labelled with amplitude 2A."
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Resonance occurs in a forced oscillator when:"
+    correct: "the driving frequency equals the natural frequency"
+    unit: ""
+    wrong:
+      - {text: "the damping is exactly zero", mistake: "mixes up resonance with the absence of damping"}
+      - {text: "the driving amplitude is zero", mistake: "assumes a larger response needs no driving force"}
+      - {text: "the amplitude becomes zero", mistake: "confuses the resonance peak with a null response"}
+    explanation: "Resonance is the condition in which the driving frequency matches the natural frequency of the system, giving the largest response."
+    hints:
+      - "Think of pushing a swing at the right moment each cycle."
+      - "The system responds most strongly when the input matches its own rhythm."
+      - "Compare the driving frequency with the system's own natural frequency."
+    diagram: null
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a damped oscillator, what happens to the amplitude of oscillation over time?"
+    correct: "it decreases"
+    unit: ""
+    wrong:
+      - {text: "it increases without bound", mistake: "assumes energy is added to the oscillator"}
+      - {text: "it stays constant", mistake: "ignores the resistive losses"}
+      - {text: "it grows and then shrinks", mistake: "invents a rise in amplitude for a free damped oscillator"}
+    explanation: "Damping removes energy from the oscillator through friction or resistance, so the amplitude decays with time."
+    hints:
+      - "Friction or resistance removes energy from the motion."
+      - "Think of a swing slowing down when nobody pushes it."
+      - "Energy is lost to the environment over each cycle."
+    diagram: "A plot of displacement against time for an oscillating mass. The peaks become progressively smaller as time increases."
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A damped oscillator is to return to equilibrium as quickly as possible without overshooting. Which damping condition is required?"
+    correct: "critical damping"
+    unit: ""
+    wrong:
+      - {text: "underdamping", mistake: "assumes slight damping returns the system fastest"}
+      - {text: "no damping", mistake: "assumes an undamped system settles fastest"}
+      - {text: "overdamping", mistake: "assumes more resistance always means a faster return"}
+    explanation: "Critical damping is the boundary case that returns the system to equilibrium in the shortest time without oscillation. Heavier damping is slower."
+    hints:
+      - "This case is the boundary between oscillating and non-oscillating motion."
+      - "Too much resistance slows the return to equilibrium."
+      - "Think of a door closer that brings the door back quickly without swinging past the frame."
+    diagram: null
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A forced oscillator reaches its largest steady-state amplitude when:"
+    correct: "the driving frequency is close to the natural frequency and damping is small"
+    unit: ""
+    wrong:
+      - {text: "the driving frequency is zero", mistake: "assumes a steady push with no oscillation gives the largest response"}
+      - {text: "the damping is very large", mistake: "assumes heavy damping increases the amplitude"}
+      - {text: "the driving frequency is far above the natural frequency", mistake: "assumes a very fast drive produces the largest response"}
+    explanation: "The steady-state amplitude peaks near the natural frequency, and light damping makes that peak tall and sharp."
+    hints:
+      - "The largest response occurs when the inputs add in step with the motion."
+      - "Compare how the input rhythm and the natural rhythm line up."
+      - "Damping reduces the height of the resonance peak."
+    diagram: null
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A lightly damped oscillator has a high quality factor Q. What does a high Q indicate?"
+    correct: "damping is light, so the resonance peak is sharp and tall"
+    unit: ""
+    wrong:
+      - {text: "damping is heavy, so the resonance peak is broad", mistake: "confuses a high Q with heavy damping"}
+      - {text: "the driving force is very large", mistake: "confuses the quality factor with the size of the driving force"}
+      - {text: "the natural frequency is zero", mistake: "confuses the quality factor with the natural frequency"}
+    explanation: "A high quality factor means little energy is lost per cycle. Light damping produces a sharp, tall resonance peak."
+    hints:
+      - "A high quality factor means low energy loss per cycle."
+      - "Sharp resonance peaks come from little damping."
+      - "Think about how much energy the system loses each cycle."
+    diagram: null
+    confidence: high
+  - topic: damped_and_forced
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A driven oscillator is at resonance with weak damping. If the damping is then increased, what happens to the peak amplitude?"
+    correct: "the peak amplitude decreases and the resonance broadens"
+    unit: ""
+    wrong:
+      - {text: "the peak amplitude increases", mistake: "assumes more damping adds energy to the oscillator"}
+      - {text: "the peak amplitude stays the same", mistake: "ignores the energy drained by damping"}
+      - {text: "the resonance frequency rises sharply", mistake: "assumes damping sets the peak frequency by itself"}
+    explanation: "Greater damping drains more energy from each cycle, lowering and broadening the resonance peak, while the peak frequency changes only slightly."
+    hints:
+      - "More damping drains energy from each cycle."
+      - "A flatter response curve has less height at resonance."
+      - "Compare the height of the response peak before and after increasing the damping."
+    diagram: "Two resonance curves plotted as amplitude against driving frequency. One is tall and narrow, labelled light damping, and the other is lower and wider, labelled heavy damping."
+    confidence: high

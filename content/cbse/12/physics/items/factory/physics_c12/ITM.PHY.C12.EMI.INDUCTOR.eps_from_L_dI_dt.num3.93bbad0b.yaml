@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.EMI.INDUCTOR.eps_from_L_dI_dt.num3.93bbad0b
+skill_ids:
+- PHY.C12.EMI.INDUCTOR
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying an inductor in a circuit. The inductance, L, is 50 mH,
+    the current changes by 1 A and the change takes 10 ms. Find the magnitude of the
+    induced emf.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: emf = L x current change / time.'
+- level: 2
+  en: The relation already gives the induced emf directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 50 mH as 0.05 H and 10 ms as 0.01 s, then write eps = L x
+    dI / dt, where eps is the induced emf, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the induced emf have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.INDUCTOR
+generator_version: factory-2
+template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.2 V
+- id: b
+  en: 0.005 V
+- id: c
+  en: 5 V
+- id: d
+  en: 5 x 10^-4 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TIME_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.TIME_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: emf = L x current change / time.'
+- en: 'Put each quantity in SI units: 50 mH = 0.05 H; 10 ms = 0.01 s.'
+- en: 'Substitute: eps = 0.05 x 1 / 0.01.'
+- en: 'Calculate: eps = 5 V.'
+- en: So the induced emf is 5 V.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c70e72638221d92add398d9d3d8d852cb86f2f7a3826dfa1acbc1bebf88d0406
+  template_hash: e7dafaf0be856ccc55f4c359d0cfde30fe019b8a7e658b0c8124a86130c5eef2
+  certificate_hash: 73303ae9c306c01ac02a2b6f6f2057f7619717cb36de7acc3579fe41348b756a
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:53+00:00'
+  record_hash: a7207b7e79695479b8e1aa331be1cc7e7e19854daeef59c8f3f25001a1c63eb2

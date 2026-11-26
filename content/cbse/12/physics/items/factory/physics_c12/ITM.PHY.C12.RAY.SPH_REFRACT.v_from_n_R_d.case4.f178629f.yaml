@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.RAY.SPH_REFRACT.v_from_n_R_d.case4.f178629f
+skill_ids:
+- PHY.C12.RAY.SPH_REFRACT
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates refraction at a curved glass surface and records
+    the following. The refractive index of the glass, n, is 1.5, the radius of curvature
+    of the convex surface, R, is 15 cm and a point object in air, d, is 90 cm from
+    the surface on its axis. Find the distance of the image from the surface.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- level: 2
+  en: The relation already gives the image distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 15 cm as 0.15 m and 90 cm as 0.9 m, then write v = n x R
+    x d / ((n - 1) x d + R), where v is the image distance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.SPH_REFRACT
+generator_version: factory-2
+template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20.8 cm
+- id: b
+  en: 22.5 cm
+- id: c
+  en: 13.5 cm
+- id: d
+  en: 33.75 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DISTANCES_SWAPPED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.INDEX_FORGOTTEN_IN_NUMERATOR
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- en: 'Put each quantity in SI units: 15 cm = 0.15 m; 90 cm = 0.9 m.'
+- en: 'Substitute: v = 1.5 x 0.15 x 0.9 / ((1.5 - 1) x 0.9 + 0.15).'
+- en: 'Calculate: v = 0.3375 m.'
+- en: 'Give it in cm: 33.75 cm.'
+- en: So the image distance is 33.75 cm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4d1aeced2608a2c7d1294977aef6f3e2fce44d79a9c1bf69cf6534c61ad21942
+  template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+  certificate_hash: 4a76de8efb15fe1aafb36061489ff6c76ff6974a2a6e8bb3b03c20931051c492
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:53+00:00'
+  record_hash: 55b38999f2e8878fa5c0cbef594aaf6d46f9b99069ec8d2bd0b3deecd05ba09a

@@ -1,0 +1,319 @@
+class: 12
+subject: "maths"
+chapter: "relations_and_functions"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "types_of_relations"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Let A = {1, 2, 3}. Which of the following relations on A is an equivalence relation?"
+    correct: "{(1,1), (2,2), (3,3), (1,2), (2,1)}"
+    unit: ""
+    wrong:
+      - {text: "{(1,1), (2,2), (1,2)}", mistake: "forgets that every element of A must relate to itself"}
+      - {text: "{(1,1), (2,2), (3,3), (1,2)}", mistake: "forgets that a symmetric relation needs the reverse pair"}
+      - {text: "{(1,2), (2,3), (1,3)}", mistake: "checks transitivity alone and ignores reflexivity"}
+    explanation: "Every element is related to itself and the pair (1,2) comes with (2,1), so the relation is reflexive and symmetric. Checking the chains of pairs shows it is transitive as well."
+    hints:
+      - "Start by checking whether each element of A is related to itself."
+      - "For each pair in the relation, look for its reverse."
+      - "Then chain any two pairs together and see whether the result is already in the relation."
+    diagram: null
+    confidence: high
+
+  - topic: "types_of_relations"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "How many distinct relations can be defined from a set with 3 elements to itself?"
+    correct: "512"
+    unit: ""
+    wrong: []
+    explanation: "A relation is any subset of the 9 ordered pairs that can be formed from the set, so there are 2 raised to the power 9 subsets."
+    hints:
+      - "Count the ordered pairs that can be formed from the set."
+      - "Each ordered pair is either included in the relation or left out of it."
+      - "Count the independent yes or no choices, one for each pair, and think about how those choices combine."
+    diagram: null
+    confidence: high
+
+  - topic: "types_of_relations"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Let R be the relation on the natural numbers given by a R b when a divides b. Which statement about R is correct?"
+    correct: "It is reflexive and transitive but not symmetric"
+    unit: ""
+    wrong:
+      - {text: "It is reflexive and symmetric but not transitive", mistake: "tests symmetry without checking the reverse divisibility"}
+      - {text: "It is an equivalence relation", mistake: "assumes divisibility treats both directions alike"}
+      - {text: "It is neither reflexive nor transitive", mistake: "checks only the reverse direction of each pair"}
+    explanation: "Every natural number divides itself, so R is reflexive. If a divides b and b divides c then a divides c, so R is transitive. But 2 divides 4 while 4 does not divide 2, so R is not symmetric."
+    hints:
+      - "Test whether each natural number divides itself."
+      - "Pick a pair where one number divides the other and then check the reverse order."
+      - "Chain two divisibility facts together and see what they force."
+    diagram: null
+    confidence: high
+
+  - topic: "types_of_relations"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let A = {1, 2, 3, 4} and let R be the relation a is less than b on A. How many ordered pairs does R contain?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "The pairs are (1,2), (1,3), (1,4), (2,3), (2,4) and (3,4), giving 6 ordered pairs."
+    hints:
+      - "Only pairs whose first entry is smaller than the second belong to R."
+      - "Go through the first element one at a time and list its partners."
+      - "Count the pairs in the list you built."
+    diagram: null
+    confidence: high
+
+  - topic: "types_of_relations"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let R be the relation on the integers given by a R b if and only if a minus b is divisible by 3. Which set is the equivalence class of 1?"
+    correct: "All integers of the form 3k + 1 for some integer k"
+    unit: ""
+    wrong:
+      - {text: "All integers of the form 3k for some integer k", mistake: "uses the class of zero instead of the class of one"}
+      - {text: "All integers of the form 3k + 2 for some integer k", mistake: "subtracts in the wrong order when forming the remainder"}
+      - {text: "The set {1, 4, 7} only", mistake: "lists a few members and treats the class as a finite set"}
+    explanation: "An integer a is in the class of 1 exactly when a minus 1 is a multiple of 3, which means a takes the form 3k + 1 for some integer k."
+    hints:
+      - "Write the condition for a to be related to 1 as a divisibility statement."
+      - "Write a as 1 plus something and ask what that something must satisfy."
+      - "Express the answer as a general form with an integer parameter."
+    diagram: null
+    confidence: high
+
+  - topic: "types_of_relations"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let R be the relation on the set {1, 2, 3, ..., 10} given by a R b if and only if a and b leave the same remainder when divided by 4. How many ordered pairs does R contain?"
+    correct: "26"
+    unit: ""
+    wrong: []
+    explanation: "The classes by remainder are {1,5,9}, {2,6,10}, {3,7} and {4,8}, of sizes 3, 3, 2 and 2. Each class of size n gives n squared ordered pairs, and 9 plus 9 plus 4 plus 4 is 26."
+    hints:
+      - "Group the numbers in the set by their remainder on division by 4."
+      - "Count how many numbers fall into each group."
+      - "For a group of size n, the number of ordered pairs inside it is n squared."
+    diagram: null
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Let f: R to R be f(x) = 2x + 3. Which statement about f is correct?"
+    correct: "f is one-one and onto"
+    unit: ""
+    wrong:
+      - {text: "f is one-one but not onto", mistake: "thinks a straight line with a nonzero slope must miss some output values"}
+      - {text: "f is onto but not one-one", mistake: "confuses being onto with being one-one"}
+      - {text: "f is neither one-one nor onto", mistake: "assumes every function on all real numbers fails both tests"}
+    explanation: "Different inputs give different outputs because the slope is nonzero, so f is one-one. Every real y is reached by solving y = 2x + 3 for x, so f is onto."
+    hints:
+      - "Ask whether two different inputs can ever give the same output."
+      - "Try solving the equation y = 2x + 3 for x when y is a general number."
+      - "Check the two properties separately before combining them."
+    diagram: "Straight line y = 2x + 3 drawn on labelled axes, with several horizontal lines at different heights each cutting the line exactly once."
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let f: R to R be f(x) = x + 5. Find the value of the inverse function at 12, that is f^-1(12)."
+    correct: "7"
+    unit: ""
+    wrong: []
+    explanation: "Solving y = x + 5 for x gives x = y minus 5, so the inverse is x minus 5, and at 12 it equals 7."
+    hints:
+      - "Solve the equation y = x + 5 for x."
+      - "Swap the roles of the input and the output in the rule you obtained."
+      - "Substitute 12 into the rule you found last."
+    diagram: null
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Let f be the function from {1, 2, 3} to {a, b, c} with f(1) = a, f(2) = c and f(3) = a. Which statement is correct?"
+    correct: "f is neither one-one nor onto"
+    unit: ""
+    wrong:
+      - {text: "f is one-one but not onto", mistake: "only checks that neighbouring inputs have different outputs"}
+      - {text: "f is onto but not one-one", mistake: "treats the size of the codomain as the size of the image"}
+      - {text: "f is a bijection", mistake: "ignores that two inputs share one output"}
+    explanation: "f(1) and f(3) are both a, so f is not one-one. The image is {a, c}, which misses b, so f is not onto."
+    hints:
+      - "Compare the outputs of the inputs 1 and 3."
+      - "List the set of values the function actually takes."
+      - "Check each property separately using that list."
+    diagram: "Arrow diagram with three inputs 1, 2, 3 on the left and three outputs a, b, c on the right, where two arrows from different inputs land on a and output b has no arrow."
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "How many one-one functions exist from a set with 3 elements to a set with 5 elements?"
+    correct: "60"
+    unit: ""
+    wrong: []
+    explanation: "The first input has 5 possible outputs, the second has 4 remaining and the third has 3 remaining, so the count is 5 times 4 times 3."
+    hints:
+      - "The first input can be sent to any of the 5 outputs."
+      - "Each later input cannot reuse an output that is already taken."
+      - "Multiply the number of choices available at each input."
+    diagram: null
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f: R to R be f(x) = x^3 + x. Which statement is correct?"
+    correct: "f is one-one and onto"
+    unit: ""
+    wrong:
+      - {text: "f is one-one but not onto", mistake: "believes a cubic must have a range that stops somewhere"}
+      - {text: "f is onto but not one-one", mistake: "assumes a cubic always turns back and repeats values"}
+      - {text: "f is neither one-one nor onto", mistake: "tests only one pair of inputs"}
+    explanation: "The derivative 3x^2 + 1 is always positive, so f is strictly increasing and therefore one-one. As x becomes large in either direction, f takes arbitrarily large positive or negative values, so f is onto."
+    hints:
+      - "Study how the function changes as x increases, using a derivative."
+      - "Find out whether the function can ever decrease."
+      - "Consider how large the outputs become for large inputs of both signs."
+    diagram: null
+    confidence: high
+
+  - topic: "one_one_onto_functions"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let A have 4 elements and B have 6 elements. How many one-one functions from A to B exist?"
+    correct: "360"
+    unit: ""
+    wrong: []
+    explanation: "The four elements of A take distinct outputs in turn, giving 6 times 5 times 4 times 3 choices."
+    hints:
+      - "Start with the first element of A and count its possible outputs."
+      - "Each later element of A loses one output that is already used."
+      - "Multiply the counts as you go through the four elements."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Let f(x) = x + 1 and g(x) = 2x. What is (f o g)(3)?"
+    correct: "7"
+    unit: ""
+    wrong:
+      - {text: "8", mistake: "reverses the order of composition"}
+      - {text: "10", mistake: "adds the two functions instead of composing them"}
+      - {text: "6", mistake: "applies only the inner function and forgets the outer one"}
+    explanation: "g(3) = 6, and then f(6) = 7, so (f o g)(3) = 7."
+    hints:
+      - "Start with the inner function and evaluate it at 3."
+      - "Feed that result into the outer function."
+      - "Check the order: the function written on the right acts first."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let f(x) = 3x - 2 and g(x) = x + 4. Find (f o g)(1)."
+    correct: "13"
+    unit: ""
+    wrong: []
+    explanation: "g(1) = 5, and f(5) = 3 times 5 minus 2, which equals 13."
+    hints:
+      - "Evaluate g first at x equals 1."
+      - "Use that result as the input to f."
+      - "Keep track of the arithmetic at each step."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Let f(x) = x^2 and g(x) = x - 1 on the real numbers. Which expression equals (g o f)(x)?"
+    correct: "x^2 - 1"
+    unit: ""
+    wrong:
+      - {text: "(x - 1)^2", mistake: "applies f after g instead of applying g to the output of f"}
+      - {text: "x^2 + 1", mistake: "changes the sign of the constant when substituting"}
+      - {text: "x^2 + x - 1", mistake: "adds the two functions instead of substituting one into the other"}
+    explanation: "Substituting f(x) = x^2 into g wherever g has its variable gives x^2 minus 1."
+    hints:
+      - "Substitute f(x) into g wherever g has its variable."
+      - "The variable in g is replaced by the whole expression for f."
+      - "Write the substitution first before simplifying anything."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let f(x) = 2x + 1 and g(x) = x^2 on the real numbers. Find (f o g)(-2)."
+    correct: "9"
+    unit: ""
+    wrong: []
+    explanation: "g(-2) = 4, and f(4) = 2 times 4 plus 1, which equals 9."
+    hints:
+      - "Find the value of the inner function at -2 first."
+      - "Square the value carefully, keeping track of the sign."
+      - "Apply the outer rule to that number."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f: R to R be f(x) = x + 2 and g: R to R be g(x) = x - 2. Which statement about f o g is correct?"
+    correct: "f o g = g o f = identity on R"
+    unit: ""
+    wrong:
+      - {text: "f o g(x) = x + 4", mistake: "adds the constants instead of letting them cancel"}
+      - {text: "f o g is not defined on R", mistake: "thinks composition needs a restriction of the domain"}
+      - {text: "f o g is a constant function", mistake: "treats the two linear terms as removing the variable"}
+    explanation: "Substituting g(x) = x - 2 into f gives (x - 2) + 2, which equals x. The same holds in the other order, so both composites are the identity on R."
+    hints:
+      - "Write f(g(x)) by substituting g(x) into f."
+      - "Track the constants that appear after the substitution."
+      - "Compare the simplified result with the simplest function on R."
+    diagram: null
+    confidence: high
+
+  - topic: "composition_of_functions"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f(x) = x^2 + 1 for x >= 0 and g(x) = square root of (x - 1) for x >= 1. Find (g o f)(2)."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "f(2) = 5, which is at least 1 so it lies in the domain of g, and g(5) = square root of 4, which equals 2."
+    hints:
+      - "Evaluate f at the given input first and check that the result lies in the domain of g."
+      - "Then feed that result into g."
+      - "Evaluate the square root of the expression you obtain, keeping only the nonnegative root."
+    diagram: null
+    confidence: high

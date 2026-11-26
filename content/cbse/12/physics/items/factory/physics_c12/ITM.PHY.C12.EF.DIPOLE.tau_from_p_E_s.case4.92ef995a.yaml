@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.EF.DIPOLE.tau_from_p_E_s.case4.92ef995a
+skill_ids:
+- PHY.C12.EF.DIPOLE
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates an electric dipole in a uniform field and records
+    the following. The dipole moment, p, is 2 x 10^-7 C m, the uniform field, E, is
+    5000 N/C and the sine of the angle between the dipole and the field, s, is 0.5.
+    Find the torque on the dipole.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: torque = p x E x sine of the angle.'
+- level: 2
+  en: The relation already gives the torque directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write tau = p x E x s, where tau is the torque, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the torque have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EF.DIPOLE
+generator_version: factory-2
+template_hash: c799ac443319cd67b1ac395d63748d850f98246e7a476507394e2a6d1a8912f3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 x 10^-4 N m
+- id: b
+  en: 0.005 N m
+- id: c
+  en: 0.001 N m
+- id: d
+  en: 0.002 N m
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.SINE_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: torque = p x E x sine of the angle.'
+- en: 'Substitute: tau = (2 x 10^-7) x 5000 x 0.5.'
+- en: 'Calculate: tau = 5 x 10^-4 N m.'
+- en: So the torque is 5 x 10^-4 N m.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9495ac1b1ed0999fdf65fe510898b29e8968b987145c3c9597f7ea250a69c757
+  template_hash: c799ac443319cd67b1ac395d63748d850f98246e7a476507394e2a6d1a8912f3
+  certificate_hash: 260b30576e0929afd3f0fbda4c0be3e1a600a2f150ca62b9f1f8eb5625d2659b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electric_charges_fields
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:53+00:00'
+  record_hash: f4d1b82d1c392dea831942f41c73b4aac0ba9734ed03540055b040ce9c7185ae

@@ -1,0 +1,203 @@
+class: 9
+subject: maths
+chapter: constructions
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: basic_constructions
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which compass and straightedge method gives the perpendicular bisector of a segment?"
+    correct: "Draw arcs of equal radius from both ends, then join the two points where the arcs cross."
+    unit: ""
+    wrong:
+      - {text: "Draw one arc from an end and mark the midpoint by eye.", mistake: "accepts an estimate as a construction"}
+      - {text: "Draw the bisector of the angle at one end of the segment.", mistake: "confuses a segment bisector with an angle bisector"}
+      - {text: "Measure the segment with a protractor and mark half of it.", mistake: "uses a protractor, which is not part of the compass method"}
+    explanation: "Equal arcs from both ends cross at two points, and the line through those points is the perpendicular bisector of the segment."
+    hints:
+      - "Think about which points are equally far from both ends."
+      - "Arcs of equal radius from each end create two crossing points."
+      - "The line through those two points cuts the segment at right angles."
+    diagram: "A horizontal segment with equal arcs drawn from each end crossing above and below it, and the line joining the crossings."
+    confidence: high
+  - topic: basic_constructions
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Using ruler and compasses, a 60-degree angle is bisected. What is the size of each resulting angle, in degrees?"
+    correct: "30"
+    unit: "degrees"
+    wrong: []
+    explanation: "The bisector splits the 60-degree angle into two equal angles of 30 degrees."
+    hints:
+      - "A bisector splits an angle into two equal parts."
+      - "Divide the total angle by two."
+      - "Check that the two parts add back to the original angle."
+    diagram: null
+    confidence: high
+  - topic: basic_constructions
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A right angle is to be constructed at a point on a straight line using only compass and straightedge. Which method is correct?"
+    correct: "Draw equal arcs on both sides of the point, then bisect the straight angle they create."
+    unit: ""
+    wrong:
+      - {text: "Mark 90 degrees by eye with a protractor.", mistake: "uses a protractor, which is not allowed in this construction"}
+      - {text: "Draw any line that looks perpendicular and stop there.", mistake: "assumes a line that looks perpendicular is perpendicular"}
+      - {text: "Draw an arc of radius 90 cm from the point.", mistake: "uses a length in place of an angle"}
+    explanation: "Bisecting the straight angle at the point produces two equal angles of 90 degrees, which is the standard construction of a right angle."
+    hints:
+      - "Start with an angle whose measure is already known."
+      - "Bisect a straight angle to halve it into two equal parts."
+      - "Use arcs of equal radius on both sides of the point."
+    diagram: "A horizontal line with a point marked on it, equal arcs drawn on both sides, and a perpendicular raised through the point."
+    confidence: high
+  - topic: basic_constructions
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A segment of length 10 cm is bisected by its perpendicular bisector. What is the distance, in cm, from one end of the segment to the point where the bisector meets it?"
+    correct: "5"
+    unit: "cm"
+    wrong: []
+    explanation: "The perpendicular bisector meets the segment at its midpoint, which is exactly half of 10 cm, so the distance is 5 cm."
+    hints:
+      - "The perpendicular bisector passes through the midpoint."
+      - "Divide the total length by the number of equal parts."
+      - "Take exactly half of the segment."
+    diagram: "Segment with its perpendicular bisector drawn through the midpoint, and the two halves marked."
+    confidence: high
+  - topic: basic_constructions
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why does the perpendicular bisector construction work for a segment?"
+    correct: "Every point on the bisector is equally far from both ends of the segment."
+    unit: ""
+    wrong:
+      - {text: "The bisector makes the segment twice as long.", mistake: "confuses the bisector with an extension of the segment"}
+      - {text: "The bisector forms an angle of 60 degrees with the segment.", mistake: "invents an angle without any reason"}
+      - {text: "The bisector passes through only one end of the segment.", mistake: "misreads the purpose of the construction"}
+    explanation: "Points on the perpendicular bisector are equidistant from the endpoints, which is why arcs of equal radius meet on that line."
+    hints:
+      - "Think about what the equal arcs guarantee about distances."
+      - "Consider which points are equally far from both ends."
+      - "Check the property of the bisector against the radii of the arcs."
+    diagram: "Segment with arcs of equal radius drawn from each end, meeting on the perpendicular bisector."
+    confidence: high
+  - topic: basic_constructions
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A segment AB is 8 cm long. A point P lies on its perpendicular bisector so that PA is 5 cm. What is the distance from P to the midpoint of AB, in cm?"
+    correct: "3"
+    unit: "cm"
+    wrong: []
+    explanation: "Half of 8 is 4, so the distance is the square root of 25 minus 16, which is 3 cm."
+    hints:
+      - "Half the segment is one leg of a right triangle."
+      - "The distance from P to an end is the hypotenuse of that triangle."
+      - "Apply Pythagoras to find the remaining leg."
+    diagram: "Segment AB with its midpoint M, the point P above on the perpendicular bisector, and the right triangle PMA shown."
+    confidence: high
+  - topic: triangle_constructions
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which set of measures is enough to construct one unique triangle?"
+    correct: "three sides"
+    unit: ""
+    wrong:
+      - {text: "three angles", mistake: "assumes angles fix the size of a triangle"}
+      - {text: "two sides only", mistake: "forgets that a third measure is needed"}
+      - {text: "two sides and an angle not between them", mistake: "assumes this data always gives a unique triangle"}
+    explanation: "Three sides determine a triangle uniquely by the SSS condition, while three angles fix only the shape and not the size."
+    hints:
+      - "Ask which measures pin down both the shape and the size."
+      - "Three angles can be scaled up or down to give different triangles."
+      - "Choose the set that fixes every side length."
+    diagram: "Triangle with its three sides labelled with lengths."
+    confidence: high
+  - topic: triangle_constructions
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A triangle is constructed with sides 3 cm, 4 cm and 5 cm. What is its area, in square cm?"
+    correct: "6"
+    unit: "cm^2"
+    wrong: []
+    explanation: "Since 3 squared plus 4 squared equals 5 squared, the angle between the shorter sides is a right angle, so the area is half of 12, which is 6 square cm."
+    hints:
+      - "Check whether the squares of the two shorter sides add to the square of the longest."
+      - "If they do, the two shorter sides can serve as base and height."
+      - "Halve the product of those two sides."
+    diagram: "Right triangle with sides of 3 cm, 4 cm and 5 cm labelled."
+    confidence: high
+  - topic: triangle_constructions
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A triangle has two sides of 6 cm and 4 cm with the included angle 60 degrees. Which step comes first in the construction?"
+    correct: "Draw the 6 cm side and copy the 60-degree angle at one of its ends."
+    unit: ""
+    wrong:
+      - {text: "Draw the 4 cm side vertically with no angle at its end.", mistake: "ignores where the included angle sits"}
+      - {text: "Draw a circle with a radius of 60 cm.", mistake: "treats the angle as a length"}
+      - {text: "Draw the unknown third side first using a protractor.", mistake: "starts from the unknown side instead of the given measures"}
+    explanation: "Start with one given side, construct the given angle at one of its ends, and mark off the second side along the arm of that angle."
+    hints:
+      - "Start with a measure that is given in full."
+      - "The included angle sits between the two given sides."
+      - "Build the figure outward from one side."
+    diagram: "Partial construction showing a base side with the angle drawn at one end."
+    confidence: high
+  - topic: triangle_constructions
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A triangle is to be constructed with a base of 8 cm and both base angles equal to 45 degrees. What is the apex angle, in degrees?"
+    correct: "90"
+    unit: "degrees"
+    wrong: []
+    explanation: "The angles of a triangle add to 180 degrees, so the apex is 180 minus 90, which is 90 degrees."
+    hints:
+      - "The angles of any triangle add up to a known total."
+      - "Add the two given base angles and subtract from that total."
+      - "Check that the result is a positive angle."
+    diagram: "Triangle with the base drawn horizontally and both base angles marked as equal."
+    confidence: high
+  - topic: triangle_constructions
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A triangle is to be constructed with sides of 2 cm, 3 cm and 6 cm. Which statement is correct?"
+    correct: "It cannot be constructed, because two sides sum to less than the third."
+    unit: ""
+    wrong:
+      - {text: "It can be constructed as a right triangle.", mistake: "assumes any three lengths can form a right triangle"}
+      - {text: "It can be constructed as an equilateral triangle.", mistake: "treats unequal lengths as if they were equal"}
+      - {text: "It can be constructed if the 6 cm side faces the largest angle.", mistake: "ignores the condition on the sides"}
+    explanation: "Two sides of 2 cm and 3 cm sum to 5 cm, which is less than 6 cm, so no triangle with these sides exists."
+    hints:
+      - "Add the two shorter sides and compare the total with the longest."
+      - "A triangle needs every pair of sides to exceed the third side."
+      - "Test whether the condition holds before choosing a construction."
+    diagram: "Three segments of lengths 2 cm, 3 cm and 6 cm, with the attempt to join their ends shown."
+    confidence: high
+  - topic: triangle_constructions
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An isosceles triangle is constructed with a base of 10 cm and two equal sides of 13 cm each. What is its height above the base, in cm?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "Half the base is 5 cm, so the height is the square root of 169 minus 25, which is 12 cm."
+    hints:
+      - "The perpendicular from the apex bisects the base."
+      - "Form a right triangle with half the base and one of the equal sides."
+      - "Apply Pythagoras to find the height."
+    diagram: "Isosceles triangle with base 10 cm, equal sides 13 cm, and the height drawn from the apex to the base."
+    confidence: high

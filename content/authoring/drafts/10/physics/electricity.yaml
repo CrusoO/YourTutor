@@ -1,0 +1,113 @@
+class: 10
+subject: physics
+chapter: electricity
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A wire becomes hot when a current flows through it. What causes the heating?"
+    correct: "Moving electrons collide with the atoms of the conductor and transfer energy to them"
+    unit: ""
+    wrong:
+      - {text: "The current is converted into light inside the wire", mistake: "confuses heating with the light emission of a bulb filament"}
+      - {text: "The wire stores charge and releases it as heat", mistake: "treats electric charge as a store of heat"}
+      - {text: "The battery supplies heat energy directly to the wire", mistake: "thinks the source delivers heat rather than electrical energy"}
+    explanation: "As electrons drift through a conductor, they collide with the atoms of the metal. Each collision transfers some energy to the atoms, which vibrate more and raise the temperature of the wire. This energy transfer is the heating effect of current."
+    hints:
+      - "Think about what the electrons do as they move through the metal."
+      - "Ask what the moving charges transfer when they meet the atoms of the wire."
+      - "Consider where the energy supplied by the battery finally goes."
+    diagram: null
+    confidence: high
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the heat H produced in a resistor of resistance R when a steady current I flows through it for time t?"
+    correct: "H = I squared times R times t"
+    unit: ""
+    wrong:
+      - {text: "H = I times R times t", mistake: "leaves out the square on the current"}
+      - {text: "H = I times R squared times t", mistake: "squares the resistance instead of the current"}
+      - {text: "H = I squared times t divided by R", mistake: "uses the power relation for a source voltage, dividing by the resistance"}
+    explanation: "The heat produced in a resistor is given by H = I squared R t. The power dissipated is I squared R, and multiplying by the time gives the energy converted into heat. The current appears squared, so doubling the current increases the heat four times."
+    hints:
+      - "Think about how the heat per second depends on the current."
+      - "Ask whether the heat depends on the current linearly or through a square."
+      - "Recall which quantity is multiplied by the time to give the total energy."
+    diagram: null
+    confidence: high
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "An electric heater and a bulb are connected in series, so the same current flows through both. The heater gets much hotter than the bulb. Why?"
+    correct: "Its heating element has a much higher resistance, so more energy is converted to heat per second"
+    unit: ""
+    wrong:
+      - {text: "Its current is larger than the current in the bulb", mistake: "contradicts the premise that the same current flows through both"}
+      - {text: "Its element has a lower resistance, so it heats up faster", mistake: "reverses the effect of resistance on heating"}
+      - {text: "The bulb takes in heat from the heater", mistake: "treats the bulb as the cause of the heater's temperature"}
+    explanation: "In series, the current is the same through both devices, so the heat per second depends on the resistance. The heater's element has a much higher resistance than the bulb's filament, so it converts more electrical energy into heat each second. This is why the heater gets much hotter."
+    hints:
+      - "Recall what is the same for both devices in a series circuit."
+      - "Think about which property of the device decides how much heat it produces for a fixed current."
+      - "Ask whether a higher or lower resistance means more heat per second for the same current."
+    diagram: null
+    confidence: high
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A fuse is a short piece of thin wire placed in a circuit. When the current exceeds a safe value, the fuse melts and breaks the circuit. Which property allows it to do this?"
+    correct: "It has a low melting point and heats up quickly when a large current flows through it"
+    unit: ""
+    wrong:
+      - {text: "It conducts better when the current becomes large", mistake: "assumes resistance falls as the current rises"}
+      - {text: "It stores charge and releases it when it melts", mistake: "treats the fuse as a capacitor"}
+      - {text: "It raises the voltage to protect the appliance", mistake: "thinks a fuse changes the voltage of the supply"}
+    explanation: "A fuse wire has a low melting point. When the current exceeds its rating, the heat produced in it is large enough to melt the wire, which opens the circuit and protects the appliance from damage. The wire's heating effect is therefore put to use as a safety device."
+    hints:
+      - "Think about what happens to the wire when a large current flows through it."
+      - "Ask what the wire must do to break the circuit."
+      - "Consider which property of the wire lets it melt at a safe current limit."
+    diagram: null
+    confidence: high
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two wires of the same length and material are connected in series, so the same current flows through both. The thinner wire gets much hotter. Why?"
+    correct: "The thinner wire has a higher resistance, so it produces more heat per second for the same current"
+    unit: ""
+    wrong:
+      - {text: "The thicker wire has a higher resistance", mistake: "reverses the dependence of resistance on the cross-sectional area"}
+      - {text: "Heating depends only on the length of the wire", mistake: "ignores the cross-sectional area"}
+      - {text: "The thinner wire has a larger current because it is narrower", mistake: "assumes a narrow wire must carry more current, when in series the current is the same"}
+    explanation: "The resistance of a wire is inversely proportional to its cross-sectional area, so the thinner wire has the higher resistance. For a fixed current, the heat produced per second is I squared times R, so the thinner wire heats more. The same current in both wires is what the question fixes."
+    hints:
+      - "Ask how the resistance of a wire changes when its thickness changes."
+      - "Recall what is the same for both wires in a series arrangement."
+      - "Think about how the heat per second depends on the resistance for a fixed current."
+    diagram: null
+    confidence: high
+  - topic: heating_effect_current
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A heater element is cut into two equal halves. The halves are then connected in parallel across the same supply voltage. Compared with the original whole element, the total heat produced per second is:"
+    correct: "Four times as large"
+    unit: ""
+    wrong:
+      - {text: "Half as large", mistake: "treats the parallel connection as a series connection"}
+      - {text: "The same", mistake: "assumes that cutting the element does not change the power when the supply is the same"}
+      - {text: "Twice as large", mistake: "adds the powers in a simple way or takes heat as proportional to length"}
+    explanation: "Each half has half the resistance, R over 2. Two halves in parallel have a combined resistance of R over 4. Since the supply voltage is the same, the power V squared over R over 4 is four times the power of the original element. Parallel branches reduce the resistance and increase the heat per second."
+    hints:
+      - "Find the resistance of each half first, then the combined resistance of the parallel pair."
+      - "Keep the supply voltage fixed and ask how the power depends on the resistance."
+      - "Compare the total resistance of the two halves with the resistance of the original element."
+    diagram: null
+    confidence: high

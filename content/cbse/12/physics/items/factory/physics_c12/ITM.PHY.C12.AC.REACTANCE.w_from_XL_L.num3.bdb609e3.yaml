@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.AC.REACTANCE.w_from_XL_L.num3.bdb609e3
+skill_ids:
+- PHY.C12.AC.REACTANCE
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying an inductor or a capacitor in an alternating circuit.
+    The inductive reactance, XL, is 1 Ω and the inductance, L, is 10 mH. Find the
+    angular frequency of the supply.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: XL = w x L.'
+- level: 2
+  en: The relation already gives the angular frequency directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 10 mH as 0.01 H, then write w = XL / L, where w is the angular
+    frequency, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the angular frequency have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.REACTANCE
+generator_version: factory-2
+template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 rad/s
+- id: b
+  en: 0.1 rad/s
+- id: c
+  en: 0.01 rad/s
+- id: d
+  en: 1000 rad/s
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INDUCTANCE_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: XL = w x L.'
+- en: 'Put each quantity in SI units: 10 mH = 0.01 H.'
+- en: 'Substitute: w = 1 / 0.01.'
+- en: 'Calculate: w = 100 rad/s.'
+- en: So the angular frequency is 100 rad/s.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c43a54c379e963c3bffc4ef5c26004ea27d970bba0296a389252bf93871371c5
+  template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+  certificate_hash: f063bd21e35952cb047f0fc5f5baf76eac72df8b7adab0a3843bad67409ff2dd
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:00+00:00'
+  record_hash: a8092d6da27c7f0d0af538d242aba7b7e8ba28497f3b55e78c26230daf24c384

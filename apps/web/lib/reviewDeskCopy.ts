@@ -31,6 +31,8 @@ export const desk = {
   wrongChoices: "Other choices: what the student is told if they pick one",
   noMistakeNamed: "The student gets no special message for this choice.",
   detailsForTeam: "Details for the team",
+  checkTag: { machine_checked: "Machine-checked", needs_person: "Needs a person to check" } as const,
+  diagramNote: "Diagram this question needs (described in words):",
   yourCheck: "Your check",
   computerOk: "The computer already checked the maths, so you do not need to.",
   computerUnchecked: "The computer could not check the maths of this one.",

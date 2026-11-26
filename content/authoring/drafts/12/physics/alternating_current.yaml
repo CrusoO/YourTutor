@@ -1,0 +1,398 @@
+class: 12
+subject: physics
+chapter: alternating_current
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: ac_voltage_current
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the rms value of a sinusoidal alternating current whose peak value is I0?"
+    correct: "I0 divided by the square root of 2"
+    unit: ""
+    wrong:
+      - {text: "I0 multiplied by the square root of 2", mistake: "multiplies by the root two where the peak must be reduced"}
+      - {text: "I0 divided by 2", mistake: "uses the half of the peak instead of the root mean square"}
+      - {text: "I0 divided by pi", mistake: "introduces pi from the period into the rms relation"}
+    explanation: "The rms value of a sine wave is its peak value divided by the square root of two, because the average of the squared sine over a cycle is one half."
+    hints:
+      - "The rms value comes from the mean of the squared current over a full cycle."
+      - "Think about the average of sine squared over one cycle."
+      - "Recall the relation between the peak and the rms value of a sine wave."
+    diagram: null
+    confidence: high
+  - topic: ac_voltage_current
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "An alternating voltage has peak value 20 times the square root of 2 volt. What is its rms value in volt?"
+    correct: "20"
+    unit: "V"
+    wrong: []
+    explanation: "The rms value is the peak divided by the square root of two. Dividing 20 root 2 by root 2 gives 20 V."
+    hints:
+      - "Use rms equal to peak divided by the square root of two."
+      - "Look for a common factor of the square root of two in the numerator and denominator."
+      - "Write the peak voltage in the form given before dividing."
+    diagram: null
+    confidence: high
+  - topic: ac_voltage_current
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An alternating supply has a frequency of 50 Hz. What is the time period of one complete cycle in milliseconds?"
+    correct: "20"
+    unit: "ms"
+    wrong: []
+    explanation: "The period is the reciprocal of the frequency, so T equals 1 divided by 50, which is 0.02 s, or 20 ms."
+    hints:
+      - "The period is the reciprocal of the frequency."
+      - "Work in seconds first and convert to milliseconds at the end."
+      - "Multiply the time in seconds by 1000 to get milliseconds."
+    diagram: "A sine wave drawn against a time axis with one complete cycle marked from its start to its end and the period labelled."
+    confidence: high
+  - topic: ac_voltage_current
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "The average power dissipated in a resistor R carrying an alternating current is written in terms of the rms current I. Which expression is correct?"
+    correct: "I squared times R"
+    unit: ""
+    wrong:
+      - {text: "I0 squared times R, using the peak current", mistake: "uses the peak current directly in the power formula"}
+      - {text: "I times R", mistake: "uses the current instead of its square"}
+      - {text: "I squared times R over 2", mistake: "applies the half factor again to the rms current"}
+    explanation: "Because rms values are defined to give the same heating as a direct current, the average power is I squared R with the rms current."
+    hints:
+      - "Think about how rms values are defined in terms of equivalent heating."
+      - "Consider whether the power depends on the current squared."
+      - "Recall which form of current gives the same average heating as direct current."
+    diagram: null
+    confidence: high
+  - topic: ac_voltage_current
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A sinusoidal current has peak value 4 A and flows through a 10 ohm resistor. What is the average power dissipated in watt?"
+    correct: "80"
+    unit: "W"
+    wrong: []
+    explanation: "The rms current is 4 divided by the square root of two, so its square is 8. Multiplying by 10 ohm gives an average power of 80 W."
+    hints:
+      - "Power uses the rms current, not the peak current."
+      - "Square the peak current and then divide by two to get the rms squared."
+      - "Multiply the result by the resistance at the end."
+    diagram: null
+    confidence: high
+  - topic: ac_voltage_current
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A sinusoidal voltage v equals V0 sin omega t. How does the frequency of the function v squared compare with the frequency of v?"
+    correct: "Twice the frequency"
+    unit: ""
+    wrong:
+      - {text: "Half the frequency", mistake: "assumes squaring slows the variation down"}
+      - {text: "The same frequency", mistake: "assumes squaring a function does not change how often it repeats"}
+      - {text: "Four times the frequency", mistake: "confuses squaring with multiplying the frequency by the power"}
+    explanation: "Using sin squared theta equals one half of one minus cos of two theta, the squared voltage repeats twice in each cycle of the original, so its frequency is twice as large."
+    hints:
+      - "Use the identity that writes sine squared in terms of a cosine at double the angle."
+      - "Think about how many times the squared function peaks in one cycle of the original."
+      - "Compare the angular argument of the cosine with the argument of the original sine."
+    diagram: "A sinusoidal voltage plotted against time above its square plotted on the same time axis, with the square having twice as many peaks in the same interval."
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a purely inductive AC circuit, what is the phase relationship between the current and the voltage?"
+    correct: "The current lags the voltage by 90 degrees"
+    unit: ""
+    wrong:
+      - {text: "The current leads the voltage by 90 degrees", mistake: "reverses the phase relationship that applies to inductors and capacitors"}
+      - {text: "The current is in phase with the voltage", mistake: "assumes an inductor behaves like a resistor"}
+      - {text: "The current lags the voltage by 180 degrees", mistake: "doubles the phase shift that an inductor produces"}
+    explanation: "For an inductor the voltage is L times the rate of change of current, so the voltage peaks a quarter cycle before the current. The current therefore lags by 90 degrees."
+    hints:
+      - "Write the voltage across the inductor in terms of the rate of change of current."
+      - "Think about which quantity reaches its peak first in a sinusoidal relation."
+      - "Recall the phase angle between the two quantities in a quarter cycle."
+    diagram: null
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "An inductor of inductance 0.1 H is connected to an AC source of angular frequency 1000 rad/s. What is its inductive reactance in ohm?"
+    correct: "100"
+    unit: "ohm"
+    wrong: []
+    explanation: "The inductive reactance is omega times L. Multiplying 1000 rad/s by 0.1 H gives 100 ohm."
+    hints:
+      - "Use the formula for inductive reactance in terms of angular frequency and inductance."
+      - "Use the angular frequency as given, not the frequency in hertz."
+      - "Multiply the angular frequency by the inductance."
+    diagram: null
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A series circuit has a resistor of 30 ohm and an inductor with reactance 40 ohm. What is the magnitude of its impedance in ohm?"
+    correct: "50"
+    unit: "ohm"
+    wrong: []
+    explanation: "The impedance of a series RL circuit is the square root of R squared plus X squared. This gives the square root of 900 plus 1600, which is 50 ohm."
+    hints:
+      - "The impedance of a series resistor and reactance combines like the sides of a right-angled triangle."
+      - "Square each of the two values before adding them."
+      - "Take the square root of the sum as the last step."
+    diagram: "A series circuit with a resistor and an inductor in one loop, with the resistance labelled 30 ohm and the inductive reactance labelled 40 ohm."
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "In a series RLC circuit at resonance, what is the power factor?"
+    correct: "One"
+    unit: ""
+    wrong:
+      - {text: "Zero", mistake: "assumes the reactance dominates at resonance"}
+      - {text: "One half", mistake: "treats the power factor as a fixed fraction regardless of the phase"}
+      - {text: "The square root of two", mistake: "confuses the power factor with the ratio of peak to rms values"}
+    explanation: "At resonance the inductive and capacitive reactances cancel, so the impedance is just R and the current is in phase with the voltage. The power factor, the cosine of the phase angle, is therefore one."
+    hints:
+      - "At resonance the two reactances cancel each other."
+      - "Think about the phase difference that remains between current and voltage."
+      - "Recall that the power factor is the cosine of the phase angle."
+    diagram: null
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A series RLC circuit has R equal to 3 ohm, inductive reactance 8 ohm and capacitive reactance 4 ohm. The peak source voltage is 50 V. What is the peak current in ampere?"
+    correct: "10"
+    unit: "A"
+    wrong: []
+    explanation: "The net reactance is 8 minus 4, which is 4 ohm. The impedance is the square root of 3 squared plus 4 squared, which is 5 ohm. The peak current is 50 divided by 5, which is 10 A."
+    hints:
+      - "The net reactance is the difference between the inductive and capacitive reactances."
+      - "Combine the resistance and net reactance to find the impedance."
+      - "Divide the peak voltage by the impedance."
+    diagram: "A series loop containing a resistor labelled 3 ohm, an inductor labelled with reactance 8 ohm and a capacitor labelled with reactance 4 ohm, with a source of peak voltage 50 V."
+    confidence: high
+  - topic: ac_circuits_phasors
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "In a series RLC circuit where the inductive reactance is greater than the capacitive reactance, how does the current compare with the source voltage?"
+    correct: "The current lags the voltage"
+    unit: ""
+    wrong:
+      - {text: "The current leads the voltage", mistake: "assumes the capacitor dominates when the inductor is larger"}
+      - {text: "The current is in phase with the voltage", mistake: "assumes a net reactance of zero whenever the two reactances differ"}
+      - {text: "The current lags the voltage by 180 degrees", mistake: "confuses a small lag with a reversal of the current"}
+    explanation: "When the inductive reactance is larger, the net reactance is inductive, so the current lags the source voltage."
+    hints:
+      - "Compare the sizes of the inductive and capacitive reactances."
+      - "Recall which element causes the current to lag the voltage."
+      - "Think about the sign of the net phase angle."
+    diagram: null
+    confidence: high
+  - topic: resonance_power_ac
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the resonant frequency of an LC circuit in hertz?"
+    correct: "One over two pi times the square root of L C"
+    unit: ""
+    wrong:
+      - {text: "Two pi times the square root of L C", mistake: "inverts the relation between frequency and the product of L and C"}
+      - {text: "One over the square root of L C", mistake: "omits the factor of two pi when converting to hertz"}
+      - {text: "The square root of L over C", mistake: "uses the ratio of L and C instead of their product"}
+    explanation: "The resonant frequency is the reciprocal of two pi times the square root of LC. It is set by the product of inductance and capacitance."
+    hints:
+      - "Resonance depends on the product of inductance and capacitance."
+      - "Think about whether the frequency should increase or decrease as L and C grow."
+      - "Remember the factor of two pi when going from angular frequency to frequency."
+    diagram: null
+    confidence: high
+  - topic: resonance_power_ac
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "An LC circuit has L equal to 1 H and C equal to 1 microfarad. What is its resonant angular frequency in rad/s?"
+    correct: "1000"
+    unit: "rad/s"
+    wrong: []
+    explanation: "The resonant angular frequency is one over the square root of LC. With LC equal to 10^-6, the square root is 10^-3, so the frequency is 1000 rad/s."
+    hints:
+      - "The angular resonant frequency is one over the square root of L times C."
+      - "Multiply L and C before taking the square root."
+      - "Keep track of the powers of ten inside the square root."
+    diagram: null
+    confidence: high
+  - topic: resonance_power_ac
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An AC circuit has rms voltage 100 V and rms current 2 A with a power factor of 0.5. What is the average power in watt?"
+    correct: "100"
+    unit: "W"
+    wrong: []
+    explanation: "The average power is V rms times I rms times the power factor, which is 100 times 2 times 0.5, giving 100 W."
+    hints:
+      - "Average power uses the rms values and the power factor."
+      - "Multiply the two rms values first."
+      - "Apply the power factor as the last multiplication."
+    diagram: "A phasor diagram with a voltage vector and a current vector drawn from a common origin, separated by an angle that is marked on the diagram."
+    confidence: high
+  - topic: resonance_power_ac
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which change increases the quality factor of a series resonant circuit and makes its resonance peak sharper?"
+    correct: "Lowering the resistance"
+    unit: ""
+    wrong:
+      - {text: "Raising the resistance", mistake: "assumes more resistance gives a sharper peak"}
+      - {text: "Adding a resistor in series", mistake: "assumes series resistance sharpens the peak"}
+      - {text: "Increasing the bandwidth of the response", mistake: "confuses a sharp peak with a broad response"}
+    explanation: "The quality factor is omega zero times L over R, so a smaller resistance gives a larger Q and a sharper resonance peak."
+    hints:
+      - "Think about which quantity appears in the denominator of the quality factor."
+      - "Consider how losses in the circuit affect the sharpness of the peak."
+      - "Compare the series resistance with the reactances at resonance."
+    diagram: null
+    confidence: high
+  - topic: resonance_power_ac
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A series RLC circuit is at resonance with a source of 200 V rms across a resistor of 10 ohm. What is the average power dissipated in watt?"
+    correct: "4000"
+    unit: "W"
+    wrong: []
+    explanation: "At resonance the impedance is just R, so the rms current is 200 divided by 10, which is 20 A. The average power is 20 squared times 10, which equals 4000 W."
+    hints:
+      - "At resonance the current is limited by the resistance alone."
+      - "Find the rms current from the voltage and the resistance first."
+      - "Use the power formula with the rms current and the resistance."
+    diagram: "A series RLC loop with an AC source labelled 200 V rms and a resistor labelled 10 ohm, with the inductor and capacitor drawn in the loop and their reactances marked as cancelling."
+    confidence: high
+  - topic: resonance_power_ac
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A circuit has a resistance of 3 ohm and a net reactance of 4 ohm in series. What is its power factor?"
+    correct: "0.6"
+    unit: ""
+    wrong:
+      - {text: "0.8", mistake: "uses the sine of the phase angle instead of the cosine"}
+      - {text: "0.4", mistake: "subtracts the resistance from the reactance"}
+      - {text: "1.33", mistake: "divides the impedance by the resistance instead of the reverse"}
+    explanation: "The impedance is 5 ohm. The power factor is the resistance over the impedance, which is 3 divided by 5, giving 0.6."
+    hints:
+      - "The power factor is the resistance divided by the impedance."
+      - "Find the impedance from the resistance and the reactance first."
+      - "Take the ratio of the resistance to that impedance."
+    diagram: null
+    confidence: high
+  - topic: transformers
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which feature describes a step-up transformer?"
+    correct: "More turns on the secondary than on the primary"
+    unit: ""
+    wrong:
+      - {text: "More turns on the primary than on the secondary", mistake: "confuses a step-up transformer with a step-down transformer"}
+      - {text: "Equal numbers of turns on both coils", mistake: "assumes a transformer always has the same voltage on both sides"}
+      - {text: "A direct current supply on the primary", mistake: "assumes a transformer works with a steady current"}
+    explanation: "A step-up transformer has more turns on the secondary than on the primary, which raises the output voltage above the input voltage."
+    hints:
+      - "Consider how the voltage ratio relates to the turns ratio."
+      - "Think about which coil must have more turns to raise the voltage."
+      - "Recall whether a transformer works with changing flux or steady flux."
+    diagram: null
+    confidence: high
+  - topic: transformers
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A transformer has 100 turns on the primary and 500 turns on the secondary. The primary voltage is 20 V. What is the secondary voltage in volt?"
+    correct: "100"
+    unit: "V"
+    wrong: []
+    explanation: "The voltage ratio equals the turns ratio. The secondary voltage is 20 times 500 divided by 100, which is 100 V."
+    hints:
+      - "Use the relation between the secondary and primary voltages and the turns on each coil."
+      - "Find the turns ratio first."
+      - "Multiply the primary voltage by that ratio."
+    diagram: null
+    confidence: high
+  - topic: transformers
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An ideal transformer has a primary voltage of 240 V and a secondary voltage of 12 V. The primary current is 0.5 A. What is the secondary current in ampere?"
+    correct: "10"
+    unit: "A"
+    wrong: []
+    explanation: "An ideal transformer conserves power, so the primary power 240 times 0.5 equals the secondary voltage times the secondary current. That gives 120 divided by 12, which is 10 A."
+    hints:
+      - "For an ideal transformer the input power equals the output power."
+      - "Write the power on each side as voltage times current."
+      - "Solve the power balance for the secondary current."
+    diagram: "A transformer drawn with a primary coil and a secondary coil on a common iron core, with the primary voltage and current labelled on one side and the secondary voltage on the other."
+    confidence: high
+  - topic: transformers
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A transformer has an efficiency of 90 percent. Its input power is 100 W. What is the output power in watt?"
+    correct: "90"
+    unit: "W"
+    wrong: []
+    explanation: "The efficiency is the output power divided by the input power, so the output is 0.9 times 100 W, which is 90 W."
+    hints:
+      - "Efficiency is the output power divided by the input power."
+      - "Convert the percentage to a decimal before multiplying."
+      - "Check that the output is smaller than the input power."
+    diagram: null
+    confidence: high
+  - topic: transformers
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Power is transmitted over long distances at high voltage and low current. What is the main reason for this?"
+    correct: "It reduces the current in the lines and so reduces the power lost as heat"
+    unit: ""
+    wrong:
+      - {text: "It increases the resistance of the transmission lines", mistake: "confuses the reduction of loss with a change in the line resistance"}
+      - {text: "It increases the current to deliver more power", mistake: "assumes more current is needed for larger power at the same loss"}
+      - {text: "It removes the need for transformers at the consumer end", mistake: "assumes high voltage transmission works without transformers"}
+    explanation: "The power lost in the line is I squared R. Stepping the voltage up lowers the current for the same power, which greatly reduces the loss."
+    hints:
+      - "Write the power lost in a line in terms of the current and the resistance."
+      - "Consider how a higher voltage changes the current for the same delivered power."
+      - "Think about which term in the loss formula is squared."
+    diagram: "A long transmission line drawn from a step-up transformer at a generator to a step-down transformer near the consumer, with the high voltage section of the line marked."
+    confidence: high
+  - topic: transformers
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A step-down transformer has 1000 turns on the primary and 50 turns on the secondary. The primary voltage is 2200 V and the secondary current is 20 A. What is the primary current in ampere?"
+    correct: "1"
+    unit: "A"
+    wrong: []
+    explanation: "The secondary voltage is 2200 times 50 over 1000, which is 110 V. Power balance gives the primary current as 110 times 20 divided by 2200, which is 1 A."
+    hints:
+      - "Find the secondary voltage from the turns ratio first."
+      - "Use the power balance between the primary and the secondary."
+      - "Divide the secondary power by the primary voltage."
+    diagram: "A step-down transformer with a primary coil labelled 1000 turns and a secondary coil labelled 50 turns, with the primary voltage and the secondary current marked."
+    confidence: high

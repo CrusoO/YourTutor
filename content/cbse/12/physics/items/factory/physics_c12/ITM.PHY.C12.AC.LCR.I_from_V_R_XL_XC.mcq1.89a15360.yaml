@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.AC.LCR.I_from_V_R_XL_XC.mcq1.89a15360
+skill_ids:
+- PHY.C12.AC.LCR
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The rms supply voltage, V, is 250 V, the resistance, R, is 16 Ω, the inductive
+    reactance, XL, is 30 Ω and the capacitive reactance, XC, is 18 Ω. Find the rms
+    current.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: Z = square root of (R^2 + (XL - XC)^2), then I = V / Z.'
+- level: 2
+  en: The relation already gives the rms current directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write I = V / sqrt(R^2 + (XL - XC)^2), where I is the rms current,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the rms current have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.LCR
+generator_version: factory-2
+template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12.5 A
+- id: b
+  en: 8.93 A
+- id: c
+  en: 5000 A
+- id: d
+  en: 15.625 A
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.REACTANCES_ADDED_TO_RESISTANCE
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.RESISTANCE_ONLY_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Z = square root of (R^2 + (XL - XC)^2), then I = V / Z.'
+- en: 'Substitute: I = 250 / sqrt(16^2 + (30 - 18)^2).'
+- en: 'Calculate: I = 12.5 A.'
+- en: So the rms current is 12.5 A.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 015359d8713ca36842493bd43f1dbe12c59340a7c5a576eeba17bf3e21284152
+  template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+  certificate_hash: c4593fba7d3c821c578b7cc795df9adccb3dded22dae167d76ad500b6b291302
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:06+00:00'
+  record_hash: ce46a21d3713b4c6e9c3813749937862c3fc1cc92775fef4de8864d72dc8cf26

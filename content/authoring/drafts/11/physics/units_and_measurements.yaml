@@ -1,0 +1,203 @@
+class: 11
+subject: physics
+chapter: units_and_measurements
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: si_units_dimensions
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is the SI unit of force?"
+    correct: "newton"
+    unit: ""
+    wrong:
+      - {text: "joule", mistake: "uses the energy unit for force"}
+      - {text: "pascal", mistake: "uses the pressure unit for force"}
+      - {text: "watt", mistake: "uses the power unit for force"}
+    explanation: "Force has the SI unit newton, which equals one kilogram metre per second squared. Joule, pascal and watt are units of energy, pressure and power."
+    hints:
+      - "Force equals mass times acceleration, so find the unit of that product."
+      - "Mass is measured in kilograms and acceleration in metres per second squared."
+      - "The unit is named after a scientist who studied motion and gravity."
+    diagram: null
+    confidence: high
+  - topic: si_units_dimensions
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the exponent of time T in the dimensional formula of velocity?"
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "Velocity is length divided by time, so its dimensions are L T^-1. The power of time is therefore minus one."
+    hints:
+      - "Velocity is a length divided by a time."
+      - "Write length as L and time as T, then read off the power of T."
+      - "A quantity sitting in the denominator carries a negative power."
+    diagram: null
+    confidence: high
+  - topic: si_units_dimensions
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which equation is dimensionally consistent? Here s is displacement, u and v are velocities, a is acceleration and t is time."
+    correct: "s = ut + (1/2)at^2"
+    unit: ""
+    wrong:
+      - {text: "s = ut + at", mistake: "omits the squaring of time in the acceleration term"}
+      - {text: "v = u + at^2", mistake: "squares time when acceleration is multiplied by time"}
+      - {text: "s = v divided by t", mistake: "treats velocity as if it were a length"}
+    explanation: "Each term of s = ut + (1/2)at^2 has the dimensions of length. The other options mix terms with different dimensions."
+    hints:
+      - "Check the dimensions of each term on both sides separately."
+      - "Velocity has dimensions of length over time, and acceleration has length over time squared."
+      - "Every term in a valid equation must share the same dimensions."
+    diagram: null
+    confidence: high
+  - topic: si_units_dimensions
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the exponent of length L in the dimensional formula of energy?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Energy is work, which is force times distance. Force is mass times length per time squared, so energy has dimensions M L^2 T^-2."
+    hints:
+      - "Energy is work, and work is force multiplied by distance."
+      - "Force is mass times acceleration, and acceleration is length per time squared."
+      - "Add up the powers of length from every factor you substituted."
+    diagram: null
+    confidence: high
+  - topic: si_units_dimensions
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Using mass M, length L and time T, which dimensional formula describes impulse, the product of force and time?"
+    correct: "M L T^-1"
+    unit: ""
+    wrong:
+      - {text: "M L^2 T^-2", mistake: "uses energy dimensions for impulse"}
+      - {text: "M L T^-2", mistake: "keeps the force dimensions and forgets the time"}
+      - {text: "M T^-1", mistake: "drops the length when multiplying force by time"}
+    explanation: "Force is M L T^-2, and multiplying by time T gives M L T^-1, which is also the dimension of momentum."
+    hints:
+      - "Impulse is force times time, so start from the formula for force."
+      - "Force has the dimensions of mass times acceleration."
+      - "Combine the power of each base separately and never mix different bases."
+    diagram: null
+    confidence: high
+  - topic: si_units_dimensions
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In Newton's law of gravitation, the constant G relates force to two masses and a distance. What is the exponent of time T in the dimensional formula of G?"
+    correct: "-2"
+    unit: ""
+    wrong: []
+    explanation: "From F = G m1 m2 / r^2, G equals F r^2 divided by m1 m2. This gives M^-1 L^3 T^-2, so the power of time is minus two."
+    hints:
+      - "Start from force equals G times the product of two masses over distance squared."
+      - "Rearrange the law to isolate G on one side."
+      - "Track each base separately and read off the power of time from the final expression."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many significant figures are in the measurement 0.0340 metres?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Leading zeros are not significant, but the zero after the 3 and 4 is. The significant digits are 3, 4 and 0."
+    hints:
+      - "Leading zeros before the first non-zero digit do not count."
+      - "Trailing zeros after a decimal point are significant."
+      - "Count the digits that remain after the leading zeros are removed."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A length of 2.3 m is added to a length of 1.764 m. Which value should be reported for the total?"
+    correct: "4.1 m"
+    unit: ""
+    wrong:
+      - {text: "4.064 m", mistake: "keeps every digit from the calculator"}
+      - {text: "4.06 m", mistake: "rounds to two decimal places instead of one"}
+      - {text: "4 m", mistake: "drops all decimal places before the final step"}
+    explanation: "For addition, the answer has as many decimal places as the least precise value, which is 2.3 with one decimal place. The sum 4.064 therefore becomes 4.1."
+    hints:
+      - "Look at which measurement has the fewest decimal places."
+      - "Only the decimal places of the least precise value limit the answer."
+      - "Add the two lengths first, then round to that limit."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A rectangular sheet has length 12.4 cm and breadth 3.1 cm. What is its area in square centimetres, rounded to the correct number of significant figures?"
+    correct: "38"
+    unit: "cm^2"
+    wrong: []
+    explanation: "Area is 12.4 times 3.1, which is 38.44. The breadth has two significant figures, so the area is 38."
+    hints:
+      - "A product keeps the fewest significant figures of its factors."
+      - "Multiply the two lengths before deciding how many digits to keep."
+      - "Round only the final product, not the factors."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A block has mass 52.3 g and volume 20.0 cm^3. Its density is computed as mass divided by volume. How many significant figures should the density have?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "counts only the leading digits of the volume"}
+      - {text: "4", mistake: "keeps the largest digit count from either measurement"}
+      - {text: "1", mistake: "counts only the decimal places of the mass"}
+    explanation: "The mass 52.3 and the volume 20.0 both have three significant figures, so the quotient keeps three."
+    hints:
+      - "Count the significant figures in each measured value first."
+      - "Division keeps the smallest count among the values."
+      - "Compare the two counts and keep the smaller one."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "The side of a square is measured as 2.5 cm with an absolute error of 0.1 cm. What is the percentage error in its area?"
+    correct: "8"
+    unit: "%"
+    wrong: []
+    explanation: "The relative error in the area is twice the relative error in the side. That is 2 times 0.1 over 2.5, which is 0.08, or 8 percent."
+    hints:
+      - "The relative error in the area of a square is twice the relative error in one side."
+      - "Divide the absolute error by the measured side first."
+      - "Multiply the fraction by one hundred to get a percentage."
+    diagram: null
+    confidence: high
+  - topic: significant_figures_errors
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "The fractional error in the length of a pendulum is 1 percent and in its period is 2 percent. Using g = 4 pi^2 L divided by T squared, what is the fractional error in g?"
+    correct: "5 percent"
+    unit: ""
+    wrong:
+      - {text: "3 percent", mistake: "uses power one for the period instead of two"}
+      - {text: "1 percent", mistake: "ignores the error in the period"}
+      - {text: "12 percent", mistake: "squares each percentage before adding"}
+    explanation: "For g = 4 pi^2 L / T^2, the fractional errors combine as delta g / g = delta L / L + 2 delta T / T. That is 1 + 2 times 2, giving 5 percent."
+    hints:
+      - "Write g as a product of powers of L and T."
+      - "Each fractional error is multiplied by the power that its quantity carries."
+      - "Add the weighted fractional errors, not the raw percentages."
+    diagram: null
+    confidence: high

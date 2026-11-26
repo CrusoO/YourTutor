@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.CAP.CAP_ENERGY.U_from_Q_V.case4.1c2fbd28
+skill_ids:
+- PHY.C12.CAP.CAP_ENERGY
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a charged capacitor and records the following.
+    The charge stored, Q, is 500 μC and the potential difference across it, V, is
+    10 V. Find the energy stored.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: U = (1/2) x Q x V.'
+- level: 2
+  en: The relation already gives the stored energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 500 μC as 5 x 10^-4 C, then write U = Q x V / 2, where U
+    is the stored energy, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the stored energy have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_ENERGY
+generator_version: factory-2
+template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2500 μJ
+- id: b
+  en: 0.125 μJ
+- id: c
+  en: 5000 μJ
+- id: d
+  en: 25 μJ
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CHARGE_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.HALF_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: U = (1/2) x Q x V.'
+- en: 'Put each quantity in SI units: 500 μC = 5 x 10^-4 C.'
+- en: 'Substitute: U = (5 x 10^-4) x 10 / 2.'
+- en: 'Calculate: U = 0.0025 J.'
+- en: 'Give it in μJ: 2500 μJ.'
+- en: So the stored energy is 2500 μJ.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 85d47ee1d9fd66ddf10edd1c4f00be3e90b97a35cd33da172e9e15374f7d5aa2
+  template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+  certificate_hash: 59d64ec3e43d7b1847c2539ee94d3482898d490021483072599f38ce633bff75
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:02+00:00'
+  record_hash: d3ae13b459cb759a66405ecc4fdf018a11df9ee9eb29fe995d0a3d273fd1d48d

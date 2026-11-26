@@ -1,0 +1,52 @@
+id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+schema: factory-template/1
+lane: physics_c12
+model: DUAL.PHOTOELECTRIC
+skill_id: PHY.C12.DUAL.PHOTOELECTRIC
+box:
+  variant:
+    choices:
+    - K_from_Eph_phi
+    - phi_from_Eph_K
+    - Eph_from_K_phi
+    - V0_from_Eph_phi
+    - Eph_from_V0_phi
+    - Kj_from_f_phi
+    - f_from_Kj_phi
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  Eph:
+    choices:
+    - '2.5'
+    - '3.5'
+    - '4'
+    - '4.5'
+    - '6'
+  phi:
+    choices:
+    - '1.5'
+    - '2'
+    - '2.5'
+  f:
+    choices:
+    - 1e15
+    - 8e14
+    - 6e14
+    - 5e14
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.dual_nature
+  skill_id: PHY.C12.DUAL.PHOTOELECTRIC
+  allowed_methods:
+  - einstein_photoelectric_equation
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

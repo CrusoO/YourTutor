@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.MAT.MAG_MATERIALS.H_from_B_mur.mcq1.130864a7
+skill_ids:
+- PHY.C12.MAT.MAG_MATERIALS
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The magnetic field inside the material, B, is 62.8 mT and the relative permeability,
+    mur, is 100. Find the magnetising field. Take the permeability of free space,
+    mu0, = 1.256 x 10^-6 N/A².
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: B = mu0 x relative permeability x H.'
+- level: 2
+  en: 'Get the magnetising field on its own before you put numbers in: divide each
+    side by mu0 x relative permeability. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 62.8 mT as 0.0628 T, then write H = B / (mu0 x mur), where
+    H is the magnetising field, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the magnetising field have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAT.MAG_MATERIALS
+generator_version: factory-2
+template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.002 A/m
+- id: b
+  en: 50000 A/m
+- id: c
+  en: 500 A/m
+- id: d
+  en: 5000 A/m
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.PERMEABILITY_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x relative permeability x H.'
+- en: 'Put each quantity in SI units: 62.8 mT = 0.0628 T.'
+- en: 'Get the magnetising field alone: divide each side by mu0 x relative permeability.'
+- en: 'Substitute: H = 0.0628 / ((1.256 x 10^-6) x 100).'
+- en: 'Calculate: H = 500 A/m.'
+- en: So the magnetising field is 500 A/m.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 80db432088156b7d9b722777d7a644ae59d6b412bd163d0f42c1450c2ec5e9a2
+  template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+  certificate_hash: 3e0e4f1387a3e8a683fd31403b52caaa8156a302f6240a32afb1ff6a4717c6e5
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.magnetism_matter
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:35+00:00'
+  record_hash: 09fb0f3f2a376cb6fb7a6bc1d369258bf38a3ed066cc908cffd047474ed408f2

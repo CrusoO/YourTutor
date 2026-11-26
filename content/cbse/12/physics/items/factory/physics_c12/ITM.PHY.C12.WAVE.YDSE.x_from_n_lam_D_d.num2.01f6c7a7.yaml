@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.WAVE.YDSE.x_from_n_lam_D_d.num2.01f6c7a7
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about Young's double slit experiment. The order of the bright
+    fringe, n, is 5, the wavelength of the light, lam, is 600 nm, the screen, D, is
+    1 m from the slits and the slits are 0.2 mm apart. Find the distance of that bright
+    fringe from the central one.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: the n-th bright fringe is at x = n x wavelength x D / d.'
+- level: 2
+  en: The relation already gives the position directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 600 nm as 6 x 10^-7 m and 0.2 mm as 2 x 10^-4 m, then write
+    x = n x lam x D / d, where x is the position, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the position have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3 mm
+- id: b
+  en: 15 mm
+- id: c
+  en: 6.67e+04 mm
+- id: d
+  en: 18 mm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ORDER_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.ORDER_ADDED_ONE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the n-th bright fringe is at x = n x wavelength x D / d.'
+- en: 'Put each quantity in SI units: 600 nm = 6 x 10^-7 m; 0.2 mm = 2 x 10^-4 m.'
+- en: 'Substitute: x = 5 x (6 x 10^-7) x 1 / (2 x 10^-4).'
+- en: 'Calculate: x = 0.015 m.'
+- en: 'Give it in mm: 15 mm.'
+- en: So the position is 15 mm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b1d502090d70c52db154ec15188ab25baf715e6049fb5436972a827a11f95a81
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: 9eda8edd5b8eebdada95c2cf77a53fd0ba7cb554751b0c166be2a9dadfe8804d
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:09+00:00'
+  record_hash: 5c1070ca2cce012a31d2de8d62ee63dc08d1c98827643469887dadee65e0b6f5

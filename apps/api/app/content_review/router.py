@@ -107,6 +107,7 @@ def list_items(
     grade: Annotated[int | None, Query(alias="class", ge=1, le=12)] = None,
     subject: Annotated[str | None, Query(max_length=40)] = None,
     chapter: Annotated[str | None, Query(max_length=120)] = None,
+    check: Annotated[Literal["needs_person", "machine_checked"] | None, Query()] = None,
 ) -> dict[str, Any]:
     """Draft items, in id order, one page at a time (each card runs the solver).
 
@@ -116,7 +117,8 @@ def list_items(
     voted). todo (desk on only): the drafts you have no standing decision on for their current
     content (a withdrawn decision is undecided again, a skip is not a decision), whatever others
     voted: the same rule as the `pending` count in `/chapters`. Desk on only: `class`, `subject`
-    and `chapter` (from `/chapters`) narrow the list."""
+    and `chapter` (from `/chapters`) narrow the list. `check` (needs_person or machine_checked;
+    default both) narrows by how the answer was checked."""
     me, _ = _reviewer(actor)
     if not settings.reviewer_desk_enabled and (grade, subject, chapter) != (None, None, None):
         raise HTTPException(status_code=422, detail="the reviewer desk is not switched on")
@@ -127,7 +129,9 @@ def list_items(
     drafts = [
         item
         for item in data.items
-        if service.is_draft(item) and service.in_group(data, item, grade, subject, chapter)
+        if service.is_draft(item)
+        and service.in_group(data, item, grade, subject, chapter)
+        and (check is None or service.check_tag(item) == check)
     ]
     mode = templates.template_mode()
     chosen = []
@@ -169,6 +173,25 @@ def list_items(
     if mode:
         out["template_mode"] = True
     return out
+
+
+@router.get("/check-tags")
+def check_tag_summary(actor: ActorDep) -> dict[str, Any]:
+    """Admin only, read-only: how many draft items carry each check tag, in total and per class
+    and subject. Records only; nothing a learner is served depends on it."""
+    _desk_admin(actor)
+    data = service.load_review_data(content_root())
+    drafts = [item for item in data.items if service.is_draft(item)]
+    per: dict[str, dict[str, int]] = {}
+    for item in drafts:
+        chapter = data.chapters.get(data.item_chapter.get(item.id, snapshot.UNMAPPED_ID))
+        key = f"{chapter.grade}/{chapter.subject}" if chapter else "unmapped"
+        per.setdefault(key, dict.fromkeys(service.CHECK_TAGS, 0))[service.check_tag(item)] += 1
+    return {
+        "labels": service.CHECK_LABELS,
+        "total": service.tag_counts(drafts),
+        "by_class_subject": dict(sorted(per.items())),
+    }
 
 
 @router.get("/chapters")

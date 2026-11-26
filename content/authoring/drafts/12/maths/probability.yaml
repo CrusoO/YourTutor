@@ -1,0 +1,529 @@
+class: 12
+subject: "maths"
+chapter: "probability"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "conditional_probability"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "P(A) = 0.5 and P(A and B) = 0.2. Find P(B given A)."
+    correct: "0.4"
+    unit: ""
+    wrong: []
+    explanation: "P(B given A) equals P(A and B) divided by P(A), which is 0.2 divided by 0.5, equal to 0.4."
+    hints:
+      - "Use the formula for conditional probability."
+      - "Divide the probability of both events by the probability of the given event."
+      - "Check that your result lies between 0 and 1."
+    diagram: null
+    confidence: high
+
+  - topic: "conditional_probability"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "A card is drawn at random from a standard 52-card deck and is known to be a heart. What is the probability that it is a queen?"
+    correct: "1/13"
+    unit: ""
+    wrong:
+      - {text: "1/52", mistake: "uses the probability of the queen of hearts among all cards"}
+      - {text: "4/52", mistake: "uses the number of queens in the deck without conditioning on the heart"}
+      - {text: "1/4", mistake: "reports the probability of a heart instead"}
+    explanation: "Given a heart, there are 13 equally likely cards, and exactly one of them is a queen, so the probability is 1/13."
+    hints:
+      - "Count the hearts, which form the reduced sample space."
+      - "Count the queens among those hearts."
+      - "Divide the favourable count by the number of hearts."
+    diagram: null
+    confidence: high
+
+  - topic: "conditional_probability"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "P(A) = 0.6, P(B) = 0.5 and P(A or B) = 0.8. Find P(A given B)."
+    correct: "0.6"
+    unit: ""
+    wrong: []
+    explanation: "From the addition rule P(A and B) = 0.6 + 0.5 - 0.8 = 0.3, so P(A given B) = 0.3 divided by 0.5 = 0.6, which equals P(A)."
+    hints:
+      - "Find P(A and B) using the addition rule for the union."
+      - "Divide that joint probability by P(B)."
+      - "Compare the result with P(A)."
+    diagram: null
+    confidence: high
+
+  - topic: "conditional_probability"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Two fair dice are rolled and the sum is known to be 8. What is the probability that at least one die shows a 6?"
+    correct: "2/5"
+    unit: ""
+    wrong:
+      - {text: "2/36", mistake: "uses the joint probability without conditioning on the sum"}
+      - {text: "1/5", mistake: "counts only one of the two outcomes with a 6"}
+      - {text: "1/3", mistake: "miscounts the outcomes that give a sum of 8"}
+    explanation: "The outcomes with sum 8 are (2,6), (3,5), (4,4), (5,3) and (6,2), five in total. Two of them contain a 6, so the probability is 2/5."
+    hints:
+      - "List the outcomes whose sum is 8 first."
+      - "Among those outcomes, count the ones containing at least one 6."
+      - "Divide the second count by the first."
+    diagram: null
+    confidence: high
+
+  - topic: "conditional_probability"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "P(A) = 0.4, P(B) = 0.5 and the conditional probability P(B given A) = 0.25. Find P(A given B)."
+    correct: "0.2"
+    unit: ""
+    wrong: []
+    explanation: "P(A and B) = P(B given A) times P(A) = 0.25 times 0.4 = 0.1, so P(A given B) = 0.1 divided by 0.5 = 0.2."
+    hints:
+      - "Find the joint probability of A and B from the given conditional probability."
+      - "Use that joint probability as the numerator."
+      - "Divide by the probability of the event that is given."
+    diagram: null
+    confidence: high
+
+  - topic: "conditional_probability"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "P(A) = 0.3 and P(B) = 0.4, and P(A given B) = 0.3. Which statement is correct?"
+    correct: "A and B are independent"
+    unit: ""
+    wrong:
+      - {text: "A and B are mutually exclusive", mistake: "confuses zero overlap with independence"}
+      - {text: "P(A and B) = 0.7", mistake: "adds the two probabilities instead of using the joint probability"}
+      - {text: "P(B given A) = 0.1, so A and B are dependent", mistake: "divides by the wrong event when computing the conditional probability"}
+    explanation: "Since P(A given B) equals P(A), conditioning on B changes nothing, so the events are independent and P(A and B) = 0.12."
+    hints:
+      - "Compare P(A given B) with P(A) itself."
+      - "If conditioning on the other event changes nothing, what does that say about the events?"
+      - "Check the product of the two probabilities against the joint probability."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Events A and B are independent with P(A) = 0.5 and P(B) = 0.4. Find P(A and B)."
+    correct: "0.2"
+    unit: ""
+    wrong: []
+    explanation: "For independent events the joint probability is the product of the probabilities, so P(A and B) = 0.5 times 0.4 = 0.2."
+    hints:
+      - "For independent events the joint probability is a product."
+      - "Multiply the two given probabilities."
+      - "Check that the result is smaller than each of the two probabilities."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which expression is the multiplication theorem for two events A and B?"
+    correct: "P(A and B) = P(A) times P(B given A)"
+    unit: ""
+    wrong:
+      - {text: "P(A and B) = P(A) + P(B)", mistake: "adds the probabilities instead of multiplying them"}
+      - {text: "P(A and B) = P(A) + P(B) - P(A or B)", mistake: "uses a rule for the union when the intersection is asked"}
+      - {text: "P(A and B) = P(A given B)", mistake: "reports a conditional probability as the joint probability"}
+    explanation: "The multiplication theorem states that the probability of both events equals the probability of A times the conditional probability of B given A."
+    hints:
+      - "Recall the multiplication theorem for two events."
+      - "Start with the probability of A and multiply by the conditional probability of B."
+      - "Check that the expression uses the joint probability on the left."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Events A and B are independent with P(A) = 0.3 and P(B) = 0.6. Find the probability that neither event occurs."
+    correct: "0.28"
+    unit: ""
+    wrong: []
+    explanation: "For independent events the complements are also independent, so P(neither) = 0.7 times 0.4 = 0.28."
+    hints:
+      - "Find the complement probabilities of both events."
+      - "For independent events the complements are also independent."
+      - "Multiply the two complement probabilities."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A and B are independent with P(A) = 1/2 and P(B) = 1/3. What is P(A or B)?"
+    correct: "2/3"
+    unit: ""
+    wrong:
+      - {text: "5/6", mistake: "adds the probabilities and forgets to subtract the overlap"}
+      - {text: "1/6", mistake: "reports the intersection instead of the union"}
+      - {text: "1/3", mistake: "reports the smaller probability instead of the union"}
+    explanation: "Independence gives P(A and B) = 1/2 times 1/3 = 1/6, so P(A or B) = 1/2 + 1/3 - 1/6 = 2/3."
+    hints:
+      - "Use the addition rule for the union of two events."
+      - "Find the intersection probability using independence."
+      - "Subtract the overlap from the sum of the two probabilities."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "P(A) = 0.5, P(B) = 0.2 and P(A and B) = 0.1. Find P(B and not A)."
+    correct: "0.1"
+    unit: ""
+    wrong: []
+    explanation: "B splits into the part inside A and the part outside A, so P(B and not A) = P(B) - P(A and B) = 0.2 - 0.1 = 0.1."
+    hints:
+      - "Split event B into the part that lies inside A and the part that lies outside A."
+      - "Use the joint probability you are given for the part inside A."
+      - "Subtract that part from P(B)."
+    diagram: null
+    confidence: high
+
+  - topic: "multiplication_theorem_independence"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Which statement about three events A, B and C is correct?"
+    correct: "Pairwise independence does not guarantee that P(A and B and C) equals P(A) P(B) P(C)"
+    unit: ""
+    wrong:
+      - {text: "Pairwise independence always implies the triple product rule", mistake: "assumes that checking pairs is enough for three events"}
+      - {text: "Independent events must be disjoint", mistake: "confuses independence with mutual exclusiveness"}
+      - {text: "Three events are independent if any one pair is independent", mistake: "generalises from a single pair to all the events"}
+    explanation: "Mutual independence requires the product rule for every subcollection, including the triple. Pairwise independence alone does not force the triple product rule, so it is a weaker condition."
+    hints:
+      - "Consider whether checking pairs covers the product rule for all three events."
+      - "Compare the definition of mutual independence with pairwise independence."
+      - "Try to construct a small example with three events built from equally likely outcomes."
+    diagram: null
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "A bag is chosen with probability 0.5 from two bags. The first bag gives a red ball with probability 0.2 and the second gives a red ball with probability 0.6. Find the total probability of drawing a red ball."
+    correct: "0.4"
+    unit: ""
+    wrong: []
+    explanation: "The total probability is 0.5 times 0.2 plus 0.5 times 0.6, which equals 0.1 plus 0.3, giving 0.4."
+    hints:
+      - "Split the red ball probability across the two bags."
+      - "Multiply each bag probability by the red probability inside that bag."
+      - "Add the two products."
+    diagram: "Tree diagram with a first branch for choosing bag 1 or bag 2, and second branches for red and not red, with each probability labelled."
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which formula is Bayes theorem for P(A given B)?"
+    correct: "P(A given B) = P(B given A) times P(A) divided by P(B)"
+    unit: ""
+    wrong:
+      - {text: "P(A given B) = P(B given A)", mistake: "drops the prior and the normalising probability"}
+      - {text: "P(A given B) = P(A) times P(B) divided by P(A and B)", mistake: "inverts the ratio"}
+      - {text: "P(A given B) = P(A and B) + P(B)", mistake: "adds instead of dividing"}
+    explanation: "Bayes theorem reverses a conditional probability, and it follows from writing P(A and B) in two ways and dividing by P(B)."
+    hints:
+      - "Bayes theorem reverses the direction of a conditional probability."
+      - "Start from the definition of conditional probability in both orders."
+      - "Write the joint probability in two ways and equate them."
+    diagram: null
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Machine X makes 60 percent of the items and has a defect rate of 0.02. Machine Y makes the other 40 percent with a defect rate of 0.05. Find the overall probability that a randomly chosen item is defective."
+    correct: "0.032"
+    unit: ""
+    wrong: []
+    explanation: "The total defect probability is 0.6 times 0.02 plus 0.4 times 0.05, which equals 0.012 plus 0.02, giving 0.032."
+    hints:
+      - "Weight each machine's defect rate by its share of production."
+      - "Add the two weighted rates."
+      - "Check that the shares of production add to one."
+    diagram: "Tree diagram with two machine branches labelled 60 percent and 40 percent, each followed by defective and not defective branches."
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Using the bag setup where the first bag is chosen with probability 0.5, gives red with probability 0.2 and the second gives red with probability 0.6, what is the probability that the first bag was chosen given that the ball is red?"
+    correct: "0.25"
+    unit: ""
+    wrong:
+      - {text: "0.5", mistake: "reports the prior probability of the first bag instead of the posterior"}
+      - {text: "0.2", mistake: "reports the red probability inside the first bag"}
+      - {text: "0.75", mistake: "reports the probability of the complementary bag"}
+    explanation: "The joint probability of bag 1 and red is 0.1 and the total probability of red is 0.4, so the posterior probability is 0.1 divided by 0.4, which equals 0.25."
+    hints:
+      - "Use the total probability of red from the earlier part."
+      - "Put the joint probability of the first bag and red over that total."
+      - "Compare your answer with the prior probability of the first bag."
+    diagram: null
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Three suppliers provide 50, 30 and 20 percent of parts, with defect rates 0.01, 0.02 and 0.05 respectively. Find the overall probability that a randomly chosen part is defective."
+    correct: "0.021"
+    unit: ""
+    wrong: []
+    explanation: "The total is 0.5 times 0.01 plus 0.3 times 0.02 plus 0.2 times 0.05, which equals 0.005 + 0.006 + 0.010 = 0.021."
+    hints:
+      - "Multiply each supplier share by its defect rate."
+      - "Sum the three products."
+      - "Keep track of the decimal places as you multiply."
+    diagram: null
+    confidence: high
+
+  - topic: "total_probability_bayes"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Using the three suppliers in which the third supplies 20 percent of parts and the overall defect probability is 0.021, what is the probability that a defective part came from the third supplier, rounded to 3 decimal places?"
+    correct: "0.476"
+    unit: ""
+    wrong:
+      - {text: "0.2", mistake: "reports the prior share of the third supplier"}
+      - {text: "0.05", mistake: "reports the defect rate of the third supplier"}
+      - {text: "0.238", mistake: "double counts the defect branch in the denominator"}
+    explanation: "The joint probability of supplier 3 and defect is 0.2 times 0.05 = 0.01, and dividing by the overall defect probability 0.021 gives about 0.476."
+    hints:
+      - "Compute the joint probability of the third supplier and a defect."
+      - "Divide by the overall defect probability found in the earlier part."
+      - "Round the result to 3 decimal places."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "A random variable X takes the values 0, 1 and 2 with probabilities 0.2, 0.5 and 0.3. Find the mean of X."
+    correct: "1.1"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 0 times 0.2 plus 1 times 0.5 plus 2 times 0.3, which equals 0 + 0.5 + 0.6 = 1.1."
+    hints:
+      - "Multiply each value of X by its probability."
+      - "Add the products together."
+      - "Check that the probabilities add up to one."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which of the following is a valid probability distribution for a random variable X taking the values 0, 1 and 2?"
+    correct: "P(X=0)=0.2, P(X=1)=0.3, P(X=2)=0.5"
+    unit: ""
+    wrong:
+      - {text: "P(X=0)=0.5, P(X=1)=0.5, P(X=2)=0.5", mistake: "ignores that the probabilities must add up to one"}
+      - {text: "P(X=0)=0.1, P(X=1)=0.2, P(X=2)=0.3", mistake: "assumes the probabilities need not total one"}
+      - {text: "P(X=0)=-0.2, P(X=1)=0.6, P(X=2)=0.6", mistake: "overlooks that each probability must be nonnegative"}
+    explanation: "Each probability lies between 0 and 1 and the three values add to 1, so only the first option is a valid distribution."
+    hints:
+      - "Each probability must lie between 0 and 1."
+      - "The probabilities must add up to a fixed total."
+      - "Check each option against both conditions."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "For a random variable X with P(X = 0) = 0.2, P(X = 1) = 0.5 and P(X = 2) = 0.3, find Var(X)."
+    correct: "0.49"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 1.1 and E(X squared) is 0 + 0.5 + 1.2 = 1.7, so the variance is 1.7 minus 1.1 squared, which is 1.7 minus 1.21, equal to 0.49."
+    hints:
+      - "Compute the mean first."
+      - "Find the expected value of the squares of the values."
+      - "Subtract the square of the mean from that expected value."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A random variable X has mean 2 and variance 1. What is the expected value of 3X - 1?"
+    correct: "5"
+    unit: ""
+    wrong:
+      - {text: "6", mistake: "forgets to subtract the constant"}
+      - {text: "3", mistake: "scales the mean but forgets the shift"}
+      - {text: "2", mistake: "ignores the scaling and the shift"}
+    explanation: "By linearity of expectation, E(3X - 1) = 3E(X) - 1 = 3 times 2 - 1 = 5."
+    hints:
+      - "Use linearity of expectation."
+      - "Apply the multiplying constant to the mean first."
+      - "Subtract the constant term at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A random variable X has variance 2. Find the variance of 3X + 2."
+    correct: "18"
+    unit: ""
+    wrong: []
+    explanation: "Adding a constant does not change the variance, and multiplying by 3 multiplies the variance by 9, so Var(3X + 2) = 9 times 2 = 18."
+    hints:
+      - "Consider whether adding a constant changes the variance."
+      - "Scaling a variable multiplies its variance by the square of the scale factor."
+      - "Combine the two effects."
+    diagram: null
+    confidence: high
+
+  - topic: "random_variables_distribution"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A discrete random variable has P(X = k) proportional to k for k = 1, 2 and 3. What is the constant of proportionality c in P(X = k) = c k?"
+    correct: "1/6"
+    unit: ""
+    wrong:
+      - {text: "1/3", mistake: "leaves out the last value when normalising"}
+      - {text: "1/14", mistake: "normalises by the sum of squares instead of the sum of values"}
+      - {text: "1/36", mistake: "squares the normalising sum"}
+    explanation: "The probabilities must sum to 1, so c(1 + 2 + 3) = 1, which gives c = 1/6."
+    hints:
+      - "The probabilities must sum to 1."
+      - "Add the values of k at the three points."
+      - "Solve the resulting equation for the constant."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "X follows a binomial distribution with n = 4 and p = 0.5. Find the mean of X."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The mean of a binomial distribution is np, which is 4 times 0.5, equal to 2."
+    hints:
+      - "Use the formula for the mean of a binomial distribution."
+      - "Multiply the number of trials by the success probability."
+      - "Check that the result lies between 0 and n."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "X follows a binomial distribution with n = 5 and p = 0.2. Which expression gives P(X = 0)?"
+    correct: "(0.8)^5"
+    unit: ""
+    wrong:
+      - {text: "(0.2)^5", mistake: "uses the success probability instead of the failure probability"}
+      - {text: "5 times 0.2", mistake: "reports the mean instead of the probability"}
+      - {text: "1 minus 0.2^5", mistake: "takes the complement of a single outcome"}
+    explanation: "P(X = 0) means every trial fails, and each failure has probability 0.8, so the probability is (0.8)^5."
+    hints:
+      - "P(X = 0) means no successes in the five trials."
+      - "Each trial fails with probability one minus the success probability."
+      - "Raise that failure probability to the number of trials."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "X follows a binomial distribution with n = 3 and p = 1/3. Find P(X = 1), rounded to 3 decimal places."
+    correct: "0.444"
+    unit: ""
+    wrong: []
+    explanation: "P(X = 1) equals 3 times (1/3) times (2/3) squared, which is 3 times (1/3) times (4/9), equal to 4/9, about 0.444."
+    hints:
+      - "Count the arrangements that contain exactly one success."
+      - "Each such arrangement has one success and two failures."
+      - "Multiply the count by the probability of one such arrangement."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "X follows a binomial distribution with n = 10 and p = 0.3. What is the variance of X?"
+    correct: "2.1"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "reports the mean instead of the variance"}
+      - {text: "0.7", mistake: "reports the failure probability"}
+      - {text: "0.21", mistake: "forgets the number of trials"}
+    explanation: "The variance of a binomial distribution is npq, which is 10 times 0.3 times 0.7, equal to 2.1."
+    hints:
+      - "Recall the variance formula for a binomial distribution."
+      - "Use both the success and the failure probabilities."
+      - "Multiply by the number of trials."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "X follows a binomial distribution with n = 3 and p = 0.5. Find P(X is at least 1), rounded to 3 decimal places."
+    correct: "0.875"
+    unit: ""
+    wrong: []
+    explanation: "The probability of no successes is 0.5 cubed, which is 0.125, so P(X at least 1) = 1 minus 0.125 = 0.875."
+    hints:
+      - "Consider the complement event of having at least one success."
+      - "Find the probability of no successes at all."
+      - "Subtract that probability from one."
+    diagram: null
+    confidence: high
+
+  - topic: "binomial_distribution"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A binomial variable with a fixed number of trials has mean 6 and variance 4.8. How many trials are there?"
+    correct: "30"
+    unit: ""
+    wrong:
+      - {text: "24", mistake: "multiplies the variance by five instead of solving for the failure probability"}
+      - {text: "20", mistake: "divides the mean by an incorrect success probability"}
+      - {text: "36", mistake: "adds the mean and the variance"}
+    explanation: "Mean np = 6 and variance npq = 4.8 give q = 0.8, so p = 0.2 and n = 6 divided by 0.2, which is 30."
+    hints:
+      - "Write the mean and the variance in terms of n and p."
+      - "Use the ratio of the variance to the mean to find the failure probability."
+      - "Solve for p first, then for n."
+    diagram: null
+    confidence: high

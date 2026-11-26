@@ -1,0 +1,221 @@
+class: 11
+subject: maths
+chapter: mathematical_reasoning
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the negation of the statement 'all triangles have three sides'?"
+    correct: "some triangle does not have three sides"
+    unit: ""
+    wrong:
+      - {text: "all triangles do not have three sides", mistake: "negates the property for every triangle instead of negating the universal claim"}
+      - {text: "all triangles have more than three sides", mistake: "changes the number instead of negating the claim"}
+      - {text: "some triangles have three sides", mistake: "keeps the meaning of the original statement instead of negating it"}
+    explanation: "The negation of a statement that holds for all members is that at least one member fails the property."
+    hints:
+      - "Think about what would have to be true for the original claim to be false."
+      - "A universal claim fails when a single exception exists."
+      - "Express that single exception as an existence statement."
+    diagram: null
+    confidence: high
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Is the statement 'every even number greater than 2 is composite' true or false?"
+    correct: "true"
+    unit: ""
+    wrong:
+      - {text: "false", mistake: "searches for a counterexample that does not exist"}
+      - {text: "neither true nor false", mistake: "treats a clear universal claim as undecidable"}
+      - {text: "it depends on which number is chosen", mistake: "treats a universal claim as if it depended on a choice"}
+    explanation: "Every even number greater than 2 is divisible by 2 and by itself, so it has factors other than 1 and itself, making it composite."
+    hints:
+      - "Ask whether every such number has a factor other than one and itself."
+      - "Look for a counterexample; if none exists the universal claim holds."
+      - "Check the claim on a few even numbers greater than two."
+    diagram: null
+    confidence: high
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "What is the negation of the statement 'x is greater than 3 or x is less than 1' for a real number x?"
+    correct: "1 less than or equal to x less than or equal to 3"
+    unit: ""
+    wrong:
+      - {text: "x is less than 3 or x is greater than 1", mistake: "keeps the connective and only flips the inequality signs"}
+      - {text: "x is greater than or equal to 3 and x is less than or equal to 1", mistake: "flips the inequalities but keeps the wrong bounds"}
+      - {text: "x is at most 3 or x is at least 1", mistake: "negates one part while keeping the connective"}
+    explanation: "The negation of the disjunction requires both parts to fail, so x is at most 3 and at least 1, which is the interval from 1 to 3."
+    hints:
+      - "Negate the two parts of the disjunction separately."
+      - "A negated disjunction becomes a conjunction of the negated parts."
+      - "Convert each negated inequality and combine them into one interval."
+    diagram: null
+    confidence: high
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which statement is the contrapositive of 'if a number is divisible by 4, then it is even'?"
+    correct: "if a number is not even, then it is not divisible by 4"
+    unit: ""
+    wrong:
+      - {text: "if a number is even, then it is divisible by 4", mistake: "takes the converse instead of the contrapositive"}
+      - {text: "if a number is not divisible by 4, then it is not even", mistake: "takes the inverse, which is not equivalent to the original"}
+      - {text: "if a number is odd, then it is not divisible by 4", mistake: "negates the hypothesis while keeping the conclusion unchanged"}
+    explanation: "The contrapositive swaps and negates both parts, so 'not even' implies 'not divisible by 4', which is logically equivalent to the original."
+    hints:
+      - "Swap the hypothesis and the conclusion, and negate both of them."
+      - "Keep the direction of the implication while making both parts negative."
+      - "Compare the resulting statement with the original to check equivalence."
+    diagram: null
+    confidence: high
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: hard
+    role: procedure
+    stem: "Which statement is the negation of 'for every real number x there exists a real number y with y greater than x'?"
+    correct: "there exists a real x such that for every real y, y is at most x"
+    unit: ""
+    wrong:
+      - {text: "for every real x there is no real y with y greater than x", mistake: "negates only the inner claim and keeps the order of the quantifiers"}
+      - {text: "there exists a real x such that for every real y, y is greater than x", mistake: "reverses the inequality direction when negating"}
+      - {text: "there exists a real x such that some real y is at most x", mistake: "keeps an existential quantifier where the negation needs a universal one"}
+    explanation: "Negating the statement swaps the quantifiers and negates the inequality, giving that some real x exists with every real y at most x."
+    hints:
+      - "Negate the quantifiers in order, changing each one from for every to there exists or the reverse."
+      - "Negate the inequality at the end of the statement."
+      - "Check the result by reading it back in words."
+    diagram: null
+    confidence: medium
+  - topic: statements_and_connectives
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which statement is logically equivalent to 'if p, then q'?"
+    correct: "if not q, then not p"
+    unit: ""
+    wrong:
+      - {text: "if q, then p", mistake: "takes the converse, which is not equivalent"}
+      - {text: "if not p, then not q", mistake: "takes the inverse, which is not equivalent"}
+      - {text: "p and not q", mistake: "confuses the negation of the implication with an equivalent form of it"}
+    explanation: "An implication and its contrapositive always have the same truth value, so 'if not q, then not p' is equivalent to 'if p, then q'."
+    hints:
+      - "Build the truth table for both statements and compare the outcomes."
+      - "Check the cases where p is true and q is false."
+      - "Consider which statement remains true in exactly the same situations."
+    diagram: null
+    confidence: high
+  - topic: validating_statements
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which method best shows that there is a whole number whose square is greater than 100?"
+    correct: "exhibit a specific number such as 11"
+    unit: ""
+    wrong:
+      - {text: "proof by contradiction", mistake: "uses an indirect argument for an existence claim that a direct example settles"}
+      - {text: "proof by induction", mistake: "applies induction to a single existence claim with no progression of cases"}
+      - {text: "argue from a general property without naming any number", mistake: "argues vaguely without producing the number the claim needs"}
+    explanation: "Eleven squared is 121, which exceeds 100, so naming that number verifies the existence claim directly."
+    hints:
+      - "An existence claim is settled by producing one case that satisfies it."
+      - "Try small whole numbers and check their squares against the bound."
+      - "Once you find a suitable number, confirm the inequality for it."
+    diagram: null
+    confidence: high
+  - topic: validating_statements
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is needed to disprove the claim that every prime number is odd?"
+    correct: "a single prime that is even, such as 2"
+    unit: ""
+    wrong:
+      - {text: "a proof that all primes are even", mistake: "tries to prove the opposite universal claim, which is not needed"}
+      - {text: "a demonstration that some odd number is prime", mistake: "checks the wrong direction of the claim"}
+      - {text: "a long list of odd primes", mistake: "lists cases that cannot disprove a universal claim"}
+    explanation: "A universal claim is disproved by one case that breaks it, and the prime 2 is even, so the claim fails."
+    hints:
+      - "Look for one case that breaks a claim about all primes."
+      - "Consider the smallest primes and check their properties."
+      - "A single exception is enough to show that a universal claim is false."
+    diagram: null
+    confidence: high
+  - topic: validating_statements
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which approach proves that the sum of two even numbers is even?"
+    correct: "direct proof writing each even number as twice an integer"
+    unit: ""
+    wrong:
+      - {text: "proof by counterexample", mistake: "searches for a failing case, which cannot establish a universal claim"}
+      - {text: "proof by checking several examples", mistake: "treats a few examples as a complete proof"}
+      - {text: "proof by assuming the result is already true", mistake: "uses the conclusion as a premise"}
+    explanation: "If the numbers are 2m and 2n, their sum 2(m plus n) is twice an integer, which proves the sum is even for all such numbers."
+    hints:
+      - "Represent a general even number using an algebraic expression."
+      - "Add two such expressions and factor the result."
+      - "Check whether the factored result matches the definition of an even number."
+    diagram: null
+    confidence: high
+  - topic: validating_statements
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which claim can be disproved by exhibiting a single example?"
+    correct: "every rectangle is a square"
+    unit: ""
+    wrong:
+      - {text: "some rectangle is a square", mistake: "reads an existence claim as if it were the universal claim"}
+      - {text: "every square is a rectangle", mistake: "treats a true universal claim as one that needs a counterexample"}
+      - {text: "some square has a side of length 3", mistake: "confuses a claim that is easy to confirm with one that is easy to refute"}
+    explanation: "A rectangle with unequal sides, such as one that is 2 by 1, is not a square, which disproves the claim that every rectangle is a square."
+    hints:
+      - "A universal claim fails when a single member of the category does not satisfy it."
+      - "Think about which shapes meet the definition of a square and which do not."
+      - "Look for a rectangle whose sides differ in length."
+    diagram: null
+    confidence: medium
+  - topic: validating_statements
+    type: mcq
+    difficulty: hard
+    role: procedure
+    stem: "Which argument proves that the square root of 2 is irrational?"
+    correct: "assume it equals p over q in lowest terms and derive a conflict between the parts of the fraction"
+    unit: ""
+    wrong:
+      - {text: "check that the squares of several rational numbers are never equal to 2", mistake: "uses sample checks as if they proved a universal claim"}
+      - {text: "show that the square root of 2 is approximately 1.414", mistake: "uses a decimal approximation as a proof of exact irrationality"}
+      - {text: "prove that 2 is not a perfect square of any integer", mistake: "proves a related but weaker claim and treats it as the full result"}
+    explanation: "Assuming the square root of 2 equals p over q in lowest terms forces both p and q to be even, which conflicts with lowest terms."
+    hints:
+      - "Start by supposing the opposite of the claim and reason from that supposition."
+      - "Write the supposed rational value in lowest terms."
+      - "Square the expression and examine whether the numerator and denominator can both be even."
+    diagram: null
+    confidence: high
+  - topic: validating_statements
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which method proves that for every positive integer n, the sum 1 plus 2 plus up to n equals n(n plus 1) over 2?"
+    correct: "mathematical induction"
+    unit: ""
+    wrong:
+      - {text: "checking the formula for each n up to 10", mistake: "treats finitely many cases as a proof for all n"}
+      - {text: "proof by counterexample", mistake: "searches for a failing value of n that does not exist"}
+      - {text: "an argument using the largest possible value of n", mistake: "assumes there is a largest n, which does not exist"}
+    explanation: "Induction verifies the base case and shows that truth for n implies truth for n plus 1, which covers every positive integer."
+    hints:
+      - "Consider a method that handles infinitely many cases through a repeating step."
+      - "Check the simplest case first and then find how one case leads to the next."
+      - "Describe the repeating step that carries the result from one value to the following value."
+    diagram: null
+    confidence: high

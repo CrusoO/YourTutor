@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.AC.REACTANCE.C_from_XC_w.num2.95968c61
+skill_ids:
+- PHY.C12.AC.REACTANCE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about an inductor or a capacitor in an alternating circuit.
+    The capacitive reactance, XC, is 100 Ω and the angular frequency of the supply,
+    w, is 1000 rad/s. Find the capacitance.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: XC = 1 / [w x C].'
+- level: 2
+  en: 'Get the capacitance on its own before you put numbers in: multiply each side
+    by C, then divide each side by XC x w. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: write C = 1 / [w x XC], where C is the capacitance, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the capacitance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.REACTANCE
+generator_version: factory-2
+template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 μF
+- id: b
+  en: 100000 μF
+- id: c
+  en: 1 x 10^7 μF
+- id: d
+  en: 100 μF
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: XC = 1 / [w x C].'
+- en: 'Get the capacitance alone: multiply each side by C, then divide each side by
+    XC x w.'
+- en: 'Substitute: C = 1 / (1000 x 100).'
+- en: 'Calculate: C = 1 x 10^-5 F.'
+- en: 'Give it in μF: 10 μF.'
+- en: So the capacitance is 10 μF.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 307043433520e7a3905607f402c096bce8885db26c99318abfd89f96a43da5a5
+  template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+  certificate_hash: 0c9eb4320a9ab90d5cea46eb9a97764766b493d3a5995c3a5b17fde2bfa79f02
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:59+00:00'
+  record_hash: 06c2c960f7521620567485491b939b61b4b78aa2e5fff46fb45afdfd48f2cd1b

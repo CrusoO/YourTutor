@@ -1,0 +1,395 @@
+class: 12
+subject: physics
+chapter: current_electricity
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: ohms_law_resistivity
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A uniform metal wire has its length doubled while its cross-sectional area and material stay the same. How does its resistance change?"
+    correct: "It doubles"
+    unit: ""
+    wrong:
+      - {text: "It halves", mistake: "assumes a longer wire gives the current an easier path"}
+      - {text: "It stays the same", mistake: "ignores the length dependence of resistance"}
+      - {text: "It becomes four times larger", mistake: "applies the area-type scaling to a change in length"}
+    explanation: "Resistance is resistivity times length divided by area. With resistivity and area fixed, resistance is directly proportional to length, so doubling the length doubles the resistance."
+    hints:
+      - "Recall the formula linking resistance to resistivity, length and area."
+      - "Ask how the length appears in that formula."
+      - "Check whether the cross-sectional area has changed."
+    diagram: null
+    confidence: high
+  - topic: ohms_law_resistivity
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A copper wire is 2 m long, has cross-sectional area 1 x 10^-6 m^2 and resistivity 1.7 x 10^-8 ohm m. What is its resistance in ohm?"
+    correct: "0.034"
+    unit: "ohm"
+    wrong: []
+    explanation: "Resistance is resistivity times length over area. Substituting gives 1.7 x 10^-8 times 2 divided by 1 x 10^-6, which is 0.034 ohm."
+    hints:
+      - "Use resistance equals resistivity times length divided by area."
+      - "Keep track of the powers of ten in the area."
+      - "Check that the units combine to ohm."
+    diagram: null
+    confidence: high
+  - topic: ohms_law_resistivity
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A wire has resistance 10 ohm at 20 degrees Celsius. Its temperature coefficient of resistance is 0.004 per degree Celsius. What is its resistance in ohm at 70 degrees Celsius?"
+    correct: "12"
+    unit: "ohm"
+    wrong: []
+    explanation: "The resistance at temperature t is R0 times one plus alpha times the change in temperature. The change is 50 degrees, so the resistance is 10 times 1.2, which is 12 ohm."
+    hints:
+      - "Use R equals R0 times one plus alpha times the temperature change."
+      - "Find the temperature change before you use the coefficient."
+      - "Multiply the coefficient by the change first and then add one."
+    diagram: null
+    confidence: high
+  - topic: ohms_law_resistivity
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "As the temperature of a pure metal conductor rises, what happens to its resistivity?"
+    correct: "It increases"
+    unit: ""
+    wrong:
+      - {text: "It decreases", mistake: "applies the semiconductor trend to a metal"}
+      - {text: "It stays exactly constant", mistake: "assumes temperature has no effect on lattice scattering"}
+      - {text: "It becomes negative", mistake: "confuses resistivity with the sign of a temperature coefficient"}
+    explanation: "Higher temperature increases the vibration of the lattice ions, which scatters electrons more often. The resistivity of a metal therefore increases with temperature."
+    hints:
+      - "Think about how lattice vibrations affect the motion of electrons."
+      - "Compare the trend in a metal with the trend in a semiconductor."
+      - "Consider what happens to the resistance of a heated filament."
+    diagram: null
+    confidence: high
+  - topic: ohms_law_resistivity
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A uniform wire of resistance 4 ohm is stretched so that its length doubles and its volume stays the same. What is its new resistance in ohm?"
+    correct: "16"
+    unit: "ohm"
+    wrong: []
+    explanation: "Doubling the length while keeping the volume fixed halves the area. Resistance is proportional to length squared over volume, so it increases by a factor of four to 16 ohm."
+    hints:
+      - "The volume of the wire stays the same when it is stretched."
+      - "Find the new cross-sectional area from the constant volume and the new length."
+      - "Write resistance in terms of length squared over volume for a fixed material."
+    diagram: null
+    confidence: high
+  - topic: ohms_law_resistivity
+    type: mcq
+    difficulty: hard
+    role: recall
+    stem: "In the relation between current density and electric field in a material, which quantity is the reciprocal of conductivity?"
+    correct: "Resistivity"
+    unit: ""
+    wrong:
+      - {text: "Conductance", mistake: "confuses a material property with a property of a particular component"}
+      - {text: "Resistance", mistake: "mixes up the property of a material with the property of a specific object"}
+      - {text: "Permittivity", mistake: "confuses electrical conduction with the response of a dielectric"}
+    explanation: "Conductivity and resistivity are reciprocals of each other, and resistivity is the material property that describes how strongly it opposes current."
+    hints:
+      - "Think about which material property describes how strongly it opposes current."
+      - "Recall the relation between a quantity and its reciprocal."
+      - "Distinguish a property of the material from a property of one piece of it."
+    diagram: null
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "When a cell delivers current to an external circuit, what is its terminal voltage?"
+    correct: "EMF minus the voltage drop across the internal resistance"
+    unit: ""
+    wrong:
+      - {text: "EMF plus the voltage drop across the internal resistance", mistake: "adds the internal drop as if the cell were gaining energy"}
+      - {text: "EMF alone, whatever the current", mistake: "ignores the effect of internal resistance on the output"}
+      - {text: "Internal resistance times the EMF", mistake: "multiplies quantities that have different meanings"}
+    explanation: "The internal resistance drops some voltage when current flows, so the terminal voltage is the EMF minus that drop."
+    hints:
+      - "Think about what the internal resistance does to the voltage when current flows."
+      - "Consider whether the internal drop adds to or subtracts from the EMF."
+      - "Recall how the internal voltage drop is written in terms of current."
+    diagram: null
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A cell of EMF 2 V and internal resistance 0.5 ohm delivers a current of 1 A to an external load. What is its terminal voltage in volt?"
+    correct: "1.5"
+    unit: "V"
+    wrong: []
+    explanation: "The terminal voltage is the EMF minus I times r. Here I r is 0.5 V, so the terminal voltage is 1.5 V."
+    hints:
+      - "Write the terminal voltage as EMF minus current times internal resistance."
+      - "Multiply the current by the internal resistance first."
+      - "Subtract that drop from the EMF as the last step."
+    diagram: null
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A cell of EMF 12 V and internal resistance 1 ohm is connected to an external resistor of 5 ohm. What is the current in ampere?"
+    correct: "2"
+    unit: "A"
+    wrong: []
+    explanation: "The internal and external resistances are in series, giving a total of 6 ohm. The current is the EMF divided by 6 ohm, which is 2 A."
+    hints:
+      - "Add the internal and external resistances because they are in one series loop."
+      - "Apply Ohm's law to the whole loop using the EMF."
+      - "Divide the EMF by the total resistance."
+    diagram: "A single loop containing a cell, a small series resistor labelled internal resistance, and an external resistor labelled 5 ohm, with the current arrow drawn around the loop."
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A cell of EMF 6 V and internal resistance 2 ohm is connected to an external resistor. The power delivered to the external resistor is largest. What is that maximum power in watt?"
+    correct: "4.5"
+    unit: "W"
+    wrong: []
+    explanation: "External power is largest when the external resistance equals the internal resistance, here 2 ohm. The current is then 6 divided by 4, which is 1.5 A, and the power is 1.5 squared times 2, which is 4.5 W."
+    hints:
+      - "The external power is largest when the external resistance matches the internal resistance."
+      - "Find the total resistance and then the current in that case."
+      - "Use P equal to I squared times R for the external resistor."
+    diagram: null
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Two identical cells are connected in parallel with each other. Compared with a single cell, what is the EMF of this combination?"
+    correct: "The same as one cell"
+    unit: ""
+    wrong:
+      - {text: "Twice the EMF of one cell", mistake: "assumes a parallel arrangement adds EMFs as a series arrangement does"}
+      - {text: "Half the EMF of one cell", mistake: "thinks the EMF is shared between the two cells"}
+      - {text: "Zero, because the cells oppose each other", mistake: "assumes identical cells in parallel cancel each other"}
+    explanation: "Identical cells in parallel have the same EMF as one cell, while their internal resistances combine in parallel to a smaller value."
+    hints:
+      - "Think about whether the EMFs add or only the internal resistances combine."
+      - "Recall what a parallel arrangement does to the voltage across each branch."
+      - "Consider the voltage around the loop formed by the two cells."
+    diagram: "Two cell symbols placed side by side, with their positive terminals joined to one wire and their negative terminals joined to another wire, forming a parallel pair."
+    confidence: high
+  - topic: cells_emf_internal_resistance
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two identical cells, each of EMF 1.5 V and internal resistance 1 ohm, are connected in parallel across an external resistor of 2 ohm. What is the current through the external resistor in ampere?"
+    correct: "0.6"
+    unit: "A"
+    wrong: []
+    explanation: "Identical cells in parallel act as one cell with the same EMF and half the internal resistance, 0.5 ohm. The total resistance is 2.5 ohm, so the current is 1.5 divided by 2.5, which is 0.6 A."
+    hints:
+      - "Identical cells in parallel keep one EMF and share the internal resistance."
+      - "Find the effective internal resistance for the parallel pair first."
+      - "Add the external resistor to the effective internal resistance and use Ohm's law."
+    diagram: "Two cells side by side in parallel, joined to a single external resistor labelled 2 ohm in one loop."
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Kirchhoff's current law at a junction expresses the conservation of which quantity?"
+    correct: "Electric charge"
+    unit: ""
+    wrong:
+      - {text: "Energy", mistake: "confuses the current law with the voltage law"}
+      - {text: "Momentum", mistake: "applies a mechanics conservation law to a circuit node"}
+      - {text: "Mass", mistake: "treats current as a flow of matter rather than charge"}
+    explanation: "Charge cannot build up at a junction, so the total current entering a junction equals the total current leaving it."
+    hints:
+      - "Think about what flows into a junction and what flows out."
+      - "Ask which quantity cannot pile up at a point in a circuit."
+      - "Recall which law relates the currents at a junction."
+    diagram: null
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Applying Kirchhoff's voltage law around a closed loop gives which statement?"
+    correct: "The sum of EMFs equals the sum of IR drops around the loop"
+    unit: ""
+    wrong:
+      - {text: "The sum of the currents in the loop is zero", mistake: "applies the junction law to a closed loop"}
+      - {text: "The sum of the resistances equals the sum of the EMFs", mistake: "mixes up the quantities with different units"}
+      - {text: "Each EMF equals the IR drop in its own branch", mistake: "assumes individual terms match one-to-one"}
+    explanation: "Going once around a closed loop returns to the starting potential. The rises from the EMFs must therefore balance the drops across the resistors."
+    hints:
+      - "Walk once around the loop and track the potential at each step."
+      - "The potential at the end of the walk matches the potential at the start."
+      - "Separate the EMF rises from the resistive drops as you go."
+    diagram: null
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 12 V ideal source is connected across two parallel resistors of 4 ohm and 6 ohm. What is the total current drawn from the source in ampere?"
+    correct: "5"
+    unit: "A"
+    wrong: []
+    explanation: "The equivalent parallel resistance is 4 times 6 over 10, which is 2.4 ohm. The total current is 12 divided by 2.4, which equals 5 A."
+    hints:
+      - "Find the equivalent resistance of the two parallel branches first."
+      - "Divide the source voltage by that equivalent resistance."
+      - "Check that the total current is larger than the current in the 4 ohm branch."
+    diagram: null
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A single loop contains an ideal 10 V source and two resistors of 2 ohm and 3 ohm in series. What is the current in ampere?"
+    correct: "2"
+    unit: "A"
+    wrong: []
+    explanation: "Applying Kirchhoff's voltage law around the loop, the EMF equals the total IR drop, so the current is 10 divided by 5 ohm, which is 2 A."
+    hints:
+      - "Apply Kirchhoff's voltage law around the loop once."
+      - "Add the two resistances because they are in series."
+      - "Divide the source voltage by the total resistance."
+    diagram: "A rectangular loop with an ideal 10 V source on one side and two resistors, one labelled 2 ohm and the other labelled 3 ohm, on the opposite side, with a current arrow around the loop."
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An ideal 9 V battery drives a 2 ohm resistor in series with a parallel combination of 3 ohm and 6 ohm. What is the total current drawn from the battery in ampere?"
+    correct: "2.25"
+    unit: "A"
+    wrong: []
+    explanation: "The parallel pair of 3 ohm and 6 ohm has an equivalent resistance of 2 ohm. Adding the series 2 ohm gives 4 ohm, so the current is 9 divided by 4, which is 2.25 A."
+    hints:
+      - "Combine the parallel pair first."
+      - "Add the series resistor to the equivalent of the parallel pair."
+      - "Apply Ohm's law to the total resistance of the whole circuit."
+    diagram: "A battery symbol in series with a 2 ohm resistor, followed by a parallel pair of branches labelled 3 ohm and 6 ohm that rejoin."
+    confidence: high
+  - topic: kirchhoffs_rules
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "At a junction, 2 A flows in through one wire and 5 A flows out through another wire. What is true about the third wire at the junction?"
+    correct: "3 A flows into the junction through it"
+    unit: ""
+    wrong:
+      - {text: "3 A flows out of the junction through it", mistake: "forgets that the unknown current must fix the balance at the junction"}
+      - {text: "5 A flows into the junction through it", mistake: "copies the outgoing current into the incoming side"}
+      - {text: "2 A flows out of the junction through it", mistake: "copies the incoming current to the outgoing side"}
+    explanation: "Current entering the junction must equal current leaving it. Five amperes leave and only two enter, so three amperes must enter through the third wire."
+    hints:
+      - "Write the current balance at the junction with entering and leaving currents."
+      - "Compare the total leaving current with the total entering current."
+      - "Let the unknown current be positive when it leaves the junction and see what sign results."
+    diagram: "A junction with three branches drawn as arrows: one arrow pointing in labelled 2 A, one arrow pointing out labelled 5 A, and a third branch left unlabelled."
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A Wheatstone bridge is balanced when which condition holds?"
+    correct: "The ratios of resistances in the two arms are equal"
+    unit: ""
+    wrong:
+      - {text: "The galvanometer shows its maximum deflection", mistake: "confuses the balanced state with the state of largest current"}
+      - {text: "All four resistors are equal", mistake: "assumes balance needs every resistor to be the same"}
+      - {text: "The battery voltage equals the galvanometer reading", mistake: "treats the galvanometer as a voltmeter that reads the source"}
+    explanation: "No current flows through the galvanometer when the bridge is balanced, which happens when the resistance ratios in the two arms match."
+    hints:
+      - "Think about the current through the galvanometer when the bridge is balanced."
+      - "Recall which relation between the two arms makes the potentials at the two middle points equal."
+      - "Consider whether the four resistors must all be the same value."
+    diagram: null
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "In a balanced Wheatstone bridge, the arm ratio is P over Q, with P equal to 10 ohm and Q equal to 20 ohm. The resistor R in the adjacent arm is 15 ohm. What is the value of S in ohm?"
+    correct: "30"
+    unit: "ohm"
+    wrong: []
+    explanation: "The balance condition P over Q equals R over S gives S equal to R times Q over P. Substituting gives 15 times 20 over 10, which is 30 ohm."
+    hints:
+      - "Write the balance condition as P over Q equals R over S."
+      - "Rearrange the condition to find S."
+      - "Multiply by Q before dividing by P."
+    diagram: null
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A meter bridge has a known resistor of 12 ohm in the right gap. The bridge balances with the jockey at 40 cm from the left end of the wire. What is the unknown resistance in the left gap in ohm?"
+    correct: "8"
+    unit: "ohm"
+    wrong: []
+    explanation: "The ratio of the unknown to the known resistance equals the ratio of the two wire lengths, 40 to 60. So the unknown is 12 times 40 over 60, which is 8 ohm."
+    hints:
+      - "The two resistances have the same ratio as the two wire lengths on either side of the jockey."
+      - "The length on the right is 100 cm minus the reading."
+      - "Multiply the known resistance by the left length before dividing."
+    diagram: "A meter bridge with a wire between two terminals, an unknown resistor in the left gap, a known 12 ohm resistor in the right gap, and a jockey touching the wire at the 40 cm mark."
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "In a potentiometer, a cell of EMF E1 balances at a length of 300 cm and a second cell balances at 200 cm on the same wire. What is the ratio E1 over E2?"
+    correct: "1.5"
+    unit: ""
+    wrong: []
+    explanation: "On a potentiometer the balance lengths are proportional to the EMFs, so E1 over E2 equals 300 divided by 200, which is 1.5."
+    hints:
+      - "The balance length on a potentiometer is proportional to the EMF being measured."
+      - "Divide the first balance length by the second."
+      - "The ratio of two EMFs has no unit."
+    diagram: null
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "On a potentiometer wire, the potential gradient is increased while a cell is still balanced. How does the balancing length change?"
+    correct: "It decreases"
+    unit: ""
+    wrong:
+      - {text: "It increases", mistake: "assumes a steeper gradient needs a longer wire to match the same EMF"}
+      - {text: "It stays the same", mistake: "assumes the gradient does not affect the balance point"}
+      - {text: "It doubles", mistake: "treats the balancing length as directly proportional to the gradient"}
+    explanation: "The balance condition is EMF equal to the potential gradient times the balancing length. A larger gradient therefore gives a shorter balancing length for the same EMF."
+    hints:
+      - "Use the balance condition that links the EMF, the gradient and the balancing length."
+      - "Rearrange the condition to find the balancing length."
+      - "Think about how the length changes when the gradient is larger."
+    diagram: null
+    confidence: high
+  - topic: wheatstone_potentiometer
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A meter bridge has an unknown resistor in the left gap and a known 20 ohm resistor in the right gap. The bridge balances with the jockey at 60 cm from the left end. What is the unknown resistance in ohm?"
+    correct: "30"
+    unit: "ohm"
+    wrong: []
+    explanation: "The unknown over the known equals 60 over 40. The unknown is therefore 20 times 60 over 40, which is 30 ohm."
+    hints:
+      - "The unknown and the known resistance are in the same ratio as the two wire lengths."
+      - "The length on the right side of the jockey is 100 cm minus the reading."
+      - "Make sure the length next to the unknown resistor is the one in the numerator."
+    diagram: "A meter bridge with an unknown resistor in the left gap, a known resistor in the right gap, and a jockey touching the wire at the 60 cm mark."
+    confidence: high

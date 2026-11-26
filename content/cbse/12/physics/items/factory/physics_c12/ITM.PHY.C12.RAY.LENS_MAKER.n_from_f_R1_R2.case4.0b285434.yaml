@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.RAY.LENS_MAKER.n_from_f_R1_R2.case4.0b285434
+skill_ids:
+- PHY.C12.RAY.LENS_MAKER
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a thin double convex lens in air and records the
+    following. The focal length, f, is 25 cm, the radius of curvature of the first
+    face, R1, is 30 cm and the radius of curvature of the second face, R2, is 15 cm.
+    Find the refractive index of the glass.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: 1/f = (n - 1) x (1/R1 + 1/R2), so n = 1 + 1/(f x (1/R1 + 1/R2)).'
+- level: 2
+  en: The relation already gives the refractive index directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 25 cm as 0.25 m, 30 cm as 0.3 m and 15 cm as 0.15 m, then
+    write n = 1 + R1 x R2 / (f x (R1 + R2)), where n is the refractive index, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the refractive index be?
+status: draft
+template_id: TPL2.PHY.C12.RAY.LENS_MAKER
+generator_version: factory-2
+template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3.5'
+- id: b
+  en: '0.4'
+- id: c
+  en: '1.4'
+- id: d
+  en: '2.4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.ONE_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ONE_ADDED_TWICE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/f = (n - 1) x (1/R1 + 1/R2), so n = 1 + 1/(f x (1/R1
+    + 1/R2)).'
+- en: 'Put each quantity in SI units: 25 cm = 0.25 m; 30 cm = 0.3 m; 15 cm = 0.15
+    m.'
+- en: 'Substitute: n = 1 + 0.3 x 0.15 / (0.25 x (0.3 + 0.15)).'
+- en: 'Calculate: n = 1.4.'
+- en: So the refractive index is 1.4.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 444943c6e1859aa61808dfd6864c54b935cf9a6ecd97001bbe93fb34c6c2c110
+  template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+  certificate_hash: 9874db68c29847ea4a206bbc01e6e7f60438c3888e4c762bf6c559f762baac1c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:44+00:00'
+  record_hash: 769abc0f729e8131721a29769ce18424f0d9cf1f690f38090dab70c805bb42d3

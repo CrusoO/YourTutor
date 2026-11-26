@@ -1,0 +1,132 @@
+id: ITM.PHY.C12.AC.TRANSFORMER.Ns_from_Vp_Vs_Np.case4.39d09e94
+skill_ids:
+- PHY.C12.AC.TRANSFORMER
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates an ideal transformer and records the following.
+    The primary voltage, Vp, is 110 V, the secondary voltage, Vs, is 11 V and the
+    number of primary turns, Np, is 100. Find the number of secondary turns.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: Vs / Vp = Ns / Np.'
+- level: 2
+  en: The relation already gives the secondary turns directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write Ns = Np x Vs / Vp, where Ns is the secondary turns, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the secondary turns be?
+status: draft
+template_id: TPL2.PHY.C12.AC.TRANSFORMER
+generator_version: factory-2
+template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1000'
+- id: b
+  en: '1'
+- id: c
+  en: '10'
+- id: d
+  en: '1100'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.VOLTAGES_SUBTRACTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.VOLTAGE_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Vs / Vp = Ns / Np.'
+- en: 'Substitute: Ns = 100 x 11 / 110.'
+- en: 'Calculate: Ns = 10.'
+- en: So the secondary turns is 10.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ba1ef24151dff8f24b5290d6a6535aed564e01aefa9e67f30a72bf84c736f200
+  template_hash: 0fa4b87172594384afec4c8955e75b55bdce545d3e042df9209c90d19538ad60
+  certificate_hash: 5c037633e15012095cd10306ee8c59dbb43687b197251be276c924eb9d03c90a
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:20+00:00'
+  record_hash: 093e48c7445a6b09c0311cf667c4ec62fd94c7d7bd31f8eb346fe7289dfa0e56

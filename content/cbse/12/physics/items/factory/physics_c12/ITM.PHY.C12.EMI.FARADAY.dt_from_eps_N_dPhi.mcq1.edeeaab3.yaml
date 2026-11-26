@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.EMI.FARADAY.dt_from_eps_N_dPhi.mcq1.edeeaab3
+skill_ids:
+- PHY.C12.EMI.FARADAY
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The induced emf, eps, is 0.4 V, the number of turns, N, is 10 and the flux through
+    the coil changes by 4 mWb. Find the time taken for the flux to change.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: emf = N x flux change / time.'
+- level: 2
+  en: 'Get the time on its own before you put numbers in: multiply each side by the
+    time and divide each side by the emf. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 4 mWb as 0.004 Wb, then write dt = N x dPhi / eps, where
+    dt is the time, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the time have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.FARADAY
+generator_version: factory-2
+template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 ms
+- id: b
+  en: 16 ms
+- id: c
+  en: 10000 ms
+- id: d
+  en: 100 ms
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: emf = N x flux change / time.'
+- en: 'Put each quantity in SI units: 4 mWb = 0.004 Wb.'
+- en: 'Get the time alone: multiply each side by the time and divide each side by
+    the emf.'
+- en: 'Substitute: dt = 10 x 0.004 / 0.4.'
+- en: 'Calculate: dt = 0.1 s.'
+- en: 'Give it in ms: 100 ms.'
+- en: So the time is 100 ms.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 65fc3e9d7f7f458378ef8afbe6c912cda770c1ca769b4528285f93e751b896ca
+  template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+  certificate_hash: d262faa0c5f6701f81a7c92683658f0e9d6e5d762e737d0b63e8a5c4c0d90097
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:42+00:00'
+  record_hash: 04ef51f5a11405b1798f71be7f6eb72cdc0a0021c1482b5bd434fbbf367afffb

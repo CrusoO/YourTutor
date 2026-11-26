@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.NUC.BINDING.dm_from_E.num2.3df472d3
+skill_ids:
+- PHY.C12.NUC.BINDING
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about the binding energy of a nucleus. The binding energy,
+    E, is 745.2 MeV. Find the mass defect. Take the energy equivalent of one atomic
+    mass unit, ue, = 931.5 MeV/u.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: binding energy = mass defect x energy of one atomic mass unit.'
+- level: 2
+  en: 'Get the mass defect on its own before you put numbers in: divide each side
+    by the energy of one atomic mass unit. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 745.2 MeV as 1.19232 x 10^-10 J, then write dm = E / ue,
+    where dm is the mass defect, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the mass defect have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.NUC.BINDING
+generator_version: factory-2
+template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 745.2 u
+- id: b
+  en: 80 u
+- id: c
+  en: 0.8 u
+- id: d
+  en: 8 u
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ENERGY_PER_UNIT_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+  - d
+solution_steps:
+- en: 'Write the relation: binding energy = mass defect x energy of one atomic mass
+    unit.'
+- en: 'Put each quantity in SI units: 745.2 MeV = 1.19232 x 10^-10 J.'
+- en: 'Get the mass defect alone: divide each side by the energy of one atomic mass
+    unit.'
+- en: 'Substitute: dm = (1.19232 x 10^-10) / 8.98e + 16.'
+- en: 'Calculate: dm = 1.328 x 10^-27 kg.'
+- en: 'Give it in u: 0.8 u.'
+- en: So the mass defect is 0.8 u.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 500fe6a1acade26d8d229623381a9d3cadd51d479c305f6bb868ac0c586cdfaf
+  template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+  certificate_hash: 3fd9631c301a091e814e021717b87aa6695cb0e09362f25adf248a21e1b43017
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:26+00:00'
+  record_hash: 776dcf92ffd82a7a21b0fb4a8565d8fa3b6e9249b639b5de34e93234fcd752ba

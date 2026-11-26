@@ -1,0 +1,214 @@
+class: 12
+subject: "maths"
+chapter: "inverse_trigonometric_functions"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "principal_values"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the principal value of sin^-1(1/2)?"
+    correct: "pi/6"
+    unit: ""
+    wrong:
+      - {text: "5pi/6", mistake: "picks the second angle with the same sine, which lies outside the principal range"}
+      - {text: "pi/3", mistake: "confuses the sine value of one half with the cosine value"}
+      - {text: "-pi/6", mistake: "reverses the sign of the input before evaluating"}
+    explanation: "The principal range of sin^-1 is from -pi/2 to pi/2, and within it the only angle with sine equal to one half is pi/6."
+    hints:
+      - "Recall the fixed interval that the principal values of sin^-1 must lie in."
+      - "Find the angle in that interval whose sine equals one half."
+      - "Sketch sine on that interval and find the point at height one half."
+    diagram: "Graph of y = sin x on the interval from minus pi over 2 to pi over 2, with a horizontal line at height one half marked where it meets the curve."
+    confidence: high
+
+  - topic: "principal_values"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the principal value of tan^-1(1) in degrees."
+    correct: "45"
+    unit: "degrees"
+    wrong: []
+    explanation: "The principal range of tan^-1 is the open interval from minus pi over 2 to pi over 2, and the angle there with tangent equal to one is pi over 4, which is 45 degrees."
+    hints:
+      - "Recall which angle has tangent equal to one."
+      - "The principal range of tan^-1 is an open interval around zero."
+      - "Convert the radian answer to degrees if your working is in radians."
+    diagram: null
+    confidence: high
+
+  - topic: "principal_values"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the value of cos^-1(cos(7pi/6))?"
+    correct: "5pi/6"
+    unit: ""
+    wrong:
+      - {text: "7pi/6", mistake: "returns the input angle without checking the principal range"}
+      - {text: "pi/6", mistake: "uses the reference angle and forgets to adjust the quadrant"}
+      - {text: "-5pi/6", mistake: "keeps a negative sign on the angle even though the range of cos^-1 is nonnegative"}
+    explanation: "The principal range of cos^-1 is from 0 to pi, and cos(7pi/6) equals cos(5pi/6), with 5pi/6 lying in that range."
+    hints:
+      - "Recall the interval from 0 to pi that the principal values of cos^-1 must lie in."
+      - "Find an angle in that interval with the same cosine as 7pi/6."
+      - "Use the symmetry of cosine about the horizontal axis to locate it."
+    diagram: "Graph of y = cos x on the interval from 0 to pi, with the point where the curve reaches the value negative square root of three over two marked on the vertical axis."
+    confidence: high
+
+  - topic: "principal_values"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the principal value of sin^-1(-sqrt(3)/2) in radians, rounded to 3 significant figures."
+    correct: "-1.047"
+    unit: "radians"
+    wrong: []
+    explanation: "The principal range of sin^-1 is from minus pi over 2 to pi over 2, and the angle there with sine negative square root of three over two is minus pi over 3, which is about minus 1.047 radians."
+    hints:
+      - "Find the angle in the principal range whose sine is the positive version of this value."
+      - "Keep track of the sign of the input when you pick the quadrant."
+      - "Give the final decimal to 3 significant figures."
+    diagram: null
+    confidence: high
+
+  - topic: "principal_values"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the value of tan^-1(sqrt(3)) + tan^-1(-1/sqrt(3)) using principal values?"
+    correct: "pi/6"
+    unit: ""
+    wrong:
+      - {text: "pi/2", mistake: "treats the negative input as if it were positive"}
+      - {text: "-pi/6", mistake: "keeps only the second term and drops the first"}
+      - {text: "5pi/6", mistake: "uses an obtuse angle for one of the inverse tangents"}
+    explanation: "tan^-1(sqrt(3)) equals pi/3 and tan^-1(-1/sqrt(3)) equals -pi/6, so the sum is pi/6."
+    hints:
+      - "Evaluate each inverse tangent separately within the principal range."
+      - "Recall that the principal range of tan^-1 is an open interval."
+      - "Add the two angles once both are known."
+    diagram: null
+    confidence: high
+
+  - topic: "principal_values"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the principal value of cosec^-1(-2) in radians, rounded to 3 significant figures."
+    correct: "-0.524"
+    unit: "radians"
+    wrong: []
+    explanation: "cosec^-1 of a value is the sine^-1 of its reciprocal, so the answer is sin^-1(-1/2), which is minus pi over 6, about minus 0.524 radians."
+    hints:
+      - "Relate cosec^-1 of a value to sin^-1 of its reciprocal."
+      - "Find the principal angle whose sine equals the reciprocal of the input."
+      - "Check that the sign of your answer matches the sign of the input."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which expression equals sin^-1(x) + cos^-1(x) for every x in the interval from minus 1 to 1?"
+    correct: "pi/2"
+    unit: ""
+    wrong:
+      - {text: "pi", mistake: "doubles the principal value instead of combining the two functions"}
+      - {text: "0", mistake: "treats the two inverse functions as opposites"}
+      - {text: "x", mistake: "assumes the two inverse functions cancel to give the input"}
+    explanation: "The two inverse functions always sum to pi over 2 on the closed interval from minus 1 to 1."
+    hints:
+      - "Set the sine inverse equal to an angle and study the matching cosine inverse."
+      - "Compare the principal ranges of the two inverse functions."
+      - "Test the identity with a simple value such as x equals 0."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the value of sin(sin^-1(0.4)) + cos(cos^-1(0.3))."
+    correct: "0.7"
+    unit: ""
+    wrong: []
+    explanation: "A sine of an inverse sine returns its input, and likewise for cosine, so the sum is 0.4 plus 0.3, which is 0.7."
+    hints:
+      - "Apply each function to its own inverse and see what remains."
+      - "Check that each input lies in the domain of its inverse function."
+      - "Add the two simplified results."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Which expression equals tan^-1(1/2) + tan^-1(1/3) using principal values?"
+    correct: "pi/4"
+    unit: ""
+    wrong:
+      - {text: "pi/3", mistake: "adds the fractions inside the inverse tangent instead of using the sum formula"}
+      - {text: "pi/6", mistake: "subtracts the second angle instead of adding it"}
+      - {text: "tan^-1(5/6)", mistake: "adds the fractions but forgets to divide by one minus their product"}
+    explanation: "Using the addition formula for tangent, the sum equals tan^-1 of (1/2 + 1/3) divided by (1 - 1/6), which is tan^-1(1), and this equals pi/4."
+    hints:
+      - "Write the sum of two inverse tangents using the addition formula for tangent."
+      - "Compute the sum and the product of the two fractions separately."
+      - "Identify the angle whose tangent equals the resulting ratio."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let theta = tan^-1(3/4). Find sin(2 theta) as a decimal."
+    correct: "0.96"
+    unit: ""
+    wrong: []
+    explanation: "Using sin(2 theta) equals 2 tan theta divided by (1 plus tan squared theta), the value is (3/2) divided by (25/16), which is 0.96."
+    hints:
+      - "Use the double angle identity for sine written in terms of tangent."
+      - "Build a right triangle with the tangent ratio and read off the sine and cosine of theta."
+      - "Compute the sine and cosine of theta, then double their product."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For x in the interval from minus 1 over square root of 2 to 1 over square root of 2, which expression equals sin^-1(2x square root of (1 - x^2))?"
+    correct: "2 sin^-1(x)"
+    unit: ""
+    wrong:
+      - {text: "pi - 2 sin^-1(x)", mistake: "ignores the restriction on x and reflects the angle incorrectly"}
+      - {text: "sin^-1(x)", mistake: "cancels the factor 2 at the wrong step"}
+      - {text: "2 cos^-1(x)", mistake: "swaps sine and cosine in the substitution"}
+    explanation: "Put x equal to sin theta with theta between minus pi over 4 and pi over 4. The expression becomes sin(2 theta), so the result is 2 theta, which is 2 sin^-1(x)."
+    hints:
+      - "Try substituting x as the sine of an angle."
+      - "Use a double angle identity on the expression inside the inverse sine."
+      - "Check that the final angle lies in the principal range of sin^-1."
+    diagram: null
+    confidence: high
+
+  - topic: "inverse_trig_identities"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the principal value of sin^-1(sin(3pi/4)) in radians, rounded to 3 significant figures."
+    correct: "0.785"
+    unit: "radians"
+    wrong: []
+    explanation: "The angle 3pi/4 is outside the principal range of sin^-1, but sin(3pi/4) equals sin(pi/4), and pi/4 lies in the range, so the answer is pi/4, about 0.785 radians."
+    hints:
+      - "Recall the principal range of sin^-1."
+      - "Locate the angle 3pi/4 relative to that range."
+      - "Find an angle inside the range that has the same sine value."
+    diagram: null
+    confidence: high

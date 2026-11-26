@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.CAP.CAP_ENERGY.Q_from_C_V.num2.a168847e
+skill_ids:
+- PHY.C12.CAP.CAP_ENERGY
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about a charged capacitor. The capacitance, C, is 100 μF and
+    the potential difference across it, V, is 20 V. Find the charge on the capacitor.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: Q = C x V.'
+- level: 2
+  en: The relation already gives the charge directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 100 μF as 1 x 10^-4 F, then write Q = C x V, where Q is the
+    charge, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the charge have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_ENERGY
+generator_version: factory-2
+template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20000 μC
+- id: b
+  en: 40000 μC
+- id: c
+  en: 2000 μC
+- id: d
+  en: 5 μC
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ENERGY_FORMULA_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.VOLTAGE_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: Q = C x V.'
+- en: 'Put each quantity in SI units: 100 μF = 1 x 10^-4 F.'
+- en: 'Substitute: Q = (1 x 10^-4) x 20.'
+- en: 'Calculate: Q = 0.002 C.'
+- en: 'Give it in μC: 2000 μC.'
+- en: So the charge is 2000 μC.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e7f92baad0f61e1dff39c4152cf0fe395588034a9fdb2a30b8d0d3366864534c
+  template_hash: 2d1b4b2cdf0abadd5f7934bf2bd88775fa4795efd3bcc75e27d552e6587f1452
+  certificate_hash: 7dea2f5a6bceca4a585ec58d0f5c91c27e517eee394355bd83320b794d46c78f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:03+00:00'
+  record_hash: f305fa89a8618f4eb47b15cd8c6c4cc85f0f8172360acd5ce4a6f91f544a255e

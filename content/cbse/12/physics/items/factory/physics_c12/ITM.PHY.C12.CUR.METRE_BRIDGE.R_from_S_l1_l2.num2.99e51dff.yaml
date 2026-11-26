@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.CUR.METRE_BRIDGE.R_from_S_l1_l2.num2.99e51dff
+skill_ids:
+- PHY.C12.CUR.METRE_BRIDGE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a metre bridge at balance. The unknown resistance in
+    the right gap, S, is 30 Ω, the balance point, l1, is 25 cm from the left end and
+    the remaining wire on the right, l2, is 75 cm. Find the known resistance.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: R / S = l1 / l2.'
+- level: 2
+  en: The relation already gives the known resistance directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 25 cm as 0.25 m and 75 cm as 0.75 m, then write R = S x l1
+    / l2, where R is the known resistance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the known resistance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.METRE_BRIDGE
+generator_version: factory-2
+template_hash: af0b9a0726ccbc8053a529df5f179726d98dd6c011b5788408ddb9b2e09f39fb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 Ω
+- id: b
+  en: 40 Ω
+- id: c
+  en: 7.5 Ω
+- id: d
+  en: 90 Ω
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TOTAL_LENGTH_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.LENGTH_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.RATIO_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: R / S = l1 / l2.'
+- en: 'Put each quantity in SI units: 25 cm = 0.25 m; 75 cm = 0.75 m.'
+- en: 'Substitute: R = 30 x 0.25 / 0.75.'
+- en: 'Calculate: R = 10 Ω.'
+- en: So the known resistance is 10 Ω.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9846056265b70d307c7590845f9b1ac13c09fedf6a3a13f19c2e2e2b33e759da
+  template_hash: af0b9a0726ccbc8053a529df5f179726d98dd6c011b5788408ddb9b2e09f39fb
+  certificate_hash: 89a1f9922f8aff8308e3321b60dfe4cd1ec19612d566014d0a57ee0149ff7b8b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:12+00:00'
+  record_hash: 4d660afb8db2589cf7faf7a35add9a5c2581d6edc7552f9bf695671f86dcd4e9

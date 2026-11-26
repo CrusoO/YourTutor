@@ -1,0 +1,392 @@
+class: 12
+subject: "maths"
+chapter: "three_dimensional_geometry"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "direction_cosines_ratios"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the x-direction cosine of the line joining the points (1, 2, 3) and (3, 2, 1), rounded to 3 decimal places."
+    correct: "0.707"
+    unit: ""
+    wrong: []
+    explanation: "The direction ratios are (2, 0, -2), with magnitude square root of 8. The x-direction cosine is 2 divided by the square root of 8, which is about 0.707."
+    hints:
+      - "Subtract the coordinates of the first point from those of the second."
+      - "Find the magnitude of the resulting vector."
+      - "Divide the first component by that magnitude."
+    diagram: "Segment joining two labelled points in space, with the three coordinate axes drawn through the origin and the angles to the x-axis marked."
+    confidence: high
+
+  - topic: "direction_cosines_ratios"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What are the direction cosines of a line with direction ratios (1, 2, 2)?"
+    correct: "1/3, 2/3, 2/3"
+    unit: ""
+    wrong:
+      - {text: "1, 2, 2", mistake: "reports the ratios as cosines without normalising them"}
+      - {text: "1/2, 1, 1", mistake: "divides by the middle ratio instead of the magnitude"}
+      - {text: "1/5, 2/5, 2/5", mistake: "divides by the sum of the ratios instead of the magnitude"}
+    explanation: "The magnitude of (1, 2, 2) is 3, so the direction cosines are 1/3, 2/3 and 2/3."
+    hints:
+      - "Find the magnitude from the three direction ratios."
+      - "Divide each ratio by that magnitude."
+      - "Check that the squares of the cosines add to 1."
+    diagram: null
+    confidence: high
+
+  - topic: "direction_cosines_ratios"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the z-direction cosine of the line through (2, 3, -1) and (-2, 1, 2), rounded to 3 decimal places."
+    correct: "0.557"
+    unit: ""
+    wrong: []
+    explanation: "The direction ratios are (-4, -2, 3), with magnitude square root of 29. The z-direction cosine is 3 divided by the square root of 29, about 0.557."
+    hints:
+      - "Subtract the coordinates in a consistent order to get the direction ratios."
+      - "Compute the magnitude as the square root of the sum of the squares."
+      - "Divide the third component by that magnitude."
+    diagram: "Line segment in space between two labelled points, with a direction arrow and the z-axis drawn alongside."
+    confidence: high
+
+  - topic: "direction_cosines_ratios"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "If l, m and n are the direction cosines of a line, which relation is always true?"
+    correct: "l^2 + m^2 + n^2 = 1"
+    unit: ""
+    wrong:
+      - {text: "l + m + n = 1", mistake: "adds the cosines as if they were probabilities"}
+      - {text: "l^2 + m^2 - n^2 = 1", mistake: "subtracts one of the squared terms"}
+      - {text: "l^2 + m^2 + n^2 = 3", mistake: "treats each cosine as if it were equal to one"}
+    explanation: "Direction cosines are the components of a unit vector along the line, and the squares of the components of a unit vector sum to 1."
+    hints:
+      - "Recall that direction cosines are the components of a unit vector."
+      - "Use the defining property of the magnitude of a unit vector."
+      - "Check the relation against the squares of the three components."
+    diagram: null
+    confidence: high
+
+  - topic: "direction_cosines_ratios"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A line makes angles of 60 degrees with the x-axis and 60 degrees with the y-axis. Find the angle it makes with the z-axis, in degrees."
+    correct: "45"
+    unit: "degrees"
+    wrong: []
+    explanation: "The x and y direction cosines are both 1/2, so the z direction cosine squared is 1 minus 1/4 minus 1/4, which is 1/2. The cosine is 1 over the square root of 2, giving 45 degrees."
+    hints:
+      - "Use the relation between the three direction cosines to find the third one."
+      - "Take the positive root for the cosine of the angle with the z-axis."
+      - "Convert the cosine you obtain into an angle."
+    diagram: null
+    confidence: high
+
+  - topic: "direction_cosines_ratios"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A line is perpendicular to the z-axis. Which statement about its direction cosines is correct?"
+    correct: "Its direction cosine along z is 0"
+    unit: ""
+    wrong:
+      - {text: "Its direction cosine along x is 0", mistake: "confuses the axis to which the line is perpendicular"}
+      - {text: "Its direction cosines are all equal", mistake: "assumes symmetry among the three axes"}
+      - {text: "Its direction ratios add up to 1", mistake: "treats direction ratios as normalised probabilities"}
+    explanation: "A line perpendicular to the z-axis makes a right angle with it, so the cosine of that angle, which is the z direction cosine, is zero."
+    hints:
+      - "Think about which angle a line makes when it is perpendicular to the z-axis."
+      - "Consider which direction cosine corresponds to the angle with the z-axis."
+      - "Relate that cosine to the value at a right angle."
+    diagram: "Three coordinate axes drawn in space with a horizontal line perpendicular to the vertical z-axis."
+    confidence: high
+
+  - topic: "equation_of_line_3d"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "A line has vector equation r = (1, 2, 3) + t(2, 3, 4). Find the x-coordinate of the point on the line when t = 2."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The x-coordinate is 1 + 2t, which at t = 2 equals 1 + 4 = 5."
+    hints:
+      - "Substitute the parameter value into the x component of the equation."
+      - "Multiply the x component of the direction by the parameter."
+      - "Add the starting x-coordinate to that product."
+    diagram: "Line through a labelled point in three-dimensional space, with a direction arrow showing the direction ratios."
+    confidence: high
+
+  - topic: "equation_of_line_3d"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the Cartesian form of the line through (1, 2, 3) with direction ratios (2, 3, 4)?"
+    correct: "(x - 1)/2 = (y - 2)/3 = (z - 3)/4"
+    unit: ""
+    wrong:
+      - {text: "(x + 1)/2 = (y + 2)/3 = (z + 3)/4", mistake: "flips the signs of the coordinates of the point"}
+      - {text: "(x - 1)/4 = (y - 2)/3 = (z - 3)/2", mistake: "reverses the direction ratios"}
+      - {text: "(x - 1)/2 = (y - 2)/3 = (z - 3)/-4", mistake: "changes the sign of the third direction ratio"}
+    explanation: "The symmetric form divides each coordinate difference from the point by the matching direction ratio, giving (x - 1)/2 = (y - 2)/3 = (z - 3)/4."
+    hints:
+      - "Use the given point and the direction ratios in the symmetric form."
+      - "Each coordinate difference is divided by its matching direction ratio."
+      - "Keep the sign of each point coordinate when you form the difference."
+    diagram: null
+    confidence: high
+
+  - topic: "equation_of_line_3d"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A line passes through A = (1, 2, 3) and B = (3, 4, 7). Its point at parameter t is A + t(B - A). Find the y-coordinate of this point when t = 0.5."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "B minus A is (2, 2, 4), so the y-coordinate is 2 + 0.5 times 2, which equals 3."
+    hints:
+      - "Find the direction vector as B minus A."
+      - "Substitute the parameter into the y component of A plus t times the direction."
+      - "Add the scaled direction component to the starting y-coordinate."
+    diagram: "Three-dimensional line with two labelled points A and B and a point marked halfway between them on the segment."
+    confidence: high
+
+  - topic: "equation_of_line_3d"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Which line is parallel to r = (1, 2, 3) + t(2, 3, 4)?"
+    correct: "The line through the origin with direction (4, 6, 8)"
+    unit: ""
+    wrong:
+      - {text: "The line through the origin with direction (2, 3, 5)", mistake: "changes one of the direction ratios"}
+      - {text: "The line through the origin with direction (-2, 3, 4)", mistake: "changes the sign of one direction ratio"}
+      - {text: "The line through (1, 2, 3) with direction (1, 2, 3)", mistake: "uses the point coordinates as direction ratios"}
+    explanation: "Two lines are parallel when their direction vectors are scalar multiples, and (4, 6, 8) is 2 times (2, 3, 4)."
+    hints:
+      - "Parallel lines have direction vectors that are scalar multiples of each other."
+      - "Check whether each candidate direction is a scalar multiple of (2, 3, 4)."
+      - "Ignore the point on the line when comparing directions."
+    diagram: null
+    confidence: high
+
+  - topic: "equation_of_line_3d"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Two lines are given by r = (1, 0, 0) + s(1, 1, 1) and r = (0, 1, 0) + t(1, 1, 1). What is their relationship?"
+    correct: "They are parallel and distinct"
+    unit: ""
+    wrong:
+      - {text: "They intersect at (1, 0, 0)", mistake: "takes the given starting point as an intersection point"}
+      - {text: "They are skew", mistake: "assumes that lines which do not meet must be skew without checking parallelism"}
+      - {text: "They are perpendicular", mistake: "takes the dot product of a point with a direction"}
+    explanation: "The direction vectors are identical, so the lines are parallel. Equating the points gives s = t from the z-coordinates and 1 + s = t from the x-coordinates, which cannot both hold, so the lines are distinct."
+    hints:
+      - "Compare the direction vectors of the two lines first."
+      - "If the directions are scalar multiples, consider whether the lines can meet."
+      - "Check whether the starting point of one line lies on the other line."
+    diagram: "Two parallel lines in space drawn with the same arrow direction, one passing through the point (1, 0, 0) and the other through (0, 1, 0)."
+    confidence: high
+
+  - topic: "equation_of_plane"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "The plane x + 2y + 3z = 6 meets the x-axis at a point. What is the x-coordinate of that point?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "On the x-axis y and z are zero, so x = 6."
+    hints:
+      - "On the x-axis the y and z coordinates are both zero."
+      - "Substitute those values into the plane equation."
+      - "Solve the resulting equation for x."
+    diagram: "Plane in three-dimensional coordinates cutting the three axes, with the intercepts on the axes labelled."
+    confidence: high
+
+  - topic: "equation_of_plane"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is a normal vector to the plane 2x - y + 3z = 5?"
+    correct: "(2, -1, 3)"
+    unit: ""
+    wrong:
+      - {text: "(2, 1, 3)", mistake: "changes the sign of the middle coefficient"}
+      - {text: "(2, -1, -3)", mistake: "changes the sign of the last coefficient"}
+      - {text: "(5, 2, -1)", mistake: "reads the coefficients in the wrong order and includes the constant"}
+    explanation: "The coefficients of x, y and z in the plane equation form a normal vector, which is (2, -1, 3)."
+    hints:
+      - "The normal of a plane is given by the coefficients of x, y and z."
+      - "Read each coefficient exactly as written, including its sign."
+      - "The constant on the right side does not belong to the normal vector."
+    diagram: null
+    confidence: high
+
+  - topic: "equation_of_plane"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the constant d such that the plane x + y + z = d passes through the point (1, 2, 3)."
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "Substituting (1, 2, 3) gives 1 + 2 + 3 = 6, so d = 6."
+    hints:
+      - "Substitute the coordinates of the point into the plane equation."
+      - "Compute the value of the left side at that point."
+      - "Set the constant equal to that value."
+    diagram: "Plane with a normal arrow drawn perpendicular to its surface and a labelled point lying on the plane."
+    confidence: high
+
+  - topic: "equation_of_plane"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the equation of the plane through (1, 0, 0), (0, 2, 0) and (0, 0, 3)?"
+    correct: "6x + 3y + 2z = 6"
+    unit: ""
+    wrong:
+      - {text: "6x + 3y + 2z = 0", mistake: "forces the plane through the origin"}
+      - {text: "x + 2y + 3z = 6", mistake: "uses the intercept values as coefficients"}
+      - {text: "6x + 3y + 2z = 1", mistake: "uses the intercept form but gets the constant wrong"}
+    explanation: "The intercept form is x + y/2 + z/3 = 1. Multiplying by 6 gives 6x + 3y + 2z = 6."
+    hints:
+      - "Use the intercept form of a plane with the three axis intercepts."
+      - "Clear the fractions by multiplying through by the common denominator."
+      - "Check the final equation by substituting each of the three points."
+    diagram: "Plane cutting the three coordinate axes at the labelled points (1, 0, 0), (0, 2, 0) and (0, 0, 3)."
+    confidence: high
+
+  - topic: "equation_of_plane"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Which point lies on the plane 2x - y + z = 4?"
+    correct: "(2, 0, 0)"
+    unit: ""
+    wrong:
+      - {text: "(1, 1, 1)", mistake: "adds the coefficients instead of substituting the coordinates"}
+      - {text: "(0, 1, 1)", mistake: "takes the sign of the y coordinate as positive"}
+      - {text: "(2, 1, 0)", mistake: "subtracts the y term but misreads the constant"}
+    explanation: "Substituting (2, 0, 0) gives 2 times 2 minus 0 plus 0, which equals 4, so this point satisfies the equation."
+    hints:
+      - "Substitute each candidate's coordinates into the left side."
+      - "Compare the result with the constant on the right side."
+      - "Only one candidate gives exactly that constant."
+    diagram: null
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the distance from the origin to the plane x + 2y + 2z = 9."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The distance from the origin is |0 + 0 + 0 - 9| divided by the length of (1, 2, 2), which is 9 divided by 3, equal to 3."
+    hints:
+      - "Use the formula for the distance from a point to a plane."
+      - "Evaluate the left side of the plane equation at the origin."
+      - "Divide by the length of the normal vector."
+    diagram: "Plane in space with a perpendicular segment drawn from the origin to the plane, and the foot of the perpendicular marked."
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the angle between the planes with normal vectors (1, 0, 0) and (1, 1, 0)?"
+    correct: "45 degrees"
+    unit: ""
+    wrong:
+      - {text: "60 degrees", mistake: "uses the tangent of the angle in place of the cosine"}
+      - {text: "90 degrees", mistake: "assumes the normals must be perpendicular"}
+      - {text: "30 degrees", mistake: "halves the angle between the normals"}
+    explanation: "The cosine of the angle equals the dot product 1 divided by the product of the magnitudes 1 and square root of 2, so the angle is 45 degrees."
+    hints:
+      - "The angle between two planes equals the angle between their normal vectors."
+      - "Use the dot product formula for the cosine of that angle."
+      - "Compute the magnitudes of both normal vectors."
+    diagram: null
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the angle between the line with direction (1, 1, square root of 2) and the plane z = 0, in degrees."
+    correct: "45"
+    unit: "degrees"
+    wrong: []
+    explanation: "The normal to the plane is (0, 0, 1). The sine of the angle with the plane equals the dot product 1 times square root of 2 divided by the product of magnitudes 2 and 1, which is square root of 2 over 2, so the angle is 45 degrees."
+    hints:
+      - "The angle between a line and a plane uses the sine together with the normal vector."
+      - "Compute the dot product of the direction with the normal."
+      - "Divide by the product of the magnitudes and find the angle."
+    diagram: "A line passing through the horizontal plane at an angle, with the normal to the plane drawn as a vertical arrow."
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the distance between the parallel planes x + 2y + 2z = 3 and x + 2y + 2z = 9?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "6", mistake: "uses the difference of constants without dividing by the length of the normal"}
+      - {text: "2/3", mistake: "divides the difference of constants by the squared length of the normal"}
+      - {text: "1", mistake: "halves the difference of constants without using the normal length"}
+    explanation: "The distance between parallel planes is |9 - 3| divided by the length of the common normal (1, 2, 2), which is 6 divided by 3, equal to 2."
+    hints:
+      - "Identify the constants on the right side of the two planes."
+      - "Divide the difference of those constants by the length of the common normal."
+      - "Check that both planes share the same coefficient vector."
+    diagram: null
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the distance from the point (1, 2, 3) to the plane 2x - y + 2z = 3."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "The plane expression at (1, 2, 3) is 2 - 2 + 6 = 6, and the difference from 3 is 3. Dividing by the length 3 of the normal gives a distance of 1."
+    hints:
+      - "Compute the value of the plane expression at the given point."
+      - "Find the difference between that value and the constant."
+      - "Divide the absolute difference by the length of the normal vector."
+    diagram: null
+    confidence: high
+
+  - topic: "angles_and_distances_3d"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Line L1 passes through the origin with direction (1, 0, 0), and line L2 passes through (0, 0, 1) with direction (0, 1, 0). What is the shortest distance between them?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "treats the two lines as intersecting"}
+      - {text: "square root of 2", mistake: "adds the lengths of the two direction vectors"}
+      - {text: "1/2", mistake: "divides by the squared length of the common perpendicular"}
+    explanation: "The cross product of the directions is (0, 0, 1), and the vector joining the two points is (0, 0, 1). Their dot product divided by the length of (0, 0, 1) gives 1."
+    hints:
+      - "Find a vector perpendicular to both direction vectors."
+      - "Project the vector joining a point on each line onto that common perpendicular."
+      - "Divide by the length of the perpendicular vector."
+    diagram: "Two skew lines in space, one along the x-direction through the origin and one along the y-direction at height one on the z-axis, with the shortest connecting segment marked."
+    confidence: high

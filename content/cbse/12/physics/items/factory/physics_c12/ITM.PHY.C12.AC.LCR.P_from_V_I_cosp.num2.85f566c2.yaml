@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.AC.LCR.P_from_V_I_cosp.num2.85f566c2
+skill_ids:
+- PHY.C12.AC.LCR
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about a series LCR circuit on an alternating supply. The rms
+    supply voltage, V, is 150 V, the rms current, I, is 6 A and the power factor,
+    cosp, is 0.28. Find the average power used.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: P = V x I x cosine of phi.'
+- level: 2
+  en: The relation already gives the average power directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write P = V x I x cosp, where P is the average power, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the average power have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.LCR
+generator_version: factory-2
+template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 252 W
+- id: b
+  en: 3.21e+03 W
+- id: c
+  en: 1.68 W
+- id: d
+  en: 900 W
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_FACTOR_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.VOLTAGE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.POWER_FACTOR_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: P = V x I x cosine of phi.'
+- en: 'Substitute: P = 150 x 6 x 0.28.'
+- en: 'Calculate: P = 252 W.'
+- en: So the average power is 252 W.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f4a7f49c9c50c5e0155cc80de784705395caa42962f8140aaa4180d81b2d3912
+  template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+  certificate_hash: b7fd0c1d7a879f08091b4586714b0db487d500525bf5589927b3002821ee247f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:06+00:00'
+  record_hash: f0648aeb876e108cd998da30bf872baf3be65b2a4ca41fe22ff8d5e13d8b4e3d

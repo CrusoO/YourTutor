@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.CAP.CAP_PLATE.d_from_C_K_A.num2.ef8e6b83
+skill_ids:
+- PHY.C12.CAP.CAP_PLATE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a parallel plate capacitor. The capacitance, C, is 708
+    pF, the dielectric constant of the material between the plates, K, is 4 and the
+    area of each plate, A, is 200 cm². Find the gap between the plates. Take the permittivity
+    of free space, eps0, = 8.85 x 10^-12 C²/(N m²).
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: C = K x eps0 x A / d.'
+- level: 2
+  en: 'Get the plate gap on its own before you put numbers in: multiply each side
+    by d and divide each side by C. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 708 pF as 7.08 x 10^-10 F and 200 cm² as 0.02 m², then write
+    d = K x eps0 x A / C, where d is the plate gap, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the plate gap have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_PLATE
+generator_version: factory-2
+template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1 mm
+- id: b
+  en: 2500 mm
+- id: c
+  en: 4 x 10^6 mm
+- id: d
+  en: 0.25 mm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.DIELECTRIC_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: C = K x eps0 x A / d.'
+- en: 'Put each quantity in SI units: 708 pF = 7.08 x 10^-10 F; 200 cm² = 0.02 m².'
+- en: 'Get the plate gap alone: multiply each side by d and divide each side by C.'
+- en: 'Substitute: d = 4 x (8.85 x 10^-12) x 0.02 / (7.08 x 10^-10).'
+- en: 'Calculate: d = 0.001 m.'
+- en: 'Give it in mm: 1 mm.'
+- en: So the plate gap is 1 mm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 667bcd734afa875da748a3417f6c94c36af6f0d64e24b3195e62a4d6a603dc6c
+  template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+  certificate_hash: 76ac266fbd6fea4209ad2364848e81bdad5ecb4c27800a9da59da67589015c40
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:57+00:00'
+  record_hash: 2e2258dbc14346ef07ab848b250e461ec5b6eb5ed784120ce130449eacbce473

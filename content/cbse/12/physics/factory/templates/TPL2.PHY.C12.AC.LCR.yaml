@@ -1,0 +1,54 @@
+id: TPL2.PHY.C12.AC.LCR
+schema: factory-template/1
+lane: physics_c12
+model: AC.LCR
+skill_id: PHY.C12.AC.LCR
+box:
+  variant:
+    choices:
+    - Z_from_R_XL_XC
+    - I_from_V_R_XL_XC
+    - cosp_from_R_Z
+    - P_from_V_I_cosp
+    - P_from_I_R
+    - tp_from_R_XL_XC
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  rxx:
+    choices:
+    - 30,70,30
+    - 40,50,20
+    - 60,100,20
+    - 12,25,20
+    - 8,10,4
+    - 24,40,33
+    - 16,30,18
+    - 9,16,4
+    - 15,30,22
+    - 7,34,10
+    - 20,41,20
+    - 10,44,20
+  V:
+    choices:
+    - '100'
+    - '130'
+    - '150'
+    - '200'
+    - '250'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.alternating_current
+  skill_id: PHY.C12.AC.LCR
+  allowed_methods:
+  - series_lcr
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

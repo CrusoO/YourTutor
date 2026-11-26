@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.RAY.TELESCOPE.L_from_fo_fe.mcq1.118916c9
+skill_ids:
+- PHY.C12.RAY.TELESCOPE
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The focal length of the objective, fo, is 150 cm and the focal length of the
+    eyepiece, fe, is 20 cm. Find the distance between the two lenses.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: tube length = fo + fe in normal adjustment.'
+- level: 2
+  en: The relation already gives the tube length directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 150 cm as 1.5 m and 20 cm as 0.2 m, then write L = fo + fe,
+    where L is the tube length, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the tube length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.TELESCOPE
+generator_version: factory-2
+template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7.5 cm
+- id: b
+  en: 170 cm
+- id: c
+  en: 130 cm
+- id: d
+  en: 3000 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.RATIO_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FOCAL_LENGTHS_SUBTRACTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FOCAL_LENGTHS_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: tube length = fo + fe in normal adjustment.'
+- en: 'Put each quantity in SI units: 150 cm = 1.5 m; 20 cm = 0.2 m.'
+- en: 'Substitute: L = 1.5 + 0.2.'
+- en: 'Calculate: L = 1.7 m.'
+- en: 'Give it in cm: 170 cm.'
+- en: So the tube length is 170 cm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: baee91fa90027239e3f6034735af5cae1ae0071c8375395d658cf6bd2be7b543
+  template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+  certificate_hash: bdf6b3f3ac2e720f3278b99eb9d3e3f033f0c0cb97c08cb1eba80fa5cf1ab15c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:01+00:00'
+  record_hash: 5238356a6f73818f8550bfe7ea53ce86631bf1b6221efbf5f2f70c1098a5a377

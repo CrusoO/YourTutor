@@ -1,0 +1,404 @@
+class: 9
+subject: maths
+chapter: polynomials
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: polynomial_basics
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the degree of the polynomial 4x^3 - x + 7?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "reads the exponent of the middle term instead of the highest one"}
+      - {text: "4", mistake: "takes the leading coefficient as the degree"}
+      - {text: "7", mistake: "uses the constant term as the degree"}
+    explanation: "The degree is the highest exponent of the variable, and here that is the power on the x cubed term, so the degree is 3."
+    hints:
+      - "Look for the term with the largest exponent of the variable."
+      - "Ignore the coefficients when you look for the degree."
+      - "A constant term has a degree of zero."
+    diagram: null
+    confidence: high
+  - topic: polynomial_basics
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these expressions is a polynomial in one variable?"
+    correct: "y^2 + 2y - 5"
+    unit: ""
+    wrong:
+      - {text: "1/x + 1", mistake: "treats division by the variable as allowed in a polynomial"}
+      - {text: "sqrt(z) + 3", mistake: "allows a root of the variable inside a polynomial"}
+      - {text: "2^x + 1", mistake: "treats a variable exponent as a polynomial power"}
+    explanation: "A polynomial uses only whole-number powers of the variable with coefficients, combined by addition and subtraction. The other expressions use division by a variable, a root, or a variable in the exponent."
+    hints:
+      - "Check every exponent that sits on the variable."
+      - "Whole-number powers are the only kind a polynomial allows."
+      - "Look for the variable in a denominator or under a root sign."
+    diagram: null
+    confidence: high
+  - topic: polynomial_basics
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A polynomial has the form 5p - 2. How is it best described by its number of terms and its degree?"
+    correct: "a binomial, of degree one"
+    unit: ""
+    wrong:
+      - {text: "a trinomial, of degree one", mistake: "counts a missing term as a term"}
+      - {text: "a monomial, of degree one", mistake: "ignores the constant term"}
+      - {text: "a binomial, of degree two", mistake: "adds one to the degree because there are two terms"}
+    explanation: "The expression has two terms, so it is a binomial, and the highest power of p is one, so its degree is one."
+    hints:
+      - "Count the terms that are actually present."
+      - "The number of terms gives the type of the polynomial."
+      - "Find the highest exponent of the variable to get the degree."
+    diagram: null
+    confidence: high
+  - topic: polynomial_basics
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Multiply x squared plus one by x cubed minus x and expand. What is the degree of the resulting polynomial?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The leading terms x squared and x cubed multiply to x to the power 5, and no other product gives a higher power, so the degree is 5."
+    hints:
+      - "Find the highest power produced by multiplying the leading terms."
+      - "Add the exponents of the two leading terms."
+      - "Smaller terms do not change the degree, so ignore them."
+    diagram: null
+    confidence: high
+  - topic: polynomial_basics
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two non-zero polynomials in one variable are added. Which statement about the degree of the sum is always correct?"
+    correct: "The degree of the sum is at most the larger of the two degrees."
+    unit: ""
+    wrong:
+      - {text: "The degree of the sum is always the product of the two degrees.", mistake: "applies the product rule to addition"}
+      - {text: "The degree of the sum is always the smaller of the two degrees.", mistake: "assumes the lower degree dominates"}
+      - {text: "The degree of the sum is always exactly the larger of the two degrees.", mistake: "ignores cancellation of the leading terms"}
+    explanation: "Adding polynomials combines like terms, and the leading terms may cancel, which can lower the degree but never raise it above the larger of the two degrees."
+    hints:
+      - "Think about what happens to the highest power when you add terms."
+      - "Consider whether two leading terms can cancel each other."
+      - "Compare the degree of the sum with the two original degrees."
+    diagram: null
+    confidence: high
+  - topic: polynomial_basics
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The square of a polynomial of degree four is found, and then a polynomial of degree three is subtracted from it. What is the degree of the result?"
+    correct: "8"
+    unit: ""
+    wrong: []
+    explanation: "The square has degree 8, and subtracting a term of lower degree leaves the highest power unchanged."
+    hints:
+      - "Find the degree of the square by doubling the given degree."
+      - "Subtracting a lower-degree polynomial does not change the top power."
+      - "Only the highest power of the final expression decides its degree."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "Find the remainder when x^2 + 3x - 4 is divided by x - 1."
+    correct: "0"
+    unit: ""
+    wrong: []
+    explanation: "By the remainder theorem the remainder is the polynomial evaluated at x equal to 1, which is 1 + 3 - 4, giving zero."
+    hints:
+      - "Set the divisor equal to zero and find the value of the variable."
+      - "Substitute that value into the given polynomial."
+      - "Evaluate the resulting expression carefully."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which number is a zero of the polynomial 2x - 6?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "-3", mistake: "changes the sign when solving for the variable"}
+      - {text: "6", mistake: "reads the constant term as the zero"}
+      - {text: "2", mistake: "takes the coefficient of x as the zero"}
+    explanation: "Setting 2x - 6 equal to zero gives x equal to 3, which is the only zero of this linear polynomial."
+    hints:
+      - "Set the polynomial equal to zero."
+      - "Move the constant term to the other side first."
+      - "Divide by the number that multiplies the variable last."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The polynomial p(x) = x^3 - 2x^2 + x + 4 is divided by x + 2. What is the remainder?"
+    correct: "-14"
+    unit: ""
+    wrong: []
+    explanation: "The remainder is p at x equal to minus 2: minus 8, minus 8, minus 2 and plus 4 add to minus 14."
+    hints:
+      - "Set the divisor equal to zero and solve for x."
+      - "Substitute the value you found into every term of the polynomial."
+      - "Be careful with the sign of each power of the negative value."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For f(x) = x^2 - 4x + k, the remainder when f is divided by x - 2 is 6. What is k?"
+    correct: "10"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "substitutes the divisor value into the linear term only"}
+      - {text: "-10", mistake: "loses the sign when moving the known terms across"}
+      - {text: "6", mistake: "takes the unknown constant as the remainder itself"}
+    explanation: "Substituting x equal to 2 gives 4 - 8 + k, which must equal 6, so k equals 10."
+    hints:
+      - "Use the remainder theorem: the remainder is the polynomial at the zero of the divisor."
+      - "Substitute that zero into every term, including the unknown constant."
+      - "Move the known terms across and solve the equation for the unknown."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "When x^4 + a x^3 - 3x + 2 is divided by x + 1, the remainder is 4. What is a?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Substituting x equal to minus 1 gives 1 - a + 3 + 2, which is 6 - a; setting this equal to 4 gives a equal to 2."
+    hints:
+      - "Set the divisor equal to zero to find the value to substitute."
+      - "Substitute that value into the polynomial and keep the letter a in place."
+      - "Solve the equation you obtain for the letter."
+    diagram: null
+    confidence: high
+  - topic: zeros_and_remainder
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which number is a zero of the cubic polynomial x^3 + 2x - 3?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "reads the constant term as the zero"}
+      - {text: "-3", mistake: "reverses the sign of the constant when testing"}
+      - {text: "-1", mistake: "tests only the sign of the linear term"}
+    explanation: "Substituting 1 gives 1 + 2 - 3, which is zero. This cubic has no other real zero, because its slope never becomes negative."
+    hints:
+      - "Test small whole numbers and check the total after substitution."
+      - "A zero makes the whole sum come out exactly zero."
+      - "Try the candidate that makes the constant term cancel the other terms."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Is x - 2 a factor of x^2 - 4?"
+    correct: "Yes, because the remainder at x equal to 2 is zero."
+    unit: ""
+    wrong:
+      - {text: "No, because the constant term is not zero.", mistake: "checks the constant term instead of the remainder"}
+      - {text: "No, because the polynomial has degree two.", mistake: "treats the degree as a barrier to factors"}
+      - {text: "Yes, because the constant term is negative.", mistake: "reads a negative sign as proof of a factor"}
+    explanation: "Substituting 2 gives 4 - 4, which is zero, so by the factor theorem x - 2 is a factor."
+    hints:
+      - "Use the factor theorem by substituting the root of the divisor."
+      - "Check whether the result of the substitution is exactly zero."
+      - "A zero remainder means the divisor divides the polynomial exactly."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "The polynomial x^2 + 5x + 6 has x + 2 as one factor. What is the constant term of the other linear factor?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Dividing gives x + 3 as the other factor, since the product of the constant terms 2 and 3 is the constant 6."
+    hints:
+      - "Divide the polynomial by the known factor."
+      - "The remaining factor is a linear expression."
+      - "Compare the constant terms of the product with the original constant."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Using the factor theorem, which linear expression is a factor of x^3 - 7x + 6?"
+    correct: "x + 3"
+    unit: ""
+    wrong:
+      - {text: "x - 3", mistake: "reverses the sign of the zero when reading the factor"}
+      - {text: "x + 2", mistake: "uses the constant term of a different expression as the root"}
+      - {text: "x - 6", mistake: "takes the constant term 6 as the root"}
+    explanation: "Substituting minus three gives minus 27 plus 21 plus 6, which is zero, so x + 3 is a factor."
+    hints:
+      - "Test values that divide the constant term evenly."
+      - "Substitute the candidate value and check whether the result is zero."
+      - "The factor has the opposite sign to the value that gives zero."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Find the value of k so that x + 1 is a factor of x^3 + k x^2 + 3x + 2."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Substituting minus one gives minus one plus k minus three plus two, which equals k minus 2; setting that to zero gives k equal to 2."
+    hints:
+      - "Set the divisor equal to zero and substitute the value into the polynomial."
+      - "Replace the variable by that value in every term."
+      - "Solve for the unknown using the remaining terms."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "The polynomial x^3 + a x^2 - 4x - 12 has x - 2 as a factor. What is a?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "-3", mistake: "flips the sign when substituting the root"}
+      - {text: "5", mistake: "adds the constant terms instead of substituting"}
+      - {text: "1", mistake: "drops the x squared term when substituting"}
+    explanation: "Substituting 2 gives 8 + 4a - 8 - 12, which is 4a - 12; setting this to zero gives a equal to 3."
+    hints:
+      - "Substitute the zero of the divisor for the variable."
+      - "Collect the terms that contain the unknown letter."
+      - "Solve the remaining simple equation."
+    diagram: null
+    confidence: high
+  - topic: factor_theorem
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A polynomial equals (x - 1)(x + 2)(x - 4) + 5. What is its remainder when divided by x - 4?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "At x equal to 4 the product has a factor of zero, so only the added constant remains as the remainder."
+    hints:
+      - "Substitute the zero of the divisor into the whole expression."
+      - "The product part vanishes at that value because one of its factors becomes zero."
+      - "What remains after the product vanishes is the remainder."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "Expand (x + 3) squared and evaluate the result at x equal to 1."
+    correct: "16"
+    unit: ""
+    wrong: []
+    explanation: "The expansion is x squared plus six x plus nine, and at x equal to one this gives 16."
+    hints:
+      - "Use the identity for the square of a sum."
+      - "The middle term is twice the product of the two parts."
+      - "Substitute the given value only after you have expanded."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which is the expansion of (y - 4)(y + 4)?"
+    correct: "y^2 - 16"
+    unit: ""
+    wrong:
+      - {text: "y^2 + 16", mistake: "assumes the cross terms cancel and the squares add"}
+      - {text: "y^2 - 8", mistake: "subtracts the roots instead of the squares"}
+      - {text: "y^2 - 8y + 16", mistake: "expands the square of a difference when the factors have opposite signs"}
+    explanation: "This is a difference of squares, so y squared minus four squared gives y squared minus 16, with the cross terms cancelling."
+    hints:
+      - "Recognise the form of a sum multiplied by a difference."
+      - "Cross terms with opposite signs cancel out."
+      - "Square each of the two terms in the product."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Use an identity to find the value of 103 squared without a calculator."
+    correct: "10609"
+    unit: ""
+    wrong: []
+    explanation: "Writing 103 as 100 plus 3 and applying the identity gives 10000 plus 600 plus 9, which is 10609."
+    hints:
+      - "Write the number as a round part plus a small part."
+      - "Apply the identity for the square of a sum."
+      - "Add the three resulting parts together."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "If x minus one over x equals 3, what is x squared plus one over x squared?"
+    correct: "11"
+    unit: ""
+    wrong:
+      - {text: "9", mistake: "forgets the middle term when squaring the difference"}
+      - {text: "7", mistake: "subtracts two instead of adding two"}
+      - {text: "13", mistake: "adds two twice"}
+    explanation: "Squaring the given difference gives x squared minus two plus one over x squared, which equals nine, so the sum of the squared terms is eleven."
+    hints:
+      - "Square both sides of the given equation."
+      - "Remember the middle term that appears when a difference is squared."
+      - "Isolate the sum of the squared terms."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "If a plus b equals 7 and a times b equals 10, what is the value of a cubed plus b cubed?"
+    correct: "133"
+    unit: ""
+    wrong:
+      - {text: "343", mistake: "cubes the sum and forgets the correction term"}
+      - {text: "203", mistake: "uses two times the product instead of three times"}
+      - {text: "49", mistake: "uses the square of the sum instead of the cube"}
+    explanation: "The identity gives a cubed plus b cubed equal to (a + b) cubed minus 3ab(a + b), which is 343 minus 210, so the value is 133."
+    hints:
+      - "Recall the identity that links the cube of a sum to the cubes of its parts."
+      - "Substitute the given sum and product into that identity."
+      - "Check the coefficient of the product term carefully."
+    diagram: null
+    confidence: high
+  - topic: algebraic_identities
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Expand (2x - 3)(4x^2 + 6x + 9) and evaluate the result at x equal to 2."
+    correct: "37"
+    unit: ""
+    wrong: []
+    explanation: "The product equals 8x cubed minus 27, which at x equal to 2 gives 64 minus 27, so the value is 37."
+    hints:
+      - "Recognise the product as a difference of two cubes."
+      - "Identify the cube of each part of the first factor."
+      - "Evaluate only after you have simplified the expression."
+    diagram: null
+    confidence: high

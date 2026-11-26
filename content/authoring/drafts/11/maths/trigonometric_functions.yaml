@@ -1,0 +1,500 @@
+class: 11
+subject: maths
+chapter: trigonometric_functions
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: radian_measure
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the radian measure of a straight angle of 180 degrees?"
+    correct: "pi radians"
+    unit: ""
+    wrong:
+      - {text: "2 pi radians", mistake: "confuses a straight angle with a full turn"}
+      - {text: "pi divided by 180 radians", mistake: "inverts the conversion factor"}
+      - {text: "180 pi radians", mistake: "multiplies by pi instead of relating the two units"}
+    explanation: "A straight angle is half a full turn, and a full turn is 2 pi radians, so 180 degrees equals pi radians."
+    hints:
+      - "Recall how many radians make up one complete turn around a circle."
+      - "A straight angle is half of that complete turn."
+      - "Relate the degree measure of a straight angle to the radian measure of half a turn."
+    diagram: null
+    confidence: high
+  - topic: radian_measure
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Express 60 degrees in radians as a decimal rounded to two decimal places."
+    correct: "1.05"
+    unit: "rad"
+    wrong: []
+    explanation: "Multiplying 60 by pi over 180 gives pi over 3, which is about 1.047 and rounds to 1.05."
+    hints:
+      - "Multiply the angle in degrees by the ratio of pi to the degrees in a straight angle."
+      - "Simplify the fraction that results before using any decimal value."
+      - "Round only at the very end of the calculation."
+    diagram: null
+    confidence: high
+  - topic: radian_measure
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Which angle in degrees is equal to 5 pi over 4 radians?"
+    correct: "225 degrees"
+    unit: ""
+    wrong:
+      - {text: "135 degrees", mistake: "uses 3 pi over 4 instead of 5 pi over 4"}
+      - {text: "300 degrees", mistake: "multiplies by 60 instead of 180 over pi"}
+      - {text: "45 degrees", mistake: "drops the multiple of pi when converting"}
+    explanation: "Multiplying 5 pi over 4 by 180 over pi gives 900 over 4, which is 225 degrees."
+    hints:
+      - "Multiply the radian value by the conversion factor from radians to degrees."
+      - "The factor of pi in the radian value cancels against the factor in the conversion."
+      - "Simplify the fraction you get after cancelling."
+    diagram: null
+    confidence: high
+  - topic: radian_measure
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A circle has radius 6 cm and a central angle of 2 radians. What is the arc length in centimetres?"
+    correct: "12"
+    unit: "cm"
+    wrong: []
+    explanation: "Arc length is the radius multiplied by the angle in radians, so 6 times 2 gives 12 cm."
+    hints:
+      - "Arc length is the radius multiplied by the central angle in radians."
+      - "The given angle is already in radians, so no conversion is needed."
+      - "Multiply the radius by the angle and keep the unit of length."
+    diagram: null
+    confidence: high
+  - topic: radian_measure
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "A pendulum swings through an angle of 1.5 radians. What is this angle in degrees, rounded to the nearest whole number?"
+    correct: "86"
+    unit: "degrees"
+    wrong: []
+    explanation: "1.5 times 180 over pi is about 85.9 degrees, which rounds to 86."
+    hints:
+      - "Use the conversion factor that turns radians into degrees."
+      - "Multiply the radian value by that factor and keep the division by pi in view."
+      - "Round the final decimal to a whole number at the end."
+    diagram: null
+    confidence: high
+  - topic: radian_measure
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A sector of a circle with radius 10 cm has an arc length of 15 cm. What is the central angle of the sector in radians?"
+    correct: "1.5"
+    unit: "rad"
+    wrong: []
+    explanation: "Arc length equals radius times the angle in radians, so the angle is 15 divided by 10, which is 1.5 radians."
+    hints:
+      - "Recall the relationship between arc length, radius and the central angle."
+      - "Rearrange that relationship to isolate the angle."
+      - "Divide the arc length by the radius to find the angle."
+    diagram: null
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On the unit circle, what is the cosine of an angle of 0 radians?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "confuses cosine with sine at the starting point"}
+      - {text: "-1", mistake: "takes the point on the opposite side of the circle"}
+      - {text: "pi", mistake: "reads the angle in radians as the cosine value"}
+    explanation: "At angle 0 the point on the unit circle is at (1, 0), and cosine is its horizontal coordinate, which is 1."
+    hints:
+      - "Locate the starting point of the angle on the unit circle."
+      - "Cosine gives the horizontal coordinate of the point at that angle."
+      - "Read the horizontal coordinate where the point sits on the horizontal axis."
+    diagram: "Unit circle centred at the origin with a radius drawn along the positive horizontal axis, the point where it meets the circle labelled."
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "On the unit circle, what is the sine of an angle of 270 degrees?"
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "The point at 270 degrees is at (0, -1), so its vertical coordinate, which is sine, equals negative 1."
+    hints:
+      - "Find the point on the unit circle that corresponds to the given angle."
+      - "Sine is the vertical coordinate of that point."
+      - "Notice on which side of the horizontal axis the point lies."
+    diagram: null
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "For an angle whose terminal side lies in the second quadrant, what is the sign of the tangent?"
+    correct: "negative"
+    unit: ""
+    wrong:
+      - {text: "positive", mistake: "forgets that cosine is negative in the second quadrant"}
+      - {text: "zero", mistake: "assumes tangent vanishes away from the axes"}
+      - {text: "undefined", mistake: "confuses the quadrant with an axis direction"}
+    explanation: "In the second quadrant sine is positive and cosine is negative, so their ratio the tangent is negative."
+    hints:
+      - "Recall which of sine and cosine is positive in the second quadrant."
+      - "Tangent is the ratio of sine to cosine."
+      - "Work out the sign of that ratio from the two signs you recalled."
+    diagram: "Unit circle with the four quadrants labelled, and a radius drawn into the upper-left quadrant with its endpoint marked."
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "What is the cosine of 120 degrees?"
+    correct: "-0.5"
+    unit: ""
+    wrong: []
+    explanation: "The reference angle is 60 degrees, whose cosine is one half, and cosine is negative in the second quadrant."
+    hints:
+      - "Find the reference angle that the given angle makes with the horizontal axis."
+      - "Use the known cosine value of that reference angle."
+      - "Apply the sign that cosine takes in the quadrant where the angle lies."
+    diagram: null
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "An angle theta has sine equal to 0.6 and its cosine is negative. What is the cosine of theta?"
+    correct: "-0.8"
+    unit: ""
+    wrong: []
+    explanation: "Sine squared plus cosine squared equals 1, so cosine squared is 0.64 and the negative root gives negative 0.8."
+    hints:
+      - "Use the identity that links the squares of sine and cosine."
+      - "Solve that identity for the square of the cosine first."
+      - "Pick the sign of the root that matches the condition given about cosine."
+    diagram: "Unit circle with the point at angle theta shown in a quadrant where the vertical coordinate is positive and the horizontal coordinate is negative."
+    confidence: high
+  - topic: trig_functions_unit_circle
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "For which angle between 0 and 2 pi radians are sine and cosine equal and both positive?"
+    correct: "pi over 4 radians"
+    unit: ""
+    wrong:
+      - {text: "5 pi over 4 radians", mistake: "keeps equal values but ignores that both must be positive"}
+      - {text: "3 pi over 4 radians", mistake: "gets the sign of cosine wrong in the second quadrant"}
+      - {text: "pi over 2 radians", mistake: "uses an axis where cosine is zero"}
+    explanation: "At pi over 4 both coordinates equal the square root of one half, which is positive and equal."
+    hints:
+      - "Look for the angle where the two coordinates of the unit circle point are equal."
+      - "Check the signs of both coordinates in each quadrant you consider."
+      - "Only one quadrant keeps both coordinates positive, so restrict your search to it."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression is equal to sin(A + B)?"
+    correct: "sin A cos B + cos A sin B"
+    unit: ""
+    wrong:
+      - {text: "sin A cos B - cos A sin B", mistake: "drops the plus sign and gives the difference formula"}
+      - {text: "sin A sin B + cos A cos B", mistake: "mixes the sine formula with the cosine formula"}
+      - {text: "cos A cos B - sin A sin B", mistake: "uses the cosine of a sum formula for the sine of a sum"}
+    explanation: "The addition formula for sine pairs each sine with the cosine of the other angle and adds the two products."
+    hints:
+      - "Recall the standard addition formula for the sine of a sum."
+      - "Each term pairs a sine of one angle with a cosine of the other."
+      - "Check that the sign between the two products is a plus."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the value of cos(60 degrees + 30 degrees)?"
+    correct: "0"
+    unit: ""
+    wrong: []
+    explanation: "The sum is 90 degrees, and the cosine of a right angle is zero."
+    hints:
+      - "Add the two angles first to get a single standard angle."
+      - "Recall the cosine of that standard angle from the unit circle."
+      - "Check whether the cosine vanishes at that angle."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Using the difference formula for sine with 45 degrees and 30 degrees, what is sin 15 degrees rounded to three decimal places?"
+    correct: "0.259"
+    unit: ""
+    wrong: []
+    explanation: "Sine of 45 minus 30 gives root 2 over 2 times root 3 over 2 minus root 2 over 2 times one half, about 0.2588, which rounds to 0.259."
+    hints:
+      - "Write the target angle as the difference of two standard angles."
+      - "Apply the difference formula for sine to those two angles."
+      - "Use exact values for the standard angles and round only at the end."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Simplify cos(x + pi over 2) using the addition formula."
+    correct: "minus sin x"
+    unit: ""
+    wrong:
+      - {text: "sin x", mistake: "drops the minus sign produced by the shift"}
+      - {text: "cos x", mistake: "treats the shift as if it changed nothing"}
+      - {text: "minus cos x", mistake: "keeps cosine while changing only the sign"}
+    explanation: "Cosine of x plus pi over 2 equals cos x times 0 minus sin x times 1, which is minus sin x."
+    hints:
+      - "Expand the cosine of a sum using the standard formula."
+      - "Substitute the cosine and sine values of pi over 2."
+      - "Collect the remaining term and read off its sign."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Given sin A equal to 3/5 and cos B equal to 5/13, with A and B both acute angles, find cos(A + B) rounded to three decimal places."
+    correct: "-0.246"
+    unit: ""
+    wrong: []
+    explanation: "cos A is 4/5 and sin B is 12/13, so cos(A + B) equals 20/65 minus 36/65, which is -16/65, about -0.246."
+    hints:
+      - "Find the missing cosine of A and sine of B from the right-angled triangle relation."
+      - "Use the formula for the cosine of a sum in terms of the four values."
+      - "Combine the fractions over a common denominator before rounding."
+    diagram: null
+    confidence: high
+  - topic: sum_and_difference_formulae
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Simplify (sin(A + B) + sin(A - B)) divided by (cos(A + B) + cos(A - B))."
+    correct: "tan A"
+    unit: ""
+    wrong:
+      - {text: "tan B", mistake: "swaps the roles of the two angles"}
+      - {text: "cot A", mistake: "inverts the ratio at the final step"}
+      - {text: "sin A", mistake: "cancels a cosine factor incorrectly"}
+    explanation: "The numerator is 2 sin A cos B and the denominator is 2 cos A cos B, so the ratio is tan A."
+    hints:
+      - "Expand each of the four terms with the addition and difference formulae."
+      - "Combine the two sine terms and the two cosine terms separately."
+      - "Cancel the common factor and identify the remaining ratio."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many solutions does sin x equal 0 have in the closed interval from 0 to pi, including both endpoints?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The sine curve meets the horizontal axis at both endpoints of this interval, and nowhere in between."
+    hints:
+      - "Think about where the sine curve crosses the horizontal axis."
+      - "Check each endpoint of the interval separately."
+      - "Count each crossing point once."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which value of x in the half-open interval from 0 up to 2 pi satisfies cos x equal to 1?"
+    correct: "0"
+    unit: ""
+    wrong:
+      - {text: "pi over 2", mistake: "confuses the cosine maximum with a zero crossing"}
+      - {text: "pi", mistake: "takes the cosine minimum instead of the maximum"}
+      - {text: "2 pi over 3", mistake: "uses a cosine value that is not 1"}
+    explanation: "Cosine reaches its maximum value 1 at x equal to 0 within this interval."
+    hints:
+      - "Recall where the cosine curve reaches its highest point."
+      - "Compare the cosine values at the common standard angles."
+      - "Check which of the candidates gives the largest cosine."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "How many solutions does the equation 2 cos x minus 1 equal 0 have in the interval from 0 up to 2 pi?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The equation becomes cos x equal to one half, which has solutions pi over 3 and 5 pi over 3 in this interval."
+    hints:
+      - "Rearrange the equation to isolate the cosine term."
+      - "Find the standard angles whose cosine matches the resulting value."
+      - "Check which of those angles fall inside the interval."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Solve tan x equal to 1 for x in the interval from 0 up to pi."
+    correct: "pi over 4"
+    unit: ""
+    wrong:
+      - {text: "3 pi over 4", mistake: "takes the second quadrant angle where tangent is negative"}
+      - {text: "pi over 2", mistake: "uses the angle where tangent is undefined"}
+      - {text: "pi over 3", mistake: "reads the sine value of a different standard angle"}
+    explanation: "Tangent equals 1 when sine and cosine are equal and positive, which happens at pi over 4 in this interval."
+    hints:
+      - "Write tangent as the ratio of sine to cosine."
+      - "Find the angle where that ratio equals one."
+      - "Check which angle in the interval makes sine and cosine equal."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "How many solutions does cos x equal 0.5 have in the interval from 0 up to 4 pi?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The solutions in one full turn are pi over 3 and 5 pi over 3, and the second turn adds two more."
+    hints:
+      - "Find the basic angles in one full turn whose cosine matches the given value."
+      - "Shift each basic angle by a full turn to reach the larger interval."
+      - "Count every shifted angle that stays inside the interval."
+    diagram: null
+    confidence: high
+  - topic: trig_equations
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which trigonometric equation has no real solution for x?"
+    correct: "sin x equal to 2"
+    unit: ""
+    wrong:
+      - {text: "cos x equal to 0", mistake: "assumes the cosine can never be zero"}
+      - {text: "tan x equal to 5", mistake: "thinks tangent is bounded like sine"}
+      - {text: "sin x equal to one half", mistake: "confuses the range of sine with a value it actually reaches"}
+    explanation: "Sine always lies between negative 1 and 1, so it can never equal 2, while the other equations are solvable."
+    hints:
+      - "Recall the range of values that the sine function can produce."
+      - "Compare the required output with the largest value sine can reach."
+      - "Check whether tangent takes every real value on its own branches."
+    diagram: null
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the period of the function y equal to sin x?"
+    correct: "2 pi"
+    unit: ""
+    wrong:
+      - {text: "pi", mistake: "confuses half a cycle with the full period"}
+      - {text: "4 pi", mistake: "doubles the period by mistake"}
+      - {text: "1", mistake: "assumes the period equals the amplitude"}
+    explanation: "The sine curve repeats its full pattern every 2 pi units along the horizontal axis."
+    hints:
+      - "Describe how far along the axis the wave must travel before it repeats."
+      - "Compare one full cycle with a half cycle of the same wave."
+      - "Confirm that the wave returns to the same height and direction after one full cycle."
+    diagram: "Coordinate axes with one full cycle of a sine wave drawn, the horizontal distance between repeated peaks marked."
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the amplitude of the function y equal to 3 cos x?"
+    correct: "3"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "ignores the coefficient in front of the cosine"}
+      - {text: "6", mistake: "doubles the coefficient when measuring the height"}
+      - {text: "2 pi", mistake: "reads the period in place of the amplitude"}
+    explanation: "The amplitude is the largest distance from the midline, which for 3 cos x is 3."
+    hints:
+      - "The amplitude is the largest distance the graph reaches from its midline."
+      - "Look at the number multiplying the trigonometric function."
+      - "Check the highest and lowest outputs of the graph."
+    diagram: null
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "What is the period of the function y equal to sin(4x)?"
+    correct: "pi over 2"
+    unit: ""
+    wrong:
+      - {text: "2 pi", mistake: "forgets that the coefficient inside the function changes the period"}
+      - {text: "4 pi", mistake: "multiplies the period by the coefficient instead of dividing"}
+      - {text: "pi over 4", mistake: "uses the coefficient in the denominator without dividing the full period"}
+    explanation: "Sine of bx has period 2 pi divided by b, so with b equal to 4 the period is pi over 2."
+    hints:
+      - "Recall how the coefficient of the input changes the length of one cycle."
+      - "Divide the full period of the basic sine function by that coefficient."
+      - "Simplify the resulting fraction in terms of pi."
+    diagram: "Coordinate axes with a sine wave that completes its cycles more quickly than the basic sine curve, with one cycle's horizontal span marked."
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "The graph of y equal to 2 plus cos x has a midline. At what height is this midline?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The constant added outside the cosine shifts the whole graph up, so the midline sits at height 2."
+    hints:
+      - "The midline is the horizontal line halfway between the maximum and minimum outputs."
+      - "A constant added outside the trigonometric function shifts the whole graph vertically."
+      - "Read the vertical shift from the equation directly."
+    diagram: null
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "The function y equal to 3 sin x plus 1 has a maximum value M. What is M?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The sine term reaches a maximum of 1, which becomes 3 after scaling, and adding the shift of 1 gives 4."
+    hints:
+      - "Find the largest value the sine term can take."
+      - "Scale that maximum by the coefficient in front of the sine."
+      - "Add the vertical shift at the end to get the maximum output."
+    diagram: "Coordinate axes showing a sine wave raised by a vertical shift, with its highest point and midline marked."
+    confidence: high
+  - topic: graphs_of_trig_functions
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "How many times does the curve y equal to sin x meet the horizontal line y equal to one half over the interval from 0 to 2 pi?"
+    correct: "2 times"
+    unit: ""
+    wrong:
+      - {text: "1 time", mistake: "counts only the rising crossing"}
+      - {text: "3 times", mistake: "counts the endpoint of the interval as an extra meeting"}
+      - {text: "4 times", mistake: "counts the wave as if it repeated twice over the interval"}
+    explanation: "Sine equals one half at pi over 6 and 5 pi over 6, and no other point in the interval gives that value."
+    hints:
+      - "Solve sine of x equal to the given height to find the meeting points."
+      - "Use the standard angle whose sine matches that height, then find its partner in the same half-turn."
+      - "Check whether any endpoint of the interval also satisfies the equation."
+    diagram: "Coordinate axes with one full sine wave from 0 to 2 pi and a horizontal line drawn at a height of one half, with each meeting point marked."
+    confidence: medium

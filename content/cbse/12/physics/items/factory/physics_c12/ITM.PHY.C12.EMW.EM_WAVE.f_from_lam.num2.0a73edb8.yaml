@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.EMW.EM_WAVE.f_from_lam.num2.0a73edb8
+skill_ids:
+- PHY.C12.EMW.EM_WAVE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a plane electromagnetic wave in vacuum. The wavelength,
+    lam, is 50 m. Find the frequency. Take the speed of light in vacuum, c, = 3 x
+    10^8 m/s.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: c = f x wavelength.'
+- level: 2
+  en: 'Get the frequency on its own before you put numbers in: divide each side by
+    the wavelength. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write f = c / lam, where f is the frequency, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the frequency have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EMW.EM_WAVE
+generator_version: factory-2
+template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 6 x 10^6 MHz
+- id: b
+  en: 60 MHz
+- id: c
+  en: 15000 MHz
+- id: d
+  en: 6 MHz
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: c = f x wavelength.'
+- en: 'Get the frequency alone: divide each side by the wavelength.'
+- en: 'Substitute: f = (3 x 10^8) / 50.'
+- en: 'Calculate: f = 6 x 10^6 Hz.'
+- en: 'Give it in MHz: 6 MHz.'
+- en: So the frequency is 6 MHz.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0ea357355bb8bd74ee9b0e7721462162d8f66780f38e102c2b185e45cf171824
+  template_hash: 30237369bda4ca5363d3ee9e592225f8dc8b9739dbb341802d9ed6162527df64
+  certificate_hash: d82384f52e80e6e8ce7a1922eee06b11b02bb118af53a1091216f0443e1452b8
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_waves
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:28+00:00'
+  record_hash: 8de638531279c76dce75eaa385a68c740bb6e15484419ad4e2da8791eaf6682b

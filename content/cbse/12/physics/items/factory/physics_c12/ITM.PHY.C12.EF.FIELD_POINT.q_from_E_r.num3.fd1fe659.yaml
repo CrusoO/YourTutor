@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.EF.FIELD_POINT.q_from_E_r.num3.fd1fe659
+skill_ids:
+- PHY.C12.EF.FIELD_POINT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the electric field of a point charge. The field, E, is
+    2.25 N/C and the distance from the charge, r, is 2 m. Find the charge. Take k
+    = 9 x 10^9 N m²/C².
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: E = k x q / r^2.'
+- level: 2
+  en: 'Get the charge on its own before you put numbers in: multiply each side by
+    r^2 and divide each side by k. Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write q = E x r^2 / k, where q is the charge, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the charge have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EF.FIELD_POINT
+generator_version: factory-2
+template_hash: b6af9fdc8744f19dac1889478809dbc2c47318f32b66fb4dde94e7f9e616b46d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.5 nC
+- id: b
+  en: 1 nC
+- id: c
+  en: 10 nC
+- id: d
+  en: 100 nC
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DISTANCE_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: 'Write the relation: E = k x q / r^2.'
+- en: 'Get the charge alone: multiply each side by r^2 and divide each side by k.'
+- en: 'Substitute: q = 2.25 x 2^2 / (9 x 10^9).'
+- en: 'Calculate: q = 1 x 10^-9 C.'
+- en: 'Give it in nC: 1 nC.'
+- en: So the charge is 1 nC.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1e5f68e76ad68ff6e7f03344b429b695dd868129a22d2bbedd5c253f2cc60217
+  template_hash: b6af9fdc8744f19dac1889478809dbc2c47318f32b66fb4dde94e7f9e616b46d
+  certificate_hash: b945a7d144a08ae2e56728f9abc070baf037b84e671e471395c3612b9a36ac3e
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electric_charges_fields
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:51+00:00'
+  record_hash: 05c0d420aae40712effa0523ada1c8911c967a50d6aa4957b70b945beaf1a6c9

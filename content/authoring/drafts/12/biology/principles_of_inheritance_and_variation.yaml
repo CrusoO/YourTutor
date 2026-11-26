@@ -1,0 +1,506 @@
+class: 12
+subject: "biology"
+chapter: "principles_of_inheritance_and_variation"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "mendels_laws"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which law states that the two alleles of a gene separate into different gametes during gamete formation?"
+    correct: "Law of segregation"
+    unit: ""
+    wrong:
+      - {text: "Law of independent assortment", mistake: "uses the rule for two gene pairs to describe a single pair"}
+      - {text: "Law of dominance", mistake: "treats which trait appears as the rule for separation"}
+      - {text: "Law of linkage", mistake: "assumes linked genes always separate in every gamete"}
+    explanation: "The law of segregation says each gamete receives only one allele of each gene, because the pair separates during meiosis. Independent assortment concerns different gene pairs."
+    hints:
+      - "Think about what happens to the two copies of a gene during meiosis."
+      - "This law describes the split of allele pairs into different gametes."
+      - "Compare with the law that deals with two different gene pairs."
+    diagram: null
+    confidence: "high"
+  - topic: "mendels_laws"
+    type: "numeric"
+    difficulty: "easy"
+    role: "explain"
+    stem: "In a monohybrid cross of Tt by Tt, how many of every four offspring show the dominant phenotype? Give the count only."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Only the tt offspring show the recessive trait, so three of every four show the dominant phenotype."
+    hints:
+      - "List the gamete combinations in a two by two grid."
+      - "Count the grid cells that carry at least one dominant allele."
+      - "Note which cells are not recessive."
+    diagram: null
+    confidence: "high"
+  - topic: "mendels_laws"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "In a dihybrid cross of AaBb by AaBb, what fraction of the offspring is expected to be aabb?"
+    correct: "1/16"
+    unit: ""
+    wrong:
+      - {text: "1/4", mistake: "takes the fraction for one gene only"}
+      - {text: "1/8", mistake: "halves a single gene fraction without a valid reason"}
+      - {text: "9/16", mistake: "gives the fraction showing both dominant traits instead"}
+    explanation: "Each gene gives a recessive homozygote in one quarter of crosses, and the two independent fractions multiply to one sixteenth."
+    hints:
+      - "Find the fraction for each gene separately."
+      - "Multiply the two single gene fractions together."
+      - "Check that the answer is one of the sixteen equally likely combinations."
+    diagram: null
+    confidence: "high"
+  - topic: "mendels_laws"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A dihybrid cross of AaBb by AaBb produces 320 offspring. How many are expected to show both dominant traits? Give the count only."
+    correct: "180"
+    unit: ""
+    wrong: []
+    explanation: "Nine of sixteen offspring show both dominant traits, and nine sixteenths of 320 is 180."
+    hints:
+      - "Find the fraction showing dominance for each trait separately."
+      - "Multiply the two fractions, then apply the result to the total."
+      - "Check that your answer is a whole number of offspring."
+    diagram: "Draw a four by four Punnett square for AaBb by AaBb, with gametes AB, Ab, aB and ab along each axis, and shade the cells that show both dominant traits."
+    confidence: "high"
+  - topic: "mendels_laws"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "An individual with an unknown genotype is test crossed and gives a 1:1 ratio of dominant to recessive offspring. What is the most likely genotype of the unknown parent?"
+    correct: "Heterozygous"
+    unit: ""
+    wrong:
+      - {text: "Homozygous dominant", mistake: "assumes a dominant parent always gives only dominant offspring"}
+      - {text: "Homozygous recessive", mistake: "treats the recessive tester as the unknown parent"}
+      - {text: "Triploid", mistake: "introduces a ploidy level that the cross does not imply"}
+    explanation: "A heterozygote crossed with a recessive tester gives half dominant and half recessive offspring. A homozygous dominant parent would give only dominant offspring."
+    hints:
+      - "Count how many dominant gametes the unknown parent could produce."
+      - "Compare the outcome with the expected ratio for each candidate genotype."
+      - "Remember that the tester contributes only recessive alleles."
+    diagram: null
+    confidence: "high"
+  - topic: "mendels_laws"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "In a trihybrid cross AaBbCc by AaBbCc, how many distinct genotypes are possible among the offspring? Give the count only."
+    correct: "27"
+    unit: ""
+    wrong: []
+    explanation: "Each gene pair gives three genotypes (AA, Aa, aa), and three independent pairs give three cubed, which is 27."
+    hints:
+      - "Each gene pair gives three possible genotypes."
+      - "Multiply the number of options for each gene pair together."
+      - "Keep the three gene pairs independent when counting."
+    diagram: "Draw a branching tree with three levels for the three gene pairs, each level splitting into three genotypes, and label the number of branches at each level."
+    confidence: "high"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "In snapdragons, what colour does a heterozygote of red and white parents show under incomplete dominance?"
+    correct: "Pink"
+    unit: ""
+    wrong:
+      - {text: "Red", mistake: "assumes the dominant allele always masks the other completely"}
+      - {text: "White", mistake: "assumes the recessive allele is the one that shows"}
+      - {text: "Mottled", mistake: "confuses an intermediate colour with a patchy colour"}
+    explanation: "Under incomplete dominance the heterozygote shows an intermediate phenotype, here pink, because neither allele is fully dominant."
+    hints:
+      - "Consider how the heterozygote compares with each parental colour."
+      - "Think about what an intermediate phenotype looks like between two extremes."
+      - "Neither parent colour is expressed fully in the heterozygote."
+    diagram: null
+    confidence: "high"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "In codominance, what does the heterozygote show?"
+    correct: "Both parental traits expressed side by side"
+    unit: ""
+    wrong:
+      - {text: "A blend of both traits", mistake: "confuses codominance with incomplete dominance"}
+      - {text: "Only the dominant trait", mistake: "assumes complete dominance applies"}
+      - {text: "Neither trait because it is lethal", mistake: "invents lethality that the pattern does not imply"}
+    explanation: "In codominance both alleles produce their own products, so both traits appear together, as in the roan coat of cattle or the AB blood group. A blend is the incomplete dominance pattern instead."
+    hints:
+      - "Consider whether both alleles produce their own products."
+      - "Compare with the blended pattern seen in incomplete dominance."
+      - "Ask whether each allele shows its effect separately."
+    diagram: null
+    confidence: "high"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Roan cattle carry both red and white hair patterns. Two roan cattle are crossed, and 40 offspring are born. Assuming the usual 1:2:1 pattern, how many offspring are expected to be white? Give the count only."
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "The roan cross gives one red, two roan and one white in four, so one quarter of 40 is 10 white calves."
+    hints:
+      - "Write out the 1:2:1 pattern for a roan by roan cross."
+      - "Apply the fraction for the homozygous white class to the total."
+      - "Check that the counts across all classes add up to the total."
+    diagram: null
+    confidence: "medium"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A child has blood type O, and the mother has blood type A. What genotype must the mother have?"
+    correct: "AO"
+    unit: ""
+    wrong:
+      - {text: "AA", mistake: "assumes the mother must be homozygous for the dominant allele"}
+      - {text: "BB", mistake: "uses the wrong group letter for the mother"}
+      - {text: "ii", mistake: "assigns the child's genotype to the mother"}
+    explanation: "A type O child is ii, so each parent must pass on an i allele. A type A mother who carries an i allele must be AO, since AA would not give her child an i."
+    hints:
+      - "A type O child must have the genotype ii."
+      - "So each parent must have passed on an i allele."
+      - "Check which genotypes for type A include an i allele."
+    diagram: "Draw a Punnett square for the mother and father in the ABO cross, with each parent's gametes along the edges and the child genotypes and blood groups in the cells."
+    confidence: "high"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A man with blood type AB marries a woman with blood type O. Which blood groups can their children have?"
+    correct: "A and B only"
+    unit: ""
+    wrong:
+      - {text: "O only", mistake: "assumes both parents' alleles combine to give type O"}
+      - {text: "AB and O", mistake: "pairs the parental phenotypes instead of their alleles"}
+      - {text: "A, B and O", mistake: "includes type O although the mother can only give an i allele"}
+    explanation: "The man gives IA or IB, and the woman gives only i, so each child is IA i or IB i, which are blood types A and B. Type O and type AB are not possible."
+    hints:
+      - "Write the woman's possible gametes first."
+      - "Combine each of the man's gametes with the woman's gamete."
+      - "Map each resulting genotype to its blood group."
+    diagram: "Draw a Punnett square with the man's gametes IA and IB along one side and the woman's gamete i along the other, labelling the genotype and blood group in each cell."
+    confidence: "high"
+  - topic: "incomplete_dominance_multiple_alleles"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A gene has 5 allele types in a population. How many distinct genotypes are possible in a diploid individual? Give the count only."
+    correct: "15"
+    unit: ""
+    wrong: []
+    explanation: "With five alleles there are five homozygotes and ten heterozygote pairs, giving 15 genotypes in total."
+    hints:
+      - "Count the homozygous combinations first."
+      - "Count the heterozygous pairs of different alleles separately."
+      - "Add the two counts together."
+    diagram: null
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the term for genes located close together on the same chromosome that tend to be inherited together?"
+    correct: "Linked genes"
+    unit: ""
+    wrong:
+      - {text: "Allelic genes", mistake: "confuses genes on the same chromosome with alleles of one gene"}
+      - {text: "Pleiotropic genes", mistake: "treats genes with several effects as genes placed close together"}
+      - {text: "Epistatic genes", mistake: "treats masking interactions as a matter of chromosome location"}
+    explanation: "Linked genes sit on the same chromosome and are usually passed on together, so they show less recombination than unlinked genes."
+    hints:
+      - "Think about where the genes sit relative to each other."
+      - "Consider which genes are passed on as a unit during meiosis."
+      - "Separate the idea of location from the idea of alleles."
+    diagram: null
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "numeric"
+    difficulty: "easy"
+    role: "explain"
+    stem: "Two genes show a recombination frequency of 10 percent. What is their map distance in centimorgans? Give the number only."
+    correct: "10"
+    unit: "cM"
+    wrong: []
+    explanation: "By definition one centimorgan corresponds to one percent recombination, so 10 percent recombination equals 10 cM."
+    hints:
+      - "Check how the map unit is defined in terms of recombination."
+      - "Map units are defined by the rate of crossing over."
+      - "Apply the definition directly without rescaling the value."
+    diagram: null
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A testcross yields 400 offspring, of which 360 are parental types and 40 are recombinant. What is the recombination frequency in percent? Give the number only."
+    correct: "10"
+    unit: "%"
+    wrong: []
+    explanation: "Forty recombinant offspring out of 400 gives 10 percent recombination."
+    hints:
+      - "Find the number of recombinant offspring first."
+      - "Divide the recombinant count by the total number of offspring."
+      - "Convert the result into a percentage."
+    diagram: null
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Two genes lie 15 cM apart. In a testcross with 2000 offspring, how many are expected to be recombinant? Give the count only."
+    correct: "300"
+    unit: ""
+    wrong: []
+    explanation: "A map distance of 15 cM means 15 percent recombinant gametes, and 15 percent of 2000 is 300."
+    hints:
+      - "Convert the map distance into a recombination fraction."
+      - "Apply that fraction to the total number of offspring."
+      - "Check that the answer is a count of offspring."
+    diagram: "Draw a chromosome with two loci 15 cM apart, a crossover point between them, and the four gamete types produced."
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Genes A, B and C lie on one chromosome. Recombination is 5 percent between A and B, 10 percent between B and C, and 15 percent between A and C. Which is the gene order?"
+    correct: "A B C"
+    unit: ""
+    wrong:
+      - {text: "B A C", mistake: "places the gene with the shortest distance at one end"}
+      - {text: "A C B", mistake: "treats the largest distance as joining adjacent genes"}
+      - {text: "B C A", mistake: "orders the genes by letter instead of by distances"}
+    explanation: "The A to C distance equals the sum of the A to B and B to C distances, so B lies between A and C. The order is A B C."
+    hints:
+      - "Compare the distances and see which pair adds up to the third distance."
+      - "The middle gene must lie between the two end genes."
+      - "Trace the sum of the two smaller distances."
+    diagram: null
+    confidence: "high"
+  - topic: "linkage_and_recombination"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A parent with genotype AB/ab is testcrossed with ab/ab, and the two loci are 20 cM apart. What percentage of the offspring are recombinant? Give the number only."
+    correct: "20"
+    unit: "%"
+    wrong: []
+    explanation: "Twenty cM means 20 percent of the gametes from the heterozygote are recombinant, and the testcross reflects those gametes directly."
+    hints:
+      - "Check which gametes of the heterozygote differ from the parental combinations."
+      - "Compare the gamete classes that are not parental."
+      - "Relate the map distance to the proportion of crossover gametes."
+    diagram: "Show two homologous chromosomes in the AB/ab heterozygote with a crossover between the two loci, and list the four gamete types with parental and recombinant classes marked."
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "In humans, which sex carries two copies of the X chromosome?"
+    correct: "Female"
+    unit: ""
+    wrong:
+      - {text: "Male", mistake: "reverses the XX and XY pattern"}
+      - {text: "Both sexes equally", mistake: "assumes the Y chromosome also carries X copies"}
+      - {text: "Neither sex, because X is an autosome", mistake: "treats the X chromosome as an ordinary autosome"}
+    explanation: "Females have an XX pair and males have an XY pair, so females carry two X chromosomes. This difference underlies the pattern of X-linked inheritance."
+    hints:
+      - "Compare the sex chromosome pairs of each sex."
+      - "Recall which pair is XX and which is XY."
+      - "Consider which sex has no Y chromosome."
+    diagram: null
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "Why do X-linked recessive disorders appear more often in males?"
+    correct: "A male has one X, so a single recessive allele is expressed"
+    unit: ""
+    wrong:
+      - {text: "Males have a stronger immune response to the allele", mistake: "invents an immune cause for an inheritance pattern"}
+      - {text: "Females carry lethal copies of the allele", mistake: "reverses the effect of having two copies"}
+      - {text: "Males inherit the disorder only from their mothers", mistake: "limits the transmission rule to one parent in every case"}
+    explanation: "Males have only one X chromosome, so a single copy of a recessive allele is enough to show the trait. A female needs two copies of the recessive allele to show the trait, so one copy leaves her a carrier."
+    hints:
+      - "Count how many X chromosomes a male carries compared with a female."
+      - "Consider whether a second copy can mask a recessive allele."
+      - "Think about what happens when the Y chromosome has no matching allele."
+    diagram: null
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A carrier mother and a normal father have children. For an X-linked recessive trait, what percentage of their sons are expected to be affected? Give the number only."
+    correct: "50"
+    unit: "%"
+    wrong: []
+    explanation: "Half of the mother's eggs carry the recessive allele, so half of the sons receive it and are affected."
+    hints:
+      - "Write the cross as a Punnett square using the father's gametes."
+      - "Focus on the mother's gametes that carry the recessive allele."
+      - "Consider which sons inherit the X carrying the recessive allele."
+    diagram: null
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "In a pedigree, an affected son has two unaffected parents. Which explanation best fits an X-linked recessive trait?"
+    correct: "The mother is a carrier who passed the allele on her X"
+    unit: ""
+    wrong:
+      - {text: "The father is affected and passed the allele to his son", mistake: "assumes sons inherit their X from their fathers"}
+      - {text: "The son inherited a Y-linked mutation from his father", mistake: "treats a Y-linked trait as if it were a recessive X-linked one"}
+      - {text: "Both parents must be affected for a recessive trait", mistake: "requires two affected parents for any recessive condition"}
+    explanation: "A carrier mother can be unaffected while carrying one recessive allele, and her son receives that X and shows the trait. Sons get their only X from the mother, not the father."
+    hints:
+      - "Check which parent gives a son his only X chromosome."
+      - "Consider whether a carrier can be unaffected."
+      - "Think about whether a Y-linked trait could pass from an unaffected father."
+    diagram: "Draw a three generation pedigree using squares for males and circles for females, with an unaffected father, a carrier mother and an affected son, shading the affected individuals."
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A colour-blind man has a daughter with a mother who has normal colour vision and no carrier allele. What is the most likely status of the daughter?"
+    correct: "She will be a carrier but not colour-blind"
+    unit: ""
+    wrong:
+      - {text: "She will be colour-blind", mistake: "treats a single recessive X as enough in a female who has a normal X"}
+      - {text: "She cannot inherit any X from her father", mistake: "assumes fathers pass only Y chromosomes"}
+      - {text: "Her sons will be carriers", mistake: "confuses the X a son receives from his mother with the daughter's pattern"}
+    explanation: "The daughter receives the colour-blind X from her father and a normal X from her mother, so she is a carrier who is not affected. Her sons would receive her X with the allele only if she passed it on, which is possible but depends on her gamete."
+    hints:
+      - "Trace which X chromosome the daughter gets from her father."
+      - "Check what the mother contributes to the daughter's X pair."
+      - "Decide whether one copy of a recessive allele causes the trait in a female."
+    diagram: null
+    confidence: "high"
+  - topic: "sex_linked_inheritance"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "Consider a cross between a carrier mother and an affected father for an X-linked recessive trait. What share, as a percentage, of the daughters is expected to show the trait? Give the number only."
+    correct: "50"
+    unit: "%"
+    wrong: []
+    explanation: "Every daughter gets the father's affected X, and half of them also get the mother's recessive X, so half of the daughters are affected."
+    hints:
+      - "Note which X every daughter receives from the father."
+      - "Check which of the mother's gametes gives a daughter two recessive copies."
+      - "Keep the count at the level of daughters only."
+    diagram: "Draw a Punnett square for a carrier mother by an affected father, labelling the daughter and son genotypes in each cell."
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which disorder is caused by a single base substitution in the beta globin gene?"
+    correct: "Sickle cell anaemia"
+    unit: ""
+    wrong:
+      - {text: "Haemophilia", mistake: "uses a clotting disorder for a haemoglobin variant"}
+      - {text: "Down syndrome", mistake: "confuses a chromosome number change with a point mutation"}
+      - {text: "Turner syndrome", mistake: "mixes up a sex chromosome count with a gene substitution"}
+    explanation: "A single base change in the beta globin gene alters one amino acid, which produces the sickle haemoglobin. The other disorders are caused by different kinds of changes."
+    hints:
+      - "Think about a change at one base pair that alters one protein."
+      - "Consider which protein carries oxygen in red blood cells."
+      - "Separate disorders caused by gene changes from those caused by chromosome changes."
+    diagram: null
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "What is a frameshift mutation?"
+    correct: "An insertion or deletion that shifts the reading frame of the codons downstream"
+    unit: ""
+    wrong:
+      - {text: "Replacement of one base with another without any other change", mistake: "mistakes a simple substitution for a frameshift"}
+      - {text: "Duplication of an entire chromosome", mistake: "confuses a gene level change with a chromosome level change"}
+      - {text: "Exchange of segments between sister chromatids", mistake: "confuses a mutation with crossing over"}
+    explanation: "Adding or removing bases that is not a multiple of three changes how every later codon is grouped. The result is usually a completely different downstream sequence."
+    hints:
+      - "Think about what happens when bases are added or removed."
+      - "Consider how the codons are read after the change."
+      - "Focus on whether the number of bases changed is a multiple of three."
+    diagram: null
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A coding region of 900 bases loses one base through a deletion. How many complete codons remain? Give the count only."
+    correct: "299"
+    unit: ""
+    wrong: []
+    explanation: "After the deletion 899 bases remain, and 899 divided by three gives 299 complete codons with 2 bases left over."
+    hints:
+      - "Count the bases that remain after the deletion."
+      - "Divide the remaining bases by three to get codons."
+      - "Keep only the complete triplets."
+    diagram: null
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Which statement correctly contrasts sickle cell anaemia with a chromosomal disorder?"
+    correct: "It arises from a single gene change, not from a missing or extra chromosome"
+    unit: ""
+    wrong:
+      - {text: "It arises from an extra chromosome", mistake: "assigns a chromosome count change to a gene disorder"}
+      - {text: "It is always caused by environmental exposure", mistake: "ignores the genetic cause of the disorder"}
+      - {text: "It requires two copies of the X chromosome", mistake: "links a sex chromosome pattern to a beta globin change"}
+    explanation: "Sickle cell anaemia comes from a point mutation in one gene, whereas chromosomal disorders come from changes in chromosome number or structure. The two categories differ in scale."
+    hints:
+      - "Consider whether the change is in one gene or in the chromosome number."
+      - "Think about the scale of the change in the genome."
+      - "Separate point mutations from whole chromosome changes."
+    diagram: null
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A mutation changes the codon AAA, which codes lysine, to AAG. What is the most likely effect on the protein?"
+    correct: "The amino acid stays lysine, so the protein is likely unchanged at that site"
+    unit: ""
+    wrong:
+      - {text: "Lysine is replaced by a stop codon", mistake: "assumes any base change creates a stop codon"}
+      - {text: "The protein becomes longer by one residue", mistake: "treats a substitution as if it were an insertion"}
+      - {text: "All downstream codons are shifted", mistake: "applies frameshift logic to a single substitution"}
+    explanation: "AAG also codes for lysine, so this substitution is silent at the protein level. The genetic code is degenerate, so some third position changes leave the amino acid unchanged."
+    hints:
+      - "Look up the amino acid each codon specifies in the genetic code table."
+      - "Check whether two codons specify the same amino acid."
+      - "A change at the third position may leave the amino acid unchanged."
+    diagram: null
+    confidence: "high"
+  - topic: "mutations_and_disorders"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A DNA segment has 150 codons, and 2 percent of them acquire a point mutation. How many codons are mutated? Give the count only."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Two percent of 150 codons is 3 mutated codons."
+    hints:
+      - "Convert the percentage into a fraction."
+      - "Apply that fraction to the total codon count."
+      - "Check that the answer is a whole number of codons."
+    diagram: null
+    confidence: "high"
