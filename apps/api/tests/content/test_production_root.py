@@ -7,6 +7,7 @@ from pathlib import Path
 from sqlalchemy import func, select
 
 from app.content.loader import load_path
+from app.content.schema import Item
 from app.content.validator import validate_path
 from app.db.models import ItemRow
 from app.db.session import session_factory
@@ -18,12 +19,30 @@ from tests.legacy_content import LEGACY_CONTENT_ROOT
 PRODUCTION = repo_root() / "content"
 
 
+def _is_unchecked_draft(item: Item) -> bool:
+    """A model-drafted item from the authoring pipeline: tier C, draft, never stamped."""
+    return (
+        item.tier is not None
+        and item.tier.value == "C"
+        and item.status.value == "draft"
+        and item.provenance is not None
+        and item.provenance.author == "model-draft"
+        and item.verification is None
+    )
+
+
 def test_production_root_validates() -> None:
-    """The root holds whatever lanes have stamped (physics today); it must validate cleanly."""
+    """The root holds what the lanes have stamped (tier A) and the unchecked model drafts (tier C,
+    for reviewers only: the serving gate never serves tier C). It must validate cleanly, and no
+    item may be anything else: no approved, tier B or untiered item sneaks in."""
     report = validate_path(PRODUCTION)
     assert report.errors == []
     assert report.bundle is not None
-    assert all(i.tier is not None and i.tier.value == "A" for i in report.bundle.items)
+    items = report.bundle.items
+    assert all(
+        (i.tier is not None and i.tier.value == "A") or _is_unchecked_draft(i) for i in items
+    )
+    assert any(i.tier is not None and i.tier.value == "A" for i in items)
     assert all(not o.live for o in report.bundle.overlays)  # nothing is live yet
 
 
