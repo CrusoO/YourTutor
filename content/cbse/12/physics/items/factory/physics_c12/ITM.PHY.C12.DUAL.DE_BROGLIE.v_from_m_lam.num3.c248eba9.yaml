@@ -1,0 +1,131 @@
+id: ITM.PHY.C12.DUAL.DE_BROGLIE.v_from_m_lam.num3.c248eba9
+skill_ids:
+- PHY.C12.DUAL.DE_BROGLIE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the wave nature of a moving particle. Its mass, m, is
+    1.326 x 10^-26 kg and the de Broglie wavelength, lam, is 0.25 nm. Find the speed
+    of the particle. Take Planck's constant, h, = 6.63 x 10^-34 J s.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: wavelength = h / [m x v], so v = h / [m x wavelength].'
+- level: 2
+  en: The relation already gives the speed directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 0.25 nm as 2.5 x 10^-10 m, then write v = h / [m x lam],
+    where v is the speed, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the speed have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.DE_BROGLIE
+generator_version: factory-2
+template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2000 m/s
+- id: b
+  en: 20000 m/s
+- id: c
+  en: 200 m/s
+- id: d
+  en: 200000 m/s
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - b
+  - d
+solution_steps:
+- en: 'Write the relation: wavelength = h / [m x v], so v = h / [m x wavelength].'
+- en: 'Put each quantity in SI units: 0.25 nm = 2.5 x 10^-10 m.'
+- en: 'Substitute: v = (6.63 x 10^-34) / ((1.326 x 10^-26) x (2.5 x 10^-10)).'
+- en: 'Calculate: v = 200 m/s.'
+- en: So the speed is 200 m/s.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 83888b46ea59ed79da3a31234dc5807acdf161a09a6372696db125403bb1cda8
+  template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+  certificate_hash: 4778629ab1544452ba74c994f24c902efa23f13f9764fb731c5610abf88072b6
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:39+00:00'
+  record_hash: 433c6f80911b4cf68a90beda96cf90fdcc2d5c289d7173f3a21286b4c1506cc6

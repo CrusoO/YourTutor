@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.AC.RESONANCE.w0_from_L_C.num2.16058463
+skill_ids:
+- PHY.C12.AC.RESONANCE
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about a series LCR circuit at resonance. The inductance, L,
+    is 50 mH and the capacitance, C, is 20 μF. Find the resonant angular frequency.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: w0 = 1 / square root of [L x C].'
+- level: 2
+  en: The relation already gives the resonant angular frequency directly, so decide
+    what to substitute. Change every quantity to SI units first, and change back at
+    the end if asked.
+- level: 3
+  en: 'First step: Write 50 mH as 0.05 H and 20 μF as 2 x 10^-5 F, then write w0 =
+    1 / sqrt[L x C], where w0 is the resonant angular frequency, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the resonant angular frequency have,
+    and roughly how large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.RESONANCE
+generator_version: factory-2
+template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1000 rad/s
+- id: b
+  en: 1 x 10^6 rad/s
+- id: c
+  en: 1 rad/s
+- id: d
+  en: 0.001 rad/s
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ROOT_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.CAPACITANCE_UNIT_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.PRODUCT_NOT_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: w0 = 1 / square root of [L x C].'
+- en: 'Put each quantity in SI units: 50 mH = 0.05 H; 20 μF = 2 x 10^-5 F.'
+- en: 'Substitute: w0 = 1 / sqrt(0.05 x (2 x 10^-5)).'
+- en: 'Calculate: w0 = 1000 rad/s.'
+- en: So the resonant angular frequency is 1000 rad/s.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f917c45ed3332d6dfc97011c7399f8132efca1027405a7ac25ddb2ce67390f54
+  template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+  certificate_hash: 64a30dfe74f74835e1d13241ee7421b6651b149cc266808a916a07d3440251eb
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:12+00:00'
+  record_hash: d7b456071d06d08f9f97f714a11c0d2cb04d2b62e971d1f2205afb9f5885c95b

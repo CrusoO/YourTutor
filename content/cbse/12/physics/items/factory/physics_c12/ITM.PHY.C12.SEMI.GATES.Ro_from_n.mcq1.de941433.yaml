@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.SEMI.GATES.Ro_from_n.mcq1.de941433
+skill_ids:
+- PHY.C12.SEMI.GATES
+difficulty: 0.25
+pool: practice
+role: procedure
+stem:
+  en: The gate has 4 inputs. For an OR gate with this many inputs, in how many rows
+    is the output 1?
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Plan the steps: an OR gate
+    gives 0 only when every input is 0, so it gives 1 in 2^n - 1 of the 2^n rows.'
+- level: 2
+  en: Work through the plan one step at a time.
+- level: 3
+  en: 'First step: write Ro = 2^n - 1, where Ro is the number of rows with output
+    1, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the number of rows with output
+    1 be?
+status: draft
+template_id: TPL2.PHY.C12.SEMI.GATES
+generator_version: factory-2
+template_hash: 04d90ba3c3a9033cb9b91ff55fe139cc5043811dd36b654873bf7f8fb571e2fd
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: '14'
+- id: c
+  en: '15'
+- id: d
+  en: '16'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INPUTS_DOUBLED_LESS_ONE
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TWO_ROWS_LEFT_OUT
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ALL_ROWS_COUNTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: an OR gate gives 0 only when every input is 0, so it gives 1 in 2^n -
+    1 of the 2^n rows.'
+- en: 'Substitute: Ro = 2^4 - 1.'
+- en: 'Calculate: Ro = 15.'
+- en: So the number of rows with output 1 is 15.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f9425b0b277e0a410d83371ce00a32073d031ed464071b73c830e636d8b3aa00
+  template_hash: 04d90ba3c3a9033cb9b91ff55fe139cc5043811dd36b654873bf7f8fb571e2fd
+  certificate_hash: 3f76d6710201bc63200ca86c7e83687b1e07e74ffb62867469f9bd5839375d1a
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.semiconductor_electronics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:38+00:00'
+  record_hash: c885790988359140a049f18cc17c211b70d30fc51dcd40ae48eb0b9cd6d12a6f

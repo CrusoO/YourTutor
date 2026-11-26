@@ -1,0 +1,51 @@
+id: TPL2.PHY.C12.CUR.DRIFT
+schema: factory-template/1
+lane: physics_c12
+model: CUR.DRIFT
+skill_id: PHY.C12.CUR.DRIFT
+box:
+  variant:
+    choices:
+    - I_from_n_A_vd
+    - vd_from_I_n_A
+    - n_from_I_A_vd
+    - A_from_I_n_vd
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  n:
+    choices:
+    - 8e28
+    - 1e29
+    - 5e28
+    - 4e28
+    - 2e28
+  A:
+    choices:
+    - '1'
+    - '2'
+    - '2.5'
+    - '4'
+  vd:
+    choices:
+    - '0.05'
+    - '0.1'
+    - '0.2'
+    - '0.5'
+    - '1'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.current_electricity
+  skill_id: PHY.C12.CUR.DRIFT
+  allowed_methods:
+  - drift_current
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

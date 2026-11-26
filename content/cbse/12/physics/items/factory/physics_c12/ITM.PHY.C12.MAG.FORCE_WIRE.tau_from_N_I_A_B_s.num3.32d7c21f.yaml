@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.MAG.FORCE_WIRE.tau_from_N_I_A_B_s.num3.32d7c21f
+skill_ids:
+- PHY.C12.MAG.FORCE_WIRE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a current-carrying conductor in a magnetic field. The
+    number of turns, N, is 100, the current, I, is 2 A, the area of the coil, A, is
+    100 cm², the magnetic field, B, is 500 mT and the sine of the angle between the
+    wire and the field, s, is 1. Find the torque on the coil.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: torque = N x I x A x B x sine of the angle on a flat coil.'
+- level: 2
+  en: The relation already gives the torque directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 100 cm² as 0.01 m² and 500 mT as 0.5 T, then write tau =
+    N x I x A x B x s, where tau is the torque, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the torque have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.FORCE_WIRE
+generator_version: factory-2
+template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 mNm
+- id: b
+  en: 1 x 10^7 mNm
+- id: c
+  en: 1 x 10^6 mNm
+- id: d
+  en: 1000 mNm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FIELD_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: torque = N x I x A x B x sine of the angle on a flat coil.'
+- en: 'Put each quantity in SI units: 100 cm² = 0.01 m²; 500 mT = 0.5 T.'
+- en: 'Substitute: tau = 100 x 2 x 0.01 x 0.5 x 1.'
+- en: 'Calculate: tau = 1 N m.'
+- en: 'Give it in mNm: 1000 mNm.'
+- en: So the torque is 1000 mNm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 651ca58ae9178ad27caa57500cb84cb2bb64705ab16c64708e59d894610f760f
+  template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+  certificate_hash: a7000ea0c7b88a6f1b9cf05b4f2e2bb40bad0ac3d6e9117b12d2c13691c93b60
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:26+00:00'
+  record_hash: 833de019decbbfc5afbbda6f31d34b69cc0e3e6d3d945c99ba7e684552e154fd

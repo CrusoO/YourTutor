@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.RAY.LENS_MAKER.R1_from_n_f_R2.num2.a2743b54
+skill_ids:
+- PHY.C12.RAY.LENS_MAKER
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a thin double convex lens in air. The refractive index
+    of the glass, n, is 1.4, the focal length, f, is 30 cm and the radius of curvature
+    of the second face, R2, is 30 cm. Find the radius of curvature of the first face.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: 1/f = (n - 1) x (1/R1 + 1/R2), so 1/R1 = 1/((n - 1) x f) - 1/R2.'
+- level: 2
+  en: The relation already gives the first radius directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 30 cm as 0.3 m, then write R1 = 1 / (1 / ((n - 1) x f) -
+    1 / R2), where R1 is the first radius, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the first radius have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.LENS_MAKER
+generator_version: factory-2
+template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 500 cm
+- id: b
+  en: 8.57 cm
+- id: c
+  en: 20 cm
+- id: d
+  en: 2000 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RADII_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/f = (n - 1) x (1/R1 + 1/R2), so 1/R1 = 1/((n - 1) x f)
+    - 1/R2.'
+- en: 'Put each quantity in SI units: 30 cm = 0.3 m.'
+- en: 'Substitute: R1 = 1 / (1 / ((1.4 - 1) x 0.3) - 1 / 0.3).'
+- en: 'Calculate: R1 = 0.2 m.'
+- en: 'Give it in cm: 20 cm.'
+- en: So the first radius is 20 cm.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c7b59480c152d46f723a8bedbf3c5ecc2d3611cd75b919ea28bbb2dd05a4d447
+  template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+  certificate_hash: dddf2b03b4817589661ffe39dd93ce02ab45ffc469a452716aee86f9e6cf0dc7
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:44+00:00'
+  record_hash: 6621a4cf6817262f6ff7244a513e711585f7612b50bd027e0d0ba6c64b50f606

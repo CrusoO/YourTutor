@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAG.LORENTZ.B_from_F_q_v_s.mcq1.cf0d23a6
+skill_ids:
+- PHY.C12.MAG.LORENTZ
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The magnetic force, F, is 4.8 x 10^-14 N, the charge of the particle, q, is
+    1.6 x 10^-19 C, its speed, v, is 1 x 10^6 m/s and the sine of the angle between
+    the velocity and the field, s, is 0.6. Find the strength of the magnetic field.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: F = q x v x B x sine of the angle.'
+- level: 2
+  en: 'Get the field on its own before you put numbers in: divide each side by q x
+    v x sine of the angle. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write B = F / [q x v x s], where B is the field, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.LORENTZ
+generator_version: factory-2
+template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 500000 mT
+- id: b
+  en: 500 mT
+- id: c
+  en: 300 mT
+- id: d
+  en: 2000 mT
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.SINE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = q x v x B x sine of the angle.'
+- en: 'Get the field alone: divide each side by q x v x sine of the angle.'
+- en: 'Substitute: B = (4.8 x 10^-14) / ((1.6 x 10^-19) x (1 x 10^6) x 0.6).'
+- en: 'Calculate: B = 0.5 T.'
+- en: 'Give it in mT: 500 mT.'
+- en: So the field is 500 mT.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b5ffd16ffa15bf554bfe8a6e9d623cda82833659c1e80bc76f205361bf9b7f8d
+  template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+  certificate_hash: 71b5444e6c540c7093dc9012a9cf9c9df64c26e49244f65ec5e5556e052ead19
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:17+00:00'
+  record_hash: df3b79a1ec1f636287cb96299a78fb30339bffbf39c045ace62a4c2525bb9ec4

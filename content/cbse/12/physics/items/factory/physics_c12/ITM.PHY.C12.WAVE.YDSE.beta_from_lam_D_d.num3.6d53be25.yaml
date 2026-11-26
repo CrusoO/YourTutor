@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.WAVE.YDSE.beta_from_lam_D_d.num3.6d53be25
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying Young's double slit experiment. The wavelength of the
+    light, lam, is 600 nm, the screen, D, is 0.5 m from the slits and the slits are
+    1 mm apart. Find the fringe width.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: fringe width = wavelength x D / d.'
+- level: 2
+  en: The relation already gives the fringe width directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 600 nm as 6 x 10^-7 m and 1 mm as 0.001 m, then write beta
+    = lam x D / d, where beta is the fringe width, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the fringe width have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.3 mm
+- id: b
+  en: 300 mm
+- id: c
+  en: 3 x 10^-7 mm
+- id: d
+  en: 3 x 10^-4 mm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SLIT_SEPARATION_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.SLIT_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: fringe width = wavelength x D / d.'
+- en: 'Put each quantity in SI units: 600 nm = 6 x 10^-7 m; 1 mm = 0.001 m.'
+- en: 'Substitute: beta = (6 x 10^-7) x 0.5 / 0.001.'
+- en: 'Calculate: beta = 3 x 10^-4 m.'
+- en: 'Give it in mm: 0.3 mm.'
+- en: So the fringe width is 0.3 mm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f4f28569792fd04eb256adc8283c0fc2e9f9550587089b377fdd541220203214
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: 1dad9edafe08f327d4415fc600e938024e49f053b60e2e313fbda49fa20ece25
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:10+00:00'
+  record_hash: 2e07c00bd8ebf2bb365b29d18700cb34641c73611423cc2769e1bf663ce35789

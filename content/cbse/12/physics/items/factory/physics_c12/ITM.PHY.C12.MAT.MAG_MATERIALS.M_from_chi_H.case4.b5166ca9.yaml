@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.MAT.MAG_MATERIALS.M_from_chi_H.case4.b5166ca9
+skill_ids:
+- PHY.C12.MAT.MAG_MATERIALS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a magnetic material in an external field and records
+    the following. The magnetic susceptibility, chi, is 1999 and the magnetising field,
+    H, is 1000 A/m. Find the magnetisation of the material.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: magnetisation = susceptibility x H.'
+- level: 2
+  en: The relation already gives the magnetisation directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write M = chi x H, where M is the magnetisation, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the magnetisation have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAT.MAG_MATERIALS
+generator_version: factory-2
+template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 x 10^6 A/m
+- id: b
+  en: 0.5 A/m
+- id: c
+  en: 2999 A/m
+- id: d
+  en: 1.999 x 10^6 A/m
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.PERMEABILITY_USED_FOR_SUSCEPTIBILITY
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SUSCEPTIBILITY_ADDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: magnetisation = susceptibility x H.'
+- en: 'Substitute: M = 1999 x 1000.'
+- en: 'Calculate: M = 1.999 x 10^6 A/m.'
+- en: So the magnetisation is 1.999 x 10^6 A/m.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f78d311c0e31f47ea72240a8787702b1671cedaaf3ef73b296cc545ef480a729
+  template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+  certificate_hash: 7c3d9065c6cad46a5382eb26042e84169534eb2521be97f7a8830c093cd61356
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.magnetism_matter
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:36+00:00'
+  record_hash: e678f38bf6cdac408339851a8d46d77df864ed4990504e602be94a8864b3ec9d

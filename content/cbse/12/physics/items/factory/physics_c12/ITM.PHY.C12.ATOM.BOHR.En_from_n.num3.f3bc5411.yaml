@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.ATOM.BOHR.En_from_n.num3.f3bc5411
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the hydrogen atom in the Bohr model. The principal quantum
+    number, n, is 4. Find the magnitude of the energy of that level. Take the ground
+    state energy of hydrogen, E1, = -13.6 eV.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Plan the steps: the magnitude
+    of the energy is E1 divided by n squared.'
+- level: 2
+  en: Work through the plan one step at a time. Change every quantity to SI units
+    first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write En = E1 / n^2, where En is the energy of the level, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the energy of the level have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.85 eV
+- id: b
+  en: 217.6 eV
+- id: c
+  en: 3.4 eV
+- id: d
+  en: 0.2125 eV
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.QUANTUM_NUMBER_NOT_SQUARED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.QUANTUM_NUMBER_CUBED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: the magnitude of the energy is E1 divided by n squared.'
+- en: 'Substitute: En = (2.176 x 10^-18) / 4^2.'
+- en: 'Calculate: En = 1.36 x 10^-19 J.'
+- en: 'Give it in eV: 0.85 eV.'
+- en: So the energy of the level is 0.85 eV.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e5f7c694d1203af66cc02cae5dd3aa1c50f05860c60877561a5576585b86185c
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: 13a5754e8ee2f9d782769c98479cc124773a7bd0de0c1eb7f6ac7d8310e774b1
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:51+00:00'
+  record_hash: cdc10318e0c75cb49390778e6e8dc732c9807c04ad319038bf627f9e9f11f4db

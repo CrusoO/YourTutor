@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.AC.RESONANCE.L_from_w0_C.mcq1.2e1807a1
+skill_ids:
+- PHY.C12.AC.RESONANCE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The resonant angular frequency, w0, is 1000 rad/s and the capacitance, C, is
+    4 μF. Find the inductance.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: w0 = 1 / square root of [L x C], so L = 1 / (w0^2 x C).'
+- level: 2
+  en: 'Get the inductance on its own before you put numbers in: square each side of
+    the relation, then rearrange for L. Do the same operation to each side of the
+    formula. Change every quantity to SI units first, and change back at the end if
+    asked.'
+- level: 3
+  en: 'First step: Write 4 μF as 4 x 10^-6 F, then write L = 1 / (w0^2 x C), where
+    L is the inductance, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the inductance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.RESONANCE
+generator_version: factory-2
+template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2.5 x 10^-4 mH
+- id: b
+  en: 4000 mH
+- id: c
+  en: 250 mH
+- id: d
+  en: 250000 mH
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CAPACITANCE_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SQUARE_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: w0 = 1 / square root of [L x C], so L = 1 / (w0^2 x C).'
+- en: 'Put each quantity in SI units: 4 μF = 4 x 10^-6 F.'
+- en: 'Get the inductance alone: square each side of the relation, then rearrange
+    for L.'
+- en: 'Substitute: L = 1 / (1000^2 x (4 x 10^-6)).'
+- en: 'Calculate: L = 0.25 H.'
+- en: 'Give it in mH: 250 mH.'
+- en: So the inductance is 250 mH.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4dd6451691f7ae36b6da010e43ea7e921682b5a7845887b9a8c2913f4f981d6b
+  template_hash: 385b2103d5796ed476c4ed027f24ab653afaa034a47fe3f2eedd64710d34d492
+  certificate_hash: 54dc9d73ddee52d74e30350ab37580589c1c31037a557902f782df29b47decb7
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:12+00:00'
+  record_hash: b57e028ac9f9d91fd82a63d3e5d9045bb25b94e52600f99aecb38ee8b6576b24

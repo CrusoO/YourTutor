@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.MAG.B_FIELD.Bs_from_n_I.case4.74f05e38
+skill_ids:
+- PHY.C12.MAG.B_FIELD
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the magnetic field of a current and records the
+    following. The number of turns per metre, n, is 500 m⁻¹ and the current, I, is
+    1 A. Find the field inside the solenoid. Take the permeability of free space,
+    mu0, = 1.256 x 10^-6 N/A².'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: B = mu0 x n x I inside a long solenoid.'
+- level: 2
+  en: The relation already gives the field inside directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write Bs = mu0 x n x I, where Bs is the field inside, with the
+    values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field inside have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.B_FIELD
+generator_version: factory-2
+template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.628 mT
+- id: b
+  en: 2.512 x 10^-6 mT
+- id: c
+  en: 0.001256 mT
+- id: d
+  en: 314 mT
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TURNS_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.TURNS_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x n x I inside a long solenoid.'
+- en: 'Substitute: Bs = (1.256 x 10^-6) x 500 x 1.'
+- en: 'Calculate: Bs = 6.28 x 10^-4 T.'
+- en: 'Give it in mT: 0.628 mT.'
+- en: So the field inside is 0.628 mT.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e3559446542304b4150d1c6a0a546a8a7717ceff41fbff9fdad280ba881c1d46
+  template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+  certificate_hash: 65ce73e17b5d11b353707a4dc9531d16c35e67f3b48ed9bc36d6ec2346127ece
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:20+00:00'
+  record_hash: d6d83a9a53547878e9a3a14ec07a2ea32385b7873afe0aed3b462dc289a93834

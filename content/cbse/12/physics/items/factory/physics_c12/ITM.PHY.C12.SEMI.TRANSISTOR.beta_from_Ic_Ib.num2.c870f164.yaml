@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.SEMI.TRANSISTOR.beta_from_Ic_Ib.num2.c870f164
+skill_ids:
+- PHY.C12.SEMI.TRANSISTOR
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about a transistor in the common emitter connection. The collector
+    current, Ic, is 0.5 mA and the base current, Ib, is 25 μA. Find the current gain.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: beta = collector current / base current.'
+- level: 2
+  en: The relation already gives the current gain directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 0.5 mA as 5 x 10^-4 A and 25 μA as 2.5 x 10^-5 A, then write
+    beta = Ic / Ib, where beta is the current gain, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the current gain be?
+status: draft
+template_id: TPL2.PHY.C12.SEMI.TRANSISTOR
+generator_version: factory-2
+template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '0.05'
+- id: c
+  en: '20'
+- id: d
+  en: 2 x 10^-5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.EMITTER_CURRENT_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.CURRENT_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: beta = collector current / base current.'
+- en: 'Put each quantity in SI units: 0.5 mA = 5 x 10^-4 A; 25 μA = 2.5 x 10^-5 A.'
+- en: 'Substitute: beta = (5 x 10^-4) / (2.5 x 10^-5).'
+- en: 'Calculate: beta = 20.'
+- en: So the current gain is 20.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8ed666ac8a689bcf4a5742a9f11a0e78d1aed8df83802185f7c200603b61a23f
+  template_hash: d6c100ae74f6ed400d25fb959de6912f1f65ef233153ec2f5b82b8020b22d812
+  certificate_hash: c9d8f745c8b8abc04155e1da32069a145e3bb8b41063e2cc68cd9b67e86c0c85
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.semiconductor_electronics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:49+00:00'
+  record_hash: 50543745a353e1ce13449d815beb2f61bc3d57821252aac8c1dadd92fdc401fb

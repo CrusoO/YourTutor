@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.WAVE.YDSE.D_from_beta_lam_d.case4.4b407a6f
+skill_ids:
+- PHY.C12.WAVE.YDSE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates Young''s double slit experiment and records the
+    following. The fringe width, beta, is 0.75 mm, the wavelength of the light, lam,
+    is 600 nm and the slits are 0.4 mm apart. Find the distance from the slits to
+    the screen.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: fringe width = wavelength x D / d.'
+- level: 2
+  en: The relation already gives the screen distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 0.75 mm as 7.5 x 10^-4 m, 600 nm as 6 x 10^-7 m and 0.4 mm
+    as 4 x 10^-4 m, then write D = beta x d / lam, where D is the screen distance,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the screen distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.WAVE.YDSE
+generator_version: factory-2
+template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 m
+- id: b
+  en: 1250 m
+- id: c
+  en: 5 m
+- id: d
+  en: 0.5 m
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.SLIT_SEPARATION_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: fringe width = wavelength x D / d.'
+- en: 'Put each quantity in SI units: 0.75 mm = 7.5 x 10^-4 m; 600 nm = 6 x 10^-7
+    m; 0.4 mm = 4 x 10^-4 m.'
+- en: 'Substitute: D = (7.5 x 10^-4) x (4 x 10^-4) / (6 x 10^-7).'
+- en: 'Calculate: D = 0.5 m.'
+- en: So the screen distance is 0.5 m.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f5a4b6452b6472ac40e6ffcb035e7821b2e090a8c609526fbe919482dc7f4aab
+  template_hash: 5c371e5d49a3740a6382b7be75c5cf55ba735817ddf4f01afe313fab38a1d068
+  certificate_hash: 68b1fea190ba5b30a1941ea19a8a42327dc919c5e6ebd5ee251d841d42e69e82
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.wave_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:10+00:00'
+  record_hash: 176dc3d44686875035cf279116abf49c72ae55078392fb3014fa4a24fa29df52

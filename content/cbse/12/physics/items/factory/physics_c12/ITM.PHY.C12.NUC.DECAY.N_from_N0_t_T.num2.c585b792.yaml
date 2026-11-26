@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.NUC.DECAY.N_from_N0_t_T.num2.c585b792
+skill_ids:
+- PHY.C12.NUC.DECAY
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a radioactive sample decaying by half-lives. The sample
+    starts with 640 undecayed nuclei, the time that passes, t, is 30 days and the
+    half-life, T, is 10 days. Find how many undecayed nuclei are left.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: the number of half-lives is t / T, then N = N0 / 2^(t/T).'
+- level: 2
+  en: The relation already gives the remaining number of nuclei directly, so decide
+    what to substitute. Change every quantity to SI units first, and change back at
+    the end if asked.
+- level: 3
+  en: 'First step: Write 30 days as 2.592 x 10^6 s and 10 days as 864000 s, then write
+    N = N0 / 2^(t / T), where N is the remaining number of nuclei, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the remaining number of nuclei
+    be?
+status: draft
+template_id: TPL2.PHY.C12.NUC.DECAY
+generator_version: factory-2
+template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '800'
+- id: b
+  en: '213'
+- id: c
+  en: '80'
+- id: d
+  en: '320'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DIVIDED_BY_N
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.HALVED_ONCE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the number of half-lives is t / T, then N = N0 / 2^(t/T).'
+- en: 'Put each quantity in SI units: 30 days = 2.592 x 10^6 s; 10 days = 864000 s.'
+- en: 'Substitute: N = 640 / 2^((2.592 x 10^6) / 864000).'
+- en: 'Calculate: N = 80.'
+- en: So the remaining number of nuclei is 80.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c786ab3fb14c69eaf0fd532063ee385da2e9a2b1bdf09d66920a3ca0d7ba5dae
+  template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+  certificate_hash: 866b01f4ea4bc6ad99bb2a46087ffe9584e89dd87d5de250858bdfa21a0b199b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:15+00:00'
+  record_hash: 6679da5a84aefacda275ebd37039cc5ce3ee77687151aa1bd930f0ac14a69b23

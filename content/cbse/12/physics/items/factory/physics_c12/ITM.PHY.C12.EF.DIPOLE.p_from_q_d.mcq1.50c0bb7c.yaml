@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.EF.DIPOLE.p_from_q_d.mcq1.50c0bb7c
+skill_ids:
+- PHY.C12.EF.DIPOLE
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The charge on each end, q, is 5 μC and the two charges are 10 cm apart. Find
+    the dipole moment.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: p = q x d, charge times separation.'
+- level: 2
+  en: The relation already gives the dipole moment directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 5 μC as 5 x 10^-6 C and 10 cm as 0.1 m, then write p = q
+    x d, where p is the dipole moment, with the values in place, one quantity at a
+    time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the dipole moment have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EF.DIPOLE
+generator_version: factory-2
+template_hash: c799ac443319cd67b1ac395d63748d850f98246e7a476507394e2a6d1a8912f3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 x 10^-5 C m
+- id: b
+  en: 5 x 10^-7 C m
+- id: c
+  en: 1 x 10^-6 C m
+- id: d
+  en: 2.5 x 10^-7 C m
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DOUBLE_SEPARATION_USED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.HALF_SEPARATION_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: p = q x d, charge times separation.'
+- en: 'Put each quantity in SI units: 5 μC = 5 x 10^-6 C; 10 cm = 0.1 m.'
+- en: 'Substitute: p = (5 x 10^-6) x 0.1.'
+- en: 'Calculate: p = 5 x 10^-7 C m.'
+- en: So the dipole moment is 5 x 10^-7 C m.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e105c60c38bdf6f7c8894909600871c151332547be71d0670996c45912371eac
+  template_hash: c799ac443319cd67b1ac395d63748d850f98246e7a476507394e2a6d1a8912f3
+  certificate_hash: 6b2215e8424bc52a50305173ea74d3069f5749202f3712f8fdac66d80b12b32c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electric_charges_fields
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:53+00:00'
+  record_hash: 81af85856087e44a14c26f673fca67c2292fde1d8eaf3af2caf5870254565985

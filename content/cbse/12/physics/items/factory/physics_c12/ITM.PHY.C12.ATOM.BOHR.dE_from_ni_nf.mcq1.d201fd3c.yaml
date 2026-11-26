@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.ATOM.BOHR.dE_from_ni_nf.mcq1.d201fd3c
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The electron falls from the level with n = 4 and to the level with n = 1. Find
+    the energy of the photon given out. Take the ground state energy of hydrogen,
+    E1, = -13.6 eV.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: photon energy = 13.6 x (1/nf^2 - 1/ni^2) electron-volts.'
+- level: 2
+  en: The relation already gives the photon energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: write dE = E1 x (1 / nf^2 - 1 / ni^2), where dE is the photon energy,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the photon energy have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 13.6 eV
+- id: b
+  en: 10.2 eV
+- id: c
+  en: 12.75 eV
+- id: d
+  en: 0.85 eV
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ENERGY_OF_FINAL_LEVEL_ONLY
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.LEVELS_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ENERGY_OF_START_LEVEL_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: photon energy = 13.6 x (1/nf^2 - 1/ni^2) electron-volts.'
+- en: 'Substitute: dE = (2.176 x 10^-18) x (1 / 1^2 - 1 / 4^2).'
+- en: 'Calculate: dE = 2.04 x 10^-18 J.'
+- en: 'Give it in eV: 12.75 eV.'
+- en: So the photon energy is 12.75 eV.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 18e513717e5a5c55e3251388069c786a0d729d445cf32db60a143d40e836dbc8
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: 30ee7d31066bebafd7434c9a69bedbf716d9e2db88765b0fc263f583dc9efe93
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:54+00:00'
+  record_hash: b91688247392f93d8eb9419184f63f7b651934c3b14ee1d961301bff5924a652

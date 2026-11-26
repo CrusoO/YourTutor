@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.NUC.BINDING.E_from_dm.num2.7938df1f
+skill_ids:
+- PHY.C12.NUC.BINDING
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about the binding energy of a nucleus. The mass defect, dm,
+    is 0.1 u. Find the binding energy. Take the energy equivalent of one atomic mass
+    unit, ue, = 931.5 MeV/u.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: binding energy = mass defect x energy of one atomic mass unit.'
+- level: 2
+  en: The relation already gives the binding energy directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 0.1 u as 1.66 x 10^-28 kg, then write E = dm x ue, where
+    E is the binding energy, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the binding energy have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.NUC.BINDING
+generator_version: factory-2
+template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 931.5 MeV
+- id: b
+  en: 93.15 MeV
+- id: c
+  en: 0.1 MeV
+- id: d
+  en: 93150 MeV
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.ENERGY_PER_UNIT_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.MASS_DEFECT_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: binding energy = mass defect x energy of one atomic mass
+    unit.'
+- en: 'Put each quantity in SI units: 0.1 u = 1.66 x 10^-28 kg.'
+- en: 'Substitute: E = (1.66 x 10^-28) x 8.98e + 16.'
+- en: 'Calculate: E = 1.4904 x 10^-11 J.'
+- en: 'Give it in MeV: 93.15 MeV.'
+- en: So the binding energy is 93.15 MeV.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8e9eae8ba0e41862abfd6a2e40741345829f63f3f27f2e37d7595bb2224cf0b4
+  template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+  certificate_hash: 5c1d6c59c5bad6c0b1f9576fbeaa16f0d17c75d78d86648e27ed6c7f6e7c1f77
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:28+00:00'
+  record_hash: 285b7ab190d48ad85446bd6e7d42b6f8ebdae6ce5ca17bf487869c2ad92f86e1

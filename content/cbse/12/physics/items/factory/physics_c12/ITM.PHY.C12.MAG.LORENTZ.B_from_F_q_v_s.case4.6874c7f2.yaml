@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.MAG.LORENTZ.B_from_F_q_v_s.case4.6874c7f2
+skill_ids:
+- PHY.C12.MAG.LORENTZ
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a charged particle moving in a magnetic field
+    and records the following. The magnetic force, F, is 6.4 x 10^-14 N, the charge
+    of the particle, q, is 3.2 x 10^-19 C, its speed, v, is 1 x 10^6 m/s and the sine
+    of the angle between the velocity and the field, s, is 1. Find the strength of
+    the magnetic field.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: F = q x v x B x sine of the angle.'
+- level: 2
+  en: 'Get the field on its own before you put numbers in: divide each side by q x
+    v x sine of the angle. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write B = F / [q x v x s], where B is the field, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.LORENTZ
+generator_version: factory-2
+template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2000 mT
+- id: b
+  en: 200000 mT
+- id: c
+  en: 5000 mT
+- id: d
+  en: 200 mT
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: F = q x v x B x sine of the angle.'
+- en: 'Get the field alone: divide each side by q x v x sine of the angle.'
+- en: 'Substitute: B = (6.4 x 10^-14) / ((3.2 x 10^-19) x (1 x 10^6) x 1).'
+- en: 'Calculate: B = 0.2 T.'
+- en: 'Give it in mT: 200 mT.'
+- en: So the field is 200 mT.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 11ce5f7db3f242505d7b4429a699e8d9a59b4bf19a02de74e3a1e27a8f96d859
+  template_hash: 9f9aa932cb9b217d3b12f2788db66402b7f2f7f3599f4fb96a900c190c244432
+  certificate_hash: cd5e6cb393837a7bb0ea93f2e8242f550ec37e49a2c6941c1910e08e69cf8f08
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:16+00:00'
+  record_hash: 1234e01de32528f851bbd15f66b8fc60bf410f2ce79b52912581a664781acd88

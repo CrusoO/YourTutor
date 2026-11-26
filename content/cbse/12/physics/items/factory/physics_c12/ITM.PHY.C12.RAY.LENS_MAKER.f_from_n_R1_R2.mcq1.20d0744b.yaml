@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.RAY.LENS_MAKER.f_from_n_R1_R2.mcq1.20d0744b
+skill_ids:
+- PHY.C12.RAY.LENS_MAKER
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The refractive index of the glass, n, is 1.4, the radius of curvature of the
+    first face, R1, is 30 cm and the radius of curvature of the second face, R2, is
+    10 cm. Find the focal length of the lens.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: 1/f = (n - 1) x (1/R1 + 1/R2) for a double convex lens, with
+    the radii as positive numbers.'
+- level: 2
+  en: The relation already gives the focal length directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 30 cm as 0.3 m and 10 cm as 0.1 m, then write f = 1 / ((n
+    - 1) x (1 / R1 + 1 / R2)), where f is the focal length, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the focal length have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.LENS_MAKER
+generator_version: factory-2
+template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5.36 cm
+- id: b
+  en: 625 cm
+- id: c
+  en: 0.0533 cm
+- id: d
+  en: 18.75 cm
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RADII_ADDED_NOT_RECIPROCAL
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: 1/f = (n - 1) x (1/R1 + 1/R2) for a double convex lens,
+    with the radii as positive numbers.'
+- en: 'Put each quantity in SI units: 30 cm = 0.3 m; 10 cm = 0.1 m.'
+- en: 'Substitute: f = 1 / ((1.4 - 1) x (1 / 0.3 + 1 / 0.1)).'
+- en: 'Calculate: f = 0.1875 m.'
+- en: 'Give it in cm: 18.75 cm.'
+- en: So the focal length is 18.75 cm.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a619e813fb0d4c9695ee58da424e7eed820c921e438140c4d9ae00f0c959585e
+  template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+  certificate_hash: 2b640b689c3020ed9998710b2ddf4da2483ad8d3a4c8b784cbf4c18fa1c1213f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:45+00:00'
+  record_hash: 9c51af6a9086265fb1366f2b5eb7ee0c8b3fce0edd0342d62e74bf8b71bdb3d1

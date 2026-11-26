@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.CUR.DRIFT.I_from_n_A_vd.case4.ee938f5c
+skill_ids:
+- PHY.C12.CUR.DRIFT
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates current carried by free electrons in a wire and
+    records the following. The free electron density, n, is 1 x 10^29 m⁻³, the cross-sectional
+    area, A, is 4 mm² and the drift speed, vd, is 0.2 mm/s. Find the current in the
+    wire. Take the charge of one electron, e, = 1.6 x 10^-19 C.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: I = n x e x A x v_d.'
+- level: 2
+  en: The relation already gives the current directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 4 mm² as 4 x 10^-6 m² and 0.2 mm/s as 2 x 10^-4 m/s, then
+    write I = n x e x A x vd, where I is the current, with the values in place, one
+    quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the current have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.DRIFT
+generator_version: factory-2
+template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12800 A
+- id: b
+  en: 12.8 A
+- id: c
+  en: 128 A
+- id: d
+  en: 1.28 x 10^7 A
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SPEED_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: I = n x e x A x v_d.'
+- en: 'Put each quantity in SI units: 4 mm² = 4 x 10^-6 m²; 0.2 mm/s = 2 x 10^-4 m/s.'
+- en: 'Substitute: I = (1 x 10^29) x (1.6 x 10^-19) x (4 x 10^-6) x (2 x 10^-4).'
+- en: 'Calculate: I = 12.8 A.'
+- en: So the current is 12.8 A.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 20219db49f0efec4c0f22cb65d8d6f23e58dc86d83447a9a05eeb5eda31d1952
+  template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+  certificate_hash: 037bd446e85a3275630389e6b94cf7590f9226a42ffd959d8c1bb968c553cbda
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:06+00:00'
+  record_hash: ac0dddbd6dfdec39ae403a3c9d0abb78b5a286c712b1a25aee786245eda53859

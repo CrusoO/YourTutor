@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.AC.REACTANCE.L_from_XL_w.case4.4bff0fa2
+skill_ids:
+- PHY.C12.AC.REACTANCE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates an inductor or a capacitor in an alternating circuit
+    and records the following. The inductive reactance, XL, is 5 Ω and the angular
+    frequency of the supply, w, is 500 rad/s. Find the inductance.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: XL = w x L.'
+- level: 2
+  en: 'Get the inductance on its own before you put numbers in: divide each side by
+    w. Do the same operation to each side of the formula. Change every quantity to
+    SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: write L = XL / w, where L is the inductance, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the inductance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.AC.REACTANCE
+generator_version: factory-2
+template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.4 mH
+- id: b
+  en: 10 mH
+- id: c
+  en: 2.5 x 10^6 mH
+- id: d
+  en: 100000 mH
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CAPACITIVE_FORMULA_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: XL = w x L.'
+- en: 'Get the inductance alone: divide each side by w.'
+- en: 'Substitute: L = 5 / 500.'
+- en: 'Calculate: L = 0.01 H.'
+- en: 'Give it in mH: 10 mH.'
+- en: So the inductance is 10 mH.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 480abc5f3942e7a8ec20f9e55cb5af0e3d3f5de259f419cdc0fb6d98b81fc737
+  template_hash: 0102171ca4937ec7cb2919c0b491013320fd4eae6b7b71778a0ded17e67a880d
+  certificate_hash: bd5e9af39b948fe1b318166bfd4312bbae2c6013ba082ccf434cc4ed40e0424c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:59+00:00'
+  record_hash: d62cf2e123a6e1556338320ca6242b7e8c3a456700f703a4754c0157a77a1a94

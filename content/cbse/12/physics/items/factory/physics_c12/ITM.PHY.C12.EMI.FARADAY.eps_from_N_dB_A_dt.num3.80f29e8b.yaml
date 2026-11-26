@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.EMI.FARADAY.eps_from_N_dB_A_dt.num3.80f29e8b
+skill_ids:
+- PHY.C12.EMI.FARADAY
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a coil in a changing magnetic field. The number of turns,
+    N, is 500, the field changes by 0.2 T, the area of the coil, A, is 20 cm² and
+    the change takes 100 ms. Find the magnitude of the induced emf.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: flux change = dB x A, then emf = N x [flux change] / time.'
+- level: 2
+  en: The relation already gives the induced emf directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 20 cm² as 0.002 m² and 100 ms as 0.1 s, then write eps =
+    N x dB x A / dt, where eps is the induced emf, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the induced emf have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.FARADAY
+generator_version: factory-2
+template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.002 V
+- id: b
+  en: 0.004 V
+- id: c
+  en: 2 V
+- id: d
+  en: 20000 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TIME_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.TURNS_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: flux change = dB x A, then emf = N x [flux change] / time.'
+- en: 'Put each quantity in SI units: 20 cm² = 0.002 m²; 100 ms = 0.1 s.'
+- en: 'Substitute: eps = 500 x 0.2 x 0.002 / 0.1.'
+- en: 'Calculate: eps = 2 V.'
+- en: So the induced emf is 2 V.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4c57ba8badfbb6eb4508d6a581733d7db177068d1cff0da9987e0bd570ad5dd6
+  template_hash: da104838496088179fcf15c11d8acdcedd2ffc2d1ce7b391cf2ab96d54a50bfb
+  certificate_hash: 5772fe0d691653c88af4c2f32254d76bc7fabdef3d9ae7d227ddb2f5af2d4029
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:42+00:00'
+  record_hash: fba0e6c0b13bd2d366c39af95d8a6c40491b4daa63e8f00127aabda7265e8b24

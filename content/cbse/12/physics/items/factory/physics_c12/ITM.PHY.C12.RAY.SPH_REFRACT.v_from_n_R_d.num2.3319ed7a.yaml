@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.RAY.SPH_REFRACT.v_from_n_R_d.num2.3319ed7a
+skill_ids:
+- PHY.C12.RAY.SPH_REFRACT
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about refraction at a curved glass surface. The refractive
+    index of the glass, n, is 1.5, the radius of curvature of the convex surface,
+    R, is 30 cm and a point object in air, d, is 20 cm from the surface on its axis.
+    Find the distance of the image from the surface.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- level: 2
+  en: The relation already gives the image distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 30 cm as 0.3 m and 20 cm as 0.2 m, then write v = n x R x
+    d / ((n - 1) x d + R), where v is the image distance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.SPH_REFRACT
+generator_version: factory-2
+template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2250 cm
+- id: b
+  en: 22.5 cm
+- id: c
+  en: 25.7 cm
+- id: d
+  en: 15 cm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.DISTANCES_SWAPPED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.INDEX_FORGOTTEN_IN_NUMERATOR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- en: 'Put each quantity in SI units: 30 cm = 0.3 m; 20 cm = 0.2 m.'
+- en: 'Substitute: v = 1.5 x 0.3 x 0.2 / ((1.5 - 1) x 0.2 + 0.3).'
+- en: 'Calculate: v = 0.225 m.'
+- en: 'Give it in cm: 22.5 cm.'
+- en: So the image distance is 22.5 cm.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bb28adc8f7fa2ac470835deb2e7ceb22bbf825ebaa52616647a9986a5c28953f
+  template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+  certificate_hash: f76b1dd7c182edd5afd4f6d9ae8c6d3fcf42d6e80a267377fb65abb8a652d08f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:52+00:00'
+  record_hash: 249c86863ba686f6409d2d256fcad7ce8200a78a82ca1f81ddc6885b3e6048f4

@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.MAT.MAG_MATERIALS.mur_from_B_H.case4.99af92dd
+skill_ids:
+- PHY.C12.MAT.MAG_MATERIALS
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a magnetic material in an external field and records
+    the following. The magnetic field inside the material, B, is 25.12 mT and the
+    magnetising field, H, is 100 A/m. Find the relative permeability. Take the permeability
+    of free space, mu0, = 1.256 x 10^-6 N/A².'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: B = mu0 x relative permeability x H.'
+- level: 2
+  en: The relation already gives the relative permeability directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 25.12 mT as 0.02512 T, then write mur = B / (mu0 x H), where
+    mur is the relative permeability, with the values in place, one quantity at a
+    time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the relative permeability be?
+status: draft
+template_id: TPL2.PHY.C12.MAT.MAG_MATERIALS
+generator_version: factory-2
+template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.005'
+- id: b
+  en: '200'
+- id: c
+  en: 2.512 x 10^-4
+- id: d
+  en: '2000'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.VACUUM_PERMEABILITY_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x relative permeability x H.'
+- en: 'Put each quantity in SI units: 25.12 mT = 0.02512 T.'
+- en: 'Substitute: mur = 0.02512 / ((1.256 x 10^-6) x 100).'
+- en: 'Calculate: mur = 200.'
+- en: So the relative permeability is 200.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 08d00ed66d3fc229248caa9d6ebed29efdd3beb42d44602bb1044a17deb9e3ff
+  template_hash: f05c619b885343bc382d07ed5ed75943e99e4e8c19eba18073c4586f3a9e6e97
+  certificate_hash: 58dac4e4926910752497897bcc3340b42c620b29995bbf223f7359ddf3da612c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.magnetism_matter
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:36+00:00'
+  record_hash: b7e852fb260cde1ff4da660a2b43956c04b6cc80fed8bb7301ba7706cf10d072

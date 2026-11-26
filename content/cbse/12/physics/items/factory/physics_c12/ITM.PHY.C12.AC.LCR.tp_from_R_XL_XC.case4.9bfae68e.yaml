@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.AC.LCR.tp_from_R_XL_XC.case4.9bfae68e
+skill_ids:
+- PHY.C12.AC.LCR
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a series LCR circuit on an alternating supply
+    and records the following. The resistance, R, is 40 Ω, the inductive reactance,
+    XL, is 50 Ω and the capacitive reactance, XC, is 20 Ω. Find tan of the phase angle.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: tangent of phi = (XL - XC) / R.'
+- level: 2
+  en: The relation already gives the tangent of the phase angle directly, so decide
+    what to substitute.
+- level: 3
+  en: 'First step: write tp = (XL - XC) / R, where tp is the tangent of the phase
+    angle, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the tangent of the phase angle
+    be?
+status: draft
+template_id: TPL2.PHY.C12.AC.LCR
+generator_version: factory-2
+template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1.33'
+- id: b
+  en: '1.25'
+- id: c
+  en: '1.75'
+- id: d
+  en: '0.75'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.IMPEDANCE_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.REACTANCES_ADDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: tangent of phi = (XL - XC) / R.'
+- en: 'Substitute: tp = (50 - 20) / 40.'
+- en: 'Calculate: tp = 0.75.'
+- en: So the tangent of the phase angle is 0.75.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 396a9af3e3fc666a96c34e0c1fe0e12cbf05030063bf29564cec0fe39c6fa9b9
+  template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+  certificate_hash: beb5688f0017da28dafe96b2f2b93b631d75fa869a6d6d4d05db2970254ed70f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:06+00:00'
+  record_hash: d656dd57ede8cdb1e8743a7a89dd49a471d4235e6e9bb22d61363994122fe189

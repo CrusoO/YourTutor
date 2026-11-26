@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.CUR.CELL_INTERNAL.Vt_from_E_R_r.mcq1.075607e9
+skill_ids:
+- PHY.C12.CUR.CELL_INTERNAL
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The emf of the cell, E, is 6 V, the external resistor, R, is 3 Ω and its internal
+    resistance, r, is 2 Ω. Find the terminal voltage of the cell.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: I = E / (R + r), and the terminal voltage is V = I x R.'
+- level: 2
+  en: The relation already gives the terminal voltage directly, so decide what to
+    substitute.
+- level: 3
+  en: 'First step: write Vt = E x R / (R + r), where Vt is the terminal voltage, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the terminal voltage have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.CELL_INTERNAL
+generator_version: factory-2
+template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8.4 V
+- id: b
+  en: 3.6 V
+- id: c
+  en: 10 V
+- id: d
+  en: 6 V
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DROP_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.EMF_TAKEN_AS_TERMINAL
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: I = E / (R + r), and the terminal voltage is V = I x R.'
+- en: 'Substitute: Vt = 6 x 3 / (3 + 2).'
+- en: 'Calculate: Vt = 3.6 V.'
+- en: So the terminal voltage is 3.6 V.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 01c27890b0c0d990dbda5df5146d9190f945690b1958f8856e8cc02128b36a92
+  template_hash: 0763f5f515a6da86309343dc11bcf7e763ad82a580ca22ae57d94393150efdc7
+  certificate_hash: 4940acf2ddceef74f6846e3e0587541fec49fdbf5136403012b8f7cc24276c1c
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:08+00:00'
+  record_hash: ec21c93486040c990c886709dd73d440118353d4a40dcf5a4c77ec4f4c5f11c7

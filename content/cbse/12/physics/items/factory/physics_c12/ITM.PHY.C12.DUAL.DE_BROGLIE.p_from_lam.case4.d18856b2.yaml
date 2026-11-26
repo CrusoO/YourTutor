@@ -1,0 +1,135 @@
+id: ITM.PHY.C12.DUAL.DE_BROGLIE.p_from_lam.case4.d18856b2
+skill_ids:
+- PHY.C12.DUAL.DE_BROGLIE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the wave nature of a moving particle and records
+    the following. The de Broglie wavelength, lam, is 0.5 nm. Find the momentum of
+    the particle. Take Planck''s constant, h, = 6.63 x 10^-34 J s.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: wavelength = h / p, so p = h / wavelength.'
+- level: 2
+  en: 'Get the momentum on its own before you put numbers in: multiply each side by
+    p and divide each side by the wavelength. Do the same operation to each side of
+    the formula. Change every quantity to SI units first, and change back at the end
+    if asked.'
+- level: 3
+  en: 'First step: Write 0.5 nm as 5 x 10^-10 m, then write p = h / lam, where p is
+    the momentum, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the momentum have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.DE_BROGLIE
+generator_version: factory-2
+template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.326 x 10^-24 kg m/s
+- id: b
+  en: 1.326 x 10^-23 kg m/s
+- id: c
+  en: 1.326 x 10^-21 kg m/s
+- id: d
+  en: 1.326 x 10^-22 kg m/s
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+  - c
+  - d
+solution_steps:
+- en: 'Write the relation: wavelength = h / p, so p = h / wavelength.'
+- en: 'Put each quantity in SI units: 0.5 nm = 5 x 10^-10 m.'
+- en: 'Get the momentum alone: multiply each side by p and divide each side by the
+    wavelength.'
+- en: 'Substitute: p = (6.63 x 10^-34) / (5 x 10^-10).'
+- en: 'Calculate: p = 1.326 x 10^-24 kg m/s.'
+- en: So the momentum is 1.326 x 10^-24 kg m/s.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e3eb88e510470a895b5ab1dd64bc8d10ba85b11f748ebe3badaf2bc32f31bf54
+  template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+  certificate_hash: 8501c465089681b4e4a77a4f5f209d5ce52302efb2f50376eddee97e0d3121fc
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:41+00:00'
+  record_hash: 8bc2a0173f8bb2946ee1828ce58218152c21496e8e50f58af28117af2a08aeb8

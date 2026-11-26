@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.CUR.DRIFT.A_from_I_n_vd.num3.9f6299d4
+skill_ids:
+- PHY.C12.CUR.DRIFT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying current carried by free electrons in a wire. The current,
+    I, is 20 A, the free electron density, n, is 5 x 10^28 m⁻³ and the drift speed,
+    vd, is 1 mm/s. Find the cross-sectional area of the wire. Take the charge of one
+    electron, e, = 1.6 x 10^-19 C.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: I = n x e x A x v_d.'
+- level: 2
+  en: 'Get the cross section on its own before you put numbers in: divide each side
+    by n x e x v_d. Do the same operation to each side of the formula. Change every
+    quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 1 mm/s as 0.001 m/s, then write A = I / [n x e x vd], where
+    A is the cross section, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the cross section have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.CUR.DRIFT
+generator_version: factory-2
+template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.0025 mm²
+- id: b
+  en: 25 mm²
+- id: c
+  en: 2.5 x 10^6 mm²
+- id: d
+  en: 2.5 mm²
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.SPEED_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: I = n x e x A x v_d.'
+- en: 'Put each quantity in SI units: 1 mm/s = 0.001 m/s.'
+- en: 'Get the cross section alone: divide each side by n x e x v_d.'
+- en: 'Substitute: A = 20 / ((5 x 10^28) x (1.6 x 10^-19) x 0.001).'
+- en: 'Calculate: A = 2.5 x 10^-6 m².'
+- en: 'Give it in mm²: 2.5 mm².'
+- en: So the cross section is 2.5 mm².
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 361a2f8320f143aedf75af98dfaf2387056ebf380a22cd1269b5f7bf94b217eb
+  template_hash: b5695e020074bc295b16be23795707d1d1e300727a64c89ef85ca4f702330dc7
+  certificate_hash: ece75e25c3bf6d6fd60947611783c7d2bad66d81f26292fa445590117b855b0a
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.current_electricity
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:05+00:00'
+  record_hash: 277c64c12a8c9888c85b7cd310684ab7e11a750edd4ac89b1b86bea91c177417

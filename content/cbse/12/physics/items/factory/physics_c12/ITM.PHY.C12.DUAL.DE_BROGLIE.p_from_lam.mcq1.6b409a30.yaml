@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.DUAL.DE_BROGLIE.p_from_lam.mcq1.6b409a30
+skill_ids:
+- PHY.C12.DUAL.DE_BROGLIE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The de Broglie wavelength, lam, is 2 nm. Find the momentum of the particle.
+    Take Planck's constant, h, = 6.63 x 10^-34 J s.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: wavelength = h / p, so p = h / wavelength.'
+- level: 2
+  en: 'Get the momentum on its own before you put numbers in: multiply each side by
+    p and divide each side by the wavelength. Do the same operation to each side of
+    the formula. Change every quantity to SI units first, and change back at the end
+    if asked.'
+- level: 3
+  en: 'First step: Write 2 nm as 2 x 10^-9 m, then write p = h / lam, where p is the
+    momentum, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the momentum have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.DE_BROGLIE
+generator_version: factory-2
+template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3.315 x 10^-24 kg m/s
+- id: b
+  en: 3.315 x 10^-25 kg m/s
+- id: c
+  en: 3.315 x 10^-22 kg m/s
+- id: d
+  en: 3.315 x 10^-23 kg m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - a
+  - c
+  - d
+solution_steps:
+- en: 'Write the relation: wavelength = h / p, so p = h / wavelength.'
+- en: 'Put each quantity in SI units: 2 nm = 2 x 10^-9 m.'
+- en: 'Get the momentum alone: multiply each side by p and divide each side by the
+    wavelength.'
+- en: 'Substitute: p = (6.63 x 10^-34) / (2 x 10^-9).'
+- en: 'Calculate: p = 3.315 x 10^-25 kg m/s.'
+- en: So the momentum is 3.315 x 10^-25 kg m/s.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 226c0412ce81bdc1cd96ebcf96d4c514fea33655a6903997fa92f0fd8084e3e1
+  template_hash: 28d2cd36cfc1dcaa875ba6b48ad881942e4ac02c36dec6e9bd7937a84dce3aba
+  certificate_hash: 5b34ea682e522753d0cd17e58cd79d764aa8425b72acf7c0f37341426f6cbbfb
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:39+00:00'
+  record_hash: 0745789bb1e78f65f563bfc6db6eea08ded9c92ad76d6f68090b2c909e8a67b1

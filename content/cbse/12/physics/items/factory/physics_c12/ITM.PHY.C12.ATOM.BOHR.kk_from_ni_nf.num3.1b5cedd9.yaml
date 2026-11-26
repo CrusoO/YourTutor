@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.ATOM.BOHR.kk_from_ni_nf.num3.1b5cedd9
+skill_ids:
+- PHY.C12.ATOM.BOHR
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student is studying the hydrogen atom in the Bohr model. The electron falls
+    from the level with n = 5 and to the level with n = 2. Find the wave number (1
+    / wavelength) of the line. Take the Rydberg constant, Ry, = 1.1 x 10^7 m⁻¹.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: 1 / wavelength = R x (1/nf^2 - 1/ni^2).'
+- level: 2
+  en: The relation already gives the wave number directly, so decide what to substitute.
+- level: 3
+  en: 'First step: write kk = Ry x (1 / nf^2 - 1 / ni^2), where kk is the wave number,
+    with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the wave number have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.ATOM.BOHR
+generator_version: factory-2
+template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2.75 x 10^6 m⁻¹
+- id: b
+  en: 3.3 x 10^6 m⁻¹
+- id: c
+  en: 2.31 x 10^6 m⁻¹
+- id: d
+  en: 3.19 x 10^6 m⁻¹
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FINAL_LEVEL_ONLY
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.LEVELS_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SQUARES_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1 / wavelength = R x (1/nf^2 - 1/ni^2).'
+- en: 'Substitute: kk = (1.1 x 10^7) x (1 / 2^2 - 1 / 5^2).'
+- en: 'Calculate: kk = 2.31 x 10^6 m⁻¹.'
+- en: So the wave number is 2.31 x 10^6 m⁻¹.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ca477f4fe198a2833db68d4c16249e3c86be4a6608c42f9e9f200407a88ffa2c
+  template_hash: 01eab7e0674db0a76270659afa88c6bd50a2733f72333591aa81f5bb6f21f9ba
+  certificate_hash: c7e960e804140384ac515c3c2971e30881266d4b93b0337252b3851fae060c4e
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.atoms
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:51+00:00'
+  record_hash: 46ac4948612bc0bed2e05c453a5793351fed04a57b613c3dfb395b811f798b1f

@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.MAG.GALV.S_from_G_Ig_I.num3.a72d4728
+skill_ids:
+- PHY.C12.MAG.GALV
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying converting a galvanometer into an ammeter or a voltmeter.
+    The galvanometer coil has a resistance of 50 Ω, its full scale deflection needs
+    10 mA and the ammeter must read up to 110 mA. Find the shunt resistance needed.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: the shunt takes the extra current: Ig x G = (I - Ig) x S.'
+- level: 2
+  en: 'Get the shunt on its own before you put numbers in: divide each side of Ig
+    x G = (I - Ig) x S by (I - Ig). Do the same operation to each side of the formula.
+    Change every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 10 mA as 0.01 A and 110 mA as 0.11 A, then write S = G x
+    Ig / (I - Ig), where S is the shunt, with the values in place, one quantity at
+    a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the shunt have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.GALV
+generator_version: factory-2
+template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4.55 Ω
+- id: b
+  en: 500 Ω
+- id: c
+  en: 5 Ω
+- id: d
+  en: 550 Ω
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.TOTAL_CURRENT_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SHUNT_IN_SERIES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: the shunt takes the extra current: Ig x G = (I - Ig) x
+    S.'
+- en: 'Put each quantity in SI units: 10 mA = 0.01 A; 110 mA = 0.11 A.'
+- en: 'Get the shunt alone: divide each side of Ig x G = (I - Ig) x S by (I - Ig).'
+- en: 'Substitute: S = 50 x 0.01 / (0.11 - 0.01).'
+- en: 'Calculate: S = 5 Ω.'
+- en: So the shunt is 5 Ω.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4e209cdc2f9af6341dacdd848e330dd909f862be0d3ef2f31e2dd4f2ef83b668
+  template_hash: 45c73cc6d1fc3a10b571755619d530b967d55fc8cba315bc45f89ca9079c54cb
+  certificate_hash: 3a1c5271f00d45fe027c4f7822d1436d8213fa4b1f594d6f1475db6cc577e143
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:31+00:00'
+  record_hash: 1f119b3f0144390792dfe5ca97b188b2c62024f221ef0bd1dd6f054e75de4d5c

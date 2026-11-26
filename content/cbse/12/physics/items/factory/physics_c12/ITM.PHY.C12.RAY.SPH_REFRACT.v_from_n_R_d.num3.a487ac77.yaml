@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.RAY.SPH_REFRACT.v_from_n_R_d.num3.a487ac77
+skill_ids:
+- PHY.C12.RAY.SPH_REFRACT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying refraction at a curved glass surface. The refractive index
+    of the glass, n, is 2, the radius of curvature of the convex surface, R, is 40
+    cm and a point object in air, d, is 60 cm from the surface on its axis. Find the
+    distance of the image from the surface.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- level: 2
+  en: The relation already gives the image distance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 40 cm as 0.4 m and 60 cm as 0.6 m, then write v = n x R x
+    d / ((n - 1) x d + R), where v is the image distance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the image distance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.RAY.SPH_REFRACT
+generator_version: factory-2
+template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 48 cm
+- id: b
+  en: 240 cm
+- id: c
+  en: 30 cm
+- id: d
+  en: 24 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.OBJECT_DISTANCE_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.INDEX_MINUS_ONE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.INDEX_FORGOTTEN_IN_NUMERATOR
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: n/v - 1/d = (n - 1)/R, with the distances as positive numbers
+    for a real object and a real image in the glass.'
+- en: 'Put each quantity in SI units: 40 cm = 0.4 m; 60 cm = 0.6 m.'
+- en: 'Substitute: v = 2 x 0.4 x 0.6 / ((2 - 1) x 0.6 + 0.4).'
+- en: 'Calculate: v = 0.48 m.'
+- en: 'Give it in cm: 48 cm.'
+- en: So the image distance is 48 cm.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f735cbe5ce88d22b99489f038875703e8fb333ba86e3d80f074f808f194e4ced
+  template_hash: 8ae537b70e7944ef0b0440fdb2d256b514511edd50139f95236491e0eae02772
+  certificate_hash: 55f4aa3549e3ee9e380c5297c2fd7379ee1ece31c402434abd40643708556046
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:53+00:00'
+  record_hash: a1e303bd05dc7416ba90077845cda5cb628357bdc297b124e71114ddcecad0c6

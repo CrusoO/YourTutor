@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.MAG.B_FIELD.n_from_Bs_I.num3.c072a414
+skill_ids:
+- PHY.C12.MAG.B_FIELD
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying the magnetic field of a current. The field inside the
+    solenoid, Bs, is 12.56 mT and the current, I, is 5 A. Find the number of turns
+    on each metre of the solenoid. Take the permeability of free space, mu0, = 1.256
+    x 10^-6 N/A².
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: B = mu0 x n x I inside a long solenoid.'
+- level: 2
+  en: 'Get the turns per metre on its own before you put numbers in: divide each side
+    by mu0 x I. Do the same operation to each side of the formula. Change every quantity
+    to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 12.56 mT as 0.01256 T, then write n = Bs / (mu0 x I), where
+    n is the turns per metre, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the turns per metre have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.B_FIELD
+generator_version: factory-2
+template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2000 m⁻¹
+- id: b
+  en: 10000 m⁻¹
+- id: c
+  en: 20000 m⁻¹
+- id: d
+  en: 5 x 10^-4 m⁻¹
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CURRENT_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: B = mu0 x n x I inside a long solenoid.'
+- en: 'Put each quantity in SI units: 12.56 mT = 0.01256 T.'
+- en: 'Get the turns per metre alone: divide each side by mu0 x I.'
+- en: 'Substitute: n = 0.01256 / ((1.256 x 10^-6) x 5).'
+- en: 'Calculate: n = 2000 m⁻¹.'
+- en: So the turns per metre is 2000 m⁻¹.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f2117e61ef54201c7e11b5e182be07d0615d07ae65250bc1adf147f80d8d1774
+  template_hash: 0ed3c0304d4caf4a370d6c58475399432df3c636fa482157c8240f3ca376eced
+  certificate_hash: c6862a71b1c7e42a8d4042d662db66b85168fe41012a92d8101e6d319df8344e
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:21+00:00'
+  record_hash: 7044e33769deb5cc6647c343668278b562fd1249f3d7adf05f3699b32fc3d7ca

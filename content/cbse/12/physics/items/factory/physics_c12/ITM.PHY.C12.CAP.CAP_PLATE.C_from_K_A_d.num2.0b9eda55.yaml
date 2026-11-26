@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.CAP.CAP_PLATE.C_from_K_A_d.num2.0b9eda55
+skill_ids:
+- PHY.C12.CAP.CAP_PLATE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a parallel plate capacitor. The dielectric constant of
+    the material between the plates, K, is 5, the area of each plate, A, is 400 cm²
+    and the gap between the plates, d, is 1 mm. Find the capacitance. Take the permittivity
+    of free space, eps0, = 8.85 x 10^-12 C²/(N m²).
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: C = K x eps0 x A / d.'
+- level: 2
+  en: The relation already gives the capacitance directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 400 cm² as 0.04 m² and 1 mm as 0.001 m, then write C = K
+    x eps0 x A / d, where C is the capacitance, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the capacitance have, and roughly how
+    large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_PLATE
+generator_version: factory-2
+template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 354 pF
+- id: b
+  en: 0.62658 pF
+- id: c
+  en: 6.2658 x 10^9 pF
+- id: d
+  en: 1770 pF
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DIELECTRIC_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.GAP_NOT_INVERTED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.AREA_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: C = K x eps0 x A / d.'
+- en: 'Put each quantity in SI units: 400 cm² = 0.04 m²; 1 mm = 0.001 m.'
+- en: 'Substitute: C = 5 x (8.85 x 10^-12) x 0.04 / 0.001.'
+- en: 'Calculate: C = 1.77 x 10^-9 F.'
+- en: 'Give it in pF: 1770 pF.'
+- en: So the capacitance is 1770 pF.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a7d65c9c75be064f559a6bb3c7850f3a5cd34cb32c6d4c8375bb53978d70e1a0
+  template_hash: 0de884bd8632cb8b12b12ce5c49a1458f52da64ab09510b0f68054a37ce36b81
+  certificate_hash: 6818c84a1c283eeea45387c8daf3c36716f4800fa08a193e7d446735df727099
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:57+00:00'
+  record_hash: d3b93f92fa5c60b22b23c6afe20a01186f7ffaed170484d8d3deb07a1cd64ed8

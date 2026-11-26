@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.CAP.CAP_COMBINE.C2_from_Cs_C1.mcq1.97c7c9e1
+skill_ids:
+- PHY.C12.CAP.CAP_COMBINE
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The series combination, Cs, is 6 μF and the first capacitor, C1, is 10 μF. Find
+    the second capacitance.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: series: 1/Cs = 1/C1 + 1/C2.'
+- level: 2
+  en: 'Get the second capacitance on its own before you put numbers in: write 1/C2
+    = 1/Cs - 1/C1 and combine the fractions. Do the same operation to each side of
+    the formula. Change every quantity to SI units first, and change back at the end
+    if asked.'
+- level: 3
+  en: 'First step: Write 6 μF as 6 x 10^-6 F and 10 μF as 1 x 10^-5 F, then write
+    C2 = Cs x C1 / (C1 - Cs), where C2 is the second capacitance, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the second capacitance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_COMBINE
+generator_version: factory-2
+template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3.75 μF
+- id: b
+  en: 15 μF
+- id: c
+  en: 4 μF
+- id: d
+  en: 60 μF
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.CAPACITANCES_SUBTRACTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.CAPACITANCES_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: series: 1/Cs = 1/C1 + 1/C2.'
+- en: 'Put each quantity in SI units: 6 μF = 6 x 10^-6 F; 10 μF = 1 x 10^-5 F.'
+- en: 'Get the second capacitance alone: write 1/C2 = 1/Cs - 1/C1 and combine the
+    fractions.'
+- en: 'Substitute: C2 = (6 x 10^-6) x (1 x 10^-5) / ((1 x 10^-5) - (6 x 10^-6)).'
+- en: 'Calculate: C2 = 1.5 x 10^-5 F.'
+- en: 'Give it in μF: 15 μF.'
+- en: So the second capacitance is 15 μF.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 90290a01d2ab51a9dced1023ff3f05d1f5fe442a7c1ee23e9a010c74779e1fc7
+  template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+  certificate_hash: 7c4734af27ae678569dad405f697323ed1aa41cae297e5da501e50681c98c3a9
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:24:59+00:00'
+  record_hash: bb99ee13ea2b862bdefad7fd5477ff75524be1d25694be49116f72851bd215b6

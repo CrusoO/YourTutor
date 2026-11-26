@@ -1,0 +1,133 @@
+id: ITM.PHY.C12.AC.LCR.cosp_from_R_Z.num2.1af55c7c
+skill_ids:
+- PHY.C12.AC.LCR
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about a series LCR circuit on an alternating supply. The resistance,
+    R, is 60 Ω and the impedance, Z, is 100 Ω. Find the power factor of the circuit.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: power factor = cosine of phi = R / Z.'
+- level: 2
+  en: 'Get the power factor on its own before you put numbers in: no rearranging is
+    needed. Do the same operation to each side of the formula.'
+- level: 3
+  en: 'First step: write cosp = R / Z, where cosp is the power factor, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the power factor be?
+status: draft
+template_id: TPL2.PHY.C12.AC.LCR
+generator_version: factory-2
+template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0.4'
+- id: b
+  en: '0.375'
+- id: c
+  en: '0.6'
+- id: d
+  en: '1.67'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DIFFERENCE_USED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.RESISTANCES_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: power factor = cosine of phi = R / Z.'
+- en: 'Get the power factor alone: no rearranging is needed.'
+- en: 'Substitute: cosp = 60 / 100.'
+- en: 'Calculate: cosp = 0.6.'
+- en: So the power factor is 0.6.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ad657af10c97a5a04d04c0d12393cad661bc62f31b3d06ab61dd9cc585c61803
+  template_hash: 5b964053865e5544805f9dfafa0379ecd2a435ee3e7f0988c1e132c4880f0429
+  certificate_hash: 2c9c875efe388ffffae26fcc8ee673017ad1422d5d972a7515a633ba9daf6269
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.alternating_current
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:05+00:00'
+  record_hash: af5bdc0e8ab54ad46e3ea174bbe8a875f156cbb4c41cda82a8e548f3badad0e7

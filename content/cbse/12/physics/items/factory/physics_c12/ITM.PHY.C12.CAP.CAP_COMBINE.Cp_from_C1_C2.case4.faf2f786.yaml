@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.CAP.CAP_COMBINE.Cp_from_C1_C2.case4.faf2f786
+skill_ids:
+- PHY.C12.CAP.CAP_COMBINE
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates two capacitors joined together and records the
+    following. The first capacitor, C1, is 10 μF and the second capacitor, C2, is
+    15 μF. Find the capacitance of the parallel combination.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: parallel: C = C1 + C2.'
+- level: 2
+  en: The relation already gives the parallel capacitance directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 10 μF as 1 x 10^-5 F and 15 μF as 1.5 x 10^-5 F, then write
+    Cp = C1 + C2, where Cp is the parallel capacitance, with the values in place,
+    one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the parallel capacitance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_COMBINE
+generator_version: factory-2
+template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 150 μF
+- id: b
+  en: 12.5 μF
+- id: c
+  en: 6 μF
+- id: d
+  en: 25 μF
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.CAPACITANCES_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.CAPACITANCES_AVERAGED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.SERIES_RULE_USED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: parallel: C = C1 + C2.'
+- en: 'Put each quantity in SI units: 10 μF = 1 x 10^-5 F; 15 μF = 1.5 x 10^-5 F.'
+- en: 'Substitute: Cp = (1 x 10^-5) + (1.5 x 10^-5).'
+- en: 'Calculate: Cp = 2.5 x 10^-5 F.'
+- en: 'Give it in μF: 25 μF.'
+- en: So the parallel capacitance is 25 μF.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 60a024f7eb8d0e4ee2a36ab815028cf54a63c5b4222f8bfa7170c9905fa0a224
+  template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+  certificate_hash: 94dbce9a1df0ff29929e553dc4c913559b27cac2f192a6f8af0bc581b72f1d74
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:00+00:00'
+  record_hash: 96c9f6d0f58e8baf42fb4efba70f43b2f5e36316408078584ae47d164387fb62

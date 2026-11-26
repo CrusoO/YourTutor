@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.EMI.MOTIONAL.F_from_B_I_l.num3.29e4ab79
+skill_ids:
+- PHY.C12.EMI.MOTIONAL
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: A student is studying a rod sliding on rails in a magnetic field. The magnetic
+    field, B, is 500 mT, the induced current, I, is 100 mA and the rod, l, is 50 cm
+    long. Find the force on the rod.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: F = B x I x l on the current-carrying rod.'
+- level: 2
+  en: The relation already gives the force directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 500 mT as 0.5 T, 100 mA as 0.1 A and 50 cm as 0.5 m, then
+    write F = B x I x l, where F is the force, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the force have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.MOTIONAL
+generator_version: factory-2
+template_hash: 674cd304e9b0e4306c71614a3a72ccddf792653254b64c92bf7fdc6d4766fb5e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 mN
+- id: b
+  en: 25 mN
+- id: c
+  en: 250 mN
+- id: d
+  en: 2500 mN
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.CURRENT_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.LENGTH_UNIT_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = B x I x l on the current-carrying rod.'
+- en: 'Put each quantity in SI units: 500 mT = 0.5 T; 100 mA = 0.1 A; 50 cm = 0.5
+    m.'
+- en: 'Substitute: F = 0.5 x 0.1 x 0.5.'
+- en: 'Calculate: F = 0.025 N.'
+- en: 'Give it in mN: 25 mN.'
+- en: So the force is 25 mN.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 460ef0b7e453b0f7ae733d6b58611e655dcb20603f0cf280835e9bb165fa20bf
+  template_hash: 674cd304e9b0e4306c71614a3a72ccddf792653254b64c92bf7fdc6d4766fb5e
+  certificate_hash: 85ab4af2afee39bde261894c5e9826cd3a4e1269f5a301f58669619b03659e62
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:47+00:00'
+  record_hash: 826a9ee60491d49c154271b61f5c2801671707a97b89cc335465b5706806075d

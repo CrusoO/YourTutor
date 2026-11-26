@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.MAG.FORCE_WIRE.B_from_F_I_L_s.case4.38cb6957
+skill_ids:
+- PHY.C12.MAG.FORCE_WIRE
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a current-carrying conductor in a magnetic field
+    and records the following. The force on the wire, F, is 1250 mN, the current,
+    I, is 5 A, the length of wire in the field, L, is 50 cm and the sine of the angle
+    between the wire and the field, s, is 1. Find the strength of the field.'
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: F = B x I x L x sine of the angle.'
+- level: 2
+  en: 'Get the field on its own before you put numbers in: divide each side by I x
+    L x sine of the angle. Do the same operation to each side of the formula. Change
+    every quantity to SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 1250 mN as 1.25 N and 50 cm as 0.5 m, then write B = F /
+    [I x L x s], where B is the field, with the values in place, one quantity at a
+    time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the field have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.MAG.FORCE_WIRE
+generator_version: factory-2
+template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 mT
+- id: b
+  en: 500 mT
+- id: c
+  en: 500000 mT
+- id: d
+  en: 3125 mT
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.LENGTH_UNIT_SLIP
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.UNIT_PREFIX_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: F = B x I x L x sine of the angle.'
+- en: 'Put each quantity in SI units: 1250 mN = 1.25 N; 50 cm = 0.5 m.'
+- en: 'Get the field alone: divide each side by I x L x sine of the angle.'
+- en: 'Substitute: B = 1.25 / (5 x 0.5 x 1).'
+- en: 'Calculate: B = 0.5 T.'
+- en: 'Give it in mT: 500 mT.'
+- en: So the field is 500 mT.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 88457a267f715c2f0f4519bdd4c2dfa69554495cd9f5d1019c8db42f00cd2c0e
+  template_hash: 1af081727a6efb3b8eb4c1c6f3d894f44efd329a12342cb78751c8d1a9e6caef
+  certificate_hash: 90c98eee9000bea48c895d4769a5a9125089d4412fa2c1a4ff5098bf6d3b83cb
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.moving_charges_magnetism
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:25+00:00'
+  record_hash: 00ddbd63ff63b9d4cce36a2cb0d407abb0618e5a96bc63536d8f8ceaf4f02c3f

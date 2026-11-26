@@ -1,0 +1,134 @@
+id: ITM.PHY.C12.RAY.TELESCOPE.M_from_fo_fe.mcq1.60523f30
+skill_ids:
+- PHY.C12.RAY.TELESCOPE
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: The focal length of the objective, fo, is 120 cm and the focal length of the
+    eyepiece, fe, is 5 cm. Find the magnifying power.
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: M = fo / fe in normal adjustment.'
+- level: 2
+  en: The relation already gives the magnifying power directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 120 cm as 1.2 m and 5 cm as 0.05 m, then write M = fo / fe,
+    where M is the magnifying power, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the magnifying power be?
+status: draft
+template_id: TPL2.PHY.C12.RAY.TELESCOPE
+generator_version: factory-2
+template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '25'
+- id: b
+  en: '24'
+- id: c
+  en: '600'
+- id: d
+  en: '0.0417'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FOCAL_LENGTHS_ADDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.FOCAL_LENGTHS_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.RATIO_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: M = fo / fe in normal adjustment.'
+- en: 'Put each quantity in SI units: 120 cm = 1.2 m; 5 cm = 0.05 m.'
+- en: 'Substitute: M = 1.2 / 0.05.'
+- en: 'Calculate: M = 24.'
+- en: So the magnifying power is 24.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 35cda502906be1df2e510f95992688c118415a8205d3b604cca17a3090e8f9b5
+  template_hash: 1430f63d983a506a2c065f306b81325edda70d013511216243d2a7c9ae49b827
+  certificate_hash: d6393d39c0971ee169692bd5d596dacfa5067b601838a54fbe05f8a4337b5033
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:01+00:00'
+  record_hash: 550360f0aac474888cd6c6271181c9fce94b08a80a49fcb5b9917d3b63442b75

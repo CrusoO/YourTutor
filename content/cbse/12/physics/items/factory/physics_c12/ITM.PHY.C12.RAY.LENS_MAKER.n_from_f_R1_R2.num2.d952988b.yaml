@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.RAY.LENS_MAKER.n_from_f_R1_R2.num2.d952988b
+skill_ids:
+- PHY.C12.RAY.LENS_MAKER
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about a thin double convex lens in air. The focal length, f,
+    is 8 cm, the radius of curvature of the first face, R1, is 10 cm and the radius
+    of curvature of the second face, R2, is 15 cm. Find the refractive index of the
+    glass.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: 1/f = (n - 1) x (1/R1 + 1/R2), so n = 1 + 1/(f x (1/R1 + 1/R2)).'
+- level: 2
+  en: The relation already gives the refractive index directly, so decide what to
+    substitute. Change every quantity to SI units first, and change back at the end
+    if asked.
+- level: 3
+  en: 'First step: Write 8 cm as 0.08 m, 10 cm as 0.1 m and 15 cm as 0.15 m, then
+    write n = 1 + R1 x R2 / (f x (R1 + R2)), where n is the refractive index, with
+    the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the refractive index be?
+status: draft
+template_id: TPL2.PHY.C12.RAY.LENS_MAKER
+generator_version: factory-2
+template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1.75'
+- id: b
+  en: '2.75'
+- id: c
+  en: '0.75'
+- id: d
+  en: '2.33'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ONE_ADDED_TWICE
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ONE_FORGOTTEN
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.RECIPROCAL_FORGOTTEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: 1/f = (n - 1) x (1/R1 + 1/R2), so n = 1 + 1/(f x (1/R1
+    + 1/R2)).'
+- en: 'Put each quantity in SI units: 8 cm = 0.08 m; 10 cm = 0.1 m; 15 cm = 0.15 m.'
+- en: 'Substitute: n = 1 + 0.1 x 0.15 / (0.08 x (0.1 + 0.15)).'
+- en: 'Calculate: n = 1.75.'
+- en: So the refractive index is 1.75.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 80b6dc6abc2b4cf93e3ddba929a0a12b44cffdb710bdeec6863f837b1109dd07
+  template_hash: 44b5831b3e37f0fa2a0c28ec9ea5d4a2a02664e62eddf62ec3b0897936034510
+  certificate_hash: f5ad7a95e378db0394057b16f53966ae9ef52c91acc3e689544baadb17a6127f
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.ray_optics
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:26:46+00:00'
+  record_hash: 9e4889851ce8ccc71a1f00f170d2ff46a32bf91f3c27a004c8279b79047b0edc

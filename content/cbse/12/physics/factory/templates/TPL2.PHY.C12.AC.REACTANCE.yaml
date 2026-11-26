@@ -1,0 +1,48 @@
+id: TPL2.PHY.C12.AC.REACTANCE
+schema: factory-template/1
+lane: physics_c12
+model: AC.REACTANCE
+skill_id: PHY.C12.AC.REACTANCE
+box:
+  variant:
+    choices:
+    - XL_from_w_L
+    - XC_from_w_C
+    - L_from_XL_w
+    - C_from_XC_w
+    - w_from_XL_L
+  form:
+    choices:
+    - mcq1
+    - num2
+    - num3
+    - case4
+  w:
+    choices:
+    - '100'
+    - '250'
+    - '500'
+    - '1000'
+  L:
+    choices:
+    - '10'
+    - '50'
+    - '200'
+  C:
+    choices:
+    - '1'
+    - '5'
+    - '10'
+syllabus:
+  grade: 12
+  chapter_ref: cbse.12.physics.alternating_current
+  skill_id: PHY.C12.AC.REACTANCE
+  allowed_methods:
+  - reactance
+  forbidden_content:
+  - calculus
+  - graph_reading
+  - ray_diagram
+  - derivation
+  - free_text
+  - diagram

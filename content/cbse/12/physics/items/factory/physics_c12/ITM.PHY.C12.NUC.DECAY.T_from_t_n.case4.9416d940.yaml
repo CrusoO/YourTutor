@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.NUC.DECAY.T_from_t_n.case4.9416d940
+skill_ids:
+- PHY.C12.NUC.DECAY
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates a radioactive sample decaying by half-lives and
+    records the following. The time that passes, t, is 6 years and the number of half-lives
+    that pass, n, is 3. Find the half-life.'
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Plan the steps: the
+    number of half-lives is t / T.'
+- level: 2
+  en: Work through the plan one step at a time. Change every quantity to SI units
+    first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 6 years as 1.89216 x 10^8 s, then write T = t / n, where
+    T is the half-life, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the half-life have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.NUC.DECAY
+generator_version: factory-2
+template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 18 years
+- id: b
+  en: 0.75 years
+- id: c
+  en: 2 years
+- id: d
+  en: 20 years
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TWO_USED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Plan: the number of half-lives is t / T.'
+- en: 'Put each quantity in SI units: 6 years = 1.89216 x 10^8 s.'
+- en: 'Substitute: T = (1.89216 x 10^8) / 3.'
+- en: 'Calculate: T = 6.3072 x 10^7 s.'
+- en: 'Give it in years: 2 years.'
+- en: So the half-life is 2 years.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 94ee215ac2357a8aa2309526a774c1ceb2f0a81ccede517797fbad6b82f208ef
+  template_hash: 16664b5607029fa7f3e951813bd5e6693bc9c32efbde61b02d9422439cc696b2
+  certificate_hash: 8cb7c77084ef778f267e3f82fc9b4ffd7cc175efaa794757f62aca2a6aa862d3
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:16+00:00'
+  record_hash: 8a85c6bcf0cb430039f8e0ea0a75140de33e7d60200678091be2a721157e105b

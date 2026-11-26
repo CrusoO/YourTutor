@@ -1,0 +1,139 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.K_from_Eph_phi.num2.435b0952
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: This question is about the photoelectric effect at a metal surface. The energy
+    of each photon, Eph, is 6 eV and the work function of the metal, phi, is 1.5 eV.
+    Find the maximum kinetic energy of the emitted electrons.
+hints:
+- level: 1
+  en: 'Separate the known quantities from the unknown one. Pick the relation that
+    links them: K = photon energy - work function.'
+- level: 2
+  en: The relation already gives the maximum kinetic energy directly, so decide what
+    to substitute. Change every quantity to SI units first, and change back at the
+    end if asked.
+- level: 3
+  en: 'First step: Write 6 eV as 9.6 x 10^-19 J and 1.5 eV as 2.4 x 10^-19 J, then
+    write K = Eph - phi, where K is the maximum kinetic energy, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the maximum kinetic energy have, and
+    roughly how large is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4.5 eV
+- id: b
+  en: 7.5 eV
+- id: c
+  en: 9 eV
+- id: d
+  en: 4 eV
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.WORK_FUNCTION_ADDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.ENERGIES_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.ENERGIES_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: K = photon energy - work function.'
+- en: 'Put each quantity in SI units: 6 eV = 9.6 x 10^-19 J; 1.5 eV = 2.4 x 10^-19
+    J.'
+- en: 'Substitute: K = (9.6 x 10^-19) - (2.4 x 10^-19).'
+- en: 'Calculate: K = 7.2 x 10^-19 J.'
+- en: 'Give it in eV: 4.5 eV.'
+- en: So the maximum kinetic energy is 4.5 eV.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e35fecb9c1330897e6c4badb855e5d70bdefd8afdd2b288a08fe7f2627ff1d67
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 355659b6f1c03c0d078b051393b515824ba7d79fbd7850b624a1f11a16078773
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:29+00:00'
+  record_hash: 8789736dbec7b477f2c7a1b0cf8d94aa27c290bde0f631e238e9f98afbaf9d63

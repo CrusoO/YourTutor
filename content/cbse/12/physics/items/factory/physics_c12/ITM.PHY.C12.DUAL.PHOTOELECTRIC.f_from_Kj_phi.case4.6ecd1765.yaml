@@ -1,0 +1,137 @@
+id: ITM.PHY.C12.DUAL.PHOTOELECTRIC.f_from_Kj_phi.case4.6ecd1765
+skill_ids:
+- PHY.C12.DUAL.PHOTOELECTRIC
+difficulty: 0.8
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the photoelectric effect at a metal surface and
+    records the following. The maximum kinetic energy of the emitted electrons, Kj,
+    is 2.904 x 10^-19 J and the work function of the metal, phi, is 1.5 eV. Find the
+    frequency of the light. Take Planck''s constant, h, = 6.63 x 10^-34 J s.'
+hints:
+- level: 1
+  en: 'List what the question gives you and what it asks for. Pick the relation that
+    links them: K = h x f - work function, so f = (K + work function) / h.'
+- level: 2
+  en: The relation already gives the frequency directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 1.5 eV as 2.4 x 10^-19 J, then write f = (Kj + phi) / h,
+    where f is the frequency, with the values in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the frequency have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.DUAL.PHOTOELECTRIC
+generator_version: factory-2
+template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7.6e+13 Hz
+- id: b
+  en: 8 x 10^14 Hz
+- id: c
+  en: 8 x 10^15 Hz
+- id: d
+  en: 4.38e+14 Hz
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.WORK_FUNCTION_SUBTRACTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.WORK_FUNCTION_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: K = h x f - work function, so f = (K + work function) /
+    h.'
+- en: 'Put each quantity in SI units: 1.5 eV = 2.4 x 10^-19 J.'
+- en: 'Substitute: f = ((2.904 x 10^-19) + (2.4 x 10^-19)) / (6.63 x 10^-34).'
+- en: 'Calculate: f = 8 x 10^14 Hz.'
+- en: So the frequency is 8 x 10^14 Hz.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c33799b0dd4dd15df52485cbed67e50d25d15988f685e34b1c626cdc166b722a
+  template_hash: 0f94537867bfee811d7f9ab636086ab1a18cb451c66df7b612f58b6c7dc5fd08
+  certificate_hash: 3f8de6ec14f58469a1052ac6be6244d7322b90e15d1b16e5b47eef09dc2e3665
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.dual_nature
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:27:30+00:00'
+  record_hash: cdf5a85e2a23e86efc55ec9c2176b2a356ce2262d75191b3a9412a06871d091a

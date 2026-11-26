@@ -1,0 +1,140 @@
+id: ITM.PHY.C12.CAP.CAP_COMBINE.C2_from_Cs_C1.num2.c3ac463e
+skill_ids:
+- PHY.C12.CAP.CAP_COMBINE
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: This question is about two capacitors joined together. The series combination,
+    Cs, is 2 μF and the first capacitor, C1, is 6 μF. Find the second capacitance.
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: series: 1/Cs = 1/C1 + 1/C2.'
+- level: 2
+  en: 'Get the second capacitance on its own before you put numbers in: write 1/C2
+    = 1/Cs - 1/C1 and combine the fractions. Do the same operation to each side of
+    the formula. Change every quantity to SI units first, and change back at the end
+    if asked.'
+- level: 3
+  en: 'First step: Write 2 μF as 2 x 10^-6 F and 6 μF as 6 x 10^-6 F, then write C2
+    = Cs x C1 / (C1 - Cs), where C2 is the second capacitance, with the values in
+    place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the second capacitance have, and roughly
+    how large is it?
+status: draft
+template_id: TPL2.PHY.C12.CAP.CAP_COMBINE
+generator_version: factory-2
+template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1.5 μF
+- id: b
+  en: 3 μF
+- id: c
+  en: 4 μF
+- id: d
+  en: 12 μF
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.CAPACITANCES_SUBTRACTED
+  when_answer_equals:
+  - c
+- id: PHY.MC.C12.CAPACITANCES_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the relation: series: 1/Cs = 1/C1 + 1/C2.'
+- en: 'Put each quantity in SI units: 2 μF = 2 x 10^-6 F; 6 μF = 6 x 10^-6 F.'
+- en: 'Get the second capacitance alone: write 1/C2 = 1/Cs - 1/C1 and combine the
+    fractions.'
+- en: 'Substitute: C2 = (2 x 10^-6) x (6 x 10^-6) / ((6 x 10^-6) - (2 x 10^-6)).'
+- en: 'Calculate: C2 = 3 x 10^-6 F.'
+- en: 'Give it in μF: 3 μF.'
+- en: So the second capacitance is 3 μF.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 79b8326d5b4b0dd4669d66aa9b792998b381a4ca449a72d092e960df6c5d5b47
+  template_hash: cc1a74523c01fddd440b313d50c6abc58a3659b82f8158ab302043bc404828f0
+  certificate_hash: 6ef2ec0d157f7e05a19d2c682ac5a47a74d048f38a04a8b3b8564cc3da39c323
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electrostatic_potential_capacitance
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:00+00:00'
+  record_hash: 075feb3c7f47ba3c65ed941c701b6eba462eea838b75fb15c8bc8d2677a6a254

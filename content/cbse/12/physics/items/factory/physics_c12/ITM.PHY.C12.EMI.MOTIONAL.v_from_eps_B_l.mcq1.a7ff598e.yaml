@@ -1,0 +1,138 @@
+id: ITM.PHY.C12.EMI.MOTIONAL.v_from_eps_B_l.mcq1.a7ff598e
+skill_ids:
+- PHY.C12.EMI.MOTIONAL
+difficulty: 0.35
+pool: practice
+role: procedure
+stem:
+  en: The induced emf, eps, is 250 mV, the magnetic field, B, is 500 mT and the rod,
+    l, is 50 cm long. Find the speed of the rod.
+hints:
+- level: 1
+  en: 'Name each quantity in the question before you calculate. Pick the relation
+    that links them: emf = B x l x v.'
+- level: 2
+  en: 'Get the speed on its own before you put numbers in: divide each side by B x
+    l. Do the same operation to each side of the formula. Change every quantity to
+    SI units first, and change back at the end if asked.'
+- level: 3
+  en: 'First step: Write 250 mV as 0.25 V, 500 mT as 0.5 T and 50 cm as 0.5 m, then
+    write v = eps / [B x l], where v is the speed, with the values in place, one quantity
+    at a time.'
+prediction_prompt:
+  en: Before you calculate, what unit should the speed have, and roughly how large
+    is it?
+status: draft
+template_id: TPL2.PHY.C12.EMI.MOTIONAL
+generator_version: factory-2
+template_hash: 674cd304e9b0e4306c71614a3a72ccddf792653254b64c92bf7fdc6d4766fb5e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 0.5 m/s
+- id: b
+  en: 0.0625 m/s
+- id: c
+  en: 0.01 m/s
+- id: d
+  en: 1 m/s
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.LENGTH_FORGOTTEN
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.LENGTH_UNIT_SLIP
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: emf = B x l x v.'
+- en: 'Put each quantity in SI units: 250 mV = 0.25 V; 500 mT = 0.5 T; 50 cm = 0.5
+    m.'
+- en: 'Get the speed alone: divide each side by B x l.'
+- en: 'Substitute: v = 0.25 / (0.5 x 0.5).'
+- en: 'Calculate: v = 1 m/s.'
+- en: So the speed is 1 m/s.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b1252ed4ff603b5742358d9e16bd890ee2f13ff929ca3d56687d4a984c85a51e
+  template_hash: 674cd304e9b0e4306c71614a3a72ccddf792653254b64c92bf7fdc6d4766fb5e
+  certificate_hash: 0ab4cc7845f030e079dbafc43b5ccd465507a693984f845a4fdcfa9ceff6125b
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.electromagnetic_induction
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:25:47+00:00'
+  record_hash: a36c7c9af91707f0920e6e55d70863f187341f4b539dbf0023ebca13da6b1995

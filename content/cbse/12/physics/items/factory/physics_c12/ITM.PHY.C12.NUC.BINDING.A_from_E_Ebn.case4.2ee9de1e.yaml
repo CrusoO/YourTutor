@@ -1,0 +1,136 @@
+id: ITM.PHY.C12.NUC.BINDING.A_from_E_Ebn.case4.2ee9de1e
+skill_ids:
+- PHY.C12.NUC.BINDING
+difficulty: 0.75
+pool: practice
+role: transfer
+stem:
+  en: 'Case: a student investigates the binding energy of a nucleus and records the
+    following. The binding energy, E, is 372.6 MeV and the binding energy per nucleon,
+    Ebn, is 18.63 MeV. Find the mass number.'
+hints:
+- level: 1
+  en: 'Read the question once more and mark what you must find. Pick the relation
+    that links them: binding energy per nucleon = binding energy / A.'
+- level: 2
+  en: The relation already gives the mass number directly, so decide what to substitute.
+    Change every quantity to SI units first, and change back at the end if asked.
+- level: 3
+  en: 'First step: Write 372.6 MeV as 5.9616 x 10^-11 J and 18.63 MeV as 2.9808 x
+    10^-12 J, then write A = E / Ebn, where A is the mass number, with the values
+    in place, one quantity at a time.'
+prediction_prompt:
+  en: Before you calculate, roughly how large should the mass number be?
+status: draft
+template_id: TPL2.PHY.C12.NUC.BINDING
+generator_version: factory-2
+template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '18.63'
+- id: b
+  en: '200'
+- id: c
+  en: '0.05'
+- id: d
+  en: '20'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: PHY.MC.C12.ENERGY_PER_NUCLEON_ONLY
+  when_answer_equals:
+  - a
+- id: PHY.MC.C12.POWER_OF_TEN_SLIP
+  when_answer_equals:
+  - b
+- id: PHY.MC.C12.FORMULA_INVERTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the relation: binding energy per nucleon = binding energy / A.'
+- en: 'Put each quantity in SI units: 372.6 MeV = 5.9616 x 10^-11 J; 18.63 MeV = 2.9808
+    x 10^-12 J.'
+- en: 'Substitute: A = (5.9616 x 10^-11) / (2.9808 x 10^-12).'
+- en: 'Calculate: A = 20.'
+- en: So the mass number is 20.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1a434f5b951b734d44d5c9b2f671158a18a49316c60530732b393257f2cd7b94
+  template_hash: 6897ec8e9b3f2a687600011d1c7c4cb573c48eab0d963e9d860c53d1264941e0
+  certificate_hash: 22571c37a125bd63aa05eb130b3a14dd3971e15a79df25c4a8500a5b00f46952
+  label: calculation-checked
+  tier: A
+  lane: physics_c12
+  chapter_ref: cbse.12.physics.nuclei
+  methods_agreeing:
+  - kernel.algebra
+  - phys12.sympy_laws
+  - phys12.closed_form
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 7af21e42
+  llm_involved: false
+  stamped_at: '2026-11-26T16:28:28+00:00'
+  record_hash: b549a8f619c3f00b9154f295d9df9b864e151b1434aae1c7fbe1c912a72dcf7c
