@@ -1,0 +1,135 @@
+id: ITM.CHEM.COEFFICIENT.D01.total
+skill_ids:
+- CHEM.RXN.COEFFICIENT
+difficulty: 0.44
+pool: practice
+role: procedure
+stem:
+  en: The equation H2O → H2 + O2 is balanced using the smallest whole-number coefficients.
+    What is the sum of all the coefficients?
+hints:
+- level: 1
+  en: Balance the whole reaction first by counting the atoms of every element on the
+    left and on the right.
+- level: 2
+  en: Only the numbers in front of formulas may change. The small numbers inside a
+    formula stay as they are.
+- level: 3
+  en: Balance the reaction first, then add the numbers in front of every formula.
+    A formula with no number in front counts as 1.
+prediction_prompt:
+  en: Before you balance it, is the number you want more likely to be 1 or bigger
+    than 1?
+status: draft
+template_id: TPL.CHEM.COEFFICIENT
+generator_version: factory-2
+template_hash: ad028c33b17a3a0a4a550dc65020b0303a7ab2842a7b43a929220abe113e60df
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '10'
+- id: c
+  en: '5'
+- id: d
+  en: '3'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.BAL.ONE_SIDE_ONLY
+  when_answer_equals:
+  - a
+- id: CHEM.MC.BAL.NOT_SMALLEST
+  when_answer_equals:
+  - b
+- id: CHEM.MC.BAL.COEFFICIENTS_NOT_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Count atoms in H2O → H2 + O2: for O there are 1 on the left and 2 on the right,
+    so it needs balancing.'
+- en: Choose whole-number coefficients that give every element the same count on both
+    sides, using the smallest numbers possible.
+- en: The balanced equation is 2 H2O → 2 H2 + O2.
+- en: Read the sum of all coefficients.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 007463f37cda36e661e0b9db380703031e181dcff990a6602fe0b7e49d1828da
+  template_hash: ad028c33b17a3a0a4a550dc65020b0303a7ab2842a7b43a929220abe113e60df
+  certificate_hash: 426970dc06f9d63d0683c58ec457aa1e35f26614e90537d4e416ceb06c02a00a
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.nullspace_fraction
+  - chem.nullspace_sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:09+00:00'
+  record_hash: 1999bd0e5629f1e79fcff92d6a062678eee11516addf8988addffdd94a358043

@@ -1,0 +1,131 @@
+id: ITM.CHEM.PH_DILUTION.acid.4.2
+skill_ids:
+- CHEM.ACID.PH_DILUTION
+difficulty: 0.56
+pool: practice
+role: apply
+stem:
+  en: A solution of a strong acid has pH 4. Pure water is added until its volume is
+    100 times larger. What is the new pH? (Assume the water itself adds no ions.)
+hints:
+- level: 1
+  en: Diluting a solution lowers the concentration of the ions that make it acidic
+    or basic. Which way does that push the pH?
+- level: 2
+  en: Each time the volume becomes ten times larger, the concentration of ions becomes
+    ten times smaller, and the pH moves by one unit.
+- level: 3
+  en: Work out how many times the volume is multiplied by ten, then move the pH by
+    that many units in the right direction.
+prediction_prompt:
+  en: Before you calculate, will the pH go up or down, and will it cross 7?
+status: draft
+template_id: TPL.CHEM.PH_DILUTION
+generator_version: factory-2
+template_hash: 0fdd9f3182f6df32d5935c5840d96c2f4f3bfe971232486f8901bb5c34fa830a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '400'
+- id: b
+  en: '104'
+- id: c
+  en: '6'
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.PH_SCALED_BY_FACTOR
+  when_answer_equals:
+  - a
+- id: CHEM.MC.PH.FACTOR_ADDED_TO_PH
+  when_answer_equals:
+  - b
+- id: CHEM.MC.PH.DILUTION_DIRECTION_REVERSED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The volume is 100 times larger, so the ion concentration is 100 times smaller.
+- en: A change by a factor of 100 moves the pH by 2 unit(s).
+- en: A diluted acid has its pH move towards 7, so the new pH is 6.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 68db8c0876651c25d1a0ed493fdb3a7504f876c96a21ea721ba2c9fbcba5a80b
+  template_hash: 0fdd9f3182f6df32d5935c5840d96c2f4f3bfe971232486f8901bb5c34fa830a
+  certificate_hash: 7a368d5f87ff09d3d1ac92f3a5a8a78a174cdd4fbd6044a5b14ee17492257ca8
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.dilution_exponent
+  - chem.dilution_decimal_log
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:22+00:00'
+  record_hash: dae8128e02356d658aa2a9b15d6e142236eae0b8815a13f41ecdebeeb2622a06

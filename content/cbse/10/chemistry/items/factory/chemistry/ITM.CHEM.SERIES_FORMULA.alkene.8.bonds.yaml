@@ -1,0 +1,135 @@
+id: ITM.CHEM.SERIES_FORMULA.alkene.8.bonds
+skill_ids:
+- CHEM.CARBON.SERIES_FORMULA
+difficulty: 0.58
+pool: practice
+role: apply
+stem:
+  en: How many covalent bonds are there in one molecule of C8H16, a straight-chain
+    alkene with one double bond? Count a double bond as two bonds and a triple bond
+    as three.
+hints:
+- level: 1
+  en: Count the bonds between carbon atoms and the bonds between carbon and hydrogen
+    atoms separately, then add them.
+- level: 2
+  en: Every hydrogen atom makes exactly one bond. A double bond counts as two and
+    a triple bond counts as three.
+- level: 3
+  en: Find the number of hydrogen atoms from the general formula, then add the carbon-carbon
+    bonds along the chain.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number of
+    carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_FORMULA
+generator_version: factory-2
+template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '8'
+- id: b
+  en: '23'
+- id: c
+  en: '24'
+- id: d
+  en: '16'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.ONLY_C_C_BONDS_COUNTED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.SERIES.MULTIPLE_BOND_COUNTED_ONCE
+  when_answer_equals:
+  - b
+- id: CHEM.MC.SERIES.ONLY_C_H_BONDS_COUNTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The formula is C8H16, so there are 16 hydrogen atoms and 16 carbon-hydrogen
+    bonds.
+- en: The carbon-carbon bonds along the chain add up to 8, counting multiple bonds
+    as several.
+- en: The total is 24 bonds.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 01c43dd0bca8b23def26c7eb62b0226568bdd49e5770ac9fec7f61c905aa1280
+  template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+  certificate_hash: 0e211f5df8442abcc844a8b08a7c9bcf246282999ad207b80e2fd13a5390e4c7
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.series_general_formula
+  - chem.series_chain_build
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:04+00:00'
+  record_hash: 8dd78a1aefcbbdc0fd636bff40fee2b9c373db4e4f30956b981cb63b15559d79

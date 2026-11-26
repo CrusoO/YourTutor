@@ -1,0 +1,131 @@
+id: ITM.CHEM.ISOMER_COUNT.7
+skill_ids:
+- CHEM.CARBON.ISOMER_COUNT
+difficulty: 0.71
+pool: practice
+role: apply
+stem:
+  en: A hydrocarbon has the formula C7H16 and only single bonds. How many different
+    carbon skeletons can it have?
+hints:
+- level: 1
+  en: Isomers have the same molecular formula but the carbon atoms are joined in a
+    different order.
+- level: 2
+  en: Start with the longest straight chain, then shorten the main chain by one carbon
+    and place that carbon as a branch in every different position.
+- level: 3
+  en: A branch at the very end of the chain only lengthens the chain, so it does not
+    give a new isomer. Check that you do not count the same structure twice.
+prediction_prompt:
+  en: Before you count, will there be more or fewer isomers than carbon atoms?
+status: draft
+template_id: TPL.CHEM.ISOMER_COUNT
+generator_version: factory-2
+template_hash: 81dd916dac7456749d50ebf99585520a61496b56c1abae2b5dcaed8c4638ca97
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '18'
+- id: c
+  en: '1'
+- id: d
+  en: '9'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.ISO.NEIGHBOUR_FORMULA_COUNT
+  when_answer_equals:
+  - a
+  - b
+- id: CHEM.MC.ISO.ONLY_STRAIGHT_CHAIN_COUNTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the straight chain of all the carbon atoms: that is one isomer.'
+- en: Shorten the main chain by one carbon and attach that carbon as a branch at each
+    different position; then shorten again and so on, never counting a copy of one
+    already found.
+- en: Counting every different carbon skeleton gives 9 isomers.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 35c474ad9ad0807333b6acaac4900327e1b62602c42f442ab6e4e1beadef21ab
+  template_hash: 81dd916dac7456749d50ebf99585520a61496b56c1abae2b5dcaed8c4638ca97
+  certificate_hash: 1891f6fda0f75b45db6e8034f884a13c604886128bd8f8cbf519d1dad0ea4aa4
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.isomers_enumerate
+  - chem.isomers_otter
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:15+00:00'
+  record_hash: 4875b1aadb569f8a333138c345ea108f9fc1a991f396de26cbc5d23f986c31b8

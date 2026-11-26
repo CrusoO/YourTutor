@@ -1,0 +1,135 @@
+id: ITM.CHEM.COEFFICIENT.C17.coef_2
+skill_ids:
+- CHEM.RXN.COEFFICIENT
+difficulty: 0.44
+pool: practice
+role: procedure
+stem:
+  en: When Ca + O2 → CaO is balanced with the smallest whole-number coefficients,
+    what is the coefficient of CaO?
+hints:
+- level: 1
+  en: Balance the whole reaction first by counting the atoms of every element on the
+    left and on the right.
+- level: 2
+  en: Only the numbers in front of formulas may change. The small numbers inside a
+    formula stay as they are.
+- level: 3
+  en: After balancing, read the number written in front of CaO. A formula with no
+    number in front has coefficient 1.
+prediction_prompt:
+  en: Before you balance it, is the number you want more likely to be 1 or bigger
+    than 1?
+status: draft
+template_id: TPL.CHEM.COEFFICIENT
+generator_version: factory-2
+template_hash: ad028c33b17a3a0a4a550dc65020b0303a7ab2842a7b43a929220abe113e60df
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '3'
+- id: c
+  en: '2'
+- id: d
+  en: '1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.BAL.NOT_SMALLEST
+  when_answer_equals:
+  - a
+- id: CHEM.MC.BAL.ONE_COEFFICIENT_OFF
+  when_answer_equals:
+  - b
+- id: CHEM.MC.BAL.SUBSCRIPT_AS_COEFFICIENT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Count atoms in Ca + O2 → CaO: for O there are 2 on the left and 1 on the right,
+    so it needs balancing.'
+- en: Choose whole-number coefficients that give every element the same count on both
+    sides, using the smallest numbers possible.
+- en: The balanced equation is 2 Ca + O2 → 2 CaO.
+- en: Read the coefficient of CaO.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dd519873d8b2a0b5265f3e617ca12474b8ccd3af6c28a5ae1833d714eec7c3f7
+  template_hash: ad028c33b17a3a0a4a550dc65020b0303a7ab2842a7b43a929220abe113e60df
+  certificate_hash: a01c3203ae90bcc162ef538fd8fdb43a2b584a5c0547c88029125a5205fe281b
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.nullspace_fraction
+  - chem.nullspace_sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:09+00:00'
+  record_hash: b0d62f66e7b953ef151c1bcb9e5c5258d2b59e0f5e36a4946a6061b6da093286

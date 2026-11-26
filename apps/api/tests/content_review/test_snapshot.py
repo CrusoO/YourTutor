@@ -100,7 +100,12 @@ def test_every_real_item_maps_to_a_chapter(real_yaml: snapshot.ReviewData) -> No
     assert snapshot.UNMAPPED_ID not in real_yaml.chapters
     grades = {c.grade for c in real_yaml.chapters.values()}
     assert grades == {10}  # no class 9, 11 or 12 content yet: nothing is invented
-    assert {c.subject for c in real_yaml.chapters.values()} == {"maths", "physics", "biology"}
+    assert {c.subject for c in real_yaml.chapters.values()} == {
+        "maths",
+        "physics",
+        "biology",
+        "chemistry",
+    }
 
 
 def test_the_snapshot_is_small() -> None:

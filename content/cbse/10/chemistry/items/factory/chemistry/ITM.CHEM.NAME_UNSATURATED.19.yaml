@@ -1,0 +1,129 @@
+id: ITM.CHEM.NAME_UNSATURATED.19
+skill_ids:
+- CHEM.CARBON.NAME_UNSATURATED
+difficulty: 0.53
+pool: practice
+role: procedure
+stem:
+  en: What is the IUPAC name of the compound with the condensed formula CH≡C-CH2-CH3?
+hints:
+- level: 1
+  en: Count the carbon atoms in the unbroken chain to find the parent name, then look
+    at the bond between carbon atoms that is not single.
+- level: 2
+  en: A double bond changes the ending to -ene and a triple bond changes it to -yne.
+- level: 3
+  en: Number the chain from the end nearest the multiple bond, and write the number
+    of its first carbon before the ending when more than one position is possible.
+prediction_prompt:
+  en: Before you name it, does the ending change from -ane?
+status: draft
+template_id: TPL.CHEM.NAME_UNSATURATED
+generator_version: factory-2
+template_hash: 91d8f8a0bb13a98271e1a838bc74557e4d7a616de118061e459314f489a3cc8f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: butyne
+- id: b
+  en: but-1-yne
+- id: c
+  en: but-1-ane
+- id: d
+  en: but-3-yne
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.NAME.POSITION_OF_BOND_NOT_GIVEN
+  when_answer_equals:
+  - a
+- id: CHEM.MC.NAME.SUFFIX_MIXED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.NAME.NUMBERED_FROM_WRONG_END
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The chain has 4 carbon atoms, so the parent is 'but'.
+- en: 'The multiple bond decides the ending: -yne (triple bond).'
+- en: 'Number from the end nearest the multiple bond: the name is but-1-yne.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c30703a04e7e2ab9fcc5dcf2910cea54b457ab65a0e04059307b550ee0f53905
+  template_hash: 91d8f8a0bb13a98271e1a838bc74557e4d7a616de118061e459314f489a3cc8f
+  certificate_hash: 7ef60669403814d19be2618beca72a8f8e383c7a8c2308a67cee19b7ea0d3932
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.unsat_algorithm
+  - chem.unsat_table
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:25+00:00'
+  record_hash: 809ea40afa025439661967e6ff6174b5017df7b4537ebe2c0568f86e4cc46ff9

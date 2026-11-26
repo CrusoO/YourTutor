@@ -1,0 +1,31 @@
+id: TPL.CHEM.PH_DILUTION
+short: CHEM.PH_DILUTION
+schema: factory-template/1
+lane: chemistry
+family: ph_dilution
+family_version: '1'
+skill_id: CHEM.ACID.PH_DILUTION
+box:
+  role:
+    choices:
+    - acid
+    - base
+  p0:
+    min: 1
+    max: 13
+  m:
+    min: 1
+    max: 3
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  skill_id: CHEM.ACID.PH_DILUTION
+  allowed_methods:
+  - ph_scale
+  forbidden_content:
+  - calculus
+  - diagram
+  - free_text
+  - experiment_design
+  - graph_reading
+  - assertion_reason

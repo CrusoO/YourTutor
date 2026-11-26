@@ -1,0 +1,133 @@
+id: ITM.CHEM.REACTION_TYPE.D11
+skill_ids:
+- CHEM.RXN.TYPE
+difficulty: 0.33
+pool: practice
+role: recall
+stem:
+  en: Look at the balanced equation 2 AgBr → 2 Ag + Br2. Which type of reaction is
+    this?
+hints:
+- level: 1
+  en: Count how many substances are on the left of the arrow and how many are on the
+    right.
+- level: 2
+  en: Check whether each substance is a single element or a compound made of more
+    than one element.
+- level: 3
+  en: 'Ask what happens to the partners: do substances join, split, or does one element
+    replace another?'
+prediction_prompt:
+  en: Before you decide, how many substances join or split in this reaction?
+status: draft
+template_id: TPL.CHEM.REACTION_TYPE
+generator_version: factory-2
+template_hash: 52da8e2a39b81f065ecc8535d8a6a207c375a4772e0551fb4315a1c09c3ac49d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: Double displacement reaction
+- id: b
+  en: Decomposition reaction
+- id: c
+  en: Combination reaction
+- id: d
+  en: Displacement reaction
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.TYPE.DECOMPOSITION_AS_DOUBLE
+  when_answer_equals:
+  - a
+- id: CHEM.MC.TYPE.DECOMPOSITION_AS_COMBINATION
+  when_answer_equals:
+  - c
+- id: CHEM.MC.TYPE.DECOMPOSITION_AS_DISPLACEMENT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The left side has 1 substance(s) and the right side has 2.
+- en: Look at whether each formula is one element or a compound, and at how the elements
+    are rearranged.
+- en: Here one substance breaks into two or more simpler substances, so it is a decomposition
+    reaction.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 16c178ca33bcaba86aa4adf596ccbcd80de1297dfba85bc94bb1ee20541d8207
+  template_hash: 52da8e2a39b81f065ecc8535d8a6a207c375a4772e0551fb4315a1c09c3ac49d
+  certificate_hash: 6846f593a2496aafb96a4c1ca57d9ce4b3997840b98d4a957b83d7625a36a471
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.type_rule
+  - chem.type_table
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:14+00:00'
+  record_hash: d06d9f9c69d2e66578ec16479d29d1c28da6b08fbcb9a5ec1f5681ff3c67de31

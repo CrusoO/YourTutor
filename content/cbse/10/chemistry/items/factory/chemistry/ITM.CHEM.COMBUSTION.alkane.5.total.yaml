@@ -1,0 +1,134 @@
+id: ITM.CHEM.COMBUSTION.alkane.5.total
+skill_ids:
+- CHEM.RXN.COMBUSTION
+difficulty: 0.64
+pool: practice
+role: apply
+stem:
+  en: 'C5H12, an alkane, burns completely in oxygen: C5H12 + O2 → CO2 + H2O. After
+    balancing with the smallest whole numbers, what is the sum of all the coefficients?'
+hints:
+- level: 1
+  en: Burning a hydrocarbon in plenty of oxygen gives carbon dioxide and water. Count
+    carbon atoms first.
+- level: 2
+  en: Balance carbon, then hydrogen, and leave oxygen for last because oxygen gas
+    appears on one side only.
+- level: 3
+  en: Balance carbon first, then hydrogen, then oxygen last. Then add all four numbers
+    in front of the formulas.
+prediction_prompt:
+  en: Before you balance it, which substance needs the largest coefficient?
+status: draft
+template_id: TPL.CHEM.COMBUSTION
+generator_version: factory-2
+template_hash: 4b29cb0729b92bcb821ec87e9f3514b7da946edd8bfb58a07b12f7ea59910126
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '21'
+- id: b
+  en: '40'
+- id: c
+  en: '20'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.BAL.ONE_COEFFICIENT_OFF
+  when_answer_equals:
+  - a
+- id: CHEM.MC.BAL.NOT_SMALLEST
+  when_answer_equals:
+  - b
+- id: CHEM.MC.BAL.COEFFICIENTS_NOT_ADDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Balance carbon first: C5H12 has 5 carbon atom(s), so CO2 gets the matching
+    number in front.'
+- en: Balance hydrogen next using H2O, then count all the oxygen atoms on the right
+    to find the number of O2.
+- en: If a half-number is needed, double every coefficient so that all are whole numbers.
+- en: The balanced equation is C5H12 + 8 O2 → 5 CO2 + 6 H2O.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6c3a855b52cf5a7cb627a0a76c03705069ebbe4627002c942ef7bcaa71b502ef
+  template_hash: 4b29cb0729b92bcb821ec87e9f3514b7da946edd8bfb58a07b12f7ea59910126
+  certificate_hash: 574d0df92723e22515a95e19bfa05ed610e8f6ee48101aedf9ebc246bb63d312
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.combustion_closed_form
+  - chem.nullspace_sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:11+00:00'
+  record_hash: 2cfa1ebf28df3a4397b5b3e4af71553d213a11f86a735116a7f5abfe0e30fbe2
