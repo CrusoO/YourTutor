@@ -1,0 +1,401 @@
+class: 12
+subject: physics
+chapter: wave_optics
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: huygens_principle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "According to Huygens' principle, what does each point on a wavefront act as?"
+    correct: "A source of secondary spherical wavelets"
+    unit: ""
+    wrong:
+      - {text: "A sink that absorbs the wave", mistake: "assumes points on a wavefront remove energy from the wave"}
+      - {text: "A source of plane waves only", mistake: "assumes secondary waves must keep the plane shape"}
+      - {text: "A point where the wave stops", mistake: "assumes a wavefront is a boundary where propagation ends"}
+    explanation: "Each point on a wavefront emits a secondary wavelet, and the new wavefront at a later time is the envelope of all these wavelets."
+    hints:
+      - "Think about what kind of waves each point on a wavefront generates."
+      - "Consider the shape of the waves emitted by a point source."
+      - "Recall how the new wavefront is found from the earlier one."
+    diagram: null
+    confidence: high
+  - topic: huygens_principle
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "A plane wavefront passes through a very narrow slit. What shape does the wavefront take just after the slit?"
+    correct: "Circular, spreading out from the slit"
+    unit: ""
+    wrong:
+      - {text: "Still plane and unchanged", mistake: "assumes a slit does not alter the wavefront"}
+      - {text: "Converging to a single focus at the slit", mistake: "confuses the slit with a converging lens"}
+      - {text: "Rectangular, matching the slit shape", mistake: "assumes the wave keeps the shape of the opening"}
+    explanation: "The narrow slit acts as a new source of secondary wavelets, so the wavefront beyond it spreads out in a circular pattern."
+    hints:
+      - "Think about the wavelets that each point in the slit emits."
+      - "Consider how a very narrow opening behaves as a source."
+      - "Compare the wavefront just after the slit with the original plane wave."
+    diagram: "A plane wavefront approaching a narrow slit from the left, with curved wavefronts drawn on the right side of the slit spreading outward."
+    confidence: high
+  - topic: huygens_principle
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A wavefront passes from a medium where its speed is 3 x 10^8 m/s into one where its speed is 2 x 10^8 m/s. What is the ratio of sin i to sin r for the wavefront?"
+    correct: "1.5"
+    unit: ""
+    wrong: []
+    explanation: "The Huygens construction gives sin i over sin r equal to the ratio of the speeds in the two media. That is 3 x 10^8 over 2 x 10^8, which equals 1.5."
+    hints:
+      - "The Huygens construction gives sin i over sin r equal to a ratio of speeds."
+      - "Put the speed in the first medium in the numerator."
+      - "Divide the first speed by the second."
+    diagram: "A plane wavefront crossing a boundary between two media at an angle, with the incident wavefront, the boundary and the refracted wavefront drawn and the two angles marked."
+    confidence: high
+  - topic: huygens_principle
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does a wavefront change direction when it enters a medium in which its speed is lower?"
+    correct: "Different parts of the wavefront slow down at different times, so the front turns"
+    unit: ""
+    wrong:
+      - {text: "The frequency of the wave decreases in the new medium", mistake: "confuses a change in speed with a change in frequency"}
+      - {text: "The wave speeds up, which makes it bend", mistake: "reverses the direction of the speed change"}
+      - {text: "The wave stops at the boundary and restarts", mistake: "assumes the wave is interrupted at the boundary"}
+    explanation: "When one part of the wavefront enters the slower medium before the rest, that part lags behind and the whole front turns towards the normal."
+    hints:
+      - "Think about which part of the wavefront reaches the boundary first."
+      - "Consider what happens to the lagging part of the front in the slower medium."
+      - "Recall whether the frequency of a wave changes when it crosses a boundary."
+    diagram: null
+    confidence: high
+  - topic: huygens_principle
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A wave passes from medium 1 into medium 2. The ratio of the speed in medium 2 to the speed in medium 1 is 0.8, and the sine of the angle of incidence is 0.5. What is the sine of the angle of refraction?"
+    correct: "0.4"
+    unit: ""
+    wrong: []
+    explanation: "The sines of the angles are in the same ratio as the speeds. So sin r equals 0.8 times 0.5, which is 0.4."
+    hints:
+      - "Use the relation between the sines of the angles and the speed ratio."
+      - "Multiply the sine of the incidence angle by the speed ratio."
+      - "Check that the result is smaller than one."
+    diagram: null
+    confidence: high
+  - topic: huygens_principle
+    type: mcq
+    difficulty: hard
+    role: recall
+    stem: "In Huygens' construction, what is the new wavefront?"
+    correct: "The common tangent surface to all the secondary wavelets at a later time"
+    unit: ""
+    wrong:
+      - {text: "The surface where all the wavelets intersect at one point", mistake: "confuses the envelope of wavelets with a point of intersection"}
+      - {text: "The sum of the amplitudes of all the wavelets", mistake: "treats a wavefront as an amplitude instead of a surface"}
+      - {text: "The path taken by the fastest single wavelet", mistake: "assumes only one wavelet determines the new wavefront"}
+    explanation: "The new wavefront is the envelope, the surface tangent to every secondary wavelet at the later time, which is why it has the same shape as the wavelets' common front."
+    hints:
+      - "Think about how many wavelets contribute to the new front."
+      - "Consider what geometric property the new front shares with each wavelet."
+      - "Recall what the word envelope means for a family of curves."
+    diagram: null
+    confidence: high
+  - topic: young_double_slit
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In Young's double slit experiment, at which path differences do bright fringes form?"
+    correct: "Whole number multiples of the wavelength"
+    unit: ""
+    wrong:
+      - {text: "Odd multiples of half the wavelength", mistake: "reverses the bright and dark conditions"}
+      - {text: "Values equal to the separation of the slits", mistake: "confuses the path difference with the slit separation"}
+      - {text: "Zero only, so only the central fringe is bright", mistake: "assumes only the central fringe is bright"}
+    explanation: "Waves from the two slits reinforce when the path difference is a whole number of wavelengths, which gives a bright fringe."
+    hints:
+      - "Think about when two waves arrive in phase at a point on the screen."
+      - "Consider which path differences keep the two waves in step."
+      - "Recall the condition for constructive interference."
+    diagram: null
+    confidence: high
+  - topic: young_double_slit
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A double slit experiment uses light of wavelength 6 x 10^-7 m, slits 1 x 10^-3 m apart, and a screen 1 m away. What is the fringe width in mm?"
+    correct: "0.6"
+    unit: "mm"
+    wrong: []
+    explanation: "The fringe width is lambda D over d. Substituting gives 6 x 10^-7 times 1 divided by 1 x 10^-3, which is 6 x 10^-4 m, or 0.6 mm."
+    hints:
+      - "Use the fringe width formula lambda times D over d."
+      - "Convert the wavelength and slit separation to metre before dividing."
+      - "Convert the answer from metre to millimetre at the end."
+    diagram: null
+    confidence: high
+  - topic: young_double_slit
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A double slit setup has slits 1 x 10^-3 m apart, a screen 2 m away and light of wavelength 5 x 10^-7 m. What is the fringe width in mm?"
+    correct: "1"
+    unit: "mm"
+    wrong: []
+    explanation: "The fringe width is lambda D over d. That is 5 x 10^-7 times 2 divided by 1 x 10^-3, which is 1 x 10^-3 m, or 1 mm."
+    hints:
+      - "Write the fringe width as lambda times D over d."
+      - "Keep all lengths in metre until the final step."
+      - "Convert the result to millimetre last."
+    diagram: "Two narrow slits S1 and S2 drawn side by side with a screen at distance D to their right, and a bright fringe marked at the central position on the screen."
+    confidence: high
+  - topic: young_double_slit
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "In a double slit pattern the fringe width is 0.4 mm. How far is the first dark fringe from the central bright fringe, in mm?"
+    correct: "0.2"
+    unit: "mm"
+    wrong: []
+    explanation: "Dark fringes lie halfway between bright fringes, so the first dark fringe is half a fringe width from the centre. That is 0.4 divided by 2, which is 0.2 mm."
+    hints:
+      - "Dark fringes lie halfway between adjacent bright fringes."
+      - "Think about where the first dark fringe sits relative to the central bright fringe."
+      - "Multiply the fringe width by one half."
+    diagram: null
+    confidence: high
+  - topic: young_double_slit
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "In a double slit experiment, the distance between the slits is doubled while the wavelength and the screen distance stay the same. What happens to the fringe width?"
+    correct: "It halves"
+    unit: ""
+    wrong:
+      - {text: "It doubles", mistake: "assumes wider slit spacing spreads the pattern out"}
+      - {text: "It stays the same", mistake: "assumes the slit separation has no effect on the fringes"}
+      - {text: "It becomes four times as large", mistake: "squares the dependence on the slit separation"}
+    explanation: "The fringe width is inversely proportional to the slit separation, so doubling the separation halves the fringe width."
+    hints:
+      - "Write the fringe width formula and see how the slit separation appears in it."
+      - "Consider whether the separation is in the numerator or the denominator."
+      - "Compare the new fringe width with the old one as a ratio."
+    diagram: null
+    confidence: high
+  - topic: young_double_slit
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two slits are 1 mm apart and a screen is 1 m away. Light of wavelength 500 nm illuminates the slits. How far is the third bright fringe from the central fringe in mm?"
+    correct: "1.5"
+    unit: "mm"
+    wrong: []
+    explanation: "Bright fringes are at y equal to n lambda D over d. For n equal to 3, y is 3 times 5 x 10^-7 times 1 divided by 1 x 10^-3, which is 1.5 x 10^-3 m, or 1.5 mm."
+    hints:
+      - "Bright fringes are at distances n times lambda times D over d from the centre."
+      - "Use n equal to 3 for the third bright fringe."
+      - "Convert the wavelength from nanometre to metre before the calculation."
+    diagram: "A screen with equally spaced bright fringes marked, the central fringe labelled, and the third bright fringe on one side labelled with its distance from the centre."
+    confidence: high
+  - topic: diffraction_single_slit
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a single slit diffraction pattern, how does the central maximum compare with the other maxima?"
+    correct: "It is about twice as wide as each of the other maxima"
+    unit: ""
+    wrong:
+      - {text: "It is narrower than the other maxima", mistake: "assumes the central maximum is the narrowest feature"}
+      - {text: "It is absent from the pattern", mistake: "confuses the single slit pattern with the double slit pattern"}
+      - {text: "It has the same width as the other maxima", mistake: "assumes all maxima in the pattern have equal width"}
+    explanation: "In single slit diffraction the central maximum spans twice the angular width of each secondary maximum, so it looks wider than the others."
+    hints:
+      - "Think about where the minima sit on either side of the central maximum."
+      - "Consider which feature of the pattern is the widest."
+      - "Recall that a single slit pattern has a central bright band."
+    diagram: null
+    confidence: high
+  - topic: diffraction_single_slit
+    type: mcq
+    difficulty: easy
+    role: apply
+    stem: "What happens to the central maximum of a single slit diffraction pattern when the slit is made wider?"
+    correct: "It becomes narrower"
+    unit: ""
+    wrong:
+      - {text: "It becomes wider", mistake: "assumes a wider slit spreads light more"}
+      - {text: "It stays unchanged", mistake: "assumes the slit width does not affect the diffraction pattern"}
+      - {text: "It shifts to one side of the screen", mistake: "assumes the slit width moves the pattern sideways"}
+    explanation: "The angular width of the central maximum is proportional to lambda over the slit width, so a wider slit gives a narrower central maximum."
+    hints:
+      - "Think about how the diffraction angle depends on the ratio of wavelength to slit width."
+      - "Consider what a wider slit does to the spreading of the light."
+      - "Compare the angular spread for a larger slit with that for a smaller slit."
+    diagram: "A single slit with parallel rays passing through it and a narrow central band on a distant screen, with a second drawing showing a wider slit and a narrower band."
+    confidence: high
+  - topic: diffraction_single_slit
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Light of wavelength 5 x 10^-7 m passes through a single slit of width 1 x 10^-6 m. What is the angle in degree of the first minimum?"
+    correct: "30"
+    unit: "degree"
+    wrong: []
+    explanation: "The first minimum occurs where a sin theta equals lambda. So sin theta is 5 x 10^-7 divided by 1 x 10^-6, which is 0.5, and theta is 30 degrees."
+    hints:
+      - "The first minimum occurs where the slit width times the sine of the angle equals the wavelength."
+      - "Divide the wavelength by the slit width to get the sine."
+      - "Take the inverse sine to find the angle."
+    diagram: null
+    confidence: high
+  - topic: diffraction_single_slit
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "Light of wavelength 5 x 10^-7 m passes through a slit of width 1 x 10^-3 m and falls on a screen 1 m away. What is the full width of the central maximum in mm?"
+    correct: "1"
+    unit: "mm"
+    wrong: []
+    explanation: "The full width of the central maximum is 2 lambda D over a. That gives 2 times 5 x 10^-7 times 1 divided by 1 x 10^-3, which is 1 x 10^-3 m, or 1 mm."
+    hints:
+      - "The full width of the central maximum is twice lambda times D over the slit width."
+      - "Use metre for all the lengths before multiplying."
+      - "Convert the answer to millimetre at the end."
+    diagram: "A screen showing the central bright band, with the full width of the band marked from one minimum to the other on each side of the centre."
+    confidence: high
+  - topic: diffraction_single_slit
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "In a single slit diffraction pattern, roughly how bright is the first secondary maximum compared with the central maximum?"
+    correct: "Less than about five percent of the central intensity"
+    unit: ""
+    wrong:
+      - {text: "About half the central intensity", mistake: "assumes secondary maxima carry a large fraction of the light"}
+      - {text: "The same as the central intensity", mistake: "assumes all maxima in the pattern are equally bright"}
+      - {text: "About twice the central intensity", mistake: "assumes the side maxima can be brighter than the central one"}
+    explanation: "The first secondary maximum has only about 4.5 percent of the central intensity, so the central band carries most of the light."
+    hints:
+      - "Think about how the light is distributed between the central band and the side bands."
+      - "Consider whether the side bands can be as bright as the central band."
+      - "Recall which maximum in a single slit pattern is the brightest."
+    diagram: null
+    confidence: medium
+  - topic: diffraction_single_slit
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A single slit of width 2 x 10^-6 m is illuminated by light of wavelength 5 x 10^-7 m. What is the sine of the angle at which the second minimum occurs?"
+    correct: "0.5"
+    unit: ""
+    wrong: []
+    explanation: "The minima occur where a sin theta equals n lambda. For the second minimum n is 2, so sin theta is 2 times 5 x 10^-7 divided by 2 x 10^-6, which is 0.5."
+    hints:
+      - "Minima occur where the slit width times the sine of the angle equals a whole number times the wavelength."
+      - "For the second minimum use the value of n that corresponds to it."
+      - "Divide the product of the number and the wavelength by the slit width."
+    diagram: "A single slit with parallel rays passing through it and a set of angled rays drawn to the minima, with the angle to the second minimum marked on the screen side."
+    confidence: high
+  - topic: polarisation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Unpolarised light of intensity I0 passes through a single ideal polariser. What is the intensity of the transmitted light?"
+    correct: "One half of I0"
+    unit: ""
+    wrong:
+      - {text: "The full intensity I0", mistake: "assumes a polariser transmits all the light"}
+      - {text: "Zero", mistake: "assumes a polariser blocks all unpolarised light"}
+      - {text: "Twice I0", mistake: "assumes the polariser adds intensity to the light"}
+    explanation: "An ideal polariser transmits the component of unpolarised light along its axis, which on average is half the original intensity."
+    hints:
+      - "Think about the component of unpolarised light along the polariser axis."
+      - "Consider how the unpolarised light is split between two perpendicular directions."
+      - "Recall what a polariser does to the intensity of the light it transmits."
+    diagram: null
+    confidence: high
+  - topic: polarisation
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "Plane polarised light of intensity 80 units passes through an analyser whose axis is at 60 degrees to the polarisation direction. What is the transmitted intensity in units?"
+    correct: "20"
+    unit: ""
+    wrong: []
+    explanation: "Malus's law gives I equal to I0 cos squared theta. Since cos 60 degrees is one half, cos squared is one quarter, so the transmitted intensity is 20 units."
+    hints:
+      - "Use Malus's law with the cosine of the angle between the axes."
+      - "Square the cosine of 60 degrees."
+      - "Multiply the squared cosine by the incident intensity."
+    diagram: null
+    confidence: high
+  - topic: polarisation
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Unpolarised light of intensity 100 units passes through a polariser and then through a second polariser whose axis is at 30 degrees to the first. What is the final intensity in units?"
+    correct: "37.5"
+    unit: ""
+    wrong: []
+    explanation: "The first polariser halves the unpolarised light to 50 units. Malus's law for the second gives 50 times cos squared 30 degrees, which is 50 times 0.75, equal to 37.5 units."
+    hints:
+      - "The first polariser halves unpolarised light."
+      - "Apply Malus's law to the second polariser using the angle between the two axes."
+      - "Cos squared of 30 degrees is three quarters."
+    diagram: "Two polarising filters placed in line with light passing through them, each with its transmission axis marked, and the angle between the two axes shown as 30 degrees."
+    confidence: high
+  - topic: polarisation
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "At Brewster's angle for reflection from a surface, the reflected light is fully polarised. If the refractive index of the medium is the square root of 3, what is Brewster's angle?"
+    correct: "60 degrees"
+    unit: ""
+    wrong:
+      - {text: "30 degrees", mistake: "uses the sine instead of the tangent of the angle"}
+      - {text: "45 degrees", mistake: "assumes Brewster's angle is always forty five degrees"}
+      - {text: "90 degrees", mistake: "assumes the reflected light is polarised only at grazing incidence"}
+    explanation: "Brewster's angle satisfies tan i equal to the refractive index. Since tan 60 degrees is the square root of 3, the angle is 60 degrees."
+    hints:
+      - "Brewster's angle satisfies a relation between its tangent and the refractive index."
+      - "Find the angle whose tangent is the square root of 3."
+      - "Recall the standard angle with a tangent of root three."
+    diagram: null
+    confidence: high
+  - topic: polarisation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Unpolarised light of intensity 64 units passes through three ideal polarisers in a line. Each successive polariser axis is turned 30 degrees from the previous one. What is the final transmitted intensity in units?"
+    correct: "18"
+    unit: ""
+    wrong: []
+    explanation: "The first polariser gives 32 units. Each of the next two multiplies by cos squared 30 degrees, which is 0.75, so the final intensity is 32 times 0.75 times 0.75, which is 18 units."
+    hints:
+      - "The first polariser halves unpolarised light."
+      - "Each further polariser multiplies the intensity by the cosine squared of its angle to the previous one."
+      - "Multiply the factors step by step, one polariser at a time."
+    diagram: "Three polarising filters in a line with light passing through them, each axis drawn at successive 30 degree angles to the one before it."
+    confidence: high
+  - topic: polarisation
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why do polarised sunglasses reduce glare reflected from a wet road or a lake?"
+    correct: "Reflected glare is largely polarised, and the filter blocks that polarised component"
+    unit: ""
+    wrong:
+      - {text: "They absorb every colour of light equally", mistake: "assumes the glasses work by absorbing all colours in the same way"}
+      - {text: "They amplify the reflected light so it is easier to see", mistake: "reverses the function of the filter"}
+      - {text: "They change the colour of the glare to a softer shade", mistake: "confuses polarisation with colour filtering"}
+    explanation: "Light reflected from a flat horizontal surface at a grazing angle is largely polarised in one direction. The polarising filter is aligned to block that component, which reduces glare."
+    hints:
+      - "Think about the polarisation state of light reflected from a flat surface."
+      - "Consider which orientation of the filter removes the reflected light."
+      - "Recall what a polarising filter does to light of one polarisation direction."
+    diagram: null
+    confidence: high

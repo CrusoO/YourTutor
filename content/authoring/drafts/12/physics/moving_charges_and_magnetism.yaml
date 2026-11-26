@@ -1,0 +1,395 @@
+class: 12
+subject: physics
+chapter: moving_charges_and_magnetism
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: force_on_moving_charge
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A charged particle moves parallel to a uniform magnetic field. What is the magnetic force acting on it?"
+    correct: "Zero"
+    unit: ""
+    wrong:
+      - {text: "Maximum and perpendicular to the velocity", mistake: "assumes any motion in a magnetic field gives the largest force"}
+      - {text: "Along the field direction with magnitude qvB", mistake: "confuses the direction of the force with the direction of the field"}
+      - {text: "Perpendicular to both velocity and field with magnitude qvB", mistake: "uses the perpendicular formula even when the angle is zero"}
+    explanation: "The magnetic force is q v B sin theta, where theta is the angle between velocity and field. For motion parallel to the field the angle is zero, so the force vanishes."
+    hints:
+      - "Use the magnetic force formula that contains the sine of the angle between velocity and field."
+      - "Find the sine of the angle between the velocity and the field here."
+      - "Think about the angle at which the force has no magnitude at all."
+    diagram: null
+    confidence: high
+  - topic: force_on_moving_charge
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A charge of 2 microcoulomb moves at 3000 m/s perpendicular to a uniform magnetic field of 0.5 tesla. What is the magnitude of the force in newton?"
+    correct: "0.003"
+    unit: "N"
+    wrong: []
+    explanation: "For velocity perpendicular to the field the force is q v B. Converting the charge to coulomb gives 2 x 10^-6 times 3000 times 0.5, which is 0.003 N."
+    hints:
+      - "When velocity is perpendicular to the field, the sine of the angle equals one."
+      - "Convert the charge from microcoulomb to coulomb before multiplying."
+      - "Multiply the charge, speed and field strength together."
+    diagram: null
+    confidence: high
+  - topic: force_on_moving_charge
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A charge of 5 microcoulomb moves at 2000 m/s at an angle of 30 degrees to a magnetic field of 0.2 tesla. What is the magnitude of the magnetic force in newton?"
+    correct: "0.001"
+    unit: "N"
+    wrong: []
+    explanation: "The force is q v B sin theta. Multiplying 5 x 10^-6, 2000 and 0.2 gives 0.002 N, and the sine of 30 degrees is one half, so the force is 0.001 N."
+    hints:
+      - "Include the sine of the angle between the velocity and the field."
+      - "Find the value of the sine for the given angle."
+      - "Multiply the charge, speed and field strength first."
+    diagram: "A velocity arrow drawn at 30 degrees to a magnetic field arrow, both starting from a common point, with the angle marked between them."
+    confidence: high
+  - topic: force_on_moving_charge
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A positive charge moves towards the north in a magnetic field that points towards the east. Using the right-hand rule, in which direction is the force on the charge?"
+    correct: "Vertically downward"
+    unit: ""
+    wrong:
+      - {text: "Vertically upward", mistake: "reverses the order of the vectors in the cross product"}
+      - {text: "Towards the east", mistake: "assumes the force points along the field direction"}
+      - {text: "Towards the north", mistake: "assumes the force points along the velocity"}
+    explanation: "The force is along the cross product of velocity and field. North crossed with east points downward for a positive charge, so the force is vertically downward."
+    hints:
+      - "The force is along the cross product of the velocity vector and the field vector."
+      - "Keep the order of the two vectors in the cross product as written."
+      - "The force is perpendicular to both the velocity and the field."
+    diagram: "A compass sketch with a north arrow and an east arrow for the field, and a positive charge drawn moving along the north arrow."
+    confidence: high
+  - topic: force_on_moving_charge
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A particle of charge 2 microcoulomb has velocity 3000 i plus 4000 j m/s, where i and j are unit vectors along x and y. It is in a uniform magnetic field of 0.5 k tesla along the z axis. What is the magnitude of the magnetic force in newton?"
+    correct: "0.005"
+    unit: "N"
+    wrong: []
+    explanation: "The force is q times the cross product of velocity and field. The cross product is 3000 times 0.5 times minus j plus 4000 times 0.5 times i, which is 2000 i minus 1500 j. Multiplying by 2 x 10^-6 gives a magnitude of 0.005 N."
+    hints:
+      - "Take the cross product of the velocity and the field, component by component."
+      - "Remember that i cross k equals minus j, and j cross k equals i."
+      - "Find the magnitude of the resulting force vector at the end."
+    diagram: null
+    confidence: high
+  - topic: force_on_moving_charge
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A charged particle moves in a uniform magnetic field along a circular path with constant speed. What is true about its kinetic energy?"
+    correct: "It stays the same because the magnetic force does no work"
+    unit: ""
+    wrong:
+      - {text: "It increases steadily as the particle goes round", mistake: "assumes every force speeds the particle up"}
+      - {text: "It falls to zero after one revolution", mistake: "assumes the magnetic force slows the particle down"}
+      - {text: "It depends only on the radius of the path", mistake: "confuses the radius of the path with the energy of the particle"}
+    explanation: "The magnetic force is always perpendicular to the velocity, so it changes only the direction of motion. Its work is zero and the kinetic energy stays constant."
+    hints:
+      - "Think about the direction of the magnetic force relative to the velocity."
+      - "Consider the work done by a force that is always perpendicular to the displacement."
+      - "Recall what the work-energy relation says about a force that does no work."
+    diagram: null
+    confidence: high
+  - topic: biot_savart_ampere
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the magnetic field at the centre of a circular loop of radius R carrying current I in vacuum?"
+    correct: "mu0 I over 2R"
+    unit: ""
+    wrong:
+      - {text: "mu0 I over 2 pi R", mistake: "uses the long straight wire formula for a loop"}
+      - {text: "mu0 I over R squared", mistake: "uses an inverse square law where the loop has an inverse linear law"}
+      - {text: "mu0 I R over 2", mistake: "multiplies by the radius instead of dividing"}
+    explanation: "The field at the centre of a single circular loop is mu0 I over 2R, pointing along the axis of the loop."
+    hints:
+      - "Compare the loop geometry with that of a long straight wire."
+      - "Think about how the field at the centre depends on the radius of the loop."
+      - "Recall the factor that appears for a single turn of current."
+    diagram: null
+    confidence: high
+  - topic: biot_savart_ampere
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "What is the magnetic field in tesla at 0.1 m from a very long straight wire carrying a current of 5 A in vacuum? Take mu0 over 4 pi as 1 x 10^-7 T m/A."
+    correct: "0.00001"
+    unit: "T"
+    wrong: []
+    explanation: "The field of a long straight wire is mu0 I over 2 pi r. With mu0 over 2 pi equal to 2 x 10^-7, the field is 2 x 10^-7 times 5 divided by 0.1, which is 1 x 10^-5 T."
+    hints:
+      - "Use the long wire formula and write mu0 over 2 pi as twice mu0 over 4 pi."
+      - "Multiply the current by the constant before dividing by the distance."
+      - "Keep the powers of ten correct when you divide by the distance."
+    diagram: null
+    confidence: high
+  - topic: biot_savart_ampere
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Two long parallel wires 0.2 m apart each carry a current of 10 A in the same direction in vacuum. What is the magnitude of the force per unit length between them in newton per metre? Take mu0 over 4 pi as 1 x 10^-7 T m/A."
+    correct: "0.0001"
+    unit: "N/m"
+    wrong: []
+    explanation: "The force per unit length is 2 x 10^-7 times the product of the currents over the separation. With 10 A each and 0.2 m this gives 0.0001 N/m."
+    hints:
+      - "The force per unit length depends on the product of the two currents divided by the separation."
+      - "Use 2 x 10^-7 as the constant in the formula."
+      - "Check that you have squared the currents correctly, not added them."
+    diagram: "Two long parallel vertical wires drawn side by side, each with a current arrow pointing up, and the separation of 0.2 m marked between them."
+    confidence: high
+  - topic: biot_savart_ampere
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "What is the magnitude of the magnetic field in tesla at a distance of 0.2 m from a long straight wire carrying 3 A in vacuum? Take mu0 over 2 pi as 2 x 10^-7 T m/A."
+    correct: "0.000003"
+    unit: "T"
+    wrong: []
+    explanation: "The field of a long straight wire is mu0 I over 2 pi r. Substituting gives 2 x 10^-7 times 3 divided by 0.2, which equals 3 x 10^-6 T."
+    hints:
+      - "Use the long wire formula, which has a current over a distance."
+      - "Multiply the constant by the current first."
+      - "Divide by the distance as the last step."
+    diagram: null
+    confidence: high
+  - topic: biot_savart_ampere
+    type: mcq
+    difficulty: hard
+    role: recall
+    stem: "Ampere's circuital law states that the line integral of the magnetic field around a closed loop equals mu0 multiplied by what?"
+    correct: "The net current passing through the loop"
+    unit: ""
+    wrong:
+      - {text: "The total charge inside a closed sphere", mistake: "confuses Ampere's law with Gauss's law for electric fields"}
+      - {text: "The magnetic flux through the loop", mistake: "confuses the line integral of the field with the flux through the loop"}
+      - {text: "The rate of change of electric flux only", mistake: "uses a displacement term for a steady current situation"}
+    explanation: "Ampere's law relates the line integral of B around a closed path to the net current linked with that path, given by mu0 times the enclosed current."
+    hints:
+      - "Ampere's law is about the currents that pass through the closed path."
+      - "Compare it with Gauss's law and what that law counts inside a surface."
+      - "Think about whether the loop is linked with current or with flux."
+    diagram: null
+    confidence: high
+  - topic: biot_savart_ampere
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The magnetic field at 0.4 m from a long straight wire is 5 x 10^-6 T. Taking mu0 over 2 pi as 2 x 10^-7 T m/A, what current in ampere flows in the wire?"
+    correct: "10"
+    unit: "A"
+    wrong: []
+    explanation: "Rearranging B equals mu0 I over 2 pi r gives I equal to B r over the constant. That is 5 x 10^-6 times 0.4 divided by 2 x 10^-7, which is 10 A."
+    hints:
+      - "Rearrange the long wire field formula to make the current the subject."
+      - "Multiply the field by the distance before dividing by the constant."
+      - "Use mu0 over 2 pi equal to 2 x 10^-7 T m/A."
+    diagram: "A long vertical wire with a current arrow along it, and a point 0.4 m horizontally away from the wire, with a circular field line around the wire passing through that point."
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a cyclotron, what keeps a charged particle moving along a spiral path between the accelerating gaps?"
+    correct: "A perpendicular magnetic field"
+    unit: ""
+    wrong:
+      - {text: "A constant electric field inside the dees", mistake: "confuses the accelerating field with the field that steers the particle"}
+      - {text: "Gravity pulling the particle downward", mistake: "assumes gravity bends the path inside the machine"}
+      - {text: "A changing magnetic field that accelerates the particle", mistake: "confuses the steering role of the magnetic field with induced EMF"}
+    explanation: "A uniform magnetic field perpendicular to the velocity bends the particle into a circle. The alternating electric field between the dees accelerates it at each crossing."
+    hints:
+      - "Consider which field can bend a moving charge without changing its speed."
+      - "Think about the role of the alternating voltage between the two dees."
+      - "Recall that the magnetic force is always perpendicular to the velocity."
+    diagram: null
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A particle has a charge to mass ratio of 1 x 10^8 C/kg and moves in a magnetic field of 0.2 T. What is its cyclotron angular frequency in radian per second?"
+    correct: "20000000"
+    unit: "rad/s"
+    wrong: []
+    explanation: "The cyclotron angular frequency is q B over m. Multiplying the charge to mass ratio of 1 x 10^8 by 0.2 gives 2 x 10^7 rad/s."
+    hints:
+      - "The angular frequency is the charge to mass ratio multiplied by the field strength."
+      - "Multiply the ratio by the field strength."
+      - "Keep the powers of ten correct when you multiply."
+    diagram: null
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "In a moving coil galvanometer, the deflection of the coil is proportional to which quantity?"
+    correct: "The current through the coil"
+    unit: ""
+    wrong:
+      - {text: "The square of the current through the coil", mistake: "assumes the torque grows as the square of the current"}
+      - {text: "The voltage applied across the coil alone", mistake: "mixes up the voltage with the current in the coil"}
+      - {text: "The resistance of the coil", mistake: "confuses the resistance of the coil with the quantity that sets its deflection"}
+    explanation: "The magnetic torque on the coil is N I A B, which is proportional to current. The restoring spring torque balances it, so the deflection is proportional to current."
+    hints:
+      - "Write the magnetic torque on the coil in terms of the number of turns, area and field."
+      - "Think about which quantity in that torque depends on the supply."
+      - "The restoring spring torque balances the magnetic torque at equilibrium."
+    diagram: "A rectangular coil suspended between the poles of a magnet with a radial magnetic field, a spring attached to the coil, and a pointer moving over a scale."
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the magnetic field made radial in a moving coil galvanometer?"
+    correct: "So the deflection is proportional to current at every coil position"
+    unit: ""
+    wrong:
+      - {text: "So the coil spins continuously like a motor", mistake: "confuses the galvanometer with a motor"}
+      - {text: "So the field is stronger at the centre of the coil", mistake: "assumes a stronger field gives a larger deflection regardless of geometry"}
+      - {text: "So the field cancels the Earth's magnetic field", mistake: "assumes the instrument must be shielded from the Earth's field by design"}
+    explanation: "A radial field keeps the plane of the coil parallel to the field at all angles, so the torque stays proportional to current. This gives a linear scale."
+    hints:
+      - "Consider how the torque on the coil depends on the angle between the coil plane and the field."
+      - "Think about what happens to that angle as the coil turns."
+      - "Consider why a linear scale is useful for measuring."
+    diagram: "A cross section of a galvanometer showing the coil between two curved pole pieces, with field lines drawn running radially outward from the centre."
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A galvanometer of resistance 50 ohm gives full scale deflection at a current of 5 mA. What series resistance in ohm must be added to convert it into a voltmeter reading 10 V at full scale?"
+    correct: "1950"
+    unit: "ohm"
+    wrong: []
+    explanation: "The total resistance needed is 10 V divided by 0.005 A, which is 2000 ohm. Subtracting the galvanometer resistance of 50 ohm gives a series resistance of 1950 ohm."
+    hints:
+      - "The total resistance is the full scale voltage divided by the full scale current."
+      - "Convert the milliampere to ampere before dividing."
+      - "Subtract the galvanometer's own resistance at the end."
+    diagram: null
+    confidence: high
+  - topic: cyclotron_and_galvanometer
+    type: numeric
+    difficulty: hard
+    role: explain
+    stem: "In a cyclotron the particle speed at the edge of the dee of radius 0.5 m, with a field of 0.2 T and charge to mass ratio of 1 x 10^8 C/kg, is what in metre per second?"
+    correct: "10000000"
+    unit: "m/s"
+    wrong: []
+    explanation: "The speed at radius R is the charge to mass ratio times the field times R. That is 1 x 10^8 times 0.2 times 0.5, which is 1 x 10^7 m/s."
+    hints:
+      - "The speed at radius R is the charge to mass ratio multiplied by the field and by the radius."
+      - "Multiply the ratio by the field strength first."
+      - "Keep track of the powers of ten at each step."
+    diagram: "A circular dee with a spiral path of a particle drawn from the centre outward, with the radius of 0.5 m marked from the centre to the edge."
+    confidence: high
+  - topic: solenoid_toroid
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the direction and nature of the magnetic field inside a long, tightly wound solenoid carrying current?"
+    correct: "Uniform and parallel to the axis"
+    unit: ""
+    wrong:
+      - {text: "Zero", mistake: "assumes fields from the turns cancel out inside the coil"}
+      - {text: "Radial and increasing with distance from the axis", mistake: "applies the field pattern of a single straight wire"}
+      - {text: "Uniform and perpendicular to the axis", mistake: "confuses the field direction with the direction of the wire"}
+    explanation: "Deep inside a long solenoid the field is uniform and runs along the axis. Near the ends the field weakens and spreads out."
+    hints:
+      - "Consider the direction of the field lines inside a long coil."
+      - "Think about how uniform the field is well away from the ends."
+      - "Relate the field direction to the axis along which the coil is wound."
+    diagram: null
+    confidence: high
+  - topic: solenoid_toroid
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A long solenoid has 2000 turns per metre and carries a current of 0.5 A. What is its field inside, in units of mu0 tesla?"
+    correct: "1000"
+    unit: "mu0 T"
+    wrong: []
+    explanation: "The field inside a long solenoid is mu0 times the turns per metre times the current. With n I equal to 1000, the field is 1000 mu0 tesla."
+    hints:
+      - "The field is mu0 times the number of turns per metre times the current."
+      - "Find the product of the turns per metre and the current first."
+      - "Express your answer as a multiple of mu0."
+    diagram: null
+    confidence: high
+  - topic: solenoid_toroid
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Two long solenoids, A and B, carry the same current. Solenoid A has twice as many turns per metre as solenoid B. What is the ratio of the field inside A to the field inside B?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The field inside a long solenoid is proportional to the turns per metre times the current. Since the current is the same, doubling the turns per metre doubles the field."
+    hints:
+      - "The field inside a long solenoid depends on the turns per metre and the current."
+      - "Compare the turns per metre of the two solenoids."
+      - "Keep the current the same for both solenoids in your comparison."
+    diagram: "Two parallel long solenoids drawn side by side, one with closely spaced coils labelled A and one with more widely spaced coils labelled B, with field lines drawn inside each."
+    confidence: high
+  - topic: solenoid_toroid
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A long solenoid has 500 turns per metre and carries a current of 3 A. What is its field inside, in units of mu0 tesla?"
+    correct: "1500"
+    unit: "mu0 T"
+    wrong: []
+    explanation: "The field inside is mu0 times n times I. With n equal to 500 and I equal to 3, the product n I is 1500, so the field is 1500 mu0 tesla."
+    hints:
+      - "Write the field as mu0 times the turns per metre times the current."
+      - "Multiply the turns per metre by the current."
+      - "Give your answer as a number multiplied by mu0."
+    diagram: null
+    confidence: high
+  - topic: solenoid_toroid
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A toroid with N turns carries a current I. What is the magnetic field at a distance r from the centre of the toroid, inside its core?"
+    correct: "mu0 N I over 2 pi r"
+    unit: ""
+    wrong:
+      - {text: "mu0 N I over 2 r", mistake: "drops the factor pi from the circumference of the circular path"}
+      - {text: "Zero", mistake: "assumes toroidal fields are confined to the wire and vanish in the core"}
+      - {text: "mu0 N I over r squared", mistake: "uses an inverse square dependence where the toroid has an inverse linear one"}
+    explanation: "Ampere's law around a circle inside the toroid, of radius r, encloses N I current, giving B equal to mu0 N I over 2 pi r."
+    hints:
+      - "Apply Ampere's law to a circular path inside the core of the toroid."
+      - "Count how many times the current passes through that circular path."
+      - "Remember that the length of the circular path is 2 pi r."
+    diagram: "A ring-shaped coil with a dashed circular path drawn inside the core at radius r from the centre, with arrows showing the field direction along the path."
+    confidence: high
+  - topic: solenoid_toroid
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Taking mu0 as 1.25 x 10^-6 T m/A, a long solenoid with 2000 turns per metre carries a current of 0.2 A. What is the field inside it in tesla?"
+    correct: "0.0005"
+    unit: "T"
+    wrong: []
+    explanation: "The field is mu0 times n times I. Substituting gives 1.25 x 10^-6 times 2000 times 0.2, which is 0.0005 T."
+    hints:
+      - "The field is mu0 times the turns per metre times the current."
+      - "Multiply the turns per metre by the current before multiplying by mu0."
+      - "Keep the powers of ten exact in the final product."
+    diagram: "A long solenoid drawn as a series of coils with a current arrow around them and a field arrow pointing along the axis inside."
+    confidence: high

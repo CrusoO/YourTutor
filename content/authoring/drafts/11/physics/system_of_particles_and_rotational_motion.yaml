@@ -1,0 +1,401 @@
+class: 11
+subject: physics
+chapter: system_of_particles_and_rotational_motion
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: centre_of_mass
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "For a uniform rod, where is the centre of mass located?"
+    correct: "at its geometric midpoint"
+    unit: ""
+    wrong:
+      - {text: "at one end of the rod", mistake: "assumes the mass is concentrated at one end"}
+      - {text: "at the lowest point of the rod", mistake: "confuses the centre of mass with the lowest point"}
+      - {text: "outside the rod", mistake: "thinks the centre must lie off the body"}
+    explanation: "A uniform rod has the same mass per unit length everywhere, so its balance point and centre of mass lie at the middle."
+    hints:
+      - "A uniform rod has the same mass per unit length everywhere."
+      - "Balancing the rod on a finger shows where it is."
+      - "Consider the symmetry of the rod about its middle."
+    diagram: null
+    confidence: high
+  - topic: centre_of_mass
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Two particles of masses 1 kg and 3 kg are placed 8 m apart on a line. How far is the centre of mass from the 1 kg particle, in metres?"
+    correct: "6"
+    unit: "m"
+    wrong: []
+    explanation: "The centre of mass is at (1 times 0 + 3 times 8) divided by 4, which is 6 m from the 1 kg particle."
+    hints:
+      - "Weight each position by its mass."
+      - "Use the mass of the other particle as the lever arm."
+      - "Divide the total moment by the total mass."
+    diagram: "A horizontal line with a 1 kg point on the left and a 3 kg point on the right, 8 m apart. A cross marks the centre of mass between them."
+    confidence: high
+  - topic: centre_of_mass
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Particles of masses 2 kg, 1 kg and 1 kg lie at x = 0 m, 4 m and 8 m on a straight line. What is the x coordinate of the centre of mass in metres?"
+    correct: "3"
+    unit: "m"
+    wrong: []
+    explanation: "The sum of m x is 0 + 4 + 8 = 12, and the total mass is 4 kg. The centre of mass is at x = 3 m."
+    hints:
+      - "Multiply each mass by its position and add those products."
+      - "Divide that sum by the sum of all the masses."
+      - "Keep the units consistent throughout the calculation."
+    diagram: null
+    confidence: high
+  - topic: centre_of_mass
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Where is the centre of mass of a uniform circular ring?"
+    correct: "at the geometric centre of the ring"
+    unit: ""
+    wrong:
+      - {text: "on the circumference of the ring", mistake: "assumes the centre lies where the mass is concentrated"}
+      - {text: "outside the ring at its edge", mistake: "thinks the centre must be off the material"}
+      - {text: "at the lowest point of the ring", mistake: "confuses the centre of mass with the lowest point"}
+    explanation: "The ring is symmetric and uniform, so its centre of mass lies at its geometric centre, which is empty space."
+    hints:
+      - "Symmetry places the centre where the ring has no preferred side."
+      - "The centre of mass of a symmetric body lies at its middle."
+      - "Look for the point that is equally far from every part of the ring."
+    diagram: null
+    confidence: high
+  - topic: centre_of_mass
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "If no external force acts on a system of particles, how does the centre of mass move?"
+    correct: "it stays at rest or moves with constant velocity"
+    unit: ""
+    wrong:
+      - {text: "it accelerates in the direction of the heaviest part", mistake: "assumes the heaviest part controls the acceleration"}
+      - {text: "it speeds up as internal forces grow", mistake: "thinks internal forces can move the centre of mass"}
+      - {text: "it oscillates about the origin", mistake: "confuses the motion of the centre of mass with spring motion"}
+    explanation: "The centre of mass accelerates only because of external forces. Internal forces between parts cancel in pairs, so the centre of mass moves uniformly or stays at rest."
+    hints:
+      - "Newton's second law for a system involves only the external force."
+      - "Internal forces between the parts of a system cancel in pairs."
+      - "Think about the total momentum of the system."
+    diagram: null
+    confidence: high
+  - topic: centre_of_mass
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A uniform rod of mass 4 kg and length 2 m has a 2 kg particle attached to one end. Measured from the free end of the rod, where is the centre of mass in metres, to two decimal places?"
+    correct: "1.33"
+    unit: "m"
+    wrong: []
+    explanation: "The rod's mass acts at its middle, 1 m from the free end, and the particle is at 2 m. The centre of mass is (4 times 1 + 2 times 2) divided by 6, which is about 1.33 m."
+    hints:
+      - "The rod's own mass can be treated as acting at its middle point."
+      - "Weight the two positions by their masses."
+      - "Divide the weighted sum by the total mass."
+    diagram: "A horizontal rod, 2 m long, with its left end labelled as the free end and its right end carrying a small 2 kg mass. The centre of the rod is marked at its middle."
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Torque is the rotational analogue of which linear quantity?"
+    correct: "force"
+    unit: ""
+    wrong:
+      - {text: "momentum", mistake: "confuses rotation with linear momentum"}
+      - {text: "velocity", mistake: "thinks torque is a speed"}
+      - {text: "energy", mistake: "mixes up work and torque"}
+    explanation: "Torque plays the role for rotation that force plays for linear motion, changing the rotational state of a body."
+    hints:
+      - "Torque changes the rotation of a body, just as a push changes its straight-line motion."
+      - "Think about what changes the linear motion of an object."
+      - "The rotational counterpart of mass is the moment of inertia."
+    diagram: null
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A 10 N force acts perpendicular to a wrench handle 0.5 m long, applied at its far end. What is the torque in newton metres?"
+    correct: "5"
+    unit: "N m"
+    wrong: []
+    explanation: "Torque is force times the perpendicular lever arm. The force is perpendicular, so the arm is the full 0.5 m, giving 10 times 0.5 = 5 N m."
+    hints:
+      - "Torque is the force multiplied by the perpendicular lever arm."
+      - "Here the force is perpendicular to the handle, so the arm is the full length of the handle."
+      - "Multiply the force by the arm."
+    diagram: "A wrench with a pivot at one end and a handle of length 0.5 m. An arrow of 10 N points perpendicular to the handle at its far end."
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 20 N force acts at 30 degrees to a 0.6 m rod pivoted at one end, applied at the free end. What is the torque about the pivot in newton metres?"
+    correct: "6"
+    unit: "N m"
+    wrong: []
+    explanation: "Only the component of force perpendicular to the rod gives torque, so tau = r F sin 30 degrees = 0.6 times 20 times 0.5 = 6 N m."
+    hints:
+      - "Only the component of the force perpendicular to the rod produces torque."
+      - "Use the sine of the angle between the force and the rod."
+      - "Multiply the length, the force and that sine factor."
+    diagram: null
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A particle of mass 2 kg moves at 3 m/s in a circle of radius 4 m. What is its angular momentum about the centre, in kg m^2/s?"
+    correct: "24 kg m^2/s"
+    unit: ""
+    wrong:
+      - {text: "6 kg m^2/s", mistake: "omits the radius from the product"}
+      - {text: "12 kg m^2/s", mistake: "omits the mass from the product"}
+      - {text: "1.5 kg m^2/s", mistake: "divides by the radius instead of multiplying"}
+    explanation: "For a particle moving perpendicular to its radius, L = m v r = 2 times 3 times 4 = 24 kg m^2/s."
+    hints:
+      - "Angular momentum of a particle is its mass times velocity times the perpendicular distance."
+      - "The velocity is perpendicular to the radius in circular motion."
+      - "Multiply the three quantities and keep track of the units."
+    diagram: null
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 4 N force acts on a particle at a point 2 m from a pivot. The line of the force makes 150 degrees with the position vector from the pivot. What is the magnitude of the torque in newton metres?"
+    correct: "4"
+    unit: "N m"
+    wrong: []
+    explanation: "The torque magnitude is r F sin theta. With r = 2 m, F = 4 N and sin 150 degrees = 0.5, the torque is 4 N m."
+    hints:
+      - "Torque magnitude is the product of the distance, the force and a sine of the angle between them."
+      - "The sine of an obtuse angle matches the sine of its supplement."
+      - "Multiply the magnitudes, then multiply by the sine of the angle."
+    diagram: "A pivot at the origin with a position vector drawn to a point. From that point a force arrow of 4 N leaves at 150 degrees to the position vector."
+    confidence: high
+  - topic: torque_and_angular_momentum
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A rigid body experiences zero net torque about an axis. Which quantity is conserved about that axis?"
+    correct: "angular momentum"
+    unit: ""
+    wrong:
+      - {text: "kinetic energy", mistake: "assumes rotation always conserves energy"}
+      - {text: "angular velocity", mistake: "confuses constant angular momentum with constant angular speed"}
+      - {text: "moment of inertia", mistake: "thinks the moment of inertia changes only when torque acts"}
+    explanation: "When the net external torque is zero, the total angular momentum about the axis stays constant, which is the rotational form of momentum conservation."
+    hints:
+      - "Compare the role of net torque in rotation with the role of net force in linear motion."
+      - "The rate at which the rotational analogue of momentum changes is set by the net torque."
+      - "Look for the rotational quantity that stays fixed when no net torque acts."
+    diagram: null
+    confidence: high
+  - topic: moment_of_inertia
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Moment of inertia of a body about an axis depends on which property?"
+    correct: "the distribution of mass relative to the axis"
+    unit: ""
+    wrong:
+      - {text: "the colour of its surface", mistake: "thinks rotational inertia depends on the surface appearance"}
+      - {text: "only its total mass", mistake: "ignores where the mass is located"}
+      - {text: "its speed of rotation", mistake: "confuses moment of inertia with angular speed"}
+    explanation: "Moment of inertia depends on how the mass is spread out relative to the axis, so mass farther from the axis contributes more."
+    hints:
+      - "Mass farther from the axis is harder to rotate."
+      - "Rotational inertia depends on both the mass and the distance from the axis."
+      - "Ask how the mass is spread out around the axis."
+    diagram: null
+    confidence: high
+  - topic: moment_of_inertia
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A point mass of 2 kg is 3 m from an axis of rotation. What is its moment of inertia about that axis in kg m^2?"
+    correct: "18"
+    unit: "kg m^2"
+    wrong: []
+    explanation: "For a point mass, I = m r^2 = 2 times 9 = 18 kg m^2."
+    hints:
+      - "The moment of inertia of a point mass is its mass times the square of its distance from the axis."
+      - "Square the distance first."
+      - "Multiply that result by the mass."
+    diagram: "An axis drawn as a vertical line with a dot 3 m away from it to the right, labelled with its mass of 2 kg."
+    confidence: high
+  - topic: moment_of_inertia
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the moment of inertia in kg m^2 of a uniform rod of mass 6 kg and length 2 m about an axis through its centre, perpendicular to its length?"
+    correct: "2"
+    unit: "kg m^2"
+    wrong: []
+    explanation: "The standard result for a thin uniform rod about its centre is M L^2 / 12. That gives 6 times 4 / 12 = 2 kg m^2."
+    hints:
+      - "Use the standard result for a thin rod about an axis through its centre."
+      - "Square the length of the rod."
+      - "Multiply by the mass and divide by twelve."
+    diagram: null
+    confidence: high
+  - topic: moment_of_inertia
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For bodies of the same mass and radius, which has the largest moment of inertia about an axis through its centre?"
+    correct: "a thin ring"
+    unit: ""
+    wrong:
+      - {text: "a solid disc", mistake: "assumes the mass is spread evenly so the disc has more inertia"}
+      - {text: "a solid sphere", mistake: "thinks more volume always means larger inertia"}
+      - {text: "a point mass at the centre", mistake: "believes a mass at the centre resists rotation the most"}
+    explanation: "A thin ring places all its mass at the same largest radius, so it has the largest moment of inertia, MR^2, compared with MR^2/2 for a solid disc."
+    hints:
+      - "Compare how far the mass sits from the axis in each shape."
+      - "A ring has all of its mass at the same radius."
+      - "A solid disc has some of its mass close to the axis."
+    diagram: null
+    confidence: high
+  - topic: moment_of_inertia
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A solid uniform disc of mass 4 kg and radius 0.5 m rotates about an axis through its centre, perpendicular to its plane. What is its moment of inertia in kg m^2?"
+    correct: "0.5"
+    unit: "kg m^2"
+    wrong: []
+    explanation: "For a solid disc about its central axis, I = M R^2 / 2 = 4 times 0.25 / 2 = 0.5 kg m^2."
+    hints:
+      - "Use the formula for a solid disc about its central axis."
+      - "Square the radius before using it in the formula."
+      - "Multiply the mass by the squared radius, then halve the result."
+    diagram: "A circle drawn in perspective with its centre marked. A line through the centre perpendicular to the disc marks the axis, and the radius is labelled."
+    confidence: high
+  - topic: moment_of_inertia
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A solid sphere and a hollow sphere have the same mass and radius. Each rotates about a diameter. Which has the larger moment of inertia?"
+    correct: "the hollow sphere"
+    unit: ""
+    wrong:
+      - {text: "the solid sphere", mistake: "assumes more material means more rotational inertia"}
+      - {text: "they are equal", mistake: "assumes the shape of the mass distribution does not matter"}
+      - {text: "it depends on their angular speed", mistake: "confuses moment of inertia with rotational speed"}
+    explanation: "The hollow sphere has its mass concentrated farther from the axis, so its moment of inertia, 2/3 MR^2, exceeds the 2/5 MR^2 of the solid sphere."
+    hints:
+      - "Moment of inertia depends on how the mass is spread out relative to the axis."
+      - "Compare how much of each sphere's mass lies far from its centre."
+      - "In a hollow sphere the mass sits near the outer surface."
+    diagram: null
+    confidence: high
+  - topic: rolling_motion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A body rolls without slipping on a level surface. Which statement about the point of contact with the surface is true?"
+    correct: "its instantaneous velocity is zero"
+    unit: ""
+    wrong:
+      - {text: "it moves at twice the speed of the centre", mistake: "confuses the top point of the body with the contact point"}
+      - {text: "it moves at the same speed as the centre", mistake: "treats rolling as if it were sliding"}
+      - {text: "it accelerates away from the surface", mistake: "thinks the contact point lifts off the surface"}
+    explanation: "In rolling without slipping, the rotation exactly cancels the translation at the contact point, so the contact point has zero instantaneous velocity."
+    hints:
+      - "No slipping means the contact point does not slide over the surface."
+      - "The motion of a rolling body combines translation and rotation."
+      - "The rotation at the bottom cancels the translation there."
+    diagram: null
+    confidence: high
+  - topic: rolling_motion
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A ring of mass 2 kg rolls without slipping with its centre moving at 4 m/s. What is its total kinetic energy in joules?"
+    correct: "32"
+    unit: "J"
+    wrong: []
+    explanation: "For a ring, I = M R^2, and rolling gives omega = v / R, so the rotational energy equals the translational energy. The total is M v^2 = 2 times 16 = 32 J."
+    hints:
+      - "Rolling without slipping links the rotation to the translation."
+      - "Translational energy is one half times mass times speed squared."
+      - "For a ring the rotational energy equals the translational energy."
+    diagram: "A ring rolling on a horizontal floor, with its centre marked, a velocity arrow pointing right from the centre, and a curved arrow showing the rotation."
+    confidence: high
+  - topic: rolling_motion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A solid sphere rolls without slipping down an incline from rest through a vertical height of 7 m. Taking g = 9.8 m/s^2, what is its speed at the bottom in metres per second?"
+    correct: "9.9"
+    unit: "m/s"
+    wrong: []
+    explanation: "Energy gives m g h = one half m v^2 times (1 + 2/5), so v^2 = g h / 0.7 = 98 and v is about 9.9 m/s."
+    hints:
+      - "All of the energy is potential energy at the top."
+      - "The rotational energy adds a fixed fraction of the translational energy."
+      - "For a solid sphere the moment of inertia is two fifths of m R^2."
+    diagram: null
+    confidence: medium
+  - topic: rolling_motion
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A solid cylinder and a hollow cylinder of the same mass and radius are released from rest at the top of an incline and roll down without slipping. Which one reaches the bottom first?"
+    correct: "the solid cylinder"
+    unit: ""
+    wrong:
+      - {text: "the hollow cylinder", mistake: "assumes the hollow one has more mass concentrated to speed it up"}
+      - {text: "they arrive at the same time", mistake: "ignores the difference in rotational inertia"}
+      - {text: "it depends only on the mass", mistake: "thinks the mass alone decides the arrival time"}
+    explanation: "The solid cylinder has a smaller moment of inertia, so a larger share of its energy goes into translation, and it accelerates faster down the incline."
+    hints:
+      - "Compare the moments of inertia of the two cylinders."
+      - "A smaller share of energy stored in rotation leaves more for translation."
+      - "Lower moment of inertia means the body accelerates more easily down the slope."
+    diagram: null
+    confidence: high
+  - topic: rolling_motion
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A solid cylinder of mass 3 kg and radius 0.2 m rolls without slipping along a horizontal floor at 2 m/s. What is its total kinetic energy in joules?"
+    correct: "9"
+    unit: "J"
+    wrong: []
+    explanation: "Translational energy is one half times 3 times 4 = 6 J. The rotational energy is one half of that for a solid cylinder, giving 3 J. The total is 9 J."
+    hints:
+      - "Translational energy is one half times mass times speed squared."
+      - "For a solid cylinder the rotational energy is one half of the translational energy."
+      - "Add the translational and rotational parts together."
+    diagram: "A cylinder viewed from the side on a horizontal floor, with a rightward velocity arrow and a rotation arrow about the centre. Its radius of 0.2 m is labelled."
+    confidence: high
+  - topic: rolling_motion
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A solid sphere rolls down an incline without slipping. What fraction of its total kinetic energy is rotational?"
+    correct: "two sevenths"
+    unit: ""
+    wrong:
+      - {text: "two fifths", mistake: "uses the moment of inertia fraction as the energy fraction"}
+      - {text: "one half", mistake: "assumes rotation always takes half of the total energy"}
+      - {text: "one third", mistake: "copies the result for a solid cylinder"}
+    explanation: "The rotational energy is (2/5) M v^2 / 2 and the translational energy is M v^2 / 2. Their ratio is (2/5) divided by (7/5), which is 2/7."
+    hints:
+      - "Compare the rotational energy with the translational energy term by term."
+      - "The rotational part is a fixed fraction of the translational part, set by the moment of inertia."
+      - "Write the total as a sum and take the ratio of the rotational part to it."
+    diagram: null
+    confidence: high

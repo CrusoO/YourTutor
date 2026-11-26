@@ -1,0 +1,401 @@
+class: 11
+subject: physics
+chapter: mechanical_properties_of_fluids
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: pressure_in_fluids
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The pressure at a point inside a static fluid depends on which quantities?"
+    correct: "density, gravity and depth"
+    unit: ""
+    wrong:
+      - {text: "volume of the fluid only", mistake: "thinks the total volume sets the pressure"}
+      - {text: "shape of the container", mistake: "assumes the container shape changes the pressure at a given depth"}
+      - {text: "area of the base only", mistake: "thinks pressure is the force on the base divided by its area alone"}
+    explanation: "Pressure at a depth comes from the weight of the column of fluid above the point, which depends on density, gravity and depth."
+    hints:
+      - "Pressure at a point is due to the weight of the fluid above it."
+      - "Think of a column of liquid standing above the point."
+      - "Consider which quantities enter the weight of that column."
+    diagram: null
+    confidence: high
+  - topic: pressure_in_fluids
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Water has density 1000 kg/m^3. Taking g = 9.8 m/s^2, what is the gauge pressure at a depth of 2 m, in kilopascals?"
+    correct: "19.6"
+    unit: "kPa"
+    wrong: []
+    explanation: "Gauge pressure is rho g h = 1000 times 9.8 times 2 = 19600 Pa, which is 19.6 kPa."
+    hints:
+      - "Gauge pressure is density times gravity times depth."
+      - "Multiply the three quantities in SI units first."
+      - "Convert pascals to kilopascals at the end."
+    diagram: "A vertical water column in a tank. A point is marked at a depth below the free surface, with a depth arrow running from the surface down to that point."
+    confidence: high
+  - topic: pressure_in_fluids
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "In a hydraulic lift, a small piston of area 0.01 m^2 is pushed with a force of 200 N. The large piston has area 0.5 m^2. What force in newtons does the large piston exert?"
+    correct: "10000"
+    unit: "N"
+    wrong: []
+    explanation: "The pressure is the same on both pistons, so F2 = F1 times A2 / A1 = 200 times 50 = 10000 N."
+    hints:
+      - "Pressure is transmitted equally through the enclosed fluid."
+      - "Equal pressures on both pistons make the force ratio equal to the area ratio."
+      - "Multiply the small force by the ratio of the large area to the small area."
+    diagram: "Two connected vertical cylinders with pistons. A small piston on the left has a downward force arrow, and a large piston on the right shows an unknown upward force. A fluid-filled tube joins the two cylinders."
+    confidence: high
+  - topic: pressure_in_fluids
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "According to Pascal's law, a pressure change applied to an enclosed fluid is transmitted to:"
+    correct: "every part of the fluid and the walls, undiminished"
+    unit: ""
+    wrong:
+      - {text: "only the point where it is applied", mistake: "assumes pressure stays local to where it was applied"}
+      - {text: "every part, but reduced with distance from the source", mistake: "thinks pressure decays with distance like a force"}
+      - {text: "only the bottom of the container", mistake: "assumes the change reaches just the lowest layer"}
+    explanation: "Pascal's law states that a pressure change in a confined fluid is transmitted undiminished throughout the fluid and to the walls of the container."
+    hints:
+      - "Think of pressure as force per area inside a confined liquid."
+      - "Consider whether the fluid can carry a pressure change away from its source."
+      - "Think about how a hydraulic lift makes use of this effect."
+    diagram: null
+    confidence: high
+  - topic: pressure_in_fluids
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A U-tube has water on one side and oil of density 800 kg/m^3 on the other. The oil column stands 10 cm above the interface. How high, in centimetres, must the water column stand above the interface for balance?"
+    correct: "8"
+    unit: "cm"
+    wrong: []
+    explanation: "At the interface the pressures balance, so rho_oil h_oil = rho_water h_water. Then h_water = 0.8 times 10 = 8 cm."
+    hints:
+      - "Equal pressures are at the same horizontal level across the interface."
+      - "The pressure of each column is density times gravity times its height."
+      - "Equate the two pressures and cancel gravity."
+    diagram: "A U-tube drawn vertically with two arms. The left arm holds water and the right arm holds oil. A horizontal dashed line marks the interface, and the heights of both columns above it are labelled."
+    confidence: high
+  - topic: pressure_in_fluids
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A tank of water is filled to a fixed depth. The tank is replaced by one with the same depth but a much larger base area. How does the pressure at the bottom change?"
+    correct: "it stays the same"
+    unit: ""
+    wrong:
+      - {text: "it doubles", mistake: "assumes more water means more pressure"}
+      - {text: "it increases in proportion to the base area", mistake: "treats the base area as part of the pressure formula"}
+      - {text: "it halves", mistake: "assumes a wider base spreads the pressure out"}
+    explanation: "Fluid pressure at a given depth depends only on density, gravity and depth. The base area does not appear in the formula, so the bottom pressure is unchanged."
+    hints:
+      - "Pressure at a depth depends on the height of the column above the point."
+      - "Think about whether the base area appears in the pressure formula."
+      - "Compare the depth, density and gravity in the two tanks."
+    diagram: null
+    confidence: high
+  - topic: bernoulli_principle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The equation of continuity expresses the conservation of which quantity for an incompressible fluid?"
+    correct: "volume flow rate"
+    unit: ""
+    wrong:
+      - {text: "energy", mistake: "confuses the continuity equation with Bernoulli's equation"}
+      - {text: "pressure", mistake: "assumes the pressure must stay constant along the pipe"}
+      - {text: "momentum", mistake: "mixes up the conservation laws of mechanics"}
+    explanation: "For an incompressible fluid the continuity equation states that the product of cross-sectional area and speed stays constant, which is conservation of volume flow rate."
+    hints:
+      - "The equation links the cross-sectional area of a pipe with the speed of the fluid."
+      - "Think about how much fluid passes a section of pipe in each second."
+      - "The conserved quantity is a flow per unit time."
+    diagram: null
+    confidence: high
+  - topic: bernoulli_principle
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Water flows at 2 m/s through a pipe section of area 0.04 m^2 and then into a narrower section of area 0.01 m^2. What is its speed in the narrower section, in metres per second?"
+    correct: "8"
+    unit: "m/s"
+    wrong: []
+    explanation: "The volume flow rate is the same in both sections, so v2 = v1 times A1 / A2 = 2 times 0.04 / 0.01 = 8 m/s."
+    hints:
+      - "The volume flow rate is the same at both sections of the pipe."
+      - "Multiply area and speed on one side and equate it with the other side."
+      - "Solve for the speed in the narrow section."
+    diagram: "A horizontal pipe that narrows from a wide section on the left to a narrow section on the right. Both areas are labelled, and an arrow shows the direction of flow."
+    confidence: high
+  - topic: bernoulli_principle
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Air flows along a horizontal pipe. At one point the speed is 3 m/s and the pressure is 100 kPa. The air density is 1.2 kg/m^3. What is the pressure in kilopascals at a point where the speed is 9 m/s, to two decimal places?"
+    correct: "99.96"
+    unit: "kPa"
+    wrong: []
+    explanation: "Bernoulli gives P2 = P1 + one half rho (v1^2 - v2^2) = 100000 + 0.6 times (9 - 81) = 99956.8 Pa, which is 99.96 kPa."
+    hints:
+      - "Along a horizontal streamline the energy terms are the pressure and the kinetic energy per unit volume."
+      - "Write the pressure difference as half the density times the difference of the squared speeds."
+      - "Convert the final pressure to kilopascals."
+    diagram: null
+    confidence: high
+  - topic: bernoulli_principle
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In a horizontal pipe, why does the pressure of a fluid drop where its speed increases?"
+    correct: "kinetic energy per unit volume rises, so the pressure falls"
+    unit: ""
+    wrong:
+      - {text: "the fluid becomes denser at higher speed", mistake: "assumes the density of the fluid changes with speed"}
+      - {text: "friction at the walls raises the pressure", mistake: "mixes up the effect of friction with the Bernoulli effect"}
+      - {text: "gravity pulls the fluid down faster", mistake: "ignores that the pipe is horizontal"}
+    explanation: "Bernoulli's principle keeps the total energy per unit volume constant along a streamline. On a horizontal line, a rise in kinetic energy per unit volume must be matched by a fall in pressure."
+    hints:
+      - "Bernoulli's principle keeps the energy per unit volume constant along a streamline."
+      - "On a horizontal line the potential energy from height does not change."
+      - "The kinetic and pressure terms trade off against each other."
+    diagram: null
+    confidence: high
+  - topic: bernoulli_principle
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A large open tank is filled with water to a depth of 5 m above a small hole at its base. Taking g = 9.8 m/s^2, what is the speed of water leaving the hole in metres per second, to one decimal place?"
+    correct: "9.9"
+    unit: "m/s"
+    wrong: []
+    explanation: "Applying Bernoulli between the free surface and the hole, with atmospheric pressure at both ends, gives v = square root of 2 g h = square root of 98, about 9.9 m/s."
+    hints:
+      - "Apply Bernoulli's equation between the free surface and the hole."
+      - "The pressure at both the free surface and the hole is atmospheric."
+      - "Equate the gravitational energy lost to the kinetic energy gained."
+    diagram: "An open tank of water with a small hole near the base. The free surface is marked at the top, 5 m above the hole, and an arrow shows the jet leaving the hole sideways."
+    confidence: high
+  - topic: bernoulli_principle
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "An aircraft wing is shaped so that air flows faster over the upper surface than under the lower surface. What is the resulting net effect on pressure?"
+    correct: "lower pressure above the wing, giving a net upward lift"
+    unit: ""
+    wrong:
+      - {text: "higher pressure above the wing, giving a net upward lift", mistake: "reverses the direction of the Bernoulli effect"}
+      - {text: "equal pressures above and below, so no lift", mistake: "assumes the flow is symmetric above and below"}
+      - {text: "lower pressure below the wing, giving a net downward lift", mistake: "reverses the direction of the lift"}
+    explanation: "Faster air above the wing has lower pressure than the slower air below it. The pressure difference across the wing produces a net upward force."
+    hints:
+      - "Faster air has lower pressure according to Bernoulli's principle."
+      - "Compare the speed of the air over the top with the speed underneath."
+      - "The net upward push comes from the pressure difference across the wing."
+    diagram: null
+    confidence: high
+  - topic: viscosity_and_stokes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Viscosity of a fluid is best described as:"
+    correct: "its resistance to flow"
+    unit: ""
+    wrong:
+      - {text: "its density", mistake: "confuses viscosity with density"}
+      - {text: "its surface tension", mistake: "confuses internal friction with the surface property"}
+      - {text: "its compressibility", mistake: "confuses viscosity with how easily the fluid is squeezed"}
+    explanation: "Viscosity measures a fluid's internal friction, which is its resistance to flow and deformation."
+    hints:
+      - "Think of honey compared with water when you stir them."
+      - "It describes internal friction within the fluid."
+      - "Ask which property makes a liquid thick or slow to pour."
+    diagram: null
+    confidence: high
+  - topic: viscosity_and_stokes
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A small sphere falls at terminal velocity through a viscous liquid. If its radius is doubled and everything else stays the same, by what factor does its terminal velocity change?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Stokes' law gives terminal speed proportional to the square of the radius, so doubling the radius multiplies the terminal speed by four."
+    hints:
+      - "Terminal speed depends on the radius through its square."
+      - "Stokes' law gives a drag force proportional to the radius."
+      - "Balance the weight with the drag and see how the radius enters the result."
+    diagram: "A tall glass cylinder of viscous liquid with a small sphere falling through it. Arrows show the weight pointing down and the drag pointing up, equal in magnitude at terminal velocity."
+    confidence: high
+  - topic: viscosity_and_stokes
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A steel sphere of radius 1 mm falls through glycerine of viscosity 1.5 Pa s. Steel has density 7800 kg/m^3 and glycerine has density 1260 kg/m^3. Taking g = 9.8 m/s^2, what is its terminal speed in metres per second, to four decimal places?"
+    correct: "0.0095"
+    unit: "m/s"
+    wrong: []
+    explanation: "At terminal speed, the weight minus buoyancy equals the Stokes drag, so v = 2 (rho_s - rho_f) g r^2 / (9 eta). This gives about 0.0095 m/s."
+    hints:
+      - "At terminal speed the net weight minus buoyancy equals the drag force."
+      - "The Stokes drag on a sphere involves six times pi times the viscosity times the radius times the speed."
+      - "Solve for the speed using the difference in densities and the squared radius."
+    diagram: null
+    confidence: medium
+  - topic: viscosity_and_stokes
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For a small sphere falling slowly through a viscous fluid, which dependence describes the drag force?"
+    correct: "proportional to the radius and to the speed"
+    unit: ""
+    wrong:
+      - {text: "proportional to the square of the speed", mistake: "uses the high-speed quadratic drag law at low speed"}
+      - {text: "independent of the speed", mistake: "assumes drag is constant regardless of motion"}
+      - {text: "proportional to the square of the radius only", mistake: "forgets the dependence on speed"}
+    explanation: "At low speed in a viscous fluid, Stokes' law gives a drag force that is linear in both the radius and the speed."
+    hints:
+      - "Slow motion through a viscous fluid gives a drag that is linear in speed."
+      - "Stokes' law is a linear relation between drag and speed."
+      - "Check which dependence describes drag on a very small sphere moving slowly."
+    diagram: null
+    confidence: high
+  - topic: viscosity_and_stokes
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Using pi as 3.14, what is the Stokes drag in millinewtons on a sphere of radius 2 mm moving at 0.05 m/s through a fluid of viscosity 0.2 Pa s, to three decimal places?"
+    correct: "0.377"
+    unit: "mN"
+    wrong: []
+    explanation: "Stokes drag is 6 pi eta r v = 6 times 3.14 times 0.2 times 0.002 times 0.05 = 3.768 times 10^-4 N, which is 0.377 mN."
+    hints:
+      - "Stokes drag is six times pi times viscosity times radius times speed."
+      - "Convert the radius to metres before multiplying."
+      - "Convert the final force from newtons to millinewtons."
+    diagram: "A small sphere moving downward through a fluid, with its radius marked as 2 mm and an upward drag arrow labelled with the speed of 0.05 m/s."
+    confidence: high
+  - topic: viscosity_and_stokes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two identical spheres are released in two different liquids and both reach terminal speed. Which sphere falls faster?"
+    correct: "the one in the less viscous liquid"
+    unit: ""
+    wrong:
+      - {text: "the one in the more viscous liquid", mistake: "assumes a thicker liquid pushes the sphere harder"}
+      - {text: "both fall at the same speed", mistake: "ignores the effect of viscosity on terminal speed"}
+      - {text: "the heavier sphere always, whatever the liquid", mistake: "ignores the fluid the sphere moves through"}
+    explanation: "Stokes' law gives terminal speed inversely proportional to viscosity, so the sphere in the less viscous liquid falls faster."
+    hints:
+      - "Terminal speed is inversely related to the viscosity of the liquid."
+      - "Think about how thick honey slows down a falling bead."
+      - "Compare the viscosity values of the two liquids."
+    diagram: null
+    confidence: high
+  - topic: surface_tension
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Surface tension arises because molecules at a liquid surface experience:"
+    correct: "a net inward pull from their neighbours"
+    unit: ""
+    wrong:
+      - {text: "a net outward push from their neighbours", mistake: "reverses the direction of the cohesive pull"}
+      - {text: "no net force at all", mistake: "assumes the surface is neutral"}
+      - {text: "only their own weight", mistake: "ignores the attraction between molecules"}
+    explanation: "A molecule at the surface has fewer neighbours above it than below, so it feels a net pull into the liquid. This inward pull makes the surface behave like a stretched membrane."
+    hints:
+      - "Compare a molecule in the middle of the liquid with one at the surface."
+      - "Think about cohesion between molecules of the same liquid."
+      - "Count which neighbours a surface molecule lacks."
+    diagram: null
+    confidence: high
+  - topic: surface_tension
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Water with surface tension 0.072 N/m rises in a clean glass capillary of radius 0.5 mm. Taking density 1000 kg/m^3, g = 9.8 m/s^2 and zero contact angle, what is the height of the rise in centimetres, to two decimal places?"
+    correct: "2.94"
+    unit: "cm"
+    wrong: []
+    explanation: "Capillary rise h = 2 T cos theta / (rho g r) = 0.144 / 4.9 = 0.0294 m, which is 2.94 cm."
+    hints:
+      - "The capillary rise balances the upward surface tension pull against the weight of the liquid column."
+      - "The surface tension acts along the circumference of the tube, which is two pi r."
+      - "Solve for the height from the balance between weight and the upward force."
+    diagram: "A narrow vertical glass tube dipped in a beaker of water. The liquid column has risen to a height above the beaker surface, and the radius of the tube is marked."
+    confidence: high
+  - topic: surface_tension
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A soap film is stretched on a wire loop whose contact length is 0.1 m on each face. The film has surface tension 0.03 N/m. What force in newtons is needed to hold the loop's edge in place against the film?"
+    correct: "0.006"
+    unit: "N"
+    wrong: []
+    explanation: "A soap film has two surfaces, so the total force is 2 T L = 2 times 0.03 times 0.1 = 0.006 N."
+    hints:
+      - "A soap film has two surfaces, so count both faces."
+      - "The surface tension force acts per unit length along the edge."
+      - "Multiply the tension by the total length of contact on both faces."
+    diagram: null
+    confidence: high
+  - topic: surface_tension
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Why does a small drop of water take a spherical shape when it floats freely?"
+    correct: "surface tension minimises the surface area"
+    unit: ""
+    wrong:
+      - {text: "gravity pulls the small drop into a sphere", mistake: "assumes gravity shapes small drops"}
+      - {text: "water is almost incompressible", mistake: "mixes up incompressibility with the shape of the surface"}
+      - {text: "its density is uniform throughout", mistake: "confuses density uniformity with the shape of the drop"}
+    explanation: "Surface tension tends to minimise the surface area of a liquid for a given volume, and a sphere has the least surface area for that volume."
+    hints:
+      - "Think about how surface energy is related to surface area."
+      - "A freely floating drop moves toward the configuration of least surface energy."
+      - "Compare the shape of a sphere with other shapes of the same volume."
+    diagram: null
+    confidence: high
+  - topic: surface_tension
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Water rises 5 cm in a clean capillary tube of radius 0.5 mm, with zero contact angle. Taking density 1000 kg/m^3 and g = 9.8 m/s^2, what is the surface tension in N/m, to two significant figures?"
+    correct: "0.12"
+    unit: "N/m"
+    wrong: []
+    explanation: "Rearranging the capillary rise formula gives T = rho g h r / 2 = 1000 times 9.8 times 0.05 times 0.0005 / 2 = 0.1225 N/m, about 0.12 N/m."
+    hints:
+      - "Rearrange the capillary rise formula to isolate the surface tension."
+      - "Multiply the height, density, gravity and radius together first."
+      - "Divide the product by two."
+    diagram: "A capillary tube dipped in water, with the liquid risen 5 cm above the surface. A vertical arrow shows the rise and the radius of the tube is marked across it."
+    confidence: high
+  - topic: surface_tension
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two soap bubbles of different radii are connected by a narrow tube open between them. Which way does air flow?"
+    correct: "from the smaller bubble to the larger bubble"
+    unit: ""
+    wrong:
+      - {text: "from the larger bubble to the smaller bubble", mistake: "assumes the larger bubble has the higher internal pressure"}
+      - {text: "there is no flow because the pressures are equal", mistake: "assumes equal surface tension means equal pressure"}
+      - {text: "it oscillates back and forth", mistake: "treats the two bubbles as a vibrating system"}
+    explanation: "A smaller bubble has a larger excess pressure, 4T/r, so air flows from the smaller bubble toward the larger one until the pressures balance."
+    hints:
+      - "The pressure inside a small bubble is larger for the same surface tension."
+      - "The excess pressure in a bubble is inversely related to its radius."
+      - "Gas moves from high pressure toward low pressure."
+    diagram: null
+    confidence: high

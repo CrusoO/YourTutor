@@ -1,0 +1,302 @@
+class: 11
+subject: maths
+chapter: complex_numbers_and_quadratic_equations
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: complex_number_basics
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the value of i squared, where i is the imaginary unit?"
+    correct: "-1"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "drops the sign when squaring the imaginary unit"}
+      - {text: "i", mistake: "treats the square of i as if it were i itself"}
+      - {text: "-i", mistake: "confuses the square with the negative of the unit"}
+    explanation: "By definition i squared equals negative one, which is the property that makes imaginary numbers work."
+    hints:
+      - "Recall the defining property of the imaginary unit."
+      - "Multiply the imaginary unit by itself and keep track of the sign."
+      - "Check whether the product is real or still imaginary."
+    diagram: null
+    confidence: high
+  - topic: complex_number_basics
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the real part of the sum of the complex numbers 3 plus 4i and 2 minus 7i?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "Adding the real parts 3 and 2 gives 5, while the imaginary parts combine separately into minus 3i."
+    hints:
+      - "Add the real components of the two numbers together first."
+      - "Keep the imaginary components apart from the real ones while adding."
+      - "Read off the real component of the combined result."
+    diagram: null
+    confidence: high
+  - topic: complex_number_basics
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Simplify the product (2 + 3i)(1 - i)."
+    correct: "5 + i"
+    unit: ""
+    wrong:
+      - {text: "5 - i", mistake: "drops the sign of the imaginary term during expansion"}
+      - {text: "-1 + 5i", mistake: "mishandles the sign when multiplying out the brackets"}
+      - {text: "5 + 5i", mistake: "adds the imaginary coefficients instead of combining them with the real part"}
+    explanation: "Expanding gives 2 minus 2i plus 3i minus 3i squared, and since i squared is minus one this becomes 5 plus i."
+    hints:
+      - "Expand the brackets term by term, keeping each sign carefully."
+      - "Replace the square of the imaginary unit using its defining property."
+      - "Collect the real terms and the imaginary terms into two groups."
+    diagram: null
+    confidence: high
+  - topic: complex_number_basics
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "What is the imaginary part of 1 divided by (1 + i)?"
+    correct: "-0.5"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying top and bottom by 1 minus i gives (1 - i) over 2, whose imaginary part is minus one half."
+    hints:
+      - "Multiply the numerator and denominator by the conjugate of the denominator."
+      - "The conjugate changes the sign of the imaginary part of the denominator."
+      - "Divide each component of the result by the squared modulus of the denominator."
+    diagram: null
+    confidence: high
+  - topic: complex_number_basics
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Find the positive real number k for which the complex number (1 + k i) squared is purely imaginary."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "Expanding gives 1 minus k squared plus 2k i, and the real part vanishes when k equals 1."
+    hints:
+      - "Expand the square and separate the real and imaginary parts."
+      - "A purely imaginary number has a real part equal to zero."
+      - "Solve the equation formed by the real part for k and keep the positive root."
+    diagram: null
+    confidence: high
+  - topic: complex_number_basics
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the value of i raised to the power 2025?"
+    correct: "i"
+    unit: ""
+    wrong:
+      - {text: "-i", mistake: "miscounts the position in the cycle of powers"}
+      - {text: "1", mistake: "treats every odd power of i as one"}
+      - {text: "-1", mistake: "confuses the cycle of powers with a power of minus one"}
+    explanation: "Powers of i repeat in a cycle of four, and 2025 leaves remainder 1 on division by 4, so the value is i."
+    hints:
+      - "Powers of the imaginary unit repeat in a cycle of length four."
+      - "Find the remainder when the exponent is divided by that cycle length."
+      - "Match the remainder with the first few powers of the imaginary unit."
+    diagram: null
+    confidence: high
+  - topic: argand_plane
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On an Argand plane, at which point is the complex number 3 plus 4i represented?"
+    correct: "at (3, 4)"
+    unit: ""
+    wrong:
+      - {text: "at (4, 3)", mistake: "swaps the real and imaginary coordinates"}
+      - {text: "at (-3, 4)", mistake: "misreads the sign of the real part"}
+      - {text: "at (3, -4)", mistake: "reads the imaginary part with the wrong sign"}
+    explanation: "The real part gives the horizontal coordinate and the imaginary part gives the vertical coordinate, so the point is (3, 4)."
+    hints:
+      - "Identify which component of the number runs along the horizontal axis."
+      - "The imaginary component is measured along the vertical axis."
+      - "Check the sign of each coordinate against the signs in the number."
+    diagram: "Argand plane with a horizontal real axis and a vertical imaginary axis, with a dot to be placed at the point representing the complex number."
+    confidence: high
+  - topic: argand_plane
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the modulus of the complex number 3 plus 4i?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The modulus is the square root of 3 squared plus 4 squared, which is the square root of 25, giving 5."
+    hints:
+      - "Treat the real and imaginary parts as the two legs of a right triangle."
+      - "Find the square root of the sum of the squares of those parts."
+      - "Take the square root only after adding the squared parts."
+    diagram: null
+    confidence: high
+  - topic: argand_plane
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "What is the argument of the complex number i, measured in degrees anticlockwise from the positive real axis?"
+    correct: "90"
+    unit: "degrees"
+    wrong: []
+    explanation: "The number i lies on the positive imaginary axis, a quarter turn anticlockwise from the positive real axis."
+    hints:
+      - "Locate the point representing the number on the Argand plane."
+      - "Measure the anticlockwise angle from the positive real axis to that point."
+      - "Check which axis the point lies on before reading off the angle."
+    diagram: "Argand plane with the point representing the imaginary unit marked on the vertical axis and the angle measured from the positive horizontal axis."
+    confidence: high
+  - topic: argand_plane
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which complex number has modulus 2 and argument 60 degrees?"
+    correct: "1 + sqrt(3) i"
+    unit: ""
+    wrong:
+      - {text: "2 + 2i", mistake: "uses the modulus directly as the real coordinate"}
+      - {text: "sqrt(3) + i", mistake: "swaps the real and imaginary parts"}
+      - {text: "2 cos 30 degrees + 2i sin 30 degrees", mistake: "uses 30 degrees instead of 60 degrees"}
+    explanation: "The real part is 2 cos 60 degrees, which is 1, and the imaginary part is 2 sin 60 degrees, which is sqrt(3)."
+    hints:
+      - "Write the number in polar form using the modulus and the argument."
+      - "Recall the cosine and sine of the given angle."
+      - "Multiply each trigonometric value by the modulus to get the components."
+    diagram: "Argand plane with a ray from the origin drawn at 60 degrees from the positive real axis, the point at distance 2 along the ray marked."
+    confidence: high
+  - topic: argand_plane
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "What is the modulus of the complex number (1 + i) raised to the power 6?"
+    correct: "8"
+    unit: ""
+    wrong: []
+    explanation: "The modulus of 1 + i is the square root of 2, and raising that to the sixth power gives 2 cubed, which is 8."
+    hints:
+      - "Find the modulus of the base number first."
+      - "The modulus of a power equals the power of the modulus."
+      - "Raise the base modulus to the given exponent and simplify."
+    diagram: null
+    confidence: high
+  - topic: argand_plane
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A complex number z has modulus 1 and argument pi over 2 radians. Which number is z?"
+    correct: "i"
+    unit: ""
+    wrong:
+      - {text: "-i", mistake: "reads the positive quarter turn as a negative one"}
+      - {text: "1", mistake: "keeps the modulus and ignores the argument"}
+      - {text: "-1", mistake: "rotates by pi radians instead of pi over 2"}
+    explanation: "A point at distance 1 in the direction of pi over 2 lies at (0, 1) on the Argand plane, which is the number i."
+    hints:
+      - "Imagine a ray from the origin turned by the given angle anticlockwise."
+      - "Place the point at the given distance along that ray."
+      - "Read the coordinates of the point and turn them back into a number."
+    diagram: "Argand plane with a unit circle, a ray from the origin at a right angle to the positive real axis, and the point where it crosses the circle marked."
+    confidence: high
+  - topic: quadratic_in_complex
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What are the roots of the equation x squared plus 1 equals 0?"
+    correct: "i and -i"
+    unit: ""
+    wrong:
+      - {text: "1 and -1", mistake: "takes the square root of negative one as if it were real"}
+      - {text: "0 and i", mistake: "treats the constant term as a root"}
+      - {text: "i only", mistake: "keeps one root and drops its conjugate partner"}
+    explanation: "Rearranging gives x squared equal to negative one, so the roots are i and minus i, a conjugate pair."
+    hints:
+      - "Rearrange the equation so that the squared term stands alone."
+      - "Think about which numbers square to a negative result."
+      - "Remember that the roots of such an equation come in a conjugate pair."
+    diagram: null
+    confidence: high
+  - topic: quadratic_in_complex
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many non-real roots does the equation x squared plus 4 equal to 0 have?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Solving gives x equal to plus or minus 2i, and both of those roots are non-real."
+    hints:
+      - "Solve the equation for the squared variable first."
+      - "Each square root of a negative number is a non-real number."
+      - "Count the roots you obtain from the square root step."
+    diagram: null
+    confidence: high
+  - topic: quadratic_in_complex
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Solve the equation x squared minus 2x plus 5 equals 0."
+    correct: "1 + 2i and 1 - 2i"
+    unit: ""
+    wrong:
+      - {text: "2 + i and 2 - i", mistake: "swaps the halves of the completed square"}
+      - {text: "1 + i and 1 - i", mistake: "uses the square root of negative one in place of the square root of negative four"}
+      - {text: "-1 + 2i and -1 - 2i", mistake: "flips the sign of the linear coefficient"}
+    explanation: "Completing the square gives (x minus 1) squared equal to negative 4, so x equals 1 plus or minus 2i."
+    hints:
+      - "Complete the square on the terms involving x."
+      - "Move the constant to the other side and find the square root of the result."
+      - "Write the two roots as the centre plus or minus the imaginary part."
+    diagram: null
+    confidence: high
+  - topic: quadratic_in_complex
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "What is the discriminant of the quadratic x squared plus 2x plus 10 equal to 0?"
+    correct: "-36"
+    unit: ""
+    wrong: []
+    explanation: "The discriminant is b squared minus 4ac, which gives 4 minus 40, equal to negative 36."
+    hints:
+      - "Identify the coefficients a, b and c from the standard form of the quadratic."
+      - "Use the formula that involves the square of the middle coefficient."
+      - "Subtract four times the product of the outer coefficients from that square."
+    diagram: null
+    confidence: high
+  - topic: quadratic_in_complex
+    type: mcq
+    difficulty: hard
+    role: procedure
+    stem: "Solve the equation 2x squared minus 2x plus 1 equals 0."
+    correct: "(1 + i)/2 and (1 - i)/2"
+    unit: ""
+    wrong:
+      - {text: "(1 + 2i)/2 and (1 - 2i)/2", mistake: "forgets to halve the square root of the discriminant correctly"}
+      - {text: "1 + i and 1 - i", mistake: "forgets to divide by twice the leading coefficient"}
+      - {text: "(-1 + i)/2 and (-1 - i)/2", mistake: "flips the sign of the linear term"}
+    explanation: "The discriminant is 4 minus 8, which is negative 4, so x equals (2 plus or minus 2i) over 4, giving (1 plus or minus i) over 2."
+    hints:
+      - "Apply the quadratic formula with the correct coefficients."
+      - "Find the square root of the discriminant, which is negative, using the imaginary unit."
+      - "Divide the whole expression by twice the leading coefficient."
+    diagram: null
+    confidence: high
+  - topic: quadratic_in_complex
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The quadratic x squared plus p x plus 13 equals 0 has real coefficients, and one of its roots is 2 plus 3i. Find the real value of p."
+    correct: "-4"
+    unit: ""
+    wrong: []
+    explanation: "The other root is the conjugate 2 minus 3i, the roots sum to 4, and that sum equals negative p, so p is minus 4."
+    hints:
+      - "Real coefficients force the other root to be the conjugate of the given root."
+      - "Use the fact that the sum of the roots equals the negative of the linear coefficient."
+      - "Add the two roots and read off the coefficient p from that sum."
+    diagram: null
+    confidence: high

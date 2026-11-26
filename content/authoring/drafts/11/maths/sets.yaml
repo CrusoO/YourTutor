@@ -1,0 +1,305 @@
+class: 11
+subject: maths
+chapter: sets
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: set_notation_types
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which roster form lists the even natural numbers that are less than 9?"
+    correct: "{2, 4, 6, 8}"
+    unit: ""
+    wrong:
+      - {text: "{0, 2, 4, 6, 8}", mistake: "counts zero as a natural number"}
+      - {text: "{1, 3, 5, 7}", mistake: "lists odd numbers instead of even ones"}
+      - {text: "{2, 4, 6}", mistake: "drops the largest qualifying element when reading the bound"}
+    explanation: "The even natural numbers below 9 are 2, 4, 6 and 8, so the roster form lists all four of them."
+    hints:
+      - "Write the natural numbers in increasing order first."
+      - "Keep only the ones that leave no remainder when divided by the smallest prime."
+      - "Check each candidate against the upper limit, using a strict less-than comparison."
+    diagram: null
+    confidence: high
+  - topic: set_notation_types
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many distinct elements does the set of letters in the word LEVEL contain?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The distinct letters are L, E and V, so the set has three elements; repeated letters count once."
+    hints:
+      - "Write each letter once, ignoring any repeats."
+      - "Scan the word from left to right and note new letters only."
+      - "Count the entries in the list you have written down."
+    diagram: null
+    confidence: high
+  - topic: set_notation_types
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which roster form is equal to the set written as {x : x is a prime number less than 12}?"
+    correct: "{2, 3, 5, 7, 11}"
+    unit: ""
+    wrong:
+      - {text: "{1, 3, 5, 7, 9, 11}", mistake: "treats odd numbers as if they were the primes"}
+      - {text: "{2, 3, 5, 7, 9, 11}", mistake: "accepts 9 because it looks prime at a glance"}
+      - {text: "{2, 4, 6, 8, 10}", mistake: "lists even numbers instead of the number types asked for"}
+    explanation: "The primes below 12 are 2, 3, 5, 7 and 11. The number 9 is excluded because it equals 3 times 3."
+    hints:
+      - "Recall what makes a whole number prime."
+      - "Test each candidate below the upper bound one at a time."
+      - "Make sure no composite number has slipped into your list."
+    diagram: null
+    confidence: high
+  - topic: set_notation_types
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Set A holds the letters of the word RATE and set B holds the letters of the word TEAR. What is the relationship between A and B?"
+    correct: "A equals B"
+    unit: ""
+    wrong:
+      - {text: "A is a proper subset of B", mistake: "assumes order of listing decides set size"}
+      - {text: "A and B have no common elements", mistake: "compares letters by position instead of by membership"}
+      - {text: "A is a superset of B only", mistake: "assumes the first listed word always gives the larger set"}
+    explanation: "Both words use exactly the letters R, A, T and E, so both sets contain the same four elements."
+    hints:
+      - "Write out the letters of each word as a separate list."
+      - "A set ignores the order in which its members appear."
+      - "Check whether each member of one set appears in the other."
+    diagram: null
+    confidence: high
+  - topic: set_notation_types
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "A set has 4 distinct elements. How many proper subsets does it have? A proper subset is any subset other than the set itself."
+    correct: "15"
+    unit: ""
+    wrong: []
+    explanation: "A set with 4 elements has 16 subsets in total, and removing the set itself leaves 15 proper subsets."
+    hints:
+      - "Start from the total number of subsets a set can have."
+      - "Each element is either included in a subset or left out of it."
+      - "Remove the one subset that is the whole set from your running total."
+    diagram: null
+    confidence: high
+  - topic: set_notation_types
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Set X is written {x : x is a real number and x squared equals -1}. Which statement about X is correct?"
+    correct: "X is the empty set"
+    unit: ""
+    wrong:
+      - {text: "X contains the number i", mistake: "treats the imaginary unit as a real solution"}
+      - {text: "X contains 1 and -1", mistake: "takes the square root of negative one as if it were positive one"}
+      - {text: "X is the set {0}", mistake: "assumes zero is the only real value to check"}
+    explanation: "No real number has a negative square, so no real x satisfies the rule and X has no members."
+    hints:
+      - "Ask whether any real number multiplied by itself can give a negative result."
+      - "Think about the sign of x squared for every real value of x."
+      - "A collection with no members at all has a special name, so match that name to X."
+    diagram: null
+    confidence: medium
+  - topic: venn_and_operations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a Venn diagram of sets A and B, which elements does the intersection of A and B represent?"
+    correct: "elements common to the two sets"
+    unit: ""
+    wrong:
+      - {text: "elements in A or B but not in both", mistake: "confuses intersection with the symmetric difference"}
+      - {text: "elements in A but not in B", mistake: "uses the difference operation instead of intersection"}
+      - {text: "elements belonging to either A or B", mistake: "confuses intersection with union"}
+    explanation: "The intersection is the overlap of the two circles, holding only the elements that belong to both sets."
+    hints:
+      - "Picture the region where the two circles overlap."
+      - "Ask which elements are shared by both sets at once."
+      - "Compare this with a region that collects everything in either circle."
+    diagram: "Two overlapping circles labelled A and B placed inside a rectangle labelled U, with the overlap region marked."
+    confidence: high
+  - topic: venn_and_operations
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Set A = {1, 2, 3, 4} and set B = {3, 4, 5}. How many elements are in A intersection B?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The only entries listed in both sets are 3 and 4, so the intersection has two elements."
+    hints:
+      - "Write down the elements of each set before comparing them."
+      - "Look for entries that appear in both lists."
+      - "Count only the shared entries and ignore the rest."
+    diagram: null
+    confidence: high
+  - topic: venn_and_operations
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Set A has 12 elements, set B has 9 elements and the intersection of A and B has 4 elements. How many elements does A union B have?"
+    correct: "17"
+    unit: ""
+    wrong: []
+    explanation: "Adding 12 and 9 counts the 4 shared elements twice, so subtracting the overlap once gives 17."
+    hints:
+      - "Add the sizes of the two sets first."
+      - "Remember that the shared elements were counted once in each set."
+      - "Subtract the size of the overlap exactly once from your sum."
+    diagram: null
+    confidence: high
+  - topic: venn_and_operations
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "The universal set U is {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, A is the set of odd numbers in U and B is {3, 6, 9}. Which set is A minus B?"
+    correct: "{1, 5, 7}"
+    unit: ""
+    wrong:
+      - {text: "{3, 9}", mistake: "takes the intersection when the difference was asked for"}
+      - {text: "{1, 3, 5, 6, 7, 9}", mistake: "takes the union instead of removing shared elements"}
+      - {text: "{6}", mistake: "keeps only the part of B that lies outside A"}
+    explanation: "A is {1, 3, 5, 7, 9}; removing the shared elements 3 and 9 leaves {1, 5, 7}."
+    hints:
+      - "List the members of A first, then mark which of them also appear in B."
+      - "The difference keeps what is in the first set and drops anything shared with the second."
+      - "Read off the remaining members after the shared ones are crossed out."
+    diagram: "Two overlapping circles A and B inside rectangle U, with the members of U placed in their regions; the part of A outside B is shaded."
+    confidence: high
+  - topic: venn_and_operations
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "In a group of 50 students, 30 like tea, 28 like coffee and 10 like neither drink. How many students like both tea and coffee?"
+    correct: "18"
+    unit: ""
+    wrong: []
+    explanation: "40 students like at least one drink, since 50 minus 10 is 40, and 30 plus 28 minus 40 gives 18."
+    hints:
+      - "First find how many students like at least one of the two drinks."
+      - "Use the group total and the count of those who like neither drink."
+      - "Add the two liking counts and subtract the number who like at least one drink."
+    diagram: "Two overlapping circles labelled Tea and Coffee inside a rectangle labelled Students, with the region outside both circles labelled as liking neither drink."
+    confidence: high
+  - topic: venn_and_operations
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "For sets A and B, the union of A and B equals B. Which statement must be true?"
+    correct: "A is a subset of B"
+    unit: ""
+    wrong:
+      - {text: "A and B are disjoint", mistake: "thinks disjoint sets always merge into one set"}
+      - {text: "B is a subset of A", mistake: "reverses the direction of the subset relation"}
+      - {text: "A and B have the same number of elements", mistake: "equates equal size with equal sets"}
+    explanation: "If A union B equals B, then every element of A already belongs to B, which is exactly the subset condition."
+    hints:
+      - "Picture what the union adds to B when A is combined with it."
+      - "If A brings nothing new into the union, what must be true of its members?"
+      - "Check the direction of containment carefully before choosing."
+    diagram: null
+    confidence: medium
+  - topic: laws_of_sets
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Sets A and B are disjoint, with n(A) equal to 7 and n(B) equal to 5. What is n(A union B)?"
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "Because the sets share no elements, the union size is the sum of the two sizes, 7 plus 5."
+    hints:
+      - "Disjoint sets share no elements, so nothing is counted twice."
+      - "When there is no overlap, the sizes simply add together."
+      - "Add the two given counts to get the size of the union."
+    diagram: null
+    confidence: high
+  - topic: laws_of_sets
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which law states that A union (A intersection B) equals A for any sets A and B?"
+    correct: "the absorption law"
+    unit: ""
+    wrong:
+      - {text: "the idempotent law", mistake: "confuses combining a set with itself with absorbing a smaller piece"}
+      - {text: "the complement law", mistake: "treats the intersection as if it were an empty set"}
+      - {text: "the commutative law", mistake: "thinks reordering the operands changes the result"}
+    explanation: "The intersection is always inside A, so joining it back to A changes nothing; this is the absorption law."
+    hints:
+      - "Consider what the intersection adds to A when it is already inside A."
+      - "Think about whether the smaller piece is swallowed by the larger set."
+      - "Test the statement with a small concrete pair of sets."
+    diagram: null
+    confidence: high
+  - topic: laws_of_sets
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A universal set has 30 elements, A has 18 elements, B has 14 elements and A intersection B has 6 elements. How many elements lie outside A and also outside B?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The union of A and B has 18 plus 14 minus 6, which is 26 elements, leaving 30 minus 26 for the outside region."
+    hints:
+      - "Find how many elements lie in at least one of the two sets."
+      - "Use the counting formula for the union, which subtracts the overlap once."
+      - "Subtract the union count from the universal set total."
+    diagram: null
+    confidence: high
+  - topic: laws_of_sets
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which set is equal to the complement of the union of A and B, as given by De Morgan's law?"
+    correct: "A' intersection B'"
+    unit: ""
+    wrong:
+      - {text: "A' union B'", mistake: "distributes the complement without switching the operation"}
+      - {text: "A intersection B", mistake: "forgets the complement entirely"}
+      - {text: "(A union B) intersection A", mistake: "applies the operation to the wrong pair of sets"}
+    explanation: "De Morgan's law says the complement of a union is the intersection of the complements, so the answer is A' intersection B'."
+    hints:
+      - "Write the complement of a union in words before using symbols."
+      - "Each complement switches the operation that it is applied across."
+      - "Check the result against a small example with a few named elements."
+    diagram: null
+    confidence: high
+  - topic: laws_of_sets
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "For sets A and B, n(A) is 20, n(B) is 15 and n(A union B) is 28. What is n(A intersection B)?"
+    correct: "7"
+    unit: ""
+    wrong: []
+    explanation: "Using n(A union B) equals n(A) plus n(B) minus n(A intersection B), the overlap is 20 plus 15 minus 28, which is 7."
+    hints:
+      - "Start from the formula that links the union size with the two set sizes."
+      - "Isolate the overlap term on one side of the equation."
+      - "Rearrange the three counts you were given to find the missing one."
+    diagram: null
+    confidence: high
+  - topic: laws_of_sets
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "For finite sets A and B, n(A) equals n(B) and A union B has the same size as A. Which statement must hold?"
+    correct: "A equals B"
+    unit: ""
+    wrong:
+      - {text: "A is a proper subset of B", mistake: "assumes equal sizes make one set strictly smaller than the other"}
+      - {text: "A and B are disjoint", mistake: "assumes that sets of equal size cannot share members"}
+      - {text: "A intersection B is empty", mistake: "reads the union condition as meaning no shared elements"}
+    explanation: "The union not growing forces B to lie inside A, and equal sizes then force the two sets to coincide."
+    hints:
+      - "Use the union condition to decide where the members of B must sit."
+      - "Combine that containment with the fact that the two sizes agree."
+      - "Ask whether a strict containment is possible when the sizes match."
+    diagram: null
+    confidence: medium

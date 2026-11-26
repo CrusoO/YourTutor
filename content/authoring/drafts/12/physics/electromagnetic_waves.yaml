@@ -1,0 +1,308 @@
+class: 12
+subject: physics
+chapter: electromagnetic_waves
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: displacement_current
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Why did Maxwell introduce the idea of displacement current?"
+    correct: "To make Ampere's law consistent for a circuit with a gap, such as a charging capacitor"
+    unit: ""
+    wrong:
+      - {text: "To explain the origin of resistance in metal wires", mistake: "assumes displacement current is a source of resistance"}
+      - {text: "To explain the magnetic field of a static charge", mistake: "assumes a static charge produces a changing electric field"}
+      - {text: "To replace conduction current inside metals", mistake: "assumes displacement current is a substitute for conduction in wires"}
+    explanation: "Ampere's law in its original form fails across the gap of a capacitor, where no conduction current flows. Displacement current, set by the changing electric field in the gap, restores consistency."
+    hints:
+      - "Think about what current passes through the gap of a charging capacitor."
+      - "Consider whether Ampere's law works for a surface that no wire crosses."
+      - "Recall the role of the changing electric field between the plates."
+    diagram: null
+    confidence: high
+  - topic: displacement_current
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "On which quantity does the displacement current density depend?"
+    correct: "The rate of change of the electric field"
+    unit: ""
+    wrong:
+      - {text: "The electric field itself", mistake: "assumes any electric field gives rise to displacement current"}
+      - {text: "The magnetic field", mistake: "confuses the source of displacement current with the field it produces"}
+      - {text: "The charge density at the point", mistake: "assumes a static charge gives a displacement current"}
+    explanation: "Displacement current density is epsilon zero times the time derivative of the electric field, so only a changing field gives a displacement current."
+    hints:
+      - "Write the displacement current density in terms of a derivative with respect to time."
+      - "Think about whether a steady field gives any change over time."
+      - "Recall the constant that multiplies the time derivative."
+    diagram: null
+    confidence: high
+  - topic: displacement_current
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "While a capacitor in a circuit is charging, what is the displacement current between its plates compared with the conduction current in the connecting wire?"
+    correct: "Equal to the conduction current in the wire"
+    unit: ""
+    wrong:
+      - {text: "Zero, because no charge crosses the gap", mistake: "assumes no current flows where there is no conductor"}
+      - {text: "Twice the conduction current", mistake: "double counts the current through the gap and the wire"}
+      - {text: "Equal to the charge on the plates", mistake: "confuses a current with the charge that causes it"}
+    explanation: "Current is continuous around the circuit. The displacement current between the plates equals the conduction current in the wire, so the total current is the same everywhere."
+    hints:
+      - "Think about how current is continuous through the whole circuit."
+      - "Consider what happens to the electric flux between the plates as the capacitor charges."
+      - "Recall the role of the changing electric flux in carrying current across the gap."
+    diagram: null
+    confidence: high
+  - topic: displacement_current
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "The electric field in a region of vacuum changes at 1 x 10^10 V/m per second. What is the displacement current density in A/m^2? Use epsilon zero equal to 8.85 x 10^-12 C^2 N^-1 m^-2."
+    correct: "0.0885"
+    unit: "A/m^2"
+    wrong: []
+    explanation: "The displacement current density is epsilon zero times the rate of change of electric field. That is 8.85 x 10^-12 times 1 x 10^10, which equals 0.0885 A/m^2."
+    hints:
+      - "Displacement current density is epsilon zero times the rate of change of the electric field."
+      - "Multiply the constant by the rate of change."
+      - "Keep the powers of ten exact in the product."
+    diagram: null
+    confidence: high
+  - topic: displacement_current
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "In Maxwell's modified Ampere law, the line integral of B around a loop includes a term that is needed when a capacitor is charging. What does this term represent?"
+    correct: "Epsilon zero times the rate of change of electric flux through the loop"
+    unit: ""
+    wrong:
+      - {text: "The conduction current term alone", mistake: "assumes the conduction current is always enough for the loop"}
+      - {text: "A magnetic monopole term", mistake: "assumes magnetic monopoles must be added to Ampere's law"}
+      - {text: "A gravitational term from the mass of the plates", mistake: "confuses electromagnetic induction with gravitational effects"}
+    explanation: "The displacement term is mu zero times epsilon zero times the rate of change of electric flux. It supplies the missing current inside the capacitor gap."
+    hints:
+      - "Consider which term accounts for the gap of the capacitor."
+      - "Compare the conduction current in the wire with the current needed inside the gap."
+      - "Think about what changes in the region between the plates."
+    diagram: null
+    confidence: high
+  - topic: displacement_current
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The displacement current in the gap of a capacitor is 0.885 A. Taking epsilon zero as 8.85 x 10^-12 C^2 N^-1 m^-2, what is the rate of change of electric flux in V m per second?"
+    correct: "100000000000"
+    unit: "V m/s"
+    wrong: []
+    explanation: "Displacement current equals epsilon zero times the rate of change of electric flux. Dividing 0.885 by 8.85 x 10^-12 gives 1 x 10^11 V m/s."
+    hints:
+      - "Divide the displacement current by epsilon zero to find the rate of change of flux."
+      - "Use the same constant as in the earlier steps, 8.85 x 10^-12."
+      - "Count the powers of ten carefully when you divide."
+    diagram: null
+    confidence: high
+  - topic: em_spectrum
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which region of the electromagnetic spectrum has the longest wavelength?"
+    correct: "Radio waves"
+    unit: ""
+    wrong:
+      - {text: "X-rays", mistake: "assumes penetrating power is linked to long wavelength"}
+      - {text: "Gamma rays", mistake: "confuses the most energetic radiation with the longest wavelength"}
+      - {text: "Visible light", mistake: "assumes the middle of the spectrum has the longest wavelength"}
+    explanation: "Radio waves have the lowest frequency and the longest wavelength in the electromagnetic spectrum, and they are used for broadcasting."
+    hints:
+      - "Think about which region is used for radio and television broadcasting."
+      - "Consider which region has the lowest frequency."
+      - "Compare that with the region carrying the highest energy photons."
+    diagram: null
+    confidence: high
+  - topic: em_spectrum
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which region of the electromagnetic spectrum is emitted strongly by warm objects and is felt as heat on the skin?"
+    correct: "Infrared"
+    unit: ""
+    wrong:
+      - {text: "Ultraviolet", mistake: "confuses heat sensation with high energy radiation"}
+      - {text: "X-rays", mistake: "assumes all penetrating radiation is felt as heat"}
+      - {text: "Gamma rays", mistake: "assumes the most energetic radiation is the warmest"}
+    explanation: "Infrared lies just beyond visible red light. Warm bodies emit it strongly, and it is absorbed by the skin as heat."
+    hints:
+      - "Think about the region just beyond visible red light."
+      - "Consider which region warm objects emit most strongly."
+      - "Recall the link between the temperature of an object and the wavelengths it emits."
+    diagram: null
+    confidence: high
+  - topic: em_spectrum
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An electromagnetic wave in vacuum has a frequency of 3 x 10^9 Hz. What is its wavelength in metre? Use c equal to 3 x 10^8 m/s."
+    correct: "0.1"
+    unit: "m"
+    wrong: []
+    explanation: "The speed of light equals frequency times wavelength, so the wavelength is 3 x 10^8 divided by 3 x 10^9, which is 0.1 m."
+    hints:
+      - "Use c equal to frequency times wavelength."
+      - "Divide the speed of light by the frequency."
+      - "Keep the powers of ten exact in the division."
+    diagram: "A horizontal wavelength axis with the microwave and radio region marked, and a point near the short wavelength end labelled with the wavelength found from the frequency."
+    confidence: high
+  - topic: em_spectrum
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Which list places the regions of the electromagnetic spectrum in order from shortest to longest wavelength?"
+    correct: "Gamma rays, X-rays, ultraviolet, visible light, infrared, microwaves, radio waves"
+    unit: ""
+    wrong:
+      - {text: "Radio waves, microwaves, infrared, visible light, ultraviolet, X-rays, gamma rays", mistake: "reverses the order of the spectrum"}
+      - {text: "Visible light, infrared, ultraviolet, X-rays, gamma rays, radio waves, microwaves", mistake: "scrambles the regions around the visible band"}
+      - {text: "Microwaves, radio waves, visible light, gamma rays, X-rays, ultraviolet, infrared", mistake: "mixes up the energy ordering of the regions"}
+    explanation: "Wavelength and frequency are inversely related. Gamma rays have the shortest wavelengths and radio waves the longest, so the list runs from gamma rays to radio waves."
+    hints:
+      - "Start from the region with the highest energy photons."
+      - "Recall that energy and frequency increase together."
+      - "A shorter wavelength means a higher frequency."
+    diagram: null
+    confidence: high
+  - topic: em_spectrum
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An ultraviolet wave has a wavelength of 3 x 10^-7 m. What is its frequency in units of 10^14 Hz? Use c equal to 3 x 10^8 m/s."
+    correct: "10"
+    unit: "10^14 Hz"
+    wrong: []
+    explanation: "Frequency is c divided by the wavelength, which is 3 x 10^8 divided by 3 x 10^-7, equal to 10^15 Hz. In units of 10^14 Hz this is 10."
+    hints:
+      - "Use frequency equal to the speed of light divided by the wavelength."
+      - "Make sure the wavelength is in metre before dividing."
+      - "Express your answer in the unit you were asked for."
+    diagram: "A wavelength axis marking the ultraviolet band between visible light and X-rays, with a point labelled at 3 x 10^-7 m inside that band."
+    confidence: high
+  - topic: em_spectrum
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why is the ozone layer in the upper atmosphere important to life on Earth?"
+    correct: "It absorbs most of the ultraviolet radiation from the Sun"
+    unit: ""
+    wrong:
+      - {text: "It emits infrared radiation into space", mistake: "reverses the roles of absorption and emission"}
+      - {text: "It blocks all visible light from reaching the ground", mistake: "overgeneralises the absorption to the visible band"}
+      - {text: "It reflects radio waves back to the ground", mistake: "confuses ozone with the ionosphere"}
+    explanation: "Ozone absorbs most of the harmful ultraviolet radiation from the Sun, protecting living tissue at the surface."
+    hints:
+      - "Think about which high-energy radiation from the Sun is harmful to living tissue."
+      - "Consider the absorption band of ozone compared with that of visible light."
+      - "Recall the region of the spectrum that causes sunburn."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an electromagnetic wave travelling in vacuum, how are the electric and magnetic field vectors oriented?"
+    correct: "They are perpendicular to each other and to the direction of propagation"
+    unit: ""
+    wrong:
+      - {text: "They are both parallel to the direction of propagation", mistake: "confuses electromagnetic waves with longitudinal waves"}
+      - {text: "They are parallel to each other and perpendicular to the direction of propagation", mistake: "forgets that the electric and magnetic fields are perpendicular to each other"}
+      - {text: "They are perpendicular but out of phase by 90 degrees", mistake: "assumes the two fields are in quadrature rather than in phase"}
+    explanation: "The electric and magnetic fields oscillate in phase, perpendicular to each other, and both are perpendicular to the direction in which the wave travels."
+    hints:
+      - "Think about the direction of oscillation of each field relative to the wave direction."
+      - "Consider whether the two fields can be parallel to each other."
+      - "Recall whether an electromagnetic wave is transverse or longitudinal."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "An electromagnetic wave in vacuum has an electric field amplitude of 300 V/m. What is the magnetic field amplitude in tesla? Use c equal to 3 x 10^8 m/s."
+    correct: "0.000001"
+    unit: "T"
+    wrong: []
+    explanation: "In vacuum the ratio of the electric and magnetic amplitudes equals c. Dividing 300 by 3 x 10^8 gives 1 x 10^-6 T."
+    hints:
+      - "The ratio of the electric amplitude to the magnetic amplitude equals the speed of light."
+      - "Divide the electric amplitude by the speed of light."
+      - "Keep the powers of ten correct in the division."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An electromagnetic wave travels through a non-magnetic medium of relative permittivity 4. What is its speed in the medium in m/s? Use c equal to 3 x 10^8 m/s."
+    correct: "150000000"
+    unit: "m/s"
+    wrong: []
+    explanation: "For a non-magnetic medium the speed is c divided by the square root of the relative permittivity. The square root of 4 is 2, giving 1.5 x 10^8 m/s."
+    hints:
+      - "For a non-magnetic medium the speed depends on the square root of the relative permittivity."
+      - "Take the square root of the relative permittivity first."
+      - "Divide the speed of light in vacuum by that square root."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "An electromagnetic wave travelling along the positive x direction has its electric field along the y direction. Along which direction does its magnetic field oscillate?"
+    correct: "Along the z direction"
+    unit: ""
+    wrong:
+      - {text: "Along the y direction", mistake: "assumes the magnetic field is parallel to the electric field"}
+      - {text: "Along the x direction", mistake: "confuses the direction of propagation with the direction of the magnetic field"}
+      - {text: "Along the negative x direction only", mistake: "treats the magnetic field as moving with the wave rather than oscillating across it"}
+    explanation: "The direction of propagation is along E cross B. With E along y and propagation along x, B must lie along z so that y cross z gives x."
+    hints:
+      - "The direction of propagation is along the cross product of the electric and magnetic fields."
+      - "Find the direction that is perpendicular to both the propagation direction and the electric field."
+      - "Apply the right-hand rule to the cross product of the electric field and the magnetic field."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The electric field amplitude of an electromagnetic wave is doubled. By what factor does the average intensity of the wave change?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Intensity is proportional to the square of the electric field amplitude. Doubling the amplitude therefore multiplies the intensity by 2 squared, which is 4."
+    hints:
+      - "Intensity is proportional to the square of the field amplitude."
+      - "Find the ratio of the squared amplitudes before and after."
+      - "Compare the new amplitude with the old amplitude as a ratio."
+    diagram: null
+    confidence: high
+  - topic: em_wave_properties
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "An electromagnetic wave in vacuum has a magnetic field amplitude of 2 x 10^-8 T. What is the electric field amplitude? Use c equal to 3 x 10^8 m/s."
+    correct: "6 V/m"
+    unit: ""
+    wrong:
+      - {text: "0.067 V/m", mistake: "divides by the speed of light instead of multiplying by it"}
+      - {text: "600 V/m", mistake: "uses the wrong power of ten when combining the constants"}
+      - {text: "6 T", mistake: "gives the answer in the unit of the magnetic field"}
+    explanation: "The electric amplitude equals c times the magnetic amplitude. Multiplying 3 x 10^8 by 2 x 10^-8 gives 6 V/m."
+    hints:
+      - "The electric amplitude is the speed of light times the magnetic amplitude."
+      - "Multiply the magnetic amplitude by the speed of light."
+      - "Check that the unit of your answer is the unit of the electric field."
+    diagram: null
+    confidence: high

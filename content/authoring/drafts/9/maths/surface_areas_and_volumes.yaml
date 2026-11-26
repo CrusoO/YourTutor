@@ -1,0 +1,299 @@
+class: 9
+subject: maths
+chapter: surface_areas_and_volumes
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: cuboid_and_cube
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A cube has an edge of 3 cm. What is its volume, in cubic cm?"
+    correct: "27"
+    unit: "cm^3"
+    wrong: []
+    explanation: "The volume of a cube is its edge cubed, which is 3 times 3 times 3, giving 27 cubic cm."
+    hints:
+      - "The volume of a cube is the edge multiplied by itself three times."
+      - "Cube the given edge length."
+      - "Check that the unit of the answer is cubic."
+    diagram: null
+    confidence: high
+  - topic: cuboid_and_cube
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the total surface area of a cube with an edge of 2 cm?"
+    correct: "24 square cm"
+    unit: ""
+    wrong:
+      - {text: "8 square cm", mistake: "reports the volume instead of the surface area"}
+      - {text: "12 square cm", mistake: "counts only the edges of the cube"}
+      - {text: "16 square cm", mistake: "counts only four of the six faces"}
+    explanation: "A cube has six equal square faces, each 4 square cm, giving a total of 24 square cm."
+    hints:
+      - "Count the faces of a cube."
+      - "Find the area of one face first."
+      - "Multiply the area of one face by the number of faces."
+    diagram: null
+    confidence: high
+  - topic: cuboid_and_cube
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A cuboid measures 5 cm by 4 cm by 3 cm. What is its total surface area, in square cm?"
+    correct: "94"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The three distinct face areas are 20, 15 and 12, and doubling their sum gives 94 square cm."
+    hints:
+      - "The total surface area is the sum of the areas of all six faces."
+      - "The faces come in pairs of equal area."
+      - "Double the sum of the three distinct face areas."
+    diagram: null
+    confidence: high
+  - topic: cuboid_and_cube
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A cuboid has a volume of 120 cubic cm, a length of 6 cm and a width of 4 cm. What is its height?"
+    correct: "5 cm"
+    unit: ""
+    wrong:
+      - {text: "30 cm", mistake: "divides the volume by the length only"}
+      - {text: "10 cm", mistake: "uses the sum of the length and width"}
+      - {text: "24 cm", mistake: "reports the base area as the height"}
+    explanation: "Volume is length times width times height, so the height is 120 divided by 24, which is 5 cm."
+    hints:
+      - "Volume is the product of length, width and height."
+      - "Compute the area of the base first."
+      - "Divide the volume by the base area."
+    diagram: null
+    confidence: high
+  - topic: cuboid_and_cube
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A cube has a volume of 343 cubic cm. What is its total surface area, in square cm?"
+    correct: "294"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The edge is 7 cm, since 7 cubed is 343, and six faces of 49 square cm each give 294 square cm."
+    hints:
+      - "Find the edge from the volume by taking the cube root."
+      - "Use the edge to find the area of one face."
+      - "Multiply the area of one face by six."
+    diagram: null
+    confidence: high
+  - topic: cuboid_and_cube
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A cube of edge 10 cm is cut into 1000 smaller cubes of edge 1 cm. By how much does the total surface area increase?"
+    correct: "5400 square cm"
+    unit: ""
+    wrong:
+      - {text: "600 square cm", mistake: "assumes cutting adds no new surface"}
+      - {text: "3600 square cm", mistake: "counts only four faces for each small cube"}
+      - {text: "6000 square cm", mistake: "reports the new total instead of the increase"}
+    explanation: "The original surface is 600 square cm, while 1000 unit cubes have 6000 square cm in total, so the increase is 5400 square cm."
+    hints:
+      - "Find the surface area of the original cube first."
+      - "Find the total surface area of all the small cubes together."
+      - "Subtract the original total from the new total."
+    diagram: null
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A cylinder has a radius of 7 cm and a height of 10 cm. Using pi equal to 22 over 7, what is its curved surface area, in square cm?"
+    correct: "440"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The curved surface area is 2 times 22/7 times 7 times 10, which equals 440 square cm."
+    hints:
+      - "The curved surface area of a cylinder is 2 pi r h."
+      - "Substitute the radius and the height."
+      - "Cancel the common factor of 7 between the radius and the fraction."
+    diagram: "Cylinder with its radius and height marked."
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which formula gives the volume of a cone?"
+    correct: "one third pi r squared h"
+    unit: ""
+    wrong:
+      - {text: "pi r squared h", mistake: "forgets the one third that applies to a cone"}
+      - {text: "two thirds pi r squared h", mistake: "uses the wrong fraction for a cone"}
+      - {text: "four thirds pi r cubed", mistake: "uses the formula for the volume of a sphere"}
+    explanation: "A cone has one third of the volume of a cylinder with the same base and height, so its volume is one third pi r squared h."
+    hints:
+      - "Compare the cone with a cylinder of the same base and height."
+      - "A cone holds a fixed fraction of the cylinder's volume."
+      - "Recall that fraction for a cone."
+    diagram: "Cone and cylinder with equal base and height drawn side by side."
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A sphere has a radius of 7 cm. Using pi equal to 22 over 7, what is its total surface area, in square cm?"
+    correct: "616"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The surface area of a sphere is 4 times 22/7 times 49, which equals 616 square cm."
+    hints:
+      - "The surface area of a sphere is four times pi times the radius squared."
+      - "Square the radius first."
+      - "Replace pi by the given fraction and simplify."
+    diagram: "Sphere with its radius drawn from the centre to the surface."
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A cone has a base radius of 3 cm and a slant height of 5 cm. Using pi equal to 3.14, what is its curved surface area, in square cm?"
+    correct: "47.1"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The curved surface area is 3.14 times 3 times 5, which equals 47.1 square cm."
+    hints:
+      - "The curved surface area of a cone is pi times the radius times the slant height."
+      - "Multiply the three quantities together."
+      - "Round to one decimal place at the end."
+    diagram: "Cone with its base radius and slant height marked."
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A cone has a base radius of 7 cm and a height of 3 cm. Using pi equal to 22 over 7, what is its volume, in cubic cm?"
+    correct: "154"
+    unit: "cm^3"
+    wrong: []
+    explanation: "The volume is one third times 22/7 times 49 times 3, which equals 154 cubic cm."
+    hints:
+      - "Use the volume formula for a cone, which has a one third factor."
+      - "Square the radius before multiplying."
+      - "Cancel the common factor of 7 early in the calculation."
+    diagram: "Cone with its base radius and vertical height marked."
+    confidence: high
+  - topic: cylinder_cone_sphere
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A cylinder has a volume of 90 cubic cm. A cone has the same radius and the same height as the cylinder. What is the volume of the cone?"
+    correct: "30 cubic cm"
+    unit: ""
+    wrong:
+      - {text: "45 cubic cm", mistake: "halves the cylinder volume instead of using one third"}
+      - {text: "90 cubic cm", mistake: "assumes equal radius and height give equal volumes"}
+      - {text: "270 cubic cm", mistake: "triples the cylinder volume"}
+    explanation: "A cone has one third of the volume of a cylinder with the same base and height, so 90 divided by 3 gives 30 cubic cm."
+    hints:
+      - "Compare the cone with a cylinder of the same base and height."
+      - "Find the fraction of the cylinder's volume that a cone holds."
+      - "Apply that fraction to the given volume."
+    diagram: "Cylinder and cone sharing the same base and height, drawn side by side."
+    confidence: high
+  - topic: combined_solids
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A solid is made by stacking two cubes, each of edge 2 cm, one on top of the other. What is the total volume, in cubic cm?"
+    correct: "16"
+    unit: "cm^3"
+    wrong: []
+    explanation: "Each cube has volume 8 cubic cm, so together they make 16 cubic cm."
+    hints:
+      - "The volume of the combined solid is the sum of the volumes of its parts."
+      - "Find the volume of one cube first."
+      - "Add the two volumes together."
+    diagram: "Two cubes stacked vertically, with their edges labelled 2 cm."
+    confidence: high
+  - topic: combined_solids
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A solid is a cylinder of radius r and height h with a hemisphere of the same radius on top. Which expression gives its volume?"
+    correct: "pi r squared h plus two thirds pi r cubed"
+    unit: ""
+    wrong:
+      - {text: "pi r squared h plus pi r cubed", mistake: "uses the volume of a full sphere for the hemisphere"}
+      - {text: "pi r squared h", mistake: "ignores the hemisphere on top"}
+      - {text: "two thirds pi r squared h", mistake: "applies the cone fraction to the cylinder"}
+    explanation: "The cylinder contributes pi r squared h and the hemisphere contributes half of a sphere's volume, which is two thirds pi r cubed."
+    hints:
+      - "Split the solid into the cylinder and the hemisphere."
+      - "Recall the volume of a sphere and take half of it."
+      - "Add the two parts together."
+    diagram: "Cylinder with a hemispherical dome on top, with the radius and height marked."
+    confidence: high
+  - topic: combined_solids
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A solid is a cylinder of radius 7 cm and height 10 cm with a hemisphere of radius 7 cm on top. Using pi equal to 22 over 7, what is the total curved surface area of the two curved parts, in square cm?"
+    correct: "748"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The cylinder's curved area is 440 square cm and the hemisphere's curved area is 308 square cm, so the total is 748 square cm."
+    hints:
+      - "The curved area of the cylinder is 2 pi r h."
+      - "The curved area of a hemisphere is 2 pi r squared."
+      - "Add the two curved areas, leaving out the flat circle where they join."
+    diagram: "Cylinder with a hemispherical dome on top, with the radius and height marked and the joining circle noted."
+    confidence: high
+  - topic: combined_solids
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A cuboid measuring 6 cm by 4 cm by 2 cm has a cube of edge 2 cm removed from one corner. What is the volume of the remaining solid, in cubic cm?"
+    correct: "40 cubic cm"
+    unit: ""
+    wrong:
+      - {text: "48 cubic cm", mistake: "ignores the removed cube"}
+      - {text: "32 cubic cm", mistake: "removes twice the volume of the cube"}
+      - {text: "56 cubic cm", mistake: "adds the volume of the cube instead of removing it"}
+    explanation: "The cuboid has volume 48 cubic cm and the removed cube has volume 8 cubic cm, leaving 40 cubic cm."
+    hints:
+      - "Find the volume of the full cuboid first."
+      - "Find the volume of the cube that is removed."
+      - "Subtract the removed volume from the full volume."
+    diagram: "Cuboid with a small cube cut away from one corner, the removed cube drawn with dashed edges."
+    confidence: high
+  - topic: combined_solids
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A cone of base radius 7 cm and slant height 25 cm sits on a cylinder of radius 7 cm and height 10 cm. Using pi equal to 22 over 7, what is the total curved surface area of the two curved parts, in square cm?"
+    correct: "990"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The cone's curved area is 22/7 times 7 times 25, which is 550 square cm, and the cylinder's curved area is 440 square cm, so the total is 990 square cm."
+    hints:
+      - "Use the curved surface area formula for the cone, which involves the slant height."
+      - "Use the curved surface area formula for the cylinder."
+      - "Add the two curved areas and leave out the circle where they join."
+    diagram: "Cone resting on a cylinder, with the slant height, the radius and the cylinder height marked."
+    confidence: high
+  - topic: combined_solids
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A solid is formed from a cylinder by cutting out a cone-shaped hollow of the same radius and height from its top. What fraction of the cylinder's volume remains?"
+    correct: "two thirds"
+    unit: ""
+    wrong:
+      - {text: "one third", mistake: "keeps the cone's fraction instead of the remainder"}
+      - {text: "one half", mistake: "splits the cylinder in half"}
+      - {text: "one quarter", mistake: "uses the wrong fraction for a cone"}
+    explanation: "The cone-shaped hollow has one third of the cylinder's volume, so two thirds of the cylinder remains."
+    hints:
+      - "Compare the hollow with the full cylinder of the same radius and height."
+      - "Recall the fraction of a cylinder that a cone occupies."
+      - "Subtract that fraction from one whole."
+    diagram: "Cylinder with a conical hollow cut from its top face, having the same radius and height."
+    confidence: high

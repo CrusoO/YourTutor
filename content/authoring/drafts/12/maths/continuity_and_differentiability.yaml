@@ -1,0 +1,529 @@
+class: 12
+subject: "maths"
+chapter: "continuity_and_differentiability"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "continuity_check"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Let f(x) = x^2 for x not equal to 2, and f(2) = 5. Is f continuous at x = 2?"
+    correct: "No, because the limit at 2 is 4 but f(2) is 5"
+    unit: ""
+    wrong:
+      - {text: "Yes, because the rule is a polynomial", mistake: "assumes a piecewise definition keeps polynomial continuity"}
+      - {text: "Yes, because f(2) has a value", mistake: "confuses having a value with equalling the limit"}
+      - {text: "No, because f is not defined at 2", mistake: "reads the given value at 2 as missing"}
+    explanation: "The limit of x squared as x approaches 2 is 4, but f(2) is defined as 5, so the two values differ and f is not continuous at 2."
+    hints:
+      - "Compute the limit of the rule for x near 2 but not equal to 2."
+      - "Compare that limit with the value the function is given at 2."
+      - "Continuity needs the limit and the value to agree."
+    diagram: null
+    confidence: high
+
+  - topic: "continuity_check"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let f(x) = (x^2 - 4)/(x - 2) for x not equal to 2, and f(2) = k. Find k so that f is continuous at 2."
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The expression simplifies to x + 2 away from 2, whose limit at 2 is 4, so k must be 4."
+    hints:
+      - "Factor the numerator and cancel the common factor where it is allowed."
+      - "Find the limit of the simplified expression as x approaches 2."
+      - "Set k equal to that limit."
+    diagram: null
+    confidence: high
+
+  - topic: "continuity_check"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let f(x) = sin(3x)/x for x not equal to 0, and f(0) = k. Find k so that f is continuous at 0."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Writing sin(3x)/x as 3 times sin(3x)/(3x) and using the standard limit of sin t over t gives a limit of 3 at zero, so k is 3."
+    hints:
+      - "Recall the standard limit of sin t divided by t as t approaches zero."
+      - "Rewrite the fraction so that the denominator matches the angle inside the sine."
+      - "Set the value at zero equal to the limit you found."
+    diagram: null
+    confidence: high
+
+  - topic: "continuity_check"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Let f(x) = |x|. Which statement about f is correct?"
+    correct: "Continuous at 0 but not differentiable at 0"
+    unit: ""
+    wrong:
+      - {text: "Differentiable everywhere", mistake: "assumes the absolute value is smooth at every point"}
+      - {text: "Not continuous at 0", mistake: "reads the corner at zero as a break in the graph"}
+      - {text: "Differentiable at 0 with derivative 0", mistake: "averages the two one-sided slopes"}
+    explanation: "The left and right limits of |x| at 0 both equal 0, so f is continuous there. The one-sided slopes are minus 1 and 1, which differ, so f has no derivative at 0."
+    hints:
+      - "Check the one-sided limits of f at 0 first."
+      - "Compare the left and right slopes of the graph at x equal to zero."
+      - "Ask whether the graph has a corner or a break at that point."
+    diagram: null
+    confidence: high
+
+  - topic: "continuity_check"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the limit of (1 - cos 2x)/x^2 as x approaches 0."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Since 1 minus cos 2x equals 2 sin^2 x, the expression becomes 2 times (sin x / x) squared, whose limit is 2."
+    hints:
+      - "Use an identity that rewrites 1 minus a cosine as a squared sine."
+      - "Factor the result so that a sine over its angle appears."
+      - "Apply the standard limit of sine t over t."
+    diagram: null
+    confidence: high
+
+  - topic: "continuity_check"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f(x) = x|x|. Which statement about f at x = 0 is correct?"
+    correct: "Differentiable at 0 with derivative 0"
+    unit: ""
+    wrong:
+      - {text: "Continuous but not differentiable at 0", mistake: "assumes any corner-like shape fails differentiability"}
+      - {text: "Not continuous at 0", mistake: "treats the change of sign as a jump"}
+      - {text: "Differentiable at 0 with derivative 1", mistake: "uses the slope of one branch only"}
+    explanation: "For h not equal to 0 the difference quotient (f(h) minus f(0)) divided by h equals |h|, which tends to 0, so the derivative at 0 exists and equals 0."
+    hints:
+      - "Write f separately for positive and negative values of x."
+      - "Compute the limit of the difference quotient at 0 from both sides."
+      - "Check whether the two one-sided limits agree."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which statement about continuity and differentiability is correct?"
+    correct: "Every differentiable function is continuous, but a continuous function need not be differentiable"
+    unit: ""
+    wrong:
+      - {text: "Every continuous function is differentiable", mistake: "assumes continuity already implies smoothness"}
+      - {text: "A differentiable function can have a jump", mistake: "thinks a derivative can exist across a break"}
+      - {text: "Continuity and differentiability are unrelated", mistake: "treats the two properties as independent"}
+    explanation: "Differentiability forces continuity, but the converse fails, as the graph of the absolute value at zero shows."
+    hints:
+      - "Consider whether a derivative can exist at a point where the function is broken."
+      - "Think about the graph of the absolute value at zero."
+      - "Decide which property is the stronger requirement."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let f(x) = x^2 for x at most 1, and f(x) = 2x + c for x greater than 1. Find c so that f is continuous at x = 1."
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "At x equal to 1 the first rule gives 1 and the second gives 2 plus c, so continuity requires 1 equal to 2 plus c, giving c equal to minus 1."
+    hints:
+      - "Compare the two formulas at the point where they meet."
+      - "Set the value from the left equal to the value from the right at x equal to 1."
+      - "Solve the resulting equation for the constant."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let f(x) = x^2 for x at most 1, and f(x) = ax + b for x greater than 1. If f is differentiable at x = 1, find b."
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "Differentiability at 1 needs equal slopes, so a equals 2, and continuity needs 1 equal to a plus b, which gives b equal to minus 1."
+    hints:
+      - "Write the continuity condition at x equal to 1."
+      - "Write the matching condition on the derivatives from the two sides."
+      - "Solve the two equations for a and b."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "At which points is f(x) = |x - 2| + x^2 not differentiable?"
+    correct: "At x = 2 only"
+    unit: ""
+    wrong:
+      - {text: "Nowhere", mistake: "assumes the squared term smooths out the corner"}
+      - {text: "At x = 0 only", mistake: "looks at the squared term instead of the absolute value"}
+      - {text: "At x = -2 and x = 2", mistake: "reflects the corner about the origin"}
+    explanation: "The polynomial part is smooth everywhere, and the absolute value changes its formula only at x equal to 2, where the one-sided slopes differ."
+    hints:
+      - "Identify the point where the absolute value expression changes its formula."
+      - "Look at the one-sided slopes at that point."
+      - "The polynomial part is smooth everywhere, so focus on the other term."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f(x) = cube root of x. Which statement about f at x = 0 is correct?"
+    correct: "Not differentiable at 0 because the slope tends to infinity"
+    unit: ""
+    wrong:
+      - {text: "Differentiable at 0 with derivative 1/3", mistake: "applies the power rule at zero without checking the limit"}
+      - {text: "Differentiable at 0 with derivative 0", mistake: "reads the flat look of the graph as zero slope"}
+      - {text: "Not continuous at 0", mistake: "confuses an infinite slope with a jump"}
+    explanation: "The difference quotient at 0 is h to the power 1/3 divided by h, which grows without bound as h approaches 0, so there is no finite derivative at 0. The function is continuous there."
+    hints:
+      - "Write the difference quotient at 0 for this function."
+      - "Evaluate the limit of that quotient as h approaches zero."
+      - "Decide whether that limit is a finite number."
+    diagram: null
+    confidence: high
+
+  - topic: "differentiability"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let f(x) = x^2 sin(1/x) for x not equal to 0, and f(0) = 0. Find f'(0)."
+    correct: "0"
+    unit: ""
+    wrong: []
+    explanation: "The difference quotient at 0 is h sin(1/h), and since sine is bounded by 1 in size, this tends to 0 as h approaches 0."
+    hints:
+      - "Write the difference quotient at the point using the function value given there."
+      - "Use the fact that sine stays between minus one and one."
+      - "Consider the limit of h multiplied by a bounded quantity."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the derivative of (3x + 1)^5 with respect to x, evaluated at x = 0."
+    correct: "15"
+    unit: ""
+    wrong: []
+    explanation: "The chain rule gives 5 times (3x + 1)^4 times 3, which at x equal to 0 is 5 times 1 times 3, equal to 15."
+    hints:
+      - "Apply the chain rule to the outer power first."
+      - "Differentiate the inner linear expression."
+      - "Substitute x equal to zero at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is dy/dx when y = sin(x^2)?"
+    correct: "2x cos(x^2)"
+    unit: ""
+    wrong:
+      - {text: "cos(x^2)", mistake: "forgets to differentiate the inner function"}
+      - {text: "2x sin(x^2)", mistake: "keeps the sine after differentiating it"}
+      - {text: "-2x cos(x^2)", mistake: "changes the sign when differentiating the sine"}
+    explanation: "The outer function is sine, whose derivative is cosine of the inner expression, and the inner function x squared has derivative 2x."
+    hints:
+      - "Identify the outer and the inner function."
+      - "Differentiate the outer function and keep the inner one unchanged."
+      - "Multiply by the derivative of the inner function."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "The point (3, 4) lies on the curve x^2 + y^2 = 25. Find dy/dx at this point."
+    correct: "-0.75"
+    unit: ""
+    wrong: []
+    explanation: "Differentiating implicitly gives 2x + 2y dy/dx = 0, so dy/dx equals minus x over y, which at (3, 4) is minus 3 over 4."
+    hints:
+      - "Differentiate both sides of the equation with respect to x."
+      - "Remember that y depends on x, so its derivative carries a dy/dx factor."
+      - "Solve for dy/dx and substitute the coordinates of the point."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "For y = x^x with x greater than 0, which expression gives dy/dx?"
+    correct: "x^x times (1 + ln x)"
+    unit: ""
+    wrong:
+      - {text: "x^x times ln x", mistake: "differentiates as if the exponent were a constant"}
+      - {text: "x times x^(x - 1)", mistake: "applies the power rule and treats the exponent as constant"}
+      - {text: "x^x times (ln x)^2", mistake: "squares the logarithm term instead of adding one"}
+    explanation: "Taking logarithms gives ln y = x ln x, and differentiating implicitly gives dy/dx equal to y times (ln x + 1), which is x^x times (1 + ln x)."
+    hints:
+      - "Take the natural logarithm of both sides first."
+      - "Differentiate the logarithm of y using the product rule."
+      - "Solve for dy/dx and substitute y back in terms of x."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A curve is given parametrically by x = t^2 and y = t^3. Find dy/dx at t = 2."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "dy/dt is 3t squared and dx/dt is 2t, so dy/dx is 3t over 2, which equals 3 at t equal to 2."
+    hints:
+      - "Compute the derivative of each variable with respect to t."
+      - "Divide the derivative of y by the derivative of x."
+      - "Substitute the given value of t into the quotient."
+    diagram: null
+    confidence: high
+
+  - topic: "chain_rule_implicit"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For y = (sin x)^x with sin x greater than 0, which expression gives dy/dx?"
+    correct: "(sin x)^x times (ln(sin x) + x cot x)"
+    unit: ""
+    wrong:
+      - {text: "x times (sin x)^(x - 1) times cos x", mistake: "treats the exponent x as a constant"}
+      - {text: "(sin x)^x times ln(sin x)", mistake: "forgets the derivative of the base"}
+      - {text: "(sin x)^x times (ln(sin x) + cos x over x)", mistake: "differentiates the exponent incorrectly"}
+    explanation: "Taking logarithms gives ln y = x ln(sin x), and differentiating with the product rule gives ln(sin x) + x cot x multiplied by y."
+    hints:
+      - "Take the natural logarithm of both sides before differentiating."
+      - "Use the product rule on the right-hand side of the logarithmic equation."
+      - "Recall the derivative of the logarithm of sin x."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "If x = 2t and y = t^2, what is dy/dx?"
+    correct: "t"
+    unit: ""
+    wrong:
+      - {text: "2t", mistake: "divides in the wrong order"}
+      - {text: "t^2", mistake: "keeps y as the derivative"}
+      - {text: "1/t", mistake: "inverts the ratio"}
+    explanation: "dx/dt is 2 and dy/dt is 2t, so dy/dx equals 2t divided by 2, which is t."
+    hints:
+      - "Differentiate each variable separately with respect to the parameter."
+      - "Divide the derivative of y by the derivative of x."
+      - "Simplify the quotient and leave the answer in terms of t."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Using logarithmic differentiation on y = x^3, find dy/dx at x = 1."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Taking logarithms gives ln y = 3 ln x, so dy/dx equals 3y over x, and at x equal to 1 with y equal to 1 this is 3."
+    hints:
+      - "Take the natural logarithm of both sides."
+      - "Use the rule that brings the exponent in front of the logarithm."
+      - "Evaluate the result at x equal to 1."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A curve is given by x = cos t and y = sin t. Find dy/dx at t = pi/4."
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "dy/dx equals cos t divided by minus sin t, which is minus cot t, and at t equal to pi over 4 cot t is 1, so the result is minus 1."
+    hints:
+      - "Differentiate x and y with respect to t."
+      - "Form the ratio of the two derivatives."
+      - "Evaluate the trigonometric ratio at the given angle."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Using logarithmic differentiation, which expression gives dy/dx for y = x^2 times (x + 1)^3?"
+    correct: "2x(x + 1)^3 + 3x^2(x + 1)^2"
+    unit: ""
+    wrong:
+      - {text: "2x(x + 1)^3", mistake: "differentiates only the first factor"}
+      - {text: "3x^2(x + 1)^2", mistake: "differentiates only the second factor"}
+      - {text: "x^2(x + 1)^3(2x + 3)", mistake: "adds the exponents instead of applying the product rule"}
+    explanation: "The logarithmic derivative gives dy/dx = y times (2/x + 3/(x + 1)), which expands to 2x(x + 1)^3 + 3x^2(x + 1)^2."
+    hints:
+      - "Take logarithms of both sides so that the product becomes a sum."
+      - "Differentiate each logarithm term separately."
+      - "Multiply back by y and simplify."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A curve is given by x = t^2 and y = t^3 + 1. Find the second derivative d2y/dx2 at t = 1."
+    correct: "0.75"
+    unit: ""
+    wrong: []
+    explanation: "dy/dx equals 3t over 2, whose derivative with respect to t is 3/2, and dividing by dx/dt = 2t gives 3 over 4t, which is 0.75 at t equal to 1."
+    hints:
+      - "First find dy/dx as an expression in t."
+      - "Differentiate that expression with respect to t."
+      - "Divide by dx/dt, then substitute the given value of t."
+    diagram: null
+    confidence: high
+
+  - topic: "log_and_parametric_derivatives"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "For x = a cos t and y = b sin t, which expression gives d2y/dx2?"
+    correct: "-b/(a^2 sin^3 t)"
+    unit: ""
+    wrong:
+      - {text: "b/(a^2 sin^3 t)", mistake: "drops the sign coming from dx/dt"}
+      - {text: "-b/(a sin^2 t)", mistake: "divides by dx/dt only once and loses a power of a"}
+      - {text: "-b cos t/(a^2 sin^3 t)", mistake: "keeps an extra cosine from the first derivative"}
+    explanation: "dy/dx equals minus (b/a) cot t, its t-derivative is (b/a) csc squared t, and dividing by dx/dt = minus a sin t gives minus b over (a^2 sin^3 t)."
+    hints:
+      - "Find dy/dx as a function of t first."
+      - "Differentiate that expression with respect to t."
+      - "Divide by dx/dt, keeping track of its sign."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "For y = x^3, find the second derivative d2y/dx2 at x = 2."
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "The first derivative is 3x squared, the second is 6x, and at x equal to 2 this is 12."
+    hints:
+      - "Differentiate twice in succession."
+      - "The first derivative is a quadratic expression in x."
+      - "Evaluate the second derivative at x equal to 2."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "For y = e^(2x), what is d2y/dx2?"
+    correct: "4e^(2x)"
+    unit: ""
+    wrong:
+      - {text: "2e^(2x)", mistake: "differentiates only once"}
+      - {text: "e^(4x)", mistake: "multiplies the exponents instead of the coefficients"}
+      - {text: "4x e^(2x)", mistake: "applies the product rule where no product exists"}
+    explanation: "Each differentiation of e^(2x) multiplies by 2, so the second derivative is 2 times 2 times e^(2x), which is 4e^(2x)."
+    hints:
+      - "Differentiate once and look at the pattern."
+      - "The constant in the exponent appears again at each differentiation."
+      - "Apply the rule twice and check the coefficient."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "The curve x^2 + y^2 = 1 near the point (0, 1) defines y as a function of x. Find d2y/dx2 at (0, 1)."
+    correct: "-1"
+    unit: ""
+    wrong: []
+    explanation: "Differentiating implicitly gives dy/dx = minus x over y, which is 0 at the point. Differentiating again gives d2y/dx2 = minus (1 plus (dy/dx) squared) over y, which at (0, 1) equals minus 1."
+    hints:
+      - "Differentiate the relation once to obtain dy/dx."
+      - "Differentiate that expression again, using the first derivative relation."
+      - "Substitute the point at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "For x = t^2 and y = t^3, which expression gives d2y/dx2?"
+    correct: "3/(4t)"
+    unit: ""
+    wrong:
+      - {text: "3t/2", mistake: "stops after the first derivative"}
+      - {text: "3/(2t)", mistake: "divides by dx/dt only partly"}
+      - {text: "3t^2/4", mistake: "substitutes the derivative in the wrong place"}
+    explanation: "dy/dx is 3t over 2, its derivative with respect to t is 3/2, and dividing by dx/dt = 2t gives 3/(4t)."
+    hints:
+      - "Find dy/dx as a function of t first."
+      - "Differentiate that function with respect to t."
+      - "Divide by dx/dt at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let x = e^t and y = e^(-t). Find d2y/dx2 at t = 0."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "dy/dx equals minus e^(-2t), which is minus 1 over x squared. Differentiating with respect to x gives 2 over x cubed, which is 2 at x equal to 1, the point t equal to 0."
+    hints:
+      - "Compute dy/dx and rewrite it in terms of x."
+      - "Differentiate that expression with respect to x."
+      - "Substitute the point at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "second_order_derivatives"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "If y = sin^-1(x) for x between minus 1 and 1, which expression gives d2y/dx2?"
+    correct: "x/(1 - x^2)^(3/2)"
+    unit: ""
+    wrong:
+      - {text: "1/(1 - x^2)^(3/2)", mistake: "drops the factor x when differentiating the first derivative"}
+      - {text: "-x/(1 - x^2)^(3/2)", mistake: "changes the sign of the second derivative"}
+      - {text: "x/(1 - x^2)^(1/2)", mistake: "uses the wrong power in the denominator"}
+    explanation: "The first derivative is (1 - x^2) to the power minus 1/2. Differentiating it with the chain rule gives x times (1 - x^2) to the power minus 3/2."
+    hints:
+      - "Write the first derivative of sin^-1 x as a power of 1 minus x squared."
+      - "Apply the chain rule to that power."
+      - "Simplify the expression and check the sign."
+    diagram: null
+    confidence: high

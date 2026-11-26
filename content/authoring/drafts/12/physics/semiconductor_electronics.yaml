@@ -1,0 +1,413 @@
+class: 12
+subject: physics
+chapter: semiconductor_electronics
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: energy_bands
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a metal conductor, how are the valence band and the conduction band arranged?"
+    correct: "They overlap, or the conduction band is partly filled with electrons"
+    unit: ""
+    wrong:
+      - {text: "They are separated by a large band gap", mistake: "confuses a conductor with an insulator"}
+      - {text: "The valence band is completely filled with no empty states", mistake: "assumes a conductor has no free electrons"}
+      - {text: "They are separated by a gap of about 1 eV", mistake: "confuses a conductor with a semiconductor"}
+    explanation: "In a metal the bands overlap or the conduction band is partly filled, so electrons can gain energy and move freely with almost no gap."
+    hints:
+      - "Think about whether electrons need an energy gap to become free in this material."
+      - "Consider which band can hold electrons that are free to move."
+      - "Compare the arrangement of bands in a metal with that in an insulator."
+    diagram: null
+    confidence: high
+  - topic: energy_bands
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which band gap range is typical of an insulator?"
+    correct: "Several electronvolt or more"
+    unit: ""
+    wrong:
+      - {text: "Zero", mistake: "confuses an insulator with a conductor"}
+      - {text: "About 1 eV", mistake: "confuses an insulator with a typical semiconductor"}
+      - {text: "A few microelectronvolt", mistake: "confuses the energy gap with thermal energy scales"}
+    explanation: "Insulators have wide band gaps, several electronvolt or more, so very few electrons can be thermally excited into the conduction band."
+    hints:
+      - "Think about how much energy is needed to lift an electron across the gap."
+      - "Compare that energy with the thermal energy available at room temperature."
+      - "Recall how the gap of an insulator differs from that of a semiconductor."
+    diagram: null
+    confidence: high
+  - topic: energy_bands
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A semiconductor has a band gap of 2.0 eV. What is the longest wavelength in nm of light it can absorb? Use hc equal to 1240 eV nm."
+    correct: "620"
+    unit: "nm"
+    wrong: []
+    explanation: "A photon must have at least the band gap energy. Its wavelength is hc divided by the gap energy, which is 1240 divided by 2.0, equal to 620 nm."
+    hints:
+      - "A photon must have at least the band gap energy to be absorbed."
+      - "Use wavelength equal to hc divided by that energy."
+      - "Divide 1240 by the gap energy in eV."
+    diagram: "An energy band diagram with the valence band at the bottom, the conduction band at the top, the gap marked, and a photon arrow drawn with energy equal to the gap."
+    confidence: high
+  - topic: energy_bands
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "What happens to the conductivity of a pure semiconductor when its temperature rises?"
+    correct: "It increases, because more electrons are thermally excited into the conduction band"
+    unit: ""
+    wrong:
+      - {text: "It decreases, as it does in a metal", mistake: "applies the metal trend to a semiconductor"}
+      - {text: "It stays exactly the same", mistake: "assumes temperature does not change the number of carriers"}
+      - {text: "It becomes a superconductor", mistake: "confuses a semiconductor with a superconducting material"}
+    explanation: "Heating supplies energy for more electrons to cross the gap, creating more carriers, so the conductivity of a semiconductor rises with temperature."
+    hints:
+      - "Think about how heat affects the number of electrons that can cross the band gap."
+      - "Compare the trend in a semiconductor with the trend in a metal."
+      - "Consider how many carriers are available to carry current."
+    diagram: null
+    confidence: high
+  - topic: energy_bands
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why does diamond behave as an insulator while silicon behaves as a semiconductor, even though both have the same crystal structure?"
+    correct: "Diamond has a much larger band gap"
+    unit: ""
+    wrong:
+      - {text: "Diamond has many more free electrons", mistake: "assumes more free electrons would make diamond a better conductor than silicon"}
+      - {text: "Silicon has no valence electrons", mistake: "confuses the number of valence electrons with their availability"}
+      - {text: "Diamond is a metal with overlapping bands", mistake: "confuses diamond with a metal"}
+    explanation: "Both materials have tetrahedral bonding, but diamond has a much wider band gap, so far fewer electrons can be thermally excited across it."
+    hints:
+      - "Think about the energy needed to free an electron in each material."
+      - "Consider which property of the band structure determines how many electrons can be excited."
+      - "Compare the band gaps of the two materials."
+    diagram: "Two energy band diagrams side by side, one with a tall gap labelled for diamond and one with a shorter gap labelled for silicon, both showing the valence and conduction bands."
+    confidence: high
+  - topic: energy_bands
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A material has a band gap of 0.62 eV. What is the longest wavelength in nm of light that it can absorb? Use hc equal to 1240 eV nm."
+    correct: "2000"
+    unit: "nm"
+    wrong: []
+    explanation: "The longest absorbed wavelength corresponds to the band gap energy. Dividing 1240 eV nm by 0.62 eV gives 2000 nm."
+    hints:
+      - "The longest absorbed wavelength corresponds to a photon with exactly the band gap energy."
+      - "Divide the constant hc by the band gap energy."
+      - "Keep the answer in nanometre."
+    diagram: "A band diagram with a narrow gap marked at 0.62 eV and an infrared photon arrow drawn with energy matching that gap."
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Silicon is doped with phosphorus, which has five valence electrons. What type of semiconductor results?"
+    correct: "n-type, with excess electrons as the majority carriers"
+    unit: ""
+    wrong:
+      - {text: "p-type, with holes as the majority carriers", mistake: "reverses the valency logic of the dopant"}
+      - {text: "Intrinsic, because the dopant has no effect", mistake: "assumes any dopant leaves the material unchanged"}
+      - {text: "An insulator with no free carriers", mistake: "assumes doping removes the carriers"}
+    explanation: "Phosphorus has one more valence electron than silicon, so the extra electron becomes a mobile carrier and the material is n-type."
+    hints:
+      - "Compare the number of valence electrons of the dopant with that of silicon."
+      - "Think about which carriers the extra electron adds to the material."
+      - "Consider how a dopant with fewer valence electrons would behave."
+    diagram: null
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In an intrinsic semiconductor at room temperature, the number of electrons in the conduction band is equal to what?"
+    correct: "The number of holes in the valence band"
+    unit: ""
+    wrong:
+      - {text: "Zero", mistake: "assumes an intrinsic semiconductor has no thermally excited electrons"}
+      - {text: "Twice the number of holes", mistake: "double counts the carriers created in each excitation"}
+      - {text: "The number of dopant atoms", mistake: "assumes an intrinsic semiconductor contains dopant atoms"}
+    explanation: "In an intrinsic semiconductor every thermally excited electron leaves behind a hole, so electrons and holes are created in equal numbers."
+    hints:
+      - "Think about how electrons and holes are created in pairs in a pure material."
+      - "Consider whether an intrinsic semiconductor contains any dopant atoms."
+      - "Recall what a thermal excitation does to the valence band."
+    diagram: null
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "An intrinsic carrier concentration is 1 x 10^10 per cm^3. A donor doping adds 1 x 10^15 per cm^3 electrons. What is the hole concentration in per cm^3?"
+    correct: "100000"
+    unit: "per cm^3"
+    wrong: []
+    explanation: "The product of electron and hole concentrations equals the intrinsic concentration squared. Dividing 1 x 10^20 by 1 x 10^15 gives 1 x 10^5 holes per cm^3."
+    hints:
+      - "The product of the electron and hole concentrations equals the intrinsic concentration squared."
+      - "Divide the square of the intrinsic concentration by the electron concentration."
+      - "Keep the powers of ten exact in the division."
+    diagram: null
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does adding a small amount of dopant increase the conductivity of a semiconductor so much?"
+    correct: "The dopant atoms supply many extra charge carriers"
+    unit: ""
+    wrong:
+      - {text: "The dopant atoms make the crystal stronger", mistake: "confuses mechanical strength with electrical conduction"}
+      - {text: "The dopant atoms widen the band gap", mistake: "reverses the effect of doping on the band gap"}
+      - {text: "The dopant atoms reduce the number of carriers", mistake: "reverses the effect of adding a dopant"}
+    explanation: "Even a tiny concentration of donor or acceptor atoms supplies far more carriers than the thermal excitation of the pure crystal, so the conductivity rises sharply."
+    hints:
+      - "Think about how many carriers a small dopant concentration can supply."
+      - "Compare the carriers from doping with those from thermal excitation in the pure crystal."
+      - "Consider which property of the material controls how much current it carries."
+    diagram: null
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "An n-type semiconductor is electrically neutral overall, even though it contains many mobile electrons. Why?"
+    correct: "The donor ions are fixed positive charges that balance the mobile electrons"
+    unit: ""
+    wrong:
+      - {text: "The electrons are absorbed into the crystal lattice", mistake: "assumes the mobile electrons disappear into the lattice"}
+      - {text: "The holes cancel the electrons exactly", mistake: "assumes holes are the majority carriers in an n-type material"}
+      - {text: "The electrons are pushed entirely to the surface", mistake: "assumes the carriers all accumulate at the surface"}
+    explanation: "Each donor atom gives up an electron but stays as a fixed positive ion in the lattice. The positive ions balance the mobile electrons, so the material is neutral."
+    hints:
+      - "Think about what remains in the lattice after a donor atom gives up its extra electron."
+      - "Consider which charges are fixed in the crystal and which are mobile."
+      - "Recall that the net charge of the whole crystal must be zero."
+    diagram: null
+    confidence: high
+  - topic: intrinsic_extrinsic
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "An n-type sample has an electron concentration of 1 x 10^16 per cm^3. The intrinsic concentration is 1.5 x 10^10 per cm^3. What is the hole concentration in per cm^3?"
+    correct: "22500"
+    unit: "per cm^3"
+    wrong: []
+    explanation: "The mass action relation gives holes equal to n_i squared over the electron concentration. That is 2.25 x 10^20 divided by 1 x 10^16, which equals 22500 per cm^3."
+    hints:
+      - "Use the mass action relation: electron concentration times hole concentration equals n_i squared."
+      - "Divide the square of the intrinsic concentration by the electron concentration."
+      - "Check that holes are the minority carriers in this sample."
+    diagram: null
+    confidence: high
+  - topic: pn_junction_diode
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "When does a p-n junction diode conduct easily?"
+    correct: "When it is forward biased"
+    unit: ""
+    wrong:
+      - {text: "When it is reverse biased", mistake: "reverses the polarity convention for the diode"}
+      - {text: "When it is left unbiased", mistake: "assumes a diode conducts without any applied voltage"}
+      - {text: "When it is reverse biased below its breakdown voltage", mistake: "assumes reverse bias allows large current below breakdown"}
+    explanation: "Forward bias reduces the depletion region barrier, allowing majority carriers to cross the junction and produce a large current."
+    hints:
+      - "Think about which polarity of the applied voltage lowers the barrier at the junction."
+      - "Consider how the depletion region changes with that polarity."
+      - "Recall which bias allows majority carriers to cross the junction easily."
+    diagram: null
+    confidence: high
+  - topic: pn_junction_diode
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "How is the depletion region formed at the junction of a p-n diode?"
+    correct: "Carriers diffuse across the junction and leave fixed ions behind"
+    unit: ""
+    wrong:
+      - {text: "Electrons flow out of the p-region into the metal contact", mistake: "assumes the depletion region is formed by current flowing out of the device"}
+      - {text: "Heat is applied to the junction until it hardens", mistake: "confuses the depletion region with a mechanical process"}
+      - {text: "A metal layer is deposited to separate the two regions", mistake: "assumes an extra metal layer is needed to form the junction"}
+    explanation: "Electrons diffuse into the p-region and holes diffuse into the n-region. The fixed ions left behind create an electric field that stops further diffusion, forming the depletion region."
+    hints:
+      - "Think about which carriers move across the junction when the two regions first meet."
+      - "Consider what remains behind when a carrier leaves its region."
+      - "Recall how the fixed charges create a barrier."
+    diagram: "A p-n junction shown as two regions side by side, with the depletion region drawn at the junction and fixed ions marked on each side."
+    confidence: high
+  - topic: pn_junction_diode
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A diode with a forward voltage drop of 0.7 V is connected in series with a 430 ohm resistor to a 5 V supply. What is the current in mA?"
+    correct: "10"
+    unit: "mA"
+    wrong: []
+    explanation: "The voltage across the resistor is 5 minus 0.7, which is 4.3 V. The current is 4.3 divided by 430, which is 0.01 A, or 10 mA."
+    hints:
+      - "Subtract the diode drop from the supply voltage to find the voltage across the resistor."
+      - "Divide that voltage by the series resistance."
+      - "Convert amperes to milliampere at the end."
+    diagram: "A circuit loop with a battery, a series resistor and a diode in forward bias, with the supply voltage, the diode drop and the resistance all labelled."
+    confidence: high
+  - topic: pn_junction_diode
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is a Zener diode most commonly used for in a circuit?"
+    correct: "As a voltage regulator, operating in reverse breakdown"
+    unit: ""
+    wrong:
+      - {text: "As a rectifier that blocks current in both directions", mistake: "assumes a Zener diode blocks current in both directions"}
+      - {text: "As an amplifier operating in forward bias", mistake: "confuses the Zener diode with a transistor"}
+      - {text: "As a capacitor that stores charge", mistake: "confuses a diode with a storage component"}
+    explanation: "A Zener diode is designed to operate in reverse breakdown, where its voltage stays nearly constant over a range of currents, which is useful for regulating a supply."
+    hints:
+      - "Think about the region of operation in which the Zener voltage stays nearly constant."
+      - "Consider which bias the Zener diode uses."
+      - "Recall what a voltage regulator is meant to keep constant."
+    diagram: null
+    confidence: high
+  - topic: pn_junction_diode
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A Zener diode holds 5.1 V across it and is in series with a 200 ohm resistor on a 12 V supply. What is the current in mA?"
+    correct: "34.5"
+    unit: "mA"
+    wrong: []
+    explanation: "The voltage across the resistor is 12 minus 5.1, which is 6.9 V. The current is 6.9 divided by 200, which is 0.0345 A, or 34.5 mA."
+    hints:
+      - "Subtract the Zener voltage from the supply voltage."
+      - "Divide the voltage across the resistor by its resistance."
+      - "Convert the result from ampere to milliampere at the end."
+    diagram: "A Zener diode in reverse bias in series with a resistor across a 12 V supply, with the Zener voltage of 5.1 V labelled across the diode."
+    confidence: high
+  - topic: pn_junction_diode
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Why is the reverse current of an ideal p-n diode nearly constant over a range of reverse voltages?"
+    correct: "Only a small number of minority carriers cross the junction under reverse bias"
+    unit: ""
+    wrong:
+      - {text: "Electrons flow freely across the junction in reverse", mistake: "reverses the direction in which the barrier blocks majority carriers"}
+      - {text: "The depletion region disappears in reverse bias", mistake: "reverses the effect of bias on the depletion region"}
+      - {text: "The diode has infinite resistance in reverse", mistake: "assumes reverse resistance is infinite in every case"}
+    explanation: "In reverse bias the barrier blocks the majority carriers, and only the small number of minority carriers can cross. Their supply is limited, so the reverse current saturates."
+    hints:
+      - "Think about which carriers can still cross the junction under reverse bias."
+      - "Consider how many of those carriers are available to cross."
+      - "Recall how the depletion region changes its width under reverse bias."
+    diagram: "The current voltage characteristic of a diode drawn as a graph, with a flat reverse current region on the left of the origin and a steep forward branch on the right."
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "When is the output of a two-input AND gate high?"
+    correct: "Only when all inputs are high"
+    unit: ""
+    wrong:
+      - {text: "When any one input is high", mistake: "confuses the AND gate with an OR gate"}
+      - {text: "When no input is high", mistake: "confuses the AND gate with a NOR gate"}
+      - {text: "When exactly one input is high", mistake: "confuses the AND gate with an XOR gate"}
+    explanation: "An AND gate gives a high output only when every input is high, which is the same as a series arrangement of switches that all must close."
+    hints:
+      - "Think about how many inputs must be high for the output to be high."
+      - "Compare with the behaviour of two switches placed in series."
+      - "Recall the truth table of the AND gate."
+    diagram: null
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the output of a NOT gate for a given input?"
+    correct: "The inverse of its input"
+    unit: ""
+    wrong:
+      - {text: "The same as its input", mistake: "assumes a NOT gate passes its input unchanged"}
+      - {text: "Always high", mistake: "assumes the output does not depend on the input"}
+      - {text: "Always low", mistake: "assumes the output does not depend on the input"}
+    explanation: "A NOT gate inverts its input, so a high input gives a low output and a low input gives a high output."
+    hints:
+      - "Think about what the word NOT does to a logical value."
+      - "Consider how the output depends on the input in a single gate."
+      - "Recall the truth table of a single input inverter."
+    diagram: null
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "How many distinct input combinations must be listed in the truth table of a logic gate with three inputs?"
+    correct: "8"
+    unit: ""
+    wrong: []
+    explanation: "Each input can take two values, so three inputs give 2 times 2 times 2 combinations, which is 8."
+    hints:
+      - "Each input can take one of two values."
+      - "Multiply the number of choices for each input together."
+      - "Each added input doubles the number of rows."
+    diagram: "A truth table grid with three input columns labelled A, B and C and one output column, with the rows drawn in binary order."
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the output of a NAND gate when both of its inputs are high?"
+    correct: "Low"
+    unit: ""
+    wrong:
+      - {text: "High", mistake: "forgets the inversion that follows the AND stage"}
+      - {text: "Undefined", mistake: "assumes a logic gate has no defined output for valid inputs"}
+      - {text: "Equal to input A", mistake: "assumes the output simply copies one of the inputs"}
+    explanation: "A NAND gate is an AND gate followed by a NOT. With both inputs high the AND output is high, and the inversion makes the NAND output low."
+    hints:
+      - "Start by finding the output of the AND stage for these two inputs."
+      - "Apply the inversion that follows the AND stage."
+      - "Consider what an inverter does to a high input."
+    diagram: null
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A full-wave bridge rectifier is fed with a 12 V peak AC input. Each conducting diode drops 0.7 V, and two diodes conduct at any instant. What is the peak output voltage across the load in volt?"
+    correct: "10.6"
+    unit: "V"
+    wrong: []
+    explanation: "Two diodes conduct at each instant, so the drop is 1.4 V. The peak output is 12 minus 1.4, which is 10.6 V."
+    hints:
+      - "Find how many diodes conduct at any instant in a bridge rectifier."
+      - "Multiply the drop per diode by the number of conducting diodes."
+      - "Subtract the total drop from the peak input voltage."
+    diagram: "A bridge rectifier with four diodes arranged in a diamond, an AC input across two opposite corners, and the load across the other two corners, with the conducting path highlighted."
+    confidence: high
+  - topic: rectifiers_logic_gates
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "In a bridge rectifier, why does the load always see current flowing in the same direction?"
+    correct: "The diodes steer each half cycle so that current passes through the load the same way"
+    unit: ""
+    wrong:
+      - {text: "The load is an inductor that holds the polarity fixed", mistake: "assumes an inductor fixes the direction of current"}
+      - {text: "The transformer reverses its polarity each cycle", mistake: "assumes the transformer itself fixes the output polarity"}
+      - {text: "Capacitors in the circuit reverse the current", mistake: "assumes capacitors reverse the direction of current"}
+    explanation: "Each pair of diagonally opposite diodes conducts on one half cycle, routing the current through the load in the same direction for both halves."
+    hints:
+      - "Trace the current path through the diodes during each half cycle."
+      - "Consider which diodes conduct on each half of the input."
+      - "Compare the path through the load in the two halves."
+    diagram: "A bridge rectifier diagram with two separate current paths drawn, one for each half cycle, both passing through the load in the same direction."
+    confidence: high

@@ -1,0 +1,303 @@
+class: 12
+subject: "maths"
+chapter: "vector_algebra"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "vector_basics"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the magnitude of the vector 3i + 4j."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The magnitude is the square root of 3 squared plus 4 squared, which is the square root of 25, equal to 5."
+    hints:
+      - "Use the formula for the magnitude in terms of the components."
+      - "Add the squares of the components."
+      - "Take the square root of the sum."
+    diagram: "Vector drawn from the origin to the point (3, 4), with its horizontal component of length 3 and vertical component of length 4 marked."
+    confidence: high
+
+  - topic: "vector_basics"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which vector is a unit vector in the direction of 3i + 4j?"
+    correct: "(3i + 4j)/5"
+    unit: ""
+    wrong:
+      - {text: "3i + 4j", mistake: "forgets to normalise the vector"}
+      - {text: "(3i + 4j)/7", mistake: "divides by the sum of the components instead of the magnitude"}
+      - {text: "(3i + 4j)/25", mistake: "divides by the squared magnitude instead of the magnitude"}
+    explanation: "Dividing a vector by its magnitude gives a unit vector in the same direction, and the magnitude of 3i + 4j is 5."
+    hints:
+      - "Divide a vector by its magnitude to get a unit vector."
+      - "Find the magnitude first."
+      - "Check that the magnitude of your result equals 1."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_basics"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A vector has components (1, square root of 3). Find the angle it makes with the positive x-axis, in degrees."
+    correct: "60"
+    unit: "degrees"
+    wrong: []
+    explanation: "The tangent of the angle equals the ratio of the components, square root of 3 over 1, so the angle is 60 degrees."
+    hints:
+      - "Use the tangent of the angle as the ratio of the vertical component to the horizontal component."
+      - "Recall the angle whose tangent equals the square root of 3."
+      - "Give the answer in degrees."
+    diagram: "Vector from the origin to the point (1, square root of 3), with the angle to the positive horizontal axis marked."
+    confidence: high
+
+  - topic: "vector_basics"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A point P divides the segment from A = (1, 2, 3) to B = (4, 5, 6) internally in the ratio 2:1, with P closer to B. What are the coordinates of P?"
+    correct: "(3, 4, 5)"
+    unit: ""
+    wrong:
+      - {text: "(2, 3, 4)", mistake: "swaps the weights of the two endpoints"}
+      - {text: "(2.5, 3.5, 4.5)", mistake: "takes the midpoint instead of the weighted point"}
+      - {text: "(4, 5, 6)", mistake: "returns the endpoint B instead of the division point"}
+    explanation: "For internal division in the ratio m:n, the position vector is (nA + mB)/(m + n). With m = 2 and n = 1 this gives (A + 2B)/3, which is (3, 4, 5)."
+    hints:
+      - "Write the section formula for internal division in the ratio m:n."
+      - "Identify which endpoint gets which weight."
+      - "Divide the weighted sum by the total of the ratio parts."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_basics"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the magnitude of a minus b when a = (1, 2, 2) and b = (3, 0, 4), rounded to 3 decimal places."
+    correct: "3.464"
+    unit: ""
+    wrong: []
+    explanation: "a minus b is (-2, 2, -2), whose squared magnitude is 12, so its magnitude is the square root of 12, about 3.464."
+    hints:
+      - "Subtract the components of b from the components of a."
+      - "Square each component of the result and add them."
+      - "Take the square root and round as asked."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_basics"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A vector of magnitude 6 makes equal angles with the three coordinate axes. What is each of its components?"
+    correct: "2 times the square root of 3"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "divides the magnitude by 3 instead of by the square root of 3"}
+      - {text: "6", mistake: "uses the magnitude itself as each component"}
+      - {text: "3", mistake: "divides the magnitude by 2 instead of by the square root of 3"}
+    explanation: "Equal angles give equal components, and the sum of the squares of the three components equals 36, so each component is 6 over the square root of 3, which equals 2 times the square root of 3."
+    hints:
+      - "Equal angles with the axes give equal components."
+      - "The sum of the squares of the components equals the squared magnitude."
+      - "Solve for one component."
+    diagram: null
+    confidence: high
+
+  - topic: "scalar_and_vector_product"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the dot product of a = (1, 2, 3) and b = (4, 5, 6)."
+    correct: "32"
+    unit: ""
+    wrong: []
+    explanation: "The dot product is 1 times 4 plus 2 times 5 plus 3 times 6, which equals 4 + 10 + 18 = 32."
+    hints:
+      - "Multiply the corresponding components of the two vectors."
+      - "Add the three products together."
+      - "Check each multiplication separately."
+    diagram: null
+    confidence: high
+
+  - topic: "scalar_and_vector_product"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the cross product i x j, where i and j are the standard unit vectors?"
+    correct: "k"
+    unit: ""
+    wrong:
+      - {text: "-k", mistake: "reverses the order given by the right-hand rule"}
+      - {text: "i + j", mistake: "treats the cross product as vector addition"}
+      - {text: "0", mistake: "believes the cross product of perpendicular vectors vanishes"}
+    explanation: "By the right-hand rule and the standard cyclic order i, j, k, the cross product i x j equals k."
+    hints:
+      - "Recall the cyclic order of the standard unit vectors."
+      - "Apply the right-hand rule to the first two vectors."
+      - "Remember that the cross product gives a vector perpendicular to both inputs."
+    diagram: null
+    confidence: high
+
+  - topic: "scalar_and_vector_product"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the angle between the vectors (1, 0, 0) and (1, 1, 0), in degrees."
+    correct: "45"
+    unit: "degrees"
+    wrong: []
+    explanation: "The dot product is 1, the magnitudes are 1 and the square root of 2, so cos of the angle is 1 over the square root of 2, which gives 45 degrees."
+    hints:
+      - "Use the dot product formula for the cosine of the angle between two vectors."
+      - "Compute the magnitudes of both vectors."
+      - "Find the angle whose cosine equals the ratio you obtained."
+    diagram: null
+    confidence: high
+
+  - topic: "scalar_and_vector_product"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the magnitude of the cross product of a = (1, 1, 0) and b = (1, -1, 0)?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "computes the dot product instead of the cross product"}
+      - {text: "4", mistake: "adds the components before taking the cross product"}
+      - {text: "square root of 2", mistake: "uses only the first component of the result"}
+    explanation: "The cross product a x b equals (0, 0, -2), whose magnitude is 2."
+    hints:
+      - "Set up the determinant with the unit vectors in the first row."
+      - "Expand the determinant carefully."
+      - "Find the magnitude of the resulting vector."
+    diagram: null
+    confidence: high
+
+  - topic: "scalar_and_vector_product"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Vectors a and b are unit vectors with a dot b equal to 1/2. What is the magnitude of a x b?"
+    correct: "square root of 3 divided by 2"
+    unit: ""
+    wrong:
+      - {text: "1/2", mistake: "uses the dot product value as the magnitude of the cross product"}
+      - {text: "1", mistake: "assumes the two vectors are perpendicular"}
+      - {text: "square root of (1/2)", mistake: "takes the square root of the dot product"}
+    explanation: "The dot product gives cos of the angle equal to 1/2, so the angle is 60 degrees and the sine is square root of 3 over 2, which is the magnitude of the cross product of unit vectors."
+    hints:
+      - "Relate the dot product of two unit vectors to the cosine of the angle between them."
+      - "Find the sine of that angle from the cosine."
+      - "Recall that the cross product magnitude uses the sine of the angle."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the area of the triangle with vertices (0, 0, 0), (2, 0, 0) and (0, 3, 0)."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Taking the vectors (2, 0, 0) and (0, 3, 0), their cross product is (0, 0, 6), whose magnitude is 6, and half of that gives the triangle area of 3."
+    hints:
+      - "Form two vectors from one vertex of the triangle."
+      - "Find their cross product."
+      - "Take half of the magnitude of that product."
+    diagram: "Triangle in the horizontal plane with vertices at the origin, at (2, 0, 0) and at (0, 3, 0), with the side lengths marked."
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the area of the parallelogram whose adjacent sides are a = i + j and b = i - j?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "halves the parallelogram area as if it were a triangle"}
+      - {text: "square root of 2", mistake: "uses only one component of the cross product"}
+      - {text: "0", mistake: "takes the dot product of the two sides"}
+    explanation: "The cross product of (1, 1, 0) and (1, -1, 0) is (0, 0, -2), whose magnitude is 2, which is the parallelogram area."
+    hints:
+      - "Compute the cross product of the two adjacent sides."
+      - "The area of a parallelogram is the magnitude of that product."
+      - "Check the third component of the cross product."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the scalar projection of b = (2, 1, 3) onto a = (1, 1, 1), rounded to 3 decimal places."
+    correct: "3.464"
+    unit: ""
+    wrong: []
+    explanation: "The dot product is 6 and the magnitude of a is the square root of 3, so the scalar projection is 6 over the square root of 3, about 3.464."
+    hints:
+      - "The scalar projection equals the dot product divided by the magnitude of a."
+      - "Compute the dot product of the two vectors first."
+      - "Find the magnitude of the vector you are projecting onto."
+    diagram: "Vector b drawn at an angle to vector a, with the projection of b onto the line of a marked as a segment along a."
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the area of the triangle with vertices A(1, 2, 0), B(3, 4, 0) and C(5, 0, 0)?"
+    correct: "6"
+    unit: ""
+    wrong:
+      - {text: "12", mistake: "forgets the factor one half in the triangle area"}
+      - {text: "3", mistake: "halves the area twice"}
+      - {text: "24", mistake: "uses the sum of the side lengths in place of the cross product"}
+    explanation: "The vectors AB = (2, 2, 0) and AC = (4, -2, 0) have cross product (0, 0, -12), whose magnitude is 12, and half of this is 6."
+    hints:
+      - "Choose two sides that meet at one vertex."
+      - "Compute the cross product of those two side vectors."
+      - "Take half of the magnitude of the cross product."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the scalar triple product [a b c] for a = (1, 2, 3), b = (0, 1, 4) and c = (5, 6, 0)."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "Writing a, b and c as the rows of a determinant and expanding gives 1 times (-24) minus 2 times (-20) plus 3 times (-5), which equals 1."
+    hints:
+      - "Set up the determinant with the three vectors as its rows."
+      - "Expand the determinant along its first row."
+      - "Combine the three minors with the correct signs."
+    diagram: null
+    confidence: high
+
+  - topic: "vector_applications"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the volume of the tetrahedron whose three coterminous edges are the vectors (2, 0, 0), (0, 3, 0) and (0, 0, 4)?"
+    correct: "4"
+    unit: ""
+    wrong:
+      - {text: "24", mistake: "omits the factor one sixth that applies to a tetrahedron"}
+      - {text: "12", mistake: "takes one half instead of one sixth of the parallelepiped volume"}
+      - {text: "8", mistake: "halves the parallelepiped volume incorrectly"}
+    explanation: "The scalar triple product of the three edges is 24, which is the volume of the parallelepiped they span, and the tetrahedron has one sixth of that volume, which is 4."
+    hints:
+      - "Compute the scalar triple product of the three edge vectors."
+      - "A tetrahedron occupies a fixed fraction of the parallelepiped spanned by the same edges."
+      - "Take the absolute value of the final result."
+    diagram: null
+    confidence: high

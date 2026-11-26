@@ -1,0 +1,529 @@
+class: 12
+subject: "maths"
+chapter: "integrals"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "indefinite_integral_basics"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the integral of x^2 with respect to x?"
+    correct: "x^3/3 + C"
+    unit: ""
+    wrong:
+      - {text: "x^3 + C", mistake: "forgets to divide by the new power"}
+      - {text: "x^2/2 + C", mistake: "divides by the old power instead of the new one"}
+      - {text: "3x^3 + C", mistake: "multiplies by the new power instead of dividing"}
+    explanation: "The power rule raises the exponent by one and divides by the new exponent, so x squared becomes x cubed over 3, plus a constant."
+    hints:
+      - "Use the power rule for integration."
+      - "Increase the exponent by one first."
+      - "Divide by the new exponent and then add the constant of integration."
+    diagram: null
+    confidence: high
+
+  - topic: "indefinite_integral_basics"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Find the coefficient of x in the antiderivative of 6x^2 - 4x + 3."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Integrating term by term gives 2x^3 - 2x^2 + 3x + C, and the coefficient of x is 3."
+    hints:
+      - "Integrate each term separately."
+      - "A constant term integrates to a multiple of x."
+      - "Read off the coefficient of x in the final antiderivative."
+    diagram: null
+    confidence: high
+
+  - topic: "indefinite_integral_basics"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Find the coefficient that multiplies e^(2x) in an antiderivative of 3e^(2x)."
+    correct: "1.5"
+    unit: ""
+    wrong: []
+    explanation: "The antiderivative of e^(2x) is e^(2x) divided by 2, so the antiderivative of 3e^(2x) is (3/2) e^(2x)."
+    hints:
+      - "Recall the antiderivative of an exponential whose exponent has a coefficient."
+      - "Account for the coefficient inside the exponent."
+      - "Keep the constant factor 3 in mind throughout."
+    diagram: null
+    confidence: high
+
+  - topic: "indefinite_integral_basics"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the integral of 1/x with respect to x?"
+    correct: "ln|x| + C"
+    unit: ""
+    wrong:
+      - {text: "-1/x^2 + C", mistake: "applies the power rule to x to the power minus one"}
+      - {text: "x ln x - x + C", mistake: "confuses the result with integration by parts"}
+      - {text: "2 ln|x| + C", mistake: "doubles the logarithm"}
+    explanation: "The antiderivative of 1/x is the natural logarithm of the absolute value of x, because the power rule does not apply at exponent minus one."
+    hints:
+      - "Think about which function has derivative 1 over x."
+      - "Recall that the power rule fails for exponent minus one."
+      - "Remember that the integrand is defined for negative values of x as well."
+    diagram: null
+    confidence: high
+
+  - topic: "indefinite_integral_basics"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the indefinite integral of sin^2 x dx."
+    correct: "x/2 - sin(2x)/4 + C"
+    unit: ""
+    wrong:
+      - {text: "sin^3(x)/3 + C", mistake: "applies the power rule as if sin squared were the variable"}
+      - {text: "x/2 + sin(2x)/4 + C", mistake: "gets the sign wrong in the double angle identity"}
+      - {text: "-cos^2(x) + C", mistake: "integrates sine squared as the derivative of cosine squared"}
+    explanation: "Using sin^2 x = (1 - cos 2x)/2, the integral is x/2 minus (sin 2x)/4, plus a constant."
+    hints:
+      - "Rewrite sin squared using a double angle identity."
+      - "Integrate the resulting terms separately."
+      - "Check your answer by differentiating it."
+    diagram: null
+    confidence: high
+
+  - topic: "indefinite_integral_basics"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "F(x) is an antiderivative of 6x^2 - 2x with F(1) = 5. Find F(2)."
+    correct: "16"
+    unit: ""
+    wrong: []
+    explanation: "The general antiderivative is 2x^3 - x^2 + C. Using F(1) = 5 gives C = 4, so F(2) = 16 - 4 + 4 = 16."
+    hints:
+      - "Integrate the function to get a general antiderivative with a constant."
+      - "Use the given value at x equal to 1 to find the constant."
+      - "Evaluate the complete antiderivative at x equal to 2."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Evaluate the definite integral of 2x(x^2 + 1)^3 with respect to x from 0 to 1."
+    correct: "3.75"
+    unit: ""
+    wrong: []
+    explanation: "Let u = x^2 + 1, so du = 2x dx and the limits become 1 and 2. The integral of u cubed from 1 to 2 is (16 minus 1) divided by 4, which is 3.75."
+    hints:
+      - "Let u equal the inner expression."
+      - "Find du and compare it with the remaining factor."
+      - "Change the limits of integration to the new variable."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the integral of cos x divided by sin x with respect to x?"
+    correct: "ln|sin x| + C"
+    unit: ""
+    wrong:
+      - {text: "ln|cos x| + C", mistake: "substitutes cosine in place of sine"}
+      - {text: "-ln|sin x| + C", mistake: "flips the sign of the substitution"}
+      - {text: "1/sin^2 x + C", mistake: "integrates the denominator as if it were a power"}
+    explanation: "Let u = sin x, so du = cos x dx, and the integral becomes the integral of du over u, which is ln|u|."
+    hints:
+      - "Let u be the denominator."
+      - "Compute du and match it with the numerator."
+      - "Integrate the simple function of u that results."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Evaluate the definite integral of sin^3 x with respect to x from 0 to pi/2, rounded to 3 decimal places."
+    correct: "0.667"
+    unit: ""
+    wrong: []
+    explanation: "Write sin^3 x as sin x times (1 - cos^2 x), let u = cos x, and the integral from 0 to pi/2 becomes the integral of (1 - u^2) from 0 to 1, which is 2/3."
+    hints:
+      - "Split off one sine factor and write the rest in terms of cosine."
+      - "Substitute u equal to cosine of x."
+      - "Change the limits of integration to match the new variable."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the integral of x divided by (x^2 + 1) with respect to x?"
+    correct: "(1/2) ln(x^2 + 1) + C"
+    unit: ""
+    wrong:
+      - {text: "ln(x^2 + 1) + C", mistake: "forgets the factor one half that comes from du equals 2x dx"}
+      - {text: "arctan(x) + C", mistake: "confuses this form with the arctangent integral"}
+      - {text: "x^2/2 + C", mistake: "integrates the numerator and ignores the denominator"}
+    explanation: "Let u = x^2 + 1, so du = 2x dx, and x dx is half of du. The integral becomes one half of the natural logarithm of u."
+    hints:
+      - "Let u equal the expression in the denominator."
+      - "Compare du with the numerator."
+      - "Keep the constant factor that comes from differentiating u."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Evaluate the definite integral of 1 divided by (1 + square root of x) with respect to x from 0 to 4, rounded to 3 decimal places."
+    correct: "1.803"
+    unit: ""
+    wrong: []
+    explanation: "With u = square root of x, dx = 2u du and the integral becomes 2 times the integral of u over (1 + u) from 0 to 2, which equals 2(2 minus ln 3), about 1.803."
+    hints:
+      - "Let u equal the square root of x."
+      - "Express dx in terms of du."
+      - "Divide first to simplify the integrand, then integrate term by term."
+    diagram: null
+    confidence: high
+
+  - topic: "substitution_method"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the integral of e^(sin x) times cos x with respect to x?"
+    correct: "e^(sin x) + C"
+    unit: ""
+    wrong:
+      - {text: "e^(sin x) cos x + C", mistake: "keeps the integrand after the substitution"}
+      - {text: "sin(e^x) + C", mistake: "swaps the roles of the exponential and the sine"}
+      - {text: "-e^(sin x) + C", mistake: "introduces a sign error"}
+    explanation: "With u = sin x, du = cos x dx, and the integrand becomes e^u du, whose integral is e^u, which is e^(sin x)."
+    hints:
+      - "Identify a function and its derivative appearing together in the integrand."
+      - "Let u equal the exponent."
+      - "Check the answer by differentiating it."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the integral of x times e^x with respect to x?"
+    correct: "(x - 1)e^x + C"
+    unit: ""
+    wrong:
+      - {text: "x e^x + C", mistake: "treats the integral of the product as the product of the integrals"}
+      - {text: "e^x + C", mistake: "drops the factor x"}
+      - {text: "(x + 1)e^x + C", mistake: "makes a sign error when applying the formula"}
+    explanation: "Take u = x and dv = e^x dx, so the integral is x e^x minus the integral of e^x, which is (x - 1) e^x plus a constant."
+    hints:
+      - "Choose the factor that becomes simpler when differentiated as u."
+      - "Apply the parts formula with u and dv."
+      - "Differentiate your answer to check it."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Evaluate the definite integral of x times e^x with respect to x from 0 to 1."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "The antiderivative is (x - 1)e^x, which equals 0 at x = 1 and -1 at x = 0, so the integral is 0 minus (-1), which is 1."
+    hints:
+      - "Use the antiderivative you found by parts."
+      - "Evaluate it at the upper limit first."
+      - "Subtract the value at the lower limit."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Evaluate the definite integral of ln x with respect to x from 1 to e."
+    correct: "1"
+    unit: ""
+    wrong: []
+    explanation: "Taking u = ln x and dv = dx gives x ln x minus x, which at e is 0 and at 1 is minus 1, so the value is 1."
+    hints:
+      - "Take ln x as the part to differentiate and dx as the part to integrate."
+      - "Compute du and v, then apply the parts formula."
+      - "Evaluate at both limits and subtract."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the integral of x times sin x with respect to x?"
+    correct: "-x cos x + sin x + C"
+    unit: ""
+    wrong:
+      - {text: "x cos x + sin x + C", mistake: "drops the minus sign from the antiderivative of sine"}
+      - {text: "-x cos x - sin x + C", mistake: "makes a sign error in the second term"}
+      - {text: "-x sin x + cos x + C", mistake: "chooses sine as the part to differentiate"}
+    explanation: "With u = x and dv = sin x dx, v is minus cos x, so the integral is minus x cos x plus the integral of cos x, which is sin x."
+    hints:
+      - "Pick the algebraic factor as the part to differentiate."
+      - "Find v by integrating the trigonometric factor."
+      - "Apply the formula and simplify the result."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Evaluate the definite integral of x cos x with respect to x from 0 to pi/2, rounded to 3 decimal places."
+    correct: "0.571"
+    unit: ""
+    wrong: []
+    explanation: "The antiderivative is x sin x + cos x. At pi/2 it equals pi/2, and at 0 it equals 1, so the value is pi/2 minus 1, about 0.571."
+    hints:
+      - "Take x as the function to differentiate."
+      - "Recall which function has cosine as its derivative."
+      - "Evaluate at both limits and subtract, keeping pi symbolic until the end."
+    diagram: null
+    confidence: high
+
+  - topic: "integration_by_parts"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Evaluate the indefinite integral of e^x sin x dx."
+    correct: "(e^x/2)(sin x - cos x) + C"
+    unit: ""
+    wrong:
+      - {text: "(e^x/2)(sin x + cos x) + C", mistake: "makes a sign error when integrating cosine a second time"}
+      - {text: "e^x(sin x - cos x) + C", mistake: "forgets the factor one half from solving for the original integral"}
+      - {text: "-e^x cos x + C", mistake: "stops after one application of integration by parts"}
+    explanation: "Applying parts twice brings back the original integral, and collecting the two copies gives I = (e^x/2)(sin x - cos x) plus a constant."
+    hints:
+      - "Apply integration by parts twice and watch for the original integral reappearing."
+      - "Collect the two copies of the integral on one side."
+      - "Check the result by differentiating and comparing with e^x sin x."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the partial fraction decomposition of 1 divided by (x - 1)(x + 2)?"
+    correct: "(1/3)/(x - 1) - (1/3)/(x + 2)"
+    unit: ""
+    wrong:
+      - {text: "1/(x - 1) + 1/(x + 2)", mistake: "splits the numerator equally without solving for the constants"}
+      - {text: "(1/3)/(x - 1) + (1/3)/(x + 2)", mistake: "drops the minus sign on the second coefficient"}
+      - {text: "(1/3)/(x + 1) - (1/3)/(x + 2)", mistake: "misplaces the root of the first factor"}
+    explanation: "Writing 1/((x - 1)(x + 2)) as A/(x - 1) + B/(x + 2) and substituting x = 1 and x = -2 gives A = 1/3 and B = -1/3."
+    hints:
+      - "Write the expression as A over (x - 1) plus B over (x + 2)."
+      - "Multiply through by the product of the denominators."
+      - "Substitute the two roots of the denominator to find A and B."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "In the partial fraction decomposition of (3x + 1)/((x - 1)(x + 2)) = A/(x - 1) + B/(x + 2), find A, rounded to 3 decimal places."
+    correct: "1.333"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying by (x - 1) and setting x = 1 gives A = (3 + 1)/(1 + 2) = 4/3, which is about 1.333."
+    hints:
+      - "Multiply both sides by the factor x minus 1."
+      - "Substitute x equal to 1 into the cleared equation."
+      - "Divide by the other factor evaluated at that root."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Evaluate the definite integral of 1 divided by (x + 1)(x + 2) with respect to x from 0 to 1, rounded to 3 decimal places."
+    correct: "0.288"
+    unit: ""
+    wrong: []
+    explanation: "The decomposition is 1/(x + 1) minus 1/(x + 2), whose integral is ln((x + 1)/(x + 2)). Evaluating from 0 to 1 gives ln(4/3), about 0.288."
+    hints:
+      - "Decompose the fraction into two simple fractions with unknown constants."
+      - "Integrate each simple fraction to a logarithm."
+      - "Combine the logarithms and evaluate at the two limits."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the integral of x squared divided by (x squared minus 1) with respect to x?"
+    correct: "x + (1/2) ln|(x - 1)/(x + 1)| + C"
+    unit: ""
+    wrong:
+      - {text: "x - (1/2) ln|(x - 1)/(x + 1)| + C", mistake: "reverses the sign of the logarithm term"}
+      - {text: "x + ln|x^2 - 1| + C", mistake: "integrates the denominator directly without partial fractions"}
+      - {text: "x^3/3 + C", mistake: "divides the integrand by x squared before integrating"}
+    explanation: "Dividing gives x squared over (x squared minus 1) equal to 1 plus 1 over (x squared minus 1), and the second term decomposes into one half of the difference of 1 over (x - 1) and 1 over (x + 1)."
+    hints:
+      - "Start by dividing the numerator by the denominator."
+      - "Decompose the remaining proper fraction into two simple fractions."
+      - "Integrate each term and combine the logarithms."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "In the decomposition (x + 5)/(x^2 (x + 1)) = A/x + B/x^2 + C/(x + 1), find the constant B."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying by x squared and setting x = 0 gives B = (0 + 5)/(0 + 1) = 5."
+    hints:
+      - "Multiply both sides by x squared."
+      - "Set x equal to zero in the cleared equation to isolate the term with the double root."
+      - "Divide by the remaining factor evaluated at zero."
+    diagram: null
+    confidence: high
+
+  - topic: "partial_fractions"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the integral of 1 divided by (x^3 - x) with respect to x?"
+    correct: "-ln|x| + (1/2) ln|x^2 - 1| + C"
+    unit: ""
+    wrong:
+      - {text: "ln|x| - (1/2) ln|x^2 - 1| + C", mistake: "reverses all the signs of the decomposition"}
+      - {text: "-ln|x| + ln|x^2 - 1| + C", mistake: "forgets the factor one half in front of the logarithms"}
+      - {text: "-1/x^2 + C", mistake: "treats the cubic denominator as a power"}
+    explanation: "The denominator factors as x(x - 1)(x + 1), and the decomposition is -1/x + 1/(2(x - 1)) + 1/(2(x + 1)), which integrates to the stated result."
+    hints:
+      - "Factor the denominator completely first."
+      - "Write the decomposition with a constant over each linear factor."
+      - "Find each constant by substituting the corresponding root."
+    diagram: null
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Evaluate the definite integral of 3x^2 with respect to x from 0 to 2."
+    correct: "8"
+    unit: ""
+    wrong: []
+    explanation: "The antiderivative is x cubed, and evaluating from 0 to 2 gives 8 minus 0, which is 8."
+    hints:
+      - "Find an antiderivative first."
+      - "Evaluate it at the upper limit and subtract the value at the lower limit."
+      - "Check the power you used when integrating x squared."
+    diagram: null
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the value of the definite integral of x cubed from minus 1 to 1?"
+    correct: "0"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "adds the magnitudes of the two endpoints"}
+      - {text: "1/4", mistake: "ignores the sign of the lower limit"}
+      - {text: "-1/2", mistake: "subtracts the limits in the wrong order and drops the square"}
+    explanation: "The integrand is odd and the interval is symmetric about zero, so the area above the axis cancels the area below it, giving 0."
+    hints:
+      - "Consider whether the integrand is odd or even."
+      - "Think about the regions above and below the axis on a symmetric interval."
+      - "Use the symmetry property of definite integrals over an interval centred at zero."
+    diagram: "Graph of x cubed on the interval from minus 1 to 1, with the region above the horizontal axis on the right shaded and the region below it on the left shaded in the same size."
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Evaluate the definite integral of sin x with respect to x from 0 to pi."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The antiderivative is minus cos x, which is 1 at pi and minus 1 at 0, so the value is 1 minus (-1), which equals 2."
+    hints:
+      - "Find an antiderivative of sine."
+      - "Evaluate the antiderivative at both limits."
+      - "Subtract the lower limit value from the upper limit value."
+    diagram: null
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the value of the definite integral of the absolute value of (x - 1) from 0 to 2?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "2", mistake: "treats the absolute value as x minus 1 across the whole interval"}
+      - {text: "0", mistake: "cancels the positive and negative parts against each other"}
+      - {text: "3/2", mistake: "computes one of the two pieces with the wrong bounds"}
+    explanation: "The expression changes sign at x = 1, and the two pieces are each triangles with area one half, giving a total of 1."
+    hints:
+      - "Split the interval at the point where the expression changes sign."
+      - "Integrate each piece separately with the correct sign."
+      - "Compare each piece with the area of a triangle."
+    diagram: null
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Evaluate the definite integral of x sin x with respect to x from 0 to pi, rounded to 3 decimal places."
+    correct: "3.142"
+    unit: ""
+    wrong: []
+    explanation: "Integration by parts gives the antiderivative sin x minus x cos x. At pi it equals pi, and at 0 it equals 0, so the value is pi, about 3.142."
+    hints:
+      - "Use integration by parts with x as the function to differentiate."
+      - "Find the antiderivative including the sine term."
+      - "Evaluate at the limits, noting the values of sine and cosine at 0 and pi."
+    diagram: "Graph of x sin x on the interval from 0 to pi, with the area between the curve and the horizontal axis shaded."
+    confidence: high
+
+  - topic: "definite_integral"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the value of the definite integral of cos x divided by (1 + sin^2 x) from 0 to pi/2?"
+    correct: "pi/4"
+    unit: ""
+    wrong:
+      - {text: "pi/2", mistake: "forgets that the limits change when the variable is substituted"}
+      - {text: "ln 2", mistake: "treats the integral as a logarithm of the denominator"}
+      - {text: "1/2", mistake: "integrates the numerator and divides by the denominator at the upper limit"}
+    explanation: "With u = sin x the integral becomes the integral of 1/(1 + u^2) from 0 to 1, which is arctan(1) minus arctan(0), equal to pi/4."
+    hints:
+      - "Substitute u equal to sin x."
+      - "Change the limits of integration to match the new variable."
+      - "Recall the antiderivative of 1 over (1 + u squared)."
+    diagram: null
+    confidence: high

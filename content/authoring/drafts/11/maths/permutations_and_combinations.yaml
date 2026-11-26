@@ -1,0 +1,299 @@
+class: 11
+subject: maths
+chapter: permutations_and_combinations
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: fundamental_principle_counting
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A shirt comes in 4 colours and a pair of trousers comes in 3 styles. How many shirt and trouser combinations are possible?"
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "Each of the 4 shirts can be worn with any of the 3 trouser styles, giving 4 times 3 combinations."
+    hints:
+      - "Each shirt can be paired with every trouser style."
+      - "Count the options available at each stage of the choice."
+      - "Multiply the stage counts together."
+    diagram: null
+    confidence: high
+  - topic: fundamental_principle_counting
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "A password is two letters followed by one digit, with repetition allowed. There are 26 letters and 10 digits available. Which expression counts the possible passwords?"
+    correct: "26 times 26 times 10"
+    unit: ""
+    wrong:
+      - {text: "26 times 25 times 10", mistake: "assumes the letters cannot repeat when repetition is allowed"}
+      - {text: "26 plus 26 plus 10", mistake: "adds the choices at each position instead of multiplying"}
+      - {text: "26 times 10", mistake: "leaves out one of the letter positions"}
+    explanation: "Each letter position has 26 options and the digit position has 10, so the product of these counts is the answer."
+    hints:
+      - "Consider each position of the password separately."
+      - "Check whether a letter used earlier is still available later."
+      - "Combine the counts for the positions by multiplying them."
+    diagram: null
+    confidence: high
+  - topic: fundamental_principle_counting
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "How many three-digit numbers can be formed using the digits 1 to 5 with no digit repeated?"
+    correct: "60"
+    unit: ""
+    wrong: []
+    explanation: "There are 5 choices for the hundreds, 4 for the tens and 3 for the units, giving 5 times 4 times 3."
+    hints:
+      - "Fill the three positions one at a time, starting from the hundreds place."
+      - "Each position loses one digit that was already used in an earlier place."
+      - "Multiply the number of choices at the three positions."
+    diagram: null
+    confidence: high
+  - topic: fundamental_principle_counting
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "In how many ways can 4 people sit in a row if two specific people must sit next to each other?"
+    correct: "12"
+    unit: ""
+    wrong:
+      - {text: "24", mistake: "ignores the requirement that the two people sit together"}
+      - {text: "6", mistake: "forgets the two possible orders of the pair inside the block"}
+      - {text: "8", mistake: "counts only the positions of the block without arranging the others"}
+    explanation: "Treat the pair as one block, giving 3 units to arrange in 3 times 2 ways, so there are 6 times 2 equal 12 arrangements."
+    hints:
+      - "Glue the two specific people together as one unit."
+      - "Arrange the units that remain, then consider the order inside the glued unit."
+      - "Multiply the arrangements of the units by the internal orders."
+    diagram: null
+    confidence: high
+  - topic: fundamental_principle_counting
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "How many four-digit odd numbers can be formed using the digits 0 to 9 with no repetition of any digit?"
+    correct: "2240"
+    unit: ""
+    wrong: []
+    explanation: "Choose the odd last digit in 5 ways, the first digit in 8 ways from the nonzero digits left, and the two middle digits in 8 times 7 ways, giving 2240."
+    hints:
+      - "Fix the restricted position first, because it limits what can go elsewhere."
+      - "The first digit cannot be zero and cannot repeat the last digit."
+      - "Count the middle positions using only the digits that remain."
+    diagram: null
+    confidence: high
+  - topic: fundamental_principle_counting
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "How many whole numbers from 1 up to 999 can be written using only the digits 1, 2, 3 and 4 with repetition allowed?"
+    correct: "84"
+    unit: ""
+    wrong:
+      - {text: "64", mistake: "counts only the numbers that have exactly three digits"}
+      - {text: "256", mistake: "counts only the strings of four digits"}
+      - {text: "340", mistake: "includes four-digit strings that exceed the stated limit"}
+    explanation: "One-digit numbers give 4, two-digit numbers give 16 and three-digit numbers give 64, and these total 84."
+    hints:
+      - "Group the numbers by how many digits they contain."
+      - "A number with a fixed count of digits has four choices in each place."
+      - "Add the counts for each digit length you considered."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In how many ways can 5 distinct flags be arranged in a single row?"
+    correct: "120"
+    unit: ""
+    wrong: []
+    explanation: "The five positions can be filled with 5, 4, 3, 2 and 1 choices, and the product of these is 120."
+    hints:
+      - "Each position in the row can be filled by any flag not yet placed."
+      - "Count the choices available at the first position, then the second, and so on."
+      - "Multiply the decreasing counts to get the total arrangements."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the value of P(6, 2), the number of ordered arrangements of 2 objects chosen from 6?"
+    correct: "6 times 5"
+    unit: ""
+    wrong:
+      - {text: "6 times 4", mistake: "reduces the second factor by two instead of one"}
+      - {text: "6 plus 5", mistake: "adds the factors instead of multiplying them"}
+      - {text: "6 factorial over 2 factorial", mistake: "uses the wrong denominator in the factorial formula"}
+    explanation: "The first object has 6 choices and the second has 5, so P(6, 2) equals 6 times 5, which is 30."
+    hints:
+      - "Think about how many choices there are for the first object."
+      - "Count the remaining choices for the second object after the first is placed."
+      - "Multiply the two counts to get the ordered arrangements."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "How many distinct arrangements are there of the letters of the word BANANA?"
+    correct: "60"
+    unit: ""
+    wrong: []
+    explanation: "The word has 6 letters including 3 As and 2 Ns, so the count is 6 factorial divided by 3 factorial times 2 factorial, which is 60."
+    hints:
+      - "First count the arrangements as if all the letters were different."
+      - "Identify how many copies of each letter the word contains."
+      - "Divide by the number of orderings of each group of identical letters."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "From a group of 7 students, 3 are chosen and placed in a ranked order of first, second and third. How many ordered outcomes are possible?"
+    correct: "210"
+    unit: ""
+    wrong: []
+    explanation: "The first rank has 7 choices, the second 6 and the third 5, giving 7 times 6 times 5 which is 210."
+    hints:
+      - "Each rank can be filled by a student not yet ranked."
+      - "Count the choices for the first rank and then the choices that remain for later ranks."
+      - "Multiply those counts together."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "In how many ways can 4 men and 3 women be arranged in a row so that no two women stand next to each other?"
+    correct: "1440"
+    unit: ""
+    wrong: []
+    explanation: "The men can be arranged in 24 ways, creating 5 gaps, 3 of which are chosen in 10 ways, and the women arrange themselves in 6 ways, giving 1440."
+    hints:
+      - "Arrange the men first and count the gaps that their arrangement creates."
+      - "Choose which of those gaps the women will occupy."
+      - "Multiply the arrangements of the men, the choice of gaps and the arrangements of the women."
+    diagram: null
+    confidence: high
+  - topic: permutations
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which expression counts the distinct arrangements of the letters of the word ALLOY?"
+    correct: "5 factorial over 2 factorial"
+    unit: ""
+    wrong:
+      - {text: "5 factorial", mistake: "ignores that the letter L appears twice"}
+      - {text: "4 factorial over 2 factorial", mistake: "reduces the number of letters being arranged"}
+      - {text: "5 factorial times 2 factorial", mistake: "multiplies by the repeat count instead of dividing"}
+    explanation: "ALLOY has 5 letters with one letter repeated twice, so the arrangements number 5 factorial divided by 2 factorial."
+    hints:
+      - "Start from the number of ways to arrange five letters if each were different."
+      - "Find which letter repeats and how many times it appears."
+      - "Divide out the orderings that swap identical copies."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many different committees of 2 people can be chosen from a group of 5 people?"
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "The number of ways to choose 2 from 5 is 5 times 4 divided by 2, which is 10."
+    hints:
+      - "Order does not matter for a committee, so pairs that differ only in order count once."
+      - "Count the ordered choices first and then remove the duplicates."
+      - "Divide the ordered count by the number of ways to arrange the chosen pair."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression equals the number of ways to choose r objects from n distinct objects?"
+    correct: "n factorial over (r factorial times (n minus r) factorial)"
+    unit: ""
+    wrong:
+      - {text: "n factorial over (n minus r) factorial", mistake: "forgets the division by the factorial of the chosen count"}
+      - {text: "n factorial over r factorial", mistake: "forgets the factorial of the unchosen count"}
+      - {text: "r factorial over n factorial", mistake: "inverts the fraction"}
+    explanation: "Selections are ordered arrangements divided by the orderings of the chosen and unchosen groups, giving n factorial over r factorial times (n minus r) factorial."
+    hints:
+      - "Start from the count of ordered selections and remove the orderings inside the chosen group."
+      - "The unchosen objects also need their own factorial in the denominator."
+      - "Check the formula on a very small case where the answer is obvious."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A committee of 3 people is to contain exactly 2 women, chosen from 4 women and 6 men. How many such committees are possible?"
+    correct: "36"
+    unit: ""
+    wrong: []
+    explanation: "Choose the 2 women in 6 ways from 4 and the single man in 6 ways from 6, so the total is 6 times 6, which is 36."
+    hints:
+      - "Split the selection into a women part and a men part."
+      - "Choose the women first and count the ways to do so."
+      - "Multiply the count for the women by the count for the men."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which statement about the values of C(10, 3) and C(10, 7) is true?"
+    correct: "they are equal"
+    unit: ""
+    wrong:
+      - {text: "C(10, 3) is ten times larger than C(10, 7)", mistake: "treats the lower index as a multiplier"}
+      - {text: "C(10, 7) is greater than C(10, 3)", mistake: "assumes a larger lower index always gives a larger count"}
+      - {text: "they differ by 7", mistake: "subtracts the lower indices to compare the values"}
+    explanation: "Choosing 3 objects to include is the same as choosing 7 to leave out, so C(10, 3) and C(10, 7) are equal."
+    hints:
+      - "Think about what it means to choose a group to include versus to leave out."
+      - "Compare the number of objects in the chosen group with the number left behind."
+      - "Consider whether the two selections can be paired one to one."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "A team of 5 is to be picked from 7 boys and 5 girls so that it contains at least 3 girls. How many different teams are possible?"
+    correct: "246"
+    unit: ""
+    wrong: []
+    explanation: "The cases give 10 times 21 for three girls, 5 times 7 for four girls and 1 for five girls, totalling 246."
+    hints:
+      - "Split the teams by the number of girls they contain."
+      - "Each case multiplies a choice of girls by a choice of boys."
+      - "Add the counts for the cases that meet the condition."
+    diagram: null
+    confidence: high
+  - topic: combinations
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "How many diagonals does a convex hexagon have?"
+    correct: "9"
+    unit: ""
+    wrong:
+      - {text: "15", mistake: "counts every pair of vertices including the sides"}
+      - {text: "6", mistake: "counts only the vertices instead of the segments between them"}
+      - {text: "12", mistake: "doubles a count without removing the sides"}
+    explanation: "Any two of the 6 vertices form a segment, giving 15 segments, and removing the 6 sides leaves 9 diagonals."
+    hints:
+      - "Any pair of vertices determines a straight segment."
+      - "Remove the pairs of vertices that are joined by a side of the polygon."
+      - "Count the segments that remain after the sides are excluded."
+    diagram: null
+    confidence: high

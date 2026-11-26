@@ -1,0 +1,302 @@
+class: 9
+subject: maths
+chapter: statistics
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: collecting_organising_data
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a frequency table, what does the frequency of a class tell you?"
+    correct: "how many observations fall in that class"
+    unit: ""
+    wrong:
+      - {text: "the width of the class interval", mistake: "confuses frequency with the class width"}
+      - {text: "the midpoint of the class", mistake: "uses the midpoint in place of the count"}
+      - {text: "the total of all values in the class", mistake: "adds the values instead of counting them"}
+    explanation: "Frequency is the count of observations that fall in a given class, while the width and the midpoint describe the class itself."
+    hints:
+      - "Think about what it means to count observations in a class."
+      - "Compare that with the description of the class boundaries."
+      - "A frequency is a number of items, not a value from the data."
+    diagram: null
+    confidence: high
+  - topic: collecting_organising_data
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In the list 2, 3, 3, 5, 2, 3, how many times does the value 3 occur?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The value 3 appears three times in the list, so its frequency is 3."
+    hints:
+      - "Scan the list once and tally each occurrence of the value."
+      - "Count the tally marks you made for that value."
+      - "Check that the frequencies of all values add up to the number of entries."
+    diagram: null
+    confidence: high
+  - topic: collecting_organising_data
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A class interval runs from 10 to 20. Which is its class mark?"
+    correct: "15"
+    unit: ""
+    wrong:
+      - {text: "10", mistake: "uses the lower limit as the class mark"}
+      - {text: "20", mistake: "uses the upper limit as the class mark"}
+      - {text: "30", mistake: "adds the two limits and does not halve the sum"}
+    explanation: "The class mark is the midpoint of the interval, which is (10 + 20) divided by 2, giving 15."
+    hints:
+      - "The class mark is the middle value of the interval."
+      - "Add the two limits of the interval."
+      - "Halve that sum to find the middle."
+    diagram: null
+    confidence: high
+  - topic: collecting_organising_data
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Values 12, 15, 15, 18, 20, 20 and 20 are grouped into classes 10 to 15, 15 to 20 and 20 to 25, where a value equal to a lower limit belongs to that class. How many values fall in the class 15 to 20?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The values 15, 15 and 18 lie in the class from 15 up to 20, while the three values of 20 belong to the next class, so the frequency is 3."
+    hints:
+      - "Apply the rule about which class a boundary value belongs to."
+      - "Count each value that lies in the second class."
+      - "Do not count values that equal the upper limit of a class."
+    diagram: null
+    confidence: high
+  - topic: collecting_organising_data
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A frequency table has classes 0 to 10, 10 to 20 and 20 to 30. Which rule avoids counting a value of 10 twice?"
+    correct: "Each class includes its lower limit and excludes its upper limit, so 10 falls in 10 to 20."
+    unit: ""
+    wrong:
+      - {text: "Count the value 10 in both classes to be safe.", mistake: "double counts boundary values"}
+      - {text: "Discard every value that lies on a boundary.", mistake: "throws away data unnecessarily"}
+      - {text: "Place the value 10 in whichever class has fewer values.", mistake: "assigns values by counting instead of by a fixed rule"}
+    explanation: "Including the lower limit and excluding the upper limit gives every value exactly one class, so 10 belongs to 10 to 20."
+    hints:
+      - "A value should belong to exactly one class."
+      - "Decide which limit of an interval a boundary value belongs to."
+      - "Use one consistent convention for every interval."
+    diagram: null
+    confidence: high
+  - topic: collecting_organising_data
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A data set of 40 values is grouped into 5 classes of equal width. The frequencies of the first four classes are 6, 9, 11 and 7. What is the frequency of the fifth class?"
+    correct: "7"
+    unit: ""
+    wrong: []
+    explanation: "6 plus 9 plus 11 plus 7 is 33, so the fifth class has 40 minus 33, which is 7."
+    hints:
+      - "All the frequencies together make up the total count."
+      - "Add the four known frequencies."
+      - "Subtract that sum from the total number of values."
+    diagram: null
+    confidence: high
+  - topic: graphical_representation
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A histogram shows class frequencies of 4, 7 and 9. What is the total number of observations represented?"
+    correct: "20"
+    unit: ""
+    wrong: []
+    explanation: "Adding the frequencies 4, 7 and 9 gives 20 observations."
+    hints:
+      - "Add the heights of all the bars."
+      - "Each bar height here is a frequency."
+      - "Check your sum before answering."
+    diagram: "Histogram with three adjacent bars of heights labelled 4, 7 and 9."
+    confidence: high
+  - topic: graphical_representation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In a histogram with continuous class intervals, what does the area of a bar represent?"
+    correct: "the frequency of the class"
+    unit: ""
+    wrong:
+      - {text: "only the class width", mistake: "reads the width as the count"}
+      - {text: "the class mark", mistake: "uses a single representative value"}
+      - {text: "the cumulative frequency", mistake: "confuses bar area with running totals"}
+    explanation: "The height is the frequency divided by the width, so width times height, which is the area of the bar, equals the frequency."
+    hints:
+      - "Consider how a bar's width and height combine."
+      - "Think about the idea of frequency density."
+      - "The area is the product of the width and the height."
+    diagram: null
+    confidence: high
+  - topic: graphical_representation
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A histogram has classes of width 5 with bar heights (frequencies) 6, 10 and 4. What is the total area of the bars, in square units?"
+    correct: "100"
+    unit: "square units"
+    wrong: []
+    explanation: "Each bar has width 5, so the total area is 5 times the sum of the heights 6, 10 and 4, which is 100 square units."
+    hints:
+      - "Each bar's area is its width times its height."
+      - "All the bars share the same width here."
+      - "Add the three areas together."
+    diagram: "Histogram with three adjacent bars of equal width and heights labelled 6, 10 and 4."
+    confidence: high
+  - topic: graphical_representation
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Where are the points of a frequency polygon plotted?"
+    correct: "at the class mid-points, at heights equal to the frequencies"
+    unit: ""
+    wrong:
+      - {text: "at the lower boundaries, at heights equal to the class widths", mistake: "swaps the width and the height"}
+      - {text: "at the upper boundaries, at heights equal to the cumulative totals", mistake: "uses cumulative frequencies instead of frequencies"}
+      - {text: "at the class widths, at heights equal to the mid-points", mistake: "swaps the horizontal and vertical axes"}
+    explanation: "A frequency polygon joins points placed at each class mid-point, at a height equal to that class frequency."
+    hints:
+      - "Think about which value represents each class along the horizontal axis."
+      - "The vertical position shows how many values fall in the class."
+      - "Connect the points in order from left to right."
+    diagram: "Histogram with bars, and a polygon joining the mid-points of the tops of the bars."
+    confidence: high
+  - topic: graphical_representation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A class from 30 to 40 has a width of 10 and a frequency of 18. What is the frequency density of this class?"
+    correct: "1.8"
+    unit: ""
+    wrong: []
+    explanation: "The frequency density is the frequency divided by the class width, which is 18 divided by 10, giving 1.8."
+    hints:
+      - "Frequency density is the frequency divided by the class width."
+      - "Use the frequency and the width of the 30 to 40 class."
+      - "Keep one decimal place in the answer."
+    diagram: "Histogram with unequal bar widths, with the 30 to 40 bar marked."
+    confidence: high
+  - topic: graphical_representation
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A histogram has bars of unequal width. How should the height of each bar be chosen?"
+    correct: "Height equals frequency divided by class width."
+    unit: ""
+    wrong:
+      - {text: "Height equals the frequency whatever the width.", mistake: "ignores the width of the class"}
+      - {text: "Height equals the class width.", mistake: "swaps the roles of height and width"}
+      - {text: "Height equals the class mid-point.", mistake: "uses a position instead of a size"}
+    explanation: "With unequal widths the heights must be frequency densities, so that each bar's area stays proportional to its frequency."
+    hints:
+      - "Think about what keeps the areas proportional to the frequencies."
+      - "A wider bar must be shorter for the same frequency."
+      - "Ask what a bar's area represents."
+    diagram: "Histogram with bars of unequal width and the heights labelled as densities."
+    confidence: high
+  - topic: mean_median_mode
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Find the mean of the values 2, 4, 6 and 8."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The sum of the values is 20, and dividing by the 4 values gives a mean of 5."
+    hints:
+      - "Add all the values together."
+      - "Divide the sum by the number of values."
+      - "Count the values carefully before dividing."
+    diagram: null
+    confidence: high
+  - topic: mean_median_mode
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which measure is the value that appears most often in a data set?"
+    correct: "mode"
+    unit: ""
+    wrong:
+      - {text: "mean", mistake: "confuses the average with the most frequent value"}
+      - {text: "median", mistake: "takes the middle position for the most frequent value"}
+      - {text: "range", mistake: "uses the spread of the data instead"}
+    explanation: "The mode is the value that occurs most often in a data set."
+    hints:
+      - "Think about counting repeated values."
+      - "The mean and the median describe the centre rather than repetition."
+      - "Find the value with the highest tally."
+    diagram: null
+    confidence: high
+  - topic: mean_median_mode
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Find the median of the nine values 3, 7, 1, 9, 5, 8, 2, 6 and 4."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "Sorted, the values are 1 to 9, and the middle of nine values is the fifth one, which is 5."
+    hints:
+      - "Sort the values from smallest to largest first."
+      - "With an odd number of values, the median is the middle one."
+      - "Count to the middle position in the sorted list."
+    diagram: null
+    confidence: high
+  - topic: mean_median_mode
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "The mean of five numbers is 12. One of them, 20, is removed. What is the mean of the remaining four numbers?"
+    correct: "10"
+    unit: ""
+    wrong:
+      - {text: "12", mistake: "assumes removing a value leaves the mean unchanged"}
+      - {text: "8", mistake: "divides the remaining sum by five instead of four"}
+      - {text: "15", mistake: "divides by the number that was removed"}
+    explanation: "The five numbers total 60, and removing 20 leaves 40 for four numbers, so the mean is 10."
+    hints:
+      - "Find the total of all five numbers first."
+      - "Subtract the removed value from that total."
+      - "Divide by the number of values that remain."
+    diagram: null
+    confidence: high
+  - topic: mean_median_mode
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Grouped data has class mid-points 5, 15 and 25 with frequencies 2, 3 and 5. What is the mean of the data?"
+    correct: "18"
+    unit: ""
+    wrong: []
+    explanation: "The products are 10, 45 and 125, which total 180, and the total frequency is 10, giving a mean of 18."
+    hints:
+      - "Multiply each mid-point by its frequency."
+      - "Add those products and add the frequencies separately."
+      - "Divide the first total by the second."
+    diagram: null
+    confidence: high
+  - topic: mean_median_mode
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Consider the data 4, 4, 6, 7, 9, 12. Which pair gives the mode and the median?"
+    correct: "mode 4 and median 6.5"
+    unit: ""
+    wrong:
+      - {text: "mode 4 and median 6", mistake: "picks the lower of the two middle values for the median"}
+      - {text: "mode 6 and median 6.5", mistake: "confuses the mode with a middle value"}
+      - {text: "mode 9 and median 7", mistake: "reads a single middle value as the mode"}
+    explanation: "The value 4 appears twice and no other value appears more often, so the mode is 4, while the median averages the two middle values 6 and 7 to get 6.5."
+    hints:
+      - "Count how often each value appears."
+      - "With an even count of values, the median is the average of the two middle values."
+      - "Read the two middle values from the sorted list."
+    diagram: null
+    confidence: high

@@ -1,0 +1,200 @@
+class: 11
+subject: maths
+chapter: probability
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: sample_space_events
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "How many outcomes are in the sample space when two fair coins are tossed once together?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "Each coin has two faces, so the ordered outcomes are HH, HT, TH and TT, giving 4 in total."
+    hints:
+      - "List the result of each coin separately."
+      - "Combine each result of the first coin with each result of the second."
+      - "Count the combined results you listed."
+    diagram: null
+    confidence: high
+  - topic: sample_space_events
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which pair of events is mutually exclusive when a fair die is rolled once?"
+    correct: "getting an even number and getting a 5"
+    unit: ""
+    wrong:
+      - {text: "getting an even number and getting a 2", mistake: "forgets that 2 is an even number so both events can occur together"}
+      - {text: "getting a number greater than 3 and getting a number less than 5", mistake: "ignores that the outcome 4 satisfies both events"}
+      - {text: "getting an odd number and getting a 1", mistake: "confuses the odd numbers with the single outcome 1"}
+    explanation: "An even number can never be 5, so these two events share no outcome and are mutually exclusive."
+    hints:
+      - "Two events are mutually exclusive when no outcome belongs to both."
+      - "List the outcomes that belong to each event and compare the lists."
+      - "Check whether any single face appears in both lists."
+    diagram: null
+    confidence: high
+  - topic: sample_space_events
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "How many outcomes of rolling two fair dice give a total of 7?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "The pairs (1, 6), (2, 5), (3, 4), (4, 3), (5, 2) and (6, 1) all give a sum of 7."
+    hints:
+      - "Consider every possible first die result and find the second result needed."
+      - "Keep the pairs ordered so that the two dice are distinguished."
+      - "Count the pairs that satisfy the total."
+    diagram: null
+    confidence: high
+  - topic: sample_space_events
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "From a standard deck of 52 playing cards, let A be the event that the card is a heart and B be the event that the card is a king. Which card lies in A intersection B?"
+    correct: "the king of hearts"
+    unit: ""
+    wrong:
+      - {text: "the king of spades", mistake: "satisfies only one of the two events"}
+      - {text: "the two of hearts", mistake: "uses the heart condition but ignores the king condition"}
+      - {text: "the king of clubs", mistake: "confuses the king condition with the heart condition"}
+    explanation: "The king of hearts is both a heart and a king, so it is the only card in the intersection of the two events."
+    hints:
+      - "An outcome in the intersection must satisfy both conditions at once."
+      - "Check each candidate card against the heart condition and against the king condition."
+      - "Find the single card that passes both checks."
+    diagram: null
+    confidence: high
+  - topic: sample_space_events
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "How many outcomes of rolling three fair dice have all three faces different?"
+    correct: "120"
+    unit: ""
+    wrong: []
+    explanation: "The first die has 6 choices, the second must differ from it in 5 ways and the third in 4 ways, giving 6 times 5 times 4 equal to 120."
+    hints:
+      - "Count the choices for each die in order."
+      - "Each die must differ from all the earlier dice."
+      - "Multiply the number of choices at each stage."
+    diagram: null
+    confidence: high
+  - topic: sample_space_events
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A bag holds one red ball and one blue ball. Two balls are drawn one after another without replacement. Which set is the sample space when order matters?"
+    correct: "{RB, BR}"
+    unit: ""
+    wrong:
+      - {text: "{RR, BB, RB, BR}", mistake: "allows the same ball to be drawn twice without replacement"}
+      - {text: "{R, B}", mistake: "records only the first ball and ignores the second draw"}
+      - {text: "{RB}", mistake: "forgets that the two orders of the same balls are different outcomes"}
+    explanation: "Without replacement the two draws must be different balls, so the sample space is the ordered pairs RB and BR."
+    hints:
+      - "Consider which balls can be drawn on the second attempt after the first is removed."
+      - "Record each outcome as an ordered pair showing the first and second ball."
+      - "Check whether a ball can appear twice in one outcome."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "If the probability of event A is 0.3, what is the probability of the complement of A?"
+    correct: "0.7"
+    unit: ""
+    wrong: []
+    explanation: "The probabilities of an event and its complement add to 1, so the complement has probability 1 minus 0.3, which is 0.7."
+    hints:
+      - "Recall the rule that links an event and its complement."
+      - "The two probabilities together cover the whole sample space."
+      - "Subtract the given probability from the total probability of the sample space."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "If events A and B are mutually exclusive, which expression gives P(A or B)?"
+    correct: "P(A) plus P(B)"
+    unit: ""
+    wrong:
+      - {text: "P(A) times P(B)", mistake: "uses the rule for independent events instead"}
+      - {text: "P(A) plus P(B) minus 2 times P(A and B)", mistake: "removes the overlap twice when there is no overlap to remove"}
+      - {text: "P(A) minus P(B)", mistake: "subtracts the probabilities instead of combining them"}
+    explanation: "For mutually exclusive events the intersection is empty, so P(A or B) is simply P(A) plus P(B)."
+    hints:
+      - "Think about whether the two events can occur at the same time."
+      - "If they cannot overlap, what does the overlap term in the general rule equal?"
+      - "Write the general addition rule and simplify it for this case."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Events A and B satisfy P(A) equal to 0.6, P(B) equal to 0.5 and P(A and B) equal to 0.25. What is P(A or B)?"
+    correct: "0.85"
+    unit: ""
+    wrong: []
+    explanation: "Using the addition rule, 0.6 plus 0.5 minus 0.25 equals 0.85."
+    hints:
+      - "Apply the general addition rule for two events."
+      - "Remember the overlap is counted in both single probabilities."
+      - "Add the two probabilities and subtract the overlap once."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "P(A) is 0.4, P(B) is 0.5 and P(A or B) is 0.7. What is P(A and B)?"
+    correct: "0.2"
+    unit: ""
+    wrong:
+      - {text: "0.9", mistake: "adds the union probability to the sum of the single probabilities"}
+      - {text: "0.1", mistake: "halves the overlap by mistake"}
+      - {text: "0.3", mistake: "subtracts one single probability from the union"}
+    explanation: "Rearranging P(A or B) equals P(A) plus P(B) minus P(A and B) gives 0.4 plus 0.5 minus 0.7, which is 0.2."
+    hints:
+      - "Start from the general addition rule for the union of two events."
+      - "Rearrange the rule so that the intersection term is isolated."
+      - "Substitute the three given probabilities."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Events A and B are independent, with P(A) equal to 0.5 and P(B) equal to 0.3. What is P(A or B)?"
+    correct: "0.65"
+    unit: ""
+    wrong: []
+    explanation: "Independence gives P(A and B) equal to 0.5 times 0.3, which is 0.15, and the union is 0.5 plus 0.3 minus 0.15, equal to 0.65."
+    hints:
+      - "For independent events, the probability of both occurring is the product of the individual probabilities."
+      - "Compute that product and then apply the addition rule."
+      - "Subtract the overlap once from the sum of the two probabilities."
+    diagram: null
+    confidence: high
+  - topic: axiomatic_probability
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "P(A) is 0.5, P(B) is 0.4 and P(A or B) is 0.7. What is the probability that exactly one of the events A and B occurs?"
+    correct: "0.5"
+    unit: ""
+    wrong: []
+    explanation: "P(A and B) is 0.5 plus 0.4 minus 0.7, which is 0.2, and exactly one occurs with probability 0.7 minus 0.2, which is 0.5."
+    hints:
+      - "Find the probability that both events occur using the addition rule."
+      - "Exactly one event occurs when the union is taken without the overlap."
+      - "Subtract the overlap probability from the union probability."
+    diagram: null
+    confidence: high

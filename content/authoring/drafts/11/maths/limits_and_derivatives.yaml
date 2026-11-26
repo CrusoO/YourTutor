@@ -1,0 +1,395 @@
+class: 11
+subject: maths
+chapter: limits_and_derivatives
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: limits_intuition
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Find the limit of x squared plus 1 as x approaches 2."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The function is a polynomial, so the limit is found by substitution, giving 2 squared plus 1, which is 5."
+    hints:
+      - "Check whether the function is defined and continuous at the point being approached."
+      - "For a polynomial, the limit can be found by substituting the point directly."
+      - "Evaluate the expression at that input and simplify."
+    diagram: null
+    confidence: high
+  - topic: limits_intuition
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the limit of (x squared minus 9) divided by (x minus 3) as x approaches 3?"
+    correct: "6"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "substitutes and stops at the zero numerator without simplifying"}
+      - {text: "9", mistake: "takes the numerator's value at the point as the limit"}
+      - {text: "undefined", mistake: "treats the zero over zero form as a final answer"}
+    explanation: "The numerator factors as (x minus 3)(x plus 3), so the common factor cancels and the limit is 3 plus 3, which is 6."
+    hints:
+      - "Direct substitution gives an indeterminate form, so simplify first."
+      - "Factor the numerator as a difference of two squares."
+      - "Cancel the common factor and then substitute the point into what remains."
+    diagram: null
+    confidence: high
+  - topic: limits_intuition
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Find the limit of (x cubed minus 1) divided by (x minus 1) as x approaches 1."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The numerator factors as (x minus 1)(x squared plus x plus 1), leaving x squared plus x plus 1, which at x equal to 1 gives 3."
+    hints:
+      - "Factor the numerator using the difference of cubes."
+      - "Cancel the factor that also appears in the denominator."
+      - "Substitute the point into the simplified expression."
+    diagram: null
+    confidence: high
+  - topic: limits_intuition
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the limit of (x squared plus 2x) divided by x as x approaches 0?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "substitutes zero into the numerator alone"}
+      - {text: "1", mistake: "cancels only part of the expression"}
+      - {text: "does not exist", mistake: "treats a removable zero denominator as making the limit fail"}
+    explanation: "Dividing each term by x gives x plus 2 for x not equal to zero, and as x approaches 0 this tends to 2."
+    hints:
+      - "Divide each term of the numerator by the denominator."
+      - "Simplify the expression for values of x that are not zero."
+      - "Find the value that the simplified expression approaches."
+    diagram: null
+    confidence: high
+  - topic: limits_intuition
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Find the limit of (3x squared plus x) divided by (x squared minus 4) as x tends to infinity."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Dividing numerator and denominator by x squared, the lower terms vanish in the limit, leaving 3 over 1, which is 3."
+    hints:
+      - "Identify the highest power of x in the numerator and the denominator."
+      - "Divide every term of the fraction by that highest power."
+      - "Let the terms with x in the denominator tend to zero."
+    diagram: null
+    confidence: high
+  - topic: limits_intuition
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "What value does (x cubed minus 8) divided by (x squared minus 4) approach as x nears 2?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Factoring gives (x minus 2)(x squared plus 2x plus 4) over (x minus 2)(x plus 2), which simplifies to (x squared plus 2x plus 4) over (x plus 2), and at 2 this is 12 over 4, or 3."
+    hints:
+      - "Factor the difference of cubes in the numerator."
+      - "Factor the difference of squares in the denominator."
+      - "Cancel the common factor and then substitute the point into what remains."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Find the limit as x approaches 3 of (2x plus 1) divided by (x plus 1). Give the answer as a decimal."
+    correct: "1.75"
+    unit: ""
+    wrong: []
+    explanation: "The denominator at 3 is 4, which is not zero, so the limit is the value 7 divided by 4, which is 1.75."
+    hints:
+      - "Check that the denominator does not vanish at the point."
+      - "Substitute the point into the numerator and the denominator separately."
+      - "Divide the two results and express the quotient as a decimal."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which statement is a correct rule for limits when each limit exists?"
+    correct: "the limit of a sum equals the sum of the limits"
+    unit: ""
+    wrong:
+      - {text: "the limit of a product equals the sum of the limits", mistake: "confuses the rule for products with the rule for sums"}
+      - {text: "the limit of a quotient equals the quotient of the limits even when the denominator limit is zero", mistake: "ignores the condition that the denominator limit must be nonzero"}
+      - {text: "the limit of a sum always exists", mistake: "forgets that the individual limits must exist first"}
+    explanation: "When each individual limit exists, the limit of a sum is the sum of the individual limits, which is one of the basic algebra rules."
+    hints:
+      - "Think about what the rule says when a function is split into two pieces that are added."
+      - "Check the required conditions under which each rule applies."
+      - "Test the rule with two simple functions whose limits you already know."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the limit of sin(3x) divided by sin(2x) as x approaches 0? Give the answer as a decimal."
+    correct: "1.5"
+    unit: ""
+    wrong: []
+    explanation: "Writing each sine as its argument times the standard limit gives 3x over 2x, so the limit is 3 over 2, or 1.5."
+    hints:
+      - "Rewrite each sine so that its argument matches the variable in the standard limit."
+      - "Apply the standard limit of sine over its argument to each part."
+      - "Combine the resulting constants from the two parts."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the limit of (1 minus cos x) divided by x squared as x approaches 0?"
+    correct: "1/2"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "uses the expression cos x over x squared as if it were one"}
+      - {text: "0", mistake: "assumes the numerator vanishes without checking the rate"}
+      - {text: "-1/2", mistake: "drops the sign of the cosine term"}
+    explanation: "Using the standard limit (1 minus cos x) over x squared equals one half, which is the value this limit takes."
+    hints:
+      - "Recall the standard limit involving one minus the cosine over the square of the variable."
+      - "Use a half-angle identity to rewrite one minus the cosine."
+      - "Apply the standard sine limit to the resulting squared expression."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Find the limit as x approaches 2 of (x squared minus 4) divided by (x squared plus x minus 6). Give the answer as a decimal."
+    correct: "0.8"
+    unit: ""
+    wrong: []
+    explanation: "Factoring gives (x minus 2)(x plus 2) over (x minus 2)(x plus 3), which simplifies to (x plus 2) over (x plus 3), and at 2 this is 4 over 5, or 0.8."
+    hints:
+      - "Factor both the numerator and the denominator completely."
+      - "Cancel the factor that vanishes at the point of approach."
+      - "Substitute into the simplified fraction and convert to a decimal."
+    diagram: null
+    confidence: high
+  - topic: limit_algebra
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Find the limit as x approaches 0 of (1 minus cos 6x) divided by x squared."
+    correct: "18"
+    unit: ""
+    wrong: []
+    explanation: "One minus cos 6x equals 2 sin squared 3x, so the expression is 2 times (sin 3x over x) squared, which tends to 2 times 9, or 18."
+    hints:
+      - "Use a double-angle identity to write one minus the cosine as a squared sine."
+      - "Split the expression into a square of a sine ratio and a constant."
+      - "Apply the standard sine limit to the ratio after adjusting its argument."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Using the definition of the derivative, what is the derivative of x squared at x equal to 3?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "The difference quotient for x squared is 2x plus h, and letting h tend to zero at x equal to 3 gives 6."
+    hints:
+      - "Form the difference quotient using the function evaluated at a point and at a nearby point."
+      - "Expand the square of the shifted input and simplify the numerator."
+      - "Let the small increment tend to zero and substitute the given point."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the derivative of the constant function f(x) equal to 5, found from first principles?"
+    correct: "0"
+    unit: ""
+    wrong:
+      - {text: "5", mistake: "keeps the constant value as the slope of the graph"}
+      - {text: "1", mistake: "confuses a constant function with the identity function"}
+      - {text: "5x", mistake: "multiplies the constant by x when differentiating"}
+    explanation: "The difference of two equal values is zero, so every difference quotient is zero and the derivative is 0."
+    hints:
+      - "Write the difference quotient for a constant function and simplify the numerator."
+      - "Notice what the numerator equals for any two inputs."
+      - "A horizontal line has no change in height, so its slope is found from that."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Using first principles, find the derivative of 3x squared minus 2x at x equal to 1."
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The derivative is 6x minus 2, which at x equal to 1 gives 4."
+    hints:
+      - "Form the difference quotient for the whole expression."
+      - "Expand the shifted square term and collect the terms that contain the increment."
+      - "Divide by the increment, let it approach zero, and substitute the point."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which expression is the derivative of the square root of x, found from first principles?"
+    correct: "1 over (2 times the square root of x)"
+    unit: ""
+    wrong:
+      - {text: "square root of x over 2", mistake: "inverts the square root in the result"}
+      - {text: "1 over the square root of x", mistake: "drops the factor of two from the denominator"}
+      - {text: "2 times the square root of x", mistake: "multiplies instead of dividing by the square root"}
+    explanation: "Rationalising the difference quotient of the square root gives 1 over (sqrt(x plus h) plus sqrt x), which tends to 1 over (2 sqrt x) as h tends to zero."
+    hints:
+      - "Multiply the difference quotient by the conjugate of its numerator."
+      - "Simplify the difference of squares that results."
+      - "Let the increment tend to zero in the simplified expression."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Using first principles, find the derivative of 1 over x at x equal to 2. Give the answer as a decimal."
+    correct: "-0.25"
+    unit: ""
+    wrong: []
+    explanation: "The difference quotient simplifies to minus 1 over (x times (x plus h)), which tends to minus 1 over x squared, equal to minus one quarter at x equal to 2."
+    hints:
+      - "Combine the two fractions in the difference quotient over a common denominator."
+      - "Cancel the increment from the numerator after combining."
+      - "Let the increment tend to zero and substitute the given point."
+    diagram: null
+    confidence: high
+  - topic: derivative_first_principles
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which statement is true about the function f(x) equal to absolute value of x at x equal to 0, judged from first principles?"
+    correct: "the derivative does not exist because the one-sided limits differ"
+    unit: ""
+    wrong:
+      - {text: "the derivative is 0 because the function value at zero is zero", mistake: "confuses the value of the function with its slope"}
+      - {text: "the derivative is 1 from both sides", mistake: "uses only the right-hand difference quotient"}
+      - {text: "the derivative is minus 1 from both sides", mistake: "uses only the left-hand difference quotient"}
+    explanation: "The right-hand quotient is 1 and the left-hand quotient is minus 1, so the two one-sided limits differ and no derivative exists at zero."
+    hints:
+      - "Compute the difference quotient approaching from the right and from the left separately."
+      - "Compare the two one-sided values you obtain."
+      - "A derivative requires the two one-sided values to agree."
+    diagram: "A V-shaped graph of the absolute value function with the vertex at the origin and the one-sided slopes marked on each arm."
+    confidence: high
+  - topic: rules_of_differentiation
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the derivative of 4x cubed evaluated at x equal to 1?"
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "Applying the power rule gives 12x squared, which at x equal to 1 equals 12."
+    hints:
+      - "Apply the power rule to the term in x."
+      - "Multiply the coefficient by the exponent and reduce the exponent by one."
+      - "Substitute the given point into the derivative you obtained."
+    diagram: null
+    confidence: high
+  - topic: rules_of_differentiation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the derivative of the product x times sin x with respect to x?"
+    correct: "sin x plus x cos x"
+    unit: ""
+    wrong:
+      - {text: "x cos x", mistake: "forgets to differentiate the first factor"}
+      - {text: "sin x minus x cos x", mistake: "subtracts the two product terms instead of adding them"}
+      - {text: "cos x plus sin x", mistake: "differentiates each factor without applying the product structure"}
+    explanation: "The product rule gives the derivative of the first factor times the second plus the first times the derivative of the second, which is sin x plus x cos x."
+    hints:
+      - "Identify the two factors in the product and their individual derivatives."
+      - "Apply the rule for differentiating a product of two functions."
+      - "Combine the two resulting terms with the correct sign."
+    diagram: null
+    confidence: high
+  - topic: rules_of_differentiation
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Differentiate (x squared plus 1) divided by x, then evaluate the derivative at x equal to 2. Give the answer as a decimal."
+    correct: "0.75"
+    unit: ""
+    wrong: []
+    explanation: "Writing the function as x plus 1 over x gives a derivative of 1 minus 1 over x squared, which equals 3 over 4 at x equal to 2."
+    hints:
+      - "Split the fraction into separate terms before differentiating."
+      - "Differentiate each term separately using the power rule for negative powers."
+      - "Substitute the given point and convert the result to a decimal."
+    diagram: null
+    confidence: high
+  - topic: rules_of_differentiation
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the derivative with respect to x of x cubed minus 2x squared plus 5x minus 7?"
+    correct: "3x squared minus 4x plus 5"
+    unit: ""
+    wrong:
+      - {text: "3x squared minus 2x plus 5", mistake: "does not multiply the second term by its exponent"}
+      - {text: "x cubed minus 4x plus 5", mistake: "forgets to reduce the exponent of the first term"}
+      - {text: "3x squared minus 4x", mistake: "drops the derivative of the linear term"}
+    explanation: "Differentiating term by term gives 3x squared, minus 4x, plus 5, and the constant term contributes nothing."
+    hints:
+      - "Differentiate each term of the polynomial separately."
+      - "For each power term, multiply by the exponent and reduce the exponent by one."
+      - "The constant term has no contribution to the derivative."
+    diagram: null
+    confidence: high
+  - topic: rules_of_differentiation
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Differentiate (x plus 1) divided by (x minus 1) and evaluate the derivative at x equal to 2."
+    correct: "-2"
+    unit: ""
+    wrong: []
+    explanation: "The quotient rule gives ((x minus 1) minus (x plus 1)) over (x minus 1) squared, which is minus 2 over (x minus 1) squared, and at x equal to 2 this equals minus 2."
+    hints:
+      - "Apply the quotient rule to the fraction with the numerator and denominator labelled."
+      - "Simplify the numerator of the quotient rule result."
+      - "Substitute the given point into the simplified derivative."
+    diagram: null
+    confidence: high
+  - topic: rules_of_differentiation
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which function has the derivative 6x plus 2?"
+    correct: "3x squared plus 2x plus 7"
+    unit: ""
+    wrong:
+      - {text: "6x squared plus 2x", mistake: "does not reduce the exponent when differentiating the square term"}
+      - {text: "3x squared plus 2", mistake: "drops the derivative contribution of the linear term"}
+      - {text: "x cubed plus x squared", mistake: "uses the wrong power rule for the leading term"}
+    explanation: "Differentiating 3x squared plus 2x plus 7 gives 6x plus 2, and the constant 7 does not change the derivative."
+    hints:
+      - "Work backwards by considering which power of x produces the x term."
+      - "Think about which terms contribute to the derivative and which vanish."
+      - "Differentiate your candidate term by term to check that it gives the target."
+    diagram: null
+    confidence: high

@@ -1,0 +1,311 @@
+class: 12
+subject: "biology"
+chapter: "biotechnology_principles_and_processes"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "recombinant_dna_tools"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which enzyme cuts DNA at specific palindromic recognition sites?"
+    correct: "Restriction endonuclease"
+    unit: ""
+    wrong:
+      - {text: "DNA ligase", mistake: "confuses the joining enzyme with the cutting enzyme"}
+      - {text: "DNA polymerase", mistake: "assumes the copying enzyme also cuts at fixed sites"}
+      - {text: "Reverse transcriptase", mistake: "uses an RNA to DNA enzyme for cutting DNA"}
+    explanation: "Restriction endonucleases recognise short palindromic sequences and cut the DNA within or near them. This makes them the molecular scissors of recombinant DNA work."
+    hints:
+      - "Think about enzymes that act like molecular scissors."
+      - "Consider which enzyme recognises palindromic sites."
+      - "Separate enzymes that cut from enzymes that join or copy."
+    diagram: null
+    confidence: "high"
+  - topic: "recombinant_dna_tools"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "What is the role of DNA ligase in recombinant DNA technology?"
+    correct: "It joins cut DNA fragments by forming phosphodiester bonds"
+    unit: ""
+    wrong:
+      - {text: "It cuts the vector at its origin of replication", mistake: "assigns the cutting role to the joining enzyme"}
+      - {text: "It copies the gene into RNA", mistake: "confuses ligase with the transcription enzyme"}
+      - {text: "It separates fragments by size", mistake: "confuses the joining enzyme with the separation method"}
+    explanation: "DNA ligase seals the sugar phosphate backbone between the vector and the insert, forming phosphodiester bonds. It does not cut or separate DNA."
+    hints:
+      - "Think about what must be sealed after the vector and gene are cut."
+      - "Consider the type of bond that must form between fragments."
+      - "Separate the joining step from the cutting and separating steps."
+    diagram: null
+    confidence: "high"
+  - topic: "recombinant_dna_tools"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Which feature makes a plasmid useful as a cloning vector?"
+    correct: "An origin of replication and a selectable marker"
+    unit: ""
+    wrong:
+      - {text: "A linear shape without any origin", mistake: "treats linear DNA as easier to maintain in a host"}
+      - {text: "Complete absence of restriction sites", mistake: "assumes a vector needs no cutting sites at all"}
+      - {text: "A histone core that protects the DNA", mistake: "assigns histones to bacterial plasmids"}
+    explanation: "An origin of replication lets the vector copy itself inside the host, and a selectable marker identifies cells that took it up. Restriction sites are needed for inserting genes."
+    hints:
+      - "Think about what allows the vector to copy itself inside the host."
+      - "Consider how you would identify cells that took up the vector."
+      - "Ask which features the vector needs in order to be propagated and selected."
+    diagram: null
+    confidence: "high"
+  - topic: "recombinant_dna_tools"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A restriction enzyme has a site on average every 4096 base pairs. How many cut sites are expected in a DNA molecule of 40960 base pairs? Give the count only."
+    correct: "10"
+    unit: ""
+    wrong: []
+    explanation: "Dividing 40960 base pairs by the average spacing of 4096 gives 10 expected cut sites."
+    hints:
+      - "Divide the DNA length by the average spacing between sites."
+      - "Check that the spacing and length are in base pairs."
+      - "Keep the answer as a count of sites."
+    diagram: "Draw a circular plasmid with one cut site marked, and a linear DNA molecule with several cut sites marked along its length."
+    confidence: "high"
+  - topic: "recombinant_dna_tools"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A researcher cuts a vector with one enzyme and a gene with another enzyme that leaves incompatible ends. What is the likely problem?"
+    correct: "The fragments cannot be ligated easily because the ends do not match"
+    unit: ""
+    wrong:
+      - {text: "Ligase will join them with extra efficiency", mistake: "assumes mismatched ends improve joining"}
+      - {text: "The vector copies itself twice as fast", mistake: "links end compatibility to replication speed"}
+      - {text: "The gene loses its promoter automatically", mistake: "assumes cutting removes the promoter by default"}
+    explanation: "Ligation needs complementary sticky or blunt ends so that the fragments can pair and be sealed. Incompatible ends make it hard to join the vector and the gene."
+    hints:
+      - "Think about whether the cut ends can pair with each other."
+      - "Consider what ligase needs in order to form a bond."
+      - "Focus on whether the two sets of ends can match."
+    diagram: null
+    confidence: "high"
+  - topic: "recombinant_dna_tools"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A circular plasmid of 5000 base pairs is cut at 3 sites. How many fragments result? Give the count only."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "A circular molecule cut at three sites gives three fragments, because each pair of adjacent cuts defines one fragment."
+    hints:
+      - "Consider how the number of cuts relates to the fragments in a circular molecule."
+      - "Check whether the molecule is circular or linear."
+      - "Count the arcs between neighbouring cuts."
+    diagram: "Draw a circular plasmid of 5000 base pairs with three restriction sites marked and the resulting fragments labelled."
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "In PCR, which step separates the two strands of the template DNA?"
+    correct: "Denaturation at high temperature"
+    unit: ""
+    wrong:
+      - {text: "Annealing of primers at low temperature", mistake: "confuses primer binding with strand separation"}
+      - {text: "Extension by the polymerase", mistake: "assigns the building step to the separation step"}
+      - {text: "Ligation of fragments", mistake: "confuses PCR with cloning by ligation"}
+    explanation: "Heating to a high temperature breaks the hydrogen bonds between the template strands, which is the denaturation step. Annealing and extension follow at lower temperatures."
+    hints:
+      - "Think about the step that uses the highest temperature in each cycle."
+      - "Consider which step breaks hydrogen bonds between the two strands."
+      - "Separate the strand separation step from the primer binding and building steps."
+    diagram: null
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "Why does DNA move toward the positive electrode during gel electrophoresis?"
+    correct: "Its sugar phosphate backbone carries a net negative charge"
+    unit: ""
+    wrong:
+      - {text: "Its bases carry a positive charge", mistake: "assigns the charge to the bases instead of the backbone"}
+      - {text: "The gel carries positive ions that pull DNA in", mistake: "confuses the direction of the electrode attraction"}
+      - {text: "Its size makes it float upward in the gel", mistake: "treats size as a source of direction rather than sieving"}
+    explanation: "The phosphate groups of DNA are negatively charged, so the molecule moves toward the positive electrode in an electric field. The gel sieves the fragments by size as they move."
+    hints:
+      - "Think about the charge carried by the phosphate groups."
+      - "Consider what happens to a charged molecule in an electric field."
+      - "Separate the reason for movement from the reason for sieving."
+    diagram: null
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "numeric"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "A PCR runs 30 cycles starting from one DNA molecule, and every cycle doubles the number of copies. How many molecules are present at the end? Give the count only."
+    correct: "1073741824"
+    unit: ""
+    wrong: []
+    explanation: "Thirty doublings give two to the power thirty, which is 1073741824 copies."
+    hints:
+      - "Each cycle doubles the number of copies."
+      - "Use the number of cycles as the exponent of two."
+      - "Keep the answer as a count of molecules."
+    diagram: null
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "mcq"
+    difficulty: "medium"
+    role: "apply"
+    stem: "On a gel image with the wells at the top, which DNA fragments travel farthest from the wells?"
+    correct: "The smallest fragments"
+    unit: ""
+    wrong:
+      - {text: "The largest fragments", mistake: "reverses the sieving logic of the gel"}
+      - {text: "Fragments of equal length in every lane", mistake: "assumes all fragments migrate equally"}
+      - {text: "Only fragments with high GC content", mistake: "uses base composition as the sole factor in migration"}
+    explanation: "The gel acts as a sieve, so smaller fragments pass through the pores more easily and travel farther from the wells. Larger fragments remain closer to the wells."
+    hints:
+      - "Consider how a gel sieves molecules by size."
+      - "Think about which molecules pass through the mesh more easily."
+      - "Compare the distance travelled by fragments of different sizes."
+    diagram: "Draw an agarose gel with wells at the top, a ladder lane on the left, two sample lanes and labelled bands by size, with an arrow showing migration toward the positive electrode at the bottom."
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A PCR product does not appear on the gel after amplification. Which cause is most likely?"
+    correct: "The primers did not anneal because the annealing temperature was too high"
+    unit: ""
+    wrong:
+      - {text: "The gel ran for too long", mistake: "treats run time as the cause of a missing product"}
+      - {text: "The target DNA was too large for any PCR", mistake: "assumes PCR cannot amplify moderately long targets"}
+      - {text: "Too many cycles were run", mistake: "assumes extra cycles remove the product"}
+    explanation: "If the annealing temperature is too high, the primers cannot bind to the template, so no product is made. Run time, target size and cycle number are not usual causes of a complete absence."
+    hints:
+      - "Think about what the primers must do before the polymerase can extend them."
+      - "Consider which PCR step depends on the temperature set."
+      - "Check the step where primers bind to the template."
+    diagram: null
+    confidence: "high"
+  - topic: "gel_electrophoresis_pcr"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A 1000 bp fragment travels 2 cm in a gel, and a 500 bp fragment travels 4 cm in the same gel. Assuming each halving of size adds the same distance, how many cm does a 250 bp fragment travel? Give the number only."
+    correct: "6"
+    unit: "cm"
+    wrong: []
+    explanation: "Each halving of fragment size adds 2 cm of travel, so the 250 bp fragment moves 4 cm plus 2 cm, which is 6 cm."
+    hints:
+      - "Note how the distance changes each time the fragment size halves."
+      - "Extend the same pattern to the next halving."
+      - "Check that your unit is centimetres."
+    diagram: "Sketch a gel with a ladder lane and a sample lane, marking the distance from the well to each band."
+    confidence: "medium"
+  - topic: "rdna_process"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the first step in making a recombinant DNA molecule?"
+    correct: "Isolating the DNA and cutting it with a restriction enzyme"
+    unit: ""
+    wrong:
+      - {text: "Transforming bacteria with the plasmid", mistake: "puts transformation before the preparation steps"}
+      - {text: "Selecting colonies on agar", mistake: "places the selection step before any cutting"}
+      - {text: "Sequencing the protein product", mistake: "starts with analysis rather than preparation of the DNA"}
+    explanation: "The process begins by isolating the source DNA and the vector and cutting both with restriction enzymes. Ligation, transformation and selection follow in order."
+    hints:
+      - "Think about what must be prepared before any joining happens."
+      - "Consider which enzymes start the process."
+      - "Ask which step must precede ligation of the fragments."
+    diagram: null
+    confidence: "high"
+  - topic: "rdna_process"
+    type: "mcq"
+    difficulty: "easy"
+    role: "explain"
+    stem: "Why is a selectable marker included in a cloning vector?"
+    correct: "To identify cells that have taken up the recombinant plasmid"
+    unit: ""
+    wrong:
+      - {text: "To increase the size of the insert", mistake: "confuses the marker with the insert"}
+      - {text: "To cut the vector at its origin", mistake: "assigns a cutting role to the marker"}
+      - {text: "To degrade foreign DNA in the host", mistake: "treats the marker as a defence against foreign DNA"}
+    explanation: "A selectable marker, such as an antibiotic resistance gene, lets cells that have taken up the vector survive on a selective medium. This separates transformed cells from the rest."
+    hints:
+      - "Think about how transformed cells can be told apart from the rest."
+      - "Consider a gene that lets cells survive on a specific medium."
+      - "Focus on what the marker lets the researcher detect."
+    diagram: null
+    confidence: "high"
+  - topic: "rdna_process"
+    type: "mcq"
+    difficulty: "medium"
+    role: "procedure"
+    stem: "Which host is commonly used to produce a recombinant protein on a large scale?"
+    correct: "Escherichia coli"
+    unit: ""
+    wrong:
+      - {text: "Human embryonic fibroblasts", mistake: "uses human cells as the standard large scale host"}
+      - {text: "Fungi of any kind", mistake: "assumes any eukaryote works as the standard host"}
+      - {text: "Green algae only", mistake: "limits production to photosynthetic organisms"}
+    explanation: "Escherichia coli grows quickly and cheaply, and it is well understood, so it is widely used in fermenters for recombinant protein production. Other hosts are used for specific proteins that need them."
+    hints:
+      - "Think about a fast growing bacterium used in many laboratories."
+      - "Consider a host that grows cheaply in large fermenters."
+      - "Ask which host is a prokaryote used widely in genetic engineering."
+    diagram: null
+    confidence: "high"
+  - topic: "rdna_process"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Transformed bacteria grow on a plate with no antibiotic. What does this growth show about the insert?"
+    correct: "Growth does not confirm the insert, because bacteria with or without the vector can grow"
+    unit: ""
+    wrong:
+      - {text: "Every colony must carry the insert", mistake: "assumes all growth shows successful insertion"}
+      - {text: "The vector was not replicated", mistake: "reads growth as a sign of failed replication"}
+      - {text: "The bacteria are dead", mistake: "reverses the meaning of growth on a plate"}
+    explanation: "Without an antibiotic, bacteria that did not take up the vector also grow, so the plate does not select recombinant cells. A selective medium and a check of the insert are needed."
+    hints:
+      - "Consider which step checks for successful uptake of the vector."
+      - "Think about what the antibiotic in the medium would select for."
+      - "Ask whether growth on this plate distinguishes transformed cells from the rest."
+    diagram: null
+    confidence: "high"
+  - topic: "rdna_process"
+    type: "numeric"
+    difficulty: "hard"
+    role: "apply"
+    stem: "A recombinant plasmid of 6000 bp contains a 1500 bp insert. How many base pairs belong to the vector backbone? Give the count only."
+    correct: "4500"
+    unit: "bp"
+    wrong: []
+    explanation: "Subtracting the 1500 bp insert from the 6000 bp plasmid leaves 4500 bp of vector backbone."
+    hints:
+      - "Subtract the insert length from the total plasmid length."
+      - "State the answer in base pairs."
+      - "Check that the insert is inside the total length."
+    diagram: "Draw a circular plasmid with the vector backbone and an inserted gene segment marked, and label the lengths of each part."
+    confidence: "high"
+  - topic: "rdna_process"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A ligation mixes one vector with three different insert fragments, and each insert joins the vector once. How many distinct recombinant plasmids are possible? Give the count only."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Each of the three different inserts can join the single vector in one way, so three distinct recombinant plasmids are possible."
+    hints:
+      - "Consider each insert as one choice."
+      - "Count the choices for the single vector slot."
+      - "Check whether any two inserts give the same plasmid."
+    diagram: "Sketch a vector cut at one site and three different insert fragments with matching ends, labelled one to three."
+    confidence: "high"

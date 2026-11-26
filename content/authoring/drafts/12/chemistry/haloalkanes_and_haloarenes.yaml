@@ -1,0 +1,437 @@
+class: 12
+subject: chemistry
+chapter: haloalkanes_and_haloarenes
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the IUPAC name of CH3CH2Cl?"
+    correct: "Chloroethane"
+    unit: ""
+    wrong:
+      - {text: "Ethylene chloride", mistake: "names a dihalide instead of a monohalide"}
+      - {text: "Chloromethane", mistake: "drops a carbon from the chain"}
+      - {text: "Methyl chloride", mistake: "uses a chain length that does not match the structure"}
+    explanation: "The parent chain has two carbons, and the chlorine is a prefix, giving chloroethane."
+    hints:
+      - "Count the carbon atoms in the main chain."
+      - "Name the halogen as a prefix to the alkane name."
+      - "Check that the chain length matches the number of carbons in the formula."
+    diagram: null
+    confidence: high
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is a primary haloalkane?"
+    correct: "1-bromobutane"
+    unit: ""
+    wrong:
+      - {text: "2-chloropropane", mistake: "picks a secondary haloalkane"}
+      - {text: "tert-butyl chloride", mistake: "picks a tertiary haloalkane"}
+      - {text: "Chlorobenzene", mistake: "treats an aryl halide as an alkyl halide"}
+    explanation: "In 1-bromobutane the bromine sits on a carbon bonded to only one other carbon, which makes it primary."
+    hints:
+      - "Count the carbon atoms directly bonded to the carbon that carries the halogen."
+      - "A primary carbon has one carbon neighbour."
+      - "Check each option for how many carbons the halogen-bearing carbon is attached to."
+    diagram: null
+    confidence: high
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Classify the haloalkane (CH3)3C-Br."
+    correct: "Tertiary"
+    unit: ""
+    wrong:
+      - {text: "Primary", mistake: "counts the methyl groups as the only attachments"}
+      - {text: "Secondary", mistake: "miscounts the alkyl groups on the carbon"}
+      - {text: "Aryl", mistake: "assumes the halogen is attached to a ring"}
+    explanation: "The carbon bearing bromine is bonded to three methyl groups, which makes the haloalkane tertiary."
+    hints:
+      - "Count the alkyl groups attached to the carbon bearing bromine."
+      - "Match that count of alkyl groups to the class names you know."
+      - "Check whether the halogen is on a ring or on a chain."
+    diagram: null
+    confidence: high
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the IUPAC name of CH3CH(Cl)CH2CH3?"
+    correct: "2-chlorobutane"
+    unit: ""
+    wrong:
+      - {text: "1-chlorobutane", mistake: "places the chlorine on the end carbon"}
+      - {text: "3-chlorobutane", mistake: "numbers the chain from the wrong end"}
+      - {text: "Butyl chloride", mistake: "uses a common name for the straight chain isomer"}
+    explanation: "The four carbon chain is numbered so the chlorine gets the lowest possible number, which is 2."
+    hints:
+      - "Number the chain so the halogen receives the lowest possible number."
+      - "Find which carbon of the four carbon chain carries the chlorine."
+      - "Compare the numbering from both ends of the chain."
+    diagram: null
+    confidence: high
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the IUPAC name of CHCl2CH2Cl?"
+    correct: "1,1,2-trichloroethane"
+    unit: ""
+    wrong:
+      - {text: "1,1,1-trichloroethane", mistake: "places all three chlorines on the same carbon"}
+      - {text: "Trichloroethylene", mistake: "names an alkene instead of an alkane"}
+      - {text: "1,2-dichloroethane", mistake: "omits one chlorine from the count"}
+    explanation: "The two carbons carry three chlorines in total, two on one carbon and one on the other. The lowest locant set is 1,1,2."
+    hints:
+      - "Count the chlorines on each carbon and give the lowest locants considered together."
+      - "Check the total number of chlorine atoms in the formula."
+      - "Remember that the chain is two carbons long."
+    diagram: null
+    confidence: high
+  - topic: haloalkane_nomenclature
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which isomer of C4H9Cl is chiral?"
+    correct: "2-chlorobutane"
+    unit: ""
+    wrong:
+      - {text: "1-chlorobutane", mistake: "assumes all haloalkanes with a long chain are chiral"}
+      - {text: "tert-butyl chloride", mistake: "misreads the symmetry of the tertiary carbon"}
+      - {text: "Isobutyl chloride", mistake: "assumes a branched chain always makes a stereocentre"}
+    explanation: "2-chlorobutane has a carbon bonded to hydrogen, chlorine, methyl and ethyl groups, which are four different groups. The molecule is therefore chiral."
+    hints:
+      - "Look for a carbon bonded to four different groups."
+      - "Check whether any carbon in each isomer has identical substituents."
+      - "Consider whether the molecule can be superimposed on its mirror image."
+    diagram: null
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which substitution mechanism involves a carbocation intermediate?"
+    correct: "SN1"
+    unit: ""
+    wrong:
+      - {text: "SN2", mistake: "treats a one-step mechanism as stepwise"}
+      - {text: "Free radical substitution", mistake: "confuses ionic intermediates with radicals"}
+      - {text: "Nucleophilic addition to a carbonyl", mistake: "assumes all nucleophilic reactions form a carbocation"}
+    explanation: "In SN1 the leaving group departs first to give a carbocation, which is then attacked by the nucleophile."
+    hints:
+      - "Think about which mechanism has the leaving group depart before the nucleophile arrives."
+      - "Consider the two-step pathway with an ionic intermediate."
+      - "Check which mechanism is described as unimolecular in the slow step."
+    diagram: null
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which reagent is a strong nucleophile that favours SN2 for a primary haloalkane?"
+    correct: "Iodide ion"
+    unit: ""
+    wrong:
+      - {text: "Water", mistake: "is a weak nucleophile that favours solvolysis"}
+      - {text: "Ethanol", mistake: "is a weak nucleophile in neutral solvent"}
+      - {text: "Acetic acid", mistake: "is a weak nucleophile and an acid"}
+    explanation: "Iodide is large, polarisable and a good nucleophile, so it attacks a primary haloalkane quickly in a backside SN2 displacement."
+    hints:
+      - "Consider which anion is large, polarisable and a good nucleophile."
+      - "Compare the nucleophilicity of the anions and neutral molecules in the options."
+      - "Choose the species that can donate a lone pair most readily."
+    diagram: null
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "What is the stereochemical outcome at a chiral carbon in an SN2 reaction of a primary haloalkane with hydroxide?"
+    correct: "Inversion of configuration at the carbon"
+    unit: ""
+    wrong:
+      - {text: "Retention of configuration", mistake: "assumes the nucleophile enters from the same side as the leaving group"}
+      - {text: "A racemic mixture only", mistake: "assumes the SN1 outcome"}
+      - {text: "Elimination with no stereochemistry", mistake: "confuses substitution with elimination"}
+    explanation: "The hydroxide attacks from the side opposite the bromine, so the three other groups flip like an umbrella. The configuration is inverted."
+    hints:
+      - "Think about the geometry of the backside attack."
+      - "Ask what happens to the other three groups when the nucleophile comes in."
+      - "Compare the stereochemistry with that of an SN1 path."
+    diagram: "Reaction arrow with hydroxide attacking the carbon from the side opposite the bromine, and the other three groups on the carbon flipping like an umbrella in the product."
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "The rate of an SN1 reaction depends on which species?"
+    correct: "Concentration of the haloalkane only"
+    unit: ""
+    wrong:
+      - {text: "Concentration of the nucleophile only", mistake: "uses the SN2 rate law"}
+      - {text: "Both concentrations equally", mistake: "assumes a single rate law for both mechanisms"}
+      - {text: "Temperature only", mistake: "ignores the concentration dependence"}
+    explanation: "The slow step of SN1 is the ionisation of the haloalkane, so the rate depends only on its concentration."
+    hints:
+      - "Consider which species appears in the slowest step."
+      - "Think about whether the nucleophile is involved in the rate determining step."
+      - "Compare the rate law of SN1 with that of SN2."
+    diagram: null
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Tertiary bromides react mainly by SN1. Which factor explains this preference?"
+    correct: "The tertiary carbocation is stabilised by hyperconjugation and alkyl groups"
+    unit: ""
+    wrong:
+      - {text: "Steric hindrance is lowest at the tertiary carbon", mistake: "reverses the steric effect"}
+      - {text: "The nucleophile attacks from the back more easily", mistake: "reverses the backside attack problem"}
+      - {text: "Bromine is a poor leaving group", mistake: "reverses leaving group ability"}
+    explanation: "Three alkyl groups donate electron density and stabilise the positive charge of the carbocation. That makes the ionisation step easy, so SN1 dominates."
+    hints:
+      - "Compare the stability of the intermediate formed from primary and tertiary structures."
+      - "Think about which groups around the carbon can donate electron density to a positive centre."
+      - "Consider how crowded the carbon is for a backside attack."
+    diagram: "Central carbon bonded to three alkyl groups and to a bromine atom; a bracket shows the planar cation formed when bromine leaves."
+    confidence: high
+  - topic: sn1_sn2
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Why does SN1 substitution of a chiral haloalkane give an almost racemic product?"
+    correct: "The planar carbocation is attacked from both faces"
+    unit: ""
+    wrong:
+      - {text: "The leaving group stays bonded to the carbon", mistake: "confuses the intermediate with the starting material"}
+      - {text: "The nucleophile is achiral", mistake: "treats the nucleophile as the source of chirality"}
+      - {text: "Only half of the substrate reacts", mistake: "ignores the stereochemistry of the intermediate"}
+    explanation: "The carbocation is planar, so the nucleophile can approach from either face with similar ease. Equal amounts of the two enantiomers form."
+    hints:
+      - "Think about the geometry of the carbocation intermediate."
+      - "Consider which faces of the intermediate the nucleophile can reach."
+      - "Compare the outcome with the single inversion seen in SN2."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which reagent is typically used for dehydrohalogenation of a haloalkane?"
+    correct: "Alcoholic potassium hydroxide"
+    unit: ""
+    wrong:
+      - {text: "Dilute hydrochloric acid", mistake: "uses an acid that does not remove the hydrogen halide"}
+      - {text: "Aqueous sodium chloride", mistake: "uses a salt that is not a base"}
+      - {text: "Aqueous ammonia", mistake: "treats a weak base as the elimination reagent"}
+    explanation: "Alcoholic KOH is a strong base in a solvent that favours elimination over substitution, so it removes HX to form an alkene."
+    hints:
+      - "The solvent choice favours elimination over substitution."
+      - "Think about a strong base that removes a hydrogen halide."
+      - "Consider which solvent makes the base more reactive for elimination."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "According to Zaitsev's rule, what type of alkene is the major product of elimination?"
+    correct: "The most substituted alkene"
+    unit: ""
+    wrong:
+      - {text: "The least substituted alkene", mistake: "reverses the rule"}
+      - {text: "A cyclic ether", mistake: "assumes elimination forms a ring with oxygen"}
+      - {text: "A carboxylic acid", mistake: "confuses elimination with oxidation"}
+    explanation: "The alkene with more alkyl groups on the double bond carbons is more stable, so it is favoured in elimination."
+    hints:
+      - "Count the alkyl groups attached to the double bond carbons in each alkene."
+      - "Think about which alkene has the greatest number of carbon substituents."
+      - "Compare the stability of the alkenes that could form."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "What is the major alkene formed when 2-bromobutane is heated with alcoholic KOH?"
+    correct: "But-2-ene"
+    unit: ""
+    wrong:
+      - {text: "But-1-ene", mistake: "chooses the less substituted alkene"}
+      - {text: "Butane", mistake: "reduces the bromide instead of eliminating"}
+      - {text: "Butan-2-ol", mistake: "substitutes instead of eliminating"}
+    explanation: "Removing HBr from the carbon next to the one bearing bromine, which has the most alkyl groups, gives the more substituted but-2-ene as the major product."
+    hints:
+      - "Remove the halogen and a hydrogen from the neighbouring carbon that carries the most alkyl groups."
+      - "Think about which neighbouring carbon gives the more substituted double bond."
+      - "Check where the new double bond sits in the chain."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why does a bulky base give more of the less substituted alkene?"
+    correct: "It reaches hydrogens on less crowded carbons more easily"
+    unit: ""
+    wrong:
+      - {text: "It is a weak nucleophile that favours substitution", mistake: "confuses bulk with weakness"}
+      - {text: "It removes the double bond from the product", mistake: "reverses the elimination"}
+      - {text: "It stabilises the more substituted alkene", mistake: "reverses the steric effect"}
+    explanation: "A bulky base cannot easily reach the hydrogen on the crowded carbon, so it removes a hydrogen from the less hindered side. This gives the less substituted Hofmann product."
+    hints:
+      - "Consider how a bulky base reaches the hydrogens that are less hindered."
+      - "Think about which hydrogen is the easiest for a large base to approach."
+      - "Compare the steric hindrance at the two sites that could lose a hydrogen."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the major alkene formed when 2-bromo-2-methylbutane is heated with ethanolic KOH?"
+    correct: "2-methylbut-2-ene"
+    unit: ""
+    wrong:
+      - {text: "2-methylbut-1-ene", mistake: "chooses the less substituted alkene"}
+      - {text: "3-methylbut-1-ene", mistake: "moves the methyl group to the wrong carbon"}
+      - {text: "2-methylbutane", mistake: "reduces the bromide instead of eliminating"}
+    explanation: "Elimination removes HBr to give the more substituted alkene, which is 2-methylbut-2-ene. The double bond sits between the two most substituted carbons."
+    hints:
+      - "Apply the rule that the more substituted alkene is favoured."
+      - "Count the alkyl groups on each carbon of the double bond in each candidate."
+      - "Check which neighbouring carbon gives the more substituted product."
+    diagram: null
+    confidence: high
+  - topic: elimination_haloalkanes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which factor makes E2 elimination more likely for a tertiary haloalkane than for a primary one when a strong base is used?"
+    correct: "The tertiary substrate offers more beta hydrogens for the base to remove"
+    unit: ""
+    wrong:
+      - {text: "Primary substrates have no beta hydrogens", mistake: "misreads the structure"}
+      - {text: "Tertiary substrates cannot form any carbocation", mistake: "reverses carbocation chemistry"}
+      - {text: "Primary substrates eliminate only by a radical path", mistake: "confuses elimination with radical chemistry"}
+    explanation: "A tertiary haloalkane has several hydrogens on neighbouring carbons, which gives many sites for a strong base to remove, so elimination is favoured."
+    hints:
+      - "Count the hydrogens on carbons next to the one bearing the halogen in each substrate."
+      - "Think about how many sites a base has to remove a proton."
+      - "Consider which substrate gives more options for the base to act on."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Under what conditions does chlorobenzene react with aqueous sodium hydroxide to give phenol?"
+    correct: "High temperature and high pressure"
+    unit: ""
+    wrong:
+      - {text: "Room temperature and dilute acid", mistake: "assumes mild conditions are enough"}
+      - {text: "Standard pressure at 0 degrees Celsius", mistake: "assumes cold conditions speed the reaction"}
+      - {text: "No solvent at very low temperature", mistake: "assumes low temperature makes reactions faster"}
+    explanation: "The carbon chlorine bond in the ring is strong and resists substitution, so the reaction needs high temperature and pressure."
+    hints:
+      - "Recall that the carbon halogen bond in the ring resists substitution under mild conditions."
+      - "Think about the energy needed to break a strengthened bond on an aromatic ring."
+      - "Consider which conditions are used in industrial hydrolysis of aryl halides."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which directing effect does chlorine show when it is attached to a benzene ring in electrophilic substitution?"
+    correct: "Ortho and para directing"
+    unit: ""
+    wrong:
+      - {text: "Meta directing only", mistake: "treats halogens as meta directors"}
+      - {text: "No directing effect at all", mistake: "assumes halogens are inert in substitution"}
+      - {text: "Meta and para directing", mistake: "places the new group in the wrong positions"}
+    explanation: "Chlorine is deactivating but its lone pairs donate into the ring by resonance, which stabilises ortho and para attack."
+    hints:
+      - "Consider how halogens donate lone pairs into the ring by resonance."
+      - "Think about which positions the resonance donation stabilises."
+      - "Compare the directing effect of halogens with that of strongly deactivating groups."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is the carbon chlorine bond in chlorobenzene shorter than in a chloroalkane?"
+    correct: "Resonance gives the C-Cl bond partial double bond character"
+    unit: ""
+    wrong:
+      - {text: "Chlorobenzene has more electrons in its bond", mistake: "miscounts the electrons"}
+      - {text: "The chlorine atom is larger in the ring", mistake: "misreads the size of the atom"}
+      - {text: "The ring is smaller than a chain", mistake: "assumes ring size sets bond length"}
+    explanation: "A lone pair on chlorine overlaps with the pi system of the ring. This gives the C-Cl bond some double bond character, shortening it."
+    hints:
+      - "Think about overlap between a lone pair on chlorine and the pi system of the ring."
+      - "Consider how resonance changes the bond order of the carbon chlorine bond."
+      - "Compare the bond in the ring with a single bond in an alkyl chloride."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which industrial process converts chlorobenzene to phenol by reaction with sodium hydroxide at high temperature and pressure?"
+    correct: "Dow process"
+    unit: ""
+    wrong:
+      - {text: "Kolbe process", mistake: "uses carbon dioxide with a phenoxide"}
+      - {text: "Cannizzaro reaction", mistake: "is a disproportionation of aldehydes"}
+      - {text: "Friedel-Crafts acylation", mistake: "adds an acyl group to a ring"}
+    explanation: "The Dow process hydrolyses chlorobenzene with aqueous sodium hydroxide under high temperature and pressure, and acidification then gives phenol."
+    hints:
+      - "Think of the industrial process that hydrolyses an aryl halide under high temperature and pressure with base."
+      - "Consider which named process uses chlorobenzene as the starting material."
+      - "Eliminate processes that work with carboxylation or with acylation."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Why does 1-chloro-2,4-dinitrobenzene react with sodium hydroxide much more readily than chlorobenzene does?"
+    correct: "Nitro groups withdraw electrons and stabilise the negative intermediate"
+    unit: ""
+    wrong:
+      - {text: "Nitro groups donate electrons to the chlorine", mistake: "reverses the electronic effect"}
+      - {text: "Nitro groups make the ring non-aromatic", mistake: "assumes activation removes aromaticity"}
+      - {text: "Nitro groups lengthen the C-Cl bond", mistake: "uses bond length as the cause"}
+    explanation: "Nitro groups at the ortho and para positions withdraw electron density and delocalise the negative charge of the addition intermediate. This speeds up nucleophilic aromatic substitution."
+    hints:
+      - "Think about the effect of electron withdrawing groups on a negative intermediate formed on the ring."
+      - "Consider which positions relative to the chlorine the nitro groups occupy."
+      - "Compare the stability of the intermediate with and without the nitro groups."
+    diagram: null
+    confidence: high
+  - topic: haloarenes
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which reaction forms an alkylbenzene by coupling an aryl halide with an alkyl halide in the presence of sodium in dry ether?"
+    correct: "Wurtz-Fittig reaction"
+    unit: ""
+    wrong:
+      - {text: "Gattermann reaction", mistake: "forms aldehydes from arenes"}
+      - {text: "Sandmeyer reaction", mistake: "replaces a diazonium group"}
+      - {text: "Hell-Volhard-Zelinsky reaction", mistake: "halogenates the alpha carbon of an acid"}
+    explanation: "Sodium couples an aryl halide and an alkyl halide to form a new carbon carbon bond, which gives an alkylbenzene. This is the Wurtz-Fittig reaction."
+    hints:
+      - "Think about the metal that couples two halide bearing carbon fragments in a dry ether."
+      - "Consider which reaction joins an aryl group and an alkyl group."
+      - "Compare the outcome with the Wurtz reaction on two alkyl halides."
+    diagram: null
+    confidence: high

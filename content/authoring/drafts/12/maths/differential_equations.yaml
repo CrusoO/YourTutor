@@ -1,0 +1,424 @@
+class: 12
+subject: "maths"
+chapter: "differential_equations"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "order_and_degree"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the order of the differential equation d^2y/dx^2 + 3(dy/dx)^3 = 0?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "3", mistake: "takes the power on the first derivative as the order"}
+      - {text: "1", mistake: "reads only the first derivative"}
+      - {text: "6", mistake: "adds the orders of the derivatives"}
+    explanation: "The order is the order of the highest derivative present, which here is the second derivative d^2y/dx^2."
+    hints:
+      - "The order is the highest derivative that appears in the equation."
+      - "Look for the derivative with the largest number of primes."
+      - "Ignore the powers when you decide the order."
+    diagram: null
+    confidence: high
+
+  - topic: "order_and_degree"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "What is the degree of the differential equation (d^2y/dx^2)^3 + (dy/dx)^2 = x?"
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "The highest order derivative is d^2y/dx^2, and it appears raised to the power 3, so the degree is 3."
+    hints:
+      - "Identify the highest order derivative in the equation."
+      - "Find the power to which that derivative is raised."
+      - "Make sure the equation is a polynomial in the derivatives before reading the degree."
+    diagram: null
+    confidence: high
+
+  - topic: "order_and_degree"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the degree of d^2y/dx^2 = square root of (1 + (dy/dx)^2)?"
+    correct: "2"
+    unit: ""
+    wrong:
+      - {text: "1", mistake: "reads the square root as making the degree one"}
+      - {text: "1/2", mistake: "takes the power of the root as the degree"}
+      - {text: "The degree is not defined", mistake: "assumes the radical sign prevents any degree from being defined"}
+    explanation: "Squaring both sides removes the radical and gives (d^2y/dx^2)^2 = 1 + (dy/dx)^2, where the highest order derivative appears to the power 2."
+    hints:
+      - "Rewrite the equation so that no radical sign remains."
+      - "Look at the highest order derivative and the power it carries."
+      - "Square both sides carefully before reading the degree."
+    diagram: null
+    confidence: high
+
+  - topic: "order_and_degree"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "For the differential equation (d^3y/dx^3)^2 + (d^2y/dx^2)^3 = 0, find the sum of its order and its degree."
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The order is 3 from the third derivative and the degree is 2 from its power, so the sum is 5."
+    hints:
+      - "Determine the highest order derivative first."
+      - "Then find the power to which that derivative is raised."
+      - "Add the two quantities at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "order_and_degree"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What are the order and degree of d^2y/dx^2 + sin(dy/dx) = 0?"
+    correct: "Order 2, degree not defined"
+    unit: ""
+    wrong:
+      - {text: "Order 2, degree 1", mistake: "treats the sine of the first derivative as if it were linear"}
+      - {text: "Order 1, degree 1", mistake: "ignores the second derivative"}
+      - {text: "Order 2, degree 2", mistake: "counts the second derivative twice"}
+    explanation: "The highest derivative is of order 2. Because the first derivative appears inside a sine, the equation is not a polynomial in the derivatives, so the degree is not defined."
+    hints:
+      - "Find the highest order derivative that occurs in the equation."
+      - "Ask whether the equation is a polynomial in the derivatives."
+      - "Consider whether a degree can be read off when a trigonometric function of a derivative appears."
+    diagram: null
+    confidence: high
+
+  - topic: "order_and_degree"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Find the degree of the differential equation (d^3y/dx^3)^4 + 5(d^2y/dx^2)^2 + y = 0."
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The highest order derivative is the third derivative, and it appears to the power 4, so the degree is 4."
+    hints:
+      - "Identify the highest order derivative in the equation."
+      - "Read off the exponent on that derivative."
+      - "Check that every term is a polynomial in the derivatives."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the general solution of dy/dx = x?"
+    correct: "y = x^2/2 + C"
+    unit: ""
+    wrong:
+      - {text: "y = x + C", mistake: "integrates the right side as if it were a constant"}
+      - {text: "y = x^2 + C", mistake: "forgets to divide by the new power"}
+      - {text: "y = 2x^2 + C", mistake: "multiplies by the new power instead of dividing"}
+    explanation: "Separating gives dy = x dx, and integrating both sides gives y = x^2/2 plus a constant."
+    hints:
+      - "Separate the y terms and the x terms on opposite sides."
+      - "Integrate each side with respect to its own variable."
+      - "Add the constant of integration once at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Solve dy/dx = 2y with y(0) = 1. Find y(1), rounded to 3 decimal places."
+    correct: "7.389"
+    unit: ""
+    wrong: []
+    explanation: "Separating gives dy/y = 2 dx, so y = C e^(2x). The condition y(0) = 1 gives C = 1, and y(1) = e squared, about 7.389."
+    hints:
+      - "Separate the variables and integrate both sides."
+      - "Use the initial condition to find the constant."
+      - "Solve for y and evaluate at x equal to 1."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Solve dy/dx = x y with y(0) = 2. Find y(2), rounded to 3 decimal places."
+    correct: "14.778"
+    unit: ""
+    wrong: []
+    explanation: "Separating gives dy/y = x dx, so y = 2 e^(x^2/2). At x = 2 this gives 2e^2, about 14.778."
+    hints:
+      - "Separate the variables with y on one side and x on the other."
+      - "Integrate the function of x on the right side."
+      - "Apply the initial condition, then evaluate at x equal to 2."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the general solution of dy/dx = 1 + y^2?"
+    correct: "y = tan(x + C)"
+    unit: ""
+    wrong:
+      - {text: "y = sec(x + C)", mistake: "confuses the antiderivative of one plus a square with a different trigonometric function"}
+      - {text: "y = x + y^2 + C", mistake: "integrates both sides without separating the variables"}
+      - {text: "y = arctan(x) + C", mistake: "inverts the relation between x and y"}
+    explanation: "Separating gives dy/(1 + y^2) = dx, so arctan y = x + C, and taking the tangent of both sides gives y = tan(x + C)."
+    hints:
+      - "Separate the variables first."
+      - "Recall the integral of one over one plus a square."
+      - "Solve for y at the end using the inverse of that function."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Solve y^2 dy/dx = x with y(0) = 1. Find y(2), rounded to 3 decimal places."
+    correct: "1.913"
+    unit: ""
+    wrong: []
+    explanation: "Separating gives y^2 dy = x dx, so y^3/3 = x^2/2 + C. From y(0) = 1, C = 1/3, and at x = 2 we get y^3 = 7, so y is the cube root of 7, about 1.913."
+    hints:
+      - "Separate and integrate both sides."
+      - "Use the initial value to find the constant."
+      - "Solve for y by taking the cube root."
+    diagram: null
+    confidence: high
+
+  - topic: "variable_separable"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the general solution of dy/dx = e^(x + y)?"
+    correct: "e^(-y) + e^x = C"
+    unit: ""
+    wrong:
+      - {text: "e^y + e^x = C", mistake: "flips the sign of the exponent in y while separating"}
+      - {text: "e^(x + y) = C", mistake: "treats the separated form as if it were already integrated"}
+      - {text: "y = ln x + C", mistake: "treats the exponential as a function of x alone"}
+    explanation: "Writing e^(x + y) as e^x times e^y gives e^(-y) dy = e^x dx, and integrating both sides gives -e^(-y) = e^x + constant, which can be written as e^(-y) + e^x = C."
+    hints:
+      - "Write e^(x + y) as a product of two exponentials."
+      - "Separate the terms involving y from those involving x."
+      - "Integrate both sides and combine the constants."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which substitution is used to solve a homogeneous differential equation of the form dy/dx = F(y/x)?"
+    correct: "y = vx"
+    unit: ""
+    wrong:
+      - {text: "y = v + x", mistake: "adds the variables where the substitution needs a product"}
+      - {text: "v = x + y", mistake: "uses a sum instead of the ratio of the variables"}
+      - {text: "y = x^2", mistake: "uses a power substitution that does not reduce the ratio"}
+    explanation: "Putting y = vx turns the ratio y/x into the new variable v, which makes the equation separable in v and x."
+    hints:
+      - "Think about the ratio y over x appearing in the equation."
+      - "Choose a substitution that makes that ratio a single new variable."
+      - "Check that your choice leads to a separable equation."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Solve dy/dx = y/x with y(1) = 2. Find y(3)."
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "Separating gives dy/y = dx/x, so y = Cx, and y(1) = 2 gives C = 2, so y(3) = 6."
+    hints:
+      - "Substitute y = vx and simplify the equation."
+      - "Separate the resulting equation in v and x."
+      - "Use the initial condition to fix the constant before evaluating."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Solve dy/dx = (x + y)/x with y(1) = 2. Find y(e), rounded to 3 decimal places."
+    correct: "8.155"
+    unit: ""
+    wrong: []
+    explanation: "With y = vx the equation becomes x dv/dx = 1, so v = ln x + C. From y(1) = 2 we get C = 2, so y = x(ln x + 2) and at x = e the value is 3e, about 8.155."
+    hints:
+      - "Put y = vx and differentiate using the product rule."
+      - "Simplify until the terms in v cancel."
+      - "Integrate in terms of v and apply the initial condition before evaluating."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Which of the following differential equations is homogeneous?"
+    correct: "dy/dx = (x^2 + y^2)/(xy)"
+    unit: ""
+    wrong:
+      - {text: "dy/dx = (x + 1)/y", mistake: "allows a constant term in a homogeneous equation"}
+      - {text: "dy/dx = x^2 + y", mistake: "accepts terms of different degree in the same expression"}
+      - {text: "dy/dx = sin x + y", mistake: "treats a trigonometric term as homogeneous"}
+    explanation: "The numerator and the denominator are both of degree 2 in x and y, so the right side is a function of y/x and the equation is homogeneous."
+    hints:
+      - "Check the total degree of each term in the numerator and the denominator."
+      - "A homogeneous expression scales by a fixed power when x and y are multiplied by the same constant."
+      - "Constant terms and mixed degrees break this pattern."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Solve dy/dx = (y^2 + xy)/x^2 with y(1) = 1/2. Find y(e), rounded to 3 decimal places."
+    correct: "2.718"
+    unit: ""
+    wrong: []
+    explanation: "With y = vx, x dv/dx = v^2, so -1/v = ln x + C. From v(1) = 1/2 we get C = -2, which gives v = 1/(2 - ln x), so y(e) = e, about 2.718."
+    hints:
+      - "Put y = vx and simplify the equation for v."
+      - "Separate the equation in v and x and integrate."
+      - "Apply the initial condition before evaluating at the requested point."
+    diagram: null
+    confidence: high
+
+  - topic: "homogeneous_de"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the general solution of dy/dx = y/x + tan(y/x)?"
+    correct: "sin(y/x) = Cx"
+    unit: ""
+    wrong:
+      - {text: "sin(y/x) = C/x", mistake: "inverts the dependence on x when integrating"}
+      - {text: "cos(y/x) = Cx", mistake: "confuses sine and cosine in the separated form"}
+      - {text: "y = Cx tan(y/x)", mistake: "skips the separation step and writes the solution directly"}
+    explanation: "With y = vx, the equation becomes x dv/dx = tan v, so cot v dv = dx/x, which integrates to ln|sin v| = ln|x| + constant, giving sin(y/x) = Cx."
+    hints:
+      - "Substitute y = vx and cancel the common term."
+      - "Separate v and x in the resulting equation."
+      - "Integrate both sides and rewrite the logarithm as an exponential."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "What is the integrating factor of dy/dx + y = x?"
+    correct: "e^x"
+    unit: ""
+    wrong:
+      - {text: "e^(-x)", mistake: "takes the negative of the coefficient of y"}
+      - {text: "x", mistake: "uses the right-hand side as the integrating factor"}
+      - {text: "1/x", mistake: "treats the coefficient of y as a function that divides x"}
+    explanation: "The integrating factor is e raised to the integral of the coefficient of y, which is 1, so the factor is e^x."
+    hints:
+      - "Write the equation in the standard form dy/dx + P y = Q."
+      - "The integrating factor is e to the power of the integral of P."
+      - "Find the integral of the coefficient of y."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Solve dy/dx + 2y = 0 with y(0) = 3. Find y(1), rounded to 3 decimal places."
+    correct: "0.406"
+    unit: ""
+    wrong: []
+    explanation: "The solution is y = C e^(-2x), and y(0) = 3 gives C = 3, so y(1) = 3 e^(-2), about 0.406."
+    hints:
+      - "Identify the integrating factor for the coefficient 2."
+      - "Multiply the equation by it and recognise the left side as a derivative."
+      - "Use y(0) to find the constant, then evaluate at x equal to 1."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Solve dy/dx + y/x = x with y(1) = 1. Find y(2), rounded to 3 decimal places."
+    correct: "1.667"
+    unit: ""
+    wrong: []
+    explanation: "The integrating factor is x, so d(xy)/dx = x^2 and xy = x^3/3 + C. With y(1) = 1, C = 2/3, so y(2) = (8/3 + 2/3)/2 = 5/3, about 1.667."
+    hints:
+      - "Find the integrating factor from the coefficient of y, which is 1 over x."
+      - "Multiply through and write the left side as the derivative of a product."
+      - "Integrate, then apply the initial condition before evaluating at x equal to 2."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "What is the general solution of dy/dx - y = e^x?"
+    correct: "y = (x + C) e^x"
+    unit: ""
+    wrong:
+      - {text: "y = e^x + C e^x", mistake: "integrates the right side without accounting for the integrating factor"}
+      - {text: "y = x e^x", mistake: "drops the constant of integration"}
+      - {text: "y = (x + C) e^(-x)", mistake: "uses the wrong sign in the integrating factor"}
+    explanation: "The integrating factor is e^(-x), and multiplying through gives d(y e^(-x))/dx = 1, so y e^(-x) = x + C, which means y = (x + C) e^x."
+    hints:
+      - "Find the integrating factor from the coefficient of y."
+      - "Multiply both sides and check that the left side is a derivative."
+      - "Integrate and multiply back to solve for y."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Solve dy/dx + y tan x = sin x with y(0) = 0. Find y(pi/3), rounded to 3 decimal places."
+    correct: "0.347"
+    unit: ""
+    wrong: []
+    explanation: "The integrating factor is sec x, which gives y sec x = minus ln|cos x| + C. With y(0) = 0 we get C = 0, so y = minus cos x times ln(cos x), and at pi/3 this is (1/2) times 0.693, about 0.347."
+    hints:
+      - "The integrating factor is the secant of x."
+      - "Multiply through and integrate the right side, which gives a logarithm."
+      - "Use y(0) = 0 to fix the constant before evaluating at pi/3."
+    diagram: null
+    confidence: high
+
+  - topic: "linear_de"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "What is the general solution of x dy/dx + 2y = x^3 for x not equal to 0?"
+    correct: "y = x^3/5 + C/x^2"
+    unit: ""
+    wrong:
+      - {text: "y = x^3/5 + C x^2", mistake: "uses the wrong sign in the integrating factor"}
+      - {text: "y = x^2/5 + C/x^2", mistake: "lowers the power on the right side incorrectly"}
+      - {text: "y = x^3/3 + C/x^2", mistake: "integrates x to the fourth with the wrong divisor"}
+    explanation: "Dividing by x gives dy/dx + 2y/x = x^2, with integrating factor x^2. Then d(x^2 y)/dx = x^4, so x^2 y = x^5/5 + C, which gives y = x^3/5 + C/x^2."
+    hints:
+      - "Divide through by x to write the equation in standard linear form."
+      - "Find the integrating factor from the coefficient of y."
+      - "Multiply out, integrate and then divide by the integrating factor."
+    diagram: null
+    confidence: high

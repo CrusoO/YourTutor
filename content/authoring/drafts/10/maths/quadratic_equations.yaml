@@ -1,0 +1,104 @@
+class: 10
+subject: maths
+chapter: quadratic_equations
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: standard_form_quadratic
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which of these is written in standard form ax² + bx + c = 0 with a not equal to 0?"
+    correct: "3x² - 5x + 2 = 0"
+    unit: ""
+    wrong:
+      - {text: "2x + 5 = 0", mistake: "thinks any equation with a variable is quadratic"}
+      - {text: "x(x + 1) = 2", mistake: "treats an unexpanded product as already in standard form"}
+      - {text: "x³ + 2 = 0", mistake: "forgets that the highest power must be two"}
+    explanation: "Standard form has an x² term with a nonzero coefficient, an x term, a constant, and zero on the right. 3x² - 5x + 2 = 0 fits; the others are linear, unexpanded or cubic."
+    hints:
+      - "Check the highest power of x in each option."
+      - "Look for an equation with zero on one side."
+      - "Compare each option with the pattern ax² + bx + c = 0."
+    diagram: null
+    confidence: high
+  - topic: standard_form_quadratic
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In the equation 2x² - 7x + 3 = 0, what is the coefficient b of the x term?"
+    correct: "-7"
+    unit: ""
+    wrong: []
+    explanation: "Matching the equation with ax² + bx + c = 0 gives a = 2, b = -7 and c = 3, so the coefficient of x is -7."
+    hints:
+      - "Match the equation with the pattern ax² + bx + c = 0."
+      - "Find the term that contains x but not x squared."
+      - "Keep the sign that goes with that term."
+    diagram: null
+    confidence: high
+  - topic: standard_form_quadratic
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Write 4x - 3 = x² + 2 in the form ax² + bx + c = 0, with a positive. What is the value of a + b + c?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "Moving every term to one side gives 0 = x² + 2 - 4x + 3, which simplifies to x² - 4x + 5 = 0. So a = 1, b = -4 and c = 5, and a + b + c = 2."
+    hints:
+      - "Move every term to one side so that the other side is zero."
+      - "Collect the x², x and constant terms carefully."
+      - "Check the sign of each coefficient after moving terms."
+    diagram: null
+    confidence: high
+  - topic: standard_form_quadratic
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why must a in ax² + bx + c = 0 be nonzero for the equation to be called quadratic?"
+    correct: "Because if a = 0, the x² term disappears and the equation becomes linear."
+    unit: ""
+    wrong:
+      - {text: "Because a must be an even number.", mistake: "invents a parity condition that is not part of the definition"}
+      - {text: "Because b must be zero.", mistake: "confuses the roles of the coefficients"}
+      - {text: "Because c must be positive.", mistake: "adds a sign condition that is not in the definition"}
+    explanation: "The name quadratic comes from the x² term. Setting a = 0 leaves bx + c = 0, which is linear, so the requirement a ≠ 0 keeps the equation quadratic."
+    hints:
+      - "What is the highest power of x when a is 0?"
+      - "Substitute a = 0 and simplify the equation."
+      - "Name the type of equation you get after that substitution."
+    diagram: null
+    confidence: high
+  - topic: standard_form_quadratic
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Write (x - 2)(x + 5) = 3x - 4 in the form ax² + bx + c = 0 with a = 1. What is c?"
+    correct: "-6"
+    unit: ""
+    wrong: []
+    explanation: "Expanding the left side gives x² + 3x - 10. Subtracting 3x - 4 from both sides leaves x² - 6 = 0, so c = -6."
+    hints:
+      - "Expand the product on the left first."
+      - "Bring all terms to the left side."
+      - "Combine like terms and read off the constant."
+    diagram: null
+    confidence: high
+  - topic: standard_form_quadratic
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Which equation has exactly the same roots as x² - 5x + 6 = 0?"
+    correct: "x²/2 - 5x/2 + 3 = 0"
+    unit: ""
+    wrong:
+      - {text: "x² - 5x - 6 = 0", mistake: "flips the sign of the constant when moving terms"}
+      - {text: "2x² - 5x + 6 = 0", mistake: "multiplies only the x² term by 2 and not the other terms"}
+      - {text: "x² + 5x + 6 = 0", mistake: "changes the sign of the x term"}
+    explanation: "Multiplying x²/2 - 5x/2 + 3 = 0 by 2 gives x² - 5x + 6 = 0, so the roots are the same. The other options change a coefficient in a way that alters the roots."
+    hints:
+      - "Multiply the candidate equation by 2 and see what you get."
+      - "Compare the coefficients of each term with the original equation."
+      - "Check whether scaling every term by the same nonzero number changes the roots."
+    diagram: null
+    confidence: high

@@ -1,0 +1,197 @@
+class: 11
+subject: maths
+chapter: statistics
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: measures_of_dispersion
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "What is the mean deviation about the mean of the data values 2, 4, 6 and 8?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 5, the absolute deviations are 3, 1, 1 and 3, which total 8, and dividing by 4 gives 2."
+    hints:
+      - "Find the mean of the data first."
+      - "Take the distance of each value from that mean, ignoring the direction."
+      - "Average those distances over the number of values."
+    diagram: null
+    confidence: high
+  - topic: measures_of_dispersion
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "How is the variance of a data set defined?"
+    correct: "the mean of the squared deviations from the mean"
+    unit: ""
+    wrong:
+      - {text: "the mean of the absolute deviations from the mean", mistake: "uses absolute values where squares are required"}
+      - {text: "the square root of the mean deviation", mistake: "confuses variance with the standard deviation"}
+      - {text: "the difference between the largest and smallest values", mistake: "confuses spread with the range"}
+    explanation: "Variance averages the squares of the deviations of each value from the mean."
+    hints:
+      - "Think about how each value differs from the mean and what is done to those differences."
+      - "Recall why squaring is used instead of taking absolute values."
+      - "Average the quantities you formed from the differences."
+    diagram: null
+    confidence: high
+  - topic: measures_of_dispersion
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "What is the variance of the data values 2, 4, 6 and 8?"
+    correct: "5"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 5, the squared deviations are 9, 1, 1 and 9 with sum 20, and dividing by 4 gives 5."
+    hints:
+      - "Find the mean of the data values."
+      - "Square the difference between each value and the mean."
+      - "Average the squared differences over the number of values."
+    diagram: null
+    confidence: high
+  - topic: measures_of_dispersion
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "For five observations, the sum of the values is 25 and the sum of their squares is 135. What is the variance?"
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 5, the mean of the squares is 27, and the variance is 27 minus 25, which equals 2."
+    hints:
+      - "Use the shortcut that relates variance to the mean of the squares and the square of the mean."
+      - "Divide the sum of values and the sum of squares by the number of observations."
+      - "Subtract the square of the mean from the mean of the squares."
+    diagram: null
+    confidence: high
+  - topic: measures_of_dispersion
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Find the mean deviation about the median of the values 3, 7, 8, 12 and 15."
+    correct: "3.4"
+    unit: ""
+    wrong: []
+    explanation: "The median is 8, the absolute deviations are 5, 1, 0, 4 and 7 with sum 17, and dividing by 5 gives 3.4."
+    hints:
+      - "Order the values and identify the middle one as the centre."
+      - "Measure the distance of each value from that centre, ignoring direction."
+      - "Average those distances over the number of values."
+    diagram: null
+    confidence: high
+  - topic: measures_of_dispersion
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two data sets have the same mean. Set A has variance 4 and set B has variance 9. Which set is more spread out?"
+    correct: "set B"
+    unit: ""
+    wrong:
+      - {text: "set A", mistake: "reads the smaller variance as the larger spread"}
+      - {text: "they are equally spread out", mistake: "assumes equal means imply equal spread"}
+      - {text: "the comparison needs the sample sizes", mistake: "believes the sample size must be known to compare variances"}
+    explanation: "A larger variance means the values lie further from the mean on average, so set B with variance 9 has the greater spread."
+    hints:
+      - "Recall what a larger variance means about the distances from the mean."
+      - "The means being equal removes one difference between the sets."
+      - "Compare the two variances directly."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A data set has variance 16. What is its standard deviation?"
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The standard deviation is the square root of the variance, and the square root of 16 is 4."
+    hints:
+      - "Recall how the standard deviation is related to the variance."
+      - "Take the square root of the given variance."
+      - "Use only the positive root for a measure of spread."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which statement about the standard deviation is correct?"
+    correct: "it is the square root of the variance"
+    unit: ""
+    wrong:
+      - {text: "it is always larger than the variance", mistake: "compares a square root with its square without checking the size of the values"}
+      - {text: "it is the mean of the absolute deviations", mistake: "confuses standard deviation with the mean deviation"}
+      - {text: "it is zero whenever the mean is zero", mistake: "links the spread to the centre rather than to the deviations"}
+    explanation: "The standard deviation equals the square root of the variance, which puts the spread back in the original units."
+    hints:
+      - "Think about how variance is calculated and what step converts it back to original units."
+      - "Compare the definitions of the spread measures you know."
+      - "Check the statement against a simple data set you can compute."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "The standard deviation of a data set is 3. If every value is multiplied by 2, what is the new standard deviation?"
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "Multiplying each value by a constant multiplies the standard deviation by the same constant, so 3 times 2 gives 6."
+    hints:
+      - "Consider how a scale factor on every value affects the deviations from the mean."
+      - "The variance scales with the square of the factor, so the standard deviation scales with the factor itself."
+      - "Multiply the original standard deviation by the scale factor."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Data set A has standard deviation 2 and mean 10, while data set B has standard deviation 3 and mean 50. Which set has the larger relative spread?"
+    correct: "set A, because its standard deviation is a larger share of its mean"
+    unit: ""
+    wrong:
+      - {text: "set B, because its standard deviation is larger", mistake: "compares absolute spread without accounting for the different means"}
+      - {text: "both sets have the same relative spread", mistake: "assumes equal standard deviations would be needed for a fair comparison"}
+      - {text: "relative spread cannot be compared for different means", mistake: "believes comparisons across different means are impossible"}
+    explanation: "Set A has 2 over 10, or one fifth, while set B has 3 over 50, or 0.06, so set A is relatively more spread out."
+    hints:
+      - "Think about the spread measured as a fraction of the average for each set."
+      - "Compute the ratio of the standard deviation to the mean for each set."
+      - "Compare the two ratios you calculated."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: numeric
+    difficulty: hard
+    role: procedure
+    stem: "Find the standard deviation of the data values 2, 4, 4, 4, 5, 5, 7 and 9."
+    correct: "2"
+    unit: ""
+    wrong: []
+    explanation: "The mean is 5, the squared deviations sum to 32, the variance is 32 over 8, which is 4, and its square root is 2."
+    hints:
+      - "Find the mean of the eight values first."
+      - "Square each deviation from the mean and add them up."
+      - "Divide by the number of values and take the square root of the result."
+    diagram: null
+    confidence: high
+  - topic: standard_deviation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A set of 10 values has mean 4 and the sum of their squares is 260. What is the standard deviation, rounded to two decimal places?"
+    correct: "3.16"
+    unit: ""
+    wrong: []
+    explanation: "The variance is 260 over 10 minus 4 squared, which is 26 minus 16, equal to 10, and its square root is about 3.16."
+    hints:
+      - "Use the shortcut that expresses variance using the mean of the squares and the square of the mean."
+      - "Compute the mean of the squares from the given sum and the number of values."
+      - "Subtract the square of the mean and take the square root, rounding at the end."
+    diagram: null
+    confidence: high

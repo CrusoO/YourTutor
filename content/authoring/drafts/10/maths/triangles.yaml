@@ -1,0 +1,206 @@
+class: 10
+subject: maths
+chapter: triangles
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: similar_triangles
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In triangle ABC, the line DE is parallel to BC, with D on AB and E on AC. Which ratio is equal to AD/DB?"
+    correct: "AE/EC"
+    unit: ""
+    wrong:
+      - {text: "AE/AC", mistake: "compares a part of one side with the whole side"}
+      - {text: "DB/AD", mistake: "inverts the ratio"}
+      - {text: "EC/AC", mistake: "mixes segments that do not lie on the same side"}
+    explanation: "By the basic proportionality theorem, a line parallel to one side of a triangle divides the other two sides in the same ratio. So AD/DB = AE/EC."
+    hints:
+      - "State the theorem about a line parallel to one side of a triangle."
+      - "Match each ratio with the two segments on the same side of the triangle."
+      - "Compare the two sides cut by DE."
+    diagram: "Triangle ABC with a straight segment DE drawn from a point D on side AB to a point E on side AC, parallel to the base BC. All five points are labelled."
+    confidence: high
+  - topic: similar_triangles
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "In triangle PQR, a line XY is parallel to QR, with X on PQ and Y on PR. PX = 2 cm, XQ = 3 cm and PY = 4 cm. What is YR in cm?"
+    correct: "6"
+    unit: "cm"
+    wrong: []
+    explanation: "By the basic proportionality theorem, PX/XQ = PY/YR. So 2/3 = 4/YR, which gives YR = 6 cm."
+    hints:
+      - "Write the ratio PX over XQ."
+      - "Set this equal to PY over YR."
+      - "Cross-multiply and solve for YR."
+    diagram: "Triangle PQR with QR as the base; a line XY parallel to QR crosses side PQ at X and side PR at Y. Label PX, XQ, PY and YR."
+    confidence: high
+  - topic: similar_triangles
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "In triangle ABC, DE is parallel to BC with D on AB and E on AC. What can you conclude about triangles ADE and ABC?"
+    correct: "They are similar, with equal corresponding angles."
+    unit: ""
+    wrong:
+      - {text: "They are congruent.", mistake: "assumes that parallel lines give equal side lengths"}
+      - {text: "They are similar only if D is the midpoint of AB.", mistake: "adds a condition that the theorem does not need"}
+      - {text: "They have equal areas.", mistake: "thinks similar triangles must have the same area"}
+    explanation: "Since DE is parallel to BC, the angles at D and E equal those at B and C, and angle A is shared. The triangles are therefore similar by AA."
+    hints:
+      - "Look for pairs of equal angles created by the parallel lines."
+      - "Think about which angle the two triangles share."
+      - "Decide which similarity criterion uses only angles."
+    diagram: "Triangle ABC with base BC at the bottom and a segment DE drawn across the triangle parallel to BC, with D on AB and E on AC."
+    confidence: high
+  - topic: similar_triangles
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Triangle ABC is similar to triangle DEF, with A matching D, B matching E and C matching F. If AB = 6 cm, DE = 4 cm and BC = 9 cm, what is EF in cm?"
+    correct: "6"
+    unit: "cm"
+    wrong: []
+    explanation: "Corresponding sides are in the same ratio, so EF/BC = DE/AB = 4/6. This gives EF = 9 × 4/6 = 6 cm."
+    hints:
+      - "Identify which side of DEF corresponds to BC."
+      - "Write the ratio of two corresponding sides."
+      - "Scale BC by that ratio."
+    diagram: null
+    confidence: high
+  - topic: similar_triangles
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "In a trapezium ABCD, AB is parallel to DC and AB = 2DC. The diagonals AC and BD meet at O. What is the ratio AO : OC?"
+    correct: "2 : 1"
+    unit: ""
+    wrong:
+      - {text: "1 : 2", mistake: "inverts the ratio of the parallel sides"}
+      - {text: "1 : 1", mistake: "assumes the diagonals of a trapezium bisect each other"}
+      - {text: "4 : 1", mistake: "squares the ratio of the sides as if it were an area ratio"}
+    explanation: "Triangles AOB and COD are similar because AB is parallel to DC, so AO/OC = AB/DC = 2. The diagonals divide each other in the ratio of the parallel sides."
+    hints:
+      - "Find two triangles that meet at O and have parallel sides."
+      - "Use the ratio of corresponding sides in those similar triangles."
+      - "Decide which parallel side goes in the numerator."
+    diagram: "Trapezium ABCD with the parallel sides AB at the top and DC at the bottom, AB longer than DC; the diagonals AC and BD cross at the point O."
+    confidence: high
+  - topic: similar_triangles
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In triangle ABC, DE is parallel to BC, with D on AB and E on AC. The area of triangle ADE is 16 cm² and the area of triangle ABC is 64 cm². If BC = 12 cm, what is DE in cm?"
+    correct: "6"
+    unit: "cm"
+    wrong: []
+    explanation: "Areas of similar triangles are in the ratio of the squares of corresponding sides, so (DE/BC)² = 16/64 = 1/4. Thus DE/BC = 1/2 and DE = 6 cm."
+    hints:
+      - "Find the ratio of the two areas first."
+      - "Remember that an area ratio is the square of the side ratio."
+      - "Take the square root of the area ratio and multiply by BC."
+    diagram: "Triangle ABC with base BC at the bottom and a segment DE drawn parallel to BC, with D on AB and E on AC; the smaller triangle ADE sits at the top."
+    confidence: high
+  - topic: similarity_criteria
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Triangle X has angles 40 degrees, 60 degrees and 80 degrees. Triangle Y also has angles 40 degrees, 60 degrees and 80 degrees. Which conclusion is correct?"
+    correct: "They are similar by the angle-angle-angle criterion."
+    unit: ""
+    wrong:
+      - {text: "They are congruent by SSS.", mistake: "confuses similarity with congruence"}
+      - {text: "They are similar only by SAS, because a side ratio must be given.", mistake: "believes a side ratio must be given before similarity can be claimed"}
+      - {text: "They are right-angled and congruent.", mistake: "assumes a triangle with these angles must be right-angled"}
+    explanation: "Equal angles in all three pairs make the triangles similar. Equal angles do not force equal side lengths, so congruence cannot be concluded."
+    hints:
+      - "Compare the angles of the two triangles pair by pair."
+      - "Ask which criterion uses only angles."
+      - "Decide whether side lengths are needed for the conclusion."
+    diagram: null
+    confidence: high
+  - topic: similarity_criteria
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In triangles PQR and XYZ, angle P equals angle X and angle Q equals angle Y. What can you conclude?"
+    correct: "The triangles are similar by the AA criterion."
+    unit: ""
+    wrong:
+      - {text: "The triangles are congruent by the AA criterion.", mistake: "confuses the AA similarity criterion with a congruence rule"}
+      - {text: "The triangles are similar only if PQ equals XY.", mistake: "demands a side equality that similarity does not need"}
+      - {text: "No conclusion is possible from two pairs of angles.", mistake: "thinks two pairs of equal angles are never enough"}
+    explanation: "Two pairs of equal angles force the third pair to be equal, because the angles of a triangle add to 180 degrees. Hence the triangles are similar by AA, but their side lengths can still differ."
+    hints:
+      - "Use the fact that the angles in a triangle add to 180 degrees."
+      - "Identify the third pair of equal angles."
+      - "Check which similarity criterion uses only angles."
+    diagram: "Two triangles drawn side by side, PQR on the left and XYZ on the right, with the equal angles at P and X and at Q and Y marked with matching arcs."
+    confidence: high
+  - topic: similarity_criteria
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "In triangle ABC, angle A is 50 degrees and angle B is 70 degrees. Triangle DEF is similar to ABC, with D matching A and E matching B. What is angle F in degrees?"
+    correct: "60"
+    unit: "degrees"
+    wrong: []
+    explanation: "Corresponding angles of similar triangles are equal, so angle F matches angle C. Angle C = 180 - 50 - 70 = 60 degrees, so angle F is 60 degrees."
+    hints:
+      - "Find the third angle of triangle ABC first."
+      - "The angles in a triangle add up to 180 degrees."
+      - "Check which angle in DEF corresponds to angle C."
+    diagram: null
+    confidence: high
+  - topic: similarity_criteria
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "Triangle ABC is similar to triangle DEF, with A matching D, B matching E and C matching F. AB/DE = BC/EF = 2/3 and CA = 8 cm. What is DF?"
+    correct: "12 cm"
+    unit: ""
+    wrong:
+      - {text: "8 cm", mistake: "copies the side without scaling it"}
+      - {text: "16/3 cm", mistake: "uses the reciprocal of the scale factor in the wrong direction"}
+      - {text: "10 cm", mistake: "adds the scale numbers to the side instead of multiplying"}
+    explanation: "Corresponding sides are in the same ratio. Since DE/AB = 3/2, the side DF that corresponds to CA is 3/2 × 8 = 12 cm."
+    hints:
+      - "Find which side of DEF matches CA."
+      - "Work out the scale factor from the sides AB and DE."
+      - "Multiply CA by that factor, paying attention to its direction."
+    diagram: "Two triangles side by side, ABC on the left and DEF on the right, with corresponding vertices labelled in the same order and the sides CA and FD marked."
+    confidence: high
+  - topic: similarity_criteria
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "In triangles ABC and DEF, angle A equals angle D, AB = 4 cm, AC = 10 cm and DE = 6 cm. For the triangles to be similar by the SAS criterion, what must DF be in cm?"
+    correct: "15"
+    unit: "cm"
+    wrong: []
+    explanation: "SAS similarity needs the sides enclosing the equal angles to be in the same ratio. DE/AB = 6/4 = 3/2, so DF/AC = 3/2 and DF = 15 cm."
+    hints:
+      - "Find the ratio of DE to AB."
+      - "Make the ratio of DF to AC equal to that ratio."
+      - "Multiply AC by that ratio."
+    diagram: "Two triangles ABC and DEF with the equal angles at A and D marked; AB and AC enclose angle A, and DE and DF enclose angle D."
+    confidence: high
+  - topic: similarity_criteria
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "Triangle P has sides 3, 4 and 5 cm. Triangle Q has sides 6, 8 and 10 cm. No angles are given. Which statement is correct?"
+    correct: "They are similar by SSS similarity, since 6/3 = 8/4 = 10/5 = 2."
+    unit: ""
+    wrong:
+      - {text: "They are congruent, since the ratio of the sides is 2.", mistake: "confuses scaling with congruence"}
+      - {text: "They are not similar, because no angle is given.", mistake: "thinks angle equality must be given for similarity"}
+      - {text: "They are not similar, because 3 and 6 are not equal.", mistake: "compares sides without scaling them by a common ratio"}
+    explanation: "All three side ratios equal 2, so the sides are proportional and the triangles are similar by SSS. A common ratio of 2 rules out congruence, since congruent triangles have a ratio of 1."
+    hints:
+      - "Divide each side of Q by the matching side of P."
+      - "Check whether all the ratios are equal."
+      - "Decide whether a common ratio other than 1 is compatible with congruence."
+    diagram: null
+    confidence: high

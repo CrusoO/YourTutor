@@ -1,0 +1,395 @@
+class: 11
+subject: physics
+chapter: motion_in_a_straight_line
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: position_displacement_velocity
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A runner moves 300 m east and then 100 m west along a straight track. What is the magnitude of the displacement in metres?"
+    correct: "200"
+    unit: "m"
+    wrong: []
+    explanation: "Displacement depends only on the start and end positions. The runner ends 200 m east of the start."
+    hints:
+      - "Displacement depends only on where the motion starts and where it ends."
+      - "Give east one sign and west the opposite sign."
+      - "Add the signed moves and take the size of the result."
+    diagram: null
+    confidence: high
+  - topic: position_displacement_velocity
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "An object goes from position 8 m to position 28 m in 4 s along a straight line. What is its average velocity in metres per second?"
+    correct: "5"
+    unit: "m/s"
+    wrong: []
+    explanation: "Average velocity is the change in position divided by the time taken. The change is 20 m over 4 s, giving 5 m/s."
+    hints:
+      - "Average velocity is displacement divided by the time taken."
+      - "Find the change in position first, as later position minus earlier position."
+      - "Divide that change by the elapsed time."
+    diagram: "A horizontal straight track with an origin marked. Two dots sit at the 8 m and 28 m marks, with an arrow from the first dot to the second labelled 4 s."
+    confidence: high
+  - topic: position_displacement_velocity
+    type: mcq
+    difficulty: medium
+    role: procedure
+    stem: "A car covers the first half of a 120 km journey at 40 km/h and the second half at 60 km/h. What is its average speed for the whole trip?"
+    correct: "48 km/h"
+    unit: ""
+    wrong:
+      - {text: "50 km/h", mistake: "takes the simple average of the two speeds"}
+      - {text: "40 km/h", mistake: "uses only the first speed"}
+      - {text: "96 km/h", mistake: "divides the total distance by the average of the two times"}
+    explanation: "The first half takes 1.5 h and the second half takes 1 h. Total distance 120 km over 2.5 h gives 48 km/h."
+    hints:
+      - "Average speed uses the total distance and the total time."
+      - "Work out the time for each half separately."
+      - "Divide each half distance by its speed to get that part's time."
+    diagram: null
+    confidence: high
+  - topic: position_displacement_velocity
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A particle moves from x = 2 m to x = 10 m in 2 s, then back to x = 4 m in 3 s. What is its average speed over the 5 s, in metres per second?"
+    correct: "2.8"
+    unit: "m/s"
+    wrong: []
+    explanation: "The path length is 8 m on the first leg and 6 m on the return, a total of 14 m. Dividing by 5 s gives 2.8 m/s."
+    hints:
+      - "Speed counts the full path travelled, not the net shift."
+      - "Find the distance covered in each leg and add them."
+      - "Divide the total path by the total time at the end."
+    diagram: null
+    confidence: high
+  - topic: position_displacement_velocity
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "On a position-time graph, the average velocity between two instants is represented by which quantity?"
+    correct: "slope of the chord joining the two points"
+    unit: ""
+    wrong:
+      - {text: "area under the curve between the instants", mistake: "confuses velocity with the area that represents a velocity-time graph"}
+      - {text: "height of the curve at the midpoint", mistake: "uses a single point value instead of the change over an interval"}
+      - {text: "slope of the tangent at the start", mistake: "uses the instantaneous velocity at one point"}
+    explanation: "Average velocity is the change in position divided by the change in time, which is the slope of the straight chord between the two points on the graph."
+    hints:
+      - "Average velocity is displacement divided by time."
+      - "Compare the rise and the run between the two marked points."
+      - "A tangent touches the curve at only one instant."
+    diagram: "A position against time curve with two marked points A and B on it. A straight chord joins A and B, and a tangent line touches the curve at A only."
+    confidence: high
+  - topic: position_displacement_velocity
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A particle has position x = 2t^2 + 3t metres, with t in seconds. What is its average velocity in metres per second between t = 1 s and t = 3 s?"
+    correct: "11"
+    unit: "m/s"
+    wrong: []
+    explanation: "At t = 1 s the position is 5 m and at t = 3 s it is 27 m. The change of 22 m over 2 s gives 11 m/s."
+    hints:
+      - "Substitute each time into the position formula separately."
+      - "Subtract the earlier position from the later one."
+      - "Divide by the length of the time interval."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What does the slope of a position-time graph at one instant give?"
+    correct: "instantaneous velocity"
+    unit: ""
+    wrong:
+      - {text: "instantaneous acceleration", mistake: "confuses the slope of a position graph with the slope of a velocity graph"}
+      - {text: "total distance covered so far", mistake: "reads the height of the graph as the distance travelled"}
+      - {text: "average speed over the whole run", mistake: "uses an average over an interval instead of one instant"}
+    explanation: "The slope of a position-time graph at an instant is the rate of change of position at that instant, which is the instantaneous velocity."
+    hints:
+      - "Slope means rise over run."
+      - "The rise is the change in position and the run is the change in time."
+      - "Use the tangent at that exact instant."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A velocity-time graph is a straight line from 4 m/s at t = 0 to 16 m/s at t = 6 s. What is the acceleration in metres per second squared?"
+    correct: "2"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "The acceleration is the slope of the line, which is the change in velocity 12 m/s over the time 6 s."
+    hints:
+      - "Acceleration is the rate of change of velocity with time."
+      - "Find the change in velocity between the two marked points."
+      - "Divide that change by the time interval."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A particle's position is x = 4t^3 - 2t metres, with t in seconds. Find its instantaneous velocity at t = 2 s, in metres per second."
+    correct: "46"
+    unit: "m/s"
+    wrong: []
+    explanation: "The velocity is dx/dt = 12t^2 - 2. At t = 2 s this gives 48 - 2 = 46 m/s."
+    hints:
+      - "Differentiate the position with respect to time term by term."
+      - "The power of t drops by one and the coefficient is multiplied by the old power."
+      - "Substitute the time only after you have the velocity expression."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A particle's velocity is v = 6t^2 - 12t metres per second, with t in seconds. At what time is its acceleration zero?"
+    correct: "t = 1 s"
+    unit: ""
+    wrong:
+      - {text: "t = 2 s", mistake: "sets the velocity to zero instead of the acceleration"}
+      - {text: "t = 0 s", mistake: "evaluates the expression at the starting instant"}
+      - {text: "t = 3 s", mistake: "differentiates only one of the two terms"}
+    explanation: "Acceleration is dv/dt = 12t - 12. Setting this to zero gives t = 1 s."
+    hints:
+      - "Acceleration is the rate of change of velocity."
+      - "Differentiate the velocity expression with respect to time."
+      - "Set the resulting expression equal to zero and solve for time."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "A particle has position x = 5t^2 - t^3 metres, with t in seconds. What is its acceleration at t = 2 s, in metres per second squared?"
+    correct: "-2"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "The velocity is 10t - 3t^2 and the acceleration is 10 - 6t. At t = 2 s the acceleration is 10 - 12 = -2 m/s^2."
+    hints:
+      - "Differentiate the position twice with respect to time."
+      - "Find the velocity first, then differentiate it."
+      - "Substitute the time only after simplifying the acceleration expression."
+    diagram: null
+    confidence: high
+  - topic: instantaneous_velocity_acceleration
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A ball thrown upward has velocity v = 20 - 10t metres per second, with t in seconds. Which statement about its acceleration is correct?"
+    correct: "uniform acceleration of 10 m/s^2 directed downward"
+    unit: ""
+    wrong:
+      - {text: "zero at the top of the path only", mistake: "confuses zero velocity at the highest point with zero acceleration"}
+      - {text: "increasing with time", mistake: "reads the changing sign of the velocity as a changing acceleration"}
+      - {text: "10 m/s^2 directed upward", mistake: "ignores the sign of the velocity term when reading the direction"}
+    explanation: "The velocity changes at a fixed rate of minus 10 m/s every second, so the acceleration is constant at 10 m/s^2 directed downward."
+    hints:
+      - "Acceleration is the rate of change of velocity with time."
+      - "Look at how much the velocity changes in each unit of time."
+      - "A velocity that changes at a fixed rate gives a constant acceleration."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "A car starts from rest and accelerates uniformly at 2 m/s^2. What is its velocity after 5 s, in metres per second?"
+    correct: "10"
+    unit: "m/s"
+    wrong: []
+    explanation: "Using v = u + at with u = 0 gives v = 2 times 5, which is 10 m/s."
+    hints:
+      - "The starting velocity is zero for a car at rest."
+      - "Use the equation that links final velocity, initial velocity, acceleration and time."
+      - "Multiply the acceleration by the elapsed time and add the starting velocity."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which equation relates final velocity v, initial velocity u, acceleration a and displacement s without using time?"
+    correct: "v^2 = u^2 + 2as"
+    unit: ""
+    wrong:
+      - {text: "v = u + at", mistake: "uses the equation that needs time"}
+      - {text: "s = ut + (1/2)at^2", mistake: "uses the displacement equation that needs time"}
+      - {text: "v = at^2 + u", mistake: "squares the time in the velocity equation"}
+    explanation: "The equation v^2 = u^2 + 2as is the time-free relation between velocity, acceleration and displacement for constant acceleration."
+    hints:
+      - "Look for the equation that contains displacement but not time."
+      - "Check each option for whether time appears in it."
+      - "Squared velocities pair naturally with displacement in this relation."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A train decelerates uniformly from 30 m/s to rest over a distance of 150 m. What is the magnitude of its deceleration in metres per second squared?"
+    correct: "3"
+    unit: "m/s^2"
+    wrong: []
+    explanation: "Using v^2 = u^2 + 2as with v = 0 gives 0 = 900 + 2a(150), so a = -3 m/s^2. The magnitude is 3 m/s^2."
+    hints:
+      - "Pick the equation with velocity, acceleration and displacement but no time."
+      - "Put the final velocity equal to zero because the train stops."
+      - "Solve for the acceleration and then state its size."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A stone is dropped from rest and falls for 3 s. Taking g = 9.8 m/s^2, how far does it fall in metres?"
+    correct: "44.1"
+    unit: "m"
+    wrong: []
+    explanation: "Starting from rest, the distance is one half of g times t squared, which is 0.5 times 9.8 times 9 = 44.1 m."
+    hints:
+      - "The starting velocity is zero for an object that is dropped."
+      - "Displacement equals half of the acceleration times the time squared."
+      - "Gravity provides the acceleration in this situation."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A body starts from rest and moves with constant acceleration. What is the ratio of the distance it covers in the third second to the distance it covers in the first second?"
+    correct: "5:1"
+    unit: ""
+    wrong:
+      - {text: "3:1", mistake: "scales the distance with the time number instead of the odd-number pattern"}
+      - {text: "9:1", mistake: "squares the time number in the ratio"}
+      - {text: "1:5", mistake: "inverts the ratio"}
+    explanation: "Starting from rest, the distances in successive equal seconds follow the odd numbers 1, 3, 5. So the third second covers five times the distance of the first second."
+    hints:
+      - "Find the displacement up to the end of each second separately."
+      - "Subtract the displacement at the start of the required second from the displacement at its end."
+      - "Use s = ut + (1/2)at^2 with the starting velocity equal to zero."
+    diagram: null
+    confidence: high
+  - topic: kinematic_equations
+    type: numeric
+    difficulty: hard
+    role: apply
+    stem: "Car A starts from rest with an acceleration of 4 m/s^2. Car B moves at a constant 6 m/s in the same direction, starting from the same point at the same instant. After how many seconds does car A catch car B?"
+    correct: "3"
+    unit: "s"
+    wrong: []
+    explanation: "Car A travels 2t^2 and car B travels 6t. Setting them equal gives 2t^2 = 6t, so t = 3 s after rejecting the zero root."
+    hints:
+      - "Write the distance covered by each car as a function of time."
+      - "Set the two distances equal to each other."
+      - "Solve the resulting equation and reject the root that corresponds to the start."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Train A moves east at 20 m/s and train B moves east at 12 m/s on a parallel track. What is the velocity of A relative to B in metres per second, taking east as positive?"
+    correct: "8"
+    unit: "m/s"
+    wrong: []
+    explanation: "The relative velocity of A with respect to B is v_A minus v_B, which is 20 minus 12 = 8 m/s."
+    hints:
+      - "Relative velocity is the difference between the two velocities."
+      - "Subtract the velocity of the reference object from the velocity of the object of interest."
+      - "Keep the sign convention for east the same in both velocities."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Two cars move toward each other along a straight road. Car X moves east at 15 m/s and car Y moves west at 10 m/s. What is the speed of X relative to Y?"
+    correct: "25 m/s"
+    unit: ""
+    wrong:
+      - {text: "5 m/s", mistake: "subtracts the speeds of objects moving in opposite directions"}
+      - {text: "15 m/s", mistake: "ignores the motion of car Y"}
+      - {text: "10 m/s", mistake: "ignores the motion of car X"}
+    explanation: "Taking east as positive, Y has velocity minus 10 m/s. The velocity of X relative to Y is 15 minus minus 10, which is 25 m/s."
+    hints:
+      - "Take east as positive, so the westward velocity is negative."
+      - "Find the velocity of X minus the velocity of Y."
+      - "Decide whether the two velocities add or cancel once their signs are set."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A boat moves at 5 m/s in still water. The river current flows at 3 m/s. Going upstream, what is the speed of the boat relative to the bank in metres per second?"
+    correct: "2"
+    unit: "m/s"
+    wrong: []
+    explanation: "Upstream, the current opposes the boat, so the velocity relative to the bank is 5 minus 3, which is 2 m/s."
+    hints:
+      - "Upstream, the current opposes the motion of the boat."
+      - "Find the net velocity along the river line."
+      - "Subtract the opposing current from the boat speed in still water."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A man walks at 4 km/h on a moving walkway that moves at 2 km/h in the same direction. He then walks the opposite way at 4 km/h relative to the walkway. What is his velocity relative to the ground in that case?"
+    correct: "2 km/h opposite to the walkway motion"
+    unit: ""
+    wrong:
+      - {text: "6 km/h in the walkway direction", mistake: "adds the speeds regardless of direction"}
+      - {text: "4 km/h in the walkway direction", mistake: "ignores the motion of the walkway"}
+      - {text: "zero", mistake: "treats the two speeds as cancelling exactly"}
+    explanation: "With walkway direction positive, the man's velocity relative to the walkway is -4 km/h. Adding the walkway's +2 km/h gives -2 km/h, so he moves at 2 km/h opposite to the walkway."
+    hints:
+      - "Choose one direction as positive and keep it fixed."
+      - "Add the signed velocities of the man and the walkway."
+      - "The sign of the answer tells you which way he moves."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Particle A moves east at 7 m/s and particle B moves west at 11 m/s along the same line. They start 36 m apart and move toward each other. After how many seconds do they meet?"
+    correct: "2"
+    unit: "s"
+    wrong: []
+    explanation: "The gap closes at the sum of the speeds, 18 m/s. Dividing the initial gap of 36 m by 18 m/s gives 2 s."
+    hints:
+      - "Work out how fast the gap between the two particles closes."
+      - "The gap closes at the sum of the two speeds when they move toward each other."
+      - "Divide the initial gap by the closing rate."
+    diagram: null
+    confidence: high
+  - topic: relative_velocity_1d
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A passenger on a train moving at 30 m/s throws a ball forward at 10 m/s relative to the train. A stationary observer by the track measures the ball's velocity. Which value does the observer record?"
+    correct: "40 m/s forward"
+    unit: ""
+    wrong:
+      - {text: "20 m/s forward", mistake: "subtracts the throw speed from the train speed"}
+      - {text: "10 m/s forward", mistake: "measures the ball relative to the train instead of the ground"}
+      - {text: "30 m/s forward", mistake: "ignores the throw entirely"}
+    explanation: "Velocities measured from the ground add along the same line, so 30 m/s plus 10 m/s gives 40 m/s forward."
+    hints:
+      - "Velocities measured from the ground add along the same line."
+      - "The train's velocity is one part of the ball's velocity from the ground."
+      - "Use the same direction as positive for both velocities."
+    diagram: null
+    confidence: high

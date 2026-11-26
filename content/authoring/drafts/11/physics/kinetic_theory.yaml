@@ -1,0 +1,419 @@
+class: 11
+subject: physics
+chapter: kinetic_theory
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In the kinetic model of an ideal gas, pressure arises from:"
+    correct: "molecules colliding with the walls and transferring momentum to them"
+    unit: ""
+    wrong:
+      - {text: "attraction between the gas molecules", mistake: "assumes intermolecular attraction creates the pressure"}
+      - {text: "molecules resting on the walls of the container", mistake: "pictures the molecules as stationary on the walls"}
+      - {text: "heat stored inside each molecule", mistake: "confuses internal heat with the momentum transfer that causes pressure"}
+    explanation: "Each molecule that strikes a wall transfers momentum to it. The rate of these transfers over the wall area is the pressure."
+    hints:
+      - "Think about molecules hitting the sides of the container."
+      - "Each impact gives the wall a small push."
+      - "Consider the total momentum delivered to the wall each second."
+    diagram: null
+    confidence: high
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "According to the kinetic model, what does the temperature of an ideal gas measure?"
+    correct: "the average translational kinetic energy of the molecules"
+    unit: ""
+    wrong:
+      - {text: "the average potential energy of the molecules", mistake: "ignores the kinetic energy of molecular motion"}
+      - {text: "the total mass of the gas", mistake: "confuses temperature with the amount of gas"}
+      - {text: "the average distance between the molecules", mistake: "confuses temperature with the spacing between molecules"}
+    explanation: "In the kinetic model the temperature is directly proportional to the average translational kinetic energy of the molecules."
+    hints:
+      - "Temperature is linked to the motion of molecules."
+      - "Think about which energy grows as molecules move faster."
+      - "The quantity is an average over all molecules, not one molecule."
+    diagram: null
+    confidence: high
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "A fixed amount of ideal gas at constant temperature is compressed so that its volume is halved. What happens to its pressure?"
+    correct: "it doubles"
+    unit: ""
+    wrong:
+      - {text: "it halves", mistake: "assumes pressure falls when volume falls"}
+      - {text: "it stays constant", mistake: "ignores how often molecules strike the walls"}
+      - {text: "it quadruples", mistake: "squares the volume ratio in the pressure relation"}
+    explanation: "At constant temperature the pressure is inversely proportional to volume, so halving the volume doubles the pressure."
+    hints:
+      - "Molecules strike a smaller wall area more often in a smaller box."
+      - "Pressure depends on how often and how hard molecules strike the walls."
+      - "Compare the number of molecules per unit volume in the two cases."
+    diagram: null
+    confidence: high
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "For a fixed amount of ideal gas at constant temperature, a graph of pressure against inverse volume is:"
+    correct: "a straight line through the origin"
+    unit: ""
+    wrong:
+      - {text: "a parabola opening upward", mistake: "assumes the relation between pressure and inverse volume is quadratic"}
+      - {text: "a horizontal line", mistake: "assumes pressure stays constant when volume changes"}
+      - {text: "an exponential decay curve", mistake: "invents a non-linear shape for the isotherm"}
+    explanation: "Boyle's law gives P V = constant, so P = constant times 1/V. Plotting P against 1/V gives a straight line through the origin."
+    hints:
+      - "Pressure times volume is constant for this process."
+      - "Rearrange P V equals a constant to see how P depends on 1 over V."
+      - "Check the slope and the intercept of that rearranged form."
+    diagram: null
+    confidence: high
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "Two different ideal gases are at the same temperature. Which statement about the rms speeds of their molecules is correct?"
+    correct: "lighter molecules have the higher rms speed"
+    unit: ""
+    wrong:
+      - {text: "heavier molecules have the higher rms speed", mistake: "assumes greater mass produces greater speed"}
+      - {text: "both gases have the same rms speed regardless of mass", mistake: "ignores the molecular mass in the speed relation"}
+      - {text: "the rms speed depends only on the pressure", mistake: "ignores temperature and mass in the speed relation"}
+    explanation: "At the same temperature the average kinetic energy is the same, so the lighter molecules must move faster to have that energy, giving a higher rms speed."
+    hints:
+      - "At the same temperature, the average kinetic energy is the same for both gases."
+      - "Kinetic energy depends on both mass and the square of speed."
+      - "Keep the energy fixed and see how the speed must respond to a change in mass."
+    diagram: null
+    confidence: high
+  - topic: gas_laws_kinetic_model
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "The absolute temperature of an ideal gas is doubled in kelvin. What happens to the average translational kinetic energy of its molecules?"
+    correct: "it doubles"
+    unit: ""
+    wrong:
+      - {text: "it quadruples", mistake: "assumes kinetic energy scales with the square of temperature"}
+      - {text: "it stays the same", mistake: "confuses the kinetic energy with the pressure"}
+      - {text: "it halves", mistake: "inverts the relation with temperature"}
+    explanation: "The average translational kinetic energy is three halves k_B T, which is directly proportional to the absolute temperature, so doubling T doubles it."
+    hints:
+      - "Average kinetic energy is directly proportional to the absolute temperature."
+      - "Use kelvin, not Celsius, when forming the ratio."
+      - "Check whether the relation is linear or involves a square."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Using k = 1.38 times 10 to the power minus 23 J/K, what is the average translational kinetic energy of an ideal gas molecule at 300 K, in units of 10 to the power minus 21 joules?"
+    correct: "6.21"
+    unit: "10^-21 J"
+    wrong: []
+    explanation: "The average translational kinetic energy is three halves k T = 1.5 times 1.38 times 10^-23 times 300 = 6.21 times 10^-21 J."
+    hints:
+      - "The average translational kinetic energy is three halves times the Boltzmann constant times the temperature."
+      - "Multiply the constant by the absolute temperature first."
+      - "Express the result in the power of ten that the question requests."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Oxygen has molar mass 0.032 kg/mol. Using R = 8.31 J/mol K, what is the rms speed of its molecules at 300 K in metres per second, to the nearest metre per second?"
+    correct: "483"
+    unit: "m/s"
+    wrong: []
+    explanation: "The rms speed is the square root of 3 R T divided by M, which is the square root of 7479 / 0.032, about 483 m/s."
+    hints:
+      - "The rms speed squared equals three times R times T over the molar mass."
+      - "Compute the numerator and the denominator separately."
+      - "Take the square root last."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Find the internal energy in joules of 2 mol of a monatomic ideal gas at 300 K, using R = 8.31 J/mol K. Give the result to the nearest joule."
+    correct: "7479"
+    unit: "J"
+    wrong: []
+    explanation: "A monatomic ideal gas has U = 3/2 n R T, so U = 1.5 times 2 times 8.31 times 300 = 7479 J."
+    hints:
+      - "A monatomic gas has three translational degrees of freedom, each contributing half of k T per molecule."
+      - "The internal energy is three halves of n times R times T."
+      - "Multiply the factor, the moles, the gas constant and the temperature."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two gases are at the same temperature. The molecules of one have mass m and those of the other have mass 4m. What is the ratio of the rms speed of the lighter gas to that of the heavier gas?"
+    correct: "2:1"
+    unit: ""
+    wrong:
+      - {text: "4:1", mistake: "uses the mass ratio directly as the speed ratio"}
+      - {text: "1:2", mistake: "inverts the ratio of the two speeds"}
+      - {text: "1:4", mistake: "uses the ratio of kinetic energies as the speed ratio"}
+    explanation: "At equal temperature the average kinetic energies are equal, so v is proportional to 1 over the square root of m. The ratio is the square root of 4, which is 2:1."
+    hints:
+      - "At equal temperature the average kinetic energies of the two gases are equal."
+      - "For equal energies the speed squared is inversely proportional to the mass."
+      - "Take the square root of the mass ratio to get the speed ratio."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "0.5 mol of a monatomic ideal gas is cooled from 400 K to 300 K. Using R = 8.31 J/mol K, what is the change in its internal energy in joules, to the nearest joule?"
+    correct: "-623"
+    unit: "J"
+    wrong: []
+    explanation: "Delta U = 1.5 times 0.5 times 8.31 times (300 - 400) = -623.25 J, which rounds to -623 J."
+    hints:
+      - "The internal energy change of an ideal gas depends only on the temperature change."
+      - "Use three halves times the moles times the gas constant times the temperature change."
+      - "Keep the sign negative because the gas is cooling."
+    diagram: null
+    confidence: high
+  - topic: rms_speed_and_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "For the molecules of a gas, which is larger: the rms speed or the mean speed?"
+    correct: "the rms speed is larger than the mean speed"
+    unit: ""
+    wrong:
+      - {text: "the mean speed is larger than the rms speed", mistake: "ignores the spread of molecular speeds"}
+      - {text: "they are always exactly equal", mistake: "assumes every molecule moves at the same speed"}
+      - {text: "the mean speed is zero because velocities average out", mistake: "averages the velocity vectors instead of the speeds"}
+    explanation: "Squaring the speeds before averaging gives more weight to the fastest molecules, so the rms speed is always at least as large as the mean speed."
+    hints:
+      - "Squaring emphasises the faster molecules before averaging."
+      - "Compare the mean of the squares with the square of the mean."
+      - "Think about how taking a square root after averaging the squares behaves."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "How many translational degrees of freedom does a diatomic gas molecule have at room temperature?"
+    correct: "three"
+    unit: ""
+    wrong:
+      - {text: "two", mistake: "assumes motion is confined to a plane"}
+      - {text: "five", mistake: "counts rotational modes that are not the translational ones"}
+      - {text: "one", mistake: "uses only the motion along the bond"}
+    explanation: "Translational motion has three independent directions along the coordinate axes, so a molecule always has three translational degrees of freedom."
+    hints:
+      - "Translation means motion along the coordinate axes."
+      - "Each independent direction of motion counts once."
+      - "Rotations are counted separately from translation."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "The equipartition principle states that each quadratic energy term of a molecule contributes:"
+    correct: "one half k_B T per molecule"
+    unit: ""
+    wrong:
+      - {text: "k_B T per molecule", mistake: "forgets the factor of one half for each quadratic term"}
+      - {text: "two k_B T per molecule", mistake: "doubles the share for each direction of motion"}
+      - {text: "nothing at low temperature", mistake: "ignores the fact that the principle is a high-temperature statement"}
+    explanation: "Equipartition gives one half k_B T of average energy for each independent quadratic term in the energy, which is the basis of the heat capacity of gases."
+    hints:
+      - "Each quadratic term in the energy gets an equal share of the thermal energy."
+      - "Each independent term gets one share, and the share is the same for all terms."
+      - "Think of the average energy per independent term."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A diatomic ideal gas has five active degrees of freedom. For one mole, the internal energy equals a number times R times T. What is that number?"
+    correct: "2.5"
+    unit: ""
+    wrong: []
+    explanation: "Each active degree of freedom contributes one half R T per mole, so five of them give 5/2 R T, a coefficient of 2.5."
+    hints:
+      - "Each active degree of freedom contributes one half of R T per mole."
+      - "Multiply the count of active degrees by one half."
+      - "The temperature does not appear in the coefficient itself."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "At high temperature, which kind of ideal gas has the largest molar heat capacity at constant volume?"
+    correct: "a polyatomic gas with many active modes"
+    unit: ""
+    wrong:
+      - {text: "a monatomic gas", mistake: "assumes only translation counts, so fewer modes is better"}
+      - {text: "all ideal gases have identical heat capacities", mistake: "ignores the number of active degrees of freedom"}
+      - {text: "a solid crystal of the same mass", mistake: "treats a solid as if it were a gas"}
+    explanation: "Each active degree of freedom adds one half R to the molar heat capacity at constant volume, so gases with more active modes have larger values."
+    hints:
+      - "Each active mode adds a fixed amount to the heat capacity."
+      - "A gas with more atoms has more ways to store energy."
+      - "Count the active modes in each gas and compare."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A diatomic ideal gas at high temperature has molar heat capacity at constant volume equal to 7/2 R. Using R = 8.31 J/mol K, what is its molar heat capacity at constant pressure in J/mol K, to one decimal place?"
+    correct: "37.4"
+    unit: "J/mol K"
+    wrong: []
+    explanation: "Mayer's relation gives Cp = Cv + R = 4.5 R = 4.5 times 8.31 = 37.4 J/mol K."
+    hints:
+      - "Mayer's relation links the two molar heat capacities."
+      - "Add the gas constant to the constant-volume value."
+      - "Express the sum as a multiple of R, then multiply by the numerical value of R."
+    diagram: null
+    confidence: high
+  - topic: degrees_of_freedom
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "At very low temperature, the rotational contribution to the heat capacity of a diatomic gas is:"
+    correct: "almost absent because rotation is frozen out"
+    unit: ""
+    wrong:
+      - {text: "fully present at the classical value", mistake: "assumes equipartition holds at every temperature"}
+      - {text: "doubled compared with the high-temperature value", mistake: "assumes rotations gain extra energy at low temperature"}
+      - {text: "larger than at high temperature", mistake: "reverses the trend with temperature"}
+    explanation: "Rotational energy levels are quantised with spacing that matters at low temperature. When thermal energy is too small to excite them, the rotational contribution nearly vanishes."
+    hints:
+      - "Energy levels are quantised, so some modes need a minimum energy to be excited."
+      - "Compare the thermal energy available with the spacing of the rotational levels."
+      - "At low temperature there is little thermal energy to excite these levels."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The mean free path of gas molecules is the average distance a molecule travels between:"
+    correct: "successive collisions with other molecules"
+    unit: ""
+    wrong:
+      - {text: "collisions with the container walls only", mistake: "assumes the walls define the path length"}
+      - {text: "two points on the same wall", mistake: "treats the path as a distance along a surface"}
+      - {text: "changes in direction caused by gravity", mistake: "attributes the path length to gravity instead of molecular collisions"}
+    explanation: "The mean free path is the average distance a molecule moves between successive collisions with other molecules in the gas."
+    hints:
+      - "The distance is measured between collision events, not from the wall."
+      - "Think about how often a molecule bumps into its neighbours."
+      - "It is a path length between interactions."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "If the number density of a gas increases at fixed temperature, what happens to the mean free path?"
+    correct: "it decreases"
+    unit: ""
+    wrong:
+      - {text: "it increases", mistake: "assumes more molecules spread the path out"}
+      - {text: "it stays the same", mistake: "ignores the effect of crowding on collision frequency"}
+      - {text: "it becomes infinite", mistake: "confuses a denser gas with a vacuum"}
+    explanation: "More molecules per unit volume means more chances to collide, so the average distance between collisions becomes shorter."
+    hints:
+      - "More molecules in the same space means more chances to collide."
+      - "Think about how far you walk in a crowd before bumping into someone."
+      - "The path length shortens as collisions become more frequent."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Which change increases the mean free path of gas molecules at fixed temperature?"
+    correct: "reducing the pressure"
+    unit: ""
+    wrong:
+      - {text: "increasing the number density", mistake: "packs more molecules into the same volume and shortens the path"}
+      - {text: "using larger molecules", mistake: "assumes larger molecules travel farther between collisions"}
+      - {text: "compressing the gas at constant temperature", mistake: "increases the crowding of molecules"}
+    explanation: "At fixed temperature, lowering the pressure lowers the number density, so molecules collide less often and travel farther between collisions."
+    hints:
+      - "The mean free path is inversely related to how crowded the gas is."
+      - "Lower density means fewer collisions."
+      - "At fixed temperature, pressure is a measure of how crowded the gas is."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "On which of the following does the mean free path of gas molecules depend?"
+    correct: "the molecular diameter and the number density"
+    unit: ""
+    wrong:
+      - {text: "the molecular speed alone", mistake: "assumes faster molecules travel farther between collisions"}
+      - {text: "the molecular mass alone", mistake: "ignores the size of the molecules and their crowding"}
+      - {text: "the shape of the container", mistake: "assumes the container dimensions set the path between collisions"}
+    explanation: "The mean free path is inversely proportional to the collision cross-section, which depends on molecular diameter, and to the number density of the gas."
+    hints:
+      - "The mean free path is about collisions, so molecular size and crowding matter."
+      - "Speed changes how often collisions happen but not the path between them."
+      - "Think about the cross-section a molecule presents to others."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "At fixed temperature and number density, the molecular diameter is doubled. How does the mean free path change?"
+    correct: "it becomes one quarter of its original value"
+    unit: ""
+    wrong:
+      - {text: "it doubles", mistake: "assumes a linear dependence on the molecular diameter"}
+      - {text: "it halves", mistake: "uses the first power of the diameter instead of the square"}
+      - {text: "it stays unchanged", mistake: "ignores the size of the molecules"}
+    explanation: "The mean free path is inversely proportional to the collision cross-section, which goes as the square of the diameter. Doubling the diameter therefore divides the mean free path by four."
+    hints:
+      - "The collision cross-section scales with the square of the diameter."
+      - "The mean free path is inversely proportional to that cross-section."
+      - "Use the square of the size ratio."
+    diagram: null
+    confidence: high
+  - topic: mean_free_path
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "The ideal gas model works well when the mean free path is small compared with the size of the container. Which statement best explains why?"
+    correct: "frequent collisions keep the gas well mixed, so the molecules behave like a uniform continuum"
+    unit: ""
+    wrong:
+      - {text: "molecules rarely collide, so each one moves independently", mistake: "assumes a large mean free path is needed for ideal behaviour"}
+      - {text: "the mean free path must equal the molecular diameter", mistake: "confuses the mean free path with the molecular size"}
+      - {text: "the mean free path must be zero for an ideal gas", mistake: "assumes an ideal gas has no collisions at all"}
+    explanation: "When the mean free path is short compared with the container, collisions are frequent and the gas is well mixed. This justifies treating its properties as uniform, though the exact limits depend on the context."
+    hints:
+      - "Compare the typical path between collisions with the size of the box."
+      - "Frequent collisions help the gas mix and share energy evenly."
+      - "A very long path would mean the molecules hardly interact with one another."
+    diagram: null
+    confidence: low

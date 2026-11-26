@@ -1,0 +1,203 @@
+class: 9
+subject: maths
+chapter: herons_formula
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: heron_area_of_triangle
+    type: numeric
+    difficulty: easy
+    role: procedure
+    stem: "A triangle has sides 5 cm, 5 cm and 6 cm. Using Heron's formula, what is its area, in square cm?"
+    correct: "12"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The semi-perimeter is 8, and the product 8 times 3 times 3 times 2 is 144, whose square root is 12 square cm."
+    hints:
+      - "Find the semi-perimeter first, which is half the sum of the three sides."
+      - "Subtract each side from the semi-perimeter to get three differences."
+      - "Multiply the semi-perimeter by those three differences and take the square root."
+    diagram: null
+    confidence: high
+  - topic: heron_area_of_triangle
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the semi-perimeter of a triangle with sides 7 cm, 8 cm and 9 cm?"
+    correct: "12 cm"
+    unit: ""
+    wrong:
+      - {text: "24 cm", mistake: "forgets to halve the perimeter"}
+      - {text: "8 cm", mistake: "takes the average side length as the semi-perimeter"}
+      - {text: "16 cm", mistake: "doubles the semi-perimeter"}
+    explanation: "The semi-perimeter is half the sum of the sides, which is (7 + 8 + 9) divided by 2, giving 12 cm."
+    hints:
+      - "Add all three sides first."
+      - "The semi-perimeter is half of that sum."
+      - "Check your addition before halving."
+    diagram: null
+    confidence: high
+  - topic: heron_area_of_triangle
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "A triangle has sides 13 cm, 14 cm and 15 cm. Find its area by Heron's formula, in square cm."
+    correct: "84"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The semi-perimeter is 21, and 21 times 8 times 7 times 6 equals 7056, whose square root is 84 square cm."
+    hints:
+      - "Find the semi-perimeter first."
+      - "Find the three differences between the semi-perimeter and each side."
+      - "Multiply all four quantities and take the square root."
+    diagram: null
+    confidence: high
+  - topic: heron_area_of_triangle
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Using Heron's formula, what is the area of a triangle with sides 6 cm, 8 cm and 10 cm?"
+    correct: "24 square cm"
+    unit: ""
+    wrong:
+      - {text: "48 square cm", mistake: "forgets to halve the product of the two shorter sides"}
+      - {text: "12 square cm", mistake: "takes the semi-perimeter as the area"}
+      - {text: "576 square cm", mistake: "forgets to take the square root of the product"}
+    explanation: "The semi-perimeter is 12, so the product 12 times 6 times 4 times 2 is 576, and its square root is 24 square cm."
+    hints:
+      - "Compute the semi-perimeter, then the three differences."
+      - "The area is the square root of a product of four factors."
+      - "Take the root of the full product at the end."
+    diagram: null
+    confidence: high
+  - topic: heron_area_of_triangle
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A triangle with semi-perimeter 18 cm has one side of 10 cm, and its other two sides are equal. What is the length of each equal side, in cm?"
+    correct: "13"
+    unit: "cm"
+    wrong: []
+    explanation: "The total perimeter is 36 cm, so 10 plus twice the equal side is 36, which gives each equal side as 13 cm."
+    hints:
+      - "The semi-perimeter is half the total of the three sides."
+      - "Write the total perimeter using the unknown equal side."
+      - "Solve the resulting equation for that unknown."
+    diagram: null
+    confidence: high
+  - topic: heron_area_of_triangle
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "What is the area, in square cm, of a triangle whose sides are 9 cm, 10 cm and 17 cm?"
+    correct: "36"
+    unit: ""
+    wrong:
+      - {text: "72", mistake: "doubles the area after applying the formula"}
+      - {text: "18", mistake: "reports the semi-perimeter as the area"}
+      - {text: "1296", mistake: "forgets the square root of the product"}
+    explanation: "The semi-perimeter is 18, and 18 times 9 times 8 times 1 equals 1296, whose root is 36 square cm."
+    hints:
+      - "Find the semi-perimeter first."
+      - "Use the three differences from the semi-perimeter to each side."
+      - "Take the square root of the product of all four quantities."
+    diagram: null
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: numeric
+    difficulty: easy
+    role: recall
+    stem: "Quadrilateral ABCD has diagonal AC of 5 cm. Triangle ABC has sides 3 cm, 4 cm and 5 cm, and triangle ACD has sides 3 cm, 4 cm and 5 cm. What is the area of ABCD, in square cm?"
+    correct: "12"
+    unit: "cm^2"
+    wrong: []
+    explanation: "Each triangle has area 6 square cm, so the quadrilateral's area is 12 square cm."
+    hints:
+      - "Split the quadrilateral along the diagonal into two triangles."
+      - "Find each triangle's area from its three sides."
+      - "Add the two areas together."
+    diagram: "Quadrilateral ABCD with the diagonal AC drawn, splitting it into triangles ABC and ACD."
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: mcq
+    difficulty: easy
+    role: explain
+    stem: "Why is a quadrilateral split along a diagonal when its area is found by Heron's formula?"
+    correct: "It turns the area into the sum of two triangle areas, each of which Heron's formula can handle."
+    unit: ""
+    wrong:
+      - {text: "It turns the quadrilateral into a square.", mistake: "assumes splitting changes the shape"}
+      - {text: "It doubles the area automatically.", mistake: "believes splitting multiplies the area"}
+      - {text: "It removes the need for any side lengths.", mistake: "thinks the method needs no measurements"}
+    explanation: "Splitting along a diagonal gives two triangles whose areas add to the area of the quadrilateral, and each triangle can use Heron's formula."
+    hints:
+      - "Ask what the diagonal does to the shape."
+      - "Think about how the areas of the parts relate to the whole."
+      - "Each piece is a triangle whose three sides are known."
+    diagram: "Quadrilateral split by one diagonal into two triangles, with the diagonal labelled."
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: numeric
+    difficulty: medium
+    role: apply
+    stem: "Quadrilateral PQRS is split by diagonal PR of 15 cm. Triangle PQR has sides 9 cm, 12 cm and 15 cm. Triangle PRS has sides 15 cm, 13 cm and 14 cm. What is the total area of PQRS, in square cm?"
+    correct: "138"
+    unit: "cm^2"
+    wrong: []
+    explanation: "The first triangle has area 54 square cm and the second has area 84 square cm, so the total is 138 square cm."
+    hints:
+      - "Find the area of each triangle using the method for three known sides."
+      - "Heron's formula needs the semi-perimeter first."
+      - "Add the two areas together."
+    diagram: "Quadrilateral PQRS with diagonal PR drawn, splitting it into triangles PQR and PRS."
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "A convex quadrilateral can be split by either of its two diagonals. What is true about the total area found each way?"
+    correct: "Both diagonals give the same total area."
+    unit: ""
+    wrong:
+      - {text: "The diagonal that is longer gives a larger total area.", mistake: "believes the choice of diagonal changes the area"}
+      - {text: "Only the shorter diagonal gives a valid split.", mistake: "assumes one diagonal must be shorter to split the shape"}
+      - {text: "Splitting by either diagonal gives an area twice as large.", mistake: "believes the total doubles when split"}
+    explanation: "Either diagonal divides the same region into two pieces whose areas add to the total, so the area does not depend on which diagonal is used."
+    hints:
+      - "Think about whether the region itself changes when a different diagonal is drawn."
+      - "Both diagonals lie inside the same boundary."
+      - "Check whether the total covers the same region in both cases."
+    diagram: "Convex quadrilateral with both of its diagonals drawn, meeting inside the shape."
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A quadrilateral ABCD is cut along its 25 cm diagonal AC into a piece with sides 7 cm, 24 cm and 25 cm and a piece with sides 15 cm, 20 cm and 25 cm. Find the area of ABCD in square cm."
+    correct: "234"
+    unit: "cm^2"
+    wrong: []
+    explanation: "Triangle ABC is right-angled with area 84 square cm, and triangle ACD is also right-angled with area 150 square cm, so the total is 234 square cm."
+    hints:
+      - "Check whether the squares of the two shorter sides add to the square of the longest in each triangle."
+      - "If a triangle is right-angled, its two shorter sides give the base and height."
+      - "Add the two triangle areas to get the quadrilateral's area."
+    diagram: "Quadrilateral ABCD with diagonal AC drawn, and the side lengths of the two triangles labelled."
+    confidence: high
+  - topic: area_of_quadrilateral
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A convex quadrilateral has a diagonal d, and the other two vertices lie at perpendicular distances h1 and h2 from that diagonal. Which expression gives its area?"
+    correct: "d times (h1 + h2) divided by 2"
+    unit: ""
+    wrong:
+      - {text: "d times h1 times h2", mistake: "multiplies the distances instead of adding them"}
+      - {text: "d plus h1 plus h2", mistake: "adds lengths instead of combining areas"}
+      - {text: "(h1 + h2) divided by 2", mistake: "omits the diagonal from the formula"}
+    explanation: "Each triangle on one side of the diagonal has that diagonal as its base, so their areas add to half of d times the sum of the heights."
+    hints:
+      - "Write each triangle's area with the diagonal as its base."
+      - "Add the two areas together."
+      - "Factor the common base and the one half out of the sum."
+    diagram: "Convex quadrilateral with a diagonal drawn as a horizontal line, and the perpendicular distances from the other two vertices marked."
+    confidence: high

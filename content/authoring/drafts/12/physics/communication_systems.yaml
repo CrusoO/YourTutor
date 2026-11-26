@@ -1,0 +1,209 @@
+class: 12
+subject: physics
+chapter: communication_systems
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: basic_communication_elements
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which element of a communication system converts the message into a signal suitable for transmission?"
+    correct: "Transmitter"
+    unit: ""
+    wrong:
+      - {text: "Receiver", mistake: "reverses the roles of the transmitter and the receiver"}
+      - {text: "Channel", mistake: "confuses the medium of transmission with the element that prepares the signal"}
+      - {text: "Repeater", mistake: "assumes a repeater is the element that first prepares the signal"}
+    explanation: "The transmitter processes the message, for example by modulating a carrier, so that it can be sent through the channel."
+    hints:
+      - "Think about the element that acts first on the message at the source end."
+      - "Consider which element prepares the message for the channel."
+      - "Compare with the element that works at the far end of the link."
+    diagram: null
+    confidence: high
+  - topic: basic_communication_elements
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which element of a communication system recovers the original message from the received signal?"
+    correct: "Receiver"
+    unit: ""
+    wrong:
+      - {text: "Transmitter", mistake: "assumes the transmitter also recovers the message at the far end"}
+      - {text: "Antenna alone", mistake: "assumes the antenna alone recovers the message from the signal"}
+      - {text: "Channel", mistake: "confuses the medium with the element that extracts the message"}
+    explanation: "The receiver picks up the signal, demodulates it and recovers the original message for the destination."
+    hints:
+      - "Think about the element at the far end of the link."
+      - "Consider which element extracts the message from the carrier."
+      - "Compare with the element that starts the process at the source."
+    diagram: "A block diagram of a communication system showing the source, transmitter, channel, receiver and destination in a line from left to right."
+    confidence: high
+  - topic: basic_communication_elements
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A voice signal occupies frequencies from 300 Hz to 3400 Hz. What is its bandwidth in hertz?"
+    correct: "3100"
+    unit: "Hz"
+    wrong: []
+    explanation: "The bandwidth is the highest frequency minus the lowest frequency, which is 3400 minus 300, equal to 3100 Hz."
+    hints:
+      - "Bandwidth is the difference between the highest and lowest frequencies."
+      - "Subtract the lower frequency from the upper frequency."
+      - "Keep the unit as hertz."
+    diagram: null
+    confidence: high
+  - topic: basic_communication_elements
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is a repeater placed along a long communication link?"
+    correct: "To regenerate or amplify a signal that has weakened along the way"
+    unit: ""
+    wrong:
+      - {text: "To change the frequency of the message", mistake: "confuses a repeater with a modulator"}
+      - {text: "To remove all noise from the channel permanently", mistake: "assumes a repeater removes noise that is added later"}
+      - {text: "To store the message until the receiver is ready", mistake: "confuses a repeater with a storage device"}
+    explanation: "Signals lose strength over distance. A repeater boosts or regenerates them so that they can reach the next stage of the link."
+    hints:
+      - "Think about what happens to a signal's strength over a long distance."
+      - "Consider what a device placed partway along the link needs to do to the signal."
+      - "Compare a repeater with a modulator in terms of what it changes."
+    diagram: null
+    confidence: high
+  - topic: basic_communication_elements
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "At the transmitter end of a voice communication system, what does the transducer do?"
+    correct: "Converts sound pressure variations into an electrical signal"
+    unit: ""
+    wrong:
+      - {text: "Converts an electrical signal back into sound", mistake: "reverses the direction of conversion used at the transmitter"}
+      - {text: "Amplifies the sound without changing its form", mistake: "assumes a transducer only amplifies and does not convert"}
+      - {text: "Modulates the carrier wave with the message", mistake: "confuses the transducer with the modulator"}
+    explanation: "A microphone at the transmitter is a transducer that turns the pressure variations of speech into a varying electrical signal, which the transmitter then processes."
+    hints:
+      - "Think about what physical quantity the speech sound produces at the microphone."
+      - "Consider what kind of signal the microphone outputs."
+      - "Compare the transducer with the modulator that follows it in the transmitter."
+    diagram: "A block diagram of a transmitter with a microphone block at the input, followed by an amplifier and a modulator block, with arrows showing the signal flow."
+    confidence: medium
+  - topic: basic_communication_elements
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A radio carrier wave has frequency 3 MHz. What is the length in metre of a quarter-wave antenna for this carrier? Use c equal to 3 x 10^8 m/s."
+    correct: "25"
+    unit: "m"
+    wrong: []
+    explanation: "The wavelength is c over f, which is 3 x 10^8 divided by 3 x 10^6, giving 100 m. A quarter-wave antenna is 100 divided by 4, which is 25 m."
+    hints:
+      - "Find the wavelength from the speed of light and the frequency first."
+      - "A quarter-wave antenna is one quarter of the wavelength."
+      - "Divide the wavelength by four as the last step."
+    diagram: "A vertical antenna rod with its length marked as one quarter of a wavelength, and the wavelength shown as a full sine wave drawn beside it."
+    confidence: medium
+  - topic: modulation_and_propagation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "In amplitude modulation, which property of the carrier wave changes in step with the message?"
+    correct: "Its amplitude"
+    unit: ""
+    wrong:
+      - {text: "Its frequency", mistake: "confuses amplitude modulation with frequency modulation"}
+      - {text: "Its phase only", mistake: "confuses amplitude modulation with phase modulation"}
+      - {text: "Its speed of propagation", mistake: "assumes the message changes the speed of the wave"}
+    explanation: "In amplitude modulation the carrier's amplitude follows the shape of the message, while its frequency stays fixed."
+    hints:
+      - "The name of the method tells you which property of the carrier is varied."
+      - "Consider which property is changed while the carrier frequency stays fixed."
+      - "Compare with the method in which the frequency of the carrier varies."
+    diagram: null
+    confidence: high
+  - topic: modulation_and_propagation
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which mode of propagation carries high frequency radio waves around the Earth by reflection from the ionosphere?"
+    correct: "Sky wave propagation"
+    unit: ""
+    wrong:
+      - {text: "Ground wave propagation", mistake: "assumes waves that follow the Earth's surface are reflected by the ionosphere"}
+      - {text: "Line of sight propagation", mistake: "assumes the curvature of the Earth does not limit line of sight links"}
+      - {text: "Guided propagation in a metal pipe", mistake: "confuses sky wave propagation with guided transmission"}
+    explanation: "Sky waves are reflected back to Earth by the ionosphere, which allows communication beyond the horizon at suitable frequencies."
+    hints:
+      - "Think about which layer of the atmosphere reflects radio waves back towards the ground."
+      - "Consider which mode allows communication beyond the horizon."
+      - "Compare with the mode that follows the surface of the Earth."
+    diagram: null
+    confidence: medium
+  - topic: modulation_and_propagation
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A carrier wave has amplitude 8 V and the message signal has amplitude 4 V. What is the modulation index?"
+    correct: "0.5"
+    unit: ""
+    wrong: []
+    explanation: "The modulation index is the message amplitude divided by the carrier amplitude, which is 4 divided by 8, equal to 0.5."
+    hints:
+      - "The modulation index is the ratio of the message amplitude to the carrier amplitude."
+      - "Divide the message amplitude by the carrier amplitude."
+      - "The modulation index has no unit."
+    diagram: null
+    confidence: high
+  - topic: modulation_and_propagation
+    type: mcq
+    difficulty: medium
+    role: explain
+    stem: "Why is frequency modulation less affected by noise than amplitude modulation?"
+    correct: "Noise mainly changes the amplitude, which the receiver can limit away"
+    unit: ""
+    wrong:
+      - {text: "The FM signal has a higher amplitude than the noise", mistake: "assumes FM simply has more power than the noise"}
+      - {text: "FM uses less bandwidth than amplitude modulation", mistake: "confuses bandwidth requirements of the two schemes"}
+      - {text: "Noise cannot affect any modulated wave", mistake: "assumes modulated waves are immune to noise"}
+    explanation: "Most noise appears as amplitude variation. An FM receiver ignores amplitude changes by limiting the signal, so the message carried in the frequency is preserved."
+    hints:
+      - "Think about which property of the wave noise usually disturbs."
+      - "Consider whether the receiver can discard the disturbance."
+      - "Compare how the message is carried in each scheme."
+    diagram: null
+    confidence: medium
+  - topic: modulation_and_propagation
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A carrier of frequency 1 MHz is amplitude modulated by a message of highest frequency 5 kHz. What is the bandwidth of the transmitted signal in kHz?"
+    correct: "10"
+    unit: "kHz"
+    wrong: []
+    explanation: "The sidebands lie at 1000 kHz plus or minus 5 kHz, so the transmitted signal spans from 995 kHz to 1005 kHz. The bandwidth is 10 kHz, which is twice the message frequency."
+    hints:
+      - "The amplitude modulation bandwidth is related to the highest message frequency."
+      - "Find the highest message frequency first."
+      - "Multiply that frequency by two."
+    diagram: null
+    confidence: high
+  - topic: modulation_and_propagation
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A carrier of frequency 1000 kHz is amplitude modulated by a message of frequency 5 kHz. What is the frequency of the upper sideband?"
+    correct: "1005 kHz"
+    unit: ""
+    wrong:
+      - {text: "995 kHz", mistake: "takes the lower sideband instead of the upper one"}
+      - {text: "1010 kHz", mistake: "doubles the message frequency before adding it to the carrier"}
+      - {text: "1000 kHz", mistake: "assumes the carrier alone is the sideband"}
+    explanation: "The upper sideband is the carrier frequency plus the message frequency, which is 1000 kHz plus 5 kHz, equal to 1005 kHz."
+    hints:
+      - "The upper sideband is the carrier frequency plus the message frequency."
+      - "Add the message frequency to the carrier frequency."
+      - "The lower sideband is found by subtracting instead."
+    diagram: null
+    confidence: high

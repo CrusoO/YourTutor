@@ -1,0 +1,488 @@
+class: 12
+subject: physics
+chapter: electrostatic_potential_and_capacitance
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: potential_and_potential_energy
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Taking the potential at infinity as zero, what is the sign and distance behaviour of the potential due to an isolated positive point charge?"
+    correct: "Positive and decreasing as distance increases"
+    unit: ""
+    wrong:
+      - {text: "Negative and decreasing as distance increases", mistake: "confuses the sign of the potential with the sign of the source charge"}
+      - {text: "Positive and increasing as distance increases", mistake: "assumes the potential grows with distance the way a field does"}
+      - {text: "Zero at every point", mistake: "confuses potential with the field, which is zero only at infinity"}
+    explanation: "The potential of a positive point charge is kq over r, which is positive and falls towards zero at large distances."
+    hints:
+      - "Consider the sign of the source charge that creates the potential."
+      - "Think about what happens to the potential at points very far away."
+      - "Compare the potential at a near point and a far point from the charge."
+    diagram: null
+    confidence: high
+  - topic: potential_and_potential_energy
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "What is the electric potential in volts at a distance of 0.3 m from a point charge of 6 microcoulomb in vacuum?"
+    correct: "180000"
+    unit: "V"
+    wrong: []
+    explanation: "The potential of a point charge is k times the charge divided by the distance. With k = 9 x 10^9 N m^2 C^-2 this gives 180000 V."
+    hints:
+      - "Write the potential of a point charge as k times q over r, with k equal to 9 x 10^9 N m^2 C^-2."
+      - "Convert the charge from microcoulomb to coulomb before you substitute."
+      - "Divide by the distance as the last step."
+    diagram: "A dot labelled 6 microcoulomb with a line of 0.3 m drawn to a marked point, and a small circle around the point labelled with the potential."
+    confidence: high
+  - topic: potential_and_potential_energy
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Two point charges of +2 microcoulomb and +8 microcoulomb are placed 0.6 m apart in vacuum. What is the electric potential in volts at the midpoint between them?"
+    correct: "300000"
+    unit: "V"
+    wrong: []
+    explanation: "Potential is a scalar, so the contributions from each charge add directly. Each charge is 0.3 m from the midpoint, giving 60000 V and 240000 V, which sum to 300000 V."
+    hints:
+      - "Potential is a scalar, so you can add the contributions from each charge directly."
+      - "Each charge is the same distance from the midpoint."
+      - "Calculate the contribution of each charge separately before adding them."
+    diagram: null
+    confidence: high
+  - topic: potential_and_potential_energy
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A charge of 2 microcoulomb moves from a point at 50 V to a point at 250 V. What is the change in its electric potential energy in joules?"
+    correct: "0.0004"
+    unit: "J"
+    wrong: []
+    explanation: "The change in potential energy is the charge times the change in potential. Here it is 2 x 10^-6 times 200, which is 0.0004 J."
+    hints:
+      - "The change in potential energy is the charge multiplied by the potential difference."
+      - "Convert the charge to coulomb before multiplying."
+      - "Subtract the starting potential from the final potential first."
+    diagram: "Two vertical equipotential lines, one labelled 50 V on the left and one labelled 250 V on the right, with an arrow showing a positive charge moving from the left line to the right line."
+    confidence: high
+  - topic: potential_and_potential_energy
+    type: mcq
+    difficulty: hard
+    role: transfer
+    stem: "A point charge +q sits at point A and a point charge -q sits at point B. A point P is equally far from the two charges. What is the electric potential at P?"
+    correct: "Zero"
+    unit: ""
+    wrong:
+      - {text: "Twice the potential due to one charge", mistake: "adds the magnitudes of the potentials and ignores their signs"}
+      - {text: "Positive and equal to the potential of the positive charge", mistake: "assumes the positive charge always dominates"}
+      - {text: "Negative and equal to the potential of the negative charge", mistake: "assumes the negative charge always dominates"}
+    explanation: "The two potentials at P have equal magnitudes and opposite signs because the charges are equal and opposite at equal distances. Their sum is therefore zero."
+    hints:
+      - "Find the potential at P due to each charge separately."
+      - "Use the sign of each charge when you write its potential."
+      - "Consider the distances from P to the two charges."
+    diagram: "Two dots labelled plus q and minus q on a horizontal line, with a third point P placed on the perpendicular bisector above the midpoint at equal distances from both dots."
+    confidence: high
+  - topic: potential_and_potential_energy
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "Two point charges of +1 microcoulomb and +2 microcoulomb are placed 0.1 m apart in vacuum. What is the electric potential energy of this pair in joules?"
+    correct: "0.18"
+    unit: "J"
+    wrong: []
+    explanation: "The potential energy of a pair is k times the product of the charges divided by their separation. With these values it equals 0.18 J."
+    hints:
+      - "Write the pair energy as k times the product of the two charges over their separation."
+      - "Convert both charges to coulomb before multiplying them."
+      - "Keep the powers of ten exact when you multiply and divide."
+    diagram: null
+    confidence: high
+  - topic: equipotential_surfaces
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Why are equipotential surfaces always perpendicular to electric field lines?"
+    correct: "No work is needed to move a charge along an equipotential surface"
+    unit: ""
+    wrong:
+      - {text: "Field lines always bend at right angles to each other", mistake: "assumes field lines have a fixed geometry that forces right angles"}
+      - {text: "Potential is highest where field lines start", mistake: "confuses where the potential is largest with where the lines begin"}
+      - {text: "Equipotential surfaces carry the electric field", mistake: "thinks surfaces of constant potential are where the field is stored"}
+    explanation: "Moving a charge along an equipotential needs no work, so the field has no component along the surface. Field lines therefore meet equipotentials at right angles."
+    hints:
+      - "Consider the work done when a charge moves along a surface of constant potential."
+      - "Think about whether the field has any component along that surface."
+      - "Relate the field direction to the direction in which the potential changes most."
+    diagram: null
+    confidence: high
+  - topic: equipotential_surfaces
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which shape describes the equipotential surfaces around an isolated point charge?"
+    correct: "Concentric spheres centred on the charge"
+    unit: ""
+    wrong:
+      - {text: "Parallel planes", mistake: "confuses the surfaces around a point charge with those in a uniform field"}
+      - {text: "A plane passing through the charge", mistake: "assumes any flat surface through the charge has constant potential"}
+      - {text: "Cubes with the charge at one corner", mistake: "assumes the surface shape must match the cube drawn around the charge"}
+    explanation: "An isolated point charge gives a potential that depends only on distance from the charge. Surfaces of equal distance are therefore concentric spheres."
+    hints:
+      - "Consider which quantity stays fixed on an equipotential surface."
+      - "Think about which surface has the same distance from the charge at every point."
+      - "Compare the potential formula with the shape of constant distance."
+    diagram: null
+    confidence: high
+  - topic: equipotential_surfaces
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A charge of 3 microcoulomb moves between two points on the same equipotential surface at 120 V. What is the work done by the electric field in joules?"
+    correct: "0"
+    unit: "J"
+    wrong: []
+    explanation: "Work equals the charge times the potential difference between the endpoints. Both points lie on the same equipotential, so the potential difference is zero and no work is done."
+    hints:
+      - "Work done equals the charge times the potential difference between the endpoints."
+      - "Compare the potential at the starting point with the potential at the finishing point."
+      - "Both points are on the same surface, so think about what they share."
+    diagram: "Concentric circles around a central dot labelled plus Q, with one circle marked 120 V and two points on that circle connected by a short curved path."
+    confidence: high
+  - topic: equipotential_surfaces
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Concentric spherical equipotential surfaces of radii 0.1 m and 0.2 m surround a point charge of 2 microcoulomb in vacuum. What is the potential difference in volts between the two surfaces?"
+    correct: "90000"
+    unit: "V"
+    wrong: []
+    explanation: "The potential at each radius is k q over r. The difference is k q times (1 over 0.1 minus 1 over 0.2), which is 9 x 10^9 x 2 x 10^-6 x 5, giving 90000 V."
+    hints:
+      - "Write the potential at each radius using k q over r."
+      - "Subtract the two potentials, not the two radii."
+      - "Keep the powers of ten exact when you multiply."
+    diagram: "Two concentric circles around a central dot labelled plus 2 microcoulomb, the inner circle marked with radius 0.1 m and the outer circle marked with radius 0.2 m, both labelled as equipotential surfaces."
+    confidence: high
+  - topic: equipotential_surfaces
+    type: mcq
+    difficulty: hard
+    role: apply
+    stem: "A solid metal sphere carries a charge. The potential at its surface is 300 V. What is the potential at its centre in equilibrium?"
+    correct: "300 V"
+    unit: ""
+    wrong:
+      - {text: "0 V", mistake: "assumes the centre of a charged body has no potential"}
+      - {text: "Higher than 300 V", mistake: "assumes potential increases towards the centre of a charged body"}
+      - {text: "Lower than 300 V", mistake: "assumes the potential falls towards the centre of a conductor"}
+    explanation: "In equilibrium there is no field inside a conductor, so no work is needed to move between points inside it or to its surface. The whole conductor, including its centre, is therefore at the same potential."
+    hints:
+      - "Consider whether any electric field exists inside a conductor in equilibrium."
+      - "Think about the potential difference between two points inside the conductor."
+      - "Recall where the charge on a solid conductor is located."
+    diagram: "A circle representing a charged metal sphere, with a dot marked at the centre and a label marked on the surface of the circle."
+    confidence: high
+  - topic: equipotential_surfaces
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "The electric potential at a distance of 0.2 m from a point charge is 450 V in vacuum. What is the magnitude of the charge in microcoulomb?"
+    correct: "0.01"
+    unit: "microcoulomb"
+    wrong: []
+    explanation: "Rearranging V = kq over r gives q = V r over k. With V = 450 V, r = 0.2 m and k = 9 x 10^9, the charge is 10^-8 C, which is 0.01 microcoulomb."
+    hints:
+      - "Rearrange the potential formula to make the charge the subject."
+      - "Multiply the potential by the distance before dividing by k."
+      - "Convert the answer from coulomb to microcoulomb at the end."
+    diagram: null
+    confidence: high
+  - topic: dipole_potential
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "The electric potential at a point on the axis of an electric dipole varies with the distance r from the dipole approximately as:"
+    correct: "1 over r squared"
+    unit: ""
+    wrong:
+      - {text: "1 over r", mistake: "uses the point charge dependence for a dipole"}
+      - {text: "1 over r cubed", mistake: "uses the dipole field dependence for the potential"}
+      - {text: "A constant value", mistake: "assumes a neutral pair produces a constant potential"}
+    explanation: "A dipole has zero net charge, so its potential falls off faster than that of a single charge. On the axis the potential goes as 1 over r squared."
+    hints:
+      - "Consider what the net charge of a dipole is when viewed from far away."
+      - "Compare the falloff of a dipole's potential with that of a single point charge."
+      - "Recall the power of r used for a single point charge potential."
+    diagram: null
+    confidence: high
+  - topic: dipole_potential
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A dipole has moment 2 x 10^-8 C m. What is the potential in volts at a point 0.5 m away on its axis? Use k = 9 x 10^9 N m^2 C^-2."
+    correct: "1440"
+    unit: "V"
+    wrong: []
+    explanation: "The axial potential of a dipole is 2kp over r squared. With these values it gives 2 x 9 x 10^9 x 2 x 10^-8 divided by 0.25, which is 1440 V."
+    hints:
+      - "Use the axial dipole potential formula, which has a factor of 2k in the numerator."
+      - "Square the distance before dividing."
+      - "Keep the dipole moment in coulomb metre throughout."
+    diagram: null
+    confidence: high
+  - topic: dipole_potential
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A dipole with moment 4 x 10^-9 C m is placed at 90 degrees to a uniform electric field of 5 x 10^4 N/C. What is the magnitude of the torque in newton metre?"
+    correct: "0.0002"
+    unit: "N m"
+    wrong: []
+    explanation: "The torque on a dipole in a uniform field is p E sin theta. At 90 degrees the sine is 1, so the torque is 4 x 10^-9 times 5 x 10^4, which is 0.0002 N m."
+    hints:
+      - "The torque depends on the sine of the angle between the moment and the field."
+      - "At 90 degrees the sine takes its largest value."
+      - "Multiply the dipole moment by the field strength."
+    diagram: "A dipole drawn as two opposite charges joined by a short arrow for its moment, placed perpendicular to a set of horizontal uniform field lines."
+    confidence: high
+  - topic: dipole_potential
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A dipole has charges of plus 5 microcoulomb and minus 5 microcoulomb separated by 0.02 m. What is the magnitude of its dipole moment in microcoulomb metre?"
+    correct: "0.1"
+    unit: "microcoulomb metre"
+    wrong: []
+    explanation: "The dipole moment is the magnitude of one charge times the separation. Here it is 5 microcoulomb times 0.02 m, which is 0.1 microcoulomb metre."
+    hints:
+      - "The dipole moment is the magnitude of one charge multiplied by the separation."
+      - "Use the charge in microcoulomb and the distance in metre directly."
+      - "Do not include the sign of the charges in the magnitude."
+    diagram: "Two dots on a horizontal line, labelled plus 5 microcoulomb and minus 5 microcoulomb, separated by a 0.02 m line, with an arrow pointing from the negative dot to the positive dot."
+    confidence: high
+  - topic: dipole_potential
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "In a uniform electric field, at what orientation is the potential energy of an electric dipole at its minimum?"
+    correct: "Moment parallel to the field"
+    unit: ""
+    wrong:
+      - {text: "Moment antiparallel to the field", mistake: "confuses the lowest energy with the highest energy orientation"}
+      - {text: "Moment perpendicular to the field", mistake: "assumes the maximum torque position gives the minimum energy"}
+      - {text: "Moment at 45 degrees to the field", mistake: "assumes the minimum lies at an intermediate angle"}
+    explanation: "The potential energy is minus p E cos theta. It is lowest when cos theta is largest, which happens when the moment is parallel to the field."
+    hints:
+      - "Use the expression for the potential energy of a dipole in a uniform field."
+      - "Find the angle at which the cosine in that expression is largest."
+      - "Think about the sign in front of the potential energy expression."
+    diagram: null
+    confidence: high
+  - topic: dipole_potential
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A dipole of moment 1.2 x 10^-7 C m is aligned parallel to a uniform electric field of 2 x 10^4 N/C. What is its potential energy in joules?"
+    correct: "-0.0024"
+    unit: "J"
+    wrong: []
+    explanation: "For a dipole aligned with the field the potential energy is minus p E. Multiplying 1.2 x 10^-7 by 2 x 10^4 gives 2.4 x 10^-3 J, so the energy is negative."
+    hints:
+      - "Write the potential energy as minus p times E when the angle is zero."
+      - "Multiply the dipole moment and the field strength first."
+      - "Pay attention to the sign of the result."
+    diagram: null
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "What is the equivalent capacitance of two capacitors connected in series, compared with the smaller of the two?"
+    correct: "Smaller than the smaller capacitor"
+    unit: ""
+    wrong:
+      - {text: "Larger than the larger capacitor", mistake: "uses the parallel rule for capacitors in series"}
+      - {text: "Equal to the sum of the two", mistake: "adds capacitances in series as if they were in parallel"}
+      - {text: "Equal to the larger capacitor", mistake: "assumes the bigger component dominates a series chain"}
+    explanation: "In series the reciprocals add, so the equivalent capacitance is smaller than either capacitor on its own."
+    hints:
+      - "Recall how the reciprocals of the capacitances add in series."
+      - "Compare a reciprocal sum with one of its terms alone."
+      - "Think about what happens to the total storage when the chain gets longer."
+    diagram: "Two capacitor symbols connected end to end in a single line, with the free ends marked as terminals."
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "Two capacitors of 2 microfarad and 3 microfarad are connected in parallel. What is their equivalent capacitance in microfarad?"
+    correct: "5"
+    unit: "microfarad"
+    wrong: []
+    explanation: "Capacitances add directly in parallel, so 2 microfarad plus 3 microfarad gives 5 microfarad."
+    hints:
+      - "Recall which combination adds the capacitances directly."
+      - "Add the values without taking reciprocals."
+      - "Keep the answer in microfarad."
+    diagram: null
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "Two capacitors of 6 microfarad and 3 microfarad are connected in series. What is their equivalent capacitance in microfarad?"
+    correct: "2"
+    unit: "microfarad"
+    wrong: []
+    explanation: "For series capacitors the reciprocal of the total equals the sum of the reciprocals. One over 6 plus one over 3 is one half, so the total is 2 microfarad."
+    hints:
+      - "Add the reciprocals of the two capacitances."
+      - "Invert the sum at the end to get the equivalent value."
+      - "Check that your answer is smaller than the smallest capacitor."
+    diagram: null
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: mcq
+    difficulty: medium
+    role: apply
+    stem: "Two 6 microfarad capacitors are connected in parallel, and this pair is then connected in series with a third 6 microfarad capacitor. What is the equivalent capacitance?"
+    correct: "4 microfarad"
+    unit: ""
+    wrong:
+      - {text: "3 microfarad", mistake: "treats all three capacitors as if they were in series"}
+      - {text: "12 microfarad", mistake: "adds all three capacitors as if they were in parallel"}
+      - {text: "2 microfarad", mistake: "uses a wrong sum of reciprocals for the series step"}
+    explanation: "The parallel pair gives 12 microfarad. That combined with the third 6 microfarad capacitor in series gives one over 12 plus one over 6, which is one quarter, so the equivalent is 4 microfarad."
+    hints:
+      - "Combine the parallel pair first."
+      - "Then apply the series rule with the remaining capacitor."
+      - "Check that the final value is smaller than the capacitor you did not combine in parallel."
+    diagram: "A network with two capacitor symbols side by side on the top branch, wired in parallel, and a third capacitor below them connected in series."
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 2 microfarad capacitor is connected in parallel with a series pair made of two 4 microfarad capacitors. What is the equivalent capacitance in microfarad?"
+    correct: "4"
+    unit: "microfarad"
+    wrong: []
+    explanation: "The series pair of 4 microfarad capacitors gives 2 microfarad. Adding this in parallel with the 2 microfarad capacitor gives 4 microfarad."
+    hints:
+      - "Find the equivalent of the series pair first."
+      - "Then add the result in parallel with the other capacitor."
+      - "Each step uses a different combination rule, so keep them separate."
+    diagram: null
+    confidence: high
+  - topic: capacitors_and_combinations
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 10 microfarad capacitor charged to 100 V is connected in parallel with an uncharged 10 microfarad capacitor. What is the final charge in millicoulomb on the originally charged capacitor?"
+    correct: "0.5"
+    unit: "millicoulomb"
+    wrong: []
+    explanation: "The initial charge is 10 microfarad times 100 V, which is 1 millicoulomb. Charge is conserved and shares equally between the two identical capacitors, so each keeps 0.5 millicoulomb."
+    hints:
+      - "Charge is conserved when the capacitors are joined together."
+      - "Find the total charge before the connection and the total capacitance after it."
+      - "Divide the total charge in proportion to the capacitances."
+    diagram: "Two capacitor symbols placed side by side and joined by wires to a common pair of terminals. The first is labelled 100 V before the connection and the second is labelled uncharged."
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: mcq
+    difficulty: easy
+    role: recall
+    stem: "Which expression gives the energy stored in a charged capacitor of capacitance C at voltage V?"
+    correct: "One half times C times V squared"
+    unit: ""
+    wrong:
+      - {text: "C times V", mistake: "treats the stored energy as linear in the voltage"}
+      - {text: "C times V squared", mistake: "omits the factor of one half from the integral of charge build-up"}
+      - {text: "One half times C squared times V", mistake: "confuses the powers of capacitance and voltage"}
+    explanation: "The work needed to charge a capacitor is the integral of the voltage over the charge built up. This gives one half C V squared."
+    hints:
+      - "Think about how the energy depends on the voltage, which may not be linear."
+      - "The factor in the formula comes from building up the charge gradually."
+      - "Compare with the energy of a body whose speed increases steadily."
+    diagram: null
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: numeric
+    difficulty: easy
+    role: apply
+    stem: "A 4 microfarad capacitor is charged to 50 V. What is the energy stored in joules?"
+    correct: "0.005"
+    unit: "J"
+    wrong: []
+    explanation: "The energy is one half times 4 x 10^-6 times 50 squared, which is 0.005 J."
+    hints:
+      - "Use one half times the capacitance times the voltage squared."
+      - "Convert the capacitance from microfarad to farad before you multiply."
+      - "Square the voltage before multiplying by the other factors."
+    diagram: null
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: numeric
+    difficulty: medium
+    role: procedure
+    stem: "A 2 microfarad capacitor is charged to 10 V. What is the energy stored in microjoule?"
+    correct: "100"
+    unit: "microjoule"
+    wrong: []
+    explanation: "The energy is one half times 2 times 10 squared in microfarad and volt, which gives 100 microjoule."
+    hints:
+      - "Write one half times the capacitance times the voltage squared."
+      - "Working in microfarad and volt gives the energy directly in microjoule."
+      - "Multiply the squared voltage by the capacitance before halving."
+    diagram: null
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: numeric
+    difficulty: medium
+    role: explain
+    stem: "A 10 microfarad capacitor stores 0.2 J of energy. What is the voltage across it in volts?"
+    correct: "200"
+    unit: "V"
+    wrong: []
+    explanation: "Rearranging gives V squared equal to twice the energy over the capacitance. That is 0.4 divided by 10 to the minus 5, which equals 40000, so V is 200 V."
+    hints:
+      - "Rearrange the energy formula so the voltage is the subject."
+      - "Multiply both sides by two before dividing by the capacitance."
+      - "Take the square root as the last step."
+    diagram: null
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: mcq
+    difficulty: hard
+    role: explain
+    stem: "A parallel plate capacitor stays connected to a battery while its plate separation is doubled. What happens to the energy stored in it?"
+    correct: "It halves"
+    unit: ""
+    wrong:
+      - {text: "It doubles", mistake: "assumes energy increases with plate separation"}
+      - {text: "It stays the same", mistake: "assumes the charge is fixed instead of the voltage"}
+      - {text: "It becomes four times larger", mistake: "treats the energy as proportional to the square of the separation"}
+    explanation: "With the battery connected the voltage is fixed. Doubling the separation halves the capacitance, so the energy one half C V squared halves."
+    hints:
+      - "Note whether the voltage or the charge is fixed while the battery is connected."
+      - "Find how the capacitance depends on the plate separation."
+      - "Use the energy formula that matches the quantity that stays fixed."
+    diagram: null
+    confidence: high
+  - topic: energy_stored_capacitor
+    type: numeric
+    difficulty: hard
+    role: transfer
+    stem: "A 4 microfarad capacitor charged to 100 V is disconnected from the supply and its plate separation is halved. What is the final stored energy in millijoule?"
+    correct: "10"
+    unit: "millijoule"
+    wrong: []
+    explanation: "After disconnection the charge stays fixed. Halving the separation doubles the capacitance, so the energy Q squared over 2C halves from 20 millijoule to 10 millijoule."
+    hints:
+      - "After disconnection the charge on the plates stays fixed."
+      - "Use the energy formula written in terms of charge and capacitance."
+      - "Check how the capacitance changes when the separation is halved."
+    diagram: null
+    confidence: high

@@ -1,0 +1,319 @@
+class: 12
+subject: "maths"
+chapter: "matrices"
+drafted_by: "claude-haiku-5.5 (unchecked draft)"
+items:
+  - topic: "matrix_types_operations"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let A = [[1, 2], [3, 4]] and B = [[0, 1], [1, 0]]. Find the entry in row 1, column 2 of A + B."
+    correct: "3"
+    unit: ""
+    wrong: []
+    explanation: "Addition works entry by entry, and the row 1, column 2 entries are 2 and 1, whose sum is 3."
+    hints:
+      - "Addition is carried out position by position."
+      - "Look at row 1, column 2 in each of the two matrices."
+      - "Add the two numbers you picked up."
+    diagram: null
+    confidence: high
+
+  - topic: "matrix_types_operations"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "P is a 2 by 3 matrix and Q is a 3 by 2 matrix. Which statement about the products is correct?"
+    correct: "PQ is 2 by 2 and QP is 3 by 3"
+    unit: ""
+    wrong:
+      - {text: "Neither PQ nor QP is defined", mistake: "checks only the number of rows of each matrix"}
+      - {text: "PQ is 3 by 3 and QP is 2 by 2", mistake: "reads the order of the result from the wrong factor"}
+      - {text: "Only PQ is defined", mistake: "believes the inner sizes must match in one fixed order only"}
+    explanation: "A 2 by 3 matrix times a 3 by 2 matrix gives a 2 by 2 result, and a 3 by 2 matrix times a 2 by 3 matrix gives a 3 by 3 result, so both products exist."
+    hints:
+      - "Compare the number of columns of the first factor with the number of rows of the second."
+      - "The outer sizes of the factors give the size of the product."
+      - "Check each product in both orders separately."
+    diagram: null
+    confidence: high
+
+  - topic: "matrix_types_operations"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "A = [[2, 1], [0, 3]] and B = [[1, 0], [2, 1]]. Which number is the entry in row 1, column 2 of AB?"
+    correct: "1"
+    unit: ""
+    wrong:
+      - {text: "0", mistake: "pairs the wrong row of A with the wrong column of B"}
+      - {text: "3", mistake: "uses only the diagonal entries of A"}
+      - {text: "2", mistake: "takes the row 1, column 1 entry of B instead of the column 2 entries"}
+    explanation: "The entry in row 1, column 2 of AB is the first row of A times the second column of B, which is 2 times 0 plus 1 times 1, giving 1."
+    hints:
+      - "The entry in row i, column j of a product uses row i of the first matrix and column j of the second."
+      - "Multiply the paired entries and add the products."
+      - "Work out the pairs one at a time and keep the order straight."
+    diagram: null
+    confidence: high
+
+  - topic: "matrix_types_operations"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let A = [[1, 2], [0, 1]]. Find the entry in row 1, column 2 of A cubed."
+    correct: "6"
+    unit: ""
+    wrong: []
+    explanation: "Each multiplication by A adds 2 to the upper right entry, so the upper right entry of A cubed is 2 plus 2 plus 2, which is 6."
+    hints:
+      - "Compute A squared first and watch how the upper right entry changes."
+      - "Look for a pattern in the upper right entry as the power increases."
+      - "Multiply once more to reach the third power."
+    diagram: null
+    confidence: high
+
+  - topic: "matrix_types_operations"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A and B are square matrices of the same order. Which statement is correct about (A + B) squared?"
+    correct: "It equals A^2 + AB + BA + B^2 for all A and B, and it equals A^2 + 2AB + B^2 only when AB = BA"
+    unit: ""
+    wrong:
+      - {text: "It always equals A^2 + 2AB + B^2", mistake: "treats matrix multiplication as commutative"}
+      - {text: "It always equals A^2 + B^2", mistake: "drops the cross terms entirely"}
+      - {text: "It equals A^2 + AB + B^2 for all A and B", mistake: "drops one of the two cross terms"}
+    explanation: "Expanding (A + B)(A + B) keeps the order of each factor, which gives A^2 + AB + BA + B^2. The two cross terms combine into 2AB only when AB and BA are equal."
+    hints:
+      - "Expand the product carefully and keep the order of each factor."
+      - "Check whether the two cross terms are the same matrix."
+      - "Compare with the expansion for numbers and find the step that can fail for matrices."
+    diagram: null
+    confidence: high
+
+  - topic: "matrix_types_operations"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let A = [[2, 1], [1, 2]]. Find the determinant of A squared."
+    correct: "9"
+    unit: ""
+    wrong: []
+    explanation: "The determinant of A is 4 minus 1, which is 3, and the determinant of a product is the product of the determinants, so det(A squared) is 3 times 3, which is 9."
+    hints:
+      - "Recall how the determinant behaves when two matrices are multiplied."
+      - "Compute the determinant of A first."
+      - "Apply the rule to the second power of A."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "If A = [[1, 4], [2, 3]], which matrix is the transpose of A?"
+    correct: "[[1, 2], [4, 3]]"
+    unit: ""
+    wrong:
+      - {text: "[[1, 4], [2, 3]]", mistake: "believes the transpose leaves a matrix unchanged"}
+      - {text: "[[4, 1], [3, 2]]", mistake: "reverses both the rows and the columns"}
+      - {text: "[[3, 2], [4, 1]]", mistake: "rotates the matrix instead of swapping rows and columns"}
+    explanation: "The transpose swaps rows with columns, so the first row of A becomes the first column of the transpose."
+    hints:
+      - "Each row of the original becomes a column of the new matrix."
+      - "Keep the entries in the same order as you move them."
+      - "Check one entry such as row 1, column 2 to see where it moves."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let A = [[2, 5], [3, 4]]. Find the entry in row 1, column 2 of the matrix (A + A transpose) divided by 2."
+    correct: "4"
+    unit: ""
+    wrong: []
+    explanation: "The entry in row 1, column 2 of A is 5 and of A transpose is 3, so the average (5 + 3) divided by 2 is 4."
+    hints:
+      - "Find the mirror position of the entry in row 1, column 2."
+      - "Add the two entries you found."
+      - "Divide the sum by 2 at the end."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "Express A = [[3, 1], [5, 2]] as the sum of a symmetric matrix and a skew-symmetric matrix. Which is the symmetric part?"
+    correct: "[[3, 3], [3, 2]]"
+    unit: ""
+    wrong:
+      - {text: "[[0, -2], [2, 0]]", mistake: "returns the skew-symmetric part instead of the symmetric one"}
+      - {text: "[[3, 1], [5, 2]]", mistake: "assumes A is already symmetric"}
+      - {text: "[[6, 6], [6, 4]]", mistake: "forgets to divide the sum by 2"}
+    explanation: "The symmetric part is (A + A transpose) divided by 2. Here A + A transpose is [[6, 6], [6, 4]], and halving it gives [[3, 3], [3, 2]]."
+    hints:
+      - "The symmetric part averages each entry with its mirror entry."
+      - "Compute A transpose first and add it to A."
+      - "Remember the factor that the sum must be multiplied or divided by."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "A is a 3 by 3 skew-symmetric matrix whose entry in row 1, column 2 is 4. What is the entry in row 2, column 1?"
+    correct: "-4"
+    unit: ""
+    wrong: []
+    explanation: "In a skew-symmetric matrix each entry is the negative of its mirror entry, so the row 2, column 1 entry is minus 4."
+    hints:
+      - "Recall how a skew-symmetric matrix relates an entry to its mirror entry."
+      - "Look at the sign relation between the two mirror positions."
+      - "Keep the size of the entry and decide its sign."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "A and B are symmetric matrices of the same order. Which statement is correct about the product AB?"
+    correct: "AB is symmetric if and only if AB = BA"
+    unit: ""
+    wrong:
+      - {text: "AB is always symmetric", mistake: "assumes the product inherits symmetry from each factor"}
+      - {text: "AB is always skew-symmetric", mistake: "treats the product of two symmetric matrices as changing sign"}
+      - {text: "AB is symmetric only when A is the identity matrix", mistake: "requires one factor to be a special matrix"}
+    explanation: "The transpose of AB is B transpose times A transpose, which is BA. So AB equals its transpose exactly when AB and BA are equal."
+    hints:
+      - "Write the transpose of a product in terms of the transposes of its factors."
+      - "Keep the order of the factors when you reverse them."
+      - "Compare the result with the original product."
+    diagram: null
+    confidence: high
+
+  - topic: "transpose_symmetric"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let A = [[1, 2], [0, 3]] and P = A + A transpose. Find the sum of all four entries of P."
+    correct: "12"
+    unit: ""
+    wrong: []
+    explanation: "A transpose is [[1, 0], [2, 3]], so P is [[2, 2], [2, 6]], and its four entries sum to 12."
+    hints:
+      - "Write A transpose by swapping its off-diagonal entries."
+      - "Add the two matrices entry by entry."
+      - "Sum the four entries of the resulting matrix."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "numeric"
+    difficulty: "easy"
+    role: "procedure"
+    stem: "Let A = [[2, 0], [0, 5]]. Find the entry in row 2, column 2 of the inverse of A."
+    correct: "0.2"
+    unit: ""
+    wrong: []
+    explanation: "For a diagonal matrix the inverse is obtained by taking the reciprocal of each diagonal entry, so the row 2, column 2 entry is 1 divided by 5."
+    hints:
+      - "Consider what happens to each diagonal entry when you invert a diagonal matrix."
+      - "Focus on the diagonal entry in row 2, column 2."
+      - "Take the reciprocal of that entry."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "mcq"
+    difficulty: "easy"
+    role: "recall"
+    stem: "Which elementary row operation applied to the 2 by 2 identity matrix gives [[1, 0], [3, 1]]?"
+    correct: "Replace R2 by R2 + 3R1"
+    unit: ""
+    wrong:
+      - {text: "Replace R2 by R2 - 3R1", mistake: "flips the sign of the multiplier"}
+      - {text: "Replace R1 by R1 + 3R2", mistake: "applies the operation to the wrong row"}
+      - {text: "Replace R2 by 3R2", mistake: "scales the row instead of adding a multiple of another row"}
+    explanation: "Row 2 of the identity is [0, 1]. Adding 3 times row 1, which is [1, 0], gives [3, 1], which matches the target."
+    hints:
+      - "Write out row 2 of the identity matrix first."
+      - "Decide which row must be added to row 2 and by how much."
+      - "Check the sign of the multiple by computing the first entry of the new row."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "numeric"
+    difficulty: "medium"
+    role: "apply"
+    stem: "Let A = [[1, 2], [3, 4]]. Using elementary row operations on the augmented matrix [A | I], find the entry in row 1, column 1 of the inverse of A."
+    correct: "-2"
+    unit: ""
+    wrong: []
+    explanation: "The inverse of A is (1 divided by -2) times [[4, -2], [-3, 1]], so the row 1, column 1 entry is 4 times minus one half, which is -2."
+    hints:
+      - "Write A and the identity side by side and reduce the left block."
+      - "Use the first column to clear the entry below the first pivot."
+      - "Scale the second row so its pivot becomes one, then clear the entry above it."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "mcq"
+    difficulty: "medium"
+    role: "explain"
+    stem: "To find the inverse of [[2, 1], [1, 1]] by row operations on the augmented matrix, which first step clears the lower left entry without introducing fractions in a wrong place?"
+    correct: "Replace R2 by R2 - (1/2) R1"
+    unit: ""
+    wrong:
+      - {text: "Replace R1 by R1 - R2", mistake: "subtracts in the wrong direction and works on the wrong row"}
+      - {text: "Replace R2 by R2 + R1", mistake: "adds where elimination needs a subtraction"}
+      - {text: "Multiply R1 by 2 and stop", mistake: "believes scaling a row is the only step needed first"}
+    explanation: "Replacing R2 by R2 minus one half of R1 makes the lower left entry zero, since 1 minus one half of 2 is 0, and leaves a nonzero pivot in the second row."
+    hints:
+      - "Find the entry in row 2, column 1 and decide what multiple of row 1 removes it."
+      - "Subtract that multiple of row 1 from row 2."
+      - "Check that the lower left entry becomes zero after the step."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "numeric"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Let A = [[3, 1], [5, 2]]. Find the entry in row 2, column 1 of the inverse of A."
+    correct: "-5"
+    unit: ""
+    wrong: []
+    explanation: "The determinant of A is 6 minus 5, which is 1, and the inverse is [[2, -1], [-5, 3]], so the row 2, column 1 entry is -5."
+    hints:
+      - "Recall the formula for the inverse of a 2 by 2 matrix."
+      - "Swap the diagonal entries and change the signs of the off-diagonal entries."
+      - "Divide everything by the determinant of the matrix."
+    diagram: null
+    confidence: high
+
+  - topic: "elementary_operations"
+    type: "mcq"
+    difficulty: "hard"
+    role: "transfer"
+    stem: "Matrix B is obtained from matrix A by a finite sequence of elementary row operations. Which statement is correct?"
+    correct: "B is row equivalent to A, so they have the same rank"
+    unit: ""
+    wrong:
+      - {text: "B has the same determinant as A", mistake: "believes row operations always preserve the determinant"}
+      - {text: "B has the same eigenvalues as A", mistake: "treats row operations as similarity transformations"}
+      - {text: "A and B always have the same inverse", mistake: "assumes the inverse is unchanged by any row operation"}
+    explanation: "Elementary row operations preserve the row space and therefore the rank, so B is row equivalent to A and has the same rank. Scaling a row can change the determinant, so the determinant is not preserved in general."
+    hints:
+      - "Think about what elementary row operations keep unchanged in the row space."
+      - "Consider what a scaling of one row does to a determinant."
+      - "Separate the properties that survive row operations from those that do not."
+    diagram: null
+    confidence: high
