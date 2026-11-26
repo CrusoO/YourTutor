@@ -1,0 +1,132 @@
+id: C12.INT.DEFINITE_POLY.3_3_0_2
+skill_ids:
+- MATH.C12.INT.DEFINITE_POLY
+difficulty: 0.47
+pool: practice
+role: apply
+stem:
+  en: Evaluate the definite integral of 3x³ - 4x² + 2x - 4 with respect to x from
+    x = 0 to x = 2.
+hints:
+- level: 1
+  en: Find the antiderivative before you use the limits.
+- level: 2
+  en: Write the antiderivative term by term, then evaluate it at the upper limit and
+    subtract its value at the lower limit.
+- level: 3
+  en: 'Full method: raise each power by one and divide by the new power, substitute
+    the upper limit, substitute the lower limit, and subtract in that order.'
+prediction_prompt:
+  en: Roughly how large should the answer be?
+status: draft
+template_id: TPL.C12.INT.DEFINITE_POLY
+generator_version: factory-2
+template_hash: f666f1632599112e3d0776c81ba4c5ee14665051e1ff5a5c5061c08be3c3d76f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -8/3
+- id: b
+  en: 8/3
+- id: c
+  en: '16'
+- id: d
+  en: 16/3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.INT.LIMITS_SUBTRACTED_WRONG_WAY
+  when_answer_equals:
+  - b
+- id: MC.C12.INT.POWER_RULE_NOT_DIVIDED
+  when_answer_equals:
+  - c
+- id: MC.C12.INT.CONSTANT_TERM_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Find an antiderivative term by term: raise each power by one and divide by
+    the new power.'
+- en: The antiderivative is (3/4)x⁴ - (4/3)x³ + x² - 4x.
+- en: 'Subtract its value at 0 from its value at 2: -8/3.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ab0eefd3d02be83b8e2680e6d196ff0814105d7ab0728d520d339460a32b4a14
+  template_hash: f666f1632599112e3d0776c81ba4c5ee14665051e1ff5a5c5061c08be3c3d76f
+  certificate_hash: 15c6df534c7d575ee2c7918870669aa5d455a36ab32b7a78f96422c7410cdba9
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.integrals
+  methods_agreeing:
+  - kernel.algebra
+  - c12.int.antiderivative
+  - c12.int.sympy
+  - c12.int.boole
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:34:16+00:00'
+  record_hash: cd76fa2032fe38493418817407858f7e1fc217935ae3d80e297a0ded489151a5

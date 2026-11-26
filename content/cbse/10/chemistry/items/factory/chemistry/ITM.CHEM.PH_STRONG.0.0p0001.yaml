@@ -1,0 +1,132 @@
+id: ITM.CHEM.PH_STRONG.0.0p0001
+skill_ids:
+- CHEM.ACID.PH_STRONG
+difficulty: 0.51
+pool: practice
+role: apply
+stem:
+  en: A 0.0001 mol/L solution of hydrochloric acid, HCl, is fully ionised in water.
+    What is its pH at room temperature?
+hints:
+- level: 1
+  en: Find the concentration of hydrogen ions first. Count how many hydrogen ions
+    one unit of the substance gives.
+- level: 2
+  en: Multiply the stated concentration by the number of hydrogen ions per unit to
+    get the hydrogen ion concentration.
+- level: 3
+  en: Turn that concentration into a power of ten. For a base, find the pOH first
+    and then use the fixed total of pH and pOH.
+prediction_prompt:
+  en: Before you calculate, should the pH be below 7 or above 7?
+status: draft
+template_id: TPL.CHEM.PH_STRONG
+generator_version: factory-2
+template_hash: 06a39a4d19a4348ad30872ebb8f6f7a883428f562a5cfc272c5741b0444bccaf
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '4'
+- id: c
+  en: '-4'
+- id: d
+  en: '10'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.POWER_MISCOUNT
+  when_answer_equals:
+  - a
+- id: CHEM.MC.PH.SIGN_OF_EXPONENT_KEPT
+  when_answer_equals:
+  - c
+- id: CHEM.MC.PH.OH_FOR_H
+  when_answer_equals:
+  - d
+solution_steps:
+- en: One unit of hydrochloric acid gives 1 hydrogen ion(s), so the hydrogen ion concentration
+    is 0.0001 x 1 = 1/10000 mol/L.
+- en: That is 1 x 10^-4 mol/L, so the pH is 4.
+- en: So pH = 4.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 559865eb826e4f1ff44d2c69d111a33c6d31d3f44b1645f70949d74b66de4c4c
+  template_hash: 06a39a4d19a4348ad30872ebb8f6f7a883428f562a5cfc272c5741b0444bccaf
+  certificate_hash: c78e1e68d1e4345621d27a58365dafd7340d9456dcfffcee86e3522bbc54043f
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.strong_fraction
+  - chem.strong_decimal_log
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:19+00:00'
+  record_hash: 2073cebcc72d1cd1a91ff12f5488f0a2de8ca7bd534be1ebd8773ff39fce5b4f

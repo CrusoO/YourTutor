@@ -12,10 +12,22 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parents[4]
 
 
+def bundled_config_dir() -> Path:
+    """A copy of `<repo>/config` kept inside the API folder (`scripts/sync_bundled_config.py`).
+
+    Vercel uploads only `apps/api`, so the real `config/` folder is not there; a test fails if this
+    copy differs from it.
+    """
+    return Path(__file__).resolve().parents[2] / "bundled_config"
+
+
 def config_dir() -> Path:
-    """`CONFIG_DIR` (containers mount `/config`), else `<repo>/config`."""
+    """`CONFIG_DIR` (containers mount `/config`), else `<repo>/config`, else the bundled copy."""
     override = os.environ.get("CONFIG_DIR")
-    return Path(override) if override else repo_root() / "config"
+    if override:
+        return Path(override)
+    repo = repo_root() / "config"
+    return repo if repo.is_dir() else bundled_config_dir()
 
 
 def content_root() -> Path:
@@ -24,5 +36,19 @@ def content_root() -> Path:
     return Path(override) if override else repo_root() / "content"
 
 
+def bundled_curricula_dir() -> Path:
+    """A copy of `<repo>/content/curricula` inside the API folder (see `bundled_config_dir`)."""
+    return Path(__file__).resolve().parents[2] / "bundled_curricula"
+
+
 def content_curricula_dir() -> Path:
-    return content_root() / "curricula"
+    """`<content root>/curricula`; with no `CONTENT_DIR` and no repo folder, the bundled copy.
+
+    An explicit `CONTENT_DIR` is always honoured (a typo must fail loudly). Only the small curricula
+    folder is bundled; `content_root()` itself is not redirected, so the reviewer desk still falls
+    back to its snapshot when the real content folder is absent (Vercel uploads only `apps/api`).
+    """
+    real = content_root() / "curricula"
+    if os.environ.get("CONTENT_DIR") or real.is_dir():
+        return real
+    return bundled_curricula_dir()

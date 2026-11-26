@@ -1,0 +1,131 @@
+id: C12.RF.COMPOSE_AT.3_3_2_4_1_fog
+skill_ids:
+- MATH.C12.RF.COMPOSE_AT
+difficulty: 0.39
+pool: practice
+role: apply
+stem:
+  en: Let f be the function x → 3x² + 3 and g the function x → 2x + 4. Find the value
+    of (f ∘ g)(1).
+hints:
+- level: 1
+  en: Which function acts first in this composite?
+- level: 2
+  en: Work out the inner function at the given number, then use that result as the
+    input of the outer function.
+- level: 3
+  en: 'Full method: evaluate the function nearest the number, write the result down,
+    then put it into the other function and simplify carefully.'
+prediction_prompt:
+  en: Which function do you apply first?
+status: draft
+template_id: TPL.C12.RF.COMPOSE_AT
+generator_version: factory-2
+template_hash: 278855a3fa62d2dc28560a3ab1ec12945b5fedbb7c32e4f2e22cce1e62ac54ac
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '16'
+- id: b
+  en: '111'
+- id: c
+  en: '36'
+- id: d
+  en: '12'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.RF.COMPOSITION_ORDER_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.C12.RF.COMPOSITION_AS_PRODUCT
+  when_answer_equals:
+  - c
+- id: MC.C12.RF.COMPOSITION_AS_SUM
+  when_answer_equals:
+  - d
+solution_steps:
+- en: '(f ∘ g) means: apply the right-hand function first, then the left-hand one.'
+- en: The inner value is 6.
+- en: 'Apply the outer function to 6: the result is 111.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 30103c48e5c748872bbd1672ea892a82b383380fa6791c991a28cc027b68a526
+  template_hash: 278855a3fa62d2dc28560a3ab1ec12945b5fedbb7c32e4f2e22cce1e62ac54ac
+  certificate_hash: 623aef76cd3e3979d7e0fb5cd5292e3209a8b30531b15f7d2a38f795f19cfa4e
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.relations_functions
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rf.compose.inside_out
+  - c12.rf.compose.polynomial
+  - c12.rf.compose.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:25+00:00'
+  record_hash: 32b6a4e8acbbbc15d665ae41d0dfeac2048a7515ea6f8a57f96fcce4063a07f7

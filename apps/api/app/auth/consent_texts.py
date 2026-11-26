@@ -31,8 +31,13 @@ def texts_root(root: Path | None = None) -> Path:
     if root is not None:
         return root
     override = os.environ.get("CONFIG_DIR")
-    base = Path(override) if override else Path(__file__).resolve().parents[4] / "config"
-    return base / "consent_texts"
+    if override:
+        return Path(override) / "consent_texts"
+    repo = Path(__file__).resolve().parents[4] / "config"
+    # Vercel uploads only apps/api, so fall back to the copy kept there (standard library only here)
+    return (
+        repo if repo.is_dir() else Path(__file__).resolve().parents[2] / "bundled_config"
+    ) / "consent_texts"
 
 
 def file_sha256(path: Path) -> str:

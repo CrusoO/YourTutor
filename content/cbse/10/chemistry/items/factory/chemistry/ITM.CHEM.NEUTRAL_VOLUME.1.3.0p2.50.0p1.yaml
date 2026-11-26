@@ -1,0 +1,133 @@
+id: ITM.CHEM.NEUTRAL_VOLUME.1.3.0p2.50.0p1
+skill_ids:
+- CHEM.ACID.NEUTRAL_VOLUME
+difficulty: 0.67
+pool: practice
+role: apply
+stem:
+  en: 50 mL of 0.2 mol/L nitric acid is exactly neutralised by a solution of magnesium
+    hydroxide of concentration 0.1 mol/L. What volume of the magnesium hydroxide solution
+    is needed?
+hints:
+- level: 1
+  en: At the point of exact neutralisation, the number of moles of hydrogen ions equals
+    the number of moles of hydroxide ions.
+- level: 2
+  en: Moles of a substance = concentration x volume. Count how many hydrogen ions
+    one acid unit gives and how many hydroxide ions one base unit gives.
+- level: 3
+  en: 'Write: hydrogen ions per acid unit times acid moles equals hydroxide ions per
+    base unit times base moles, then solve for the base volume.'
+prediction_prompt:
+  en: Before you calculate, will you need more or less base solution than the volume
+    of acid?
+status: draft
+template_id: TPL.CHEM.NEUTRAL_VOLUME
+generator_version: factory-2
+template_hash: 77d2f02422e9edeb6543242ff4a397a14ef7a8f46c3bf53d12d94becb80067d2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 mL
+- id: b
+  en: 200 mL
+- id: c
+  en: 50 mL
+- id: d
+  en: 10 mL
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.NEUT.BASE_ACIDITY_IGNORED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.NEUT.BASICITY_RATIO_INVERTED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.NEUT.ACID_MILLIMOLES_GIVEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Moles of nitric acid = 0.2 x 50/1000 mol; each unit gives 1 hydrogen ion(s).
+- en: Each unit of magnesium hydroxide gives 2 hydroxide ion(s).
+- en: 1 x 0.2 x 50 = 2 x 0.1 x V, so V = 50 mL.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ba9cf5c568267703bd7fe8de5609d0b257802a4e89f335c1348e847c2d98ebbf
+  template_hash: 77d2f02422e9edeb6543242ff4a397a14ef7a8f46c3bf53d12d94becb80067d2
+  certificate_hash: 6ed50c706ba93e28de229c691031e2e4ccfa8f466b324b8ae2a477525fa11c7f
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.neutral_moles
+  - chem.neutral_normality
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:33+00:00'
+  record_hash: d44fcbf826d402da117d0fd144c8fd79e618077f412992b1634c2d3fd8b7f723

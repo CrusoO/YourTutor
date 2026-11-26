@@ -313,6 +313,16 @@ def test_near_duplicate_stems(root: Path) -> None:
     assert pairs == []  # different scopes are not compared
 
 
+def test_formula_stems_that_differ_in_a_sign_or_number_are_not_duplicates() -> None:
+    same_words = "Solve dy/dx {} with y(0) = 1. Find y(1), rounded to 3 decimal places."
+    entries = [
+        ("f", 0, "s", same_words.format("= 2y")),
+        ("f", 1, "s", same_words.format("+ 2y = 0")),
+        ("f", 2, "s", same_words.format("= 2y")),
+    ]
+    assert [(a, b) for a, b, _ in near_duplicates(entries)] == [(0, 2)]  # only the true copy
+
+
 def test_schema_error_reports_and_exit_code(root: Path, capsys: pytest.CaptureFixture[str]) -> None:
     (root / "authoring/drafts/9/physics/motion.yaml").write_text("items: []\n", encoding="utf-8")
     assert main(["lint", "--content-root", str(root)]) == 1

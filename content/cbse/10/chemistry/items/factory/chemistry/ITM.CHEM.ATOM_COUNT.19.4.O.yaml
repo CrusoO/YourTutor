@@ -1,0 +1,129 @@
+id: ITM.CHEM.ATOM_COUNT.19.4.O
+skill_ids:
+- CHEM.RXN.ATOM_COUNT
+difficulty: 0.33
+pool: practice
+role: procedure
+stem:
+  en: How many atoms of oxygen are shown by 4 (NH4)2CO3?
+hints:
+- level: 1
+  en: A small number just after a bracket multiplies every atom inside that bracket.
+- level: 2
+  en: Count the atoms in one unit of the formula first. The big number in front of
+    the formula multiplies that whole count.
+- level: 3
+  en: 'Look only at oxygen: find how many sit in one unit, then use the number in
+    front of the formula.'
+prediction_prompt:
+  en: Before you count, will the total be bigger than the number in the formula's
+    small subscript?
+status: draft
+template_id: TPL.CHEM.ATOM_COUNT
+generator_version: factory-2
+template_hash: 88b68667db12e121658ac16ce69bc616426df37c2f203a0a11959e3d949883ef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: '3'
+- id: c
+  en: '12'
+- id: d
+  en: '16'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.ATOM.COEFFICIENT_ADDED
+  when_answer_equals:
+  - a
+  - d
+- id: CHEM.MC.ATOM.COEFFICIENT_IGNORED
+  when_answer_equals:
+  - b
+solution_steps:
+- en: 'Count the oxygen atoms in one unit of (NH4)2CO3: a number outside a bracket
+    multiplies every atom inside it, so one unit has 3.'
+- en: 'The number in front, 4, multiplies the whole formula: 4 x 3 = 12.'
+- en: The answer is 12 atoms of oxygen.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8c93f823f0044cab5b5ccbc3c3d8bf482f69874750f73f6bc7cff33232902b2a
+  template_hash: 88b68667db12e121658ac16ce69bc616426df37c2f203a0a11959e3d949883ef
+  certificate_hash: 4d1d290fe72e1eab2a8bbda1d0d7c966cc7c59c7de18e1595791bae0280dbc99
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.algebra
+  - chem.atoms_stack
+  - chem.atoms_expanded
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:06+00:00'
+  record_hash: 644bc2b6f8b331f184496f908d70b9a79206b02d050ab305fd509753f36130f5

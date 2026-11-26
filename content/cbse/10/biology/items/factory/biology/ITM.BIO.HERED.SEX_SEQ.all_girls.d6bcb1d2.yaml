@@ -1,0 +1,130 @@
+id: ITM.BIO.HERED.SEX_SEQ.all_girls.d6bcb1d2
+skill_ids:
+- BIO.HERED.SEX_SEQ
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A couple has 4 children. Assume each child is equally likely to be a boy or
+    a girl, whatever the earlier children were. What is the probability that all 4
+    children are girls? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Each
+    birth is independent of the others, so the chance of a run of births is found
+    by combining the chances of the single births.
+- level: 2
+  en: Combine the chances of the single births by multiplying them.
+- level: 3
+  en: The chance for one child being a girl is one half.
+prediction_prompt:
+  en: Before you calculate, is the outcome likely or unlikely?
+status: draft
+template_id: TPL2.BIO.HERED.SEX_SEQ
+generator_version: factory-2
+template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/32
+- id: b
+  en: 1/2
+- id: c
+  en: 1/16
+- id: d
+  en: 1/4
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.GAMBLERS_FALLACY
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.FIRST_CHILD_ONLY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.SHARE_AS_PROBABILITY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each child is a girl with probability 1 out of 2, and the births are independent.
+- en: 'Multiply the chances for all 4 children: 1 out of 16.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5412c38d9b9777670788c0c0035db32f82c208182b71fb760624f153a2d4cb62
+  template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+  certificate_hash: 5a9f9980546e49794c27f0c437afaa1d7d95d64ec22f9823739dddbae57191a2
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.counting
+  - bio.listing
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:53+00:00'
+  record_hash: ed462086f50d5b68f782fa41e93b087dd15b698288e9136351c6ca2c39a674bd

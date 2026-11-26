@@ -1,0 +1,129 @@
+id: ITM.CHEM.SERIES_FORMULA.alkane.10.mass
+skill_ids:
+- CHEM.CARBON.SERIES_FORMULA
+difficulty: 0.51
+pool: practice
+role: apply
+stem:
+  en: What is the molar mass, in g/mol, of C10H22? (Take C = 12 and H = 1.)
+hints:
+- level: 1
+  en: Molar mass is the sum of the masses of all the atoms in one molecule.
+- level: 2
+  en: Multiply the number of atoms of each element by that element's atomic mass,
+    then add.
+- level: 3
+  en: Count the carbon atoms and the hydrogen atoms in the formula, and use the given
+    atomic masses.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number of
+    carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_FORMULA
+generator_version: factory-2
+template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '32'
+- id: b
+  en: '120'
+- id: c
+  en: '140'
+- id: d
+  en: '142'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.ATOMS_COUNTED_AS_MASS
+  when_answer_equals:
+  - a
+- id: CHEM.MC.SERIES.CARBON_MASS_ONLY
+  when_answer_equals:
+  - b
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Carbon: 10 x 12 = 120. Hydrogen: 22 x 1 = 22.'
+- en: 'Add them: 142 g/mol.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 57ba97b24923d985ea0e9312fc7d4bfb1cea801cf0ba4d1dee17cc91cb335572
+  template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+  certificate_hash: 08de5b16f55eef42a653eacd63ef83f5f8269e08f303822271e3f7e119d10871
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.series_general_formula
+  - chem.series_chain_build
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:04+00:00'
+  record_hash: bbf7464527e7308acefefcbcefdbd53d321c7b9c4b30a0fa4d4d65e1033d7dff

@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.0_14_variance
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'The probabilities of X taking the values 0, 1, 2, 3 are in the ratio 1 : 5
+    : 2 : 3. What is the variance of X?'
+hints:
+- level: 1
+  en: Turn the ratio into probabilities before any other step.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: 13456/14641
+- id: c
+  en: 40/11
+- id: d
+  en: 116/121
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.MEAN_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.STANDARD_DEVIATION_STYLE_SLIP
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.SECOND_MOMENT_AS_VARIANCE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The ratios add to 11, so the probabilities are each ratio divided by 11.
+- en: 'The mean is the sum of value times probability: 18/11.'
+- en: 'The variance is the mean of the squares minus the square of the mean: 116/121.'
+- en: The answer is 116/121.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b65ddb46f376df202a173f6cfd7c0cb41e8a0764afcd63b6eceb2b62a7e0bea6
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 9828ea6f8ea4a6ba4bbd15906852f66f1ee10bbe2e570c791cf1663479746121
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: e29db64e88c58bab198ab21710064e124c08cce832bedb500474704ea0461a8b

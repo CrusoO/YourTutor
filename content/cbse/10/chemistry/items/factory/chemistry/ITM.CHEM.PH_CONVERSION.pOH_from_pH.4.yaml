@@ -1,0 +1,127 @@
+id: ITM.CHEM.PH_CONVERSION.pOH_from_pH.4
+skill_ids:
+- CHEM.ACID.PH_CONVERSION
+difficulty: 0.33
+pool: practice
+role: procedure
+stem:
+  en: A solution has pH 4. What is its pOH at room temperature?
+hints:
+- level: 1
+  en: For any water solution at room temperature, pH and pOH add up to a fixed number.
+- level: 2
+  en: Use the fixed total of pH and pOH. Do not use the neutral point instead.
+- level: 3
+  en: Take the pH away from the fixed total.
+prediction_prompt:
+  en: Before you work it out, is the answer a small or a large number, and is it positive
+    or negative?
+status: draft
+template_id: TPL.CHEM.PH_CONVERSION
+generator_version: factory-2
+template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '10'
+- id: b
+  en: '-10'
+- id: c
+  en: '3'
+- id: d
+  en: '4'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.SIGN_OF_EXPONENT_KEPT
+  when_answer_equals:
+  - b
+- id: CHEM.MC.PH.SEVEN_USED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.PH.POH_SAME_AS_PH
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At room temperature pH + pOH = 14.
+- en: pOH = 14 - 4 = 10.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bb08ced5a7933276498667933616b3e710fde00d2623601ef4969672c33a2d55
+  template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+  certificate_hash: e94f28ab0907d1d84575bb1ebf78ad6adeffdd2ab252496a0871dbc6a0020d15
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.ph_exponent
+  - chem.ph_decimal_log
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:17+00:00'
+  record_hash: 50377dc39602375d3e4ee8c01cf1f55fa127fac56e3ef173cc3f049d84312934

@@ -1,0 +1,136 @@
+id: ITM.BIO.REPRO.CHROMOSOMES.embryo_total.ac38d62a
+skill_ids:
+- BIO.REPRO.CHROMOSOMES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: A gamete has half the number of chromosomes of a body cell. A zygote forms when
+    a sperm and an egg join. A cell made by mitosis has the same number of chromosomes
+    as the cell that divided. In a certain flowering plant species, each gamete has
+    12 chromosomes. The zygote divides by mitosis 3 times, so that all the cells divide
+    together each time. How many chromosomes are there in total, counting all the
+    cells of the embryo?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. First
+    find the number of chromosomes in the zygote, then the number of cells after the
+    divisions.
+- level: 2
+  en: All the cells have the same number of chromosomes, so multiply the number of
+    chromosomes in one cell by the number of cells.
+- level: 3
+  en: If all the cells divide together, the number of cells doubles three times.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number given?
+status: draft
+template_id: TPL2.BIO.REPRO.CHROMOSOMES
+generator_version: factory-2
+template_hash: 7e470e7defa4c7ee66613a02dfaa74a16de3d571ede67742025d5c9aa25b4d52
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 72 chromosomes
+- id: b
+  en: 24 chromosomes
+- id: c
+  en: 192 chromosomes
+- id: d
+  en: 8 chromosomes
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.ROUNDS_MULTIPLIED_NOT_DOUBLED
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.PER_CELL_ONLY
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.CELLS_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The zygote has 12 + 12 = 24 chromosomes, and every cell made by mitosis keeps
+    that number.
+- en: After 3 rounds there are 2 to the power 3 = 8 cells.
+- en: The total is 8 x 24 = 192 chromosomes.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ab24b65edc79e598705e5b5ab5e05d1a9c07d820dc5d040b141a709c048f9490
+  template_hash: 7e470e7defa4c7ee66613a02dfaa74a16de3d571ede67742025d5c9aa25b4d52
+  certificate_hash: 281b7263e93f677ad98ecbdfb70a6e9cc7aeca698e4c2552c08ab955688ac09d
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.chromosome_rules
+  - bio.chromosome_lists
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:37+00:00'
+  record_hash: 974e873b8592a2a47c9c5e77ef01610681a0774d14522e21f2e8bbe623c01cd3

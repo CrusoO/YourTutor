@@ -1,0 +1,43 @@
+# Helplines shown in the distress and exam-stress replies (app/helplines.py).
+#
+# NOTHING HERE IS VERIFIED. Every entry carries verified: false until the owner has confirmed the
+# number, who answers it, its hours and its languages with the provider, then sets verified: true
+# (and records who and when in verified_by / verified_on). Production must refuse to start while any
+# entry that can be shown is unverified (app.helplines.unverified_helplines()).
+#
+# Do not add a number from memory or from a web search. Leave a line out until it is confirmed.
+default_region: IN
+
+helplines:
+  - id: tele_manas
+    region: IN
+    kind: mental_health
+    name: Tele-MANAS
+    number: "14416"
+    languages: [en, hi]       # to confirm with the provider
+    hours: null               # to confirm with the provider
+    verified: false
+    verified_by: null
+    verified_on: null
+  - id: childline
+    region: IN
+    kind: child_protection
+    name: Childline
+    number: "1098"
+    languages: [en, hi]       # to confirm with the provider
+    hours: null               # to confirm with the provider
+    verified: false
+    verified_by: null
+    verified_on: null
+
+# Exam-time counselling lines (for example a board's own exam counselling service). Structure only:
+# the owner supplies the name and number. An entry with number: null is never shown.
+# Example of an entry to add once confirmed:
+#   - id: <board>_exam_counselling
+#     region: IN
+#     kind: exam_counselling
+#     name: <service name>
+#     number: "<number>"
+#     season: "<months it runs, if seasonal>"
+#     verified: false
+exam_counselling: []

@@ -1,0 +1,136 @@
+id: ITM.BIO.HERED.MONO_PROB.p_rec.7e24a3f1
+skill_ids:
+- BIO.HERED.MONO_PROB
+difficulty: 0.35
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele W for smooth leaves is dominant over
+    the allele w for hairy leaves. A plant with genotype Ww is crossed with a plant
+    with genotype Ww. What is the probability that one offspring, picked at random,
+    has hairy leaves? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Find the gametes each
+    parent can make, then combine them in a Punnett square.
+- level: 2
+  en: A probability is the number of boxes that show the outcome asked for, divided
+    by the number of all the boxes.
+- level: 3
+  en: The first parent makes the gametes W and w, and the second parent makes the
+    gametes W and w.
+prediction_prompt:
+  en: Before you calculate, is the outcome asked for more likely or less likely than
+    the other?
+status: draft
+template_id: TPL2.BIO.HERED.MONO_PROB
+generator_version: factory-2
+template_hash: 40786d1103a9ef99f5de874c7acd3e283bc13abca503651dc7579dc22ab83e79
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: 1/2
+- id: c
+  en: 1/3
+- id: d
+  en: 3/4
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_PARENT_ONLY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ODDS_AS_PROBABILITY
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Ww makes the gametes W and w; the second parent Ww makes the
+    gametes W and w.
+- en: 'Out of 4 boxes, smooth leaves: 3; hairy leaves: 1.'
+- en: 'The probability is the number of boxes that show the outcome asked for, divided
+    by all the boxes: 1/4.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3bbd078f0954fe496d5b0e8ec06be0c202c503f32e73928f7bb806e3d8c1db93
+  template_hash: 40786d1103a9ef99f5de874c7acd3e283bc13abca503651dc7579dc22ab83e79
+  certificate_hash: 4ea95d53850693b40c6b745b25b3bcd135215926b55f3c36254199b9b74144ad
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:28+00:00'
+  record_hash: b4e46e122524a6702bc76d575d5d07da58b4ee8cb1aab00b69e0ab1cbb3f6ecc

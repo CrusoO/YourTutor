@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.1_7_variance
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'Let X be a random variable with values 1, 2, 3, 4, whose probabilities stand
+    in the ratio 4 : 5 : 4 : 3. Calculate the variance.'
+hints:
+- level: 1
+  en: Write the distribution as one table.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 71/64
+- id: b
+  en: 35/8
+- id: c
+  en: 27/4
+- id: d
+  en: 5041/4096
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.MEAN_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.SECOND_MOMENT_AS_VARIANCE
+  when_answer_equals:
+  - c
+- id: MC.C12.PROB.STANDARD_DEVIATION_STYLE_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ratios add to 16, so the probabilities are each ratio divided by 16.
+- en: 'The mean is the sum of value times probability: 19/8.'
+- en: 'The variance is the mean of the squares minus the square of the mean: 71/64.'
+- en: The answer is 71/64.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 49e77171c2bbcadf259074a9ae0173662231f46085bfe2b4e24a85866887c2ec
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 1683a26204abeec7c6c24092f34d078c7447965b9f4480ffa507d7822eac2ea0
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: 78256cc7da6bfc9c49087210656ae982efdbf7b757df4d2feb46b5a4592007e8

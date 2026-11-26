@@ -10,6 +10,7 @@ CONTENT = Path(__file__).resolve().parents[4] / "content" / "cbse" / "10"
 CASES = [
     (CONTENT / "maths" / "templates" / "c10_ap_difference.yaml", "maths_c10"),
     (CONTENT / "physics" / "factory" / "templates" / "TPL2.PHY.ELEC.OHM_LAW.yaml", "physics"),
+    (CONTENT / "chemistry" / "templates" / "tpl_chem_ph_conversion.yaml", "chemistry"),
 ]
 
 

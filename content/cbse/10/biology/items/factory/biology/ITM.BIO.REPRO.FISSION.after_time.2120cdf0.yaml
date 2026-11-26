@@ -1,0 +1,132 @@
+id: ITM.BIO.REPRO.FISSION.after_time.2120cdf0
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A culture of single-celled organisms starts with 1 cell. Assume that every cell
+    divides into two cells in each round of division, that all the cells divide together,
+    and that no cell dies. One round of division takes 20 minutes. How many cells
+    are there after 40 minutes?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. First
+    find how many rounds of division fit into the time.
+- level: 2
+  en: Divide the total time by the time one round takes, then multiply the cells by
+    2 once for each round.
+- level: 3
+  en: Each round takes 20 minutes.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 4 cells
+- id: b
+  en: 2 cells
+- id: c
+  en: 40 cells
+- id: d
+  en: 8 cells
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.ONE_ROUND_LESS
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.TIME_AS_ROUNDS
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.ONE_ROUND_MORE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The number of rounds is 40 divided by 20, which is 2.
+- en: 1 x 2 to the power 2 = 4.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: cf183a722c9a48b94ae626a04aa76b2b207d3ecbe7b35cc81b3c8baec17f928b
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 7a983f2524956989600ceb5e8d1c98f63a284700eca12e1229d802656b904142
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:30+00:00'
+  record_hash: 793bbc97b525880fbe2b4f2d9a270cc71f783dab62996f5666b52d8874b94498

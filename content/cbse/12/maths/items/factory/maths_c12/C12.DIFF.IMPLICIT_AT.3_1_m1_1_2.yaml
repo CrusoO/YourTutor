@@ -1,0 +1,132 @@
+id: C12.DIFF.IMPLICIT_AT.3_1_m1_1_2
+skill_ids:
+- MATH.C12.DIFF.IMPLICIT_AT
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: The curve 3x² + xy - y² = 1 passes through the point (1, 2). Find dy/dx at that
+    point.
+hints:
+- level: 1
+  en: Which variable depends on which? Decide before differentiating.
+- level: 2
+  en: Differentiate both sides with respect to x, gather the dy/dx terms on one side,
+    factor, and divide.
+- level: 3
+  en: 'Full method: differentiate term by term (chain rule on y, product rule on the
+    mixed term), collect the dy/dx terms, solve for dy/dx, then substitute the point.'
+prediction_prompt:
+  en: Can you find dy/dx without solving the curve for y first?
+status: draft
+template_id: TPL.C12.DIFF.IMPLICIT_AT
+generator_version: factory-2
+template_hash: 88cf246499e2b0c3c02c84bd05d893b3d14e8b27f676ec238fa41f5485b0bcbd
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: 8/3
+- id: c
+  en: 3/8
+- id: d
+  en: -8/3
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.DIFF.MIXED_TERM_DERIVATIVE_LOST
+  when_answer_equals:
+  - a
+- id: MC.C12.DIFF.IMPLICIT_RATIO_INVERTED
+  when_answer_equals:
+  - c
+- id: MC.C12.DIFF.IMPLICIT_SIGN_DROPPED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Differentiate both sides with respect to x, treating y as a function of x, so
+    each y term brings a factor dy/dx and xy needs the product rule.
+- en: 'Collect the dy/dx terms and solve: dy/dx = -(2·3x + 1y) / (1x + 2·-1y).'
+- en: At the point the value is 8/3.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e67e50eb8768d6c253a04c8990a349401036e2b5f6e077a1f1b7f74bfd7bfdf2
+  template_hash: 88cf246499e2b0c3c02c84bd05d893b3d14e8b27f676ec238fa41f5485b0bcbd
+  certificate_hash: 76cd75f9ca42aa806eaab24108f086e573e6f65fca0f92d4af1a3979fe360c14
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.continuity_differentiability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.imp.partials
+  - c12.imp.sympy
+  - c12.imp.newton
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:33+00:00'
+  record_hash: 8c4d76b8745a113b48237e5d1b2b5ec5d5833bb18d6411b4298980c0c3c6980e

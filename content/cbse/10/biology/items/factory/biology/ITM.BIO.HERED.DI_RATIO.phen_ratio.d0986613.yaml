@@ -1,0 +1,140 @@
+id: ITM.BIO.HERED.DI_RATIO.phen_ratio.d0986613
+skill_ids:
+- BIO.HERED.DI_RATIO
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele T for tall stems is dominant over the
+    allele t for short stems, and the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. The two genes are on different chromosomes and are inherited
+    independently. A plant with genotype TtYy is crossed with a plant with genotype
+    Ttyy. What is the ratio of offspring in the groups tall stems and yellow seeds;
+    tall stems and green seeds; short stems and yellow seeds; short stems and green
+    seeds, in that order?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. Find
+    the gametes each parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count the boxes that show each group of offspring, then write the counts as
+    a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes TY, Ty, tY and ty, and the second parent
+    makes the gametes Ty and ty.
+prediction_prompt:
+  en: Before you draw the square, how many boxes will it have?
+status: draft
+template_id: TPL2.BIO.HERED.DI_RATIO
+generator_version: factory-2
+template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3 : 1 : 1 : 1'
+- id: b
+  en: '9 : 3 : 3 : 1'
+- id: c
+  en: '1 : 1 : 1 : 1'
+- id: d
+  en: '3 : 3 : 1 : 1'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.RATIOS_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.FIXED_RATIO_ASSUMED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.TEST_CROSS_RATIO_ASSUMED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first parent TtYy makes the gametes TY, Ty, tY and ty; the second parent
+    Ttyy makes the gametes Ty and ty.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 16 boxes, tall stems and yellow seeds: 6; tall stems and green seeds:
+    6; short stems and yellow seeds: 2; short stems and green seeds: 2.'
+- en: 'Write the counts in the order asked, in the lowest terms: 3 : 3 : 1 : 1.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 2ed9a48e5a69870859fd819472969818f2b3e94e85a89fd80c6f3604d3a4c5c7
+  template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+  certificate_hash: 162eb80bf0d0b5afe0132b91ce939a57249d6eefbbe2b1c06b9357af6f4ee5e1
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:29+00:00'
+  record_hash: 3356f0c4ddc408dffbb88afe62e8d00c778fe97f4de5d30faf0482e0af39fe54

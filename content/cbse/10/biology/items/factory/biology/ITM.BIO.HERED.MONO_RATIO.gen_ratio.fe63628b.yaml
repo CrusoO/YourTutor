@@ -1,0 +1,136 @@
+id: ITM.BIO.HERED.MONO_RATIO.gen_ratio.fe63628b
+skill_ids:
+- BIO.HERED.MONO_RATIO
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: 'In a certain animal species, the allele E for curly tails is dominant over
+    the allele e for straight tails. An animal with genotype Ee is crossed with an
+    animal with genotype Ee. What is the ratio of the offspring genotypes EE : Ee
+    : ee?'
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Find the gametes each
+    parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count how many boxes of the square show each genotype, then write the counts
+    as a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes E and e, and the second parent makes the
+    gametes E and e.
+prediction_prompt:
+  en: Before you draw the square, which outcome do you expect to be the most common?
+status: draft
+template_id: TPL2.BIO.HERED.MONO_RATIO
+generator_version: factory-2
+template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1 : 1'
+- id: b
+  en: '2 : 1 : 1'
+- id: c
+  en: '3 : 1'
+- id: d
+  en: '1 : 2 : 1'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_PARENT_GAMETES
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.HETEROZYGOTE_LISTED_FIRST
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.PHENOTYPE_FOR_GENOTYPE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first parent Ee makes the gametes E and e; the second parent Ee makes the
+    gametes E and e.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 4 boxes, EE: 1; Ee: 2; ee: 1.'
+- en: 'Write the counts in the order asked, in the lowest terms: 1 : 2 : 1.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7733a64062b7e46a1e6b62495d0eb10319294a12489f83e628290451b3419ae9
+  template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+  certificate_hash: a18439693da50867ae93553e3742904fc6b9a4842f25fd82d67776b50a96c381
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:26+00:00'
+  record_hash: cdb76d46403104af1b09cc891543856ca8be56bb61cda5b8b56e0e5bfafd1d2e

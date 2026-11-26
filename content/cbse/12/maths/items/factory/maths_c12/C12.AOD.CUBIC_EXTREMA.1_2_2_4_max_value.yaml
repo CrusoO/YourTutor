@@ -1,0 +1,132 @@
+id: C12.AOD.CUBIC_EXTREMA.1_2_2_4_max_value
+skill_ids:
+- MATH.C12.AOD.CUBIC_EXTREMA
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: Let y = 2x³ - 9x² + 12x + 4. Find the local maximum value of the function.
+hints:
+- level: 1
+  en: Differentiate once, then decide which critical point is which.
+- level: 2
+  en: Solve for the points where the derivative is zero, then use the second derivative
+    or the change of sign of the first to tell maximum from minimum.
+- level: 3
+  en: 'Full method: derivative equal to zero, solve, second derivative at each solution,
+    choose the maximum or minimum asked, and put that x into the original function
+    if a value is wanted.'
+prediction_prompt:
+  en: Will the maximum be to the left or the right of the minimum?
+status: draft
+template_id: TPL.C12.AOD.CUBIC_EXTREMA
+generator_version: factory-2
+template_hash: 64f2cdbcf423667e5371cdca527526c919407f6400a7f5bff383b1bc209f3ae6
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '8'
+- id: c
+  en: '1'
+- id: d
+  en: 17/2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.AOD.MAX_MIN_SWAPPED
+  when_answer_equals:
+  - b
+- id: MC.C12.AOD.CRITICAL_X_REPORTED_AS_VALUE
+  when_answer_equals:
+  - c
+- id: MC.C12.AOD.INFLECTION_POINT_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Differentiate and set the derivative equal to zero to find the critical points.
+- en: 'Use the sign of the second derivative at each critical point: negative gives
+    a local maximum, positive a local minimum.'
+- en: The answer is 9.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9b3c7bd27501c86fbd85a49df0a57b5ecbd96cd487f8980b020220b3c1d4fc9b
+  template_hash: 64f2cdbcf423667e5371cdca527526c919407f6400a7f5bff383b1bc209f3ae6
+  certificate_hash: eca7a932a5e117d3bf328351103d981fdb8daf113656cd44e6c508bc70006f37
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.applications_derivatives
+  methods_agreeing:
+  - kernel.algebra
+  - c12.ext.second
+  - c12.ext.sympy
+  - c12.ext.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:09+00:00'
+  record_hash: 58d163db74ad2d776d3201d74ccc0375685e686d45ecb13a7f44b61a206528ed

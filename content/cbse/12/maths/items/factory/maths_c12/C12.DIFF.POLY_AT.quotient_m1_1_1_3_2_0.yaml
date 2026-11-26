@@ -1,0 +1,132 @@
+id: C12.DIFF.POLY_AT.quotient_m1_1_1_3_2_0
+skill_ids:
+- MATH.C12.DIFF.POLY_AT
+difficulty: 0.57
+pool: practice
+role: apply
+stem:
+  en: Let y = (-x + 1) / (x + 3). Find the value of dy/dx at x = 0.
+hints:
+- level: 1
+  en: Differentiate first, substitute second.
+- level: 2
+  en: Write down the rule you need, find the derivative of each piece, assemble the
+    derivative, and only then put in the number.
+- level: 3
+  en: 'Full method: choose the rule, differentiate each part and do not forget the
+    derivative of the inside of any bracket, combine, substitute the value, and simplify
+    the fraction.'
+prediction_prompt:
+  en: Will the slope at this point be positive, zero or negative?
+status: draft
+template_id: TPL.C12.DIFF.POLY_AT
+generator_version: factory-2
+template_hash: 80b2722e748bf2b1726036b79042b79daa5cc364c4489fb200c3e5639c76ae27
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -4/3
+- id: b
+  en: 4/9
+- id: c
+  en: '-1'
+- id: d
+  en: -4/9
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.DIFF.DENOMINATOR_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: MC.C12.DIFF.QUOTIENT_ORDER_SWAPPED
+  when_answer_equals:
+  - b
+- id: MC.C12.DIFF.QUOTIENT_AS_QUOTIENT_OF_DERIVATIVES
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Pick the rule that fits the shape of the function: chain rule for a power of
+    an expression, product rule for two factors, quotient rule for a fraction.'
+- en: Differentiate with that rule, then put x = 0 into the result.
+- en: The value is -4/9.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 08411b107758bf2aa3baeaf523eda1fa3b57c504b43c6e55534acd608e3d72d1
+  template_hash: 80b2722e748bf2b1726036b79042b79daa5cc364c4489fb200c3e5639c76ae27
+  certificate_hash: 44e205f41d735983854c200edd83291cdb7bf951cfc86d9a2d6ba11ef62998f8
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.continuity_differentiability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.diff.dual
+  - c12.diff.sympy
+  - c12.diff.float
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:43+00:00'
+  record_hash: 8b0d5a8b1968d2b41b6b65e3408c9a794f29af7e6a2286632188cc3751b6e6c0

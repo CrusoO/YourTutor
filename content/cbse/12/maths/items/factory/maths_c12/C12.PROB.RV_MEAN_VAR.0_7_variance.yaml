@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.0_7_variance
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'The probabilities of X taking the values 0, 1, 2, 3 are in the ratio 4 : 5
+    : 4 : 3. What is the variance of X?'
+hints:
+- level: 1
+  en: Turn the ratio into probabilities before any other step.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5041/4096
+- id: b
+  en: 13/8
+- id: c
+  en: 71/64
+- id: d
+  en: '3'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.STANDARD_DEVIATION_STYLE_SLIP
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.MEAN_NOT_SQUARED
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.SECOND_MOMENT_AS_VARIANCE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ratios add to 16, so the probabilities are each ratio divided by 16.
+- en: 'The mean is the sum of value times probability: 11/8.'
+- en: 'The variance is the mean of the squares minus the square of the mean: 71/64.'
+- en: The answer is 71/64.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 550eb3789d230ddd85cd353371eab2fa5a50a602e2bf1faff60c03c7ff2cf169
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 094845294fdba1563d82e81a3878a070460a4d05d0dfda1e9886970eba7ad2b2
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: 05a674e2182bd2e02900c8fd98321d9071dd58e2d0b3877ca5bdfdf43b0f7147

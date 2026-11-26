@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.COUNTS_DI.both_dom.03a68d04
+skill_ids:
+- BIO.HERED.COUNTS_DI
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele T for tall stems is dominant over the
+    allele t for short stems, and the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. The two genes are on different chromosomes and are inherited
+    independently. A plant with genotype TTYy is crossed with a plant with genotype
+    ttyy. The cross produces 320 offspring. How many of them are expected to show
+    tall stems and yellow seeds?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. First find the share of
+    the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes TY and Ty, and the second parent makes the
+    gametes ty.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_DI
+generator_version: factory-2
+template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 320 offspring
+- id: b
+  en: 80 offspring
+- id: c
+  en: 160 offspring
+- id: d
+  en: 20 offspring
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.TOTAL_NOT_SHARED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.SPLIT_EQUALLY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent TTYy makes the gametes TY and Ty; the second parent ttyy makes
+    the gametes ty.
+- en: 'Out of 16 boxes, tall stems and yellow seeds: 8; tall stems and green seeds:
+    8.'
+- en: The share of offspring wanted is 1/2.
+- en: 'Multiply the share by the total: 1/2 x 320 = 160.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 97b2518128a8449f7bf165644895e7b31d21c9bf4ad2dd60eb4a3e7ba46b1bca
+  template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+  certificate_hash: a0601a5d2cbc3e68c08863c17691beb1c4313e635d17e9ee040ba602423cfc3e
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:46+00:00'
+  record_hash: a32a0fb0afbd9458c8d167ec2995cad2404d9887ee5c00d0fc88d7e579b89d94
