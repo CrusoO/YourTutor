@@ -1,0 +1,127 @@
+id: ITM.CHEM.SERIES_IDENTIFY.10.20
+skill_ids:
+- CHEM.CARBON.SERIES_IDENTIFY
+difficulty: 0.33
+pool: practice
+role: recall
+stem:
+  en: Which general formula does the hydrocarbon C10H20 fit, where n is the number
+    of carbon atoms?
+hints:
+- level: 1
+  en: Compare the number of hydrogen atoms with twice the number of carbon atoms.
+- level: 2
+  en: Find how many more or fewer hydrogen atoms there are than twice the carbon atoms.
+- level: 3
+  en: A difference of plus two, zero or minus two matches one of the three general
+    formulas.
+prediction_prompt:
+  en: Before you decide, will there be more hydrogen atoms than twice the carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_IDENTIFY
+generator_version: factory-2
+template_hash: 5bdb5fa31044c485605956a4a288757fec8e8e6334f76cbbfedbd399f7c3acc6
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: CnH2n
+- id: b
+  en: CnH2n+1
+- id: c
+  en: CnH2n+2
+- id: d
+  en: CnH2n-2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.RADICAL_FORMULA_USED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: Twice the number of carbon atoms is 20.
+- en: The hydrogen count is 20, the same as that.
+- en: That matches CnH2n.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: de9ff7e7ba4ea8b474e696f1f2b21c7ec368822c6d217f13788318b9a3fed00b
+  template_hash: 5bdb5fa31044c485605956a4a288757fec8e8e6334f76cbbfedbd399f7c3acc6
+  certificate_hash: 99973e4085f78334dd37915b328523cc93cc48fc107b2ccad7251278fe2267df
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.identify_difference
+  - chem.identify_fit
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:10+00:00'
+  record_hash: d7efdceeba28e22bf60d9338076644c7261b0abc1252d07d09c1e0d2f17110e5

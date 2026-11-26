@@ -1,0 +1,126 @@
+id: ITM.CHEM.REACTIVITY_ORDER.96.least
+skill_ids:
+- CHEM.METAL.REACTIVITY_ORDER
+difficulty: 0.25
+pool: practice
+role: recall
+stem:
+  en: 'Which of these metals is the least reactive: copper, potassium, lead, zinc?'
+hints:
+- level: 1
+  en: Use the reactivity series, which lists metals from the most reactive at the
+    top to the least reactive at the bottom.
+- level: 2
+  en: Find each metal from the options in the series and note its position.
+- level: 3
+  en: The least reactive metal of the four is the one that sits lowest in the series.
+prediction_prompt:
+  en: Before you check, which metal do you expect to be the most reactive of all?
+status: draft
+template_id: TPL.CHEM.REACTIVITY_ORDER
+generator_version: factory-2
+template_hash: f75420f03bd7f0a5666bc21ebb6bc976012884791ab9ea65f7e2d07a265d30e7
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: Copper
+- id: b
+  en: Potassium
+- id: c
+  en: Zinc
+- id: d
+  en: Lead
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.METAL.ORDER_REVERSED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.METAL.MIDDLE_OF_SERIES_PICKED
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: Write the four metals in the order of the reactivity series.
+- en: The last one in that order is the least reactive.
+- en: That metal is copper.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bf3ba384012a005651f3f041cd69438a8a6b2bbad6c49e764ce132b5493ee39a
+  template_hash: f75420f03bd7f0a5666bc21ebb6bc976012884791ab9ea65f7e2d07a265d30e7
+  certificate_hash: 2291acd7e67e84ce9b1950b3254f1af256d49943d002b7b9804a5848f025d545
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.metals_nonmetals
+  methods_agreeing:
+  - kernel.algebra
+  - chem.order_series
+  - chem.order_potentials
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:54+00:00'
+  record_hash: 771392fd6910a7877e8f9327cc810e7146c4a8ed798b8d7f8b1a21ff5f19448c

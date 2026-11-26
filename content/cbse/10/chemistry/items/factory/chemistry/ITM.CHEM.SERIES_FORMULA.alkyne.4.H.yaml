@@ -1,0 +1,130 @@
+id: ITM.CHEM.SERIES_FORMULA.alkyne.4.H
+skill_ids:
+- CHEM.CARBON.SERIES_FORMULA
+difficulty: 0.37
+pool: practice
+role: apply
+stem:
+  en: A molecule of a straight-chain alkyne with one triple bond has 4 carbon atoms.
+    How many hydrogen atoms does it have?
+hints:
+- level: 1
+  en: Each carbon atom forms four bonds in total. In a chain, some of those bonds
+    join carbon to carbon.
+- level: 2
+  en: A family of compounds follows one general formula for the number of hydrogen
+    atoms in terms of the number of carbon atoms.
+- level: 3
+  en: Use the general formula of the alkyne series with n equal to the number of carbon
+    atoms.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number of
+    carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_FORMULA
+generator_version: factory-2
+template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '10'
+- id: c
+  en: '6'
+- id: d
+  en: '8'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.RADICAL_FORMULA_USED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - b
+  - d
+solution_steps:
+- en: The general formula of the alkyne series is CnH2n-2.
+- en: For n = 4, the number of hydrogen atoms is 2 x 4 - 2.
+- en: There are 6 hydrogen atoms.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c91b628982e6484d57ecf8e1cfc008a136644e21923d0cb0b49cd5b725217890
+  template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+  certificate_hash: 7643cbbd88ec5c2f23e46a4a0872989c225375497cc3b85ec0fe42b4bb9dd744
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.series_general_formula
+  - chem.series_chain_build
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:04+00:00'
+  record_hash: 7897c7fffb08682f00eefc076f1158398877965ca2544b40407a5d5d64081a97

@@ -1,0 +1,35 @@
+id: TPL.CHEM.SERIES_FORMULA
+short: CHEM.SERIES_FORMULA
+schema: factory-template/1
+lane: chemistry
+family: series_formula
+family_version: '1'
+skill_id: CHEM.CARBON.SERIES_FORMULA
+box:
+  family:
+    choices:
+    - alkane
+    - alkene
+    - alkyne
+  n:
+    min: 1
+    max: 10
+  ask:
+    choices:
+    - H
+    - bonds
+    - mass
+    - n_from_H
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  skill_id: CHEM.CARBON.SERIES_FORMULA
+  allowed_methods:
+  - homologous_series
+  forbidden_content:
+  - calculus
+  - diagram
+  - free_text
+  - experiment_design
+  - graph_reading
+  - assertion_reason

@@ -1,0 +1,142 @@
+id: ITM.BIO.HERED.TEST_CROSS.identify.17767121
+skill_ids:
+- BIO.HERED.TEST_CROSS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: In a certain plant species, the allele P for purple flowers is dominant over
+    the allele p for white flowers, and the allele Y for yellow seeds is dominant
+    over the allele y for green seeds. The two genes are on different chromosomes
+    and are inherited independently. A plant with purple flowers and yellow seeds
+    is test-crossed with a plant with white flowers and green seeds. The result of
+    the test cross is that half of the offspring have purple flowers and yellow seeds,
+    while the other half have purple flowers and green seeds. What is the genotype
+    of the plant that was tested?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. The parent used for the
+    test cross passes on only recessive alleles, so each offspring shows which allele
+    the tested parent passed on.
+- level: 2
+  en: Count how many different groups of offspring appear. Each heterozygous gene
+    of the tested parent doubles that number.
+- level: 3
+  en: Check a candidate by writing its gametes and pairing them with the gametes of
+    the other parent in a Punnett square.
+prediction_prompt:
+  en: Before you decide, how many different gamete types must the tested parent make?
+status: draft
+template_id: TPL2.BIO.HERED.TEST_CROSS
+generator_version: factory-2
+template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: PpYY
+- id: b
+  en: PPYy
+- id: c
+  en: PpYy
+- id: d
+  en: PPYY
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.WRONG_GENE_HETEROZYGOUS
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.HETEROZYGOUS_ASSUMED
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.HOMOZYGOUS_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A test cross uses a plant with white flowers and green seeds, which can pass
+    on only recessive alleles. Every dominant or recessive form in the offspring therefore
+    shows what the tested plant passed on.
+- en: The offspring show 2 different groups, so the tested plant makes 2 different
+    gamete types.
+- en: Try each candidate genotype in a Punnett square with ppyy; only PPYy gives the
+    groups seen.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e27c2ba9ba4ab9653e545a9fd0284ac219a6cc7613b68bcd5b2197d9ecded818
+  template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+  certificate_hash: 81beac4325f591667ca01ac3e29ddf8ddd471ebe9502805317a028fe21d43177
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:36+00:00'
+  record_hash: aa62567f52628af9c566b701a0da319188003e2ea3b3a18fe536afeec07431aa

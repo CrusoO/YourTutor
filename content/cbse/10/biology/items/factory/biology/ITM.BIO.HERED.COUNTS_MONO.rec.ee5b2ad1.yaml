@@ -1,0 +1,135 @@
+id: ITM.BIO.HERED.COUNTS_MONO.rec.ee5b2ad1
+skill_ids:
+- BIO.HERED.COUNTS_MONO
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. A plant with genotype Yy is crossed with a plant with
+    genotype Yy. The cross produces 160 offspring. How many of them are expected to
+    have green seeds?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. First
+    find the share of the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes Y and y, and the second parent makes the
+    gametes Y and y.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_MONO
+generator_version: factory-2
+template_hash: 61c1e50af35b73ec3bd5d8aca4b713a444986d50e4ba1cc86646e6d907bc8356
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 160 offspring
+- id: b
+  en: 40 offspring
+- id: c
+  en: 120 offspring
+- id: d
+  en: 80 offspring
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.TOTAL_NOT_SHARED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.SPLIT_EQUALLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Yy makes the gametes Y and y; the second parent Yy makes the
+    gametes Y and y.
+- en: 'Out of 4 boxes, yellow seeds: 3; green seeds: 1.'
+- en: The share of offspring wanted is 1/4.
+- en: 'Multiply the share by the total: 1/4 x 160 = 40.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ce0e82707650021a4af1f43ea238c86947ccdf782514cabb28fbcd35b6e97a91
+  template_hash: 61c1e50af35b73ec3bd5d8aca4b713a444986d50e4ba1cc86646e6d907bc8356
+  certificate_hash: 68eaf8bb88392c9acd5d82888392f78b36f5294c510e7f4210953a9fe650c8a6
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:40+00:00'
+  record_hash: 34ffc3d58b5b644e96db5fa49521a956be80fe8da0044d8d111164eeef23c011

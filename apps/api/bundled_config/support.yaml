@@ -1,0 +1,22 @@
+# Teaching-move support policy (docs: probe-and-profile-spec section 7).
+# Every value is TUNABLE-DEFAULT: a first estimate, not a fitted number. Change it here, not in
+# code. The loader (app/orchestrator/support_config.py) validates ranges and rejects unknown keys.
+
+# TUNABLE-DEFAULT: below this starting marginal the student starts on a worked example (full).
+full_below: 0.25
+# TUNABLE-DEFAULT: above this marginal (and a known label) the student starts on problems.
+problems_above: 0.70
+# TUNABLE-DEFAULT: evidence older than this many days is stale, so known starts as partial.
+stale_after_days: 21.0
+# TUNABLE-DEFAULT: consecutive unhinted-correct first attempts that move support one step down.
+fade_after_clean: 2
+# TUNABLE-DEFAULT: consecutive first-attempt misses that move support one step up (a reveal
+# always counts as enough on its own).
+raise_after_misses: 2
+# TUNABLE-DEFAULT: minimum items between two support changes (hysteresis, stops flip-flopping).
+min_items_between_changes: 2
+# TUNABLE-DEFAULT: after this many items the last outcomes alone decide; the prior is forgotten.
+decide_after_items: 3
+# TUNABLE-DEFAULT: in a full worked example, the most steps hidden before the last fade stage
+# (hidden steps go 0, 1, 2, then all).
+full_max_partial_hidden: 2

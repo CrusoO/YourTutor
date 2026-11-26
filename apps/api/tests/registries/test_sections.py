@@ -60,6 +60,14 @@ LANE_CHAPTERS = {
     "cbse.10.maths.trig_applications",
     "cbse.10.physics.electricity",
     "cbse.10.physics.light",
+    "cbse.10.biology.heredity",
+    "cbse.10.biology.environment",
+    "cbse.10.biology.reproduction",
+    "cbse.10.biology.life_processes",
+    "cbse.10.chemistry.reactions",
+    "cbse.10.chemistry.acids_bases_salts",
+    "cbse.10.chemistry.metals_nonmetals",
+    "cbse.10.chemistry.carbon_compounds",
 }
 
 

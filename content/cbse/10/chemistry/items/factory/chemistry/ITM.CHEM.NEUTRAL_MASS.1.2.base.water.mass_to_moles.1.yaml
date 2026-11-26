@@ -1,0 +1,133 @@
+id: ITM.CHEM.NEUTRAL_MASS.1.2.base.water.mass_to_moles.1
+skill_ids:
+- CHEM.ACID.NEUTRAL_MASS
+difficulty: 0.71
+pool: practice
+role: apply
+stem:
+  en: Nitric acid reacts completely with calcium hydroxide to give a salt and water.
+    Starting with 74 g of calcium hydroxide, what amount in moles of water is formed?
+hints:
+- level: 1
+  en: Start from the balanced chemical reaction. The coefficients give the ratio of
+    moles.
+- level: 2
+  en: Change the given mass to moles by dividing by the molar mass, unless the amount
+    is already in moles.
+- level: 3
+  en: Multiply the moles by the ratio of coefficients, wanted over given, then change
+    to a mass if a mass is asked.
+prediction_prompt:
+  en: Before you calculate, will the answer be larger or smaller than the quantity
+    you start with?
+status: draft
+template_id: TPL.CHEM.NEUTRAL_MASS
+generator_version: factory-2
+template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 148 mol
+- id: b
+  en: 2 mol
+- id: c
+  en: 1 mol
+- id: d
+  en: 0.5 mol
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.STOICH.MASS_NOT_CONVERTED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.STOICH.MOLE_RATIO_IGNORED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.STOICH.RATIO_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the balanced equation: 2 HNO3 + Ca(OH)2 → Ca(NO3)2 + 2 H2O.'
+- en: Convert the given quantity to moles using the molar mass, then use the coefficients
+    to find the moles of water.
+- en: 'Convert to the amount in moles: the answer is 2 mol.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 747983de2fe8e1e01dc76ffdbc4547a3dd4f775791d81c3aaadbe5ee507d3728
+  template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+  certificate_hash: c1f95ba18d701e41abab487bee2cf12d94fdd41a7e155ae2ef603bd67defe928
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.mass_moles_route
+  - chem.mass_ratio_route
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: pass
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:37+00:00'
+  record_hash: 43e6d87c2c8bfcb85a1930c8b81b81646abaddd124a5fb5acf15e9e154a7f78b

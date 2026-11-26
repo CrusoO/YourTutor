@@ -1,0 +1,132 @@
+id: ITM.CHEM.BALANCE.S04.student
+skill_ids:
+- CHEM.RXN.BALANCE
+difficulty: 0.42
+pool: practice
+role: procedure
+stem:
+  en: 'A student writes this unbalanced chemical equation: Mg + HCl → MgCl2 + H2.
+    Which option shows the correct balanced equation?'
+hints:
+- level: 1
+  en: Count the atoms of every element on the left side and on the right side. Which
+    element has a different count on the two sides?
+- level: 2
+  en: Only the numbers written in front of the formulas may change. The small numbers
+    inside a formula stay as they are.
+- level: 3
+  en: 'Start with Cl: it is 1 on the left and 2 on the right in the unbalanced skeleton.
+    Choose a front number that makes them equal, then recount the other elements.'
+prediction_prompt:
+  en: Before you balance it, which element do you expect to be out of balance first?
+status: draft
+template_id: TPL.CHEM.BALANCE
+generator_version: factory-2
+template_hash: ea56acbb9a1a6eaf63da5d632120a9d8932ddfe284256864b29bc9d8f58b2096
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: Mg + 2 HCl → 2 MgCl2 + H2
+- id: b
+  en: 2 Mg + 4 HCl → 2 MgCl2 + 2 H2
+- id: c
+  en: Mg + 2 HCl → MgCl2 + H2
+- id: d
+  en: Mg + 2 HCl → MgCl2 + 2 H2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.BAL.ONE_COEFFICIENT_OFF
+  when_answer_equals:
+  - a
+  - d
+- id: CHEM.MC.BAL.NOT_SMALLEST
+  when_answer_equals:
+  - b
+solution_steps:
+- en: 'Count the atoms of each element in Mg + HCl → MgCl2 + H2: for Cl there are
+    1 on the left and 2 on the right, so the equation is not balanced.'
+- en: Choose whole-number coefficients (the numbers written in front of the formulas)
+    so that every element has the same count on both sides. Do not change the small
+    numbers inside a formula.
+- en: Check each element again with the balanced equation Mg + 2 HCl → MgCl2 + H2.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 2dba853b0400faf964a6fc12b6def565c9338197b22a0716b779eeb149db7371
+  template_hash: ea56acbb9a1a6eaf63da5d632120a9d8932ddfe284256864b29bc9d8f58b2096
+  certificate_hash: 9be3cb12fa7fb760a7299fe5c9ee4604225130e9cdf82731997ebc5c405baa0d
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.nullspace_fraction
+  - chem.nullspace_sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:08+00:00'
+  record_hash: f547b36872c5944a6f811980a26a1ca2b487cc5657fd3a4caf5cb67016a81a2a

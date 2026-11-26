@@ -1,0 +1,141 @@
+id: ITM.BIO.HERED.TEST_CROSS.identify.937dcd4d
+skill_ids:
+- BIO.HERED.TEST_CROSS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: In a certain animal species, the allele B for black coats is dominant over the
+    allele b for brown coats, and the allele L for long hair is dominant over the
+    allele l for short hair. The two genes are on different chromosomes and are inherited
+    independently. An animal with black coats and long hair is test-crossed with an
+    animal with brown coats and short hair. The result of the test cross is that half
+    of the offspring have black coats and long hair, while the other half have brown
+    coats and long hair. What is the genotype of the animal that was tested?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. The parent used for the
+    test cross passes on only recessive alleles, so each offspring shows which allele
+    the tested parent passed on.
+- level: 2
+  en: Count how many different groups of offspring appear. Each heterozygous gene
+    of the tested parent doubles that number.
+- level: 3
+  en: Check a candidate by writing its gametes and pairing them with the gametes of
+    the other parent in a Punnett square.
+prediction_prompt:
+  en: Before you decide, how many different gamete types must the tested parent make?
+status: draft
+template_id: TPL2.BIO.HERED.TEST_CROSS
+generator_version: factory-2
+template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: BBLl
+- id: b
+  en: BbLl
+- id: c
+  en: BbLL
+- id: d
+  en: BBLL
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.WRONG_GENE_HETEROZYGOUS
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.HETEROZYGOUS_ASSUMED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.HOMOZYGOUS_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A test cross uses an animal with brown coats and short hair, which can pass
+    on only recessive alleles. Every dominant or recessive form in the offspring therefore
+    shows what the tested animal passed on.
+- en: The offspring show 2 different groups, so the tested animal makes 2 different
+    gamete types.
+- en: Try each candidate genotype in a Punnett square with bbll; only BbLL gives the
+    groups seen.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e64b93615c745619223ebe6ead48e9b16ae4e4759988c2c1841271c0e645d327
+  template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+  certificate_hash: 5ff706f08059c483b2317d4915f77881c7feedaf636bec1e0cba65e66ac29fbe
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:35+00:00'
+  record_hash: 9b6338253faba93aba8f25c38906392e882d6cd248e72104fe6a972f1d071cff

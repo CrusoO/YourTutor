@@ -1,0 +1,129 @@
+id: ITM.BIO.LIFE.RATES.time.c0a00375
+skill_ids:
+- BIO.LIFE.RATES
+difficulty: 0.35
+pool: practice
+role: apply
+stem:
+  en: A resting person's heart beats 60 times each minute. How long does it take to
+    count 120 beats? Give the answer in minutes.
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. The
+    time is the total divided by the number counted each minute.
+- level: 2
+  en: The answer from the division is in minutes, so change it if the question asks
+    for another unit.
+- level: 3
+  en: Divide the total by the rate.
+prediction_prompt:
+  en: Before you calculate, should the answer be larger or smaller than the rate given?
+status: draft
+template_id: TPL2.BIO.LIFE.RATES
+generator_version: factory-2
+template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7200 minutes
+- id: b
+  en: 2 minutes
+- id: c
+  en: 0.5 minutes
+- id: d
+  en: 120 minutes
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: BIO.MC.LIFE.RATE_INVERTED
+  when_answer_equals:
+  - c
+- id: BIO.MC.LIFE.COUNT_AS_TIME
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The time in minutes is 120 divided by 60 = 2.
+- en: So it takes 2 minutes.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 758653f90e1c95dfb29416068275f159e5a5817b8fe8fe62c5cd12b9fd4b2dad
+  template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+  certificate_hash: bb1594ca03eba90250f6509f2a9b5d864d6d7292a06d6f76fca92729451c15a0
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.rate_closed_form
+  - bio.rate_per_second
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:54:01+00:00'
+  record_hash: 1e57434e5fc7ff2d89da38f71009abfe449c740f1e5d17e6c5a5643760e5a215

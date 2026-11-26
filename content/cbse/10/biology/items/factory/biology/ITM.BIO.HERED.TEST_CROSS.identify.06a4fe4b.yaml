@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.TEST_CROSS.identify.06a4fe4b
+skill_ids:
+- BIO.HERED.TEST_CROSS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: In a certain plant species, the allele T for tall stems is dominant over the
+    allele t for short stems, and the allele W for smooth leaves is dominant over
+    the allele w for hairy leaves. The two genes are on different chromosomes and
+    are inherited independently. A plant with tall stems and smooth leaves is test-crossed
+    with a plant with short stems and hairy leaves. The result of the test cross is
+    that the offspring fall into four equal groups, namely tall stems and smooth leaves;
+    tall stems and hairy leaves; short stems and smooth leaves; short stems and hairy
+    leaves. What is the genotype of the plant that was tested?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. The
+    parent used for the test cross passes on only recessive alleles, so each offspring
+    shows which allele the tested parent passed on.
+- level: 2
+  en: Count how many different groups of offspring appear. Each heterozygous gene
+    of the tested parent doubles that number.
+- level: 3
+  en: Check a candidate by writing its gametes and pairing them with the gametes of
+    the other parent in a Punnett square.
+prediction_prompt:
+  en: Before you decide, how many different gamete types must the tested parent make?
+status: draft
+template_id: TPL2.BIO.HERED.TEST_CROSS
+generator_version: factory-2
+template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: TtWw
+- id: b
+  en: TTWw
+- id: c
+  en: TtWW
+- id: d
+  en: TTWW
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HOMOZYGOUS_ASSUMED
+  when_answer_equals:
+  - b
+  - c
+  - d
+solution_steps:
+- en: A test cross uses a plant with short stems and hairy leaves, which can pass
+    on only recessive alleles. Every dominant or recessive form in the offspring therefore
+    shows what the tested plant passed on.
+- en: The offspring show 4 different groups, so the tested plant makes 4 different
+    gamete types.
+- en: Try each candidate genotype in a Punnett square with ttww; only TtWw gives the
+    groups seen.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5b3ce68ebd7f6dc39ac2f011f90cd2e10c055244f409649fda49037320761e17
+  template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+  certificate_hash: dc60541994015e49dc6f39332cf5e86d855b4fb62e6631e468e8dc7b086b98a1
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:36+00:00'
+  record_hash: db1d7468d46a365146b04137af4d3b3947fdd7854a2e47f31e35bc058a4d5f82
