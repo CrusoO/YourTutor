@@ -830,6 +830,8 @@ Written from a code inventory of master (read-only) and the plan above. Order is
 
 ### Buildable next
 
+- Reviewer desk check tag (`feat/authored-tags`, PR 2) is built: cards, the queue filter and the admin summary tell a machine-checked item from one that needs a person. Model-drafted tier C items from the authoring pipeline always show "Needs a person to check".
+
 - Authoring pipeline (`feat/authored-content`, PR 1) is built: `python -m app.authoring lint|compile|report` turns model-drafted chapter files (`content/authoring/drafts/`) into tier C, status draft items, skills and misconceptions under `content/cbse/<class>/<subject>/{items,skills,misconceptions}/authored/`. Deterministic lint, no model. Nothing it writes is machine-checked or human-reviewed; the numeric second-check hook is deliberately empty. Next: PR 2 adds the "Needs a person to check" tag to the reviewer desk.
 
 - Mistake notebook slice 1 is built (`feat/mistake-notebook-slice-1`, API only, `MISTAKE_NOTEBOOK_ENABLED` off): a wrong first answer is kept as ids and times and comes back after 2, 6 and 15 days; see the Decisions row. Next: the web "Come back to these" list (no counts that reset, no loss wording), a server-side retest that sets the outcome from the verifier instead of trusting the client, a real sibling item mechanism so a new form is the same blueprint rather than only the same skill, retest prompts, and Hindi and Nepali copy (English only until reviewed).
