@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.system_surroundings_state.05
+skill_ids:
+- SK.A.11.chemistry.system_surroundings_state
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which process is isothermal?
+hints:
+- level: 1
+  en: Constant temperature needs thermal contact with something at that temperature.
+- level: 2
+  en: Consider whether the gas can exchange heat with a large reservoir during the change.
+- level: 3
+  en: Look for the process that is slow and in thermal contact with its surroundings.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a gas expanding slowly in contact with a large heat bath
+- id: b
+  en: a flask heated at constant volume
+- id: c
+  en: a gas compressed in an insulated container
+- id: d
+  en: a gas expanding into a vacuum with no heat exchange
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A00873DCFD01
+  when_answer_equals:
+  - c
+- id: MC.A.5F1F7C077845
+  when_answer_equals:
+  - b
+- id: MC.A.BB6FE464746C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An isothermal process keeps the temperature constant, which requires thermal contact with a large reservoir at that temperature during slow expansion.
+- en: The correct option is a.
+tier: C

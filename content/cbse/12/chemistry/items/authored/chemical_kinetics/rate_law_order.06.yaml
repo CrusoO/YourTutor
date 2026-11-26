@@ -1,0 +1,49 @@
+id: A.12.chemistry.chemical_kinetics.rate_law_order.06
+skill_ids:
+- SK.A.12.chemistry.rate_law_order
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The rate law of a reaction is rate = k[A]^0[B]^1. Which statement is correct?
+hints:
+- level: 1
+  en: Think about what a concentration raised to the power zero does to the rate.
+- level: 2
+  en: Add the exponents of all reactants to find the overall order.
+- level: 3
+  en: Compare the exponent of each reactant with the effect it has on the rate.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Doubling [A] doubles the rate
+- id: b
+  en: The overall order of the reaction is zero
+- id: c
+  en: Doubling [B] quadruples the rate
+- id: d
+  en: Changing [A] has no effect on the rate
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7D57183264FC
+  when_answer_equals:
+  - a
+- id: MC.A.1330F2960204
+  when_answer_equals:
+  - c
+- id: MC.A.E156E7C5A022
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A concentration raised to the power zero does not affect the rate.
+- en: The rate depends only on [B] with first order dependence, so the overall order is one.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.system_surroundings_state.03
+skill_ids:
+- SK.A.11.chemistry.system_surroundings_state
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which thermodynamic variable is an extensive property?
+hints:
+- level: 1
+  en: An extensive property changes in proportion to the amount of matter in the system.
+- level: 2
+  en: Check whether doubling the sample would double the quantity.
+- level: 3
+  en: Intensive properties stay the same when the sample is divided.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: density
+- id: b
+  en: internal energy
+- id: c
+  en: temperature
+- id: d
+  en: pressure
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.34EFED65013D
+  when_answer_equals:
+  - c
+- id: MC.A.512228C136E6
+  when_answer_equals:
+  - d
+- id: MC.A.8FAECEE590C1
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Internal energy doubles when the amount of matter doubles, so it is extensive, while temperature, pressure and density do not depend on the amount.
+- en: The correct option is b.
+tier: C

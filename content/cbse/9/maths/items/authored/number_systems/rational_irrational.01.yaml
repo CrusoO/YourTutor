@@ -1,0 +1,49 @@
+id: A.9.maths.number_systems.rational_irrational.01
+skill_ids:
+- SK.A.9.maths.rational_irrational
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of the following numbers has a decimal expansion that neither terminates nor repeats?
+hints:
+- level: 1
+  en: Ask whether the number can be written as a fraction of two whole numbers.
+- level: 2
+  en: Simplify any root first, then look at its decimal form.
+- level: 3
+  en: Recall which kinds of decimals terminate or repeat.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2.75'
+- id: b
+  en: sqrt(16)
+- id: c
+  en: 1/3
+- id: d
+  en: sqrt(7)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D18BBEFAE9F5
+  when_answer_equals:
+  - c
+- id: MC.A.9DEC34672C4E
+  when_answer_equals:
+  - a
+- id: MC.A.7635C1856003
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The square root of a prime is irrational, so its decimal form goes on forever without a repeating block.
+- en: One third repeats, two point seven five terminates, and the square root of sixteen simplifies to four, so all three are rational.
+- en: The correct option is d.
+tier: C

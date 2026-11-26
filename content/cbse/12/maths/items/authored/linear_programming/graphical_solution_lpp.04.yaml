@@ -1,0 +1,49 @@
+id: A.12.maths.linear_programming.graphical_solution_lpp.04
+skill_ids:
+- SK.A.12.maths.graphical_solution_lpp
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Maximise Z = 5x + 4y subject to 2x + y <= 8, x + 2y <= 8, x >= 0 and y >= 0. Where is the maximum attained?
+hints:
+- level: 1
+  en: Find where the two constraint lines intersect.
+- level: 2
+  en: Include the intercepts on the axes as corner points too.
+- level: 3
+  en: Evaluate the objective at every corner point and compare.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 20 at (4, 0)
+- id: b
+  en: 32 at (4, 4)
+- id: c
+  en: 24 at (8/3, 8/3)
+- id: d
+  en: 16 at (0, 4)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.09A8865E8AAB
+  when_answer_equals:
+  - a
+- id: MC.A.45C003BD6781
+  when_answer_equals:
+  - d
+- id: MC.A.6FB96B0C0F07
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The two constraint lines meet at (8/3, 8/3).
+- en: Z there is 5 times 8/3 plus 4 times 8/3, which equals 24, and this exceeds the values 20 and 16 at the axis corners.
+- en: The correct option is c.
+tier: C

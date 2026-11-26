@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.zeros_and_remainder.04
+skill_ids:
+- SK.A.9.maths.zeros_and_remainder
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For f(x) = x^2 - 4x + k, the remainder when f is divided by x - 2 is 6. What is k?
+hints:
+- level: 1
+  en: 'Use the remainder theorem: the remainder is the polynomial at the zero of the divisor.'
+- level: 2
+  en: Substitute that zero into every term, including the unknown constant.
+- level: 3
+  en: Move the known terms across and solve the equation for the unknown.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '10'
+- id: b
+  en: '6'
+- id: c
+  en: '-10'
+- id: d
+  en: '2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.050B168B9F58
+  when_answer_equals:
+  - d
+- id: MC.A.4A36765F0536
+  when_answer_equals:
+  - c
+- id: MC.A.03D12722452F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Substituting x equal to 2 gives 4 - 8 + k, which must equal 6, so k equals 10.
+- en: The correct option is a.
+tier: C

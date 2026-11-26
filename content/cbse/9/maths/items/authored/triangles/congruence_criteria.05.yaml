@@ -1,0 +1,49 @@
+id: A.9.maths.triangles.congruence_criteria.05
+skill_ids:
+- SK.A.9.maths.congruence_criteria
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Triangles PQR and XYZ have PQ equal to XY and QR equal to YZ, but the angles at Q and Y are not known to be equal. Which conclusion is justified?
+hints:
+- level: 1
+  en: Count the parts that are actually given as equal.
+- level: 2
+  en: Check whether the angle is between the two equal sides.
+- level: 3
+  en: A triangle needs three independent measures to be fixed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The triangles are congruent by SAS.
+- id: b
+  en: The triangles are not necessarily congruent.
+- id: c
+  en: The triangles are congruent by SSS.
+- id: d
+  en: The triangles are similar and therefore congruent.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.10852E3D15EC
+  when_answer_equals:
+  - a
+- id: MC.A.214C6FB288BD
+  when_answer_equals:
+  - c
+- id: MC.A.75F4F8AE8DC8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Two sides alone do not fix a triangle, since the angle between them could differ, so congruence cannot be concluded from the information given.
+- en: The correct option is b.
+tier: C
+diagram_note: Two triangles with pairs of equal sides marked, and the angles at Q and Y left unmarked.

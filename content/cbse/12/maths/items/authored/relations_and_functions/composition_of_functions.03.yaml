@@ -1,0 +1,48 @@
+id: A.12.maths.relations_and_functions.composition_of_functions.03
+skill_ids:
+- SK.A.12.maths.composition_of_functions
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Let f(x) = x^2 and g(x) = x - 1 on the real numbers. Which expression equals (g o f)(x)?
+hints:
+- level: 1
+  en: Substitute f(x) into g wherever g has its variable.
+- level: 2
+  en: The variable in g is replaced by the whole expression for f.
+- level: 3
+  en: Write the substitution first before simplifying anything.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (x - 1)^2
+- id: b
+  en: x^2 + x - 1
+- id: c
+  en: x^2 - 1
+- id: d
+  en: x^2 + 1
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D713DC1B3645
+  when_answer_equals:
+  - a
+- id: MC.A.48A675EF5ABF
+  when_answer_equals:
+  - d
+- id: MC.A.2A943DC17C35
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Substituting f(x) = x^2 into g wherever g has its variable gives x^2 minus 1.
+- en: The correct option is c.
+tier: C

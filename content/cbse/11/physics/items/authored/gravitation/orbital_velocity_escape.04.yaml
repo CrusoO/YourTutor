@@ -1,0 +1,49 @@
+id: A.11.physics.gravitation.orbital_velocity_escape.04
+skill_ids:
+- SK.A.11.physics.orbital_velocity_escape
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For a planet, what is the ratio of the escape speed at its surface to the orbital speed of a satellite skimming its surface?
+hints:
+- level: 1
+  en: Escape needs the total binding energy to be overcome, not just a circular speed.
+- level: 2
+  en: Compare the squares of the two speeds.
+- level: 3
+  en: Escape energy is the kinetic energy that balances the potential at the surface.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: one half
+- id: b
+  en: '1'
+- id: c
+  en: square root of 2
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.64FAD65C9817
+  when_answer_equals:
+  - d
+- id: MC.A.AC10B0D7E54A
+  when_answer_equals:
+  - a
+- id: MC.A.C2EB332155DC
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Escape speed is the square root of 2 g R and orbital speed is the square root of g R.
+- en: Their ratio is the square root of 2.
+- en: The correct option is c.
+tier: C

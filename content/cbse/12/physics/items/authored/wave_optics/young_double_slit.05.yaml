@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.young_double_slit.05
+skill_ids:
+- SK.A.12.physics.young_double_slit
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: In a double slit experiment, the distance between the slits is doubled while the wavelength and the screen distance stay the same. What happens to the fringe width?
+hints:
+- level: 1
+  en: Write the fringe width formula and see how the slit separation appears in it.
+- level: 2
+  en: Consider whether the separation is in the numerator or the denominator.
+- level: 3
+  en: Compare the new fringe width with the old one as a ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It becomes four times as large
+- id: b
+  en: It halves
+- id: c
+  en: It stays the same
+- id: d
+  en: It doubles
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D749195D920D
+  when_answer_equals:
+  - d
+- id: MC.A.3B4F5FABF6FE
+  when_answer_equals:
+  - c
+- id: MC.A.20A6D26B6329
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The fringe width is inversely proportional to the slit separation, so doubling the separation halves the fringe width.
+- en: The correct option is b.
+tier: C

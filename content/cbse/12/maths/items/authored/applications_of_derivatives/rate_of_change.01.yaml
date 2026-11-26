@@ -1,0 +1,30 @@
+id: A.12.maths.applications_of_derivatives.rate_of_change.01
+skill_ids:
+- SK.A.12.maths.rate_of_change
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: The volume of a cube is V = s^3, where s is the side length. When s = 2 and ds/dt = 1, find dV/dt.
+hints:
+- level: 1
+  en: Differentiate the volume with respect to time using the chain rule.
+- level: 2
+  en: Substitute the side length and the given rate of change of the side.
+- level: 3
+  en: Multiply the results carefully at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '12'
+  accept: []
+solution_steps:
+- en: dV/dt = 3s^2 times ds/dt, which at s = 2 with ds/dt = 1 equals 3 times 4, giving 12.
+- en: Answer = 12
+tier: C
+diagram_note: A cube whose side s is labelled and whose edges have arrows showing that the side is growing at a steady rate.

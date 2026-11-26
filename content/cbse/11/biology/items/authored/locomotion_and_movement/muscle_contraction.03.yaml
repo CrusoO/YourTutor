@@ -1,0 +1,49 @@
+id: A.11.biology.locomotion_and_movement.muscle_contraction.03
+skill_ids:
+- SK.A.11.biology.muscle_contraction
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is ATP needed for muscle relaxation, even though no active pulling is happening then?
+hints:
+- level: 1
+  en: Think about what must happen to a cross-bridge before it can release.
+- level: 2
+  en: Consider what the myosin head is bound to after the power stroke.
+- level: 3
+  en: Ask what separates myosin from actin in the cycle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ATP detaches myosin from actin, so the cross-bridge can break and the filaments can slide apart
+- id: b
+  en: ATP is needed only to store calcium in the cell
+- id: c
+  en: ATP is consumed to pull the Z lines apart
+- id: d
+  en: ATP makes the sarcomere longer by itself
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6F6C0958C670
+  when_answer_equals:
+  - c
+- id: MC.A.F64120740391
+  when_answer_equals:
+  - d
+- id: MC.A.B26B26B0F1B2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Relaxation requires myosin to let go of actin.
+- en: Binding of a fresh ATP to the myosin head detaches it from actin, which is needed before the cycle can reset.
+- en: The correct option is a.
+tier: C

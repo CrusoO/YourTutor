@@ -1,0 +1,48 @@
+id: A.12.physics.alternating_current.ac_voltage_current.01
+skill_ids:
+- SK.A.12.physics.ac_voltage_current
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the rms value of a sinusoidal alternating current whose peak value is I0?
+hints:
+- level: 1
+  en: The rms value comes from the mean of the squared current over a full cycle.
+- level: 2
+  en: Think about the average of sine squared over one cycle.
+- level: 3
+  en: Recall the relation between the peak and the rms value of a sine wave.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: I0 divided by 2
+- id: b
+  en: I0 divided by the square root of 2
+- id: c
+  en: I0 divided by pi
+- id: d
+  en: I0 multiplied by the square root of 2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C8C37D0FC0C9
+  when_answer_equals:
+  - d
+- id: MC.A.3F08C0491B5F
+  when_answer_equals:
+  - a
+- id: MC.A.E5A0E78EB096
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The rms value of a sine wave is its peak value divided by the square root of two, because the average of the squared sine over a cycle is one half.
+- en: The correct option is b.
+tier: C

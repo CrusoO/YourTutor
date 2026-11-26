@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.polynomial_basics.03
+skill_ids:
+- SK.A.9.maths.polynomial_basics
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A polynomial has the form 5p - 2. How is it best described by its number of terms and its degree?
+hints:
+- level: 1
+  en: Count the terms that are actually present.
+- level: 2
+  en: The number of terms gives the type of the polynomial.
+- level: 3
+  en: Find the highest exponent of the variable to get the degree.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a binomial, of degree one
+- id: b
+  en: a monomial, of degree one
+- id: c
+  en: a trinomial, of degree one
+- id: d
+  en: a binomial, of degree two
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A53BFDE03DE6
+  when_answer_equals:
+  - c
+- id: MC.A.4B18C9FD87D8
+  when_answer_equals:
+  - b
+- id: MC.A.B1F2AE8582C7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The expression has two terms, so it is a binomial, and the highest power of p is one, so its degree is one.
+- en: The correct option is a.
+tier: C

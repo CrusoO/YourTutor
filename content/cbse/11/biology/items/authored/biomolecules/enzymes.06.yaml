@@ -1,0 +1,50 @@
+id: A.11.biology.biomolecules.enzymes.06
+skill_ids:
+- SK.A.11.biology.enzymes
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An allosteric inhibitor binds a site away from the active site of an enzyme in a metabolic pathway. Which effect is most likely?
+hints:
+- level: 1
+  en: Ask where the inhibitor binds compared with the active site.
+- level: 2
+  en: Think about whether the inhibitor competes with the substrate.
+- level: 3
+  en: Consider how a change at a distant site can alter the active site.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It binds the active site and is overcome by more substrate
+- id: b
+  en: It increases the activation energy of the substrate only
+- id: c
+  en: It breaks the peptide bonds of the enzyme
+- id: d
+  en: It changes the enzyme shape so the active site activity is reduced, and high substrate levels do not fully reverse it
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A279AC818D9D
+  when_answer_equals:
+  - a
+- id: MC.A.C1389D8D543C
+  when_answer_equals:
+  - b
+- id: MC.A.4209AA13EDA7
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Allosteric inhibitors bind elsewhere on the enzyme and change its conformation, lowering the activity of the active site.
+- en: This regulation does not depend on competing with the substrate.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw an enzyme with its active site and a separate regulatory site, showing an allosteric inhibitor bound at the regulatory site and the shape change of the active site.

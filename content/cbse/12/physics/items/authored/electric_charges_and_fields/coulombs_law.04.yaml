@@ -1,0 +1,49 @@
+id: A.12.physics.electric_charges_and_fields.coulombs_law.04
+skill_ids:
+- SK.A.12.physics.coulombs_law
+difficulty: 0.6
+pool: practice
+role: transfer
+stem:
+  en: Three equal positive charges are placed at the three corners of an equilateral triangle. What is the net electric field at the centroid of the triangle?
+hints:
+- level: 1
+  en: Find the field from each charge at the centroid and its direction.
+- level: 2
+  en: Consider how the three charges are arranged symmetrically around the centroid.
+- level: 3
+  en: Ask whether the three field vectors can add up to something that points in any single direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero
+- id: b
+  en: Along one side of the triangle
+- id: c
+  en: Perpendicular to the plane of the triangle
+- id: d
+  en: Directed towards one corner
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.D224614BAB63
+  when_answer_equals:
+  - b
+- id: MC.A.2DA9527B9147
+  when_answer_equals:
+  - d
+- id: MC.A.36F3B16CC553
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each charge gives a field of the same magnitude at the centroid, pointing away from that charge.
+- en: The three directions are 120 degrees apart, so their vector sum cancels.
+- en: The correct option is a.
+tier: C

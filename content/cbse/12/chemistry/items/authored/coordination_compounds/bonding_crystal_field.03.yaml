@@ -1,0 +1,50 @@
+id: A.12.chemistry.coordination_compounds.bonding_crystal_field.03
+skill_ids:
+- SK.A.12.chemistry.bonding_crystal_field
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: An octahedral d6 complex with a strong field ligand is in which spin state?
+hints:
+- level: 1
+  en: Compare the splitting energy with the energy cost of pairing two electrons in one orbital.
+- level: 2
+  en: Decide whether electrons fill the lower set fully before using the upper set.
+- level: 3
+  en: Consider how many electrons would sit in the upper eg orbitals in this case.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Square planar with a d8 geometry
+- id: b
+  en: Tetrahedral with no d orbital splitting
+- id: c
+  en: Low spin, with all six electrons paired in the lower orbitals
+- id: d
+  en: High spin with four unpaired electrons
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E6770E2B716D
+  when_answer_equals:
+  - d
+- id: MC.A.B403DE0FA03F
+  when_answer_equals:
+  - b
+- id: MC.A.33B25A485743
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A strong field ligand makes the splitting larger than the pairing energy, so electrons pair in the lower t2g set.
+- en: A d6 low spin ion has all six electrons in t2g and none unpaired.
+- en: The correct option is c.
+tier: C
+diagram_note: 'Energy level sketch: five d orbitals split into a lower set of three and an upper set of two in an octahedral field, with electron arrows filled into the lower set.'

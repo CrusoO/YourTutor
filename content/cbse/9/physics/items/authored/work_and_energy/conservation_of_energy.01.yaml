@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.conservation_of_energy.01
+skill_ids:
+- SK.A.9.physics.conservation_of_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: As a stone falls freely with no air resistance and its height decreases, its kinetic energy
+hints:
+- level: 1
+  en: Think about what happens to the speed as the stone drops.
+- level: 2
+  en: Energy is traded between two forms during the fall.
+- level: 3
+  en: Consider the kinetic energy formula with a growing speed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: stays constant at every instant
+- id: b
+  en: becomes zero during the fall
+- id: c
+  en: increases
+- id: d
+  en: decreases
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F0BB62DDB307
+  when_answer_equals:
+  - d
+- id: MC.A.D02B42679D97
+  when_answer_equals:
+  - a
+- id: MC.A.3628E3891BE0
+  when_answer_equals:
+  - b
+solution_steps:
+- en: As the stone falls, its potential energy is converted into kinetic energy, so the kinetic energy rises while the total stays constant.
+- en: The correct option is c.
+tier: C

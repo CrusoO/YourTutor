@@ -1,0 +1,49 @@
+id: A.12.chemistry.surface_chemistry.adsorption.06
+skill_ids:
+- SK.A.12.chemistry.adsorption
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In the Langmuir monolayer model, what limits the amount adsorbed as the pressure keeps increasing?
+hints:
+- level: 1
+  en: Think about how many sites are available on the surface.
+- level: 2
+  en: Consider what happens once every available site holds a molecule.
+- level: 3
+  en: Compare the adsorbed amount at high pressure with the amount at low pressure.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: All surface sites are occupied, so adsorption levels off
+- id: b
+  en: The temperature falls as the pressure rises
+- id: c
+  en: The gas dissolves into the bulk of the solid
+- id: d
+  en: Adsorption rises without any limit
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.D0EFB21E3B8A
+  when_answer_equals:
+  - c
+- id: MC.A.260D790C35D4
+  when_answer_equals:
+  - d
+- id: MC.A.53C425530CCB
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The Langmuir model assumes one layer of sites.
+- en: Once every site is covered, further pressure cannot add more adsorbed molecules, so the amount levels off.
+- en: The correct option is a.
+tier: C

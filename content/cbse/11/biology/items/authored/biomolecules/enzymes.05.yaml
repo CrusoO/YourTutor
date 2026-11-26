@@ -1,0 +1,49 @@
+id: A.11.biology.biomolecules.enzymes.05
+skill_ids:
+- SK.A.11.biology.enzymes
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A competitive inhibitor is added to an enzyme solution. What happens to the apparent affinity of the enzyme for its substrate, and can high substrate levels overcome the effect?
+hints:
+- level: 1
+  en: Think about what the inhibitor and the substrate both bind to.
+- level: 2
+  en: Consider which of the two molecules is more likely to occupy the active site when its concentration is high.
+- level: 3
+  en: Ask whether a competitive inhibitor binds permanently or only briefly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Apparent affinity rises, and high substrate concentrations make the inhibition stronger
+- id: b
+  en: The enzyme is permanently destroyed, so substrate cannot restore activity
+- id: c
+  en: Apparent affinity is unchanged, and substrate levels have no effect
+- id: d
+  en: Apparent affinity falls, and high substrate concentrations can overcome the inhibition
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.6C62E4536631
+  when_answer_equals:
+  - a
+- id: MC.A.65CA4B645A9A
+  when_answer_equals:
+  - c
+- id: MC.A.77EF956F29AA
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A competitive inhibitor binds the active site and competes with the substrate, so the apparent affinity falls.
+- en: Raising the substrate concentration can outcompete the inhibitor and restore the rate.
+- en: The correct option is d.
+tier: C

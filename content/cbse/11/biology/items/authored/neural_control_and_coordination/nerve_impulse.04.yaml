@@ -1,0 +1,49 @@
+id: A.11.biology.neural_control_and_coordination.nerve_impulse.04
+skill_ids:
+- SK.A.11.biology.nerve_impulse
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which order describes the events at one point on the membrane during an action potential?
+hints:
+- level: 1
+  en: Start with the event that makes the inside less negative.
+- level: 2
+  en: Next consider the event in which potassium leaves the cell.
+- level: 3
+  en: The final event is an overshoot below the resting potential.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Hyperpolarisation, then depolarisation, then repolarisation
+- id: b
+  en: Depolarisation by sodium influx, then repolarisation by potassium efflux, then hyperpolarisation
+- id: c
+  en: Potassium influx, then sodium efflux, then depolarisation
+- id: d
+  en: Repolarisation, then depolarisation, then hyperpolarisation
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7F0D759752E4
+  when_answer_equals:
+  - d
+- id: MC.A.371754FBAE98
+  when_answer_equals:
+  - c
+- id: MC.A.39554A9BD924
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The membrane first depolarises as sodium enters, then repolarises as potassium leaves, and often overshoots slightly into hyperpolarisation before returning to rest.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw one spike of the membrane voltage over time, labelling depolarisation, repolarisation and the hyperpolarisation overshoot, with the ion flow for each phase.

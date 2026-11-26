@@ -1,0 +1,50 @@
+id: A.10.physics.sources_of_energy.non_conventional_sources.04
+skill_ids:
+- SK.A.10.physics.non_conventional_sources
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A solar panel supplies power during the day only. Which statement is correct about its output at night?
+hints:
+- level: 1
+  en: Think about what the panel needs in order to produce electricity.
+- level: 2
+  en: Ask whether a solar panel can hold energy like a battery.
+- level: 3
+  en: Consider how the variation over a day can be handled in practice.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The panel reverses its polarity and produces the same output
+- id: b
+  en: The panel stores energy overnight and releases it at night
+- id: c
+  en: The output is almost zero, so storage or another source is needed to supply power at night
+- id: d
+  en: The panel generates heat instead of electricity
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BBF493D767A7
+  when_answer_equals:
+  - b
+- id: MC.A.AB1A521BC6F0
+  when_answer_equals:
+  - a
+- id: MC.A.DEBA0A8799D5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A solar cell only produces electricity when sunlight falls on it.
+- en: At night its output is nearly zero, so a battery or another source is needed to provide a continuous supply.
+- en: This is one of the main limitations of solar energy.
+- en: The correct option is c.
+tier: C

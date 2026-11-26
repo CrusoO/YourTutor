@@ -1,0 +1,48 @@
+id: A.9.chemistry.atoms_and_molecules.molecular_mass.01
+skill_ids:
+- SK.A.9.chemistry.molecular_mass
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What must be added to find the molecular mass of a compound from its formula?
+hints:
+- level: 1
+  en: Think about what each atom in the formula contributes to the total.
+- level: 2
+  en: Consider whether every atom shown in the formula is counted.
+- level: 3
+  en: Pick the option that adds quantities measured in atomic mass units.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the number of atoms written in the formula
+- id: b
+  en: the valency of each element in the formula
+- id: c
+  en: the atomic masses of all atoms shown in the formula
+- id: d
+  en: only the atomic mass of its heaviest element
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F8B9B580301B
+  when_answer_equals:
+  - d
+- id: MC.A.0277C66D19B3
+  when_answer_equals:
+  - a
+- id: MC.A.312F395C375B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Molecular mass is the sum of the atomic masses of every atom in the formula, counting repeated atoms each time they appear.
+- en: The correct option is c.
+tier: C

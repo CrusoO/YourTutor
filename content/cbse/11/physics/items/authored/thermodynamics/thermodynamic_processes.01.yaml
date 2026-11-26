@@ -1,0 +1,48 @@
+id: A.11.physics.thermodynamics.thermodynamic_processes.01
+skill_ids:
+- SK.A.11.physics.thermodynamic_processes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In an isothermal process, which quantity stays constant?
+hints:
+- level: 1
+  en: Iso means the same, and the root word refers to heat.
+- level: 2
+  en: Think about which property of the gas the prefix iso refers to.
+- level: 3
+  en: The gas stays in thermal balance with its surroundings through the whole process.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: volume
+- id: b
+  en: temperature
+- id: c
+  en: pressure
+- id: d
+  en: heat
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.659056C76C78
+  when_answer_equals:
+  - c
+- id: MC.A.844D41DF7837
+  when_answer_equals:
+  - a
+- id: MC.A.070F7B5DAED6
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An isothermal process keeps the temperature constant, which requires heat exchange with the surroundings as the gas expands or compresses.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.matrices.transpose_symmetric.01
+skill_ids:
+- SK.A.12.maths.transpose_symmetric
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If A = [[1, 4], [2, 3]], which matrix is the transpose of A?
+hints:
+- level: 1
+  en: Each row of the original becomes a column of the new matrix.
+- level: 2
+  en: Keep the entries in the same order as you move them.
+- level: 3
+  en: Check one entry such as row 1, column 2 to see where it moves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '[[4, 1], [3, 2]]'
+- id: b
+  en: '[[3, 2], [4, 1]]'
+- id: c
+  en: '[[1, 2], [4, 3]]'
+- id: d
+  en: '[[1, 4], [2, 3]]'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D912432B41A4
+  when_answer_equals:
+  - d
+- id: MC.A.B88ACDFAA549
+  when_answer_equals:
+  - a
+- id: MC.A.1AAB5360F7AE
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The transpose swaps rows with columns, so the first row of A becomes the first column of the transpose.
+- en: The correct option is c.
+tier: C

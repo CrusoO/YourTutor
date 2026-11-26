@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electromagnetic_induction.04
+skill_ids:
+- SK.A.10.physics.electromagnetic_induction
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A rectangular coil is rotated in a uniform magnetic field. At which position of the coil is the induced emf the largest?
+hints:
+- level: 1
+  en: Consider whether the emf depends on the flux itself or on how fast it changes.
+- level: 2
+  en: Think about the flux when the coil is perpendicular to the field.
+- level: 3
+  en: Ask at which position the flux is changing most rapidly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The emf is the same in every position
+- id: b
+  en: When the plane of the coil is at 45 degrees to the field
+- id: c
+  en: When the plane of the coil is parallel to the field
+- id: d
+  en: When the plane of the coil is perpendicular to the field
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8EAA645643ED
+  when_answer_equals:
+  - d
+- id: MC.A.F845FF188329
+  when_answer_equals:
+  - b
+- id: MC.A.D98D6B8E5553
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The induced emf depends on how fast the flux changes.
+- en: When the plane of the coil is parallel to the field, the flux is zero but changing at its fastest rate, so the emf is largest.
+- en: When the plane is perpendicular to the field, the flux is largest but momentarily not changing, so the emf is zero.
+- en: The correct option is c.
+tier: C

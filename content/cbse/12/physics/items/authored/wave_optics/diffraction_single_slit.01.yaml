@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.diffraction_single_slit.01
+skill_ids:
+- SK.A.12.physics.diffraction_single_slit
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a single slit diffraction pattern, how does the central maximum compare with the other maxima?
+hints:
+- level: 1
+  en: Think about where the minima sit on either side of the central maximum.
+- level: 2
+  en: Consider which feature of the pattern is the widest.
+- level: 3
+  en: Recall that a single slit pattern has a central bright band.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It has the same width as the other maxima
+- id: b
+  en: It is absent from the pattern
+- id: c
+  en: It is about twice as wide as each of the other maxima
+- id: d
+  en: It is narrower than the other maxima
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E80DC8E02482
+  when_answer_equals:
+  - d
+- id: MC.A.4A3A6DEFEB5D
+  when_answer_equals:
+  - b
+- id: MC.A.E9BAAF75BA43
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In single slit diffraction the central maximum spans twice the angular width of each secondary maximum, so it looks wider than the others.
+- en: The correct option is c.
+tier: C

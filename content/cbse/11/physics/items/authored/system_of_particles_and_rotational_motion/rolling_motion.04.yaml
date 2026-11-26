@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.rolling_motion.04
+skill_ids:
+- SK.A.11.physics.rolling_motion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A solid cylinder and a hollow cylinder of the same mass and radius are released from rest at the top of an incline and roll down without slipping. Which one reaches the bottom first?
+hints:
+- level: 1
+  en: Compare the moments of inertia of the two cylinders.
+- level: 2
+  en: A smaller share of energy stored in rotation leaves more for translation.
+- level: 3
+  en: Lower moment of inertia means the body accelerates more easily down the slope.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: they arrive at the same time
+- id: b
+  en: it depends only on the mass
+- id: c
+  en: the hollow cylinder
+- id: d
+  en: the solid cylinder
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A1F56C850F17
+  when_answer_equals:
+  - c
+- id: MC.A.97E54AF0E899
+  when_answer_equals:
+  - a
+- id: MC.A.4B70B324FA4B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The solid cylinder has a smaller moment of inertia, so a larger share of its energy goes into translation, and it accelerates faster down the incline.
+- en: The correct option is d.
+tier: C

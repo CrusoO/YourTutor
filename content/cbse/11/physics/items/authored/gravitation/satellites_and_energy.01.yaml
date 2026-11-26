@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.satellites_and_energy.01
+skill_ids:
+- SK.A.11.physics.satellites_and_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'The total mechanical energy of a satellite in a stable circular orbit around a planet is:'
+hints:
+- level: 1
+  en: Total energy is the sum of kinetic energy and gravitational potential energy.
+- level: 2
+  en: The potential energy is taken as zero far away and drops below zero near the planet.
+- level: 3
+  en: The kinetic energy is half the magnitude of the potential energy in a circular orbit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: always changing
+- id: b
+  en: zero
+- id: c
+  en: positive
+- id: d
+  en: negative
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.55079B212A37
+  when_answer_equals:
+  - c
+- id: MC.A.13153E7BF34D
+  when_answer_equals:
+  - b
+- id: MC.A.6DFB7E9D586A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In a circular orbit the total energy is the kinetic energy plus the more negative potential energy, which gives a negative total energy bound to the planet.
+- en: The correct option is d.
+tier: C

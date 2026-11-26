@@ -1,0 +1,30 @@
+id: A.11.maths.sets.venn_and_operations.05
+skill_ids:
+- SK.A.11.maths.venn_and_operations
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: In a group of 50 students, 30 like tea, 28 like coffee and 10 like neither drink. How many students like both tea and coffee?
+hints:
+- level: 1
+  en: First find how many students like at least one of the two drinks.
+- level: 2
+  en: Use the group total and the count of those who like neither drink.
+- level: 3
+  en: Add the two liking counts and subtract the number who like at least one drink.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '18'
+  accept: []
+solution_steps:
+- en: 40 students like at least one drink, since 50 minus 10 is 40, and 30 plus 28 minus 40 gives 18.
+- en: Answer = 18
+tier: C
+diagram_note: Two overlapping circles labelled Tea and Coffee inside a rectangle labelled Students, with the region outside both circles labelled as liking neither drink.

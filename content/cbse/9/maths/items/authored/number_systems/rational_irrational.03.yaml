@@ -1,0 +1,49 @@
+id: A.9.maths.number_systems.rational_irrational.03
+skill_ids:
+- SK.A.9.maths.rational_irrational
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A decimal starts 0.1010010001 and continues so that each block of zeros grows by one. How should this number be classified?
+hints:
+- level: 1
+  en: Check whether any block of digits repeats forever.
+- level: 2
+  en: Compare the length of the zero blocks from one step to the next.
+- level: 3
+  en: A rational number's decimal must eventually either stop or repeat.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: terminating, because each block is finite
+- id: b
+  en: rational, because it shows a visible pattern
+- id: c
+  en: rational, because it never ends
+- id: d
+  en: irrational, because the pattern never settles into a repeating block
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.950A11F48B57
+  when_answer_equals:
+  - b
+- id: MC.A.AA4A7F6CF005
+  when_answer_equals:
+  - c
+- id: MC.A.0E2271EED8E9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each block of zeros is longer than the one before, so no block of digits repeats forever.
+- en: A decimal that neither terminates nor repeats is irrational.
+- en: The correct option is d.
+tier: C

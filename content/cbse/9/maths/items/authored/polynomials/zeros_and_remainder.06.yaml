@@ -1,0 +1,49 @@
+id: A.9.maths.polynomials.zeros_and_remainder.06
+skill_ids:
+- SK.A.9.maths.zeros_and_remainder
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which number is a zero of the cubic polynomial x^3 + 2x - 3?
+hints:
+- level: 1
+  en: Test small whole numbers and check the total after substitution.
+- level: 2
+  en: A zero makes the whole sum come out exactly zero.
+- level: 3
+  en: Try the candidate that makes the constant term cancel the other terms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '-3'
+- id: b
+  en: '-1'
+- id: c
+  en: '1'
+- id: d
+  en: '3'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BF2E689B45E4
+  when_answer_equals:
+  - d
+- id: MC.A.78D1F8DEDF72
+  when_answer_equals:
+  - a
+- id: MC.A.E90E2314780A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Substituting 1 gives 1 + 2 - 3, which is zero.
+- en: This cubic has no other real zero, because its slope never becomes negative.
+- en: The correct option is c.
+tier: C

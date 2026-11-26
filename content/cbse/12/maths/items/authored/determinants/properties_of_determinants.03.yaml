@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.properties_of_determinants.03
+skill_ids:
+- SK.A.12.maths.properties_of_determinants
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A determinant has two identical rows. What is its value?
+hints:
+- level: 1
+  en: Consider what happens when you interchange two rows of a determinant.
+- level: 2
+  en: An interchange changes the sign of the determinant.
+- level: 3
+  en: Compare the determinant before and after the interchange, using the fact that the matrix is unchanged.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it cannot be determined from the rows
+- id: b
+  en: zero
+- id: c
+  en: twice the common row value
+- id: d
+  en: one
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A7D621C9EA32
+  when_answer_equals:
+  - d
+- id: MC.A.6C0EB6510E29
+  when_answer_equals:
+  - c
+- id: MC.A.371B45A9A9C8
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Swapping the two identical rows leaves the matrix unchanged but flips the sign of the determinant, so the determinant equals its own negative, which forces it to be zero.
+- en: The correct option is b.
+tier: C

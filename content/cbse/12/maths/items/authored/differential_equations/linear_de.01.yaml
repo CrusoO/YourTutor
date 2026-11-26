@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.linear_de.01
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the integrating factor of dy/dx + y = x?
+hints:
+- level: 1
+  en: Write the equation in the standard form dy/dx + P y = Q.
+- level: 2
+  en: The integrating factor is e to the power of the integral of P.
+- level: 3
+  en: Find the integral of the coefficient of y.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x
+- id: b
+  en: e^x
+- id: c
+  en: 1/x
+- id: d
+  en: e^(-x)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.993EE5F53541
+  when_answer_equals:
+  - d
+- id: MC.A.4BD6790EA419
+  when_answer_equals:
+  - a
+- id: MC.A.BF0F1BF8E716
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The integrating factor is e raised to the integral of the coefficient of y, which is 1, so the factor is e^x.
+- en: The correct option is b.
+tier: C

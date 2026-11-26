@@ -1,0 +1,48 @@
+id: A.11.maths.straight_lines.distance_point_line.02
+skill_ids:
+- SK.A.11.maths.distance_point_line
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the perpendicular distance from the point (x1, y1) to the line ax plus by plus c equals 0?
+hints:
+- level: 1
+  en: Substitute the point into the left side of the line equation.
+- level: 2
+  en: Think about why the distance must always be non-negative.
+- level: 3
+  en: The denominator uses the length of the normal vector of the line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '|a x1 + b y1 + c| / sqrt(a^2 + b^2)'
+- id: b
+  en: (a x1 + b y1 + c) / sqrt(a^2 + b^2)
+- id: c
+  en: '|a x1 + b y1 + c| / (a + b)'
+- id: d
+  en: '|a x1 - b y1 + c| / sqrt(a^2 + b^2)'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C4B4C46CBC04
+  when_answer_equals:
+  - c
+- id: MC.A.B23E4B9271C8
+  when_answer_equals:
+  - b
+- id: MC.A.FED7930EE6F1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The distance formula divides the absolute value of the substituted expression by the square root of the sum of squared coefficients.
+- en: The correct option is a.
+tier: C

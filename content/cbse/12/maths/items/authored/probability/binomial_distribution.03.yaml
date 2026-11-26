@@ -1,0 +1,29 @@
+id: A.12.maths.probability.binomial_distribution.03
+skill_ids:
+- SK.A.12.maths.binomial_distribution
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: X follows a binomial distribution with n = 3 and p = 1/3. Find P(X = 1), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Count the arrangements that contain exactly one success.
+- level: 2
+  en: Each such arrangement has one success and two failures.
+- level: 3
+  en: Multiply the count by the probability of one such arrangement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.444'
+  accept: []
+solution_steps:
+- en: P(X = 1) equals 3 times (1/3) times (2/3) squared, which is 3 times (1/3) times (4/9), equal to 4/9, about 0.444.
+- en: Answer = 0.444
+tier: C

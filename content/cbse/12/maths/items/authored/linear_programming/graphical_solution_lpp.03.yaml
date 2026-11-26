@@ -1,0 +1,31 @@
+id: A.12.maths.linear_programming.graphical_solution_lpp.03
+skill_ids:
+- SK.A.12.maths.graphical_solution_lpp
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Minimise Z = 2x + 3y subject to x + y >= 5, x >= 0 and y >= 0. Find the minimum value of Z.
+hints:
+- level: 1
+  en: Sketch the region above the line x + y = 5 in the first quadrant.
+- level: 2
+  en: The region is unbounded, so check the corner points where it meets the axes.
+- level: 3
+  en: Compare the objective values at those corner points.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '10'
+  accept: []
+solution_steps:
+- en: The feasible region is unbounded, with corner points (5, 0) and (0, 5).
+- en: Z is 10 at (5, 0) and 15 at (0, 5), so the minimum is 10.
+- en: Answer = 10
+tier: C
+diagram_note: First quadrant with the line x + y = 5 drawn, the feasible region above it shaded, and the points where the line meets the axes marked.

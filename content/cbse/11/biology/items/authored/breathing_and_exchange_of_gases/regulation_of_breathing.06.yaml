@@ -1,0 +1,49 @@
+id: A.11.biology.breathing_and_exchange_of_gases.regulation_of_breathing.06
+skill_ids:
+- SK.A.11.biology.regulation_of_breathing
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A patient with severe uncontrolled diabetes breathes deeply and rapidly. Why does this occur?
+hints:
+- level: 1
+  en: Think about acids that accumulate in the blood in this condition.
+- level: 2
+  en: Consider how the body compensates for an acid load by changing carbon dioxide levels.
+- level: 3
+  en: Ask what the breathing change does to the blood pH.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The lungs are damaged and need faster airflow
+- id: b
+  en: Acid build-up in the blood stimulates the respiratory centre to increase ventilation and remove CO2
+- id: c
+  en: The brain needs much more oxygen for its metabolism
+- id: d
+  en: Insulin stimulates the diaphragm directly
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B17B0C43C55C
+  when_answer_equals:
+  - c
+- id: MC.A.B035F9F64179
+  when_answer_equals:
+  - a
+- id: MC.A.0CDC8673E24C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Ketoacids accumulate in uncontrolled diabetes and lower the blood pH.
+- en: The respiratory centre responds by increasing ventilation, which blows off carbon dioxide and partly compensates for the acid load.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,30 @@
+id: A.11.physics.thermodynamics.first_law.03
+skill_ids:
+- SK.A.11.physics.first_law
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: One mole of ideal gas expands isothermally at 300 K from 1 litre to 2 litres. Using R = 8.31 J/mol K, what is the work done by the gas in joules, to the nearest joule?
+hints:
+- level: 1
+  en: For isothermal expansion the work equals n R T times the logarithm of the volume ratio.
+- level: 2
+  en: The natural logarithm of the ratio two is a standard value.
+- level: 3
+  en: Multiply the constants and the logarithm together.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1728'
+  accept: []
+solution_steps:
+- en: For isothermal expansion, W = nRT ln(V2/V1) = 1 times 8.31 times 300 times ln 2 = 2493 times 0.6931, which is about 1728 J.
+- en: The unit of the answer is J.
+- en: Answer = 1728
+tier: C

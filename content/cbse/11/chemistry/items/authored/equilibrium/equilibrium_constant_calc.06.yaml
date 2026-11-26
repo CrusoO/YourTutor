@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_constant_calc.06
+skill_ids:
+- SK.A.11.chemistry.equilibrium_constant_calc
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A reaction has Kc = 1 x 10^-5 at 298 K. Which side does the equilibrium mixture mostly favour?
+hints:
+- level: 1
+  en: Compare the size of the constant with the value that marks equal amounts.
+- level: 2
+  en: A large constant favours products, so a small one favours the opposite side.
+- level: 3
+  en: Think about whether the numerator or the denominator of the expression dominates.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: reactants
+- id: b
+  en: products only at high pressure
+- id: c
+  en: equal amounts of reactants and products
+- id: d
+  en: products
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A93467E789A0
+  when_answer_equals:
+  - d
+- id: MC.A.F144A39BA113
+  when_answer_equals:
+  - c
+- id: MC.A.D6AB4F8C817F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A very small equilibrium constant means the concentrations of products are tiny compared with reactants, so the mixture mostly contains reactants.
+- en: The correct option is a.
+tier: C

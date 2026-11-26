@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.order_and_degree.01
+skill_ids:
+- SK.A.12.maths.order_and_degree
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the order of the differential equation d^2y/dx^2 + 3(dy/dx)^3 = 0?
+hints:
+- level: 1
+  en: The order is the highest derivative that appears in the equation.
+- level: 2
+  en: Look for the derivative with the largest number of primes.
+- level: 3
+  en: Ignore the powers when you decide the order.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '2'
+- id: c
+  en: '3'
+- id: d
+  en: '6'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B6FF7BDB8C61
+  when_answer_equals:
+  - c
+- id: MC.A.3F7C4FD5CB13
+  when_answer_equals:
+  - a
+- id: MC.A.82EF3A531C06
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The order is the order of the highest derivative present, which here is the second derivative d^2y/dx^2.
+- en: The correct option is b.
+tier: C

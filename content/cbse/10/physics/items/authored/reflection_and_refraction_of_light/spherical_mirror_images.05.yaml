@@ -1,0 +1,50 @@
+id: A.10.physics.reflection_and_refraction_of_light.spherical_mirror_images.05
+skill_ids:
+- SK.A.10.physics.spherical_mirror_images
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An object is placed exactly at the focus of a concave mirror. Where is its image formed?
+hints:
+- level: 1
+  en: Trace a ray from the object through the focus and reflect it; where does it go?
+- level: 2
+  en: Ask whether the reflected rays from this object are parallel, converging or diverging.
+- level: 3
+  en: A parallel beam is used in headlights, so think about where the source sits.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: At infinity, because the reflected rays are parallel
+- id: b
+  en: Just behind the mirror, as a virtual image
+- id: c
+  en: At the centre of curvature
+- id: d
+  en: Very close to the pole of the mirror
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0DC8C0C87FBD
+  when_answer_equals:
+  - d
+- id: MC.A.FAA5BAD8E703
+  when_answer_equals:
+  - c
+- id: MC.A.42A9CF4FADAC
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Rays leaving the object at the focus reflect parallel to the principal axis, so they never meet at a finite point.
+- en: The image is therefore formed at infinity.
+- en: This is why a point source at the focus of a concave reflector gives a parallel beam.
+- en: The correct option is a.
+tier: C

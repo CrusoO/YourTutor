@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.derivative_first_principles.04
+skill_ids:
+- SK.A.11.maths.derivative_first_principles
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which expression is the derivative of the square root of x, found from first principles?
+hints:
+- level: 1
+  en: Multiply the difference quotient by the conjugate of its numerator.
+- level: 2
+  en: Simplify the difference of squares that results.
+- level: 3
+  en: Let the increment tend to zero in the simplified expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1 over (2 times the square root of x)
+- id: b
+  en: 2 times the square root of x
+- id: c
+  en: square root of x over 2
+- id: d
+  en: 1 over the square root of x
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.965688C919DF
+  when_answer_equals:
+  - c
+- id: MC.A.B56916D31DF7
+  when_answer_equals:
+  - d
+- id: MC.A.0D2BC2B235D8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Rationalising the difference quotient of the square root gives 1 over (sqrt(x plus h) plus sqrt x), which tends to 1 over (2 sqrt x) as h tends to zero.
+- en: The correct option is a.
+tier: C

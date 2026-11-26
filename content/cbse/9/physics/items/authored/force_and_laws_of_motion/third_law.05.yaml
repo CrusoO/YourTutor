@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.third_law.05
+skill_ids:
+- SK.A.9.physics.third_law
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two ice skaters push each other apart. Skater A has twice the mass of skater B. Which statement about the forces between them is correct?
+hints:
+- level: 1
+  en: Think about the pair of forces between two interacting bodies.
+- level: 2
+  en: Compare the forces on each skater rather than their masses.
+- level: 3
+  en: Masses change the accelerations, not the forces in the pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: skater A feels a force only if it moves faster
+- id: b
+  en: skater A feels twice the force of skater B
+- id: c
+  en: both skaters experience forces of equal size, in opposite directions
+- id: d
+  en: skater B feels no force because it is lighter
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.AEB5875DE33F
+  when_answer_equals:
+  - b
+- id: MC.A.9273DADF6A37
+  when_answer_equals:
+  - d
+- id: MC.A.9817CF4CBE1F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each skater pushes the other, and by the third law these forces are equal in size and opposite in direction; only the accelerations differ because of the masses.
+- en: The correct option is c.
+tier: C

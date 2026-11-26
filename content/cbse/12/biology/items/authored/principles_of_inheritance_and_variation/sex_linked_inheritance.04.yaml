@@ -1,0 +1,50 @@
+id: A.12.biology.principles_of_inheritance_and_variation.sex_linked_inheritance.04
+skill_ids:
+- SK.A.12.biology.sex_linked_inheritance
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In a pedigree, an affected son has two unaffected parents. Which explanation best fits an X-linked recessive trait?
+hints:
+- level: 1
+  en: Check which parent gives a son his only X chromosome.
+- level: 2
+  en: Consider whether a carrier can be unaffected.
+- level: 3
+  en: Think about whether a Y-linked trait could pass from an unaffected father.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Both parents must be affected for a recessive trait
+- id: b
+  en: The father is affected and passed the allele to his son
+- id: c
+  en: The mother is a carrier who passed the allele on her X
+- id: d
+  en: The son inherited a Y-linked mutation from his father
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8F5EE91B9E7B
+  when_answer_equals:
+  - b
+- id: MC.A.59BD1C77992A
+  when_answer_equals:
+  - d
+- id: MC.A.78469359E291
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A carrier mother can be unaffected while carrying one recessive allele, and her son receives that X and shows the trait.
+- en: Sons get their only X from the mother, not the father.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a three generation pedigree using squares for males and circles for females, with an unaffected father, a carrier mother and an affected son, shading the affected individuals.

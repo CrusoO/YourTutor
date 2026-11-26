@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystalline_and_amorphous.01
+skill_ids:
+- SK.A.12.chemistry.crystalline_and_amorphous
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which property separates a crystalline solid from an amorphous solid?
+hints:
+- level: 1
+  en: Think about what happens to a solid when enough heat is supplied to melt it.
+- level: 2
+  en: Consider whether the change of state happens at one temperature or over several.
+- level: 3
+  en: Recall which kind of solid has its particles in a repeating pattern.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Lower density than its liquid form
+- id: b
+  en: Always transparent to light
+- id: c
+  en: Softens across a range of temperatures
+- id: d
+  en: Sharp, definite melting point
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B967E9070220
+  when_answer_equals:
+  - c
+- id: MC.A.2166C2B71F14
+  when_answer_equals:
+  - b
+- id: MC.A.49858ECF15B3
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Crystalline solids have a long-range repeating arrangement, so they melt at one temperature.
+- en: Amorphous solids lack that order and soften over a range.
+- en: The correct option is d.
+tier: C

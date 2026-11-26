@@ -1,0 +1,48 @@
+id: A.9.physics.motion.equations_of_motion.02
+skill_ids:
+- SK.A.9.physics.equations_of_motion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which relation is the first equation of uniformly accelerated motion, using the usual symbols?
+hints:
+- level: 1
+  en: This equation links final velocity, initial velocity, acceleration and time.
+- level: 2
+  en: It has no displacement term.
+- level: 3
+  en: Check that the time appears multiplied by the acceleration.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: v = u + at
+- id: b
+  en: v^2 = u + 2as
+- id: c
+  en: s = ut + at^2
+- id: d
+  en: v = u - at
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6ADE5EA6472F
+  when_answer_equals:
+  - d
+- id: MC.A.A72FACD55022
+  when_answer_equals:
+  - c
+- id: MC.A.4D08B0561105
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The first equation says the final velocity equals the initial velocity plus acceleration times time, and it has no displacement term.
+- en: The correct option is a.
+tier: C

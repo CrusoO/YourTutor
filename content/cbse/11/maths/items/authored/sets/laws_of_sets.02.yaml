@@ -1,0 +1,48 @@
+id: A.11.maths.sets.laws_of_sets.02
+skill_ids:
+- SK.A.11.maths.laws_of_sets
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which law states that A union (A intersection B) equals A for any sets A and B?
+hints:
+- level: 1
+  en: Consider what the intersection adds to A when it is already inside A.
+- level: 2
+  en: Think about whether the smaller piece is swallowed by the larger set.
+- level: 3
+  en: Test the statement with a small concrete pair of sets.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the idempotent law
+- id: b
+  en: the commutative law
+- id: c
+  en: the absorption law
+- id: d
+  en: the complement law
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.263379EB4162
+  when_answer_equals:
+  - a
+- id: MC.A.48072B8A68BA
+  when_answer_equals:
+  - d
+- id: MC.A.16BF1EC49190
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The intersection is always inside A, so joining it back to A changes nothing; this is the absorption law.
+- en: The correct option is c.
+tier: C

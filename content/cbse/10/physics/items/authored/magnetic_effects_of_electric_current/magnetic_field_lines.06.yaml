@@ -1,0 +1,51 @@
+id: A.10.physics.magnetic_effects_of_electric_current.magnetic_field_lines.06
+skill_ids:
+- SK.A.10.physics.magnetic_field_lines
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: 'Inside a long solenoid carrying a steady current, the magnetic field is:'
+hints:
+- level: 1
+  en: Think about whether the magnetic fields of the turns add up or cancel inside the coil.
+- level: 2
+  en: Consider the direction of the field lines inside the coil compared with the axis.
+- level: 3
+  en: Ask where the field lines are most closely spaced in a solenoid.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero, because the coils cancel the field inside
+- id: b
+  en: Radial and increasing towards the axis
+- id: c
+  en: Nearly uniform and parallel to the axis of the solenoid
+- id: d
+  en: Strongest at the centre and weakest at the ends
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D14D7720DDD8
+  when_answer_equals:
+  - a
+- id: MC.A.7B23E596BE71
+  when_answer_equals:
+  - b
+- id: MC.A.F03FA33EA878
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A long solenoid is a coil of wire.
+- en: The fields from all the turns add up inside the coil, giving a nearly uniform field that runs parallel to the axis.
+- en: The field outside is weak and spreads out, so the field lines inside are the most useful part for a magnetic effect.
+- en: The correct option is c.
+tier: C
+diagram_note: Solenoid drawn as a row of loops of wire with the current direction marked on one loop. Show the magnetic field lines inside the coil running parallel to the axis and spreading out and returning around the outside of the coil.

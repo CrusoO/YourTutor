@@ -1,0 +1,48 @@
+id: A.9.physics.motion.equations_of_motion.06
+skill_ids:
+- SK.A.9.physics.equations_of_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which equation links the velocities, acceleration and displacement of a uniformly accelerating body without involving time?
+hints:
+- level: 1
+  en: Look for the equation with no time variable.
+- level: 2
+  en: Scan the list for the one with displacement and velocities but no t.
+- level: 3
+  en: Consider the relation that multiplies acceleration by displacement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a = (v - u)/t
+- id: b
+  en: v = u + at
+- id: c
+  en: s = ut + 0.5at^2
+- id: d
+  en: v^2 = u^2 + 2as
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.51C7AB92B223
+  when_answer_equals:
+  - b
+- id: MC.A.F0AA2F89AC36
+  when_answer_equals:
+  - c
+- id: MC.A.9DAA9112810F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Eliminating time from the first two equations gives v squared equals u squared plus two a s, which is the time-free relation.
+- en: The correct option is d.
+tier: C

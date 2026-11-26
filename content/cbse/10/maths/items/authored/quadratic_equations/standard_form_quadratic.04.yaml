@@ -1,0 +1,49 @@
+id: A.10.maths.quadratic_equations.standard_form_quadratic.04
+skill_ids:
+- SK.A.10.maths.standard_form_quadratic
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why must a in ax² + bx + c = 0 be nonzero for the equation to be called quadratic?
+hints:
+- level: 1
+  en: What is the highest power of x when a is 0?
+- level: 2
+  en: Substitute a = 0 and simplify the equation.
+- level: 3
+  en: Name the type of equation you get after that substitution.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because if a = 0, the x² term disappears and the equation becomes linear.
+- id: b
+  en: Because a must be an even number.
+- id: c
+  en: Because c must be positive.
+- id: d
+  en: Because b must be zero.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8F36833E31F8
+  when_answer_equals:
+  - b
+- id: MC.A.7F8B52CAFC26
+  when_answer_equals:
+  - d
+- id: MC.A.195E4855A75F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The name quadratic comes from the x² term.
+- en: Setting a = 0 leaves bx + c = 0, which is linear, so the requirement a ≠ 0 keeps the equation quadratic.
+- en: The correct option is a.
+tier: C

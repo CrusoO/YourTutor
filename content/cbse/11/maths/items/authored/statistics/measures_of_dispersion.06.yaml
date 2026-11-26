@@ -1,0 +1,48 @@
+id: A.11.maths.statistics.measures_of_dispersion.06
+skill_ids:
+- SK.A.11.maths.measures_of_dispersion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two data sets have the same mean. Set A has variance 4 and set B has variance 9. Which set is more spread out?
+hints:
+- level: 1
+  en: Recall what a larger variance means about the distances from the mean.
+- level: 2
+  en: The means being equal removes one difference between the sets.
+- level: 3
+  en: Compare the two variances directly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the comparison needs the sample sizes
+- id: b
+  en: they are equally spread out
+- id: c
+  en: set A
+- id: d
+  en: set B
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0E07A5F0C25C
+  when_answer_equals:
+  - c
+- id: MC.A.BBFF2A15171C
+  when_answer_equals:
+  - b
+- id: MC.A.051672207AA0
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A larger variance means the values lie further from the mean on average, so set B with variance 9 has the greater spread.
+- en: The correct option is d.
+tier: C

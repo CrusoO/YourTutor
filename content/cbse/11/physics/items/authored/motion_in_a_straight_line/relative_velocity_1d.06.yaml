@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_straight_line.relative_velocity_1d.06
+skill_ids:
+- SK.A.11.physics.relative_velocity_1d
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A passenger on a train moving at 30 m/s throws a ball forward at 10 m/s relative to the train. A stationary observer by the track measures the ball's velocity. Which value does the observer record?
+hints:
+- level: 1
+  en: Velocities measured from the ground add along the same line.
+- level: 2
+  en: The train's velocity is one part of the ball's velocity from the ground.
+- level: 3
+  en: Use the same direction as positive for both velocities.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 20 m/s forward
+- id: b
+  en: 10 m/s forward
+- id: c
+  en: 40 m/s forward
+- id: d
+  en: 30 m/s forward
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.36CA7A733055
+  when_answer_equals:
+  - a
+- id: MC.A.5209393799AB
+  when_answer_equals:
+  - b
+- id: MC.A.9B58D15A2343
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Velocities measured from the ground add along the same line, so 30 m/s plus 10 m/s gives 40 m/s forward.
+- en: The correct option is c.
+tier: C

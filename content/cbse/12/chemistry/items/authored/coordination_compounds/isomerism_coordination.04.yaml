@@ -1,0 +1,49 @@
+id: A.12.chemistry.coordination_compounds.isomerism_coordination.04
+skill_ids:
+- SK.A.12.chemistry.isomerism_coordination
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: How many stereoisomers does the octahedral complex [Co(en)2Cl2]+ have in total?
+hints:
+- level: 1
+  en: Consider the cis arrangement, which can exist as a pair of mirror images.
+- level: 2
+  en: Consider the trans arrangement and whether it has a mirror plane.
+- level: 3
+  en: Add the distinct forms, counting each mirror image pair appropriately.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '2'
+- id: c
+  en: '3'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8E339799BE4B
+  when_answer_equals:
+  - b
+- id: MC.A.C75CF02245E1
+  when_answer_equals:
+  - a
+- id: MC.A.33751479BE18
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The trans form is achiral.
+- en: The cis form is chiral and exists as a pair of mirror images, so there are three stereoisomers in total.
+- en: The correct option is c.
+tier: C

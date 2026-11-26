@@ -1,0 +1,49 @@
+id: A.11.maths.straight_lines.distance_point_line.04
+skill_ids:
+- SK.A.11.maths.distance_point_line
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which point lies on the line x minus y equals 3?
+hints:
+- level: 1
+  en: A point lies on a line when its coordinates satisfy the line equation.
+- level: 2
+  en: Substitute each candidate point and evaluate the left side.
+- level: 3
+  en: Check whether the result equals the constant on the right side.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (5, 2)
+- id: b
+  en: (0, 0)
+- id: c
+  en: (4, 2)
+- id: d
+  en: (2, 5)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.292048978E05
+  when_answer_equals:
+  - d
+- id: MC.A.489EB6432764
+  when_answer_equals:
+  - b
+- id: MC.A.9A98C22ABE94
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Substituting (5, 2) gives 5 minus 2, which equals 3, so the point lies on the line and its distance from the line is zero.
+- en: The correct option is a.
+tier: C
+diagram_note: Coordinate axes with the line x minus y equals 3 drawn as a straight line and several candidate points marked, one of them on the line.

@@ -1,0 +1,48 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.quadratic_in_complex.03
+skill_ids:
+- SK.A.11.maths.quadratic_in_complex
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Solve the equation x squared minus 2x plus 5 equals 0.
+hints:
+- level: 1
+  en: Complete the square on the terms involving x.
+- level: 2
+  en: Move the constant to the other side and find the square root of the result.
+- level: 3
+  en: Write the two roots as the centre plus or minus the imaginary part.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: -1 + 2i and -1 - 2i
+- id: b
+  en: 1 + i and 1 - i
+- id: c
+  en: 2 + i and 2 - i
+- id: d
+  en: 1 + 2i and 1 - 2i
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9FBE35364C0E
+  when_answer_equals:
+  - c
+- id: MC.A.C4311D275F34
+  when_answer_equals:
+  - b
+- id: MC.A.890D1599D56D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Completing the square gives (x minus 1) squared equal to negative 4, so x equals 1 plus or minus 2i.
+- en: The correct option is d.
+tier: C

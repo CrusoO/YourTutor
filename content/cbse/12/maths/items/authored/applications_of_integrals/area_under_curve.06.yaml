@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_integrals.area_under_curve.06
+skill_ids:
+- SK.A.12.maths.area_under_curve
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the area bounded by y = 1/x, the x-axis, and the lines x = 1 and x = e?
+hints:
+- level: 1
+  en: Set up a definite integral of the reciprocal function over the given limits.
+- level: 2
+  en: Recall the antiderivative of the reciprocal function.
+- level: 3
+  en: Evaluate the logarithm at the two x values.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ln 2
+- id: b
+  en: e - 1
+- id: c
+  en: '1'
+- id: d
+  en: e
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DF7D417DEB2C
+  when_answer_equals:
+  - d
+- id: MC.A.C7431F5F3B12
+  when_answer_equals:
+  - b
+- id: MC.A.02DAAA318CBD
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The integral of 1/x from 1 to e is ln e minus ln 1, which is 1 minus 0, giving 1.
+- en: The correct option is c.
+tier: C
+diagram_note: Hyperbola y = 1/x between x = 1 and x = e, with the region between the curve and the horizontal axis shaded.

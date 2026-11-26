@@ -1,0 +1,46 @@
+id: A.12.chemistry.amines.amine_preparation.06
+skill_ids:
+- SK.A.12.chemistry.amine_preparation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which class of amine gives a foul smelling isocyanide in the carbylamine test?
+hints:
+- level: 1
+  en: The test forms an isocyanide with chloroform and an alcoholic base.
+- level: 2
+  en: Think about how many hydrogens the nitrogen must carry for this reaction.
+- level: 3
+  en: Consider which amine class carries two N-H bonds.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Quaternary ammonium salts
+- id: b
+  en: Tertiary amines
+- id: c
+  en: Secondary amines
+- id: d
+  en: Primary amines
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.844805A71A56
+  when_answer_equals:
+  - b
+  - c
+- id: MC.A.C15FA77CB1BC
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Only primary amines have the N-H2 pair needed to form the isocyanide with chloroform and alcoholic base.
+- en: The correct option is d.
+tier: C

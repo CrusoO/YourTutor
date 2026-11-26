@@ -1,0 +1,48 @@
+id: A.9.physics.sound.sound_production.03
+skill_ids:
+- SK.A.9.physics.sound_production
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A ringing bell's sound fades after a hand touches the bell. Why?
+hints:
+- level: 1
+  en: Ask what keeps the sound source producing disturbances.
+- level: 2
+  en: Think about what happens to the bell's motion when a hand touches it.
+- level: 3
+  en: Sound is only produced while the source is moving.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the bell heats up and then stops making sound
+- id: b
+  en: air pressure pushes the sound back to the bell
+- id: c
+  en: the bell's vibrations stop, so no more sound is produced
+- id: d
+  en: the bell's mass increases as the hand touches it
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4A9BE4B1E472
+  when_answer_equals:
+  - a
+- id: MC.A.CC8F5D17FBEB
+  when_answer_equals:
+  - b
+- id: MC.A.DB2108C81799
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Touching the bell damps its vibrations, so the source stops disturbing the air and the sound dies away.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.log_and_parametric_derivatives.01
+skill_ids:
+- SK.A.12.maths.log_and_parametric_derivatives
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If x = 2t and y = t^2, what is dy/dx?
+hints:
+- level: 1
+  en: Differentiate each variable separately with respect to the parameter.
+- level: 2
+  en: Divide the derivative of y by the derivative of x.
+- level: 3
+  en: Simplify the quotient and leave the answer in terms of t.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/t
+- id: b
+  en: t^2
+- id: c
+  en: t
+- id: d
+  en: 2t
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.106569624088
+  when_answer_equals:
+  - d
+- id: MC.A.7FE766525BB5
+  when_answer_equals:
+  - b
+- id: MC.A.48BB08BC2C8C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: dx/dt is 2 and dy/dt is 2t, so dy/dx equals 2t divided by 2, which is t.
+- en: The correct option is c.
+tier: C

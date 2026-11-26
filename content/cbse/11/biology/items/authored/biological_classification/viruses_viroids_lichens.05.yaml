@@ -1,0 +1,29 @@
+id: A.11.biology.biological_classification.viruses_viroids_lichens.05
+skill_ids:
+- SK.A.11.biology.viruses_viroids_lichens
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A virus population doubles every 30 minutes. Starting from 8 particles, how many particles are present after 90 minutes?
+hints:
+- level: 1
+  en: Count how many 30-minute steps fit into 90 minutes.
+- level: 2
+  en: Each doubling multiplies the number of particles by two.
+- level: 3
+  en: Start from the initial count and apply the doubling step repeatedly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '64'
+  accept: []
+solution_steps:
+- en: 'Ninety minutes contains three 30-minute intervals, so the count doubles three times: 8 becomes 16, then 32, then 64.'
+- en: Answer = 64
+tier: C

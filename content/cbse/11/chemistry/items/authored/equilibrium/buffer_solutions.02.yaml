@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.buffer_solutions.02
+skill_ids:
+- SK.A.11.chemistry.buffer_solutions
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What does the Henderson equation relate to the pH of a buffer?
+hints:
+- level: 1
+  en: The equation contains a logarithm of a ratio of conjugate base to acid.
+- level: 2
+  en: Look for the constant that describes the strength of the weak acid.
+- level: 3
+  en: The concentration term enters as a ratio, not as a single value.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pKa and the ratio of the salt to the acid concentrations
+- id: b
+  en: pKa and temperature only
+- id: c
+  en: Ka and the concentration of water
+- id: d
+  en: Kw and pOH
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B6C42C6676DD
+  when_answer_equals:
+  - b
+- id: MC.A.A29E0D92D30C
+  when_answer_equals:
+  - c
+- id: MC.A.B138DC50948A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The Henderson equation gives pH as pKa plus the logarithm of the ratio of conjugate base to weak acid concentrations.
+- en: The correct option is a.
+tier: C

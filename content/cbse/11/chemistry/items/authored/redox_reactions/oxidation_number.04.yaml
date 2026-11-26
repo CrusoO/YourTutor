@@ -1,0 +1,48 @@
+id: A.11.chemistry.redox_reactions.oxidation_number.04
+skill_ids:
+- SK.A.11.chemistry.oxidation_number
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the oxidation number of chromium in the dichromate ion, Cr2O7 2-?
+hints:
+- level: 1
+  en: Fix the oxidation number of oxygen first and find the total for the chromium atoms.
+- level: 2
+  en: Share the remaining charge equally among the chromium atoms in the ion.
+- level: 3
+  en: Divide the total for the metal by the number of metal atoms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '+12'
+- id: b
+  en: '+3'
+- id: c
+  en: '+6'
+- id: d
+  en: '+7'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.119C36B09356
+  when_answer_equals:
+  - b
+- id: MC.A.21E53D5CD7FD
+  when_answer_equals:
+  - d
+- id: MC.A.5775650768CB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Seven oxygens contribute minus fourteen in total, and the ion has minus two, so the two chromium atoms share plus twelve, giving plus six each.
+- en: The correct option is c.
+tier: C

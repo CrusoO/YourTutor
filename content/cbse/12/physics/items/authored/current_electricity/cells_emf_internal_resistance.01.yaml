@@ -1,0 +1,48 @@
+id: A.12.physics.current_electricity.cells_emf_internal_resistance.01
+skill_ids:
+- SK.A.12.physics.cells_emf_internal_resistance
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: When a cell delivers current to an external circuit, what is its terminal voltage?
+hints:
+- level: 1
+  en: Think about what the internal resistance does to the voltage when current flows.
+- level: 2
+  en: Consider whether the internal drop adds to or subtracts from the EMF.
+- level: 3
+  en: Recall how the internal voltage drop is written in terms of current.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: EMF minus the voltage drop across the internal resistance
+- id: b
+  en: EMF alone, whatever the current
+- id: c
+  en: Internal resistance times the EMF
+- id: d
+  en: EMF plus the voltage drop across the internal resistance
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A4DA4DF35858
+  when_answer_equals:
+  - d
+- id: MC.A.17DFAC3553E1
+  when_answer_equals:
+  - b
+- id: MC.A.EA69A92EECA0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The internal resistance drops some voltage when current flows, so the terminal voltage is the EMF minus that drop.
+- en: The correct option is a.
+tier: C

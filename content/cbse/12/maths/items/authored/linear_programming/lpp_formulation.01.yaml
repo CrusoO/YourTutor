@@ -1,0 +1,48 @@
+id: A.12.maths.linear_programming.lpp_formulation.01
+skill_ids:
+- SK.A.12.maths.lpp_formulation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A factory makes x chairs and y tables. Each chair gives a profit of 50 and each table a profit of 80. Which is the objective function?
+hints:
+- level: 1
+  en: The objective is the quantity to be optimised, here the total profit.
+- level: 2
+  en: Multiply the profit per item by the number of that item made.
+- level: 3
+  en: Check whether the problem asks for a maximum or a minimum.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Maximise Z = 50x - 80y
+- id: b
+  en: Maximise Z = x + y
+- id: c
+  en: Minimise Z = 50x + 80y
+- id: d
+  en: Maximise Z = 50x + 80y
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F517A7A9AE25
+  when_answer_equals:
+  - c
+- id: MC.A.9BC49FB76076
+  when_answer_equals:
+  - a
+- id: MC.A.51C67AC68A53
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The objective is the total profit, which is 50 per chair times x plus 80 per table times y, and the factory wants to maximise it.
+- en: The correct option is d.
+tier: C

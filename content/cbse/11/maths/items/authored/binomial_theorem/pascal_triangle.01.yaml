@@ -1,0 +1,49 @@
+id: A.11.maths.binomial_theorem.pascal_triangle.01
+skill_ids:
+- SK.A.11.maths.pascal_triangle
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In Pascal's triangle, which row holds the entries 1, 4, 6, 4 and 1 when rows are numbered from zero at the top?
+hints:
+- level: 1
+  en: Count the rows downward from the top, starting at zero.
+- level: 2
+  en: Compare the entries with the coefficients of a binomial expansion of the same power.
+- level: 3
+  en: Check how many entries that row has and match it to its power.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: row 3
+- id: b
+  en: row 4
+- id: c
+  en: row 6
+- id: d
+  en: row 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.DF8FCBB616D5
+  when_answer_equals:
+  - a
+- id: MC.A.4ECD85DD782F
+  when_answer_equals:
+  - d
+- id: MC.A.C15FBB1CE4AB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Row 4 of Pascal's triangle, numbered from zero, has entries 1, 4, 6, 4 and 1 that match the coefficients of (a + b) to the power 4.
+- en: The correct option is b.
+tier: C
+diagram_note: Top section of Pascal's triangle with rows labelled from zero at the apex, each row's entries shown in order, and the row with five entries highlighted.

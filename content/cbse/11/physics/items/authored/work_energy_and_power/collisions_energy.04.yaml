@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.collisions_energy.04
+skill_ids:
+- SK.A.11.physics.collisions_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In a head-on elastic collision between two bodies of equal mass, one initially at rest, what happens to the moving body?
+hints:
+- level: 1
+  en: Use conservation of momentum and conservation of kinetic energy together.
+- level: 2
+  en: Consider what happens to the first body's velocity when the two masses are identical.
+- level: 3
+  en: Check that the kinetic energy after the collision matches the energy before.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it stops and the other body moves off with its original speed
+- id: b
+  en: both bodies move off at half the original speed
+- id: c
+  en: both bodies stop
+- id: d
+  en: it keeps its speed and the other body stays at rest
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.CDB112CACB96
+  when_answer_equals:
+  - b
+- id: MC.A.F1B35A6A9A24
+  when_answer_equals:
+  - c
+- id: MC.A.616204423B3B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: With equal masses in an elastic head-on collision, momentum and kinetic energy are both conserved only if the velocities are exchanged, so the moving body stops.
+- en: The correct option is a.
+tier: C

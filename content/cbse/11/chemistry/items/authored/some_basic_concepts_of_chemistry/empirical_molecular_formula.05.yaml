@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.empirical_molecular_formula.05
+skill_ids:
+- SK.A.11.chemistry.empirical_molecular_formula
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A compound has a molar mass of 180 g/mol and an empirical formula of CH2O. What is its molecular formula?
+hints:
+- level: 1
+  en: Divide the given molar mass by the mass of one empirical unit.
+- level: 2
+  en: Multiply every subscript of the empirical formula by the whole number you obtained.
+- level: 3
+  en: Check that the total mass of the new formula matches the molar mass given.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: C6H12O6
+- id: b
+  en: CH2O
+- id: c
+  en: C3H6O3
+- id: d
+  en: C12H24O12
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.95C69DE129B4
+  when_answer_equals:
+  - b
+- id: MC.A.8E4021C37933
+  when_answer_equals:
+  - c
+- id: MC.A.42EDF52B4E4E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The empirical unit CH2O has a mass of 30 g/mol, and 180 divided by 30 is 6, so the molecular formula is C6H12O6.
+- en: The correct option is a.
+tier: C

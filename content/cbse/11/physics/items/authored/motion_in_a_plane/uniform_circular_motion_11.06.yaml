@@ -1,0 +1,50 @@
+id: A.11.physics.motion_in_a_plane.uniform_circular_motion_11.06
+skill_ids:
+- SK.A.11.physics.uniform_circular_motion_11
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A car takes a turn of radius 40 m at a steady speed. If its speed doubles while the radius stays the same, how does its centripetal acceleration change?
+hints:
+- level: 1
+  en: Centripetal acceleration depends on the speed through a power that is not one.
+- level: 2
+  en: Look at the formula that contains the speed squared.
+- level: 3
+  en: Doubling a number and then squaring it gives a result that is multiplied by the square of the factor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: stays the same
+- id: b
+  en: becomes twice as large
+- id: c
+  en: becomes half as large
+- id: d
+  en: becomes four times larger
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.E4E8E6B7ABE4
+  when_answer_equals:
+  - b
+- id: MC.A.08947CD3D5C7
+  when_answer_equals:
+  - a
+- id: MC.A.A2A2FEB7C550
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Centripetal acceleration is v squared over r.
+- en: Doubling v multiplies v squared by four, so the acceleration becomes four times larger.
+- en: The correct option is d.
+tier: C
+diagram_note: A road curve drawn as an arc of a circle. At one point on the arc the velocity arrow is tangential and the centripetal acceleration arrow points toward the centre.

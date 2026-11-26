@@ -1,0 +1,50 @@
+id: A.9.chemistry.is_matter_around_us_pure.separation_methods.05
+skill_ids:
+- SK.A.9.chemistry.separation_methods
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mixture contains common salt, sand and iron filings. Which sequence of steps separates all three components most efficiently?
+hints:
+- level: 1
+  en: Start with the component that has the most unusual physical property.
+- level: 2
+  en: Consider which component dissolves and which stays behind once water is added.
+- level: 3
+  en: Think about whether the liquid left after filtering can be recovered by heating.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: evaporate the whole mixture, filter the residue, then use a magnet
+- id: b
+  en: run the dry mixture through chromatography, then sieve it
+- id: c
+  en: use a magnet, then distil the mixture to remove the sand
+- id: d
+  en: remove the iron with a magnet, add water and filter off the sand, then evaporate the filtrate to recover the salt
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B5FE8D099745
+  when_answer_equals:
+  - a
+- id: MC.A.7554C6A6A956
+  when_answer_equals:
+  - c
+- id: MC.A.5A3BE4EB05F0
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The magnet removes the iron first because it is the only magnetic component.
+- en: Water dissolves the salt, filtration removes the sand, and evaporating the filtrate recovers the salt.
+- en: The order matters because each step leaves the next component easier to separate.
+- en: The correct option is d.
+tier: C

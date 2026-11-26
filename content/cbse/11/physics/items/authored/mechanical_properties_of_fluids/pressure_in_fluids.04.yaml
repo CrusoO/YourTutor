@@ -1,0 +1,48 @@
+id: A.11.physics.mechanical_properties_of_fluids.pressure_in_fluids.04
+skill_ids:
+- SK.A.11.physics.pressure_in_fluids
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'According to Pascal''s law, a pressure change applied to an enclosed fluid is transmitted to:'
+hints:
+- level: 1
+  en: Think of pressure as force per area inside a confined liquid.
+- level: 2
+  en: Consider whether the fluid can carry a pressure change away from its source.
+- level: 3
+  en: Think about how a hydraulic lift makes use of this effect.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: every part of the fluid and the walls, undiminished
+- id: b
+  en: only the point where it is applied
+- id: c
+  en: every part, but reduced with distance from the source
+- id: d
+  en: only the bottom of the container
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3E972C09D4E2
+  when_answer_equals:
+  - b
+- id: MC.A.0440760AFD5F
+  when_answer_equals:
+  - c
+- id: MC.A.FAA97098A39D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Pascal's law states that a pressure change in a confined fluid is transmitted undiminished throughout the fluid and to the walls of the container.
+- en: The correct option is a.
+tier: C

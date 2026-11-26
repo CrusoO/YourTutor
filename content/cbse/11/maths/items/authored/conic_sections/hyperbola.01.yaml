@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.hyperbola.01
+skill_ids:
+- SK.A.11.maths.hyperbola
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What are the asymptotes of the hyperbola x squared over 9 minus y squared over 16 equals 1?
+hints:
+- level: 1
+  en: Asymptotes are lines the hyperbola approaches but never reaches.
+- level: 2
+  en: Their slopes are the ratio of the semi-axes, with b on top and a below.
+- level: 3
+  en: Take the square roots of the denominators before forming the ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = plus or minus (4/3) x
+- id: b
+  en: y = plus or minus (9/16) x
+- id: c
+  en: y = plus or minus (16/9) x
+- id: d
+  en: y = plus or minus (3/4) x
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DA9C39B29038
+  when_answer_equals:
+  - d
+- id: MC.A.9BE63644ECCF
+  when_answer_equals:
+  - b
+- id: MC.A.8FA81E96D177
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The asymptotes of a hyperbola in this form are y equal to plus or minus b over a times x, and b over a is 4 over 3.
+- en: The correct option is a.
+tier: C
+diagram_note: Coordinate axes with a hyperbola opening left and right, and two dashed straight lines through the origin representing its asymptotes.

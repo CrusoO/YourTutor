@@ -1,0 +1,49 @@
+id: A.11.physics.gravitation.satellites_and_energy.04
+skill_ids:
+- SK.A.11.physics.satellites_and_energy
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: When a satellite moves from its orbit to a lower circular orbit, how does its total mechanical energy change?
+hints:
+- level: 1
+  en: Total energy depends on the orbital radius.
+- level: 2
+  en: Total energy is negative and grows in magnitude as the radius shrinks.
+- level: 3
+  en: A smaller radius makes the magnitude of the energy larger.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it becomes more negative, so the total energy decreases
+- id: b
+  en: it increases because the speed rises
+- id: c
+  en: it stays the same
+- id: d
+  en: it becomes positive
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0E8CDCAB05DD
+  when_answer_equals:
+  - b
+- id: MC.A.6892D588CD7A
+  when_answer_equals:
+  - c
+- id: MC.A.7CD528D1DE33
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Total energy in a circular orbit is minus G M m over 2r.
+- en: A smaller radius makes the total energy more negative, so it decreases.
+- en: The correct option is a.
+tier: C

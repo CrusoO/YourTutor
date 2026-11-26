@@ -1,0 +1,48 @@
+id: A.9.physics.motion.acceleration.04
+skill_ids:
+- SK.A.9.physics.acceleration
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A cart's velocity changes from 2 m/s east to 8 m/s west over 2 s. Taking east as positive, which statement about its acceleration is correct?
+hints:
+- level: 1
+  en: Take the final velocity minus the initial velocity, keeping the signs.
+- level: 2
+  en: Divide that change by the time taken.
+- level: 3
+  en: A negative result means the direction is opposite to the positive one you chose.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5 m/s2 directed west
+- id: b
+  en: 10 m/s2 directed east
+- id: c
+  en: 5 m/s2 directed east
+- id: d
+  en: 2 m/s2 directed west
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.755D344EFDC8
+  when_answer_equals:
+  - c
+- id: MC.A.B7F039FA361C
+  when_answer_equals:
+  - d
+- id: MC.A.5073E6D8EAE5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Using east as positive, the change is minus 10 m/s over 2 s, so the acceleration is minus 5 m/s2, which means 5 m/s2 directed west.
+- en: The correct option is a.
+tier: C

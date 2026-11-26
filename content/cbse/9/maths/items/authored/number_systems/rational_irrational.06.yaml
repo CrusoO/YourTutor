@@ -1,0 +1,30 @@
+id: A.9.maths.number_systems.rational_irrational.06
+skill_ids:
+- SK.A.9.maths.rational_irrational
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: The decimal 0.272727 with the two-digit block 27 repeating forever is written as a fraction p over q in lowest terms. What is q?
+hints:
+- level: 1
+  en: Let the number be a letter and multiply it by a power of ten that shifts one full block.
+- level: 2
+  en: Subtract the original number to remove the repeating part.
+- level: 3
+  en: Simplify the resulting fraction by its greatest common factor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '11'
+  accept: []
+solution_steps:
+- en: Let x equal the repeating decimal, so multiplying by one hundred and subtracting x gives 99x equal to 27.
+- en: The fraction 27 over 99 reduces to 3 over 11, so q is 11.
+- en: Answer = 11
+tier: C

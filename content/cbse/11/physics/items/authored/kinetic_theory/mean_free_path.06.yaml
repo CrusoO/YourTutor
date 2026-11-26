@@ -1,0 +1,49 @@
+id: A.11.physics.kinetic_theory.mean_free_path.06
+skill_ids:
+- SK.A.11.physics.mean_free_path
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The ideal gas model works well when the mean free path is small compared with the size of the container. Which statement best explains why?
+hints:
+- level: 1
+  en: Compare the typical path between collisions with the size of the box.
+- level: 2
+  en: Frequent collisions help the gas mix and share energy evenly.
+- level: 3
+  en: A very long path would mean the molecules hardly interact with one another.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: frequent collisions keep the gas well mixed, so the molecules behave like a uniform continuum
+- id: b
+  en: molecules rarely collide, so each one moves independently
+- id: c
+  en: the mean free path must be zero for an ideal gas
+- id: d
+  en: the mean free path must equal the molecular diameter
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8A25F505EFE4
+  when_answer_equals:
+  - b
+- id: MC.A.4984591C7C43
+  when_answer_equals:
+  - d
+- id: MC.A.02C2246A6FC1
+  when_answer_equals:
+  - c
+solution_steps:
+- en: When the mean free path is short compared with the container, collisions are frequent and the gas is well mixed.
+- en: This justifies treating its properties as uniform, though the exact limits depend on the context.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.physics.units_and_measurements.significant_figures_errors.02
+skill_ids:
+- SK.A.11.physics.significant_figures_errors
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A length of 2.3 m is added to a length of 1.764 m. Which value should be reported for the total?
+hints:
+- level: 1
+  en: Look at which measurement has the fewest decimal places.
+- level: 2
+  en: Only the decimal places of the least precise value limit the answer.
+- level: 3
+  en: Add the two lengths first, then round to that limit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4.06 m
+- id: b
+  en: 4.064 m
+- id: c
+  en: 4 m
+- id: d
+  en: 4.1 m
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D3B87EC646AD
+  when_answer_equals:
+  - b
+- id: MC.A.99FCEC14EB10
+  when_answer_equals:
+  - a
+- id: MC.A.F5AD93177AB9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: For addition, the answer has as many decimal places as the least precise value, which is 2.3 with one decimal place.
+- en: The sum 4.064 therefore becomes 4.1.
+- en: The correct option is d.
+tier: C

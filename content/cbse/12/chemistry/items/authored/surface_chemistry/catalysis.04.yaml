@@ -1,0 +1,49 @@
+id: A.12.chemistry.surface_chemistry.catalysis.04
+skill_ids:
+- SK.A.12.chemistry.catalysis
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which kind of catalysis uses zeolites to convert alcohols selectively into hydrocarbons of a particular shape?
+hints:
+- level: 1
+  en: Think about how the pore structure of a solid restricts which molecules can react.
+- level: 2
+  en: Consider whether the selectivity comes from the size of the openings in the catalyst.
+- level: 3
+  en: Compare the cases where a product speeds the reaction with the case where the pore size matters.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Photocatalysis
+- id: b
+  en: Shape-selective catalysis
+- id: c
+  en: Enzyme catalysis
+- id: d
+  en: Auto-catalysis
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D734FD492106
+  when_answer_equals:
+  - c
+- id: MC.A.548AB3981855
+  when_answer_equals:
+  - d
+- id: MC.A.D701052B05E9
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Zeolites have pores of fixed size, so only molecules of a suitable shape can enter and react.
+- en: This restricts which products form.
+- en: The correct option is b.
+tier: C

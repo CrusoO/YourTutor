@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.system_surroundings_state.06
+skill_ids:
+- SK.A.11.chemistry.system_surroundings_state
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For a system that is taken through a cyclic process and returns to its starting state, which quantity has a change of zero?
+hints:
+- level: 1
+  en: A cycle returns the system to its starting state.
+- level: 2
+  en: Think about which kinds of quantity depend only on the state of the system.
+- level: 3
+  en: Only state functions have zero net change around a closed loop.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: entropy of the surroundings
+- id: b
+  en: internal energy change
+- id: c
+  en: work done
+- id: d
+  en: heat absorbed
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5E9664B11E19
+  when_answer_equals:
+  - d
+- id: MC.A.1D603B4B7919
+  when_answer_equals:
+  - c
+- id: MC.A.3A54C93C10E5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Internal energy is a state function, so over a complete cycle that returns the system to its starting state its net change is zero, even though heat and work are not zero.
+- en: The correct option is b.
+tier: C

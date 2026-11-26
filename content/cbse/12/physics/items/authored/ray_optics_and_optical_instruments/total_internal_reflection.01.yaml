@@ -1,0 +1,48 @@
+id: A.12.physics.ray_optics_and_optical_instruments.total_internal_reflection.01
+skill_ids:
+- SK.A.12.physics.total_internal_reflection
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Total internal reflection can occur only when light travels in which way?
+hints:
+- level: 1
+  en: Think about which medium the light starts in for the condition to hold.
+- level: 2
+  en: Consider what the refracted ray would do at angles above the critical angle.
+- level: 3
+  en: Recall how the critical angle compares with the angle of incidence in this case.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: From vacuum into a metal at any angle
+- id: b
+  en: From a denser medium to a rarer medium, at an angle smaller than the critical angle
+- id: c
+  en: From a rarer medium to a denser medium, at any angle
+- id: d
+  en: From a denser medium to a rarer medium, at an angle greater than the critical angle
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DB2C7669CDFC
+  when_answer_equals:
+  - c
+- id: MC.A.A661BDEB847B
+  when_answer_equals:
+  - b
+- id: MC.A.7824111B5543
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Total internal reflection needs light in the denser medium and an angle of incidence larger than the critical angle, so that the refracted ray would have to leave at 90 degrees or more.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.linear_de.03
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Solve dy/dx + y/x = x with y(1) = 1. Find y(2), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Find the integrating factor from the coefficient of y, which is 1 over x.
+- level: 2
+  en: Multiply through and write the left side as the derivative of a product.
+- level: 3
+  en: Integrate, then apply the initial condition before evaluating at x equal to 2.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.667'
+  accept: []
+solution_steps:
+- en: The integrating factor is x, so d(xy)/dx = x^2 and xy = x^3/3 + C.
+- en: With y(1) = 1, C = 2/3, so y(2) = (8/3 + 2/3)/2 = 5/3, about 1.667.
+- en: Answer = 1.667
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.vector_applications.02
+skill_ids:
+- SK.A.12.maths.vector_applications
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the area of the parallelogram whose adjacent sides are a = i + j and b = i - j?
+hints:
+- level: 1
+  en: Compute the cross product of the two adjacent sides.
+- level: 2
+  en: The area of a parallelogram is the magnitude of that product.
+- level: 3
+  en: Check the third component of the cross product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: square root of 2
+- id: b
+  en: '2'
+- id: c
+  en: '1'
+- id: d
+  en: '0'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D3ECD1B56E87
+  when_answer_equals:
+  - c
+- id: MC.A.3CE1EC07F251
+  when_answer_equals:
+  - a
+- id: MC.A.F45A1F24494A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The cross product of (1, 1, 0) and (1, -1, 0) is (0, 0, -2), whose magnitude is 2, which is the parallelogram area.
+- en: The correct option is b.
+tier: C

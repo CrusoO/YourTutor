@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.adjoint_inverse.02
+skill_ids:
+- SK.A.12.maths.adjoint_inverse
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For a 2 by 2 matrix M with determinant 2, which expression gives the inverse of M?
+hints:
+- level: 1
+  en: Recall the formula for the inverse in terms of the adjoint.
+- level: 2
+  en: Identify which quantity goes in the numerator and which in the denominator.
+- level: 3
+  en: Check whether the determinant divides or multiplies the adjoint.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: adj M
+- id: b
+  en: 2 times adj M
+- id: c
+  en: M divided by 2
+- id: d
+  en: adj M divided by 2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.73686594BBAB
+  when_answer_equals:
+  - a
+- id: MC.A.CB47A3170F01
+  when_answer_equals:
+  - b
+- id: MC.A.4950A6226F0B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The inverse of an invertible matrix equals its adjoint divided by its determinant, and here the determinant is 2.
+- en: The correct option is d.
+tier: C

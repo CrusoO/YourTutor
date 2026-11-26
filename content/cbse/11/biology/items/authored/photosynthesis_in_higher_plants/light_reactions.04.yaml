@@ -1,0 +1,50 @@
+id: A.11.biology.photosynthesis_in_higher_plants.light_reactions.04
+skill_ids:
+- SK.A.11.biology.light_reactions
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which order describes electron flow in non-cyclic photophosphorylation?
+hints:
+- level: 1
+  en: Electrons come from the splitting of water.
+- level: 2
+  en: Electrons move through photosystem II before photosystem I.
+- level: 3
+  en: The final acceptor of the electrons is a carrier that becomes reduced.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Photosystem I to water, then photosystem II
+- id: b
+  en: Water to photosystem II, then photosystem I, then NADP+ to NADPH
+- id: c
+  en: NADP+ to photosystem I, then photosystem II, then water
+- id: d
+  en: Water directly to NADP+ without any photosystem
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.0DB351FD9FAC
+  when_answer_equals:
+  - c
+- id: MC.A.E8BC94C9D1FD
+  when_answer_equals:
+  - a
+- id: MC.A.193DAED6FBE8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Electrons from split water enter photosystem II, pass along the transport chain to photosystem I, and finally reduce NADP+ to NADPH.
+- en: Each photosystem is energised by light in turn.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw a Z-scheme with water splitting at photosystem II on the left, electrons passing through the transport chain to photosystem I, and then to NADP+ on the right, labelling each carrier.

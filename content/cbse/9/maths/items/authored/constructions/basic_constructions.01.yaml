@@ -1,0 +1,49 @@
+id: A.9.maths.constructions.basic_constructions.01
+skill_ids:
+- SK.A.9.maths.basic_constructions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which compass and straightedge method gives the perpendicular bisector of a segment?
+hints:
+- level: 1
+  en: Think about which points are equally far from both ends.
+- level: 2
+  en: Arcs of equal radius from each end create two crossing points.
+- level: 3
+  en: The line through those two points cuts the segment at right angles.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Draw arcs of equal radius from both ends, then join the two points where the arcs cross.
+- id: b
+  en: Draw the bisector of the angle at one end of the segment.
+- id: c
+  en: Measure the segment with a protractor and mark half of it.
+- id: d
+  en: Draw one arc from an end and mark the midpoint by eye.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.27386DAD1D9E
+  when_answer_equals:
+  - d
+- id: MC.A.EFF6B8E8880C
+  when_answer_equals:
+  - b
+- id: MC.A.CD1A473965EC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Equal arcs from both ends cross at two points, and the line through those points is the perpendicular bisector of the segment.
+- en: The correct option is a.
+tier: C
+diagram_note: A horizontal segment with equal arcs drawn from each end crossing above and below it, and the line joining the crossings.

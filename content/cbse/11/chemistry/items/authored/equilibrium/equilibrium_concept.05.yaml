@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_concept.05
+skill_ids:
+- SK.A.11.chemistry.equilibrium_concept
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Kp and Kc for the reaction 2 SO2 + O2 <=> 2 SO3 differ by a factor. Which factor relates Kp to Kc?
+hints:
+- level: 1
+  en: Compare the total moles of gaseous products with the total moles of gaseous reactants.
+- level: 2
+  en: The exponent on RT is the change in gas moles across the equation.
+- level: 3
+  en: A negative change means the exponent is negative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (RT) to the power minus one
+- id: b
+  en: (RT) to the power minus two
+- id: c
+  en: (RT) to the power plus one
+- id: d
+  en: one, since gases have no pressure effect
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.29A3297F2E84
+  when_answer_equals:
+  - c
+- id: MC.A.0154D9B32FD5
+  when_answer_equals:
+  - d
+- id: MC.A.CD7E86E6EB44
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Kp equals Kc times (RT) raised to the change in gas moles, and here the gas moles fall from three to two, so the change is minus one.
+- en: The correct option is a.
+tier: C

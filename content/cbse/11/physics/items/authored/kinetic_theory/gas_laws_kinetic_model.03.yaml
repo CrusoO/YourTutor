@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.gas_laws_kinetic_model.03
+skill_ids:
+- SK.A.11.physics.gas_laws_kinetic_model
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A fixed amount of ideal gas at constant temperature is compressed so that its volume is halved. What happens to its pressure?
+hints:
+- level: 1
+  en: Molecules strike a smaller wall area more often in a smaller box.
+- level: 2
+  en: Pressure depends on how often and how hard molecules strike the walls.
+- level: 3
+  en: Compare the number of molecules per unit volume in the two cases.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it stays constant
+- id: b
+  en: it quadruples
+- id: c
+  en: it doubles
+- id: d
+  en: it halves
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.040208284E24
+  when_answer_equals:
+  - d
+- id: MC.A.AE6086E822E9
+  when_answer_equals:
+  - a
+- id: MC.A.60FE3E571F6C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: At constant temperature the pressure is inversely proportional to volume, so halving the volume doubles the pressure.
+- en: The correct option is c.
+tier: C

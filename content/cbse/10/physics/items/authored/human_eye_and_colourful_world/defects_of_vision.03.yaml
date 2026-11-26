@@ -1,0 +1,51 @@
+id: A.10.physics.human_eye_and_colourful_world.defects_of_vision.03
+skill_ids:
+- SK.A.10.physics.defects_of_vision
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In myopia, where is the image of a distant object formed when the eye is not corrected?
+hints:
+- level: 1
+  en: Think about whether the rays converge too early or too late.
+- level: 2
+  en: Ask where the retina is relative to the point where the rays meet.
+- level: 3
+  en: Compare with the case where a near object is blurred in hypermetropia.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: At the surface of the cornea
+- id: b
+  en: Exactly on the retina
+- id: c
+  en: In front of the retina
+- id: d
+  en: Behind the retina
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DBDDD65BB526
+  when_answer_equals:
+  - d
+- id: MC.A.893E50D3DF67
+  when_answer_equals:
+  - b
+- id: MC.A.EC5988BEA9AE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In myopia, the eye lens is too convergent or the eyeball is too long.
+- en: Rays from a distant object meet in front of the retina, so the retina receives a blurred image.
+- en: A diverging lens is used to move the image back onto the retina.
+- en: The correct option is c.
+tier: C
+diagram_note: Side view of an eye with the retina drawn as a curved line at the back. Parallel rays from a distant object enter the eye and meet at a point in front of the retina. Label that point as the image and mark the retina with a dotted line.

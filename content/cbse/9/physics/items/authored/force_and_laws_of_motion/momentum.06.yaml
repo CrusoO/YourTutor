@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.momentum.06
+skill_ids:
+- SK.A.9.physics.momentum
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A ball's momentum doubles while its mass stays the same. What happens to its kinetic energy?
+hints:
+- level: 1
+  en: Write kinetic energy in terms of momentum and mass.
+- level: 2
+  en: The energy depends on momentum squared.
+- level: 3
+  en: Divide momentum squared by twice the mass.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it becomes half as large
+- id: b
+  en: it doubles
+- id: c
+  en: it stays the same
+- id: d
+  en: it becomes four times as large
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.55CACE59154F
+  when_answer_equals:
+  - b
+- id: MC.A.758434BAE9DC
+  when_answer_equals:
+  - c
+- id: MC.A.0B207F66DC1D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Kinetic energy equals momentum squared divided by twice the mass, so doubling the momentum multiplies the energy by four.
+- en: The correct option is d.
+tier: C

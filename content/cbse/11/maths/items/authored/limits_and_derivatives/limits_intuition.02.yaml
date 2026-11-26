@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.limits_intuition.02
+skill_ids:
+- SK.A.11.maths.limits_intuition
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the limit of (x squared minus 9) divided by (x minus 3) as x approaches 3?
+hints:
+- level: 1
+  en: Direct substitution gives an indeterminate form, so simplify first.
+- level: 2
+  en: Factor the numerator as a difference of two squares.
+- level: 3
+  en: Cancel the common factor and then substitute the point into what remains.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '0'
+- id: c
+  en: undefined
+- id: d
+  en: '9'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2881FFEBA152
+  when_answer_equals:
+  - b
+- id: MC.A.FC95BEEFB315
+  when_answer_equals:
+  - d
+- id: MC.A.0C35C6161589
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The numerator factors as (x minus 3)(x plus 3), so the common factor cancels and the limit is 3 plus 3, which is 6.
+- en: The correct option is a.
+tier: C

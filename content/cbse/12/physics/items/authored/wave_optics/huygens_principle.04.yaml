@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.huygens_principle.04
+skill_ids:
+- SK.A.12.physics.huygens_principle
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does a wavefront change direction when it enters a medium in which its speed is lower?
+hints:
+- level: 1
+  en: Think about which part of the wavefront reaches the boundary first.
+- level: 2
+  en: Consider what happens to the lagging part of the front in the slower medium.
+- level: 3
+  en: Recall whether the frequency of a wave changes when it crosses a boundary.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The wave stops at the boundary and restarts
+- id: b
+  en: The frequency of the wave decreases in the new medium
+- id: c
+  en: Different parts of the wavefront slow down at different times, so the front turns
+- id: d
+  en: The wave speeds up, which makes it bend
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.653D506D0FED
+  when_answer_equals:
+  - b
+- id: MC.A.AF7067DDD74A
+  when_answer_equals:
+  - d
+- id: MC.A.7D33C1BBDE5B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: When one part of the wavefront enters the slower medium before the rest, that part lags behind and the whole front turns towards the normal.
+- en: The correct option is c.
+tier: C

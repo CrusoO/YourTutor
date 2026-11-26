@@ -1,0 +1,29 @@
+id: A.12.maths.probability.random_variables_distribution.03
+skill_ids:
+- SK.A.12.maths.random_variables_distribution
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For a random variable X with P(X = 0) = 0.2, P(X = 1) = 0.5 and P(X = 2) = 0.3, find Var(X).
+hints:
+- level: 1
+  en: Compute the mean first.
+- level: 2
+  en: Find the expected value of the squares of the values.
+- level: 3
+  en: Subtract the square of the mean from that expected value.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.49'
+  accept: []
+solution_steps:
+- en: The mean is 1.1 and E(X squared) is 0 + 0.5 + 1.2 = 1.7, so the variance is 1.7 minus 1.1 squared, which is 1.7 minus 1.21, equal to 0.49.
+- en: Answer = 0.49
+tier: C

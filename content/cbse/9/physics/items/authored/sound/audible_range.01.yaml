@@ -1,0 +1,48 @@
+id: A.9.physics.sound.audible_range.01
+skill_ids:
+- SK.A.9.physics.audible_range
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: The audible frequency range for a typical young human is roughly
+hints:
+- level: 1
+  en: The range is measured in hertz and starts at a low tone.
+- level: 2
+  en: The upper limit is much larger than a few thousand hertz.
+- level: 3
+  en: The upper end of hearing is far beyond ordinary speech.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 200 Hz to 2000 Hz
+- id: b
+  en: 20 Hz to 20000 Hz
+- id: c
+  en: 1 Hz to 200 Hz
+- id: d
+  en: 20 kHz to 200 kHz
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B83B13248FBA
+  when_answer_equals:
+  - c
+- id: MC.A.07A4B675509D
+  when_answer_equals:
+  - a
+- id: MC.A.9180E60B26DF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Humans typically hear frequencies from about 20 Hz to about 20000 Hz, and the upper limit falls with age.
+- en: The correct option is b.
+tier: C

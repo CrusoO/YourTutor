@@ -1,0 +1,48 @@
+id: A.9.maths.linear_equations_two_variables.solutions_of_linear_equations.01
+skill_ids:
+- SK.A.9.maths.solutions_of_linear_equations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Is the ordered pair (2, 3) a solution of the equation x + 2y = 8?
+hints:
+- level: 1
+  en: Substitute the first value for x and the second value for y.
+- level: 2
+  en: Multiply the coefficient of y by the given value of y.
+- level: 3
+  en: Compare the left-hand side with the constant on the right.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Yes, because the coordinates add up to 5.
+- id: b
+  en: Yes, because 2 plus 2 times 3 equals 8.
+- id: c
+  en: No, because y should be negative.
+- id: d
+  en: No, because the values are too small.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5D118619590E
+  when_answer_equals:
+  - d
+- id: MC.A.2D725D459B49
+  when_answer_equals:
+  - c
+- id: MC.A.2412996C0F2E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Substituting x equal to 2 and y equal to 3 gives 2 plus 6, which equals 8, so the pair satisfies the equation.
+- en: The correct option is b.
+tier: C

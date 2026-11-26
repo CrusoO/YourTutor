@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_preparation.02
+skill_ids:
+- SK.A.12.chemistry.amine_preparation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: The Gabriel phthalimide synthesis gives which class of amine?
+hints:
+- level: 1
+  en: The phthalimide nitrogen is only mono alkylated before it is released.
+- level: 2
+  en: Think about whether the product can react with the alkyl halide again.
+- level: 3
+  en: Consider which class of amine the release step gives.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Secondary amines
+- id: b
+  en: Tertiary amines
+- id: c
+  en: Primary amines
+- id: d
+  en: Quaternary ammonium salts
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.99582E25A1FB
+  when_answer_equals:
+  - a
+- id: MC.A.AB22847F3700
+  when_answer_equals:
+  - b
+- id: MC.A.9167B3C436CF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The phthalimide nitrogen is alkylated only once because the product is released by hydrolysis, which gives a clean primary amine.
+- en: The correct option is c.
+tier: C

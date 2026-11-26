@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.collisions_energy.01
+skill_ids:
+- SK.A.11.physics.collisions_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a perfectly inelastic collision, which quantity is conserved?
+hints:
+- level: 1
+  en: Check which quantity survives the impact when no external force acts.
+- level: 2
+  en: Kinetic energy may turn into heat or sound during a sticky collision.
+- level: 3
+  en: Think about the quantity that depends on mass and velocity together.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: velocity of each body
+- id: b
+  en: kinetic energy
+- id: c
+  en: momentum
+- id: d
+  en: mass of each body
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.34EE36F822F6
+  when_answer_equals:
+  - b
+- id: MC.A.8ADBB2774735
+  when_answer_equals:
+  - a
+- id: MC.A.9F14797408F1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In a perfectly inelastic collision the bodies stick together, so kinetic energy is lost, but the total momentum is still conserved.
+- en: The correct option is c.
+tier: C

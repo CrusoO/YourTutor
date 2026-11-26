@@ -1,0 +1,49 @@
+id: A.12.physics.electric_charges_and_fields.gauss_law.04
+skill_ids:
+- SK.A.12.physics.gauss_law
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A conducting sphere of radius R carries a total charge Q. At a point outside the sphere at distance r from its centre, what is the magnitude of the electric field?
+hints:
+- level: 1
+  en: Think about how the sphere looks from a point far away from it.
+- level: 2
+  en: Consider where the total charge sits on a conducting sphere.
+- level: 3
+  en: Compare with the field formula for a point charge.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Q divided by 4 pi epsilon zero r
+- id: b
+  en: Q divided by 4 pi epsilon zero times the square of the sphere radius
+- id: c
+  en: Q divided by 4 pi epsilon zero r squared
+- id: d
+  en: Zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4F704254499C
+  when_answer_equals:
+  - b
+- id: MC.A.6A1CDFCAB741
+  when_answer_equals:
+  - a
+- id: MC.A.C6F41163B6F7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Outside a charged sphere the field is the same as that of a point charge placed at its centre.
+- en: It therefore falls off with the square of the distance from the centre.
+- en: The correct option is c.
+tier: C

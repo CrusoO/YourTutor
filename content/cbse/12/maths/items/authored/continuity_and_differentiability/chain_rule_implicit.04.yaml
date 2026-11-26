@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.chain_rule_implicit.04
+skill_ids:
+- SK.A.12.maths.chain_rule_implicit
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: For y = x^x with x greater than 0, which expression gives dy/dx?
+hints:
+- level: 1
+  en: Take the natural logarithm of both sides first.
+- level: 2
+  en: Differentiate the logarithm of y using the product rule.
+- level: 3
+  en: Solve for dy/dx and substitute y back in terms of x.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x^x times (ln x)^2
+- id: b
+  en: x^x times (1 + ln x)
+- id: c
+  en: x^x times ln x
+- id: d
+  en: x times x^(x - 1)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F0B8853054F8
+  when_answer_equals:
+  - c
+- id: MC.A.90FADA695DFE
+  when_answer_equals:
+  - d
+- id: MC.A.C9BDA48C8267
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Taking logarithms gives ln y = x ln x, and differentiating implicitly gives dy/dx equal to y times (ln x + 1), which is x^x times (1 + ln x).
+- en: The correct option is b.
+tier: C

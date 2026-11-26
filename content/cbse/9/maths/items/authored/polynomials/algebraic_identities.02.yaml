@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.algebraic_identities.02
+skill_ids:
+- SK.A.9.maths.algebraic_identities
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which is the expansion of (y - 4)(y + 4)?
+hints:
+- level: 1
+  en: Recognise the form of a sum multiplied by a difference.
+- level: 2
+  en: Cross terms with opposite signs cancel out.
+- level: 3
+  en: Square each of the two terms in the product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y^2 - 16
+- id: b
+  en: y^2 + 16
+- id: c
+  en: y^2 - 8
+- id: d
+  en: y^2 - 8y + 16
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C9368FDAB676
+  when_answer_equals:
+  - b
+- id: MC.A.71B93E5EEC47
+  when_answer_equals:
+  - c
+- id: MC.A.F9FD8A00075F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: This is a difference of squares, so y squared minus four squared gives y squared minus 16, with the cross terms cancelling.
+- en: The correct option is a.
+tier: C

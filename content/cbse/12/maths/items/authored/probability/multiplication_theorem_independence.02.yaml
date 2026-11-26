@@ -1,0 +1,48 @@
+id: A.12.maths.probability.multiplication_theorem_independence.02
+skill_ids:
+- SK.A.12.maths.multiplication_theorem_independence
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression is the multiplication theorem for two events A and B?
+hints:
+- level: 1
+  en: Recall the multiplication theorem for two events.
+- level: 2
+  en: Start with the probability of A and multiply by the conditional probability of B.
+- level: 3
+  en: Check that the expression uses the joint probability on the left.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: P(A and B) = P(A) times P(B given A)
+- id: b
+  en: P(A and B) = P(A given B)
+- id: c
+  en: P(A and B) = P(A) + P(B)
+- id: d
+  en: P(A and B) = P(A) + P(B) - P(A or B)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.379AFF399338
+  when_answer_equals:
+  - c
+- id: MC.A.8A8475E0E094
+  when_answer_equals:
+  - d
+- id: MC.A.E037254AAE3A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The multiplication theorem states that the probability of both events equals the probability of A times the conditional probability of B given A.
+- en: The correct option is a.
+tier: C

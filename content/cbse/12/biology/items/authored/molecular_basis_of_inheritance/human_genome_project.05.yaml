@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.human_genome_project.05
+skill_ids:
+- SK.A.12.biology.human_genome_project
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A forensic sample has been degraded into small DNA fragments. Which change to the fingerprinting method is most likely to help?
+hints:
+- level: 1
+  en: Consider which DNA pieces survive when a sample is broken down.
+- level: 2
+  en: Think about how amplification helps when material is scarce.
+- level: 3
+  en: Compare the size of the regions you target with the size of the surviving fragments.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Ignoring the sample because it is small
+- id: b
+  en: Increasing the gel run to reach larger fragments
+- id: c
+  en: Using only protein markers from the sample
+- id: d
+  en: Targeting shorter repeat regions with PCR
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DF3CE6D0CF5A
+  when_answer_equals:
+  - c
+- id: MC.A.F288E3E9A838
+  when_answer_equals:
+  - b
+- id: MC.A.23A424015EAF
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Shorter target regions survive degradation better, and PCR can amplify them from very small amounts of DNA.
+- en: Long fragments are the first to be lost.
+- en: The correct option is d.
+tier: C

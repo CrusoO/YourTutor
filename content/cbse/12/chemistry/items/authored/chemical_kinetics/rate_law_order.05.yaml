@@ -1,0 +1,31 @@
+id: A.12.chemistry.chemical_kinetics.rate_law_order.05
+skill_ids:
+- SK.A.12.chemistry.rate_law_order
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A reaction has rate = k[A]^2[B]. At 0.005 mol/L/s with [A] = 0.1 mol/L and [B] = 0.1 mol/L, what is the rate in mol/L/s when [A] is 0.2 mol/L and [B] is 0.3 mol/L?
+hints:
+- level: 1
+  en: Find the factor by which each concentration changes and raise it to the matching order.
+- level: 2
+  en: Multiply the factors from each reactant together.
+- level: 3
+  en: Apply the combined factor to the given starting rate.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.06'
+  accept: []
+solution_steps:
+- en: Doubling [A] multiplies the rate by 4, and tripling [B] multiplies it by 3.
+- en: The combined factor of 12 applied to 0.005 gives 0.06 mol/L/s.
+- en: The unit of the answer is mol/L/s.
+- en: Answer = 0.06
+tier: C

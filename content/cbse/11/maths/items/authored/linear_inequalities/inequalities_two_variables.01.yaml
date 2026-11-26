@@ -1,0 +1,49 @@
+id: A.11.maths.linear_inequalities.inequalities_two_variables.01
+skill_ids:
+- SK.A.11.maths.inequalities_two_variables
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which point lies in the solution region of the inequality x + y less than or equal to 4?
+hints:
+- level: 1
+  en: Substitute each candidate point into the inequality and simplify.
+- level: 2
+  en: Compare the resulting sum with the bound given in the inequality.
+- level: 3
+  en: Check whether the boundary itself is part of the region.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (4, 1)
+- id: b
+  en: (1, 2)
+- id: c
+  en: (2, 4)
+- id: d
+  en: (3, 3)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.004FA1A5D82F
+  when_answer_equals:
+  - d
+- id: MC.A.BEC56426CA8B
+  when_answer_equals:
+  - a
+- id: MC.A.E1476B29797A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The point (1, 2) gives a sum of 3, which is at most 4, so it lies in the region.
+- en: The correct option is b.
+tier: C
+diagram_note: Coordinate axes with the boundary line x plus y equal to 4 drawn as a solid line, and a candidate point marked on each side of it.

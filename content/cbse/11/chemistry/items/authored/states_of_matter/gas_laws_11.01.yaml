@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.gas_laws_11.01
+skill_ids:
+- SK.A.11.chemistry.gas_laws_11
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What does Boyle's law state about a fixed amount of gas at constant temperature?
+hints:
+- level: 1
+  en: When one variable goes up at constant temperature, consider what the other must do.
+- level: 2
+  en: Think about the product of the two quantities staying the same.
+- level: 3
+  en: Consider what happens to the gas molecules when the container shrinks.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pressure is inversely proportional to volume
+- id: b
+  en: volume is proportional to absolute temperature
+- id: c
+  en: pressure is directly proportional to volume
+- id: d
+  en: pressure doubles whenever volume doubles
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E006B38D7F8E
+  when_answer_equals:
+  - c
+- id: MC.A.1DCD20E18C49
+  when_answer_equals:
+  - b
+- id: MC.A.536409EC2A4D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At constant temperature the product of pressure and volume stays fixed, so halving the volume doubles the pressure.
+- en: The correct option is a.
+tier: C

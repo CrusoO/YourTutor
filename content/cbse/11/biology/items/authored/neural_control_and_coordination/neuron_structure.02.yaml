@@ -1,0 +1,48 @@
+id: A.11.biology.neural_control_and_coordination.neuron_structure.02
+skill_ids:
+- SK.A.11.biology.neuron_structure
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the approximate resting membrane potential of a typical neuron?
+hints:
+- level: 1
+  en: At rest the inside of the membrane is negative relative to the outside.
+- level: 2
+  en: Think about the potassium leak that helps make the inside negative.
+- level: 3
+  en: The value lies in the negative tens of millivolts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 0 mV
+- id: b
+  en: -20 mV
+- id: c
+  en: -70 mV
+- id: d
+  en: +40 mV
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8DA3F06AD64B
+  when_answer_equals:
+  - d
+- id: MC.A.03966344BAF2
+  when_answer_equals:
+  - a
+- id: MC.A.2E5F22E6D563
+  when_answer_equals:
+  - b
+solution_steps:
+- en: At rest the inside of the neuron is about 70 mV negative relative to the outside, maintained by the sodium-potassium pump and leaky potassium channels.
+- en: The correct option is c.
+tier: C

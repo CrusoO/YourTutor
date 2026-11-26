@@ -1,0 +1,49 @@
+id: A.9.chemistry.atoms_and_molecules.chemical_formulae.06
+skill_ids:
+- SK.A.9.chemistry.chemical_formulae
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Magnesium forms a 2+ ion in both magnesium oxide and magnesium chloride. Which statement explains why the two formulas differ?
+hints:
+- level: 1
+  en: Compare the charge on each negative ion with the charge on the magnesium ion.
+- level: 2
+  en: Ask how many chloride ions are needed to cancel the charge of one magnesium ion.
+- level: 3
+  en: Consider whether the charge on the magnesium ion changes between the two compounds.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the formulas differ only because of the order of the symbols
+- id: b
+  en: oxide and chloride carry the same charge, so the formulas should be identical
+- id: c
+  en: oxide carries a 2- charge but chloride carries a 1- charge, so different numbers of each ion are needed
+- id: d
+  en: magnesium changes its charge in each compound
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E9A34EF69968
+  when_answer_equals:
+  - b
+- id: MC.A.C2B2F1090B6E
+  when_answer_equals:
+  - d
+- id: MC.A.3B67D184A934
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Magnesium oxide has one Mg2+ and one O2- ion, giving MgO.
+- en: Magnesium chloride needs two Cl- ions for each Mg2+ ion, giving MgCl2.
+- en: The correct option is c.
+tier: C

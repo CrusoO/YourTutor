@@ -1,0 +1,48 @@
+id: A.12.maths.probability.conditional_probability.06
+skill_ids:
+- SK.A.12.maths.conditional_probability
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: P(A) = 0.3 and P(B) = 0.4, and P(A given B) = 0.3. Which statement is correct?
+hints:
+- level: 1
+  en: Compare P(A given B) with P(A) itself.
+- level: 2
+  en: If conditioning on the other event changes nothing, what does that say about the events?
+- level: 3
+  en: Check the product of the two probabilities against the joint probability.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: P(A and B) = 0.7
+- id: b
+  en: P(B given A) = 0.1, so A and B are dependent
+- id: c
+  en: A and B are independent
+- id: d
+  en: A and B are mutually exclusive
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6751F593AD10
+  when_answer_equals:
+  - d
+- id: MC.A.429B36A8E221
+  when_answer_equals:
+  - a
+- id: MC.A.B76D577415A9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Since P(A given B) equals P(A), conditioning on B changes nothing, so the events are independent and P(A and B) = 0.12.
+- en: The correct option is c.
+tier: C

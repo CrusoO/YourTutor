@@ -1,0 +1,48 @@
+id: A.11.maths.probability.sample_space_events.06
+skill_ids:
+- SK.A.11.maths.sample_space_events
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A bag holds one red ball and one blue ball. Two balls are drawn one after another without replacement. Which set is the sample space when order matters?
+hints:
+- level: 1
+  en: Consider which balls can be drawn on the second attempt after the first is removed.
+- level: 2
+  en: Record each outcome as an ordered pair showing the first and second ball.
+- level: 3
+  en: Check whether a ball can appear twice in one outcome.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the two outcomes R and B
+- id: b
+  en: the single outcome RB
+- id: c
+  en: the two outcomes RB and BR
+- id: d
+  en: all four outcomes RR, BB, RB and BR
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F8492D0322EA
+  when_answer_equals:
+  - d
+- id: MC.A.79A209CB1967
+  when_answer_equals:
+  - a
+- id: MC.A.D9E69E21503B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Without replacement the two draws must be different balls, so the sample space is the ordered pairs RB and BR.
+- en: The correct option is c.
+tier: C

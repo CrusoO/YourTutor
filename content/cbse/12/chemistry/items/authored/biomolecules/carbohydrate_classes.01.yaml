@@ -1,0 +1,49 @@
+id: A.12.chemistry.biomolecules.carbohydrate_classes.01
+skill_ids:
+- SK.A.12.chemistry.carbohydrate_classes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which disaccharide is a reducing sugar?
+hints:
+- level: 1
+  en: Check whether the anomeric carbon of each unit is free to open into an aldehyde.
+- level: 2
+  en: Consider which disaccharide has a free hemiacetal group.
+- level: 3
+  en: Think about how the two units are linked in each disaccharide.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Trehalose
+- id: b
+  en: Starch
+- id: c
+  en: Maltose
+- id: d
+  en: Sucrose
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C60748A72695
+  when_answer_equals:
+  - d
+- id: MC.A.CDA536EB65C3
+  when_answer_equals:
+  - a
+- id: MC.A.FC3C141C2288
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Maltose has one free anomeric carbon that can open to an aldehyde, so it reduces.
+- en: Sucrose has both anomeric carbons tied in the glycosidic link and does not reduce.
+- en: The correct option is c.
+tier: C

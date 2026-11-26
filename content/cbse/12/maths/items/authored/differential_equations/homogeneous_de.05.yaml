@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.homogeneous_de.05
+skill_ids:
+- SK.A.12.maths.homogeneous_de
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Solve dy/dx = (y^2 + xy)/x^2 with y(1) = 1/2. Find y(e), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Put y = vx and simplify the equation for v.
+- level: 2
+  en: Separate the equation in v and x and integrate.
+- level: 3
+  en: Apply the initial condition before evaluating at the requested point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2.718'
+  accept: []
+solution_steps:
+- en: With y = vx, x dv/dx = v^2, so -1/v = ln x + C.
+- en: From v(1) = 1/2 we get C = -2, which gives v = 1/(2 - ln x), so y(e) = e, about 2.718.
+- en: Answer = 2.718
+tier: C

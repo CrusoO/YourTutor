@@ -1,0 +1,48 @@
+id: A.9.maths.euclid_geometry.fifth_postulate.04
+skill_ids:
+- SK.A.9.maths.fifth_postulate
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Two straight lines are cut by a transversal, and the interior angles on one side sum to exactly 180 degrees. What does the fifth postulate suggest about the lines on that side?
+hints:
+- level: 1
+  en: Recall the condition on the angle sum that makes the lines meet.
+- level: 2
+  en: Compare the given sum with that condition.
+- level: 3
+  en: Decide whether the given sum satisfies the meeting condition.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are perpendicular to each other.
+- id: b
+  en: They do not meet on that side.
+- id: c
+  en: They meet on that side.
+- id: d
+  en: They meet on the opposite side only.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A79C29B66223
+  when_answer_equals:
+  - c
+- id: MC.A.0CFAA93AA895
+  when_answer_equals:
+  - a
+- id: MC.A.0EFDF9FDD4B1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The postulate says the lines meet on a side where the interior angles sum to less than 180 degrees, so a sum of exactly 180 degrees means they do not meet there.
+- en: The correct option is b.
+tier: C

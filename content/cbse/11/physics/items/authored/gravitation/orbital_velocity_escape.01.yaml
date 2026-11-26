@@ -1,0 +1,48 @@
+id: A.11.physics.gravitation.orbital_velocity_escape.01
+skill_ids:
+- SK.A.11.physics.orbital_velocity_escape
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the escape velocity from a planet?
+hints:
+- level: 1
+  en: Escape means getting arbitrarily far from the planet.
+- level: 2
+  en: Think of the energy needed to climb out of the gravitational well.
+- level: 3
+  en: The question asks about leaving the planet, not about circling it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the speed of the planet's rotation at the equator
+- id: b
+  en: the maximum speed a satellite can have in orbit
+- id: c
+  en: the minimum speed needed to leave its gravitational pull, reaching infinity with no bound energy
+- id: d
+  en: the speed needed to stay in a circular orbit close to the surface
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8A8816EF9081
+  when_answer_equals:
+  - d
+- id: MC.A.F49BEA20F520
+  when_answer_equals:
+  - a
+- id: MC.A.F0438837CE2F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Escape velocity is the minimum launch speed for an object to reach infinity with zero total energy, so it leaves the planet's gravity completely.
+- en: The correct option is c.
+tier: C

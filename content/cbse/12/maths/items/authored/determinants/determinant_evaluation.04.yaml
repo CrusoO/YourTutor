@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.determinant_evaluation.04
+skill_ids:
+- SK.A.12.maths.determinant_evaluation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: For which value of k is the determinant of [[k, 1], [4, k]] equal to zero?
+hints:
+- level: 1
+  en: Write the determinant as an expression in k.
+- level: 2
+  en: Set that expression equal to zero.
+- level: 3
+  en: Solve the resulting quadratic and list every root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: k = 4 only
+- id: b
+  en: k = 2 only
+- id: c
+  en: k = 0 only
+- id: d
+  en: k = 2 or k = -2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CCE2EC2CBFA7
+  when_answer_equals:
+  - a
+- id: MC.A.D56F98844D75
+  when_answer_equals:
+  - c
+- id: MC.A.BDBF65364E3F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The determinant is k squared minus 4, which is zero when k squared equals 4, so k is 2 or minus 2.
+- en: The correct option is d.
+tier: C

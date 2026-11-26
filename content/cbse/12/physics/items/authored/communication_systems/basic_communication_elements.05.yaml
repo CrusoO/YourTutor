@@ -1,0 +1,49 @@
+id: A.12.physics.communication_systems.basic_communication_elements.05
+skill_ids:
+- SK.A.12.physics.basic_communication_elements
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: At the transmitter end of a voice communication system, what does the transducer do?
+hints:
+- level: 1
+  en: Think about what physical quantity the speech sound produces at the microphone.
+- level: 2
+  en: Consider what kind of signal the microphone outputs.
+- level: 3
+  en: Compare the transducer with the modulator that follows it in the transmitter.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Converts an electrical signal back into sound
+- id: b
+  en: Converts sound pressure variations into an electrical signal
+- id: c
+  en: Amplifies the sound without changing its form
+- id: d
+  en: Modulates the carrier wave with the message
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.71AAACE9E150
+  when_answer_equals:
+  - a
+- id: MC.A.B73246FFD791
+  when_answer_equals:
+  - c
+- id: MC.A.C425197692A4
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A microphone at the transmitter is a transducer that turns the pressure variations of speech into a varying electrical signal, which the transmitter then processes.
+- en: The correct option is b.
+tier: C
+diagram_note: A block diagram of a transmitter with a microphone block at the input, followed by an amplifier and a modulator block, with arrows showing the signal flow.

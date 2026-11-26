@@ -1,0 +1,48 @@
+id: A.11.physics.mechanical_properties_of_fluids.viscosity_and_stokes.04
+skill_ids:
+- SK.A.11.physics.viscosity_and_stokes
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For a small sphere falling slowly through a viscous fluid, which dependence describes the drag force?
+hints:
+- level: 1
+  en: Slow motion through a viscous fluid gives a drag that is linear in speed.
+- level: 2
+  en: Stokes' law is a linear relation between drag and speed.
+- level: 3
+  en: Check which dependence describes drag on a very small sphere moving slowly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: proportional to the radius and to the speed
+- id: b
+  en: proportional to the square of the speed
+- id: c
+  en: independent of the speed
+- id: d
+  en: proportional to the square of the radius only
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3A83F745E53B
+  when_answer_equals:
+  - b
+- id: MC.A.4C1C86C11E87
+  when_answer_equals:
+  - c
+- id: MC.A.31A7CB54A024
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At low speed in a viscous fluid, Stokes' law gives a drag force that is linear in both the radius and the speed.
+- en: The correct option is a.
+tier: C

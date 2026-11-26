@@ -1,0 +1,50 @@
+id: A.10.physics.human_eye_and_colourful_world.atmospheric_phenomena.05
+skill_ids:
+- SK.A.10.physics.atmospheric_phenomena
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The sun looks slightly flattened, with its lower edge raised more than its upper edge, when it is near the horizon. Which explanation is correct?
+hints:
+- level: 1
+  en: Think about how the atmosphere changes with height and how that affects the bending of light.
+- level: 2
+  en: Ask whether light from the top and bottom of the sun are bent by the same amount.
+- level: 3
+  en: Consider whether the sun itself is round or oval.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Scattering removes light from the upper edge only
+- id: b
+  en: The sun's disc is naturally oval in shape
+- id: c
+  en: Dispersion stretches the disc into a spectrum
+- id: d
+  en: Air refracts light from the lower edge more than light from the upper edge, so the disc appears squashed vertically
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0F6A48F21DC8
+  when_answer_equals:
+  - b
+- id: MC.A.19F1C8DD5CAC
+  when_answer_equals:
+  - c
+- id: MC.A.2D977919F813
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Light from the lower edge of the sun crosses more of the dense lower atmosphere at a steeper angle, so it is refracted more than light from the upper edge.
+- en: The lower edge is therefore raised more, and the disc looks flattened.
+- en: The sun is in fact almost perfectly round.
+- en: The correct option is d.
+tier: C

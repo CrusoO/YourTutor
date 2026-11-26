@@ -1,0 +1,49 @@
+id: A.12.biology.human_health_and_disease.immunity_types.05
+skill_ids:
+- SK.A.12.biology.immunity_types
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A patient has a severe infection that needs immediate protection, and there is no time for the body to make its own antibodies. Which treatment fits best?
+hints:
+- level: 1
+  en: Think about immunity that does not depend on the patient's own response.
+- level: 2
+  en: Consider which treatment provides antibodies directly.
+- level: 3
+  en: Compare how quickly each option gives protection.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A booster vaccine given now
+- id: b
+  en: Injection of ready-made antibodies
+- id: c
+  en: A live attenuated vaccine given now
+- id: d
+  en: Antibiotics that stimulate memory cells
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F3B192B807A7
+  when_answer_equals:
+  - a
+- id: MC.A.3F4106A86074
+  when_answer_equals:
+  - c
+- id: MC.A.4EAF2B0361C9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Passive immunisation gives ready-made antibodies that act immediately, which is useful when the patient cannot wait for an active response.
+- en: Vaccines train the immune system but take time to work.
+- en: The correct option is b.
+tier: C

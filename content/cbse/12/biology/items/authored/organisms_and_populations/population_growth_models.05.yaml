@@ -1,0 +1,50 @@
+id: A.12.biology.organisms_and_populations.population_growth_models.05
+skill_ids:
+- SK.A.12.biology.population_growth_models
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two populations start at the same size. One follows logistic growth toward K of 500, and the other grows exponentially. What is the key difference after many generations?
+hints:
+- level: 1
+  en: Think about what limits growth in the logistic model.
+- level: 2
+  en: Consider the long term trend of the exponential model.
+- level: 3
+  en: Compare how the two curves behave as the population becomes large.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Both populations level off at the same value
+- id: b
+  en: The logistic population levels off near K, while the exponential one keeps increasing
+- id: c
+  en: The exponential population declines as it reaches K
+- id: d
+  en: Both populations grow at equal rates forever
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5C3FBEA0B435
+  when_answer_equals:
+  - a
+- id: MC.A.EB98311FC7EF
+  when_answer_equals:
+  - c
+- id: MC.A.9ED278A81797
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The logistic model slows as the population approaches K, so the curve flattens.
+- en: The exponential model has no limit and keeps rising at an increasing absolute rate.
+- en: The correct option is b.
+tier: C
+diagram_note: 'Draw two curves on the same axes: a J-shaped exponential curve rising steeply and a sigmoid logistic curve approaching a horizontal line at K.'

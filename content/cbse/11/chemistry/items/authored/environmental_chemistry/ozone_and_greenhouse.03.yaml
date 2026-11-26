@@ -1,0 +1,49 @@
+id: A.11.chemistry.environmental_chemistry.ozone_and_greenhouse.03
+skill_ids:
+- SK.A.11.chemistry.ozone_and_greenhouse
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which sequence correctly describes the catalytic cycle of ozone destruction by chlorine atoms?
+hints:
+- level: 1
+  en: The chlorine atom is regenerated at the end, so it can repeat the cycle.
+- level: 2
+  en: Look for the species that is consumed in the first step and produced again in the second.
+- level: 3
+  en: Check that the atoms balance across the two steps.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: O3 + O2 gives O4, and chlorine stays inert
+- id: b
+  en: Cl + O3 gives ClO + O2, then ClO + O gives Cl + O2
+- id: c
+  en: CFC gives O and CO2 only
+- id: d
+  en: Cl + O2 gives ClO2, and ozone reforms
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.4B2A5B7DE6BB
+  when_answer_equals:
+  - a
+- id: MC.A.C7E115B4A717
+  when_answer_equals:
+  - d
+- id: MC.A.158BA9FFD1F0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A chlorine atom removes an ozone molecule to form ClO, which then reacts with an oxygen atom to regenerate chlorine, so one chlorine atom destroys many ozone molecules.
+- en: The correct option is b.
+tier: C
+diagram_note: 'A two-step cycle drawn as a loop: a chlorine atom plus ozone gives chlorine monoxide plus oxygen, and chlorine monoxide plus an oxygen atom gives chlorine plus oxygen again.'

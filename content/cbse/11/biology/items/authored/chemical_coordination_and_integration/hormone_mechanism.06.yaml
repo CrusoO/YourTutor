@@ -1,0 +1,49 @@
+id: A.11.biology.chemical_coordination_and_integration.hormone_mechanism.06
+skill_ids:
+- SK.A.11.biology.hormone_mechanism
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A synthetic steroid is given to a patient, and its effect on gene transcription in a target tissue appears only after a long delay. Why does the drug act slowly?
+hints:
+- level: 1
+  en: Think about how the steroid reaches its target.
+- level: 2
+  en: Consider what must be made before the target tissue changes.
+- level: 3
+  en: The effect follows a chain of steps inside the cell.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Steroids are destroyed on contact with membranes
+- id: b
+  en: It must travel through the nervous system first
+- id: c
+  en: It must enter the cell and alter transcription, and the effect then requires new protein synthesis
+- id: d
+  en: It acts on the cell surface only, which is slow by nature
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.31E72EE0D35D
+  when_answer_equals:
+  - d
+- id: MC.A.74BA08A7C717
+  when_answer_equals:
+  - a
+- id: MC.A.FF37C5632C8E
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A steroid enters the cell and binds an intracellular receptor, which then changes transcription.
+- en: The resulting proteins must be made before the tissue responds, so the effect is delayed.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_concept.04
+skill_ids:
+- SK.A.11.chemistry.equilibrium_concept
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the unit of Kc for the reaction N2(g) + 3 H2(g) <=> 2 NH3(g)?
+hints:
+- level: 1
+  en: Work out the net power of concentration from the coefficients of products and reactants.
+- level: 2
+  en: Subtract the total reactant coefficients from the total product coefficients.
+- level: 3
+  en: Write the units of each concentration term before combining them.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: no units
+- id: b
+  en: L mol^-1
+- id: c
+  en: L^2 mol^-2
+- id: d
+  en: mol^2 L^-2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7E90C4E106FA
+  when_answer_equals:
+  - d
+- id: MC.A.D8FCA67156B8
+  when_answer_equals:
+  - a
+- id: MC.A.095345C40A60
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Kc equals the squared ammonia concentration over the product of the nitrogen and cubed hydrogen concentrations, giving a net power of minus two in mol/L, which is L^2 mol^-2.
+- en: The correct option is c.
+tier: C

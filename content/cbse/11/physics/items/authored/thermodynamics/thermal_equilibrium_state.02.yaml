@@ -1,0 +1,48 @@
+id: A.11.physics.thermodynamics.thermal_equilibrium_state.02
+skill_ids:
+- SK.A.11.physics.thermal_equilibrium_state
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of these is a state variable of a gas?
+hints:
+- level: 1
+  en: A state variable depends only on the current condition of the system.
+- level: 2
+  en: Path quantities depend on how the change was carried out.
+- level: 3
+  en: The energy stored inside the system is set by its current state.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: heat supplied
+- id: b
+  en: work done by the gas
+- id: c
+  en: internal energy
+- id: d
+  en: length of the path taken
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2E6973EA3F8F
+  when_answer_equals:
+  - a
+- id: MC.A.9262337C3B8F
+  when_answer_equals:
+  - b
+- id: MC.A.17050E20EC51
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Internal energy depends only on the current state of the gas, such as its temperature and amount, not on how the gas got there.
+- en: The correct option is c.
+tier: C

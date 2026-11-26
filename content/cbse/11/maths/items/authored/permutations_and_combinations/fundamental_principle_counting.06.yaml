@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.fundamental_principle_counting.06
+skill_ids:
+- SK.A.11.maths.fundamental_principle_counting
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: How many whole numbers from 1 up to 999 can be written using only the digits 1, 2, 3 and 4 with repetition allowed?
+hints:
+- level: 1
+  en: Group the numbers by how many digits they contain.
+- level: 2
+  en: A number with a fixed count of digits has four choices in each place.
+- level: 3
+  en: Add the counts for each digit length you considered.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '84'
+- id: b
+  en: '64'
+- id: c
+  en: '340'
+- id: d
+  en: '256'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.F668947B295C
+  when_answer_equals:
+  - b
+- id: MC.A.84B9A25F7915
+  when_answer_equals:
+  - d
+- id: MC.A.4A50D7E490AF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: One-digit numbers give 4, two-digit numbers give 16 and three-digit numbers give 64, and these total 84.
+- en: The correct option is a.
+tier: C

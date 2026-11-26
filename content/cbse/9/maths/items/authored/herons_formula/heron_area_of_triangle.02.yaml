@@ -1,0 +1,48 @@
+id: A.9.maths.herons_formula.heron_area_of_triangle.02
+skill_ids:
+- SK.A.9.maths.heron_area_of_triangle
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the semi-perimeter of a triangle with sides 7 cm, 8 cm and 9 cm?
+hints:
+- level: 1
+  en: Add all three sides first.
+- level: 2
+  en: The semi-perimeter is half of that sum.
+- level: 3
+  en: Check your addition before halving.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 24 cm
+- id: b
+  en: 8 cm
+- id: c
+  en: 12 cm
+- id: d
+  en: 16 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.20AA26A87CB6
+  when_answer_equals:
+  - a
+- id: MC.A.AC2F35B58A77
+  when_answer_equals:
+  - b
+- id: MC.A.C022B685E843
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The semi-perimeter is half the sum of the sides, which is (7 + 8 + 9) divided by 2, giving 12 cm.
+- en: The correct option is c.
+tier: C

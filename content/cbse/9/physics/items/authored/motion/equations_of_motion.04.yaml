@@ -1,0 +1,48 @@
+id: A.9.physics.motion.equations_of_motion.04
+skill_ids:
+- SK.A.9.physics.equations_of_motion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A body starts from rest and reaches a speed of 12 m/s after covering 36 m with uniform acceleration. What is its acceleration?
+hints:
+- level: 1
+  en: Use the equation that links final velocity, acceleration and distance, with no time term.
+- level: 2
+  en: The initial velocity here is zero.
+- level: 3
+  en: Solve for acceleration after substituting the values.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4 m/s2
+- id: b
+  en: 12 m/s2
+- id: c
+  en: 2 m/s2
+- id: d
+  en: 6 m/s2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1B2CC53B4785
+  when_answer_equals:
+  - a
+- id: MC.A.4079A2FEDF51
+  when_answer_equals:
+  - d
+- id: MC.A.0C03894715C2
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With the initial velocity zero, v squared equals 2 a s, so the acceleration is 144 divided by 72, which is 2 m/s2.
+- en: The correct option is c.
+tier: C

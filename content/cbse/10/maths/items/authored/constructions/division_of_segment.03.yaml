@@ -1,0 +1,49 @@
+id: A.10.maths.constructions.division_of_segment.03
+skill_ids:
+- SK.A.10.maths.division_of_segment
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: After marking 5 equal steps on a ray from A, you join the last mark to B and draw a line through the third mark parallel to that join. Where does this line meet AB?
+hints:
+- level: 1
+  en: Think about how the marks on the ray measure the parts of the ratio.
+- level: 2
+  en: Decide which kind of line the construction uses to carry the division onto AB.
+- level: 3
+  en: Check which mark is paired with the point on AB.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: At the midpoint of AB.
+- id: b
+  en: 'At the point P with AP : PB = 3 : 2.'
+- id: c
+  en: At a point where the line makes a right angle with AB.
+- id: d
+  en: 'At the point P with AP : PB = 2 : 3.'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.94076BEC836D
+  when_answer_equals:
+  - d
+- id: MC.A.FF6608E5E2CA
+  when_answer_equals:
+  - a
+- id: MC.A.ACB54BD23668
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'By the basic proportionality theorem, the parallel line through the third mark cuts AB so that AP : PB = 3 : 2, matching the required ratio.'
+- en: The correct option is b.
+tier: C
+diagram_note: Segment AB, a ray AX from A with five equal marks, the last mark joined to B, and a line drawn through the third mark parallel to that join, meeting AB.

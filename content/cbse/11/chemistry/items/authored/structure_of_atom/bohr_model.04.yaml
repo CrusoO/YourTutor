@@ -1,0 +1,48 @@
+id: A.11.chemistry.structure_of_atom.bohr_model.04
+skill_ids:
+- SK.A.11.chemistry.bohr_model
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A hydrogen electron moves from n = 4 to n = 2. Which kind of spectral line is produced?
+hints:
+- level: 1
+  en: The series that ends at the second level has its own spectral region.
+- level: 2
+  en: Consider which part of the spectrum that series occupies.
+- level: 3
+  en: Compare the energy released with the range of visible light.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a line in the visible region
+- id: b
+  en: a line in the infrared region
+- id: c
+  en: no line, because level 2 is the ground state
+- id: d
+  en: a line in the ultraviolet region
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9F0D3F19F05B
+  when_answer_equals:
+  - d
+- id: MC.A.1259EEE60542
+  when_answer_equals:
+  - b
+- id: MC.A.AA7C65358E17
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Transitions that end at level 2 form the Balmer series, and the 4 to 2 line lies in the visible region near 486 nm.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.02
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: To decide whether a lamp post beside a road is at rest, which object should serve as the comparison?
+hints:
+- level: 1
+  en: A useful comparison object should stay fixed in place.
+- level: 2
+  en: Ask which things around the post do not move.
+- level: 3
+  en: Think about what the post is attached to.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the ground beneath it
+- id: b
+  en: a car driving past it
+- id: c
+  en: a bird flying above it
+- id: d
+  en: the lamp post itself
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C4BAF885FD24
+  when_answer_equals:
+  - b
+- id: MC.A.2666BBF63216
+  when_answer_equals:
+  - c
+- id: MC.A.C99B2726F5C9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A lamp post is fixed in place, so the ground is a sensible comparison; a moving car or bird would make the post seem to move.
+- en: The correct option is a.
+tier: C

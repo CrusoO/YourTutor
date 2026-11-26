@@ -1,0 +1,48 @@
+id: A.12.maths.matrices.elementary_operations.04
+skill_ids:
+- SK.A.12.maths.elementary_operations
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: To find the inverse of [[2, 1], [1, 1]] by row operations on the augmented matrix, which first step clears the lower left entry without introducing fractions in a wrong place?
+hints:
+- level: 1
+  en: Find the entry in row 2, column 1 and decide what multiple of row 1 removes it.
+- level: 2
+  en: Subtract that multiple of row 1 from row 2.
+- level: 3
+  en: Check that the lower left entry becomes zero after the step.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Replace R1 by R1 - R2
+- id: b
+  en: Replace R2 by R2 - (1/2) R1
+- id: c
+  en: Multiply R1 by 2 and stop
+- id: d
+  en: Replace R2 by R2 + R1
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FE170B9D8E69
+  when_answer_equals:
+  - a
+- id: MC.A.AA10614D040E
+  when_answer_equals:
+  - d
+- id: MC.A.04550E7F9BE2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Replacing R2 by R2 minus one half of R1 makes the lower left entry zero, since 1 minus one half of 2 is 0, and leaves a nonzero pivot in the second row.
+- en: The correct option is b.
+tier: C

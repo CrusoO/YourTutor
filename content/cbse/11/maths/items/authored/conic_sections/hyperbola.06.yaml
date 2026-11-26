@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.hyperbola.06
+skill_ids:
+- SK.A.11.maths.hyperbola
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which hyperbola has asymptotes y equal to plus or minus 2x?
+hints:
+- level: 1
+  en: The slope of each asymptote is the ratio of the conjugate semi-axis to the transverse semi-axis.
+- level: 2
+  en: Set that ratio equal to the given slope and choose convenient values for the semi-axes.
+- level: 3
+  en: Check that the sign pattern of the equation matches a hyperbola and not an ellipse.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x squared minus y squared over 4 equals 1
+- id: b
+  en: x squared minus y squared equals 1
+- id: c
+  en: x squared plus y squared over 4 equals 1
+- id: d
+  en: x squared over 4 minus y squared equals 1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.FEA59ED9D30F
+  when_answer_equals:
+  - b
+- id: MC.A.DA9C39B29038
+  when_answer_equals:
+  - d
+- id: MC.A.37A370E62EF6
+  when_answer_equals:
+  - c
+solution_steps:
+- en: For x squared minus y squared over b squared the asymptote slope is b, and b equal to 2 gives the required asymptotes.
+- en: The correct option is a.
+tier: C
+diagram_note: Coordinate axes with a hyperbola opening left and right and two dashed asymptote lines through the origin with slopes of plus and minus two.

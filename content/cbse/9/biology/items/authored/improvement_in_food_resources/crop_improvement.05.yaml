@@ -1,0 +1,49 @@
+id: A.9.biology.improvement_in_food_resources.crop_improvement.05
+skill_ids:
+- SK.A.9.biology.crop_improvement
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A breeder crosses a high-yield variety with a disease-resistant one, but the offspring have poor yield. What is the best next step?
+hints:
+- level: 1
+  en: Think about how repeated crossing with one parent can restore a lost trait.
+- level: 2
+  en: Consider whether the offspring of one cross can be screened for both traits.
+- level: 3
+  en: Eliminate options that abandon the useful trait or keep only the weak plants.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Discard the cross because hybrids never combine traits
+- id: b
+  en: Keep only the low-yield offspring because they are stable
+- id: c
+  en: Select and backcross offspring to recover high yield with resistance
+- id: d
+  en: Clone the disease-prone parent instead
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3F2F5ACA5C3E
+  when_answer_equals:
+  - a
+- id: MC.A.705517CC1A76
+  when_answer_equals:
+  - b
+- id: MC.A.EE8592B953AF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Selecting offspring that show both resistance and good yield, then backcrossing them to the high-yield parent, can recover yield while keeping resistance.
+- en: This is standard breeding practice.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.power_11.04
+skill_ids:
+- SK.A.11.physics.power_11
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A force of 500 N acts on a body moving at 10 m/s in the same direction as the force. What is the instantaneous power delivered by the force?
+hints:
+- level: 1
+  en: Instantaneous power is force multiplied by velocity along the same line.
+- level: 2
+  en: Use the velocity at that instant, not an average velocity.
+- level: 3
+  en: Multiply the force by the speed directly.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 50 W
+- id: b
+  en: 50000 W
+- id: c
+  en: 500 W
+- id: d
+  en: 5000 W
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9590FA6CC318
+  when_answer_equals:
+  - a
+- id: MC.A.59320E80DBE8
+  when_answer_equals:
+  - c
+- id: MC.A.24AB3D4E4962
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Instantaneous power is the force times the velocity along the same line, which is 500 times 10 = 5000 W.
+- en: The correct option is d.
+tier: C

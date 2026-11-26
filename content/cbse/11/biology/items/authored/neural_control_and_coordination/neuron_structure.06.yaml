@@ -1,0 +1,50 @@
+id: A.11.biology.neural_control_and_coordination.neuron_structure.06
+skill_ids:
+- SK.A.11.biology.neuron_structure
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A drug keeps voltage-gated sodium channels in an open state in an axon. What is the most likely effect?
+hints:
+- level: 1
+  en: Think about what must happen to sodium channels for the membrane to return to rest.
+- level: 2
+  en: Consider whether the sodium channels can close again under the drug.
+- level: 3
+  en: Ask what the membrane does when sodium keeps entering.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The membrane stays depolarised, so it cannot repolarise and normal signalling is disrupted
+- id: b
+  en: The neuron fires more often with no change in the spike
+- id: c
+  en: The axon becomes permanently hyperpolarised
+- id: d
+  en: Potassium channels close immediately in response
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.D78F49B062C5
+  when_answer_equals:
+  - c
+- id: MC.A.561155069DEB
+  when_answer_equals:
+  - b
+- id: MC.A.DF33102B0462
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Sodium channels must inactivate for the membrane to repolarise.
+- en: Holding them open keeps sodium flowing in, so the membrane cannot return to rest and the neuron cannot send normal impulses.
+- en: The correct option is a.
+tier: C
+diagram_note: Draw the membrane voltage over time for a normal spike and for a spike with persistently open sodium channels, labelling the failure to return to rest.

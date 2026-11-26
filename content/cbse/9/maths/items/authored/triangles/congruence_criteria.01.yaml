@@ -1,0 +1,49 @@
+id: A.9.maths.triangles.congruence_criteria.01
+skill_ids:
+- SK.A.9.maths.congruence_criteria
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Two triangles have their three sides equal in pairs. Which congruence criterion applies?
+hints:
+- level: 1
+  en: Count which measures are given in each triangle.
+- level: 2
+  en: A criterion needs measures that pin down both the shape and the size.
+- level: 3
+  en: Look at the letter naming each side in the two triangles.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: AAA
+- id: b
+  en: SSS
+- id: c
+  en: RHS
+- id: d
+  en: AAS
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E4DF9367C786
+  when_answer_equals:
+  - a
+- id: MC.A.B862B88B1765
+  when_answer_equals:
+  - c
+- id: MC.A.B05F9F62996B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Three pairs of equal sides fix the triangle completely, which is the SSS criterion, while equal angles alone never fix the size.
+- en: The correct option is b.
+tier: C
+diagram_note: Two triangles with each of the three sides marked with matching tick marks.

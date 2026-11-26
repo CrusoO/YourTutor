@@ -1,0 +1,49 @@
+id: A.11.physics.thermal_properties_of_matter.temperature_and_thermal_expansion.04
+skill_ids:
+- SK.A.11.physics.temperature_and_thermal_expansion
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'A bimetallic strip made of two bonded metal layers bends when it is heated. The bending happens because:'
+hints:
+- level: 1
+  en: Compare the expansion coefficients of the two layers.
+- level: 2
+  en: The strip is bonded, so one layer cannot slip freely past the other.
+- level: 3
+  en: Mismatched growth between bonded layers produces curvature.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: both metals contract when heated
+- id: b
+  en: one metal melts before the other
+- id: c
+  en: the two metals expand by different amounts
+- id: d
+  en: heat flows through only the top layer
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8990613FF325
+  when_answer_equals:
+  - b
+- id: MC.A.6D735F35BB70
+  when_answer_equals:
+  - a
+- id: MC.A.BC162CCCCA4B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each metal has its own expansion coefficient.
+- en: Because the layers are bonded together, the mismatch in their expansion forces the strip to curve.
+- en: The correct option is c.
+tier: C

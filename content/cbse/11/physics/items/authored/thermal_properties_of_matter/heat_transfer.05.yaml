@@ -1,0 +1,33 @@
+id: A.11.physics.thermal_properties_of_matter.heat_transfer.05
+skill_ids:
+- SK.A.11.physics.heat_transfer
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A body cools from 80 degrees Celsius to 60 degrees Celsius in 5 minutes in surroundings at 20 degrees Celsius. Using Newton's law of cooling, how many minutes does it take to cool from 60 degrees to 50 degrees in the same surroundings? Give one decimal place.
+hints:
+- level: 1
+  en: Newton's law makes the temperature difference decay exponentially with time.
+- level: 2
+  en: Find the decay constant from the first cooling interval.
+- level: 3
+  en: Use the second temperature difference with the same constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3.5'
+  accept: []
+solution_steps:
+- en: The excess temperature decays exponentially with a constant k.
+- en: From 60 to 40 excess in 5 min, k = ln(1.5) / 5.
+- en: Going from 40 to 30 excess takes ln(4/3) / k = 5 ln(4/3) / ln(1.5), about 3.5 min.
+- en: The unit of the answer is min.
+- en: Answer = 3.5
+tier: C
+diagram_note: A cooling curve with temperature falling over time. A horizontal dashed line marks the surroundings temperature, and points are marked on the curve at the 80, 60 and 50 degree levels.

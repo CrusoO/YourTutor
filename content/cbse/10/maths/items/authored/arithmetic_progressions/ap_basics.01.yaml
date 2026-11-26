@@ -1,0 +1,49 @@
+id: A.10.maths.arithmetic_progressions.ap_basics.01
+skill_ids:
+- SK.A.10.maths.ap_basics
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of these lists is an arithmetic progression?
+hints:
+- level: 1
+  en: Subtract each term from the term after it.
+- level: 2
+  en: Check whether all the differences are equal.
+- level: 3
+  en: Look at every consecutive pair, not just the first.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2, 4, 8, 16
+- id: b
+  en: 1, 1, 2, 3
+- id: c
+  en: 2, 5, 8, 11
+- id: d
+  en: 5, 5, 5, 6
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D8C8F36FF29B
+  when_answer_equals:
+  - a
+- id: MC.A.4BFCA56EBF0C
+  when_answer_equals:
+  - d
+- id: MC.A.062EE7F5B396
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In 2, 5, 8, 11 each term is 3 more than the one before.
+- en: The other lists change their difference from one step to the next.
+- en: The correct option is c.
+tier: C

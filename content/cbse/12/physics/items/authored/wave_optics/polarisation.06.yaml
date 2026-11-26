@@ -1,0 +1,49 @@
+id: A.12.physics.wave_optics.polarisation.06
+skill_ids:
+- SK.A.12.physics.polarisation
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why do polarised sunglasses reduce glare reflected from a wet road or a lake?
+hints:
+- level: 1
+  en: Think about the polarisation state of light reflected from a flat surface.
+- level: 2
+  en: Consider which orientation of the filter removes the reflected light.
+- level: 3
+  en: Recall what a polarising filter does to light of one polarisation direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They change the colour of the glare to a softer shade
+- id: b
+  en: Reflected glare is largely polarised, and the filter blocks that polarised component
+- id: c
+  en: They amplify the reflected light so it is easier to see
+- id: d
+  en: They absorb every colour of light equally
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.1635B0567FF4
+  when_answer_equals:
+  - d
+- id: MC.A.2909DE7D5087
+  when_answer_equals:
+  - c
+- id: MC.A.1ACFE74882CB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Light reflected from a flat horizontal surface at a grazing angle is largely polarised in one direction.
+- en: The polarising filter is aligned to block that component, which reduces glare.
+- en: The correct option is b.
+tier: C

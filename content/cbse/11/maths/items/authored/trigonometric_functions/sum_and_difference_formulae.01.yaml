@@ -1,0 +1,48 @@
+id: A.11.maths.trigonometric_functions.sum_and_difference_formulae.01
+skill_ids:
+- SK.A.11.maths.sum_and_difference_formulae
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression is equal to sin(A + B)?
+hints:
+- level: 1
+  en: Recall the standard addition formula for the sine of a sum.
+- level: 2
+  en: Each term pairs a sine of one angle with a cosine of the other.
+- level: 3
+  en: Check that the sign between the two products is a plus.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin A sin B + cos A cos B
+- id: b
+  en: sin A cos B + cos A sin B
+- id: c
+  en: sin A cos B - cos A sin B
+- id: d
+  en: cos A cos B - sin A sin B
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F0948D9D2C87
+  when_answer_equals:
+  - c
+- id: MC.A.1C45D2866E1B
+  when_answer_equals:
+  - a
+- id: MC.A.F284E39EFF81
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The addition formula for sine pairs each sine with the cosine of the other angle and adds the two products.
+- en: The correct option is b.
+tier: C

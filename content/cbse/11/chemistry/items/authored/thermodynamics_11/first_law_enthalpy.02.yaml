@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.first_law_enthalpy.02
+skill_ids:
+- SK.A.11.chemistry.first_law_enthalpy
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: In the first law written as delta U = q + w, what sign is taken for work done on the system?
+hints:
+- level: 1
+  en: Think about whether the energy supplied to the system raises its internal energy.
+- level: 2
+  en: Consider the sign used for energy that enters the system.
+- level: 3
+  en: Look for the option that matches energy entering the system.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: zero
+- id: b
+  en: dependent only on temperature
+- id: c
+  en: negative
+- id: d
+  en: positive
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.578C33E2B82A
+  when_answer_equals:
+  - c
+- id: MC.A.A009656207A0
+  when_answer_equals:
+  - a
+- id: MC.A.F6EB3BB38BE0
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With this convention, work done on the system is positive because it adds energy to the system and raises its internal energy.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,50 @@
+id: A.10.physics.electricity.heating_effect_current.03
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: An electric heater and a bulb are connected in series, so the same current flows through both. The heater gets much hotter than the bulb. Why?
+hints:
+- level: 1
+  en: Recall what is the same for both devices in a series circuit.
+- level: 2
+  en: Think about which property of the device decides how much heat it produces for a fixed current.
+- level: 3
+  en: Ask whether a higher or lower resistance means more heat per second for the same current.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Its current is larger than the current in the bulb
+- id: b
+  en: The bulb takes in heat from the heater
+- id: c
+  en: Its element has a lower resistance, so it heats up faster
+- id: d
+  en: Its heating element has a much higher resistance, so more energy is converted to heat per second
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.44022C5220A1
+  when_answer_equals:
+  - a
+- id: MC.A.9E9B086B671C
+  when_answer_equals:
+  - c
+- id: MC.A.E5EC5C46F199
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In series, the current is the same through both devices, so the heat per second depends on the resistance.
+- en: The heater's element has a much higher resistance than the bulb's filament, so it converts more electrical energy into heat each second.
+- en: This is why the heater gets much hotter.
+- en: The correct option is d.
+tier: C

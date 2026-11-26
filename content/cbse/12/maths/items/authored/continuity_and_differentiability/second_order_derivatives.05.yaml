@@ -1,0 +1,30 @@
+id: A.12.maths.continuity_and_differentiability.second_order_derivatives.05
+skill_ids:
+- SK.A.12.maths.second_order_derivatives
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Let x = e^t and y = e^(-t). Find d2y/dx2 at t = 0.
+hints:
+- level: 1
+  en: Compute dy/dx and rewrite it in terms of x.
+- level: 2
+  en: Differentiate that expression with respect to x.
+- level: 3
+  en: Substitute the point at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2'
+  accept: []
+solution_steps:
+- en: dy/dx equals minus e^(-2t), which is minus 1 over x squared.
+- en: Differentiating with respect to x gives 2 over x cubed, which is 2 at x equal to 1, the point t equal to 0.
+- en: Answer = 2
+tier: C

@@ -1,0 +1,49 @@
+id: A.9.maths.triangles.congruence_criteria.03
+skill_ids:
+- SK.A.9.maths.congruence_criteria
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In triangles ABC and PQR, AB equals PQ, angle B equals angle Q, and BC equals QR. Which criterion proves the triangles congruent?
+hints:
+- level: 1
+  en: Locate the given angle and check whether it sits between the two given sides.
+- level: 2
+  en: Check whether the angle is between the given sides or outside them.
+- level: 3
+  en: Name the criterion using the order of the given parts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: SSA
+- id: b
+  en: SAS
+- id: c
+  en: RHS
+- id: d
+  en: AAA
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.765D0DBDBB0A
+  when_answer_equals:
+  - d
+- id: MC.A.9B9834D72F91
+  when_answer_equals:
+  - a
+- id: MC.A.490992EEB8AA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Two sides and the angle between them match in both triangles, which is the SAS criterion.
+- en: The correct option is b.
+tier: C
+diagram_note: Two triangles sharing a common angle at the vertices B and Q, with the sides on either side of that angle marked.

@@ -1,0 +1,49 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.dipole_potential.01
+skill_ids:
+- SK.A.12.physics.dipole_potential
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'The electric potential at a point on the axis of an electric dipole varies with the distance r from the dipole approximately as:'
+hints:
+- level: 1
+  en: Consider what the net charge of a dipole is when viewed from far away.
+- level: 2
+  en: Compare the falloff of a dipole's potential with that of a single point charge.
+- level: 3
+  en: Recall the power of r used for a single point charge potential.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1 over r
+- id: b
+  en: A constant value
+- id: c
+  en: 1 over r squared
+- id: d
+  en: 1 over r cubed
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4D7292BC15E0
+  when_answer_equals:
+  - a
+- id: MC.A.FD59B286EA16
+  when_answer_equals:
+  - d
+- id: MC.A.B4A1C815EA16
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A dipole has zero net charge, so its potential falls off faster than that of a single charge.
+- en: On the axis the potential goes as 1 over r squared.
+- en: The correct option is c.
+tier: C

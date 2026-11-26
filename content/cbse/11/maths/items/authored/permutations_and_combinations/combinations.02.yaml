@@ -1,0 +1,48 @@
+id: A.11.maths.permutations_and_combinations.combinations.02
+skill_ids:
+- SK.A.11.maths.combinations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression equals the number of ways to choose r objects from n distinct objects?
+hints:
+- level: 1
+  en: Start from the count of ordered selections and remove the orderings inside the chosen group.
+- level: 2
+  en: The unchosen objects also need their own factorial in the denominator.
+- level: 3
+  en: Check the formula on a very small case where the answer is obvious.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: r factorial over n factorial
+- id: b
+  en: n factorial over (r factorial times (n minus r) factorial)
+- id: c
+  en: n factorial over (n minus r) factorial
+- id: d
+  en: n factorial over r factorial
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2E5A40084FF3
+  when_answer_equals:
+  - c
+- id: MC.A.E327053BDBAA
+  when_answer_equals:
+  - d
+- id: MC.A.C4E055229234
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Selections are ordered arrangements divided by the orderings of the chosen and unchosen groups, giving n factorial over r factorial times (n minus r) factorial.
+- en: The correct option is b.
+tier: C

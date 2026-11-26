@@ -1,0 +1,50 @@
+id: A.12.maths.applications_of_integrals.area_between_curves.02
+skill_ids:
+- SK.A.12.maths.area_between_curves
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which integral gives the area between y = 4 - x^2 and y = x + 2?
+hints:
+- level: 1
+  en: Find where the two curves intersect by solving for x.
+- level: 2
+  en: Decide which curve is higher between those intersection points.
+- level: 3
+  en: Write the integral of upper minus lower.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The integral from -2 to 1 of (x^2 + x - 2)
+- id: b
+  en: The integral from -2 to 1 of (2 - x - x^2)
+- id: c
+  en: The integral from -2 to 2 of (4 - x^2)
+- id: d
+  en: The integral from -1 to 2 of (2 - x - x^2)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.1B7C57943304
+  when_answer_equals:
+  - d
+- id: MC.A.4D32E19090B7
+  when_answer_equals:
+  - a
+- id: MC.A.960F3B3EB89B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The curves meet where x^2 + x - 2 = 0, so x = -2 and x = 1.
+- en: On that interval the parabola is above the line, so the integrand is (4 - x^2) minus (x + 2), which is 2 - x - x^2.
+- en: The correct option is b.
+tier: C
+diagram_note: Parabola y = 4 - x^2 and straight line y = x + 2 crossing at two points, with the region between them shaded.

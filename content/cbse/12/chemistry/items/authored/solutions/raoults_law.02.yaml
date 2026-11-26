@@ -1,0 +1,49 @@
+id: A.12.chemistry.solutions.raoults_law.02
+skill_ids:
+- SK.A.12.chemistry.raoults_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: According to Raoult's law, what does the partial vapour pressure of a component in an ideal solution depend on?
+hints:
+- level: 1
+  en: Think about how much of the component is present in the liquid.
+- level: 2
+  en: Consider how volatile the component is when it is pure.
+- level: 3
+  en: Combine the two quantities that describe the liquid and the pure component.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Only the molar mass of the solvent
+- id: b
+  en: Its mole fraction and its pure vapour pressure
+- id: c
+  en: Only the osmotic pressure of the solute
+- id: d
+  en: Only the volume of the container
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.42B867049906
+  when_answer_equals:
+  - a
+- id: MC.A.AFC4C81067CE
+  when_answer_equals:
+  - d
+- id: MC.A.49F23DE65033
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Raoult's law multiplies the pure vapour pressure of a component by its mole fraction in the liquid.
+- en: Both quantities are needed.
+- en: The correct option is b.
+tier: C

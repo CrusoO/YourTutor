@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.stress_and_strain.05
+skill_ids:
+- SK.A.11.physics.stress_and_strain
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A wire is stretched within its elastic limit. Which expression gives the elastic energy stored per unit volume?
+hints:
+- level: 1
+  en: The stress-strain relation is a straight line up to the elastic limit.
+- level: 2
+  en: The area under a straight line from the origin is a triangle.
+- level: 3
+  en: Use half of base times height on the stress-strain plot.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: stress times strain
+- id: b
+  en: stress squared
+- id: c
+  en: one half times stress times strain
+- id: d
+  en: strain divided by stress
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6B63CD5CDDB2
+  when_answer_equals:
+  - a
+- id: MC.A.6598DAB240F1
+  when_answer_equals:
+  - d
+- id: MC.A.F120827BC87B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The stress-strain line is straight up to the elastic limit.
+- en: The stored energy per unit volume is the triangular area under it, one half stress times strain.
+- en: The correct option is c.
+tier: C

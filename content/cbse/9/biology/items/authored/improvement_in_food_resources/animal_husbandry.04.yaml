@@ -1,0 +1,49 @@
+id: A.9.biology.improvement_in_food_resources.animal_husbandry.04
+skill_ids:
+- SK.A.9.biology.animal_husbandry
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A fish farmer keeps a large number of fish in a small pond. Which practice would most help keep the fish healthy?
+hints:
+- level: 1
+  en: Think about what fish need from the water in order to breathe.
+- level: 2
+  en: Consider how crowding can use up something important in the pond.
+- level: 3
+  en: Eliminate choices that add food without checks or leave the water unmanaged.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Stocking the pond with predatory species only
+- id: b
+  en: Adding extra feed to speed up growth without checks
+- id: c
+  en: Keeping the water still and unchanged
+- id: d
+  en: Monitoring water quality and oxygen levels regularly
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DBF7BC5D3734
+  when_answer_equals:
+  - b
+- id: MC.A.2F7326CBABE1
+  when_answer_equals:
+  - a
+- id: MC.A.7A3AE8EE7EEF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Dense stocking can lower dissolved oxygen and raise waste levels, so regular monitoring lets the farmer act early.
+- en: Good management protects fish health.
+- en: The correct option is d.
+tier: C

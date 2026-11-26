@@ -1,0 +1,49 @@
+id: A.11.physics.thermodynamics.first_law.04
+skill_ids:
+- SK.A.11.physics.first_law
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In an adiabatic process of an ideal gas, which quantity is zero?
+hints:
+- level: 1
+  en: Adiabatic means there is no thermal contact with the surroundings.
+- level: 2
+  en: Apply the first law with the appropriate term set to zero.
+- level: 3
+  en: Think about which term of the first law vanishes in this process.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: heat exchanged with the surroundings
+- id: b
+  en: change in internal energy
+- id: c
+  en: change in pressure
+- id: d
+  en: work done by the gas
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3815C7942A0A
+  when_answer_equals:
+  - d
+- id: MC.A.60FDC60483B2
+  when_answer_equals:
+  - b
+- id: MC.A.B4DAE794BA18
+  when_answer_equals:
+  - c
+solution_steps:
+- en: An adiabatic process has no heat exchange with the surroundings, so Q is zero.
+- en: Work and internal energy can still change.
+- en: The correct option is a.
+tier: C

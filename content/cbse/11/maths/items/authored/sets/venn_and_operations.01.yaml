@@ -1,0 +1,49 @@
+id: A.11.maths.sets.venn_and_operations.01
+skill_ids:
+- SK.A.11.maths.venn_and_operations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a Venn diagram of sets A and B, which elements does the intersection of A and B represent?
+hints:
+- level: 1
+  en: Picture the region where the two circles overlap.
+- level: 2
+  en: Ask which elements are shared by both sets at once.
+- level: 3
+  en: Compare this with a region that collects everything in either circle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: elements in A but not in B
+- id: b
+  en: elements belonging to either A or B
+- id: c
+  en: elements common to the two sets
+- id: d
+  en: elements in A or B but not in both
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F61A8BC9B258
+  when_answer_equals:
+  - d
+- id: MC.A.CB1ADFE3A2A3
+  when_answer_equals:
+  - a
+- id: MC.A.92130C6F221D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The intersection is the overlap of the two circles, holding only the elements that belong to both sets.
+- en: The correct option is c.
+tier: C
+diagram_note: Two overlapping circles labelled A and B placed inside a rectangle labelled U, with the overlap region marked.

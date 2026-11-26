@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.degrees_of_freedom.04
+skill_ids:
+- SK.A.11.physics.degrees_of_freedom
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: At high temperature, which kind of ideal gas has the largest molar heat capacity at constant volume?
+hints:
+- level: 1
+  en: Each active mode adds a fixed amount to the heat capacity.
+- level: 2
+  en: A gas with more atoms has more ways to store energy.
+- level: 3
+  en: Count the active modes in each gas and compare.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: all ideal gases have identical heat capacities
+- id: b
+  en: a monatomic gas
+- id: c
+  en: a solid crystal of the same mass
+- id: d
+  en: a polyatomic gas with many active modes
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.BBA9E72AECA2
+  when_answer_equals:
+  - b
+- id: MC.A.C663EAA7B8D8
+  when_answer_equals:
+  - a
+- id: MC.A.358CA26F2125
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each active degree of freedom adds one half R to the molar heat capacity at constant volume, so gases with more active modes have larger values.
+- en: The correct option is d.
+tier: C

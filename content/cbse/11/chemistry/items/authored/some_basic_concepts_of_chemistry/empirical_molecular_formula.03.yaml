@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.empirical_molecular_formula.03
+skill_ids:
+- SK.A.11.chemistry.empirical_molecular_formula
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A compound contains 40 percent carbon, 6.7 percent hydrogen and 53.3 percent oxygen by mass. Which is its empirical formula?
+hints:
+- level: 1
+  en: Convert each percentage into a number of moles by dividing by the atomic mass.
+- level: 2
+  en: Divide each result by the smallest number obtained.
+- level: 3
+  en: Multiply the ratios if needed to make them whole numbers.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CH3O
+- id: b
+  en: CHO
+- id: c
+  en: C2H4O2
+- id: d
+  en: CH2O
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.8A76F9992FCB
+  when_answer_equals:
+  - b
+- id: MC.A.2504C52CE242
+  when_answer_equals:
+  - c
+- id: MC.A.BC5524783B59
+  when_answer_equals:
+  - a
+solution_steps:
+- en: 'Dividing each percentage by its atomic mass gives about 3.33, 6.7 and 3.33, and dividing by 3.33 gives the ratio 1 : 2 : 1.'
+- en: The correct option is d.
+tier: C

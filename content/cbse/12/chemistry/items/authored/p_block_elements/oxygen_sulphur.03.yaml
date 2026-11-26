@@ -1,0 +1,50 @@
+id: A.12.chemistry.p_block_elements.oxygen_sulphur.03
+skill_ids:
+- SK.A.12.chemistry.oxygen_sulphur
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the oxidation state of sulphur in Caro's acid, H2SO5?
+hints:
+- level: 1
+  en: The two oxygen atoms in the peroxo group carry an oxidation state of minus one rather than minus two.
+- level: 2
+  en: Assign the usual values to hydrogen and to the ordinary oxygen atoms first.
+- level: 3
+  en: Use the rule that the oxidation states sum to zero in a neutral molecule.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '+4'
+- id: b
+  en: '+8'
+- id: c
+  en: '+2'
+- id: d
+  en: '+6'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D8C2EBB0C27C
+  when_answer_equals:
+  - a
+- id: MC.A.FBB9E0061F79
+  when_answer_equals:
+  - b
+- id: MC.A.B3150887E376
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Hydrogen is +1 each, giving +2 in total.
+- en: Three oxygens are -2 each and the two peroxo oxygens are -1 each, which totals -8.
+- en: Sulphur must therefore be +6.
+- en: The correct option is d.
+tier: C

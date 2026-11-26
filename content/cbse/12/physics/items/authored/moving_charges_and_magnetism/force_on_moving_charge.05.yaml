@@ -1,0 +1,32 @@
+id: A.12.physics.moving_charges_and_magnetism.force_on_moving_charge.05
+skill_ids:
+- SK.A.12.physics.force_on_moving_charge
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A particle of charge 2 microcoulomb has velocity 3000 i plus 4000 j m/s, where i and j are unit vectors along x and y. It is in a uniform magnetic field of 0.5 k tesla along the z axis. What is the magnitude of the magnetic force in newton?
+hints:
+- level: 1
+  en: Take the cross product of the velocity and the field, component by component.
+- level: 2
+  en: Remember that i cross k equals minus j, and j cross k equals i.
+- level: 3
+  en: Find the magnitude of the resulting force vector at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.005'
+  accept: []
+solution_steps:
+- en: The force is q times the cross product of velocity and field.
+- en: The cross product is 3000 times 0.5 times minus j plus 4000 times 0.5 times i, which is 2000 i minus 1500 j.
+- en: Multiplying by 2 x 10^-6 gives a magnitude of 0.005 N.
+- en: The unit of the answer is N.
+- en: Answer = 0.005
+tier: C

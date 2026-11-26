@@ -1,0 +1,49 @@
+id: A.11.biology.respiration_in_plants.glycolysis.02
+skill_ids:
+- SK.A.11.biology.glycolysis
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which three-carbon compound is the end product of glycolysis that enters the link reaction under aerobic conditions?
+hints:
+- level: 1
+  en: Think about the three-carbon compound produced from glucose at the end of glycolysis.
+- level: 2
+  en: The compound is made at the end of glycolysis and is then transported into the mitochondria.
+- level: 3
+  en: Consider the molecule that enters the mitochondria before the link reaction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Pyruvate
+- id: b
+  en: Ethanol
+- id: c
+  en: Acetyl CoA
+- id: d
+  en: Lactate
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.406D0734983B
+  when_answer_equals:
+  - d
+- id: MC.A.B62019C936BC
+  when_answer_equals:
+  - c
+- id: MC.A.33C64CFD5468
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Glycolysis ends with two molecules of pyruvate per glucose.
+- en: Under aerobic conditions pyruvate is transported into the mitochondria for the link reaction.
+- en: The correct option is a.
+tier: C

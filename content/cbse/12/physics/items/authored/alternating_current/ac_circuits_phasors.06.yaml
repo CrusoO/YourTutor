@@ -1,0 +1,48 @@
+id: A.12.physics.alternating_current.ac_circuits_phasors.06
+skill_ids:
+- SK.A.12.physics.ac_circuits_phasors
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: In a series RLC circuit where the inductive reactance is greater than the capacitive reactance, how does the current compare with the source voltage?
+hints:
+- level: 1
+  en: Compare the sizes of the inductive and capacitive reactances.
+- level: 2
+  en: Recall which element causes the current to lag the voltage.
+- level: 3
+  en: Think about the sign of the net phase angle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The current is in phase with the voltage
+- id: b
+  en: The current leads the voltage
+- id: c
+  en: The current lags the voltage
+- id: d
+  en: The current lags the voltage by 180 degrees
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D6D975F5DA6F
+  when_answer_equals:
+  - b
+- id: MC.A.AD73CF78105F
+  when_answer_equals:
+  - a
+- id: MC.A.7D95FC2C59C7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: When the inductive reactance is larger, the net reactance is inductive, so the current lags the source voltage.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.physics.dual_nature_of_radiation_and_matter.photoelectric_effect.01
+skill_ids:
+- SK.A.12.physics.photoelectric_effect
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In the photoelectric effect, what does increasing the intensity of light of a fixed frequency above threshold increase?
+hints:
+- level: 1
+  en: Think about what intensity measures in terms of photons.
+- level: 2
+  en: Consider whether one photon can give more than one electron energy.
+- level: 3
+  en: Recall which property of the light sets the energy of each photon.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The stopping potential
+- id: b
+  en: The threshold frequency of the metal
+- id: c
+  en: The number of photoelectrons emitted per second
+- id: d
+  en: The maximum kinetic energy of each photoelectron
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.60FE73728BD4
+  when_answer_equals:
+  - d
+- id: MC.A.6A9CE82073B7
+  when_answer_equals:
+  - b
+- id: MC.A.9B6D6B3D0A45
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Intensity counts photons per second.
+- en: Each photon ejects at most one electron, so more intensity means more photoelectrons per second, while the energy of each electron depends only on frequency.
+- en: The correct option is c.
+tier: C

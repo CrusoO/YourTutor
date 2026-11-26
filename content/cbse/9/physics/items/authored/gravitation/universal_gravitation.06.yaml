@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.universal_gravitation.06
+skill_ids:
+- SK.A.9.physics.universal_gravitation
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mass is moved from Earth's surface to a height equal to Earth's radius above the surface. Its weight there compared with its surface weight is
+hints:
+- level: 1
+  en: Measure the distance from Earth's centre, not from the surface.
+- level: 2
+  en: The new distance from the centre is twice the radius.
+- level: 3
+  en: Apply the inverse square dependence to that ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the same
+- id: b
+  en: four times
+- id: c
+  en: one quarter
+- id: d
+  en: one half
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DCACC83EDB7E
+  when_answer_equals:
+  - d
+- id: MC.A.CA3D1AAD6EFE
+  when_answer_equals:
+  - a
+- id: MC.A.EF11A3C2407B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: At a height equal to the radius, the distance from the centre is twice the radius, so weight falls to one over two squared, which is one quarter.
+- en: The correct option is c.
+tier: C

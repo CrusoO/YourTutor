@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_classification_nomenclature.05
+skill_ids:
+- SK.A.12.chemistry.amine_classification_nomenclature
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Classify N-methylaniline, C6H5NHCH3.
+hints:
+- level: 1
+  en: Count the groups attached to nitrogen, including the phenyl group.
+- level: 2
+  en: Check how many hydrogens remain on the nitrogen.
+- level: 3
+  en: Decide whether an aryl group counts as an alkyl-type substituent for classification.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Secondary amine
+- id: b
+  en: Aromatic quaternary salt
+- id: c
+  en: Primary amine
+- id: d
+  en: Tertiary amine
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.F7B97B267789
+  when_answer_equals:
+  - c
+- id: MC.A.DAE802EC47C7
+  when_answer_equals:
+  - d
+- id: MC.A.AC20BDCD9BD0
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The nitrogen is bonded to one phenyl group, one methyl group and one hydrogen, so the amine is secondary even though it is aromatic.
+- en: The correct option is a.
+tier: C

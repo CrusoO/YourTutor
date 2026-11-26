@@ -1,0 +1,48 @@
+id: A.12.maths.three_dimensional_geometry.direction_cosines_ratios.04
+skill_ids:
+- SK.A.12.maths.direction_cosines_ratios
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: If l, m and n are the direction cosines of a line, which relation is always true?
+hints:
+- level: 1
+  en: Recall that direction cosines are the components of a unit vector.
+- level: 2
+  en: Use the defining property of the magnitude of a unit vector.
+- level: 3
+  en: Check the relation against the squares of the three components.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: l^2 + m^2 + n^2 = 3
+- id: b
+  en: l^2 + m^2 - n^2 = 1
+- id: c
+  en: l + m + n = 1
+- id: d
+  en: l^2 + m^2 + n^2 = 1
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.BA3DDE0E9139
+  when_answer_equals:
+  - c
+- id: MC.A.EED0B8C7C33C
+  when_answer_equals:
+  - b
+- id: MC.A.FC7FFBB42CBF
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Direction cosines are the components of a unit vector along the line, and the squares of the components of a unit vector sum to 1.
+- en: The correct option is d.
+tier: C

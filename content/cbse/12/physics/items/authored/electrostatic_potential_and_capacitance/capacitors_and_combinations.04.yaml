@@ -1,0 +1,50 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.capacitors_and_combinations.04
+skill_ids:
+- SK.A.12.physics.capacitors_and_combinations
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Two 6 microfarad capacitors are connected in parallel, and this pair is then connected in series with a third 6 microfarad capacitor. What is the equivalent capacitance?
+hints:
+- level: 1
+  en: Combine the parallel pair first.
+- level: 2
+  en: Then apply the series rule with the remaining capacitor.
+- level: 3
+  en: Check that the final value is smaller than the capacitor you did not combine in parallel.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 12 microfarad
+- id: b
+  en: 4 microfarad
+- id: c
+  en: 3 microfarad
+- id: d
+  en: 2 microfarad
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CE3DCBEDF374
+  when_answer_equals:
+  - c
+- id: MC.A.567128B746A8
+  when_answer_equals:
+  - a
+- id: MC.A.5759B3DF082C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The parallel pair gives 12 microfarad.
+- en: That combined with the third 6 microfarad capacitor in series gives one over 12 plus one over 6, which is one quarter, so the equivalent is 4 microfarad.
+- en: The correct option is b.
+tier: C
+diagram_note: A network with two capacitor symbols side by side on the top branch, wired in parallel, and a third capacitor below them connected in series.

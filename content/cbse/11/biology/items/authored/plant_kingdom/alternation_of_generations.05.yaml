@@ -1,0 +1,49 @@
+id: A.11.biology.plant_kingdom.alternation_of_generations.05
+skill_ids:
+- SK.A.11.biology.alternation_of_generations
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A plant's gametophyte has 12 chromosomes in each of its cells. How many chromosomes does its sporophyte have?
+hints:
+- level: 1
+  en: The sporophyte forms when two haploid gametes fuse.
+- level: 2
+  en: Think about how fertilisation changes the chromosome number.
+- level: 3
+  en: Double the gametophyte count to get the sporophyte count.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '24'
+- id: c
+  en: '36'
+- id: d
+  en: '12'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.AA43FA2EFDC1
+  when_answer_equals:
+  - d
+- id: MC.A.EF3F094ED4DD
+  when_answer_equals:
+  - a
+- id: MC.A.9A6E77605C5D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The sporophyte forms when two haploid gametes fuse, so its cells carry twice the gametophyte number, which is 24 chromosomes.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw a flow from a haploid gametophyte with its gametes, to a zygote, to a diploid sporophyte, labelling the chromosome counts at each stage.

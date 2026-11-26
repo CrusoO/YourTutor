@@ -1,0 +1,48 @@
+id: A.11.physics.work_energy_and_power.work_by_variable_force.01
+skill_ids:
+- SK.A.11.physics.work_by_variable_force
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: On a graph of force against displacement, what represents the work done by the force?
+hints:
+- level: 1
+  en: Work is force multiplied by displacement, summed over many small steps.
+- level: 2
+  en: Imagine thin vertical strips under the graph.
+- level: 3
+  en: Each strip's area is one force value times a small displacement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: area under the force-displacement curve
+- id: b
+  en: height of the curve at the endpoint
+- id: c
+  en: slope of the curve
+- id: d
+  en: area under the velocity-time curve
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.FCA3C422A9ED
+  when_answer_equals:
+  - c
+- id: MC.A.DCB0B613CB14
+  when_answer_equals:
+  - b
+- id: MC.A.D19C894FD7A5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Work is the sum of force times small displacements, which is the area under the force-displacement curve.
+- en: The correct option is a.
+tier: C

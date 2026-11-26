@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.increasing_decreasing.04
+skill_ids:
+- SK.A.12.maths.increasing_decreasing
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: For f(x) = x + 1/x with x greater than 0, on which set is f increasing?
+hints:
+- level: 1
+  en: Differentiate f and write the derivative as a single fraction.
+- level: 2
+  en: Find when the numerator and denominator have the same sign.
+- level: 3
+  en: Check a test value on each side of the critical point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0, infinity)
+- id: b
+  en: (1, infinity) only
+- id: c
+  en: (0, 1) only
+- id: d
+  en: (-1, 1)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.3A9DC596523F
+  when_answer_equals:
+  - c
+- id: MC.A.C9AABEB9CC4F
+  when_answer_equals:
+  - a
+- id: MC.A.F8985E36F2FC
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The derivative 1 - 1/x^2 is positive only when x is greater than 1, so f is increasing on (1, infinity).
+- en: The correct option is b.
+tier: C

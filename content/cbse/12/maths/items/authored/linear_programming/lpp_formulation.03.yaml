@@ -1,0 +1,48 @@
+id: A.12.maths.linear_programming.lpp_formulation.03
+skill_ids:
+- SK.A.12.maths.lpp_formulation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A diet must provide at least 10 units of protein. Food X gives 2 units of protein per kg and food Y gives 3 units per kg. If x kg of X and y kg of Y are used, which constraint is correct?
+hints:
+- level: 1
+  en: Translate the phrase at least into the direction of the inequality.
+- level: 2
+  en: Write the protein from each food as its rate times its quantity.
+- level: 3
+  en: Add the two contributions to get the total protein.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2x + 3y = 10
+- id: b
+  en: 2x + 3y <= 10
+- id: c
+  en: x + y >= 10
+- id: d
+  en: 2x + 3y >= 10
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A3A4745693D1
+  when_answer_equals:
+  - b
+- id: MC.A.81423C4B05F2
+  when_answer_equals:
+  - a
+- id: MC.A.491BC427CC86
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The protein supplied is 2x + 3y, and since the diet needs at least 10 units, the constraint is 2x + 3y greater than or equal to 10.
+- en: The correct option is d.
+tier: C

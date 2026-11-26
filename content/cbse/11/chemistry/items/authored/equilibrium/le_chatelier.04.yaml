@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.le_chatelier.04
+skill_ids:
+- SK.A.11.chemistry.le_chatelier
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: For CO + H2O <=> CO2 + H2, what happens if the mixture is compressed at constant temperature?
+hints:
+- level: 1
+  en: Count gaseous molecules on each side before deciding which way the pressure change acts.
+- level: 2
+  en: Compare the total moles of gas on the two sides of the equation.
+- level: 3
+  en: A side with equal gas molecules is not favoured by a pressure change.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the equilibrium constant increases
+- id: b
+  en: no shift in the position of equilibrium
+- id: c
+  en: the equilibrium shifts to the left
+- id: d
+  en: the equilibrium shifts to the right
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2622B1C44A1B
+  when_answer_equals:
+  - d
+- id: MC.A.593FCAFDB63C
+  when_answer_equals:
+  - c
+- id: MC.A.A9D567FF9C4E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Both sides contain two gaseous molecules, so changing the total pressure does not favour either direction and the equilibrium position stays the same.
+- en: The correct option is b.
+tier: C

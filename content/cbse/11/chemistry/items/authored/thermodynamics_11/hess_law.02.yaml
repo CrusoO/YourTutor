@@ -1,0 +1,30 @@
+id: A.11.chemistry.thermodynamics_11.hess_law.02
+skill_ids:
+- SK.A.11.chemistry.hess_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Given C + O2 -> CO2 with delta H = -394 kJ and CO + 1/2 O2 -> CO2 with delta H = -283 kJ, what is delta H in kJ for C + 1/2 O2 -> CO?
+hints:
+- level: 1
+  en: Reverse the second equation and add it to the first.
+- level: 2
+  en: When you reverse an equation, change the sign of its enthalpy change.
+- level: 3
+  en: Cancel the species that appear on both sides before adding the values.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '-111'
+  accept: []
+solution_steps:
+- en: Subtracting the second equation from the first gives C + 1/2 O2 -> CO, with delta H equal to -394 minus (-283), which is -111 kJ.
+- en: The unit of the answer is kJ.
+- en: Answer = -111
+tier: C

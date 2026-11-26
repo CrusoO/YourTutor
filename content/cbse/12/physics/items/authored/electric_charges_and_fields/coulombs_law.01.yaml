@@ -1,0 +1,49 @@
+id: A.12.physics.electric_charges_and_fields.coulombs_law.01
+skill_ids:
+- SK.A.12.physics.coulombs_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Two like charges repel each other. If the distance between them is doubled, how does the electrostatic force between them change?
+hints:
+- level: 1
+  en: Recall how the force formula depends on the distance r.
+- level: 2
+  en: Ask which power of r sits in the denominator of the formula.
+- level: 3
+  en: Compare the force at a separation r with the force at a separation of 2r.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It becomes one quarter of the original
+- id: b
+  en: It doubles
+- id: c
+  en: It stays the same
+- id: d
+  en: It becomes half of the original
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.07940A7C93AD
+  when_answer_equals:
+  - d
+- id: MC.A.1D0D43F5FCD2
+  when_answer_equals:
+  - b
+- id: MC.A.F4C064B8E29A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Coulomb's force depends on the inverse square of the separation.
+- en: Doubling the distance divides the force by four.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,50 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.06
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why is the reverse current of an ideal p-n diode nearly constant over a range of reverse voltages?
+hints:
+- level: 1
+  en: Think about which carriers can still cross the junction under reverse bias.
+- level: 2
+  en: Consider how many of those carriers are available to cross.
+- level: 3
+  en: Recall how the depletion region changes its width under reverse bias.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Electrons flow freely across the junction in reverse
+- id: b
+  en: Only a small number of minority carriers cross the junction under reverse bias
+- id: c
+  en: The depletion region disappears in reverse bias
+- id: d
+  en: The diode has infinite resistance in reverse
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.40E0833B1B47
+  when_answer_equals:
+  - a
+- id: MC.A.29CFF6C22C20
+  when_answer_equals:
+  - c
+- id: MC.A.913A9E9973F1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In reverse bias the barrier blocks the majority carriers, and only the small number of minority carriers can cross.
+- en: Their supply is limited, so the reverse current saturates.
+- en: The correct option is b.
+tier: C
+diagram_note: The current voltage characteristic of a diode drawn as a graph, with a flat reverse current region on the left of the origin and a steep forward branch on the right.

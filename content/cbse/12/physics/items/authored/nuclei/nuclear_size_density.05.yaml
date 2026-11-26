@@ -1,0 +1,49 @@
+id: A.12.physics.nuclei.nuclear_size_density.05
+skill_ids:
+- SK.A.12.physics.nuclear_size_density
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Experiments show that nuclear density is nearly the same for all nuclei. Why is this so?
+hints:
+- level: 1
+  en: Think about how many nucleons a given nucleon can interact with.
+- level: 2
+  en: Consider whether the volume grows in proportion to the number of nucleons.
+- level: 3
+  en: Recall the range of the strong nuclear force.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Nuclear forces are short ranged and saturate, so each nucleon interacts only with its neighbours
+- id: b
+  en: Electrons confine the nucleus to a fixed size
+- id: c
+  en: Protons and neutrons have identical masses
+- id: d
+  en: Heavier nuclei are more tightly packed in space
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.8EFB311B659F
+  when_answer_equals:
+  - c
+- id: MC.A.142168F90042
+  when_answer_equals:
+  - b
+- id: MC.A.04CA033F8B28
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The strong force saturates, so each nucleon only binds to a fixed number of close neighbours.
+- en: The volume therefore grows in proportion to the number of nucleons.
+- en: The correct option is a.
+tier: C

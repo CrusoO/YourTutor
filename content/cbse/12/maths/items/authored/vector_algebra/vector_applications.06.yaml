@@ -1,0 +1,48 @@
+id: A.12.maths.vector_algebra.vector_applications.06
+skill_ids:
+- SK.A.12.maths.vector_applications
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the volume of the tetrahedron whose three coterminous edges are the vectors (2, 0, 0), (0, 3, 0) and (0, 0, 4)?
+hints:
+- level: 1
+  en: Compute the scalar triple product of the three edge vectors.
+- level: 2
+  en: A tetrahedron occupies a fixed fraction of the parallelepiped spanned by the same edges.
+- level: 3
+  en: Take the absolute value of the final result.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '24'
+- id: b
+  en: '4'
+- id: c
+  en: '12'
+- id: d
+  en: '8'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E8E5E3BFE786
+  when_answer_equals:
+  - a
+- id: MC.A.F73AFC451B83
+  when_answer_equals:
+  - c
+- id: MC.A.6F81C997C740
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The scalar triple product of the three edges is 24, which is the volume of the parallelepiped they span, and the tetrahedron has one sixth of that volume, which is 4.
+- en: The correct option is b.
+tier: C

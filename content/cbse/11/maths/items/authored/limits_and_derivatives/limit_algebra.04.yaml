@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.limit_algebra.04
+skill_ids:
+- SK.A.11.maths.limit_algebra
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the limit of (1 minus cos x) divided by x squared as x approaches 0?
+hints:
+- level: 1
+  en: Recall the standard limit involving one minus the cosine over the square of the variable.
+- level: 2
+  en: Use a half-angle identity to rewrite one minus the cosine.
+- level: 3
+  en: Apply the standard sine limit to the resulting squared expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: -1/2
+- id: c
+  en: '0'
+- id: d
+  en: 1/2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.EE5F59D520E3
+  when_answer_equals:
+  - a
+- id: MC.A.6A1632EFFE3E
+  when_answer_equals:
+  - c
+- id: MC.A.C130EBAEF4DF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Using the standard limit (1 minus cos x) over x squared equals one half, which is the value this limit takes.
+- en: The correct option is d.
+tier: C

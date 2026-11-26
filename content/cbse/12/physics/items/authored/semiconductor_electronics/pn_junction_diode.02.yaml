@@ -1,0 +1,50 @@
+id: A.12.physics.semiconductor_electronics.pn_junction_diode.02
+skill_ids:
+- SK.A.12.physics.pn_junction_diode
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: How is the depletion region formed at the junction of a p-n diode?
+hints:
+- level: 1
+  en: Think about which carriers move across the junction when the two regions first meet.
+- level: 2
+  en: Consider what remains behind when a carrier leaves its region.
+- level: 3
+  en: Recall how the fixed charges create a barrier.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Carriers diffuse across the junction and leave fixed ions behind
+- id: b
+  en: Heat is applied to the junction until it hardens
+- id: c
+  en: Electrons flow out of the p-region into the metal contact
+- id: d
+  en: A metal layer is deposited to separate the two regions
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B94A0E1CFD17
+  when_answer_equals:
+  - c
+- id: MC.A.7F2965D7F993
+  when_answer_equals:
+  - b
+- id: MC.A.37EB2FBE7D09
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Electrons diffuse into the p-region and holes diffuse into the n-region.
+- en: The fixed ions left behind create an electric field that stops further diffusion, forming the depletion region.
+- en: The correct option is a.
+tier: C
+diagram_note: A p-n junction shown as two regions side by side, with the depletion region drawn at the junction and fixed ions marked on each side.

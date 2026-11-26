@@ -1,0 +1,48 @@
+id: A.9.chemistry.atoms_and_molecules.molecular_mass.05
+skill_ids:
+- SK.A.9.chemistry.molecular_mass
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which mistake would most change the calculated molecular mass of magnesium chloride, MgCl2, away from its correct value?
+hints:
+- level: 1
+  en: Count the atoms of each element in the formula and check the count you used.
+- level: 2
+  en: Ask whether a small rounding change would shift the total as much as a missing atom.
+- level: 3
+  en: Consider whether electrons contribute noticeably to the mass of an atom.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: adding the mass of a single electron to the total
+- id: b
+  en: using the mass of only one chlorine atom instead of two
+- id: c
+  en: rounding the magnesium mass to a whole number
+- id: d
+  en: writing the symbols in a different order in the formula
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.DE4239E9CD60
+  when_answer_equals:
+  - c
+- id: MC.A.C0E66DCDFE15
+  when_answer_equals:
+  - d
+- id: MC.A.66397F0DD6AC
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Leaving out one of the two chlorine atoms removes a large mass from the total, while rounding or reordering changes the result very little or not at all.
+- en: The correct option is b.
+tier: C

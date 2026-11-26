@@ -1,0 +1,48 @@
+id: A.11.maths.probability.axiomatic_probability.02
+skill_ids:
+- SK.A.11.maths.axiomatic_probability
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If events A and B are mutually exclusive, which expression gives P(A or B)?
+hints:
+- level: 1
+  en: Think about whether the two events can occur at the same time.
+- level: 2
+  en: If they cannot overlap, what does the overlap term in the general rule equal?
+- level: 3
+  en: Write the general addition rule and simplify it for this case.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: P(A) minus P(B)
+- id: b
+  en: P(A) plus P(B) minus 2 times P(A and B)
+- id: c
+  en: P(A) plus P(B)
+- id: d
+  en: P(A) times P(B)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.E1DE7DD358E0
+  when_answer_equals:
+  - d
+- id: MC.A.097580B351B6
+  when_answer_equals:
+  - b
+- id: MC.A.555BA155ED8E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: For mutually exclusive events the intersection is empty, so P(A or B) is simply P(A) plus P(B).
+- en: The correct option is c.
+tier: C

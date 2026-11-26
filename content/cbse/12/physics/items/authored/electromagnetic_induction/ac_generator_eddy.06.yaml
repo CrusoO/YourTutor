@@ -1,0 +1,48 @@
+id: A.12.physics.electromagnetic_induction.ac_generator_eddy.06
+skill_ids:
+- SK.A.12.physics.ac_generator_eddy
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why is the core of a transformer built from thin laminated sheets instead of a solid block?
+hints:
+- level: 1
+  en: Think about the currents induced in a solid core by a changing flux.
+- level: 2
+  en: Consider how thin sheets limit the size of those induced loops.
+- level: 3
+  en: Recall what those induced currents do to the energy supplied to the transformer.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: To store magnetic energy between each cycle
+- id: b
+  en: To make the core heavier and more stable
+- id: c
+  en: To reduce eddy current losses
+- id: d
+  en: To increase eddy currents that heat the core
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2452B718CF10
+  when_answer_equals:
+  - d
+- id: MC.A.905AEC93C4C8
+  when_answer_equals:
+  - b
+- id: MC.A.E7F39FBD5C96
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Thin insulated laminations limit the size of the induced current loops, so the energy wasted as heat in the core is much smaller than in a solid block.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.10.physics.magnetic_effects_of_electric_current.force_on_current_carrying_conductor.04
+skill_ids:
+- SK.A.10.physics.force_on_current_carrying_conductor
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: 'A wire in a fixed magnetic field carries a current. If the current is doubled and nothing else changes, the force on the wire becomes:'
+hints:
+- level: 1
+  en: Recall how the force formula depends on the current.
+- level: 2
+  en: Ask whether the current appears as a square or as a simple multiplier in the formula.
+- level: 3
+  en: Think about whether a change in current changes the force at all.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Unchanged
+- id: b
+  en: Four times as large
+- id: c
+  en: Twice as large
+- id: d
+  en: Half as large
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.32B0E8E46979
+  when_answer_equals:
+  - d
+- id: MC.A.C70F8FC196BC
+  when_answer_equals:
+  - b
+- id: MC.A.0D5FD585CEFA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The force on a current-carrying conductor is directly proportional to the current, when the length and the field are fixed.
+- en: Doubling the current doubles the force.
+- en: The correct option is c.
+tier: C

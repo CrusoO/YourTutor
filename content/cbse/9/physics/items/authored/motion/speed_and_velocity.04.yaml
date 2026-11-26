@@ -1,0 +1,48 @@
+id: A.9.physics.motion.speed_and_velocity.04
+skill_ids:
+- SK.A.9.physics.speed_and_velocity
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A car travels 50 km east in 1 hour and then returns 50 km west in 1 hour. Which statement about its average velocity for the whole trip is correct?
+hints:
+- level: 1
+  en: Velocity keeps track of direction along the path.
+- level: 2
+  en: Compare the net change in position with the total time taken.
+- level: 3
+  en: Ask where the car finishes relative to where it started.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: zero
+- id: b
+  en: 100 km/h
+- id: c
+  en: 50 km/h
+- id: d
+  en: 50 km/h east
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.F666C8482CBD
+  when_answer_equals:
+  - d
+- id: MC.A.E9F6DD7C144E
+  when_answer_equals:
+  - b
+- id: MC.A.C1C36FD9D3F8
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Average velocity is the net displacement divided by the total time, and the net displacement is zero because the car ends at its starting point.
+- en: The correct option is a.
+tier: C

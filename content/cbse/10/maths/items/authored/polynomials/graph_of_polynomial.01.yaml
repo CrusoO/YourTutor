@@ -1,0 +1,49 @@
+id: A.10.maths.polynomials.graph_of_polynomial.01
+skill_ids:
+- SK.A.10.maths.graph_of_polynomial
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A parabola with equation y = x² - 4 meets the x-axis at how many points?
+hints:
+- level: 1
+  en: A zero is an x-value where y equals 0.
+- level: 2
+  en: Solve x² - 4 = 0 for x.
+- level: 3
+  en: Count the distinct solutions you get.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: '2'
+- id: c
+  en: '1'
+- id: d
+  en: '4'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C225D33A1A7F
+  when_answer_equals:
+  - a
+- id: MC.A.E8B42B4A6D9A
+  when_answer_equals:
+  - c
+- id: MC.A.3B98F11412B0
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The zeros are the x-values where the graph meets the x-axis, so we solve x² - 4 = 0.
+- en: This gives x = 2 and x = -2, which are two points.
+- en: The correct option is b.
+tier: C

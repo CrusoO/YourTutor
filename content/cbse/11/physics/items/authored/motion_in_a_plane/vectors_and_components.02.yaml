@@ -1,0 +1,50 @@
+id: A.11.physics.motion_in_a_plane.vectors_and_components.02
+skill_ids:
+- SK.A.11.physics.vectors_and_components
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Vector P has components (4, 0) and vector Q has components (0, 3), both in metres. What is the magnitude of P plus Q?
+hints:
+- level: 1
+  en: Add the x-components together and the y-components together.
+- level: 2
+  en: The resultant of two perpendicular components is the diagonal of a rectangle.
+- level: 3
+  en: Square each component, add the squares, and take the square root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 12 m
+- id: b
+  en: 7 m
+- id: c
+  en: 1 m
+- id: d
+  en: 5 m
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DC8ED0EBEA01
+  when_answer_equals:
+  - b
+- id: MC.A.D59B1E5559E1
+  when_answer_equals:
+  - c
+- id: MC.A.4E159211C91F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Adding the components gives (4, 3).
+- en: The magnitude is the square root of 16 plus 9, which is 5 m.
+- en: The correct option is d.
+tier: C
+diagram_note: A coordinate plane with vector P drawn along the positive x-axis to length 4 and vector Q drawn along the positive y-axis to length 3. Their sum is shown as the diagonal of the rectangle they form.

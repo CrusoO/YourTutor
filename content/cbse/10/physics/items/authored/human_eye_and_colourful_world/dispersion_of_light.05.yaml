@@ -1,0 +1,51 @@
+id: A.10.physics.human_eye_and_colourful_world.dispersion_of_light.05
+skill_ids:
+- SK.A.10.physics.dispersion_of_light
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A white light beam enters a rectangular glass block through its top face and leaves through its bottom face, with the two faces parallel. Does the emergent light show a spectrum?
+hints:
+- level: 1
+  en: Trace a single ray of each colour through the top face and then the bottom face.
+- level: 2
+  en: Ask whether the two faces of the block are inclined to each other as they are in a prism.
+- level: 3
+  en: Compare the direction of the emergent beam with that of the incident beam.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Yes, with red on the inner side of the spectrum
+- id: b
+  en: No, but the light is deviated by ninety degrees
+- id: c
+  en: No, the emergent beam is white and only shifted sideways, because the parallel faces cancel the spreading
+- id: d
+  en: Yes, with the same spread as a prism
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.C40C0584ED23
+  when_answer_equals:
+  - d
+- id: MC.A.74564AF14BB4
+  when_answer_equals:
+  - a
+- id: MC.A.348AF08DB98B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In a rectangular glass block the faces are parallel, so each colour bends on entry and bends back on exit.
+- en: The emergent rays are parallel to the incident ray, and the beam is shifted sideways.
+- en: The spreading of colours cancels out, so the emergent light stays white.
+- en: The correct option is c.
+tier: C
+diagram_note: Rectangular glass block with a white light ray entering the top face and leaving the bottom face. Show the emergent ray parallel to the incident ray but displaced sideways, with the two faces labelled as parallel.

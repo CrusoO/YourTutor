@@ -1,0 +1,50 @@
+id: A.11.biology.cell_cycle_and_cell_division.mitosis.06
+skill_ids:
+- SK.A.11.biology.mitosis
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mutation disables the spindle checkpoint, so cells enter anaphase while some chromosomes are still unattached to the spindle. Which outcome is most likely?
+hints:
+- level: 1
+  en: Ask what the spindle checkpoint is meant to protect.
+- level: 2
+  en: Consider what happens to a chromosome that is not attached when the poles pull apart.
+- level: 3
+  en: Think about whether the two daughter cells would receive the same genetic content.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Identical daughter cells with normal chromosome numbers
+- id: b
+  en: Cells that stop dividing and enter G0 permanently
+- id: c
+  en: Cells that produce gametes instead of daughter cells
+- id: d
+  en: Daughter cells with unequal chromosome numbers
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7F5AC629A590
+  when_answer_equals:
+  - a
+- id: MC.A.DDD0FC93BBA2
+  when_answer_equals:
+  - b
+- id: MC.A.0859F57AEEE2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The spindle checkpoint delays anaphase until all chromosomes are attached.
+- en: Without it, unattached chromosomes may be lost or sent to the wrong pole, creating daughter cells with unequal numbers of chromosomes.
+- en: The correct option is d.
+tier: C
+diagram_note: Draw an anaphase cell in which one chromosome lags at the centre while the others move to the poles, labelling the lagging chromosome and the spindle fibres.

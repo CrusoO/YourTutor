@@ -1,0 +1,49 @@
+id: A.12.physics.semiconductor_electronics.rectifiers_logic_gates.06
+skill_ids:
+- SK.A.12.physics.rectifiers_logic_gates
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: In a bridge rectifier, why does the load always see current flowing in the same direction?
+hints:
+- level: 1
+  en: Trace the current path through the diodes during each half cycle.
+- level: 2
+  en: Consider which diodes conduct on each half of the input.
+- level: 3
+  en: Compare the path through the load in the two halves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The diodes steer each half cycle so that current passes through the load the same way
+- id: b
+  en: The transformer reverses its polarity each cycle
+- id: c
+  en: The load is an inductor that holds the polarity fixed
+- id: d
+  en: Capacitors in the circuit reverse the current
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0E988DED8F91
+  when_answer_equals:
+  - c
+- id: MC.A.8EEB3E82B741
+  when_answer_equals:
+  - b
+- id: MC.A.4FE770A0410A
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each pair of diagonally opposite diodes conducts on one half cycle, routing the current through the load in the same direction for both halves.
+- en: The correct option is a.
+tier: C
+diagram_note: A bridge rectifier diagram with two separate current paths drawn, one for each half cycle, both passing through the load in the same direction.

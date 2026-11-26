@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystal_defects.01
+skill_ids:
+- SK.A.12.chemistry.crystal_defects
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which defect appears when an ion leaves its normal lattice site and settles into a gap between lattice sites?
+hints:
+- level: 1
+  en: Ask whether the ion stays inside the crystal or leaves it.
+- level: 2
+  en: Consider where the displaced ion ends up.
+- level: 3
+  en: Think about which site becomes occupied rather than empty.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Frenkel defect
+- id: b
+  en: Substitutional impurity
+- id: c
+  en: Schottky defect
+- id: d
+  en: Vacancy defect
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.B202715D479F
+  when_answer_equals:
+  - c
+- id: MC.A.ECB3AF2C9A55
+  when_answer_equals:
+  - d
+- id: MC.A.4D7E9BE57894
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In a Frenkel defect an ion moves from its site into an interstitial gap, so the crystal keeps all its ions and its composition is unchanged.
+- en: The correct option is a.
+tier: C
+diagram_note: Ionic lattice drawn as a grid of alternating plus and minus symbols, with one cation shown in an empty gap between sites and a vacant site beside it.

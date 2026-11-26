@@ -1,0 +1,31 @@
+id: A.11.physics.waves.speed_of_wave.05
+skill_ids:
+- SK.A.11.physics.speed_of_wave
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Transverse waves on a string travel at 40 m/s when the tension is 50 N. What tension in newtons gives a wave speed of 80 m/s on the same string?
+hints:
+- level: 1
+  en: Wave speed squared is proportional to tension for a fixed string.
+- level: 2
+  en: Find the ratio of the two speeds and square it.
+- level: 3
+  en: Multiply the original tension by that squared ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '200'
+  accept: []
+solution_steps:
+- en: The speed is proportional to the square root of the tension, so T is proportional to v squared.
+- en: The new tension is 50 times (80/40)^2 = 200 N.
+- en: The unit of the answer is N.
+- en: Answer = 200
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.biology.biotechnology_principles_and_processes.recombinant_dna_tools.05
+skill_ids:
+- SK.A.12.biology.recombinant_dna_tools
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A researcher cuts a vector with one enzyme and a gene with another enzyme that leaves incompatible ends. What is the likely problem?
+hints:
+- level: 1
+  en: Think about whether the cut ends can pair with each other.
+- level: 2
+  en: Consider what ligase needs in order to form a bond.
+- level: 3
+  en: Focus on whether the two sets of ends can match.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The fragments cannot be ligated easily because the ends do not match
+- id: b
+  en: Ligase will join them with extra efficiency
+- id: c
+  en: The vector copies itself twice as fast
+- id: d
+  en: The gene loses its promoter automatically
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3EA848CCBC2F
+  when_answer_equals:
+  - b
+- id: MC.A.2D0C53EC75D9
+  when_answer_equals:
+  - c
+- id: MC.A.CAA0C77C11EF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Ligation needs complementary sticky or blunt ends so that the fragments can pair and be sealed.
+- en: Incompatible ends make it hard to join the vector and the gene.
+- en: The correct option is a.
+tier: C

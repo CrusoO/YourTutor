@@ -1,0 +1,31 @@
+id: A.11.physics.mechanical_properties_of_fluids.viscosity_and_stokes.03
+skill_ids:
+- SK.A.11.physics.viscosity_and_stokes
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A steel sphere of radius 1 mm falls through glycerine of viscosity 1.5 Pa s. Steel has density 7800 kg/m^3 and glycerine has density 1260 kg/m^3. Taking g = 9.8 m/s^2, what is its terminal speed in metres per second, to four decimal places?
+hints:
+- level: 1
+  en: At terminal speed the net weight minus buoyancy equals the drag force.
+- level: 2
+  en: The Stokes drag on a sphere involves six times pi times the viscosity times the radius times the speed.
+- level: 3
+  en: Solve for the speed using the difference in densities and the squared radius.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.0095'
+  accept: []
+solution_steps:
+- en: At terminal speed, the weight minus buoyancy equals the Stokes drag, so v = 2 (rho_s - rho_f) g r^2 / (9 eta).
+- en: This gives about 0.0095 m/s.
+- en: The unit of the answer is m/s.
+- en: Answer = 0.0095
+tier: C

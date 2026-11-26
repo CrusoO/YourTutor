@@ -1,0 +1,48 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_plane.05
+skill_ids:
+- SK.A.12.maths.equation_of_plane
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which point lies on the plane 2x - y + z = 4?
+hints:
+- level: 1
+  en: Substitute each candidate's coordinates into the left side.
+- level: 2
+  en: Compare the result with the constant on the right side.
+- level: 3
+  en: Only one candidate gives exactly that constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (0, 1, 1)
+- id: b
+  en: (2, 1, 0)
+- id: c
+  en: (1, 1, 1)
+- id: d
+  en: (2, 0, 0)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CCE6ADB719AF
+  when_answer_equals:
+  - c
+- id: MC.A.AC00443EA565
+  when_answer_equals:
+  - a
+- id: MC.A.F491207FB75B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Substituting (2, 0, 0) gives 2 times 2 minus 0 plus 0, which equals 4, so this point satisfies the equation.
+- en: The correct option is d.
+tier: C

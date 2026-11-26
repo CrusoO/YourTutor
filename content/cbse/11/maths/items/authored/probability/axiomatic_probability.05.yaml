@@ -1,0 +1,29 @@
+id: A.11.maths.probability.axiomatic_probability.05
+skill_ids:
+- SK.A.11.maths.axiomatic_probability
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: Events A and B are independent, with P(A) equal to 0.5 and P(B) equal to 0.3. What is P(A or B)?
+hints:
+- level: 1
+  en: For independent events, the probability of both occurring is the product of the individual probabilities.
+- level: 2
+  en: Compute that product and then apply the addition rule.
+- level: 3
+  en: Subtract the overlap once from the sum of the two probabilities.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.65'
+  accept: []
+solution_steps:
+- en: Independence gives P(A and B) equal to 0.5 times 0.3, which is 0.15, and the union is 0.5 plus 0.3 minus 0.15, equal to 0.65.
+- en: Answer = 0.65
+tier: C

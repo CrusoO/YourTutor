@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkenes.05
+skill_ids:
+- SK.A.11.chemistry.alkenes
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: What is the product of ozonolysis of 2-butene followed by a reductive work-up?
+hints:
+- level: 1
+  en: Split the double bond and attach an oxygen to each carbon, counting the carbons on each side.
+- level: 2
+  en: Each carbon of the double bond becomes a carbonyl carbon in the product.
+- level: 3
+  en: Count how many carbons remain on each side after the cleavage.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: two molecules of ethanoic acid
+- id: b
+  en: two molecules of ethanal
+- id: c
+  en: one molecule of butanedial
+- id: d
+  en: two molecules of methanal
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EC51CD804A2A
+  when_answer_equals:
+  - d
+- id: MC.A.4799CF5251B4
+  when_answer_equals:
+  - c
+- id: MC.A.79FDEBC2ECF7
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The double bond between carbons two and three of butene is cleaved, and each half gives an aldehyde, so two molecules of ethanal form.
+- en: The correct option is b.
+tier: C

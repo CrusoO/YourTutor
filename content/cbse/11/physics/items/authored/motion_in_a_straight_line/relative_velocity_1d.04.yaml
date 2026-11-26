@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_straight_line.relative_velocity_1d.04
+skill_ids:
+- SK.A.11.physics.relative_velocity_1d
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A man walks at 4 km/h on a moving walkway that moves at 2 km/h in the same direction. He then walks the opposite way at 4 km/h relative to the walkway. What is his velocity relative to the ground in that case?
+hints:
+- level: 1
+  en: Choose one direction as positive and keep it fixed.
+- level: 2
+  en: Add the signed velocities of the man and the walkway.
+- level: 3
+  en: The sign of the answer tells you which way he moves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4 km/h in the walkway direction
+- id: b
+  en: 2 km/h opposite to the walkway motion
+- id: c
+  en: zero
+- id: d
+  en: 6 km/h in the walkway direction
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E5D89C0B3C8D
+  when_answer_equals:
+  - d
+- id: MC.A.95B73BC7E619
+  when_answer_equals:
+  - a
+- id: MC.A.701F1DCCB293
+  when_answer_equals:
+  - c
+solution_steps:
+- en: With walkway direction positive, the man's velocity relative to the walkway is -4 km/h.
+- en: Adding the walkway's +2 km/h gives -2 km/h, so he moves at 2 km/h opposite to the walkway.
+- en: The correct option is b.
+tier: C

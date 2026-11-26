@@ -1,0 +1,48 @@
+id: A.12.maths.matrices.matrix_types_operations.02
+skill_ids:
+- SK.A.12.maths.matrix_types_operations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: P is a 2 by 3 matrix and Q is a 3 by 2 matrix. Which statement about the products is correct?
+hints:
+- level: 1
+  en: Compare the number of columns of the first factor with the number of rows of the second.
+- level: 2
+  en: The outer sizes of the factors give the size of the product.
+- level: 3
+  en: Check each product in both orders separately.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Only PQ is defined
+- id: b
+  en: PQ is 3 by 3 and QP is 2 by 2
+- id: c
+  en: PQ is 2 by 2 and QP is 3 by 3
+- id: d
+  en: Neither PQ nor QP is defined
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.721B1FE88302
+  when_answer_equals:
+  - d
+- id: MC.A.B0DF487BEEE3
+  when_answer_equals:
+  - b
+- id: MC.A.176A97777740
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A 2 by 3 matrix times a 3 by 2 matrix gives a 2 by 2 result, and a 3 by 2 matrix times a 2 by 3 matrix gives a 3 by 3 result, so both products exist.
+- en: The correct option is c.
+tier: C

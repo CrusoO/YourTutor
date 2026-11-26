@@ -1,0 +1,49 @@
+id: A.9.maths.circles.cyclic_quadrilaterals.04
+skill_ids:
+- SK.A.9.maths.cyclic_quadrilaterals
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Corner A of a four-cornered figure inscribed in a circle measures 88 degrees. How large is the corner C opposite it?
+hints:
+- level: 1
+  en: Opposite angles of an inscribed four-sided figure are supplementary.
+- level: 2
+  en: Use the total that opposite angles must make.
+- level: 3
+  en: Subtract the given corner from that total.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 102 degrees
+- id: b
+  en: 88 degrees
+- id: c
+  en: 270 degrees
+- id: d
+  en: 92 degrees
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CF8F31A33F6B
+  when_answer_equals:
+  - b
+- id: MC.A.58EF21AEDF1C
+  when_answer_equals:
+  - a
+- id: MC.A.2E76EB43B713
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Opposite angles add up to 180 degrees, so 180 minus 88 gives 92 degrees.
+- en: The correct option is d.
+tier: C
+diagram_note: Four-sided figure with its corners on a circle, one corner marked 88 degrees and the opposite corner unknown.

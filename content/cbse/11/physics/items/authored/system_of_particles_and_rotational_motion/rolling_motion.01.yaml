@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.rolling_motion.01
+skill_ids:
+- SK.A.11.physics.rolling_motion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A body rolls without slipping on a level surface. Which statement about the point of contact with the surface is true?
+hints:
+- level: 1
+  en: No slipping means the contact point does not slide over the surface.
+- level: 2
+  en: The motion of a rolling body combines translation and rotation.
+- level: 3
+  en: The rotation at the bottom cancels the translation there.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it moves at the same speed as the centre
+- id: b
+  en: it accelerates away from the surface
+- id: c
+  en: it moves at twice the speed of the centre
+- id: d
+  en: its instantaneous velocity is zero
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.1E9A84C7D0A8
+  when_answer_equals:
+  - c
+- id: MC.A.E938F0CE28F3
+  when_answer_equals:
+  - a
+- id: MC.A.AE0C7EEDAD0F
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In rolling without slipping, the rotation exactly cancels the translation at the contact point, so the contact point has zero instantaneous velocity.
+- en: The correct option is d.
+tier: C

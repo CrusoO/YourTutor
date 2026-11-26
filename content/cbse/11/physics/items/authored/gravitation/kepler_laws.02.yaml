@@ -1,0 +1,30 @@
+id: A.11.physics.gravitation.kepler_laws.02
+skill_ids:
+- SK.A.11.physics.kepler_laws
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A planet has an orbital period of 8 years, while Earth's is 1 year. Using Kepler's third law, by what factor is the planet's orbital radius larger than Earth's?
+hints:
+- level: 1
+  en: Kepler's third law relates the square of the period to the cube of the orbital radius.
+- level: 2
+  en: Find the number whose cube root is the square of the period ratio.
+- level: 3
+  en: Compare the given periods, not the distances.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '4'
+  accept: []
+solution_steps:
+- en: Kepler's third law gives T^2 proportional to r^3, so r is proportional to T^(2/3).
+- en: The ratio 8^(2/3) equals 4.
+- en: Answer = 4
+tier: C

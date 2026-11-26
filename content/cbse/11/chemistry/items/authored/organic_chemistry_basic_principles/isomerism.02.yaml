@@ -1,0 +1,48 @@
+id: A.11.chemistry.organic_chemistry_basic_principles.isomerism.02
+skill_ids:
+- SK.A.11.chemistry.isomerism
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What is required for geometrical isomerism in an alkene?
+hints:
+- level: 1
+  en: Ask whether rotation about the bond is possible and whether each carbon carries two different groups.
+- level: 2
+  en: Consider what the double bond does to rotation between the two carbons.
+- level: 3
+  en: Look for the option that describes a fixed arrangement of groups on the double bond.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: restricted rotation about the double bond with different groups on each carbon
+- id: b
+  en: a triple bond in the molecule
+- id: c
+  en: identical groups on both carbons of the double bond
+- id: d
+  en: a chiral carbon atom
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.0D330B9CE732
+  when_answer_equals:
+  - b
+- id: MC.A.F216AB2100D1
+  when_answer_equals:
+  - d
+- id: MC.A.2031E2C9B2E5
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The double bond prevents rotation, and when each carbon of the double bond carries two different groups, cis and trans forms can exist.
+- en: The correct option is a.
+tier: C

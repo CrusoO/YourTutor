@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.angle_sum_quadrilateral.02
+skill_ids:
+- SK.A.9.maths.angle_sum_quadrilateral
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the sum of the interior angles of a convex quadrilateral?
+hints:
+- level: 1
+  en: Split the quadrilateral into triangles using one diagonal.
+- level: 2
+  en: Count how many triangles that produces.
+- level: 3
+  en: Multiply the angle total of one triangle by that count.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 540 degrees
+- id: b
+  en: 360 degrees
+- id: c
+  en: 270 degrees
+- id: d
+  en: 180 degrees
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.44D0A7019281
+  when_answer_equals:
+  - d
+- id: MC.A.17574808F58A
+  when_answer_equals:
+  - c
+- id: MC.A.75AD43A2CCDA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A diagonal splits a quadrilateral into two triangles, so the angle sum is twice 180 degrees, which is 360 degrees.
+- en: The correct option is b.
+tier: C
+diagram_note: Convex quadrilateral with one diagonal drawn, splitting it into two triangles.

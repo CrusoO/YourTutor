@@ -1,0 +1,48 @@
+id: A.11.physics.kinetic_theory.gas_laws_kinetic_model.05
+skill_ids:
+- SK.A.11.physics.gas_laws_kinetic_model
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two different ideal gases are at the same temperature. Which statement about the rms speeds of their molecules is correct?
+hints:
+- level: 1
+  en: At the same temperature, the average kinetic energy is the same for both gases.
+- level: 2
+  en: Kinetic energy depends on both mass and the square of speed.
+- level: 3
+  en: Keep the energy fixed and see how the speed must respond to a change in mass.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: lighter molecules have the higher rms speed
+- id: b
+  en: both gases have the same rms speed regardless of mass
+- id: c
+  en: heavier molecules have the higher rms speed
+- id: d
+  en: the rms speed depends only on the pressure
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C6D9C84B7F53
+  when_answer_equals:
+  - c
+- id: MC.A.BE23945E1386
+  when_answer_equals:
+  - b
+- id: MC.A.702E6FC1DBDE
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At the same temperature the average kinetic energy is the same, so the lighter molecules must move faster to have that energy, giving a higher rms speed.
+- en: The correct option is a.
+tier: C

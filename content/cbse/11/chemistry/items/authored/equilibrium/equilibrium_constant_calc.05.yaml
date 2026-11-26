@@ -1,0 +1,30 @@
+id: A.11.chemistry.equilibrium.equilibrium_constant_calc.05
+skill_ids:
+- SK.A.11.chemistry.equilibrium_constant_calc
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: PCl5 <=> PCl3 + Cl2 has Kc = 0.040 mol/L. Starting with 0.20 mol/L of PCl5 and no products, what is the equilibrium concentration of Cl2 in mol/L?
+hints:
+- level: 1
+  en: Let the amount that decomposes be x and write the equilibrium concentrations in terms of x.
+- level: 2
+  en: The expression for Kc becomes a quadratic equation in x.
+- level: 3
+  en: Solve the quadratic and keep the positive root, which is the physically meaningful one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.0717'
+  accept: []
+solution_steps:
+- en: With x decomposed, x squared over (0.20 minus x) equals 0.040, which gives x squared plus 0.040x minus 0.008 equal to zero and x of about 0.0717 mol/L.
+- en: The unit of the answer is mol/L.
+- en: Answer = 0.0717
+tier: C

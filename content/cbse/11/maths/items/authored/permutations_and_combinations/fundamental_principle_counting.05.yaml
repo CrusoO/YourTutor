@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.fundamental_principle_counting.05
+skill_ids:
+- SK.A.11.maths.fundamental_principle_counting
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: How many four-digit odd numbers can be formed using the digits 0 to 9 with no repetition of any digit?
+hints:
+- level: 1
+  en: Fix the restricted position first, because it limits what can go elsewhere.
+- level: 2
+  en: The first digit cannot be zero and cannot repeat the last digit.
+- level: 3
+  en: Count the middle positions using only the digits that remain.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2240'
+  accept: []
+solution_steps:
+- en: Choose the odd last digit in 5 ways, the first digit in 8 ways from the nonzero digits left, and the two middle digits in 8 times 7 ways, giving 2240.
+- en: Answer = 2240
+tier: C

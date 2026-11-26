@@ -1,0 +1,49 @@
+id: A.9.maths.surface_areas_and_volumes.combined_solids.02
+skill_ids:
+- SK.A.9.maths.combined_solids
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A solid is a cylinder of radius r and height h with a hemisphere of the same radius on top. Which expression gives its volume?
+hints:
+- level: 1
+  en: Split the solid into the cylinder and the hemisphere.
+- level: 2
+  en: Recall the volume of a sphere and take half of it.
+- level: 3
+  en: Add the two parts together.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: pi r squared h plus pi r cubed
+- id: b
+  en: pi r squared h
+- id: c
+  en: pi r squared h plus two thirds pi r cubed
+- id: d
+  en: two thirds pi r squared h
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.898B476E2AEC
+  when_answer_equals:
+  - a
+- id: MC.A.B1B4326756B9
+  when_answer_equals:
+  - b
+- id: MC.A.07ED84519F6E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The cylinder contributes pi r squared h and the hemisphere contributes half of a sphere's volume, which is two thirds pi r cubed.
+- en: The correct option is c.
+tier: C
+diagram_note: Cylinder with a hemispherical dome on top, with the radius and height marked.

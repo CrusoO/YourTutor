@@ -1,0 +1,49 @@
+id: A.12.chemistry.electrochemistry.batteries_corrosion.05
+skill_ids:
+- SK.A.12.chemistry.batteries_corrosion
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why is a primary cell not practically rechargeable?
+hints:
+- level: 1
+  en: Think about whether the chemical change can be run in reverse inside the cell.
+- level: 2
+  en: Consider the products formed at the electrodes during discharge.
+- level: 3
+  en: Compare the reversibility of the electrode reactions in primary and secondary cells.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Its electrode reactions are largely irreversible in the cell
+- id: b
+  en: It produces too high a voltage to be recharged
+- id: c
+  en: Its electrolyte evaporates completely each cycle
+- id: d
+  en: Its anode dissolves as a gas
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6671C5FB2122
+  when_answer_equals:
+  - c
+- id: MC.A.5B552DE45F44
+  when_answer_equals:
+  - d
+- id: MC.A.F73905FF713C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The reactions in a primary cell cannot be easily reversed, because the products do not re-form the original reactants at the electrodes.
+- en: Recharging therefore fails or damages the cell.
+- en: The correct option is a.
+tier: C

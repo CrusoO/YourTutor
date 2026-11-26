@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.combinations.05
+skill_ids:
+- SK.A.11.maths.combinations
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: A team of 5 is to be picked from 7 boys and 5 girls so that it contains at least 3 girls. How many different teams are possible?
+hints:
+- level: 1
+  en: Split the teams by the number of girls they contain.
+- level: 2
+  en: Each case multiplies a choice of girls by a choice of boys.
+- level: 3
+  en: Add the counts for the cases that meet the condition.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '246'
+  accept: []
+solution_steps:
+- en: The cases give 10 times 21 for three girls, 5 times 7 for four girls and 1 for five girls, totalling 246.
+- en: Answer = 246
+tier: C

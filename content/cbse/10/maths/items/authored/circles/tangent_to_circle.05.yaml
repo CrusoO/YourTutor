@@ -1,0 +1,50 @@
+id: A.10.maths.circles.tangent_to_circle.05
+skill_ids:
+- SK.A.10.maths.tangent_to_circle
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two parallel tangents touch a circle of radius 4 cm at the points P and Q. What is the distance PQ?
+hints:
+- level: 1
+  en: Think about the direction of each radius at a point of contact.
+- level: 2
+  en: Ask which chord of the circle joins P and Q.
+- level: 3
+  en: Use the radius to find the length of that chord.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4√2 cm
+- id: b
+  en: 16 cm
+- id: c
+  en: 8 cm
+- id: d
+  en: 4 cm
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F60F57EB216C
+  when_answer_equals:
+  - d
+- id: MC.A.8A210C04571F
+  when_answer_equals:
+  - a
+- id: MC.A.97872B322907
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Each radius to a point of contact is perpendicular to both parallel tangents, so the two radii lie along one straight line through the centre.
+- en: That makes PQ a diameter, which is 2 × 4 = 8 cm.
+- en: The correct option is c.
+tier: C
+diagram_note: A circle of radius 4 cm with two horizontal parallel tangent lines, one touching the top of the circle and one touching the bottom, with the contact points labelled P and Q.

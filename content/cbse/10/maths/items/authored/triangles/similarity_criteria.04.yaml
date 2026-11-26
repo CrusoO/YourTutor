@@ -1,0 +1,50 @@
+id: A.10.maths.triangles.similarity_criteria.04
+skill_ids:
+- SK.A.10.maths.similarity_criteria
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Triangle ABC is similar to triangle DEF, with A matching D, B matching E and C matching F. AB/DE = BC/EF = 2/3 and CA = 8 cm. What is DF?
+hints:
+- level: 1
+  en: Find which side of DEF matches CA.
+- level: 2
+  en: Work out the scale factor from the sides AB and DE.
+- level: 3
+  en: Multiply CA by that factor, paying attention to its direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 12 cm
+- id: b
+  en: 16/3 cm
+- id: c
+  en: 8 cm
+- id: d
+  en: 10 cm
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A4CA87F9447F
+  when_answer_equals:
+  - c
+- id: MC.A.ACD99C7F89A0
+  when_answer_equals:
+  - b
+- id: MC.A.DB0CD174F3ED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Corresponding sides are in the same ratio.
+- en: Since DE/AB = 3/2, the side DF that corresponds to CA is 3/2 × 8 = 12 cm.
+- en: The correct option is a.
+tier: C
+diagram_note: Two triangles side by side, ABC on the left and DEF on the right, with corresponding vertices labelled in the same order and the sides CA and FD marked.

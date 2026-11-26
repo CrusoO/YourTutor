@@ -1,0 +1,50 @@
+id: A.10.maths.pair_of_linear_equations.graphical_method.06
+skill_ids:
+- SK.A.10.maths.graphical_method
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: For which value of k do the lines 2x + 3y = 7 and kx + 6y = 14 coincide?
+hints:
+- level: 1
+  en: Write both equations with their coefficients side by side.
+- level: 2
+  en: Set the ratio of the x-coefficients equal to the ratio of the constants.
+- level: 3
+  en: Solve a simple equation for k.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: k = 2
+- id: b
+  en: k = 3
+- id: c
+  en: k = 4
+- id: d
+  en: k = 6
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F7512C4D70E2
+  when_answer_equals:
+  - a
+- id: MC.A.EF0C3EDEFE92
+  when_answer_equals:
+  - b
+- id: MC.A.D027C4F1952F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'For coincident lines the ratios of the coefficients and constants must match: 2/k = 3/6 = 7/14.'
+- en: Since 3/6 = 1/2, we need 2/k = 1/2, so k = 4.
+- en: The correct option is c.
+tier: C
+diagram_note: Two straight lines on one set of axes. The first passes through (3.5, 0) and (0, 7/3); the second must lie exactly on the same line.

@@ -1,0 +1,48 @@
+id: A.9.biology.natural_resources.water_cycle.06
+skill_ids:
+- SK.A.9.biology.water_cycle
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: Which sequence correctly orders the main stages of the water cycle, starting from the sea?
+hints:
+- level: 1
+  en: Begin with the heat from the sun acting on the sea.
+- level: 2
+  en: Think about what follows once vapour has formed.
+- level: 3
+  en: Eliminate sequences that start with rain or runoff.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Runoff, precipitation, condensation, evaporation
+- id: b
+  en: Evaporation, condensation, precipitation, runoff back to the sea
+- id: c
+  en: Precipitation, evaporation, condensation, runoff
+- id: d
+  en: Condensation, runoff, evaporation, precipitation
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.DD27224A5926
+  when_answer_equals:
+  - c
+- id: MC.A.07E4C04DAAB4
+  when_answer_equals:
+  - d
+- id: MC.A.A068193CC754
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Solar heat evaporates sea water, the vapour condenses into clouds, precipitation returns water to land, and runoff carries it back to the sea.
+- en: The correct option is b.
+tier: C

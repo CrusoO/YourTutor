@@ -1,0 +1,48 @@
+id: A.12.chemistry.surface_chemistry.catalysis.06
+skill_ids:
+- SK.A.12.chemistry.catalysis
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does a trace of arsenic compound poison the iron catalyst used in the Haber process?
+hints:
+- level: 1
+  en: Consider what happens to surface sites when a foreign substance binds strongly to the catalyst.
+- level: 2
+  en: Think about whether the poison leaves room for reactant molecules to adsorb.
+- level: 3
+  en: Compare the activity of the catalyst before and after the poison is present.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It increases the surface area of the iron
+- id: b
+  en: It supplies extra hydrogen to the reaction
+- id: c
+  en: It converts the iron into a gas
+- id: d
+  en: It binds strongly to active sites and blocks them
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3299A4AA0E77
+  when_answer_equals:
+  - a
+- id: MC.A.297A9204C5F1
+  when_answer_equals:
+  - c
+- id: MC.A.7F7EF48A13C5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Strongly bound poison molecules occupy the active sites that reactant molecules need, so the catalyst loses activity even though its mass is unchanged.
+- en: The correct option is d.
+tier: C

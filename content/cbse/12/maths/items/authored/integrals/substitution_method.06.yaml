@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.substitution_method.06
+skill_ids:
+- SK.A.12.maths.substitution_method
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the integral of e^(sin x) times cos x with respect to x?
+hints:
+- level: 1
+  en: Identify a function and its derivative appearing together in the integrand.
+- level: 2
+  en: Let u equal the exponent.
+- level: 3
+  en: Check the answer by differentiating it.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: e^(sin x) cos x + C
+- id: b
+  en: -e^(sin x) + C
+- id: c
+  en: sin(e^x) + C
+- id: d
+  en: e^(sin x) + C
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.69C599ECC704
+  when_answer_equals:
+  - a
+- id: MC.A.1EEECDB6AC35
+  when_answer_equals:
+  - c
+- id: MC.A.4AA008E4BFE8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With u = sin x, du = cos x dx, and the integrand becomes e^u du, whose integral is e^u, which is e^(sin x).
+- en: The correct option is d.
+tier: C

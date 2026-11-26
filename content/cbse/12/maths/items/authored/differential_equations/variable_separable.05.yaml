@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.variable_separable.05
+skill_ids:
+- SK.A.12.maths.variable_separable
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Solve y^2 dy/dx = x with y(0) = 1. Find y(2), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Separate and integrate both sides.
+- level: 2
+  en: Use the initial value to find the constant.
+- level: 3
+  en: Solve for y by taking the cube root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.913'
+  accept: []
+solution_steps:
+- en: Separating gives y^2 dy = x dx, so y^3/3 = x^2/2 + C.
+- en: From y(0) = 1, C = 1/3, and at x = 2 we get y^3 = 7, so y is the cube root of 7, about 1.913.
+- en: Answer = 1.913
+tier: C

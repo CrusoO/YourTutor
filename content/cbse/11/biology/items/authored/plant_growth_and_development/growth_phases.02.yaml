@@ -1,0 +1,48 @@
+id: A.11.biology.plant_growth_and_development.growth_phases.02
+skill_ids:
+- SK.A.11.biology.growth_phases
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What shape does the growth curve of a plant population or organism usually show when size is plotted against time?
+hints:
+- level: 1
+  en: The curve starts slowly, speeds up, and then levels off.
+- level: 2
+  en: Think of an S-shaped line.
+- level: 3
+  en: The curve has a lag, a steep part and a plateau.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Sigmoid
+- id: b
+  en: Flat
+- id: c
+  en: Exponential only
+- id: d
+  en: Linear
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4037FED39711
+  when_answer_equals:
+  - d
+- id: MC.A.684B273B7392
+  when_answer_equals:
+  - c
+- id: MC.A.07672833CA6A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A typical growth curve is sigmoid, with a lag phase, a rapid exponential phase and a plateau where growth levels off as limits are reached.
+- en: The correct option is a.
+tier: C

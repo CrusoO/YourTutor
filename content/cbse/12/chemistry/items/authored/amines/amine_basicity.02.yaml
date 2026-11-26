@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_basicity.02
+skill_ids:
+- SK.A.12.chemistry.amine_basicity
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Why is aniline a weaker base than cyclohexylamine?
+hints:
+- level: 1
+  en: Think about where the nitrogen lone pair sits when it is next to an aromatic system.
+- level: 2
+  en: Consider whether the lone pair is localised or shared with the ring.
+- level: 3
+  en: Compare the availability of the lone pair in the two amines.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The nitrogen lone pair is delocalised into the benzene ring
+- id: b
+  en: The nitrogen is more electronegative in aniline
+- id: c
+  en: Aniline has more hydrogen atoms
+- id: d
+  en: Cyclohexylamine is aromatic
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.553FD13D92E0
+  when_answer_equals:
+  - b
+- id: MC.A.22BE2C321E9F
+  when_answer_equals:
+  - c
+- id: MC.A.6AD9F5ACF130
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The lone pair on nitrogen in aniline overlaps with the pi system of the ring, so it is less available to take a proton.
+- en: The correct option is a.
+tier: C

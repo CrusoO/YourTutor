@@ -1,0 +1,49 @@
+id: A.11.chemistry.structure_of_atom.bohr_model.06
+skill_ids:
+- SK.A.11.chemistry.bohr_model
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does the Bohr model fail to give an accurate description of the spectrum of neutral helium?
+hints:
+- level: 1
+  en: Think about how many electrons the atom in the question has.
+- level: 2
+  en: Consider which kinds of systems the simple orbit model was built for.
+- level: 3
+  en: Look for the statement about the number of electrons the model can treat.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it cannot assign any principal quantum number
+- id: b
+  en: it handles only one-electron systems well
+- id: c
+  en: it ignores the charge of the nucleus entirely
+- id: d
+  en: it requires electrons to have zero energy
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.54689E97567B
+  when_answer_equals:
+  - c
+- id: MC.A.792405BC5649
+  when_answer_equals:
+  - d
+- id: MC.A.C0D195513DAD
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The Bohr treatment works for hydrogen-like systems with a single electron, but helium has two electrons that interact with each other, which the model cannot handle.
+- en: The correct option is b.
+tier: C
+diagram_note: A horizontal energy-level ladder with levels n = 1, 2 and 3 marked, and an arrow from the n = 3 level down to the n = 2 level labelled with an emitted photon.

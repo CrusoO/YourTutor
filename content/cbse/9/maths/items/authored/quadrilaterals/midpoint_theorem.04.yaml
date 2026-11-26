@@ -1,0 +1,49 @@
+id: A.9.maths.quadrilaterals.midpoint_theorem.04
+skill_ids:
+- SK.A.9.maths.midpoint_theorem
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In triangle XYZ, a line through the midpoint of XY is drawn parallel to YZ and meets XZ at W. What is true about W?
+hints:
+- level: 1
+  en: Think about the converse of the mid-point theorem.
+- level: 2
+  en: Compare the two sides that the parallel line cuts.
+- level: 3
+  en: Decide which side the point W lies on before reasoning about its position.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: W is the vertex Z.
+- id: b
+  en: W divides XZ in the ratio 1 to 3.
+- id: c
+  en: W is the midpoint of XZ.
+- id: d
+  en: W is the midpoint of YZ.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.514A67033732
+  when_answer_equals:
+  - d
+- id: MC.A.9300EF88E4CA
+  when_answer_equals:
+  - a
+- id: MC.A.F4ABB0570A13
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A line through the midpoint of one side, parallel to a second side, bisects the third side, which is the converse of the mid-point theorem.
+- en: The correct option is c.
+tier: C
+diagram_note: Triangle XYZ with the midpoint of XY marked, and a line through it parallel to YZ meeting XZ at W.

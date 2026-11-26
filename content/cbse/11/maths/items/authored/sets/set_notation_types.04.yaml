@@ -1,0 +1,48 @@
+id: A.11.maths.sets.set_notation_types.04
+skill_ids:
+- SK.A.11.maths.set_notation_types
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Set A holds the letters of the word RATE and set B holds the letters of the word TEAR. What is the relationship between A and B?
+hints:
+- level: 1
+  en: Write out the letters of each word as a separate list.
+- level: 2
+  en: A set ignores the order in which its members appear.
+- level: 3
+  en: Check whether each member of one set appears in the other.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A and B have no common elements
+- id: b
+  en: A is a superset of B only
+- id: c
+  en: A is a proper subset of B
+- id: d
+  en: A equals B
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3E5F62041A03
+  when_answer_equals:
+  - c
+- id: MC.A.5C567EB3A188
+  when_answer_equals:
+  - a
+- id: MC.A.D566DD0F57FD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Both words use exactly the letters R, A, T and E, so both sets contain the same four elements.
+- en: The correct option is d.
+tier: C

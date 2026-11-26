@@ -1,0 +1,31 @@
+id: A.12.physics.nuclei.radioactivity.03
+skill_ids:
+- SK.A.12.physics.radioactivity
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A radioactive sample has a half-life of 10 days. What fraction of the original nuclei remains after 30 days?
+hints:
+- level: 1
+  en: Count how many half-lives fit into 30 days.
+- level: 2
+  en: Each half-life halves the number of nuclei remaining.
+- level: 3
+  en: Multiply one half by itself once for each half-life.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.125'
+  accept: []
+solution_steps:
+- en: Thirty days is three half-lives.
+- en: Each half-life halves the number of nuclei, so the fraction remaining is one half cubed, which is 0.125.
+- en: Answer = 0.125
+tier: C
+diagram_note: A decay curve of the number of nuclei against time, with markers at 10, 20 and 30 days showing the number halving at each marker.

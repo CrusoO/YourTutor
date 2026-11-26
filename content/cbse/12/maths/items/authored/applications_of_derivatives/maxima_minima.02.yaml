@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.maxima_minima.02
+skill_ids:
+- SK.A.12.maths.maxima_minima
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the maximum value of f(x) = -x^2 + 4x on the real numbers?
+hints:
+- level: 1
+  en: Find where the derivative is zero.
+- level: 2
+  en: Check whether the second derivative is negative there.
+- level: 3
+  en: Evaluate the function at the stationary point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '4'
+- id: c
+  en: No maximum exists
+- id: d
+  en: '-4'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B570148EF2DE
+  when_answer_equals:
+  - a
+- id: MC.A.FC5B749F0491
+  when_answer_equals:
+  - d
+- id: MC.A.281810FEA996
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The derivative -2x + 4 vanishes at x = 2, where f(2) = -4 + 8 = 4, and the second derivative is negative, so this is a maximum.
+- en: The correct option is b.
+tier: C

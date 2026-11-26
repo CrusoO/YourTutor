@@ -1,0 +1,49 @@
+id: A.9.maths.constructions.triangle_constructions.03
+skill_ids:
+- SK.A.9.maths.triangle_constructions
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A triangle has two sides of 6 cm and 4 cm with the included angle 60 degrees. Which step comes first in the construction?
+hints:
+- level: 1
+  en: Start with a measure that is given in full.
+- level: 2
+  en: The included angle sits between the two given sides.
+- level: 3
+  en: Build the figure outward from one side.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Draw the 4 cm side vertically with no angle at its end.
+- id: b
+  en: Draw the 6 cm side and copy the 60-degree angle at one of its ends.
+- id: c
+  en: Draw the unknown third side first using a protractor.
+- id: d
+  en: Draw a circle with a radius of 60 cm.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D125407D6E82
+  when_answer_equals:
+  - a
+- id: MC.A.866D9BEE2FF1
+  when_answer_equals:
+  - d
+- id: MC.A.0223DFF84DAF
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Start with one given side, construct the given angle at one of its ends, and mark off the second side along the arm of that angle.
+- en: The correct option is b.
+tier: C
+diagram_note: Partial construction showing a base side with the angle drawn at one end.

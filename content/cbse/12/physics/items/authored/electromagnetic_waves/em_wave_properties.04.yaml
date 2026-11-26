@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_waves.em_wave_properties.04
+skill_ids:
+- SK.A.12.physics.em_wave_properties
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: An electromagnetic wave travelling along the positive x direction has its electric field along the y direction. Along which direction does its magnetic field oscillate?
+hints:
+- level: 1
+  en: The direction of propagation is along the cross product of the electric and magnetic fields.
+- level: 2
+  en: Find the direction that is perpendicular to both the propagation direction and the electric field.
+- level: 3
+  en: Apply the right-hand rule to the cross product of the electric field and the magnetic field.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Along the x direction
+- id: b
+  en: Along the negative x direction only
+- id: c
+  en: Along the z direction
+- id: d
+  en: Along the y direction
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.33D567735E3F
+  when_answer_equals:
+  - d
+- id: MC.A.AD5F1D836B87
+  when_answer_equals:
+  - a
+- id: MC.A.5C64EEE357BE
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The direction of propagation is along E cross B.
+- en: With E along y and propagation along x, B must lie along z so that y cross z gives x.
+- en: The correct option is c.
+tier: C

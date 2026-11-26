@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.third_law.01
+skill_ids:
+- SK.A.9.physics.third_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: According to Newton's third law, when a hand pushes against a wall, the wall
+hints:
+- level: 1
+  en: Every force comes as one of a pair acting on two different objects.
+- level: 2
+  en: Think about the force the wall receives from the hand.
+- level: 3
+  en: Compare the size and the direction of the two members of the pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: does not push back because it is not moving
+- id: b
+  en: absorbs the push and produces no force
+- id: c
+  en: pushes the hand back with an equal and opposite force
+- id: d
+  en: pushes the hand with a larger force
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9DDF19E153D5
+  when_answer_equals:
+  - a
+- id: MC.A.6328ED63DF02
+  when_answer_equals:
+  - d
+- id: MC.A.23A10CBFB54A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Third law pairs are equal in size and opposite in direction, and each acts on a different body, so the wall pushes back on the hand.
+- en: The correct option is c.
+tier: C

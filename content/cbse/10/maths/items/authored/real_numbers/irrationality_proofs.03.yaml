@@ -1,0 +1,49 @@
+id: A.10.maths.real_numbers.irrationality_proofs.03
+skill_ids:
+- SK.A.10.maths.irrationality_proofs
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which opening line correctly starts a proof by contradiction that √7 is irrational?
+hints:
+- level: 1
+  en: Write down the opposite of what you want to prove.
+- level: 2
+  en: Think about how a rational number looks when written as a fraction.
+- level: 3
+  en: Decide which condition must hold for the contradiction to work.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Assume 7 = a/b, with a and b any integers.
+- id: b
+  en: Assume √7 is a terminating decimal.
+- id: c
+  en: Assume √7 = a/b, where a and b may share common factors.
+- id: d
+  en: Assume √7 = a/b, where a and b are integers with no common factor and b is not zero.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.BF13282AC64E
+  when_answer_equals:
+  - c
+- id: MC.A.77615CB46B23
+  when_answer_equals:
+  - b
+- id: MC.A.BABD13208C25
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The contradiction method assumes the opposite of the claim, that √7 is rational and can be written as a/b in lowest terms.
+- en: The lowest-terms condition is what the later argument contradicts.
+- en: The correct option is d.
+tier: C

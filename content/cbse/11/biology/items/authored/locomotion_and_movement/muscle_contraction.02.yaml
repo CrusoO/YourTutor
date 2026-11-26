@@ -1,0 +1,49 @@
+id: A.11.biology.locomotion_and_movement.muscle_contraction.02
+skill_ids:
+- SK.A.11.biology.muscle_contraction
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the role of calcium ions in skeletal muscle contraction?
+hints:
+- level: 1
+  en: Think about the regulatory protein that blocks the binding site on actin at rest.
+- level: 2
+  en: Consider what happens when calcium is released from the sarcoplasmic reticulum.
+- level: 3
+  en: Calcium acts as a switch rather than as a source of energy.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They relax the sarcomere by pumping sodium out
+- id: b
+  en: They join actin and myosin permanently
+- id: c
+  en: They break down ATP to release energy
+- id: d
+  en: They bind troponin and move tropomyosin to expose myosin-binding sites on actin
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.0F257DDA2184
+  when_answer_equals:
+  - c
+- id: MC.A.97AD0681F6DC
+  when_answer_equals:
+  - b
+- id: MC.A.0EF263E59FCE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A nerve impulse releases calcium from the sarcoplasmic reticulum.
+- en: Calcium binds troponin, which shifts tropomyosin away from the binding sites on actin so that cross-bridges can form.
+- en: The correct option is d.
+tier: C

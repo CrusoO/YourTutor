@@ -1,0 +1,48 @@
+id: A.11.maths.statistics.standard_deviation.04
+skill_ids:
+- SK.A.11.maths.standard_deviation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Data set A has standard deviation 2 and mean 10, while data set B has standard deviation 3 and mean 50. Which set has the larger relative spread?
+hints:
+- level: 1
+  en: Think about the spread measured as a fraction of the average for each set.
+- level: 2
+  en: Compute the ratio of the standard deviation to the mean for each set.
+- level: 3
+  en: Compare the two ratios you calculated.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: relative spread cannot be compared for different means
+- id: b
+  en: set B, because its standard deviation is larger
+- id: c
+  en: set A, because its standard deviation is a larger share of its mean
+- id: d
+  en: both sets have the same relative spread
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3E3C02F49DDE
+  when_answer_equals:
+  - b
+- id: MC.A.69863C169348
+  when_answer_equals:
+  - d
+- id: MC.A.D4945D1530B5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Set A has 2 over 10, or one fifth, while set B has 3 over 50, or 0.06, so set A is relatively more spread out.
+- en: The correct option is c.
+tier: C

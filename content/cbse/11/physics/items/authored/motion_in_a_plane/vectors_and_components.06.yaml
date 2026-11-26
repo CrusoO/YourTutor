@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_plane.vectors_and_components.06
+skill_ids:
+- SK.A.11.physics.vectors_and_components
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A vector has an x-component of 6 units and a y-component of 8 units. Measured from the positive x-axis, what is its direction, to one decimal place?
+hints:
+- level: 1
+  en: The tangent of the angle equals the y-component divided by the x-component.
+- level: 2
+  en: Use the inverse tangent function on that ratio.
+- level: 3
+  en: Check that the angle lies in the first quadrant for positive components.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 53.1 degrees
+- id: b
+  en: 0.75 degrees
+- id: c
+  en: 45 degrees
+- id: d
+  en: 36.9 degrees
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2A3F37F2022F
+  when_answer_equals:
+  - d
+- id: MC.A.E5C6C34D618B
+  when_answer_equals:
+  - c
+- id: MC.A.5C41DCCE0B93
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The tangent of the angle is 8 over 6.
+- en: The inverse tangent of 1.333 is about 53.1 degrees, which lies in the first quadrant.
+- en: The correct option is a.
+tier: C

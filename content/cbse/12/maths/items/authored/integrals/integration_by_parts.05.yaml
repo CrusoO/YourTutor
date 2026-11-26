@@ -1,0 +1,30 @@
+id: A.12.maths.integrals.integration_by_parts.05
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Evaluate the definite integral of x cos x with respect to x from 0 to pi/2, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Take x as the function to differentiate.
+- level: 2
+  en: Recall which function has cosine as its derivative.
+- level: 3
+  en: Evaluate at both limits and subtract, keeping pi symbolic until the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.571'
+  accept: []
+solution_steps:
+- en: The antiderivative is x sin x + cos x.
+- en: At pi/2 it equals pi/2, and at 0 it equals 1, so the value is pi/2 minus 1, about 0.571.
+- en: Answer = 0.571
+tier: C

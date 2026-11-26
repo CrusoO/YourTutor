@@ -1,0 +1,49 @@
+id: A.12.biology.ecosystem.ecosystem_structure.04
+skill_ids:
+- SK.A.12.biology.ecosystem_structure
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A tree supports many insects, and those insects feed one bird. In a pyramid of numbers, what shape does this produce?
+hints:
+- level: 1
+  en: Count the organisms at the base level, which is the tree here.
+- level: 2
+  en: Compare that count with the number at the top.
+- level: 3
+  en: Think about what happens when one producer feeds many consumers.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Upright pyramid
+- id: b
+  en: Flat line of equal levels
+- id: c
+  en: Diamond with equal bases
+- id: d
+  en: Inverted pyramid
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.ED6F053B8971
+  when_answer_equals:
+  - a
+- id: MC.A.A67409EA57B5
+  when_answer_equals:
+  - c
+- id: MC.A.39E83B2284BD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A single tree supports many insects, and many insects support one bird, so the base is small and the upper levels are larger.
+- en: This gives an inverted pyramid of numbers.
+- en: The correct option is d.
+tier: C

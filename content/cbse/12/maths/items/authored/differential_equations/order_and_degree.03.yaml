@@ -1,0 +1,48 @@
+id: A.12.maths.differential_equations.order_and_degree.03
+skill_ids:
+- SK.A.12.maths.order_and_degree
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the degree of d^2y/dx^2 = square root of (1 + (dy/dx)^2)?
+hints:
+- level: 1
+  en: Rewrite the equation so that no radical sign remains.
+- level: 2
+  en: Look at the highest order derivative and the power it carries.
+- level: 3
+  en: Square both sides carefully before reading the degree.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '2'
+- id: c
+  en: The degree is not defined
+- id: d
+  en: 1/2
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B326B1E9E0A3
+  when_answer_equals:
+  - a
+- id: MC.A.85139CCF8C6A
+  when_answer_equals:
+  - d
+- id: MC.A.0A5B1AB94AF9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Squaring both sides removes the radical and gives (d^2y/dx^2)^2 = 1 + (dy/dx)^2, where the highest order derivative appears to the power 2.
+- en: The correct option is b.
+tier: C

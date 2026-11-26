@@ -1,0 +1,50 @@
+id: A.10.physics.magnetic_effects_of_electric_current.electric_motor.05
+skill_ids:
+- SK.A.10.physics.electric_motor
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A motor turns clockwise. Which change will make it turn anticlockwise?
+hints:
+- level: 1
+  en: Recall what determines the direction of the force on a conductor.
+- level: 2
+  en: Ask what happens to that direction when one quantity is reversed.
+- level: 3
+  en: Consider what happens when both quantities are reversed together.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Reversing either the current or the magnetic field, but not both
+- id: b
+  en: Using a stronger magnet without any reversal
+- id: c
+  en: Increasing the current without any reversal
+- id: d
+  en: Reversing both the current and the magnetic field
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DB67E58D9F8B
+  when_answer_equals:
+  - d
+- id: MC.A.77C2B393D351
+  when_answer_equals:
+  - c
+- id: MC.A.919E4BA65F62
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The direction of the force on the coil depends on both the current and the field.
+- en: Reversing only one of them reverses the force and therefore the rotation.
+- en: Reversing both leaves the direction of the force, and so the rotation, unchanged.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.huygens_principle.06
+skill_ids:
+- SK.A.12.physics.huygens_principle
+difficulty: 0.9
+pool: practice
+role: recall
+stem:
+  en: In Huygens' construction, what is the new wavefront?
+hints:
+- level: 1
+  en: Think about how many wavelets contribute to the new front.
+- level: 2
+  en: Consider what geometric property the new front shares with each wavelet.
+- level: 3
+  en: Recall what the word envelope means for a family of curves.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The surface where all the wavelets intersect at one point
+- id: b
+  en: The common tangent surface to all the secondary wavelets at a later time
+- id: c
+  en: The sum of the amplitudes of all the wavelets
+- id: d
+  en: The path taken by the fastest single wavelet
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.47D9D5EF4DB7
+  when_answer_equals:
+  - a
+- id: MC.A.6AC2FAA8AD41
+  when_answer_equals:
+  - c
+- id: MC.A.35A8EC529E3C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The new wavefront is the envelope, the surface tangent to every secondary wavelet at the later time, which is why it has the same shape as the wavelets' common front.
+- en: The correct option is b.
+tier: C

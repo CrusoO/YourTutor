@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.energy_bands.01
+skill_ids:
+- SK.A.12.physics.energy_bands
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a metal conductor, how are the valence band and the conduction band arranged?
+hints:
+- level: 1
+  en: Think about whether electrons need an energy gap to become free in this material.
+- level: 2
+  en: Consider which band can hold electrons that are free to move.
+- level: 3
+  en: Compare the arrangement of bands in a metal with that in an insulator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are separated by a large band gap
+- id: b
+  en: They overlap, or the conduction band is partly filled with electrons
+- id: c
+  en: The valence band is completely filled with no empty states
+- id: d
+  en: They are separated by a gap of about 1 eV
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.654ACEF3E101
+  when_answer_equals:
+  - a
+- id: MC.A.8E6BBAD20FF8
+  when_answer_equals:
+  - c
+- id: MC.A.830DBB615C21
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In a metal the bands overlap or the conduction band is partly filled, so electrons can gain energy and move freely with almost no gap.
+- en: The correct option is b.
+tier: C

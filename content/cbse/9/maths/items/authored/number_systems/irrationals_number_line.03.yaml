@@ -1,0 +1,48 @@
+id: A.9.maths.number_systems.irrationals_number_line.03
+skill_ids:
+- SK.A.9.maths.irrationals_number_line
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Which number lies strictly between two and three and cannot be written as a fraction of two integers?
+hints:
+- level: 1
+  en: Find the squares of the two endpoints first.
+- level: 2
+  en: Look for a number whose square falls between those squares.
+- level: 3
+  en: Check whether the number is a perfect square before deciding.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sqrt(5)
+- id: b
+  en: '2.5'
+- id: c
+  en: sqrt(4)
+- id: d
+  en: sqrt(9)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.F1A258395691
+  when_answer_equals:
+  - b
+- id: MC.A.C7F537A25F55
+  when_answer_equals:
+  - d
+- id: MC.A.C5EAC8A84937
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The square root of five is about 2.236, which lies between two and three, and five is not a perfect square, so the root is irrational.
+- en: The correct option is a.
+tier: C

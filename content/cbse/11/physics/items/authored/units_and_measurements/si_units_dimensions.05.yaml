@@ -1,0 +1,48 @@
+id: A.11.physics.units_and_measurements.si_units_dimensions.05
+skill_ids:
+- SK.A.11.physics.si_units_dimensions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Using mass M, length L and time T, which dimensional formula describes impulse, the product of force and time?
+hints:
+- level: 1
+  en: Impulse is force times time, so start from the formula for force.
+- level: 2
+  en: Force has the dimensions of mass times acceleration.
+- level: 3
+  en: Combine the power of each base separately and never mix different bases.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: M T^-1
+- id: b
+  en: M L^2 T^-2
+- id: c
+  en: M L T^-2
+- id: d
+  en: M L T^-1
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.5D0166517162
+  when_answer_equals:
+  - b
+- id: MC.A.15E26BA9013B
+  when_answer_equals:
+  - c
+- id: MC.A.271F27D6ED84
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Force is M L T^-2, and multiplying by time T gives M L T^-1, which is also the dimension of momentum.
+- en: The correct option is d.
+tier: C

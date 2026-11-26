@@ -1,0 +1,50 @@
+id: A.10.physics.human_eye_and_colourful_world.atmospheric_phenomena.04
+skill_ids:
+- SK.A.10.physics.atmospheric_phenomena
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Clouds look white. Which explanation is correct?
+hints:
+- level: 1
+  en: Consider the size of cloud droplets compared with air molecules.
+- level: 2
+  en: Ask whether the scattering by droplets depends strongly on the colour of light.
+- level: 3
+  en: Think about whether clouds produce their own light.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Clouds reflect the sunlight like a plane mirror
+- id: b
+  en: Water droplets and ice crystals of many sizes scatter all colours of light almost equally
+- id: c
+  en: Clouds absorb blue light and transmit only red
+- id: d
+  en: Clouds emit white light of their own
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.597E06C14B7C
+  when_answer_equals:
+  - d
+- id: MC.A.8BB6A267109A
+  when_answer_equals:
+  - a
+- id: MC.A.DF2104311F77
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Cloud droplets and ice crystals are much larger than air molecules and come in many sizes.
+- en: They scatter all wavelengths almost equally, so the scattered light looks white.
+- en: This is different from the scattering by air molecules that makes the clear sky blue.
+- en: The correct option is b.
+tier: C

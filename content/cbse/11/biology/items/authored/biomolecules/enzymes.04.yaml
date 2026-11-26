@@ -1,0 +1,50 @@
+id: A.11.biology.biomolecules.enzymes.04
+skill_ids:
+- SK.A.11.biology.enzymes
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A student measures reaction rate at increasing substrate concentration with a fixed enzyme amount. Which pattern is expected at high substrate levels?
+hints:
+- level: 1
+  en: Think about how many enzyme molecules are free at very high substrate.
+- level: 2
+  en: Consider what limits the reaction once every active site is busy.
+- level: 3
+  en: Ask whether the rate can keep rising when the enzyme is fully occupied.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The rate increases in direct proportion without limit
+- id: b
+  en: The rate levels off because the enzyme is saturated
+- id: c
+  en: The rate doubles each time the substrate doubles
+- id: d
+  en: The rate falls steadily to zero
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2FB44FE2B56D
+  when_answer_equals:
+  - a
+- id: MC.A.25115CA640D4
+  when_answer_equals:
+  - d
+- id: MC.A.21FC702FD8F2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: At high substrate concentration, nearly all enzyme molecules are occupied, so adding more substrate does not raise the rate.
+- en: The rate then plateaus at the maximum for that enzyme amount.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw a graph of reaction rate on the vertical axis against substrate concentration on the horizontal axis, showing a rising curve that levels off at a plateau marked as the maximum rate.

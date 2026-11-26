@@ -1,0 +1,49 @@
+id: A.12.physics.alternating_current.ac_circuits_phasors.04
+skill_ids:
+- SK.A.12.physics.ac_circuits_phasors
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In a series RLC circuit at resonance, what is the power factor?
+hints:
+- level: 1
+  en: At resonance the two reactances cancel each other.
+- level: 2
+  en: Think about the phase difference that remains between current and voltage.
+- level: 3
+  en: Recall that the power factor is the cosine of the phase angle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero
+- id: b
+  en: One
+- id: c
+  en: The square root of two
+- id: d
+  en: One half
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.48FED40473FA
+  when_answer_equals:
+  - a
+- id: MC.A.F0F5C1608892
+  when_answer_equals:
+  - d
+- id: MC.A.DD2A5968CFDD
+  when_answer_equals:
+  - c
+solution_steps:
+- en: At resonance the inductive and capacitive reactances cancel, so the impedance is just R and the current is in phase with the voltage.
+- en: The power factor, the cosine of the phase angle, is therefore one.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.centre_of_mass.05
+skill_ids:
+- SK.A.11.physics.centre_of_mass
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: If no external force acts on a system of particles, how does the centre of mass move?
+hints:
+- level: 1
+  en: Newton's second law for a system involves only the external force.
+- level: 2
+  en: Internal forces between the parts of a system cancel in pairs.
+- level: 3
+  en: Think about the total momentum of the system.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it oscillates about the origin
+- id: b
+  en: it speeds up as internal forces grow
+- id: c
+  en: it stays at rest or moves with constant velocity
+- id: d
+  en: it accelerates in the direction of the heaviest part
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.100AB1ECFE55
+  when_answer_equals:
+  - d
+- id: MC.A.42B153EE43F5
+  when_answer_equals:
+  - b
+- id: MC.A.C98D8943E166
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The centre of mass accelerates only because of external forces.
+- en: Internal forces between parts cancel in pairs, so the centre of mass moves uniformly or stays at rest.
+- en: The correct option is c.
+tier: C

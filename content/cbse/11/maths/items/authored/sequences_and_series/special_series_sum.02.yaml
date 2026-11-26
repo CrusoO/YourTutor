@@ -1,0 +1,48 @@
+id: A.11.maths.sequences_and_series.special_series_sum.02
+skill_ids:
+- SK.A.11.maths.special_series_sum
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which expression gives the sum of the squares 1 squared plus 2 squared plus up to n squared?
+hints:
+- level: 1
+  en: Recall the family of standard sum formulas for powers of natural numbers.
+- level: 2
+  en: The formula for squares includes three factors, one of them linear in twice n.
+- level: 3
+  en: Test the candidate on n equal to 1 and n equal to 2.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: n(n+1)(2n+1)/6
+- id: b
+  en: n squared (n+1) squared / 4
+- id: c
+  en: n(n+1)/2
+- id: d
+  en: n(n+1)(n+2)/6
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9EE47EC3169E
+  when_answer_equals:
+  - c
+- id: MC.A.E05ADCB3BC93
+  when_answer_equals:
+  - b
+- id: MC.A.CBF50F04C592
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The sum of the first n squares is n times (n plus 1) times (2n plus 1) divided by 6.
+- en: The correct option is a.
+tier: C

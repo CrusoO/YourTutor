@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.thrust_and_pressure.02
+skill_ids:
+- SK.A.9.physics.thrust_and_pressure
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Pressure is defined as
+hints:
+- level: 1
+  en: It is a ratio of a force to a surface size.
+- level: 2
+  en: The force must act at right angles to the surface.
+- level: 3
+  en: Think about which quantity goes on top of the ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the perpendicular force on a surface divided by the area
+- id: b
+  en: the force multiplied by the area
+- id: c
+  en: the area divided by the force
+- id: d
+  en: the weight multiplied by the speed
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C24E53B397DA
+  when_answer_equals:
+  - b
+- id: MC.A.06E4BA60CDD7
+  when_answer_equals:
+  - c
+- id: MC.A.DDEA4D31E774
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Pressure is the normal force per unit area, so spreading the same force over a larger area reduces the pressure.
+- en: The correct option is a.
+tier: C

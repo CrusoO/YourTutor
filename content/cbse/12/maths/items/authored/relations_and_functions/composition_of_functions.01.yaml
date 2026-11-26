@@ -1,0 +1,48 @@
+id: A.12.maths.relations_and_functions.composition_of_functions.01
+skill_ids:
+- SK.A.12.maths.composition_of_functions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Let f(x) = x + 1 and g(x) = 2x. What is (f o g)(3)?
+hints:
+- level: 1
+  en: Start with the inner function and evaluate it at 3.
+- level: 2
+  en: Feed that result into the outer function.
+- level: 3
+  en: 'Check the order: the function written on the right acts first.'
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '6'
+- id: b
+  en: '7'
+- id: c
+  en: '10'
+- id: d
+  en: '8'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C7FE6D873058
+  when_answer_equals:
+  - d
+- id: MC.A.23C585CE6A51
+  when_answer_equals:
+  - c
+- id: MC.A.8ADDE1B5E98F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: g(3) = 6, and then f(6) = 7, so (f o g)(3) = 7.
+- en: The correct option is b.
+tier: C

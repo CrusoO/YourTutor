@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_waves.displacement_current.01
+skill_ids:
+- SK.A.12.physics.displacement_current
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Why did Maxwell introduce the idea of displacement current?
+hints:
+- level: 1
+  en: Think about what current passes through the gap of a charging capacitor.
+- level: 2
+  en: Consider whether Ampere's law works for a surface that no wire crosses.
+- level: 3
+  en: Recall the role of the changing electric field between the plates.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: To explain the origin of resistance in metal wires
+- id: b
+  en: To explain the magnetic field of a static charge
+- id: c
+  en: To replace conduction current inside metals
+- id: d
+  en: To make Ampere's law consistent for a circuit with a gap, such as a charging capacitor
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.519526F3B59C
+  when_answer_equals:
+  - a
+- id: MC.A.A3E867560563
+  when_answer_equals:
+  - b
+- id: MC.A.D0F7A13AAAA0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Ampere's law in its original form fails across the gap of a capacitor, where no conduction current flows.
+- en: Displacement current, set by the changing electric field in the gap, restores consistency.
+- en: The correct option is d.
+tier: C

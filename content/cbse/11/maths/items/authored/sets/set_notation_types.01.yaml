@@ -1,0 +1,48 @@
+id: A.11.maths.sets.set_notation_types.01
+skill_ids:
+- SK.A.11.maths.set_notation_types
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which roster form lists the even natural numbers that are less than 9?
+hints:
+- level: 1
+  en: Write the natural numbers in increasing order first.
+- level: 2
+  en: Keep only the ones that leave no remainder when divided by the smallest prime.
+- level: 3
+  en: Check each candidate against the upper limit, using a strict less-than comparison.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '{2, 4, 6}'
+- id: b
+  en: '{2, 4, 6, 8}'
+- id: c
+  en: '{0, 2, 4, 6, 8}'
+- id: d
+  en: '{1, 3, 5, 7}'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F8211D9E6D4D
+  when_answer_equals:
+  - c
+- id: MC.A.FB0D797C1365
+  when_answer_equals:
+  - d
+- id: MC.A.DC4115310C4A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The even natural numbers below 9 are 2, 4, 6 and 8, so the roster form lists all four of them.
+- en: The correct option is b.
+tier: C

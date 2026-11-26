@@ -1,0 +1,50 @@
+id: A.12.physics.alternating_current.transformers.05
+skill_ids:
+- SK.A.12.physics.transformers
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Power is transmitted over long distances at high voltage and low current. What is the main reason for this?
+hints:
+- level: 1
+  en: Write the power lost in a line in terms of the current and the resistance.
+- level: 2
+  en: Consider how a higher voltage changes the current for the same delivered power.
+- level: 3
+  en: Think about which term in the loss formula is squared.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It removes the need for transformers at the consumer end
+- id: b
+  en: It increases the resistance of the transmission lines
+- id: c
+  en: It reduces the current in the lines and so reduces the power lost as heat
+- id: d
+  en: It increases the current to deliver more power
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.EBBE060ACF7B
+  when_answer_equals:
+  - b
+- id: MC.A.417C0E7AA102
+  when_answer_equals:
+  - d
+- id: MC.A.249DC5EB526D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The power lost in the line is I squared R.
+- en: Stepping the voltage up lowers the current for the same power, which greatly reduces the loss.
+- en: The correct option is c.
+tier: C
+diagram_note: A long transmission line drawn from a step-up transformer at a generator to a step-down transformer near the consumer, with the high voltage section of the line marked.

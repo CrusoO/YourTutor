@@ -1,0 +1,49 @@
+id: A.12.chemistry.coordination_compounds.bonding_crystal_field.02
+skill_ids:
+- SK.A.12.chemistry.bonding_crystal_field
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What does the crystal field splitting parameter, delta o, represent?
+hints:
+- level: 1
+  en: Think about two groups of d orbitals whose energies separate in an octahedral environment.
+- level: 2
+  en: Consider which quantity describes the separation between these two groups.
+- level: 3
+  en: Compare the splitting with the ionisation energy of the metal.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The energy needed to remove an electron from the metal
+- id: b
+  en: The stability constant of the complex
+- id: c
+  en: The energy gap between the t2g and eg sets of orbitals in an octahedral field
+- id: d
+  en: The metal to ligand bond length
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.AC0DC5363A25
+  when_answer_equals:
+  - a
+- id: MC.A.02D3D003A515
+  when_answer_equals:
+  - d
+- id: MC.A.3FAEF3F2C3A9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In an octahedral field the five d orbitals split into a lower t2g triplet and an upper eg pair.
+- en: The difference in energy between these sets is delta o.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.probability.multiplication_theorem_independence.04
+skill_ids:
+- SK.A.12.maths.multiplication_theorem_independence
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A and B are independent with P(A) = 1/2 and P(B) = 1/3. What is P(A or B)?
+hints:
+- level: 1
+  en: Use the addition rule for the union of two events.
+- level: 2
+  en: Find the intersection probability using independence.
+- level: 3
+  en: Subtract the overlap from the sum of the two probabilities.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2/3
+- id: b
+  en: 5/6
+- id: c
+  en: 1/3
+- id: d
+  en: 1/6
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3C774CBCD216
+  when_answer_equals:
+  - b
+- id: MC.A.E7417376798B
+  when_answer_equals:
+  - d
+- id: MC.A.5462B1AFC856
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Independence gives P(A and B) = 1/2 times 1/3 = 1/6, so P(A or B) = 1/2 + 1/3 - 1/6 = 2/3.
+- en: The correct option is a.
+tier: C

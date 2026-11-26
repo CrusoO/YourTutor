@@ -1,0 +1,32 @@
+id: A.12.physics.current_electricity.kirchhoffs_rules.05
+skill_ids:
+- SK.A.12.physics.kirchhoffs_rules
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An ideal 9 V battery drives a 2 ohm resistor in series with a parallel combination of 3 ohm and 6 ohm. What is the total current drawn from the battery in ampere?
+hints:
+- level: 1
+  en: Combine the parallel pair first.
+- level: 2
+  en: Add the series resistor to the equivalent of the parallel pair.
+- level: 3
+  en: Apply Ohm's law to the total resistance of the whole circuit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '2.25'
+  accept: []
+solution_steps:
+- en: The parallel pair of 3 ohm and 6 ohm has an equivalent resistance of 2 ohm.
+- en: Adding the series 2 ohm gives 4 ohm, so the current is 9 divided by 4, which is 2.25 A.
+- en: The unit of the answer is A.
+- en: Answer = 2.25
+tier: C
+diagram_note: A battery symbol in series with a 2 ohm resistor, followed by a parallel pair of branches labelled 3 ohm and 6 ohm that rejoin.

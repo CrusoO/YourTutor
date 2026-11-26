@@ -1,0 +1,49 @@
+id: A.12.maths.matrices.elementary_operations.06
+skill_ids:
+- SK.A.12.maths.elementary_operations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Matrix B is obtained from matrix A by a finite sequence of elementary row operations. Which statement is correct?
+hints:
+- level: 1
+  en: Think about what elementary row operations keep unchanged in the row space.
+- level: 2
+  en: Consider what a scaling of one row does to a determinant.
+- level: 3
+  en: Separate the properties that survive row operations from those that do not.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: B is row equivalent to A, so they have the same rank
+- id: b
+  en: A and B always have the same inverse
+- id: c
+  en: B has the same determinant as A
+- id: d
+  en: B has the same eigenvalues as A
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.32F756003ED8
+  when_answer_equals:
+  - c
+- id: MC.A.9EF63D900314
+  when_answer_equals:
+  - d
+- id: MC.A.2AD5F6C18FAF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Elementary row operations preserve the row space and therefore the rank, so B is row equivalent to A and has the same rank.
+- en: Scaling a row can change the determinant, so the determinant is not preserved in general.
+- en: The correct option is a.
+tier: C

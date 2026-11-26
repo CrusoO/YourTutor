@@ -1,0 +1,50 @@
+id: A.11.physics.oscillations.energy_in_shm.06
+skill_ids:
+- SK.A.11.physics.energy_in_shm
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: If the amplitude of a simple harmonic oscillator is doubled while its frequency stays the same, how does its total energy change?
+hints:
+- level: 1
+  en: The energy depends on the amplitude squared.
+- level: 2
+  en: Compare the new amplitude squared with the old one.
+- level: 3
+  en: The energy scales with a power of the amplitude, not the amplitude itself.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it quadruples
+- id: b
+  en: it doubles
+- id: c
+  en: it halves
+- id: d
+  en: it stays the same
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.6B79B7BAE50B
+  when_answer_equals:
+  - b
+- id: MC.A.B8854D3C9295
+  when_answer_equals:
+  - d
+- id: MC.A.065509D460EA
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The total energy is one half m omega squared A squared.
+- en: Doubling A multiplies A squared by four, so the total energy quadruples.
+- en: The correct option is a.
+tier: C
+diagram_note: Two sine waves drawn on the same axes. One has amplitude A marked above and below the axis, and the second, taller wave is labelled with amplitude 2A.

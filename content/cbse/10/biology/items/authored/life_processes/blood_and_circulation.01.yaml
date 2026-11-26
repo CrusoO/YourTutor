@@ -1,0 +1,49 @@
+id: A.10.biology.life_processes.blood_and_circulation.01
+skill_ids:
+- SK.A.10.biology.blood_and_circulation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which type of blood vessel carries blood away from the heart?
+hints:
+- level: 1
+  en: Think about the vessels with thick, elastic walls.
+- level: 2
+  en: Consider which vessels carry blood under high pressure from the pumping heart.
+- level: 3
+  en: The answer is the vessel type that is not a vein or capillary.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Vein
+- id: b
+  en: Artery
+- id: c
+  en: Capillary
+- id: d
+  en: Lymph vessel
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.1BA8868E5357
+  when_answer_equals:
+  - a
+- id: MC.A.A8BDC0ABB8FA
+  when_answer_equals:
+  - c
+- id: MC.A.49D940E3EEE7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Arteries carry blood away from the heart and usually have thick, elastic walls to withstand high pressure.
+- en: Veins carry blood back to the heart.
+- en: The correct option is b.
+tier: C

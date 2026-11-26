@@ -1,0 +1,48 @@
+id: A.11.maths.binomial_theorem.general_and_middle_term.01
+skill_ids:
+- SK.A.11.maths.general_and_middle_term
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For the expansion of (x + y) to the power 5, which expression is the general term T(r+1)?
+hints:
+- level: 1
+  en: Think about how many factors supply y and how many supply x in each term.
+- level: 2
+  en: The binomial coefficient uses the number of y factors as its lower index.
+- level: 3
+  en: Check that the exponents of x and y add up to the overall power.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: C(5, r+1) x to the power (5 minus r) y to the power r
+- id: b
+  en: C(5, r) x to the power r y to the power (5 minus r)
+- id: c
+  en: C(5, r) x to the power (5 minus r) y to the power r
+- id: d
+  en: C(5, r) x to the power (5 minus r) y to the power (r+1)
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2959A891F81B
+  when_answer_equals:
+  - b
+- id: MC.A.777C1578D0CC
+  when_answer_equals:
+  - a
+- id: MC.A.17225BDA2A47
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The general term takes r copies of y and the remaining 5 minus r copies of x, weighted by C(5, r).
+- en: The correct option is c.
+tier: C

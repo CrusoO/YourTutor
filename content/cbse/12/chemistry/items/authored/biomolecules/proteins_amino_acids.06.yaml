@@ -1,0 +1,49 @@
+id: A.12.chemistry.biomolecules.proteins_amino_acids.06
+skill_ids:
+- SK.A.12.chemistry.proteins_amino_acids
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which amino acid has a thiol group in its side chain?
+hints:
+- level: 1
+  en: Look for a sulphur atom bonded to hydrogen in the side chain.
+- level: 2
+  en: Think about which side chain can be oxidised to form a disulphide bridge.
+- level: 3
+  en: Compare the sulphur containing side chains of the options.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Valine
+- id: b
+  en: Tyrosine
+- id: c
+  en: Methionine
+- id: d
+  en: Cysteine
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7600B18BF6C7
+  when_answer_equals:
+  - c
+- id: MC.A.555EC99CBA0E
+  when_answer_equals:
+  - b
+- id: MC.A.5DCD480CD828
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Cysteine carries a sulphur bonded to hydrogen in its side chain, which is a thiol.
+- en: Two cysteines can form a disulphide cross link.
+- en: The correct option is d.
+tier: C

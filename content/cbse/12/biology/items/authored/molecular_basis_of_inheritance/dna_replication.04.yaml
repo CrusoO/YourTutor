@@ -1,0 +1,50 @@
+id: A.12.biology.molecular_basis_of_inheritance.dna_replication.04
+skill_ids:
+- SK.A.12.biology.dna_replication
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: In a replication bubble, which enzyme adds nucleotides to the 3-prime end of a growing strand?
+hints:
+- level: 1
+  en: Think about which enzyme requires a primer to start.
+- level: 2
+  en: Focus on the enzyme that extends the chain in the 5-prime to 3-prime direction.
+- level: 3
+  en: Ask which enzyme is the main builder of new DNA.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Reverse transcriptase
+- id: b
+  en: DNA polymerase
+- id: c
+  en: DNA gyrase
+- id: d
+  en: Primase
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.29468C6D6B8E
+  when_answer_equals:
+  - d
+- id: MC.A.577D2C53E4AE
+  when_answer_equals:
+  - c
+- id: MC.A.9E90087EA5CE
+  when_answer_equals:
+  - a
+solution_steps:
+- en: DNA polymerase adds deoxyribonucleotides to the 3-prime end of a primed strand, so the new strand grows in the 5-prime to 3-prime direction.
+- en: Primase only makes the short RNA primer.
+- en: The correct option is b.
+tier: C
+diagram_note: Draw a replication fork with helicase, leading and lagging strands, Okazaki fragments, primase and DNA ligase labelled, and mark the 5-prime and 3-prime ends on each strand.

@@ -1,0 +1,48 @@
+id: A.12.physics.electric_charges_and_fields.electric_field_lines.06
+skill_ids:
+- SK.A.12.physics.electric_field_lines
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A closed surface is drawn in a field diagram. Field lines enter the surface everywhere and none leave it. What does this indicate about the net charge inside the surface?
+hints:
+- level: 1
+  en: Recall where field lines terminate.
+- level: 2
+  en: Think about which sign of charge the field lines end on.
+- level: 3
+  en: Consider whether the net charge inside can be zero if lines only enter.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The net charge inside is negative
+- id: b
+  en: The net charge inside is positive
+- id: c
+  en: The net charge inside is twice the charge outside
+- id: d
+  en: The net charge inside is zero
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5893A613E193
+  when_answer_equals:
+  - b
+- id: MC.A.109E9A62B973
+  when_answer_equals:
+  - d
+- id: MC.A.BB293EA62E6B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Field lines end on negative charges, so lines that only enter a closed surface mean there is a net negative charge inside it.
+- en: The correct option is a.
+tier: C

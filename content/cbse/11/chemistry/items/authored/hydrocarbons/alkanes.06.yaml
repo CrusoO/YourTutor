@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkanes.06
+skill_ids:
+- SK.A.11.chemistry.alkanes
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does chlorination of ethane give a mixture of products instead of a single product?
+hints:
+- level: 1
+  en: Free radicals attack available hydrogens at similar rates, so several products appear.
+- level: 2
+  en: Think about whether any hydrogen is much more reactive than the others.
+- level: 3
+  en: Consider how many hydrogens can be replaced in the molecule.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: chlorine adds across a double bond in ethane
+- id: b
+  en: alkanes react only with fluorine
+- id: c
+  en: free radicals attack the available hydrogens with little selectivity
+- id: d
+  en: the solvent takes part in the reaction
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.930AAFAAC811
+  when_answer_equals:
+  - a
+- id: MC.A.3F41EA8F68BD
+  when_answer_equals:
+  - d
+- id: MC.A.027B4430C698
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Chlorine radicals abstract hydrogens from different carbons with similar ease, so the substitution gives several chloroethane products.
+- en: The correct option is c.
+tier: C

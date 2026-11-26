@@ -1,0 +1,48 @@
+id: A.12.physics.magnetism_and_matter.magnetic_materials.04
+skill_ids:
+- SK.A.12.physics.magnetic_materials
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does a ferromagnetic material lose its permanent magnetism when it is heated above its critical temperature?
+hints:
+- level: 1
+  en: Think about what temperature does to the alignment of atomic moments.
+- level: 2
+  en: Consider how thermal motion affects the ordering of domains.
+- level: 3
+  en: Recall the name of the critical temperature above which ferromagnetism disappears.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Thermal agitation breaks the alignment of the magnetic domains
+- id: b
+  en: The material becomes a superconductor
+- id: c
+  en: The electrons stop spinning
+- id: d
+  en: The magnetic domains become larger
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.3DA91E3700DA
+  when_answer_equals:
+  - d
+- id: MC.A.EC1629A295B4
+  when_answer_equals:
+  - c
+- id: MC.A.BEA13A46C9B9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Above the Curie temperature, thermal motion is strong enough to randomise the atomic moments, so the domains lose their alignment and the material is no longer ferromagnetic.
+- en: The correct option is a.
+tier: C

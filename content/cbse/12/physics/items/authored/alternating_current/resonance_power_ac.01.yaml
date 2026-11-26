@@ -1,0 +1,49 @@
+id: A.12.physics.alternating_current.resonance_power_ac.01
+skill_ids:
+- SK.A.12.physics.resonance_power_ac
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the resonant frequency of an LC circuit in hertz?
+hints:
+- level: 1
+  en: Resonance depends on the product of inductance and capacitance.
+- level: 2
+  en: Think about whether the frequency should increase or decrease as L and C grow.
+- level: 3
+  en: Remember the factor of two pi when going from angular frequency to frequency.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Two pi times the square root of L C
+- id: b
+  en: One over two pi times the square root of L C
+- id: c
+  en: The square root of L over C
+- id: d
+  en: One over the square root of L C
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.26C330DEAEB2
+  when_answer_equals:
+  - a
+- id: MC.A.7855534F725C
+  when_answer_equals:
+  - d
+- id: MC.A.6F477493F4D0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The resonant frequency is the reciprocal of two pi times the square root of LC.
+- en: It is set by the product of inductance and capacitance.
+- en: The correct option is b.
+tier: C

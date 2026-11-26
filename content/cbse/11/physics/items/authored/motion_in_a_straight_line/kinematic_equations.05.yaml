@@ -1,0 +1,49 @@
+id: A.11.physics.motion_in_a_straight_line.kinematic_equations.05
+skill_ids:
+- SK.A.11.physics.kinematic_equations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A body starts from rest and moves with constant acceleration. What is the ratio of the distance it covers in the third second to the distance it covers in the first second?
+hints:
+- level: 1
+  en: Find the displacement up to the end of each second separately.
+- level: 2
+  en: Subtract the displacement at the start of the required second from the displacement at its end.
+- level: 3
+  en: Use s = ut + (1/2)at^2 with the starting velocity equal to zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1:5'
+- id: b
+  en: '3:1'
+- id: c
+  en: '5:1'
+- id: d
+  en: '9:1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D5CD6CA53B5B
+  when_answer_equals:
+  - b
+- id: MC.A.24668B3FD669
+  when_answer_equals:
+  - d
+- id: MC.A.781046A245A3
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Starting from rest, the distances in successive equal seconds follow the odd numbers 1, 3, 5.
+- en: So the third second covers five times the distance of the first second.
+- en: The correct option is c.
+tier: C

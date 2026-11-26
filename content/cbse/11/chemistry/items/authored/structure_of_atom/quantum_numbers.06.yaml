@@ -1,0 +1,48 @@
+id: A.11.chemistry.structure_of_atom.quantum_numbers.06
+skill_ids:
+- SK.A.11.chemistry.quantum_numbers
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An electron has principal quantum number 4 and azimuthal quantum number 0. Which subshell and shell does it occupy?
+hints:
+- level: 1
+  en: Map azimuthal values to the letters s, p, d and f in order.
+- level: 2
+  en: The principal number gives the shell and the letter gives the subshell.
+- level: 3
+  en: Write the shell number first, then the subshell letter.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4p
+- id: b
+  en: 4s
+- id: c
+  en: 3s
+- id: d
+  en: 4d
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.95A95A29F25E
+  when_answer_equals:
+  - a
+- id: MC.A.EE9E8FBC199C
+  when_answer_equals:
+  - c
+- id: MC.A.C0F142E5BEC1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Azimuthal number 0 corresponds to the s subshell, and principal number 4 places it in the fourth shell, so the orbital is 4s.
+- en: The correct option is b.
+tier: C

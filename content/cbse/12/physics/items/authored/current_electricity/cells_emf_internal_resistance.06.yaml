@@ -1,0 +1,32 @@
+id: A.12.physics.current_electricity.cells_emf_internal_resistance.06
+skill_ids:
+- SK.A.12.physics.cells_emf_internal_resistance
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two identical cells, each of EMF 1.5 V and internal resistance 1 ohm, are connected in parallel across an external resistor of 2 ohm. What is the current through the external resistor in ampere?
+hints:
+- level: 1
+  en: Identical cells in parallel keep one EMF and share the internal resistance.
+- level: 2
+  en: Find the effective internal resistance for the parallel pair first.
+- level: 3
+  en: Add the external resistor to the effective internal resistance and use Ohm's law.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.6'
+  accept: []
+solution_steps:
+- en: Identical cells in parallel act as one cell with the same EMF and half the internal resistance, 0.5 ohm.
+- en: The total resistance is 2.5 ohm, so the current is 1.5 divided by 2.5, which is 0.6 A.
+- en: The unit of the answer is A.
+- en: Answer = 0.6
+tier: C
+diagram_note: Two cells side by side in parallel, joined to a single external resistor labelled 2 ohm in one loop.

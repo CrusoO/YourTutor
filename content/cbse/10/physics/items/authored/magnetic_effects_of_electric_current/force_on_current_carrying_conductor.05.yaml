@@ -1,0 +1,52 @@
+id: A.10.physics.magnetic_effects_of_electric_current.force_on_current_carrying_conductor.05
+skill_ids:
+- SK.A.10.physics.force_on_current_carrying_conductor
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two long parallel straight wires carry currents in the same direction. Each wire lies in the magnetic field of the other. What is the force between the wires?
+hints:
+- level: 1
+  en: Think about the field that one wire produces at the position of the other.
+- level: 2
+  en: Ask whether the force on each wire points towards or away from the other wire.
+- level: 3
+  en: Consider how the direction of the current in the two wires is related.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Attractive
+- id: b
+  en: Repulsive
+- id: c
+  en: Perpendicular to the wires, pushing them sideways
+- id: d
+  en: Zero, because the wires do not feel each other's field
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C3FE618556A9
+  when_answer_equals:
+  - b
+- id: MC.A.F64D805CAF47
+  when_answer_equals:
+  - d
+- id: MC.A.551D3F2F805F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each wire lies in the magnetic field produced by the other.
+- en: When the currents are in the same direction, the wires attract each other.
+- en: When the currents are opposite, they repel.
+- en: This is the basis of the definition of the ampere.
+- en: The correct option is a.
+tier: C
+diagram_note: Two long parallel wires drawn side by side in the page plane, each drawn as a dot with an arrow showing the current, both arrows pointing up. Draw the circular field lines around each wire and mark the direction of the force on each wire.

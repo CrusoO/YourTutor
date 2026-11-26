@@ -1,0 +1,49 @@
+id: A.10.maths.introduction_to_trigonometry.trig_identities.01
+skill_ids:
+- SK.A.10.maths.trig_identities
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which of these is a standard identity for an acute angle θ?
+hints:
+- level: 1
+  en: Start from Pythagoras in a right triangle.
+- level: 2
+  en: Think about the squared lengths of the opposite and adjacent sides.
+- level: 3
+  en: Check which options contain squared trigonometric terms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin θ + cos θ = 1
+- id: b
+  en: tan²θ = cos²θ + 1
+- id: c
+  en: sin²θ + cos²θ = 1
+- id: d
+  en: sec θ = sin θ / cos θ
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DC50BA238FF8
+  when_answer_equals:
+  - a
+- id: MC.A.1F83493ED48B
+  when_answer_equals:
+  - d
+- id: MC.A.FD49743854C8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Pythagoras applied to a right triangle with hypotenuse 1 gives sin²θ + cos²θ = 1.
+- en: 'The other statements are false: sec θ is the reciprocal of cos θ, and sin θ + cos θ is not 1 in general.'
+- en: The correct option is c.
+tier: C

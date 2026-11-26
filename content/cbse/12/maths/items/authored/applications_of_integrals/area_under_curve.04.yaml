@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_integrals.area_under_curve.04
+skill_ids:
+- SK.A.12.maths.area_under_curve
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the area bounded by y = x^3, the x-axis and the line x = 2?
+hints:
+- level: 1
+  en: Set up the integral with the correct lower and upper limits.
+- level: 2
+  en: Find an antiderivative of x cubed.
+- level: 3
+  en: Evaluate at the upper limit and subtract the value at the lower limit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '4'
+- id: c
+  en: '8'
+- id: d
+  en: '16'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.156C84E84146
+  when_answer_equals:
+  - d
+- id: MC.A.41FDB97C3C13
+  when_answer_equals:
+  - a
+- id: MC.A.770756E518BB
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The integral of x cubed from 0 to 2 is x to the fourth over 4 evaluated from 0 to 2, which is 16/4 = 4.
+- en: The correct option is b.
+tier: C
+diagram_note: Cubic curve y = x^3 between x = 0 and x = 2 with the region under it and above the horizontal axis shaded.

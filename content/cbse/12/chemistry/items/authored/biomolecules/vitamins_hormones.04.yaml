@@ -1,0 +1,48 @@
+id: A.12.chemistry.biomolecules.vitamins_hormones.04
+skill_ids:
+- SK.A.12.chemistry.vitamins_hormones
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which pairs of bases are formed by hydrogen bonding in DNA?
+hints:
+- level: 1
+  en: Purines pair with pyrimidines, and each pair has a fixed partner.
+- level: 2
+  en: Recall which base pairs with adenine in DNA.
+- level: 3
+  en: Count the hydrogen bonds in each pair to check the pairing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Adenine with cytosine and guanine with thymine
+- id: b
+  en: Adenine with guanine and thymine with cytosine
+- id: c
+  en: Adenine with thymine and guanine with cytosine
+- id: d
+  en: Uracil with adenine in DNA
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8EFD83E3F1DD
+  when_answer_equals:
+  - a
+- id: MC.A.0E2F5E6CD895
+  when_answer_equals:
+  - b
+- id: MC.A.81A2AAFAF670
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Adenine pairs with thymine through two hydrogen bonds, and guanine pairs with cytosine through three.
+- en: The correct option is c.
+tier: C

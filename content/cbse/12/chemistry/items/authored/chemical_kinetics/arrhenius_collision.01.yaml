@@ -1,0 +1,49 @@
+id: A.12.chemistry.chemical_kinetics.arrhenius_collision.01
+skill_ids:
+- SK.A.12.chemistry.arrhenius_collision
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which term in the Arrhenius equation gives the fraction of collisions with energy at least equal to the activation energy?
+hints:
+- level: 1
+  en: Look for the factor that depends on both the activation energy and the temperature.
+- level: 2
+  en: The frequency factor does not depend on the energy barrier.
+- level: 3
+  en: Find the exponential term in the equation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A, the frequency factor
+- id: b
+  en: Ea/R
+- id: c
+  en: RT
+- id: d
+  en: exp(-Ea/RT)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.EDE4E03049A0
+  when_answer_equals:
+  - a
+- id: MC.A.899FEF3A769D
+  when_answer_equals:
+  - b
+- id: MC.A.B34310850887
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The exponential term exp(-Ea/RT) is the fraction of molecular collisions that carry enough energy to react.
+- en: The frequency factor A is a separate term.
+- en: The correct option is d.
+tier: C

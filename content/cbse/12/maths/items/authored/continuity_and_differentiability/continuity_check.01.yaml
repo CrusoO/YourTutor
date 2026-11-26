@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.continuity_check.01
+skill_ids:
+- SK.A.12.maths.continuity_check
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Let f(x) = x^2 for x not equal to 2, and f(2) = 5. Is f continuous at x = 2?
+hints:
+- level: 1
+  en: Compute the limit of the rule for x near 2 but not equal to 2.
+- level: 2
+  en: Compare that limit with the value the function is given at 2.
+- level: 3
+  en: Continuity needs the limit and the value to agree.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: No, because f is not defined at 2
+- id: b
+  en: No, because the limit at 2 is 4 but f(2) is 5
+- id: c
+  en: Yes, because the rule is a polynomial
+- id: d
+  en: Yes, because f(2) has a value
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FE4F51CA3536
+  when_answer_equals:
+  - c
+- id: MC.A.EAAF1F54D61F
+  when_answer_equals:
+  - d
+- id: MC.A.B54D209D8DEA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The limit of x squared as x approaches 2 is 4, but f(2) is defined as 5, so the two values differ and f is not continuous at 2.
+- en: The correct option is b.
+tier: C

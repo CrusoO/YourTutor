@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.torque_and_angular_momentum.04
+skill_ids:
+- SK.A.11.physics.torque_and_angular_momentum
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A particle of mass 2 kg moves at 3 m/s in a circle of radius 4 m. What is its angular momentum about the centre, in kg m^2/s?
+hints:
+- level: 1
+  en: Angular momentum of a particle is its mass times velocity times the perpendicular distance.
+- level: 2
+  en: The velocity is perpendicular to the radius in circular motion.
+- level: 3
+  en: Multiply the three quantities and keep track of the units.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 6 kg m^2/s
+- id: b
+  en: 12 kg m^2/s
+- id: c
+  en: 1.5 kg m^2/s
+- id: d
+  en: 24 kg m^2/s
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CDD2FF3971BB
+  when_answer_equals:
+  - a
+- id: MC.A.DCC627ABFDE7
+  when_answer_equals:
+  - b
+- id: MC.A.4DB9B0225FA6
+  when_answer_equals:
+  - c
+solution_steps:
+- en: For a particle moving perpendicular to its radius, L = m v r = 2 times 3 times 4 = 24 kg m^2/s.
+- en: The correct option is d.
+tier: C

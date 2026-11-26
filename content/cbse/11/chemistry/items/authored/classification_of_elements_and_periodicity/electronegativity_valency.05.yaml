@@ -1,0 +1,48 @@
+id: A.11.chemistry.classification_of_elements_and_periodicity.electronegativity_valency.05
+skill_ids:
+- SK.A.11.chemistry.electronegativity_valency
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which compound has the largest electronegativity difference between its two atoms, given Pauling values Li 1.0, Na 0.9, Cs 0.7, F 4.0, Cl 3.0 and I 2.5?
+hints:
+- level: 1
+  en: Compare the value of the metal with the value of the halogen in each pair.
+- level: 2
+  en: Find the metal with the lowest electronegativity and the halogen with the highest.
+- level: 3
+  en: Subtract the metal value from the halogen value for each pair and compare.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: LiF
+- id: b
+  en: LiCl
+- id: c
+  en: CsF
+- id: d
+  en: NaI
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8176FA878E1D
+  when_answer_equals:
+  - a
+- id: MC.A.255FC2183D47
+  when_answer_equals:
+  - b
+- id: MC.A.6F5A9DA9F0F9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Caesium has the lowest value at 0.7 and fluorine the highest at 4.0, giving a difference of 3.3, which is larger than the other pairs listed.
+- en: The correct option is c.
+tier: C

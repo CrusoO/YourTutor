@@ -1,0 +1,50 @@
+id: A.12.physics.moving_charges_and_magnetism.cyclotron_and_galvanometer.04
+skill_ids:
+- SK.A.12.physics.cyclotron_and_galvanometer
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is the magnetic field made radial in a moving coil galvanometer?
+hints:
+- level: 1
+  en: Consider how the torque on the coil depends on the angle between the coil plane and the field.
+- level: 2
+  en: Think about what happens to that angle as the coil turns.
+- level: 3
+  en: Consider why a linear scale is useful for measuring.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: So the field is stronger at the centre of the coil
+- id: b
+  en: So the field cancels the Earth's magnetic field
+- id: c
+  en: So the coil spins continuously like a motor
+- id: d
+  en: So the deflection is proportional to current at every coil position
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.E9FDADDA7E51
+  when_answer_equals:
+  - c
+- id: MC.A.41A112066A19
+  when_answer_equals:
+  - a
+- id: MC.A.F1C40E743179
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A radial field keeps the plane of the coil parallel to the field at all angles, so the torque stays proportional to current.
+- en: This gives a linear scale.
+- en: The correct option is d.
+tier: C
+diagram_note: A cross section of a galvanometer showing the coil between two curved pole pieces, with field lines drawn running radially outward from the centre.

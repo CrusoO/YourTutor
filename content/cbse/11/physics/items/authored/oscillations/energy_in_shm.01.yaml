@@ -1,0 +1,48 @@
+id: A.11.physics.oscillations.energy_in_shm.01
+skill_ids:
+- SK.A.11.physics.energy_in_shm
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'At an extreme position of simple harmonic motion, the kinetic energy of the particle is:'
+hints:
+- level: 1
+  en: Think about the speed of the particle at the turning point of its swing.
+- level: 2
+  en: At the turning point the energy is all potential.
+- level: 3
+  en: Kinetic energy depends on the square of the speed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: zero
+- id: b
+  en: at its maximum
+- id: c
+  en: equal to the total energy
+- id: d
+  en: half the total energy
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A1FBCBA8307E
+  when_answer_equals:
+  - b
+- id: MC.A.EAE48785A35A
+  when_answer_equals:
+  - c
+- id: MC.A.004E634A252B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At the turning points the speed is zero, so the kinetic energy vanishes and all the energy is stored as potential energy.
+- en: The correct option is a.
+tier: C

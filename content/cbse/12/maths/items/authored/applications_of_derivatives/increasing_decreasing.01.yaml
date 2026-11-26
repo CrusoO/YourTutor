@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_derivatives.increasing_decreasing.01
+skill_ids:
+- SK.A.12.maths.increasing_decreasing
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For f(x) = x^3 - 3x, on which set is f increasing?
+hints:
+- level: 1
+  en: Find the derivative of f.
+- level: 2
+  en: Solve where the derivative is positive.
+- level: 3
+  en: Remember that a positive derivative means the function is increasing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (-infinity, 0) only
+- id: b
+  en: (-1, 1) only
+- id: c
+  en: (-infinity, -1) and (1, infinity)
+- id: d
+  en: (0, infinity) only
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D856B0D3EC4E
+  when_answer_equals:
+  - b
+- id: MC.A.DDAE7B53794D
+  when_answer_equals:
+  - a
+- id: MC.A.CB30D9F30846
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The derivative 3x^2 - 3 is positive when the absolute value of x exceeds 1, so f increases on those two outer intervals.
+- en: The correct option is c.
+tier: C
+diagram_note: Cubic curve y = x^3 - 3x drawn on axes, with its local maximum and local minimum marked at x = -1 and x = 1.

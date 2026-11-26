@@ -1,0 +1,49 @@
+id: A.10.chemistry.chemical_reactions_and_equations.chemical_equations.05
+skill_ids:
+- SK.A.10.chemistry.chemical_equations
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Magnesium burns in nitrogen gas to form magnesium nitride, which contains magnesium and nitrogen in the ratio 3 to 2. Which skeletal equation is correct?
+hints:
+- level: 1
+  en: Nitrogen gas exists as diatomic molecules.
+- level: 2
+  en: Think about the charges on the magnesium and nitride ions.
+- level: 3
+  en: The product formula must be electrically neutral overall.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Mg + N2 -> Mg3N2
+- id: b
+  en: Mg + N2 -> Mg2N3
+- id: c
+  en: Mg + N -> Mg3N2
+- id: d
+  en: Mg + N2 -> MgN2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.BA1F41AD8C2B
+  when_answer_equals:
+  - d
+- id: MC.A.97AFA2310E3B
+  when_answer_equals:
+  - c
+- id: MC.A.EADBE59F4356
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Magnesium forms Mg2+ and nitride forms N3-, so three magnesium ions balance two nitride ions, giving Mg3N2.
+- en: Nitrogen gas is the diatomic molecule N2.
+- en: The correct option is a.
+tier: C

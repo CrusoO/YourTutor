@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.aromatic_hydrocarbons.01
+skill_ids:
+- SK.A.11.chemistry.aromatic_hydrocarbons
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which rule is used to predict whether a planar cyclic conjugated system is aromatic?
+hints:
+- level: 1
+  en: The rule counts pi electrons in a planar cyclic conjugated system.
+- level: 2
+  en: The rule is named after a German physical chemist.
+- level: 3
+  en: Consider the count of pi electrons in the ring and its fit to a formula.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: octet rule
+- id: b
+  en: Huckel's rule
+- id: c
+  en: Aufbau principle
+- id: d
+  en: Markovnikov's rule
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.85248131BEE3
+  when_answer_equals:
+  - a
+- id: MC.A.1A570A8C5D85
+  when_answer_equals:
+  - d
+- id: MC.A.E0133123649E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Huckel's rule states that a planar, fully conjugated ring with 4n plus 2 pi electrons is aromatic.
+- en: The correct option is b.
+tier: C

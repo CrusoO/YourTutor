@@ -1,0 +1,48 @@
+id: A.12.chemistry.biomolecules.proteins_amino_acids.04
+skill_ids:
+- SK.A.12.chemistry.proteins_amino_acids
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the net charge of an amino acid at its isoelectric point?
+hints:
+- level: 1
+  en: Recall the charges carried on the amino and carboxyl groups of a zwitterion.
+- level: 2
+  en: Consider which pH gives no net movement in an electric field.
+- level: 3
+  en: Think about the two charged groups present on the backbone.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Only a positive charge
+- id: b
+  en: Zero, because positive and negative charges balance
+- id: c
+  en: Only a negative charge
+- id: d
+  en: A charge that depends on the side chain only
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.66D44CF5A0BD
+  when_answer_equals:
+  - a
+- id: MC.A.D5A679B3C865
+  when_answer_equals:
+  - c
+- id: MC.A.23A2A48C10AA
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At the isoelectric point the amino acid exists as a zwitterion with an ammonium and a carboxylate group, so the net charge is zero.
+- en: The correct option is b.
+tier: C

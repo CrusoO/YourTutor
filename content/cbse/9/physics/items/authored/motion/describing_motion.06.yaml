@@ -1,0 +1,48 @@
+id: A.9.physics.motion.describing_motion.06
+skill_ids:
+- SK.A.9.physics.describing_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A satellite looks motionless above one spot on the ground to a person standing there, yet it moves through space at high speed. Which explanation resolves this?
+hints:
+- level: 1
+  en: Ask what each description of the satellite is measured against.
+- level: 2
+  en: Consider whether a distant observer would agree with the person on the ground.
+- level: 3
+  en: Compare which fixed object each observer uses.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The satellite's speed is only an illusion
+- id: b
+  en: The person and a space-fixed observer use different reference points
+- id: c
+  en: Its speed is zero because it is in orbit
+- id: d
+  en: Gravity cancels its motion so it is truly at rest
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.7897CFEFAF05
+  when_answer_equals:
+  - a
+- id: MC.A.D969A551C8C3
+  when_answer_equals:
+  - c
+- id: MC.A.6D8DFC5DF0AC
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Both descriptions are true because they are measured against different comparison objects, one fixed to the ground and one fixed in space.
+- en: The correct option is b.
+tier: C

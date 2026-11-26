@@ -1,0 +1,49 @@
+id: A.12.physics.ray_optics_and_optical_instruments.total_internal_reflection.06
+skill_ids:
+- SK.A.12.physics.total_internal_reflection
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why do optical fibres carry light over long distances with very little loss from the walls?
+hints:
+- level: 1
+  en: Think about how light meets the boundary between the core and the cladding.
+- level: 2
+  en: Consider what happens at the boundary when the angle of incidence is large.
+- level: 3
+  en: Recall the condition on the refractive indices of the core and the cladding.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The cladding absorbs sunlight to power the signal
+- id: b
+  en: Light travels more slowly in the fibre than in air
+- id: c
+  en: The fibre amplifies the light at every bend
+- id: d
+  en: Light stays in the core because it is totally internally reflected at the core cladding boundary
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.AE2E4483E81B
+  when_answer_equals:
+  - c
+- id: MC.A.06FD6264497A
+  when_answer_equals:
+  - b
+- id: MC.A.1C9CA4B8566E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The core has a higher refractive index than the cladding, so light striking the boundary at shallow angles is totally internally reflected and stays in the core.
+- en: The correct option is d.
+tier: C
+diagram_note: A fibre cross section with a ray bouncing between the core walls, drawn with the total internal reflection at each boundary point.

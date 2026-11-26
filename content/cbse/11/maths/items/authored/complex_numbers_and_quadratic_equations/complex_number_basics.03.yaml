@@ -1,0 +1,48 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.complex_number_basics.03
+skill_ids:
+- SK.A.11.maths.complex_number_basics
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Simplify the product (2 + 3i)(1 - i).
+hints:
+- level: 1
+  en: Expand the brackets term by term, keeping each sign carefully.
+- level: 2
+  en: Replace the square of the imaginary unit using its defining property.
+- level: 3
+  en: Collect the real terms and the imaginary terms into two groups.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5 + 5i
+- id: b
+  en: -1 + 5i
+- id: c
+  en: 5 - i
+- id: d
+  en: 5 + i
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.ED9FE28EA2D2
+  when_answer_equals:
+  - c
+- id: MC.A.C6D1B9CDEC46
+  when_answer_equals:
+  - b
+- id: MC.A.2E9A6C30DE3F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Expanding gives 2 minus 2i plus 3i minus 3i squared, and since i squared is minus one this becomes 5 plus i.
+- en: The correct option is d.
+tier: C

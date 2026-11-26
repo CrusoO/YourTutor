@@ -1,0 +1,49 @@
+id: A.9.maths.coordinate_geometry.plotting_points.04
+skill_ids:
+- SK.A.9.maths.plotting_points
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A rectangle has corners at (0, 0), (5, 0), (5, 2) and (0, 2). Which pair is the midpoint of the diagonal from (0, 0) to (5, 2)?
+hints:
+- level: 1
+  en: Average the horizontal values of the two ends.
+- level: 2
+  en: Average the vertical values of the two ends separately.
+- level: 3
+  en: Keep decimals if the average is not a whole number.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (2.5, 1)
+- id: b
+  en: (2, 1)
+- id: c
+  en: (2.5, 2)
+- id: d
+  en: (5, 2)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9B2BC88CE928
+  when_answer_equals:
+  - d
+- id: MC.A.860E22E69EFE
+  when_answer_equals:
+  - b
+- id: MC.A.F76A0777C413
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'The midpoint averages the coordinates: 0 and 5 give 2.5, and 0 and 2 give 1.'
+- en: The correct option is a.
+tier: C
+diagram_note: Rectangle with corners at the origin, (5, 0), (5, 2) and (0, 2), with the diagonal from the origin to (5, 2) drawn and its midpoint marked.

@@ -1,0 +1,48 @@
+id: A.11.physics.system_of_particles_and_rotational_motion.torque_and_angular_momentum.06
+skill_ids:
+- SK.A.11.physics.torque_and_angular_momentum
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A rigid body experiences zero net torque about an axis. Which quantity is conserved about that axis?
+hints:
+- level: 1
+  en: Compare the role of net torque in rotation with the role of net force in linear motion.
+- level: 2
+  en: The rate at which the rotational analogue of momentum changes is set by the net torque.
+- level: 3
+  en: Look for the rotational quantity that stays fixed when no net torque acts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: angular momentum
+- id: b
+  en: angular velocity
+- id: c
+  en: kinetic energy
+- id: d
+  en: moment of inertia
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.D5F32B266DC6
+  when_answer_equals:
+  - c
+- id: MC.A.D1B55637C6E5
+  when_answer_equals:
+  - b
+- id: MC.A.7612D0DF0E47
+  when_answer_equals:
+  - d
+solution_steps:
+- en: When the net external torque is zero, the total angular momentum about the axis stays constant, which is the rotational form of momentum conservation.
+- en: The correct option is a.
+tier: C

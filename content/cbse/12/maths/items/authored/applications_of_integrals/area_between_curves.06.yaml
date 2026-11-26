@@ -1,0 +1,50 @@
+id: A.12.maths.applications_of_integrals.area_between_curves.06
+skill_ids:
+- SK.A.12.maths.area_between_curves
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the total area enclosed between the cubic y = x^3 and the line y = x?
+hints:
+- level: 1
+  en: Find all points where the two curves meet.
+- level: 2
+  en: Split the region into parts where each curve lies on top.
+- level: 3
+  en: Use the symmetry of the picture about the origin to simplify the work.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1/2
+- id: b
+  en: '1'
+- id: c
+  en: 1/4
+- id: d
+  en: '0'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2D4E95B5677B
+  when_answer_equals:
+  - c
+- id: MC.A.918713F7BA41
+  when_answer_equals:
+  - d
+- id: MC.A.C0835B56F362
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The curves meet at x = -1, 0 and 1.
+- en: On [0, 1] the line is above the cubic, and by symmetry the region on [-1, 0] has the same area, so the total is 2 times the integral of (x - x^3) from 0 to 1, which is 1/2.
+- en: The correct option is a.
+tier: C
+diagram_note: Cubic y = x cubed and straight line y = x meeting at x = minus 1, 0 and 1, with the two enclosed regions shaded.

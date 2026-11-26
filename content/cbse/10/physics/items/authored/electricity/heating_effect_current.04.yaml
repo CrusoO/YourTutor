@@ -1,0 +1,50 @@
+id: A.10.physics.electricity.heating_effect_current.04
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A fuse is a short piece of thin wire placed in a circuit. When the current exceeds a safe value, the fuse melts and breaks the circuit. Which property allows it to do this?
+hints:
+- level: 1
+  en: Think about what happens to the wire when a large current flows through it.
+- level: 2
+  en: Ask what the wire must do to break the circuit.
+- level: 3
+  en: Consider which property of the wire lets it melt at a safe current limit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It has a low melting point and heats up quickly when a large current flows through it
+- id: b
+  en: It stores charge and releases it when it melts
+- id: c
+  en: It conducts better when the current becomes large
+- id: d
+  en: It raises the voltage to protect the appliance
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.9C999828E4D0
+  when_answer_equals:
+  - c
+- id: MC.A.52CC0D9CB7FC
+  when_answer_equals:
+  - b
+- id: MC.A.98D6E72CD14C
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A fuse wire has a low melting point.
+- en: When the current exceeds its rating, the heat produced in it is large enough to melt the wire, which opens the circuit and protects the appliance from damage.
+- en: The wire's heating effect is therefore put to use as a safety device.
+- en: The correct option is a.
+tier: C

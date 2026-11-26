@@ -1,0 +1,50 @@
+id: A.10.physics.electricity.heating_effect_current.05
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two wires of the same length and material are connected in series, so the same current flows through both. The thinner wire gets much hotter. Why?
+hints:
+- level: 1
+  en: Ask how the resistance of a wire changes when its thickness changes.
+- level: 2
+  en: Recall what is the same for both wires in a series arrangement.
+- level: 3
+  en: Think about how the heat per second depends on the resistance for a fixed current.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The thinner wire has a higher resistance, so it produces more heat per second for the same current
+- id: b
+  en: The thicker wire has a higher resistance
+- id: c
+  en: Heating depends only on the length of the wire
+- id: d
+  en: The thinner wire has a larger current because it is narrower
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A6EB57509327
+  when_answer_equals:
+  - b
+- id: MC.A.697161BA3745
+  when_answer_equals:
+  - c
+- id: MC.A.4CCE942E4A33
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The resistance of a wire is inversely proportional to its cross-sectional area, so the thinner wire has the higher resistance.
+- en: For a fixed current, the heat produced per second is I squared times R, so the thinner wire heats more.
+- en: The same current in both wires is what the question fixes.
+- en: The correct option is a.
+tier: C

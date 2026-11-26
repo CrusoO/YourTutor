@@ -1,0 +1,49 @@
+id: A.9.maths.constructions.triangle_constructions.01
+skill_ids:
+- SK.A.9.maths.triangle_constructions
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which set of measures is enough to construct one unique triangle?
+hints:
+- level: 1
+  en: Ask which measures pin down both the shape and the size.
+- level: 2
+  en: Three angles can be scaled up or down to give different triangles.
+- level: 3
+  en: Choose the set that fixes every side length.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: two sides only
+- id: b
+  en: three sides
+- id: c
+  en: three angles
+- id: d
+  en: two sides and an angle not between them
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2F37F2E19D56
+  when_answer_equals:
+  - c
+- id: MC.A.5806C1796643
+  when_answer_equals:
+  - a
+- id: MC.A.FCAFDDC64DB2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Three sides determine a triangle uniquely by the SSS condition, while three angles fix only the shape and not the size.
+- en: The correct option is b.
+tier: C
+diagram_note: Triangle with its three sides labelled with lengths.

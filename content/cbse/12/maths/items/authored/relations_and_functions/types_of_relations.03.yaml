@@ -1,0 +1,50 @@
+id: A.12.maths.relations_and_functions.types_of_relations.03
+skill_ids:
+- SK.A.12.maths.types_of_relations
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Let R be the relation on the natural numbers given by a R b when a divides b. Which statement about R is correct?
+hints:
+- level: 1
+  en: Test whether each natural number divides itself.
+- level: 2
+  en: Pick a pair where one number divides the other and then check the reverse order.
+- level: 3
+  en: Chain two divisibility facts together and see what they force.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It is an equivalence relation
+- id: b
+  en: It is neither reflexive nor transitive
+- id: c
+  en: It is reflexive and transitive but not symmetric
+- id: d
+  en: It is reflexive and symmetric but not transitive
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D85A68520D86
+  when_answer_equals:
+  - d
+- id: MC.A.0D750BDD6AD3
+  when_answer_equals:
+  - a
+- id: MC.A.F1487A33DFDD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Every natural number divides itself, so R is reflexive.
+- en: If a divides b and b divides c then a divides c, so R is transitive.
+- en: But 2 divides 4 while 4 does not divide 2, so R is not symmetric.
+- en: The correct option is c.
+tier: C

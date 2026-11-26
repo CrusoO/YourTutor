@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystalline_and_amorphous.03
+skill_ids:
+- SK.A.12.chemistry.crystalline_and_amorphous
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A solid has a sharp melting point and cleaves along flat planes when struck. Which class does it belong to?
+hints:
+- level: 1
+  en: List which two properties in the stem point to an ordered internal arrangement.
+- level: 2
+  en: Consider what flat cleavage planes say about how the particles are arranged.
+- level: 3
+  en: Compare the stated melting behaviour with the melting over a range seen in disordered solids.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Glassy solid
+- id: b
+  en: Amorphous solid
+- id: c
+  en: Colloidal solid
+- id: d
+  en: Crystalline solid
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2BFC623BD06F
+  when_answer_equals:
+  - b
+- id: MC.A.590B6EAF95DA
+  when_answer_equals:
+  - a
+- id: MC.A.E5154BE7DE14
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A sharp melting point and cleavage along planes both point to an ordered, repeating lattice.
+- en: Amorphous solids lack this order.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.physics.moving_charges_and_magnetism.biot_savart_ampere.05
+skill_ids:
+- SK.A.12.physics.biot_savart_ampere
+difficulty: 0.9
+pool: practice
+role: recall
+stem:
+  en: Ampere's circuital law states that the line integral of the magnetic field around a closed loop equals mu0 multiplied by what?
+hints:
+- level: 1
+  en: Ampere's law is about the currents that pass through the closed path.
+- level: 2
+  en: Compare it with Gauss's law and what that law counts inside a surface.
+- level: 3
+  en: Think about whether the loop is linked with current or with flux.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The rate of change of electric flux only
+- id: b
+  en: The net current passing through the loop
+- id: c
+  en: The total charge inside a closed sphere
+- id: d
+  en: The magnetic flux through the loop
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.458C9AB97765
+  when_answer_equals:
+  - c
+- id: MC.A.1F2C39ADE35A
+  when_answer_equals:
+  - d
+- id: MC.A.D95A541B6091
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Ampere's law relates the line integral of B around a closed path to the net current linked with that path, given by mu0 times the enclosed current.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,50 @@
+id: A.9.maths.number_systems.irrationals_number_line.01
+skill_ids:
+- SK.A.9.maths.irrationals_number_line
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A point must be placed exactly at the square root of two on a number line. Which construction does this correctly?
+hints:
+- level: 1
+  en: Think about a right triangle whose two shorter sides are both one unit.
+- level: 2
+  en: Let the longest side of that triangle set the radius of a compass arc.
+- level: 3
+  en: The construction must keep the length exact rather than estimated.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Divide the segment from zero to two into two equal parts.
+- id: b
+  en: Draw a right triangle with legs of two units and use its hypotenuse directly.
+- id: c
+  en: Draw a right triangle with two unit legs and use its hypotenuse as the radius of an arc from zero.
+- id: d
+  en: Mark the point at one point four by eye and call it the root.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7DB4F10D702F
+  when_answer_equals:
+  - a
+- id: MC.A.B6FE76F8AA31
+  when_answer_equals:
+  - d
+- id: MC.A.674C3DAF8547
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A right triangle with two unit legs has a hypotenuse of root two by Pythagoras.
+- en: An arc centred at zero with that radius meets the number line at the exact point.
+- en: The correct option is c.
+tier: C
+diagram_note: Number line from zero to two with a unit square drawn above the segment from zero to one; its diagonal is marked and an arc is drawn from zero to meet the line.

@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.hess_law.04
+skill_ids:
+- SK.A.11.chemistry.hess_law
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: If A -> C has delta H1 and C -> B has delta H2, what is delta H for the reaction 2A -> B?
+hints:
+- level: 1
+  en: Multiply each step by the factor needed to match the coefficients of the target reaction.
+- level: 2
+  en: Add the adjusted steps together to get the overall reaction.
+- level: 3
+  en: Make sure no intermediate species is left over at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 delta H1 + delta H2
+- id: b
+  en: delta H2 - delta H1
+- id: c
+  en: 2 delta H1 - delta H2
+- id: d
+  en: delta H1 + delta H2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.CA18D558AFA2
+  when_answer_equals:
+  - d
+- id: MC.A.8CE056869171
+  when_answer_equals:
+  - b
+- id: MC.A.4291D7196E22
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Doubling the first step gives 2A -> 2C with 2 delta H1, and adding the second step gives 2A -> B with 2 delta H1 plus delta H2.
+- en: The correct option is a.
+tier: C

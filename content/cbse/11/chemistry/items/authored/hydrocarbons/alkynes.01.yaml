@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkynes.01
+skill_ids:
+- SK.A.11.chemistry.alkynes
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the general molecular formula of an alkyne with one triple bond?
+hints:
+- level: 1
+  en: Think about how many hydrogens are removed compared with the saturated chain when the bond order is three.
+- level: 2
+  en: Compare how many hydrogens each kind of multiple bond removes relative to the alkane formula.
+- level: 3
+  en: Compare with the alkene formula and then add one more unsaturation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CnH2n+2
+- id: b
+  en: CnH2n
+- id: c
+  en: CnH2n-4
+- id: d
+  en: CnH2n-2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.2AE4796492E5
+  when_answer_equals:
+  - b
+- id: MC.A.647B406F4E28
+  when_answer_equals:
+  - a
+- id: MC.A.9B40F0CAC128
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A triple bond counts as two degrees of unsaturation beyond a double bond, so an alkyne with n carbons has the formula CnH2n-2.
+- en: The correct option is d.
+tier: C

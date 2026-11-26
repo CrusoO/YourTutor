@@ -1,0 +1,49 @@
+id: A.11.physics.waves.speed_of_sound_medium.05
+skill_ids:
+- SK.A.11.physics.speed_of_sound_medium
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The speed of sound in air increases by roughly what percentage when the absolute temperature rises from 273 K to 300 K, given that the speed goes as the square root of absolute temperature?
+hints:
+- level: 1
+  en: Speed in air depends on the square root of the absolute temperature.
+- level: 2
+  en: Compare absolute temperatures, not the Celsius values.
+- level: 3
+  en: A square root reduces the size of the percentage change.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: about 5 percent
+- id: b
+  en: about 1 percent
+- id: c
+  en: about 27 percent
+- id: d
+  en: about 10 percent
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.069BD0C5449D
+  when_answer_equals:
+  - d
+- id: MC.A.268AFF7BB8B6
+  when_answer_equals:
+  - c
+- id: MC.A.3EB82DE86145
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The speed ratio is the square root of 300 / 273, which is about 1.048.
+- en: That is an increase of roughly 5 percent.
+- en: The correct option is a.
+tier: C

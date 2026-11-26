@@ -1,0 +1,50 @@
+id: A.10.biology.control_and_coordination.human_endocrine_system.05
+skill_ids:
+- SK.A.10.biology.human_endocrine_system
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: After a meal, blood glucose rises. Which sequence correctly describes the hormonal response that restores normal levels?
+hints:
+- level: 1
+  en: Start with the gland that responds directly to a change in blood glucose.
+- level: 2
+  en: Think about what the liver and muscles do with excess glucose.
+- level: 3
+  en: Consider which hormone is released when glucose is high.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The pancreas releases insulin, the liver and muscles take up glucose and store it as glycogen, and blood glucose falls
+- id: b
+  en: The thyroid releases thyroxine, which directly removes glucose from the blood
+- id: c
+  en: The adrenal gland releases adrenaline, which stores glucose as fat
+- id: d
+  en: The pancreas releases glucagon, the liver breaks glycogen down, and blood glucose rises
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.09F074651EE0
+  when_answer_equals:
+  - d
+- id: MC.A.DA35976EA16F
+  when_answer_equals:
+  - b
+- id: MC.A.E9863E47EF67
+  when_answer_equals:
+  - c
+solution_steps:
+- en: High blood glucose stimulates the beta cells of the pancreas to release insulin.
+- en: Insulin makes the liver and muscle cells absorb glucose and convert it to glycogen, which lowers the blood glucose level.
+- en: The correct option is a.
+tier: C
+diagram_note: 'Draw a flowchart: high blood glucose, then the beta cells of the pancreas releasing insulin into the blood, then liver and muscle cells taking up glucose and converting it to glycogen, then blood glucose falling back to normal.'

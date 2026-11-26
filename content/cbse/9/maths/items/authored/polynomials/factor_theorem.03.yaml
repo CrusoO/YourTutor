@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.factor_theorem.03
+skill_ids:
+- SK.A.9.maths.factor_theorem
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Using the factor theorem, which linear expression is a factor of x^3 - 7x + 6?
+hints:
+- level: 1
+  en: Test values that divide the constant term evenly.
+- level: 2
+  en: Substitute the candidate value and check whether the result is zero.
+- level: 3
+  en: The factor has the opposite sign to the value that gives zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x - 3
+- id: b
+  en: x - 6
+- id: c
+  en: x + 3
+- id: d
+  en: x + 2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.FDFE8EE6C9DD
+  when_answer_equals:
+  - a
+- id: MC.A.A93AC4136E98
+  when_answer_equals:
+  - d
+- id: MC.A.329350588776
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Substituting minus three gives minus 27 plus 21 plus 6, which is zero, so x + 3 is a factor.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,50 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.equipotential_surfaces.05
+skill_ids:
+- SK.A.12.physics.equipotential_surfaces
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A solid metal sphere carries a charge. The potential at its surface is 300 V. What is the potential at its centre in equilibrium?
+hints:
+- level: 1
+  en: Consider whether any electric field exists inside a conductor in equilibrium.
+- level: 2
+  en: Think about the potential difference between two points inside the conductor.
+- level: 3
+  en: Recall where the charge on a solid conductor is located.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Lower than 300 V
+- id: b
+  en: Higher than 300 V
+- id: c
+  en: 300 V
+- id: d
+  en: 0 V
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.BD605C60452A
+  when_answer_equals:
+  - d
+- id: MC.A.A3FE4B77270F
+  when_answer_equals:
+  - b
+- id: MC.A.17653E0CE70B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In equilibrium there is no field inside a conductor, so no work is needed to move between points inside it or to its surface.
+- en: The whole conductor, including its centre, is therefore at the same potential.
+- en: The correct option is c.
+tier: C
+diagram_note: A circle representing a charged metal sphere, with a dot marked at the centre and a label marked on the surface of the circle.

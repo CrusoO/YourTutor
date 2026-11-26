@@ -1,0 +1,49 @@
+id: A.11.physics.units_and_measurements.significant_figures_errors.06
+skill_ids:
+- SK.A.11.physics.significant_figures_errors
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The fractional error in the length of a pendulum is 1 percent and in its period is 2 percent. Using g = 4 pi^2 L divided by T squared, what is the fractional error in g?
+hints:
+- level: 1
+  en: Write g as a product of powers of L and T.
+- level: 2
+  en: Each fractional error is multiplied by the power that its quantity carries.
+- level: 3
+  en: Add the weighted fractional errors, not the raw percentages.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 5 percent
+- id: b
+  en: 12 percent
+- id: c
+  en: 3 percent
+- id: d
+  en: 1 percent
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.82E12AE295A0
+  when_answer_equals:
+  - c
+- id: MC.A.EB0974D423A9
+  when_answer_equals:
+  - d
+- id: MC.A.9B6DAA885DB7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: For g = 4 pi^2 L / T^2, the fractional errors combine as delta g / g = delta L / L + 2 delta T / T.
+- en: That is 1 + 2 times 2, giving 5 percent.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.9.physics.sound.sound_production.05
+skill_ids:
+- SK.A.9.physics.sound_production
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A stretched string is plucked and a sound is heard by a listener some distance away. Which sequence of events is correct?
+hints:
+- level: 1
+  en: Start from the object that is physically moving first.
+- level: 2
+  en: Then follow the disturbance through the neighbouring air to the listener.
+- level: 3
+  en: Ask which part of the chain makes the air particles move.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the string heats the air directly to make the sound
+- id: b
+  en: the string vibrates, pushes and pulls neighbouring air, and the compressions travel to the ear
+- id: c
+  en: the air vibrates first, then the string vibrates
+- id: d
+  en: the ear produces the vibration that moves the string
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A37332F12090
+  when_answer_equals:
+  - c
+- id: MC.A.9157BE0FCD5A
+  when_answer_equals:
+  - d
+- id: MC.A.78339B54649B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The plucked string is the source; its vibration disturbs the surrounding air, and the resulting compressions and rarefactions carry the sound to the ear.
+- en: The correct option is b.
+tier: C
+diagram_note: A horizontal sketch of a plucked string on the left, with arrows showing air particles bunching and spreading as the sound moves right toward a listener's ear.

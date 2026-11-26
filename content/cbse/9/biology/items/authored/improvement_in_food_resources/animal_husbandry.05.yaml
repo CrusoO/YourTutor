@@ -1,0 +1,49 @@
+id: A.9.biology.improvement_in_food_resources.animal_husbandry.05
+skill_ids:
+- SK.A.9.biology.animal_husbandry
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: A poultry farm sees a sudden drop in egg output and birds with signs of breathing distress. Which action should be taken first?
+hints:
+- level: 1
+  en: Think about how to stop illness spreading through the flock while getting expert advice.
+- level: 2
+  en: Consider which step protects healthy birds before the cause is known.
+- level: 3
+  en: Eliminate options that ignore the health signs or add birds to the flock.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Isolate affected birds and contact a veterinarian
+- id: b
+  en: Add more birds to dilute the sick flock
+- id: c
+  en: Increase lighting to boost laying
+- id: d
+  en: Switch the whole flock to grain only for a week
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1CAE265ED988
+  when_answer_equals:
+  - c
+- id: MC.A.448F97E9B7D1
+  when_answer_equals:
+  - b
+- id: MC.A.E11FD5B9AB60
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Breathing distress with a sudden drop in laying may signal disease, so isolating affected birds limits spread.
+- en: Expert advice then identifies the cause and the right treatment.
+- en: The correct option is a.
+tier: C

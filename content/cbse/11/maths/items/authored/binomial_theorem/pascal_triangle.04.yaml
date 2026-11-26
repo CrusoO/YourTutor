@@ -1,0 +1,30 @@
+id: A.11.maths.binomial_theorem.pascal_triangle.04
+skill_ids:
+- SK.A.11.maths.pascal_triangle
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Using Pascal's rule, the entry in row 6 at position 3 is the sum of two entries in row 5. What is the value of that entry in row 6?
+hints:
+- level: 1
+  en: Identify the two entries in the previous row that sit directly above the target.
+- level: 2
+  en: Recall the rule that each entry equals the sum of the two entries above it.
+- level: 3
+  en: Look up or compute the two entries you identified and add them.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '20'
+  accept: []
+solution_steps:
+- en: The two entries above are C(5, 2) and C(5, 3), both equal to 10, and their sum is 20, which is C(6, 3).
+- en: Answer = 20
+tier: C
+diagram_note: Rows 5 and 6 of Pascal's triangle with the target entry in row 6 highlighted and its two parents in row 5 connected to it.

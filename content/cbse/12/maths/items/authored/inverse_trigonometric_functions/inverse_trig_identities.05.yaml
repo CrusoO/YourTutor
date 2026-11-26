@@ -1,0 +1,49 @@
+id: A.12.maths.inverse_trigonometric_functions.inverse_trig_identities.05
+skill_ids:
+- SK.A.12.maths.inverse_trig_identities
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For x in the interval from minus 1 over square root of 2 to 1 over square root of 2, which expression equals sin^-1(2x square root of (1 - x^2))?
+hints:
+- level: 1
+  en: Try substituting x as the sine of an angle.
+- level: 2
+  en: Use a double angle identity on the expression inside the inverse sine.
+- level: 3
+  en: Check that the final angle lies in the principal range of sin^-1.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 cos^-1(x)
+- id: b
+  en: pi - 2 sin^-1(x)
+- id: c
+  en: sin^-1(x)
+- id: d
+  en: 2 sin^-1(x)
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CD9165708DAF
+  when_answer_equals:
+  - b
+- id: MC.A.A21ECB9F5283
+  when_answer_equals:
+  - c
+- id: MC.A.08EBD13BC880
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Put x equal to sin theta with theta between minus pi over 4 and pi over 4.
+- en: The expression becomes sin(2 theta), so the result is 2 theta, which is 2 sin^-1(x).
+- en: The correct option is d.
+tier: C

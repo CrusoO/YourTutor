@@ -1,0 +1,51 @@
+id: A.10.physics.magnetic_effects_of_electric_current.domestic_electric_circuits.03
+skill_ids:
+- SK.A.10.physics.domestic_electric_circuits
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In a domestic circuit, the fuse is placed in the live wire and not in the neutral wire. Why?
+hints:
+- level: 1
+  en: Think about which wire carries the high potential relative to earth.
+- level: 2
+  en: Ask what the appliance is still connected to if the neutral wire is disconnected.
+- level: 3
+  en: Consider what happens to the appliance when the live connection is broken.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The fuse in the live wire sends current into the earth
+- id: b
+  en: A fuse in the neutral wire would work more quickly
+- id: c
+  en: Fuses work only on the neutral wire
+- id: d
+  en: A fuse in the live wire disconnects the appliance from the live supply, so the appliance is dead even when it has a fault
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.3DD3123ECC17
+  when_answer_equals:
+  - b
+- id: MC.A.29B4C294B58D
+  when_answer_equals:
+  - c
+- id: MC.A.BBC78A3AE1B6
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The live wire is the one at high potential relative to earth.
+- en: Putting the fuse in the live wire ensures that when it blows, the appliance is cut off from the live supply.
+- en: So even if a fault exists, the appliance cannot be live with respect to earth.
+- en: The correct option is d.
+tier: C
+diagram_note: Schematic of a domestic circuit showing the live wire, neutral wire and earth wire. The live wire passes through a switch and a fuse before entering the appliance. The neutral wire returns directly. The earth wire is connected to the metal casing of the appliance.

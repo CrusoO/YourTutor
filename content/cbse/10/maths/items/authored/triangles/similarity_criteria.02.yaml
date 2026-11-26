@@ -1,0 +1,50 @@
+id: A.10.maths.triangles.similarity_criteria.02
+skill_ids:
+- SK.A.10.maths.similarity_criteria
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In triangles PQR and XYZ, angle P equals angle X and angle Q equals angle Y. What can you conclude?
+hints:
+- level: 1
+  en: Use the fact that the angles in a triangle add to 180 degrees.
+- level: 2
+  en: Identify the third pair of equal angles.
+- level: 3
+  en: Check which similarity criterion uses only angles.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The triangles are congruent by the AA criterion.
+- id: b
+  en: The triangles are similar only if PQ equals XY.
+- id: c
+  en: No conclusion is possible from two pairs of angles.
+- id: d
+  en: The triangles are similar by the AA criterion.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.276429D2A683
+  when_answer_equals:
+  - a
+- id: MC.A.C68FF295F5DA
+  when_answer_equals:
+  - b
+- id: MC.A.797E300041D4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Two pairs of equal angles force the third pair to be equal, because the angles of a triangle add to 180 degrees.
+- en: Hence the triangles are similar by AA, but their side lengths can still differ.
+- en: The correct option is d.
+tier: C
+diagram_note: Two triangles drawn side by side, PQR on the left and XYZ on the right, with the equal angles at P and X and at Q and Y marked with matching arcs.

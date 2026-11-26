@@ -1,0 +1,49 @@
+id: A.12.physics.current_electricity.ohms_law_resistivity.01
+skill_ids:
+- SK.A.12.physics.ohms_law_resistivity
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A uniform metal wire has its length doubled while its cross-sectional area and material stay the same. How does its resistance change?
+hints:
+- level: 1
+  en: Recall the formula linking resistance to resistivity, length and area.
+- level: 2
+  en: Ask how the length appears in that formula.
+- level: 3
+  en: Check whether the cross-sectional area has changed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It doubles
+- id: b
+  en: It stays the same
+- id: c
+  en: It becomes four times larger
+- id: d
+  en: It halves
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.61A07DCB478F
+  when_answer_equals:
+  - d
+- id: MC.A.07957FD2560A
+  when_answer_equals:
+  - b
+- id: MC.A.B8BA013E590F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Resistance is resistivity times length divided by area.
+- en: With resistivity and area fixed, resistance is directly proportional to length, so doubling the length doubles the resistance.
+- en: The correct option is a.
+tier: C

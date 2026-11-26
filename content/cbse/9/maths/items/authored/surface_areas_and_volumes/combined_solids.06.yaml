@@ -1,0 +1,49 @@
+id: A.9.maths.surface_areas_and_volumes.combined_solids.06
+skill_ids:
+- SK.A.9.maths.combined_solids
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A solid is formed from a cylinder by cutting out a cone-shaped hollow of the same radius and height from its top. What fraction of the cylinder's volume remains?
+hints:
+- level: 1
+  en: Compare the hollow with the full cylinder of the same radius and height.
+- level: 2
+  en: Recall the fraction of a cylinder that a cone occupies.
+- level: 3
+  en: Subtract that fraction from one whole.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: one quarter
+- id: b
+  en: one half
+- id: c
+  en: two thirds
+- id: d
+  en: one third
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.2A9D7F2315C9
+  when_answer_equals:
+  - d
+- id: MC.A.0E686FE9304C
+  when_answer_equals:
+  - b
+- id: MC.A.8C625FA5E966
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The cone-shaped hollow has one third of the cylinder's volume, so two thirds of the cylinder remains.
+- en: The correct option is c.
+tier: C
+diagram_note: Cylinder with a conical hollow cut from its top face, having the same radius and height.

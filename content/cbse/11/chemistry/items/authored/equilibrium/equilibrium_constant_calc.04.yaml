@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.equilibrium_constant_calc.04
+skill_ids:
+- SK.A.11.chemistry.equilibrium_constant_calc
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: The equilibrium constant for a reaction at a given temperature is 0.25. What is the equilibrium constant for the reverse reaction at the same temperature?
+hints:
+- level: 1
+  en: Reversing a reaction inverts the expression for the equilibrium constant.
+- level: 2
+  en: The new value is the reciprocal of the original one.
+- level: 3
+  en: A constant that is a concentration ratio cannot be negative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '-0.25'
+- id: b
+  en: '0.5'
+- id: c
+  en: '0.25'
+- id: d
+  en: '4'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.C88156297442
+  when_answer_equals:
+  - c
+- id: MC.A.EB32DC557A07
+  when_answer_equals:
+  - b
+- id: MC.A.F711E5BD4C91
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Reversing a reaction inverts the equilibrium expression, so the new constant is the reciprocal of the original, 1 divided by 0.25, which is 4.
+- en: The correct option is d.
+tier: C

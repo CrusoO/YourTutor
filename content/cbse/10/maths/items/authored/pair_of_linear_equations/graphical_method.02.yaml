@@ -1,0 +1,50 @@
+id: A.10.maths.pair_of_linear_equations.graphical_method.02
+skill_ids:
+- SK.A.10.maths.graphical_method
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: The lines x + y = 5 and x + y = 7 are drawn on the same axes. How do their graphs appear?
+hints:
+- level: 1
+  en: Rewrite each equation as y = ... to read the slope.
+- level: 2
+  en: Compare the y-intercepts of the two lines.
+- level: 3
+  en: Ask whether parallel lines can ever meet.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Coincident lines, so there are infinitely many solutions.
+- id: b
+  en: Parallel lines, so there is no solution.
+- id: c
+  en: Intersecting at exactly one point.
+- id: d
+  en: Intersecting at (6, 6).
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.9C06BB40798F
+  when_answer_equals:
+  - a
+- id: MC.A.173B43122428
+  when_answer_equals:
+  - d
+- id: MC.A.099662FECD46
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Both lines have slope -1, but their y-intercepts are 5 and 7.
+- en: Parallel lines never meet, so the system has no solution.
+- en: The correct option is b.
+tier: C
+diagram_note: Two straight lines of slope -1 drawn on the same axes, one crossing the y-axis at 5 and the other crossing it at 7.

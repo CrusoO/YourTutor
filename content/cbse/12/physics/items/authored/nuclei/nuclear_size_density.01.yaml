@@ -1,0 +1,49 @@
+id: A.12.physics.nuclei.nuclear_size_density.01
+skill_ids:
+- SK.A.12.physics.nuclear_size_density
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: How does the radius of a nucleus depend on its mass number A?
+hints:
+- level: 1
+  en: Think about how the volume of a nucleus depends on the number of nucleons when density is roughly constant.
+- level: 2
+  en: Recall the relation between a sphere's volume and its radius.
+- level: 3
+  en: Work backwards from volume to radius.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The radius is proportional to A
+- id: b
+  en: The radius is proportional to A squared
+- id: c
+  en: The radius is the same for all nuclei
+- id: d
+  en: The radius is proportional to A to the power one third
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.CAA25E4687DB
+  when_answer_equals:
+  - a
+- id: MC.A.16B9659E4462
+  when_answer_equals:
+  - b
+- id: MC.A.338B8AAF8125
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Nuclear density is roughly constant, so the volume is proportional to A.
+- en: Since volume scales as R cubed, the radius is proportional to A to the one third.
+- en: The correct option is d.
+tier: C

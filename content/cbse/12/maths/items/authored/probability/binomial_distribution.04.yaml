@@ -1,0 +1,48 @@
+id: A.12.maths.probability.binomial_distribution.04
+skill_ids:
+- SK.A.12.maths.binomial_distribution
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: X follows a binomial distribution with n = 10 and p = 0.3. What is the variance of X?
+hints:
+- level: 1
+  en: Recall the variance formula for a binomial distribution.
+- level: 2
+  en: Use both the success and the failure probabilities.
+- level: 3
+  en: Multiply by the number of trials.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2.1'
+- id: b
+  en: '0.21'
+- id: c
+  en: '0.7'
+- id: d
+  en: '3'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.F538E2D684E2
+  when_answer_equals:
+  - d
+- id: MC.A.260CD239DFC2
+  when_answer_equals:
+  - c
+- id: MC.A.0AAE0F727A4B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The variance of a binomial distribution is npq, which is 10 times 0.3 times 0.7, equal to 2.1.
+- en: The correct option is a.
+tier: C

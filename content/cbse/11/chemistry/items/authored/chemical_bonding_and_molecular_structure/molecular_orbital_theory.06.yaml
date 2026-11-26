@@ -1,0 +1,49 @@
+id: A.11.chemistry.chemical_bonding_and_molecular_structure.molecular_orbital_theory.06
+skill_ids:
+- SK.A.11.chemistry.molecular_orbital_theory
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Among H2+, H2, He2+ and He2, which species has the highest bond order?
+hints:
+- level: 1
+  en: Fill the molecular orbitals with the number of electrons each species carries.
+- level: 2
+  en: Compare the difference between bonding and antibonding electrons for each species.
+- level: 3
+  en: Check each species before comparing the results.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: H2+
+- id: b
+  en: He2
+- id: c
+  en: H2
+- id: d
+  en: He2+
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.235A51081A2C
+  when_answer_equals:
+  - a
+- id: MC.A.B366F40B48C0
+  when_answer_equals:
+  - d
+- id: MC.A.FEA963368EF3
+  when_answer_equals:
+  - b
+solution_steps:
+- en: H2 has two electrons in a bonding orbital, giving bond order 1, which is higher than the 0.5 of the two ions and the zero of He2.
+- en: The correct option is c.
+tier: C
+diagram_note: Energy ladder showing sigma 1s bonding and antibonding levels, with arrows marking the electrons placed in those levels for the hydrogen species being compared.

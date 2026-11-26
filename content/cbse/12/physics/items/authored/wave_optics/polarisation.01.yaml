@@ -1,0 +1,48 @@
+id: A.12.physics.wave_optics.polarisation.01
+skill_ids:
+- SK.A.12.physics.polarisation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Unpolarised light of intensity I0 passes through a single ideal polariser. What is the intensity of the transmitted light?
+hints:
+- level: 1
+  en: Think about the component of unpolarised light along the polariser axis.
+- level: 2
+  en: Consider how the unpolarised light is split between two perpendicular directions.
+- level: 3
+  en: Recall what a polariser does to the intensity of the light it transmits.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero
+- id: b
+  en: One half of I0
+- id: c
+  en: The full intensity I0
+- id: d
+  en: Twice I0
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.A4FC96172ACA
+  when_answer_equals:
+  - c
+- id: MC.A.21A55038E838
+  when_answer_equals:
+  - a
+- id: MC.A.BED0AD063970
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An ideal polariser transmits the component of unpolarised light along its axis, which on average is half the original intensity.
+- en: The correct option is b.
+tier: C

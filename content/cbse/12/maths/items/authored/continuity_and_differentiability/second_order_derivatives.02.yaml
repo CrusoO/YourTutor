@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.second_order_derivatives.02
+skill_ids:
+- SK.A.12.maths.second_order_derivatives
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: For y = e^(2x), what is d2y/dx2?
+hints:
+- level: 1
+  en: Differentiate once and look at the pattern.
+- level: 2
+  en: The constant in the exponent appears again at each differentiation.
+- level: 3
+  en: Apply the rule twice and check the coefficient.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: e^(4x)
+- id: b
+  en: 4e^(2x)
+- id: c
+  en: 4x e^(2x)
+- id: d
+  en: 2e^(2x)
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.2D4702258A08
+  when_answer_equals:
+  - d
+- id: MC.A.7E0772F4DC37
+  when_answer_equals:
+  - a
+- id: MC.A.AD782F477578
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Each differentiation of e^(2x) multiplies by 2, so the second derivative is 2 times 2 times e^(2x), which is 4e^(2x).
+- en: The correct option is b.
+tier: C

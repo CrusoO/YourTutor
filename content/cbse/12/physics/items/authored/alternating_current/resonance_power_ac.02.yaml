@@ -1,0 +1,31 @@
+id: A.12.physics.alternating_current.resonance_power_ac.02
+skill_ids:
+- SK.A.12.physics.resonance_power_ac
+difficulty: 0.2
+pool: practice
+role: apply
+stem:
+  en: An LC circuit has L equal to 1 H and C equal to 1 microfarad. What is its resonant angular frequency in rad/s?
+hints:
+- level: 1
+  en: The angular resonant frequency is one over the square root of L times C.
+- level: 2
+  en: Multiply L and C before taking the square root.
+- level: 3
+  en: Keep track of the powers of ten inside the square root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1000'
+  accept: []
+solution_steps:
+- en: The resonant angular frequency is one over the square root of LC.
+- en: With LC equal to 10^-6, the square root is 10^-3, so the frequency is 1000 rad/s.
+- en: The unit of the answer is rad/s.
+- en: Answer = 1000
+tier: C

@@ -1,0 +1,50 @@
+id: A.10.physics.human_eye_and_colourful_world.dispersion_of_light.02
+skill_ids:
+- SK.A.10.physics.dispersion_of_light
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Why does a glass prism split white light into a spectrum?
+hints:
+- level: 1
+  en: Think about whether all colours bend by the same amount in glass.
+- level: 2
+  en: Ask what property of glass changes from one colour to another.
+- level: 3
+  en: Consider whether white light is a mixture or a single colour.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The prism absorbs some colours and transmits the rest
+- id: b
+  en: Different colours have different refractive indices in glass, so they bend by different amounts
+- id: c
+  en: White light is itself a single colour that splits in two
+- id: d
+  en: The prism reflects every colour at the same angle
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.02B86F940CA2
+  when_answer_equals:
+  - a
+- id: MC.A.C518751A2CA1
+  when_answer_equals:
+  - d
+- id: MC.A.82F54C6B1C30
+  when_answer_equals:
+  - c
+solution_steps:
+- en: White light is a mixture of colours, and glass slows each colour by a different amount.
+- en: Because the refractive index depends on colour, each colour bends by a different angle.
+- en: This separation of colours is called dispersion.
+- en: The correct option is b.
+tier: C

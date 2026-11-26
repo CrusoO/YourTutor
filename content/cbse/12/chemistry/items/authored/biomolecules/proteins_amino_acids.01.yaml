@@ -1,0 +1,44 @@
+id: A.12.chemistry.biomolecules.proteins_amino_acids.01
+skill_ids:
+- SK.A.12.chemistry.proteins_amino_acids
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which amino acid is optically inactive?
+hints:
+- level: 1
+  en: Look for the amino acid whose alpha carbon carries two hydrogen atoms.
+- level: 2
+  en: Check which amino acid has a side chain that is just a hydrogen.
+- level: 3
+  en: Decide which alpha carbon has four different groups attached.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Glycine
+- id: b
+  en: Cysteine
+- id: c
+  en: Serine
+- id: d
+  en: Alanine
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.FE3908DF6BE3
+  when_answer_equals:
+  - b
+  - c
+  - d
+solution_steps:
+- en: Glycine's alpha carbon carries two hydrogen atoms, so it is not a stereocentre and the molecule is achiral.
+- en: The correct option is a.
+tier: C

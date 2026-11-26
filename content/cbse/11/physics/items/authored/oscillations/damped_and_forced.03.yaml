@@ -1,0 +1,49 @@
+id: A.11.physics.oscillations.damped_and_forced.03
+skill_ids:
+- SK.A.11.physics.damped_and_forced
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A damped oscillator is to return to equilibrium as quickly as possible without overshooting. Which damping condition is required?
+hints:
+- level: 1
+  en: This case is the boundary between oscillating and non-oscillating motion.
+- level: 2
+  en: Too much resistance slows the return to equilibrium.
+- level: 3
+  en: Think of a door closer that brings the door back quickly without swinging past the frame.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: critical damping
+- id: b
+  en: overdamping
+- id: c
+  en: no damping
+- id: d
+  en: underdamping
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4DADC64DB971
+  when_answer_equals:
+  - d
+- id: MC.A.5610B4B976E7
+  when_answer_equals:
+  - c
+- id: MC.A.25E172582737
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Critical damping is the boundary case that returns the system to equilibrium in the shortest time without oscillation.
+- en: Heavier damping is slower.
+- en: The correct option is a.
+tier: C

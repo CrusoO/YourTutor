@@ -1,0 +1,49 @@
+id: A.12.physics.electric_charges_and_fields.coulombs_law.06
+skill_ids:
+- SK.A.12.physics.coulombs_law
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Two identical conducting spheres carry charges of +3 microcoulomb and -1 microcoulomb. They are touched together and then separated. What is the charge on each sphere afterwards?
+hints:
+- level: 1
+  en: Add up the total charge on both spheres before they touch.
+- level: 2
+  en: Think about how a total charge is divided between two identical conductors.
+- level: 3
+  en: Charge is conserved, so the total afterwards must equal the total before.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero on each
+- id: b
+  en: +1 microcoulomb each
+- id: c
+  en: +3 microcoulomb on one and -1 microcoulomb on the other
+- id: d
+  en: +2 microcoulomb each
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.72EBDE1D8923
+  when_answer_equals:
+  - d
+- id: MC.A.E32052D78288
+  when_answer_equals:
+  - a
+- id: MC.A.3AD434E53A20
+  when_answer_equals:
+  - c
+solution_steps:
+- en: On contact, identical spheres share the net charge equally.
+- en: The net charge is +3 minus 1, which is +2 microcoulomb, so each sphere keeps +1 microcoulomb.
+- en: The correct option is b.
+tier: C

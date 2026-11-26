@@ -1,0 +1,49 @@
+id: A.11.physics.laws_of_motion.pseudo_force_frames.02
+skill_ids:
+- SK.A.11.physics.pseudo_force_frames
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A pendulum bob hangs from the roof of a car that accelerates forward. As seen from inside the car, in which direction does the string tilt?
+hints:
+- level: 1
+  en: The bob responds to forces seen in the car's own frame of reference.
+- level: 2
+  en: Consider which way the pseudo force on the bob points.
+- level: 3
+  en: The string pulls the bob back toward its point of support as it tilts.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: straight down with no tilt
+- id: b
+  en: forward
+- id: c
+  en: sideways
+- id: d
+  en: backward
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4CF5B9DAFF57
+  when_answer_equals:
+  - b
+- id: MC.A.EA0B0656DA3A
+  when_answer_equals:
+  - a
+- id: MC.A.C68257A849D4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Inside the car the bob feels a pseudo force opposite to the acceleration.
+- en: The string tilts backward until its tension balances the combined weight and pseudo force.
+- en: The correct option is d.
+tier: C

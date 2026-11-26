@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.linear_de.05
+skill_ids:
+- SK.A.12.maths.linear_de
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Solve dy/dx + y tan x = sin x with y(0) = 0. Find y(pi/3), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: The integrating factor is the secant of x.
+- level: 2
+  en: Multiply through and integrate the right side, which gives a logarithm.
+- level: 3
+  en: Use y(0) = 0 to fix the constant before evaluating at pi/3.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.347'
+  accept: []
+solution_steps:
+- en: The integrating factor is sec x, which gives y sec x = minus ln|cos x| + C.
+- en: With y(0) = 0 we get C = 0, so y = minus cos x times ln(cos x), and at pi/3 this is (1/2) times 0.693, about 0.347.
+- en: Answer = 0.347
+tier: C

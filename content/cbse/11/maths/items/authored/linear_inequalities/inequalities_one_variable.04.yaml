@@ -1,0 +1,49 @@
+id: A.11.maths.linear_inequalities.inequalities_one_variable.04
+skill_ids:
+- SK.A.11.maths.inequalities_one_variable
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which interval notation represents the solution of the compound inequality 2 < x less than or equal to 5?
+hints:
+- level: 1
+  en: Decide for each endpoint whether the inequality is strict or inclusive.
+- level: 2
+  en: Use a round bracket for an excluded endpoint and a square bracket for an included one.
+- level: 3
+  en: Check the order of the endpoints from left to right on the number line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (2, 5)
+- id: b
+  en: '[2, 5)'
+- id: c
+  en: '[2, 5]'
+- id: d
+  en: (2, 5]
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.92761686615C
+  when_answer_equals:
+  - b
+- id: MC.A.0C522AF38A14
+  when_answer_equals:
+  - a
+- id: MC.A.0FC9D136DACC
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The lower end 2 is excluded because the inequality is strict there, while 5 is included, giving the half open interval (2, 5].
+- en: The correct option is d.
+tier: C
+diagram_note: Number line from 0 to 6 with an open circle at 2, a filled circle at 5, and the segment between them shaded.

@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.empirical_molecular_formula.01
+skill_ids:
+- SK.A.11.chemistry.empirical_molecular_formula
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the empirical formula of a compound whose molecular formula is C6H12O6?
+hints:
+- level: 1
+  en: Find the largest number that divides every subscript exactly.
+- level: 2
+  en: Divide each subscript by that common factor.
+- level: 3
+  en: The empirical formula shows the simplest whole-number ratio of atoms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: C6H12O6
+- id: b
+  en: C2H4O2
+- id: c
+  en: CH2O
+- id: d
+  en: C3H6O3
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.3EEF55201E9E
+  when_answer_equals:
+  - a
+- id: MC.A.0DAF11A5C049
+  when_answer_equals:
+  - d
+- id: MC.A.A430CABBDDFF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The subscripts 6, 12 and 6 share a highest common factor of 6, so dividing by 6 gives CH2O.
+- en: The correct option is c.
+tier: C

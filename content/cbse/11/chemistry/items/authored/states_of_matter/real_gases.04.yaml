@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.real_gases.04
+skill_ids:
+- SK.A.11.chemistry.real_gases
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: At high pressure a real gas has PV/nRT greater than one. What is the main reason?
+hints:
+- level: 1
+  en: 'When molecules are packed closely, which effect is larger: the space they occupy or the pull between them?'
+- level: 2
+  en: Consider how much room the molecules take up at high density.
+- level: 3
+  en: Think about which correction becomes important when the gas is compressed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: molecular volume matters more than attraction
+- id: b
+  en: attraction dominates at high pressure
+- id: c
+  en: molecules move more slowly under pressure
+- id: d
+  en: the gas has already started to liquefy
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.67D8D47E0725
+  when_answer_equals:
+  - b
+- id: MC.A.1C672FF796D2
+  when_answer_equals:
+  - c
+- id: MC.A.0732489F772B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: When molecules are packed closely the space they occupy becomes significant, so the real volume exceeds the ideal one and PV/nRT rises above one.
+- en: The correct option is a.
+tier: C

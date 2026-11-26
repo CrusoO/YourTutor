@@ -1,0 +1,49 @@
+id: A.10.maths.real_numbers.irrationality_proofs.04
+skill_ids:
+- SK.A.10.maths.irrationality_proofs
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: In the proof that √p is irrational for a prime p, why is it important that p is prime?
+hints:
+- level: 1
+  en: Think about which prime factors a square can have.
+- level: 2
+  en: Consider the prime factorisation of a².
+- level: 3
+  en: Find the step where a common factor of a and b appears.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Because every prime number is odd.
+- id: b
+  en: Because if a prime divides a², it must also divide a.
+- id: c
+  en: Because the square of a prime is always prime.
+- id: d
+  en: Because primes are the only irrational numbers.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.114D858D8704
+  when_answer_equals:
+  - a
+- id: MC.A.9E586F429D01
+  when_answer_equals:
+  - d
+- id: MC.A.AD330809425D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: If a prime p divides a², then p divides a, which follows from prime factorisation.
+- en: This gives a common factor of a and b, contradicting the lowest-terms assumption.
+- en: The correct option is b.
+tier: C

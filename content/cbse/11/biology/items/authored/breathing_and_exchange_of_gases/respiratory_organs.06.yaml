@@ -1,0 +1,50 @@
+id: A.11.biology.breathing_and_exchange_of_gases.respiratory_organs.06
+skill_ids:
+- SK.A.11.biology.respiratory_organs
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A bronchiole in one lung becomes blocked, so gas exchange in that lung falls. Which region is most directly affected?
+hints:
+- level: 1
+  en: Think about which structures receive air through the blocked tube.
+- level: 2
+  en: Consider whether the trachea is downstream or upstream of the blockage.
+- level: 3
+  en: Ask which part of the lung is fed by that airway branch.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The larynx only
+- id: b
+  en: The nasal cavity
+- id: c
+  en: The alveoli supplied by that blocked bronchiole
+- id: d
+  en: The trachea in both lungs
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5641BD1455C0
+  when_answer_equals:
+  - d
+- id: MC.A.96B3284BAA2F
+  when_answer_equals:
+  - a
+- id: MC.A.5906D725D15D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Each bronchiole feeds a group of alveoli.
+- en: Blocking it stops air reaching those alveoli, so exchange falls in that section of lung rather than across the whole airway.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a bronchial tree branching into a bronchiole with a blocked point, and mark the alveoli downstream of the blockage in a cluster.

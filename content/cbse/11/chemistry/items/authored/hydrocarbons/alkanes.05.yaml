@@ -1,0 +1,48 @@
+id: A.11.chemistry.hydrocarbons.alkanes.05
+skill_ids:
+- SK.A.11.chemistry.alkanes
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which conformation of ethane has the lowest energy?
+hints:
+- level: 1
+  en: Ask which arrangement puts the C-H bonds of the two carbons as far apart as possible.
+- level: 2
+  en: Consider the repulsion between bonding pairs on neighbouring carbons.
+- level: 3
+  en: Look for the arrangement that minimises torsional strain.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: staggered
+- id: b
+  en: eclipsed
+- id: c
+  en: gauche
+- id: d
+  en: linear
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.75AA3884A9A0
+  when_answer_equals:
+  - b
+- id: MC.A.679177B6BF37
+  when_answer_equals:
+  - c
+- id: MC.A.DA4D21B51CE0
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In the staggered conformation the C-H bonds on the two carbons are as far apart as possible, which minimises the torsional strain that the eclipsed form has.
+- en: The correct option is a.
+tier: C

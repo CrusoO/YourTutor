@@ -1,0 +1,48 @@
+id: A.12.maths.probability.total_probability_bayes.04
+skill_ids:
+- SK.A.12.maths.total_probability_bayes
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Using the bag setup where the first bag is chosen with probability 0.5, gives red with probability 0.2 and the second gives red with probability 0.6, what is the probability that the first bag was chosen given that the ball is red?
+hints:
+- level: 1
+  en: Use the total probability of red from the earlier part.
+- level: 2
+  en: Put the joint probability of the first bag and red over that total.
+- level: 3
+  en: Compare your answer with the prior probability of the first bag.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.75'
+- id: b
+  en: '0.25'
+- id: c
+  en: '0.2'
+- id: d
+  en: '0.5'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.D3F1FC85CEF1
+  when_answer_equals:
+  - d
+- id: MC.A.68459C078BD5
+  when_answer_equals:
+  - c
+- id: MC.A.2CFA10D2683B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The joint probability of bag 1 and red is 0.1 and the total probability of red is 0.4, so the posterior probability is 0.1 divided by 0.4, which equals 0.25.
+- en: The correct option is b.
+tier: C

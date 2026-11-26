@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.dalton_partial_pressure.01
+skill_ids:
+- SK.A.11.chemistry.dalton_partial_pressure
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What does Dalton's law of partial pressures state about a mixture of gases?
+hints:
+- level: 1
+  en: Think about what adds up when separate gases share one container.
+- level: 2
+  en: Each gas contributes its own share to the pressure on the walls.
+- level: 3
+  en: Look for the statement about summing the individual contributions.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: partial pressure does not depend on the mole fraction
+- id: b
+  en: each gas exerts the full total pressure alone
+- id: c
+  en: total volume equals the sum of the partial volumes
+- id: d
+  en: total pressure equals the sum of the partial pressures
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.EEEB2F17FA44
+  when_answer_equals:
+  - c
+- id: MC.A.4B8D1A521EB6
+  when_answer_equals:
+  - b
+- id: MC.A.0621AC58FAD2
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each gas in a mixture contributes a partial pressure as if it alone occupied the container, and the total pressure is the sum of these contributions.
+- en: The correct option is d.
+tier: C

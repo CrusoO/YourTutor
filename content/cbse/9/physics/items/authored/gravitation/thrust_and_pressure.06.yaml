@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.thrust_and_pressure.06
+skill_ids:
+- SK.A.9.physics.thrust_and_pressure
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A block of weight 40 N rests on a table. It is turned so that its contact area is halved while the weight stays the same. What happens to the pressure?
+hints:
+- level: 1
+  en: Pressure depends on the force and the area in contact.
+- level: 2
+  en: Keep the force fixed and see how the area change alters the ratio.
+- level: 3
+  en: Consider what happens to a quotient when its divisor is made smaller.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it doubles
+- id: b
+  en: it halves
+- id: c
+  en: it becomes four times greater
+- id: d
+  en: it stays the same
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2D888AB2B74F
+  when_answer_equals:
+  - b
+- id: MC.A.98A4A3039F6E
+  when_answer_equals:
+  - d
+- id: MC.A.31686C306641
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Pressure is force over area, so with the same force and half the area, the pressure is doubled.
+- en: The correct option is a.
+tier: C

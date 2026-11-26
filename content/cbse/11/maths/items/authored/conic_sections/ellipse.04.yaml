@@ -1,0 +1,49 @@
+id: A.11.maths.conic_sections.ellipse.04
+skill_ids:
+- SK.A.11.maths.ellipse
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which equation represents the ellipse with vertices at (6, 0) and (-6, 0) and co-vertices at (0, 4) and (0, -4)?
+hints:
+- level: 1
+  en: Read the semi-major and semi-minor lengths from the vertices and co-vertices.
+- level: 2
+  en: Square each semi-axis length to get the denominators.
+- level: 3
+  en: Pair the larger denominator with the variable along the major axis.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x squared over 6 plus y squared over 4 equals 1
+- id: b
+  en: x squared over 36 plus y squared over 16 equals 1
+- id: c
+  en: x squared over 36 plus y squared over 4 equals 1
+- id: d
+  en: x squared over 16 plus y squared over 36 equals 1
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.487138429782
+  when_answer_equals:
+  - d
+- id: MC.A.ABCF32C560C3
+  when_answer_equals:
+  - c
+- id: MC.A.3A8CB7D5C09A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The semi-major axis is 6 and the semi-minor axis is 4, so the denominators are 36 and 16 with x paired with the larger one.
+- en: The correct option is b.
+tier: C
+diagram_note: Coordinate axes with an ellipse marked at its two vertices on the horizontal axis and its two co-vertices on the vertical axis.

@@ -1,0 +1,48 @@
+id: A.12.chemistry.aldehydes_ketones_and_carboxylic_acids.carboxylic_acid_reactions.03
+skill_ids:
+- SK.A.12.chemistry.carboxylic_acid_reactions
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: The Hell-Volhard-Zelinsky reaction adds a halogen to which carbon of a carboxylic acid?
+hints:
+- level: 1
+  en: Think about which carbon is next to the carbonyl group.
+- level: 2
+  en: Consider the position that enolises in the acyl halide intermediate.
+- level: 3
+  en: Compare the positions labelled alpha and beta in the chain.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The carbonyl oxygen
+- id: b
+  en: The alpha carbon
+- id: c
+  en: The carboxyl hydrogen only
+- id: d
+  en: The beta carbon only
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FD0800EB571A
+  when_answer_equals:
+  - d
+- id: MC.A.0AF1ED5B8A05
+  when_answer_equals:
+  - a
+- id: MC.A.87F5F38EE98E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Through an acyl halide intermediate that enolises, bromine substitutes the hydrogen on the carbon next to the carbonyl, which is the alpha carbon.
+- en: The correct option is b.
+tier: C

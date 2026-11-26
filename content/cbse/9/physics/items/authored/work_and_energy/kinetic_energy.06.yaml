@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.kinetic_energy.06
+skill_ids:
+- SK.A.9.physics.kinetic_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A bullet of mass 0.01 kg moves at 300 m/s, and a stone of mass 0.05 kg moves at 60 m/s. Which has the greater kinetic energy?
+hints:
+- level: 1
+  en: Use half times mass times speed squared for both objects.
+- level: 2
+  en: Compare the two results directly.
+- level: 3
+  en: Speed enters the formula squared, so it matters more than mass here.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the stone, since it has more mass
+- id: b
+  en: they have equal energy
+- id: c
+  en: the bullet, with 450 J
+- id: d
+  en: the bullet, with 1.5 J
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.55DAC27E71C4
+  when_answer_equals:
+  - a
+- id: MC.A.C7C9E3322BC3
+  when_answer_equals:
+  - b
+- id: MC.A.D9FE8917B2D8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The bullet has 0.5 times 0.01 kg times 90000 m2/s2, which is 450 J, while the stone has 90 J.
+- en: The correct option is c.
+tier: C

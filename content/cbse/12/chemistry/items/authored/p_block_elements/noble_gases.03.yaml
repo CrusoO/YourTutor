@@ -1,0 +1,49 @@
+id: A.12.chemistry.p_block_elements.noble_gases.03
+skill_ids:
+- SK.A.12.chemistry.noble_gases
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the oxidation state of xenon in XeF4?
+hints:
+- level: 1
+  en: Each fluorine is minus one in a fluoride, so work out their total.
+- level: 2
+  en: The xenon must balance that total for the molecule to be neutral.
+- level: 3
+  en: Check the answer against the sum of all oxidation states.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: '+2'
+- id: c
+  en: '+4'
+- id: d
+  en: '+6'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.95EB62AB60C4
+  when_answer_equals:
+  - b
+- id: MC.A.5F270E0A00AA
+  when_answer_equals:
+  - d
+- id: MC.A.8E73F5A7B0EA
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each fluorine is -1 in a fluoride, so four fluorines give -4.
+- en: Xenon must therefore be +4 for the molecule to be neutral.
+- en: The correct option is c.
+tier: C

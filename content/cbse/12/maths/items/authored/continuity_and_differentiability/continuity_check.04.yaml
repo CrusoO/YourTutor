@@ -1,0 +1,49 @@
+id: A.12.maths.continuity_and_differentiability.continuity_check.04
+skill_ids:
+- SK.A.12.maths.continuity_check
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Let f(x) = |x|. Which statement about f is correct?
+hints:
+- level: 1
+  en: Check the one-sided limits of f at 0 first.
+- level: 2
+  en: Compare the left and right slopes of the graph at x equal to zero.
+- level: 3
+  en: Ask whether the graph has a corner or a break at that point.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Continuous at 0 but not differentiable at 0
+- id: b
+  en: Not continuous at 0
+- id: c
+  en: Differentiable everywhere
+- id: d
+  en: Differentiable at 0 with derivative 0
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4DA1F3F010F9
+  when_answer_equals:
+  - c
+- id: MC.A.2DD136F99BE4
+  when_answer_equals:
+  - b
+- id: MC.A.CAC4A6C87C36
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The left and right limits of |x| at 0 both equal 0, so f is continuous there.
+- en: The one-sided slopes are minus 1 and 1, which differ, so f has no derivative at 0.
+- en: The correct option is a.
+tier: C

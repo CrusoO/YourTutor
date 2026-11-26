@@ -1,0 +1,30 @@
+id: A.12.maths.probability.total_probability_bayes.01
+skill_ids:
+- SK.A.12.maths.total_probability_bayes
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: A bag is chosen with probability 0.5 from two bags. The first bag gives a red ball with probability 0.2 and the second gives a red ball with probability 0.6. Find the total probability of drawing a red ball.
+hints:
+- level: 1
+  en: Split the red ball probability across the two bags.
+- level: 2
+  en: Multiply each bag probability by the red probability inside that bag.
+- level: 3
+  en: Add the two products.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.4'
+  accept: []
+solution_steps:
+- en: The total probability is 0.5 times 0.2 plus 0.5 times 0.6, which equals 0.1 plus 0.3, giving 0.4.
+- en: Answer = 0.4
+tier: C
+diagram_note: Tree diagram with a first branch for choosing bag 1 or bag 2, and second branches for red and not red, with each probability labelled.

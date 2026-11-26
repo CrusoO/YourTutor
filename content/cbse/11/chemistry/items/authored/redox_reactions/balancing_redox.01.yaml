@@ -1,0 +1,48 @@
+id: A.11.chemistry.redox_reactions.balancing_redox.01
+skill_ids:
+- SK.A.11.chemistry.balancing_redox
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a redox reaction, what does the oxidising agent do?
+hints:
+- level: 1
+  en: Think about the species whose oxidation number decreases during the reaction.
+- level: 2
+  en: The species that is reduced is the one that accepts electrons.
+- level: 3
+  en: Consider which direction the electrons move for the oxidising agent.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: releases oxygen
+- id: b
+  en: is always a metal
+- id: c
+  en: gains electrons
+- id: d
+  en: loses electrons
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B273B3675375
+  when_answer_equals:
+  - d
+- id: MC.A.A5C2BD359238
+  when_answer_equals:
+  - a
+- id: MC.A.0827A65B87CF
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The oxidising agent accepts electrons from another species, and in doing so its own oxidation number decreases.
+- en: The correct option is c.
+tier: C

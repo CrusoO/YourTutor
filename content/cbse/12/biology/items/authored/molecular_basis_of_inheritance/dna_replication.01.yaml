@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.dna_replication.01
+skill_ids:
+- SK.A.12.biology.dna_replication
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which enzyme unwinds the DNA helix at the replication fork?
+hints:
+- level: 1
+  en: Think about an enzyme that breaks hydrogen bonds between the bases.
+- level: 2
+  en: The enzyme moves along the fork ahead of the polymerase.
+- level: 3
+  en: Separate the enzymes that unwind from those that join fragments.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Topoisomerase
+- id: b
+  en: DNA ligase
+- id: c
+  en: RNA polymerase
+- id: d
+  en: Helicase
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.FAE1BEE4AD9E
+  when_answer_equals:
+  - b
+- id: MC.A.448F58753E10
+  when_answer_equals:
+  - c
+- id: MC.A.FF9478189B6C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Helicase breaks hydrogen bonds between base pairs and moves along the fork to separate the strands.
+- en: Topoisomerase relieves the strain this creates but does not separate the strands.
+- en: The correct option is d.
+tier: C

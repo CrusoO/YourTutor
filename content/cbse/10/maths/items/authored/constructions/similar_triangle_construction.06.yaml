@@ -1,0 +1,49 @@
+id: A.10.maths.constructions.similar_triangle_construction.06
+skill_ids:
+- SK.A.10.maths.similar_triangle_construction
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A student draws the parallel through the third mark instead of the second, for a scale factor of 2/3 on side BC. What does the new triangle look like?
+hints:
+- level: 1
+  en: Find where the parallel through the third mark meets BC.
+- level: 2
+  en: Compare the length of the new side with BC.
+- level: 3
+  en: Ask what the scale factor is when the side lengths are unchanged.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It still has the required scale factor 2/3, since only angles matter.
+- id: b
+  en: The new side equals BC, so the scale factor is 1 and the triangle is congruent to the original.
+- id: c
+  en: It is a reflection of the original triangle.
+- id: d
+  en: It is smaller by a factor of 2/3.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FB1E72DDD532
+  when_answer_equals:
+  - a
+- id: MC.A.E8F401A057B6
+  when_answer_equals:
+  - c
+- id: MC.A.89742E2090E6
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The parallel through the third mark meets BC at C itself.
+- en: The new side therefore equals BC and the scale factor is 1, so the triangle is congruent to the original rather than scaled by 2/3.
+- en: The correct option is b.
+tier: C

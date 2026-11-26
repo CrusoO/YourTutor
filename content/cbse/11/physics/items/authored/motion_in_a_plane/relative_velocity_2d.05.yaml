@@ -1,0 +1,50 @@
+id: A.11.physics.motion_in_a_plane.relative_velocity_2d.05
+skill_ids:
+- SK.A.11.physics.relative_velocity_2d
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Particle one moves with velocity (6, 0) m/s and particle two moves with velocity (0, 8) m/s. What is the magnitude of the velocity of particle one relative to particle two?
+hints:
+- level: 1
+  en: Subtract the second velocity from the first, component by component.
+- level: 2
+  en: The magnitude of the result is the hypotenuse of a right triangle.
+- level: 3
+  en: Square the components, add them, then take the square root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 2 m/s
+- id: b
+  en: 10 m/s
+- id: c
+  en: 48 m/s
+- id: d
+  en: 14 m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.03218272C701
+  when_answer_equals:
+  - d
+- id: MC.A.EA6F3C72A048
+  when_answer_equals:
+  - a
+- id: MC.A.C044A720455B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The relative velocity is (6, 0) minus (0, 8), which is (6, -8).
+- en: Its magnitude is the square root of 36 plus 64, which is 10 m/s.
+- en: The correct option is b.
+tier: C
+diagram_note: Two velocity arrows from a common origin, one along the horizontal axis and one along the vertical axis, with the relative velocity drawn as a third arrow forming a right triangle.

@@ -1,0 +1,50 @@
+id: A.11.biology.locomotion_and_movement.muscle_contraction.06
+skill_ids:
+- SK.A.11.biology.muscle_contraction
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A poison stops calcium from being released into the sarcoplasm of a muscle fibre. What is the most likely effect?
+hints:
+- level: 1
+  en: Think about what keeps the binding sites on actin covered in a resting fibre.
+- level: 2
+  en: Consider what calcium does when it reaches troponin.
+- level: 3
+  en: Ask whether a stimulus can produce a contraction if the switch is not turned on.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The muscle cannot contract, because troponin keeps the binding sites on actin blocked
+- id: b
+  en: Contraction becomes faster and stronger
+- id: c
+  en: ATP production in the muscle stops immediately
+- id: d
+  en: The muscle contracts but can never relax
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1CD66AF046F4
+  when_answer_equals:
+  - b
+- id: MC.A.AF6C9AE24E34
+  when_answer_equals:
+  - d
+- id: MC.A.BB538000E3B2
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Without calcium release, troponin keeps tropomyosin in the blocking position, so myosin cannot bind actin.
+- en: The fibre stays relaxed even when the nerve signal arrives.
+- en: The correct option is a.
+tier: C
+diagram_note: Draw a sarcomere with the sarcoplasmic reticulum releasing calcium, showing troponin and tropomyosin on the thin filament, and mark the blocked release with an X.

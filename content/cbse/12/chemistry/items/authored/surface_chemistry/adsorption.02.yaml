@@ -1,0 +1,49 @@
+id: A.12.chemistry.surface_chemistry.adsorption.02
+skill_ids:
+- SK.A.12.chemistry.adsorption
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which empirical relation describes the adsorption of a gas on a solid over a range of pressures?
+hints:
+- level: 1
+  en: Consider the empirical isotherm that relates the mass adsorbed to pressure through an exponent.
+- level: 2
+  en: Recall the form of that relation, with the exponent written as one over n.
+- level: 3
+  en: Think about which isotherm is named after a scientist and used for solids.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Raoult's law
+- id: b
+  en: Arrhenius equation
+- id: c
+  en: Freundlich adsorption isotherm
+- id: d
+  en: Michaelis-Menten equation
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9D0BEDF66849
+  when_answer_equals:
+  - d
+- id: MC.A.4EBAD35A4E45
+  when_answer_equals:
+  - b
+- id: MC.A.BE5C2660FC48
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The Freundlich isotherm relates the mass adsorbed per gram to pressure with a power law.
+- en: It is an empirical relation that fits many gas adsorption data.
+- en: The correct option is c.
+tier: C

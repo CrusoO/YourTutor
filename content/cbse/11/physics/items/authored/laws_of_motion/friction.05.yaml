@@ -1,0 +1,33 @@
+id: A.11.physics.laws_of_motion.friction.05
+skill_ids:
+- SK.A.11.physics.friction
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A 5 kg block on a rough horizontal floor is pulled by a rope at 60 degrees above the horizontal with a tension of 40 N. The coefficient of kinetic friction is 0.2. Taking g = 9.8 m/s^2, what is the acceleration in metres per second squared, to two decimal places?
+hints:
+- level: 1
+  en: Resolve the rope tension into horizontal and vertical parts.
+- level: 2
+  en: The vertical part of the tension reduces the normal force on the floor.
+- level: 3
+  en: Find the net horizontal force, then divide by the mass.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3.43'
+  accept: []
+solution_steps:
+- en: The horizontal pull is 40 cos 60 = 20 N.
+- en: The normal force is 49 - 40 sin 60 = 14.36 N, so the friction is 2.87 N.
+- en: The net force is 17.13 N, giving a = 3.43 m/s^2.
+- en: The unit of the answer is m/s^2.
+- en: Answer = 3.43
+tier: C
+diagram_note: A block on a horizontal floor with a rope pulling at 60 degrees above the horizontal toward the right. Weight acts down, the normal force acts up, and kinetic friction acts to the left.

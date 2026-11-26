@@ -1,0 +1,49 @@
+id: A.12.physics.semiconductor_electronics.energy_bands.05
+skill_ids:
+- SK.A.12.physics.energy_bands
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why does diamond behave as an insulator while silicon behaves as a semiconductor, even though both have the same crystal structure?
+hints:
+- level: 1
+  en: Think about the energy needed to free an electron in each material.
+- level: 2
+  en: Consider which property of the band structure determines how many electrons can be excited.
+- level: 3
+  en: Compare the band gaps of the two materials.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Silicon has no valence electrons
+- id: b
+  en: Diamond is a metal with overlapping bands
+- id: c
+  en: Diamond has many more free electrons
+- id: d
+  en: Diamond has a much larger band gap
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.DFB43A7BF198
+  when_answer_equals:
+  - c
+- id: MC.A.378233DD6E8D
+  when_answer_equals:
+  - a
+- id: MC.A.C27083830D5B
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Both materials have tetrahedral bonding, but diamond has a much wider band gap, so far fewer electrons can be thermally excited across it.
+- en: The correct option is d.
+tier: C
+diagram_note: Two energy band diagrams side by side, one with a tall gap labelled for diamond and one with a shorter gap labelled for silicon, both showing the valence and conduction bands.

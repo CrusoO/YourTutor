@@ -1,0 +1,32 @@
+id: A.12.physics.alternating_current.resonance_power_ac.05
+skill_ids:
+- SK.A.12.physics.resonance_power_ac
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A series RLC circuit is at resonance with a source of 200 V rms across a resistor of 10 ohm. What is the average power dissipated in watt?
+hints:
+- level: 1
+  en: At resonance the current is limited by the resistance alone.
+- level: 2
+  en: Find the rms current from the voltage and the resistance first.
+- level: 3
+  en: Use the power formula with the rms current and the resistance.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '4000'
+  accept: []
+solution_steps:
+- en: At resonance the impedance is just R, so the rms current is 200 divided by 10, which is 20 A.
+- en: The average power is 20 squared times 10, which equals 4000 W.
+- en: The unit of the answer is W.
+- en: Answer = 4000
+tier: C
+diagram_note: A series RLC loop with an AC source labelled 200 V rms and a resistor labelled 10 ohm, with the inductor and capacitor drawn in the loop and their reactances marked as cancelling.

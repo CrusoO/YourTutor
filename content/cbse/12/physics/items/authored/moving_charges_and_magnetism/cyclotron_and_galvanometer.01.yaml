@@ -1,0 +1,49 @@
+id: A.12.physics.moving_charges_and_magnetism.cyclotron_and_galvanometer.01
+skill_ids:
+- SK.A.12.physics.cyclotron_and_galvanometer
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In a cyclotron, what keeps a charged particle moving along a spiral path between the accelerating gaps?
+hints:
+- level: 1
+  en: Consider which field can bend a moving charge without changing its speed.
+- level: 2
+  en: Think about the role of the alternating voltage between the two dees.
+- level: 3
+  en: Recall that the magnetic force is always perpendicular to the velocity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A constant electric field inside the dees
+- id: b
+  en: Gravity pulling the particle downward
+- id: c
+  en: A changing magnetic field that accelerates the particle
+- id: d
+  en: A perpendicular magnetic field
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.547F37A818A6
+  when_answer_equals:
+  - a
+- id: MC.A.CF31A4FCF61A
+  when_answer_equals:
+  - b
+- id: MC.A.23BE599A869A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A uniform magnetic field perpendicular to the velocity bends the particle into a circle.
+- en: The alternating electric field between the dees accelerates it at each crossing.
+- en: The correct option is d.
+tier: C

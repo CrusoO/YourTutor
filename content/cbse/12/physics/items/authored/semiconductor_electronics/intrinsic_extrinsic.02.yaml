@@ -1,0 +1,48 @@
+id: A.12.physics.semiconductor_electronics.intrinsic_extrinsic.02
+skill_ids:
+- SK.A.12.physics.intrinsic_extrinsic
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In an intrinsic semiconductor at room temperature, the number of electrons in the conduction band is equal to what?
+hints:
+- level: 1
+  en: Think about how electrons and holes are created in pairs in a pure material.
+- level: 2
+  en: Consider whether an intrinsic semiconductor contains any dopant atoms.
+- level: 3
+  en: Recall what a thermal excitation does to the valence band.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The number of holes in the valence band
+- id: b
+  en: Twice the number of holes
+- id: c
+  en: The number of dopant atoms
+- id: d
+  en: Zero
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2294FB088FDA
+  when_answer_equals:
+  - d
+- id: MC.A.05E4F4C78D54
+  when_answer_equals:
+  - b
+- id: MC.A.CB6F0509B996
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In an intrinsic semiconductor every thermally excited electron leaves behind a hole, so electrons and holes are created in equal numbers.
+- en: The correct option is a.
+tier: C

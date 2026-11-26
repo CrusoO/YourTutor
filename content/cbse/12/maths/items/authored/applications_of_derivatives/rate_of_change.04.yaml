@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.rate_of_change.04
+skill_ids:
+- SK.A.12.maths.rate_of_change
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the equation of the normal to the curve y = x^3 at the point (1, 1)?
+hints:
+- level: 1
+  en: Find the slope of the tangent at the point first.
+- level: 2
+  en: A normal line is perpendicular to the tangent at the point of contact.
+- level: 3
+  en: Write the line through the point using the perpendicular slope.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = x/3 + 2/3
+- id: b
+  en: y = 3x - 2
+- id: c
+  en: 3y + x = 4
+- id: d
+  en: y = -3x + 4
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0A0A59D7ADE6
+  when_answer_equals:
+  - b
+- id: MC.A.B79D48AE145A
+  when_answer_equals:
+  - d
+- id: MC.A.B508989BA4A7
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The tangent slope at (1, 1) is 3, so the normal slope is minus one third, and the line through (1, 1) with that slope is 3y + x = 4.
+- en: The correct option is c.
+tier: C

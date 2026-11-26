@@ -1,0 +1,49 @@
+id: A.12.chemistry.surface_chemistry.adsorption.05
+skill_ids:
+- SK.A.12.chemistry.adsorption
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Gas adsorption on a solid has a negative entropy change. What must hold for the process to be spontaneous at a given temperature?
+hints:
+- level: 1
+  en: Write the Gibbs energy as the enthalpy change minus the temperature times the entropy change.
+- level: 2
+  en: Consider the sign of the term that involves the entropy change.
+- level: 3
+  en: Compare the size of the enthalpy term with the size of the entropy term.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The temperature must be zero
+- id: b
+  en: The enthalpy change must be positive
+- id: c
+  en: The enthalpy change must be negative and large enough to outweigh the entropy loss
+- id: d
+  en: The entropy must increase, which it cannot do on a surface
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F1B921FC7F1D
+  when_answer_equals:
+  - d
+- id: MC.A.10FF42F884AB
+  when_answer_equals:
+  - b
+- id: MC.A.DE7EEB25C25A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Spontaneity requires a negative Gibbs energy change.
+- en: With a negative entropy change, the enthalpy change must be negative and sufficiently large to make the Gibbs energy negative.
+- en: The correct option is c.
+tier: C

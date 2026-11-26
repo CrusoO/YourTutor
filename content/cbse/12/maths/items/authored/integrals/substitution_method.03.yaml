@@ -1,0 +1,29 @@
+id: A.12.maths.integrals.substitution_method.03
+skill_ids:
+- SK.A.12.maths.substitution_method
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Evaluate the definite integral of sin^3 x with respect to x from 0 to pi/2, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Split off one sine factor and write the rest in terms of cosine.
+- level: 2
+  en: Substitute u equal to cosine of x.
+- level: 3
+  en: Change the limits of integration to match the new variable.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '0.667'
+  accept: []
+solution_steps:
+- en: Write sin^3 x as sin x times (1 - cos^2 x), let u = cos x, and the integral from 0 to pi/2 becomes the integral of (1 - u^2) from 0 to 1, which is 2/3.
+- en: Answer = 0.667
+tier: C

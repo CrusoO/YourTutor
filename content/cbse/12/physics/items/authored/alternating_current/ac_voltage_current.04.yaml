@@ -1,0 +1,48 @@
+id: A.12.physics.alternating_current.ac_voltage_current.04
+skill_ids:
+- SK.A.12.physics.ac_voltage_current
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: The average power dissipated in a resistor R carrying an alternating current is written in terms of the rms current I. Which expression is correct?
+hints:
+- level: 1
+  en: Think about how rms values are defined in terms of equivalent heating.
+- level: 2
+  en: Consider whether the power depends on the current squared.
+- level: 3
+  en: Recall which form of current gives the same average heating as direct current.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: I squared times R
+- id: b
+  en: I0 squared times R, using the peak current
+- id: c
+  en: I squared times R over 2
+- id: d
+  en: I times R
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DBC888481BC5
+  when_answer_equals:
+  - b
+- id: MC.A.74144D6BDF25
+  when_answer_equals:
+  - d
+- id: MC.A.C9E28F5A0ED6
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Because rms values are defined to give the same heating as a direct current, the average power is I squared R with the rms current.
+- en: The correct option is a.
+tier: C

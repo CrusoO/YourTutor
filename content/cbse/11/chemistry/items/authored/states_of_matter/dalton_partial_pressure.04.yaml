@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.dalton_partial_pressure.04
+skill_ids:
+- SK.A.11.chemistry.dalton_partial_pressure
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Hydrogen is collected over water at 25 degrees Celsius. The total pressure in the collecting vessel is 1.00 atm and the vapour pressure of water is 0.03 atm. What is the pressure of the dry hydrogen?
+hints:
+- level: 1
+  en: The collected gas is mixed with water vapour in the same space.
+- level: 2
+  en: Find the part of the total pressure that is due to the water vapour.
+- level: 3
+  en: Subtract that part from the total to isolate the dry gas.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 0.03 atm
+- id: b
+  en: 0.97 atm
+- id: c
+  en: 1.03 atm
+- id: d
+  en: 1.00 atm
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.FF4A9412886D
+  when_answer_equals:
+  - c
+- id: MC.A.4EFA3529A905
+  when_answer_equals:
+  - d
+- id: MC.A.6C878AE9B40F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The collected gas is a mixture of hydrogen and water vapour, so the hydrogen partial pressure is the total minus the water vapour pressure, which is 0.97 atm.
+- en: The correct option is b.
+tier: C

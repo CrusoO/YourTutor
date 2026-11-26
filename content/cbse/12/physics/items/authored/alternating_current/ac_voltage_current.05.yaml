@@ -1,0 +1,31 @@
+id: A.12.physics.alternating_current.ac_voltage_current.05
+skill_ids:
+- SK.A.12.physics.ac_voltage_current
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A sinusoidal current has peak value 4 A and flows through a 10 ohm resistor. What is the average power dissipated in watt?
+hints:
+- level: 1
+  en: Power uses the rms current, not the peak current.
+- level: 2
+  en: Square the peak current and then divide by two to get the rms squared.
+- level: 3
+  en: Multiply the result by the resistance at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '80'
+  accept: []
+solution_steps:
+- en: The rms current is 4 divided by the square root of two, so its square is 8.
+- en: Multiplying by 10 ohm gives an average power of 80 W.
+- en: The unit of the answer is W.
+- en: Answer = 80
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.thermodynamics_11.hess_law.01
+skill_ids:
+- SK.A.11.chemistry.hess_law
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Hess's law is based on which principle?
+hints:
+- level: 1
+  en: Think about whether the enthalpy change depends on the route taken.
+- level: 2
+  en: Consider what happens to the total change when you add steps that form a cycle.
+- level: 3
+  en: Look for the principle that allows you to add reaction equations.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: enthalpy is a state function, so the total change depends only on the initial and final states
+- id: b
+  en: mass is conserved in every chemical reaction
+- id: c
+  en: entropy of the universe always increases
+- id: d
+  en: the reaction rate depends on the number of steps
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.2E0DC18EC9AE
+  when_answer_equals:
+  - b
+- id: MC.A.D926479155B6
+  when_answer_equals:
+  - d
+- id: MC.A.E19E5E296A4B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Because enthalpy is a state function, the overall enthalpy change of a reaction is the same whatever route is taken, so separate steps can be added together.
+- en: The correct option is a.
+tier: C

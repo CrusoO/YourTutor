@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.combinations.03
+skill_ids:
+- SK.A.11.maths.combinations
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A committee of 3 people is to contain exactly 2 women, chosen from 4 women and 6 men. How many such committees are possible?
+hints:
+- level: 1
+  en: Split the selection into a women part and a men part.
+- level: 2
+  en: Choose the women first and count the ways to do so.
+- level: 3
+  en: Multiply the count for the women by the count for the men.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '36'
+  accept: []
+solution_steps:
+- en: Choose the 2 women in 6 ways from 4 and the single man in 6 ways from 6, so the total is 6 times 6, which is 36.
+- en: Answer = 36
+tier: C

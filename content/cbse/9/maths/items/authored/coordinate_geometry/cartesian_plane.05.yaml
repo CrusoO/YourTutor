@@ -1,0 +1,49 @@
+id: A.9.maths.coordinate_geometry.cartesian_plane.05
+skill_ids:
+- SK.A.9.maths.cartesian_plane
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A point has coordinates (a, b) with a less than zero and a times b greater than zero. In which quadrant does it lie?
+hints:
+- level: 1
+  en: Use the sign of a first.
+- level: 2
+  en: A positive product requires two signs that match.
+- level: 3
+  en: Then decide which quadrant has both coordinates negative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Fourth quadrant
+- id: b
+  en: Third quadrant
+- id: c
+  en: First quadrant
+- id: d
+  en: Second quadrant
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.5AA3DBB48761
+  when_answer_equals:
+  - d
+- id: MC.A.8F06F8472821
+  when_answer_equals:
+  - a
+- id: MC.A.D08CA28ACFE0
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Since a is negative and the product is positive, b must also be negative, which places the point in the third quadrant.
+- en: The correct option is b.
+tier: C
+diagram_note: Four-quadrant grid with the quadrants labelled and the region where both coordinates are negative shaded.

@@ -1,0 +1,49 @@
+id: A.12.physics.alternating_current.ac_voltage_current.06
+skill_ids:
+- SK.A.12.physics.ac_voltage_current
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A sinusoidal voltage v equals V0 sin omega t. How does the frequency of the function v squared compare with the frequency of v?
+hints:
+- level: 1
+  en: Use the identity that writes sine squared in terms of a cosine at double the angle.
+- level: 2
+  en: Think about how many times the squared function peaks in one cycle of the original.
+- level: 3
+  en: Compare the angular argument of the cosine with the argument of the original sine.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Twice the frequency
+- id: b
+  en: The same frequency
+- id: c
+  en: Half the frequency
+- id: d
+  en: Four times the frequency
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C25E4C9BC981
+  when_answer_equals:
+  - c
+- id: MC.A.37ABFEBC1E95
+  when_answer_equals:
+  - b
+- id: MC.A.006590783E17
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Using sin squared theta equals one half of one minus cos of two theta, the squared voltage repeats twice in each cycle of the original, so its frequency is twice as large.
+- en: The correct option is a.
+tier: C
+diagram_note: A sinusoidal voltage plotted against time above its square plotted on the same time axis, with the square having twice as many peaks in the same interval.

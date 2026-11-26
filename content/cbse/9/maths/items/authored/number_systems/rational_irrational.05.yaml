@@ -1,0 +1,49 @@
+id: A.9.maths.number_systems.rational_irrational.05
+skill_ids:
+- SK.A.9.maths.rational_irrational
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A rational number is added to an irrational number. Which statement about the sum is always true?
+hints:
+- level: 1
+  en: Suppose the sum is rational and then subtract the rational part.
+- level: 2
+  en: Check whether a rational number minus a rational number stays rational.
+- level: 3
+  en: Think about what that subtraction does to the irrational term.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The sum is irrational.
+- id: b
+  en: The sum is rational only when the rational part is zero.
+- id: c
+  en: The sum is always an integer.
+- id: d
+  en: The sum is rational.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.1D8F3B6F631B
+  when_answer_equals:
+  - d
+- id: MC.A.BD3924FD3D05
+  when_answer_equals:
+  - c
+- id: MC.A.2A3B3DD225F4
+  when_answer_equals:
+  - b
+solution_steps:
+- en: If the sum were rational, subtracting the rational part would leave the irrational number equal to a difference of two rationals, which is rational.
+- en: That contradiction means the sum must be irrational.
+- en: The correct option is a.
+tier: C

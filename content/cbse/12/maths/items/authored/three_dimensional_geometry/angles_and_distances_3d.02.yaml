@@ -1,0 +1,48 @@
+id: A.12.maths.three_dimensional_geometry.angles_and_distances_3d.02
+skill_ids:
+- SK.A.12.maths.angles_and_distances_3d
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the angle between the planes with normal vectors (1, 0, 0) and (1, 1, 0)?
+hints:
+- level: 1
+  en: The angle between two planes equals the angle between their normal vectors.
+- level: 2
+  en: Use the dot product formula for the cosine of that angle.
+- level: 3
+  en: Compute the magnitudes of both normal vectors.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 30 degrees
+- id: b
+  en: 90 degrees
+- id: c
+  en: 45 degrees
+- id: d
+  en: 60 degrees
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.700F5D7FF9ED
+  when_answer_equals:
+  - d
+- id: MC.A.26611536B318
+  when_answer_equals:
+  - b
+- id: MC.A.FBA1D14D291A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The cosine of the angle equals the dot product 1 divided by the product of the magnitudes 1 and square root of 2, so the angle is 45 degrees.
+- en: The correct option is c.
+tier: C

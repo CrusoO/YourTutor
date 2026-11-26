@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.factor_theorem.05
+skill_ids:
+- SK.A.9.maths.factor_theorem
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The polynomial x^3 + a x^2 - 4x - 12 has x - 2 as a factor. What is a?
+hints:
+- level: 1
+  en: Substitute the zero of the divisor for the variable.
+- level: 2
+  en: Collect the terms that contain the unknown letter.
+- level: 3
+  en: Solve the remaining simple equation.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '-3'
+- id: c
+  en: '3'
+- id: d
+  en: '1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.302797286868
+  when_answer_equals:
+  - b
+- id: MC.A.FFF1C029878B
+  when_answer_equals:
+  - a
+- id: MC.A.95C9FDACC324
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Substituting 2 gives 8 + 4a - 8 - 12, which is 4a - 12; setting this to zero gives a equal to 3.
+- en: The correct option is c.
+tier: C

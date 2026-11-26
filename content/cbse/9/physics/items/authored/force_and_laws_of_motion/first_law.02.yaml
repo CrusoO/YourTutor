@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.first_law.02
+skill_ids:
+- SK.A.9.physics.first_law
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: Why do passengers lurch forward when a moving bus suddenly brakes?
+hints:
+- level: 1
+  en: Think about what a body does when no force changes its motion right away.
+- level: 2
+  en: Compare the bus slowing down with the passengers' own motion.
+- level: 3
+  en: Ask what the seat or belt is doing to the body during braking.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the seats pull them toward the front
+- id: b
+  en: their bodies tend to keep moving forward because no force acts to stop them immediately
+- id: c
+  en: the brakes transfer mass to the passengers
+- id: d
+  en: a backward force pushes them forward
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.836BE64DC5FA
+  when_answer_equals:
+  - d
+- id: MC.A.2EEFD59D2C2F
+  when_answer_equals:
+  - a
+- id: MC.A.691438C462B9
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The passengers keep their forward velocity, so they move forward relative to the slowing bus until a seat or belt applies a force to them.
+- en: The correct option is b.
+tier: C

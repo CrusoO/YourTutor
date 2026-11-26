@@ -1,0 +1,49 @@
+id: A.12.biology.biotechnology_principles_and_processes.gel_electrophoresis_pcr.05
+skill_ids:
+- SK.A.12.biology.gel_electrophoresis_pcr
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A PCR product does not appear on the gel after amplification. Which cause is most likely?
+hints:
+- level: 1
+  en: Think about what the primers must do before the polymerase can extend them.
+- level: 2
+  en: Consider which PCR step depends on the temperature set.
+- level: 3
+  en: Check the step where primers bind to the template.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Too many cycles were run
+- id: b
+  en: The gel ran for too long
+- id: c
+  en: The primers did not anneal because the annealing temperature was too high
+- id: d
+  en: The target DNA was too large for any PCR
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.F00EB5AB21BD
+  when_answer_equals:
+  - b
+- id: MC.A.1CB2104D6BB7
+  when_answer_equals:
+  - d
+- id: MC.A.53DA18838F8A
+  when_answer_equals:
+  - a
+solution_steps:
+- en: If the annealing temperature is too high, the primers cannot bind to the template, so no product is made.
+- en: Run time, target size and cycle number are not usual causes of a complete absence.
+- en: The correct option is c.
+tier: C

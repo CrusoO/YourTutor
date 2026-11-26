@@ -1,0 +1,31 @@
+id: A.12.physics.semiconductor_electronics.intrinsic_extrinsic.06
+skill_ids:
+- SK.A.12.physics.intrinsic_extrinsic
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: An n-type sample has an electron concentration of 1 x 10^16 per cm^3. The intrinsic concentration is 1.5 x 10^10 per cm^3. What is the hole concentration in per cm^3?
+hints:
+- level: 1
+  en: 'Use the mass action relation: electron concentration times hole concentration equals n_i squared.'
+- level: 2
+  en: Divide the square of the intrinsic concentration by the electron concentration.
+- level: 3
+  en: Check that holes are the minority carriers in this sample.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '22500'
+  accept: []
+solution_steps:
+- en: The mass action relation gives holes equal to n_i squared over the electron concentration.
+- en: That is 2.25 x 10^20 divided by 1 x 10^16, which equals 22500 per cm^3.
+- en: The unit of the answer is per cm^3.
+- en: Answer = 22500
+tier: C

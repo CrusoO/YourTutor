@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.integration_by_parts.04
+skill_ids:
+- SK.A.12.maths.integration_by_parts
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the integral of x times sin x with respect to x?
+hints:
+- level: 1
+  en: Pick the algebraic factor as the part to differentiate.
+- level: 2
+  en: Find v by integrating the trigonometric factor.
+- level: 3
+  en: Apply the formula and simplify the result.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: x cos x + sin x + C
+- id: b
+  en: -x sin x + cos x + C
+- id: c
+  en: -x cos x - sin x + C
+- id: d
+  en: -x cos x + sin x + C
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.9F132A052A4B
+  when_answer_equals:
+  - a
+- id: MC.A.86859B8DA010
+  when_answer_equals:
+  - c
+- id: MC.A.395BDE1A0CD7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With u = x and dv = sin x dx, v is minus cos x, so the integral is minus x cos x plus the integral of cos x, which is sin x.
+- en: The correct option is d.
+tier: C

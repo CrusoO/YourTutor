@@ -1,0 +1,48 @@
+id: A.11.physics.waves.standing_waves_strings.04
+skill_ids:
+- SK.A.11.physics.standing_waves_strings
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A string fixed at both ends shows 4 loops in its standing wave pattern. Which harmonic is this?
+hints:
+- level: 1
+  en: Each loop is one half wavelength.
+- level: 2
+  en: Count the loops and compare with the harmonic number.
+- level: 3
+  en: The fundamental shows only one loop along the string.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the fourth harmonic
+- id: b
+  en: the third harmonic
+- id: c
+  en: the fifth harmonic
+- id: d
+  en: the second harmonic
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.847FBD37445F
+  when_answer_equals:
+  - b
+- id: MC.A.0D61BF3950F2
+  when_answer_equals:
+  - c
+- id: MC.A.ABF3337A7CD1
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The nth harmonic on a string fixed at both ends has n loops, so four loops mean the fourth harmonic.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.physics.current_electricity.wheatstone_potentiometer.05
+skill_ids:
+- SK.A.12.physics.wheatstone_potentiometer
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: On a potentiometer wire, the potential gradient is increased while a cell is still balanced. How does the balancing length change?
+hints:
+- level: 1
+  en: Use the balance condition that links the EMF, the gradient and the balancing length.
+- level: 2
+  en: Rearrange the condition to find the balancing length.
+- level: 3
+  en: Think about how the length changes when the gradient is larger.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It stays the same
+- id: b
+  en: It increases
+- id: c
+  en: It decreases
+- id: d
+  en: It doubles
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1FECFAE2C51D
+  when_answer_equals:
+  - b
+- id: MC.A.CBC7B1818250
+  when_answer_equals:
+  - a
+- id: MC.A.70CF34F339E2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The balance condition is EMF equal to the potential gradient times the balancing length.
+- en: A larger gradient therefore gives a shorter balancing length for the same EMF.
+- en: The correct option is c.
+tier: C

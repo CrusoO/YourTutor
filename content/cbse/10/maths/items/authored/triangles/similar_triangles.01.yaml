@@ -1,0 +1,50 @@
+id: A.10.maths.triangles.similar_triangles.01
+skill_ids:
+- SK.A.10.maths.similar_triangles
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In triangle ABC, the line DE is parallel to BC, with D on AB and E on AC. Which ratio is equal to AD/DB?
+hints:
+- level: 1
+  en: State the theorem about a line parallel to one side of a triangle.
+- level: 2
+  en: Match each ratio with the two segments on the same side of the triangle.
+- level: 3
+  en: Compare the two sides cut by DE.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: AE/EC
+- id: b
+  en: DB/AD
+- id: c
+  en: EC/AC
+- id: d
+  en: AE/AC
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.838AA6FB1AD3
+  when_answer_equals:
+  - d
+- id: MC.A.DC6399599380
+  when_answer_equals:
+  - b
+- id: MC.A.48099F735101
+  when_answer_equals:
+  - c
+solution_steps:
+- en: By the basic proportionality theorem, a line parallel to one side of a triangle divides the other two sides in the same ratio.
+- en: So AD/DB = AE/EC.
+- en: The correct option is a.
+tier: C
+diagram_note: Triangle ABC with a straight segment DE drawn from a point D on side AB to a point E on side AC, parallel to the base BC. All five points are labelled.

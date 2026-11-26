@@ -1,0 +1,48 @@
+id: A.9.maths.euclid_geometry.fifth_postulate.02
+skill_ids:
+- SK.A.9.maths.fifth_postulate
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement is an equivalent form of the fifth postulate, as it is commonly taught?
+hints:
+- level: 1
+  en: Focus on how many parallel lines pass through the outside point.
+- level: 2
+  en: A parallel line never touches the given line.
+- level: 3
+  en: Think about uniqueness as well as existence.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Two parallel lines always meet at infinity.
+- id: b
+  en: Through a point on a line, a parallel line always exists.
+- id: c
+  en: Through a point not on a line, exactly one parallel line can be drawn.
+- id: d
+  en: Through a point not on a line, no parallel line can be drawn.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D03F27B938C2
+  when_answer_equals:
+  - d
+- id: MC.A.36C774664EE7
+  when_answer_equals:
+  - b
+- id: MC.A.72A369DB86B7
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The parallel line statement is logically equivalent to the fifth postulate, and it asserts that exactly one parallel line passes through an outside point.
+- en: The correct option is c.
+tier: C

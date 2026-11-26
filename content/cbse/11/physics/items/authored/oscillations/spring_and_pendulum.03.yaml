@@ -1,0 +1,31 @@
+id: A.11.physics.oscillations.spring_and_pendulum.03
+skill_ids:
+- SK.A.11.physics.spring_and_pendulum
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A simple pendulum of length 0.5 m hangs in a lift accelerating upward at 2.9 m/s^2. Taking g = 9.8 m/s^2 and pi as 3.14, what is its period in seconds, to two decimal places?
+hints:
+- level: 1
+  en: In an accelerating lift the effective gravity is the sum of g and the lift acceleration.
+- level: 2
+  en: Use that effective value in the period formula.
+- level: 3
+  en: Compute the square root of length over effective gravity before multiplying by two pi.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.25'
+  accept: []
+solution_steps:
+- en: The effective gravity is 9.8 + 2.9 = 12.7 m/s^2.
+- en: The period is 6.28 times the square root of 0.5 / 12.7, which is about 1.25 s.
+- en: The unit of the answer is s.
+- en: Answer = 1.25
+tier: C

@@ -1,0 +1,31 @@
+id: A.11.physics.motion_in_a_straight_line.instantaneous_velocity_acceleration.03
+skill_ids:
+- SK.A.11.physics.instantaneous_velocity_acceleration
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A particle's position is x = 4t^3 - 2t metres, with t in seconds. Find its instantaneous velocity at t = 2 s, in metres per second.
+hints:
+- level: 1
+  en: Differentiate the position with respect to time term by term.
+- level: 2
+  en: The power of t drops by one and the coefficient is multiplied by the old power.
+- level: 3
+  en: Substitute the time only after you have the velocity expression.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '46'
+  accept: []
+solution_steps:
+- en: The velocity is dx/dt = 12t^2 - 2.
+- en: At t = 2 s this gives 48 - 2 = 46 m/s.
+- en: The unit of the answer is m/s.
+- en: Answer = 46
+tier: C

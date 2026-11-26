@@ -1,0 +1,48 @@
+id: A.9.physics.motion.uniform_circular_motion.06
+skill_ids:
+- SK.A.9.physics.uniform_circular_motion
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A ball whirled on a horizontal string moves in a circle at constant speed. The string breaks and no other forces act on the ball. What is its acceleration just after the break?
+hints:
+- level: 1
+  en: Which forces act on the ball once the string is gone?
+- level: 2
+  en: Apply Newton's first law to what remains.
+- level: 3
+  en: Consider whether any net force is left to change the velocity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: directed outward from the centre
+- id: b
+  en: very large, since it is released
+- id: c
+  en: zero, so it moves in a straight line at constant speed
+- id: d
+  en: still directed toward the centre
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1E19933DD4C0
+  when_answer_equals:
+  - d
+- id: MC.A.B44073CF70FF
+  when_answer_equals:
+  - a
+- id: MC.A.9AC3D21522F7
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With no net force after the string breaks, the acceleration is zero and the ball keeps its velocity, moving in a straight line at constant speed.
+- en: The correct option is c.
+tier: C

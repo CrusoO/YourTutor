@@ -1,0 +1,48 @@
+id: A.11.physics.laws_of_motion.pseudo_force_frames.01
+skill_ids:
+- SK.A.11.physics.pseudo_force_frames
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A passenger stands in a bus that is accelerating forward. Which apparent force does the passenger feel, as seen from inside the bus?
+hints:
+- level: 1
+  en: The apparent force is seen only from inside the accelerating frame.
+- level: 2
+  en: Think about how you lurch when the floor under you moves forward suddenly.
+- level: 3
+  en: The apparent force acts in the direction that lets you keep your place relative to the moving floor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: forward, in the direction of the acceleration
+- id: b
+  en: upward
+- id: c
+  en: no apparent force at all
+- id: d
+  en: backward, opposite to the acceleration
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A12318713177
+  when_answer_equals:
+  - a
+- id: MC.A.A867091D00C0
+  when_answer_equals:
+  - b
+- id: MC.A.DEEFE484EEA4
+  when_answer_equals:
+  - c
+solution_steps:
+- en: In the bus frame the passenger experiences a pseudo force equal to minus m times the bus acceleration, which points backward.
+- en: The correct option is d.
+tier: C

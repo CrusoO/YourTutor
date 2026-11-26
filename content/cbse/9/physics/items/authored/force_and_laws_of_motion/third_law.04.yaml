@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.third_law.04
+skill_ids:
+- SK.A.9.physics.third_law
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A horse pulls a cart forward along a road. Which statement is correct?
+hints:
+- level: 1
+  en: The pull on the horse comes from the cart through the harness.
+- level: 2
+  en: Compare the two forces by their sizes and directions.
+- level: 3
+  en: The two forces act on different bodies, so they do not cancel each other.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the cart pulls forward with a weaker force
+- id: b
+  en: the cart pulls the horse backward with a force of the same size
+- id: c
+  en: the forces cancel, so the cart cannot move
+- id: d
+  en: the horse is stronger, so its force on the cart is larger
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.62FCBADA378C
+  when_answer_equals:
+  - d
+- id: MC.A.E17DD81D8DD0
+  when_answer_equals:
+  - a
+- id: MC.A.25831011CC84
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The cart pulls back on the horse with the same size force that the horse exerts on it, and these act on different bodies, so they do not cancel.
+- en: The correct option is b.
+tier: C

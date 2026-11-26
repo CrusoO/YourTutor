@@ -1,0 +1,48 @@
+id: A.11.physics.mechanical_properties_of_fluids.pressure_in_fluids.01
+skill_ids:
+- SK.A.11.physics.pressure_in_fluids
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: The pressure at a point inside a static fluid depends on which quantities?
+hints:
+- level: 1
+  en: Pressure at a point is due to the weight of the fluid above it.
+- level: 2
+  en: Think of a column of liquid standing above the point.
+- level: 3
+  en: Consider which quantities enter the weight of that column.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: shape of the container
+- id: b
+  en: area of the base only
+- id: c
+  en: volume of the fluid only
+- id: d
+  en: density, gravity and depth
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.C5E2BD5368D3
+  when_answer_equals:
+  - c
+- id: MC.A.CF212E490395
+  when_answer_equals:
+  - a
+- id: MC.A.FDD808FECAB5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Pressure at a depth comes from the weight of the column of fluid above the point, which depends on density, gravity and depth.
+- en: The correct option is d.
+tier: C

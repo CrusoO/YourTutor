@@ -1,0 +1,49 @@
+id: A.12.chemistry.solid_state.crystal_defects.02
+skill_ids:
+- SK.A.12.chemistry.crystal_defects
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What effect does a Schottky defect have on the density of an ionic crystal?
+hints:
+- level: 1
+  en: Think about how much mass remains in the same volume after ions are removed.
+- level: 2
+  en: Recall that a vacancy means one particle fewer in that space.
+- level: 3
+  en: Compare the mass per unit volume before and after the defect forms.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It raises the density
+- id: b
+  en: It raises the density only at the surface
+- id: c
+  en: It lowers the density
+- id: d
+  en: It keeps the density unchanged
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.350969742CAB
+  when_answer_equals:
+  - d
+- id: MC.A.B0D9012489CE
+  when_answer_equals:
+  - a
+- id: MC.A.E26170F52636
+  when_answer_equals:
+  - b
+solution_steps:
+- en: A Schottky defect removes equal numbers of cations and anions, so the crystal loses mass while its volume stays about the same.
+- en: The density therefore falls.
+- en: The correct option is c.
+tier: C

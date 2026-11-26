@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_waves.displacement_current.05
+skill_ids:
+- SK.A.12.physics.displacement_current
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In Maxwell's modified Ampere law, the line integral of B around a loop includes a term that is needed when a capacitor is charging. What does this term represent?
+hints:
+- level: 1
+  en: Consider which term accounts for the gap of the capacitor.
+- level: 2
+  en: Compare the conduction current in the wire with the current needed inside the gap.
+- level: 3
+  en: Think about what changes in the region between the plates.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A magnetic monopole term
+- id: b
+  en: A gravitational term from the mass of the plates
+- id: c
+  en: Epsilon zero times the rate of change of electric flux through the loop
+- id: d
+  en: The conduction current term alone
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.9E59EBB259D0
+  when_answer_equals:
+  - d
+- id: MC.A.45A9F2DC8F0A
+  when_answer_equals:
+  - a
+- id: MC.A.CD5FAEC83399
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The displacement term is mu zero times epsilon zero times the rate of change of electric flux.
+- en: It supplies the missing current inside the capacitor gap.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.9.physics.sound.sound_production.06
+skill_ids:
+- SK.A.9.physics.sound_production
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: When a sound wave passes through air, do the air particles travel with the wave all the way to the listener? Which explanation is correct?
+hints:
+- level: 1
+  en: Compare the motion of each particle with the motion of the wave pattern.
+- level: 2
+  en: Think about what a particle does when a neighbour pushes into it.
+- level: 3
+  en: Check whether the matter itself moves over long distances.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the particles are carried by the wind to the ear
+- id: b
+  en: the particles only move in circles around the source
+- id: c
+  en: no, each particle vibrates about its position and passes energy to its neighbour
+- id: d
+  en: yes, the particles travel with the wave to the ear
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.483C45DF7642
+  when_answer_equals:
+  - d
+- id: MC.A.7CED04CF77AD
+  when_answer_equals:
+  - a
+- id: MC.A.F24053634BFE
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In a longitudinal wave each particle oscillates around a fixed position, and only the disturbance, which carries energy, moves forward.
+- en: The correct option is c.
+tier: C
+diagram_note: A row of air particles drawn as dots in a horizontal line, with one compressed region highlighted and each dot shown shifting slightly left and right of its rest position.

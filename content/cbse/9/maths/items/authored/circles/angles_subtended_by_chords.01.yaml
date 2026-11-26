@@ -1,0 +1,49 @@
+id: A.9.maths.circles.angles_subtended_by_chords.01
+skill_ids:
+- SK.A.9.maths.angles_subtended_by_chords
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: An arc subtends an angle of 70 degrees at the centre. What angle does the same arc subtend at a point on the remaining part of the circle?
+hints:
+- level: 1
+  en: Recall how the central angle compares with the angle at the circumference.
+- level: 2
+  en: Divide the central angle by the factor that relates the two angles.
+- level: 3
+  en: Check that the factor is applied in the right direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 70 degrees
+- id: b
+  en: 140 degrees
+- id: c
+  en: 35 degrees
+- id: d
+  en: 110 degrees
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B1C910B02430
+  when_answer_equals:
+  - a
+- id: MC.A.6A3BB5E45971
+  when_answer_equals:
+  - b
+- id: MC.A.CED5CA7E7B7D
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The angle at the centre is twice the angle at the circumference on the same arc, so 70 halves to 35 degrees.
+- en: The correct option is c.
+tier: C
+diagram_note: Circle with a central angle and an angle at the circumference both standing on the same arc.

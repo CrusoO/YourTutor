@@ -1,0 +1,31 @@
+id: A.12.physics.atoms.hydrogen_spectrum_series.05
+skill_ids:
+- SK.A.12.physics.hydrogen_spectrum_series
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: How many distinct spectral lines can a hydrogen atom emit when an electron starting at n equal to 4 falls through all possible transitions down to the ground state?
+hints:
+- level: 1
+  en: Each pair of levels among the four gives one transition.
+- level: 2
+  en: Count the number of pairs that can be chosen from four levels.
+- level: 3
+  en: Include transitions that skip over intermediate levels.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '6'
+  accept: []
+solution_steps:
+- en: Each pair of the four levels n equal to 1, 2, 3 and 4 gives one transition.
+- en: Choosing 2 of 4 levels gives 6 distinct lines.
+- en: Answer = 6
+tier: C
+diagram_note: An energy level diagram with the levels n equal to 1, 2, 3 and 4 drawn, and arrows drawn between every pair of levels.

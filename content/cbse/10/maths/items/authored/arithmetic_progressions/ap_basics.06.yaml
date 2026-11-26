@@ -1,0 +1,49 @@
+id: A.10.maths.arithmetic_progressions.ap_basics.06
+skill_ids:
+- SK.A.10.maths.ap_basics
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: The nth term of a sequence is 3n² + 1. Is this sequence an arithmetic progression?
+hints:
+- level: 1
+  en: Compute the first three terms from the formula.
+- level: 2
+  en: Find the difference between each pair of consecutive terms.
+- level: 3
+  en: Check whether those differences match.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Yes, because it increases by a fixed amount each step.
+- id: b
+  en: No, because the differences 9 and 15 are not equal.
+- id: c
+  en: No, because no term is negative.
+- id: d
+  en: Yes, because the formula contains n.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.086D93246393
+  when_answer_equals:
+  - a
+- id: MC.A.90FA5A2A180C
+  when_answer_equals:
+  - d
+- id: MC.A.059CF7426CFD
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The first three terms are 4, 13 and 28, with differences 9 and 15.
+- en: Since these differ, the sequence is not arithmetic, even though it increases.
+- en: The correct option is b.
+tier: C

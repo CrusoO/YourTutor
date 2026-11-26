@@ -1,0 +1,48 @@
+id: A.11.maths.trigonometric_functions.trig_equations.06
+skill_ids:
+- SK.A.11.maths.trig_equations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which trigonometric equation has no real solution for x?
+hints:
+- level: 1
+  en: Recall the range of values that the sine function can produce.
+- level: 2
+  en: Compare the required output with the largest value sine can reach.
+- level: 3
+  en: Check whether tangent takes every real value on its own branches.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: sin x equal to one half
+- id: b
+  en: tan x equal to 5
+- id: c
+  en: sin x equal to 2
+- id: d
+  en: cos x equal to 0
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A9FEAD39951A
+  when_answer_equals:
+  - d
+- id: MC.A.B1537CE7626C
+  when_answer_equals:
+  - b
+- id: MC.A.27C88D9BDC17
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Sine always lies between negative 1 and 1, so it can never equal 2, while the other equations are solvable.
+- en: The correct option is c.
+tier: C

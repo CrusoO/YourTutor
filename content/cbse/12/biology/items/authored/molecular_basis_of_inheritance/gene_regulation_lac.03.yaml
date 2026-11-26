@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.gene_regulation_lac.03
+skill_ids:
+- SK.A.12.biology.gene_regulation_lac
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: In a strain with a deleted lacI gene and no inducer, what level of lac enzymes would be expected?
+hints:
+- level: 1
+  en: Think about what the repressor does when it is missing.
+- level: 2
+  en: Consider whether the operator is blocked in this strain.
+- level: 3
+  en: Compare with a cell that has no inducer but still has the repressor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero at all times
+- id: b
+  en: Normal and identical to a wild type cell
+- id: c
+  en: High and constant
+- id: d
+  en: Low, because glucose is absent
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.980EC7825E8F
+  when_answer_equals:
+  - a
+- id: MC.A.2CA45855A830
+  when_answer_equals:
+  - d
+- id: MC.A.6CEA418117CD
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Without the repressor gene product the operator is never blocked, so the lac genes are transcribed constitutively at a high level.
+- en: This is the opposite of a wild type cell with no lactose.
+- en: The correct option is c.
+tier: C

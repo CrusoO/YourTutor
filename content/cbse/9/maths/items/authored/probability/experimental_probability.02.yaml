@@ -1,0 +1,48 @@
+id: A.9.maths.probability.experimental_probability.02
+skill_ids:
+- SK.A.9.maths.experimental_probability
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement about experimental probability is correct?
+hints:
+- level: 1
+  en: Think about whether repeated experiments always give the same count.
+- level: 2
+  en: Consider how the estimate behaves as the number of trials grows.
+- level: 3
+  en: Compare an experimental result with the theoretical value.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It is always exactly one sixth for a die.
+- id: b
+  en: It equals the number of trials divided by the favourable outcomes.
+- id: c
+  en: It is never written as a decimal.
+- id: d
+  en: It can change when the trials are repeated.
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.1B8566DDC083
+  when_answer_equals:
+  - a
+- id: MC.A.6DF0187B7655
+  when_answer_equals:
+  - b
+- id: MC.A.96CE3660B39F
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Experimental probability is based on observed results, so it varies between sets of trials and tends towards the theoretical value as the number of trials grows.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.maths.probability.sample_space_events.02
+skill_ids:
+- SK.A.11.maths.sample_space_events
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which pair of events is mutually exclusive when a fair die is rolled once?
+hints:
+- level: 1
+  en: Two events are mutually exclusive when no outcome belongs to both.
+- level: 2
+  en: List the outcomes that belong to each event and compare the lists.
+- level: 3
+  en: Check whether any single face appears in both lists.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: getting a number greater than 3 and getting a number less than 5
+- id: b
+  en: getting an even number and getting a 2
+- id: c
+  en: getting an odd number and getting a 1
+- id: d
+  en: getting an even number and getting a 5
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.25085F2A4364
+  when_answer_equals:
+  - b
+- id: MC.A.976C55ECBEF5
+  when_answer_equals:
+  - a
+- id: MC.A.2A5A45BABB81
+  when_answer_equals:
+  - c
+solution_steps:
+- en: An even number can never be 5, so these two events share no outcome and are mutually exclusive.
+- en: The correct option is d.
+tier: C

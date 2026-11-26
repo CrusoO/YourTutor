@@ -1,0 +1,49 @@
+id: A.12.physics.nuclei.mass_defect_binding_energy.04
+skill_ids:
+- SK.A.12.physics.mass_defect_binding_energy
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does nuclear fission of a heavy nucleus release energy?
+hints:
+- level: 1
+  en: Think about how binding energy per nucleon changes for heavy nuclei.
+- level: 2
+  en: Consider where the peak of the binding energy curve lies.
+- level: 3
+  en: Ask which side of that peak the heavy nuclei sit on.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Mass is created from nothing during the split
+- id: b
+  en: The fission products have lower binding energy per nucleon than the original nucleus
+- id: c
+  en: Electrons are converted into energy as the nucleus splits
+- id: d
+  en: The fission products have higher binding energy per nucleon than the original heavy nucleus
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.4AF2A7D7CCEA
+  when_answer_equals:
+  - b
+- id: MC.A.48A901C11344
+  when_answer_equals:
+  - a
+- id: MC.A.EA7641B5E92A
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Heavy nuclei sit on the falling side of the binding energy curve.
+- en: Splitting them into medium mass nuclei moves nucleons to a more tightly bound state, releasing the difference as energy.
+- en: The correct option is d.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.chemistry.redox_reactions.balancing_redox.05
+skill_ids:
+- SK.A.11.chemistry.balancing_redox
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which species is the reducing agent in the reaction 2 Al + 3 Cu2+ -> 2 Al3+ + 3 Cu?
+hints:
+- level: 1
+  en: The reducing agent is the species that is oxidised, so find the atom whose oxidation number rises.
+- level: 2
+  en: Look for the reactant that loses electrons to the other species.
+- level: 3
+  en: The reducing agent appears as a reactant, not a product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Cu2+
+- id: b
+  en: Al3+
+- id: c
+  en: Cu
+- id: d
+  en: Al
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.83F091E4D8C0
+  when_answer_equals:
+  - a
+- id: MC.A.05B28C2FBACF
+  when_answer_equals:
+  - c
+- id: MC.A.02C1AB7E5168
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Aluminium goes from zero to plus three, so it is oxidised and supplies electrons, which makes it the reducing agent.
+- en: The correct option is d.
+tier: C

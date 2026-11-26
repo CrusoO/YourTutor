@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.universal_gravitation.03
+skill_ids:
+- SK.A.9.physics.universal_gravitation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why do you not feel an obvious gravitational pull toward a nearby desk?
+hints:
+- level: 1
+  en: Think about how the strength of the pull depends on the masses.
+- level: 2
+  en: Compare the desk's mass with that of Earth.
+- level: 3
+  en: Gravitational attraction exists between all masses, but its size varies.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the desk pushes you away
+- id: b
+  en: desks do not attract anything with mass
+- id: c
+  en: air between you and the desk blocks gravity
+- id: d
+  en: the desk's mass is small, so its pull on you is tiny
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D1C918E325FA
+  when_answer_equals:
+  - b
+- id: MC.A.288D9882F52F
+  when_answer_equals:
+  - a
+- id: MC.A.B39DE8CE1128
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Gravity between two bodies is proportional to both masses, and a desk's mass is far too small to produce a noticeable pull on a person.
+- en: The correct option is d.
+tier: C

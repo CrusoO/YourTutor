@@ -1,0 +1,48 @@
+id: A.11.maths.trigonometric_functions.sum_and_difference_formulae.06
+skill_ids:
+- SK.A.11.maths.sum_and_difference_formulae
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Simplify (sin(A + B) + sin(A - B)) divided by (cos(A + B) + cos(A - B)).
+hints:
+- level: 1
+  en: Expand each of the four terms with the addition and difference formulae.
+- level: 2
+  en: Combine the two sine terms and the two cosine terms separately.
+- level: 3
+  en: Cancel the common factor and identify the remaining ratio.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: cot A
+- id: b
+  en: tan A
+- id: c
+  en: tan B
+- id: d
+  en: sin A
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B9A478D480E8
+  when_answer_equals:
+  - c
+- id: MC.A.AB0166E7FAB9
+  when_answer_equals:
+  - a
+- id: MC.A.AC7E77D6AD5E
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The numerator is 2 sin A cos B and the denominator is 2 cos A cos B, so the ratio is tan A.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,31 @@
+id: A.11.biology.morphology_of_flowering_plants.inflorescence_and_placentation.05
+skill_ids:
+- SK.A.11.biology.inflorescence_and_placentation
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A cymose inflorescence has a terminal flower on the main axis, and that axis has 2 lateral branches. Each lateral branch ends in a flower and has 3 further lateral branches, each ending in one flower. How many flowers does the whole inflorescence have, counting the terminal flower?
+hints:
+- level: 1
+  en: Count the terminal flower first and then the flowers on the first set of branches.
+- level: 2
+  en: Each first-level branch produces its own set of further branches.
+- level: 3
+  en: Add the counts at each level before finishing the total.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '9'
+  accept: []
+solution_steps:
+- en: The terminal flower gives 1.
+- en: Two lateral branches each end in a flower, giving 2, and each of those gives 3 further flowers, which is 6.
+- en: Adding 1, 2 and 6 gives 9.
+- en: Answer = 9
+tier: C

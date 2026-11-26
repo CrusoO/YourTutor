@@ -1,0 +1,48 @@
+id: A.12.chemistry.amines.amine_preparation.03
+skill_ids:
+- SK.A.12.chemistry.amine_preparation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Hofmann bromamide degradation of propanamide gives which amine?
+hints:
+- level: 1
+  en: Each degradation step removes the carbonyl carbon from the amide chain.
+- level: 2
+  en: Count the carbons in the amide and subtract the carbonyl carbon.
+- level: 3
+  en: Check how many carbons are left attached to the nitrogen.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Propylamine
+- id: b
+  en: Diethylamine
+- id: c
+  en: Ethylamine
+- id: d
+  en: Methylamine
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B9BB31C5507E
+  when_answer_equals:
+  - a
+- id: MC.A.69F19AB4D510
+  when_answer_equals:
+  - d
+- id: MC.A.FBB1DB92FACA
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The amide carbonyl carbon is lost as carbonate in the rearrangement, so the two carbon ethyl group remains on nitrogen as ethylamine.
+- en: The correct option is c.
+tier: C

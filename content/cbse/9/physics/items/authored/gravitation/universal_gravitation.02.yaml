@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.universal_gravitation.02
+skill_ids:
+- SK.A.9.physics.universal_gravitation
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: If the distance between two masses is doubled, the gravitational force between them becomes
+hints:
+- level: 1
+  en: The force depends on the square of the separation.
+- level: 2
+  en: Double the distance and then square the factor it causes.
+- level: 3
+  en: Think about how the denominator changes when the separation grows.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: half its original value
+- id: b
+  en: the same as before
+- id: c
+  en: twice its original value
+- id: d
+  en: one quarter of its original value
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.A5F828BE24C2
+  when_answer_equals:
+  - a
+- id: MC.A.BE278FFC129E
+  when_answer_equals:
+  - c
+- id: MC.A.930168CEF23D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Gravitational force varies as one over the square of the distance, so doubling the distance divides the force by four.
+- en: The correct option is d.
+tier: C

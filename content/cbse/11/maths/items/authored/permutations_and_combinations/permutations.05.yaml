@@ -1,0 +1,29 @@
+id: A.11.maths.permutations_and_combinations.permutations.05
+skill_ids:
+- SK.A.11.maths.permutations
+difficulty: 0.9
+pool: practice
+role: procedure
+stem:
+  en: In how many ways can 4 men and 3 women be arranged in a row so that no two women stand next to each other?
+hints:
+- level: 1
+  en: Arrange the men first and count the gaps that their arrangement creates.
+- level: 2
+  en: Choose which of those gaps the women will occupy.
+- level: 3
+  en: Multiply the arrangements of the men, the choice of gaps and the arrangements of the women.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1440'
+  accept: []
+solution_steps:
+- en: The men can be arranged in 24 ways, creating 5 gaps, 3 of which are chosen in 10 ways, and the women arrange themselves in 6 ways, giving 1440.
+- en: Answer = 1440
+tier: C

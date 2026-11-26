@@ -1,0 +1,50 @@
+id: A.12.biology.molecular_basis_of_inheritance.genetic_code_translation.04
+skill_ids:
+- SK.A.12.biology.genetic_code_translation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A template DNA strand reads 3-prime TAC 5-prime. What is the mRNA codon transcribed from this stretch?
+hints:
+- level: 1
+  en: Pair each template base with its complementary RNA base.
+- level: 2
+  en: Remember that RNA uses uracil in place of thymine.
+- level: 3
+  en: Write the result in the 5-prime to 3-prime direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ATG
+- id: b
+  en: GUA
+- id: c
+  en: AUG
+- id: d
+  en: UAC
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.1B751B9CB74A
+  when_answer_equals:
+  - d
+- id: MC.A.440FD3DF3C6B
+  when_answer_equals:
+  - a
+- id: MC.A.BD9792D5270A
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Each template base pairs with its complement in the mRNA, and the mRNA is written 5-prime to 3-prime.
+- en: The template TAC gives AUG.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw a short template DNA strand read 3-prime to 5-prime above its complementary mRNA, with arrows showing the direction of RNA synthesis.

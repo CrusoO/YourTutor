@@ -1,0 +1,49 @@
+id: A.11.physics.waves.wave_types_and_parameters.06
+skill_ids:
+- SK.A.11.physics.wave_types_and_parameters
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The frequency of a wave doubles while its speed in the medium stays the same. What happens to its wavelength?
+hints:
+- level: 1
+  en: Wave speed equals frequency times wavelength.
+- level: 2
+  en: With the speed fixed, the product of frequency and wavelength stays fixed.
+- level: 3
+  en: Work out how the wavelength must change to keep that product constant.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it stays the same
+- id: b
+  en: it quadruples
+- id: c
+  en: it halves
+- id: d
+  en: it doubles
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.86AA4915FE80
+  when_answer_equals:
+  - d
+- id: MC.A.49B3F5E3A7ED
+  when_answer_equals:
+  - a
+- id: MC.A.50AD643D38C5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Speed equals frequency times wavelength.
+- en: With speed fixed, doubling the frequency halves the wavelength.
+- en: The correct option is c.
+tier: C

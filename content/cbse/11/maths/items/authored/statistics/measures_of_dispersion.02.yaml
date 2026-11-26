@@ -1,0 +1,48 @@
+id: A.11.maths.statistics.measures_of_dispersion.02
+skill_ids:
+- SK.A.11.maths.measures_of_dispersion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: How is the variance of a data set defined?
+hints:
+- level: 1
+  en: Think about how each value differs from the mean and what is done to those differences.
+- level: 2
+  en: Recall why squaring is used instead of taking absolute values.
+- level: 3
+  en: Average the quantities you formed from the differences.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the mean of the squared deviations from the mean
+- id: b
+  en: the difference between the largest and smallest values
+- id: c
+  en: the mean of the absolute deviations from the mean
+- id: d
+  en: the square root of the mean deviation
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.93B3A65A29D6
+  when_answer_equals:
+  - c
+- id: MC.A.78328F190EF9
+  when_answer_equals:
+  - d
+- id: MC.A.67A69AB5D7A9
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Variance averages the squares of the deviations of each value from the mean.
+- en: The correct option is a.
+tier: C

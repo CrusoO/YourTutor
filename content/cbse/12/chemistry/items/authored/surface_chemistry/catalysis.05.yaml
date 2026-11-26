@@ -1,0 +1,48 @@
+id: A.12.chemistry.surface_chemistry.catalysis.05
+skill_ids:
+- SK.A.12.chemistry.catalysis
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why are enzymes highly specific for their substrates?
+hints:
+- level: 1
+  en: Think about the shape and binding site of the protein.
+- level: 2
+  en: Consider how a key fits a lock in describing the binding.
+- level: 3
+  en: Compare how selective the binding is with how broadly a simple surface binds molecules.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are built from a single amino acid
+- id: b
+  en: They work only at extreme pH values
+- id: c
+  en: They react with every molecule at the same rate
+- id: d
+  en: Their active site has a shape that fits a particular substrate
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.1627E8367C79
+  when_answer_equals:
+  - a
+- id: MC.A.656A2609F722
+  when_answer_equals:
+  - b
+- id: MC.A.D153F42EFC8D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: An enzyme's active site is shaped to bind one substrate or a narrow group of substrates, so only those molecules are processed efficiently.
+- en: The correct option is d.
+tier: C

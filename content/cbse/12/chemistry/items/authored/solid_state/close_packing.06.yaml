@@ -1,0 +1,50 @@
+id: A.12.chemistry.solid_state.close_packing.06
+skill_ids:
+- SK.A.12.chemistry.close_packing
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In a cubic close packed lattice built from layers labelled A, B and C, where do the spheres of the third layer sit?
+hints:
+- level: 1
+  en: Look at which hollows of the first layer the second layer already covers.
+- level: 2
+  en: Consider whether the third layer repeats the position of the first.
+- level: 3
+  en: Compare the two kinds of hollow available to the layer above.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Directly above the first layer, giving an AB pattern
+- id: b
+  en: Directly above the second layer, giving an AA pattern
+- id: c
+  en: Over hollows that the first two layers do not occupy
+- id: d
+  en: In the centre of the cube as a body centre
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.DFF85B9B335A
+  when_answer_equals:
+  - a
+- id: MC.A.272CD8F41816
+  when_answer_equals:
+  - d
+- id: MC.A.156A2C000001
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The third layer fills the remaining hollows, which differ from those used by the first two layers.
+- en: This produces the ABC repeat of cubic close packing.
+- en: The correct option is c.
+tier: C
+diagram_note: Three stacked layers of spheres drawn as triangular arrangements labelled A, B and C, with the C layer shown in hollows that differ from both A and B.

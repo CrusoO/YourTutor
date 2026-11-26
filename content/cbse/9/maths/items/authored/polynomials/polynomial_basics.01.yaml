@@ -1,0 +1,48 @@
+id: A.9.maths.polynomials.polynomial_basics.01
+skill_ids:
+- SK.A.9.maths.polynomial_basics
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the degree of the polynomial 4x^3 - x + 7?
+hints:
+- level: 1
+  en: Look for the term with the largest exponent of the variable.
+- level: 2
+  en: Ignore the coefficients when you look for the degree.
+- level: 3
+  en: A constant term has a degree of zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '7'
+- id: b
+  en: '4'
+- id: c
+  en: '1'
+- id: d
+  en: '3'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.F688D0C2A5F0
+  when_answer_equals:
+  - c
+- id: MC.A.14457D61C7EA
+  when_answer_equals:
+  - b
+- id: MC.A.A19AFA4EB910
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The degree is the highest exponent of the variable, and here that is the power on the x cubed term, so the degree is 3.
+- en: The correct option is d.
+tier: C

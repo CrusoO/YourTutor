@@ -1,0 +1,48 @@
+id: A.12.maths.continuity_and_differentiability.differentiability.01
+skill_ids:
+- SK.A.12.maths.differentiability
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which statement about continuity and differentiability is correct?
+hints:
+- level: 1
+  en: Consider whether a derivative can exist at a point where the function is broken.
+- level: 2
+  en: Think about the graph of the absolute value at zero.
+- level: 3
+  en: Decide which property is the stronger requirement.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Continuity and differentiability are unrelated
+- id: b
+  en: Every differentiable function is continuous, but a continuous function need not be differentiable
+- id: c
+  en: Every continuous function is differentiable
+- id: d
+  en: A differentiable function can have a jump
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.BEA9A3DC4C96
+  when_answer_equals:
+  - c
+- id: MC.A.EDF88E733424
+  when_answer_equals:
+  - d
+- id: MC.A.778874F18075
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Differentiability forces continuity, but the converse fails, as the graph of the absolute value at zero shows.
+- en: The correct option is b.
+tier: C

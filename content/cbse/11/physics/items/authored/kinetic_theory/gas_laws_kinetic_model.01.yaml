@@ -1,0 +1,49 @@
+id: A.11.physics.kinetic_theory.gas_laws_kinetic_model.01
+skill_ids:
+- SK.A.11.physics.gas_laws_kinetic_model
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: 'In the kinetic model of an ideal gas, pressure arises from:'
+hints:
+- level: 1
+  en: Think about molecules hitting the sides of the container.
+- level: 2
+  en: Each impact gives the wall a small push.
+- level: 3
+  en: Consider the total momentum delivered to the wall each second.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: molecules resting on the walls of the container
+- id: b
+  en: attraction between the gas molecules
+- id: c
+  en: molecules colliding with the walls and transferring momentum to them
+- id: d
+  en: heat stored inside each molecule
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4C30DEC6FB65
+  when_answer_equals:
+  - b
+- id: MC.A.F61F3E0303A4
+  when_answer_equals:
+  - a
+- id: MC.A.B0DAC17BCAB5
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each molecule that strikes a wall transfers momentum to it.
+- en: The rate of these transfers over the wall area is the pressure.
+- en: The correct option is c.
+tier: C

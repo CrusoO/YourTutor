@@ -1,0 +1,48 @@
+id: A.9.physics.motion.motion_graphs.01
+skill_ids:
+- SK.A.9.physics.motion_graphs
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: On a distance-time graph, what does a horizontal straight line represent?
+hints:
+- level: 1
+  en: Ask whether the distance changes as time passes along the flat line.
+- level: 2
+  en: A flat line means one quantity is not changing.
+- level: 3
+  en: Compare the value on the vertical axis at two different times.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the object is accelerating
+- id: b
+  en: the object is at rest
+- id: c
+  en: constant speed
+- id: d
+  en: a negative velocity
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.445F2EDA09A9
+  when_answer_equals:
+  - c
+- id: MC.A.CA0CF7A9715C
+  when_answer_equals:
+  - a
+- id: MC.A.0B27C4CF4C6B
+  when_answer_equals:
+  - d
+solution_steps:
+- en: On a distance-time graph a horizontal line means the distance is not changing with time, so the object is stationary.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.physics.current_electricity.kirchhoffs_rules.02
+skill_ids:
+- SK.A.12.physics.kirchhoffs_rules
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Applying Kirchhoff's voltage law around a closed loop gives which statement?
+hints:
+- level: 1
+  en: Walk once around the loop and track the potential at each step.
+- level: 2
+  en: The potential at the end of the walk matches the potential at the start.
+- level: 3
+  en: Separate the EMF rises from the resistive drops as you go.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Each EMF equals the IR drop in its own branch
+- id: b
+  en: The sum of EMFs equals the sum of IR drops around the loop
+- id: c
+  en: The sum of the currents in the loop is zero
+- id: d
+  en: The sum of the resistances equals the sum of the EMFs
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.4FB40F8596EE
+  when_answer_equals:
+  - c
+- id: MC.A.5FF2949CEB48
+  when_answer_equals:
+  - d
+- id: MC.A.D2FEA4EEFE8F
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Going once around a closed loop returns to the starting potential.
+- en: The rises from the EMFs must therefore balance the drops across the resistors.
+- en: The correct option is b.
+tier: C

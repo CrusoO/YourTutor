@@ -1,0 +1,48 @@
+id: A.11.maths.probability.axiomatic_probability.04
+skill_ids:
+- SK.A.11.maths.axiomatic_probability
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: P(A) is 0.4, P(B) is 0.5 and P(A or B) is 0.7. What is P(A and B)?
+hints:
+- level: 1
+  en: Start from the general addition rule for the union of two events.
+- level: 2
+  en: Rearrange the rule so that the intersection term is isolated.
+- level: 3
+  en: Substitute the three given probabilities.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.3'
+- id: b
+  en: '0.9'
+- id: c
+  en: '0.1'
+- id: d
+  en: '0.2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.03E671BB8DA7
+  when_answer_equals:
+  - b
+- id: MC.A.386B1704D6CC
+  when_answer_equals:
+  - c
+- id: MC.A.1C80AE47CA93
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Rearranging P(A or B) equals P(A) plus P(B) minus P(A and B) gives 0.4 plus 0.5 minus 0.7, which is 0.2.
+- en: The correct option is d.
+tier: C

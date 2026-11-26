@@ -1,0 +1,48 @@
+id: A.9.physics.motion.distance_and_displacement.04
+skill_ids:
+- SK.A.9.physics.distance_and_displacement
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A student walks once around a square field of side 40 m and returns to the starting corner. Which statement about the displacement for the whole walk is correct?
+hints:
+- level: 1
+  en: Compare the final position with the starting position.
+- level: 2
+  en: A round trip ends where it began.
+- level: 3
+  en: Displacement is measured from start to finish, not along the path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 160 m
+- id: b
+  en: zero
+- id: c
+  en: 40 m
+- id: d
+  en: the same as the distance travelled
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.BA24B36ECC88
+  when_answer_equals:
+  - a
+- id: MC.A.CEA85C409726
+  when_answer_equals:
+  - c
+- id: MC.A.67D58A8C1BDB
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Displacement depends only on the start and finish positions, which coincide here, so it is zero even though the walk covers 160 m.
+- en: The correct option is b.
+tier: C

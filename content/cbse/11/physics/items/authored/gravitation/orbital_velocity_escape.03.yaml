@@ -1,0 +1,30 @@
+id: A.11.physics.gravitation.orbital_velocity_escape.03
+skill_ids:
+- SK.A.11.physics.orbital_velocity_escape
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: A planet has surface gravity 9.8 m/s^2 and radius 6.4 times 10 to the power 6 m. What is its escape velocity in kilometres per second, to one decimal place?
+hints:
+- level: 1
+  en: Escape speed follows from an energy balance at the surface.
+- level: 2
+  en: The kinetic energy at launch must equal the potential energy depth, which is g R per unit mass.
+- level: 3
+  en: Convert metres per second to kilometres per second at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '11.2'
+  accept: []
+solution_steps:
+- en: Escape speed satisfies one half v^2 = g R from the energy balance, so v = square root of 2 g R, about 11200 m/s, which is 11.2 km/s.
+- en: The unit of the answer is km/s.
+- en: Answer = 11.2
+tier: C

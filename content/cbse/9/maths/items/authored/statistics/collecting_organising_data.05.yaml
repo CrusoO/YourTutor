@@ -1,0 +1,48 @@
+id: A.9.maths.statistics.collecting_organising_data.05
+skill_ids:
+- SK.A.9.maths.collecting_organising_data
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A frequency table has classes 0 to 10, 10 to 20 and 20 to 30. Which rule avoids counting a value of 10 twice?
+hints:
+- level: 1
+  en: A value should belong to exactly one class.
+- level: 2
+  en: Decide which limit of an interval a boundary value belongs to.
+- level: 3
+  en: Use one consistent convention for every interval.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Discard every value that lies on a boundary.
+- id: b
+  en: Place the value 10 in whichever class has fewer values.
+- id: c
+  en: Each class includes its lower limit and excludes its upper limit, so 10 falls in 10 to 20.
+- id: d
+  en: Count the value 10 in both classes to be safe.
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.4FA0003D3A12
+  when_answer_equals:
+  - d
+- id: MC.A.B656E418BB47
+  when_answer_equals:
+  - a
+- id: MC.A.4C5233851964
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Including the lower limit and excluding the upper limit gives every value exactly one class, so 10 belongs to 10 to 20.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,49 @@
+id: A.11.physics.gravitation.gravitational_field_potential.06
+skill_ids:
+- SK.A.11.physics.gravitational_field_potential
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Taking the potential to be zero at infinity, which expression describes the gravitational potential at distance r from a point mass M?
+hints:
+- level: 1
+  en: Potential is the work per unit mass needed to bring a mass in from infinity.
+- level: 2
+  en: Gravity is attractive, so the field itself does work as the mass is brought in.
+- level: 3
+  en: Compare the sign of the potential with its value at infinity, where it is zero.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: positive, equal to G M divided by r squared
+- id: b
+  en: positive, equal to G M divided by r
+- id: c
+  en: negative, equal to minus G M divided by r
+- id: d
+  en: zero at every distance
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7D260BA42A4F
+  when_answer_equals:
+  - a
+- id: MC.A.F1C1B5E232B5
+  when_answer_equals:
+  - d
+- id: MC.A.D5BA9584D1EC
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Gravity is attractive, so bringing a mass in from infinity releases energy.
+- en: The potential is therefore negative and equals minus G M over r.
+- en: The correct option is c.
+tier: C

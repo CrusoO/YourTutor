@@ -1,0 +1,48 @@
+id: A.9.physics.force_and_laws_of_motion.conservation_of_momentum.04
+skill_ids:
+- SK.A.9.physics.conservation_of_momentum
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A rifle of mass 4 kg fires a bullet of mass 0.02 kg at 400 m/s. What is the recoil velocity of the rifle?
+hints:
+- level: 1
+  en: Momentum before firing is zero, so momentum after must be zero too.
+- level: 2
+  en: Find the bullet's momentum first.
+- level: 3
+  en: The rifle's momentum must match the bullet's in size but not in direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 400 m/s, opposite to the bullet
+- id: b
+  en: 8 m/s, in the same direction as the bullet
+- id: c
+  en: 0.005 m/s, opposite to the bullet
+- id: d
+  en: 2 m/s, opposite to the bullet
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.049D7A0A1782
+  when_answer_equals:
+  - a
+- id: MC.A.8EB03840FBFF
+  when_answer_equals:
+  - c
+- id: MC.A.C0DD9CD4A736
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The total momentum starts at zero, so the rifle's momentum equals the bullet's momentum, 8 kg m/s, in the opposite direction, which gives 2 m/s.
+- en: The correct option is d.
+tier: C

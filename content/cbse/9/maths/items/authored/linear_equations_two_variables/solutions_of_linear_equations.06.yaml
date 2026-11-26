@@ -1,0 +1,48 @@
+id: A.9.maths.linear_equations_two_variables.solutions_of_linear_equations.06
+skill_ids:
+- SK.A.9.maths.solutions_of_linear_equations
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: The equation ax + by = c has the solutions (1, 4) and (3, 0). Which set of values for a, b and c fits?
+hints:
+- level: 1
+  en: Substitute each given pair to form two equations.
+- level: 2
+  en: Compare the two equations to find a relationship between a and b.
+- level: 3
+  en: Test the candidate that satisfies both pairs.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: a = 2, b = 2, c = 6
+- id: b
+  en: a = 2, b = 1, c = 6
+- id: c
+  en: a = 3, b = 1, c = 9
+- id: d
+  en: a = 1, b = 1, c = 5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.3F00BCFF6F1A
+  when_answer_equals:
+  - d
+- id: MC.A.F7269A092CBA
+  when_answer_equals:
+  - a
+- id: MC.A.E27A07249AC6
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Substituting both pairs gives two equations, and the values 2, 1 and 6 satisfy both, since 2 plus 4 equals 6 and 2 times 3 equals 6.
+- en: The correct option is b.
+tier: C

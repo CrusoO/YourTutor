@@ -1,0 +1,32 @@
+id: A.12.physics.current_electricity.wheatstone_potentiometer.06
+skill_ids:
+- SK.A.12.physics.wheatstone_potentiometer
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A meter bridge has an unknown resistor in the left gap and a known 20 ohm resistor in the right gap. The bridge balances with the jockey at 60 cm from the left end. What is the unknown resistance in ohm?
+hints:
+- level: 1
+  en: The unknown and the known resistance are in the same ratio as the two wire lengths.
+- level: 2
+  en: The length on the right side of the jockey is 100 cm minus the reading.
+- level: 3
+  en: Make sure the length next to the unknown resistor is the one in the numerator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '30'
+  accept: []
+solution_steps:
+- en: The unknown over the known equals 60 over 40.
+- en: The unknown is therefore 20 times 60 over 40, which is 30 ohm.
+- en: The unit of the answer is ohm.
+- en: Answer = 30
+tier: C
+diagram_note: A meter bridge with an unknown resistor in the left gap, a known resistor in the right gap, and a jockey touching the wire at the 60 cm mark.

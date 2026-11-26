@@ -1,0 +1,49 @@
+id: A.11.physics.thermodynamics.thermodynamic_processes.04
+skill_ids:
+- SK.A.11.physics.thermodynamic_processes
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A fixed amount of ideal gas is heated at constant pressure. What happens to its volume?
+hints:
+- level: 1
+  en: Use the relation between volume and temperature for a fixed amount of gas at fixed pressure.
+- level: 2
+  en: Keep the pressure fixed in mind.
+- level: 3
+  en: The absolute temperature scale is the relevant one here.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it increases in proportion to its absolute temperature
+- id: b
+  en: it decreases
+- id: c
+  en: it stays the same
+- id: d
+  en: it increases in proportion to the pressure
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.C02301DBC735
+  when_answer_equals:
+  - b
+- id: MC.A.0EA473E857FA
+  when_answer_equals:
+  - c
+- id: MC.A.6F2C9191EF1F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At constant pressure, V over T is constant for a fixed amount of gas, so the volume grows in proportion to the absolute temperature.
+- en: The correct option is a.
+tier: C
+diagram_note: A pressure-volume plot with a horizontal isobaric line at a fixed pressure. Two volume points on the line are marked, and the temperature at each point is labelled.

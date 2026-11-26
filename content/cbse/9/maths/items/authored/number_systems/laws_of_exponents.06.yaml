@@ -1,0 +1,48 @@
+id: A.9.maths.number_systems.laws_of_exponents.06
+skill_ids:
+- SK.A.9.maths.laws_of_exponents
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: For a positive real number a and whole numbers m and n, which statement about nested powers is correct?
+hints:
+- level: 1
+  en: Write out the nested power as repeated multiplication of the base.
+- level: 2
+  en: Count the total number of copies of the base.
+- level: 3
+  en: Relate that count to the two exponents.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (a to the power m) to the power n equals a to the power m plus n.
+- id: b
+  en: (a to the power m) to the power n equals a to the power m times n.
+- id: c
+  en: (a to the power m) to the power n equals a to the power m minus n.
+- id: d
+  en: (a to the power m) to the power n equals a to the power m divided by n.
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.75ABDE2BCCD1
+  when_answer_equals:
+  - a
+- id: MC.A.9841D5B4D873
+  when_answer_equals:
+  - c
+- id: MC.A.3284A85E62C2
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Raising a power to another power multiplies the exponents, so the nested form equals a raised to the product of the two exponents.
+- en: The correct option is b.
+tier: C

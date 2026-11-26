@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.free_fall.04
+skill_ids:
+- SK.A.9.physics.free_fall
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A 1 kg stone and a 5 kg stone are dropped together from the same height. Ignoring air resistance, which statement is correct?
+hints:
+- level: 1
+  en: Compare the acceleration of each stone in free fall.
+- level: 2
+  en: Mass changes the weight but not the acceleration in free fall.
+- level: 3
+  en: Think about whether the two stones start from the same height.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the 5 kg stone hits with five times the speed
+- id: b
+  en: the 5 kg stone hits first
+- id: c
+  en: they hit the ground at the same time
+- id: d
+  en: the 1 kg stone hits first
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.5411AAC1F43D
+  when_answer_equals:
+  - b
+- id: MC.A.414592C9FFD8
+  when_answer_equals:
+  - d
+- id: MC.A.B0F94EA06AD0
+  when_answer_equals:
+  - a
+solution_steps:
+- en: All freely falling objects near Earth's surface share the same acceleration, so the stones land together when air resistance is ignored.
+- en: The correct option is c.
+tier: C

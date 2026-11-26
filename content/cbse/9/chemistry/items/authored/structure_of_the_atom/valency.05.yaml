@@ -1,0 +1,49 @@
+id: A.9.chemistry.structure_of_the_atom.valency.05
+skill_ids:
+- SK.A.9.chemistry.valency
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Element X has 3 electrons in its outer shell and element Y has 6. What is the most likely formula of the compound formed between them?
+hints:
+- level: 1
+  en: Cross the valencies over so that each becomes the subscript of the other element.
+- level: 2
+  en: Find the valency of each element from its outer electron count.
+- level: 3
+  en: Reduce the subscripts to the simplest whole-number ratio if needed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: X2Y3
+- id: b
+  en: X3Y2
+- id: c
+  en: X3Y6
+- id: d
+  en: XY
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4171F5D0D19E
+  when_answer_equals:
+  - d
+- id: MC.A.799C7D1C7CF5
+  when_answer_equals:
+  - b
+- id: MC.A.9BF557622210
+  when_answer_equals:
+  - c
+solution_steps:
+- en: X loses 3 electrons (valency 3) and Y gains 2 (valency 2).
+- en: Crossing the valencies over gives X2Y3.
+- en: The correct option is a.
+tier: C

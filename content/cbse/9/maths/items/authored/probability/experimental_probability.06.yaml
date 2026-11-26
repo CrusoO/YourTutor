@@ -1,0 +1,48 @@
+id: A.9.maths.probability.experimental_probability.06
+skill_ids:
+- SK.A.9.maths.experimental_probability
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: A pin is tossed 400 times and lands point up 240 times. Which statement is best supported by this experiment?
+hints:
+- level: 1
+  en: Compute the ratio of point up results to all tosses.
+- level: 2
+  en: Consider whether a single experiment establishes a fixed value.
+- level: 3
+  en: Distinguish an estimate from an exact probability.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The estimate for point up is 0.6, but one experiment does not fix the probability exactly.
+- id: b
+  en: The probability of point up is exactly 0.6 for every pin.
+- id: c
+  en: The probability of point up is 0.4.
+- id: d
+  en: The experiment proves that the pin is biased.
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.45DB0BF2C403
+  when_answer_equals:
+  - b
+- id: MC.A.27CF0ACAB7ED
+  when_answer_equals:
+  - c
+- id: MC.A.EA9B9B181F31
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The estimate is 240 divided by 400, which is 0.6, but it is only an estimate from one experiment, so it does not establish an exact probability.
+- en: The correct option is a.
+tier: C

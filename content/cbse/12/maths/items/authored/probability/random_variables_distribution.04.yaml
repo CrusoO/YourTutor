@@ -1,0 +1,48 @@
+id: A.12.maths.probability.random_variables_distribution.04
+skill_ids:
+- SK.A.12.maths.random_variables_distribution
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: A random variable X has mean 2 and variance 1. What is the expected value of 3X - 1?
+hints:
+- level: 1
+  en: Use linearity of expectation.
+- level: 2
+  en: Apply the multiplying constant to the mean first.
+- level: 3
+  en: Subtract the constant term at the end.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '5'
+- id: b
+  en: '6'
+- id: c
+  en: '3'
+- id: d
+  en: '2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.30E9798FE7EC
+  when_answer_equals:
+  - b
+- id: MC.A.B5EE58AD938C
+  when_answer_equals:
+  - c
+- id: MC.A.288BD35AD628
+  when_answer_equals:
+  - d
+solution_steps:
+- en: By linearity of expectation, E(3X - 1) = 3E(X) - 1 = 3 times 2 - 1 = 5.
+- en: The correct option is a.
+tier: C

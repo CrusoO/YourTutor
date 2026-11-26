@@ -1,0 +1,51 @@
+id: A.10.physics.electricity.heating_effect_current.06
+skill_ids:
+- SK.A.10.physics.heating_effect_current
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: 'A heater element is cut into two equal halves. The halves are then connected in parallel across the same supply voltage. Compared with the original whole element, the total heat produced per second is:'
+hints:
+- level: 1
+  en: Find the resistance of each half first, then the combined resistance of the parallel pair.
+- level: 2
+  en: Keep the supply voltage fixed and ask how the power depends on the resistance.
+- level: 3
+  en: Compare the total resistance of the two halves with the resistance of the original element.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Twice as large
+- id: b
+  en: Half as large
+- id: c
+  en: The same
+- id: d
+  en: Four times as large
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.EDBDB1FAC00A
+  when_answer_equals:
+  - b
+- id: MC.A.71CC6E02DD5D
+  when_answer_equals:
+  - c
+- id: MC.A.3ECF5126CAA3
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Each half has half the resistance, R over 2.
+- en: Two halves in parallel have a combined resistance of R over 4.
+- en: Since the supply voltage is the same, the power V squared over R over 4 is four times the power of the original element.
+- en: Parallel branches reduce the resistance and increase the heat per second.
+- en: The correct option is d.
+tier: C

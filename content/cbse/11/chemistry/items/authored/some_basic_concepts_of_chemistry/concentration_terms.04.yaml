@@ -1,0 +1,48 @@
+id: A.11.chemistry.some_basic_concepts_of_chemistry.concentration_terms.04
+skill_ids:
+- SK.A.11.chemistry.concentration_terms
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the mole fraction of ethanol in a mixture made of 1 mol ethanol and 3 mol water?
+hints:
+- level: 1
+  en: Divide the moles of one component by the total moles of all components.
+- level: 2
+  en: Add up the moles of every species in the mixture first.
+- level: 3
+  en: Make sure you use the component the question asks about.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '0.33'
+- id: b
+  en: '0.75'
+- id: c
+  en: '0.25'
+- id: d
+  en: '0.5'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.D0B2149377ED
+  when_answer_equals:
+  - a
+- id: MC.A.C561FAF2C20B
+  when_answer_equals:
+  - b
+- id: MC.A.0A94AD1AAC28
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The total number of moles is 4, so the mole fraction of ethanol is 1 divided by 4, which is 0.25.
+- en: The correct option is c.
+tier: C

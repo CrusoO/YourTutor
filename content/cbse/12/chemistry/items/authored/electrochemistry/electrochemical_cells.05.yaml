@@ -1,0 +1,50 @@
+id: A.12.chemistry.electrochemistry.electrochemical_cells.05
+skill_ids:
+- SK.A.12.chemistry.electrochemical_cells
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A galvanic cell has a magnesium anode and a silver cathode. Which description of electron flow is correct?
+hints:
+- level: 1
+  en: Electrons leave the electrode where oxidation happens.
+- level: 2
+  en: Trace the path of electrons only through the metal conductor.
+- level: 3
+  en: Ions move through the bridge while electrons do not.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: From magnesium to silver through the external wire
+- id: b
+  en: From magnesium to silver through the solution
+- id: c
+  en: Through the salt bridge from magnesium to silver
+- id: d
+  en: From silver to magnesium through the external wire
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.187E58CE3907
+  when_answer_equals:
+  - d
+- id: MC.A.E9191994F4A2
+  when_answer_equals:
+  - c
+- id: MC.A.68EABFA4F93D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Electrons leave the anode where magnesium is oxidised and travel through the external wire to the silver cathode.
+- en: Ions, not electrons, move through the solution and bridge.
+- en: The correct option is a.
+tier: C
+diagram_note: 'Two beakers: a magnesium rod in magnesium salt solution on the left and a silver rod in silver salt solution on the right, joined by a salt bridge, with a wire and voltmeter connecting the two rods.'

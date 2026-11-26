@@ -1,0 +1,48 @@
+id: A.11.chemistry.states_of_matter.kinetic_theory_gases.06
+skill_ids:
+- SK.A.11.chemistry.kinetic_theory_gases
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which change reduces the root mean square speed of the molecules in a gas?
+hints:
+- level: 1
+  en: Speed depends on one property of the gas, which changes when heat is removed.
+- level: 2
+  en: Consider which quantity in the speed formula is controlled by heat.
+- level: 3
+  en: Look for the change that lowers that quantity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: compressing the gas at constant temperature
+- id: b
+  en: adding an inert gas at constant temperature
+- id: c
+  en: cooling the gas
+- id: d
+  en: increasing the volume at constant temperature
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CC2064E9DC18
+  when_answer_equals:
+  - d
+- id: MC.A.86D57BEC800E
+  when_answer_equals:
+  - b
+- id: MC.A.A105F622FD1D
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Root mean square speed depends only on temperature and molar mass, so lowering the temperature by cooling reduces it.
+- en: The correct option is c.
+tier: C

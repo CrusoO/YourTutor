@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.hookes_law_elasticity.06
+skill_ids:
+- SK.A.11.physics.hookes_law_elasticity
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A wire obeying Hooke's law is pulled with the same force, but its length is doubled and its radius is doubled. How does its extension change?
+hints:
+- level: 1
+  en: The extension depends on the length in the numerator.
+- level: 2
+  en: The cross-sectional area depends on the square of the radius.
+- level: 3
+  en: Compare the length factor with the area factor.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: halves
+- id: b
+  en: doubles
+- id: c
+  en: stays the same
+- id: d
+  en: becomes four times as large
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5A5C1DAD4B06
+  when_answer_equals:
+  - b
+- id: MC.A.420942FDBFB6
+  when_answer_equals:
+  - c
+- id: MC.A.9B8F1081C573
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The extension is F L / (pi r^2 Y).
+- en: Doubling L doubles the numerator, while doubling r quadruples the area, so the extension is multiplied by 2 / 4, which halves it.
+- en: The correct option is a.
+tier: C

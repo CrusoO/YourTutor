@@ -1,0 +1,49 @@
+id: A.11.physics.work_energy_and_power.power_11.06
+skill_ids:
+- SK.A.11.physics.power_11
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A car engine delivers constant power while the car moves on a level road. If the car's speed doubles, how does the forward force the engine can deliver change?
+hints:
+- level: 1
+  en: Power equals force times speed when the force acts along the motion.
+- level: 2
+  en: Solve that relation for the force.
+- level: 3
+  en: Notice where the speed sits once the relation is solved for the force.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: becomes half as large
+- id: b
+  en: doubles
+- id: c
+  en: becomes four times as large
+- id: d
+  en: stays the same
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.80C1C8829CC2
+  when_answer_equals:
+  - b
+- id: MC.A.EC66B937309D
+  when_answer_equals:
+  - d
+- id: MC.A.6A6368E45417
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Power equals force times speed, so force equals P divided by v.
+- en: Doubling the speed at constant power halves the force.
+- en: The correct option is a.
+tier: C

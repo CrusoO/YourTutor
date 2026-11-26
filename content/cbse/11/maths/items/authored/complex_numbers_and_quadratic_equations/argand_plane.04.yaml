@@ -1,0 +1,49 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.argand_plane.04
+skill_ids:
+- SK.A.11.maths.argand_plane
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Which complex number has modulus 2 and argument 60 degrees?
+hints:
+- level: 1
+  en: Write the number in polar form using the modulus and the argument.
+- level: 2
+  en: Recall the cosine and sine of the given angle.
+- level: 3
+  en: Multiply each trigonometric value by the modulus to get the components.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 1 + sqrt(3) i
+- id: b
+  en: 2 + 2i
+- id: c
+  en: sqrt(3) + i
+- id: d
+  en: 2 cos 30 degrees + 2i sin 30 degrees
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.E837AD898A83
+  when_answer_equals:
+  - b
+- id: MC.A.8BA9EDBB6316
+  when_answer_equals:
+  - c
+- id: MC.A.515F9E6CDAA0
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The real part is 2 cos 60 degrees, which is 1, and the imaginary part is 2 sin 60 degrees, which is sqrt(3).
+- en: The correct option is a.
+tier: C
+diagram_note: Argand plane with a ray from the origin drawn at 60 degrees from the positive real axis, the point at distance 2 along the ray marked.

@@ -1,0 +1,49 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.capacitors_and_combinations.01
+skill_ids:
+- SK.A.12.physics.capacitors_and_combinations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the equivalent capacitance of two capacitors connected in series, compared with the smaller of the two?
+hints:
+- level: 1
+  en: Recall how the reciprocals of the capacitances add in series.
+- level: 2
+  en: Compare a reciprocal sum with one of its terms alone.
+- level: 3
+  en: Think about what happens to the total storage when the chain gets longer.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Equal to the sum of the two
+- id: b
+  en: Equal to the larger capacitor
+- id: c
+  en: Larger than the larger capacitor
+- id: d
+  en: Smaller than the smaller capacitor
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B0ECD97B4588
+  when_answer_equals:
+  - c
+- id: MC.A.6AC016F21E8A
+  when_answer_equals:
+  - a
+- id: MC.A.2F4C61B2DA99
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In series the reciprocals add, so the equivalent capacitance is smaller than either capacitor on its own.
+- en: The correct option is d.
+tier: C
+diagram_note: Two capacitor symbols connected end to end in a single line, with the free ends marked as terminals.

@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.free_fall.06
+skill_ids:
+- SK.A.9.physics.free_fall
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A ball is thrown straight up at 10 m/s. Ignoring air resistance, what is its speed when it returns to the level of the thrower's hand?
+hints:
+- level: 1
+  en: Ignoring air resistance, speeds match at the same height on the way up and down.
+- level: 2
+  en: Think about the motion as a symmetric up and down path.
+- level: 3
+  en: Ask how the speed at the launch height compares with the return speed.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 20 m/s
+- id: b
+  en: zero
+- id: c
+  en: 9.8 m/s
+- id: d
+  en: 10 m/s
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.6A401650E508
+  when_answer_equals:
+  - b
+- id: MC.A.25E46EB87C58
+  when_answer_equals:
+  - a
+- id: MC.A.84A443E7ADAE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Without air resistance the ball returns to the same height with the same speed it had at launch, but in the opposite direction.
+- en: The correct option is d.
+tier: C

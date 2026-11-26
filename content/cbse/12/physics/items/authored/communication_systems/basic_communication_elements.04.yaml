@@ -1,0 +1,49 @@
+id: A.12.physics.communication_systems.basic_communication_elements.04
+skill_ids:
+- SK.A.12.physics.basic_communication_elements
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why is a repeater placed along a long communication link?
+hints:
+- level: 1
+  en: Think about what happens to a signal's strength over a long distance.
+- level: 2
+  en: Consider what a device placed partway along the link needs to do to the signal.
+- level: 3
+  en: Compare a repeater with a modulator in terms of what it changes.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: To regenerate or amplify a signal that has weakened along the way
+- id: b
+  en: To remove all noise from the channel permanently
+- id: c
+  en: To store the message until the receiver is ready
+- id: d
+  en: To change the frequency of the message
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.DDF9DF8E3995
+  when_answer_equals:
+  - d
+- id: MC.A.AD235B6E2A25
+  when_answer_equals:
+  - b
+- id: MC.A.29C803FBD847
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Signals lose strength over distance.
+- en: A repeater boosts or regenerates them so that they can reach the next stage of the link.
+- en: The correct option is a.
+tier: C

@@ -1,0 +1,48 @@
+id: A.11.physics.motion_in_a_plane.relative_velocity_2d.01
+skill_ids:
+- SK.A.11.physics.relative_velocity_2d
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Two boats move with known velocities in a plane. Which expression gives the velocity of boat A relative to boat B?
+hints:
+- level: 1
+  en: Relative velocity is found by subtracting the reference velocity.
+- level: 2
+  en: Place the reference object's velocity in the subtracted position.
+- level: 3
+  en: The result is the velocity as seen by the reference object.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: velocity of B minus velocity of A
+- id: b
+  en: velocity of A alone
+- id: c
+  en: velocity of A minus velocity of B
+- id: d
+  en: velocity of A plus velocity of B
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.6F1ABCA895FA
+  when_answer_equals:
+  - d
+- id: MC.A.F561A0AC0061
+  when_answer_equals:
+  - a
+- id: MC.A.09715DAFA916
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The velocity of A relative to B is found by subtracting the velocity of B from the velocity of A, vector by vector.
+- en: The correct option is c.
+tier: C

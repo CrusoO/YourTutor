@@ -1,0 +1,49 @@
+id: A.12.physics.ray_optics_and_optical_instruments.prism_and_dispersion.06
+skill_ids:
+- SK.A.12.physics.prism_and_dispersion
+difficulty: 0.9
+pool: practice
+role: explain
+stem:
+  en: Why does a rainbow appear in the sky after rain?
+hints:
+- level: 1
+  en: Think about what sunlight does when it enters and leaves a water droplet.
+- level: 2
+  en: Consider the internal path inside a droplet and where the reflection happens.
+- level: 3
+  en: Recall why the index of water depends on colour.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Sunlight is reflected only from the surface of clouds
+- id: b
+  en: Water droplets emit coloured light of their own
+- id: c
+  en: Sunlight is refracted, dispersed and reflected inside water droplets
+- id: d
+  en: The atmosphere creates colours from scattered noise
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.CE37F1452715
+  when_answer_equals:
+  - a
+- id: MC.A.E9692A436562
+  when_answer_equals:
+  - b
+- id: MC.A.0776EC8DADCF
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Each water droplet refracts sunlight on entry, reflects it internally, and refracts it again on exit.
+- en: Because the index depends on wavelength, the colours emerge at different angles.
+- en: The correct option is c.
+tier: C

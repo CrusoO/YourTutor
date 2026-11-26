@@ -1,0 +1,49 @@
+id: A.11.biology.photosynthesis_in_higher_plants.light_reactions.06
+skill_ids:
+- SK.A.11.biology.light_reactions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A mutant plant cannot make NADPH but still produces ATP normally. Which process would be most directly affected?
+hints:
+- level: 1
+  en: Think about which step uses both ATP and reducing power.
+- level: 2
+  en: Consider which step is run by the light reactions' products downstream.
+- level: 3
+  en: Ask which process needs NADPH but not directly the light-absorbing pigments.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Absorption of light by chlorophyll
+- id: b
+  en: Splitting of water in photosystem II
+- id: c
+  en: Reduction of 3-phosphoglycerate in the Calvin cycle
+- id: d
+  en: Opening of the stomata
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.7CA4CD33097D
+  when_answer_equals:
+  - b
+- id: MC.A.55951E3C06BC
+  when_answer_equals:
+  - a
+- id: MC.A.46BC5E7665F7
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The Calvin cycle needs both ATP and NADPH to reduce 3-phosphoglycerate, so a lack of NADPH blocks this reduction step while ATP is still supplied.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw the Calvin cycle with an arrow pointing to the reduction of 3-phosphoglycerate, showing ATP and NADPH entering that step.

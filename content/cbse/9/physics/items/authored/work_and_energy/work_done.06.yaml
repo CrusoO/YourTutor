@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.work_done.06
+skill_ids:
+- SK.A.9.physics.work_done
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A 2 kg block is lifted vertically by 3 m at constant speed. Taking g as 9.8 m/s2, what work does the lifting force do on the block?
+hints:
+- level: 1
+  en: At constant speed the lifting force equals the weight.
+- level: 2
+  en: Use the weight times the vertical displacement.
+- level: 3
+  en: The lift and the displacement point in the same direction, so think about the sign carefully.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 19.6 J
+- id: b
+  en: 58.8 J
+- id: c
+  en: 6 J
+- id: d
+  en: -58.8 J
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.79EF49467F10
+  when_answer_equals:
+  - c
+- id: MC.A.5D241BA600A5
+  when_answer_equals:
+  - a
+- id: MC.A.7DC4E1062649
+  when_answer_equals:
+  - d
+solution_steps:
+- en: At constant speed the lift equals the weight, so 2 kg times 9.8 m/s2 gives 19.6 N, and 19.6 N times 3 m gives 58.8 J of positive work.
+- en: The correct option is b.
+tier: C

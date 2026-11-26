@@ -1,0 +1,48 @@
+id: A.12.maths.applications_of_derivatives.rate_of_change.02
+skill_ids:
+- SK.A.12.maths.rate_of_change
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the equation of the tangent to y = x^2 at the point where x = 1?
+hints:
+- level: 1
+  en: Find the point of tangency first by evaluating the function.
+- level: 2
+  en: The slope of the tangent is the derivative at that point.
+- level: 3
+  en: Use the point-slope form with the point and the slope.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: y = x + 1
+- id: b
+  en: y = 2x - 1
+- id: c
+  en: y = 2x + 1
+- id: d
+  en: y = x - 1
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.92AB076D4582
+  when_answer_equals:
+  - d
+- id: MC.A.18E4DA34E60A
+  when_answer_equals:
+  - c
+- id: MC.A.19A0E2AF89EB
+  when_answer_equals:
+  - a
+solution_steps:
+- en: At x = 1 the point is (1, 1) and the slope is the derivative 2x, which equals 2, so the tangent is y - 1 = 2(x - 1), which is y = 2x - 1.
+- en: The correct option is b.
+tier: C

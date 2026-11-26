@@ -1,0 +1,50 @@
+id: A.10.maths.triangles.similar_triangles.05
+skill_ids:
+- SK.A.10.maths.similar_triangles
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: 'In a trapezium ABCD, AB is parallel to DC and AB = 2DC. The diagonals AC and BD meet at O. What is the ratio AO : OC?'
+hints:
+- level: 1
+  en: Find two triangles that meet at O and have parallel sides.
+- level: 2
+  en: Use the ratio of corresponding sides in those similar triangles.
+- level: 3
+  en: Decide which parallel side goes in the numerator.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1 : 2'
+- id: b
+  en: '2 : 1'
+- id: c
+  en: '1 : 1'
+- id: d
+  en: '4 : 1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C7CE50D05444
+  when_answer_equals:
+  - a
+- id: MC.A.33046BE86C00
+  when_answer_equals:
+  - c
+- id: MC.A.AB59FA59DC16
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Triangles AOB and COD are similar because AB is parallel to DC, so AO/OC = AB/DC = 2.
+- en: The diagonals divide each other in the ratio of the parallel sides.
+- en: The correct option is b.
+tier: C
+diagram_note: Trapezium ABCD with the parallel sides AB at the top and DC at the bottom, AB longer than DC; the diagonals AC and BD cross at the point O.

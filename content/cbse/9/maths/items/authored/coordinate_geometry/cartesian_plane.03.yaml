@@ -1,0 +1,49 @@
+id: A.9.maths.coordinate_geometry.cartesian_plane.03
+skill_ids:
+- SK.A.9.maths.cartesian_plane
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A point lies on the x-axis, four units to the left of the origin. What are its coordinates?
+hints:
+- level: 1
+  en: A point on the horizontal axis has no vertical displacement.
+- level: 2
+  en: Moving left means decreasing the horizontal value.
+- level: 3
+  en: Write the horizontal value first in the ordered pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: (-4, 0)
+- id: b
+  en: (0, -4)
+- id: c
+  en: (4, 0)
+- id: d
+  en: (-4, 4)
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.4C6213748199
+  when_answer_equals:
+  - c
+- id: MC.A.C8E421CD7A73
+  when_answer_equals:
+  - b
+- id: MC.A.0C094B33B1F3
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A point on the horizontal axis has a y-coordinate of zero, and moving left gives a negative x-coordinate of minus 4.
+- en: The correct option is a.
+tier: C
+diagram_note: Horizontal x-axis with the origin marked and a point four units to its left, labelled.

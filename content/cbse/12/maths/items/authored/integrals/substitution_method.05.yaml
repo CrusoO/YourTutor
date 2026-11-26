@@ -1,0 +1,29 @@
+id: A.12.maths.integrals.substitution_method.05
+skill_ids:
+- SK.A.12.maths.substitution_method
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Evaluate the definite integral of 1 divided by (1 + square root of x) with respect to x from 0 to 4, rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Let u equal the square root of x.
+- level: 2
+  en: Express dx in terms of du.
+- level: 3
+  en: Divide first to simplify the integrand, then integrate term by term.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '1.803'
+  accept: []
+solution_steps:
+- en: With u = square root of x, dx = 2u du and the integral becomes 2 times the integral of u over (1 + u) from 0 to 2, which equals 2(2 minus ln 3), about 1.803.
+- en: Answer = 1.803
+tier: C

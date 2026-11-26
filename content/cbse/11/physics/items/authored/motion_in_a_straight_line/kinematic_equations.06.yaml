@@ -1,0 +1,31 @@
+id: A.11.physics.motion_in_a_straight_line.kinematic_equations.06
+skill_ids:
+- SK.A.11.physics.kinematic_equations
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Car A starts from rest with an acceleration of 4 m/s^2. Car B moves at a constant 6 m/s in the same direction, starting from the same point at the same instant. After how many seconds does car A catch car B?
+hints:
+- level: 1
+  en: Write the distance covered by each car as a function of time.
+- level: 2
+  en: Set the two distances equal to each other.
+- level: 3
+  en: Solve the resulting equation and reject the root that corresponds to the start.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '3'
+  accept: []
+solution_steps:
+- en: Car A travels 2t^2 and car B travels 6t.
+- en: Setting them equal gives 2t^2 = 6t, so t = 3 s after rejecting the zero root.
+- en: The unit of the answer is s.
+- en: Answer = 3
+tier: C

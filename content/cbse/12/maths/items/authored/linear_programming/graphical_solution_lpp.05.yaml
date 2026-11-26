@@ -1,0 +1,31 @@
+id: A.12.maths.linear_programming.graphical_solution_lpp.05
+skill_ids:
+- SK.A.12.maths.graphical_solution_lpp
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Maximise Z = 3x + 2y subject to x + y <= 4, x + 3y <= 6, x >= 0 and y >= 0. Find the maximum value of Z.
+hints:
+- level: 1
+  en: Find the intersection point of the two constraint lines.
+- level: 2
+  en: Check each candidate corner against all the constraints.
+- level: 3
+  en: Evaluate the objective only at the corners that are feasible.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '12'
+  accept: []
+solution_steps:
+- en: The corners are (0, 0), (4, 0), (3, 1) and (0, 2).
+- en: Z equals 12 at (4, 0), 11 at (3, 1) and 4 at (0, 2), so the maximum is 12.
+- en: Answer = 12
+tier: C
+diagram_note: Feasible quadrilateral in the first quadrant with corners at the origin, on the x-axis, at the intersection of the two constraint lines, and on the y-axis, all labelled.

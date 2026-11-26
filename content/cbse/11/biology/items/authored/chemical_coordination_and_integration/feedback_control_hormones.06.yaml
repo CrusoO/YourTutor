@@ -1,0 +1,50 @@
+id: A.11.biology.chemical_coordination_and_integration.feedback_control_hormones.06
+skill_ids:
+- SK.A.11.biology.feedback_control_hormones
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does a person with an underactive thyroid often have a raised TSH level?
+hints:
+- level: 1
+  en: Think about what happens to the feedback signal when thyroxine is low.
+- level: 2
+  en: Consider which gland is trying to compensate for the low output.
+- level: 3
+  en: Ask what the pituitary does when it stops receiving the inhibitory signal.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The thyroid sends TSH to the pituitary to raise thyroxine
+- id: b
+  en: Low thyroxine stops the pituitary from making TSH at all
+- id: c
+  en: Low thyroxine removes feedback inhibition, so the pituitary releases more TSH
+- id: d
+  en: Excess iodine produces TSH directly in the blood
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0E22D8EA5C88
+  when_answer_equals:
+  - b
+- id: MC.A.6AE04010A159
+  when_answer_equals:
+  - a
+- id: MC.A.77B1F38A6C0F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: When thyroxine is low, the hypothalamus and pituitary are no longer inhibited, so TRH and TSH rise in an attempt to stimulate the thyroid.
+- en: This is the usual pattern in primary hypothyroidism.
+- en: The correct option is c.
+tier: C
+diagram_note: Draw the thyroid-pituitary feedback loop with low thyroxine, showing the removed inhibition and the resulting rise in TSH, labelling each arrow.

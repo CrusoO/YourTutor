@@ -1,0 +1,49 @@
+id: A.12.physics.moving_charges_and_magnetism.solenoid_toroid.05
+skill_ids:
+- SK.A.12.physics.solenoid_toroid
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A toroid with N turns carries a current I. What is the magnetic field at a distance r from the centre of the toroid, inside its core?
+hints:
+- level: 1
+  en: Apply Ampere's law to a circular path inside the core of the toroid.
+- level: 2
+  en: Count how many times the current passes through that circular path.
+- level: 3
+  en: Remember that the length of the circular path is 2 pi r.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: mu0 N I over 2 pi r
+- id: b
+  en: mu0 N I over 2 r
+- id: c
+  en: Zero
+- id: d
+  en: mu0 N I over r squared
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.13B85CCB296E
+  when_answer_equals:
+  - b
+- id: MC.A.2BEDD2BAA171
+  when_answer_equals:
+  - c
+- id: MC.A.969CE473E06F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Ampere's law around a circle inside the toroid, of radius r, encloses N I current, giving B equal to mu0 N I over 2 pi r.
+- en: The correct option is a.
+tier: C
+diagram_note: A ring-shaped coil with a dashed circular path drawn inside the core at radius r from the centre, with arrows showing the field direction along the path.

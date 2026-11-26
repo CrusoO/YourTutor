@@ -1,0 +1,48 @@
+id: A.12.physics.electrostatic_potential_and_capacitance.potential_and_potential_energy.01
+skill_ids:
+- SK.A.12.physics.potential_and_potential_energy
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Taking the potential at infinity as zero, what is the sign and distance behaviour of the potential due to an isolated positive point charge?
+hints:
+- level: 1
+  en: Consider the sign of the source charge that creates the potential.
+- level: 2
+  en: Think about what happens to the potential at points very far away.
+- level: 3
+  en: Compare the potential at a near point and a far point from the charge.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Zero at every point
+- id: b
+  en: Positive and increasing as distance increases
+- id: c
+  en: Negative and decreasing as distance increases
+- id: d
+  en: Positive and decreasing as distance increases
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.E0BF55586F80
+  when_answer_equals:
+  - c
+- id: MC.A.93DB9C924D62
+  when_answer_equals:
+  - b
+- id: MC.A.03E337D1656B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The potential of a positive point charge is kq over r, which is positive and falls towards zero at large distances.
+- en: The correct option is d.
+tier: C

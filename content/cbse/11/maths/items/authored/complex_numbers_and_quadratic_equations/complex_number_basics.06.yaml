@@ -1,0 +1,48 @@
+id: A.11.maths.complex_numbers_and_quadratic_equations.complex_number_basics.06
+skill_ids:
+- SK.A.11.maths.complex_number_basics
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the value of i raised to the power 2025?
+hints:
+- level: 1
+  en: Powers of the imaginary unit repeat in a cycle of length four.
+- level: 2
+  en: Find the remainder when the exponent is divided by that cycle length.
+- level: 3
+  en: Match the remainder with the first few powers of the imaginary unit.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '-1'
+- id: b
+  en: -i
+- id: c
+  en: '1'
+- id: d
+  en: i
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.88C578AA6100
+  when_answer_equals:
+  - b
+- id: MC.A.3F33DCD1D56E
+  when_answer_equals:
+  - c
+- id: MC.A.58CF2D2D46B8
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Powers of i repeat in a cycle of four, and 2025 leaves remainder 1 on division by 4, so the value is i.
+- en: The correct option is d.
+tier: C

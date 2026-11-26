@@ -1,0 +1,49 @@
+id: A.11.chemistry.states_of_matter.real_gases.03
+skill_ids:
+- SK.A.11.chemistry.real_gases
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: Which form is the van der Waals equation for n moles of a real gas?
+hints:
+- level: 1
+  en: Attraction between molecules raises the pressure measured at the walls.
+- level: 2
+  en: The molecules occupy part of the container, so the free volume is smaller.
+- level: 3
+  en: Check the signs of both corrections against these two effects.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: PV = nRT
+- id: b
+  en: P(V + n b) = nRT
+- id: c
+  en: (P - a n^2/V^2)(V + n b) = nRT
+- id: d
+  en: (P + a n^2/V^2)(V - n b) = nRT
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.5B325E35CB40
+  when_answer_equals:
+  - a
+- id: MC.A.D7562AFD0E94
+  when_answer_equals:
+  - c
+- id: MC.A.133391E3F782
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The pressure term is increased by the attraction correction and the volume is reduced by the excluded volume, giving the equation with the pressure plus a n squared over V squared and the volume minus n b.
+- en: The correct option is d.
+tier: C
+diagram_note: Plot of PV divided by RT against pressure for a real gas, with a curve that dips below the ideal line at moderate pressures and rises above it at high pressures.

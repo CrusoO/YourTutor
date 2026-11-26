@@ -1,0 +1,49 @@
+id: A.12.chemistry.electrochemistry.nernst_equation.04
+skill_ids:
+- SK.A.12.chemistry.nernst_equation
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: Why does changing the concentration of ions alter the EMF of a cell?
+hints:
+- level: 1
+  en: Think about what the logarithm term in the Nernst equation accounts for.
+- level: 2
+  en: Recall how a reaction quotient is built from product and reactant concentrations.
+- level: 3
+  en: Consider whether standard potentials depend on the concentrations used.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It replaces the function of the salt bridge
+- id: b
+  en: It alters the number of electrons transferred
+- id: c
+  en: It shifts the reaction quotient away from equilibrium and changes the Gibbs energy
+- id: d
+  en: It changes the standard electrode potentials
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0E15D6576442
+  when_answer_equals:
+  - d
+- id: MC.A.89D8F8EA8D36
+  when_answer_equals:
+  - b
+- id: MC.A.6D0C0FF22C77
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Concentrations enter the reaction quotient.
+- en: Changing them changes the Gibbs energy and hence the EMF, while the standard potentials stay fixed.
+- en: The correct option is c.
+tier: C

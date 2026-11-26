@@ -1,0 +1,49 @@
+id: A.11.physics.mechanical_properties_of_solids.hookes_law_elasticity.04
+skill_ids:
+- SK.A.11.physics.hookes_law_elasticity
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Two identical springs, each of stiffness k, are joined end to end in series. What is the effective stiffness of the combination?
+hints:
+- level: 1
+  en: In series, the same force passes through each spring.
+- level: 2
+  en: The total extension is the sum of the extensions of the two springs.
+- level: 3
+  en: Stiffness is the reciprocal of the total flexibility.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: k
+- id: b
+  en: k squared
+- id: c
+  en: half of k
+- id: d
+  en: 2k
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.0C469C38D6E3
+  when_answer_equals:
+  - d
+- id: MC.A.4BD8F55AB9BE
+  when_answer_equals:
+  - a
+- id: MC.A.E96CC0258370
+  when_answer_equals:
+  - b
+solution_steps:
+- en: In series the same force passes through each spring and the extensions add.
+- en: The effective stiffness is k over 2, which is half of k.
+- en: The correct option is c.
+tier: C

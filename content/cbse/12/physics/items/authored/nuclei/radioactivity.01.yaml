@@ -1,0 +1,48 @@
+id: A.12.physics.nuclei.radioactivity.01
+skill_ids:
+- SK.A.12.physics.radioactivity
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: By how much does the mass number of a nucleus change in alpha decay?
+hints:
+- level: 1
+  en: Think about how many nucleons an alpha particle carries.
+- level: 2
+  en: Consider how the mass number of the remaining nucleus compares with the parent.
+- level: 3
+  en: Recall the composition of an alpha particle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It stays the same
+- id: b
+  en: It decreases by four
+- id: c
+  en: It decreases by two
+- id: d
+  en: It increases by four
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.02AFCAC93555
+  when_answer_equals:
+  - c
+- id: MC.A.825BB055B126
+  when_answer_equals:
+  - a
+- id: MC.A.048FECC84D43
+  when_answer_equals:
+  - d
+solution_steps:
+- en: An alpha particle is a helium nucleus with four nucleons, so emitting one lowers the mass number of the parent by four.
+- en: The correct option is b.
+tier: C

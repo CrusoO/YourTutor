@@ -1,0 +1,48 @@
+id: A.11.maths.binomial_theorem.binomial_expansion.01
+skill_ids:
+- SK.A.11.maths.binomial_expansion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In the expansion of (x + 1) cubed, what is the coefficient of x?
+hints:
+- level: 1
+  en: Expand the cube by choosing the x term from some of the factors and the constant from the rest.
+- level: 2
+  en: Count the ways to pick exactly one x among the three factors.
+- level: 3
+  en: Make sure you collect every term that has the variable to the first power.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '9'
+- id: c
+  en: '3'
+- id: d
+  en: '6'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.87E386BDA681
+  when_answer_equals:
+  - a
+- id: MC.A.AD79693A77BF
+  when_answer_equals:
+  - d
+- id: MC.A.2A5F70BDADE8
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The expansion is x cubed plus 3x squared plus 3x plus 1, so the coefficient of x is 3.
+- en: The correct option is c.
+tier: C

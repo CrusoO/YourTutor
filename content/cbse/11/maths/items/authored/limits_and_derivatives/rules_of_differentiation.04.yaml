@@ -1,0 +1,48 @@
+id: A.11.maths.limits_and_derivatives.rules_of_differentiation.04
+skill_ids:
+- SK.A.11.maths.rules_of_differentiation
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: What is the derivative with respect to x of x cubed minus 2x squared plus 5x minus 7?
+hints:
+- level: 1
+  en: Differentiate each term of the polynomial separately.
+- level: 2
+  en: For each power term, multiply by the exponent and reduce the exponent by one.
+- level: 3
+  en: The constant term has no contribution to the derivative.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 3x squared minus 4x
+- id: b
+  en: x cubed minus 4x plus 5
+- id: c
+  en: 3x squared minus 4x plus 5
+- id: d
+  en: 3x squared minus 2x plus 5
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A3C85664B64E
+  when_answer_equals:
+  - d
+- id: MC.A.87499D12F59B
+  when_answer_equals:
+  - b
+- id: MC.A.E19A6856123B
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Differentiating term by term gives 3x squared, minus 4x, plus 5, and the constant term contributes nothing.
+- en: The correct option is c.
+tier: C

@@ -1,0 +1,48 @@
+id: A.12.maths.integrals.partial_fractions.06
+skill_ids:
+- SK.A.12.maths.partial_fractions
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: What is the integral of 1 divided by (x^3 - x) with respect to x?
+hints:
+- level: 1
+  en: Factor the denominator completely first.
+- level: 2
+  en: Write the decomposition with a constant over each linear factor.
+- level: 3
+  en: Find each constant by substituting the corresponding root.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: ln|x| - (1/2) ln|x^2 - 1| + C
+- id: b
+  en: -ln|x| + ln|x^2 - 1| + C
+- id: c
+  en: -ln|x| + (1/2) ln|x^2 - 1| + C
+- id: d
+  en: -1/x^2 + C
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.AA0A998D19F2
+  when_answer_equals:
+  - a
+- id: MC.A.978C465C2530
+  when_answer_equals:
+  - b
+- id: MC.A.A77F3C415886
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The denominator factors as x(x - 1)(x + 1), and the decomposition is -1/x + 1/(2(x - 1)) + 1/(2(x + 1)), which integrates to the stated result.
+- en: The correct option is c.
+tier: C

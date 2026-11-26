@@ -1,0 +1,48 @@
+id: A.9.physics.gravitation.free_fall.02
+skill_ids:
+- SK.A.9.physics.free_fall
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Ignoring air resistance, how does the acceleration of a falling object change as it falls?
+hints:
+- level: 1
+  en: Gravity pulls with the same strength at each point of a short fall.
+- level: 2
+  en: Think about whether the speed changes the pull of gravity.
+- level: 3
+  en: Compare the acceleration at the start and at the end of the fall.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it depends on the object's mass
+- id: b
+  en: it increases steadily
+- id: c
+  en: it stays constant
+- id: d
+  en: it decreases to zero
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.751D92E0CDCA
+  when_answer_equals:
+  - b
+- id: MC.A.A8E74AA7FC53
+  when_answer_equals:
+  - d
+- id: MC.A.E77ACC50C0F5
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Near Earth's surface the gravitational acceleration is nearly uniform, so a falling object gains speed at the same rate regardless of its mass.
+- en: The correct option is c.
+tier: C

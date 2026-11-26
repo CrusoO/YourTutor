@@ -1,0 +1,49 @@
+id: A.12.biology.molecular_basis_of_inheritance.gene_regulation_lac.02
+skill_ids:
+- SK.A.12.biology.gene_regulation_lac
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: What happens to the lac operon when glucose is abundant and lactose is absent?
+hints:
+- level: 1
+  en: Think about what the repressor does when no inducer is present.
+- level: 2
+  en: Consider whether the operator is free or blocked.
+- level: 3
+  en: Check how the presence of glucose affects the activator signal.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: CAP activates transcription because glucose is high
+- id: b
+  en: The repressor releases the operator and the genes are transcribed
+- id: c
+  en: The repressor binds the operator and transcription stays off
+- id: d
+  en: The operon is permanently active
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.A4F3D928A5A3
+  when_answer_equals:
+  - b
+- id: MC.A.2A2BAF5A0A2B
+  when_answer_equals:
+  - a
+- id: MC.A.1FDA187551FD
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Without lactose there is no inducer, so the repressor stays bound to the operator and blocks transcription.
+- en: High glucose also keeps the CAP signal low, so the operon stays off.
+- en: The correct option is c.
+tier: C

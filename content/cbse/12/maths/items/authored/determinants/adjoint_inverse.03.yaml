@@ -1,0 +1,29 @@
+id: A.12.maths.determinants.adjoint_inverse.03
+skill_ids:
+- SK.A.12.maths.adjoint_inverse
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Let A = [[1, 2], [3, 4]]. Find the entry in row 2, column 2 of the inverse of A.
+hints:
+- level: 1
+  en: Find the adjoint first, using the diagonal swap and sign change.
+- level: 2
+  en: The row 2, column 2 entry of the adjoint comes from the top left of the original.
+- level: 3
+  en: Divide by the determinant at the end and keep its sign.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '-0.5'
+  accept: []
+solution_steps:
+- en: The adjoint of A is [[4, -2], [-3, 1]], and the determinant of A is -2, so the row 2, column 2 entry of the inverse is 1 divided by -2, which is -0.5.
+- en: Answer = -0.5
+tier: C

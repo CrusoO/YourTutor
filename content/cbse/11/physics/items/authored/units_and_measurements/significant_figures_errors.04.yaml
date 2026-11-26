@@ -1,0 +1,48 @@
+id: A.11.physics.units_and_measurements.significant_figures_errors.04
+skill_ids:
+- SK.A.11.physics.significant_figures_errors
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: A block has mass 52.3 g and volume 20.0 cm^3. Its density is computed as mass divided by volume. How many significant figures should the density have?
+hints:
+- level: 1
+  en: Count the significant figures in each measured value first.
+- level: 2
+  en: Division keeps the smallest count among the values.
+- level: 3
+  en: Compare the two counts and keep the smaller one.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '2'
+- id: b
+  en: '3'
+- id: c
+  en: '4'
+- id: d
+  en: '1'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.E378525D01F3
+  when_answer_equals:
+  - a
+- id: MC.A.F44622F15755
+  when_answer_equals:
+  - c
+- id: MC.A.1AC775026414
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The mass 52.3 and the volume 20.0 both have three significant figures, so the quotient keeps three.
+- en: The correct option is b.
+tier: C

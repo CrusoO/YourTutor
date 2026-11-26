@@ -1,0 +1,48 @@
+id: A.12.maths.determinants.systems_by_matrices.04
+skill_ids:
+- SK.A.12.maths.systems_by_matrices
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: If A is invertible, which expression gives the solution of AX = B?
+hints:
+- level: 1
+  en: Multiply both sides of the equation by a suitable matrix on the left.
+- level: 2
+  en: Remember that the order of matrix multiplication matters.
+- level: 3
+  en: Simplify using the fact that a matrix times its inverse is the identity.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: X = B divided by A
+- id: b
+  en: X = A inverse times B
+- id: c
+  en: X = A times B
+- id: d
+  en: X = B times A inverse
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.EEA483E385C7
+  when_answer_equals:
+  - d
+- id: MC.A.19988E058378
+  when_answer_equals:
+  - c
+- id: MC.A.B267D51F0235
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Multiplying both sides of AX = B on the left by the inverse of A gives X equal to A inverse times B, because a matrix times its inverse is the identity.
+- en: The correct option is b.
+tier: C

@@ -1,0 +1,49 @@
+id: A.12.biology.ecosystem.productivity_energy_flow.05
+skill_ids:
+- SK.A.12.biology.productivity_energy_flow
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: In a stream, gross primary productivity is high but net primary productivity is low. What is the most likely explanation?
+hints:
+- level: 1
+  en: Think about what is subtracted from gross productivity to give net.
+- level: 2
+  en: Consider how much of the fixed energy the producers use for themselves.
+- level: 3
+  en: Focus on the cost that the producers pay from the energy they capture.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The consumers are absent from the stream
+- id: b
+  en: The light is excessive and damages the producers
+- id: c
+  en: Producers use a large share of the fixed energy for their own respiration
+- id: d
+  en: The producers do not photosynthesise at all
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B82845E45CFD
+  when_answer_equals:
+  - d
+- id: MC.A.25CED70CE8FC
+  when_answer_equals:
+  - a
+- id: MC.A.DB24D61FE628
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Net productivity is gross productivity minus producer respiration, so a large respiration cost leaves little net gain.
+- en: This explains high gross but low net values.
+- en: The correct option is c.
+tier: C

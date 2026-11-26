@@ -1,0 +1,48 @@
+id: A.11.physics.thermodynamics.second_law_heat_engines.01
+skill_ids:
+- SK.A.11.physics.second_law_heat_engines
+difficulty: 0.2
+pool: practice
+role: explain
+stem:
+  en: 'The second law of thermodynamics implies that:'
+hints:
+- level: 1
+  en: Think about the waste heat that a real engine must reject.
+- level: 2
+  en: Heat cannot be completely turned into work in a repeating cycle.
+- level: 3
+  en: Consider how the cold reservoir limits the output of an engine.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the efficiency of an engine can reach one hundred percent
+- id: b
+  en: no heat engine can convert all of its heat input into work
+- id: c
+  en: heat can flow from a cold body to a hot body with no external work
+- id: d
+  en: all energy supplied to an engine can become useful work
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.F999AE73EDA0
+  when_answer_equals:
+  - d
+- id: MC.A.528E12341154
+  when_answer_equals:
+  - c
+- id: MC.A.D2B461F45163
+  when_answer_equals:
+  - a
+solution_steps:
+- en: A cyclic heat engine must reject some heat to a cold reservoir, so its efficiency is always below one hundred percent.
+- en: The correct option is b.
+tier: C

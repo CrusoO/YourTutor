@@ -1,0 +1,48 @@
+id: A.9.physics.sound.reflection_of_sound.06
+skill_ids:
+- SK.A.9.physics.reflection_of_sound
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A person shouts between two parallel walls, one 34 m away and the other 68 m away. Which echo returns first?
+hints:
+- level: 1
+  en: Each echo covers twice the distance to its wall.
+- level: 2
+  en: Compare the total path lengths for the two echoes.
+- level: 3
+  en: The nearer surface gives the shorter total path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: both echoes arrive at the same moment
+- id: b
+  en: neither echo returns because walls are solid
+- id: c
+  en: the echo from the 34 m wall
+- id: d
+  en: the echo from the 68 m wall
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B2FE92D44523
+  when_answer_equals:
+  - d
+- id: MC.A.D40543E54A35
+  when_answer_equals:
+  - a
+- id: MC.A.903FA68B73D3
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The 34 m wall gives a round-trip path of 68 m, while the 68 m wall gives 136 m, so the nearer wall's echo returns first.
+- en: The correct option is c.
+tier: C

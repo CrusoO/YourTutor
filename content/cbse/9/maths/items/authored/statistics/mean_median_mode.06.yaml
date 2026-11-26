@@ -1,0 +1,48 @@
+id: A.9.maths.statistics.mean_median_mode.06
+skill_ids:
+- SK.A.9.maths.mean_median_mode
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Consider the data 4, 4, 6, 7, 9, 12. Which pair gives the mode and the median?
+hints:
+- level: 1
+  en: Count how often each value appears.
+- level: 2
+  en: With an even count of values, the median is the average of the two middle values.
+- level: 3
+  en: Read the two middle values from the sorted list.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: mode 4 and median 6
+- id: b
+  en: mode 4 and median 6.5
+- id: c
+  en: mode 9 and median 7
+- id: d
+  en: mode 6 and median 6.5
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.752F31567CE3
+  when_answer_equals:
+  - a
+- id: MC.A.709A64ADD71E
+  when_answer_equals:
+  - d
+- id: MC.A.1C04A79B525D
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The value 4 appears twice and no other value appears more often, so the mode is 4, while the median averages the two middle values 6 and 7 to get 6.5.
+- en: The correct option is b.
+tier: C

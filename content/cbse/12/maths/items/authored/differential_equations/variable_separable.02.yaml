@@ -1,0 +1,30 @@
+id: A.12.maths.differential_equations.variable_separable.02
+skill_ids:
+- SK.A.12.maths.variable_separable
+difficulty: 0.2
+pool: practice
+role: procedure
+stem:
+  en: Solve dy/dx = 2y with y(0) = 1. Find y(1), rounded to 3 decimal places.
+hints:
+- level: 1
+  en: Separate the variables and integrate both sides.
+- level: 2
+  en: Use the initial condition to find the constant.
+- level: 3
+  en: Solve for y and evaluate at x equal to 1.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: numeric
+answer:
+  sympy: '7.389'
+  accept: []
+solution_steps:
+- en: Separating gives dy/y = 2 dx, so y = C e^(2x).
+- en: The condition y(0) = 1 gives C = 1, and y(1) = e squared, about 7.389.
+- en: Answer = 7.389
+tier: C

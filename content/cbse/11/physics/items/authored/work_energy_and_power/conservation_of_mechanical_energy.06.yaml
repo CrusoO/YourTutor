@@ -1,0 +1,50 @@
+id: A.11.physics.work_energy_and_power.conservation_of_mechanical_energy.06
+skill_ids:
+- SK.A.11.physics.conservation_of_mechanical_energy
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A cart starts from rest at a height of 3 m on a frictionless track and passes a point 1 m high. Taking g = 9.8 m/s^2, what is its speed at that lower point?
+hints:
+- level: 1
+  en: Only the height that is lost between the two points matters.
+- level: 2
+  en: Find the height difference between the starting point and the lower point.
+- level: 3
+  en: Set the energy given up equal to the kinetic energy gained, then solve.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: 4.43 m/s
+- id: b
+  en: 6.26 m/s
+- id: c
+  en: 8.85 m/s
+- id: d
+  en: 7.67 m/s
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.C41378AB59F1
+  when_answer_equals:
+  - d
+- id: MC.A.D72E329CB2E7
+  when_answer_equals:
+  - c
+- id: MC.A.84EAFDA10E71
+  when_answer_equals:
+  - a
+solution_steps:
+- en: Only the height lost matters, which is 2 m.
+- en: Then v^2 = 2 g (2) = 39.2, so v is about 6.26 m/s.
+- en: The correct option is b.
+tier: C
+diagram_note: A slope profile with the cart's starting point marked at the greater height and a lower point marked, with the vertical difference between them labelled.

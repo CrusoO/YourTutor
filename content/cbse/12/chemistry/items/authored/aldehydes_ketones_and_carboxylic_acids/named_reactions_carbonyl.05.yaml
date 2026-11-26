@@ -1,0 +1,49 @@
+id: A.12.chemistry.aldehydes_ketones_and_carboxylic_acids.named_reactions_carbonyl.05
+skill_ids:
+- SK.A.12.chemistry.named_reactions_carbonyl
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which cross aldol combination gives essentially one main product?
+hints:
+- level: 1
+  en: Choose a partner that cannot form an enolate itself.
+- level: 2
+  en: Think about which carbonyl compound can act as the enolate component.
+- level: 3
+  en: Consider why a mixture of several products is avoided in this pairing.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Two different aliphatic aldehydes in equal amounts
+- id: b
+  en: Benzaldehyde with acetone under base, the Claisen-Schmidt condensation
+- id: c
+  en: Formaldehyde with formaldehyde in acid
+- id: d
+  en: Acetone with acetone only in base
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.ABC2FEDA54B4
+  when_answer_equals:
+  - a
+- id: MC.A.C12A366A4876
+  when_answer_equals:
+  - d
+- id: MC.A.56C1BA4F2D61
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Benzaldehyde cannot form an enolate, so only the acetone partner condenses with it.
+- en: This gives one main cross product.
+- en: The correct option is b.
+tier: C

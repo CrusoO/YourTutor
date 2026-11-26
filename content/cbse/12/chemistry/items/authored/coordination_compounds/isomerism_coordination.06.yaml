@@ -1,0 +1,49 @@
+id: A.12.chemistry.coordination_compounds.isomerism_coordination.06
+skill_ids:
+- SK.A.12.chemistry.isomerism_coordination
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Which pair of compounds are coordination isomers?
+hints:
+- level: 1
+  en: Coordination isomers swap metal centres between the cation and the anion of one salt.
+- level: 2
+  en: Look for two different metal ions in the two complex parts of each salt.
+- level: 3
+  en: Compare which metal sits in the cation and which sits in the anion in each pair.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '[Co(NH3)6][Cr(CN)6] and [Cr(NH3)6][Co(CN)6]'
+- id: b
+  en: '[Co(NH3)5Cl]SO4 and [Co(NH3)5SO4]Cl'
+- id: c
+  en: '[Cr(H2O)6]Cl3 and [Cr(H2O)5Cl]Cl2 H2O'
+- id: d
+  en: cis and trans [Pt(NH3)2Cl2]
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.28235DF6180B
+  when_answer_equals:
+  - b
+- id: MC.A.F6C743C366ED
+  when_answer_equals:
+  - d
+- id: MC.A.472731AD774B
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Coordination isomers exchange ligands between the metal centres of the cation and anion.
+- en: Both salts here contain a cobalt and a chromium complex, with the metals swapped between them.
+- en: The correct option is a.
+tier: C

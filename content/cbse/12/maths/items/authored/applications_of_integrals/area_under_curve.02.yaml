@@ -1,0 +1,49 @@
+id: A.12.maths.applications_of_integrals.area_under_curve.02
+skill_ids:
+- SK.A.12.maths.area_under_curve
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: What is the area of the region bounded by y = 4 - x^2 and the x-axis?
+hints:
+- level: 1
+  en: Find where the curve meets the x-axis to set the limits.
+- level: 2
+  en: Notice whether the region is symmetric about the vertical axis.
+- level: 3
+  en: Use twice the area on one side if that simplifies the work.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '16'
+- id: b
+  en: 4/3
+- id: c
+  en: 16/3
+- id: d
+  en: 32/3
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D18C60D99D1B
+  when_answer_equals:
+  - c
+- id: MC.A.1883E2E289F6
+  when_answer_equals:
+  - a
+- id: MC.A.52946FCC34A5
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The curve meets the axis at x = -2 and x = 2, and the region is symmetric, so the area is the integral of 4 - x^2 from -2 to 2, which is 32/3.
+- en: The correct option is d.
+tier: C
+diagram_note: Downward opening parabola y = 4 - x^2 drawn on axes, with the region between the curve and the horizontal axis from minus 2 to 2 shaded.

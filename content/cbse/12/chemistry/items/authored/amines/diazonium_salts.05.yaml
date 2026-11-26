@@ -1,0 +1,49 @@
+id: A.12.chemistry.amines.diazonium_salts.05
+skill_ids:
+- SK.A.12.chemistry.diazonium_salts
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Why does benzenediazonium couple with phenol mainly at the para position?
+hints:
+- level: 1
+  en: Consider which ring position the activating group pushes electron density to.
+- level: 2
+  en: Think about whether the activated position is crowded by the hydroxyl group.
+- level: 3
+  en: Compare the ortho and para positions in terms of crowding.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: The para position is blocked by the hydroxyl group
+- id: b
+  en: Phenol has no para position
+- id: c
+  en: The diazonium ion attacks the oxygen first
+- id: d
+  en: The para position is activated by the hydroxyl group and is less crowded
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.B8B893719AD1
+  when_answer_equals:
+  - b
+- id: MC.A.B34FB76261BB
+  when_answer_equals:
+  - c
+- id: MC.A.1D72B5384396
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The hydroxyl group donates electron density to the ortho and para positions.
+- en: The para site is less crowded than the ortho sites, so coupling occurs there.
+- en: The correct option is d.
+tier: C

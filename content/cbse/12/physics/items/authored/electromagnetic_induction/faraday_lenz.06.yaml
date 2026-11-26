@@ -1,0 +1,49 @@
+id: A.12.physics.electromagnetic_induction.faraday_lenz.06
+skill_ids:
+- SK.A.12.physics.faraday_lenz
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A north pole is pushed towards a coil. What is the direction of the magnetic field produced by the induced current near the face of the coil?
+hints:
+- level: 1
+  en: Apply Lenz's law to the increase in flux as the magnet gets closer.
+- level: 2
+  en: Consider what the induced current must do to counter that increase.
+- level: 3
+  en: Think about whether the coil face acts like the same pole or the opposite pole of the magnet.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: It is zero at all times
+- id: b
+  en: It assists the approach of the magnet
+- id: c
+  en: It is parallel to the magnet's field everywhere
+- id: d
+  en: It opposes the approach of the magnet
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D2A651D40273
+  when_answer_equals:
+  - b
+- id: MC.A.F3E1D99E369E
+  when_answer_equals:
+  - c
+- id: MC.A.1E8DA980498C
+  when_answer_equals:
+  - a
+solution_steps:
+- en: By Lenz's law the induced current creates a field that opposes the increase in flux from the approaching magnet, so the coil face repels the magnet.
+- en: The correct option is d.
+tier: C
+diagram_note: A bar magnet approaching a coil with its north pole facing the coil end, and the induced current shown as an arrow circulating around the coil.

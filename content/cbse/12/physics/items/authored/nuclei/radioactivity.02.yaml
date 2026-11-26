@@ -1,0 +1,48 @@
+id: A.12.physics.nuclei.radioactivity.02
+skill_ids:
+- SK.A.12.physics.radioactivity
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: In beta minus decay, a neutron inside the nucleus is converted into what?
+hints:
+- level: 1
+  en: Think about the charge that must be conserved when the nucleon changes.
+- level: 2
+  en: Consider which particles must be emitted to balance charge and lepton number.
+- level: 3
+  en: Compare beta minus decay with beta plus decay.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: A positron and a neutrino
+- id: b
+  en: An alpha particle
+- id: c
+  en: A proton, an electron and an antineutrino
+- id: d
+  en: A proton only
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.B6D309519EC4
+  when_answer_equals:
+  - d
+- id: MC.A.54CE9BE1914B
+  when_answer_equals:
+  - b
+- id: MC.A.FC58EC313473
+  when_answer_equals:
+  - a
+solution_steps:
+- en: In beta minus decay a neutron becomes a proton, emitting an electron and an antineutrino to conserve charge, energy and lepton number.
+- en: The correct option is c.
+tier: C

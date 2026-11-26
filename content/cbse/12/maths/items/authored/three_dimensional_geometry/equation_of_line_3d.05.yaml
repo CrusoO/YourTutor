@@ -1,0 +1,50 @@
+id: A.12.maths.three_dimensional_geometry.equation_of_line_3d.05
+skill_ids:
+- SK.A.12.maths.equation_of_line_3d
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Two lines are given by r = (1, 0, 0) + s(1, 1, 1) and r = (0, 1, 0) + t(1, 1, 1). What is their relationship?
+hints:
+- level: 1
+  en: Compare the direction vectors of the two lines first.
+- level: 2
+  en: If the directions are scalar multiples, consider whether the lines can meet.
+- level: 3
+  en: Check whether the starting point of one line lies on the other line.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: They are skew
+- id: b
+  en: They are perpendicular
+- id: c
+  en: They intersect at (1, 0, 0)
+- id: d
+  en: They are parallel and distinct
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.D8773B6F30D9
+  when_answer_equals:
+  - c
+- id: MC.A.5E7920DA3BCD
+  when_answer_equals:
+  - a
+- id: MC.A.13479E3FD810
+  when_answer_equals:
+  - b
+solution_steps:
+- en: The direction vectors are identical, so the lines are parallel.
+- en: Equating the points gives s = t from the z-coordinates and 1 + s = t from the x-coordinates, which cannot both hold, so the lines are distinct.
+- en: The correct option is d.
+tier: C
+diagram_note: Two parallel lines in space drawn with the same arrow direction, one passing through the point (1, 0, 0) and the other through (0, 1, 0).

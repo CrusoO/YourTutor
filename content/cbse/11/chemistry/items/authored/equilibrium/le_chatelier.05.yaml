@@ -1,0 +1,48 @@
+id: A.11.chemistry.equilibrium.le_chatelier.05
+skill_ids:
+- SK.A.11.chemistry.le_chatelier
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: Which change would shift the equilibrium N2O4 <=> 2 NO2 to the right, given that the forward reaction is endothermic?
+hints:
+- level: 1
+  en: Heat is absorbed in the forward direction, so think about how adding it affects the position.
+- level: 2
+  en: Consider which change favours the side that absorbs energy.
+- level: 3
+  en: Compare the effects of the listed changes on the forward direction.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: increasing the pressure
+- id: b
+  en: increasing the temperature
+- id: c
+  en: adding more N2O4
+- id: d
+  en: adding a catalyst
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.6C8FB1FB0D6F
+  when_answer_equals:
+  - a
+- id: MC.A.508CED1341DF
+  when_answer_equals:
+  - d
+- id: MC.A.23A8D868AA16
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Heat is absorbed in the endothermic forward direction, so raising the temperature pushes the equilibrium toward NO2.
+- en: The correct option is b.
+tier: C

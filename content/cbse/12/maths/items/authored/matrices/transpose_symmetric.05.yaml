@@ -1,0 +1,49 @@
+id: A.12.maths.matrices.transpose_symmetric.05
+skill_ids:
+- SK.A.12.maths.transpose_symmetric
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A and B are symmetric matrices of the same order. Which statement is correct about the product AB?
+hints:
+- level: 1
+  en: Write the transpose of a product in terms of the transposes of its factors.
+- level: 2
+  en: Keep the order of the factors when you reverse them.
+- level: 3
+  en: Compare the result with the original product.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: AB is symmetric only when A is the identity matrix
+- id: b
+  en: AB is symmetric if and only if AB = BA
+- id: c
+  en: AB is always symmetric
+- id: d
+  en: AB is always skew-symmetric
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.BEF648EF3BB3
+  when_answer_equals:
+  - c
+- id: MC.A.1D78FBAFEF4E
+  when_answer_equals:
+  - d
+- id: MC.A.5A7AFEA3735E
+  when_answer_equals:
+  - a
+solution_steps:
+- en: The transpose of AB is B transpose times A transpose, which is BA.
+- en: So AB equals its transpose exactly when AB and BA are equal.
+- en: The correct option is b.
+tier: C

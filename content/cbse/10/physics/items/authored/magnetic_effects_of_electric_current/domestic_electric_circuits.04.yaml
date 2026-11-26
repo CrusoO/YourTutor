@@ -1,0 +1,49 @@
+id: A.10.physics.magnetic_effects_of_electric_current.domestic_electric_circuits.04
+skill_ids:
+- SK.A.10.physics.domestic_electric_circuits
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Why is the metal body of an electric heater connected to the earth wire?
+hints:
+- level: 1
+  en: Think about what could happen to the casing if a live wire inside the appliance came loose.
+- level: 2
+  en: Ask what path the fault current would take if the casing is connected to earth.
+- level: 3
+  en: Consider whether the earth connection affects the current that the heater draws in normal use.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: To increase the current that the appliance can take
+- id: b
+  en: So that if the live wire touches the casing, the current passes to earth and blows the fuse, which avoids a shock
+- id: c
+  en: To store charge so the heater starts faster
+- id: d
+  en: To make the appliance heavier and more stable
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.B1C2EF872E1A
+  when_answer_equals:
+  - a
+- id: MC.A.EFA9F31FCA28
+  when_answer_equals:
+  - d
+- id: MC.A.A11D3B08BB76
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A metal casing connected to earth stays at zero potential even if a fault occurs.
+- en: A large fault current then flows to earth and blows the fuse, so the user is protected from receiving a shock from the casing.
+- en: The correct option is b.
+tier: C

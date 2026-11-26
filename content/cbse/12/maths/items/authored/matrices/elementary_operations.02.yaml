@@ -1,0 +1,49 @@
+id: A.12.maths.matrices.elementary_operations.02
+skill_ids:
+- SK.A.12.maths.elementary_operations
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which elementary row operation applied to the 2 by 2 identity matrix gives [[1, 0], [3, 1]]?
+hints:
+- level: 1
+  en: Write out row 2 of the identity matrix first.
+- level: 2
+  en: Decide which row must be added to row 2 and by how much.
+- level: 3
+  en: Check the sign of the multiple by computing the first entry of the new row.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Replace R2 by R2 + 3R1
+- id: b
+  en: Replace R1 by R1 + 3R2
+- id: c
+  en: Replace R2 by 3R2
+- id: d
+  en: Replace R2 by R2 - 3R1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.5B4AB33DC61B
+  when_answer_equals:
+  - d
+- id: MC.A.AA13128C605B
+  when_answer_equals:
+  - b
+- id: MC.A.9733ED548A58
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Row 2 of the identity is [0, 1].
+- en: Adding 3 times row 1, which is [1, 0], gives [3, 1], which matches the target.
+- en: The correct option is a.
+tier: C

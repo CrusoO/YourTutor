@@ -1,0 +1,49 @@
+id: A.9.biology.why_do_we_fall_ill.immunity.06
+skill_ids:
+- SK.A.9.biology.immunity
+difficulty: 0.9
+pool: practice
+role: apply
+stem:
+  en: A child recovers from measles and is then protected against a later measles infection. What type of immunity is this?
+hints:
+- level: 1
+  en: Think about whether the child's own body made the defence.
+- level: 2
+  en: Consider how the immunity was acquired and whether it was given to the child.
+- level: 3
+  en: Eliminate options where antibodies were given or passed from another person.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Naturally acquired active immunity
+- id: b
+  en: Passive immunity from the mother's antibodies
+- id: c
+  en: Vaccine-induced passive immunity
+- id: d
+  en: Artificially acquired passive immunity from an injection of serum
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.72E96BFD39BB
+  when_answer_equals:
+  - b
+- id: MC.A.948D665E4560
+  when_answer_equals:
+  - c
+- id: MC.A.2B89F9CE85D9
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The child's own immune system responded to the infection and formed memory cells, which is natural active immunity.
+- en: Passive immunity comes from antibodies received from another source.
+- en: The correct option is a.
+tier: C

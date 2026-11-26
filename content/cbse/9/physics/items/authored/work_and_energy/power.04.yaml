@@ -1,0 +1,48 @@
+id: A.9.physics.work_and_energy.power.04
+skill_ids:
+- SK.A.9.physics.power
+difficulty: 0.6
+pool: practice
+role: apply
+stem:
+  en: Two machines do the same amount of work, but machine X finishes in half the time that machine Y takes. Which statement is correct?
+hints:
+- level: 1
+  en: Power is work divided by time.
+- level: 2
+  en: Halving the time changes the value of the ratio.
+- level: 3
+  en: Compare the two ratios with the same work in each case.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: machine Y has twice the power of machine X
+- id: b
+  en: machine X does more work than machine Y
+- id: c
+  en: both machines have equal power
+- id: d
+  en: machine X has twice the power of machine Y
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.242B7855708D
+  when_answer_equals:
+  - a
+- id: MC.A.85D805759013
+  when_answer_equals:
+  - c
+- id: MC.A.E023CA87289C
+  when_answer_equals:
+  - b
+solution_steps:
+- en: With equal work done in half the time, machine X's power is double that of machine Y.
+- en: The correct option is d.
+tier: C

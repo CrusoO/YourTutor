@@ -1,0 +1,49 @@
+id: A.11.physics.waves.standing_waves_strings.06
+skill_ids:
+- SK.A.11.physics.standing_waves_strings
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: A string's tension is quadrupled while its length and mass per unit length stay the same. How does its fundamental frequency change?
+hints:
+- level: 1
+  en: Wave speed depends on the tension through a square root.
+- level: 2
+  en: The fundamental frequency is the speed divided by twice the string length.
+- level: 3
+  en: Find how a square root responds when its argument is multiplied by four.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: it becomes twice as large
+- id: b
+  en: it becomes half as large
+- id: c
+  en: it stays unchanged
+- id: d
+  en: it becomes four times as large
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.A0EF7464ABBD
+  when_answer_equals:
+  - d
+- id: MC.A.947136B5EF51
+  when_answer_equals:
+  - b
+- id: MC.A.1884195AFC7E
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The fundamental frequency is the wave speed over twice the length, and the wave speed goes as the square root of tension.
+- en: Quadrupling the tension doubles the frequency.
+- en: The correct option is a.
+tier: C

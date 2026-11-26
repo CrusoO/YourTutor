@@ -1,0 +1,50 @@
+id: A.12.chemistry.haloalkanes_and_haloarenes.sn1_sn2.03
+skill_ids:
+- SK.A.12.chemistry.sn1_sn2
+difficulty: 0.6
+pool: practice
+role: explain
+stem:
+  en: What is the stereochemical outcome at a chiral carbon in an SN2 reaction of a primary haloalkane with hydroxide?
+hints:
+- level: 1
+  en: Think about the geometry of the backside attack.
+- level: 2
+  en: Ask what happens to the other three groups when the nucleophile comes in.
+- level: 3
+  en: Compare the stereochemistry with that of an SN1 path.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: Retention of configuration
+- id: b
+  en: A racemic mixture only
+- id: c
+  en: Inversion of configuration at the carbon
+- id: d
+  en: Elimination with no stereochemistry
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.A.8D123D8F873B
+  when_answer_equals:
+  - a
+- id: MC.A.F314708FF686
+  when_answer_equals:
+  - b
+- id: MC.A.7BA27170999F
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The hydroxide attacks from the side opposite the bromine, so the three other groups flip like an umbrella.
+- en: The configuration is inverted.
+- en: The correct option is c.
+tier: C
+diagram_note: Reaction arrow with hydroxide attacking the carbon from the side opposite the bromine, and the other three groups on the carbon flipping like an umbrella in the product.

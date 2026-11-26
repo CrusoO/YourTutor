@@ -1,0 +1,50 @@
+id: A.12.maths.three_dimensional_geometry.angles_and_distances_3d.06
+skill_ids:
+- SK.A.12.maths.angles_and_distances_3d
+difficulty: 0.9
+pool: practice
+role: transfer
+stem:
+  en: Line L1 passes through the origin with direction (1, 0, 0), and line L2 passes through (0, 0, 1) with direction (0, 1, 0). What is the shortest distance between them?
+hints:
+- level: 1
+  en: Find a vector perpendicular to both direction vectors.
+- level: 2
+  en: Project the vector joining a point on each line onto that common perpendicular.
+- level: 3
+  en: Divide by the length of the perpendicular vector.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '0'
+- id: c
+  en: square root of 2
+- id: d
+  en: 1/2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.A.93C99730F933
+  when_answer_equals:
+  - b
+- id: MC.A.F13DFBA493DE
+  when_answer_equals:
+  - c
+- id: MC.A.34AE1C9D63A8
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The cross product of the directions is (0, 0, 1), and the vector joining the two points is (0, 0, 1).
+- en: Their dot product divided by the length of (0, 0, 1) gives 1.
+- en: The correct option is a.
+tier: C
+diagram_note: Two skew lines in space, one along the x-direction through the origin and one along the y-direction at height one on the z-axis, with the shortest connecting segment marked.

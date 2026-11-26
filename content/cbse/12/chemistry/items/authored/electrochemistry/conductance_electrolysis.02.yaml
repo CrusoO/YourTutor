@@ -1,0 +1,48 @@
+id: A.12.chemistry.electrochemistry.conductance_electrolysis.02
+skill_ids:
+- SK.A.12.chemistry.conductance_electrolysis
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: Which unit is used for molar conductivity?
+hints:
+- level: 1
+  en: Molar conductivity is conductivity divided by concentration in moles per unit volume.
+- level: 2
+  en: Think about how dividing by moles per litre changes the length and volume units.
+- level: 3
+  en: Start from the unit of specific conductance and then adjust for the concentration.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: S cm-1
+- id: b
+  en: A mol-1
+- id: c
+  en: ohm mol
+- id: d
+  en: S cm2 mol-1
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.A.7F8D3E15A143
+  when_answer_equals:
+  - a
+- id: MC.A.41C4729A579D
+  when_answer_equals:
+  - c
+- id: MC.A.958954051A5D
+  when_answer_equals:
+  - b
+solution_steps:
+- en: Molar conductivity is conductivity divided by molar concentration, so its unit is siemens square centimetres per mole.
+- en: The correct option is d.
+tier: C

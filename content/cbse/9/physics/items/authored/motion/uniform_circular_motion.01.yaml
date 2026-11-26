@@ -1,0 +1,48 @@
+id: A.9.physics.motion.uniform_circular_motion.01
+skill_ids:
+- SK.A.9.physics.uniform_circular_motion
+difficulty: 0.2
+pool: practice
+role: recall
+stem:
+  en: A stone is whirled in a circle at a steady rate. Which of these quantities does not change during the motion?
+hints:
+- level: 1
+  en: Think about a quantity that has a size but no direction.
+- level: 2
+  en: Consider which quantity is unchanged when the object only changes direction.
+- level: 3
+  en: The direction of motion changes all the time around a circle.
+prediction_prompt:
+  en: Before you work it out, what do you think the answer will be, and why?
+status: draft
+provenance:
+  original: true
+  author: model-draft
+type: mcq
+options:
+- id: a
+  en: the acceleration
+- id: b
+  en: the speed
+- id: c
+  en: the direction of the velocity
+- id: d
+  en: the velocity
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.A.CDEBD93FE9D3
+  when_answer_equals:
+  - d
+- id: MC.A.150E32CAF472
+  when_answer_equals:
+  - a
+- id: MC.A.A7559CC85929
+  when_answer_equals:
+  - c
+solution_steps:
+- en: Uniform circular motion has constant speed, but the direction of the velocity changes continuously, so velocity and acceleration are not constant.
+- en: The correct option is b.
+tier: C
