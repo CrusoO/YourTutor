@@ -1,0 +1,47 @@
+# Plain-language rules for hints, step explanations and misconception messages.
+# Read by apps/api/app/content/plain_language.py. Owner rule: layman language, about Class 7.
+# Every number below is TUNABLE-DEFAULT (a first guess, to be tuned against reports).
+
+# Sentences longer than this many words are flagged (a warning). TUNABLE-DEFAULT
+max_sentence_words: 12
+
+# Flesch-Kincaid grade above this is flagged (a warning), for texts of at least
+# min_words_for_grade words. TUNABLE-DEFAULT
+max_grade_level: 7.5
+min_words_for_grade: 15
+
+# A jargon word must be explained in the same text, or avoided (a warning). The text counts as
+# explaining it when one of explain_markers follows the word within explain_window characters.
+# TUNABLE-DEFAULT
+explain_window: 60
+explain_markers: ["means", "is when", "is the", "is a", "i.e.", "that is", "which is", "(", "—"]
+jargon:
+  - inverse
+  - coefficient
+  - variable
+  - integer
+  - integers
+  - commutative
+  - distributive
+  - associative
+  - constant term
+  - expression
+  - evaluate
+  - reciprocal
+  - discriminant
+  - denominator
+  - numerator
+  - quadratic
+  - polynomial
+  - exponent
+  - hypotenuse
+  - substitute
+  - simplify
+  - isolate
+  - equivalent
+  - ordinate
+  - abscissa
+
+# A misconception message must describe what the learner DID, in everyday words, and say it to
+# the learner ("You may have added ..."). It passes when it starts with one of these openers.
+misconception_openers: ["you may have", "you might have", "you may", "you might", "you "]
