@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.1_9_variance
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'The probabilities of X taking the values 1, 2, 3, 4 are in the ratio 3 : 4
+    : 1 : 2. What is the variance of X?'
+hints:
+- level: 1
+  en: Turn the ratio into probabilities before any other step.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 19/5
+- id: b
+  en: 29/25
+- id: c
+  en: '6'
+- id: d
+  en: 841/625
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.MEAN_NOT_SQUARED
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.SECOND_MOMENT_AS_VARIANCE
+  when_answer_equals:
+  - c
+- id: MC.C12.PROB.STANDARD_DEVIATION_STYLE_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ratios add to 10, so the probabilities are each ratio divided by 10.
+- en: 'The mean is the sum of value times probability: 11/5.'
+- en: 'The variance is the mean of the squares minus the square of the mean: 29/25.'
+- en: The answer is 29/25.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3f8c6b37f288cd474dd2557d9dc0e27df177904e8df45852a5377b0f1670f7f3
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 8f3dc493e6e751d2a2bf6e63679375d419450ea51a4dede4e12e8b1f9a73ab5c
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: 0d409d66980525d491e63faf07f36cb04f38f3b75169011dcfab3429b77dd055

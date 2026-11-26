@@ -1,0 +1,134 @@
+id: C12.AOD.TANGENT_NORMAL.3_11_2_x_intercept
+skill_ids:
+- MATH.C12.AOD.TANGENT_NORMAL
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: Let y = 3x³ + 2x² - x + 1. Find the x-intercept of the tangent to the curve
+    at the point with x = 2.
+hints:
+- level: 1
+  en: Write the line first, then answer the question.
+- level: 2
+  en: Find the slope from the derivative, the height from the curve itself, form the
+    line through that point, and read off the quantity asked.
+- level: 3
+  en: 'Full method: derivative gives the slope; the curve gives the point; use the
+    point-slope form for the tangent, with the negative reciprocal slope for the normal;
+    find the intercept or slope asked.'
+prediction_prompt:
+  en: Is the tangent rising or falling at this point?
+status: draft
+template_id: TPL.C12.AOD.TANGENT_NORMAL
+generator_version: factory-2
+template_hash: fdf0b16745001c32dc303d81b679a3d7a3457f90fd6274d28b7f4f37fd8bae8b
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '31'
+- id: b
+  en: 117/43
+- id: c
+  en: 19/31
+- id: d
+  en: 55/43
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.AOD.POINT_VALUE_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.C12.AOD.INTERCEPT_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.C12.AOD.SLOPE_AND_HEIGHT_DIVIDED_THE_WRONG_WAY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The slope of the tangent is dy/dx at x = 2, which is 43.
+- en: The curve passes through y = 31 at that x.
+- en: Write the tangent line through that point with that slope. The normal has the
+    negative reciprocal slope. Then read off what is asked.
+- en: The value is 55/43.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6603340a2ec064fae2604e7a9c9bee5015eb090647fdae6305fb65132e7cce20
+  template_hash: fdf0b16745001c32dc303d81b679a3d7a3457f90fd6274d28b7f4f37fd8bae8b
+  certificate_hash: d82c87491c15c8887c3008894f0e65a42ec2a89e572e5a9d37d813e6f13e85f1
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.applications_derivatives
+  methods_agreeing:
+  - kernel.algebra
+  - c12.tn.rules
+  - c12.tn.sympy
+  - c12.tn.secant
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:16+00:00'
+  record_hash: a4d9e8868783ddcc2be82a2331565ed1372d646b6e8deaf7e6a751934fe9a949

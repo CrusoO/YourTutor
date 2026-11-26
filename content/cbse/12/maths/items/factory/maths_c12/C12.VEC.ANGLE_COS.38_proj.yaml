@@ -1,0 +1,133 @@
+id: C12.VEC.ANGLE_COS.38_proj
+skill_ids:
+- MATH.C12.VEC.ANGLE_COS
+difficulty: 0.52
+pool: practice
+role: apply
+stem:
+  en: Find the scalar projection of the vector 2i + j - 2k on the vector 2i - 6j +
+    9k.
+hints:
+- level: 1
+  en: You need the lengths of the vectors as well as the dot product.
+- level: 2
+  en: Compute the dot product and the length of each vector, then divide as the formula
+    says.
+- level: 3
+  en: 'Full method: dot product from matching components, each length from the square
+    root of the sum of squares, then the quotient asked for; check that the cosine
+    lies between minus one and one.'
+prediction_prompt:
+  en: Is the angle acute or obtuse?
+status: draft
+template_id: TPL.C12.VEC.ANGLE_COS
+generator_version: factory-2
+template_hash: 5c4fbee271d5cd9793f90d46f540d9b4b05df1f99e5c53247d9ee87079bc95b3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-20'
+- id: b
+  en: -20/3
+- id: c
+  en: -20/121
+- id: d
+  en: -20/11
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.VEC.PROJECTION_WITHOUT_DIVIDING
+  when_answer_equals:
+  - a
+- id: MC.C12.VEC.PROJECTED_ON_WRONG_VECTOR
+  when_answer_equals:
+  - b
+- id: MC.C12.VEC.NORM_NOT_SQUARE_ROOTED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The dot product is -20.
+- en: The lengths are 3 and 11.
+- en: 'The scalar projection is the dot product divided by the length of the vector
+    projected on: -20/11.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a0dfc4e9b6ee79db66ca42aa784e09bf9fe41f61475f5399970f91a8cf915e92
+  template_hash: 5c4fbee271d5cd9793f90d46f540d9b4b05df1f99e5c53247d9ee87079bc95b3
+  certificate_hash: 7983e0eb770740a2c1fc2916ef866541438ab3ff47430afebe5fe16163cc8d6e
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.vectors
+  methods_agreeing:
+  - kernel.algebra
+  - c12.vec.angle.formula
+  - c12.vec.angle.sympy
+  - c12.vec.angle.other
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:58+00:00'
+  record_hash: 3609468c4903b81753e9912a6cd877e2d2cf7ce405f77bd97402f79514b7fb1a

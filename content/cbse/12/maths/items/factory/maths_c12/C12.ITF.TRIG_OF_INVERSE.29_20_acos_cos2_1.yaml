@@ -1,0 +1,133 @@
+id: C12.ITF.TRIG_OF_INVERSE.29_20_acos_cos2_1
+skill_ids:
+- MATH.C12.ITF.TRIG_OF_INVERSE
+difficulty: 0.51
+pool: practice
+role: apply
+stem:
+  en: Find the exact value of cos(2 × cos⁻¹(20/29)).
+hints:
+- level: 1
+  en: Find the other two ratios of the angle before you do anything else.
+- level: 2
+  en: Call the angle theta, use the Pythagorean relation to get the missing ratio,
+    fix its sign by the principal range, then build the asked ratio.
+- level: 3
+  en: 'Full method: set theta equal to the inverse function value, find sine and cosine
+    of theta exactly using the right triangle and the principal range, then compute
+    the asked expression, using the double angle identity if the angle is doubled.'
+prediction_prompt:
+  en: Is the answer positive or negative?
+status: draft
+template_id: TPL.C12.ITF.TRIG_OF_INVERSE
+generator_version: factory-2
+template_hash: f504e836aa37705b8c4e202ae3755ec5f23edf13d39403c138d6afae8e2530e8
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -41/841
+- id: b
+  en: 40/29
+- id: c
+  en: 20/29
+- id: d
+  en: -841/41
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.ITF.DOUBLE_ANGLE_AS_DOUBLE
+  when_answer_equals:
+  - b
+- id: MC.C12.ITF.ARGUMENT_REUSED_AS_RATIO
+  when_answer_equals:
+  - c
+- id: MC.C12.ITF.RATIO_INVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Let the angle be the inverse trigonometric value, so its sine or cosine is the
+    given fraction.
+- en: 'Draw a right triangle: the third side comes from the Pythagorean theorem, and
+    the principal range fixes the sign (sine 21/29, cosine 20/29).'
+- en: 'Read off the asked ratio: -41/841.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9159b85f3dde2a6010fd2f5014280dbc0ff399eae80ce2743f9042e217839b8e
+  template_hash: f504e836aa37705b8c4e202ae3755ec5f23edf13d39403c138d6afae8e2530e8
+  certificate_hash: 7998cb096b137db5090676eacfba8d06033cfee87dab228ef9d6ac0fd2996347
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.inverse_trig
+  methods_agreeing:
+  - kernel.algebra
+  - c12.itf.triangle
+  - c12.itf.trig.sympy
+  - c12.itf.trig.float
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:34:38+00:00'
+  record_hash: 5c8c5f6c8b66281b1a94f74f56df2413448869b1eb90d7c4785f2491b6be32db

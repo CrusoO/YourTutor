@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.1_13_mean
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'The probabilities of X taking the values 1, 2, 3, 4 are in the ratio 5 : 3
+    : 1 : 4. What is the mean of X?'
+hints:
+- level: 1
+  en: Turn the ratio into probabilities before any other step.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5/2
+- id: b
+  en: '30'
+- id: c
+  en: 35/13
+- id: d
+  en: 30/13
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.VALUES_AVERAGED_WITHOUT_PROBABILITIES
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.WEIGHTS_NOT_DIVIDED_BY_TOTAL
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.PROBABILITY_WEIGHTED_WRONG_VALUE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The ratios add to 13, so the probabilities are each ratio divided by 13.
+- en: 'The mean is the sum of value times probability: 30/13.'
+- en: That is the asked mean.
+- en: The answer is 30/13.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fa28ab7537c71bc8786067f4289e919ba4d84b2dbc6132d765dc05ac4ecd3fc9
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 289643ff53ee676b2ff22cf933578b4ef6e43109d2f84146a70908ad3d505f19
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: dd875c87376c07a5fd90e92ded7d9c34b69c764116498413ca0de5597a443256

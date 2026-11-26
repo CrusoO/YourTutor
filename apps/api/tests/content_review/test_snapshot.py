@@ -102,7 +102,7 @@ def test_every_real_item_maps_to_a_chapter(real_yaml: snapshot.ReviewData) -> No
     assert grades == {
         10,
         12,
-    }  # Class 12 physics only so far: no class 9 or 11 content, nothing invented
+    }  # class 10 lanes plus class 12 maths and physics; no class 9 or 11 yet
     assert {c.subject for c in real_yaml.chapters.values()} == {
         "maths",
         "physics",
@@ -112,7 +112,9 @@ def test_every_real_item_maps_to_a_chapter(real_yaml: snapshot.ReviewData) -> No
 
 
 def test_the_snapshot_is_small() -> None:
-    assert snapshot.SNAPSHOT_PATH.stat().st_size < 1_000_000
+    # the snapshot now holds all machine-checked questions plus unchecked drafts; 3 MB is still
+    # small for a serverless function
+    assert snapshot.SNAPSHOT_PATH.stat().st_size < 3_000_000
 
 
 # ---- build and render ----

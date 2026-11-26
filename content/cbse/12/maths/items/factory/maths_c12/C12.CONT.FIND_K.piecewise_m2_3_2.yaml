@@ -1,0 +1,131 @@
+id: C12.CONT.FIND_K.piecewise_m2_3_2
+skill_ids:
+- MATH.C12.CONT.FIND_K
+difficulty: 0.44
+pool: practice
+role: apply
+stem:
+  en: The function f is given by x → 3x + 2 for x < -2, and x → kx² for x ≥ -2. Find
+    the value of k that makes f continuous at x = -2.
+hints:
+- level: 1
+  en: Work out the limit coming from the formula that is not at the point.
+- level: 2
+  en: Find the limit as x approaches the point from the formula near it, simplify
+    first if the quotient looks like zero over zero, then set it equal to the value.
+- level: 3
+  en: 'Full method: compute the limit near the point after any cancelling, write the
+    value of the function at the point, equate them and solve for k.'
+prediction_prompt:
+  en: Which two quantities must be equal for continuity?
+status: draft
+template_id: TPL.C12.CONT.FIND_K
+generator_version: factory-2
+template_hash: a6879dbafe8804c45757370359985d42ebd4a5a866e9af81afd395e6000ffbfc
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '-4'
+- id: c
+  en: '-1'
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.CONT.EQUATION_SOLVED_WITH_SIGN_SLIP
+  when_answer_equals:
+  - a
+- id: MC.C12.CONT.LEFT_VALUE_USED_AS_K
+  when_answer_equals:
+  - b
+- id: MC.C12.CONT.RIGHT_PIECE_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Continuity at x = -2 needs the left limit to equal the value on the right.
+- en: The left limit is 3-2 + 2 = -4.
+- en: 'Set -4 = k × 4 and solve: k = -1.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 72c149ce5dbd695a080d5d8a00e0b706e0e1f0d8e4abf29ebdfc0443ef833ff3
+  template_hash: a6879dbafe8804c45757370359985d42ebd4a5a866e9af81afd395e6000ffbfc
+  certificate_hash: 8dae7f266af8ff03f864166d4da2b356d338bdc99ba5a486e738efd573cb327c
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.continuity_differentiability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.cont.hand
+  - c12.cont.sympy
+  - c12.cont.extrapolate
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:20+00:00'
+  record_hash: af3f9790cbc9272959aaa362aafaa74ad288a5ad330ec65fbb29f88f366feaca

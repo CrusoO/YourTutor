@@ -1,0 +1,131 @@
+id: C12.RF.COUNT_MAPS.reflexive_4_2
+skill_ids:
+- MATH.C12.RF.COUNT_MAPS
+difficulty: 0.46
+pool: practice
+role: apply
+stem:
+  en: How many reflexive relations are there on a set of 4 elements?
+hints:
+- level: 1
+  en: Ask what has to be decided for each element, and how many options it has.
+- level: 2
+  en: Write down the choices one by one and combine them with the multiplication rule,
+    or count subsets of pairs where each pair is in or out.
+- level: 3
+  en: 'Full method: identify the objects, list the free choices, multiply their counts,
+    and test your rule on a very small set you can list by hand.'
+prediction_prompt:
+  en: Will the count be small or large? Roughly how many digits?
+status: draft
+template_id: TPL.C12.RF.COUNT_MAPS
+generator_version: factory-2
+template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4096'
+- id: b
+  en: '64'
+- id: c
+  en: '65536'
+- id: d
+  en: '16'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.RF.FORGOT_ORDERED_PAIRS
+  when_answer_equals:
+  - b
+- id: MC.C12.RF.ALL_RELATIONS_COUNTED
+  when_answer_equals:
+  - c
+- id: MC.C12.RF.COUNTED_DIAGONAL_CHOICES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Decide what must be chosen and how many independent choices there are.
+- en: The 4 pairs with equal entries must be in. Each of the other 12 ordered pairs
+    is free, so there are 2¹² relations.
+- en: So the number is 4096.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e6e7e2150ed8983b0b75c46597ad45cc03bd62663bc9d8fee8178d2a0fc697a4
+  template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+  certificate_hash: f06c42b366291a434cbeaab1311e1d8bedc1e8b9fb4295e8089b74c84dfad28f
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.relations_functions
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rf.formula
+  - c12.rf.enumeration
+  - c12.rf.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:37+00:00'
+  record_hash: c4885a467c09178254688dc02b2a5ce29c6080209cbbf64d7d41189092f80d54
