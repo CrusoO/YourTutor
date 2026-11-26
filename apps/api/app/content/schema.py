@@ -220,6 +220,9 @@ class Item(BaseModel):
     # Written only by the factory stamp step. A tier A or factory tier B is honoured only when
     # this record is intact, names this item's content hash and is in the stamp ledger.
     verification: VerificationRecord | None = None
+    # Plain-text description of the diagram a model-drafted item needs (tier C, for reviewers).
+    # Not part of the content hash and never shown to a student as an image.
+    diagram_note: str | None = None
 
     @property
     def primary_skill(self) -> str:
