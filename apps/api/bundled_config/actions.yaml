@@ -1,0 +1,45 @@
+# What a student can ask Brownie to DO by typing (A1: deterministic router, no model call).
+#
+# The list of actions is closed and lives in code (app/actions/registry.py). This file only holds the
+# words that trigger each one. A typed message matches only when, after the filler words are dropped,
+# it equals one of the phrases exactly. A question such as "what is practice in physics" therefore
+# never runs an action: it goes on to the tutor as before.
+#
+# Hindi phrases wait for a native reviewer (never machine-translate and mark approved). Until a
+# language has its own block, English phrases are used.
+max_chars: 120
+max_words: 6
+default_language: en
+languages:
+  en:
+    status: draft
+    fillers: [please, pls, brownie, hey, hi, now, can, could, would, you, i, want, to, let, lets, me, us, the, a, my]
+    actions:
+      start_practice:
+        phrases: [practice, practise, start practice, start practising, quiz, quiz me, test, test me, revise, revision, warm up, give questions]
+        narration: "Okay, opening your practice."
+      continue_learning:
+        phrases: [continue, resume, carry on, today, what next, next, where left off, continue where left off, pick up where left off]
+        narration: "Okay, taking you back to where you were."
+      show_subjects:
+        phrases: [subjects, chapters, topics, show subjects, show chapters, show topics, open subjects]
+        narration: "Okay, here are your subjects."
+      switch_language:
+        values:
+          hi: [hindi, in hindi, switch hindi, switch to hindi, speak hindi, change to hindi]
+          en: [english, in english, switch english, switch to english, speak english, change to english]
+        narration: "Okay, changing the language."
+      new_chat:
+        phrases: [new chat, start over, start again, clear chat, reset chat]
+        narration: "Okay, starting a fresh chat."
+        confirm: "This clears the chat on this screen. Do it?"
+      sign_in_prompt:
+        phrases: [sign in, log in, login, save progress, keep progress, create account, sign up]
+        narration: "To keep your progress, sign in from the menu. You can carry on as a guest meanwhile."
+        denied: "You are already signed in."
+      help:
+        phrases: [help, what can you do, commands, options]
+        narration: "You can say: practice, continue, subjects, switch to Hindi, or new chat. Or just ask me anything you want to learn."
+messages:
+  en:
+    denied: "That is not available here."

@@ -140,6 +140,34 @@ def reviewers_only_allows(path: str) -> bool:
     return path.startswith(REVIEWERS_ONLY_PREFIX + "/")
 
 
+API_PREFIX = "/api"
+
+
+def without_api_prefix(path: str) -> str:
+    """`/api/health` -> `/health`. The web app calls the API under `/api` on one host; a host that
+    hands the function the full path (not the rewritten one) must still reach the same routes."""
+    if path == API_PREFIX:
+        return "/"
+    return path[len(API_PREFIX) :] if path.startswith(API_PREFIX + "/") else path
+
+
+class StripApiPrefixMiddleware:
+    """Outermost layer: remove a leading `/api` from the path before anything else sees it."""
+
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] in ("http", "websocket"):
+            stripped = without_api_prefix(scope["path"])
+            if stripped != scope["path"]:
+                scope = dict(scope)
+                scope["path"] = stripped
+                if scope.get("raw_path"):
+                    scope["raw_path"] = stripped.encode()
+        await self.app(scope, receive, send)
+
+
 class ReviewersOnlyMiddleware:
     """With REVIEWERS_ONLY on, answer 404 for every path outside the allowlist (per request)."""
 
@@ -152,6 +180,7 @@ class ReviewersOnlyMiddleware:
             and scope["type"] in ("http", "websocket")
             and not reviewers_only_allows(scope["path"])
         ):
+            logging.getLogger(__name__).warning("reviewers-only: refused path %s", scope["path"])
             if scope["type"] == "http":
                 await JSONResponse({"detail": "not available"}, status_code=404)(
                     scope, receive, send
@@ -173,6 +202,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(StripApiPrefixMiddleware)  # added last, so it runs first
 app.include_router(auth_router)
 app.include_router(agreements_router)
 app.include_router(research_router)

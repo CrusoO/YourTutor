@@ -1,0 +1,119 @@
+# Study Mode Ask settings (ARCHITECTURE section 12). Scores run from 0 to 1.
+search:
+  top_k: 4
+  keyword_weight: 0.6   # share of the score from shared words; the rest is embedding similarity
+  vector_weight: 0.4
+gate:
+  answer_min: 0.35      # top score at or above this answers
+  clarify_min: 0.25     # below this the question is out of scope
+  ambiguity_margin: 0.04  # a second skill this close to the top asks the student to choose
+  choices: 3
+limits:
+  max_question_chars: 300
+# Input safety and the current-item guard. Lists are per language; a language without a list uses
+# the default one (a known gap until the reviewer adds that language).
+safety:
+  default_language: en
+  languages:
+    en:
+      injection_patterns:
+        - ignore (all |any |the )?(previous|prior|above) (instructions|rules)
+        - disregard (all |any |the )?(previous|prior|above)
+        - forget (all |any |the |your )?(previous |prior )?(instructions|rules)
+        - (reveal|show|print|repeat) (me )?(your|the) (system )?(prompt|instructions|rules)
+        - you are now
+        - pretend (to be|you are|that)
+        - act as (a|an|if)
+        - developer mode
+        - jailbreak
+        - new instructions
+        - system prompt
+        - override (the |your )?(rules|instructions|safety)
+      item_reference_patterns:
+        - (this|the current|my)\s+(question|problem|equation|sum|exercise|item|one)
+        - what (is|does) x
+        - is it -?[0-9]
+        - i (got|think|said|guess)
+      distress_terms:
+        - want to die
+        - kill myself
+        - hurt myself
+        - hate my life
+        - nobody cares
+        - no one cares
+        - end it all
+      solve_intent_phrases:
+        - solve this
+        - solve it for me
+        - do this question
+        - do this one for me
+        - what is the answer
+        - what's the answer
+        - give me the answer
+        - tell me the answer
+        - just tell me
+        - answer for this
+        - find x for me
+        - what is x here
+        - what does x equal here
+        - the answer
+        - my answer
+        - is it right
+        - am i right
+      # Layer D meaning preservation: a word below that is in an answer sentence must also be in
+      # the passage the sentence cites, so signs, conditions and operations cannot be swapped.
+      meaning_terms:
+        - not
+        - no
+        - never
+        - cannot
+        - only
+        - every
+        - always
+        - all
+        - any
+        - none
+        - opposite
+        - same
+        - both
+        - positive
+        - negative
+        - add
+        - adding
+        - subtract
+        - subtracting
+        - multiply
+        - multiplying
+        - divide
+        - dividing
+        - plus
+        - minus
+        - equal
+        - equals
+        - greater
+        - less
+        - inverse
+        - first
+        - last
+        - before
+        - after
+# Authored replies (never model-written). A language without an entry uses the default language.
+messages:
+  en:
+    out_of_scope: "That is not in your book for this chapter. You could ask your teacher."
+    clarify: "Which of these do you mean?"
+    refused: "I can only answer questions about your maths book. Try asking about this chapter."
+    too_long: "Please ask in a shorter question."
+    route_to_help: "That is the question you are working on. Let us work it out together."
+    distress: "I am really sorry you are feeling this way. You are not alone, and it matters that you said it. Please talk to a grown-up you trust right now, like a parent or a teacher. You can also call one of the helplines below to talk to someone who listens. We will pause our lesson for now, and you can come back whenever you are ready."
+    distress_support: "That sounds like a lot to carry, and it is okay to feel this way. Exams can feel very heavy, and one hard day does not decide how things turn out. Take a slow breath. It can help to tell a parent, a teacher or a friend how you feel. If you would like to talk to someone, the lines below are there for you. Your lesson will be here whenever you want to go back to it, one small step at a time."
+    distress_paused: "We are taking a break from chatting for now. A grown-up you trust, or one of the helplines below, can listen if you want to talk. Your practice and lessons are still here for you."
+  # DRAFT: Hindi text below was written without a native reviewer. It must be reviewed by a native
+  # Hindi speaker (ideally a counsellor) before launch. See message_status.
+  hi:
+    distress: "मुझे बहुत दुख है कि तुम ऐसा महसूस कर रहे हो। तुम अकेले नहीं हो, और तुमने यह बताया, यह बहुत मायने रखता है। कृपया अभी किसी भरोसेमंद बड़े से बात करो, जैसे मम्मी-पापा या कोई टीचर। नीचे दी गई हेल्पलाइन पर भी फोन करके किसी से बात कर सकते हो जो तुम्हारी बात सुनेगा। अभी हम पढ़ाई को रोक देते हैं, और जब तुम तैयार हो तब वापस आ सकते हो।"
+    distress_support: "यह सुनकर लगता है कि तुम पर बहुत बोझ है, और ऐसा महसूस करना ठीक है। परीक्षा का समय भारी लग सकता है, और एक मुश्किल दिन से सब कुछ तय नहीं होता। एक धीमी गहरी सांस लो। मम्मी-पापा, टीचर या किसी दोस्त को अपनी बात बताने से हल्का लग सकता है। अगर तुम किसी से बात करना चाहो तो नीचे दी गई लाइनें तुम्हारे लिए हैं। जब मन करे, तुम अपने पाठ पर छोटे-छोटे कदमों में वापस आ सकते हो।"
+    distress_paused: "अभी हम कुछ देर के लिए बातचीत रोक रहे हैं। अगर तुम बात करना चाहो तो कोई भरोसेमंद बड़ा, या नीचे दी गई हेल्पलाइन तुम्हारी बात सुनेगी। तुम्हारा अभ्यास और पाठ यहीं हैं।"
+# Review status of authored text by language. A language not listed is the reviewed default.
+message_status:
+  hi: draft_needs_native_review
