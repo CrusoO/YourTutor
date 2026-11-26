@@ -1,0 +1,132 @@
+id: C12.PROB.RV_MEAN_VAR.1_7_mean
+skill_ids:
+- MATH.C12.PROB.RV_MEAN_VAR
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: 'The probabilities of X taking the values 1, 2, 3, 4 are in the ratio 4 : 5
+    : 4 : 3. What is the mean of X?'
+hints:
+- level: 1
+  en: Turn the ratio into probabilities before any other step.
+- level: 2
+  en: Divide each ratio number by their total, then use the sum of value times probability
+    for the mean.
+- level: 3
+  en: 'Full method: probabilities from the ratio, mean as the sum of value times probability,
+    and for the variance the mean of squares minus the square of the mean.'
+prediction_prompt:
+  en: Should the mean lie between the smallest and largest value?
+status: draft
+template_id: TPL.C12.PROB.RV_MEAN_VAR
+generator_version: factory-2
+template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 21/8
+- id: b
+  en: '38'
+- id: c
+  en: 19/8
+- id: d
+  en: 5/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.PROB.PROBABILITY_WEIGHTED_WRONG_VALUE
+  when_answer_equals:
+  - a
+- id: MC.C12.PROB.WEIGHTS_NOT_DIVIDED_BY_TOTAL
+  when_answer_equals:
+  - b
+- id: MC.C12.PROB.VALUES_AVERAGED_WITHOUT_PROBABILITIES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The ratios add to 16, so the probabilities are each ratio divided by 16.
+- en: 'The mean is the sum of value times probability: 19/8.'
+- en: That is the asked mean.
+- en: The answer is 19/8.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 47731b10c5835fa51cc8a9606668d9b561ede43a53aed076c9e1c0642c4ddcca
+  template_hash: d804f3488ecc9350e2d74220d8d7dcc7ed10f061997a36bf8ab03924748a0c89
+  certificate_hash: 5f16c485e6310fee074da43a86549bbf1f3ba9a271685e3d5414a4c3c8b54fe0
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.probability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rv.formula
+  - c12.rv.population
+  - c12.rv.definition
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:04+00:00'
+  record_hash: a45727c91faf14010634693a268820c827060d509d4b93471b66de093832d44b

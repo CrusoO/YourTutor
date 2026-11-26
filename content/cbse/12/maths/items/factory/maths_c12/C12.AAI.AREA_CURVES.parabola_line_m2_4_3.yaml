@@ -1,0 +1,133 @@
+id: C12.AAI.AREA_CURVES.parabola_line_m2_4_3
+skill_ids:
+- MATH.C12.AAI.AREA_CURVES
+difficulty: 0.62
+pool: practice
+role: apply
+stem:
+  en: Find the area of the region enclosed between the parabola y = 3x² and the line
+    y = 6x + 24.
+hints:
+- level: 1
+  en: Find the meeting points before you integrate.
+- level: 2
+  en: Solve for the meeting points, write the upper minus the lower curve, integrate
+    between the meeting points, and take the positive value.
+- level: 3
+  en: 'Full method: meeting points, upper minus lower, antiderivative, upper limit
+    minus lower limit, and make sure the final area is positive.'
+prediction_prompt:
+  en: Is the enclosed region above or below the x-axis?
+status: draft
+template_id: TPL.C12.AAI.AREA_CURVES
+generator_version: factory-2
+template_hash: 8a8c1a971200a8eced8e45fcaa7b0441264ab461190686266eadd587ba35ef99
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-108'
+- id: b
+  en: '648'
+- id: c
+  en: '108'
+- id: d
+  en: '216'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.AAI.NEGATIVE_AREA_REPORTED
+  when_answer_equals:
+  - a
+- id: MC.C12.AAI.AREA_FORMULA_FACTOR_MISSING
+  when_answer_equals:
+  - b
+- id: MC.C12.AAI.AREA_FORMULA_THIRD_USED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Find where the two curves meet: x = -2 and x = 4.'
+- en: Subtract the lower curve from the upper curve and integrate between those two
+    values.
+- en: The area is 108 square units.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 224e8317a35def68e6e8b2077e8e18abfe522cecd1e68beed0d02b89891f0099
+  template_hash: 8a8c1a971200a8eced8e45fcaa7b0441264ab461190686266eadd587ba35ef99
+  certificate_hash: dd7ef382fee0a5185ed88c1e64612e993ec6928d48f291ec71875980a4a0cb00
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.applications_integrals
+  methods_agreeing:
+  - kernel.algebra
+  - c12.area.formula
+  - c12.area.integral
+  - c12.area.sympy
+  - c12.area.boole
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:02+00:00'
+  record_hash: b35b85e72fdb77faa8756edd9391f7a4bdf50f22592bf6df8a74161913307b5a

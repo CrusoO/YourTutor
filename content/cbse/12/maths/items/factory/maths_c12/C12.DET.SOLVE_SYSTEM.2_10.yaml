@@ -1,0 +1,132 @@
+id: C12.DET.SOLVE_SYSTEM.2_10
+skill_ids:
+- MATH.C12.DET.SOLVE_SYSTEM
+difficulty: 0.52
+pool: practice
+role: apply
+stem:
+  en: Solve the system -3x + 2y = -2; -x + y = -1.
+hints:
+- level: 1
+  en: Each unknown needs its own determinant.
+- level: 2
+  en: Either replace one column at the time by the right-hand side and divide determinants,
+    or multiply the inverse of the coefficient matrix by the right-hand side.
+- level: 3
+  en: 'Full method: write A X = B, compute the determinant of A, find each unknown
+    by column replacement or with the inverse, and put your answer back into every
+    equation.'
+prediction_prompt:
+  en: Does the system have one solution, none, or infinitely many?
+status: draft
+template_id: TPL.C12.DET.SOLVE_SYSTEM
+generator_version: factory-2
+template_hash: d426ce60bd86020e365f63354515559a206746e4d61799e2dfafa071486b572b
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: x = 0, y = -1
+- id: b
+  en: x = -1, y = 0
+- id: c
+  en: x = 3, y = -7
+- id: d
+  en: x = 0, y = 1
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.DET.UNKNOWN_ORDER_SWAPPED
+  when_answer_equals:
+  - b
+- id: MC.C12.DET.TRANSPOSED_SYSTEM_SOLVED
+  when_answer_equals:
+  - c
+- id: MC.C12.DET.CRAMER_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Write the system as the matrix equation A X = B.
+- en: The determinant of A is -1, which is not zero, so there is exactly one solution.
+- en: Find each unknown as the determinant with that column replaced by B, divided
+    by the determinant of A.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8f3802934d0519250907c15806a382b86395969bfbc111a60781768e06e55d2c
+  template_hash: d426ce60bd86020e365f63354515559a206746e4d61799e2dfafa071486b572b
+  certificate_hash: d25561a2fbd84956f111438ba2351f0424a3bfa249f6eecd969b5af55502bb5d
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.determinants
+  methods_agreeing:
+  - kernel.algebra
+  - c12.sys.cramer
+  - c12.sys.sympy
+  - c12.sys.inverse
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:09+00:00'
+  record_hash: fe45a696519a05695d1b1da4d253b67a2e15e004e2a6a998f9a211e0c45e8509

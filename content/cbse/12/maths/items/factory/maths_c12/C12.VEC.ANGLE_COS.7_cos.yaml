@@ -1,0 +1,131 @@
+id: C12.VEC.ANGLE_COS.7_cos
+skill_ids:
+- MATH.C12.VEC.ANGLE_COS
+difficulty: 0.52
+pool: practice
+role: apply
+stem:
+  en: Find the cosine of the angle between the vectors 8i - j - 4k and 5i + 12k.
+hints:
+- level: 1
+  en: List the three numbers you need before you divide.
+- level: 2
+  en: Compute the dot product and the length of each vector, then divide as the formula
+    says.
+- level: 3
+  en: 'Full method: dot product from matching components, each length from the square
+    root of the sum of squares, then the quotient asked for; check that the cosine
+    lies between minus one and one.'
+prediction_prompt:
+  en: Is the angle acute or obtuse?
+status: draft
+template_id: TPL.C12.VEC.ANGLE_COS
+generator_version: factory-2
+template_hash: 5c4fbee271d5cd9793f90d46f540d9b4b05df1f99e5c53247d9ee87079bc95b3
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: -4/11
+- id: b
+  en: -8/9
+- id: c
+  en: -8/117
+- id: d
+  en: '-8'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.VEC.NORMS_ADDED
+  when_answer_equals:
+  - a
+- id: MC.C12.VEC.ONE_NORM_ONLY
+  when_answer_equals:
+  - b
+- id: MC.C12.VEC.COSINE_WITHOUT_DIVIDING
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The dot product is -8.
+- en: The lengths are 9 and 13.
+- en: 'cos θ = dot product divided by the product of the lengths: -8/117.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0918ecbebace0385e2350b34b143449147c4c0ef8dc06ab0915625abe07cc900
+  template_hash: 5c4fbee271d5cd9793f90d46f540d9b4b05df1f99e5c53247d9ee87079bc95b3
+  certificate_hash: d6423495da31c95988d764a7df763abeadec7ee5d09cc855b33267569aaa529d
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.vectors
+  methods_agreeing:
+  - kernel.algebra
+  - c12.vec.angle.formula
+  - c12.vec.angle.sympy
+  - c12.vec.angle.other
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:58+00:00'
+  record_hash: 885a4194de4b50cc5f4aaf9d4798fed08b5534dbbd72a0e4e22f838cb7cd389c

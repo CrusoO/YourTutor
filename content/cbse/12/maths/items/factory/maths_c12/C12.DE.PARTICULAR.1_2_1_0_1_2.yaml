@@ -1,0 +1,132 @@
+id: C12.DE.PARTICULAR.1_2_1_0_1_2
+skill_ids:
+- MATH.C12.DE.PARTICULAR
+difficulty: 0.57
+pool: practice
+role: apply
+stem:
+  en: A function y satisfies dy/dx = x² + 2x + 1, and y = 1 when x = 0. Find the value
+    of y when x = 2.
+hints:
+- level: 1
+  en: Find the general solution first.
+- level: 2
+  en: Integrate to get the general solution, use the given pair of values to fix the
+    constant, then evaluate at the new x.
+- level: 3
+  en: 'Full method: integrate term by term with a constant, substitute the known x
+    and y, solve for the constant, write the particular solution, and substitute the
+    asked x.'
+prediction_prompt:
+  en: What does the given pair of values let you find?
+status: draft
+template_id: TPL.C12.DE.PARTICULAR
+generator_version: factory-2
+template_hash: ba9d19ebf9a30207c9827ff7e4d2f4fd55527ee0d764410bb90faf40e38dfe5f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 29/3
+- id: b
+  en: 26/3
+- id: c
+  en: '9'
+- id: d
+  en: 23/3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.DE.CONSTANT_OF_INTEGRATION_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: MC.C12.DE.DERIVATIVE_EVALUATED_NOT_SOLUTION
+  when_answer_equals:
+  - c
+- id: MC.C12.DE.CONSTANT_SIGN_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Integrate both sides: the general solution has an arbitrary constant.'
+- en: 'Use y = 1 at x = 0 to find the constant: 1.'
+- en: 'Put x = 2 into the particular solution: y = 29/3.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b7888bc054f9044011039966530ca1a1206cb1802cb6db6a7c0b027e49e9c02d
+  template_hash: ba9d19ebf9a30207c9827ff7e4d2f4fd55527ee0d764410bb90faf40e38dfe5f
+  certificate_hash: 4e042a5545477891a3087550eb2a38722d902cdf6c7908b81c072bcc679ce66e
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.differential_equations
+  methods_agreeing:
+  - kernel.algebra
+  - c12.dep.integrate
+  - c12.dep.sympy
+  - c12.dep.simpson
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:46+00:00'
+  record_hash: d61cfe88974845379830fe6392ee555a65fed0a64d36cb550f1d1d1ec65a603a

@@ -1,0 +1,130 @@
+id: C12.VEC.CROSS_TRIPLE.16_triple
+skill_ids:
+- MATH.C12.VEC.CROSS_TRIPLE
+difficulty: 0.52
+pool: practice
+role: apply
+stem:
+  en: Find the scalar triple product of the vectors -i - 2k, -i - 2j and 3i - k, in
+    that order.
+hints:
+- level: 1
+  en: Decide the layout of the determinant first.
+- level: 2
+  en: Write the three vectors as the rows of one three by three determinant and expand
+    it with alternating signs.
+- level: 3
+  en: 'Full method: rows in the given order, expand along the first row with signs
+    plus, minus, plus, and keep the sign of your final number.'
+prediction_prompt:
+  en: Would swapping two vectors change the sign?
+status: draft
+template_id: TPL.C12.VEC.CROSS_TRIPLE
+generator_version: factory-2
+template_hash: 4be31fa0aa0a8fd824198a3ee645978b0af1ddb9fdf9e026dbabde981402cf1d
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '14'
+- id: b
+  en: '8'
+- id: c
+  en: '-2'
+- id: d
+  en: '-14'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.VEC.TRIPLE_SIGN_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.C12.VEC.CROSS_THEN_NO_DOT
+  when_answer_equals:
+  - b
+- id: MC.C12.VEC.DOT_PRODUCTS_ADDED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The scalar triple product is the determinant whose rows are the three vectors.
+- en: 'Expand it: the value is -14.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ef85588748ae6fd7d17f005ca4368113bbd92b6b31780abfa3cf92058aaa41cc
+  template_hash: 4be31fa0aa0a8fd824198a3ee645978b0af1ddb9fdf9e026dbabde981402cf1d
+  certificate_hash: 1ad46816c828ee89b32cadb5a6456a13a4c8d77f10ce13a5890e87b3de1a2b5f
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.vectors
+  methods_agreeing:
+  - kernel.algebra
+  - c12.vec.triple.det
+  - c12.vec.triple.sympy
+  - c12.vec.triple.leibniz
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:37:18+00:00'
+  record_hash: 10997f77247408a0f8c2333bac08de2a4e1b94efac43410574afb0961a79c27d
