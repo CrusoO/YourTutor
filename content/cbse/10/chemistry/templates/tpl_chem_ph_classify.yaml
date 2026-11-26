@@ -1,0 +1,29 @@
+id: TPL.CHEM.PH_CLASSIFY
+short: CHEM.PH_CLASSIFY
+schema: factory-template/1
+lane: chemistry
+family: ph_classify
+family_version: '1'
+skill_id: CHEM.ACID.PH_CLASSIFY
+box:
+  pH:
+    min: 0
+    max: 14
+  given:
+    choices:
+    - pH
+    - H
+    - OH
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  skill_id: CHEM.ACID.PH_CLASSIFY
+  allowed_methods:
+  - ph_scale
+  forbidden_content:
+  - calculus
+  - diagram
+  - free_text
+  - experiment_design
+  - graph_reading
+  - assertion_reason

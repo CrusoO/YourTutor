@@ -1,0 +1,135 @@
+id: ITM.BIO.HERED.MONO_RATIO.gen_ratio.95d90dac
+skill_ids:
+- BIO.HERED.MONO_RATIO
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: 'In a certain animal species, the allele L for long hair is dominant over the
+    allele l for short hair. An animal with genotype Ll is crossed with an animal
+    with genotype Ll. What is the ratio of the offspring genotypes LL : Ll : ll?'
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Find the gametes each
+    parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count how many boxes of the square show each genotype, then write the counts
+    as a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes L and l, and the second parent makes the
+    gametes L and l.
+prediction_prompt:
+  en: Before you draw the square, which outcome do you expect to be the most common?
+status: draft
+template_id: TPL2.BIO.HERED.MONO_RATIO
+generator_version: factory-2
+template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1 : 2 : 1'
+- id: b
+  en: '2 : 1 : 1'
+- id: c
+  en: '3 : 1'
+- id: d
+  en: '1 : 1'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HETEROZYGOTE_LISTED_FIRST
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.PHENOTYPE_FOR_GENOTYPE
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.ONE_PARENT_GAMETES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Ll makes the gametes L and l; the second parent Ll makes the
+    gametes L and l.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 4 boxes, LL: 1; Ll: 2; ll: 1.'
+- en: 'Write the counts in the order asked, in the lowest terms: 1 : 2 : 1.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b8b0b15822c5a6987294fc35aa96ca224090776c35fa808bac708ece1b2b69fc
+  template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+  certificate_hash: d79e9fd2e33e725cb21392e7f60140ae9fd73483483f664d8dae0a79a2fdf1b8
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:26+00:00'
+  record_hash: 39897fcdab2bc008d3b4b4e83779423f6ad58775e6e64e5329cd05f56098ed4e

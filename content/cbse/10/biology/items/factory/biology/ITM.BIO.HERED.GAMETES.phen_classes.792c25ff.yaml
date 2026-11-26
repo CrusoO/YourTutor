@@ -1,0 +1,134 @@
+id: ITM.BIO.HERED.GAMETES.phen_classes.792c25ff
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain animal species, the allele S for spotted coats is dominant over
+    the allele s for plain coats, and the allele E for curly tails is dominant over
+    the allele e for straight tails. The two genes are on different chromosomes and
+    are inherited independently. An animal with genotype SsEe is crossed with an animal
+    with genotype Ssee. How many different appearances can the offspring have?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. Fill
+    in the Punnett square and look at which outcomes actually appear.
+- level: 2
+  en: Count each different outcome once, however many boxes show it. An outcome that
+    no box shows does not count.
+- level: 3
+  en: The first parent makes the gametes SE, Se, sE and se, and the second parent
+    makes the gametes Se and se.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '16'
+- id: c
+  en: '6'
+- id: d
+  en: '2'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.BOXES_FOR_CLASSES
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.GENOTYPES_FOR_PHENOTYPES
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.GENES_COUNTED_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Out of 16 boxes, spotted coats and curly tails: 6; spotted coats and straight
+    tails: 6; plain coats and curly tails: 2; plain coats and straight tails: 2.'
+- en: 'Count the groups that appear at least once: 4.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: ede09dc67b5313fcdcb2f6cbbcb6165ed55fd5ef28d9c223b0923ad88af3430c
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: 7acc0a7494f5ee742a96d5bd34d7a730e8101801409b15eea050cad775ba1f8f
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: 5068a7a3692efe8a214420fbe6784247a73271ca029d02eda196e8dbabb4657e

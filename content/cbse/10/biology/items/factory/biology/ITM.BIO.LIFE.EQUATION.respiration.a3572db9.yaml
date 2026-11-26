@@ -1,0 +1,135 @@
+id: ITM.BIO.LIFE.EQUATION.respiration.a3572db9
+skill_ids:
+- BIO.LIFE.EQUATION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: Aerobic respiration can be written as C6H12O6 + 6 O2 → 6 CO2 + 6 H2O. In one
+    experiment, 3 molecules of glucose are used up. How many molecules of carbon dioxide
+    are made in the same experiment?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    numbers written in front of the formulas show how many molecules take part, in
+    proportion.
+- level: 2
+  en: Find the number in front of each of the two substances in the question, and
+    use their ratio to scale the number of molecules given.
+- level: 3
+  en: Write the number of molecules wanted as the number given multiplied by the ratio
+    of the two numbers in front of the formulas.
+prediction_prompt:
+  en: Before you calculate, will there be more or fewer molecules of the second substance
+    than of the first?
+status: draft
+template_id: TPL2.BIO.LIFE.EQUATION
+generator_version: factory-2
+template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 3 molecules
+- id: b
+  en: 6 molecules
+- id: c
+  en: 18 molecules
+- id: d
+  en: 54 molecules
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.ONE_TO_ONE_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.LIFE.COEFFICIENT_AS_COUNT
+  when_answer_equals:
+  - b
+- id: BIO.MC.LIFE.ATOMS_FOR_MOLECULES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In the equation, the number in front of glucose is 1 and the number in front
+    of carbon dioxide is 6.
+- en: The ratio of carbon dioxide to glucose is 6 to 1.
+- en: 'Scale up: 3 x 6 divided by 1 = 18 molecules.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8109be2b34507b7da6f803f7b3b09208865874699c9160bd24585f9ae6ba0080
+  template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+  certificate_hash: 14b35afd9923af79a9e1ca9ae51dacb14de4f70820fc7b717f4766cf9a1dc8f0
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.equation_ratio
+  - bio.atom_balance
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:52+00:00'
+  record_hash: 60f564f20e72b94b8266e5cbe49a01793fac701057bb5569fd1ca4b6affc1ffc

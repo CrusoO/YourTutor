@@ -1,0 +1,130 @@
+id: ITM.BIO.HERED.SEX_SEQ.next_after_run.80496974
+skill_ids:
+- BIO.HERED.SEX_SEQ
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A couple already has 2 children and all of them are girls. Assume each child
+    is equally likely to be a boy or a girl, whatever the earlier children were. What
+    is the probability that their next child is a boy? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Ask whether the earlier
+    births change the chance for the next birth.
+- level: 2
+  en: Each birth is independent of the earlier ones.
+- level: 3
+  en: Only the next child matters, and the earlier children play no part.
+prediction_prompt:
+  en: Before you calculate, is the outcome likely or unlikely?
+status: draft
+template_id: TPL2.BIO.HERED.SEX_SEQ
+generator_version: factory-2
+template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: 1/3
+- id: c
+  en: 1/8
+- id: d
+  en: 1/2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.SHARE_AS_PROBABILITY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.GAMBLERS_FALLACY
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The sex of a child does not depend on the sex of the earlier children.
+- en: 'So the chance that the next child is a boy is the chance for one child on its
+    own: 1 out of 2.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: b308be9a24e77a77e40720aa8f57243f2ae77a78431185b7b49cbea78bf31631
+  template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+  certificate_hash: f9caff436d05a44897bba102834ec89f7e323e47602a6d2feaa33a387d3ec0ca
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.counting
+  - bio.listing
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:53+00:00'
+  record_hash: 1f49ffd675ae97ef2552de6ab8f7fd652130f1d4397ad1cc4e2c23e68d7d5eff

@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FRAGMENTS.two_rounds.304fbec0
+skill_ids:
+- BIO.REPRO.FRAGMENTS
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: A long algal filament is cut into 2 pieces. Assume that every piece grows into
+    a complete new organism. Later, every one of these new organisms is cut into 5
+    pieces in the same way. How many organisms can grow from the second round of cutting?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. After the first round,
+    there are several organisms, and every one of them is cut again.
+- level: 2
+  en: Each organism gives the same number of pieces, so combine the two counts by
+    multiplying them.
+- level: 3
+  en: Count the organisms after the first round, then count the pieces that each of
+    them makes.
+prediction_prompt:
+  en: Before you count, will there be more pieces than cuts, or fewer?
+status: draft
+template_id: TPL2.BIO.REPRO.FRAGMENTS
+generator_version: factory-2
+template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 10 organisms
+- id: b
+  en: 7 organisms
+- id: c
+  en: 12 organisms
+- id: d
+  en: 2 organisms
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.PARENT_NOT_COUNTED
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.FIRST_ROUND_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: After the first round there are 2 organisms.
+- en: Each is cut into 5 pieces, so there are 2 x 5 = 10 organisms.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3d87e45cd8b4f400cf30d809e766e3b7f3e9e13781116c0c44e0758c330c7464
+  template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+  certificate_hash: 7abc894534663f95d46d00090a7390162aed399b571cec0a9e7a88193e27341b
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.pieces_closed_form
+  - bio.pieces_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:45+00:00'
+  record_hash: 5bd488f3f08ddbdcc06f4d9b8b088b044ea3247ef3fc8f5792aeba8be577241e

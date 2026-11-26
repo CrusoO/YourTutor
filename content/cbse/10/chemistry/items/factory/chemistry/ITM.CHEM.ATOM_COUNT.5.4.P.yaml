@@ -1,0 +1,131 @@
+id: ITM.CHEM.ATOM_COUNT.5.4.P
+skill_ids:
+- CHEM.RXN.ATOM_COUNT
+difficulty: 0.32
+pool: practice
+role: procedure
+stem:
+  en: How many atoms of phosphorus are shown by 4 Ca3(PO4)2?
+hints:
+- level: 1
+  en: A small number just after a bracket multiplies every atom inside that bracket.
+- level: 2
+  en: Count the atoms in one unit of the formula first. The big number in front of
+    the formula multiplies that whole count.
+- level: 3
+  en: 'Look only at phosphorus: find how many sit in one unit, then use the number
+    in front of the formula.'
+prediction_prompt:
+  en: Before you count, will the total be bigger than the number in the formula's
+    small subscript?
+status: draft
+template_id: TPL.CHEM.ATOM_COUNT
+generator_version: factory-2
+template_hash: 88b68667db12e121658ac16ce69bc616426df37c2f203a0a11959e3d949883ef
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '4'
+- id: b
+  en: '6'
+- id: c
+  en: '8'
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.ATOM.BRACKET_IGNORED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.ATOM.COEFFICIENT_ADDED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.ATOM.COEFFICIENT_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Count the phosphorus atoms in one unit of Ca3(PO4)2: a number outside a bracket
+    multiplies every atom inside it, so one unit has 2.'
+- en: 'The number in front, 4, multiplies the whole formula: 4 x 2 = 8.'
+- en: The answer is 8 atoms of phosphorus.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fc6162263dd04a91a65b2ba3d869fd96ff62391bc561783f0ec6a60ed2c27f5d
+  template_hash: 88b68667db12e121658ac16ce69bc616426df37c2f203a0a11959e3d949883ef
+  certificate_hash: 259cb3c85545ebccd15204e263e8e0b9b0de2663d2702ef6c298848552b55075
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.reactions
+  methods_agreeing:
+  - kernel.algebra
+  - chem.atoms_stack
+  - chem.atoms_expanded
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:06+00:00'
+  record_hash: a8b30ebae5fc242ffa968d4cdfbd9956ce8ee73542d62fbd75ee9fa452ed4034

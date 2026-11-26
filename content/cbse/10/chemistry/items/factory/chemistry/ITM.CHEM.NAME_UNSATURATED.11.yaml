@@ -1,0 +1,129 @@
+id: ITM.CHEM.NAME_UNSATURATED.11
+skill_ids:
+- CHEM.CARBON.NAME_UNSATURATED
+difficulty: 0.55
+pool: practice
+role: procedure
+stem:
+  en: What is the IUPAC name of the compound with the condensed formula CH3-CH=CH-CH2-CH2-CH3?
+hints:
+- level: 1
+  en: Count the carbon atoms in the unbroken chain to find the parent name, then look
+    at the bond between carbon atoms that is not single.
+- level: 2
+  en: A double bond changes the ending to -ene and a triple bond changes it to -yne.
+- level: 3
+  en: Number the chain from the end nearest the multiple bond, and write the number
+    of its first carbon before the ending when more than one position is possible.
+prediction_prompt:
+  en: Before you name it, does the ending change from -ane?
+status: draft
+template_id: TPL.CHEM.NAME_UNSATURATED
+generator_version: factory-2
+template_hash: 91d8f8a0bb13a98271e1a838bc74557e4d7a616de118061e459314f489a3cc8f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: hex-2-ane
+- id: b
+  en: hex-2-ene
+- id: c
+  en: hex-4-ene
+- id: d
+  en: hexene
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.NAME.SUFFIX_MIXED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.NAME.NUMBERED_FROM_WRONG_END
+  when_answer_equals:
+  - c
+- id: CHEM.MC.NAME.POSITION_OF_BOND_NOT_GIVEN
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The chain has 6 carbon atoms, so the parent is 'hex'.
+- en: 'The multiple bond decides the ending: -ene (double bond).'
+- en: 'Number from the end nearest the multiple bond: the name is hex-2-ene.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9b672437472f4f747a5133c89a3d62714421ca3b0e89f7331242a909ccbb50d9
+  template_hash: 91d8f8a0bb13a98271e1a838bc74557e4d7a616de118061e459314f489a3cc8f
+  certificate_hash: 16fa9881593c831496d0119fb3b79fd418df6efc54a0eaf86277344f265f8b1f
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.unsat_algorithm
+  - chem.unsat_table
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:25+00:00'
+  record_hash: 41a39e6421464acb13206812a63773291c407191c9021a1e2cde9f64d2babe66

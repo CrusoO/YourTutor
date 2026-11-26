@@ -1,0 +1,130 @@
+id: ITM.CHEM.SERIES_FORMULA.alkane.9.n_from_H
+skill_ids:
+- CHEM.CARBON.SERIES_FORMULA
+difficulty: 0.59
+pool: practice
+role: apply
+stem:
+  en: A molecule from the alkane series has 20 hydrogen atoms. How many carbon atoms
+    does it have?
+hints:
+- level: 1
+  en: Use the general formula of the series, which links the number of hydrogen atoms
+    to the number of carbon atoms.
+- level: 2
+  en: Write the general formula with the known number of hydrogen atoms on one side,
+    then find n by doing the same operation to each side.
+- level: 3
+  en: 'The general formula of the alkane series is CnH2n+2: put the hydrogen number
+    in and solve for n.'
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number of
+    carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_FORMULA
+generator_version: factory-2
+template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '10'
+- id: b
+  en: '9'
+- id: c
+  en: '11'
+- id: d
+  en: '20'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - a
+  - c
+- id: CHEM.MC.SERIES.HYDROGEN_COUNT_COPIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The general formula is CnH2n+2.
+- en: 'Set it equal to 20: 2n + 2 = 20.'
+- en: Do the same operation to each side to get n = 9.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 012f85c81452941902c283c0c7214b2e3cecebde0e28fadacc90b17fbb9f3db6
+  template_hash: 5bb3bffa7f5c45c29a26aaaf4608b49b53e32a7729b5c92d86bd795d47050933
+  certificate_hash: a4066f7d2e63c786b17dda5a8913df2b0da23fecc56d91103cd68363bafddbc3
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.series_general_formula
+  - chem.series_chain_build
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:05+00:00'
+  record_hash: 5b8993ac68c32188cc49731777a478fc4eade5eeefda5121e0aa960803a2436f

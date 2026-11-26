@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.COUNTS_DI.dom_rec.ca7fbc70
+skill_ids:
+- BIO.HERED.COUNTS_DI
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: In a certain animal species, the allele B for black coats is dominant over the
+    allele b for brown coats, and the allele L for long hair is dominant over the
+    allele l for short hair. The two genes are on different chromosomes and are inherited
+    independently. An animal with genotype BbLl is crossed with an animal with genotype
+    BbLl. The cross produces 1600 offspring. How many of them are expected to show
+    black coats and short hair?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. First find the share of
+    the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes BL, Bl, bL and bl, and the second parent
+    makes the gametes BL, Bl, bL and bl.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_DI
+generator_version: factory-2
+template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 100 offspring
+- id: b
+  en: 1300 offspring
+- id: c
+  en: 300 offspring
+- id: d
+  en: 400 offspring
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.SPLIT_EQUALLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent BbLl makes the gametes BL, Bl, bL and bl; the second parent
+    BbLl makes the gametes BL, Bl, bL and bl.
+- en: 'Out of 16 boxes, black coats and long hair: 9; black coats and short hair:
+    3; brown coats and long hair: 3; brown coats and short hair: 1.'
+- en: The share of offspring wanted is 3/16.
+- en: 'Multiply the share by the total: 3/16 x 1600 = 300.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c77f914414c3f0536f2531c9ea0adb520f7b34e0ea55c8ee07a6a31d374f1a0a
+  template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+  certificate_hash: 772942841b714a6b558e2a6d2d0e959d29a0896333e2b0bdb9da47600f65c799
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:45+00:00'
+  record_hash: 4d7a8b8e88b44b720ac8f6467c97e6a7735ba1e2e532c84a42a5559907b9c8ac

@@ -1,0 +1,137 @@
+id: ITM.BIO.HERED.DI_PROB.both_rec.cac1a418
+skill_ids:
+- BIO.HERED.DI_PROB
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele P for purple flowers is dominant over
+    the allele p for white flowers, and the allele R for round seeds is dominant over
+    the allele r for wrinkled seeds. The two genes are on different chromosomes and
+    are inherited independently. A plant with genotype PpRr is crossed with a plant
+    with genotype ppRr. What is the probability that one offspring, picked at random,
+    shows white flowers and wrinkled seeds? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. The
+    two genes are inherited independently, so each gene can be worked out on its own.
+- level: 2
+  en: Find the chance of the wanted outcome for the first gene, then for the second
+    gene, then combine the two chances by multiplying.
+- level: 3
+  en: The first parent makes the gametes PR, Pr, pR and pr, and the second parent
+    makes the gametes pR and pr.
+prediction_prompt:
+  en: Before you calculate, is the outcome common or rare among the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.DI_PROB
+generator_version: factory-2
+template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/2
+- id: b
+  en: 7/8
+- id: c
+  en: 1/8
+- id: d
+  en: 3/8
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_GENE_ONLY
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.GENES_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent PpRr makes the gametes PR, Pr, pR and pr; the second parent
+    ppRr makes the gametes pR and pr.
+- en: 'Treat each gene on its own: find the chance of the outcome wanted for the first
+    gene and for the second gene.'
+- en: 'The genes are independent, so multiply the two chances: 1/2 x 1/4 = 1/8.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d6bf049158ad0b98119e3ea12855e0fa8a40469886c3d2e7b7da27c8fce6c99e
+  template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+  certificate_hash: e0f8ecaa1f7272659e613bd05950ae70de0a16579711d6b49bd004b17bae995a
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:31+00:00'
+  record_hash: 5ec0c0ab95b6e76f9af534b5504f8faf80c2b23252469f0d343c5cd249ddd04d

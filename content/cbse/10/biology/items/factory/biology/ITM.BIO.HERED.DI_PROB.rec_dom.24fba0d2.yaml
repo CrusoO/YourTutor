@@ -1,0 +1,137 @@
+id: ITM.BIO.HERED.DI_PROB.rec_dom.24fba0d2
+skill_ids:
+- BIO.HERED.DI_PROB
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: In a certain plant species, the allele T for tall stems is dominant over the
+    allele t for short stems, and the allele Y for yellow seeds is dominant over the
+    allele y for green seeds. The two genes are on different chromosomes and are inherited
+    independently. A plant with genotype TtYy is crossed with a plant with genotype
+    ttYy. What is the probability that one offspring, picked at random, shows short
+    stems and yellow seeds? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    two genes are inherited independently, so each gene can be worked out on its own.
+- level: 2
+  en: Find the chance of the wanted outcome for the first gene, then for the second
+    gene, then combine the two chances by multiplying.
+- level: 3
+  en: The first parent makes the gametes TY, Ty, tY and ty, and the second parent
+    makes the gametes tY and ty.
+prediction_prompt:
+  en: Before you calculate, is the outcome common or rare among the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.DI_PROB
+generator_version: factory-2
+template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5/8
+- id: b
+  en: 1/16
+- id: c
+  en: 3/8
+- id: d
+  en: 1/2
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.GENES_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ONE_GENE_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent TtYy makes the gametes TY, Ty, tY and ty; the second parent
+    ttYy makes the gametes tY and ty.
+- en: 'Treat each gene on its own: find the chance of the outcome wanted for the first
+    gene and for the second gene.'
+- en: 'The genes are independent, so multiply the two chances: 1/2 x 3/4 = 3/8.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: efc876faa8241e730dfd259b89b4bc3a281f4405a2b92a7202fbf6091c63285d
+  template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+  certificate_hash: be3821f6e04a3bf18c7f4ceccfa2885e5167c1718eed65ed1ec9de6075e5d78f
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:31+00:00'
+  record_hash: 3f98e82a54ee70b64def8807ebd53009c50c7dcaace4b5f7dd701cd14a8c96d8

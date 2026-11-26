@@ -1,0 +1,131 @@
+id: ITM.BIO.HERED.GAMETES.gen_classes.dff4c804
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele R for round seeds is dominant over the
+    allele r for wrinkled seeds. A plant with genotype RR is crossed with a plant
+    with genotype rr. How many different genotypes can the offspring have?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Fill in the Punnett square
+    and look at which outcomes actually appear.
+- level: 2
+  en: Count each different outcome once, however many boxes show it. An outcome that
+    no box shows does not count.
+- level: 3
+  en: The first parent makes the gametes R, and the second parent makes the gametes
+    r.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '3'
+- id: b
+  en: '2'
+- id: c
+  en: '1'
+- id: d
+  en: '4'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ALL_COMBINATIONS_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.LETTERS_COUNTED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.BOXES_FOR_CLASSES
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Out of 4 boxes, Rr: 4.'
+- en: 'Count the groups that appear at least once: 1.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f93b0579dd359fe9a6d2fa5bf35d655699328b9a2553b32fa1b98beebfb03d5a
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: b6d2cdd6765db637d13da214846495f6ba8a9ec66b39ae9cc9d90bde7c01c11a
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: c92f340f355683aeaa55e72a2c178e26371ec31a266ce9923ec149994428dbb3
