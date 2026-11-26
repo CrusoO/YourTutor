@@ -163,6 +163,17 @@ def is_factory_stamped(item: Item) -> bool:
     )
 
 
+def is_authored_draft(item: Item) -> bool:
+    """A model-drafted item from the authoring pipeline: tier C, draft, author `model-draft`.
+    Its option letters are shuffled, so hints are checked against the key option's text."""
+    return (
+        item.tier is not None
+        and item.tier.value == "C"
+        and item.provenance is not None
+        and item.provenance.author == "model-draft"
+    )
+
+
 def _factory_certified(item: Item, stamped_hashes: Collection[str] | None) -> bool:
     """A factory item whose record is intact, names this content and (when the ledgers are known)
     is in a stamp ledger. Its answer was checked by the kernel plus an independent method, which
@@ -404,7 +415,7 @@ def _items(bundle: ContentBundle, report: ValidationReport) -> None:
         # A stamped factory item shuffles its option letters, so the letter ("a") is not the
         # answer: check the hints against the text of the key option instead.
         forbidden = item.answer.sympy
-        if is_factory_stamped(item) and item.type == ItemType.mcq:
+        if (is_factory_stamped(item) or is_authored_draft(item)) and item.type == ItemType.mcq:
             key = next((o.en for o in item.options if o.id == item.answer.sympy), None)
             forbidden = key or forbidden
         for hint in item.hints:
@@ -686,7 +697,8 @@ def _hint_language(bundle: ContentBundle, report: ValidationReport) -> None:
         stem = item.stem.en
         has_equals = "=" in stem
         hints = {h.level: h.en for h in item.hints}
-        if not has_equals:
+        # a model-drafted fact or concept item may talk about a chemical equation with no "="
+        if not has_equals and not is_authored_draft(item):
             for hint in item.hints:
                 lower = hint.en.lower()
                 if "equation" in lower or "both sides" in lower:
@@ -714,6 +726,14 @@ def _language_quality(bundle: ContentBundle, report: ValidationReport) -> None:
             hints=[hint.en for hint in item.hints],
             extras=[item.prediction_prompt.en],
         )
+        if is_authored_draft(item):
+            # "(aq)", "(OH)", "(III)" are real chemistry, not template leftovers; the number-role
+            # rule is about generated arithmetic stems.
+            errors = [
+                e
+                for e in errors
+                if not e.startswith("parenthesised leftover") and "fills more than one" not in e
+            ]
         for error in errors:
             report.errors.append(f"{item.id} {error}")
         for warning in warnings:
