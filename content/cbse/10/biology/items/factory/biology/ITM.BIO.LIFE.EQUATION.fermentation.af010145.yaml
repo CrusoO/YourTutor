@@ -1,0 +1,135 @@
+id: ITM.BIO.LIFE.EQUATION.fermentation.af010145
+skill_ids:
+- BIO.LIFE.EQUATION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: Anaerobic respiration in yeast can be written as C6H12O6 → 2 C2H5OH + 2 CO2.
+    In one experiment, 5 molecules of carbon dioxide are made. How many molecules
+    of ethanol are made in the same experiment?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    numbers written in front of the formulas show how many molecules take part, in
+    proportion.
+- level: 2
+  en: Find the number in front of each of the two substances in the question, and
+    use their ratio to scale the number of molecules given.
+- level: 3
+  en: Write the number of molecules wanted as the number given multiplied by the ratio
+    of the two numbers in front of the formulas.
+prediction_prompt:
+  en: Before you calculate, will there be more or fewer molecules of the second substance
+    than of the first?
+status: draft
+template_id: TPL2.BIO.LIFE.EQUATION
+generator_version: factory-2
+template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5 molecules
+- id: b
+  en: 45 molecules
+- id: c
+  en: 7 molecules
+- id: d
+  en: 2 molecules
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.ATOMS_FOR_MOLECULES
+  when_answer_equals:
+  - b
+- id: BIO.MC.LIFE.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: BIO.MC.LIFE.COEFFICIENT_AS_COUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In the equation, the number in front of carbon dioxide is 2 and the number in
+    front of ethanol is 2.
+- en: The ratio of ethanol to carbon dioxide is 2 to 2.
+- en: 'Scale up: 5 x 2 divided by 2 = 5 molecules.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 79ee9c96777368c130bdfba3bf2f9fb52fba8b5d7bebfac27ed16bb49ec6ab1c
+  template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+  certificate_hash: 8e788b20a4de28902e53a3c5f23cfdc1c1e7a859e40e317f899e4b70fd7a8ad6
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.equation_ratio
+  - bio.atom_balance
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:53+00:00'
+  record_hash: ef3db3a84f4f289cf6b3ec8ec4fe2836fb043c65b1869b9aeadb5c406cb231fc

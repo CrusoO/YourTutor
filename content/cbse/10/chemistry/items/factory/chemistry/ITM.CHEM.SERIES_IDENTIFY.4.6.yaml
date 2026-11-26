@@ -1,0 +1,127 @@
+id: ITM.CHEM.SERIES_IDENTIFY.4.6
+skill_ids:
+- CHEM.CARBON.SERIES_IDENTIFY
+difficulty: 0.33
+pool: practice
+role: recall
+stem:
+  en: Which of these general formulas describes C4H6? Here n stands for the number
+    of carbon atoms.
+hints:
+- level: 1
+  en: Compare the number of hydrogen atoms with twice the number of carbon atoms.
+- level: 2
+  en: Find how many more or fewer hydrogen atoms there are than twice the carbon atoms.
+- level: 3
+  en: A difference of plus two, zero or minus two matches one of the three general
+    formulas.
+prediction_prompt:
+  en: Before you decide, will there be more hydrogen atoms than twice the carbon atoms?
+status: draft
+template_id: TPL.CHEM.SERIES_IDENTIFY
+generator_version: factory-2
+template_hash: 5bdb5fa31044c485605956a4a288757fec8e8e6334f76cbbfedbd399f7c3acc6
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: CnH2n-2
+- id: b
+  en: CnH2n+1
+- id: c
+  en: CnH2n
+- id: d
+  en: CnH2n+2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.SERIES.RADICAL_FORMULA_USED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.SERIES.WRONG_SERIES_FORMULA
+  when_answer_equals:
+  - c
+  - d
+solution_steps:
+- en: Twice the number of carbon atoms is 8.
+- en: The hydrogen count is 6, which is -2 from that.
+- en: That matches CnH2n-2.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 989679950a12c1528eebd244d3d73e9fe4230377049908f197f50c753e2cf85e
+  template_hash: 5bdb5fa31044c485605956a4a288757fec8e8e6334f76cbbfedbd399f7c3acc6
+  certificate_hash: 63e5433bfbbb0c0f171c016166c14738b15232684a702dfe98109b3bd30ebf3c
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.identify_difference
+  - chem.identify_fit
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:10+00:00'
+  record_hash: 808d1053465f08d402a890307d2d443393f5cbd9a3d330c45d213d61d2d3fcab

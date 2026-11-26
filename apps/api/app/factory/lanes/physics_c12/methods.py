@@ -209,8 +209,14 @@ def _prepared(model_id: str, variant_id: str) -> tuple[Any, ...]:
         _dim_of(e, sym_dims)
     names = {n for e in exprs for n in e.free_symbols}
     given_names = set(variant.needs) | set(model.consts)
-    unknown = [s for s in names if s.name not in given_names]
+    unknown = sorted((s for s in names if s.name not in given_names), key=lambda s: s.name)
     sols = sympy.solve(exprs, unknown, dict=True)
+    # every quantity here is positive: drop a branch whose answer is certainly negative
+    sols = [
+        x
+        for x in sols
+        if symbols[variant.find] in x and x[symbols[variant.find]].is_negative is not True
+    ]
     if len(sols) != 1 or symbols[variant.find] not in sols[0]:
         raise ValueError("laws do not determine the unknown uniquely")
     return symbols, sols[0][symbols[variant.find]], sym_dims

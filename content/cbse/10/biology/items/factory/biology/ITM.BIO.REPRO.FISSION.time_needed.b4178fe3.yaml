@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FISSION.time_needed.b4178fe3
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A bacterial culture starts with 1 cell. Assume that every cell divides into
+    two cells in each round of division, that all the cells divide together, and that
+    no cell dies. One round of division takes 60 minutes. How many minutes does it
+    take for the culture to reach 32 cells?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. First
+    find how many rounds of division are needed to reach that number of cells.
+- level: 2
+  en: Then multiply the number of rounds by the time one round takes.
+- level: 3
+  en: Each round takes 60 minutes.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1920 minutes
+- id: b
+  en: 300 minutes
+- id: c
+  en: 5 minutes
+- id: d
+  en: 240 minutes
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.FACTOR_TIMES_TIME
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.TIME_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.ONE_ROUND_LESS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The culture grew by a factor of 32, which takes 5 rounds.
+- en: 5 rounds of 60 minutes take 300 minutes.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 0fe16ce57392db4ab337274b54aa82a1909e324d2683de98b9df6410fec560de
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 6340dd9a8ba5113788ac0bfa38645e670a01ab45688b5a1ceba7f2845e8a8363
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:30+00:00'
+  record_hash: 7508ba134bee768953e09eed34068185895f5a5e26252b0d59080056f2ec1333

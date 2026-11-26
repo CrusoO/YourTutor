@@ -1,0 +1,134 @@
+id: ITM.BIO.HERED.SEX_SEQ.exactly_k.e1a4f797
+skill_ids:
+- BIO.HERED.SEX_SEQ
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A couple has 4 children. Assume each child is equally likely to be a boy or
+    a girl, whatever the earlier children were. What is the probability that exactly
+    2 of the 4 children are boys? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. Each
+    child is a boy or a girl with the same chance, so list the equally likely sequences
+    of births.
+- level: 2
+  en: Count the sequences that have exactly the number of boys asked for, then divide
+    by the number of all the sequences.
+- level: 3
+  en: The number of sequences is 2 multiplied by itself once for each child.
+prediction_prompt:
+  en: Before you calculate, is the outcome likely or unlikely?
+status: draft
+template_id: TPL2.BIO.HERED.SEX_SEQ
+generator_version: factory-2
+template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 5/8
+- id: b
+  en: 1/2
+- id: c
+  en: 3/8
+- id: d
+  en: 1/16
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.SHARE_AS_PROBABILITY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ORDER_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: There are 2 equally likely outcomes for each child, so there are 16 equally
+    likely birth sequences.
+- en: 'The number of sequences with exactly 2 boys is the number of ways to choose
+    which 2 of the 4 children are boys: 6.'
+- en: 'The probability is 6 out of 16: 3/8.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: bf48e2b74f39237a29a17c11c573f42bf6168ee26952593c96d8c463093d99b3
+  template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+  certificate_hash: 8e90a283bee064e6fc13212ccf294ce429cc0991abca3ca2e13a9ee74818357f
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.counting
+  - bio.listing
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:53+00:00'
+  record_hash: c4ec01dd4f2b5566ed49e89b33134cfc47288aea0d77e1f9b494a319169b776e

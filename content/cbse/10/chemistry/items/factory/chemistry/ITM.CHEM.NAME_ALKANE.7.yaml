@@ -1,0 +1,130 @@
+id: ITM.CHEM.NAME_ALKANE.7
+skill_ids:
+- CHEM.CARBON.NAME_ALKANE
+difficulty: 0.56
+pool: practice
+role: procedure
+stem:
+  en: What is the IUPAC name of the compound with the condensed formula CH3-CH(CH3)-CH2-CH2-CH2-CH3?
+hints:
+- level: 1
+  en: Find the longest unbroken chain of carbon atoms. Its length gives the name of
+    the parent alkane.
+- level: 2
+  en: Anything attached to the longest chain is a side group. Number the chain from
+    the end that gives the side groups the lowest numbers.
+- level: 3
+  en: Write the side group numbers and names in front of the parent name, using di,
+    tri when a group appears more than once.
+prediction_prompt:
+  en: Before you name it, how many carbon atoms are in the longest chain?
+status: draft
+template_id: TPL.CHEM.NAME_ALKANE
+generator_version: factory-2
+template_hash: 3b834ff835f72b11444fb06de0e7f97a35e37b1692b9a8fae90a25aa84bedf58
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2-methylhexane
+- id: b
+  en: 2,2,3-trimethylbutane
+- id: c
+  en: heptane
+- id: d
+  en: 5-methylhexane
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.NAME.WRONG_ISOMER
+  when_answer_equals:
+  - b
+- id: CHEM.MC.NAME.BRANCH_COUNTED_IN_CHAIN
+  when_answer_equals:
+  - c
+- id: CHEM.MC.NAME.NUMBERED_FROM_WRONG_END
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Find the longest chain of carbon atoms; its length sets the parent name.
+- en: Number the chain from the end that gives the lowest numbers to the side groups.
+- en: 'Put the side groups in front of the parent name: 2-methylhexane.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a19a40cffe3adde11f23632a831026875b56f7b7834eda868dd6ad02c036b03f
+  template_hash: 3b834ff835f72b11444fb06de0e7f97a35e37b1692b9a8fae90a25aa84bedf58
+  certificate_hash: 043af492cba6cc9ace74415f88ec5b4984f644f7ad0fd355a7c398066081d1c0
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.name_algorithm
+  - chem.name_table
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:20+00:00'
+  record_hash: 639cfc16f261215727dcd79269e06849cb2d7acafc35107ce617169b35005a32

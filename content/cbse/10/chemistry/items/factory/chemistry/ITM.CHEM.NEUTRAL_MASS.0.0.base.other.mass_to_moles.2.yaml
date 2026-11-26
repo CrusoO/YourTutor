@@ -1,0 +1,134 @@
+id: ITM.CHEM.NEUTRAL_MASS.0.0.base.other.mass_to_moles.2
+skill_ids:
+- CHEM.ACID.NEUTRAL_MASS
+difficulty: 0.71
+pool: practice
+role: apply
+stem:
+  en: Hydrochloric acid reacts completely with sodium hydroxide to give a salt and
+    water. Starting with 80 g of sodium hydroxide, what amount in moles of hydrochloric
+    acid is needed to react exactly with it?
+hints:
+- level: 1
+  en: Start from the balanced chemical reaction. The coefficients give the ratio of
+    moles.
+- level: 2
+  en: Change the given mass to moles by dividing by the molar mass, unless the amount
+    is already in moles.
+- level: 3
+  en: Multiply the moles by the ratio of coefficients, wanted over given, then change
+    to a mass if a mass is asked.
+prediction_prompt:
+  en: Before you calculate, will the answer be larger or smaller than the quantity
+    you start with?
+status: draft
+template_id: TPL.CHEM.NEUTRAL_MASS
+generator_version: factory-2
+template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 mol
+- id: b
+  en: 80 mol
+- id: c
+  en: 2.19 mol
+- id: d
+  en: 1 mol
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.STOICH.MASS_NOT_CONVERTED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.STOICH.WRONG_MOLAR_MASS
+  when_answer_equals:
+  - c
+- id: CHEM.MC.STOICH.ONE_MOLE_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the balanced equation: HCl + NaOH → NaCl + H2O.'
+- en: Convert the given quantity to moles using the molar mass, then use the coefficients
+    to find the moles of hydrochloric acid.
+- en: 'Convert to the amount in moles: the answer is 2 mol.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 66feae823deda048d8aa93d1da2ddcd953e9a681d251e1228dfce71a799df04c
+  template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+  certificate_hash: 8b715fff939371f04d2a12510076eeae8a696cb80cee1200270136ccc593554b
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.mass_moles_route
+  - chem.mass_ratio_route
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: pass
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:38+00:00'
+  record_hash: dda8bbc183b1d1261952c2ea6a4853f0732d1b8c959de635c32c85b625307902

@@ -1,0 +1,54 @@
+id: TPL2.BIO.HERED.COUNTS_DI
+schema: factory-template/1
+lane: biology
+model: HERED.COUNTS_DI
+skill_id: BIO.HERED.COUNTS_DI
+box:
+  t:
+    choices:
+    - TR
+    - TY
+    - PT
+    - PR
+    - PY
+    - BL
+    - TW
+    - SE
+    - LE
+  cross:
+    choices:
+    - HhGg,HhGg
+    - HhGg,hhgg
+    - HhGg,Hhgg
+    - HhGg,hhGg
+    - HHGg,hhgg
+    - HhGG,hhgg
+    - HhGg,HHGg
+    - HhGg,HhGG
+    - Hhgg,hhGg
+  variant:
+    choices:
+    - both_dom
+    - dom_rec
+    - both_rec
+  N:
+    choices:
+    - '64'
+    - '160'
+    - '320'
+    - '640'
+    - '1600'
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.biology.heredity
+  skill_id: BIO.HERED.COUNTS_DI
+  allowed_methods:
+  - punnett_square
+  - product_rule
+  forbidden_content:
+  - free_text
+  - assertion_reason
+  - fact_recall
+  - diagram
+  - calculus
+  - experiment_design

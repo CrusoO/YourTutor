@@ -1,0 +1,45 @@
+id: TPL.CHEM.NEUTRAL_VOLUME
+short: CHEM.NEUTRAL_VOLUME
+schema: factory-template/1
+lane: chemistry
+family: neutral_volume
+family_version: '1'
+skill_id: CHEM.ACID.NEUTRAL_VOLUME
+box:
+  a:
+    min: 0
+    max: 2
+  b:
+    min: 0
+    max: 4
+  ca:
+    choices:
+    - '0.1'
+    - '0.2'
+    - '0.5'
+    - '1'
+  va:
+    choices:
+    - 10
+    - 20
+    - 25
+    - 50
+  cb:
+    choices:
+    - '0.1'
+    - '0.2'
+    - '0.25'
+    - '0.5'
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  skill_id: CHEM.ACID.NEUTRAL_VOLUME
+  allowed_methods:
+  - neutralisation
+  forbidden_content:
+  - calculus
+  - diagram
+  - free_text
+  - experiment_design
+  - graph_reading
+  - assertion_reason

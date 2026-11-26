@@ -1,0 +1,133 @@
+id: ITM.BIO.HERED.GAMETES.gen_classes.89678b0b
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele P for purple flowers is dominant over
+    the allele p for white flowers, and the allele Y for yellow seeds is dominant
+    over the allele y for green seeds. The two genes are on different chromosomes
+    and are inherited independently. A plant with genotype PpYy is crossed with a
+    plant with genotype PpYY. How many different genotypes can the offspring have?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Fill
+    in the Punnett square and look at which outcomes actually appear.
+- level: 2
+  en: Count each different outcome once, however many boxes show it. An outcome that
+    no box shows does not count.
+- level: 3
+  en: The first parent makes the gametes PY, Py, pY and py, and the second parent
+    makes the gametes PY and pY.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '9'
+- id: b
+  en: '4'
+- id: c
+  en: '6'
+- id: d
+  en: '2'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ALL_COMBINATIONS_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.LETTERS_COUNTED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.GENES_COUNTED_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Out of 16 boxes, PPYY: 2; PPYy: 2; PpYY: 4; PpYy: 4; ppYY: 2; ppYy: 2.'
+- en: 'Count the groups that appear at least once: 6.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 690e12252bddce5b664833a7c375394a241c41b4a6c11d028130acaf72c11da6
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: 89cf7f0e86273ddc4ed2a3e89b0ed671a74a0eaa68607e2a4602fc822cd3b3ee
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: ab05cb225fad1a45020ee7e96f6f73987409cf413a9cc985400e3ff369c9ec16

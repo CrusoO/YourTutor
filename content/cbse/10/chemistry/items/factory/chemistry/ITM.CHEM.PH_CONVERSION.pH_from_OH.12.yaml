@@ -1,0 +1,130 @@
+id: ITM.CHEM.PH_CONVERSION.pH_from_OH.12
+skill_ids:
+- CHEM.ACID.PH_CONVERSION
+difficulty: 0.36
+pool: practice
+role: procedure
+stem:
+  en: The hydroxide ion concentration of a solution is 1 x 10^-12 mol/L. What is the
+    pH of the solution?
+hints:
+- level: 1
+  en: A hydroxide ion concentration gives pOH first, and only then the pH.
+- level: 2
+  en: Find the pOH from the power of ten, then use the fixed total of pH and pOH at
+    room temperature.
+- level: 3
+  en: pOH comes from the power with its minus sign ignored. Subtract it from the fixed
+    total.
+prediction_prompt:
+  en: Before you work it out, is the answer a small or a large number, and is it positive
+    or negative?
+status: draft
+template_id: TPL.CHEM.PH_CONVERSION
+generator_version: factory-2
+template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-2'
+- id: b
+  en: '2'
+- id: c
+  en: '19'
+- id: d
+  en: '12'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.SIGN_OF_EXPONENT_KEPT
+  when_answer_equals:
+  - a
+- id: CHEM.MC.PH.SEVEN_USED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.PH.POH_REPORTED_AS_PH
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'pOH comes from the power of ten: pOH = 12.'
+- en: pH + pOH = 14, so pH = 14 - 12 = 2.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 34900b8891c3b9337316ece39ec942e3720f596d10879cb6caccf271ab8b9dc4
+  template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+  certificate_hash: b0558a5f8ef4713dfa66321fd99b80c531814c6b7253f2c251d3979d0dae56e5
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.ph_exponent
+  - chem.ph_decimal_log
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:17+00:00'
+  record_hash: 78fc02424939b398a2ed4cf23dcb77d73562cfee7cc5e058a9cfacf8b4d59548

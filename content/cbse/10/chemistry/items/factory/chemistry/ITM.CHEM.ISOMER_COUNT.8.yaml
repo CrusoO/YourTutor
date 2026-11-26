@@ -1,0 +1,131 @@
+id: ITM.CHEM.ISOMER_COUNT.8
+skill_ids:
+- CHEM.CARBON.ISOMER_COUNT
+difficulty: 0.72
+pool: practice
+role: apply
+stem:
+  en: 'Count the structural isomers of C8H18: in how many different ways can its carbon
+    atoms be joined with single bonds only?'
+hints:
+- level: 1
+  en: Isomers have the same molecular formula but the carbon atoms are joined in a
+    different order.
+- level: 2
+  en: Start with the longest straight chain, then shorten the main chain by one carbon
+    and place that carbon as a branch in every different position.
+- level: 3
+  en: A branch at the very end of the chain only lengthens the chain, so it does not
+    give a new isomer. Check that you do not count the same structure twice.
+prediction_prompt:
+  en: Before you count, will there be more or fewer isomers than carbon atoms?
+status: draft
+template_id: TPL.CHEM.ISOMER_COUNT
+generator_version: factory-2
+template_hash: 81dd916dac7456749d50ebf99585520a61496b56c1abae2b5dcaed8c4638ca97
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '9'
+- id: c
+  en: '18'
+- id: d
+  en: '35'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.ISO.ONLY_STRAIGHT_CHAIN_COUNTED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.ISO.NEIGHBOUR_FORMULA_COUNT
+  when_answer_equals:
+  - b
+  - d
+solution_steps:
+- en: 'Write the straight chain of all the carbon atoms: that is one isomer.'
+- en: Shorten the main chain by one carbon and attach that carbon as a branch at each
+    different position; then shorten again and so on, never counting a copy of one
+    already found.
+- en: Counting every different carbon skeleton gives 18 isomers.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6f4251e10309079737799e0dd4da21340233cfa5688622a99796e8c392aa2bd9
+  template_hash: 81dd916dac7456749d50ebf99585520a61496b56c1abae2b5dcaed8c4638ca97
+  certificate_hash: c9d916dcfdefccfa31edd14954add46aa4536f230e155def80461ffca8d63f1c
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.carbon_compounds
+  methods_agreeing:
+  - kernel.algebra
+  - chem.isomers_enumerate
+  - chem.isomers_otter
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:14:15+00:00'
+  record_hash: 9d18b0a95d7c8a4c2178a5109f9968e82e9300185677a01bd37010dd12723f5d

@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.COUNTS_DI.both_dom.33c7f83d
+skill_ids:
+- BIO.HERED.COUNTS_DI
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: In a certain animal species, the allele S for spotted coats is dominant over
+    the allele s for plain coats, and the allele E for curly tails is dominant over
+    the allele e for straight tails. The two genes are on different chromosomes and
+    are inherited independently. An animal with genotype SsEe is crossed with an animal
+    with genotype SSEe. The cross produces 320 offspring. How many of them are expected
+    to show spotted coats and curly tails?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. First
+    find the share of the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes SE, Se, sE and se, and the second parent
+    makes the gametes SE and Se.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_DI
+generator_version: factory-2
+template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 320 offspring
+- id: b
+  en: 240 offspring
+- id: c
+  en: 20 offspring
+- id: d
+  en: 80 offspring
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.TOTAL_NOT_SHARED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent SsEe makes the gametes SE, Se, sE and se; the second parent
+    SSEe makes the gametes SE and Se.
+- en: 'Out of 16 boxes, spotted coats and curly tails: 12; spotted coats and straight
+    tails: 4.'
+- en: The share of offspring wanted is 3/4.
+- en: 'Multiply the share by the total: 3/4 x 320 = 240.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5dc061775c0730abf35ec5330d13a5eab627eab225d45acafdf78fc64d47cacc
+  template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+  certificate_hash: 846bda618b65b6a3d4a09bbd7ffa4c7cb6930558e57a7a4be3bceeab558767fa
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:45+00:00'
+  record_hash: 386ba2b09dc7d2d388f5188d0fb69ccfe7a5273d5b4c5c41a0139dc44c948787

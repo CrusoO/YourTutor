@@ -1,0 +1,130 @@
+id: ITM.CHEM.PH_CONVERSION.H_from_pH.1
+skill_ids:
+- CHEM.ACID.PH_CONVERSION
+difficulty: 0.33
+pool: practice
+role: procedure
+stem:
+  en: A solution has pH 1. What is its hydrogen ion concentration?
+hints:
+- level: 1
+  en: The hydrogen ion concentration is a power of ten, and the pH tells you which
+    power.
+- level: 2
+  en: A larger pH means fewer hydrogen ions, so the concentration is a small number.
+    Think about the sign of the power.
+- level: 3
+  en: Write 1 x 10 to a power, where the power is the pH with its sign changed.
+prediction_prompt:
+  en: Before you work it out, is the answer a small or a large number, and is it positive
+    or negative?
+status: draft
+template_id: TPL.CHEM.PH_CONVERSION
+generator_version: factory-2
+template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1 x 10^-1 mol/L
+- id: b
+  en: 1 x 10^-13 mol/L
+- id: c
+  en: 1 x 10^1 mol/L
+- id: d
+  en: 1 x 10^-2 mol/L
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.OH_FOR_H
+  when_answer_equals:
+  - b
+- id: CHEM.MC.PH.SIGN_OF_EXPONENT_DROPPED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.PH.POWER_MISCOUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: pH = -log of the hydrogen ion concentration, so the concentration is 10 to the
+    power minus 1.
+- en: The concentration is 1 x 10^-1 mol/L.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3c18a3f831eb27fd2e2c80eb0d27d91c300bf2b8f29b77dfe4f8f208055b8523
+  template_hash: 00e44216280441ea14ecde0b1af0f406f8a52a9a51f31dc23eeeaac9a7f61ac2
+  certificate_hash: 0fe0235e4e276c36931cd7e9ca4786fef3406caf5ce4e813d73d3e95bf223c9f
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.ph_exponent
+  - chem.ph_decimal_log
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:17+00:00'
+  record_hash: 4a633c98c777798d8dabfc249169ffa81d6e5ede338226f809c55659b52d5a92

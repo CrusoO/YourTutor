@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FISSION.divisions_needed.9a98e4ba
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: An amoeba culture starts with 1 cell. Assume that every cell divides into two
+    cells in each round of division, that all the cells divide together, and that
+    no cell dies. After some rounds there are 8 cells. How many rounds of division
+    took place?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Find
+    how many times larger the culture has become than at the start.
+- level: 2
+  en: Ask how many times 2 must be multiplied by itself to give that number.
+- level: 3
+  en: Keep halving the factor until you reach 1, and count the halvings.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 rounds
+- id: b
+  en: 8 rounds
+- id: c
+  en: 4 rounds
+- id: d
+  en: 3 rounds
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.ONE_ROUND_LESS
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.FACTOR_AS_ROUNDS
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.ONE_ROUND_MORE
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The culture grew by a factor of 8.
+- en: 2 multiplied by itself 3 times gives 8, so there were 3 rounds.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a5c95063af110c92a8940f3c940ec1a78f9d8da00dead0e829ece72be4b09a6a
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 22146aade010f7df41acbd56e40848eeb54d66e23468c8a8408a50a4384a34c8
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:29+00:00'
+  record_hash: 4401c4eb70393616f6f84d8b32af81deb0e4523293f8209916987a22109fb98a

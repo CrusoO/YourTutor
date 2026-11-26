@@ -1,0 +1,131 @@
+id: ITM.CHEM.PH_RATIO.1.4
+skill_ids:
+- CHEM.ACID.PH_RATIO
+difficulty: 0.61
+pool: practice
+role: apply
+stem:
+  en: Two solutions are tested. X reads pH 1 and Y reads pH 4. By what factor is the
+    hydrogen ion concentration of X greater than that of Y?
+hints:
+- level: 1
+  en: 'The pH scale is a logarithm scale: each step of one pH unit changes the ion
+    concentration by the same factor.'
+- level: 2
+  en: Find the difference between the two pH values, then ask what factor that many
+    steps make.
+- level: 3
+  en: A difference of one pH unit is a factor of 10. A bigger difference multiplies
+    that factor again for each unit.
+prediction_prompt:
+  en: Before you calculate, will the answer be small like 5 or very large?
+status: draft
+template_id: TPL.CHEM.PH_RATIO
+generator_version: factory-2
+template_hash: 5dbf0278c4097a264dbbbb1ddae166dd842dd42f2dff0459dcf91b0921ce205f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '30'
+- id: b
+  en: '3'
+- id: c
+  en: 4/1
+- id: d
+  en: '1000'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.PH.TIMES_TEN_PER_UNIT
+  when_answer_equals:
+  - a
+- id: CHEM.MC.PH.DIFFERENCE_NOT_POWER
+  when_answer_equals:
+  - b
+- id: CHEM.MC.PH.RATIO_OF_PH_VALUES
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The two pH values differ by 4 - 1 = 3.
+- en: Each pH unit is a factor of 10 in concentration, so the factor is 10^3 = 1000.
+- en: The solution with the smaller pH has the larger hydrogen ion concentration.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 17d7d3f3a16fbfaef64ad4e7332d22261ca633bc919f64091bc008a34950411a
+  template_hash: 5dbf0278c4097a264dbbbb1ddae166dd842dd42f2dff0459dcf91b0921ce205f
+  certificate_hash: 4ffed9ccadfde545ad4d36456152eaff2a988eef47620bff0b41284298291833
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.algebra
+  - chem.ratio_exponent
+  - chem.ratio_decimal
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:25+00:00'
+  record_hash: 1a301e78774841ead7a842915d000ced6358bcc616a81d07c30de698684352cf

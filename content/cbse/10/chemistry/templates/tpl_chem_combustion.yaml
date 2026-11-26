@@ -1,0 +1,35 @@
+id: TPL.CHEM.COMBUSTION
+short: CHEM.COMBUSTION
+schema: factory-template/1
+lane: chemistry
+family: combustion
+family_version: '1'
+skill_id: CHEM.RXN.COMBUSTION
+box:
+  family:
+    choices:
+    - alkane
+    - alkene
+    - alkyne
+  n:
+    min: 1
+    max: 8
+  ask:
+    choices:
+    - O2
+    - CO2
+    - H2O
+    - total
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.chemistry.reactions
+  skill_id: CHEM.RXN.COMBUSTION
+  allowed_methods:
+  - atom_counting
+  forbidden_content:
+  - calculus
+  - diagram
+  - free_text
+  - experiment_design
+  - graph_reading
+  - assertion_reason

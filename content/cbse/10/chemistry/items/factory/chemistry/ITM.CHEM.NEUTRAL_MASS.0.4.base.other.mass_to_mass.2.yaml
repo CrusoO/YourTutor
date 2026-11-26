@@ -1,0 +1,134 @@
+id: ITM.CHEM.NEUTRAL_MASS.0.4.base.other.mass_to_mass.2
+skill_ids:
+- CHEM.ACID.NEUTRAL_MASS
+difficulty: 0.71
+pool: practice
+role: apply
+stem:
+  en: Hydrochloric acid reacts completely with barium hydroxide to give a salt and
+    water. Starting with 342 g of barium hydroxide, what mass of hydrochloric acid
+    is needed to react exactly with it?
+hints:
+- level: 1
+  en: Start from the balanced chemical reaction. The coefficients give the ratio of
+    moles.
+- level: 2
+  en: Change the given mass to moles by dividing by the molar mass, unless the amount
+    is already in moles.
+- level: 3
+  en: Multiply the moles by the ratio of coefficients, wanted over given, then change
+    to a mass if a mass is asked.
+prediction_prompt:
+  en: Before you calculate, will the answer be larger or smaller than the quantity
+    you start with?
+status: draft
+template_id: TPL.CHEM.NEUTRAL_MASS
+generator_version: factory-2
+template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 36.5 g
+- id: b
+  en: 73 g
+- id: c
+  en: 684 g
+- id: d
+  en: 146 g
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: CHEM.MC.STOICH.RATIO_INVERTED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.STOICH.MOLE_RATIO_IGNORED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.STOICH.WRONG_MOLAR_MASS
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Write the balanced equation: 2 HCl + Ba(OH)2 → BaCl2 + 2 H2O.'
+- en: Convert the given quantity to moles using the molar mass, then use the coefficients
+    to find the moles of hydrochloric acid.
+- en: 'Convert to mass using the molar mass: the answer is 146 g.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5a39934a31322a76715e08796699fbe4c4294fe0604de3c4e324988ab09e6c58
+  template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+  certificate_hash: a3f4d938a325a846039b3dc36256b9fb90394a432bffc8117cd872b99b7d5ecb
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.mass_moles_route
+  - chem.mass_ratio_route
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: pass
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:37+00:00'
+  record_hash: cca7dfc4c7339a8eec0d3d2fbdee558d3c840ecf94176b95165844234fad2e01

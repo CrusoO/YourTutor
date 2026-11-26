@@ -1,0 +1,129 @@
+id: ITM.BIO.REPRO.FRAGMENTS.cuts_for_pieces.3f16c3f1
+skill_ids:
+- BIO.REPRO.FRAGMENTS
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: A flatworm is cut straight across at several places along its length, and this
+    makes 8 pieces. Assume that every piece grows into a complete new organism. How
+    many cuts were made?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. Think about how many pieces
+    one cut makes, and how a second cut changes the number of pieces.
+- level: 2
+  en: Each cut adds one piece, and with no cuts there is one piece.
+- level: 3
+  en: The number of cuts is one less than the number of pieces.
+prediction_prompt:
+  en: Before you count, will there be more pieces than cuts, or fewer?
+status: draft
+template_id: TPL2.BIO.REPRO.FRAGMENTS
+generator_version: factory-2
+template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 8 cuts
+- id: b
+  en: 9 cuts
+- id: c
+  en: 7 cuts
+- id: d
+  en: 6 cuts
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.SAME_AS_CUTS
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.PARENT_NOT_COUNTED
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.CUTS_AS_PIECES_MINUS_TWO
+  when_answer_equals:
+  - d
+solution_steps:
+- en: With no cut there is 1 piece, and each cut adds 1 piece, so 8 pieces need 7
+    cuts.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a6e568ef16073bbb57fd809651658d44c179d8d174997ef1cdfc8792daed825e
+  template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+  certificate_hash: 8914501370ee1705043b5224f3c632bd6c229c427a148af89590335536f84252
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.pieces_closed_form
+  - bio.pieces_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:45+00:00'
+  record_hash: 59271ab0bdaafeec54df75598e32466ba531aabcc000716356e1811fc2af71bf

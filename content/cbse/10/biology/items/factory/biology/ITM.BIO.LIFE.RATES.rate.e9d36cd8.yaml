@@ -1,0 +1,128 @@
+id: ITM.BIO.LIFE.RATES.rate.e9d36cd8
+skill_ids:
+- BIO.LIFE.RATES
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: In 2 hours, a count of 1920 breaths is recorded. How many breaths is that each
+    minute?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. A rate
+    for one minute is the total shared out over the minutes.
+- level: 2
+  en: Change the time into minutes first if it is not given in minutes.
+- level: 3
+  en: Divide the total by the number of minutes.
+prediction_prompt:
+  en: Before you calculate, should the answer be larger or smaller than the rate given?
+status: draft
+template_id: TPL2.BIO.LIFE.RATES
+generator_version: factory-2
+template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16 breaths per minute
+- id: b
+  en: 0.0625 breaths per minute
+- id: c
+  en: 960 breaths per minute
+- id: d
+  en: 230400 breaths per minute
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.RATE_INVERTED
+  when_answer_equals:
+  - b
+- id: BIO.MC.LIFE.PER_HOUR_FOR_PER_MINUTE
+  when_answer_equals:
+  - c
+- id: BIO.MC.LIFE.MULTIPLIED_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The time is 120 minutes.
+- en: The rate is 1920 divided by 120 = 16 breaths each minute.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 3a82a35040f5c5e28131e2c46006e20daaba7014d3d7266eef00db83a4f5994c
+  template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+  certificate_hash: 1aea654cddaea409864ef02e74ecee8554add4780ce55d042506b845b1aa7dbb
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.rate_closed_form
+  - bio.rate_per_second
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:54:00+00:00'
+  record_hash: 78102f931932a95ae6e7d8d3a9ce24ad34b9c6d02df0f0b51d7eaaf2058fdcaa

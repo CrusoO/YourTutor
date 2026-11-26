@@ -1,0 +1,131 @@
+id: ITM.CHEM.IONIC_FORMULA.2.0
+skill_ids:
+- CHEM.METAL.IONIC_FORMULA
+difficulty: 0.44
+pool: practice
+role: procedure
+stem:
+  en: What is the correct formula of magnesium chloride?
+hints:
+- level: 1
+  en: An ionic compound has no overall charge, so the positive and negative charges
+    must cancel.
+- level: 2
+  en: Write the charge of each ion. Use as many of each ion as it takes for the total
+    positive charge to equal the total negative charge.
+- level: 3
+  en: Swap the charge numbers to find the counts, then divide both by their common
+    factor. Use a bracket round a group of atoms that appears more than once.
+prediction_prompt:
+  en: Before you write it, will the formula need a subscript on either ion?
+status: draft
+template_id: TPL.CHEM.IONIC_FORMULA
+generator_version: factory-2
+template_hash: b1f8f4b5b1001e9f8c0c0b2b41590f9c1a0820be3c622bbc8be2243e9300f765
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: Mg2Cl4
+- id: b
+  en: Mg2Cl
+- id: c
+  en: MgCl2
+- id: d
+  en: MgCl
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: CHEM.MC.IONIC.NOT_REDUCED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.IONIC.SUBSCRIPTS_SWAPPED
+  when_answer_equals:
+  - b
+- id: CHEM.MC.IONIC.CHARGES_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The magnesium ion has charge 2+ and the chloride ion has charge 1-.
+- en: 'To cancel the charges, take 1 of the first ion and 2 of the second: 1 x 2 =
+    2 x 1.'
+- en: The formula is MgCl2.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 835796b43832838ca9563fc7919d532f81749a6cb6af4874e5e7f5859408a1a9
+  template_hash: b1f8f4b5b1001e9f8c0c0b2b41590f9c1a0820be3c622bbc8be2243e9300f765
+  certificate_hash: 845e485a36defd0d545c6bfeffedff81633d26d3d218a64dbfb80152af03a54f
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.metals_nonmetals
+  methods_agreeing:
+  - kernel.algebra
+  - chem.ionic_crisscross
+  - chem.ionic_search
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:59+00:00'
+  record_hash: 463a8590f949fc9cd83b97d598f000967011abd1df22f0b99e5cf45210cab726

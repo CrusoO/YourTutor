@@ -1,0 +1,139 @@
+id: ITM.BIO.HERED.DI_RATIO.phen_ratio.d916e884
+skill_ids:
+- BIO.HERED.DI_RATIO
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: In a certain plant species, the allele P for purple flowers is dominant over
+    the allele p for white flowers, and the allele T for tall stems is dominant over
+    the allele t for short stems. The two genes are on different chromosomes and are
+    inherited independently. A plant with genotype PpTT is crossed with a plant with
+    genotype pptt. What is the ratio of offspring in the groups purple flowers and
+    tall stems; white flowers and tall stems, in that order?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Find
+    the gametes each parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count the boxes that show each group of offspring, then write the counts as
+    a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes PT and pT, and the second parent makes the
+    gametes pt.
+prediction_prompt:
+  en: Before you draw the square, how many boxes will it have?
+status: draft
+template_id: TPL2.BIO.HERED.DI_RATIO
+generator_version: factory-2
+template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1 : 1'
+- id: b
+  en: '1 : 1 : 1 : 1'
+- id: c
+  en: '1 : 1 : 1'
+- id: d
+  en: '9 : 3 : 3 : 1'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.TEST_CROSS_RATIO_ASSUMED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.RATIOS_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.FIXED_RATIO_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent PpTT makes the gametes PT and pT; the second parent pptt makes
+    the gametes pt.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 16 boxes, purple flowers and tall stems: 8; white flowers and tall stems:
+    8.'
+- en: 'Write the counts in the order asked, in the lowest terms: 1 : 1.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fdbec2a91f3781887f82bb5228f8beb9b2276ebbda4a052744f0110b3bdda267
+  template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+  certificate_hash: e35357d3d61647478ce71e6f02d2cbeb27a5d35ae935da091dea09e983590653
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:29+00:00'
+  record_hash: 9b2997b24b53480859f2ce922d694e3e4fa23a1b40c7bdc491cfc1f5964573b9

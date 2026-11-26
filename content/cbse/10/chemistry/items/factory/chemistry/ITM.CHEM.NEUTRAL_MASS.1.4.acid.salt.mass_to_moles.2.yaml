@@ -1,0 +1,133 @@
+id: ITM.CHEM.NEUTRAL_MASS.1.4.acid.salt.mass_to_moles.2
+skill_ids:
+- CHEM.ACID.NEUTRAL_MASS
+difficulty: 0.71
+pool: practice
+role: apply
+stem:
+  en: Nitric acid reacts completely with barium hydroxide to give a salt and water.
+    Starting with 126 g of nitric acid, what amount in moles of the salt is formed?
+hints:
+- level: 1
+  en: Start from the balanced chemical reaction. The coefficients give the ratio of
+    moles.
+- level: 2
+  en: Change the given mass to moles by dividing by the molar mass, unless the amount
+    is already in moles.
+- level: 3
+  en: Multiply the moles by the ratio of coefficients, wanted over given, then change
+    to a mass if a mass is asked.
+prediction_prompt:
+  en: Before you calculate, will the answer be larger or smaller than the quantity
+    you start with?
+status: draft
+template_id: TPL.CHEM.NEUTRAL_MASS
+generator_version: factory-2
+template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 2 mol
+- id: b
+  en: 1 mol
+- id: c
+  en: 4 mol
+- id: d
+  en: 63 mol
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: CHEM.MC.STOICH.MOLE_RATIO_IGNORED
+  when_answer_equals:
+  - a
+- id: CHEM.MC.STOICH.RATIO_INVERTED
+  when_answer_equals:
+  - c
+- id: CHEM.MC.STOICH.MASS_NOT_CONVERTED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Write the balanced equation: 2 HNO3 + Ba(OH)2 → Ba(NO3)2 + 2 H2O.'
+- en: Convert the given quantity to moles using the molar mass, then use the coefficients
+    to find the moles of the salt.
+- en: 'Convert to the amount in moles: the answer is 1 mol.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: eb24c91a3f21efdedc80be282a1aded59009198ba07aa074cce80a90c06fb6bd
+  template_hash: c1753caa37cea5322748c9745ab6ce4e0163bc231c0b3c8814d401afee207079
+  certificate_hash: 5538e1ea1e4a12373716422710955cec319ab4b719bd77826f96cbe9316839f5
+  label: calculation-checked
+  tier: A
+  lane: chemistry
+  chapter_ref: cbse.10.chemistry.acids_bases_salts
+  methods_agreeing:
+  - kernel.stoichiometry
+  - chem.mass_moles_route
+  - chem.mass_ratio_route
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: pass
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 2f390987
+  llm_involved: false
+  stamped_at: '2026-11-25T15:13:37+00:00'
+  record_hash: ec7a9a53c57b643238d32f7ee0f00d0e05b38fce1bb4217d8a51f63f34404cb4
