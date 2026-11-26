@@ -1,0 +1,130 @@
+id: ITM.BIO.REPRO.CHROMOSOMES.zygote_2n.d4ce0b48
+skill_ids:
+- BIO.REPRO.CHROMOSOMES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: A gamete has half the number of chromosomes of a body cell. A zygote forms when
+    a sperm and an egg join. A cell made by mitosis has the same number of chromosomes
+    as the cell that divided. In a certain fish species, each gamete has 16 chromosomes.
+    How many chromosomes does the zygote have?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    zygote gets the chromosomes of the sperm and of the egg.
+- level: 2
+  en: Add the chromosomes that come from the sperm and from the egg.
+- level: 3
+  en: Both gametes have the same number of chromosomes.
+prediction_prompt:
+  en: Before you calculate, will the number be larger or smaller than the number given?
+status: draft
+template_id: TPL2.BIO.REPRO.CHROMOSOMES
+generator_version: factory-2
+template_hash: 7e470e7defa4c7ee66613a02dfaa74a16de3d571ede67742025d5c9aa25b4d52
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 48 chromosomes
+- id: b
+  en: 64 chromosomes
+- id: c
+  en: 16 chromosomes
+- id: d
+  en: 32 chromosomes
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.GAMETE_SAME_AS_BODY
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.ZYGOTE_DOUBLED_TWICE
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.ZYGOTE_AT_GAMETE_NUMBER
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The sperm gives 16 chromosomes and the egg gives 16, so the zygote has 16 +
+    16 = 32.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: da3dfa7dc6f9289d9a84654338e501ed99c6faece738a9c29f1080da117dd694
+  template_hash: 7e470e7defa4c7ee66613a02dfaa74a16de3d571ede67742025d5c9aa25b4d52
+  certificate_hash: d3cb81f765208ff8dd80217164afd1ca927a187f4062907137e183e082e60f10
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.chromosome_rules
+  - bio.chromosome_lists
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:37+00:00'
+  record_hash: 1744b2bddba51616eb4a3d037826316cafac3d469a802487fc08fc354b665ed9

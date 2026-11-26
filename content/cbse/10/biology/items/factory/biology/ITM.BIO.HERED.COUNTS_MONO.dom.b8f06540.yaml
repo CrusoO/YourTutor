@@ -1,0 +1,135 @@
+id: ITM.BIO.HERED.COUNTS_MONO.dom.b8f06540
+skill_ids:
+- BIO.HERED.COUNTS_MONO
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: In a certain animal species, the allele B for black coats is dominant over the
+    allele b for brown coats. An animal with genotype Bb is crossed with an animal
+    with genotype Bb. The cross produces 80 offspring. How many of them are expected
+    to have black coats?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. First
+    find the share of the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes B and b, and the second parent makes the
+    gametes B and b.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_MONO
+generator_version: factory-2
+template_hash: 61c1e50af35b73ec3bd5d8aca4b713a444986d50e4ba1cc86646e6d907bc8356
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 20 offspring
+- id: b
+  en: 80 offspring
+- id: c
+  en: 60 offspring
+- id: d
+  en: 40 offspring
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.TOTAL_NOT_SHARED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.SPLIT_EQUALLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Bb makes the gametes B and b; the second parent Bb makes the
+    gametes B and b.
+- en: 'Out of 4 boxes, black coats: 3; brown coats: 1.'
+- en: The share of offspring wanted is 3/4.
+- en: 'Multiply the share by the total: 3/4 x 80 = 60.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7a5e0dd5a98fa3ea6bffbeda3196df43254721cd9e01a36338625813dc3c0cfd
+  template_hash: 61c1e50af35b73ec3bd5d8aca4b713a444986d50e4ba1cc86646e6d907bc8356
+  certificate_hash: 60db44a2dd8b062138cd8ed6d3b9247633feaa0a941d5016ba61eb20de73ac28
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:41+00:00'
+  record_hash: 4a34868d14edd069cb106b8ce7d98847267ee5b0d144eaf30ccbc61cc7859f4a

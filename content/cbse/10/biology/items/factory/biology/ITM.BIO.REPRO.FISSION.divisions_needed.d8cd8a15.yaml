@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FISSION.divisions_needed.d8cd8a15
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A culture of single-celled organisms starts with 5 cells. Assume that every
+    cell divides into two cells in each round of division, that all the cells divide
+    together, and that no cell dies. After some rounds there are 80 cells. How many
+    rounds of division took place?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. Find
+    how many times larger the culture has become than at the start.
+- level: 2
+  en: Ask how many times 2 must be multiplied by itself to give that number.
+- level: 3
+  en: Keep halving the factor until you reach 1, and count the halvings.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 16 rounds
+- id: b
+  en: 5 rounds
+- id: c
+  en: 3 rounds
+- id: d
+  en: 4 rounds
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.FACTOR_AS_ROUNDS
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.ONE_ROUND_MORE
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.ONE_ROUND_LESS
+  when_answer_equals:
+  - c
+solution_steps:
+- en: The culture grew by a factor of 16.
+- en: 2 multiplied by itself 4 times gives 16, so there were 4 rounds.
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: c241d70875ae2dcf1365ef3bbbeb56fc55c823abe75422177ef2e397cb0e1a3a
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 43043af24b28a8a88dce2be3d3295f78ad5a0fdc3319e4b10d9036d9dca85335
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:30+00:00'
+  record_hash: eab6d6bfffd22151a73c38b1f252710b0de949664a627f3ab510cae10be54074

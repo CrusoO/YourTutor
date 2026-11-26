@@ -1,0 +1,135 @@
+id: ITM.BIO.HERED.MONO_RATIO.gen_ratio.0885983e
+skill_ids:
+- BIO.HERED.MONO_RATIO
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: 'In a certain animal species, the allele B for black coats is dominant over
+    the allele b for brown coats. An animal with genotype BB is crossed with an animal
+    with genotype Bb. What is the ratio of the offspring genotypes BB : Bb?'
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. Find
+    the gametes each parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count how many boxes of the square show each genotype, then write the counts
+    as a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes B, and the second parent makes the gametes
+    B and b.
+prediction_prompt:
+  en: Before you draw the square, which outcome do you expect to be the most common?
+status: draft
+template_id: TPL2.BIO.HERED.MONO_RATIO
+generator_version: factory-2
+template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '2 : 1 : 1'
+- id: b
+  en: '1'
+- id: c
+  en: '1 : 1'
+- id: d
+  en: '3 : 1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HETEROZYGOTE_LISTED_FIRST
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.PHENOTYPE_FOR_GENOTYPE
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.FIXED_RATIO_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent BB makes the gametes B; the second parent Bb makes the gametes
+    B and b.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 4 boxes, BB: 2; Bb: 2.'
+- en: 'Write the counts in the order asked, in the lowest terms: 1 : 1.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: edec8855a827e5c2ac7d0a8820be185e4cc376c8bf447b106c635704b8f55920
+  template_hash: e7283f268c6bc6dd96d8ef9cc618206d0e4fc7cb1eded9c7d8aba45d60fe6f38
+  certificate_hash: 0ef183ceea2af31e7b1a0cccc0fb44d38069052a46373f6ab54f8f92f05581e7
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:26+00:00'
+  record_hash: 2f676fbc32b6a54c162e3ac64b2c6db857d9896a8489710bea25affa5f9238e9

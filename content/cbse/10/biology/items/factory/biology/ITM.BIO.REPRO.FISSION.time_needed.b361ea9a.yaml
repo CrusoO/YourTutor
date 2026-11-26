@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FISSION.time_needed.b361ea9a
+skill_ids:
+- BIO.REPRO.FISSION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A culture of single-celled organisms starts with 1 cell. Assume that every cell
+    divides into two cells in each round of division, that all the cells divide together,
+    and that no cell dies. One round of division takes 30 minutes. How many minutes
+    does it take for the culture to reach 4 cells?
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. First
+    find how many rounds of division are needed to reach that number of cells.
+- level: 2
+  en: Then multiply the number of rounds by the time one round takes.
+- level: 3
+  en: Each round takes 30 minutes.
+prediction_prompt:
+  en: Before you calculate, will the answer be a little more or a lot more than the
+    starting number?
+status: draft
+template_id: TPL2.BIO.REPRO.FISSION
+generator_version: factory-2
+template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 120 minutes
+- id: b
+  en: 60 minutes
+- id: c
+  en: 2 minutes
+- id: d
+  en: 30 minutes
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.FACTOR_TIMES_TIME
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.TIME_LEFT_OUT
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.ONE_ROUND_LESS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The culture grew by a factor of 4, which takes 2 rounds.
+- en: 2 rounds of 30 minutes take 60 minutes.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 90e18f1ea582c77451b8346cf86194c1272f10fe0d15fbfa245700e17542d6a4
+  template_hash: 9fc8f00846bdd31f9c82a6625fcf95f3da80731fa96941e4e38d982680b6bc98
+  certificate_hash: 2ef30fec20475030d29faa294b9420043dd80f73f9cf711b1ba0969e37e25ff8
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.doubling_closed_form
+  - bio.doubling_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:30+00:00'
+  record_hash: 736695d4e926bb33b72558a0dd5974031d37f859bf3d358bb8a1d6f717a4f68f

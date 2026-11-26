@@ -1,0 +1,136 @@
+id: ITM.BIO.HERED.GAMETES.gamete_types.6b40f0f9
+skill_ids:
+- BIO.HERED.GAMETES
+difficulty: 0.4
+pool: practice
+role: procedure
+stem:
+  en: In a certain animal species, the allele L for long hair is dominant over the
+    allele l for short hair, and the allele E for curly tails is dominant over the
+    allele e for straight tails. The two genes are on different chromosomes and are
+    inherited independently. How many different types of gametes can an animal with
+    genotype LLEe produce?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. A gamete
+    carries one allele from each gene. Different gametes differ in the alleles they
+    carry.
+- level: 2
+  en: A gene whose two alleles are the same gives only one choice. A gene whose alleles
+    differ gives two choices.
+- level: 3
+  en: Write the choices for each gene, then combine the choices of the different genes
+    by multiplying them.
+prediction_prompt:
+  en: Before you count, should the answer be a small number or a large one?
+status: draft
+template_id: TPL2.BIO.HERED.GAMETES
+generator_version: factory-2
+template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1'
+- id: b
+  en: '4'
+- id: c
+  en: '3'
+- id: d
+  en: '2'
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HET_COUNT_AS_ANSWER
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.LETTERS_COUNTED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: A gamete gets one allele of each gene. The genotype LLEe has 1 heterozygous
+    gene.
+- en: 'Each heterozygous gene gives 2 choices and each homozygous gene gives 1, so
+    multiply the choices: 2.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 8b4516535fe4c628b0e43fbed2da6603eac65d087db4590ea462a177eaeb8f26
+  template_hash: 5b8539caba1a231883189992d897bca7ed78e1170ca11e282cab92c8471df468
+  certificate_hash: 7d85d968334b1e07485cd725725cf2ea5383298a579e599a34a457d84905ee25
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.gamete_sets
+  - bio.gene_rule
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:50+00:00'
+  record_hash: 02a62733ecf0818ab460c0c7ec6ce1c95e27a409656e4160258aa1f13a7b43b9

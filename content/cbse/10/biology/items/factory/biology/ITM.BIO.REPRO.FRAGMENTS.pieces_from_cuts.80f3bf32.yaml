@@ -1,0 +1,131 @@
+id: ITM.BIO.REPRO.FRAGMENTS.pieces_from_cuts.80f3bf32
+skill_ids:
+- BIO.REPRO.FRAGMENTS
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: A long algal filament is cut straight across at 10 different places along its
+    length. Assume that every piece grows into a complete new organism. How many new
+    organisms can grow?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Think
+    about how many pieces one cut makes, and how a second cut changes the number of
+    pieces.
+- level: 2
+  en: Each new cut divides one piece into two, so it adds one piece to the number
+    you had.
+- level: 3
+  en: With no cuts there is one piece, the whole organism.
+prediction_prompt:
+  en: Before you count, will there be more pieces than cuts, or fewer?
+status: draft
+template_id: TPL2.BIO.REPRO.FRAGMENTS
+generator_version: factory-2
+template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 11 organisms
+- id: b
+  en: 10 organisms
+- id: c
+  en: 12 organisms
+- id: d
+  en: 20 organisms
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.SAME_AS_CUTS
+  when_answer_equals:
+  - b
+- id: BIO.MC.REPRO.PARENT_NOT_COUNTED
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.TWO_PIECES_PER_CUT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: With no cut there is 1 piece, and each of the 10 cuts adds 1 piece.
+- en: The number of pieces is 1 + 10 = 11, and each grows into a new organism.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f599cba28e2d3bcff4582622db2056e78aa130872ad830feefc0fb782e084f49
+  template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+  certificate_hash: 5d045cbdab10717c8dd9278f7cb5f1f4f1d1367fc7501bba14e541b2993a954a
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.pieces_closed_form
+  - bio.pieces_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:44+00:00'
+  record_hash: be7b1b019aea195c2a3c2667b58c9f84078dbffcec9020c8a1fe39e8ba1911b4

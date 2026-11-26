@@ -1,0 +1,62 @@
+id: TPL2.BIO.LIFE.EQUATION
+schema: factory-template/1
+lane: biology
+model: LIFE.EQUATION
+skill_id: BIO.LIFE.EQUATION
+box:
+  q:
+    choices:
+    - photosynthesis:CO2>H2O
+    - photosynthesis:CO2>C6H12O6
+    - photosynthesis:CO2>O2
+    - photosynthesis:H2O>CO2
+    - photosynthesis:H2O>C6H12O6
+    - photosynthesis:H2O>O2
+    - photosynthesis:C6H12O6>CO2
+    - photosynthesis:C6H12O6>H2O
+    - photosynthesis:C6H12O6>O2
+    - photosynthesis:O2>CO2
+    - photosynthesis:O2>H2O
+    - photosynthesis:O2>C6H12O6
+    - respiration:C6H12O6>O2
+    - respiration:C6H12O6>CO2
+    - respiration:C6H12O6>H2O
+    - respiration:O2>C6H12O6
+    - respiration:O2>CO2
+    - respiration:O2>H2O
+    - respiration:CO2>C6H12O6
+    - respiration:CO2>O2
+    - respiration:CO2>H2O
+    - respiration:H2O>C6H12O6
+    - respiration:H2O>O2
+    - respiration:H2O>CO2
+    - fermentation:C6H12O6>C2H5OH
+    - fermentation:C6H12O6>CO2
+    - fermentation:C2H5OH>C6H12O6
+    - fermentation:C2H5OH>CO2
+    - fermentation:CO2>C6H12O6
+    - fermentation:CO2>C2H5OH
+  g:
+    choices:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '10'
+    - '20'
+    - '50'
+syllabus:
+  grade: 10
+  chapter_ref: cbse.10.biology.life_processes
+  skill_id: BIO.LIFE.EQUATION
+  allowed_methods:
+  - equation_ratio
+  - atom_balance_search
+  forbidden_content:
+  - free_text
+  - assertion_reason
+  - fact_recall
+  - diagram
+  - calculus
+  - experiment_design
