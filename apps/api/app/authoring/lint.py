@@ -86,6 +86,8 @@ _BAD_PHRASES = re.compile(
 _NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
 _PLAIN_NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
 _WORD = re.compile(r"[a-z0-9]+")
+_MATH = re.compile(r"\d+(?:\.\d+)?|[^\sa-z\d]")
+_PUNCTUATION = frozenset(".,;:?!\"'")
 _SPACE = re.compile(r"\s+")
 
 
@@ -127,6 +129,13 @@ def normalise_option(text: str) -> str:
 
 def tokens(text: str) -> frozenset[str]:
     return frozenset(_WORD.findall(text.casefold()))
+
+
+def math_signature(text: str) -> list[str]:
+    """The numbers and symbols of a stem, sorted, without plain punctuation: `dy/dx = 2y` and
+    `dy/dx + 2y = 0` differ here, a stem with a sentence added does not."""
+    found = _MATH.findall(text.casefold().replace("\u2212", "-"))
+    return sorted(t for t in found if t not in _PUNCTUATION)
 
 
 def jaccard(a: frozenset[str], b: frozenset[str]) -> float:
@@ -366,6 +375,7 @@ def near_duplicates(entries: list[tuple[str, int, str, str]]) -> list[tuple[int,
     """entries: (file, position, scope, stem). Returns index pairs (i, j), i before j, whose stems
     share a normalised token Jaccard of NEAR_DUPLICATE or more, within the same scope."""
     sets = [tokens(e[3]) for e in entries]
+    signatures = [math_signature(e[3]) for e in entries]
     by_scope: dict[str, list[int]] = {}
     for index, entry in enumerate(entries):
         by_scope.setdefault(entry[2], []).append(index)
@@ -377,7 +387,8 @@ def near_duplicates(entries: list[tuple[str, int, str, str]]) -> list[tuple[int,
                 if len(sets[a]) < NEAR_DUPLICATE * len(sets[b]):
                     break  # sizes are sorted: no later stem can reach the threshold
                 score = jaccard(sets[a], sets[b])
-                if score >= NEAR_DUPLICATE:
+                # a maths stem that differs only in its numbers or symbols is a different question
+                if score >= NEAR_DUPLICATE and signatures[a] == signatures[b]:
                     first, second = (a, b) if a < b else (b, a)
                     pairs.append((first, second, score))
     return sorted(pairs)
