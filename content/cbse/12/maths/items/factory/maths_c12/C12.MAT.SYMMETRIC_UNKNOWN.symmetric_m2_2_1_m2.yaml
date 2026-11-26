@@ -1,0 +1,133 @@
+id: C12.MAT.SYMMETRIC_UNKNOWN.symmetric_m2_2_1_m2
+skill_ids:
+- MATH.C12.MAT.SYMMETRIC_UNKNOWN
+difficulty: 0.44
+pool: practice
+role: apply
+stem:
+  en: The matrix [[1, 2x - 2, 2], [x - 4, 5, -1], [2, -1, -2]] is symmetric. Find
+    the value of x.
+hints:
+- level: 1
+  en: Only the entries that contain the unknown matter.
+- level: 2
+  en: Write the condition for the pair of entries holding x as one statement about
+    x, then solve it with inverse operations.
+- level: 3
+  en: 'Full method: state the condition for this type of matrix, apply it to the mirror
+    pair holding x, solve for x, and check the other mirror pairs.'
+prediction_prompt:
+  en: Which entries are forced to be equal or opposite?
+status: draft
+template_id: TPL.C12.MAT.SYMMETRIC_UNKNOWN
+generator_version: factory-2
+template_hash: fb6c399c3cf62738de46260aabee02b091b08b4d64716a1c7d73f0e4103c310a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-2'
+- id: b
+  en: '2'
+- id: c
+  en: '-4'
+- id: d
+  en: '-1'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.MAT.SIGN_SLIP_WHEN_SOLVING
+  when_answer_equals:
+  - b
+- id: MC.C12.MAT.HALVED_BY_MISTAKE
+  when_answer_equals:
+  - c
+- id: MC.C12.MAT.OFF_BY_ONE_SLIP
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A symmetric matrix equals its transpose, so entries in mirror positions are
+    equal.
+- en: Write the equation for the pair of mirror entries that contain x, and solve
+    it with inverse operations.
+- en: x = -2.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 7c0450d53a925034074a4f559c689d866292f88e43282a22ee0051897ca3e204
+  template_hash: fb6c399c3cf62738de46260aabee02b091b08b4d64716a1c7d73f0e4103c310a
+  certificate_hash: 0fedbaee02e82f70179878f4d83dc48c712a4982e2eaf52fc4be111eb7a9437f
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.matrices
+  methods_agreeing:
+  - kernel.algebra
+  - c12.mat.sym.compare
+  - c12.mat.sym.sympy
+  - c12.mat.sym.scan
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:35:31+00:00'
+  record_hash: c8ba82763745a6d9eac6b82dbc9074873dc6348a7ac460f39fd38f323dd02cd9

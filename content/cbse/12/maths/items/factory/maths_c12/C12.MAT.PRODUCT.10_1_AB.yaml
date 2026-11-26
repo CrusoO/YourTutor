@@ -1,0 +1,130 @@
+id: C12.MAT.PRODUCT.10_1_AB
+skill_ids:
+- MATH.C12.MAT.PRODUCT
+difficulty: 0.42
+pool: practice
+role: apply
+stem:
+  en: Let A = [[3, 0], [-3, 1]] and B = [[-3, -2], [-2, 2]]. Find A B.
+hints:
+- level: 1
+  en: Look at the order first, then decide which row meets which column.
+- level: 2
+  en: For the entry in row i and column j, take row i of the left matrix and column
+    j of the right matrix, multiply matching entries and add.
+- level: 3
+  en: 'Full method: compute the four entries one at the time, each as the sum of two
+    products, and keep the left-right order exactly as written.'
+prediction_prompt:
+  en: Will the product be the same if you swap the order?
+status: draft
+template_id: TPL.C12.MAT.PRODUCT
+generator_version: factory-2
+template_hash: 4bf497b4a191a24ea52a8238f8cb09126b6008c0fd52449c1eac4820e861b416
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '[[-9, 7], [-6, 8]]'
+- id: b
+  en: '[[-3, -2], [-12, 2]]'
+- id: c
+  en: '[[-9, -6], [7, 8]]'
+- id: d
+  en: '[[-9, 0], [6, 2]]'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.MAT.RESULT_TRANSPOSED
+  when_answer_equals:
+  - a
+- id: MC.C12.MAT.PRODUCT_ORDER_REVERSED
+  when_answer_equals:
+  - b
+- id: MC.C12.MAT.ENTRYWISE_PRODUCT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: 'Each entry of the product is one row of the left matrix times one column of
+    the right matrix: multiply matching entries and add.'
+- en: 'Fill the four entries this way: the result is [[-9, -6], [7, 8]].'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 11b2fe4281bea02637de780ebe89700b458bbe278b62cf8c8aa66ee2118cd2b6
+  template_hash: 4bf497b4a191a24ea52a8238f8cb09126b6008c0fd52449c1eac4820e861b416
+  certificate_hash: f9897d76a5cff4dc036ef14aae0abd04559b3c07bc3f6b8f9f57ad953747fadf
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.matrices
+  methods_agreeing:
+  - kernel.algebra
+  - c12.mat.product.row_col
+  - c12.mat.product.sympy
+  - c12.mat.product.columns
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:35:16+00:00'
+  record_hash: c6bf5e9376d1ceada74a802ce729b4f4066793cb6befcf19666cc77b517e067f

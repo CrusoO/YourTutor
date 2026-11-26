@@ -1,0 +1,132 @@
+id: C12.INT.DEFINITE_POLY.3_9_m1_2
+skill_ids:
+- MATH.C12.INT.DEFINITE_POLY
+difficulty: 0.47
+pool: practice
+role: apply
+stem:
+  en: Evaluate the definite integral of 4x³ + 3x² + x - 4 with respect to x from x
+    = -1 to x = 2.
+hints:
+- level: 1
+  en: 'Integration undoes differentiation: what happens to each power?'
+- level: 2
+  en: Write the antiderivative term by term, then evaluate it at the upper limit and
+    subtract its value at the lower limit.
+- level: 3
+  en: 'Full method: raise each power by one and divide by the new power, substitute
+    the upper limit, substitute the lower limit, and subtract in that order.'
+prediction_prompt:
+  en: Roughly how large should the answer be?
+status: draft
+template_id: TPL.C12.INT.DEFINITE_POLY
+generator_version: factory-2
+template_hash: f666f1632599112e3d0776c81ba4c5ee14665051e1ff5a5c5061c08be3c3d76f
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '78'
+- id: b
+  en: -27/2
+- id: c
+  en: '18'
+- id: d
+  en: 27/2
+answer:
+  sympy: d
+  accept: []
+misconception_rules:
+- id: MC.C12.INT.POWER_RULE_NOT_DIVIDED
+  when_answer_equals:
+  - a
+- id: MC.C12.INT.LIMITS_SUBTRACTED_WRONG_WAY
+  when_answer_equals:
+  - b
+- id: MC.C12.INT.LOWER_LIMIT_IGNORED
+  when_answer_equals:
+  - c
+solution_steps:
+- en: 'Find an antiderivative term by term: raise each power by one and divide by
+    the new power.'
+- en: The antiderivative is x⁴ + x³ + (1/2)x² - 4x.
+- en: 'Subtract its value at -1 from its value at 2: 27/2.'
+- en: The correct option is d.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: d1735a8771083984a42269421a3d967c777c38ebda4b9b883a8c92e00d182fd2
+  template_hash: f666f1632599112e3d0776c81ba4c5ee14665051e1ff5a5c5061c08be3c3d76f
+  certificate_hash: 0e6cde218e741073f42809b38f1a6af2e8a0bae92d5b2de8825e35cae257acab
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.integrals
+  methods_agreeing:
+  - kernel.algebra
+  - c12.int.antiderivative
+  - c12.int.sympy
+  - c12.int.boole
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:34:14+00:00'
+  record_hash: b656ba4fa4ac4bd40a332a562caa9c74fe7fa9a03af394fbdc2975306a8e4903

@@ -1,0 +1,130 @@
+id: C12.DET.VALUE.3_7
+skill_ids:
+- MATH.C12.DET.VALUE
+difficulty: 0.57
+pool: practice
+role: apply
+stem:
+  en: What is the value of the determinant of A = [[0, 3, 3], [-1, 3, -4], [-1, 4,
+    4]]?
+hints:
+- level: 1
+  en: Watch the signs of the terms.
+- level: 2
+  en: Use the diagonal rule for two rows, or expand along the first row with alternating
+    signs for three rows.
+- level: 3
+  en: 'Full method: for each entry of the first row, multiply by its minor with the
+    correct sign, then add the terms; recheck each sign.'
+prediction_prompt:
+  en: Will the determinant be positive or negative?
+status: draft
+template_id: TPL.C12.DET.VALUE
+generator_version: factory-2
+template_hash: 2cf161e05883114f92de92dae0516899d57ba80876804c0b8b2f0159ec86af08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '-21'
+- id: b
+  en: '21'
+- id: c
+  en: '0'
+- id: d
+  en: '-27'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.DET.SIGN_REVERSED
+  when_answer_equals:
+  - a
+- id: MC.C12.DET.DIAGONAL_PRODUCT_ONLY
+  when_answer_equals:
+  - c
+- id: MC.C12.DET.COFACTOR_SIGNS_IGNORED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Expand along the first row, using alternating signs plus, minus, plus.
+- en: The determinant is 21.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a85053b587f98dded1e8a561abf7a445c2b608b6d4564dd8a06d4dcf12af82b4
+  template_hash: 2cf161e05883114f92de92dae0516899d57ba80876804c0b8b2f0159ec86af08
+  certificate_hash: 0c8df3981acad7e54bfa7e9e0dc2223a148b93212227c3ced1b2ec403111e068
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.determinants
+  methods_agreeing:
+  - kernel.algebra
+  - c12.det.cofactor
+  - c12.det.leibniz
+  - c12.det.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:16+00:00'
+  record_hash: 5e9feef6397fe475dcee39db9afb1f2f21138279dfca4dc6165db7bc71dc2386

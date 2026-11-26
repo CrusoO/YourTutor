@@ -1,0 +1,130 @@
+id: C12.DET.VALUE.2_28
+skill_ids:
+- MATH.C12.DET.VALUE
+difficulty: 0.37
+pool: practice
+role: apply
+stem:
+  en: What is the value of the determinant of A = [[-4, -2], [-4, 0]]?
+hints:
+- level: 1
+  en: Watch the signs of the terms.
+- level: 2
+  en: Use the diagonal rule for two rows, or expand along the first row with alternating
+    signs for three rows.
+- level: 3
+  en: 'Full method: for each entry of the first row, multiply by its minor with the
+    correct sign, then add the terms; recheck each sign.'
+prediction_prompt:
+  en: Will the determinant be positive or negative?
+status: draft
+template_id: TPL.C12.DET.VALUE
+generator_version: factory-2
+template_hash: 2cf161e05883114f92de92dae0516899d57ba80876804c0b8b2f0159ec86af08
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '8'
+- id: b
+  en: '16'
+- id: c
+  en: '-8'
+- id: d
+  en: '0'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.DET.ADD_INSTEAD_OF_SUBTRACT
+  when_answer_equals:
+  - a
+- id: MC.C12.DET.WRONG_PAIRS_MULTIPLIED
+  when_answer_equals:
+  - b
+- id: MC.C12.DET.DIAGONAL_PRODUCT_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: For a 2 by 2 matrix, multiply the main diagonal and subtract the product of
+    the other diagonal.
+- en: The determinant is -8.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dc008bf4799391d99bff2649f2f83cdb4a75f7e527cf77395b6737cda99e4b11
+  template_hash: 2cf161e05883114f92de92dae0516899d57ba80876804c0b8b2f0159ec86af08
+  certificate_hash: 71fb07cdb69a9b0507969c7d0a812f0d9d53f32879c9ce5b4c56d4b405872beb
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.determinants
+  methods_agreeing:
+  - kernel.algebra
+  - c12.det.cofactor
+  - c12.det.leibniz
+  - c12.det.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:17+00:00'
+  record_hash: a0da1d57854eba4fa52cc5d4e8284f8c07a13f1a02ab753b68a3f19463a4d46d

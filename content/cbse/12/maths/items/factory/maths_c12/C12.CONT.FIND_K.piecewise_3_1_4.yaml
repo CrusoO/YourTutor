@@ -1,0 +1,131 @@
+id: C12.CONT.FIND_K.piecewise_3_1_4
+skill_ids:
+- MATH.C12.CONT.FIND_K
+difficulty: 0.44
+pool: practice
+role: apply
+stem:
+  en: The function f is given by x → x + 4 for x < 3, and x → kx² for x ≥ 3. Find
+    the value of k that makes f continuous at x = 3.
+hints:
+- level: 1
+  en: What must be true of the limit and the value at the point?
+- level: 2
+  en: Find the limit as x approaches the point from the formula near it, simplify
+    first if the quotient looks like zero over zero, then set it equal to the value.
+- level: 3
+  en: 'Full method: compute the limit near the point after any cancelling, write the
+    value of the function at the point, equate them and solve for k.'
+prediction_prompt:
+  en: Which two quantities must be equal for continuity?
+status: draft
+template_id: TPL.C12.CONT.FIND_K
+generator_version: factory-2
+template_hash: a6879dbafe8804c45757370359985d42ebd4a5a866e9af81afd395e6000ffbfc
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 7/9
+- id: b
+  en: -7/9
+- id: c
+  en: '7'
+- id: d
+  en: 7/3
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.CONT.EQUATION_SOLVED_WITH_SIGN_SLIP
+  when_answer_equals:
+  - b
+- id: MC.C12.CONT.LEFT_VALUE_USED_AS_K
+  when_answer_equals:
+  - c
+- id: MC.C12.CONT.RIGHT_PIECE_NOT_SQUARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Continuity at x = 3 needs the left limit to equal the value on the right.
+- en: The left limit is 3 + 4 = 7.
+- en: 'Set 7 = k × 9 and solve: k = 7/9.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 64ff95b6593c1cbfa7431145aecd5fedc7d086e38d6bed9999518f66bbec786d
+  template_hash: a6879dbafe8804c45757370359985d42ebd4a5a866e9af81afd395e6000ffbfc
+  certificate_hash: 6c316c3391114975e91f4c6d46cee3b904644b5d009306aa8668403f1f5463b7
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.continuity_differentiability
+  methods_agreeing:
+  - kernel.algebra
+  - c12.cont.hand
+  - c12.cont.sympy
+  - c12.cont.extrapolate
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:32:21+00:00'
+  record_hash: 566f2c1fe06f2c6017220f4648a201206438788a63a333b8e4952c7e92940033

@@ -1,0 +1,131 @@
+id: C12.GEO3D.POINT_PLANE.12_m1_1
+skill_ids:
+- MATH.C12.GEO3D.POINT_PLANE
+difficulty: 0.49
+pool: practice
+role: apply
+stem:
+  en: Find the distance of the point (-10, -5, -4) from the plane 9x + 6y + 2z = -7.
+hints:
+- level: 1
+  en: You will need the length of the normal vector.
+- level: 2
+  en: Take the absolute value of the plane expression at the point and divide by the
+    length of the normal vector.
+- level: 3
+  en: 'Full method: substitute the point, subtract the constant, take the absolute
+    value, find the length of the normal from its coefficients, and divide.'
+prediction_prompt:
+  en: Can a distance be negative?
+status: draft
+template_id: TPL.C12.GEO3D.POINT_PLANE
+generator_version: factory-2
+template_hash: 4bdfa058378664840d5446419bbe3b0021e72b3d66eac6e31997ed3fbb7e0028
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 121/17
+- id: b
+  en: '1'
+- id: c
+  en: '11'
+- id: d
+  en: '121'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: MC.C12.GEO.COEFFICIENTS_ADDED_FOR_NORM
+  when_answer_equals:
+  - a
+- id: MC.C12.GEO.NORM_NOT_SQUARE_ROOTED
+  when_answer_equals:
+  - b
+- id: MC.C12.GEO.NORM_NOT_DIVIDED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Put the point into the left side of the plane equation and subtract the right
+    side.
+- en: The size of that number is 121, and the length of the normal vector is 11.
+- en: Distance = 121 / 11 = 11.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: fbf19e7e3e75232aa8f16d4333829e60dd58672819a618009f804c7ebbc0394e
+  template_hash: 4bdfa058378664840d5446419bbe3b0021e72b3d66eac6e31997ed3fbb7e0028
+  certificate_hash: de5dddb344c5b1921b000da0d79ce206552e94f03c2bf68ded629250e9f70008
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.three_d_geometry
+  methods_agreeing:
+  - kernel.algebra
+  - c12.geo.pp.formula
+  - c12.geo.pp.foot
+  - c12.geo.pp.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:57+00:00'
+  record_hash: 1e177ed3351ecd133570bfb885976779300dcbf4c63ea02dc9b6d94a0e937cc0

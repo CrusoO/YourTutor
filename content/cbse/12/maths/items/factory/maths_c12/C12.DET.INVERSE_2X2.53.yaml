@@ -1,0 +1,131 @@
+id: C12.DET.INVERSE_2X2.53
+skill_ids:
+- MATH.C12.DET.INVERSE_2X2
+difficulty: 0.47
+pool: practice
+role: apply
+stem:
+  en: Given A = [[2, -2], [2, -1]], write down A⁻¹.
+hints:
+- level: 1
+  en: Find the determinant first.
+- level: 2
+  en: Compute the determinant, build the adjoint by exchanging the main diagonal entries
+    and negating the other two, then divide by the determinant.
+- level: 3
+  en: 'Full method: determinant, adjoint, divide every entry; finally multiply your
+    answer by the original matrix to see the identity.'
+prediction_prompt:
+  en: What should the product of the matrix and its inverse be?
+status: draft
+template_id: TPL.C12.DET.INVERSE_2X2
+generator_version: factory-2
+template_hash: 0eb109290ee85ff8b2ad5da862b1c42b1eb2e55dc17f8a719a3149561c52616c
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '[[-1/2, 1], [-1, 1]]'
+- id: b
+  en: '[[-1/2, -1], [1, 1]]'
+- id: c
+  en: '[[1/2, -1/2], [1/2, -1]]'
+- id: d
+  en: '[[-1, 2], [-2, 2]]'
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.DET.OFF_DIAGONAL_SIGNS_KEPT
+  when_answer_equals:
+  - b
+- id: MC.C12.DET.INVERSE_AS_ENTRYWISE_RECIPROCAL
+  when_answer_equals:
+  - c
+- id: MC.C12.DET.INVERSE_WITHOUT_DIVIDING
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The inverse is the adjoint divided by the determinant.
+- en: The determinant is 2. For a 2 by 2 matrix, swap the diagonal entries and change
+    the sign of the other two to get the adjoint.
+- en: 'Divide every entry by 2: [[-1/2, 1], [-1, 1]].'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 4d1e6ec3d506bae4141d29be58c97a1bfb124f3b02634361a9467edbdaa8fe2f
+  template_hash: 0eb109290ee85ff8b2ad5da862b1c42b1eb2e55dc17f8a719a3149561c52616c
+  certificate_hash: 44f718c3ee36cfc8b23d8ace6384865ab540f0373aaf160626809a6b554a0e93
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.determinants
+  methods_agreeing:
+  - kernel.algebra
+  - c12.inv.adjoint
+  - c12.inv.sympy
+  - c12.inv.gauss
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:33:02+00:00'
+  record_hash: 04f5ae80800bf2cdeb1dfee2b7ddad358b90516365e5923de8b5062396c4c73a

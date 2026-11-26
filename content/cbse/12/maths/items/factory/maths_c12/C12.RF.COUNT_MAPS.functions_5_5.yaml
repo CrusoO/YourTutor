@@ -1,0 +1,131 @@
+id: C12.RF.COUNT_MAPS.functions_5_5
+skill_ids:
+- MATH.C12.RF.COUNT_MAPS
+difficulty: 0.48
+pool: practice
+role: apply
+stem:
+  en: How many different functions can be defined from a set of 5 elements to a set
+    of 5 elements?
+hints:
+- level: 1
+  en: Name the objects being counted before you reach for any formula.
+- level: 2
+  en: Write down the choices one by one and combine them with the multiplication rule,
+    or count subsets of pairs where each pair is in or out.
+- level: 3
+  en: 'Full method: identify the objects, list the free choices, multiply their counts,
+    and test your rule on a very small set you can list by hand.'
+prediction_prompt:
+  en: Will the count be small or large? Roughly how many digits?
+status: draft
+template_id: TPL.C12.RF.COUNT_MAPS
+generator_version: factory-2
+template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '33554432'
+- id: b
+  en: '3125'
+- id: c
+  en: '25'
+- id: d
+  en: '10'
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: MC.C12.RF.ALL_RELATIONS_COUNTED
+  when_answer_equals:
+  - a
+- id: MC.C12.RF.PRODUCT_NOT_POWER
+  when_answer_equals:
+  - c
+- id: MC.C12.RF.SUM_FOR_COUNT
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Decide what must be chosen and how many independent choices there are.
+- en: Each of the 5 elements has 5 choices for its image, so there are 5⁵ functions.
+- en: So the number is 3125.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: f8c1d498d64a424d10279ebc4bc8de6e1d267248273d0ed4b1a685bc610a43e0
+  template_hash: 1a1563b6f03a783439e96f22226c433ec326798384fae2c1fa9953a20e93e939
+  certificate_hash: 0efb07034c44f90daaf273c9e78368959e0895c15fc80d4ef50a5f38dc4d0a41
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.relations_functions
+  methods_agreeing:
+  - kernel.algebra
+  - c12.rf.formula
+  - c12.rf.enumeration
+  - c12.rf.sympy
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:36:38+00:00'
+  record_hash: c630c2256e736e28bb01c52d92e687088a835623d4b151d9dfe45eee986953cc

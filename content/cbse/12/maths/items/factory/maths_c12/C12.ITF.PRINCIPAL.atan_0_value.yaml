@@ -1,0 +1,131 @@
+id: C12.ITF.PRINCIPAL.atan_0_value
+skill_ids:
+- MATH.C12.ITF.PRINCIPAL
+difficulty: 0.26
+pool: practice
+role: recall
+stem:
+  en: Find the principal value of tan⁻¹(0). Give your answer in radians.
+hints:
+- level: 1
+  en: Which interval of angles does this inverse function return?
+- level: 2
+  en: Recall the standard angles and their ratios, then pick the one inside the principal
+    range whose ratio matches.
+- level: 3
+  en: 'Full method: state the principal range, match the ratio to a standard angle,
+    use the sign of the argument to place it in the right part of the range, give
+    it in radians, then apply any multiplier asked.'
+prediction_prompt:
+  en: In which quadrant should the angle sit?
+status: draft
+template_id: TPL.C12.ITF.PRINCIPAL
+generator_version: factory-2
+template_hash: 6005ab80f96828cfd34e837636d108823b920c6247592ac67fdee985d65bc05a
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '0'
+- id: b
+  en: π/2
+- id: c
+  en: π
+- id: d
+  en: π/6
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: MC.C12.ITF.COMPLEMENT_USED
+  when_answer_equals:
+  - b
+- id: MC.C12.ITF.OUT_OF_PRINCIPAL_RANGE
+  when_answer_equals:
+  - c
+- id: MC.C12.ITF.STANDARD_ANGLE_MISREMEMBERED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: Recall the range of principal values for this function.
+- en: 'Find the angle in that range whose ratio equals 0: it is 0.'
+- en: The asked value is 0.
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: a754f2b6396765ae8f5af910c13496f3529c6570ea60a938b9d57c63806308bb
+  template_hash: 6005ab80f96828cfd34e837636d108823b920c6247592ac67fdee985d65bc05a
+  certificate_hash: 8aeff0667ad427fe59caaeedef353e3a2adebff784640982d2d00d220ab4669b
+  label: calculation-checked
+  tier: A
+  lane: maths_c12
+  chapter_ref: cbse.12.maths.inverse_trig
+  methods_agreeing:
+  - kernel.algebra
+  - c12.itf.table
+  - c12.itf.sympy
+  - c12.itf.float
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: '14721484'
+  llm_involved: false
+  stamped_at: '2026-11-26T11:34:27+00:00'
+  record_hash: 204f29891e881678bb2f06356c8b7443817e301fe951b700bbd0b013d2289f67
