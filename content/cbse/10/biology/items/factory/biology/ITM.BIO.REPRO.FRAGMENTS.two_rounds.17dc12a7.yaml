@@ -1,0 +1,132 @@
+id: ITM.BIO.REPRO.FRAGMENTS.two_rounds.17dc12a7
+skill_ids:
+- BIO.REPRO.FRAGMENTS
+difficulty: 0.3
+pool: practice
+role: procedure
+stem:
+  en: A thin green water plant is cut into 8 pieces. Assume that every piece grows
+    into a complete new organism. Later, every one of these new organisms is cut into
+    5 pieces in the same way. How many organisms can grow from the second round of
+    cutting?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. After the first round,
+    there are several organisms, and every one of them is cut again.
+- level: 2
+  en: Each organism gives the same number of pieces, so combine the two counts by
+    multiplying them.
+- level: 3
+  en: Count the organisms after the first round, then count the pieces that each of
+    them makes.
+prediction_prompt:
+  en: Before you count, will there be more pieces than cuts, or fewer?
+status: draft
+template_id: TPL2.BIO.REPRO.FRAGMENTS
+generator_version: factory-2
+template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 48 organisms
+- id: b
+  en: 40 organisms
+- id: c
+  en: 8 organisms
+- id: d
+  en: 13 organisms
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.REPRO.PARENT_NOT_COUNTED
+  when_answer_equals:
+  - a
+- id: BIO.MC.REPRO.FIRST_ROUND_ONLY
+  when_answer_equals:
+  - c
+- id: BIO.MC.REPRO.ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: After the first round there are 8 organisms.
+- en: Each is cut into 5 pieces, so there are 8 x 5 = 40 organisms.
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 6028563b567f2520527881ac209e3c5c6bd6f28aadf2c763ebe18ff4a23e3b23
+  template_hash: df97e97f06e896ae565551cbab650c4bfe02d52afe75fce122af24823e3689c2
+  certificate_hash: 50ce01553ee98c9cee106c64a4117105360fb453773664543ad24b81d291814a
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.reproduction
+  methods_agreeing:
+  - kernel.algebra
+  - bio.pieces_closed_form
+  - bio.pieces_simulation
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:44+00:00'
+  record_hash: 976509f161c89b392d8e0cb7442b9c9172b8a9791e701d4dcd35abf4975b7cae

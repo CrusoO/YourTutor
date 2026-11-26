@@ -1,0 +1,131 @@
+id: ITM.BIO.HERED.SEX_SEQ.at_least_one_boy.e7b0c3d9
+skill_ids:
+- BIO.HERED.SEX_SEQ
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: A couple has 4 children. Assume each child is equally likely to be a boy or
+    a girl, whatever the earlier children were. What is the probability that at least
+    one of the 4 children is a boy? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Think
+    about the one outcome that does not count, then use the fact that all the outcomes
+    together have probability 1.
+- level: 2
+  en: Find the probability that there is no boy at all, and take it away from 1.
+- level: 3
+  en: No boy at all means every child is a girl.
+prediction_prompt:
+  en: Before you calculate, is the outcome likely or unlikely?
+status: draft
+template_id: TPL2.BIO.HERED.SEX_SEQ
+generator_version: factory-2
+template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 15/16
+- id: b
+  en: 1/4
+- id: c
+  en: 1/16
+- id: d
+  en: 1/2
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.SHARE_AS_PROBABILITY
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.FIRST_CHILD_ONLY
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The only way to have no boy is for all 4 children to be girls, with probability
+    1 out of 16.
+- en: 'So the probability of at least one boy is 1 minus that: 15/16.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e4a3026d46850b6233cbb562b7de1db4b3d9643aa53fad4d023cd796785374b2
+  template_hash: ea38c897ec86ce7f56c226a389c610bb199a24ef46b01776d13c8882423c4008
+  certificate_hash: 620eff6f568d538cc245190ec731794759ed6dd887290c3767c8cdedd5a4356b
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.counting
+  - bio.listing
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:54+00:00'
+  record_hash: ed38c2133541edb9444297416b0af0a8b592735668e0cce69fd40a7bf0b5c3e2

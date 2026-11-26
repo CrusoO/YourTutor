@@ -1,0 +1,140 @@
+id: ITM.BIO.HERED.DI_RATIO.phen_ratio.7b5048d9
+skill_ids:
+- BIO.HERED.DI_RATIO
+difficulty: 0.6
+pool: practice
+role: procedure
+stem:
+  en: In a certain animal species, the allele B for black coats is dominant over the
+    allele b for brown coats, and the allele L for long hair is dominant over the
+    allele l for short hair. The two genes are on different chromosomes and are inherited
+    independently. An animal with genotype Bbll is crossed with an animal with genotype
+    bbLl. What is the ratio of offspring in the groups black coats and long hair;
+    black coats and short hair; brown coats and long hair; brown coats and short hair,
+    in that order?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. Find
+    the gametes each parent can make, then combine them in a Punnett square.
+- level: 2
+  en: Count the boxes that show each group of offspring, then write the counts as
+    a ratio in the order the question gives, in the lowest terms.
+- level: 3
+  en: The first parent makes the gametes Bl and bl, and the second parent makes the
+    gametes bL and bl.
+prediction_prompt:
+  en: Before you draw the square, how many boxes will it have?
+status: draft
+template_id: TPL2.BIO.HERED.DI_RATIO
+generator_version: factory-2
+template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: '1 : 1'
+- id: b
+  en: '3 : 3 : 1 : 1'
+- id: c
+  en: '1 : 1 : 1 : 1'
+- id: d
+  en: '9 : 3 : 3 : 1'
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_GENE_ONLY
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.ALL_COMBINATIONS_ASSUMED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.FIXED_RATIO_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent Bbll makes the gametes Bl and bl; the second parent bbLl makes
+    the gametes bL and bl.
+- en: Pair every gamete of the first parent with every gamete of the second in a Punnett
+    square.
+- en: 'Out of 16 boxes, black coats and long hair: 4; black coats and short hair:
+    4; brown coats and long hair: 4; brown coats and short hair: 4.'
+- en: 'Write the counts in the order asked, in the lowest terms: 1 : 1 : 1 : 1.'
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: dc5419ec224459704a2779548f72a8dd43b7e05979c4ef0a1ab93f816aca4d3b
+  template_hash: 6d5aed371bd3bd1ca2c3c20eb53176003069b65d4d5eacbbaff089264c002c37
+  certificate_hash: f3dc9ae62028ea05a1c0ff0c8c21b8c06807ee75160fa33a81b2228af9cd1ed0
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:29+00:00'
+  record_hash: 1d9a0c1d94d8bb142d25b70e6865b7594a6cf6371fa4023ea8a391bcecffa923

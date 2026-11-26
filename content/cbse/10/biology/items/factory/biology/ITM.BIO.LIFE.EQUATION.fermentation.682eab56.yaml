@@ -1,0 +1,134 @@
+id: ITM.BIO.LIFE.EQUATION.fermentation.682eab56
+skill_ids:
+- BIO.LIFE.EQUATION
+difficulty: 0.45
+pool: practice
+role: apply
+stem:
+  en: Anaerobic respiration in yeast can be written as C6H12O6 → 2 C2H5OH + 2 CO2.
+    In one experiment, 4 molecules of carbon dioxide are made. How many molecules
+    of glucose are used up in the same experiment?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. The numbers written in
+    front of the formulas show how many molecules take part, in proportion.
+- level: 2
+  en: Find the number in front of each of the two substances in the question, and
+    use their ratio to scale the number of molecules given.
+- level: 3
+  en: Write the number of molecules wanted as the number given multiplied by the ratio
+    of the two numbers in front of the formulas.
+prediction_prompt:
+  en: Before you calculate, will there be more or fewer molecules of the second substance
+    than of the first?
+status: draft
+template_id: TPL2.BIO.LIFE.EQUATION
+generator_version: factory-2
+template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1 molecule
+- id: b
+  en: 2 molecules
+- id: c
+  en: 8 molecules
+- id: d
+  en: 4 molecules
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.COEFFICIENT_AS_COUNT
+  when_answer_equals:
+  - a
+- id: BIO.MC.LIFE.RATIO_INVERTED
+  when_answer_equals:
+  - c
+- id: BIO.MC.LIFE.ONE_TO_ONE_ASSUMED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: In the equation, the number in front of carbon dioxide is 2 and the number in
+    front of glucose is 1.
+- en: The ratio of glucose to carbon dioxide is 1 to 2.
+- en: 'Scale up: 4 x 1 divided by 2 = 2 molecules.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 5a62167f32b913f1a6700c34192c7cf07e9409da958a0d914b88d0de12f64670
+  template_hash: 552d37e2efd24df70d373f7dfe3ccab4d86f2d8d751f74a5e392f086d34a0ad4
+  certificate_hash: f1cd23e3b24f3ec93cae7bf066cdc5259c6641aca851d2ce0a2944bf5df7193f
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.equation_ratio
+  - bio.atom_balance
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:53:54+00:00'
+  record_hash: fbc46e289996f317a4f8a104bd2a4608dcd7b5d35ce3eec9374cd499187bbc7f

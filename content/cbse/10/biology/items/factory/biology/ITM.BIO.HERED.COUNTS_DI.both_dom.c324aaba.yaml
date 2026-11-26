@@ -1,0 +1,138 @@
+id: ITM.BIO.HERED.COUNTS_DI.both_dom.c324aaba
+skill_ids:
+- BIO.HERED.COUNTS_DI
+difficulty: 0.55
+pool: practice
+role: apply
+stem:
+  en: In a certain animal species, the allele L for long hair is dominant over the
+    allele l for short hair, and the allele E for curly tails is dominant over the
+    allele e for straight tails. The two genes are on different chromosomes and are
+    inherited independently. An animal with genotype LlEe is crossed with an animal
+    with genotype LLEe. The cross produces 64 offspring. How many of them are expected
+    to show long hair and curly tails?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. First find the share of
+    the offspring that show the outcome, using a Punnett square.
+- level: 2
+  en: Then multiply that share by the total number of offspring to get the expected
+    number.
+- level: 3
+  en: The first parent makes the gametes LE, Le, lE and le, and the second parent
+    makes the gametes LE and Le.
+prediction_prompt:
+  en: Before you calculate, should the answer be more or less than half of the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.COUNTS_DI
+generator_version: factory-2
+template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 48 offspring
+- id: b
+  en: 16 offspring
+- id: c
+  en: 4 offspring
+- id: d
+  en: 64 offspring
+answer:
+  sympy: a
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.ONE_BOX_ONLY
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.TOTAL_NOT_SHARED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent LlEe makes the gametes LE, Le, lE and le; the second parent
+    LLEe makes the gametes LE and Le.
+- en: 'Out of 16 boxes, long hair and curly tails: 12; long hair and straight tails:
+    4.'
+- en: The share of offspring wanted is 3/4.
+- en: 'Multiply the share by the total: 3/4 x 64 = 48.'
+- en: The correct option is a.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1795e21e1a7e7e0c7b9f27d65d5b4c24d360cd0dc91a9ecb47f6e92c11ca54e7
+  template_hash: ad12e35d79f6fe2206686fe6b28281cb904556c52a7aaa7a2fbb0d6ef228a866
+  certificate_hash: 3f3a38b9690d66cb104c504656d36dab883811640ee72ace2207a6e3c8decacc
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.algebra
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:45+00:00'
+  record_hash: 76e5b76ad3651e322178d9cd9a30bf78de7983efccb7b886c1b8ed0ee13a9be2

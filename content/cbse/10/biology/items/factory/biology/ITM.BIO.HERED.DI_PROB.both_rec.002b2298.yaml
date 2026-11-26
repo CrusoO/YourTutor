@@ -1,0 +1,137 @@
+id: ITM.BIO.HERED.DI_PROB.both_rec.002b2298
+skill_ids:
+- BIO.HERED.DI_PROB
+difficulty: 0.65
+pool: practice
+role: apply
+stem:
+  en: In a certain animal species, the allele S for spotted coats is dominant over
+    the allele s for plain coats, and the allele E for curly tails is dominant over
+    the allele e for straight tails. The two genes are on different chromosomes and
+    are inherited independently. An animal with genotype SsEe is crossed with an animal
+    with genotype SsEe. What is the probability that one offspring, picked at random,
+    shows plain coats and straight tails? Give the answer as a fraction.
+hints:
+- level: 1
+  en: Before you start, name what the question tells you and what you must find. The
+    two genes are inherited independently, so each gene can be worked out on its own.
+- level: 2
+  en: Find the chance of the wanted outcome for the first gene, then for the second
+    gene, then combine the two chances by multiplying.
+- level: 3
+  en: The first parent makes the gametes SE, Se, sE and se, and the second parent
+    makes the gametes SE, Se, sE and se.
+prediction_prompt:
+  en: Before you calculate, is the outcome common or rare among the offspring?
+status: draft
+template_id: TPL2.BIO.HERED.DI_PROB
+generator_version: factory-2
+template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 1/4
+- id: b
+  en: 1/16
+- id: c
+  en: 1/2
+- id: d
+  en: 15/16
+answer:
+  sympy: b
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.ONE_GENE_ONLY
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.GENES_ADDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - c
+- id: BIO.MC.HERED.COMPLEMENT_ASKED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The first parent SsEe makes the gametes SE, Se, sE and se; the second parent
+    SsEe makes the gametes SE, Se, sE and se.
+- en: 'Treat each gene on its own: find the chance of the outcome wanted for the first
+    gene and for the second gene.'
+- en: 'The genes are independent, so multiply the two chances: 1/4 x 1/4 = 1/16.'
+- en: The correct option is b.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: e3bb5cf1b54b32f14e2817c409bb188a855f31b2e1021e55e4e63e725ec5ddc1
+  template_hash: 6f58f71ce06a17e56dabe9a145c13564515def5961d01c47bae4f97fb4135bd1
+  certificate_hash: bdf6557d558a904430d38cd0ba66a60784208b963c8390e399d2f1b37af2db46
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:32+00:00'
+  record_hash: 753f923320c0d58e49643d230a763d45fd433d40a25e6d2f5f6e981180a3937d

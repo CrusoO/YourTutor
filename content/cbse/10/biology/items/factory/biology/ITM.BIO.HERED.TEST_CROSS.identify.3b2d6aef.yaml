@@ -1,0 +1,142 @@
+id: ITM.BIO.HERED.TEST_CROSS.identify.3b2d6aef
+skill_ids:
+- BIO.HERED.TEST_CROSS
+difficulty: 0.7
+pool: practice
+role: transfer
+stem:
+  en: In a certain animal species, the allele L for long hair is dominant over the
+    allele l for short hair, and the allele E for curly tails is dominant over the
+    allele e for straight tails. The two genes are on different chromosomes and are
+    inherited independently. An animal with long hair and curly tails is test-crossed
+    with an animal with short hair and straight tails. The result of the test cross
+    is that half of the offspring have long hair and curly tails, while the other
+    half have short hair and curly tails. What is the genotype of the animal that
+    was tested?
+hints:
+- level: 1
+  en: Begin by separating what is given from what is asked. The parent used for the
+    test cross passes on only recessive alleles, so each offspring shows which allele
+    the tested parent passed on.
+- level: 2
+  en: Count how many different groups of offspring appear. Each heterozygous gene
+    of the tested parent doubles that number.
+- level: 3
+  en: Check a candidate by writing its gametes and pairing them with the gametes of
+    the other parent in a Punnett square.
+prediction_prompt:
+  en: Before you decide, how many different gamete types must the tested parent make?
+status: draft
+template_id: TPL2.BIO.HERED.TEST_CROSS
+generator_version: factory-2
+template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: LLEE
+- id: b
+  en: LlEe
+- id: c
+  en: LlEE
+- id: d
+  en: LLEe
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.HERED.HOMOZYGOUS_ASSUMED
+  when_answer_equals:
+  - a
+- id: BIO.MC.HERED.HETEROZYGOUS_ASSUMED
+  when_answer_equals:
+  - b
+- id: BIO.MC.HERED.WRONG_GENE_HETEROZYGOUS
+  when_answer_equals:
+  - d
+solution_steps:
+- en: A test cross uses an animal with short hair and straight tails, which can pass
+    on only recessive alleles. Every dominant or recessive form in the offspring therefore
+    shows what the tested animal passed on.
+- en: The offspring show 2 different groups, so the tested animal makes 2 different
+    gamete types.
+- en: Try each candidate genotype in a Punnett square with llee; only LlEE gives the
+    groups seen.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 1cffc5df6db2489f0d8dfacc2ec459837b9099b576f49c4fe00ef49a7d4f82d0
+  template_hash: 3d2d47c56099a367502dbfa03396d2ac009d5157077295035026dfcbf3ce5878
+  certificate_hash: db3f911694b835e34c4f373ea64da4e2fda01e431897109ab2c20c88521c7f06
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.heredity
+  methods_agreeing:
+  - kernel.genetics
+  - bio.punnett_grid
+  - bio.allele_shares
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:52:36+00:00'
+  record_hash: adff6fee6a34bc69e6507d70f4fb5ea571dff2d4b5e129e311f4171da86f691b

@@ -1,0 +1,128 @@
+id: ITM.BIO.LIFE.RATES.total.0fc3bf3a
+skill_ids:
+- BIO.LIFE.RATES
+difficulty: 0.5
+pool: practice
+role: apply
+stem:
+  en: A water plant in bright light gives off 6 bubbles of gas each minute. How many
+    bubbles is that in 2 hours?
+hints:
+- level: 1
+  en: Read the question once more and mark what it gives and what it asks for. The
+    total is the rate for one minute multiplied by the number of minutes.
+- level: 2
+  en: Change the time into minutes first if it is not given in minutes.
+- level: 3
+  en: Multiply the number of minutes by the number counted each minute.
+prediction_prompt:
+  en: Before you calculate, should the answer be larger or smaller than the rate given?
+status: draft
+template_id: TPL2.BIO.LIFE.RATES
+generator_version: factory-2
+template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+provenance:
+  original: true
+  author: app.factory
+type: mcq
+options:
+- id: a
+  en: 12 bubbles
+- id: b
+  en: 6 bubbles
+- id: c
+  en: 720 bubbles
+- id: d
+  en: 3 bubbles
+answer:
+  sympy: c
+  accept: []
+misconception_rules:
+- id: BIO.MC.LIFE.UNIT_NOT_CONVERTED
+  when_answer_equals:
+  - a
+- id: BIO.MC.LIFE.TIME_FORGOTTEN
+  when_answer_equals:
+  - b
+- id: BIO.MC.LIFE.DIVIDED_NOT_MULTIPLIED
+  when_answer_equals:
+  - d
+solution_steps:
+- en: The time is 120 minutes.
+- en: The total is 6 x 120 = 720 bubbles.
+- en: The correct option is c.
+tier: A
+verification:
+  schema: vrec/1
+  item_hash: 9849547501e200b6a44eef4814ef67b076763a3945083a7c9f6171a27f6d0c35
+  template_hash: 932733591df47ad13eb824a1518c50a9369ba27dcb238fdaf2531fec09503a9e
+  certificate_hash: abfcd33058f71aa7090a2544133b89e428bb985c21de01a60494f2c2d05cb55c
+  label: calculation-checked
+  tier: A
+  lane: biology
+  chapter_ref: cbse.10.biology.life_processes
+  methods_agreeing:
+  - kernel.algebra
+  - bio.rate_closed_form
+  - bio.rate_per_second
+  checks:
+  - id: schema.strict
+    v: '1'
+    status: pass
+  - id: rights.gate
+    v: '1'
+    status: pass
+  - id: syllabus.scope
+    v: '1'
+    status: pass
+  - id: wellposed.predicates
+    v: '1'
+    status: pass
+  - id: units.dimension
+    v: '1'
+    status: skip
+  - id: verify.method_1
+    v: '1'
+    status: pass
+  - id: verify.methods_2n
+    v: '1'
+    status: pass
+  - id: syllabus.allowed_methods
+    v: '1'
+    status: pass
+  - id: answer.key_consistency
+    v: '1'
+    status: pass
+  - id: mcq.distractors
+    v: '1'
+    status: pass
+  - id: leak.hints
+    v: '1'
+    status: pass
+  - id: language.lint
+    v: '1'
+    status: pass
+  - id: facts.lookup
+    v: '1'
+    status: skip
+  - id: diagram.package
+    v: '1'
+    status: skip
+  - id: originality.gate
+    v: '1'
+    status: pass
+  - id: dedupe
+    v: '1'
+    status: pass
+  - id: stamp
+    v: '1'
+    status: pass
+  generated_by:
+    tool: app.factory
+    generator_version: factory-2
+    kernel_version: '1'
+    constants_hash: c1b7f8c872cdeec17ea4188c93b26fb2093931619bc686415385297491023531
+    git_sha: 03ddf71
+  llm_involved: false
+  stamped_at: '2026-11-25T14:54:01+00:00'
+  record_hash: 032e78dd0301a2a70612aaf902d38c9363e6a96e6835b53e50441e542cfb5886
