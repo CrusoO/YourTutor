@@ -64,6 +64,9 @@ function StaffLoginForm() {
     // an invited reviewer sees the review screen and nothing else (the API refuses every other route for them),
     // after accepting the reviewer terms
     if (me.role === "reviewer") router.push(me.agreements && me.agreements.length > 0 ? "/agreement" : "/staff/review");
+    // with the reviewer desk on, the admin works from the same screen (it has the reviewer list); the teacher page needs routes
+    // that a reviewers-only deployment closes, so sending the admin there would bounce straight back to this sign-in page
+    else if (me.role === "admin" && reviewerDeskEnabled()) router.push("/staff/review");
     else if (askAgreement && me.agreements && me.agreements.length > 0) router.push("/agreement");
     else if (askAgreement && who === "adult" && me.role === "parent" && (await enterAsAdult())) router.push("/brownie-chat");
     else router.push(me.role === "teacher" || me.role === "admin" ? "/teacher" : "/guardian");
