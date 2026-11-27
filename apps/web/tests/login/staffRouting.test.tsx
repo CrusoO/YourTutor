@@ -101,6 +101,31 @@ describe("an admin-issued code (reviewer desk on)", () => {
     expect(verifyStaffCode).toHaveBeenCalledWith({ email: "asha@example.org" }, "482913");
   });
 
+  it("sends the admin to the review screen, not the teacher page (a reviewers-only site closes that page)", async () => {
+    vi.stubEnv("NEXT_PUBLIC_REVIEWER_DESK", "true");
+    search = "";
+    vi.mocked(whoAmI).mockResolvedValue({ role: "admin", agreements: [] } as never);
+    render(<StaffLogin />);
+    await userEvent.type(screen.getByLabelText(/email/i), "admin@example.org");
+    await userEvent.click(screen.getByTestId("have-code"));
+    await userEvent.type(await screen.findByLabelText(/code/i), "482913");
+    await userEvent.click(screen.getByRole("button", { name: /^sign in$|verify/i }));
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/staff/review"));
+    expect(push).not.toHaveBeenCalledWith("/teacher");
+    expect(push).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the admin on the teacher page when the desk is off", async () => {
+    search = "as=teacher";
+    vi.mocked(whoAmI).mockResolvedValue({ role: "admin", agreements: [] } as never);
+    render(<StaffLogin />);
+    await userEvent.type(screen.getByLabelText(/email/i), "admin@example.org");
+    await userEvent.click(screen.getByRole("button", { name: /send/i }));
+    await userEvent.type(await screen.findByLabelText(/code/i), "123456");
+    await userEvent.click(screen.getByRole("button", { name: /^sign in$|verify/i }));
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/teacher"));
+  });
+
   it("does not show the option with the desk off", () => {
     search = "";
     render(<StaffLogin />);
